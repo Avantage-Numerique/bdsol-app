@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Ontologie
 Ontologie de la BDSOL
 
@@ -61,3 +62,11 @@ The `pages/api` directory is mapped to `/api/*`. Files in this directory are tre
 
 
 
+=======
+# Microsite de documentation de l'ontologie
+
+Exemple :
+- [Microsite de l'ontologie d'artsdata](https://culturecreates.github.io/artsdata-data-model/)
+- [Wikiprojet d'arsdata](https://www.wikidata.org/wiki/Wikidata:WikiProject_Performing_arts/Data_structure)
+- [Metamusic](https://metamusic.ca/toolkit#20017-track-title), Visuelement beau et structure de l'information
+>>>>>>> 03fa473b130fc7687084f5f5a181c634f688ff5f
