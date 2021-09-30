@@ -1,0 +1,23 @@
+#layout{
+    
+    /*  */
+
+    width: 100%;
+    background-color: blue;
+    float: left;
+    min-height: 100vh;
+
+
+    > * {
+        width: 100%;
+        float: left;
+    }
+
+    /* Main element present in every pages */
+    main {
+    
+        margin: 0px;
+
+    }
+
+}

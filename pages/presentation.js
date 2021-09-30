@@ -1,10 +1,10 @@
 import Head from 'next/head'
 
-export default function Documentation() {
+export default function Presentation() {
   return (
     <div>
       <Head>
-        <title>Avantage Numérique - Documentation complète</title>
+        <title>Avantage Numérique - Présentation générale</title>
       </Head>
 
       <h1>Page de documentation</h1>

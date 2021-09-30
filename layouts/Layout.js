@@ -7,17 +7,21 @@
 import Footer from '../components/Footer'
 import Nav from '../components/Nav'
 
+import layoutStyles from '../styles/layouts/Layout.module.scss'
+
+
 const Layout = ( props ) => {
 
     return (
 
-        <div>
-            <Nav />
+        <div id={layoutStyles.layout}>
             <main> 
+                <Nav />
                 { props.children }
             </main>
             <Footer />
         </div>
+
     )   
 
 }

@@ -7,7 +7,7 @@
 
 */
 import Link from 'next/link'
-import navStyles from '../styles/Nav.module.css'
+import navStyles from '../styles/components/Nav.module.scss'
 
 const Nav = ( {children} ) => {
 

@@ -4,12 +4,12 @@
     V.P.R - created: 19/09/2021
 
 */
-import footerStyles from '../styles/Nav.module.css'
+import footerStyles from '../styles/components/Footer.module.scss'
 
 const Footer = ( {children} ) => {
 
     return (
-        <footer>
+        <footer id={footerStyles.pageFooter}>
             <h4>Ceci est un pied de page</h4>
         </footer>
     )   
