@@ -7,7 +7,7 @@ export default function Home() {
         <title>Avantage Numérique - Ontologie </title>
       </Head>
 
-      <h1>Holla</h1>
+      <h1>Page de documentation</h1>
 
     </div>
   )
