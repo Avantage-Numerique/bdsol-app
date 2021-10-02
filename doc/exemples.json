@@ -1,0 +1,47 @@
+{
+    "classes": [
+        {
+            "slug": "personne",
+            "title": "Personnes",
+            "intro": "moyen texte",
+            "description": "long texte",
+            "properties": [
+                {
+                    "slug": "propriete-01",
+                    "title": "Propriété 01",
+                    "source": "foaf",
+                    "description": "long texte",
+                    "uses": "long texte about the use cases and exemple.",
+                    "restrictions" : "Detail about it's restrictions.",
+                    "required": false
+                },
+                {
+                    "slug": "propriete-02",
+                    "title": "Propriété 02",
+                    "source": "foaf",
+                    "description": "long texte",
+                    "uses": "long texte about the use cases and exemple.",
+                    "restrictions" : "Detail about it's restrictions.",
+                    "required": false
+                }
+            ],
+            "linkedClasses": [
+              {
+                "class": "organisation",
+                "link": "part_of",
+                "source": "schema.org"
+              },
+              {
+                "class": "team",
+                "link": "part_of",
+                "source": "schema.org"
+              },
+              {
+                "class": "equipment",
+                "link": "own",
+                "source": "schema.org"
+              }
+            ]
+        }
+    ]
+}
