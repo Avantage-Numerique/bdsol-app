@@ -14,11 +14,15 @@ const Nav = ( {children} ) => {
     return (
         <nav className={navStyles.navContainer}>
             <div>
-                <h1><span>Ontologie</span> Documentation</h1>
+                <h1>Ontologie Documentation</h1>
+                <img src="/logo.svg" alt="Logo Avantage Numérique"/>
             </div>
             <ul>
                 <li>
                     <Link href="/">Accueil</Link>
+                </li>
+                <li>
+                    <Link href="/presentation">Présentation</Link>
                 </li>
                 <li>
                     <Link href="/documentation">Documentation</Link>

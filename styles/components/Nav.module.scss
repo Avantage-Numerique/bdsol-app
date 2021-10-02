@@ -17,8 +17,17 @@
         height: inherit;
         float: left;
         display: flex;
-        align-items: center;
+        justify-content: center;
         padding: 0px 3em;
+        flex-direction: column;
+
+        h1 { margin: 0px; }
+        img { 
+            max-height: 1em;
+            align-self: flex-start;
+            margin-top: 5px;
+        }
+
     }
 
     > ul {

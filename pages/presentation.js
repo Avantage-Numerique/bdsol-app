@@ -7,7 +7,7 @@ export default function Presentation() {
         <title>Avantage Numérique - Présentation générale</title>
       </Head>
 
-      <h1>Page de documentation</h1>
+      <h1>Page de présentation de l'information</h1>
 
     </div>
   )
