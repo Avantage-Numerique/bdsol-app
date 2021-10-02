@@ -10,37 +10,46 @@
     height: 7em;
     color: white;
 
-    /*
-        Main title section of the platform
+    /* 
+    Center-container 
     */
-    > div {
-        height: inherit;
-        float: left;
-        display: flex;
-        justify-content: center;
-        padding: 0px 3em;
-        flex-direction: column;
+    > .centerContainer {
 
-        h1 { margin: 0px; }
-        img { 
-            max-height: 1em;
-            align-self: flex-start;
-            margin-top: 5px;
-        }
+        justify-content: space-between;
 
-    }
-
-    > ul {
-        height: inherit;
-        float: right;
-        padding: 3em;
-
-        li {
+        /*
+        Main title section of the platform
+        */
+        > div {
+            height: inherit;
             float: left;
-            margin-left: 3em; 
-            font-size: 1em;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+
+            h1 { margin: 0px; }
+            img { 
+                max-height: 1em;
+                align-self: flex-start;
+                margin-top: 5px;
+            }
+
+        }
+
+        /*
+        Navigation menu
+        */
+        > ul {
+            height: inherit;
+            float: right;
+            padding: 3em 0;
+
+            li {
+                float: left;
+                margin-left: 3em; 
+                font-size: 1em;
+            }
         }
     }
- 
 }
 

@@ -17,7 +17,6 @@ const Layout = ( props ) => {
         <div id={layoutStyles.layout}>
             <Nav />
             <main> 
-                
                 { props.children }
             </main>
             <Footer />

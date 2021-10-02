@@ -13,8 +13,9 @@ const Nav = ( {children} ) => {
 
     return (
         <nav className={navStyles.navContainer}>
+            <div className={navStyles.centerContainer + ' ' + "centerContainer"}>
             <div>
-                <h1>Ontologie Documentation</h1>
+                <h1>Ontologie - documentation</h1>
                 <img src="/logo.svg" alt="Logo Avantage Numérique"/>
             </div>
             <ul>
@@ -28,6 +29,7 @@ const Nav = ( {children} ) => {
                     <Link href="/documentation">Documentation</Link>
                 </li>
             </ul>
+            </div>
         </nav>
     )   
 }

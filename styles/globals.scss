@@ -7,6 +7,17 @@
 
 */
 
+/*
+*
+  Global variables of the platform
+*
+*/
+
+:root {
+  /* Maximum width the content of the page can take */
+  --max-width-page-content: 1200px;
+}
+
 html,
 body {
   padding: 0;
@@ -34,4 +45,15 @@ li {
 
 * {
   box-sizing: border-box;
+}
+
+/*
+*   Container that defines the Maximum width the content of the page can take
+*/
+
+.centerContainer {
+  max-width: 1200px;
+  margin: auto;
+  display: flex;
+  padding: 0px 3em;
 }

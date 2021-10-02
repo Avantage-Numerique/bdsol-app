@@ -9,8 +9,13 @@ import footerStyles from '../styles/components/Footer.module.scss'
 const Footer = ( {children} ) => {
 
     return (
+
         <footer id={footerStyles.pageFooter}>
-            <h4>Ceci est un pied de page</h4>
+            <div className="centerContainer">
+
+                <small>&copy; <a href="https://avantagenumerique.org/">Avantage Numérique</a> - 2021</small>
+
+            </div>
         </footer>
     )   
 }

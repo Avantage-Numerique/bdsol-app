@@ -9,5 +9,13 @@
     width: 100%;
     background-color: rgb(53, 53, 53);
     color: white;
+    padding: 3em 0px;
+
+    > div {
+
+        small {
+            margin: auto;
+        }
+    }
     
 }
