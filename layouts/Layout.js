@@ -15,8 +15,9 @@ const Layout = ( props ) => {
     return (
 
         <div id={layoutStyles.layout}>
+            <Nav />
             <main> 
-                <Nav />
+                
                 { props.children }
             </main>
             <Footer />

@@ -1,9 +1,37 @@
+/*
+    Styles for the main navigation bar
+*/
 .navContainer {
 
-    background-color: grey;
+    background: linear-gradient(to top, #373737, #212121);
     float: left;
     width: 100%;
-    
+    position: fixed;
+    height: 7em;
+    color: white;
+
+    /*
+        Main title section of the platform
+    */
+    > div {
+        height: inherit;
+        float: left;
+        display: flex;
+        align-items: center;
+        padding: 0px 3em;
+    }
+
+    > ul {
+        height: inherit;
+        float: right;
+        padding: 3em;
+
+        li {
+            float: left;
+            margin-left: 3em; 
+            font-size: 1em;
+        }
+    }
  
 }
 

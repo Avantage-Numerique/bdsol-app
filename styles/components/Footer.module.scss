@@ -1,12 +1,13 @@
-#pageFooter {
-
-    /*
+/*
         Styles specifics to the footer of every pages
         V.P.R - 30/09/2021
-    */
+*/
+
+#pageFooter {
 
     float: left;
-    background-color: red;
-    opacity: 0.5;
-
+    width: 100%;
+    background-color: rgb(53, 53, 53);
+    color: white;
+    
 }

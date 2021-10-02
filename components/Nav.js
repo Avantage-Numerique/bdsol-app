@@ -13,7 +13,9 @@ const Nav = ( {children} ) => {
 
     return (
         <nav className={navStyles.navContainer}>
-            <h1><span>Ontologie</span> Documentation</h1>
+            <div>
+                <h1><span>Ontologie</span> Documentation</h1>
+            </div>
             <ul>
                 <li>
                     <Link href="/">Accueil</Link>
