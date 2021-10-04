@@ -13,7 +13,7 @@ const Nav = ( {children} ) => {
 
     return (
         <nav className={navStyles.navContainer}>
-            <div className={navStyles.centerContainer + ' ' + "centerContainer"}>
+            <div className={navStyles.maxWidthPageContainer + ' ' + "maxWidthPageContainer"}>
             <div>
                 <h1>Ontologie - documentation</h1>
                 <img src="/logo.svg" alt="Logo Avantage Numérique"/>

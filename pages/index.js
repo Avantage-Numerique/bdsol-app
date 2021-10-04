@@ -8,11 +8,11 @@ export default function Home() {
       <Head>
         <title>Avantage Numérique - Documentation sur l'ontologie</title>
       </Head>
-      <div className={styles.pageContent + " " + "centerContainer"}>
+      <div className={styles.pageContent}>
 
       {/* General header of the page */}
       <header>
-        <div>
+        <div className="maxWidthPageContainer">
           <h1>Toute l'information disponible sur l'ontologie utilisée dans la BDSOL d'<i>Avantage Numérique</i></h1>
           
         </div>
@@ -20,7 +20,7 @@ export default function Home() {
 
       {/* Sections of the page*/}
       <section>
-        <div>
+        <div className="maxWidthPageContainer">
             <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus a turpis sed mi condimentum varius. Nunc iaculis cursus pharetra. Nunc et ex a augue hendrerit egestas sed suscipit lacus. Phasellus vel nulla at sapien condimentum lacinia quis a erat. Donec laoreet, odio eu commodo hendrerit, tortor enim placerat ipsum, id commodo eros lacus vitae erat. Phasellus ultrices ullamcorper fermentum. Nunc eget iaculis arcu. Sed viverra odio eu ipsum efficitur sollicitudin. Aenean varius finibus tincidunt. Pellentesque nec sapien velit. Donec eleifend ante nunc, accumsan lacinia lorem elementum tempus. Integer dictum eget mauris at vestibulum.
             </p>
@@ -28,7 +28,7 @@ export default function Home() {
         </div>
       </section>
       <section>
-        <div>
+        <div className="maxWidthPageContainer">
           <p>
             Mauris faucibus metus eros, hendrerit molestie augue aliquet ut. In ut aliquet ex. Donec mi nibh, tempor vestibulum interdum eu, pellentesque ac sem. Duis venenatis sollicitudin dapibus. Donec varius enim id arcu ultricies malesuada a nec diam. Aliquam tincidunt vitae dui nec aliquam. Phasellus efficitur euismod nulla quis pulvinar.
           </p>

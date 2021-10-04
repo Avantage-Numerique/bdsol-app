@@ -11,7 +11,7 @@ const Footer = ( {children} ) => {
     return (
 
         <footer id={footerStyles.pageFooter}>
-            <div className="centerContainer">
+            <div className="maxWidthPageContainer">
 
                 <small>&copy; <a href="https://avantagenumerique.org/">Avantage Numérique</a> - 2021</small>
 
