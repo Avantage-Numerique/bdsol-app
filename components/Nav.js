@@ -9,7 +9,7 @@
 import Link from 'next/link'
 import navStyles from '../styles/components/Nav.module.scss'
 
-const Nav = ( {children} ) => {
+const Nav = () => {
 
     return (
         <nav className={navStyles.navContainer}>

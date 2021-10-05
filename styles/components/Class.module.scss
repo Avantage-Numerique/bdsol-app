@@ -1,0 +1,29 @@
+/*
+        Styles of the class components 
+*/
+.classComponent {
+
+    width: 100%;
+    float: left;
+    border-radius: 5px; 
+    margin: 10px 0px;
+    padding: 20px;
+    -webkit-box-shadow: 2px 2px 4px 1px rgba(0,0,0,0.17); 
+    box-shadow: 2px 2px 4px 1px rgba(0,0,0,0.17);
+
+    > section:first-of-type {
+
+        float: left;
+        width: 100%;
+        display: grid;
+        grid-template-columns: 200px auto 40px;
+
+        .closeOpenButton {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+    }
+
+}

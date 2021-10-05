@@ -6,7 +6,7 @@
 */
 import footerStyles from '../styles/components/Footer.module.scss'
 
-const Footer = ( {children} ) => {
+const Footer = () => {
 
     return (
 

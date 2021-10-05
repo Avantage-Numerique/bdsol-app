@@ -8,8 +8,18 @@
 
     /* Page header styling */
     > header {
-        margin: 10vh 0px;
-        max-width: 600px;
+
+        margin-top: 10vh;
+        margin-bottom: 10vh;
+
+        h1, p {
+            max-width: 600px;
+        }
+    }
+
+    /* Main informations section that contain directly every classes represented by articles */
+    > section {
+        
     }
 
 }
