@@ -16,6 +16,9 @@
 :root {
   /* Maximum width the content of the page can take */
   --max-width-page-content: 1200px;
+
+  /* Main color of the web site (blue) */
+  --mainBlue: rgb(75, 95, 255);
 }
 
 html,
@@ -28,6 +31,25 @@ body {
 
   font-size: 15px;
 }
+
+/*
+*
+*    Colors settings
+*
+*/
+
+/* Main black color */
+p, h1, h2, h3, h4, h5, h6, li, a, div {
+  color: rgb(35, 33, 34)
+}
+
+/* blue color */
+.blue { color: var(--mainBlue); }
+.blue_BG { background-color: var(--mainBlue); }
+
+/* White color */
+.white { color: white; }
+
 
 
 a {
@@ -56,3 +78,21 @@ li {
   margin: auto;
   padding: 0px 3em;
 }
+
+
+/*
+*   width classes
+*/
+
+.col-1 {width: 8.33%; float: left;}
+.col-2 {width: 16.66%; float: left;}
+.col-3 {width: 25%; float: left;}
+.col-4 {width: 33.33%; float: left;}
+.col-5 {width: 41.66%; float: left;}
+.col-6 {width: 50%; float: left;}
+.col-7 {width: 58.33%; float: left;}
+.col-8 {width: 66.66%; float: left;}
+.col-9 {width: 75%; float: left;}
+.col-10 {width: 83.33%; float: left;}
+.col-11 {width: 91.66%; float: left;}
+.col-12 {width: 100%; float: left;}

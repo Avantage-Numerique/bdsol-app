@@ -1,10 +1,61 @@
 .classInfosComponent {
-    display: none;
 
-   
-}
+    display: none; /* by default*/
+    border-top: 1px solid rgba(73, 73, 73, 0.089);
+    margin-top: 1em;
 
-.classInfosComponent.active {
-    display: block;
+    /*  When selected */
+    &.active{
+        display: block;
+    }
+
+    /*  
+    *
+    *   Title section 
+    *
+    */
+    > .classTitle > h1 {
+        font-size: 2em;
+        margin-top: 2em;
+    }
+
+    /*  
+    *
+    *   Description section 
+    *
+    */
+    > .classDescription {
+
+    }
+
+    /*  
+    *
+    *   Properties section 
+    *
+    */
+    > .classProperties {
+
+        .propertiesButtonContainer {
+            
+            display: grid; 
+            gap: 10px;
+            justify-items: start;
+            grid-template-columns : auto-fill;
+
+            .propertyName {
+                background: rgb(75,95,255);
+                background: linear-gradient(90deg, rgba(75,95,255,1) 0%, rgba(104,209,255,1) 100%);
+                border: none;
+                padding: 8px;
+                border-radius: 5px;
+                float: left;
+                font-weight: 600;
+            }
+
+        }
+        
+    }
+
+
 
 }

@@ -17,6 +17,8 @@
         width: 100%;
         display: grid;
         grid-template-columns: 200px auto 40px;
+        align-items: center;
+        min-height: 3em;
 
         .closeOpenButton {
             display: flex;
@@ -24,6 +26,11 @@
             align-items: center;
             cursor: pointer;
         }
+
+        h2, p {
+            margin: 0px;
+        }
+        h2 { font-size: 1.2em;}
     }
 
 }

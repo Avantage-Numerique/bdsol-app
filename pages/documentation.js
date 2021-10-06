@@ -14,11 +14,9 @@ const Documentation = () => {
   //Event listener that change the current selected class to display the informations
   const onClassDisplayClick = ( index ) => setActiveIndex(index); 
 
-  //Calculate if the class is active of not and pass the answer in props
-  const isActiveClass = ( classIndex ) => {
-    const value = classIndex === index ? 'active' : ' ';
-    return value;
-  }
+  //Calculate if the class is active of not and pass the answer (bool) in props
+  const isActiveClass = ( classIndex ) => classIndex === index ? true : false;
+
 
   return (
 
