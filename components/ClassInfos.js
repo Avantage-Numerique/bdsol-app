@@ -4,13 +4,27 @@
     V.P.R - created: 04/10/2021
 
 */
-import styles from '../styles/components/ClassInfos.module.scss'
+import React, { useState } from 'react';
+
+import styles from '../styles/components/ClassInfos.module.scss';
+import Property from './Property';
 
 
 const ClassInfos = ( {data, active} ) => {
 
     //Add class "active" if the element is selected
     const activeClass = active ? styles.active : ' ';
+
+    // Set the state of the current selected property to null by default 
+    const [ index, setActiveIndex ] = useState( null );
+
+    //Event listener that change the current selected property to display its informations
+    const onPropertyDisplayClick = ( index ) => setActiveIndex(index); 
+
+    //Calculate if the class is active of not and pass the answer (bool) in props
+    //const isActiveClass = ( classIndex ) => classIndex === index ? true : false;
+
+
 
     return (
 
@@ -31,13 +45,21 @@ const ClassInfos = ( {data, active} ) => {
             <div className={`${styles.classProperties} col-12`}>
                 <h4 className="blue col-12">Propriétés</h4>
 
-                <div class={`${styles.propertiesButtonContainer} col-12`}>
-                     {/* This is to be created as a component */}
+                <div className={`${styles.propertiesButtonContainer} col-12`}>     
+                     
+                     {/* Display every properties */}
+                     {data.properties.map( (propData, propIndex) => (
 
-                    <button class={`${styles.propertyName} white`}>Propritété</button>
-                    <button class={`${styles.propertyName} white`}>Propritété 2</button>
-                    <button class={`${styles.propertyName} white`}>Propritété 3</button>
+                        <button onClick={ () => onPropertyDisplayClick( propIndex ) } className={`${styles.propertyName} white`}>{ propData.title }</button>
 
+                     ))}
+
+                </div>
+
+                {/* Section that contains the properties informations, passed through as articles */}
+                <div>
+                    <Property data={ data.properties } />
+                    {index}
                 </div>
                
             </div>

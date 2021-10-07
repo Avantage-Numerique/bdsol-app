@@ -37,10 +37,9 @@
 
         .propertiesButtonContainer {
             
-            display: grid; 
-            gap: 10px;
-            justify-items: start;
-            grid-template-columns : auto-fill;
+            display: flex; 
+            flex-wrap: wrap;
+            margin: -3px;
 
             .propertyName {
                 background: rgb(75,95,255);
@@ -50,6 +49,8 @@
                 border-radius: 5px;
                 float: left;
                 font-weight: 600;
+                margin: 3px;
+                cursor: pointer;
             }
 
         }
