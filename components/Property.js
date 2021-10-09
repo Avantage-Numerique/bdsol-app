@@ -9,13 +9,22 @@ import styles from '../styles/components/Property.module.scss'
 
 const Property = ( {data} ) => {
 
-    
 
     return (
 
-        <article className={styles.PropertyComponent}>
+        <article className={`${styles.propertyComponent} col-12`}>
 
-            <p>{ data.title }</p>
+            <header>
+                <h2> {data.title} </h2>
+                <div className={`${styles.requirementMention} blue_BG`}>
+                    { data.title.required ? "Requise" : "Non requise" }
+                </div>
+            </header>
+
+            <section>
+
+            </section>
+            
 
         </article>
 

@@ -20,11 +20,7 @@ const ClassInfos = ( {data, active} ) => {
 
     //Event listener that change the current selected property to display its informations
     const onPropertyDisplayClick = ( index ) => setActiveIndex(index); 
-
-    //Calculate if the class is active of not and pass the answer (bool) in props
-    //const isActiveClass = ( classIndex ) => classIndex === index ? true : false;
-
-
+    
 
     return (
 
@@ -50,16 +46,24 @@ const ClassInfos = ( {data, active} ) => {
                      {/* Display every properties */}
                      {data.properties.map( (propData, propIndex) => (
 
-                        <button onClick={ () => onPropertyDisplayClick( propIndex ) } className={`${styles.propertyName} white`}>{ propData.title }</button>
+                        <button 
+                            key={` ${propData.slug}-button `} 
+                            onClick={ () => onPropertyDisplayClick( propIndex ) } 
+                            className={`${styles.propertyName} white`} 
+                        >
+                                { propData.title }
+                        </button>
 
                      ))}
 
                 </div>
 
                 {/* Section that contains the properties informations, passed through as articles */}
-                <div>
-                    <Property data={ data.properties } />
-                    {index}
+                <div className="col-12">
+
+                    {/* Passe only the selected property */}
+                    {index != null ? <Property data={ data.properties[index] }  /> : " "}
+
                 </div>
                
             </div>
