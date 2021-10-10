@@ -5,6 +5,7 @@
 
 */
 import ClassInfos from './ClassInfos'
+import XButton from './buttons/XButton'
 import styles from '../styles/components/Class.module.scss'
 
 const Class = ( { data, onclick, active } ) => {
@@ -17,7 +18,7 @@ const Class = ( { data, onclick, active } ) => {
             <section onClick={ onclick }>
                 <h2>{ data.title }</h2>
                 <p>{ data.intro }</p>
-                <div className={ styles.closeOpenButton }>&#x2716;</div>
+                <XButton openned={ active }/>
             </section>
 
             {/* Main informations component of the class */}

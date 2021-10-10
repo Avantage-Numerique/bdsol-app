@@ -12,7 +12,15 @@ const Documentation = () => {
   const [ index, setActiveIndex ] = useState( null );
 
   //Event listener that change the current selected class to display the informations
-  const onClassDisplayClick = ( index ) => setActiveIndex(index); 
+  const onClassDisplayClick = ( passedIndex ) => {
+    //If there is a second click on the same class : close it
+    if( passedIndex == index ){
+      setActiveIndex( null ); 
+    } else {
+      //If the class is not already selected, select it
+      setActiveIndex(passedIndex); 
+    }
+  }
 
   //Calculate if the class is active of not and pass the answer (bool) in props
   const isActiveClass = ( classIndex ) => classIndex === index ? true : false;
