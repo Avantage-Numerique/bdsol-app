@@ -8,7 +8,7 @@
 /* Padding value of the article */
 $articlePadding: 20px;
 
-
+/* main element */
 .linkedClassComponent {
 
     border-radius: 5px;
@@ -20,11 +20,11 @@ $articlePadding: 20px;
     flex-wrap: wrap;
     justify-content: space-between;
 
+    /* header of a linked class containing two elements : the title and the separation line */
     > header {
         
         display: flex; 
         align-items: center;
-
 
         h3 { margin: 0.5em 0em; }
         
@@ -36,6 +36,7 @@ $articlePadding: 20px;
         }
     }
 
+    /* Section containing all the information to display */
     > section{
         flex-grow: 2;
         display: flex;
@@ -55,6 +56,7 @@ $articlePadding: 20px;
 
     }
 
+    /* Button to redirect on the concerned class */
     > :nth-child(3){
         padding: 10px;
         align-self: center;
@@ -83,6 +85,7 @@ $articlePadding: 20px;
             
             h3 { min-width: 150px; }
             .line { display: block; }
+            
         }
 
         > section{

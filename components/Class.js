@@ -18,7 +18,7 @@ const Class = ( { data, onclick, active } ) => {
             <section onClick={ onclick }>
                 <h2>{ data.title }</h2>
                 <p>{ data.intro }</p>
-                <XButton openned={ active }/>
+                <XButton openned={ active } className={styles.closeOpenButton}/>
             </section>
 
             {/* Main informations component of the class */}

@@ -8,7 +8,7 @@ import React, { useState, useEffect } from 'react';
 
 import styles from '../../styles/components/buttons/xButton.module.scss'
 
-const XButton = ( {openned} ) => {
+const XButton = ( {openned, className} ) => {
 
     //Use the useState hook to rerender the component when the prop "openned" change
     const [rerender, setRerender] = useState(false);
@@ -18,9 +18,12 @@ const XButton = ( {openned} ) => {
         setRerender(!rerender);
     }, [openned]);
 
+    //Get specific className from the parent component if there is one
+    const parentClassName = className ? className : " ";
+
     return (
 
-        <button className={`${styles.xButton} ${openned ? styles.openned : " "}`}> &#x2716; </button>
+        <button className={`${styles.xButton} ${openned ? styles.openned : " "} ${parentClassName}`}> &#x2716; </button>
 
     )   
 }

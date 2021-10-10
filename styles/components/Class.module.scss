@@ -11,26 +11,43 @@
     -webkit-box-shadow: 2px 2px 4px 1px rgba(0,0,0,0.17); 
     box-shadow: 2px 2px 4px 1px rgba(0,0,0,0.17);
 
+    /* Section with only the name and small description of the class */
     > section:first-of-type {
 
         float: left;
         width: 100%;
         display: grid;
-        grid-template-columns: 200px auto 40px;
+        grid-template-columns: auto auto 40px;
+        grid-template-rows: auto auto;            /* Two lines to for the small devices display */
         align-items: center;
-        min-height: 3em;
+        min-height: 3em;        
 
+        /* Button to display all the informations */
         .closeOpenButton {
             display: flex;
             justify-content: center;
             align-items: center;
             cursor: pointer;
+
+            grid-column: 3;
+            grid-row-start: 1;
+            grid-row-end: 3;
+
+
         }
 
         h2, p {
             margin: 0px;
-        }
-        h2 { font-size: 1.2em;}
-    }
+            margin-right: 20px;
 
+        }
+
+        h2 { font-size: 1.2em; }
+
+        p {
+            grid-row: 2;
+            grid-column-start: 1;
+            grid-column-end: 2;
+        }
+    }
 }
