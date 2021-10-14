@@ -3,10 +3,23 @@ import React, { useState } from 'react';
 import Head from 'next/head'
 import Class from '../components/Class'
 import styles from '../styles/pages/Documentation.module.scss'
-import jsonFile from '../doc/exemples.json'
+//import jsonFile from '../doc/exemples.json'   Not used for now since, for development purposes, a mock api is used
 
 
-const Documentation = () => {
+// Fetch the documentation data from the Api and pass it as a props
+export const getStaticProps = async () => {
+
+  const res = await fetch('https://mocki.io/v1/494789e7-8fce-45f1-bb79-f92bcef2d0d5');
+  const data = await res.json();
+
+  return {
+    props: {documentation: data}  // will be passed to the page component as props
+  }
+
+}
+
+const Documentation = ( {documentation} ) => {
+
 
   // Set the state of the current selected class to null by default 
   const [ index, setActiveIndex ] = useState( null );
@@ -46,12 +59,13 @@ const Documentation = () => {
         <div className="maxWidthPageContainer">
 
           {/* Create the classes elements */}
-          {jsonFile.classes.map(( data, classIndex ) => (
+          {documentation.classes.map(( data, classIndex ) => (
 
             <Class 
               onclick={ () => onClassDisplayClick( classIndex ) } 
               key={ data.slug } 
               data={ data } 
+              globalData={documentation}
               active= { isActiveClass( classIndex ) }
             />
 

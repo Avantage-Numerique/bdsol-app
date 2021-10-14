@@ -8,7 +8,7 @@ import ClassInfos from './ClassInfos'
 import XButton from './buttons/XButton'
 import styles from '../styles/components/Class.module.scss'
 
-const Class = ( { data, onclick, active } ) => {
+const Class = ( { data, onclick, active, globalData} ) => {
 
     return (
 
@@ -22,7 +22,7 @@ const Class = ( { data, onclick, active } ) => {
             </section>
 
             {/* Main informations component of the class */}
-            <ClassInfos data={ data } active={ active } />
+            <ClassInfos data={ data } active={ active } globalData={globalData}/>
 
         </article>
 

@@ -10,14 +10,14 @@ import Nav from '../components/Nav'
 import layoutStyles from '../styles/layouts/Layout.module.scss'
 
 
-const Layout = ( props ) => {
+const Layout = ( {children} ) => {
 
     return (
 
         <div id={layoutStyles.layout}>
             <Nav />
             <main> 
-                { props.children }
+                { children }
             </main>
             <Footer />
         </div>

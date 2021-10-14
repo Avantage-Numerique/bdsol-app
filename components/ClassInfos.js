@@ -11,7 +11,7 @@ import Property from './Property';
 import LinkedClass from './LinkedClass';
 
 
-const ClassInfos = ( {data, active} ) => {
+const ClassInfos = ( {data, active, globalData} ) => {
 
     //Add class "active" if the element is selected
     const activeClass = active ? styles.active : ' ';
@@ -52,6 +52,7 @@ const ClassInfos = ( {data, active} ) => {
             *
             * 
             * Properties section 
+            * 
             * 
             * 
             * */}
@@ -96,14 +97,12 @@ const ClassInfos = ( {data, active} ) => {
 
                 {/* Display every properties */}
                 {data.linkedClasses.map( (propData) => (
-
                     <LinkedClass 
                         key={`${propData.class}-linkedClass`} 
                         data={propData}
+                        globalData={globalData}
                     />
-
                 ))}
-
 
             </div>
 
