@@ -3,54 +3,34 @@
 */
 .navContainer {
 
-    background: linear-gradient(to top, #373737, #212121);
-    float: left;
-    width: 100%;
+    background-color: var(--primary);
     position: fixed;
-    height: 7em;
+    top: var(--headersHeight);
+    bottom: 0px;
+    width: 100%;
     color: white;
+    z-index: 999;
+    clip-path: inset(0 0 100% 0);
+    padding: 10vh 0px;
 
-    /* 
-    Center-container 
-    */
-    > .maxWidthPageContainer {
+    /* Transition for the openning animation */
+    -webkit-transition: all 500ms ease;
+    -moz-transition: all 500ms ease;
+    -ms-transition: all 500ms ease;
+    -o-transition: all 500ms ease;
+    transition: all 500ms ease;
 
-        display: flex;
-        justify-content: space-between;
+    > div {
 
-        /*
-        Main title section of the platform
-        */
-        > div {
-            height: inherit;
-            float: left;
-            display: flex;
-            justify-content: center;
-            flex-direction: column;
-
-            h1 { margin: 0px; }
-            img { 
-                max-height: 1em;
-                align-self: flex-start;
-                margin-top: 5px;
-            }
-
-        }
-
-        /*
-        Navigation menu
-        */
-        > ul {
-            height: inherit;
-            float: right;
-            padding: 3em 0;
-
-            li {
-                float: left;
-                margin-left: 3em; 
-                font-size: 1em;
-            }
+        li {
+            color: white;
+            font-size: 3em;
+            line-height: 1.5em;
+            font-weight: bold;
         }
     }
+    
 }
+
+.navContainer.displayed { clip-path: inset(0); }
 

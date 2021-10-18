@@ -6,6 +6,7 @@
     "start": "next start -p ${PORT:=3000}"
   },
   "dependencies": {
+    "blotter": "^1.0.0",
     "next": "^11.1.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",

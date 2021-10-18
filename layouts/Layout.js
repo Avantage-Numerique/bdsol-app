@@ -30,6 +30,7 @@ const Layout = ( {children} ) => {
 
         <div id={layoutStyles.layout}>
             <Header menuState={menuState} setMenuState={setMenuState} />
+            <Nav menuState={menuState} setMenuState={setMenuState} />
             <main> 
                 { children }
             </main>

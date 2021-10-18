@@ -17,6 +17,9 @@
   /* Maximum width the content of the page can take */
   --max-width-page-content: 1200px;
 
+  /* Header's height.  */
+  --headersHeight : 6em;
+
   /* Main color of the web site (blue) */
   --primary: rgb(77, 100, 255);
 
@@ -28,6 +31,9 @@
 
   /* Dark color for the text and background-colors */
   --dark: #212121;
+
+  /* Main font */
+  --font: "Suisse Intl","Helvetica Neue","Helvetica","Arial",sans-serif;
 
 
 }
@@ -43,6 +49,10 @@ body {
   font-size: 15px;
 }
 
+* {
+  box-sizing: border-box;
+}
+
 /*
 *
 *    Colors settings
@@ -51,7 +61,8 @@ body {
 
 /* Main black color */
 p, h1, h2, h3, h4, h5, h6, li, a, div {
-  color: rgb(35, 33, 34)
+  font-family: var(--font);
+  color: var(--dark);
 }
 
 /* blue color */
@@ -80,13 +91,12 @@ a {
 /**
 *   Remove de the bullet
 */
-li {
-  list-style-type: none;
-}
+li { list-style-type: none;}
 
-* {
-  box-sizing: border-box;
-}
+/*
+  Remove automatic padding
+*/
+ul {padding: 0px;}
 
 /*
 *   Container that defines the Maximum width the content of the page can take

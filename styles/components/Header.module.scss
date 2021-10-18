@@ -9,19 +9,19 @@
 
 .header {
 
-    float: left;
     width: 100%;
     position: fixed;
-    height: 8em;
+    height: var(--headersHeight);
+    z-index: 1000; /* nav component at 999 */
 
     --menuButtonWith: 15vw;
 
     /* Title container where is putted the logo */
     > .headerContent {        
 
-        height: 2em;
-        margin-top: 3em;
-        margin-bottom: 3em;
+        height: calc(0.3 * var(--headersHeight));
+        margin-top: calc(0.35 * var(--headersHeight));
+        margin-bottom: calc(0.35 * var(--headersHeight));
 
         > img {
             padding-right: var(--menuButtonWith);  //Prevent the menu from overlapping
