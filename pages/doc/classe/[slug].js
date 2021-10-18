@@ -8,11 +8,10 @@ import ClassInfos from '../../../components/ClassInfos'
 
 */
 
-
 //Specify dynamic routes to pre-render pages based on data.
 export const getStaticPaths = async () => {
 
-    const res = await fetch('https://mocki.io/v1/494789e7-8fce-45f1-bb79-f92bcef2d0d5');
+    const res = await fetch('https://mocki.io/v1/0ce27434-4c84-49be-8cad-5409b6c27cd9');
     const data = await res.json();
 
     //Map the parameters for every pages needed
@@ -34,7 +33,7 @@ export const getStaticPaths = async () => {
 export const getStaticProps = async (context) => {
 
     //fetching
-    const res = await fetch('https://mocki.io/v1/494789e7-8fce-45f1-bb79-f92bcef2d0d5');
+    const res = await fetch('https://mocki.io/v1/0ce27434-4c84-49be-8cad-5409b6c27cd9');
     const data = await res.json();
 
     //filter the array to get only the selected information

@@ -5,6 +5,7 @@
 
 */
 import Link from 'next/link'
+import { Children } from 'react';
 
 import styles from '../styles/components/LinkedClass.module.scss'
 
@@ -22,10 +23,7 @@ const LinkedClass = ( {data, globalData} ) => {
     } catch(error){
         //Set to null if no match is found
         classObj = null;
-    }
-
-
-    
+    }    
 
     
 

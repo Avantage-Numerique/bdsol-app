@@ -1,0 +1,47 @@
+/*
+
+    Page main header stylings
+    V.P.R.
+
+    created on 15/10/2021
+
+*/
+
+.header {
+
+    float: left;
+    width: 100%;
+    position: fixed;
+    height: 8em;
+
+    --menuButtonWith: 15vw;
+
+    /* Title container where is putted the logo */
+    > .headerContent {        
+
+        height: 2em;
+        margin-top: 3em;
+        margin-bottom: 3em;
+
+        > img {
+            padding-right: var(--menuButtonWith);  //Prevent the menu from overlapping
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            object-position: left center;
+        }
+    }
+
+    .navButton {
+        position: absolute;
+        right: 0px;
+        top: 0px;
+        width: 15vw;
+        height: inherit;
+
+        /* Align the hamburger menu in the center */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}

@@ -98,7 +98,7 @@ const ClassInfos = ( {data, active, globalData} ) => {
                 {/* Display every properties */}
                 {data.linkedClasses.map( (propData) => (
                     <LinkedClass 
-                        key={`${propData.class}-linkedClass`} 
+                        key={`${ data.title }-linkedTo-${propData.class}`} 
                         data={propData}
                         globalData={globalData}
                     />

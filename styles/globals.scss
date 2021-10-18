@@ -18,7 +18,18 @@
   --max-width-page-content: 1200px;
 
   /* Main color of the web site (blue) */
-  --mainBlue: rgb(75, 95, 255);
+  --primary: rgb(77, 100, 255);
+
+
+  /* Secondary colors */
+  --primary-sh: rgb(69, 90, 230);
+  --primary-hl: rgb(95, 116, 255);
+  --primary-light: rgb(151, 163, 255);
+
+  /* Dark color for the text and background-colors */
+  --dark: #212121;
+
+
 }
 
 html,
@@ -44,11 +55,19 @@ p, h1, h2, h3, h4, h5, h6, li, a, div {
 }
 
 /* blue color */
-.blue { color: var(--mainBlue); }
-.blue_BG { background-color: var(--mainBlue); }
+.blue { color: var(--primary); }
+.blue_BG { background-color: var(--primary); }
+
+/* Secondary color */
+.sec-color { color: var(--primary-light);}
+.sec-color_BG { background-color: var(--primary-light); }
 
 /* White color */
 .white { color: white; }
+
+/* Dark color */
+.dark { color: var(--dark); }
+.dark_BG { background-color: var(--dark); }
 
 
 
@@ -96,3 +115,13 @@ li {
 .col-10 {width: 83.33%; float: left;}
 .col-11 {width: 91.66%; float: left;}
 .col-12 {width: 100%; float: left;}
+
+/*
+  Remove some default styling of the button element
+*/
+button {
+  background: unset;
+  border: unset;
+  cursor: pointer;
+  padding: 0px;
+}
