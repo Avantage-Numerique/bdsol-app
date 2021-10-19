@@ -11,7 +11,7 @@ import ClassInfos from '../../../components/ClassInfos'
 //Specify dynamic routes to pre-render pages based on data.
 export const getStaticPaths = async () => {
 
-    const res = await fetch('https://mocki.io/v1/0ce27434-4c84-49be-8cad-5409b6c27cd9');
+    const res = await fetch('http://bdsol.avantagenumerique.org/o/v1');
     const data = await res.json();
 
     //Map the parameters for every pages needed
@@ -33,7 +33,7 @@ export const getStaticPaths = async () => {
 export const getStaticProps = async (context) => {
 
     //fetching
-    const res = await fetch('https://mocki.io/v1/0ce27434-4c84-49be-8cad-5409b6c27cd9');
+    const res = await fetch('http://bdsol.avantagenumerique.org/o/v1');
     const data = await res.json();
 
     //filter the array to get only the selected information

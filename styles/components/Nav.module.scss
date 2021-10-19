@@ -5,7 +5,7 @@
 
     background-color: var(--primary);
     position: fixed;
-    top: var(--headersHeight);
+    top: calc(var(--headersHeight) - 1px);
     bottom: 0px;
     width: 100%;
     color: white;

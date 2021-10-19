@@ -9,7 +9,7 @@ import styles from '../styles/pages/Documentation.module.scss'
 // Fetch the documentation data from the Api and pass it as a props
 export const getStaticProps = async () => {
 
-  const res = await fetch('https://mocki.io/v1/0ce27434-4c84-49be-8cad-5409b6c27cd9');
+  const res = await fetch('http://bdsol.avantagenumerique.org/o/v1');
   const data = await res.json();
 
   return {
