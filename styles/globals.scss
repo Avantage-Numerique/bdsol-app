@@ -21,13 +21,12 @@
   --headersHeight : 6em;
 
   /* Main color of the web site (blue) */
-  --primary: rgb(77, 100, 255);
+  --mainBlue: #455ae6;
 
 
   /* Secondary colors */
-  --primary-sh: rgb(69, 90, 230);
-  --primary-hl: rgb(95, 116, 255);
-  --primary-light: rgb(151, 163, 255);
+  --altBlue: #4d64ff;
+  --grey: #bbbfd7;
 
   /* Dark color for the text and background-colors */
   --dark: #212121;
@@ -66,12 +65,12 @@ p, h1, h2, h3, h4, h5, h6, li, a, div {
 }
 
 /* blue color */
-.blue { color: var(--primary); }
-.blue_BG { background-color: var(--primary); }
+.blue { color: var(--mainBlue); }
+.blue_BG { background-color: var(--mainBlue); }
 
 /* Secondary color */
-.sec-color { color: var(--primary-light);}
-.sec-color_BG { background-color: var(--primary-light); }
+.sec-color { color: var(--altBlue);}
+.sec-color_BG { background-color: var(--altBlue); }
 
 /* White color */
 .white { color: white; }
