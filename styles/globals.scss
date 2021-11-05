@@ -46,6 +46,8 @@ body {
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 
   font-size: 15px;
+  color: var(--dark);
+
 }
 
 * {
@@ -61,7 +63,6 @@ body {
 /* Main black color */
 p, h1, h2, h3, h4, h5, h6, li, a, div {
   font-family: var(--font);
-  color: var(--dark);
 }
 
 /* blue color */
@@ -134,3 +135,42 @@ button {
   cursor: pointer;
   padding: 0px;
 }
+
+/*
+ Override some default styling of the input element 
+*/
+
+input {
+
+  /* variable to set equally the padding */
+  --inputPadding: 0.75em;
+
+  background-color: unset;
+  border: unset;
+  color: unset;
+  padding: var(--inputPadding) 0px;
+
+  /* submit buttons */
+  &[type='submit']{ 
+    cursor: pointer; 
+    padding: var(--inputPadding);
+  }
+}
+
+/* text areas which are not submit buttons */
+input:not([type='submit']), textarea{
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  border-bottom-color: rgba(255,255,255,0.5);
+  transition: 0.2s;
+
+  &:focus{
+    border-bottom-color: rgba(255,255,255,1);
+  }
+}
+
+input:focus, textarea:focus, select:focus{
+  outline: none;
+}
+
+
