@@ -6,6 +6,7 @@
     */
 import React, { useState } from "react";
 
+import Head from 'next/head'
 import Footer from '../components/Footer'
 import Header from '../components/Header'
 import Nav from '../components/Nav'
@@ -28,15 +29,29 @@ const Layout = ( {children} ) => {
 
     return (
 
-        <div id={layoutStyles.layout}>
-            <Header menuState={menuState} setMenuState={setMenuState} />
-            <Nav menuState={menuState} setMenuState={setMenuState} />
-            <main> 
-                { children }
-            </main>
-            <Footer />
-        </div>
+        <>
+            <Head>
+                <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+                <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+                <meta name="robots" content="index, follow" />
 
+                {/* Icone to appear on the top of the page */}
+                <link rel="icon" href="icones/cropped-Frame-10-32x32.png" sizes="32x32" />
+                <link rel="icon" href="icones/cropped-Frame-10-192x192.png" sizes="192x192" />
+                <link rel="apple-touch-icon" href="icones/cropped-Frame-10-180x180.png" />
+                <meta name="msapplication-TileImage" content="icones/cropped-Frame-10-270x270.png" />
+
+            </Head>
+
+            <div id={layoutStyles.layout}>
+                <Header menuState={menuState} setMenuState={setMenuState} />
+                <Nav menuState={menuState} setMenuState={setMenuState} />
+                <main> 
+                    { children }
+                </main>
+                <Footer />
+            </div>
+        </>
     )   
 
 }
