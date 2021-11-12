@@ -23,25 +23,105 @@
 
         /* News letter section */
         section:nth-of-type(1){
-            
-            form {
-                margin: 1.5em;
-                display: grid; 
-                grid-template-columns: 300px auto;
+
+            .formContainer{
+
+                float: right;
+
+                form {
+                    width: 100%;
+                    margin: 1.5em 0px;
+                    display: flex;
+
+                    /* The input that is not submit will stretch to all the width */
+                    input:not([type='submit']){
+                        flex: 1;
+                    }
+
+              
+                }
             }
+            
         }
 
         /* Project partners section */
         section:nth-of-type(2){
             border-top: 3px solid white;
             border-bottom: 3px solid white;
+
+            img {
+                max-height: 1.5em;
+                margin: 0.25em 0.5em;
+                float: left;
+                opacity: 0.7;
+            }
+
+            /* Social media logos container   */
+            .socialMediaLogos{
+
+                /* Individual social media logo */
+                .socialMediaLogo {
+                    height: 2em;
+                    width: 2em;
+                    margin: 0.25em 0.5em;
+                    float: left;
+                }
+
+                /* Class to specify which path element will change of color  */
+                .colorTransition{
+                    -webkit-transition: fill 0.2s ease-out;
+                    -moz-transition: fill 0.2s ease-out;
+                    -o-transition: fill 0.2s ease-out;
+                    transition: fill 0.2s ease-out;
+                }
+
+                /* Classes to specify the specifics colors of the logos */
+                .FacebookLogo:hover{ .colorTransition{ fill: #1778f2;}  }
+                .InstagramLogo:hover{ .colorTransition{ fill:  #F58529; }  }
+                .YoutubeLogo:hover{ .colorTransition{ fill: #FF0000}  }
+
+            }
+
+        
+
         }
 
         /* Logo section */
         section:nth-of-type(3){
-            color: white;
-        }
 
+            display: flex;
+            justify-content: space-between;
+
+            /* credit section */
+            small {
+
+                display: flex;
+                align-items: center;
+
+                 /* Avantage numérique Logo */
+                img {height: 1.5em;}
+
+                .creditYear {padding-left: 1em;}
+
+            }
+           
+            /* Button to scroll to the top */
+            button {
+                color: white;
+                float: right;
+                opacity: 0.6;
+
+                /* opacity transition */ 
+                -webkit-transition: opacity 0.2s ease-out;
+                -moz-transition: opacity 0.2s ease-out;
+                -o-transition: opacity 0.2s ease-out;
+                transition: opacity 0.2s ease-out;
+
+                /* Arrow */
+                img { height: 1.25em; margin-left: 0.5em; margin-bottom: -0.15em;}
+
+                &:hover{ opacity: 1;}
+            }
+        }
     }
-    
 }
