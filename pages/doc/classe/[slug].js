@@ -54,6 +54,25 @@ const ClassPage = ( {data, active, globalData} ) => {
 
             <Head>
                 <title>{`Classe ${data.title}`}</title>
+
+                {/* Keywords and description to evaluate */}
+                <meta name="description" content={`Documentation spécifique à la classe ontologique ${data.title} et à ses propriétés.`} />
+                <meta name="keywords" content={`classe, propriété, sous-classe, schema, avantage numérique, ${data.title}`} /> 
+
+                {/* social media meta tag */}
+                <meta property="og:title"              content={`Classe ${data.title} - Avantage Numérique`} />
+                <meta property="og:description"        content={`Documentation spécifique à la classe ontologique ${data.title} et à ses propriétés.`} />
+
+                <meta name="twitter:title"             content={`Classe ${data.title} - Avantage Numérique`}/>
+                <meta name="twitter:description"       content={`Documentation spécifique à la classe ontologique ${data.title} et à ses propriétés.`}/>
+
+                {/* 
+
+                To add when the domain will be selected ....
+
+                <link rel="canonical" href="https://avantagenumerique.org/">  
+
+                */}
             </Head>
             
             {/* Main informations component of the class */}

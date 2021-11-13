@@ -6,7 +6,26 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Avantage Numérique - Documentation sur l'ontologie</title>
+        <title>Avantage Numérique</title>
+
+        {/* Keywords and description to evaluate */}
+        <meta name="description" content="Site web officiel de présentation de l'ontologie pour l'utilisation de la base de données ouverte et liée de l'initiative Avantage Numérique." />
+        <meta name="keywords" content="Accueil, Site Web, Ontologie, Avantage Numérique, croissant boréal" /> 
+
+        {/* social media meta tag */}
+        <meta property="og:title"              content="Avantage Numérique" />
+        <meta property="og:description"        content="Site web officiel de présentation de l'ontologie pour l'utilisation de la base de données ouverte et liée de l'initiative Avantage Numérique." />
+        
+        <meta name="twitter:title"             content="Avantage Numérique"/>
+        <meta name="twitter:description"       content="Site web officiel de présentation de l'ontologie pour l'utilisation de la base de données ouverte et liée de l'initiative Avantage Numérique."/>
+
+        {/* 
+
+        To add when the domain will be selected ....
+
+        <link rel="canonical" href="https://avantagenumerique.org/">  
+
+        */}
       </Head>
       <div className={styles.pageContent}>
 
