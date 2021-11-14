@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import DOMPurify from 'isomorphic-dompurify';
+
 
 import Head from 'next/head'
 import Class from '../components/Class'
@@ -17,6 +19,41 @@ export const getStaticProps = async () => {
   }
 
 }
+
+  // Containe the json-ld data
+  const schema = {
+    '@context': 'http://schema.org',
+    '@type':'WebSite',
+    name: "Ontologie - Avantage Numérique",
+    description: "Documentation complète sur l'ontologie utilisée dans la base de donnée ouverte et liée d'Avantage Numérique.",
+    /*"url":"https://avantagenumerique.org/",*/
+    producer: {
+      '@context': 'http://schema.org',
+      '@type':'Organization',
+      name: "Avantage Numérique",
+      description: "Avantage numérique est un hub virtuel, physique et mobile qui dessert les secteurs de la culture, des affaires et du savoir. Il vise le développement de l’écosystème créatif, entrepreneurial et technologique du Croissant boréal.",
+      sameAs: "https://avantagenumerique.org/"
+    },
+    about: {
+        "@context": "http://schema.org/",
+        "@type": "Dataset",
+        description: "Ontologie d'Avantage Numérique destinée à être utilitée dans une base de données ouverte et liée, dans le but de regrouper les techno-créatifs présents sur le territoire du croissant boréal.",
+        name: "Ontologie - Avantage Numérique",
+        hasPart: [
+          {
+            "@context": "http://schema.org/",
+            "@type": "Dataset",
+            name: "Personne",
+            description: "Classe représentant un individu unique.",
+            mainEntity: {
+              "@context": "http://schema.org/",
+              "@type": "Class"
+              /* sameAs: url of the individual page */
+            }
+          }
+        ]
+      }
+  }
 
 const Documentation = ( {documentation} ) => {
 
@@ -65,6 +102,12 @@ const Documentation = ( {documentation} ) => {
         <link rel="canonical" href="https://avantagenumerique.org/">  
 
         */}
+
+        {/* Structured data */}
+        <script 
+              type='application/ld+json'
+              dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(JSON.stringify(schema))}}
+          />
       </Head>
 
       {/* General header of the page */}

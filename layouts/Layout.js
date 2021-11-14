@@ -11,7 +11,6 @@ import Footer from '../components/Footer'
 import Header from '../components/Header'
 import Nav from '../components/Nav'
 
-
 import layoutStyles from '../styles/layouts/Layout.module.scss'
 
 
@@ -24,8 +23,6 @@ const Layout = ( {children} ) => {
         By default, the value is false, which means the menu is closed
     */
     const [menuState, setMenuState] = useState(false);
-
-
 
     return (
 
@@ -56,7 +53,7 @@ const Layout = ( {children} ) => {
                 <meta name="twitter:image:height"      content="1345" />
                 <meta name="twitter:image:alt"         content="Public assistant à une performance qui contient des nouvelles technologies."/>
 
-
+            
             </Head>
 
             <div id={layoutStyles.layout}>
