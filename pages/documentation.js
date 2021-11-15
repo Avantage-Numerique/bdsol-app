@@ -63,6 +63,7 @@ const Documentation = ( {documentation} ) => {
 
   //Event listener that change the current selected class to display the informations
   const onClassDisplayClick = ( passedIndex ) => {
+    
     //If there is a second click on the same class : close it
     if( passedIndex == index ){
       setActiveIndex( null ); 
