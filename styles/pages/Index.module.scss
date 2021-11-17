@@ -1,13 +1,22 @@
 .pageContent {
-    
+
+    /* Common styles to every main sections of the page */
+    > * {
+        width: 100%;
+        float: left;
+    }
+
+    /* Page header styling */
     > header {
-        h1 {
-            margin: 3em 0px;
+
+        margin-top: 10vh;
+        margin-bottom: 10vh;
+
+        h1, p {
+            max-width: 600px;
         }
     }
 
-    > section {
-
-    }
+   
 
 }

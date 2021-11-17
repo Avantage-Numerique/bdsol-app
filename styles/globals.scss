@@ -103,7 +103,7 @@ ul {padding: 0px;}
 */
 
 .maxWidthPageContainer {
-  max-width: 1200px;
+  max-width: var(--max-width-page-content);
   margin: auto;
   padding: 0px 3em;
 }
