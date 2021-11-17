@@ -1,23 +1,100 @@
+import React, { useState } from 'react';
+import DOMPurify from 'isomorphic-dompurify';
+
+
 import Head from 'next/head'
-import styles from '../styles/pages/Index.module.scss'
+import Class from '../components/Class'
+import styles from '../styles/pages/Documentation.module.scss'
+//import jsonFile from '../doc/exemples.json'   Not used for now since, for development purposes, a mock api is used
 
 
-export default function Home() {
+// Fetch the documentation data from the Api and pass it as a props
+export const getStaticProps = async () => {
+
+  const res = await fetch('http://bdsol.avantagenumerique.org/o/v1');
+  const data = await res.json();
+
+  return {
+    props: {documentation: data}  // will be passed to the page component as props
+  }
+
+}
+
+  // Containe the json-ld data
+  const schema = {
+    '@context': 'http://schema.org',
+    '@type':'WebSite',
+    name: "Ontologie - Avantage Numérique",
+    description: "Documentation complète sur l'ontologie utilisée dans la base de donnée ouverte et liée d'Avantage Numérique.",
+    /*"url":"https://avantagenumerique.org/",*/
+    producer: {
+      '@context': 'http://schema.org',
+      '@type':'Organization',
+      name: "Avantage Numérique",
+      description: "Avantage numérique est un hub virtuel, physique et mobile qui dessert les secteurs de la culture, des affaires et du savoir. Il vise le développement de l’écosystème créatif, entrepreneurial et technologique du Croissant boréal.",
+      sameAs: "https://avantagenumerique.org/"
+    },
+    about: {
+        "@context": "http://schema.org/",
+        "@type": "Dataset",
+        description: "Ontologie d'Avantage Numérique destinée à être utilitée dans une base de données ouverte et liée, dans le but de regrouper les techno-créatifs présents sur le territoire du croissant boréal.",
+        name: "Ontologie - Avantage Numérique",
+        hasPart: [
+          {
+            "@context": "http://schema.org/",
+            "@type": "Dataset",
+            name: "Personne",
+            description: "Classe représentant un individu unique.",
+            mainEntity: {
+              "@context": "http://schema.org/",
+              "@type": "Class"
+              /* sameAs: url of the individual page */
+            }
+          }
+        ]
+      }
+  }
+
+const Documentation = ( {documentation} ) => {
+
+
+  // Set the state of the current selected class to null by default 
+  const [ index, setActiveIndex ] = useState( null );
+
+  //Event listener that change the current selected class to display the informations
+  const onClassDisplayClick = ( passedIndex ) => {
+    
+    //If there is a second click on the same class : close it
+    if( passedIndex == index ){
+      setActiveIndex( null ); 
+    } else {
+      //If the class is not already selected, select it
+      setActiveIndex(passedIndex); 
+    }
+  }
+
+  //Calculate if the class is active of not and pass the answer (bool) in props
+  const isActiveClass = ( classIndex ) => classIndex === index ? true : false;
+
+
   return (
-    <>
+
+    <div className={styles.pageContent}>
+
+      {/* Page head element  */}
       <Head>
-        <title>Avantage Numérique</title>
+        <title>Ontologie - Avantage Numérique</title>
 
         {/* Keywords and description to evaluate */}
-        <meta name="description" content="Site web officiel de présentation de l'ontologie pour l'utilisation de la base de données ouverte et liée de l'initiative Avantage Numérique." />
-        <meta name="keywords" content="Accueil, Site Web, Ontologie, Avantage Numérique, croissant boréal" /> 
+        <meta name="description" content="Documentation complète sur l'ontologie utilisée dans la base de donnée ouverte et liée d'Avantage Numérique." />
+        <meta name="keywords" content="ontologie, classe, propriété, base de données, technologie, créateurs, communauté" /> 
 
         {/* social media meta tag */}
-        <meta property="og:title"              content="Avantage Numérique" />
-        <meta property="og:description"        content="Site web officiel de présentation de l'ontologie pour l'utilisation de la base de données ouverte et liée de l'initiative Avantage Numérique." />
+        <meta property="og:title"              content="Ontologie - Avantage Numérique" />
+        <meta property="og:description"        content="Documentation complète sur l'ontologie utilisée dans la base de donnée ouverte et liée d'Avantage Numérique." />
         
-        <meta name="twitter:title"             content="Avantage Numérique"/>
-        <meta name="twitter:description"       content="Site web officiel de présentation de l'ontologie pour l'utilisation de la base de données ouverte et liée de l'initiative Avantage Numérique."/>
+        <meta name="twitter:title"             content="Ontologie - Avantage Numérique"/>
+        <meta name="twitter:description"       content="Documentation complète sur l'ontologie utilisée dans la base de donnée ouverte et liée d'Avantage Numérique."/>
 
         {/* 
 
@@ -26,34 +103,45 @@ export default function Home() {
         <link rel="canonical" href="https://avantagenumerique.org/">  
 
         */}
+
+        {/* Structured data */}
+        <script 
+              type='application/ld+json'
+              dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(JSON.stringify(schema))}}
+          />
       </Head>
-      <div className={styles.pageContent}>
 
       {/* General header of the page */}
       <header>
         <div className="maxWidthPageContainer">
-          <h1>Toute l'information disponible sur l'ontologie utilisée dans la BDSOL d'<i>Avantage Numérique</i></h1>
-          
+          <h1>Documentation complète sur l'ontologie utilisée dans la BDSOL</h1>
+          <p>Etiam vel ultrices sapien. Donec ipsum lorem, pharetra non commodo imperdiet, facilisis bibendum quam. Suspendisse consequat tellus massa, ut venenatis lacus rutrum at. Fusce sit amet lectus dui. Donec ut mauris eu nulla porta rutrum quis ornare diam. Nulla sed quam eget magna hendrerit vulputate non porta eros.</p>
         </div>
       </header>
 
-      {/* Sections of the page*/}
+      {/* Main section of the page that contains all the classes */}
       <section>
         <div className="maxWidthPageContainer">
-            <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus a turpis sed mi condimentum varius. Nunc iaculis cursus pharetra. Nunc et ex a augue hendrerit egestas sed suscipit lacus. Phasellus vel nulla at sapien condimentum lacinia quis a erat. Donec laoreet, odio eu commodo hendrerit, tortor enim placerat ipsum, id commodo eros lacus vitae erat. Phasellus ultrices ullamcorper fermentum. Nunc eget iaculis arcu. Sed viverra odio eu ipsum efficitur sollicitudin. Aenean varius finibus tincidunt. Pellentesque nec sapien velit. Donec eleifend ante nunc, accumsan lacinia lorem elementum tempus. Integer dictum eget mauris at vestibulum.
-            </p>
-            
+
+          {/* Create the classes elements */}
+          {documentation.classes.map(( data, classIndex ) => (
+
+            <Class 
+              onclick={ () => onClassDisplayClick( classIndex ) } 
+              key={ data.slug } 
+              data={ data } 
+              globalData={documentation}
+              active= { isActiveClass( classIndex ) }
+            />
+
+          ))}
+    
         </div>
       </section>
-      <section>
-        <div className="maxWidthPageContainer">
-          <p>
-            Mauris faucibus metus eros, hendrerit molestie augue aliquet ut. In ut aliquet ex. Donec mi nibh, tempor vestibulum interdum eu, pellentesque ac sem. Duis venenatis sollicitudin dapibus. Donec varius enim id arcu ultricies malesuada a nec diam. Aliquam tincidunt vitae dui nec aliquam. Phasellus efficitur euismod nulla quis pulvinar.
-          </p>
-        </div>
-      </section>
-      </div>
-    </>
+      
+    </div>
+
   )
 }
+
+export default Documentation;

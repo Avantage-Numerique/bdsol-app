@@ -30,12 +30,6 @@ const Nav = ( {menuState, setMenuState} ) => {
                     <li>
                         <Link href="/">Accueil</Link>
                     </li>
-                    <li>
-                        <Link href="/presentation">Présentation</Link>
-                    </li>
-                    <li>
-                        <Link href="/documentation">Documentation</Link>
-                    </li>
                 </ul>
             </div>
         </nav>
