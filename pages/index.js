@@ -112,11 +112,13 @@ const Documentation = ( {documentation} ) => {
       </Head>
 
       {/* General header of the page */}
-      <header>
-        <div className="maxWidthPageContainer">
+      <header className="sec-color_BG">
+        <section className="col-6">
           <h1>Documentation complète sur l'ontologie utilisée dans la BDSOL</h1>
           <p>Etiam vel ultrices sapien. Donec ipsum lorem, pharetra non commodo imperdiet, facilisis bibendum quam. Suspendisse consequat tellus massa, ut venenatis lacus rutrum at. Fusce sit amet lectus dui. Donec ut mauris eu nulla porta rutrum quis ornare diam. Nulla sed quam eget magna hendrerit vulputate non porta eros.</p>
-        </div>
+        </section>
+    
+    
       </header>
 
       {/* Main section of the page that contains all the classes */}

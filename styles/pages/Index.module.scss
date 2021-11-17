@@ -9,12 +9,10 @@
     /* Page header styling */
     > header {
 
-        margin-top: 10vh;
-        margin-bottom: 10vh;
+        min-height: 50vh;
+        display: flex;
 
-        h1, p {
-            max-width: 600px;
-        }
+
     }
 
    

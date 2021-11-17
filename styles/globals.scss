@@ -32,7 +32,9 @@
   --dark: #212121;
 
   /* Main font */
-  --font: "Suisse Intl","Helvetica Neue","Helvetica","Arial",sans-serif;
+  --generalFont: 'Open Sans', sans-serif;
+  --titleFont: 'Yeseva One';
+
 
 
 }
@@ -42,10 +44,13 @@ body {
   padding: 0;
   margin: 0;
 
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  /* Default font */
+  font-family: var(--generalFont);
 
+  /* Default text size */
   font-size: 15px;
+
+  /* Default color */
   color: var(--dark);
 
 }
@@ -56,14 +61,25 @@ body {
 
 /*
 *
-*    Colors settings
+*   Font settings
 *
 */
 
-/* Main black color */
-p, h1, h2, h3, h4, h5, h6, li, a, div {
-  font-family: var(--font);
+h1, h2, h3 {
+  font-family: var(--titleFont);
 }
+
+h4, h5, h6 {
+  font-weight: 700;
+}
+
+
+
+/*
+*
+*    Colors settings
+*
+*/
 
 /* blue color */
 .blue { color: var(--mainBlue); }
