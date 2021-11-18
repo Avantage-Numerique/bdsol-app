@@ -2,20 +2,13 @@
 
     display: none; /* by default*/
     margin-top: 1em;
+    /*clip-path: polygon(0% 0%, 0% 0%, 0% 0%, 0% 0%);*/
+    
+
 
     /*  When selected */
     &.active{
         display: block;
-    }
-
-    /*  
-    *
-    *   Title section 
-    *
-    */
-    > .classTitle > h1 {
-        font-size: 2em;
-        margin-top: 1em;
     }
 
     /*  

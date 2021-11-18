@@ -37,11 +37,6 @@ const ClassInfos = ( {data, active, globalData} ) => {
 
         <section className={`${activeClass} ${styles.classInfosComponent} col-12`}>
 
-            {/* Title section */}
-            <div className={`${styles.classTitle} col-12`}>
-                <h1>Classe : "{ data.title }"</h1>
-            </div>
-
             {/* Description section */}
             <div className={`${styles.classDescription} col-12`}>
                 <h4 className="blue col-12">Description</h4>
