@@ -113,8 +113,8 @@ const Documentation = ( {documentation} ) => {
 
       {/* General header of the page */}
       <header className="sec-color_BG">
-        <section className="col-6">
-          <h1>Documentation complète sur l'ontologie utilisée dans la BDSOL</h1>
+        <section className="col-6 white">
+          <h2>Documentation complète sur l'ontologie utilisée dans la BDSOL</h2>
           <p>Etiam vel ultrices sapien. Donec ipsum lorem, pharetra non commodo imperdiet, facilisis bibendum quam. Suspendisse consequat tellus massa, ut venenatis lacus rutrum at. Fusce sit amet lectus dui. Donec ut mauris eu nulla porta rutrum quis ornare diam. Nulla sed quam eget magna hendrerit vulputate non porta eros.</p>
         </section>
     
@@ -122,8 +122,26 @@ const Documentation = ( {documentation} ) => {
       </header>
 
       {/* Main section of the page that contains all the classes */}
-      <section>
+      <section className={styles.classesContainer}>
         <div className="maxWidthPageContainer">
+
+          <header>
+
+            {/* Main content of the header, presented has an article */}
+            <article>
+              <h1>Documentation sur la structure complète</h1>
+              <strong><p className="blue">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean et urna iaculis, rutrum sapien eu, luctus ante. Integer dapibus, risus.</p></strong>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ut commodo felis, nec egestas massa. Suspendisse convallis tortor ac varius rutrum. In tincidunt efficitur nulla in faucibus. Donec efficitur vulputate ligula, nec ultrices mi ullamcorper eget. Cras sed interdum ex. Integer pellentesque, diam eu euismod lobortis, velit purus accumsan diam.</p>
+            </article>
+
+            {/* Call to action */}
+            <aside className="white commonRadius blue_BG">
+              <h3>Ceci est un titre</h3>
+              <p>ndjsvnj sj js edfwec  ewuwifbeiw iufbewibfewbi dd wvwubvwe i uewuifbeuwbfwjds jds dk</p>
+
+            </aside>
+
+          </header>
 
           {/* Create the classes elements */}
           {documentation.classes.map(( data, classIndex ) => (

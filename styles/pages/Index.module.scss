@@ -6,15 +6,87 @@
         float: left;
     }
 
-    /* Page header styling */
+    /* Page header */
     > header {
 
         min-height: 50vh;
         display: flex;
 
-
     }
 
-   
+    /* Page main section where all the individual classes are displayed */
+    .classesContainer > div {
 
+        /* Headers section */
+        > header {
+            display: flex;
+            flex-direction: column;
+            margin: 4em 0px;
+
+            /* headers main content */
+            > article {
+                flex: 1;
+
+                h1 { margin-top: 0px;}
+                p:last-of-type { margin-bottom: 0px; }
+            }
+
+            /* Redirection linl */
+            > aside {
+                width: auto;
+                align-self: flex-start;
+                width: 100%;
+                padding: 1em;
+            }
+        }
+    }
+}
+
+/*
+*
+*
+*     Media queries for responsive design
+*
+*
+*
+*/
+
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+
+    .pageContent { 
+
+        /* Page main section where all the individual classes are displayed */
+        .classesContainer > div {
+
+            /* Headers section */
+            > header {
+                flex-direction: row;
+                
+                > article {
+                    margin-right: 2em;
+                }
+
+                    /* Redirection link */
+                > aside {
+                    max-width: 16em;
+                    width: unset;
+                }
+            }
+        }
+
+    }
+  
+}
+  
+  
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+    
+}
+
+/* Extra large devices (large laptops and desktops, 1500px and up) */
+@media only screen and (min-width: 1500px) {
+    
 }

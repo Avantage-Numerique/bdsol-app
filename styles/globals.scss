@@ -73,6 +73,10 @@ h4, h5, h6 {
   font-weight: 700;
 }
 
+h1 { font-size: 3em;}
+h2 { font-size: 2em;}
+h3 { font-size: 1.5em;}
+
 
 
 /*
@@ -97,6 +101,7 @@ h4, h5, h6 {
 .dark_BG { background-color: var(--dark); }
 
 .cursorPointer { cursor: pointer; }
+.commonRadius { border-radius: 2em; }
 
 a {
   color: inherit;
