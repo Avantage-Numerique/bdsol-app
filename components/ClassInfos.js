@@ -4,6 +4,7 @@
     V.P.R - created: 04/10/2021
 
 */
+
 import React, { useState } from 'react';
 
 import styles from '../styles/components/ClassInfos.module.scss';
@@ -55,12 +56,14 @@ const ClassInfos = ( {data, active, globalData} ) => {
             * 
             * 
             * 
-            * */}
+            */}
+
             <div className={`${styles.classProperties} col-12`}>
 
                 <h4 className="blue col-12">Propriétés</h4>
 
                 <div className={`${styles.propertiesButtonContainer} col-12`}>     
+                     
                      {/* Display every properties */}
                      {data.properties.map( (propData, propIndex) => (
 
@@ -71,8 +74,8 @@ const ClassInfos = ( {data, active, globalData} ) => {
                         >
                                 { propData.title }
                         </button>
-
                      ))}
+
                 </div>
 
                 {/* Section that contains the properties informations, passed through as articles */}

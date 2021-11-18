@@ -8,11 +8,14 @@
     padding: 20px;
     border-left: 4px solid;
     border-color: white;
-    transition: border-color 0.3s ease-out;
-    transition-delay: 0.15s;
-
+    /*transition: border-color 0.3s ease-out 0.15s;*/
+    transition: 0.3s ease-out;
 
     &.activeClass { border-color: var(--grey); }
+    &:not(.activeClass):hover { 
+        background-color: var(--grey);
+        border-color: var(--grey);
+    }
 
     /* Section with only the name and small description of the class */
     > section:first-of-type {

@@ -29,13 +29,14 @@ const LinkedClass = ( {data, globalData} ) => {
 
     return (
         <article className={`${styles.linkedClassComponent} col-12`}>
+
             {/* Title section */}
             <header>
                 {/* 
                     Set the title with the title of the class if defined.  
                     If its not define, simply use the class name of the linkedclass object
                 */}
-                <h3>{classObj ? classObj.title : data.class}</h3>
+                <h4 className="blue"> {classObj ? classObj.title : data.class}</h4>
                 <div className={styles.line}></div>
             </header>
             

@@ -44,8 +44,10 @@
         > section {
 
             .separation_line {
-                border-bottom: 1px solid var(--mainBlue);
-                border-color: var(--grey);
+                height: 2px;
+                background-color: var(--grey);
+                border: none;
+                margin: 0px;
             }
         }
     }
