@@ -143,18 +143,28 @@ const Documentation = ( {documentation} ) => {
 
           </header>
 
-          {/* Create the classes elements */}
-          {documentation.classes.map(( data, classIndex ) => (
+          <section>
 
-            <Class 
-              onclick={ () => onClassDisplayClick( classIndex ) } 
-              key={ data.slug } 
-              data={ data } 
-              globalData={documentation}
-              active= { isActiveClass( classIndex ) }
-            />
+            <h2>Liste des classes</h2>
+            {/* Create the classes elements */}
+            {documentation.classes.map(( data, classIndex ) => (
+              <>
+              <div className={`${styles.separation_line} col-12`}></div>
+              <Class 
+                onclick={ () => onClassDisplayClick( classIndex ) } 
+                key={ data.slug } 
+                data={ data } 
+                globalData={documentation}
+                active= { isActiveClass( classIndex ) }
+              />
+              </>
+            ))}
 
-          ))}
+            <div className={`${styles.separation_line} col-12`}></div>
+
+
+
+          </section>
     
         </div>
       </section>

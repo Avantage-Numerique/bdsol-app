@@ -11,11 +11,11 @@ import styles from '../styles/components/Class.module.scss'
 const Class = ( { data, onclick, active, globalData} ) => {
 
     //Set the cursor on pointer over the class only when it is not active
-    const isPointerClass = active ? "" : "cursorPointer" ;
+    const isActive = active ?  `${styles.activeClass}` : "cursorPointer" ;
 
     return (
 
-        <article id={ data.slug } className={`${styles.classComponent} ${isPointerClass}`}  onClick={ active ? null : onclick } >
+        <article id={ data.slug } className={`${styles.classComponent} ${isActive}`}  onClick={ active ? null : onclick } >
 
             {/* Inline quick presentation of the class */}
             <section>

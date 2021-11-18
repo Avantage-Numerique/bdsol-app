@@ -5,11 +5,14 @@
 
     width: 100%;
     float: left;
-    border-radius: 5px; 
-    margin: 10px 0px;
     padding: 20px;
-    -webkit-box-shadow: 2px 2px 4px 1px rgba(0,0,0,0.17); 
-    box-shadow: 2px 2px 4px 1px rgba(0,0,0,0.17);
+    border-left: 4px solid;
+    border-color: white;
+    transition: border-color 0.3s ease-out;
+    transition-delay: 0.15s;
+
+
+    &.activeClass { border-color: var(--grey); }
 
     /* Section with only the name and small description of the class */
     > section:first-of-type {

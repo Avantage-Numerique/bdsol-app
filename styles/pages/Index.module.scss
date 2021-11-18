@@ -39,6 +39,15 @@
                 padding: 1em;
             }
         }
+
+        /* Section that hold the classes */ 
+        > section {
+
+            .separation_line {
+                border-bottom: 1px solid var(--mainBlue);
+                border-color: var(--grey);
+            }
+        }
     }
 }
 

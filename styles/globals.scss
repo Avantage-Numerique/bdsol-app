@@ -20,16 +20,25 @@
   /* Header's height.  */
   --headersHeight : 6em;
 
-  /* Main color of the web site (blue) */
-  --mainBlue: #455ae6;
+  /* Main color of the web site (blue) 
+      Hexa : #455ae6
+  */
+  --mainBlue: rgb(69, 90, 230);
 
 
-  /* Secondary colors */
-  --altBlue: #4d64ff;
-  --grey: #bbbfd7;
+  /* 
+    Secondary colors 
+        Hexa ;
+            --altBlue: #4d64ff;
+            --grey: #bbbfd7;
+  */
+  --altBlue: rgb(77, 100, 255);
+  --grey: rgb(187, 191, 215);
 
-  /* Dark color for the text and background-colors */
-  --dark: #212121;
+  /* Dark color for the text and background-colors 
+         Hexa : #212121;
+  */
+  --dark: rgb(33, 33, 33);
 
   /* Main font */
   --generalFont: 'Open Sans', sans-serif;
@@ -92,6 +101,10 @@ h3 { font-size: 1.5em;}
 /* Secondary color */
 .sec-color { color: var(--altBlue);}
 .sec-color_BG { background-color: var(--altBlue); }
+
+/* grey */
+.grey { color: var(--grey);}
+.grey_BG { background-color: var(--grey); }
 
 /* White color */
 .white { color: white; }
