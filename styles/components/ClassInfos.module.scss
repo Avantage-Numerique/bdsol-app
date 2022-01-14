@@ -1,14 +1,15 @@
 .classInfosComponent {
 
-    display: none; /* by default*/
-    margin-top: 1em;
+    overflow: hidden;
+    transition: max-height 10s ease-out;
+    max-height: 0px;
     /*clip-path: polygon(0% 0%, 0% 0%, 0% 0%, 0% 0%);*/
     
 
 
     /*  When selected */
     &.active{
-        display: block;
+        max-height: 1000000px;
     }
 
     /*  

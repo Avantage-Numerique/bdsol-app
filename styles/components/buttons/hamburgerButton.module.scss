@@ -7,8 +7,8 @@
 
 .hamButtonComponent {
 
-    height: 40px;
-    width: 30px;
+    height: 1.5rem;
+    width: 1.5rem;
   
     /* Basinc stylings for an unactive menu */
     .menu_btn {
@@ -40,11 +40,11 @@
         }
     
         .menu_btn__burger::before {
-            transform: translateY(-10px);
+            transform: translateY(-8px);
         }
     
         .menu_btn__burger::after {
-            transform: translateY(10px);
+            transform: translateY(8px);
         }
     }
 

@@ -15,10 +15,10 @@
 
 :root {
   /* Maximum width the content of the page can take */
-  --max-width-page-content: 1200px;
+  --max-width-page-content: 85rem;
 
   /* Header's height.  */
-  --headersHeight : 6em;
+  --headersHeight : 5.5em;
 
   /* Main color of the web site (blue) 
       Hexa : #455ae6
@@ -44,8 +44,9 @@
   --generalFont: 'Open Sans', sans-serif;
   --titleFont: 'Yeseva One';
 
-
-
+  /* Common border radius through the website */
+  --commonRadius: 1.5em;
+  
 }
 
 html,
@@ -58,6 +59,7 @@ body {
 
   /* Default text size */
   font-size: 14px;
+  line-height: 1.4;
 
   /* Default color */
   color: var(--dark);
@@ -77,16 +79,20 @@ body {
 
 h1, h2, h3 {
   font-family: var(--titleFont);
+  line-height: 1.1;
+  font-weight: normal;
 }
 
 h4, h5, h6 {
   font-weight: 700;
 }
 
-h1 { font-size: 3em;}
-h2 { font-size: 2em;}
-h3 { font-size: 1.5em;}
-h4 { font-size: 1.25em;}
+h1 { font-size: 4rem; }
+h2 { font-size: 2.5rem; }
+h3 { font-size: 1.75rem; }
+h4 { font-size: 1.25rem; }
+h5 { font-size: 1rem; }
+h6 { font-size: 0.8rem; }
 
 
 
@@ -116,7 +122,7 @@ h4 { font-size: 1.25em;}
 .dark_BG { background-color: var(--dark); }
 
 .cursorPointer { cursor: pointer; }
-.commonRadius { border-radius: 2em; }
+.commonRadius { border-radius: var(--commonRadius); }
 
 a {
   color: inherit;

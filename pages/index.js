@@ -113,9 +113,22 @@ const Documentation = ( {documentation} ) => {
 
       {/* General header of the page */}
       <header className="sec-color_BG">
-        <section className="col-6 white">
-          <h2>Documentation complète sur l'ontologie utilisée dans la BDSOL</h2>
-          <p>Etiam vel ultrices sapien. Donec ipsum lorem, pharetra non commodo imperdiet, facilisis bibendum quam. Suspendisse consequat tellus massa, ut venenatis lacus rutrum at. Fusce sit amet lectus dui. Donec ut mauris eu nulla porta rutrum quis ornare diam. Nulla sed quam eget magna hendrerit vulputate non porta eros.</p>
+        <section className="white col-12">
+          <h2>Préparez vos données pour vous connecter au <br/><span class="dark">croissant boréal</span></h2>
+
+          <figure>
+            <img className={styles.mainIllustration} alt="Illustrations représentant Avantage Numérique." src="\index_main_background.png"/>
+
+            <div>
+              <img className={styles.illustration_circle} alt="Illustrations représentant Avantage Numérique." src="\index_main_background-circle1.png"/>
+            </div>
+            <div>
+              <img className={styles.illustration_circle} alt="Illustrations représentant Avantage Numérique." src="\index_main_background-circle2.png"/>
+            </div>
+            <div>
+              <img className={styles.illustration_circle} alt="Illustrations représentant Avantage Numérique." src="\index_main_background-circle3.png"/>
+            </div>
+          </figure>
         </section>
     
     
@@ -136,9 +149,19 @@ const Documentation = ( {documentation} ) => {
 
             {/* Call to action */}
             <aside className="white commonRadius blue_BG">
-              <h3>Ceci est un titre</h3>
-              <p>ndjsvnj sj js edfwec  ewuwifbeiw iufbewibfewbi dd wvwubvwe i uewuifbeuwbfwjds jds dk</p>
 
+              <section>
+                <h3 className="col-12">Lorem ipsum dolor sit amet</h3>
+                <h5 className="col-12">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</h5>
+              </section>
+              
+              <section>
+                <div>
+                  <button className={styles.circle_Container}>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 11.31 16.97"><polygon points="2.83 16.97 0 14.14 5.66 8.48 0 2.83 2.83 0 11.31 8.48 2.83 16.97"/></svg>
+                  </button>
+                </div>
+              </section>
             </aside>
 
           </header>
