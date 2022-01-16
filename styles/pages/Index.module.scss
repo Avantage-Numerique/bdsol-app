@@ -27,7 +27,7 @@
                 margin: 7rem 5vw;
 
                 span { 
-                    font-size: 4rem;
+                    font-size: 1.5em;
                     line-height: 3rem;
                 }
             }
@@ -80,11 +80,35 @@
 
             /* headers main content */
             > article {
+
                 flex: 1;
                 margin-bottom: 2em;
 
-                h1 { margin-top: 0px;}
-                p:last-of-type { margin-bottom: 0px; }
+                /* every element floating under eachother */
+                > * { float: left; }
+
+                /* main title of the page */
+                h1 { 
+                    margin-top: 0px;
+                    margin-bottom: 1rem; 
+                }
+
+                /* small subtitle of the page */
+                h5 { 
+                    font-size: 1.2rem;
+                    margin: 1rem 0rem;
+                }
+
+                /* Lines to add to the design */
+                .line:first-of-type{ width: 11rem; }
+                .line:last-of-type{ width: 2rem; }
+
+                /* Presentation text */
+                p { 
+                    margin-bottom: 0px;
+                    margin: 0px;
+                }
+
             }
 
             /* Redirection linl */
@@ -113,6 +137,7 @@
                     display: flex;
                     flex-direction: column;
 
+                    /* section with the text */
                     &:first-of-type{ 
                         padding: 0rem 1rem;
                         h3, h5 { 
@@ -121,21 +146,21 @@
                         }
                     }
 
+                    /* section with the button */
                     &:last-of-type{ 
                         flex: 1;
                         display: grid;
                         align-content: center;
                         position: relative;
 
+                        /* block to align the content horizontaly */
                         div {
-
                             display: grid;
                             justify-content: center;
                             position: relative;
                             margin: 1rem 0rem;
 
-
-
+                            /* Button / action  */
                             .circle_Container {
                                 border-radius:  100%;
                                 padding: 1rem;
@@ -144,6 +169,7 @@
                                 border: var(--asideBorderWidth) solid white;
                                 transition: 0.3s ease-out;
     
+                                /* arrow */
                                 svg { 
                                     height: 1.5rem;
                                     width: 1.5rem;

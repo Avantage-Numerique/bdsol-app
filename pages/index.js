@@ -142,8 +142,12 @@ const Documentation = ( {documentation} ) => {
 
             {/* Main content of the header, presented has an article */}
             <article>
-              <h1>Documentation sur la structure complète</h1>
-              <strong><p className="blue">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean et urna iaculis, rutrum sapien eu, luctus ante. Integer dapibus, risus.</p></strong>
+              <h1>A - Documentation sur la structure complète</h1>
+              <div className="col-12">
+                <div className={`${styles.line} line blue_BG`}></div>
+                <div className={`${styles.line} line blue_BG`}></div>
+              </div>
+              <h5 className="blue">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean et urna iaculis, rutrum sapien eu, luctus ante. Integer dapibus, risus.</h5>
               <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ut commodo felis, nec egestas massa. Suspendisse convallis tortor ac varius rutrum. In tincidunt efficitur nulla in faucibus. Donec efficitur vulputate ligula, nec ultrices mi ullamcorper eget. Cras sed interdum ex. Integer pellentesque, diam eu euismod lobortis, velit purus accumsan diam.</p>
             </article>
 

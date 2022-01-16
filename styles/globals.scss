@@ -18,7 +18,7 @@
   --max-width-page-content: 85rem;
 
   /* Header's height.  */
-  --headersHeight : 5.5em;
+  --headersHeight : 5em;
 
   /* Main color of the web site (blue) 
       Hexa : #455ae6
@@ -87,8 +87,13 @@ h4, h5, h6 {
   font-weight: 700;
 }
 
-h1 { font-size: 4rem; }
-h2 { font-size: 2.5rem; }
+h1 { 
+  font-size: 4rem; /* For older browsers */
+  font-size: min(10vw, 4rem); }
+h2 { 
+  font-size: 2.5rem;  /* For older browsers */
+  font-size: min(2.5rem, 8vw); 
+}
 h3 { font-size: 1.75rem; }
 h4 { font-size: 1.25rem; }
 h5 { font-size: 1rem; }
@@ -147,7 +152,8 @@ ul {padding: 0px;}
 .maxWidthPageContainer {
   max-width: var(--max-width-page-content);
   margin: auto;
-  padding: 0px 3em;
+  padding: 0px 3rem; /* in case the browser do not support min() */
+  padding: 0px min(3rem, 4vw);
 }
 
 
@@ -169,6 +175,17 @@ ul {padding: 0px;}
 .col-10,
 .col-11,
 .col-12 {width: 100%; float: left;}
+
+/*
+  Line class for the design lines added to pages
+*/
+.line{
+  height: 0.4rem;
+  float: left;
+  margin: 0.15rem 0.7rem 0.15rem 0rem;
+  border-radius: 0.2rem;
+  /* Every line will have a width and color precised to it */
+}
 
 /*
   Remove some default styling of the button element
