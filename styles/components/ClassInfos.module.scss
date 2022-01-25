@@ -1,15 +1,19 @@
 .classInfosComponent {
 
+    display: none;
+
+    /*
     overflow: hidden;
-    transition: max-height 10s ease-out;
-    max-height: 0px;
+    transition: max-height 1s ease-out;
+    max-height: 0px; */
     /*clip-path: polygon(0% 0%, 0% 0%, 0% 0%, 0% 0%);*/
     
 
 
     /*  When selected */
     &.active{
-        max-height: 1000000px;
+        /*max-height: 400vh; */
+        display: block;
     }
 
     /*  
@@ -18,6 +22,16 @@
     *
     */
     > .classDescription {
+
+        h4 { margin-bottom: 1em 0rem; }
+
+        p {
+            margin-top: 0rem;
+            column-count: 2;
+            column-gap: 2rem;
+            width: 100%;
+            width: calc(100% - 2rem);
+        }
 
     }
 
@@ -28,6 +42,8 @@
     */
     > .classProperties {
 
+        h4 { margin-bottom: 1em 0rem; }
+
         .propertiesButtonContainer {
             
             display: flex; 
@@ -35,15 +51,16 @@
             margin: -3px;
 
             .propertyName {
-                background: rgb(75,95,255);
-                background: linear-gradient(90deg, rgba(75,95,255,1) 0%, rgba(104,209,255,1) 100%);
                 border: none;
-                padding: 8px;
-                border-radius: 5px;
+                padding: 0.8rem;
+                font-size: 1.25rem;
+                border-radius: 6px;
                 float: left;
                 font-weight: 600;
                 margin: 3px;
                 cursor: pointer;
+                transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
             }
         }
     }

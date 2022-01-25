@@ -3,54 +3,114 @@
 */
 .classComponent {
 
+    /**********************************************
+
+        Variables for the container's side marges
+
+    ***********************************************/
+    --sideMargin: 4rem;
+    --sideMargin: clamp(3.5rem, 5vw, 4.5rem);
+
+
+
     width: 100%;
     float: left;
-    padding: 20px;
+    padding: 1.5rem;
     border-left: 4px solid;
     border-color: white;
+    
     /*transition: border-color 0.3s ease-out 0.15s;*/
     transition: 0.3s ease-out;
 
     &.activeClass { border-color: var(--grey); }
     &:not(.activeClass):hover { 
-        background-color: var(--grey);
+        background-color: rgb(245, 245, 245);
         border-color: var(--grey);
     }
 
+    
     /* Section with only the name and small description of the class */
-    > section:first-of-type {
+    > header {
 
         float: left;
         width: 100%;
         display: grid;
-        grid-template-columns: auto auto 40px;
+        grid-template-columns: 4.5rem 1fr 1fr 4.5rem;
+        grid-template-columns: var(--sideMargin) 1fr 1fr var(--sideMargin);
         grid-template-rows: auto auto;            /* Two lines to for the small devices display */
         align-items: center;
         min-height: 3em;        
 
-        /* Button to display all the informations */
-        .closeOpenButton {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
+        /* Icone styling */
+        img { margin-right: 20%; }
 
-            grid-column: 3;
-            grid-row-start: 1;
-            grid-row-end: 3;
-        }
-
-        h2, p {
+        h2, h3, p {
             margin: 0px;
-            margin-right: 20px;
+            margin-right: 3rem;
         }
 
-        h2 { font-size: 1.2em; }
+        h2, h3 { 
+            grid-row: 1 / 2;
+            grid-column: 2 / 4;
+        } 
 
         p {
-            grid-row: 2;
-            grid-column-start: 1;
-            grid-column-end: 2;
+            font-size: 0.9rem;
+            font-style: italic;
+            margin-top: 1rem;
+            margin-right: 0rem;
+
+            grid-row: 2 / 3;
+            grid-column: 1 / 5;
         }
+
+        /* Arrow utton to display all the informations */
+        .closeOpenButton { margin-left: 20%; }
+
     }
+    
+}
+
+
+
+
+/*
+*
+*
+*     Media queries for responsive design
+*
+*
+*
+*/
+
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+
+    .classComponent {
+
+        > header { 
+            
+            p {
+                grid-row: 1 / 2;
+                grid-column: 3 / 4;
+                margin-top: 0rem;
+                margin-right: 3rem;
+            }
+        }
+
+        /* Subclass container to apply the right margin */
+        > div { padding: 0rem var(--sideMargin); }
+    }
+}
+  
+  
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+    
+}
+
+/* Extra large devices (large laptops and desktops, 1500px and up) */
+@media only screen and (min-width: 1500px) {
+    
 }

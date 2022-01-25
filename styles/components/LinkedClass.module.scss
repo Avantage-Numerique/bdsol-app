@@ -6,14 +6,16 @@
 
 
 /* Padding value of the article */
-$articlePadding: 20px;
+$articlePadding: 1rem;
 
 /* main element */
 .linkedClassComponent {
 
     margin: 5px 0px;
-    border: 2px solid var(--grey);
-    padding: 0px $articlePadding;
+    border-top: 1px solid var(--grey);
+    border-bottom: 1px solid var(--grey);
+    padding: 0.5rem $articlePadding;
+    background-color: rgb(254, 254, 254);
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -22,7 +24,7 @@ $articlePadding: 20px;
     > header {
         
         display: flex; 
-        align-items: center;
+        align-items: center;        
 
         h4 { margin: 0.5em 0em; }
         
@@ -42,15 +44,14 @@ $articlePadding: 20px;
         flex-wrap: wrap;
         align-items: center;
         order: 1;
-        border-top: 2px solid var(--grey);
         padding: 0.5em 0px;
         
         > div {
 
-            font-weight: 600;
+            font-weight: 700;
             color: var(--dark);
-            margin: 5px 20px 5px 0px;
-            font-size: 0.9em;
+            margin: 2px 20px 2px 0px;
+            font-size: 0.95rem;
  
             span {
                 color: var(--grey);
@@ -62,10 +63,17 @@ $articlePadding: 20px;
 
     /* Button to redirect on the concerned class */
     > :nth-child(3){
-        padding: 10px;
+
         align-self: center;
         font-size: 20px;
+        width: 1.5rem;
+        height: auto;
         cursor: pointer;
+        transition: 0.5s;
+        opacity: 0.8;
+
+        &:hover { opacity: 1; }
+
     }
 
 }
@@ -87,7 +95,7 @@ $articlePadding: 20px;
 
         > header {
             
-            h3 { min-width: 150px; }
+            h4 { min-width: 20vh; }
             .line { display: block; }
             
         }

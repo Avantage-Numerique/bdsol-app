@@ -22,12 +22,26 @@
 
     > div {
 
-        li {
-            color: white;
-            font-size: 3em;
-            line-height: 1.5em;
-            font-weight: bold;
+        ul {
+            li {
+                color: white;
+                font-weight: bold;
+                line-height: 1.5em;
+            }
         }
+
+        ul.mainMenu { font-size: 3rem; }
+
+        .line {
+            float: left;
+            border-bottom: 2px solid white;
+            width: 20rem;
+            max-width: 100%;
+            margin: 2rem 0rem;
+        }
+
+        ul.secondaryMenu { font-size: 1.5rem; }
+
     }
     
 }

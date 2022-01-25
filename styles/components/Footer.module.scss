@@ -13,6 +13,12 @@
     /* Container to center the containe */
     > div {
 
+        h3 { 
+            font-family: var(--generalFont);
+            font-weight: bold;
+            margin: 1rem 0rem;
+        }
+
 
         > section {
 
@@ -49,8 +55,10 @@
             border-top: 3px solid white;
             border-bottom: 3px solid white;
 
+            > div, ul { padding: 1rem 0rem; }
+
             img {
-                max-height: 1.5em;
+                max-height: 1.75rem;
                 margin: 0.25em 0.5em;
                 float: left;
                 opacity: 0.7;

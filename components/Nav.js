@@ -26,11 +26,39 @@ const Nav = ( {menuState, setMenuState} ) => {
 
         <nav className={`${navStyles.navContainer} ${menuState ? navStyles.displayed : " "}`}>
             <div className={navStyles.maxWidthPageContainer + ' ' + "maxWidthPageContainer"}>
-                <ul>
-                    <li>
-                        <Link href="/">Accueil</Link>
+             
+                <ul className={`${navStyles.mainMenu} col-12`}>
+                    <li className="col-12">
+                        <Link href="https://avantagenumerique.org/chantiers-et-projets-innovants/">Nos chantiers et projets innovants</Link>
+                    </li>
+                    <li className="col-12">
+                        <Link href="https://avantagenumerique.org/espaces-collaboratifs/">Nos espaces collaboratifs</Link>
+                    </li>
+                    <li className="col-12">
+                        <Link href="https://avantagenumerique.org/blogue/">Blogue</Link>
                     </li>
                 </ul>
+
+                <div className={`${navStyles.line}`}></div>
+
+                <ul className={`${navStyles.secondaryMenu} col-12`}>
+                    <li>
+                        <Link href="https://avantagenumerique.org/le-croissant-boreal/">Le Croissant boréal</Link>
+                    </li>
+                    <li>
+                        <Link href="https://avantagenumerique.org/charte-des-valeurs/">Charte des valeurs</Link>
+                    </li>
+                    <li>
+                        <Link href="https://avantagenumerique.org/notre-equipe/">Notre équipe</Link>
+                    </li>
+                    <li>
+                        <Link href="https://avantagenumerique.org/a-propos/">À propos</Link>
+                    </li>
+                    <li>
+                        <Link href="https://avantagenumerique.org/nous-joindre/">Nous joindre</Link>
+                    </li>
+                </ul>
+
             </div>
         </nav>
         

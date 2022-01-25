@@ -29,9 +29,8 @@ const ClassInfos = ( {data, active, globalData} ) => {
         } else {
             setActiveIndex(passedIndex); 
         }
-    }
 
-    
+    }
 
     return (
 
@@ -40,7 +39,7 @@ const ClassInfos = ( {data, active, globalData} ) => {
             {/* Description section */}
             <div className={`${styles.classDescription} col-12`}>
                 <h4 className="blue col-12">Description</h4>
-                <p>{ data.description }</p>
+                <p className="col-12">{ data.description }</p>
             </div>
 
             {/* 
@@ -63,11 +62,11 @@ const ClassInfos = ( {data, active, globalData} ) => {
                      {data.properties.map( (propData, propIndex) => (
 
                         <button 
-                            key={` ${propData.slug}-button `} 
+                            key={` ${propData.slug}-button`} 
                             onClick={ () => onPropertyDisplayClick( propIndex ) } 
-                            className={`${styles.propertyName} white`} 
+                            className={`${styles.propertyName} white ${ index == propIndex ? "blue_BG" : "grey_BG" } `} 
                         >
-                                { propData.title }
+                            { propData.title }
                         </button>
                      ))}
 
@@ -76,7 +75,7 @@ const ClassInfos = ( {data, active, globalData} ) => {
                 {/* Section that contains the properties informations, passed through as articles */}
                 <div className="col-12">
                     {/* Passe only the selected property */}
-                    {index != null ? <Property data={ data.properties[index] }  /> : " "}
+                    {index != null ? <Property data={ data.properties[index] } /> : " "}
                 </div>
                
             </div>

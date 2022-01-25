@@ -15,7 +15,7 @@ const Property = ( {data} ) => {
         <article className={`${styles.propertyComponent} col-12`}>
 
             <header>
-                <h2> {data.title} </h2>
+                <h3> {data.title} </h3>
                 <div className={`${styles.requirementMention} blue_BG white`}>
                     { data.title.required ? "Requise" : "Non requise" }
                 </div>
@@ -24,19 +24,19 @@ const Property = ( {data} ) => {
             
             {/* Description section of the property */}
             <section className='col-12'>
-                <h3>Description</h3>
+                <h4 className="blue" >Description</h4>
                 <p>{ data.description }</p>
             </section>
 
             {/* Use cases section of the property */}
             <section className='col-12'>
-                <h3>Cas d'utilisation</h3>
+                <h4 className="blue" >Cas d'utilisation</h4>
                 <p>{ data.uses }</p>
             </section>
 
             {/* Restrictions section of the property */}
             <section className='col-12'>
-                <h3>Restrictions</h3>
+                <h4 className="blue" >Restrictions</h4>
                 <p>{ data.restrictions }</p>
             </section>
             

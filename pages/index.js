@@ -17,46 +17,65 @@ export const getStaticProps = async () => {
   return {
     props: {documentation: data}  // will be passed to the page component as props
   }
-
 }
 
-  // Containe the json-ld data
-  const schema = {
-    '@context': 'http://schema.org',
-    '@type':'WebSite',
-    name: "Ontologie - Avantage Numérique",
-    description: "Documentation complète sur l'ontologie utilisée dans la base de donnée ouverte et liée d'Avantage Numérique.",
-    /*"url":"https://avantagenumerique.org/",*/
-    producer: {
+
+const Documentation = ( {documentation} ) => {
+
+  
+    /****************************
+             LD+Json data
+     ****************************/
+    const schema = {
       '@context': 'http://schema.org',
-      '@type':'Organization',
-      name: "Avantage Numérique",
-      description: "Avantage numérique est un hub virtuel, physique et mobile qui dessert les secteurs de la culture, des affaires et du savoir. Il vise le développement de l’écosystème créatif, entrepreneurial et technologique du Croissant boréal.",
-      sameAs: "https://avantagenumerique.org/"
-    },
-    about: {
+      '@type':'WebSite',
+      name: "Ontologie - Avantage Numérique",
+      description: "Documentation complète sur l'ontologie utilisée dans la base de donnée ouverte et liée d'Avantage Numérique.",
+      
+      producer: {
+        '@context': 'http://schema.org',
+        '@type':'Organization',
+        name: "Avantage Numérique",
+        description: "Avantage numérique est un hub virtuel, physique et mobile qui dessert les secteurs de la culture, des affaires et du savoir. Il vise le développement de l’écosystème créatif, entrepreneurial et technologique du Croissant boréal.",
+        mainEntityOfPage: "https://avantagenumerique.org/"
+      },
+      
+      about: {
         "@context": "http://schema.org/",
         "@type": "Dataset",
         description: "Ontologie d'Avantage Numérique destinée à être utilitée dans une base de données ouverte et liée, dans le but de regrouper les techno-créatifs présents sur le territoire du croissant boréal.",
         name: "Ontologie - Avantage Numérique",
-        hasPart: [
-          {
-            "@context": "http://schema.org/",
-            "@type": "Dataset",
-            name: "Personne",
-            description: "Classe représentant un individu unique.",
-            mainEntity: {
-              "@context": "http://schema.org/",
-              "@type": "Class"
-              /* sameAs: url of the individual page */
-            }
-          }
-        ]
+        creator: {
+          '@context': 'http://schema.org',
+          '@type':'Organization',
+          name: "Avantage Numérique",
+          description: "Avantage numérique est un hub virtuel, physique et mobile qui dessert les secteurs de la culture, des affaires et du savoir. Il vise le développement de l’écosystème créatif, entrepreneurial et technologique du Croissant boréal.",
+          mainEntityOfPage: "https://avantagenumerique.org/"
+        },
+        hasPart: []
       }
-  }
+    }
 
-const Documentation = ( {documentation} ) => {
+  //Add the specific classes to the LD+Json file
+  documentation.classes.forEach(data => {
 
+    schema.about.hasPart.push({
+      "@context": "http://schema.org/",
+      "@type": "Dataset",
+      "name": data.title,
+      "description": data.intro,
+      "creator": {
+        '@context': 'http://schema.org',
+        '@type':'Organization',
+        name: "Avantage Numérique",
+        description: "Avantage numérique est un hub virtuel, physique et mobile qui dessert les secteurs de la culture, des affaires et du savoir. Il vise le développement de l’écosystème créatif, entrepreneurial et technologique du Croissant boréal.",
+        mainEntityOfPage: "https://avantagenumerique.org/"
+      },
+      "sameAs": `/${data.slug}` 
+    })
+
+  })
+  
 
   // Set the state of the current selected class to null by default 
   const [ index, setActiveIndex ] = useState( null );
@@ -108,14 +127,16 @@ const Documentation = ( {documentation} ) => {
         <script 
               type='application/ld+json'
               dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(JSON.stringify(schema))}}
-          />
+        />
+
       </Head>
 
       {/* General header of the page */}
       <header className="sec-color_BG">
         <section className="white col-12">
-          <h2>Préparez vos données pour vous connecter au <br/><span class="dark">croissant boréal</span></h2>
+          <h1>Préparez vos données pour vous connecter au <br/><span className="dark">croissant boréal</span></h1>
 
+          {/* SVG still to integrate and animate. This version is only temporary */}
           <figure>
             <img className={styles.mainIllustration} alt="Illustrations représentant Avantage Numérique." src="\index_main_background.png"/>
 

@@ -10,6 +10,7 @@
 */
 
 import HamburgerButton from './buttons/HamburgerButton';
+import Link from 'next/link'
 import styles from '../styles/components/Header.module.scss'
 
 const Header = ( props ) => {
@@ -19,7 +20,11 @@ const Header = ( props ) => {
 
             {/* Container that fills all the width of the platform and containerr the logo*/}
             <div className={`${styles.headerContent} maxWidthPageContainer`}>
-                <img src="/logo.svg" alt="Logo Avantage Numérique"/>
+                <div>
+                    <Link href="/">
+                        <img src="/logo.svg" alt="Logo Avantage Numérique"/>
+                    </Link>
+                </div>
             </div>
 
             {/* Container that contain the menu button */}

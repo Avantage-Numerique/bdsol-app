@@ -15,10 +15,7 @@ const LinkedClass = ( {data, globalData} ) => {
     let classObj;
 
     try{
-        /*
-            Possibility of error if the slug and the linked class name don't fit. 
-
-        */
+        /* Possibility of error if the slug and the linked class name don't fit. */
         classObj = globalData.classes.find((obj) =>  obj.slug === data.class);
     } catch(error){
         //Set to null if no match is found
@@ -48,7 +45,9 @@ const LinkedClass = ( {data, globalData} ) => {
             </section>
 
             {/* Link to the individual page of the class */}
-            <Link href={`/doc/classe/${data.class}`}>&#x279A;</Link>
+            <Link href={`/doc/classe/${data.class}`}>
+                <img src="/icones/redirectionIllustration.svg" alt="Bouton de redirection"/>
+            </Link>
 
         </article>
     )   

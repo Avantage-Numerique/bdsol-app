@@ -3,7 +3,8 @@
     Component representing the main object representing a class entity
     V.P.R - created: 04/10/2021
 
-    */
+*/
+
 import ClassInfos from './ClassInfos'
 import XButton from './buttons/XButton'
 import styles from '../styles/components/Class.module.scss'
@@ -16,16 +17,20 @@ const Class = ( { data, onclick, active, globalData} ) => {
     return (
 
         <article id={ data.slug } className={`${styles.classComponent} ${isActive}`}  onClick={ active ? null : onclick } >
+              
+                {/* Inline quick presentation of the class */}
+                <header>
+                    <img alt="Icone de représentant la classe" src="\class-icones\1356-wooden-box-outline.svg" />
+                    <h3>{ data.title }</h3>
+                    <p>{ data.intro }</p>
+                    <XButton openned={ active } onclick={ onclick } active={ active } className={styles.closeOpenButton}/>
+                </header>
 
-            {/* Inline quick presentation of the class */}
-            <section>
-                <h2>{ data.title }</h2>
-                <p>{ data.intro }</p>
-                <XButton openned={ active } onclick={ onclick } active={ active } className={styles.closeOpenButton}/>
-            </section>
-
-            {/* Main informations component of the class */}
-            <ClassInfos data={ data } active={ active } globalData={globalData}/>
+                {/* Apply margins to the content block */}
+                <div className="col-12">
+                    {/* Main informations component of the class */}
+                    <ClassInfos data={ data } active={ active } globalData={globalData}/>
+                </div>
 
         </article>
 

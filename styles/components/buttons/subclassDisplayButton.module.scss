@@ -1,0 +1,55 @@
+/*
+
+        Styling and animation for the X Button
+
+*/
+
+.xButton{
+    border: unset;
+
+    width: 3rem;
+    height: 3rem; 
+
+    border-radius: 100%;
+    cursor: pointer;
+    justify-self: center;
+    background-color: var(--grey);
+    transition: 0.3s;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    svg {
+        width: 1.5rem;
+        height: auto;
+        fill: white;
+    }
+
+
+    &:hover {
+        -webkit-transform: scale(1.1); /* WebKit */
+        -moz-transform: scale(1.1); /* Mozilla */
+        -o-transform: scale(1.1); /* Opera */
+        -ms-transform: scale(1.1); /* Internet Explorer */
+        transform: scale(1.1); /* CSS3 */
+    }
+
+    &.openned{
+        -webkit-transform: rotate(180deg); /* WebKit */
+        -moz-transform: rotate(180deg); /* Mozilla */
+        -o-transform: rotate(180deg); /* Opera */
+        -ms-transform: rotate(180deg); /* Internet Explorer */
+        transform: rotate(180deg); /* CSS3 */
+
+        background-color: var(--mainBlue);
+
+        &:hover {
+            -webkit-transform: scale(1.3) rotate(0deg); /* WebKit */
+            -moz-transform: scale(1.3) rotate(0deg); /* Mozilla */
+            -o-transform: scale(1.3) rotate(0deg); /* Opera */
+            -ms-transform: scale(1.3) rotate(0deg); /* Internet Explorer */
+            transform: scale(1.3) rotate(0deg); /* CSS3 */
+        }
+    }
+}

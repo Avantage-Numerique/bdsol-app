@@ -14,6 +14,8 @@ export const getStaticPaths = async () => {
     const res = await fetch('http://bdsol.avantagenumerique.org/o/v1');
     const data = await res.json();
 
+    
+
     //Map the parameters for every pages needed
     const paths = data.classes.map( classe => {
         return {
@@ -48,6 +50,23 @@ export const getStaticProps = async (context) => {
 
 const ClassPage = ( {data, active, globalData} ) => {
 
+    /****************************
+             LD+Json data
+     ****************************/
+    const schema = {
+        "@context": "http://schema.org/",
+        "@type": "Dataset",
+        name: data.title,
+        description: data.intro,
+        creator: {
+          '@context': 'http://schema.org',
+          '@type':'Organization',
+          name: "Avantage Numérique",
+          description: "Avantage numérique est un hub virtuel, physique et mobile qui dessert les secteurs de la culture, des affaires et du savoir. Il vise le développement de l’écosystème créatif, entrepreneurial et technologique du Croissant boréal.",
+          mainEntityOfPage: "https://avantagenumerique.org/"
+        },
+    }
+
     return (
         <div className="maxWidthPageContainer">
         {/* Set the proper width in the page */}
@@ -73,7 +92,17 @@ const ClassPage = ( {data, active, globalData} ) => {
                 <link rel="canonical" href="https://avantagenumerique.org/">  
 
                 */}
+
+                {/* Structured data */}
+                <script 
+                    type='application/ld+json'
+                    dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(JSON.stringify(schema))}}
+                />
+                
             </Head>
+
+
+            <h1>{data.title}</h1>
             
             {/* Main informations component of the class */}
             <ClassInfos data={ data } active={ active } globalData={globalData}/>
