@@ -130,6 +130,7 @@ const Documentation = ( {documentation} ) => {
         />
 
       </Head>
+      
 
       {/* General header of the page */}
       <header className="sec-color_BG">
