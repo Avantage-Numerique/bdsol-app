@@ -11,7 +11,7 @@ import ClassInfos from '../../../components/ClassInfos'
 //Specify dynamic routes to pre-render pages based on data.
 export const getStaticPaths = async () => {
 
-    const res = await fetch('http://bdsol.avantagenumerique.org/o/v1');
+    const res = await fetch('https://api.avantagenumerique.org/o/v1');
     const data = await res.json();
 
     
@@ -35,7 +35,7 @@ export const getStaticPaths = async () => {
 export const getStaticProps = async (context) => {
 
     //fetching
-    const res = await fetch('http://bdsol.avantagenumerique.org/o/v1');
+    const res = await fetch('https://api.avantagenumerique.org/o/v1');
     const data = await res.json();
 
     //filter the array to get only the selected information
