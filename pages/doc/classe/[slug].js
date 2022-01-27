@@ -1,17 +1,18 @@
 import Head from 'next/head'
 
 import ClassInfos from '../../../components/ClassInfos'
+import Config from '../../../components/Config'
+
+import DOMPurify from 'isomorphic-dompurify';
 
 /*
-
-    Component for individual class pages 
-
+    Component for individual class pages
 */
 
 //Specify dynamic routes to pre-render pages based on data.
 export const getStaticPaths = async () => {
 
-    const res = await fetch('https://api.avantagenumerique.org/o/v1');
+    const res = await fetch(Config.apiBaseHostName);
     const data = await res.json();
 
     
@@ -35,7 +36,7 @@ export const getStaticPaths = async () => {
 export const getStaticProps = async (context) => {
 
     //fetching
-    const res = await fetch('https://api.avantagenumerique.org/o/v1');
+    const res = await fetch(Config.apiBaseHostName);
     const data = await res.json();
 
     //filter the array to get only the selected information

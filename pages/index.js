@@ -5,17 +5,19 @@ import DOMPurify from 'isomorphic-dompurify';
 import Head from 'next/head'
 import Class from '../components/Class'
 import styles from '../styles/pages/Index.module.scss'
+import Config from '../components/Config'
+
 //import jsonFile from '../doc/exemples.json'   Not used for now since, for development purposes, a mock api is used
 
 
 // Fetch the documentation data from the Api and pass it as a props
 export const getStaticProps = async () => {
 
-  const res = await fetch('https://api.avantagenumerique.org/o/v1');
+  const res = await fetch(Config.apiBaseHostName);
   const data = await res.json();
 
   return {
-    props: {documentation: data}  // will be passed to the page component as props
+    props: {documentation: data} // will be passed to the page component as props
   }
 }
 
@@ -71,7 +73,7 @@ const Documentation = ( {documentation} ) => {
         description: "Avantage numérique est un hub virtuel, physique et mobile qui dessert les secteurs de la culture, des affaires et du savoir. Il vise le développement de l’écosystème créatif, entrepreneurial et technologique du Croissant boréal.",
         mainEntityOfPage: "https://avantagenumerique.org/"
       },
-      "sameAs": `/${data.slug}` 
+      "sameAs": `/${data.slug}`
     })
 
   })
