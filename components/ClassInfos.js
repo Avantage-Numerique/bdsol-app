@@ -87,7 +87,9 @@ const ClassInfos = ( {data, active, globalData} ) => {
             * Linked classes section
             * 
             * 
-            * */}
+            * 
+            */}
+            
             <div className={`${styles.classLinkedClassed} col-12`}>
             
                 <h4 className="blue col-12">Classes liées</h4>
