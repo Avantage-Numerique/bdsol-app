@@ -9,9 +9,9 @@
 
 */
 
-import HamburgerButton from './buttons/HamburgerButton';
+import HamburgerButton from '../../common/buttons/HamburgerButton/HamburgerButton';
 import Link from 'next/link'
-import styles from '../styles/components/Header.module.scss'
+import styles from './Header.module.scss'
 
 const Header = ( props ) => {
 

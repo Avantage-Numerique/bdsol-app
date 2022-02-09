@@ -5,7 +5,7 @@
 
 */
 
-import styles from '../styles/components/Property.module.scss'
+import styles from './Property.module.scss'
 
 const Property = ( {data} ) => {
 

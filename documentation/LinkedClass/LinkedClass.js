@@ -5,9 +5,8 @@
 
 */
 import Link from 'next/link'
-import { Children } from 'react';
 
-import styles from '../styles/components/LinkedClass.module.scss'
+import styles from './LinkedClass.module.scss'
 
 const LinkedClass = ( {data, globalData} ) => {
 
@@ -45,7 +44,7 @@ const LinkedClass = ( {data, globalData} ) => {
             </section>
 
             {/* Link to the individual page of the class */}
-            <Link href={`/doc/classe/${data.class}`}>
+            <Link href={`/documentation/classe/${data.class}`}>
                 <img src="/icones/redirectionIllustration.svg" alt="Bouton de redirection"/>
             </Link>
 

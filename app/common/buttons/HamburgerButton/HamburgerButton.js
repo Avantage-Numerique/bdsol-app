@@ -6,7 +6,7 @@
 */
 import React, { useState } from 'react';
 
-import styles from '../../styles/components/buttons/hamburgerButton.module.scss'
+import styles from './hamburgerButton.module.scss'
 
 const HamburgerButton = ( {menuState, setMenuState} ) => {
 

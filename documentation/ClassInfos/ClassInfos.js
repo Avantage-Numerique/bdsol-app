@@ -7,9 +7,9 @@
 
 import React, { useState } from 'react';
 
-import styles from '../styles/components/ClassInfos.module.scss';
-import Property from './Property';
-import LinkedClass from './LinkedClass';
+import styles from './ClassInfos.module.scss';
+import Property from '../Property/Property';
+import LinkedClass from '../LinkedClass/LinkedClass';
 
 
 const ClassInfos = ( {data, active, globalData} ) => {
@@ -89,7 +89,7 @@ const ClassInfos = ( {data, active, globalData} ) => {
             * 
             * 
             */}
-            
+
             <div className={`${styles.classLinkedClassed} col-12`}>
             
                 <h4 className="blue col-12">Classes liées</h4>

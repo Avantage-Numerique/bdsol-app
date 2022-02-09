@@ -1,5 +1,11 @@
-import Layout from '../layouts/Layout'
-import '../styles/globals.scss'
+import Layout from '../app/layouts/Layout'
+
+/************************************
+ * 
+ * Import global SCSS files
+ * 
+ ***********************************/
+import '../styles/globals.scss'  
 import '../styles/normalize.scss'
 
 function MyApp( {Component, pageProps} ) {

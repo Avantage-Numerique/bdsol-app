@@ -4,7 +4,7 @@
     V.P.R - created: 19/09/2021
 
 */
-import styles from '../styles/components/Footer.module.scss'
+import styles from './Footer.module.scss'
 
 const Footer = () => {
 

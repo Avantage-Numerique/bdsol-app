@@ -10,7 +10,7 @@ import { useEffect } from 'react'
 import { useRouter } from 'next/router'
 
 import Link from 'next/link'
-import navStyles from '../styles/components/Nav.module.scss'
+import navStyles from './Nav.module.scss'
 
 const Nav = ( {menuState, setMenuState} ) => {
 

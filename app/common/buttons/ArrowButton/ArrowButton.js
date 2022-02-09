@@ -6,9 +6,9 @@
 */
 import React, { useState, useEffect } from 'react';
 
-import styles from '../../styles/components/buttons/subclassDisplayButton.module.scss'
+import styles from './ArrowButton.module.scss'
 
-const XButton = ( {openned, className, onclick} ) => {
+const ArrowButton = ( {openned, className, onclick} ) => {
 
     //Use the useState hook to rerender the component when the prop "openned" change
     const [rerender, setRerender] = useState(false);
@@ -34,4 +34,4 @@ const XButton = ( {openned, className, onclick} ) => {
 
 
 
-export default XButton;
+export default ArrowButton;

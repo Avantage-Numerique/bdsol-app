@@ -5,9 +5,9 @@
 
 */
 
-import ClassInfos from './ClassInfos'
-import XButton from './buttons/XButton'
-import styles from '../styles/components/Class.module.scss'
+import ClassInfos from '../ClassInfos/ClassInfos'
+import ArrowButton from '../../app/common/buttons/ArrowButton/ArrowButton'
+import styles from './Class.module.scss'
 
 const Class = ( { data, onclick, active, globalData} ) => {
 
@@ -23,7 +23,7 @@ const Class = ( { data, onclick, active, globalData} ) => {
                     <img alt="Icone de représentant la classe" src="\class-icones\1356-wooden-box-outline.svg" />
                     <h3>{ data.title }</h3>
                     <p>{ data.intro }</p>
-                    <XButton openned={ active } onclick={ onclick } active={ active } className={styles.closeOpenButton}/>
+                    <ArrowButton openned={ active } onclick={ onclick } active={ active } className={styles.closeOpenButton}/>
                 </header>
 
                 {/* Apply margins to the content block */}

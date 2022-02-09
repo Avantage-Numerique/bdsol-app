@@ -7,11 +7,12 @@
 import React, { useState } from "react";
 
 import Head from 'next/head'
-import Footer from '../components/Footer'
-import Header from '../components/Header'
-import Nav from '../components/Nav'
 
-import layoutStyles from '../styles/layouts/Layout.module.scss'
+import Footer from './Footer/Footer'
+import Header from './Header/Header'
+import Nav from './Navigation/Nav'
+
+import layoutStyles from './Layout.module.scss'
 
 
 const Layout = ( {children} ) => {
