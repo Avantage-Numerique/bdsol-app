@@ -4,9 +4,8 @@ import DOMPurify from 'isomorphic-dompurify';
 
 import Head from 'next/head'
 
-
 import Class from '../../documentation/components/Class/Class'
-import styles from '../../styles/pages/Documentation.module.scss'
+import styles from '../../styles/pages/Index.module.scss'
 import Config from '../../Config'
 
 //import jsonFile from '../doc/exemples.json'   Not used for now since, for development purposes, a mock api is used
