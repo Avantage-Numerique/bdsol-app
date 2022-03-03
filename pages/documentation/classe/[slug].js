@@ -1,6 +1,6 @@
 import Head from 'next/head'
 
-import ClassInfos from '../../../documentation/ClassInfos/ClassInfos'
+import ClassInfos from '../../../documentation/components/ClassInfos/ClassInfos'
 import Config from '../../../Config'
 
 import DOMPurify from 'isomorphic-dompurify';

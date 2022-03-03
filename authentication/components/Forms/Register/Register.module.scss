@@ -1,0 +1,28 @@
+/*
+
+        Register page
+
+*/
+
+.registerPage {
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 75vh;
+
+
+    form {
+        width: min(35rem, 95%);
+        padding: 2rem;
+        border: 1px solid var(--grey);
+        h3 { margin-top: 0px; }
+    }
+
+    input {
+        background-color: rgb(245, 245, 245);
+        width: 100%;
+    }
+
+
+}

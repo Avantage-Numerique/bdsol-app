@@ -1,15 +1,22 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import DOMPurify from 'isomorphic-dompurify';
 
+import Button from '../app/common/FormElements/Buttons/Button/Button'
+
+import Input from '../app/common/FormElements/Input/Input'
+import { VALIDATOR_REQUIRE } from '../app/utils/validators'
 
 import Head from 'next/head'
+
+import { AuthContext } from '../authentication/context/auth-context'
 
 
 
 
 const HomePage = ( {documentation} ) => {
 
-  
+    const auth = useContext(AuthContext);
+
     /****************************
              LD+Json data
      ****************************/
@@ -64,6 +71,9 @@ const HomePage = ( {documentation} ) => {
       </Head>
       
       <h1 className="col-12">Page d'accueil</h1>
+      { auth.isLoggedIn && <h3>Vous êtes connecté</h3>}
+      { !auth.isLoggedIn && <h3>Vous n'êtes pas connecté</h3>}
+
 
       
     </div>

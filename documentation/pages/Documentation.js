@@ -4,23 +4,15 @@ import DOMPurify from 'isomorphic-dompurify';
 
 import Head from 'next/head'
 
-import Class from '../../documentation/components/Class/Class'
-import styles from '../../styles/pages/Index.module.scss'
+
+import Class from '../components/Class/Class'
+import styles from './Documentation.module.scss'
 import Config from '../../Config'
 
 //import jsonFile from '../doc/exemples.json'   Not used for now since, for development purposes, a mock api is used
 
 
-// Fetch the documentation data from the Api and pass it as a props
-export const getStaticProps = async () => {
 
-  const res = await fetch(Config.apiBaseHostName);
-  const data = await res.json();
-
-  return {
-    props: {documentation: data} // will be passed to the page component as props
-  }
-}
 
 
 const Documentation = ( {documentation} ) => {
@@ -143,7 +135,6 @@ const Documentation = ( {documentation} ) => {
           {/* SVG still to integrate and animate. This version is only temporary */}
           <figure>
             <img className={styles.mainIllustration} alt="Illustrations représentant Avantage Numérique." src="\index_main_background.png"/>
-
             <div>
               <img className={styles.illustration_circle} alt="Illustrations représentant Avantage Numérique." src="\index_main_background-circle1.png"/>
             </div>

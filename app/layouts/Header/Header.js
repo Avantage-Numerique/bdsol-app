@@ -9,7 +9,7 @@
 
 */
 
-import HamburgerButton from '../../common/buttons/HamburgerButton/HamburgerButton';
+import HamburgerButton from '../../common/FormElements/Buttons/HamburgerButton/HamburgerButton';
 import Link from 'next/link'
 import styles from './Header.module.scss'
 
