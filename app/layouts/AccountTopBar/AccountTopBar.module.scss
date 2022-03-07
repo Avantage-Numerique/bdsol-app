@@ -1,0 +1,49 @@
+/*
+
+        Styling for the bar that is displayed when the user is logged in
+
+*/
+
+.accountTopBar{
+
+        height: 2rem;
+        font-size: 1rem;
+        padding: 0.25rem 0rem;
+
+        > div {
+                display: flex;
+                justify-content: space-between;
+        }
+
+        /* Three elements of the bar */
+        > div > *, button {
+           color: white;
+           font-size: 1rem;
+           float: right;
+           position: relative;
+           width: auto;
+        }
+
+
+        /* Additionnal styling */
+        .alignCenter {
+           display: flex;
+           align-items: center;
+        }
+
+        .verticalLine {
+           position: relative;
+           float: left;
+           border-right: 1px solid rgba(255, 255, 255, 0.671);
+           height: 100%;
+           width: 1px;
+           margin: 0px 1rem;
+           
+        }
+   
+
+   
+
+       
+        
+}

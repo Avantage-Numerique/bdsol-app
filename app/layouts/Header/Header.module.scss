@@ -14,14 +14,21 @@
     height: var(--headersHeight);
     z-index: 1000; /* nav component at 999 */
 
+    &.accountBarPresent{
+        height: calc(var(--headersHeight) + 2rem);
+
+        .navButton { top: 2rem; }
+    }
 
     /* Title container where is putted the logo */
     > .headerContent {        
 
+        float: left;
         height: calc(0.34 * var(--headersHeight));
         margin-top: calc(0.33 * var(--headersHeight));
         margin-bottom: calc(0.33 * var(--headersHeight));
 
+        /* Back section with logo  */
         > div {
 
             float: left;
@@ -36,19 +43,24 @@
                 object-position: left center;
             }
         }
-        
     }
 
-    .navButton {
+      /* Blue button to open the nav */
+      .navButton {
         position: absolute;
         right: 0px;
         top: 0px;
+        bottom: 0px;
         width: 15vw;
-        height: inherit;
 
         /* Align the hamburger menu in the center */
         display: flex;
         justify-content: center;
         align-items: center;
     }
+
+
+    
+
+    
 }

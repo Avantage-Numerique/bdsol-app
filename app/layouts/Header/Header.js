@@ -9,14 +9,21 @@
 
 */
 
+import { useState } from 'react'
+
+import AccountTopBar from '../AccountTopBar/AccountTopBar'
 import HamburgerButton from '../../common/FormElements/Buttons/HamburgerButton/HamburgerButton';
 import Link from 'next/link'
 import styles from './Header.module.scss'
 
 const Header = ( props ) => {
 
+    const [displayTopBar, setDisplayTopBar] = useState(true);
+
     return (
-        <header className={`${styles.header} dark_BG`}>
+        <header className={`${styles.header} ${displayTopBar && styles.accountBarPresent} dark_BG`}>
+            
+            { displayTopBar && <AccountTopBar /> }
 
             {/* Container that fills all the width of the platform and containerr the logo*/}
             <div className={`${styles.headerContent} maxWidthPageContainer`}>
@@ -31,6 +38,8 @@ const Header = ( props ) => {
             <div className={`${styles.navButton} blue_BG`}>
                 <HamburgerButton {...props} />
             </div>
+
+            
 
         </header>
     )   

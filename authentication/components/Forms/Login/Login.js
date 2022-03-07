@@ -70,7 +70,6 @@ const Login = () => {
                 
                 auth.login(responseData.token);
 
-                auth.isLoggedIn = true;
 
 
             } catch(err){
