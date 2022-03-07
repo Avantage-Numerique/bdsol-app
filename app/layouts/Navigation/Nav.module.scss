@@ -30,7 +30,36 @@
             }
         }
 
-        ul.mainMenu { font-size: 3rem; }
+        ul.mainMenu { font-size: 3rem;
+            
+        }
+
+        /* Account basic options */
+        .accountOption{
+
+            margin: 1rem 0rem;
+            padding: 1rem;  
+            
+            h3 { 
+                margin: 0rem;
+                margin-bottom: 1rem;
+            }
+            .line {
+                margin: 0px;
+                margin-bottom: 1rem;
+                border-width: 0.1rem;
+                width: 100%;
+                opacity: 0.5;
+            }
+
+            li {
+                font-size: 1rem;
+                font-weight: 700;
+                opacity: 0.8;
+
+                &:hover{ opacity: 1;}
+            }
+        }
 
         .line {
             float: left;

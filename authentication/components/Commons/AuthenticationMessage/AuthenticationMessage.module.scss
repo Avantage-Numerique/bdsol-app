@@ -1,0 +1,31 @@
+/*
+
+
+
+*/
+
+.authenticationMessage {
+
+
+    width: min(35rem, 95%);
+    padding: 2rem;
+    border: 1px solid var(--grey);
+    height: auto;
+
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+
+    > * {
+        float: left;
+    }
+    
+    h2 {
+        margin-top: 0px; 
+        width: 100%;
+    }
+
+ 
+    
+
+}

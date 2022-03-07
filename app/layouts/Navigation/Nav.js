@@ -27,17 +27,37 @@ const Nav = ( {menuState, setMenuState} ) => {
         <nav className={`${navStyles.navContainer} ${menuState ? navStyles.displayed : " "}`}>
             <div className={navStyles.maxWidthPageContainer + ' ' + "maxWidthPageContainer"}>
              
-                <ul className={`${navStyles.mainMenu} col-12`}>
+                <ul className={`${navStyles.mainMenu} col-9`}>
                     <li className="col-12">
-                        <Link href="https://avantagenumerique.org/chantiers-et-projets-innovants/">Nos chantiers et projets innovants</Link>
+                        <Link href="/compte">Autre titre principale</Link>
                     </li>
                     <li className="col-12">
-                        <Link href="https://avantagenumerique.org/espaces-collaboratifs/">Nos espaces collaboratifs</Link>
+                        <Link href="/documentation">Documentation</Link>
                     </li>
                     <li className="col-12">
                         <Link href="https://avantagenumerique.org/blogue/">Blogue</Link>
                     </li>
                 </ul>
+
+                <div className={`${navStyles.accountOption} col-3 sec-color_BG`}>
+                    
+                    <h3>Compte</h3>                
+                    
+                    <div className={`${navStyles.line}`}></div>
+
+                    <ul>
+                        
+                        <li className="col-12">
+                            <Link href="/compte">Espace membre</Link>
+                        </li>
+                        <li className="col-12">
+                            <Link href="/compte/connexion">Se connecter</Link>
+                        </li>
+                        <li className="col-12">
+                            <Link href="/compte/inscription">Créer un compte</Link>
+                        </li>
+                    </ul>
+                </div>
 
                 <div className={`${navStyles.line}`}></div>
 
