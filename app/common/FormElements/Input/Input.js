@@ -27,15 +27,11 @@ const inputReducer = (state, action) => {
 
 const Input = props => {
 
-
     const [inputState, dispatch] = useReducer(inputReducer, {
         value: '', 
         isTouched: false,
         isValid: false
     });
-
-    console.log(inputState)
-
 
     //Inform the form (parent component) of the value and validity of this input
     const { id, onInput } = props;          

@@ -15,8 +15,11 @@ import '../app/common/FormElements/Buttons/Button/Button.scss'
 
 function MyApp( {Component, pageProps} ) {
 
+
+  //If we have a token, then it means that we are logged in
   const [token, setToken] = useState( false ); 
 
+  //Functions to modify the context
   const login = useCallback(token => {
     setToken(token);
   }, [])
@@ -27,17 +30,20 @@ function MyApp( {Component, pageProps} ) {
 
   return (
     
-    <AuthContext.Provider value={{ 
-      isLoggedIn: !!token, 
-      token: token,
-      login: login, 
-      logout: logout }}>
-        <Layout>
+    <>
+      {/* Authentication context provided to all the subsequents elements */}
+      <AuthContext.Provider value={{ 
+        isLoggedIn: !!token, 
+        token: token,
+        login: login, 
+        logout: logout }}>
+          <Layout>
 
-            <Component {...pageProps} />
+              <Component {...pageProps} />
 
-        </Layout>
-    </AuthContext.Provider>
+          </Layout>
+      </AuthContext.Provider>
+    </>
   )
   
 }

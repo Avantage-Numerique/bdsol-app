@@ -1,6 +1,10 @@
-import React, { useContext } from 'react'
-import { AuthContext } from '../../../context/auth-context'
+import React, { useContext, useEffect } from 'react'
+
 import Link from 'next/link'
+import Router from 'next/router'
+
+import { AuthContext } from '../../../context/auth-context'
+
 
 //Validators
 import {VALIDATOR_REQUIRE} from '../../../../app/utils/validators'
@@ -17,6 +21,20 @@ import styles from './Login.module.scss'
 
 const Login = () => {
 
+    //Import the authentication context to make sure the user is well connected
+    const auth = useContext(AuthContext);
+
+    /*
+        First of all, verify if the user is logged in.
+        If he is, then redirect him in the account page
+    */
+    useEffect(() => {
+          if(auth.isLoggedIn) {
+            Router.push('/compte')
+          }
+    }, [auth.isLoggedIn])
+
+
     const [formState, inputHandler] = useForm(
         {
         username: {
@@ -30,16 +48,10 @@ const Login = () => {
     }, 
     false)
 
-
-    //Import the authentication context to make sure the user is well connected
-    const auth = useContext(AuthContext);
-
-
     //Submit the form
     const authSubmitHandler = async event => {
 
         event.preventDefault();
-        //console.log(event.target.userName.value);
 
         if(auth.isLoggedIn){
 
@@ -48,7 +60,7 @@ const Login = () => {
         } else {
 
             try{
-
+/*
                 const response = await fetch('https://api.avantagenumerique.org/o/v1', {
                     method: 'POST',
                     headers: {
@@ -62,21 +74,30 @@ const Login = () => {
                 });
 
                 const responseData = await response.json();
+                
 
                 //If 400 or 500 type of response, throw an error
                 if(!response.ok){
                     throw new Error(responseData.message);
                 }
                 
+                //Response is accepted
                 auth.login(responseData.token);
+*/
 
+
+                //temporary value to always accept an attempt to login 
+                auth.login("nvdownpwejijvdsdnew");
 
 
             } catch(err){
+
+                /*
+                    Reaction to define if the user os not autorize
+                */
                 console.log(err);
             }
         }
-        
     }
 /*
     const inputHandler = useCallback((id, value, isValid) => {

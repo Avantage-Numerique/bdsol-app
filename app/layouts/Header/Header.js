@@ -9,21 +9,28 @@
 
 */
 
-import { useState } from 'react'
+import { useContext } from 'react'
 
 import AccountTopBar from '../AccountTopBar/AccountTopBar'
 import HamburgerButton from '../../common/FormElements/Buttons/HamburgerButton/HamburgerButton';
 import Link from 'next/link'
+
+//Authentication context
+import { AuthContext } from '../../../authentication/context/auth-context'
+
+
+//Styling
 import styles from './Header.module.scss'
 
 const Header = ( props ) => {
 
-    const [displayTopBar, setDisplayTopBar] = useState(true);
+    //Import the authentication context to make sure the user is well connected
+    const auth = useContext(AuthContext);
 
     return (
-        <header className={`${styles.header} ${displayTopBar && styles.accountBarPresent} dark_BG`}>
+        <header className={`${styles.header} ${auth.isLoggedIn && styles.accountBarPresent} dark_BG`}>
             
-            { displayTopBar && <AccountTopBar /> }
+            { auth.isLoggedIn && <AccountTopBar /> }
 
             {/* Container that fills all the width of the platform and containerr the logo*/}
             <div className={`${styles.headerContent} maxWidthPageContainer`}>

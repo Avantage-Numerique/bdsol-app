@@ -1,10 +1,16 @@
-import React from 'react'
+import { useContext } from 'react'
 import Link from 'next/link'
 
+//Authentication context
+import { AuthContext } from '../../../authentication/context/auth-context'
+
+//Styling 
 import styles from './AccountTopBar.module.scss'
 
 const AccountTopBar = () => {
 
+    //Import the authentication context 
+    const auth = useContext(AuthContext);
    
     return (
         <div className={`${styles.accountTopBar} col-12 sec-color_BG`}>
@@ -19,7 +25,7 @@ const AccountTopBar = () => {
                         <a>Compte</a>
                     </Link>
                     <div className={styles.verticalLine}></div>
-                    <button>Se déconnecter</button>
+                    <button onClick={auth.logout}>Se déconnecter</button>
                 </div>
             </div>
 
