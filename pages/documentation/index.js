@@ -1,13 +1,15 @@
 import Documentation from '../../documentation/pages/Documentation'
 
-import Config from '../../Config'
+//get the config
+import getConfig from 'next/config'
+const { serverRuntimeConfig, publicRuntimeConfig } = getConfig();
 
 
 // Fetch the documentation data from the Api and pass it as a props
 //Can only be done from the page
 export const getStaticProps = async () => {
 
-  const res = await fetch(Config.apiBaseHostName);
+  const res = await fetch(serverRuntimeConfig.apiOntologyHostName);
   const data = await res.json();
 
   return {

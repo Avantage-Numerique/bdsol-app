@@ -1,7 +1,10 @@
 import Head from 'next/head'
 
 import ClassInfos from '../../../documentation/components/ClassInfos/ClassInfos'
-import Config from '../../../Config'
+
+//get the config
+import getConfig from 'next/config'
+const { serverRuntimeConfig, publicRuntimeConfig } = getConfig();
 
 import DOMPurify from 'isomorphic-dompurify';
 
@@ -12,10 +15,9 @@ import DOMPurify from 'isomorphic-dompurify';
 //Specify dynamic routes to pre-render pages based on data.
 export const getStaticPaths = async () => {
 
-    const res = await fetch(Config.apiBaseHostName);
+    const res = await fetch(serverRuntimeConfig.apiOntologyHostName);
     const data = await res.json();
 
-    
 
     //Map the parameters for every pages needed
     const paths = data.classes.map( classe => {
@@ -36,7 +38,7 @@ export const getStaticPaths = async () => {
 export const getStaticProps = async (context) => {
 
     //fetching
-    const res = await fetch(Config.apiBaseHostName);
+    const res = await fetch(serverRuntimeConfig.apiOntologyHostName);
     const data = await res.json();
 
     //filter the array to get only the selected information

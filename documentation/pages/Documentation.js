@@ -7,7 +7,6 @@ import Head from 'next/head'
 
 import Class from '../components/Class/Class'
 import styles from './Documentation.module.scss'
-import Config from '../../Config'
 
 //import jsonFile from '../doc/exemples.json'   Not used for now since, for development purposes, a mock api is used
 
@@ -88,7 +87,7 @@ const Documentation = ( {documentation} ) => {
   }
 
   //Calculate if the class is active of not and pass the answer (bool) in props
-  const isActiveClass = ( classIndex ) => classIndex === index ? true : false;
+  const isActiveClass = ( classIndex ) => classIndex === index;
 
 
   return (
@@ -133,6 +132,7 @@ const Documentation = ( {documentation} ) => {
           <h1>Préparez vos données pour vous connecter au <br/><span className="dark">croissant boréal</span></h1>
 
           {/* SVG still to integrate and animate. This version is only temporary */}
+          {/* @TODO : Warning du path, peut-être implémenté : https://nextjs.org/docs/basic-features/static-file-serving ?*/}
           <figure>
             <img className={styles.mainIllustration} alt="Illustrations représentant Avantage Numérique." src="\index_main_background.png"/>
             <div>
