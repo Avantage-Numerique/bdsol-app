@@ -59,7 +59,38 @@ const Login = () => {
 
         } else {
 
-            try{
+            try {
+                const baseApiRoute = 'http://localhost' + ':' + '8000';
+                //const apiPingRoute = baseApiRoute + '/ping';
+
+                let apiDefaultHeaders = {
+                    'Origin': 'http://localhost:3000',
+                    "Content-Type": "application/json"
+                    //"Content-Type": "application/x-www-form-urlencoded"
+                }
+
+                let formData = {
+                    //name: event.target.userName.value,
+                    //email:  event.target.email.value,
+                    username:  event.target.username.value,
+                    password: event.target.password.value //@todo encrypt with app key before sending? or https is enought ?
+                };
+
+                const response = await fetch(baseApiRoute + "/login", {
+                    method: 'POST',
+                    headers: apiDefaultHeaders,
+                    body: JSON.stringify(formData)
+                });
+
+                const responseData = await response.json() || {};
+                ///const responseData = JSON.parse(responseDataresponseRaw) || {};
+
+                //If 400 or 500 type of response, throw an error
+                if(!response.ok){
+                    throw new Error(responseData.message);
+                }
+
+                auth.login(responseData.userConnectedToken);
 /*
                 const response = await fetch('https://api.avantagenumerique.org/o/v1', {
                     method: 'POST',
@@ -83,11 +114,11 @@ const Login = () => {
                 
                 //Response is accepted
                 auth.login(responseData.token);
+
+                //temporary value to always accept an attempt to login
+                auth.login("nvdownpwejijvdsdnew");
 */
 
-
-                //temporary value to always accept an attempt to login 
-                auth.login("nvdownpwejijvdsdnew");
 
 
             } catch(err){

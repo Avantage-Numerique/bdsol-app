@@ -1,9 +1,18 @@
 {
+  "name": "bdsol-frontend",
+  "version": "0.0.1",
+  "description": "BDSOL fronted en nextjs",
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "dev:watch": "next dev",
     "build": "next build",
-    "start": "next start -p ${PORT:=3000}"
+    "start": "next start -p ${PORT:=3000}",
+    "docker:dev": "npx concurrently \"npm run build\" \"npm run dev:run\"",
+    "docker:dev:watch": "npx concurrently \"npm run dev:watch\" \"npm run docker:dev:run\"",
+    "docker:dev:run": "npx nodemon lib/index.js",
+    "docker:start": "next start -p ${PORT:=3000}",
+    "docker:test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
     "blotter": "^1.0.0",
@@ -12,5 +21,9 @@
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "sass": "^1.49.0"
+  },
+  "devDependencies": {
+    "concurrently": "^7.0.0",
+    "nodemon": "^2.0.15"
   }
 }
