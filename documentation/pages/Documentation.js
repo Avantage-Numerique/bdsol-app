@@ -158,7 +158,7 @@ const Documentation = ( {documentation} ) => {
 
             {/* Main content of the header, presented has an article */}
             <article>
-              <h1>A - Documentation sur la structure complète</h1>
+              <h1>A - Documentation de l'ontologie AN</h1>
               <div className="col-12">
                 <div className={`${styles.line} line blue_BG`}></div>
                 <div className={`${styles.line} line blue_BG`}></div>

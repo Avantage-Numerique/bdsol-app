@@ -73,7 +73,7 @@ const HomePage = ( {documentation} ) => {
       <h1 className="col-12">Page d'accueil</h1>
       { auth.isLoggedIn && <h3>Vous êtes connecté</h3>}
       { !auth.isLoggedIn && <h3>Vous n'êtes pas connecté</h3>}
-
+        <p>Bienvenue!</p>
 
       
     </div>
