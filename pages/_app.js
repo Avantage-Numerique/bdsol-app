@@ -28,6 +28,8 @@ function MyApp( {Component, pageProps} ) {
     setToken(null);
   }, [])
 
+  console.log(token)
+
   return (
     
     <>

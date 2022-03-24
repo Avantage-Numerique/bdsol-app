@@ -5,7 +5,6 @@ import Router from 'next/router'
 
 import { AuthContext } from '../../../context/auth-context'
 
-
 //Validators
 import {VALIDATOR_REQUIRE} from '../../../../app/utils/validators'
 
