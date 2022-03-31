@@ -19,12 +19,13 @@ const Nav = ( {menuState, setMenuState} ) => {
     
     useEffect(() => {
         //Verify the the menu is open. If it is, then close it
-        if (menuState){ setMenuState(!menuState)};
+        if (menuState === 1){ setMenuState(0) };
+        
     }, [router.asPath]);
 
     return (
 
-        <nav className={`${navStyles.navContainer} ${menuState ? navStyles.displayed : " "}`}>
+        <nav className={`${navStyles.navContainer} ${menuState === 1 && navStyles.displayed}`}>
             <div className={navStyles.maxWidthPageContainer + ' ' + "maxWidthPageContainer"}>
              
                 <ul className={`${navStyles.mainMenu} col-9`}>
@@ -38,26 +39,6 @@ const Nav = ( {menuState, setMenuState} ) => {
                         <Link href="https://avantagenumerique.org/blogue/">Blogue</Link>
                     </li>
                 </ul>
-
-                <div className={`${navStyles.accountOption} col-3 sec-color_BG`}>
-                    
-                    <h3>Compte</h3>                
-                    
-                    <div className={`${navStyles.line}`}></div>
-
-                    <ul>
-                        
-                        <li className="col-12">
-                            <Link href="/compte">Espace membre</Link>
-                        </li>
-                        <li className="col-12">
-                            <Link href="/compte/connexion">Se connecter</Link>
-                        </li>
-                        <li className="col-12">
-                            <Link href="/compte/inscription">Créer un compte</Link>
-                        </li>
-                    </ul>
-                </div>
 
                 <div className={`${navStyles.line}`}></div>
 

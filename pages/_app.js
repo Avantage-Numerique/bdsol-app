@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react'
+import { useCallback, useState, useEffect } from 'react'
 
 import { AuthContext } from '../authentication/context/auth-context'
 import Layout from '../app/layouts/Layout'
@@ -28,7 +28,10 @@ function MyApp( {Component, pageProps} ) {
     setToken(null);
   }, [])
 
-  console.log(token)
+  useEffect(() => {
+    console.log(token)
+
+  },[token])
 
   return (
     

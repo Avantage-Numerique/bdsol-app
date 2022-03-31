@@ -10,7 +10,8 @@ import Head from 'next/head'
 
 import Footer from './Footer/Footer'
 import Header from './Header/Header'
-import Nav from './Navigation/Nav'
+import Nav from './Navigation/MainNav/Nav'
+import AccountNav from './Navigation/AccountNav/AccountNav'
 
 import layoutStyles from './Layout.module.scss'
 
@@ -18,12 +19,15 @@ import layoutStyles from './Layout.module.scss'
 const Layout = ( {children} ) => {
 
     /*
-        State manager to manage the situation of the menu : is it displayed or not. 
+        State manager to manage the situation of the two menus. (Main menu and  account menu)
         Listen in the header component and update in the nav component.
 
-        By default, the value is false, which means the menu is closed
+        Three menu states possible : 
+        0 : close
+        1 : Main menu open
+        2 : Account menu open
     */
-    const [menuState, setMenuState] = useState(false);
+    const [menuState, setMenuState] = useState(0);
 
     return (
 
@@ -66,6 +70,7 @@ const Layout = ( {children} ) => {
             <div id={layoutStyles.layout}>
                 <Header menuState={menuState} setMenuState={setMenuState} />
                 <Nav menuState={menuState} setMenuState={setMenuState} />
+                <AccountNav menuState={menuState} setMenuState={setMenuState} />
                 <main> 
                     { children }
                 </main>

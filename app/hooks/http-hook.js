@@ -9,6 +9,7 @@ export const useHttpClient = () => {
 
   //State that determine if the request is in progress
   const [isLoading, setIsLoading] = useState(false);
+
   //State that register the current error status
   const [error, setError] = useState();
 
@@ -57,6 +58,7 @@ export const useHttpClient = () => {
 
       } catch (err) {
 
+        console.log(err)
         //Update the state with the error message
         setError(err.message);
 

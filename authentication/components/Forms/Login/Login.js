@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useState, useEffect, useMemo } from 'react'
 
 import Link from 'next/link'
 import Router from 'next/router'
@@ -15,11 +15,15 @@ import { useHttpClient } from '../../../../app/hooks/http-hook'
 //Form components
 import Input from '../../../../app/common/FormElements/Input/Input'
 import Button from '../../../../app/common/FormElements/Buttons/Button/Button'
+import Message from '../../../../app/common/Message/Message'
 
 //Styling
 import styles from './Login.module.scss'
 
 const Login = () => {
+
+    const [message, setMessage] = useState(null)
+
 
     //Import the authentication context to make sure the user is well connected
     const auth = useContext(AuthContext);
@@ -58,7 +62,7 @@ const Login = () => {
 
         if(auth.isLoggedIn){
 
-            //Display a message to let the user know that he is already logged in
+            //redirect the user to the account page. For now at least
 
         } else {
 
@@ -70,71 +74,50 @@ const Login = () => {
                     const baseApiRoute = 'http://localhost' + ':' + '8000';
                     //const apiPingRoute = baseApiRoute + '/ping';
     
-                    let apiDefaultHeaders = {
+                    const apiDefaultHeaders = {
                         'Origin': 'http://localhost:3000',
                         "Content-Type": "application/json"
                         //"Content-Type": "application/x-www-form-urlencoded"
                     }
         
-                    let formData = {
-                        //name: event.target.userName.value,
-                        //email:  event.target.email.value,
+                    const formData = {
                         username:  formState.inputs.username.value,
                         password: formState.inputs.password.value //@todo encrypt with app key before sending? or https is enought ?
                     };
-    
-                    /*
-                    const response = await fetch(baseApiRoute + "/login", {
-                        method: 'POST',
-                        headers: apiDefaultHeaders,
-                        body: JSON.stringify(formData)
-                    });
-                    */
 
+                    //Send the request with the specialized hook
                     const response = await sendRequest(
                         baseApiRoute + "/login",
                         'POST',
                         JSON.stringify(formData),
                         { 'Content-Type': 'application/json' }
                     )
-
     
                     //const responseData = await response.json() || {};
                     ///const responseData = JSON.parse(responseDataresponseRaw) || {};
     
-                    //If 400 or 500 type of response, throw an error
-                    if(!response.ok){
-                        throw new Error(response.message);
-                    }
-    
-                    auth.login(responseData.userConnectedToken);
-    /*
-                    const response = await fetch('https://api.avantagenumerique.org/o/v1', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({
-                            //name: event.target.userName.value,
-                            email:  event.target.email.value,
-                            password: event.target.password.value
+                    //If an error has been saved in the hook
+                    if(response.error){
+
+                        //Display the error message
+                        setMessage({
+                            text: response.code,
+                            positive: false
                         })
-                    });
-    
-                    const responseData = await response.json();
-                    
-    
-                    //If 400 or 500 type of response, throw an error
-                    if(!response.ok){
-                        throw new Error(responseData.message);
+
+                        throw new Error(response);
                     }
+
+                    const newMessage = {
+                        text: response.message,
+                        positive: true                    }
+
+                    setMessage(newMessage)
+
+                    console.log(response.userConnectedToken)
                     
-                    //Response is accepted
-                    auth.login(responseData.token);
-    
-                    //temporary value to always accept an attempt to login
-                    auth.login("nvdownpwejijvdsdnew");
-    */
+                    auth.login(responseData.userConnectedToken);
+
     
     
     
@@ -144,6 +127,9 @@ const Login = () => {
                         Reaction to define if the user os not autorize
                     */
                     console.log(err);
+
+                    
+
                 }
 
             } else {
@@ -163,6 +149,14 @@ const Login = () => {
 */
     return (
         <section className={styles.authPage}>
+
+
+            {/* Display the messages */}
+            { (error || message) && 
+                    <Message clearState={() => clearError}>
+                        {error}
+                    </Message> 
+            }
 
             <form onSubmit={authSubmitHandler}>
 
