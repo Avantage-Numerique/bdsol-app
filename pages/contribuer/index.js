@@ -1,7 +1,7 @@
 
 //Components
 import Button from '../../app/common/FormElements/Buttons/Button/Button'
-
+import CreatePersonForm from '../../DataTypes/Person/Components/Forms/CreatePerson/CreatePersonForm'
 import styles from './contribution-page.module.scss'
 
 
@@ -18,14 +18,15 @@ const Index = () => {
             <section className={`col-12`}>
                 
                 <div className="maxWidthPageContainer">
-                    <h4>Sélectionnez le type d'entité que vous voulez ajouter</h4>
+                    <h4 className="col-12">Sélectionnez le type d'entité que vous voulez ajouter</h4>
                     <Button>Personne</Button>
                     <Button disabled>Organisation</Button>
                     <Button disabled>Projet</Button>
                     <Button disabled>Événement</Button>
                     <Button disabled>Matériel</Button>
-
-
+                </div>
+                <div className="col-12">
+                    <CreatePersonForm />
                 </div>
             </section>
 

@@ -19,8 +19,15 @@
 
     label {
 
+        display: flex;
+        flex-direction: column;
+
         input {
             padding: 0.5rem;
+            width: 100%;
+            width: min(100%, 50ch);
+
+            background-color: whitesmoke;
 
             &.control--invalid {
                 border: 0.1rem solid rgb(255, 135, 135);

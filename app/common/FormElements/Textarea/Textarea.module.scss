@@ -1,0 +1,50 @@
+
+.TextArea-Component {
+    
+    width: 100%; /* Always all containers width */
+    margin: 0.5rem 0rem;
+
+    /*  Transition for the styling */
+    -webkit-transition: all 500ms ease;
+    -moz-transition: all 500ms ease;
+    -ms-transition: all 500ms ease;
+    -o-transition: all 500ms ease;
+    transition: all 500ms ease;
+
+    label {
+
+        display: flex;
+        flex-direction: column;
+
+        textarea  {
+            padding: 0.5rem;
+            width: 100%;
+            width: min(100%, 50ch);
+            resize: vertical;
+
+            /*
+            Override some default styling of the input element 
+            */
+
+            /* variable to set equally the padding */
+            --inputPadding: 0.75em;
+
+            background-color: whitesmoke;
+            border: unset;
+            color: unset;
+            padding: var(--inputPadding) 0px;
+      
+
+
+  
+
+  
+            
+
+
+            &.control--invalid {
+                border: 0.1rem solid rgb(255, 135, 135);
+            }
+        }
+    }
+}
