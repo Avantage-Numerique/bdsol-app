@@ -31,7 +31,7 @@ const CreatePersonForm = () => {
         }, 
         biography: {
             value: '',
-            isValid: false
+            isValid: true
         }
 
     }, 
@@ -76,6 +76,7 @@ const CreatePersonForm = () => {
                 name="biography"
                 label="Biographie"
                 errorText="Cette information est requise"
+                validators={[]}
                 onInput={inputHandler}
             />
             <Button type="submit" disabled={!formState.isValid}>Soumettre</Button>
