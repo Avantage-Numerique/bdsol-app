@@ -57,7 +57,8 @@ const Input = props => {
                 {props.label}
                 <input 
                     className={` ${!inputState.isValid && inputState.isTouched && styles["control--invalid"]}`}
-                    id={props.id} 
+                    id={props.id}
+                    name={props.name ? props.name : ""}
                     type={props.type} 
                     placeholder={props.placeholder} 
                     onChange={changeHandler} 

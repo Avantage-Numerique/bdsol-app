@@ -5,6 +5,7 @@ import Link from 'next/link'
 
 const Button = props => {
 
+    {/* If the button is an external link */}
     if (props.href) {
         return (
             <a
@@ -16,6 +17,7 @@ const Button = props => {
         );
     }
 
+    {/* If the button is an internal link */}
     if (props.to){
         return (
             <Link
@@ -28,6 +30,7 @@ const Button = props => {
         );
     }
 
+    {/* If the button is not a link, then it calls an action with onClick */}
     return (
         <button
             className={`button button--${props.size || 'default'} ${props.inverse && 'button--inverse'} && ${props.danger && 'button--danger'}`}
