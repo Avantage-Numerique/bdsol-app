@@ -5,7 +5,7 @@ import ClassInfos from '../../../documentation/components/ClassInfos/ClassInfos'
 //get the config
 import getConfig from 'next/config'
 const { serverRuntimeConfig, publicRuntimeConfig } = getConfig();
-
+console.log(serverRuntimeConfig.apiOntologyHostName)
 import DOMPurify from 'isomorphic-dompurify';
 
 /*

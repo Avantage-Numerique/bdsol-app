@@ -9,6 +9,11 @@
 
 .header {
 
+    --navigation-options-with: 20vw;              //In case calc is not supported
+    --navigation-options-with: calc(15vw + 5rem);
+
+
+
     width: 100%;
     position: fixed;
     height: var(--headersHeight);
@@ -17,14 +22,14 @@
     
     z-index: 1000; /* nav component at 999 */
 
-    &.accountBarPresent{
+    &.account-bar{
         height: calc(var(--headersHeight) + 2rem);
 
         .navButton { top: 2rem; }
     }
 
     /* Title container where is putted the logo */
-    > .headerContent {        
+    > .header__content {        
 
         width: 100%;
         height: calc(0.34 * var(--headersHeight));
@@ -36,7 +41,7 @@
 
             float: left;
             height: 100%;
-            padding-right: 15vw;  //Prevent the menu from overlapping
+            padding-right: var(--navigation-options-with);  //Prevent the menu from overlapping
 
             img {
                 cursor: pointer;
@@ -45,20 +50,69 @@
                 object-fit: contain;
                 object-position: left center;
             }
-        }
+        } 
     }
 
-      /* Blue button to open the nav */
-      .navButton {
+    .navigation-options {
+
+        width: var(--navigation-options-with);
         position: absolute;
         right: 0px;
-        top: 0px;
+        height:  var(--headersHeight);
         bottom: 0px;
-        width: 15vw;
 
         /* Align the hamburger menu in the center */
         display: flex;
-        justify-content: center;
-        align-items: center;
+        align-content: center;
+
+        .account-menu-container {
+            position: relative;
+            width: 5rem;
+            float: left;
+            height: 100%;
+            background-color: var(--altBlue);
+
+            /* Align the hamburger menu in the center */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            button {
+                padding: 1.5rem;
+                padding: calc(0.35 *  var(--headersHeight));
+                fill: white;
+                opacity: 0.75;
+
+                -webkit-transition: opacity 200ms;
+                -moz-transition: opacity 200ms;
+                -o-transition: opacity 200ms;
+                transition: opacity 200ms;
+
+                &:hover{
+                    opacity: 1;
+                }
+
+                svg {
+                    width: 100%;
+                }
+            }
+            
+
+        }
+
+        /* Blue button to open the nav */
+        .ham-menu-container {
+            position: relative;
+            width: 15vw;
+            float: right;
+
+            /* Align the hamburger menu in the center */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
     }
+
+      
 }

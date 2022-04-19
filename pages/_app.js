@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react'
+import { useCallback, useState, useEffect } from 'react'
 
 import { AuthContext } from '../authentication/context/auth-context'
 import Layout from '../app/layouts/Layout'
@@ -27,6 +27,11 @@ function MyApp( {Component, pageProps} ) {
   const logout = useCallback(() => {
     setToken(null);
   }, [])
+
+  useEffect(() => {
+    console.log(token)
+
+  },[token])
 
   return (
     
