@@ -40,4 +40,4 @@ EXPOSE 3000
 # ENV NEXT_TELEMETRY_DISABLED 1
 
 ENTRYPOINT ["npm"]
-CMD ["run","dev"]
+CMD ["run","docker:dev:watch"]
