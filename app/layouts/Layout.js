@@ -4,7 +4,7 @@
     V.P.R - Created: 19-09-21
 
     */
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import Head from 'next/head'
 
@@ -12,8 +12,9 @@ import Footer from './Footer/Footer'
 import Header from './Header/Header'
 import Nav from './Navigation/MainNav/Nav'
 import AccountNav from './Navigation/AccountNav/AccountNav'
+import BottomBanner from '../common/UserNotifications/BottomBanner/BottomBanner'
 
-import layoutStyles from './Layout.module.scss'
+import styles from './Layout.module.scss'
 
 
 const Layout = ( {children} ) => {
@@ -29,8 +30,17 @@ const Layout = ( {children} ) => {
     */
     const [menuState, setMenuState] = useState(0);
 
-    return (
 
+    /*
+        Call to display the Bottom Banner after 3 seconds and only once
+    */
+    
+    useEffect(() => {
+           
+    }, [])
+
+
+    return (
         <>
             <Head>
                 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -67,7 +77,7 @@ const Layout = ( {children} ) => {
             
             </Head>
 
-            <div id={layoutStyles.layout}>
+            <div id={styles.layout}>
                 <Header menuState={menuState} setMenuState={setMenuState} />
                 <Nav menuState={menuState} setMenuState={setMenuState} />
                 <AccountNav menuState={menuState} setMenuState={setMenuState} />
@@ -75,6 +85,14 @@ const Layout = ( {children} ) => {
                     { children }
                 </main>
                 <Footer />
+
+                <BottomBanner 
+                    title="Chers et chères visiteurs"
+                    para1="Travail en cours, les données ne seront pas pérennes, gardez toujours vos données en local. Nous tentons d'améliorer l'expérience dans l'application, mais elle peut changé de version en version. Merci de nous partagez votre opinons et vos observations."
+                    buttonText="J'ai compris"
+                />
+
+
             </div>
         </>
     )   

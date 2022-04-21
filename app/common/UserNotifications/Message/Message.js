@@ -5,7 +5,7 @@ import styles from './Message.module.scss'
 
 
 
-const Message = ({ children, positiveReview, clearState }) => {
+const Message = ({ children, positiveReview }) => {
 
     const [active, setActive] = useState(true);
 
@@ -19,7 +19,7 @@ const Message = ({ children, positiveReview, clearState }) => {
     useEffect(() => {
         setTimeout(() => {
             hideElement();
-            setTimeout(() => clearState())
+            
         }, 8000)
     }, [])
 

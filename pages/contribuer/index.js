@@ -10,7 +10,7 @@ import styles from './contribution-page.module.scss'
 
 
 
-const Index = () => {
+const Index = () => {    
 
     //Temporary use useState but will have to be useReducer
     const [displayPerson, setDisplayPerson] = useState(false)
