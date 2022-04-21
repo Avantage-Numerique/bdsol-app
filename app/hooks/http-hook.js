@@ -10,28 +10,28 @@ export const useHttpClient = () => {
   //State that determine if the request is in progress
   const [isLoading, setIsLoading] = useState(false);
 
-  //State that register the current error status
-  const [error, setError] = useState();
-
   const activeHttpRequests = useRef([]);
-
 
   const sendRequest = useCallback(
 
     //Main request function with pre-determined values
-    async (url, method = 'GET', body = null, headers = {}) => {
+    async (path, method = 'GET', body = null, headers = {}) => {
 
+      //Start the loading component
       setIsLoading(true); 
 
       const httpAbortCtrl = new AbortController();
       activeHttpRequests.current.push(httpAbortCtrl);
+
+      const baseApiRoute = 'http://localhost' + ':' + '8000';
+      //const apiPingRoute = baseApiRoute + '/ping';
 
       try {
 
         /*
             Use the fetch requestion with the url (required) and with its options object filled with the full data that we want to pass, if so. 
         */
-        const response = await fetch(url, {
+        const response = await fetch(baseApiRoute + path, {
           method,                                   //Get by default
           body,                                     //Data
           headers,                                  //Container the token, if there is one
@@ -45,10 +45,10 @@ export const useHttpClient = () => {
           reqCtrl => reqCtrl !== httpAbortCtrl
         );
 
-        //Make sure the response is valid
-        if (!response.ok) {
-          throw new Error(responseData.message);
-        }
+        //Evaluate if the response is positive (code 200) or reprensent an error
+        //if (!response.ok || responseData.error) {
+        //  throw new Error(responseData);
+        //}
 
         //The operation is done so we can now remove the loading state
         setIsLoading(false);
@@ -58,23 +58,21 @@ export const useHttpClient = () => {
 
       } catch (err) {
 
-        console.log(err)
-        //Update the state with the error message
-        setError(err.message);
+          //Remove the loading state
+          setIsLoading(false);
 
-        //Remove the loading state
-        setIsLoading(false);
+          //Default return value
+          return {
+            error: true,
+            code: 504,
+            message: "Une erreur est survenue et le serveur ne semble pas répondre. Assurez-vous d'avoir une connexion."
+          }
 
-        //Pass the error
-        throw err;
+
       }
     },
     []
   );
-
-  const clearError = () => {
-    setError(null);
-  };
 
   useEffect(() => {
     return () => {
@@ -83,5 +81,5 @@ export const useHttpClient = () => {
     };
   }, []);
 
-  return { isLoading, error, sendRequest, clearError };
+  return { isLoading, sendRequest };
 };

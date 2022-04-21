@@ -13,4 +13,6 @@ module.exports = {
     },
     //serveur and public
     publicRuntimeConfig: {},
+
+
 }

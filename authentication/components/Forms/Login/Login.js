@@ -15,21 +15,25 @@ import { useHttpClient } from '../../../../app/hooks/http-hook'
 //Form components
 import Input from '../../../../app/common/FormElements/Input/Input'
 import Button from '../../../../app/common/FormElements/Buttons/Button/Button'
-import Message from '../../../../app/common/Message/Message'
+import Message from '../../../../app/common/UserNotifications/Message/Message'
 
 //Styling
 import styles from './Login.module.scss'
 
 const Login = () => {
 
-    const [message, setMessage] = useState(null)
-
+    const [messages, setMessages] = useState([])
 
     //Import the authentication context to make sure the user is well connected
     const auth = useContext(AuthContext);
 
     //Extract the functions inside useHttpClient
-    const { isLoading, error, sendRequest, clearError } = useHttpClient();
+    const { isLoading, sendRequest} = useHttpClient();
+
+    const getCurrentTime = () => {
+        const d = new Date()
+        return d.getTime()
+    }
 
     /*
         First of all, verify if the user is logged in.
@@ -70,16 +74,7 @@ const Login = () => {
             if(formState.isValid){
 
                 try {
-
-                    const baseApiRoute = 'http://localhost' + ':' + '8000';
-                    //const apiPingRoute = baseApiRoute + '/ping';
-    
-                    const apiDefaultHeaders = {
-                        'Origin': 'http://localhost:3000',
-                        "Content-Type": "application/json"
-                        //"Content-Type": "application/x-www-form-urlencoded"
-                    }
-        
+       
                     const formData = {
                         username:  formState.inputs.username.value,
                         password: formState.inputs.password.value //@todo encrypt with app key before sending? or https is enought ?
@@ -87,48 +82,47 @@ const Login = () => {
 
                     //Send the request with the specialized hook
                     const response = await sendRequest(
-                        baseApiRoute + "/login",
+                        "/login",
                         'POST',
                         JSON.stringify(formData),
                         { 'Content-Type': 'application/json' }
                     )
-    
-                    //const responseData = await response.json() || {};
-                    ///const responseData = JSON.parse(responseDataresponseRaw) || {};
-    
-                    //If an error has been saved in the hook
-                    if(response.error){
 
-                        //Display the error message
-                        setMessage({
-                            text: response.code,
-                            positive: false
-                        })
 
-                        throw new Error(response);
+
+                    //If the answer is positive
+                    if(!response.error || response.code < 300 ){
+
+                        //Accept the user
+                        auth.login(response.userConnectedToken);
+
+                        //Alert the user
+                        setMessages([...messages, { 
+                            text: response.message,
+                            positive: true, 
+                            creationTime: getCurrentTime()                 
+                        }])
+
+
+                    //If it is not positive for any reason
+                    } else {                    
+
+                        //Inform the user
+                        setMessages([...messages, {
+                            text: response.message,
+                            positive: false,
+                            creationTime: getCurrentTime()                    
+                        }])
+
                     }
-
-                    const newMessage = {
-                        text: response.message,
-                        positive: true                    }
-
-                    setMessage(newMessage)
-
-                    console.log(response.userConnectedToken)
                     
-                    auth.login(response.userConnectedToken);
-
-    
-    
-    
                 } catch(err){
-    
-                    /*
-                        Reaction to define if the user os not autorize
-                    */
-                    console.log(err);
-
                     
+                    setMessages([...messages, {
+                        text: "Une erreur est survenue. Assurez-vous d'avoir une connexion fonctionnelle",
+                        positive: false,
+                        creationTime: getCurrentTime()                     
+                    }])
 
                 }
 
@@ -137,6 +131,11 @@ const Login = () => {
                 /*
                     Send a message if the form is not valid
                 */
+               setMessages([...messages, {
+                    text: "Attention, le formulaire entré n'est pas valide. Assurez-vous de bien remplir tous les champs requis.",
+                    positive: false,
+                    creationTime: getCurrentTime()                     
+                }])
             }
 
             
@@ -151,12 +150,16 @@ const Login = () => {
         <section className={styles.authPage}>
 
 
-            {/* Display the messages */}
-            { (error || message) && 
-                    <Message clearState={() => clearError}>
-                        {error}
+            
+            <div className={`${styles["message-section"]}`}>
+                {/* Display the messages */}
+                { messages.map(message => (
+                    <Message key={ "login-message-" + message.creationTime } >
+                        {message.text}
                     </Message> 
-            }
+                  )) 
+                }
+            </div>
 
             <form onSubmit={authSubmitHandler}>
 
