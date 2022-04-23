@@ -40,7 +40,7 @@ const HomePage = ( {documentation} ) => {
 
   return (
 
-    <div className={`${styles["home-page"]} col-12`}>
+    <div className="col-12">
 
       {/* Page head element  */}
       <Head>
@@ -73,10 +73,10 @@ const HomePage = ( {documentation} ) => {
 
       </Head>
 
-      {/* 
-      
-          Main content of the page 
-          
+      {/*
+
+          Main content of the page
+
       */}
 
       <header className="col-12">
@@ -84,17 +84,17 @@ const HomePage = ( {documentation} ) => {
           {/* Text content section that follow the normalized width of the app */}
           <div className="maxWidthPageContainer">
                <div className={`${styles["home-page__header--img-container"]}`}>
-                 
+
                   <img
                     src="/show_screen_shot.jpg"
-                    alt="Image d'un événement de projection devant public." 
+                    alt="Image d'un événement de projection devant public."
                   />
 
               </div>
               <h1 className="col-12 white">Avantage Numérique</h1>
               <h3 className="col-12 white">Toutes les données du Croissant Boréal</h3>
-            
-           
+
+
           </div>
 
       </header>
@@ -105,9 +105,9 @@ const HomePage = ( {documentation} ) => {
           <section className={`${styles["home-page__section"]} col-9`}>
             <h3>Section principale</h3>
           { auth.isLoggedIn && <p>Vous êtes connecté</p>}
-          { !auth.isLoggedIn && <p>Vous n'êtes pas connecté</p>}       
+          { !auth.isLoggedIn && <p>Vous n'êtes pas connecté</p>}
           </section>
-          
+
           <aside className={`col-3`}>
             <h3>Section côté</h3>
             <Button>Créer une entité</Button>
@@ -115,7 +115,12 @@ const HomePage = ( {documentation} ) => {
           </aside>
       </div>
 
-     
+
+
+      <h1 className="col-12">Page d'accueil</h1>
+      { auth.isLoggedIn && <h3>Vous êtes connecté</h3>}
+      { !auth.isLoggedIn && <h3>Vous n'êtes pas connecté</h3>}
+        <p>Bienvenue!</p>
 
       
     </div>

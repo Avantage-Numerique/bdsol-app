@@ -4,7 +4,7 @@ FROM node:16-alpine AS deps
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
 COPY package.json package-lock.json* ./
-RUN npm install
+RUN npm install --development
 
 # Rebuild the source code only when needed
 FROM node:16-alpine AS builder
@@ -31,6 +31,7 @@ COPY --from=builder /app/package.json ./package.json
 
 USER nextjs
 
+# Link that to the env file
 EXPOSE 3000
 
 # Next.js collects completely anonymous telemetry data about general usage.
@@ -39,4 +40,4 @@ EXPOSE 3000
 # ENV NEXT_TELEMETRY_DISABLED 1
 
 ENTRYPOINT ["npm"]
-CMD ["run","dev"]
+CMD ["run","docker:dev:watch"]
