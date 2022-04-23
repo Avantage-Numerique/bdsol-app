@@ -3,23 +3,32 @@ import { useState, useEffect } from 'react'
 import styles from './Message.module.scss'
 
 
+const Message = ({ children, positiveReview, clean }) => {
 
-
-const Message = ({ children, positiveReview }) => {
+    /*
+        children : contains the main message to be displayed
+        positiveReview : contains the type of message : positive of negative (bool)
+        clean : function to be called if defined to clean the state of the component who called the message when it must be removed
+    */
 
     const [active, setActive] = useState(true);
-
     const [hideProperty, setHideProperty] = useState(false);
 
     const hideElement = () => {
         if(!hideProperty) setHideProperty(true);
-        setTimeout(() => setActive(false), 1500)
+        setTimeout(
+            () => {
+                setActive(false)
+                clean();
+            }, 
+        1000) 
+        //The one second correspond to the duration of the transition of the animation in the scss file.
     }
 
     useEffect(() => {
+        console.log("Call inside the use effect")
         setTimeout(() => {
             hideElement();
-            
         }, 8000)
     }, [])
 

@@ -24,6 +24,8 @@ const Login = () => {
 
     const [messages, setMessages] = useState([])
 
+    console.log(messages)
+
     //Import the authentication context to make sure the user is well connected
     const auth = useContext(AuthContext);
 
@@ -32,6 +34,7 @@ const Login = () => {
 
     const getCurrentTime = () => {
         const d = new Date()
+        console.log("current time has been called")
         return d.getTime()
     }
 
@@ -67,6 +70,7 @@ const Login = () => {
         if(auth.isLoggedIn){
 
             //redirect the user to the account page. For now at least
+            Router.push('/compte')
 
         } else {
 
@@ -87,8 +91,6 @@ const Login = () => {
                         JSON.stringify(formData),
                         { 'Content-Type': 'application/json' }
                     )
-
-
 
                     //If the answer is positive
                     if(!response.error || response.code < 300 ){
@@ -116,7 +118,7 @@ const Login = () => {
 
                     }
                     
-                } catch(err){
+                } catch(err) {
                     
                     setMessages([...messages, {
                         text: "Une erreur est survenue. Assurez-vous d'avoir une connexion fonctionnelle",
@@ -149,12 +151,16 @@ const Login = () => {
     return (
         <section className={styles.authPage}>
 
-
-            
             <div className={`${styles["message-section"]}`}>
                 {/* Display the messages */}
                 { messages.map(message => (
-                    <Message key={ "login-message-" + message.creationTime } >
+                    <Message 
+                        key={ "login-message-" + message.creationTime } 
+                        positiveReview={ message.positive } 
+                        clean={() => { setMessages(
+                            prevState => prevState.filter(i => i !== message)
+                            )}}
+                    >
                         {message.text}
                     </Message> 
                   )) 
