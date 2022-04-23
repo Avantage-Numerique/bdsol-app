@@ -40,7 +40,7 @@ const HomePage = ( {documentation} ) => {
 
   return (
 
-    <div className="col-12">
+    <div className={`col-12 ${styles["home-page"]}`}>
 
       {/* Page head element  */}
       <Head>
@@ -116,11 +116,6 @@ const HomePage = ( {documentation} ) => {
       </div>
 
 
-
-      <h1 className="col-12">Page d'accueil</h1>
-      { auth.isLoggedIn && <h3>Vous êtes connecté</h3>}
-      { !auth.isLoggedIn && <h3>Vous n'êtes pas connecté</h3>}
-        <p>Bienvenue!</p>
 
       
     </div>
