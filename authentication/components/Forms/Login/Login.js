@@ -1,9 +1,10 @@
-import React, { useContext, useState, useEffect, useMemo } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 
 import Link from 'next/link'
 import Router from 'next/router'
 
 import { AuthContext } from '../../../context/auth-context'
+import { MessageContext } from '../../../../app/common/UserNotifications/Message/Context/Message-Context'
 
 //Validators
 import {VALIDATOR_REQUIRE} from '../../../../app/utils/validators'
@@ -15,32 +16,23 @@ import { useHttpClient } from '../../../../app/hooks/http-hook'
 //Form components
 import Input from '../../../../app/common/FormElements/Input/Input'
 import Button from '../../../../app/common/FormElements/Buttons/Button/Button'
-import Message from '../../../../app/common/UserNotifications/Message/Message'
 
 //Styling
 import styles from './Login.module.scss'
 
 const Login = () => {
 
-    const [messages, setMessages] = useState([])
-
-    console.log(messages)
-
     //Import the authentication context to make sure the user is well connected
     const auth = useContext(AuthContext);
+    const msg = useContext(MessageContext);
 
     //Extract the functions inside useHttpClient
     const { isLoading, sendRequest} = useHttpClient();
 
-    const getCurrentTime = () => {
-        const d = new Date()
-        console.log("current time has been called")
-        return d.getTime()
-    }
 
     /*
         First of all, verify if the user is logged in.
-        If he is, then redirect him in the account page
+        If he isn't, then redirect him in the account page
     */
     useEffect(() => {
           if(auth.isLoggedIn) {
@@ -99,33 +91,29 @@ const Login = () => {
                         auth.login(response.userConnectedToken);
 
                         //Alert the user
-                        setMessages([...messages, { 
+                        msg.addMessage({ 
                             text: response.message,
-                            positive: true, 
-                            creationTime: getCurrentTime()                 
-                        }])
+                            positive: true 
+                        })
 
 
                     //If it is not positive for any reason
                     } else {                    
 
                         //Inform the user
-                        setMessages([...messages, {
+                        msg.addMessage({ 
                             text: response.message,
-                            positive: false,
-                            creationTime: getCurrentTime()                    
-                        }])
-
+                            positive: false 
+                        })
                     }
                     
                 } catch(err) {
-                    
-                    setMessages([...messages, {
-                        text: "Une erreur est survenue. Assurez-vous d'avoir une connexion fonctionnelle",
-                        positive: false,
-                        creationTime: getCurrentTime()                     
-                    }])
 
+                    //Inform the user
+                    msg.addMessage({ 
+                        text: response.message,
+                        positive: false
+                    })
                 }
 
             } else {
@@ -133,11 +121,10 @@ const Login = () => {
                 /*
                     Send a message if the form is not valid
                 */
-               setMessages([...messages, {
-                    text: "Attention, le formulaire entré n'est pas valide. Assurez-vous de bien remplir tous les champs requis.",
-                    positive: false,
-                    creationTime: getCurrentTime()                     
-                }])
+               msg.addMessage({ 
+                text: "Attention. Le formulaire envoyé n'est pas valide. Assurez-vous que tous les champs sont bien remplis.",
+                positive: false 
+                })
             }
 
             
@@ -150,22 +137,6 @@ const Login = () => {
 */
     return (
         <section className={styles.authPage}>
-
-            <div className={`${styles["message-section"]}`}>
-                {/* Display the messages */}
-                { messages.map(message => (
-                    <Message 
-                        key={ "login-message-" + message.creationTime } 
-                        positiveReview={ message.positive } 
-                        clean={() => { setMessages(
-                            prevState => prevState.filter(i => i !== message)
-                            )}}
-                    >
-                        {message.text}
-                    </Message> 
-                  )) 
-                }
-            </div>
 
             <form onSubmit={authSubmitHandler}>
 

@@ -1,4 +1,5 @@
 import React, { useContext, useState } from 'react';
+import Link from 'next/link'
 
 import DOMPurify from 'isomorphic-dompurify';
 
@@ -110,7 +111,11 @@ const HomePage = ( {documentation} ) => {
 
           <aside className={`col-3`}>
             <h3>Section côté</h3>
-            <Button>Créer une entité</Button>
+            <Button>
+              <Link href="/contribuer">
+                  Créer une entité
+              </Link>
+            </Button>
 
           </aside>
       </div>

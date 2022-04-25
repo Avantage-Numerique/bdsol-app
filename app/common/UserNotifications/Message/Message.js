@@ -26,7 +26,6 @@ const Message = ({ children, positiveReview, clean }) => {
     }
 
     useEffect(() => {
-        console.log("Call inside the use effect")
         setTimeout(() => {
             hideElement();
         }, 8000)

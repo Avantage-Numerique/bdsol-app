@@ -12,14 +12,6 @@
     min-height: 75vh;
     position: relative;
 
-    .message-section {
-        position: absolute;
-        top: 0px;
-        right: 0px;
-        display: flex;
-        flex-direction: column;
-    }
-
 
     form {
         width: min(35rem, 95%);

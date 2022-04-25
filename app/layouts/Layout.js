@@ -4,15 +4,17 @@
     V.P.R - Created: 19-09-21
 
     */
-import React, { useState, useEffect } from "react";
-
+import React, { useState, useEffect, useCallback } from "react";
 import Head from 'next/head'
+
+import { MessageContext } from '../common/UserNotifications/Message/Context/Message-Context'
 
 import Footer from './Footer/Footer'
 import Header from './Header/Header'
 import Nav from './Navigation/MainNav/Nav'
 import AccountNav from './Navigation/AccountNav/AccountNav'
 import BottomBanner from '../common/UserNotifications/BottomBanner/BottomBanner'
+import Message from '../common/UserNotifications/Message/Message'
 
 import styles from './Layout.module.scss'
 
@@ -30,15 +32,27 @@ const Layout = ( {children} ) => {
     */
     const [menuState, setMenuState] = useState(0);
 
-
     /*
-        Call to display the Bottom Banner after 3 seconds and only once
-    */
-    
-    useEffect(() => {
-           
-    }, [])
 
+        Messaging settings 
+
+    */
+    //Message list
+    const [messages, setMessages] = useState([])
+
+    /* Return the current time number. Used to create unique Id to each message based on the time they were send */
+    const getCurrentTime = () => {
+        const d = new Date()
+        return d.getTime()
+    }
+    
+    //Metthod called from other components to update the state
+    const addMessage = (newMessage) => {
+        setMessages([...messages, {
+            ...newMessage,
+            creationTime: getCurrentTime()  
+        }])
+    }
 
     return (
         <>
@@ -81,9 +95,11 @@ const Layout = ( {children} ) => {
                 <Header menuState={menuState} setMenuState={setMenuState} />
                 <Nav menuState={menuState} setMenuState={setMenuState} />
                 <AccountNav menuState={menuState} setMenuState={setMenuState} />
+                <MessageContext.Provider value={{ addMessage: addMessage }}>
                 <main> 
                     { children }
                 </main>
+                </MessageContext.Provider>
                 <Footer />
 
                 <BottomBanner 
@@ -92,6 +108,22 @@ const Layout = ( {children} ) => {
                     buttonText="J'ai compris"
                 />
 
+                {/* Section where the common messages and alerts to the user are made */}
+                <div className={`${styles["message-section"]}`}>
+                {/* Display the messages */}
+                { messages.map(message => (
+                    <Message 
+                        key={ "login-message-" + message.creationTime } 
+                        positiveReview={ message.positive } 
+                        clean={() => { setMessages(
+                            prevState => prevState.filter(i => i !== message)
+                            )}}
+                    >
+                        {message.text}
+                    </Message> 
+                  )) 
+                }
+            </div>
 
             </div>
         </>
