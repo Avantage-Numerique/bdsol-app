@@ -1,7 +1,8 @@
 
-import { useState, useCallback, useRef, useEffect } from 'react';
+import { useState, useCallback, useRef, useEffect, useContext } from 'react';
 
-
+//Custom hook
+import { AuthContext } from '../../authentication/context/auth-context' 
 
 
 //Main hook function called for every request made to the database
@@ -10,12 +11,15 @@ export const useHttpClient = () => {
   //State that determine if the request is in progress
   const [isLoading, setIsLoading] = useState(false);
 
+  //Access the authentication context
+  const auth = useContext(AuthContext);
+
   const activeHttpRequests = useRef([]);
 
   const sendRequest = useCallback(
 
     //Main request function with pre-determined values
-    async (path, method = 'GET', body = null, headers = {}) => {
+    async (path, method = 'GET', body = null, header = {}) => {
 
       //Start the loading component
       setIsLoading(true); 
@@ -25,6 +29,11 @@ export const useHttpClient = () => {
 
       const baseApiRoute = 'http://localhost' + ':' + '8000';
       //const apiPingRoute = baseApiRoute + '/ping';
+      
+      const headers = { 
+        ...header,
+        //Authorization: 'Bearer ' + auth.token
+      }
 
       try {
 
@@ -34,9 +43,14 @@ export const useHttpClient = () => {
         const response = await fetch(baseApiRoute + path, {
           method,                                   //Get by default
           body,                                     //Data
-          headers,                                  //Container the token, if there is one
-          signal: httpAbortCtrl.signal              //
+          headers,
+          signal: httpAbortCtrl.signal              
         });
+
+        /*  
+          Response data should have this form : 
+          https://github.com/Avantage-Numerique/bdsol-api/blob/master/api/doc/documentation-api.md
+        */
 
         const responseData = await response.json();
 
@@ -57,7 +71,7 @@ export const useHttpClient = () => {
         return responseData;
 
       } catch (err) {
-
+        console.log(err)
           //Remove the loading state
           setIsLoading(false);
 

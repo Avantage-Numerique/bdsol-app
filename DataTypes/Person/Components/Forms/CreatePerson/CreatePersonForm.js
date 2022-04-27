@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect } from 'react'
 import Router from 'next/router'
 
 //Custom hooks
@@ -30,7 +30,7 @@ const CreatePersonForm = () => {
 
     /*
         First of all, verify if the user is logged in.
-        If he isn't, then redirect him in the account page
+        If he isn't, then redirect him in the connexion page
     */
    useEffect(() => {
         if(!auth.isLoggedIn) {
@@ -72,52 +72,51 @@ const CreatePersonForm = () => {
         //Make sure that the form is valid before submitting it
         if(formState.isValid){
 
-            try {
 
-                const formData = {
-                    firstName:  formState.inputs.firstName.value,
-                    lastName: formState.inputs.lastName.value, 
-                    nickName: formState.inputs.nickName.value,
-                    biography: formState.inputs.biography.value  
-                };
+            /*
+                Data must have this shape 
+                https://github.com/Avantage-Numerique/bdsol-api/blob/master/api/doc/Personnes.md
+            */
 
-                //Send the request with the specialized hook
-                const response = await sendRequest(
-                    "/data/person",
-                    'POST',
-                    JSON.stringify(formData),
-                    { 'Content-Type': 'application/json' }
-                )
+            //There is no try/catch here because it is all handle by the custom hook
 
-                //If the answer is positive
-                if(!response.error || response.code < 300 ){
+            const formData = {
+                "data": {
+                    nom: formState.inputs.lastName.value,
+                    prenom:  formState.inputs.firstName.value, 
+                    surnom: formState.inputs.nickName.value,
+                    description: formState.inputs.biography.value 
+                } 
+            };
 
-                    //Alert the user
-                    msg.addMessage({ 
-                        text: response.message,
-                        positive: true 
-                    })
-
-
-                //If it is not positive for any reason
-                } else {                    
-
-                    //Inform the user
-                    msg.addMessage({ 
-                        text: response.message,
-                        positive: false 
-                    })
+            //Send the request with the specialized hook
+            const response = await sendRequest(
+                "/personne/create",
+                'POST',
+                JSON.stringify(formData),
+                { 
+                   'Content-Type': 'application/json',
                 }
+            )
 
-            } catch(err) {
+            //If the answer is positive
+            if(!response.error){
 
-                //Inform the user
+                //Alert the user
                 msg.addMessage({ 
                     text: response.message,
-                    positive: false
+                    positive: true 
                 })
 
+            //If it is not positive for any reason
+            } else {                    
+                msg.addMessage({ 
+                    text: response.message,
+                    positive: false 
+                })
             }
+
+           
 
         } else {
 
