@@ -1,5 +1,5 @@
 
-.TextArea-Component {
+.rich-textarea {
     
     width: 100%; /* Always all containers width */
     margin: 0.5rem 0rem;
@@ -11,42 +11,34 @@
     -o-transition: all 500ms ease;
     transition: all 500ms ease;
 
-  
+    .rich-textarea__quill-container {
 
-    label {
-
-        display: flex;
-        flex-direction: column;
-
-        textarea  {
+        .rich-textarea__quill-content  {
             padding: 0.5rem;
             width: 100%;
-        /*    width: min(100%, 50ch);  */
-            resize: vertical;
-
+    
+            > * {
+                width: 100%;
+                width: min(100%, 50ch);
+            }
+    
             /*
             Override some default styling of the input element 
             */
-
+    
             /* variable to set equally the padding */
             --inputPadding: 0.75em;
-
+    
             background-color: whitesmoke;
             border: unset;
             color: unset;
-            padding: var(--inputPadding) 0px;
-      
-
-
-  
-
-  
-            
-
-
+            padding: var(--inputPadding) 0px;    
+    
+    
             &.control--invalid {
+                border-top: 0.1rem solid rgb(255, 135, 135) !important;
                 border: 0.1rem solid rgb(255, 135, 135);
             }
         }
-    }
+    }  
 }

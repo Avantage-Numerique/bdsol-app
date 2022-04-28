@@ -9,6 +9,7 @@ import { useHttpClient } from '../../../../../app/hooks/http-hook'
 import Button from '../../../../../app/common/FormElements/Buttons/Button/Button'
 import Input from '../../../../../app/common/FormElements/Input/Input'
 import Textarea from '../../../../../app/common/FormElements/Textarea/Textarea'
+import RichTextarea from '../../../../../app/common/FormElements/RichTextArea/RichTextarea'
 
 //contexts
 import { AuthContext } from '../../../../../authentication/context/auth-context'
@@ -95,7 +96,7 @@ const CreatePersonForm = () => {
                 'POST',
                 JSON.stringify(formData),
                 { 
-                   'Content-Type': 'application/json',
+                   'Content-Type': 'application/json'
                 }
             )
 
@@ -157,7 +158,7 @@ const CreatePersonForm = () => {
                 errorText="Cette information est requise"
                 onInput={inputHandler}
             />
-            <Textarea 
+            <RichTextarea 
                 id="biography"
                 name="biography"
                 label="Biographie"
