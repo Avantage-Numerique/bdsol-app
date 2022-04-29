@@ -29,11 +29,15 @@ export const useHttpClient = () => {
 
       const baseApiRoute = 'http://localhost' + ':' + '8000';
       //const apiPingRoute = baseApiRoute + '/ping';
+
+      const authorization = auth.token ? {Authorization: 'Bearer ' + auth.token} : {}
       
       const headers = { 
-        ...header,
-        //Authorization: 'Bearer ' + auth.token
+        ...header, 
+        ...authorization
       }
+
+      console.log(headers)
 
       try {
 

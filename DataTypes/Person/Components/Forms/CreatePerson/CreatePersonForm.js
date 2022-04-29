@@ -95,9 +95,7 @@ const CreatePersonForm = () => {
                 "/personne/create",
                 'POST',
                 JSON.stringify(formData),
-                { 
-                   'Content-Type': 'application/json'
-                }
+                { 'Content-Type': 'application/json' }
             )
 
             //If the answer is positive
