@@ -19,7 +19,7 @@ export const useHttpClient = () => {
   const sendRequest = useCallback(
 
     //Main request function with pre-determined values
-    async (path, method = 'GET', body = null, header = {}) => {
+    async (path, method = 'GET', body = null, headers = {}) => {
 
       //Start the loading component
       setIsLoading(true); 
@@ -30,14 +30,15 @@ export const useHttpClient = () => {
       const baseApiRoute = 'http://localhost' + ':' + '8000';
       //const apiPingRoute = baseApiRoute + '/ping';
 
-      const authorization = auth.token ? {Authorization: 'Bearer ' + auth.token} : {}
+      //const authorization = auth.token ? {Authorization: 'Bearer ' + auth.token} : {}
       
-      const headers = { 
+      /*
+      const header = { 
         ...header, 
         ...authorization
       }
+      */
 
-      console.log(headers)
 
       try {
 
@@ -75,7 +76,9 @@ export const useHttpClient = () => {
         return responseData;
 
       } catch (err) {
-        console.log(err)
+
+          console.log(err)
+
           //Remove the loading state
           setIsLoading(false);
 
@@ -85,8 +88,6 @@ export const useHttpClient = () => {
             code: 504,
             message: "Une erreur est survenue et le serveur ne semble pas répondre. Assurez-vous d'avoir une connexion."
           }
-
-
       }
     },
     []

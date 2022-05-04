@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react'
+import React, { useContext, useEffect } from 'react'
 
 import Link from 'next/link'
 import Router from 'next/router'
@@ -61,7 +61,7 @@ const Login = () => {
 
         if(auth.isLoggedIn){
 
-            //redirect the user to the account page. For now at least
+            //redirect the user to the account page. 
             Router.push('/compte')
 
         } else {

@@ -33,11 +33,13 @@ const CreatePersonForm = () => {
         First of all, verify if the user is logged in.
         If he isn't, then redirect him in the connexion page
     */
+   /*
    useEffect(() => {
         if(!auth.isLoggedIn) {
         Router.push('/compte/connexion')
         }
     }, [auth.isLoggedIn])
+    */
 
     //Extract the functions inside useHttpClient
     const { isLoading, sendRequest} = useHttpClient();
@@ -95,7 +97,7 @@ const CreatePersonForm = () => {
                 "/personne/create",
                 'POST',
                 JSON.stringify(formData),
-                { 'Content-Type': 'application/json' }
+                { 'Content-Type': 'application/json', }
             )
 
             //If the answer is positive
