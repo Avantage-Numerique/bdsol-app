@@ -2,22 +2,21 @@ import React, { useContext, useState } from 'react';
 import Link from 'next/link'
 
 import DOMPurify from 'isomorphic-dompurify';
-
-import Button from '../app/common/FormElements/Buttons/Button/Button'
-
-import Input from '../app/common/FormElements/Input/Input'
-import { VALIDATOR_REQUIRE } from '../app/utils/validators'
-
 import Head from 'next/head'
 
+//Components
+import Button from '../app/common/FormElements/Buttons/Button/Button'
+
+//Context
 import { AuthContext } from '../authentication/context/auth-context'
 
+//Styling
 import styles from './home-page.module.scss'
 
 
 
 
-const HomePage = ( {documentation} ) => {
+const HomePage = () => {
 
     const auth = useContext(AuthContext);
 
@@ -100,24 +99,33 @@ const HomePage = ( {documentation} ) => {
 
       </header>
 
-      <div className="maxWidthPageContainer">
+      <div className={`${styles["home-page__main"]} maxWidthPageContainer`}>
 
-         {/* Page first section */}
-          <section className={`${styles["home-page__section"]} col-9`}>
-            <h3>Section principale</h3>
-          { auth.isLoggedIn && <p>Vous êtes connecté</p>}
-          { !auth.isLoggedIn && <p>Vous n'êtes pas connecté</p>}
-          </section>
+        <div className="col-12">
 
-          <aside className={`col-3`}>
-            <h3>Section côté</h3>
-            <Button>
-              <Link href="/contribuer">
-                  Créer une entité
-              </Link>
-            </Button>
+            {/* Page first section */}
+            <section className={`col-8 TEMP__division-container`}>
 
-          </aside>
+              <h3>Section principale</h3>
+              { auth.isLoggedIn && <p>Vous êtes connecté</p>}
+              { !auth.isLoggedIn && <p>Vous n'êtes pas connecté</p>}
+
+            </section>
+
+            <aside className={`col-3 TEMP__division-container`}>
+
+              <h3>Section côté</h3>
+
+              <Button>
+
+                  <Link href="/contribuer">
+                      Créer une entité
+                  </Link>
+
+              </Button>
+
+            </aside>
+          </div>
       </div>
 
 

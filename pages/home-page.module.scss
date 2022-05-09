@@ -35,28 +35,34 @@
         }
     }
 
-    /* 
+    > .home-page__main {
 
-        Section one  : 
-        containing the news. 
+        > div {
+
+            margin-top: 5vh;
+
+            /* 
+
+                Section one  : 
+                containing the news. 
+            
+            */
+
+            section {
+
+                min-height: 60vh; /* Temporary value */
+
+            }
+
+            /* 
     
-    */
-    .home-page__section:nth-of-type(1) {
-
-        
-
+                Aside section : 
+            
+            */
+            aside {
+                min-height: 50vh; /* Temporary value */
+                float: right;
+            }
+        }
     }
-
-   /* 
-    
-        Aside section : 
-        containing the news. 
-    
-    */
-    .home-page__section:nth-of-type(1) {
-
-        
-
-    }
-   
 }

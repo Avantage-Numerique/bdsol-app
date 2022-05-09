@@ -240,6 +240,16 @@ input:focus, textarea:focus, select:focus{
   outline: none;
 }
 
+/*
+    Temporary styling to indicate the platform separation
+*/
+
+.TEMP__division-container {
+  border-radius: 2rem;
+  border: 0.5rem solid rgb(44, 44, 44);
+  padding: 2rem;
+}
+
 
 /*
 *
