@@ -84,7 +84,7 @@ const ResetPassword = () => {
                 <p>Entrer une adresse courriel pour récupérer votre mot de passe.</p>
 
                 <Input
-                    id="email"
+                    name="email"
                     type="email"
                     label="Adresse courriel"
                     validators={[VALIDATOR_REQUIRE()]}

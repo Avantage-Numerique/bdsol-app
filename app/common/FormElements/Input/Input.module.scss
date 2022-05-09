@@ -22,16 +22,32 @@
         display: flex;
         flex-direction: column;
 
-        input {
-            padding: 0.5rem;
-            width: 100%;
-            /* width: min(100%, 50ch); */
+        .inputComponent__field-container {
 
-            background-color: whitesmoke;
+            display: flex;
+            height: 100%;
 
-            &.control--invalid {
-                border: 0.1rem solid rgb(255, 135, 135);
+            input {
+                flex: 1;
+                padding: 0.5rem;
+                /* width: min(100%, 50ch); */
+    
+                background-color: whitesmoke;
+    
+                &.control--invalid {
+                    border: 0.1rem solid rgb(255, 135, 135);
+                }
             }
+
+            button {
+                font-size: 1.5rem;
+                padding: 0.2em 0.4em;
+                border-radius: 0rem 0.5rem 0.5rem 0rem;
+                margin-left: 0.25rem;
+            }
+
         }
+
+        
     }
 }

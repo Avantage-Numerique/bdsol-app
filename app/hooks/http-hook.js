@@ -77,8 +77,6 @@ export const useHttpClient = () => {
 
       } catch (err) {
 
-          console.log(err)
-
           //Remove the loading state
           setIsLoading(false);
 

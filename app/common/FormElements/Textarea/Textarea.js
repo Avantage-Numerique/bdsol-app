@@ -1,8 +1,13 @@
 import {useReducer, useEffect} from 'react'
 
+
+//Utils
 import { validate } from '../../../utils/validators'
 
+//Styling
 import styles from './Textarea.module.scss'
+
+
 
 //Reducer function to manage the state of the textarea
 const textareaReducer = (state, action) => {
@@ -30,16 +35,16 @@ const Textarea = props => {
     const [textareaState,dispatch] = useReducer(textareaReducer, {
         value: '', 
         isTouched: false,
-        isValid: false
+        isValid: props.validators ? validate('', props.validators) : true
     });
 
     //Inform the form (parent component) of the value and validity of this input
-    const { id, onInput } = props;          
+    const { name, onInput } = props;          
     const { value, isValid } = textareaState;   //State of this element
 
     useEffect(() => {
-        onInput(id, value, isValid)
-    }, [id, value, isValid, onInput]);
+        onInput(name, value, isValid)
+    }, [name, value, isValid, onInput]);
 
     const changeHandler = event => {
         dispatch({type: 'CHANGE', val: event.target.value, validators: props.validators})
@@ -53,12 +58,11 @@ const Textarea = props => {
     return (
 
         <div className={` ${styles["TextArea-Component"]}`}>
-            <label htmlFor={props.id}>
+            <label htmlFor={name}>
                 {props.label}
                 <textarea 
                     className={` ${!textareaState.isValid && textareaState.isTouched && styles["control--invalid"]}`}
-                    id={props.id} 
-                    name={props.name ? props.name : ""}
+                    name={name ? name : ""}
                     rows={props.rows || 3} 
                     placeholder={props.placeholder} 
                     onChange={changeHandler}

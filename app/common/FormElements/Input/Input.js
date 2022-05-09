@@ -1,12 +1,18 @@
 import React, {useReducer, useEffect} from 'react'
 
+//Utils
 import { validate } from '../../../utils/validators'
 
+//Styling
 import styles from './Input.module.scss'
+
+
 
 //Reducer function to manage the state of the input
 const inputReducer = (state, action) => {
+
     switch (action.type) {
+
         case 'CHANGE':
             return {
                 ...state,
@@ -14,32 +20,42 @@ const inputReducer = (state, action) => {
                 //if there are validators, then evaluate them and return bool
                 isValid: action.validators ? validate(action.val, action.validators) : true
             };
+
         case 'TOUCH': {
             return {
                 ...state,
                 isTouched: true
             };
         }
+
         default:
             return state;
     }
 }
 
-const Input = props => {
+const Input = ({addRow, removeRow, ...props}) => {
 
+    //Initial state
     const [inputState, dispatch] = useReducer(inputReducer, {
         value: '', 
         isTouched: false,
-        isValid: false
+        isValid: props.validators ? validate('', props.validators) : true
     });
 
-    //Inform the form (parent component) of the value and validity of this input
-    const { id, onInput } = props;          
+
+
+    /*
+        Inform the form (parent component) of the value and validity of this input
+        whenever it changes
+    */
+    const { name, onInput } = props;          
     const { value, isValid } = inputState;   //State of this element
   
     useEffect(() => {
-        onInput(id, value, isValid)
-    }, [id, value, isValid, onInput]);
+        onInput(name, value, isValid)
+    }, [name, value, isValid, onInput]);
+
+
 
     const changeHandler = event => {
         dispatch({type: 'CHANGE', val: event.target.value, validators: props.validators})
@@ -53,24 +69,52 @@ const Input = props => {
     return (
 
         <div className={ styles.inputComponent }>
-            <label htmlFor={props.id}>
+
+            <label htmlFor={props.name}>
+
                 {props.label}
-                <input 
-                    className={` ${!inputState.isValid && inputState.isTouched && styles["control--invalid"]}`}
-                    id={props.id}
-                    name={props.name ? props.name : ""}
-                    type={props.type} 
-                    placeholder={props.placeholder} 
-                    onChange={changeHandler} 
-                    onBlur={touchHandler}
-                /> 
+
+                <div className={`col-12 ${styles["inputComponent__field-container"]}`}>
+
+                    <input 
+                        className={` ${!inputState.isValid && inputState.isTouched && styles["control--invalid"]}`}
+                        name={props.name ? props.name : ""}
+                        type={props.type} 
+                        placeholder={props.placeholder} 
+                        onChange={changeHandler} 
+                        onBlur={touchHandler}
+                    /> 
+
+                    { 
+                        addRow &&
+                        <button onClick={addRow} 
+                                className={`white sec-color_BG`}
+                                type="button"
+                        >   &#43;
+                        </button>
+                    }
+                    {
+                        removeRow &&
+                        <button  
+                            onClick={removeRow} 
+                            className={`white red_BG`}
+                            type="button"
+                        >
+                                &#215;
+                        </button>
+                    }
+
+                </div>
+                
                 {!inputState.isValid && inputState.isTouched && 
                     <small>{ props.errorText }</small>
                 }
+
             </label>
+
         </div>
 
-    );
+    ); 
 }
 
 export default Input;

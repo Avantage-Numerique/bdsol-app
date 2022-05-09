@@ -33,6 +33,7 @@
             --grey: #bbbfd7;
   */
   --altBlue: rgb(77, 100, 255);
+  --red: rgb(221, 92, 92);
   --grey: rgb(187, 191, 215);
 
   /* Dark color for the text and background-colors 
@@ -118,6 +119,10 @@ h6 { font-size: 0.8rem; }
 /* grey */
 .grey { color: var(--grey);}
 .grey_BG { background-color: var(--grey); }
+
+/* red */
+.red { color: var(--red);}
+.red_BG { background-color: var(--red); }
 
 /* White color */
 .white { color: white; }

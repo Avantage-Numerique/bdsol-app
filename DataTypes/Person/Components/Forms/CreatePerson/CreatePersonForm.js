@@ -8,8 +8,8 @@ import { useHttpClient } from '../../../../../app/hooks/http-hook'
 //Components
 import Button from '../../../../../app/common/FormElements/Buttons/Button/Button'
 import Input from '../../../../../app/common/FormElements/Input/Input'
-import Textarea from '../../../../../app/common/FormElements/Textarea/Textarea'
 import RichTextarea from '../../../../../app/common/FormElements/RichTextArea/RichTextarea'
+import InputMultiplier from '../../../../../app/common/FormElements/InputMultiplier/InputMultiplier'
 
 //contexts
 import { AuthContext } from '../../../../../authentication/context/auth-context'
@@ -46,7 +46,7 @@ const CreatePersonForm = () => {
 
     //Custom hook to manage the validity of the form 
     const [formState, inputHandler] = useForm(
-        {
+    {
         firstName: {
             value: '',
             isValid: false
@@ -135,7 +135,6 @@ const CreatePersonForm = () => {
     return (
         <form onSubmit={submitHandler} className={`col-12 ${styles["create-person-form"]}`}>
             <Input 
-                id="firstName"
                 name="firstName"
                 label="Prénom"
                 validators={[VALIDATOR_REQUIRE()]}
@@ -143,23 +142,18 @@ const CreatePersonForm = () => {
                 onInput={inputHandler}
             />
             <Input 
-                id="lastName"
                 name="lastName"
                 label="Nom"
                 validators={[VALIDATOR_REQUIRE()]}
                 errorText="Cette information est requise"
                 onInput={inputHandler}
             />
-            <Input 
-                id="nickName"
+            <Input  
                 name="nickName"
                 label="Surnom"
-                validators={[VALIDATOR_REQUIRE()]}
-                errorText="Cette information est requise"
                 onInput={inputHandler}
             />
             <RichTextarea 
-                id="biography"
                 name="biography"
                 label="Biographie"
                 onInput={inputHandler}

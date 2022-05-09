@@ -143,7 +143,7 @@ const Login = () => {
                 <h3 className="blue" >Connexion</h3>
 
                 <Input
-                    id="username"
+                    name="username"
                     type="text"
                     label="Nom d'utilisateur"
                     validators={[VALIDATOR_REQUIRE()]}
@@ -152,7 +152,7 @@ const Login = () => {
                 />   
 
                 <Input
-                    id="password"
+                    name="password"
                     type="password"
                     label="Mot de passe"
                     validators={[VALIDATOR_REQUIRE()]}

@@ -87,7 +87,7 @@ const Register = () => {
                 <h3 className="blue" >Création de compte</h3>
 
                 <Input
-                    id="firstname"
+                    name="firstname"
                     type="text"
                     label="Prénom"
                     validators={[VALIDATOR_REQUIRE()]}
@@ -96,7 +96,7 @@ const Register = () => {
                 />   
 
                 <Input
-                    id="lastname"
+                    name="lastname"
                     type="text"
                     label="Nom"
                     validators={[VALIDATOR_REQUIRE()]}
@@ -105,7 +105,7 @@ const Register = () => {
                 />   
 
                 <Input
-                    id="username"
+                    name="username"
                     type="text"
                     label="Nom d'utilisateur"
                     validators={[VALIDATOR_REQUIRE()]}
@@ -114,7 +114,7 @@ const Register = () => {
                 />   
 
                 <Input
-                    id="email"
+                    name="email"
                     type="email"
                     label="Courriel"
                     validators={[VALIDATOR_REQUIRE(), VALIDATOR_EMAIL()]}
@@ -123,7 +123,7 @@ const Register = () => {
                 /> 
 
                 <Input
-                    id="password"
+                    name="password"
                     type="password"
                     label="Mot de passe"
                     validators={[VALIDATOR_REQUIRE()]}
@@ -132,7 +132,7 @@ const Register = () => {
                 /> 
 
                 <Input
-                    id="password2"
+                    name="password2"
                     type="password"
                     label="Confirmation du mot de passe "
                     validators={[VALIDATOR_REQUIRE(), VALIDATOR_EMAIL()]}

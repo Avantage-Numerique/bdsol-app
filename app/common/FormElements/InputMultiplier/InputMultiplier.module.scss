@@ -1,0 +1,20 @@
+.input-multiplier {
+
+    .input-multiplier__row {
+
+        display: flex;
+        flex-direction: row;
+
+        .input-multiplier__input-container {
+            flex: 1;
+        }
+
+        .input-multiplier__button {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+    }
+    
+    
+}
