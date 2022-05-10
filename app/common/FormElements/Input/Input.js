@@ -79,7 +79,7 @@ const Input = ({addRow, removeRow, ...props}) => {
                     <input 
                         className={` ${!inputState.isValid && inputState.isTouched && styles["control--invalid"]}`}
                         name={props.name ? props.name : ""}
-                        type={props.type} 
+                        type={props.type ? props.type : "text"} 
                         placeholder={props.placeholder} 
                         onChange={changeHandler} 
                         onBlur={touchHandler}
