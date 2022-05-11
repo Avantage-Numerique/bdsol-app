@@ -11,7 +11,7 @@ import Layout from '../app/layouts/Layout'
  ***********************************/
 import '../styles/globals.scss'  
 import '../styles/normalize.scss'
-import '../app/common/FormElements/Buttons/Button/Button.scss'
+
 
 function MyApp( {Component, pageProps} ) {
 
