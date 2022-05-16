@@ -94,7 +94,6 @@ const HomePage = () => {
               <h1 className="col-12 white">Avantage Numérique</h1>
               <h3 className="col-12 white">Toutes les données du Croissant Boréal</h3>
 
-
           </div>
 
       </header>

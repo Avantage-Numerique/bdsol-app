@@ -8,9 +8,9 @@
     "dev:watch": "next dev",
     "build": "next build",
     "start": "next start -p ${PORT:=3000}",
-    "docker:dev": "npx concurrently \"npm run build\" \"npm run dev:run\"",
+    "docker:dev": "npx concurrently \"npm run build\" \"npm run dev\"",
     "docker:dev:watch": "npx concurrently \"npm run dev:watch\" \"npm run docker:dev:run\"",
-    "docker:dev:run": "npx nodemon lib/index.js",
+    "docker:dev:run": "npx nodemon --legacy-watch",
     "docker:start": "next start -p ${PORT:=3000}",
     "docker:test": "echo \"Error: no test specified\" && exit 1"
   },
