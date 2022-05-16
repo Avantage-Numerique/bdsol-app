@@ -1,10 +1,10 @@
-import { useState } from 'react'
+import { useReducer } from 'react'
  
 //Components
 import Button from '../../app/common/FormElements/Buttons/Button/Button'
 import CreatePersonForm from '../../DataTypes/Person/Components/Forms/CreatePerson/CreatePersonForm'
+import CreateOrganisationForm from '../../DataTypes/Organisation/components/forms/CreateOrganisationForm/CreateOrganisationForm'
 import FixedCard from '../../app/common/Containers/FixedCard/FixedCard'
-import Message from '../../app/common/UserNotifications/Message/Message'
 
 //styling
 import styles from './contribution-page.module.scss'
@@ -13,61 +13,70 @@ import styles from './contribution-page.module.scss'
 
 const Index = () => {    
 
-    //State element that send messages to the user
-    const [messages, setMessages] = useState([])
+    function reducer(displayedForm, action) {
+
+        switch (action.type) {
+
+            case 'selectForm':
+                if(action.selection === displayedForm) return null
+                return action.selection
+
+            default:
+                return 
+        }
+
+    }
     
-    //Temporary use useState but will have to be useReducer
-    const [displayPerson, setDisplayPerson] = useState(false)
+    //Display the appropriate form
+    const [displayedForm, dispatch] = useReducer(reducer, null);
 
     return (
         <div className={`col-12 ${styles["contribution-page"]}`}>
             
             <header className={`col-12`}>
                 <div className="maxWidthPageContainer">
-                    <h2 className={`col-12 blue`}>Créer une donnée</h2>
+                    <h1 className={`col-12 blue`}>Créer une donnée</h1>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla eget est vitae justo hendrerit porta. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. In lobortis justo eu ex euismod, vel efficitur ligula varius. Sed rhoncus lectus nisl, id vestibulum magna laoreet at. Sed sollicitudin sit amet.</p>
                 </div>
             </header>
-            <section className={`col-12`}>
+
+            <section className={`col-12 ${styles["contribution-page__section1"]}`}>
                 
-                <div className="maxWidthPageContainer">
+                {/* Menu for the differents forms */}
+                <div className={`maxWidthPageContainer ${styles["contribution-page__section1__menu"]}`}>
+           
                     <h4 className="col-12">Sélectionnez le type d'entité que vous voulez ajouter</h4>
-                    <Button onClick={() => {setDisplayPerson(!displayPerson)}}>Personne</Button>
-                    <Button disabled>Organisation</Button>
+                    <Button onClick={() => dispatch({type: 'selectForm', selection: 'person'})}>Personne</Button>
+                    <Button onClick={() => dispatch({type: 'selectForm', selection: 'organisation'})}>Organisation</Button>
                     <Button disabled>Projet</Button>
                     <Button disabled>Événement</Button>
                     <Button disabled>Matériel</Button>
-                </div>
-                <div className="col-12">
-                    {displayPerson &&
 
-                    <FixedCard>
-                        <>
-                            <h2 className="col-12">Personne</h2>
-                            <h4 className="col-12">Remplissez les champs suivants pour ajouter une nouvelle personne à la base de données.</h4>
-                            <CreatePersonForm />
-                        </>
-                    </FixedCard>
+                </div>
+
+                {/* Section to display the differents forms */}
+                <div className={`col-12 ${styles["contribution-page__section1__content"]}`}>
+                    <div className={`maxWidthPageContainer`}>
+
+                        {displayedForm === "person" &&
+                            <article>
+                                <h2 className="col-12">Personne</h2>
+                                <h4 className="col-12">Remplissez les champs suivants pour ajouter une nouvelle personne à la base de données.</h4>
+                                <CreatePersonForm />
+                            </article>
+                        }
+
+                        {displayedForm === "organisation" &&
+                            <article>
+                                <h2 className="col-12">Organisation</h2>
+                                <h4 className="col-12">Remplissez les champs suivants pour ajouter une nouvelle organisation à la base de données.</h4>
+                                <CreateOrganisationForm />
+                            </article>
+                        }
                     
-                    }
-                    
+                    </div>
                 </div>
             </section>
-
-            <div className={`${styles["message-section"]}`}>
-                {/* Display the messages */}
-                { messages.map(message => (
-                    <Message 
-                        key={ "login-message-" + message.creationTime } 
-                        positiveReview={ message.positive } 
-                        clean={() => { setMessages(
-                            prevState => prevState.filter(i => i !== message)
-                            )}}
-                    >
-                        {message.text}
-                    </Message> 
-                  )) 
-                }
-            </div>
 
         </div>
     )
