@@ -85,7 +85,7 @@ const Login = () => {
                     )
 
                     //If the answer is positive
-                    if(!response.error || response.code < 300 ){
+                    if(!response.error || response.code < 300) {
 
                         //Accept the user
                         auth.login(response.userConnectedToken);
