@@ -87,7 +87,7 @@ const CreatePersonForm = () => {
                     prenom:  formState.inputs.firstName.value, 
                     surnom: formState.inputs.nickName.value,
                     description: formState.inputs.biography.value 
-                } 
+                }
             };
 
             //Send the request with the specialized hook
