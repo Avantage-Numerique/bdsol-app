@@ -109,12 +109,12 @@ const Button = ({ rippleEffect, ...props }) => {
             type={props.type}
             onClick={() => {
                 props.onClick()
-                addRipple()
+              //  addRipple()
             }}
             disabled={props.disabled}
         >
 
-            {/* Animated circle */}
+            {/* Animated circle 
             
             {rippleEffect && rippleList.map(ripple => (
                 <Ripple
@@ -127,6 +127,7 @@ const Button = ({ rippleEffect, ...props }) => {
                         )}
                 />
             ))}
+            */}
             
 
             {/* Button text */}

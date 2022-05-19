@@ -82,14 +82,14 @@ const RichTextarea = props => {
         <div className={` ${styles["rich-textarea"]}`}>
 
             { props.label &&
-                <label>{props.label}</label>
+                <label htmlFor={name}>{props.label}</label>
             }
             
             <div className={` ${styles["rich-textarea__quill-container"]}`}>
 
                 {/* This container receives the text entered by the user */}
                 <div 
-
+                    id={name}
                     name={name}
                     onBlur={touchHandler}
                     className={` 

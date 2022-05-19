@@ -148,6 +148,7 @@ const CreateOrganisationForm = () => {
                 name="contactPoint"
                 label="Information de contact"
                 onInput={inputHandler}
+
             />
 
             <Button type="submit" disabled={!formState.isValid}>Soumettre</Button>
