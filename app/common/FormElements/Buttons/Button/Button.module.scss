@@ -1,4 +1,11 @@
 .button {
+
+    /*
+
+        Main button styling
+
+    */
+
     font: inherit;
     padding: 0.5rem 1.5rem;
     border: 1px solid var(--mainBlue);
@@ -8,55 +15,91 @@
     cursor: pointer;
     margin-right: 1rem;
     text-decoration: none;
-    display: inline-block
+    display: inline-block;
+    position: relative;
+
+
+
+    &:focus {
+        outline: none
+    }
+
+    &:hover, 
+    &:active {
+        background: var(--altBlue);
+        border-color: var(--altBlue);
+    }
+
+    &.button--inverse {
+        background: transparent;
+        color: var(--mainBlue);
+    }
+
+    &.button--inverse:hover,
+    &.button--inverse:active {
+        color: white;
+        background: var(--mainBlue);
+    }
+
+    &.button--danger {
+        background: var(--red);
+        border-color: var(--red);
+        color: white;
+    }
+    
+    &.button--danger:hover,
+    &.button--danger:active {
+        background: var(--red);
+        border-color: var(--red);
+    }
+
+    &:disabled,
+    &:hover:disabled,
+    &:active:disabled {
+        background: #ccc;
+        color: #979797;
+        border-color: #ccc;
+        cursor: not-allowed;
+    }
+
+    &.button--small {
+        font-size: 0.8rem;
+    }
+    
+    &.button--big {
+        font-size: 1.5rem;
+    }
+
 }
 
-.button:focus {
-    outline: none
+.ripple {
+
+    --circle-size: 5ch;
+ 
+    background-color: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: var(--circle-size);
+    height: var(--circle-size);
+    border-radius: 50%;
+    pointer-events: none;
+
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+
+    opacity: 0.3;
+
 }
 
-.button:hover, 
-.button:active {
-    background: var(--altBlue);
-    border-color: var(--altBlue);
-}
 
-.button--inverse {
-    background: transparent;
-    color: var(--mainBlue);
-}
 
-.button--inverse:hover,
-.button--inverse:active {
-    color: white;
-    background: var(--mainBlue);
-}
 
-.button--danger {
-    background: rgb(139, 18, 18);
-    border-color: rgb(139, 18, 18);
-    color: white;
-}
 
-.button--danger:hover,
-.button--danger:active {
-    background: rgb(161, 31, 31);
-    border-color: rgb(161, 31, 31);
-}
 
-.button:disabled,
-.button:hover:disabled,
-.button:active:disabled {
-    background: #ccc;
-    color: #979797;
-    border-color: #ccc;
-    cursor: not-allowed;
-}
 
-.button--small {
-    font-size: 0.8rem;
-}
 
-.button--big {
-    font-size: 1.5rem;
-}
+

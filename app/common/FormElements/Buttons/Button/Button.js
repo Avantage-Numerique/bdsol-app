@@ -1,20 +1,47 @@
-import React from 'react'
+import { useState, useEffect} from 'react'
 import Link from 'next/link'
 
 //scss styling
 import styles from './Button.module.scss' 
 
 
+const getCurrentTime = () => {
+    const newTime = new Date();
+    return newTime.getTime()
+}
+
+const Ripple = ({ clear })  => {
+
+    useEffect(() => {
+        setTimeout(() => {
+            console.log("Bonjour")
+            clear()
+
+        }, 2000)
+    }, [])
+
+    return (
+        <div className={styles.ripple}>
+
+        </div>
+    )
+
+}
 
 
+const Button = ({ rippleEffect, ...props }) => { 
 
+    const [rippleList, setRippleList] = useState([])
 
+    const addRipple = () => {
 
+        setRippleList([
+            ...rippleList,
+            {id: "ripple_" + getCurrentTime()}
+        ])
+    
+    }
 
-//className={`button button--${props.size || 'default'}
-
-
-const Button = props => {
 
     {/*
 
@@ -26,21 +53,25 @@ const Button = props => {
     */}
 
 
-
     {/* If the button is an external link */}
     if (props.href) {
+
         return (
             <a
                 className={`
                     ${styles.button} 
                     ${styles['button--' + (props.size || 'default')]} 
-                    ${props.inverse && styles['button--inverse']} && ${props.danger && styles['button--danger']}
+                    ${props.inverse && styles['button--inverse']}
+                    ${props.danger && styles['button--danger']}
                 `}
                 href={props.href}
             >
+
                 {props.children}
+
             </a>
         );
+
     }
 
     
@@ -54,10 +85,13 @@ const Button = props => {
                 className={`
                     ${styles.button} 
                     ${styles['button--' + (props.size || 'default')]} 
-                    ${props.inverse && styles['button--inverse']} && ${props.danger && styles['button--danger']}
+                    ${props.inverse && styles['button--inverse']}
+                    ${props.danger && styles['button--danger']}
                 `}
             >
+
                 {props.children}
+
             </Link>
         );
     }
@@ -69,13 +103,35 @@ const Button = props => {
             className={`
                 ${styles.button} 
                 ${styles['button--' + (props.size || 'default')]}
-                ${props.inverse && styles['button--inverse']} && ${props.danger && styles['button--danger']}
+                ${props.inverse && styles['button--inverse']}
+                ${props.danger && styles['button--danger']}
             `}
             type={props.type}
-            onClick={props.onClick}
+            onClick={() => {
+                props.onClick()
+                addRipple()
+            }}
             disabled={props.disabled}
         >
+
+            {/* Animated circle */}
+            
+            {rippleEffect && rippleList.map(ripple => (
+                <Ripple
+                    key={ripple.id}
+                    className={`
+                        ${rippleEffect && styles.ripple}
+                    `}
+                    clear={() => setRippleList(
+                        prevState => {prevState.filter(i => i.id !== ripple.id)}
+                        )}
+                />
+            ))}
+            
+
+            {/* Button text */}
             {props.children}
+
         </button>
     );
 }

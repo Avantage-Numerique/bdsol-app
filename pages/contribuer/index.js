@@ -46,7 +46,7 @@ const Index = () => {
                 <div className={`maxWidthPageContainer ${styles["contribution-page__section1__menu"]}`}>
            
                     <h4 className="col-12">Sélectionnez le type d'entité que vous voulez ajouter</h4>
-                    <Button onClick={() => dispatch({type: 'selectForm', selection: 'person'})}>Personne</Button>
+                    <Button onClick={() => dispatch({type: 'selectForm', selection: 'person'})} rippleEffect>Personne</Button>
                     <Button onClick={() => dispatch({type: 'selectForm', selection: 'organisation'})}>Organisation</Button>
                     <Button disabled>Projet</Button>
                     <Button disabled>Événement</Button>

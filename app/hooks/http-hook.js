@@ -47,7 +47,7 @@ export const useHttpClient = () => {
                 */
                 const response = await fetch(baseApiRoute + path, {
                     method: method,                                   //Get by default
-                    body: body,                                     //Data
+                    body: body,                                       //Data
                     headers: new Headers(headerParams),
                     json: true,
                     signal: httpAbortCtrl.signal
