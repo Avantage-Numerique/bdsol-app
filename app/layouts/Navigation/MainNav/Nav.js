@@ -39,7 +39,7 @@ const Nav = ( {menuState, setMenuState} ) => {
                     </li>
 
                     <li className="col-12">
-                        <Link href="/documentation">Contribuer à la base de données</Link>
+                        <Link href="/contribuer">Contribuer à la base de données</Link>
                     </li>
 
                     <li className={`col-12 ${navStyles["unactive"]}`}>

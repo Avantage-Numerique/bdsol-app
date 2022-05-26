@@ -109,7 +109,7 @@ const Button = ({ rippleEffect, ...props }) => {
             type={props.type}
             onClick={() => {
                 props.onClick()
-                addRipple()
+                //addRipple()
             }}
             disabled={props.disabled}
         >
