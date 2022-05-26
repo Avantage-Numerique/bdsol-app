@@ -48,9 +48,17 @@
             
             */
 
+            h3{
+                border-bottom: 0.05rem solid rgb(43, 43, 43);
+                padding-bottom: 0.5rem;
+                font-size: 2rem;
+            }
+
             section {
 
                 min-height: 60vh; /* Temporary value */
+
+                
 
             }
 
@@ -62,6 +70,13 @@
             aside {
                 min-height: 50vh; /* Temporary value */
                 float: right;
+
+                .aside__section_basic-database-options {
+                    > button { 
+                        width: 100%;
+                        margin-top: 0.5rem;
+                    }
+                }
             }
         }
     }

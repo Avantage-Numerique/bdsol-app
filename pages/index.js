@@ -103,25 +103,44 @@ const HomePage = () => {
         <div className="col-12">
 
             {/* Page first section */}
-            <section className={`col-8 TEMP__division-container`}>
+            <section className={`col-8`}>
 
-              <h3>Section principale</h3>
+              <h3 className={`col-12 `}>Actualités</h3>
               { auth.isLoggedIn && <p>Vous êtes connecté</p>}
               { !auth.isLoggedIn && <p>Vous n'êtes pas connecté</p>}
 
             </section>
 
-            <aside className={`col-3 TEMP__division-container`}>
+            <aside className={`col-3`}>
 
-              <h3>Section côté</h3>
+              <h3 className={`col-12`}>Menu rapide</h3>
 
-              <Button>
+              <section className={`col-12 ${styles["aside__section_basic-database-options"]}`}>
+                  <header>
+                      <h4 className="blue">Consulter la base de donnée</h4>
+                  </header>
+                  <Button disabled>Événement</Button>
+                  <Button disabled>Organisation</Button>
+                  <Button disabled>Personne</Button>
 
-                  <Link href="/contribuer">
-                      Créer une entité
-                  </Link>
+                  <div className="col-12">
+                    <div className="col-6">
+                      
+                    <Button href="/contribuer">
+                            Créer une entité
+                    </Button>
+                    </div>
+                    <div className="col-6">
+                      <Button disabled>
+                              Consulter plus de données
+                      </Button>
+                    </div>
 
-              </Button>
+                  
+                  </div>
+                  
+              </section>
+              
 
             </aside>
           </div>
