@@ -27,6 +27,24 @@
                 color: white;
                 font-weight: bold;
                 line-height: 1.5em;
+
+                /* Transition for the openning animation */
+                -webkit-transition: text-shadow 400ms ease;
+                -moz-transition: text-shadow 400ms ease;
+                -ms-transition: text-shadow 400ms ease;
+                -o-transition: text-shadow 400ms ease;
+                transition: text-shadow 400ms ease;
+
+                &:hover {
+                    text-shadow: 3px 3px grey;
+                }
+
+                &.unactive{
+                    opacity: 0.5;
+                    cursor: not-allowed;
+
+                    &:hover { text-shadow: none;}
+                }
             }
         }
 

@@ -29,15 +29,23 @@ const Nav = ( {menuState, setMenuState} ) => {
             <div className={navStyles.maxWidthPageContainer + ' ' + "maxWidthPageContainer"}>
              
                 <ul className={`${navStyles.mainMenu} col-9`}>
+
                     <li className="col-12">
-                        <Link href="/compte">Autre titre principale</Link>
+                        <Link href="/">Accueil</Link>
                     </li>
+
+                    <li className={`col-12 ${navStyles["unactive"]}`}>
+                        Consulter les données
+                    </li>
+
                     <li className="col-12">
-                        <Link href="/documentation">Documentation</Link>
+                        <Link href="/documentation">Contribuer à la base de données</Link>
                     </li>
-                    <li className="col-12">
-                        <Link href="https://avantagenumerique.org/blogue/">Blogue</Link>
+
+                    <li className={`col-12 ${navStyles["unactive"]}`}>
+                        À propos
                     </li>
+
                 </ul>
 
                 <div className={`${navStyles.line}`}></div>
