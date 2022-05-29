@@ -79,7 +79,7 @@ const HomePage = () => {
 
       */}
 
-      <header className="col-12">
+      <section className="col-12">
 
           {/* Text content section that follow the normalized width of the app */}
           <div className="maxWidthPageContainer">
@@ -95,8 +95,7 @@ const HomePage = () => {
               <h3 className="col-12 white">Toutes les données du Croissant Boréal</h3>
 
           </div>
-
-      </header>
+      </section>
 
       <div className={`${styles["home-page__main"]} maxWidthPageContainer`}>
 
@@ -116,12 +115,15 @@ const HomePage = () => {
               <h3 className={`col-12`}>Menu rapide</h3>
 
               <section className={`col-12 ${styles["aside__section_basic-database-options"]}`}>
+                  
                   <header>
                       <h4 className="blue">Consulter la base de donnée</h4>
                   </header>
-                  <Button disabled>Événement</Button>
-                  <Button disabled>Organisation</Button>
-                  <Button disabled>Personne</Button>
+
+
+                  <Button disabled slim>Événement</Button>
+                  <Button disabled slim>Organisation</Button>
+                  <Button disabled slim>Personne</Button>
 
                   <div className="col-12">
                     <div className="col-6">
@@ -140,7 +142,7 @@ const HomePage = () => {
                   </div>
                   
               </section>
-              
+
 
             </aside>
           </div>

@@ -7,10 +7,11 @@
 
 .home-page {
 
-    /* Page header */
-    > header {
+    /* First section */
+    > section:nth-of-type(1) {
+        
         min-height: 100vh;
-        min-height: min(30rem, 100vh);
+        min-height: min(35rem, 100vh);
         position: relative;
 
         background-color: rgba(74, 61, 85, 0.5);

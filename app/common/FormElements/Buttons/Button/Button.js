@@ -63,6 +63,10 @@ const Button = ({ rippleEffect, ...props }) => {
                     ${styles['button--' + (props.size || 'default')]} 
                     ${props.inverse && styles['button--inverse']}
                     ${props.danger && styles['button--danger']}
+                    ${props.small && styles['button--small']}
+                    ${props.big && styles['button--big']}
+                    ${props.slim && styles['button--slim']}
+                    ${props.fat && styles['button--fat']}
                 `}
                 href={props.href}
             >
@@ -87,6 +91,10 @@ const Button = ({ rippleEffect, ...props }) => {
                     ${styles['button--' + (props.size || 'default')]} 
                     ${props.inverse && styles['button--inverse']}
                     ${props.danger && styles['button--danger']}
+                    ${props.small && styles['button--small']}
+                    ${props.big && styles['button--big']}
+                    ${props.slim && styles['button--slim']}
+                    ${props.fat && styles['button--fat']}
                 `}
             >
 
@@ -105,6 +113,10 @@ const Button = ({ rippleEffect, ...props }) => {
                 ${styles['button--' + (props.size || 'default')]}
                 ${props.inverse && styles['button--inverse']}
                 ${props.danger && styles['button--danger']}
+                ${props.small && styles['button--small']}
+                ${props.big && styles['button--big']}
+                ${props.slim && styles['button--slim']}
+                ${props.fat && styles['button--fat']}
             `}
             type={props.type}
             onClick={() => {
