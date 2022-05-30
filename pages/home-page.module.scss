@@ -9,7 +9,7 @@
 
     /* First section */
     > section:nth-of-type(1) {
-        
+
         min-height: 100vh;
         min-height: min(35rem, 100vh);
         position: relative;
@@ -49,13 +49,7 @@
             
             */
 
-            h3{
-                border-bottom: 0.05rem solid rgb(43, 43, 43);
-                padding-bottom: 0.5rem;
-                font-size: 2rem;
-            }
-
-            section {
+            > section {
 
                 min-height: 60vh; /* Temporary value */
 
@@ -63,22 +57,91 @@
 
             }
 
+
+
+
             /* 
     
                 Aside section : 
             
             */
+
             aside {
+
+
                 min-height: 50vh; /* Temporary value */
                 float: right;
 
-                .aside__section_basic-database-options {
-                    > button { 
-                        width: 100%;
-                        margin-top: 0.5rem;
+                /*  
+                
+                    Every section in the aside block offers its own set of options
+                    
+                */
+
+                /* Common styling for every section elements */
+                > section {
+
+                    padding: 1rem 0px;
+                    border-top: 0.1rem solid rgba(128, 128, 128, 0.664);
+
+                    h4 { 
+                        margin: 0px;
+                        margin-bottom: 1rem;
                     }
+
+                    p { margin: 0px; }
+                    
                 }
+
+
+                /*      
+
+                    Differents sections and there specific styling
+
+                */
+
+                /* Rapid access to connection button  */
+                .aside__connection-option {
+                    > button { width: 100%; }
+                }
+
+                /* Account options : register */
+                .aside__register-option {
+                    
+                    > div {
+                        border-radius: 0.5rem;
+                        padding: 1rem;
+
+                        > button {
+                            width: 100%;
+                        }
+
+                    }
+
+                }
+
+                /* Rapid options to access of edit the database */
+                .aside__db-edit-options {
+
+                    .db-edit-options__button-set {
+
+                        margin-top: 0.5rem;
+                        display: flex;
+                        
+                        > button:first-of-type {
+                            flex:1;
+                            margin-right: 0.5rem;
+                        }
+                    }  
+                }
+
+
+
             }
+
+
+
+
         }
     }
 }

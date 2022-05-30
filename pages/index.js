@@ -104,43 +104,84 @@ const HomePage = () => {
             {/* Page first section */}
             <section className={`col-8`}>
 
-              <h3 className={`col-12 `}>Actualités</h3>
-              { auth.isLoggedIn && <p>Vous êtes connecté</p>}
-              { !auth.isLoggedIn && <p>Vous n'êtes pas connecté</p>}
+              <h2 className={`col-12 `}>Actualités</h2>
+
 
             </section>
 
             <aside className={`col-3`}>
 
-              <h3 className={`col-12`}>Menu rapide</h3>
+              <h2 className={`col-12`}>Menu rapide</h2>
 
-              <section className={`col-12 ${styles["aside__section_basic-database-options"]}`}>
-                  
-                  <header>
-                      <h4 className="blue">Consulter la base de donnée</h4>
-                  </header>
+              {/* 
+                    Section : If user is not connected, offer the option to connect it self
+              */}
 
+                { !auth.isLoggedIn &&
 
-                  <Button disabled slim>Événement</Button>
-                  <Button disabled slim>Organisation</Button>
-                  <Button disabled slim>Personne</Button>
+                <section className={`col-12 ${styles["aside__connection-option"]}`}>
+                    
+                    <Button href="/compte/connexion">Se connecter</Button>
 
-                  <div className="col-12">
-                    <div className="col-6">
-                      
-                    <Button href="/contribuer">
-                            Créer une entité
-                    </Button>
-                    </div>
-                    <div className="col-6">
-                      <Button disabled>
-                              Consulter plus de données
-                      </Button>
-                    </div>
+                </section>
+
+                }
 
                   
+
+              {/*  Rapid options to access of edit the database  */}
+
+              <section className={`col-12 ${styles["aside__db-edit-options"]}`}>
+                
+                  <div className={`col-12 ${styles["db-edit-options__button-set"]}`}>
+                      <Button disabled slim>Événement</Button>
+                      <Button disabled slim>+</Button>
+                  </div>
+
+                  <div className={`col-12 ${styles["db-edit-options__button-set"]}`}>
+                      <Button disabled slim>Personne</Button>
+                      <Button disabled slim>+</Button>
+                  </div>
+
+                  <div className={`col-12 ${styles["db-edit-options__button-set"]}`}>
+                      <Button disabled slim>Organisation</Button>
+                      <Button disabled slim>+</Button>
                   </div>
                   
+              </section>
+
+
+              {/* 
+                    Section : If user is not connected, propose to create an account if he doesn't have one
+              */}
+
+              { !auth.isLoggedIn &&
+
+                <section className={`col-12 ${styles["aside__register-option"]}`}>
+                    
+                    <div className="col-12 blue_BG white">
+
+                      <h4>Pas encore de compte ?</h4>
+
+                      <p>Vous en aurez besoin afin de vous aussi contribuer aux données</p>
+
+                      <Button href="/compte/inscription">C'est par ici !</Button>
+
+                    </div>
+
+                </section>
+
+              }
+
+              {/* 
+                    Section : More informations about the project
+              */}
+              <section className="col-12">
+
+                <h4 className="col-12">À propos</h4>
+                <p className="col-12">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque rutrum risus vitae accumsan gravida. Nunc vel mattis nunc, non cursus risus. Aenean tincidunt tellus eget lorem accumsan pulvinar. Integer fringilla.
+                </p>
               </section>
 
 

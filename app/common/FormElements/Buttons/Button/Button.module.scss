@@ -13,7 +13,7 @@
     background: var(--mainBlue);
     color: white;
     cursor: pointer;
-    margin-right: 1rem;
+    /*margin-right: 1rem;*/
     text-decoration: none;
     display: inline-block;
     position: relative;
@@ -73,7 +73,7 @@
     }
 
     &.button--slim {
-        padding: 0.25rem 1rem;
+        padding: 0.25rem 0.75rem;
     }
 
     &.button--fat {
