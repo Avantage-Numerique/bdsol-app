@@ -113,7 +113,9 @@
                         padding: 1rem;
 
                         > button {
+                            margin-top: 1rem;
                             width: 100%;
+                            border: 0.15rem white solid;
                         }
 
                     }
@@ -134,14 +136,7 @@
                         }
                     }  
                 }
-
-
-
             }
-
-
-
-
         }
     }
 }

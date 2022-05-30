@@ -53,12 +53,6 @@ export const useHttpClient = () => {
                     signal: httpAbortCtrl.signal
                 });
 
-                //json: true,
-                /*
-                  Response data should have this form :
-                  https://github.com/Avantage-Numerique/bdsol-api/blob/master/api/doc/documentation-api.md
-                */
-
                 const responseData = await response.json();
 
                 //Remove the abort controler now that the response has been received
