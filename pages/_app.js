@@ -22,6 +22,7 @@ function MyApp( {Component, pageProps} ) {
   //Functions to modify the context
   const login = useCallback(token => {
     setToken(token);
+    localStorage.setItem('userData', JSON.stringify({token: token}))
   }, [])
 
   const logout = useCallback(() => {
