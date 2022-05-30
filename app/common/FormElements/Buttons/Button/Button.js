@@ -78,32 +78,6 @@ const Button = ({ rippleEffect, ...props }) => {
 
     }
 
-    
-
-    {/* If the button is an internal link */}
-    if (props.to){
-        return (
-            <Link
-                to={props.to}
-                exact={props.exact}
-                className={`
-                    ${styles.button} 
-                    ${props.inverse ? styles['button--inverse'] : ""}
-                    ${props.danger ? styles['button--danger'] : ""}
-                    ${props.small ? styles['button--small'] : ""}
-                    ${props.big ? styles['button--big'] : ""}
-                    ${props.slim ? styles['button--slim'] : ""}
-                    ${props.fat ? styles['button--fat'] : ""}
-                `}
-            >
-
-                {props.children}
-
-            </Link>
-        );
-    }
-
-
     {/* If the button is not a link, then it calls an action with onClick */}
     return (
         <button
@@ -117,10 +91,7 @@ const Button = ({ rippleEffect, ...props }) => {
                 ${props.fat ? styles['button--fat'] : ""}
             `}
             type={props.type}
-            onClick={() => {
-                props.onClick()
-                //addRipple()
-            }}
+            onClick={props.onClick}
             disabled={props.disabled}
         >
 
