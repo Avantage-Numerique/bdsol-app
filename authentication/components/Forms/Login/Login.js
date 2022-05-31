@@ -88,7 +88,7 @@ const Login = () => {
                     if(!response.error || response.code < 300) {
 
                         //Accept the user
-                        auth.login(response.userConnectedToken);
+                        auth.login(response.data.user.token);
 
                         //Alert the user
                         msg.addMessage({ 
