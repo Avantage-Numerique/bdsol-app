@@ -83,6 +83,7 @@ const Input = ({addRow, removeRow, ...props}) => {
                         placeholder={props.placeholder} 
                         onChange={changeHandler} 
                         onBlur={touchHandler}
+                        autoComplete={props.type === "password" ? "on" : undefined}
                     /> 
 
                     { 
