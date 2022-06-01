@@ -12,6 +12,7 @@ import {VALIDATOR_REQUIRE} from '../../../../app/utils/validators'
 //Custom hooks
 import { useForm } from '../../../../app/hooks/form-hook'
 import { useHttpClient } from '../../../../app/hooks/http-hook'
+import { useSessionHook } from '../../../hooks/useSessionHook'
 
 //Form components
 import Input from '../../../../app/common/FormElements/Input/Input'
@@ -26,8 +27,12 @@ const Login = () => {
     const auth = useContext(AuthContext);
     const msg = useContext(MessageContext);
 
-    //Extract the functions inside useHttpClient
-    const { isLoading, sendRequest} = useHttpClient();
+    //Extract the functions inside the session hook
+    const { login, isLoading } = useSessionHook()
+
+    //const { isLoading, sendRequest} = useHttpClient();
+
+
 
 
     /*
@@ -69,62 +74,24 @@ const Login = () => {
             //Make sure that the form is valid before submitting it
             if(formState.isValid){
 
-                try {
-       
-                    const formData = {
-                        username:  formState.inputs.username.value,
-                        password: formState.inputs.password.value //@todo encrypt with app key before sending? or https is enought ?
-                    };
+                const formData = {
+                    username:  formState.inputs.username.value,
+                    password: formState.inputs.password.value //@todo encrypt with app key before sending? or https is enought ?
+                };
 
-                    //Send the request with the specialized hook
-                    const response = await sendRequest(
-                        "/login",
-                        'POST',
-                        JSON.stringify(formData),
-                        { 'Content-Type': 'application/json' }
-                    )
+                //Call the login hook responsible for the connection
+                login(formData)
 
-                    //If the answer is positive
-                    if(!response.error || response.code < 300) {
-
-                        //Accept the user
-                        auth.login(response.data.user.token);
-
-                        //Alert the user
-                        msg.addMessage({ 
-                            text: response.message,
-                            positive: true 
-                        })
-
-
-                    //If it is not positive for any reason
-                    } else {                    
-
-                        //Inform the user
-                        msg.addMessage({ 
-                            text: response.message,
-                            positive: false 
-                        })
-                    }
                     
-                } catch(err) {
-
-                    //Inform the user
-                    msg.addMessage({ 
-                        text: response.message,
-                        positive: false
-                    })
-                }
-
             } else {
 
                 /*
                     Send a message if the form is not valid
                 */
-               msg.addMessage({ 
-                text: "Attention. Le formulaire envoyé n'est pas valide. Assurez-vous que tous les champs sont bien remplis.",
-                positive: false 
-                })
+                msg.addMessage({ 
+                    text: "Attention. Le formulaire envoyé n'est pas valide. Assurez-vous que tous les champs sont bien remplis.",
+                    positive: false 
+                 })
             }
 
             

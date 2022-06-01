@@ -72,10 +72,56 @@ export const useSessionHook = () => {
         }
     }
 
-    const login = (data) => {
+    const login = async (data) => {
+
+        //Make sur the use is not logged in.
+        //Prevent useless request
+        if(!auth.isLoggedIn){
+
+            //Send the request with the specialized hook
+            const response = await sendRequest(
+                "/login",
+                'POST',
+                JSON.stringify(data),
+                { 'Content-Type': 'application/json' }
+            )
+
+            //If the answer is positive
+            if(!response.error) {
+
+                console.log(response)
+                //Accept the user
+                auth.login(response.data.userConnectedToken);
+
+                //Alert the user
+                msg.addMessage({ 
+                    text: response.message,
+                    positive: true 
+                })
+
+
+            //If it is not positive for any reason
+            } else {                    
+
+                //Inform the user
+                msg.addMessage({ 
+                    text: response.message,
+                    positive: false 
+                })
+            }
+
+        } else {
+
+            //Tell the user he is already logged in
+            msg.addMessage({ 
+                text: "Vous êtes déjà connecté.",
+                positive: false
+            })
+
+        }
         
     }
     
-    return {logout, isLoading}
+    return {logout, login, isLoading}
 }
 
