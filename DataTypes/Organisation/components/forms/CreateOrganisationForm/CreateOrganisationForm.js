@@ -23,9 +23,6 @@ import styles from './CreateOrganisationForm.module.scss'
 
 const CreateOrganisationForm = () => {
 
-    //Import the authentication context to make sure the user is well connected
-    const auth = useContext(AuthContext);
-
     //Import message context 
     const msg = useContext(MessageContext);
 
@@ -61,11 +58,6 @@ const CreateOrganisationForm = () => {
         
         //Make sure that the form is valid before submitting it
         if(formState.isValid){
-
-            /*
-                Data must have this shape 
-                https://github.com/Avantage-Numerique/bdsol-api/blob/master/api/doc/Organisations.md
-            */
 
             const formData = {
 

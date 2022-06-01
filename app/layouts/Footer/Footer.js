@@ -24,6 +24,7 @@ const Footer = () => {
                     News letter section 
                 *
                 */}
+                
                 <section className={"col-12"}>
                     <div className={"col-6"}>
                         <h3 className={"col-12"}>Abonnez-vous à notre infolettre</h3>

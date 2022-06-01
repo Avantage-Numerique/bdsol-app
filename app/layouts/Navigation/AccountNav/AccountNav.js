@@ -12,10 +12,15 @@ import { useRouter } from 'next/router'
 //Import the authentication context
 import { AuthContext } from '../../../../authentication/context/auth-context'
 
+//Log options
+import { useSessionHook } from '../../../../authentication/hooks/useSessionHook'
+
 import Link from 'next/link'
 import navStyles from './AccountNav.module.scss'
 
 const AccountNav = ( {menuState, setMenuState} ) => {
+
+    const { logout } = useSessionHook();
 
     //Import the authentication context to know if the user is connected
     const auth = useContext(AuthContext);
@@ -35,7 +40,7 @@ const AccountNav = ( {menuState, setMenuState} ) => {
             <div className={"maxWidthPageContainer"}>
 
                 <h3 className="col-9">Menu de membre</h3>
-             
+
                 <ul className={`col-9`}>
 
                     {/* Options if the user is NOT logged in */}
@@ -58,7 +63,7 @@ const AccountNav = ( {menuState, setMenuState} ) => {
                             </li>
                             
                             <li className="col-12">
-                                <Link href="/compte">Se déconnecter</Link>
+                                <button onClick={logout}>Se déconncter</button>
                             </li>
                         </>
                     }
