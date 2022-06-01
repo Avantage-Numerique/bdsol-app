@@ -31,9 +31,7 @@ const Header = ( props ) => {
     const { menuState, setMenuState } = props
 
     return (
-        <header className={`${styles.header} ${auth.isLoggedIn && styles["account-bar"]} dark_BG`}>
-            
-            { auth.isLoggedIn && <AccountTopBar /> }
+        <header className={`${styles.header} dark_BG`}>
 
             {/* Container that fills all the width of the platform and containerr the logo*/}
             <div className={`${styles["header__content"]} maxWidthPageContainer`}>
@@ -60,9 +58,6 @@ const Header = ( props ) => {
                     <HamburgerButton {...props} />
                 </div>
             </div>
-            
-
-            
 
         </header>
     )   
