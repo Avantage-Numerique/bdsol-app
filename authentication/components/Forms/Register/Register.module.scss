@@ -10,9 +10,11 @@
     justify-content: center;
     align-items: center;
     min-height: 75vh;
+    padding: 10vh;
 
 
     form {
+        position: relative;
         width: min(35rem, 95%);
         padding: 2rem;
         border: 1px solid var(--grey);

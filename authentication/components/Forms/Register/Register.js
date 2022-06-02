@@ -1,37 +1,70 @@
 import React, { useContext } from 'react'
-import { AuthContext } from '../../../context/auth-context'
 
 //Validators
 import {VALIDATOR_REQUIRE, VALIDATOR_EMAIL} from '../../../../app/utils/validators'
 
 //Custom hooks
 import { useForm } from '../../../../app/hooks/form-hook'
+import { useHttpClient } from '../../../../app/hooks/http-hook'
 
 //Form components
 import Input from '../../../../app/common/FormElements/Input/Input'
 import Button from '../../../../app/common/FormElements/Buttons/Button/Button'
+import Spinner from '../../../../app/common/widgets/spinner/Spinner'
+
+//context
+import { MessageContext } from '../../../../app/common/UserNotifications/Message/Context/Message-Context'
+import { AuthContext } from '../../../context/auth-context'
 
 //Styling
 import styles from './Register.module.scss'
 
 const Register = () => {
 
+    //State that hold the form data
     const [formState, inputHandler] = useForm(
+
         {
-        username: {
-            value: '',
-            isValid: false
-        },
-        password: {
-            value: '',
-            isValid: false
-        }
-    }, 
+            username: {
+                value: '',
+                isValid: false
+            },
+            email: {
+                value: '',
+                isValid: false
+            },
+            password: {
+                value: '',
+                isValid: false
+            },
+            password2: {
+                value: '',
+                isValid: false
+            },
+            avatar: {
+                value: '',
+                isValid: true
+            },
+            name: {
+                value: '',
+                isValid: true
+            },
+            role: {
+                value: '',
+                isValid: true
+            },
+        
+        }, 
     false)
 
+    //Import message context 
+    const msg = useContext(MessageContext);
 
     //Import the authentication context to make sure the user is well connected
     const auth = useContext(AuthContext);
+
+    //Extract the functions inside useHttpClient
+    const {isLoading, sendRequest} = useHttpClient();
 
 
     //Submit the form
@@ -41,37 +74,67 @@ const Register = () => {
 
         if(auth.isLoggedIn){
 
-            //Display a message to let the user know that he is already logged in
+            //Notify the user
+            msg.addMessage({ 
+                text: "Vous avez déjà un compte.",
+                positive: false 
+            })
 
         } else {
 
-            try{
+            //Make sure that the two passwords matches
+            if(formState.inputs.password.value === formState.inputs.password2.value){
 
-                const response = await fetch('https://api.avantagenumerique.org/o/v1', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        //name: event.target.userName.value,
-                        email:  event.target.email.value,
-                        password: event.target.password.value
-                    })
-                });
-
-                const responseData = await response.json();
-
-                //If 400 or 500 type of response, throw an error
-                if(!response.ok){
-                    throw new Error(responseData.message);
+                const data = {
+                    "username": formState.inputs.username.value,
+                    "email": formState.inputs.email.value,
+                    "password": formState.inputs.password.value,
+                    "avatar": formState.inputs.avatar.value,
+                    "name": formState.inputs.name.value,
+                    "role": formState.inputs.role.value
                 }
-                
-                auth.login(responseData.token);
+
+                //Send the request with the specialized hook
+                const response = await sendRequest(
+                    "/users/create",
+                    'POST',
+                    JSON.stringify(data),
+                    { 'Content-Type': 'application/json' }
+                )
+
+                /*
+                    Display the proper message relative to the api response
+                */
+            
+                //If positive
+                if(!response.error){
+
+                    //Notify the user
+                    msg.addMessage({ 
+                        text: response.message,
+                        positive: true 
+                    })
+
+                //If negative
+                } else {                    
+                    msg.addMessage({ 
+                        text: response.message,
+                        positive: false 
+                    })
+                }
 
 
-            } catch(err){
-                console.log(err);
-            }
+            } else {
+
+                //The two passwords do not match. 
+                //Inform the user
+                msg.addMessage({ 
+                    text: "Les mots de passe entrés ne concordent pas. Veuillez les écrire à nouveau.",
+                    positive: false 
+                })
+
+            }  
+
         }
     }
 /*
@@ -82,27 +145,22 @@ const Register = () => {
     return (
         <section className={styles.registerPage}>
 
+            { isLoading && <Spinner />}
+
             <form onSubmit={submitHandler}>
+
+                
 
                 <h3 className="blue" >Création de compte</h3>
 
                 <Input
-                    name="firstname"
-                    type="text"
-                    label="Prénom"
-                    validators={[VALIDATOR_REQUIRE()]}
-                    errorText="Veuillez entrer un nom d'utilisateur valide"
-                    onInput={inputHandler}
-                />   
-
-                <Input
-                    name="lastname"
+                    name="name"
                     type="text"
                     label="Nom"
-                    validators={[VALIDATOR_REQUIRE()]}
+                    validators={[]}
                     errorText="Veuillez entrer un nom d'utilisateur valide"
                     onInput={inputHandler}
-                />   
+                /> 
 
                 <Input
                     name="username"
@@ -135,16 +193,23 @@ const Register = () => {
                     name="password2"
                     type="password"
                     label="Confirmation du mot de passe "
-                    validators={[VALIDATOR_REQUIRE(), VALIDATOR_EMAIL()]}
+                    validators={[VALIDATOR_REQUIRE()]}
                     errorText="Veuillez entrer un mot de passe valide"
+                    onInput={inputHandler}
+                />   
+
+                <Input
+                    name="role"
+                    type="text"
+                    label="Rôle"
+                    validators={[]}
+                    errorText="Veuillez entrer un nom d'utilisateur valide"
                     onInput={inputHandler}
                 />   
 
                 <Button type="submit" disabled={!formState.isValid}>Soumettre</Button>
 
             </form>
-
-            { auth.isLoggedIn && <button onClick={auth.logout()}>Logout</button>}
             
         </section>
     )
