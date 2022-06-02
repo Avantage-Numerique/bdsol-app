@@ -1,5 +1,4 @@
 import React, { useContext, useState } from 'react';
-import Link from 'next/link'
 
 import DOMPurify from 'isomorphic-dompurify';
 import Head from 'next/head'
@@ -101,13 +100,32 @@ const HomePage = () => {
 
         <div className="col-12">
 
-            {/* Page first section */}
-            <section className={`col-8`}>
+            {/************************************
+             * 
+             * Page first section (main)
+             * 
+             * ***********************************/}
+            <section className={`${styles["home-page__feed-section"]} col-8`}>
 
               <h2 className={`col-12 `}>Actualités</h2>
 
+              <div className="col-12">
+
+                  <article className={`${styles["home-page__feed-elem"]}`}>
+
+                  </article>
+
+              </div>
 
             </section>
+
+            
+
+            {/************************************
+             * 
+             * Page : Aside section
+             * 
+             * ***********************************/}
 
             <aside className={`col-3`}>
 

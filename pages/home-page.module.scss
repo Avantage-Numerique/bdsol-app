@@ -47,15 +47,18 @@
             /* 
 
                 Section one  : 
-                containing the news. 
+                FEED SECTION
             
             */
 
-            > section {
+            > .home-page__feed-section {
 
                 min-height: 60vh; /* Temporary value */
 
-                
+                article.home-page__feed-elem {
+                    float: left;
+                    position: relative;
+                }
 
             }
 

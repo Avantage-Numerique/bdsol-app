@@ -24,24 +24,31 @@ function MyApp( {Component, pageProps} ) {
     Functions to modify the authentication context 
   *
   */
+
   const login = useCallback(token => {
     setToken(token);
     localStorage.setItem('userData', JSON.stringify({token: token}))
   }, [])
+
 
   const logout = useCallback(() => {
     setToken(null);
     localStorage.removeItem('userData')
   }, [])
   
+
+
   //If the page is reloaded, this hook verify if there was a token stored in the local storage. 
   //If there is one, use it to login
+
   useEffect(() => {
     const storedData = JSON.parse(localStorage.getItem('userData'));
     if(storedData && storedData.token){
       login(storedData.token)
     }
   },[login])
+
+  
 
   return (
     
