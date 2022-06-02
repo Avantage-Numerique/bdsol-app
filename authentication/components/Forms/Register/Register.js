@@ -48,11 +48,7 @@ const Register = () => {
             name: {
                 value: '',
                 isValid: true
-            },
-            role: {
-                value: '',
-                isValid: true
-            },
+            }
         
         }, 
     false)
@@ -90,8 +86,7 @@ const Register = () => {
                     "email": formState.inputs.email.value,
                     "password": formState.inputs.password.value,
                     "avatar": formState.inputs.avatar.value,
-                    "name": formState.inputs.name.value,
-                    "role": formState.inputs.role.value
+                    "name": formState.inputs.name.value
                 }
 
                 //Send the request with the specialized hook
@@ -198,14 +193,7 @@ const Register = () => {
                     onInput={inputHandler}
                 />   
 
-                <Input
-                    name="role"
-                    type="text"
-                    label="Rôle"
-                    validators={[]}
-                    errorText="Veuillez entrer un nom d'utilisateur valide"
-                    onInput={inputHandler}
-                />   
+          
 
                 <Button type="submit" disabled={!formState.isValid}>Soumettre</Button>
 

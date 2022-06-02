@@ -90,6 +90,8 @@ export const useSessionHook = () => {
             if(!response.error) {
 
                 console.log(response)
+                console.log(response.data)
+
                 //Accept the user
                 auth.login(response.data.user.token);
 

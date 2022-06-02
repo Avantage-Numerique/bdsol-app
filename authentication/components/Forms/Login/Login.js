@@ -11,12 +11,12 @@ import {VALIDATOR_REQUIRE} from '../../../../app/utils/validators'
 
 //Custom hooks
 import { useForm } from '../../../../app/hooks/form-hook'
-import { useHttpClient } from '../../../../app/hooks/http-hook'
 import { useSessionHook } from '../../../hooks/useSessionHook'
 
 //Form components
 import Input from '../../../../app/common/FormElements/Input/Input'
 import Button from '../../../../app/common/FormElements/Buttons/Button/Button'
+import Spinner from '../../../../app/common/widgets/spinner/Spinner'
 
 //Styling
 import styles from './Login.module.scss'
@@ -29,11 +29,6 @@ const Login = () => {
 
     //Extract the functions inside the session hook
     const { login, isLoading } = useSessionHook()
-
-    //const { isLoading, sendRequest} = useHttpClient();
-
-
-
 
     /*
         First of all, verify if the user is logged in.
@@ -82,6 +77,7 @@ const Login = () => {
                 //Call the login hook responsible for the connection
                 login(formData)
 
+
                     
             } else {
 
@@ -100,6 +96,9 @@ const Login = () => {
 
     return (
         <section className={styles.authPage}>
+
+            {/* Spinner to display when the app is waiting for the api*/}
+            {isLoading && <Spinner />}
 
             <form onSubmit={authSubmitHandler}>
 
