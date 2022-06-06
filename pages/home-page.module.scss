@@ -58,6 +58,10 @@
                 article.home-page__feed-elem {
                     float: left;
                     position: relative;
+                    width: 100%;
+                    padding: 1rem;
+                    padding: max(2vw, 1rem);
+                    background-color: grey;
                 }
 
             }

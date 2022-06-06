@@ -91,7 +91,7 @@ const Register = () => {
 
                 //Send the request with the specialized hook
                 const response = await sendRequest(
-                    "/users/create",
+                    "/register",
                     'POST',
                     JSON.stringify(data),
                     { 'Content-Type': 'application/json' }
