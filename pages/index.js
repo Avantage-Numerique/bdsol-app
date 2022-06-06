@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 
 import DOMPurify from 'isomorphic-dompurify';
 import Head from 'next/head'
@@ -6,7 +6,11 @@ import Head from 'next/head'
 //Components
 import Button from '../app/common/FormElements/Buttons/Button/Button'
 
+//Costum hooks 
+import { useHttpClient } from '../app/hooks/http-hook'
+
 //Context
+import { MessageContext } from '../app/common/UserNotifications/Message/Context/Message-Context'
 import { AuthContext } from '../authentication/context/auth-context'
 
 //Styling
@@ -17,7 +21,56 @@ import styles from './home-page.module.scss'
 
 const HomePage = () => {
 
+    //Import the authentication context to make sure the user is well connected
     const auth = useContext(AuthContext);
+
+    //Import message context 
+    const msg = useContext(MessageContext);
+
+    //Extract the functions inside useHttpClient
+    const {isLoading, sendRequest} = useHttpClient();
+
+    //Fetch the data 
+    useEffect(() => {
+      
+      const fetchPersonList = async () => {
+
+
+          //Send the request with the specialized hook
+          const response = await sendRequest(
+              "/personnes/list",
+              'POST',
+              JSON.stringify({}),
+              { 'Content-Type': 'application/json' }
+          )
+
+          /*
+              Display the proper message relative to the api response
+          */
+            console.log(response)
+          //If positive
+          if(!response.error){
+
+            //Notify the user
+            msg.addMessage({ 
+                text: response.message,
+                positive: true 
+            })
+
+            //If negative
+            } else {                    
+                msg.addMessage({ 
+                    text: response.message,
+                    positive: false 
+                })
+            }
+
+      }
+
+      fetchPersonList()
+      
+
+    }, [])
 
     /****************************
              LD+Json data
