@@ -113,6 +113,8 @@ const HomePage = () => {
 
                   <article className={`${styles["home-page__feed-elem"]}`}>
 
+                      <h3>Personne</h3>
+                      
                   </article>
 
               </div>
