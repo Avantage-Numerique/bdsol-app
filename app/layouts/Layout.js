@@ -102,6 +102,7 @@ const Layout = ( {children} ) => {
                 </MessageContext.Provider>
                 <Footer />
 
+
                 <BottomBanner 
                     title="Chers et chères visiteurs"
                     para1="Travail en cours, les données ne seront pas pérennes, gardez toujours vos données en local. Nous tentons d'améliorer l'expérience dans l'application, mais elle peut changé de version en version. Merci de nous partagez votre opinons et vos observations."
@@ -123,6 +124,7 @@ const Layout = ( {children} ) => {
                     </Message> 
                   )) 
                 }
+
             </div>
 
             </div>

@@ -3,8 +3,7 @@
     --messageColor: rgb(216, 62, 62);
 
     &.positiveReview { --messageColor: rgb(91, 110, 91); }
-
-    
+   
     margin-top: 2.5vw;
     margin-right: 2.5vw;
     width: 20rem;
@@ -15,12 +14,9 @@
     z-index: 1000;
     color: white;
 
-    p {
-        margin: 0px;
-    }
+    p { margin: 0px; }
 
     &.display{
-
         -webkit-animation: display 1s ease forwards normal;
         -moz-animation: display 1s ease forwards normal;
         -o-animation: display 1s ease forwards normal;
@@ -51,7 +47,6 @@
         color: var(--messageColor);
         cursor: pointer;
     }
-
 }
 
 @-webkit-keyframes display{

@@ -18,7 +18,6 @@ import styles from './home-page.module.scss'
 
 
 
-
 const HomePage = () => {
 
     //Import the authentication context to make sure the user is well connected
@@ -47,7 +46,7 @@ const HomePage = () => {
           /*
               Display the proper message relative to the api response
           */
-            console.log(response)
+
           //If positive
           if(!response.error){
 
@@ -138,13 +137,19 @@ const HomePage = () => {
                <div className={`${styles["home-page__header--img-container"]}`}>
 
                   <img
-                    src="/show_screen_shot.jpg"
+                    src="/general_images/Croissant-Boreal@3x-1440x1440.png"
                     alt="Image d'un événement de projection devant public."
                   />
 
               </div>
-              <h1 className="col-12 white">Avantage Numérique</h1>
-              <h3 className="col-12 white">Toutes les données du Croissant Boréal</h3>
+
+              <div className="col-12">
+
+                <h1 className="col-12 white">Avantage Numérique</h1>
+                <h3 className="col-12 white">Toutes les données du Croissant Boréal</h3>
+                
+              </div>
+
 
           </div>
       </section>
