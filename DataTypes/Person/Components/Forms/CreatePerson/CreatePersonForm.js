@@ -115,8 +115,6 @@ const CreatePersonForm = () => {
                 })
             }
 
-           
-
         } else {
 
             //The form is not valid. 
