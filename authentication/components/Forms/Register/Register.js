@@ -81,19 +81,21 @@ const Register = () => {
             //Make sure that the two passwords matches
             if(formState.inputs.password.value === formState.inputs.password2.value){
 
-                const data = {
-                    "username": formState.inputs.username.value,
-                    "email": formState.inputs.email.value,
-                    "password": formState.inputs.password.value,
-                    "avatar": formState.inputs.avatar.value,
-                    "name": formState.inputs.name.value
-                }
+                const newUser = {
+                    "data": {
+                        "username": formState.inputs.username.value,
+                        "email": formState.inputs.email.value,
+                        "password": formState.inputs.password.value,
+                        "avatar": formState.inputs.avatar.value,
+                        "name": formState.inputs.name.value
+                    }
+                };
 
                 //Send the request with the specialized hook
                 const response = await sendRequest(
                     "/register",
                     'POST',
-                    JSON.stringify(data),
+                    JSON.stringify(newUser),
                     { 'Content-Type': 'application/json' }
                 )
 
