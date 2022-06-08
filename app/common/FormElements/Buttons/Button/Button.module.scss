@@ -1,5 +1,21 @@
 .button {
 
+    /* Starting color */
+    --currentColor: var(--blue1);
+    --hover-brightness: 1.2;
+
+    /* Personnalized colors */
+    &.blue2 { --currentColor: var(--blue2); }
+    &.blue3 { --currentColor: var(--blue3); }
+    &.blue4 { --currentColor: var(--blue4); }
+    &.red { --currentColor: var(--red); }
+
+    -webkit-transition: -webkit-filter 0.3s;
+    transition: -webkit-filter 0.3s;
+    -o-transition: filter 0.3s;
+    transition: filter 0.3s;
+    transition: filter 0.3s, -webkit-filter 0.3s;
+
     /*
 
         Main button styling
@@ -9,12 +25,11 @@
     float: left;
     font: inherit;
     padding: 0.5rem 1.5rem;
-    border: 1px solid var(--mainBlue);
+    border: 1px solid var(--currentColor);
     border-radius: 4px;
-    background: var(--mainBlue);
+    background: var(--currentColor);
     color: white;
     cursor: pointer;
-    /*margin-right: 1rem;*/
     text-decoration: none;
     display: inline-block;
     position: relative;
@@ -27,31 +42,23 @@
 
     &:hover, 
     &:active {
-        background: var(--altBlue);
-        border-color: var(--altBlue);
+        -webkit-filter: brightness(var(--hover-brightness));
+        filter: brightness(var(--hover-brightness));
     }
 
-    &.button--inverse {
+    &.button--reverse {
         background: transparent;
-        color: var(--mainBlue);
+        border-width: 0.15rem;
+        font-weight: 600;
+        color: var(--currentColor);
     }
 
-    &.button--inverse:hover,
-    &.button--inverse:active {
+    &.button--reverse:hover,
+    &.button--reverse:active {
         color: white;
-        background: var(--mainBlue);
-    }
-
-    &.button--danger {
-        background: var(--red);
-        border-color: var(--red);
-        color: white;
-    }
-    
-    &.button--danger:hover,
-    &.button--danger:active {
-        background: var(--red);
-        border-color: var(--red);
+        background: var(--currentColor);
+        -webkit-filter: brightness(1); /* No changes... */
+        filter: brightness(1);  /* No changes... */
     }
 
     &:disabled,
@@ -61,6 +68,8 @@
         color: #979797;
         border-color: #ccc;
         cursor: not-allowed;
+        -webkit-filter: brightness(1); /* No changes... */
+        filter: brightness(1);  /* No changes... */
     }
 
     /* Shapes of the button */
@@ -83,6 +92,11 @@
 
 }
 
+/*
+*
+*       !!!! Option not functional yet
+*
+*/
 .ripple {
 
     --circle-size: 5ch;

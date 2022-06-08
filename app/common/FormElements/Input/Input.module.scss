@@ -37,6 +37,12 @@
     
                 &.control--invalid {
                     border: 0.1rem solid rgb(255, 135, 135);
+                    background-color: rgb(255, 231, 231);
+                }
+
+                &:focus{
+                    background-color: rgb(227, 233, 255);
+                    border: 0.1rem solid rgb(178, 178, 235);
                 }
             }
 

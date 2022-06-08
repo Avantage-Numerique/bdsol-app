@@ -24,15 +24,12 @@
       Hexa : #455ae6
   */
   --mainBlue: rgb(69, 90, 230);
+  --blue1: rgb(69, 90, 230);
 
-
-  /* 
-    Secondary colors 
-        Hexa ;
-            --altBlue: #4d64ff;
-            --grey: #bbbfd7;
-  */
-  --altBlue: rgb(77, 100, 255);
+  --altBlue: rgb(77, 100, 255);  /* To be removed */
+  --blue2: rgb(77, 100, 255);
+  --blue3: rgb(77, 196, 255);
+  --blue4: rgb(95, 113, 234);
   --red: rgb(221, 92, 92);
   --grey: rgb(187, 191, 215);
 
@@ -113,9 +110,17 @@ h6 { font-size: 0.8rem; }
 .blue { color: var(--mainBlue); }
 .blue_BG { background-color: var(--mainBlue); }
 
+/* blue color */
+.blue1 { color: var(--blue1); }
+.blue1_BG { background-color: var(--blue1); }
+
 /* Secondary color */
 .sec-color { color: var(--altBlue);}
 .sec-color_BG { background-color: var(--altBlue); }
+
+/* secondary color */
+.blue2 { color: var(--blue2); }
+.blue2_BG { background-color: var(--blue2); }
 
 /* grey */
 .grey { color: var(--grey);}
@@ -227,6 +232,8 @@ input {
     padding: var(--inputPadding);
     margin: 0px 0.25em;
   }
+
+
 }
 
 /* text areas which are not submit buttons */

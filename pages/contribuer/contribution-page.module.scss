@@ -12,19 +12,38 @@
     
     }
 
-    /* Page */
-    .contribution-page__section1 {
+    section {
 
-        .contribution-page__section1__content {
+        .contribution-page__menu {
 
-            margin: 5vh 0px;
-            padding: 5vh 0px;
-            border-top: 1px solid rgb(158, 158, 158);
-            border-bottom: 1px solid rgb(158, 158, 158);
+            padding-bottom: 5vh;
 
-            article { max-width: 80vh;}
-            h2 { margin: 0px; }
-     
+            button {
+                padding: 1rem;
+                width: 100%;
+                font-weight: 600;
+                float: left;
+                margin-bottom: 0.5rem;
+            }
+        }
+    }
+}
+
+/* On screens that are 600px or more, set the background color to blue */
+@media screen and (min-width: 600px) {
+    .contribution-page {
+        section {
+
+            .contribution-page__menu {
+
+                button {
+                    width: auto;
+                    padding: 2rem 4rem;
+                    margin-right: 2rem;
+                    margin-bottom: 2rem;
+                }
+                
+            }
         }
     }
 }

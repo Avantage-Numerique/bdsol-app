@@ -56,24 +56,22 @@ const Button = ({ rippleEffect, ...props }) => {
     if (props.href) {
 
         return (
-            <button 
-                className={`
-                    ${styles.button} 
-                    ${props.inverse ? styles['button--inverse'] : ""}
-                    ${props.danger ? styles['button--danger'] : ""}
-                    ${props.small ? styles['button--small'] : ""}
-                    ${props.big ? styles['button--big'] : ""}
-                    ${props.slim ? styles['button--slim'] : ""}
-                    ${props.fat ? styles['button--fat'] : ""}
-            `}>
-                <Link
-                    href={props.href}
-                >
+            <Link href={props.href} >
+                <button 
+                    className={`
+                        ${styles.button} 
+                        ${props.color ? styles[props.color] : ""}
+                        ${props.reverse ? styles['button--reverse'] : ""}
+                        ${props.small ? styles['button--small'] : ""}
+                        ${props.big ? styles['button--big'] : ""}
+                        ${props.slim ? styles['button--slim'] : ""}
+                        ${props.fat ? styles['button--fat'] : ""}
+                `}>
+                
+                        {props.children}
 
-                    {props.children}
-
-                </Link>
-            </button>
+                </button>
+            </Link>
         );
 
     }
@@ -83,8 +81,8 @@ const Button = ({ rippleEffect, ...props }) => {
         <button
             className={`
                 ${styles.button} 
-                ${props.inverse ? styles['button--inverse'] : ""}
-                ${props.danger ? styles['button--danger'] : ""}
+                ${props.color ? styles[props.color] : ""}
+                ${props.reverse ? styles['button--reverse'] : ""}
                 ${props.small ? styles['button--small'] : ""}
                 ${props.big ? styles['button--big'] : ""}
                 ${props.slim ? styles['button--slim'] : ""}

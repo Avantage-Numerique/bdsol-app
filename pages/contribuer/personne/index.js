@@ -2,16 +2,28 @@
 
 //Component 
 import CreatePersonForm from '../../../DataTypes/Person/Components/Forms/CreatePerson/CreatePersonForm'
+import Button from '../../../app/common/FormElements/Buttons/Button/Button'
 
 //Styling 
 import styles from './createPerson.module.scss'
 
-const createPerson = () => {
+const CreatePersonPage = () => {
 
     return (
         
         <div className={`col-12 ${styles["create-person"]}`}>
 
+                <div className={`col-12 ${styles["create-person__return-button"]}`}>
+                    <div className="maxWidthPageContainer">
+                        <Button 
+                            color="blue4"
+                            reverse
+                            href="/contribuer"
+                        >
+                            Retour à la page précédente
+                        </Button>
+                    </div>
+                </div>
                 <header className={`col-12`}>
                     <div className="maxWidthPageContainer">
                         <div className={`${styles["create-person--max-width"]}`}>
@@ -35,4 +47,4 @@ const createPerson = () => {
 
 }
 
-export default createPerson
+export default CreatePersonPage
