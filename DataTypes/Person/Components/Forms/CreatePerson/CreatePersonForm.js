@@ -93,7 +93,7 @@ const CreatePersonForm = () => {
 
             //Send the request with the specialized hook
             const response = await sendRequest(
-                "/personne/create",
+                "/personnes/create",
                 'POST',
                 JSON.stringify(formData),
                 { 'Content-Type': 'application/json' }
