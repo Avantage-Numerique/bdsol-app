@@ -67,10 +67,8 @@ const Input = ({addRow, removeRow, ...props}) => {
     };
 
     return (
-
-        <div className={ styles.inputComponent }>
-
-            <label htmlFor={props.name}>
+        
+            <label className={ styles.inputComponent } htmlFor={props.name}>
 
                 {props.label}
 
@@ -78,7 +76,8 @@ const Input = ({addRow, removeRow, ...props}) => {
 
                     <input 
                         className={` ${!inputState.isValid && inputState.isTouched && styles["control--invalid"]}`}
-                        name={props.name ? props.name : ""}
+                        name={props.name}
+                        id={props.name}
                         type={props.type ? props.type : "text"} 
                         placeholder={props.placeholder} 
                         onChange={changeHandler} 
@@ -112,8 +111,6 @@ const Input = ({addRow, removeRow, ...props}) => {
                 }
 
             </label>
-
-        </div>
 
     ); 
 }

@@ -5,22 +5,22 @@
 
 */
 
-.inputComponent {
     
-    width: 100%; /* Always all containers width */
-    margin: 0.5rem 0rem;
 
-    /*  Transition for the styling */
-    -webkit-transition: all 500ms ease;
-    -moz-transition: all 500ms ease;
-    -ms-transition: all 500ms ease;
-    -o-transition: all 500ms ease;
-    transition: all 500ms ease;
+    .inputComponent {
 
-    label {
+        float: left;
+    
+        /*  Transition for the styling */
+        -webkit-transition: all 500ms ease;
+        -moz-transition: all 500ms ease;
+        -ms-transition: all 500ms ease;
+        -o-transition: all 500ms ease;
+        transition: all 500ms ease;
 
         display: flex;
         flex-direction: column;
+        
 
         .inputComponent__field-container {
 
@@ -29,10 +29,11 @@
 
             input {
                 flex: 1;
-                padding: 0.5rem;
+                padding: 01rem;
+                background-color: white;
                 /* width: min(100%, 50ch); */
-    
-                background-color: whitesmoke;
+
+                border: 0.05rem solid rgba(94, 94, 94, 0.2);
     
                 &.control--invalid {
                     border: 0.1rem solid rgb(255, 135, 135);
@@ -45,9 +46,5 @@
                 border-radius: 0rem 0.5rem 0.5rem 0rem;
                 margin-left: 0.25rem;
             }
-
         }
-
-        
     }
-}

@@ -100,35 +100,37 @@ const InputMultiplier = ({ label, type, name, onInput, validators, errorText }) 
   
     return (
 
-        <div className={`col-12 ${styles["input-multiplier"]}`}>
+           <label htmlFor={name} className={`col-12 ${styles["input-multiplier"]}`}>
+               
+               {label}
 
-           <label>{label}</label>
+                { rows.map((row, i, arr) => (
 
-           { rows.map((row, i, arr) => (
+                        <div 
+                            className={`col-12 ${styles["input-multiplier__row"]}`}
+                            key={row.name}
+                        > 
 
-                <div 
-                    className={`col-12 ${styles["input-multiplier__row"]}`}
-                    key={row.name}
-                > 
+                            <div className={styles["input-multiplier__input-container"]}>
+                                
+                                <Input
+                                    name={row.name}
+                                    type={type}
+                                    validators={validators}
+                                    errorText={errorText}
+                                    onInput={inputHandler}
+                                    removeRow={arr.length - 1 === i ? false : () => removeRow(row.name)}
+                                    addRow={arr.length - 1 === i ? () => addRow() : false }
+                                />
+                                
+                            </div>
+                        
+                        </div>
 
-                    <div className={styles["input-multiplier__input-container"]}>
-                        <Input
-                            name={row.name}
-                            type={type}
-                            validators={validators}
-                            errorText={errorText}
-                            onInput={inputHandler}
-                            removeRow={arr.length - 1 === i ? false : () => removeRow(row.name)}
-                            addRow={arr.length - 1 === i ? () => addRow() : false }
-                        />
-                    </div>
-                
-                </div>
+                    )) }
 
-            )) }
+            </label>
             
-        </div>
-
     )
 }
 
