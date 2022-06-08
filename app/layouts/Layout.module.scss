@@ -21,10 +21,11 @@
 
     /* Message section */
     .message-section {
-        position: absolute;
+        position: fixed;
         top: 0px;
         right: 0px;
         display: flex;
         flex-direction: column;
+        z-index: 1000;
     }
 }

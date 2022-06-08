@@ -78,19 +78,23 @@ const RichTextarea = props => {
 
     return (
 
-            
-        <div className={` ${styles["rich-textarea"]}`}>
+        <div className={` ${styles["rich-textarea"]}`} >
 
-            { props.label &&
-                <label>{props.label}</label>
-            }
-            
+        {props.label &&
+
+            <label htmlFor={name}>    
+                {props.label}
+            </label>
+
+        } 
+
             <div className={` ${styles["rich-textarea__quill-container"]}`}>
 
                 {/* This container receives the text entered by the user */}
-                <div 
 
+                <div 
                     name={name}
+                    id={name}
                     onBlur={touchHandler}
                     className={` 
                         ${styles["rich-textarea__quill-content"]} 
@@ -98,13 +102,16 @@ const RichTextarea = props => {
                     `} 
                     ref={quillRef} 
                 />
+
                 {!textareaState.isValid && textareaState.isTouched && 
                     <small>{ props.errorText }</small>
                 }
+
             </div>
+        
+        </div>
 
        
-        </div>
     );
 }
 

@@ -102,6 +102,7 @@ h6 { font-size: 0.8rem; }
 
 
 
+
 /*
 *
 *    Colors settings
@@ -205,6 +206,10 @@ button {
 /*
  Override some default styling of the input element 
 */
+
+label {
+  color:  #5d5d5d;
+}
 
 input {
 

@@ -62,7 +62,8 @@ const Textarea = props => {
                 {props.label}
                 <textarea 
                     className={` ${!textareaState.isValid && textareaState.isTouched && styles["control--invalid"]}`}
-                    name={name ? name : ""}
+                    name={name}
+                    id={name}
                     rows={props.rows || 3} 
                     placeholder={props.placeholder} 
                     onChange={changeHandler}

@@ -154,7 +154,10 @@ const CreatePersonForm = () => {
                 label="Biographie"
                 onInput={inputHandler}
             />
-            <Button type="submit" disabled={!formState.isValid}>Soumettre</Button>
+
+            <div className="col-12">
+                <Button type="submit" disabled={!formState.isValid}>Soumettre</Button>
+            </div>
         </form>
     )
 }

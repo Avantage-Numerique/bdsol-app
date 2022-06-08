@@ -1,9 +1,49 @@
 .create-person-form {
 
     label {
-        font-weight: 600;
 
-        > * { font-weight: normal;}
+        font-weight: 600;
+        > * { font-weight: normal; }
+
     }
 
+    /*
+
+        The direct children of this form element are fields elements
+
+    */
+
+    > * {
+        margin-bottom: 1rem;
+
+        &:not(button){
+            width: 100%;
+        }
+    }
+
+
+    
+    
+
+    
 }
+
+/* On screens that are 600px or more, set the background color to blue */
+@media screen and (min-width: 600px) {
+    .create-person-form {
+        /*
+            Specific sizes for the two fields firstname and larsname
+        */
+        [for="lastName"], 
+        [for="firstName"] {
+            width: 48%;
+            width: calc(50% - 1rem);
+        }
+
+        [for="lastName"], 
+        [for="firstName"] & :last-of-type{
+            float: right;
+        }
+
+    }
+  }
