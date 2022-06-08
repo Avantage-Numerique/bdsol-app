@@ -8,6 +8,7 @@ import { useHttpClient } from '../../../../../app/hooks/http-hook'
 import Button from '../../../../../app/common/FormElements/Buttons/Button/Button'
 import Input from '../../../../../app/common/FormElements/Input/Input'
 import RichTextarea from '../../../../../app/common/FormElements/RichTextArea/RichTextarea'
+import Spinner from '../../../../../app/common/widgets/spinner/Spinner'
 
 //contexts
 import { AuthContext } from '../../../../../authentication/context/auth-context'
@@ -83,10 +84,10 @@ const CreatePersonForm = () => {
 
             const formData = {
                 "data": {
-                    nom: formState.inputs.lastName.value,
-                    prenom:  formState.inputs.firstName.value, 
-                    surnom: formState.inputs.nickName.value,
-                    description: formState.inputs.biography.value 
+                    "nom": formState.inputs.lastName.value,
+                    "prenom":  formState.inputs.firstName.value, 
+                    "surnom": formState.inputs.nickName.value,
+                    "description": formState.inputs.biography.value 
                 }
             };
 
@@ -129,36 +130,41 @@ const CreatePersonForm = () => {
     }
 
     return (
-        <form onSubmit={submitHandler} className={`col-12 ${styles["create-person-form"]}`}>
-            <Input 
-                name="firstName"
-                label="Prénom"
-                validators={[VALIDATOR_REQUIRE()]}
-                errorText="Cette information est requise"
-                onInput={inputHandler}
-            />
-            <Input 
-                name="lastName"
-                label="Nom"
-                validators={[VALIDATOR_REQUIRE()]}
-                errorText="Cette information est requise"
-                onInput={inputHandler}
-            />
-            <Input  
-                name="nickName"
-                label="Surnom"
-                onInput={inputHandler}
-            />
-            <RichTextarea 
-                name="biography"
-                label="Biographie"
-                onInput={inputHandler}
-            />
+        <>
+            { isLoading && <Spinner />}
 
-            <div className="col-12">
-                <Button type="submit" disabled={!formState.isValid}>Soumettre</Button>
-            </div>
-        </form>
+            <form onSubmit={submitHandler} className={`col-12 ${styles["create-person-form"]}`}>
+
+                <Input 
+                    name="firstName"
+                    label="Prénom"
+                    validators={[VALIDATOR_REQUIRE()]}
+                    errorText="Cette information est requise"
+                    onInput={inputHandler}
+                />
+                <Input 
+                    name="lastName"
+                    label="Nom"
+                    validators={[VALIDATOR_REQUIRE()]}
+                    errorText="Cette information est requise"
+                    onInput={inputHandler}
+                />
+                <Input  
+                    name="nickName"
+                    label="Surnom"
+                    onInput={inputHandler}
+                />
+                <RichTextarea 
+                    name="biography"
+                    label="Biographie"
+                    onInput={inputHandler}
+                />
+
+                <div className="col-12">
+                    <Button type="submit" disabled={!formState.isValid}>Soumettre</Button>
+                </div>
+            </form>
+        </>
     )
 }
 
