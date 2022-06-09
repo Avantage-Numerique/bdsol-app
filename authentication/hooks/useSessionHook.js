@@ -3,7 +3,7 @@ import { useContext } from 'react'
 /*
 *
 *   Specific function to be call everytime
-*   we want to logout of the api
+*   we want to login or logout of the api
 *
 */
 
@@ -30,6 +30,24 @@ export const useSessionHook = () => {
         //Make sure the user is logged in before sending the request
         if(auth.isLoggedIn){
 
+            //Temporary
+            try{
+                auth.logout()  
+
+                msg.addMessage({ 
+                    text: "Félicitation ! Vous avez bien été déconnectés.",
+                    positive: false 
+                })
+
+            } catch (err){
+                msg.addMessage({ 
+                    text: "Une erreur est survenue lors de la déconnection",
+                    positive: false 
+                })
+            }
+
+/**************** To be activated when the backend will be ready *******************
+
             //Send the request to logout and wait the answer
             const response = await sendRequest(
                 "/logout",
@@ -38,10 +56,10 @@ export const useSessionHook = () => {
                 { 'Content-Type': 'application/json' }
             )
 
-            /*
-                Display a message to the user relative based
-                on the answer of the api
-            */
+            //
+            //    Display a message to the user relative based
+            //    on the answer of the api
+            //
            
             //If positive
             if(!response.error){
@@ -63,6 +81,7 @@ export const useSessionHook = () => {
                     positive: false 
                 })
             }
+*/
 
         } else {
             msg.addMessage({ 
@@ -89,9 +108,6 @@ export const useSessionHook = () => {
             //If the answer is positive
             if(!response.error) {
 
-                console.log(response)
-                console.log(response.data)
-
                 //Accept the user
                 auth.login(response.data.user.token);
 
@@ -100,7 +116,6 @@ export const useSessionHook = () => {
                     text: response.message,
                     positive: true 
                 })
-
 
             //If it is not positive for any reason
             } else {                    

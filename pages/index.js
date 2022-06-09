@@ -1,10 +1,11 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 
 import DOMPurify from 'isomorphic-dompurify';
 import Head from 'next/head'
 
 //Components
 import Button from '../app/common/FormElements/Buttons/Button/Button'
+import PresentationCard from '../app/common/Containers/cards/presentationCard'
 
 //Costum hooks 
 import { useHttpClient } from '../app/hooks/http-hook'
@@ -20,6 +21,9 @@ import styles from './home-page.module.scss'
 
 const HomePage = () => {
 
+    //Holds the state the organisations
+    const [orgList, setOrgList] = useState([])
+
     //Import the authentication context to make sure the user is well connected
     const auth = useContext(AuthContext);
 
@@ -31,45 +35,46 @@ const HomePage = () => {
 
     //Fetch the data 
     useEffect(() => {
-      
-      const fetchPersonList = async () => {
 
+      const fetchApi = async () => {
+        
+          console.log("Called")
 
           //Send the request with the specialized hook
           const response = await sendRequest(
-              "/personnes/list",
+              "/organisations/list",
               'POST',
-              JSON.stringify({}),
+              JSON.stringify({"data": {
+                "name": "jonathan"
+              }}),
               { 'Content-Type': 'application/json' }
           )
 
+
           /*
               Display the proper message relative to the api response
-          */
+         */
 
           //If positive
           if(!response.error){
-
-            //Notify the user
-            msg.addMessage({ 
-                text: response.message,
-                positive: true 
-            })
+            
+            //Update the state with new data
+            setOrgList(response.data)
 
             //If negative
-            } else {                    
+            } else {          
+              
                 msg.addMessage({ 
                     text: response.message,
                     positive: false 
                 })
-            }
-
+            } 
       }
 
-      fetchPersonList()
-      
+      fetchApi()
 
     }, [])
+
 
     /****************************
              LD+Json data
@@ -169,11 +174,18 @@ const HomePage = () => {
 
               <div className="col-12">
 
-                  <article className={`${styles["home-page__feed-elem"]}`}>
+                  {orgList.map(elem => (
+                      <PresentationCard
+                        key={elem._id}
+                        name={elem.nom}
+                        description={elem.description}
+                        createdAt={elem.createdAt}
+                        url={elem.url}
+                        contactPoint={elem.contactPoint}
+                      />
 
-                      <h3>Personne</h3>
-                      
-                  </article>
+                  ))}
+
 
               </div>
 

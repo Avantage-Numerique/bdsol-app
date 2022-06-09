@@ -122,13 +122,16 @@ const Login = () => {
                     onInput={inputHandler}
                 />   
 
-                <Button type="submit" disabled={!formState.isValid}>Soumettre</Button>
+                <div className="col-12">
+                    <Button type="submit" disabled={!formState.isValid}>Soumettre</Button>
+                </div>
 
                 <p className={`${styles.formRedirection} col-12`}>Vous n'avez pas encore de compte ? 
                     <span className="blue">
                         <Link href="/compte/inscription"> C'est par ici.</Link>
                     </span>
                 </p>
+                
                 <p className={`${styles.formRedirection} col-12`}>Vous avez oublié votre mot de passe ?
                     <span className="blue">
                         <Link href="/compte/reinitialiser"> Vous pouvez le réinitialiser </Link>
