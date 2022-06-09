@@ -66,9 +66,12 @@ const Button = ({ rippleEffect, ...props }) => {
                         ${props.big ? styles['button--big'] : ""}
                         ${props.slim ? styles['button--slim'] : ""}
                         ${props.fat ? styles['button--fat'] : ""}
-                `}>
+                `}  
+                    disabled={props.disabled}
+                >
                 
                         {props.children}
+                        
 
                 </button>
             </Link>

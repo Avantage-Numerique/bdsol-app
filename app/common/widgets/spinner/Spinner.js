@@ -4,10 +4,14 @@
 import styles from './Spinner.module.scss'
 
 
-const Spinner = () => {
+const Spinner = ({ fixed, reverse }) => {
 
     return (
-        <div className={`${styles["spinner__container"]}`}>
+        <div className={`
+            ${styles["spinner__container"]}
+            ${reverse ? styles["spinner__container--reverse"] : ""}
+            ${fixed ? styles["spinner__container--fixed"] : ""}
+        `}>
 
             <div className={`${styles["spinner__elem"]}`}>
 

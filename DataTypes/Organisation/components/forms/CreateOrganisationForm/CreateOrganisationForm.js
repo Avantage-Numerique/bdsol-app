@@ -10,7 +10,6 @@ import Input from '../../../../../app/common/FormElements/Input/Input'
 import RichTextarea from '../../../../../app/common/FormElements/RichTextArea/RichTextarea'
 
 //contexts
-import { AuthContext } from '../../../../../authentication/context/auth-context'
 import { MessageContext } from '../../../../../app/common/UserNotifications/Message/Context/Message-Context'
 
 //Form validators
@@ -110,45 +109,47 @@ const CreateOrganisationForm = () => {
 
 
     return (
+        <>
+            { isLoading && <Spinner fixed />}
 
-        <form onSubmit={submitHandler} className={`col-12 ${styles["create-organisation-form"]}`}>
-            
-            <Input 
-                name="name"
-                label="Nom de l'organisation"
-                validators={[VALIDATOR_REQUIRE()]}
-                errorText="Cette information est requise"
-                onInput={inputHandler}
-            />
+            <form onSubmit={submitHandler} className={`col-12 ${styles["create-organisation-form"]}`}>
+                
+                <Input 
+                    name="name"
+                    label="Nom de l'organisation"
+                    validators={[VALIDATOR_REQUIRE()]}
+                    errorText="Cette information est requise"
+                    onInput={inputHandler}
+                />
 
-            <RichTextarea 
-                name="description"
-                label="Description"
-                onInput={inputHandler}
-            />
+                <RichTextarea 
+                    name="description"
+                    label="Description"
+                    onInput={inputHandler}
+                />
 
-            <Input 
-                name="url"
-                label="Hyperlien"
-                type="url"
-                validators={[VALIDATOR_REQUIRE()]}
-                errorText="Cette information est requise"
-                onInput={inputHandler}
-            />
+                <Input 
+                    name="url"
+                    label="Hyperlien"
+                    type="url"
+                    validators={[VALIDATOR_REQUIRE()]}
+                    errorText="Cette information est requise"
+                    onInput={inputHandler}
+                />
 
-            <Input  
-                name="contactPoint"
-                label="Information de contact"
-                onInput={inputHandler}
-            />
+                <Input  
+                    name="contactPoint"
+                    label="Information de contact"
+                    onInput={inputHandler}
+                />
 
-            <div className="col-12">
-                <Button type="submit" disabled={!formState.isValid}>Soumettre</Button>
-            </div>
-        </form>
+                <div className="col-12">
+                    <Button type="submit" disabled={!formState.isValid}>Soumettre</Button>
+                </div>
+            </form>
       
         
-      
+        </>
     )
 
 }

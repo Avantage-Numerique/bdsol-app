@@ -1,5 +1,6 @@
 .spinner__container {
 
+
     position: absolute;
     top: 0px;
     left: 0px;
@@ -11,6 +12,33 @@
     display: flex;
     justify-content: center;
     align-items: center;
+
+    /*****
+      Reverse
+    ******/
+    &.spinner__container--reverse {
+      background-color: unset;
+
+      .spinner__elem {
+        .lds-roller div:after {
+          background-color: var(--blue2);
+        }
+      }
+    }
+
+    /********
+      Fixed
+    *********/
+    &.spinner__container--fixed {
+
+      position: fixed;
+      top: 0px;
+      left: 0px;
+      width: 100vw;
+      height: 100vh;
+      z-index: 10;
+      
+    }
 
     .spinner__elem {
 

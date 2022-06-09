@@ -131,7 +131,7 @@ const CreatePersonForm = () => {
 
     return (
         <>
-            { isLoading && <Spinner />}
+            { isLoading && <Spinner fixed />}
 
             <form onSubmit={submitHandler} className={`col-12 ${styles["create-person-form"]}`}>
 
