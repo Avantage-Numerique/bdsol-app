@@ -36,7 +36,7 @@ export const useSessionHook = () => {
 
                 msg.addMessage({ 
                     text: "Félicitation ! Vous avez bien été déconnectés.",
-                    positive: false 
+                    positive: true
                 })
 
             } catch (err){

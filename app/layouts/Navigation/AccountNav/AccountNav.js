@@ -27,6 +27,11 @@ const AccountNav = ( {menuState, setMenuState} ) => {
 
     //Listen for a page change. If it happens, close the menu
     const router = useRouter();
+
+    const deconnection = () => {
+        setMenuState(0)
+        logout()
+    }
     
     useEffect(() => {
         //Verify the the menu is open. If it is, then close it
@@ -63,7 +68,7 @@ const AccountNav = ( {menuState, setMenuState} ) => {
                             </li>
                             
                             <li className="col-12">
-                                <button onClick={logout}>Se déconncter</button>
+                                <div onClick={deconnection}>Se déconnecter</div>
                             </li>
                         </>
                     }

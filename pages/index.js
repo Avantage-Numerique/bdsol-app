@@ -6,6 +6,7 @@ import Head from 'next/head'
 //Components
 import Button from '../app/common/FormElements/Buttons/Button/Button'
 import PresentationCard from '../app/common/Containers/cards/presentationCard'
+import Spinner from '../app/common/widgets/spinner/Spinner'
 
 //Costum hooks 
 import { useHttpClient } from '../app/hooks/http-hook'
@@ -172,19 +173,33 @@ const HomePage = () => {
 
               <h2 className={`col-12 `}>Actualités</h2>
 
-              <div className="col-12">
+              <div className={`col-12 ${styles["home-page__feed-section--container"]}`}>
 
-                  {orgList.map(elem => (
-                      <PresentationCard
-                        key={elem._id}
-                        name={elem.nom}
-                        description={elem.description}
-                        createdAt={elem.createdAt}
-                        url={elem.url}
-                        contactPoint={elem.contactPoint}
-                      />
+                  {
+                    orgList.length < 1 && isLoading &&
+                    <>
+                      <div className={`col-12 ${styles["home-page__feed-section--spinner-container"]}`}>
+                      <Spinner reverse />
+                      </div>
+                      <p className="col-12"><strong>Chargement des données</strong></p>
+                    </>
+                  }
 
-                  ))}
+                  {
+                    orgList.length > 0 && !isLoading &&
+                  
+                    orgList.map(elem => (
+                        <PresentationCard
+                          key={elem._id}
+                          name={elem.nom}
+                          description={elem.description}
+                          createdAt={elem.createdAt}
+                          url={elem.url}
+                          contactPoint={elem.contactPoint}
+                        />
+
+                    ))
+                  }
 
 
               </div>
@@ -230,13 +245,27 @@ const HomePage = () => {
 
                   <div className={`col-12 ${styles["db-edit-options__button-set"]}`}>
                       <Button disabled slim>Personne</Button>
-                      <Button disabled slim>+</Button>
+                      <Button 
+                        disabled={!auth.isLoggedIn}
+                        href="/contribuer/personne" 
+                        slim
+                      >+</Button>
                   </div>
 
                   <div className={`col-12 ${styles["db-edit-options__button-set"]}`}>
                       <Button disabled slim>Organisation</Button>
-                      <Button disabled slim>+</Button>
+                      <Button 
+                        disabled={!auth.isLoggedIn} 
+                        slim
+                        href="/contribuer/organisation"
+                      >+</Button>
                   </div>
+
+                  { auth.isLoggedIn &&
+                    <Button color="blue4" reverse href="/contribuer">Ajouter une donnée</Button>
+                  }
+                  
+                  <p className="col-12"><strong className="red">DÉVELOPPEMENT EN COURS.</strong> Vous pourrez bientôt lancer des recherches et consulter toutes les données. </p>
                   
               </section>
 

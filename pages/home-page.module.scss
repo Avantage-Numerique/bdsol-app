@@ -63,13 +63,18 @@
 
                 min-height: 60vh; /* Temporary value */
 
-                article.home-page__feed-elem {
-                    float: left;
+                .home-page__feed-section--container{
                     position: relative;
-                    width: 100%;
-                    padding: 1rem;
-                    padding: max(2vw, 1rem);
-                    background-color: grey;
+
+                    p {
+                        text-align: center;
+                    }
+
+                    .home-page__feed-section--spinner-container {
+                        position: relative;
+                        min-height: 10rem;
+
+                    }
                 }
 
             }
@@ -152,6 +157,18 @@
                             margin-right: 0.5rem;
                         }
                     }  
+
+                    p {
+                        color: grey;
+                        font-size: 0.9rem;
+                        line-height: 1;
+                        margin-top: 1rem;
+                    }
+
+                    > button {
+                        width: 100%;
+                        margin-top: 1rem;
+                    }
                 }
             }
         }
