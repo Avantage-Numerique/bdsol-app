@@ -157,6 +157,11 @@ li { list-style-type: none;}
 ul {padding: 0px;}
 
 /*
+  Remove automatic marges from figure
+*/
+figure { margin: 0px; }
+
+/*
 *   Container that defines the Maximum width the content of the page can take
 */
 

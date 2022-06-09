@@ -20,12 +20,14 @@
         padding: 2rem;
         border: 1px solid var(--grey);
         h3 { margin-top: 0px; }
-    }
 
-    input {
-        background-color: rgb(245, 245, 245);
-        width: 100%;
+        /*
+            The fields are direct children of the form
+        */
+        > *:not(button){ 
+            width: 100%;
+            margin-bottom: 1rem;
+        }
     }
-
 
 }

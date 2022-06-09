@@ -1,7 +1,6 @@
  
 //Components
 import Button from '../../app/common/FormElements/Buttons/Button/Button'
-import FixedCard from '../../app/common/Containers/FixedCard/FixedCard'
 
 //styling
 import styles from './contribution-page.module.scss'

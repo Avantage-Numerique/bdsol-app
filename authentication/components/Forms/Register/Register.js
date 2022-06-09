@@ -144,11 +144,9 @@ const Register = () => {
 
             { isLoading && <Spinner />}
 
-            <form onSubmit={submitHandler}>
+            <form onSubmit={submitHandler}>  
 
-                
-
-                <h3 className="blue" >Création de compte</h3>
+                <h3 className="blue">Création de compte</h3>
 
                 <Input
                     name="name"
@@ -195,10 +193,9 @@ const Register = () => {
                     onInput={inputHandler}
                 />   
 
-          
-
-                <Button type="submit" disabled={!formState.isValid}>Soumettre</Button>
-
+                <div className="col-12">
+                    <Button type="submit" disabled={!formState.isValid}>Soumettre</Button>
+                </div>
             </form>
             
         </section>
