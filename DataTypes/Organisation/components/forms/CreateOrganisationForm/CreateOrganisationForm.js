@@ -62,7 +62,7 @@ const CreateOrganisationForm = () => {
             const formData = {
 
                 "data": {
-                    name: formState.inputs.name.value,
+                    nom: formState.inputs.name.value,
                     description:  formState.inputs.description.value, 
                     url: formState.inputs.url.value,
                     contactPoint: formState.inputs.contactPoint.value 
@@ -72,7 +72,7 @@ const CreateOrganisationForm = () => {
 
             //Send the request with the specialized hook
             const response = await sendRequest(
-                "/personne/create",
+                "/organisations/create",
                 'POST',
                 JSON.stringify(formData),
                 { 'Content-Type': 'application/json' }
@@ -142,8 +142,9 @@ const CreateOrganisationForm = () => {
                 onInput={inputHandler}
             />
 
-            <Button type="submit" disabled={!formState.isValid}>Soumettre</Button>
-
+            <div className="col-12">
+                <Button type="submit" disabled={!formState.isValid}>Soumettre</Button>
+            </div>
         </form>
       
         

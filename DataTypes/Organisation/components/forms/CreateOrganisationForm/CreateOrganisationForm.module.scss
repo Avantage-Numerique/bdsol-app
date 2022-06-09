@@ -6,5 +6,27 @@
 */
 
 .create-organisation-form {
+
+    label {
+
+        font-weight: 600;
+        > * { font-weight: normal; }
+
+    }
+
+    /*
+
+        The direct children of this form element are fields elements
+
+    */
+
+    > * {
+        margin-bottom: 1rem;
+
+        &:not(button){
+            width: 100%;
+        }
+    }
+
     
 }

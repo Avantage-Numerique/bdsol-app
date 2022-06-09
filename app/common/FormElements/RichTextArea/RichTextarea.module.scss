@@ -13,31 +13,38 @@
     .rich-textarea__quill-container {
 
         .rich-textarea__quill-content  {
-            padding: 0.5rem;
             width: 100%;
     
             > * {
                 width: 100%;
-                width: min(100%, 50ch);
             }
     
             /*
             Override some default styling of the input element 
             */
+
     
-            /* variable to set equally the padding */
-            --inputPadding: 0.75em;
-    
-            background-color: whitesmoke;
+            background-color: white;
             border: unset;
             color: unset;
-            padding: var(--inputPadding) 0px;    
-    
-    
+
+            /* Element that contain the text and get focused */
+            > div:first-of-type:focus {
+                background-color: rgba(227, 233, 255, 0.658);
+                border: 0.1rem solid rgb(178, 178, 235);
+            }
+
+
+            /*
+            *       This is not working. 
+            *       Will need more time
+            *
+            *
             &.control--invalid {
                 border-top: 0.1rem solid rgb(255, 135, 135) !important;
                 border: 0.1rem solid rgb(255, 135, 135);
             }
+            */
         }
     }  
 }
