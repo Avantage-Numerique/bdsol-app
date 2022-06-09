@@ -37,7 +37,7 @@ const HomePage = () => {
 
           //Send the request with the specialized hook
           const response = await sendRequest(
-              "/personnes/list",
+              "/personnes/list/all",
               'POST',
               JSON.stringify({}),
               { 'Content-Type': 'application/json' }
@@ -66,7 +66,7 @@ const HomePage = () => {
 
       }
 
-      fetchPersonList()
+      fetchPersonList();
       
 
     }, [])
