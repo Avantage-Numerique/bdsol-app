@@ -179,7 +179,7 @@ const HomePage = () => {
                     orgList.length < 1 && isLoading &&
                     <>
                       <div className={`col-12 ${styles["home-page__feed-section--spinner-container"]}`}>
-                      <Spinner reverse />
+                        <Spinner reverse />
                       </div>
                       <p className="col-12"><strong>Chargement des données</strong></p>
                     </>

@@ -31,9 +31,9 @@ const CreateOrganisationPage = () => {
                 <header className={`col-12`}>
                     <div className="maxWidthPageContainer">
                         <div className={`${styles["create-organisation--max-width"]}`}>
-                            <h1 className={`col-12 blue`}>Personne</h1>
+                            <h1 className={`col-12 blue`}>Organisation</h1>
                             <h4 className="col-12">Super formulaire</h4>
-                            <p>Ajoutez ici une entité "Personne" afin de représenter un artiste, artisan ou professionnel de tout domaine que vous jugez pertinent à cette base de données.</p>
+                            <p>Vous pouvez ajouter ici une nouvelle organisation à la base de données.</p>
                         </div>
                     </div>
                 </header>
