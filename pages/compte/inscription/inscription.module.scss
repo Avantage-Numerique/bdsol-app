@@ -7,8 +7,32 @@
 
 */
 
-.inscriptionComponent {
+.inscription-page {
 
-        
-    
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 75vh;
+        position: relative;
+        background-color: #eeeeee;
+        padding: 15vh 5vw;
+
+        form {
+
+                background-color: white;
+                position: relative;
+                width: min(35rem, 95%);
+                padding: 2.5vw;
+                padding: max(1rem, 2.5vw);
+
+                h3 { margin-top: 0px; }
+
+                /*
+                        The fields are direct children of the form
+                */
+                > *:not(button){ 
+                        width: 100%;
+                        margin-bottom: 1rem;
+                }
+        }
 }

@@ -106,6 +106,7 @@ const Register = () => {
                 //If positive
                 if(!response.error){
 
+                    console.log(response)
                     //Notify the user
                     msg.addMessage({ 
                         text: response.message,
@@ -140,11 +141,11 @@ const Register = () => {
     })
 */
     return (
-        <section className={styles.registerPage}>
+        <>
 
             { isLoading && <Spinner />}
 
-            <form onSubmit={submitHandler}>  
+            <form className={`${styles["registration-form"]}`} onSubmit={submitHandler}>  
 
                 <h3 className="blue">Création de compte</h3>
 
@@ -198,7 +199,7 @@ const Register = () => {
                 </div>
             </form>
             
-        </section>
+        </>
     )
 
 }

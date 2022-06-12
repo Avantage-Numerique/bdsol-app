@@ -243,7 +243,9 @@ const HomePage = () => {
 
                   
 
-              {/*  Rapid options to access of edit the database  */}
+              {/*  
+                    Rapid options to access of edit the database  
+              */}
 
               <section className={`col-12 ${styles["aside__db-edit-options"]}`}>
                 
