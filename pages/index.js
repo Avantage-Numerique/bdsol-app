@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 
 import DOMPurify from 'isomorphic-dompurify';
 import Head from 'next/head'
+import Link from 'next/link'
 
 //Components
 import Button from '../app/common/FormElements/Buttons/Button/Button'
@@ -169,6 +170,7 @@ const HomePage = () => {
              * Page first section (main)
              * 
              * ***********************************/}
+
             <section className={`${styles["home-page__feed-section"]} col-8`}>
 
               <h2 className={`col-12 `}>Actualités</h2>
@@ -199,6 +201,13 @@ const HomePage = () => {
                         />
 
                     ))
+                  }
+
+                  {
+                    orgList.length === 0 && !isLoading &&
+                    <div className="col-12">
+                      <h5>Aucune donnée ne semble disponible :( <br/><br/> Assurez-vous d'avoir une connexion internet fonctionnelle.</h5>
+                    </div>
                   }
 
 
@@ -299,7 +308,12 @@ const HomePage = () => {
 
                 <h4 className="col-12">À propos</h4>
                 <p className="col-12">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque rutrum risus vitae accumsan gravida. Nunc vel mattis nunc, non cursus risus. Aenean tincidunt tellus eget lorem accumsan pulvinar. Integer fringilla.
+                  La Base de données structurées, ouvertes et liées (BDSOL) est le cœur du hub virtuel d’Avantage numérique. Elle vise à recenser et géolocaliser les talents, les compétences, les ressources, les initiatives techno-créatives à travers le territoire du Croissant Boréal.
+                  <br/>
+                  <br/>
+                  <span className="col-12 blue1">
+                    <Link href="/">En savoir plus</Link>
+                  </span>
                 </p>
               </section>
 
