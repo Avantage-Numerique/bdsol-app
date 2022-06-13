@@ -30,6 +30,7 @@ const Layout = ( {children} ) => {
         1 : Main menu open
         2 : Account menu open
     */
+
     const [menuState, setMenuState] = useState(0);
 
     /*
@@ -37,6 +38,7 @@ const Layout = ( {children} ) => {
         Messaging settings 
 
     */
+
     //Message list
     const [messages, setMessages] = useState([])
 
@@ -102,7 +104,8 @@ const Layout = ( {children} ) => {
                 </MessageContext.Provider>
                 <Footer />
 
-{/* 
+{/*  Commented out but still there if it was to be used for another purpose 
+
                 <BottomBanner 
                     title="Chers et chères visiteurs"
                     para1="Travail en cours, les données ne seront pas pérennes, gardez toujours vos données en local. Nous tentons d'améliorer l'expérience dans l'application, mais elle peut changé de version en version. Merci de nous partagez votre opinons et vos observations."
@@ -112,21 +115,22 @@ const Layout = ( {children} ) => {
 
                 {/* Section where the common messages and alerts to the user are made */}
                 <div className={`${styles["message-section"]}`}>
-                {/* Display the messages */}
-                { messages.map(message => (
-                    <Message 
-                        key={ "login-message-" + message.creationTime } 
-                        positiveReview={ message.positive } 
-                        clean={() => { setMessages(
-                            prevState => prevState.filter(i => i !== message)
-                            )}}
-                    >
-                        {message.text}
-                    </Message> 
-                  )) 
-                }
 
-            </div>
+                    {/* Display the messages */}
+                    { messages.map(message => (
+                        <Message 
+                            key={ "login-message-" + message.creationTime } 
+                            positiveReview={ message.positive } 
+                            clean={() => { setMessages(
+                                prevState => prevState.filter(i => i !== message)
+                                )}}
+                        >
+                            {message.text}
+                        </Message> 
+                    )) 
+                    }
+
+                </div>
 
             </div>
         </>

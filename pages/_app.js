@@ -16,8 +16,13 @@ import '../styles/normalize.scss'
 function MyApp( {Component, pageProps} ) {
 
 
-  //If we have a token, then it means that we are logged in
-  const [token, setToken] = useState( false ); 
+  //Store the session values
+  const [session, setSession] = useState({
+      token: false,
+      avatar: null,
+      name: null,
+      username: null
+  }); 
 
   /*
   *
@@ -25,15 +30,29 @@ function MyApp( {Component, pageProps} ) {
   *
   */
 
-  const login = useCallback(token => {
-    setToken(token);
-    localStorage.setItem('userData', JSON.stringify({token: token}))
+  const login = useCallback(userData => {
+
+    const newSession = {
+      token:      userData.token,     //There must be at least a token, for now
+      avatar:     userData.avatar ? userData.avatar : null,
+      name:       userData.name ? userData.name : null,
+      username:   userData.username ? userData.username : null
+    }
+
+    //Update the state
+    setSession(newSession);
+
+    //Store in the local storage
+    localStorage.setItem('userData', JSON.stringify(newSession))
+
   }, [])
 
 
   const logout = useCallback(() => {
+
     setToken(null);
     localStorage.removeItem('userData')
+
   }, [])
   
 
@@ -42,10 +61,15 @@ function MyApp( {Component, pageProps} ) {
   //If there is one, use it to login
 
   useEffect(() => {
+
     const storedData = JSON.parse(localStorage.getItem('userData'));
+
     if(storedData && storedData.token){
-      login(storedData.token)
+
+        login(storedData.token)
+
     }
+
   },[login])
 
   
@@ -53,18 +77,28 @@ function MyApp( {Component, pageProps} ) {
   return (
     
     <>
-      {/* Authentication context provided to all the subsequents elements */}
+
+      {/* Authentication context provided to all the subsequent elements */}
       <AuthContext.Provider value={{ 
-        isLoggedIn: !!token, 
-        token: token,
-        login: login, 
-        logout: logout }}>
+
+              isLoggedIn: !!session.token, 
+              token: session.token,
+              avatar: session.avatar,
+              name: session.name,
+              username: session.username,
+              login: login, 
+              logout: logout
+      
+      }}>
+
           <Layout>
 
               <Component {...pageProps} />
 
           </Layout>
+
       </AuthContext.Provider>
+
     </>
   )
   
