@@ -7,7 +7,6 @@ import Link from 'next/link'
 //Components
 import Button from '../app/common/FormElements/Buttons/Button/Button'
 import PresentationCard from '../app/common/Containers/cards/presentationCard'
-import Card from '../app/common/Containers/cards/card/Card'
 import Spinner from '../app/common/widgets/spinner/Spinner'
 
 //Costum hooks 
@@ -73,6 +72,7 @@ const HomePage = () => {
             const feed = [...orgResponse.data, ...persResponse.data];
 
             //Sort the data to display the new elements before
+            //Eventually, this will have to be done by the backend
             feed.sort(function(a, b) {
               return (a.createdAt > b.createdAt) ? -1 : ((a.createdAt < b.createdAt) ? 1 : 0);
             });
