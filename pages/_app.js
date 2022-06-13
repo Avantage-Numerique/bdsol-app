@@ -50,7 +50,13 @@ function MyApp( {Component, pageProps} ) {
 
   const logout = useCallback(() => {
 
-    setToken(null);
+    setSession({
+      token:      null,
+      avatar:     null,
+      name:       null,
+      username:   null
+    });
+    
     localStorage.removeItem('userData')
 
   }, [])
@@ -66,7 +72,7 @@ function MyApp( {Component, pageProps} ) {
 
     if(storedData && storedData.token){
 
-        login(storedData.token)
+        login(storedData)
 
     }
 
@@ -81,7 +87,7 @@ function MyApp( {Component, pageProps} ) {
       {/* Authentication context provided to all the subsequent elements */}
       <AuthContext.Provider value={{ 
 
-              isLoggedIn: !!session.token, 
+              isLoggedIn: session && session.token, 
               token: session.token,
               avatar: session.avatar,
               name: session.name,

@@ -68,7 +68,9 @@ const AccountNav = ( {menuState, setMenuState} ) => {
                             </li>
                             
                             <li className="col-12">
-                                <div onClick={deconnection}>Se déconnecter</div>
+                                <button onClick={deconnection}>
+                                    Se déconnecter
+                                </button>
                             </li>
                         </>
                     }

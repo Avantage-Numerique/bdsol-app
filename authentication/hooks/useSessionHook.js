@@ -112,8 +112,6 @@ export const useSessionHook = () => {
                 //Accept the user
                 auth.login(response.data.user);
 
-                console.log(response)
-
                 //Alert the user
                 msg.addMessage({ 
                     text: response.message,

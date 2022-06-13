@@ -44,15 +44,19 @@ const accountPage = () => {
 
     return (
         <div className={`col-12 ${styles["account-page"]}`}>
+
             <header className="col-12">
                 <div className="maxWidthPageContainer">
-                    <h1 className="col-12 blue1">Bienvenue</h1>
+                    <h1 className="col-12 blue1">Bienvenue { auth.username }</h1>
                 </div>
             </header>
+
             <div className="maxWidthPageContainer">
+
                 <section className="col-8">
                         <h3>Contenu à venir...</h3>
                 </section>
+
                 <aside className="col-3">
                     <h3 className="col-12">
                         Menu
@@ -61,6 +65,7 @@ const accountPage = () => {
                         <li onClick={pageLogout}>Se déconnecter</li>
                     </ul>   
                 </aside>
+                
             </div>
 
         </div>

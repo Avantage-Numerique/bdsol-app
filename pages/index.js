@@ -7,6 +7,7 @@ import Link from 'next/link'
 //Components
 import Button from '../app/common/FormElements/Buttons/Button/Button'
 import PresentationCard from '../app/common/Containers/cards/presentationCard'
+import Card from '../app/common/Containers/cards/card/Card'
 import Spinner from '../app/common/widgets/spinner/Spinner'
 
 //Costum hooks 
@@ -24,7 +25,7 @@ import styles from './home-page.module.scss'
 const HomePage = () => {
 
     //Holds the state the organisations
-    const [orgList, setOrgList] = useState([])
+    const [feedList, setFeedList] = useState([])
 
     //Import the authentication context to make sure the user is well connected
     const auth = useContext(AuthContext);
@@ -40,11 +41,19 @@ const HomePage = () => {
 
       const fetchApi = async () => {
         
-          console.log("Called")
+          //Send the request with the specialized hook
+          const orgResponse = await sendRequest(
+              "/organisations/list",
+              'POST',
+              JSON.stringify({"data": {
+                "name": "jonathan"
+              }}),
+              { 'Content-Type': 'application/json' }
+          )
 
           //Send the request with the specialized hook
-          const response = await sendRequest(
-              "/organisations/list",
+          const persResponse = await sendRequest(
+              "/personnes/list",
               'POST',
               JSON.stringify({"data": {
                 "name": "jonathan"
@@ -58,18 +67,33 @@ const HomePage = () => {
          */
 
           //If positive
-          if(!response.error){
+          if(!orgResponse.error && !persResponse.error){
             
-            //Update the state with new data
-            setOrgList(response.data)
+            //store the data
+            const feed = [...orgResponse.data, ...persResponse.data];
+
+            //Sort the data to display the new elements before
+            feed.sort(function(a, b) {
+              return (a.createdAt > b.createdAt) ? -1 : ((a.createdAt < b.createdAt) ? 1 : 0);
+            });
+
+            //Finaly, update the state to display the result
+            setFeedList(feed)
 
             //If negative
             } else {          
               
-                msg.addMessage({ 
-                    text: response.message,
-                    positive: false 
-                })
+                if(orgResponse.error)
+                  msg.addMessage({ 
+                      text: orgResponse.message,
+                      positive: false 
+                  })
+                
+                if(persResponse.error)
+                    msg.addMessage({ 
+                      text: persResponse.message,
+                      positive: false 
+                    })
             } 
       }
 
@@ -175,25 +199,53 @@ const HomePage = () => {
 
               <h2 className={`col-12 `}>Actualités</h2>
 
+              {/************************************
+               *
+               * Loading state : If loading is on and there is no feed
+               *  
+               ***********************************/}
+              {
+                feedList.length < 1 && isLoading &&
+                <div className={`col-12 ${styles["home-page__feed-section--spinner-container"]}`}>
+
+                  <div className={`col-12`}>
+                    <Spinner reverse />
+                  </div>
+                  <p className="col-12"><strong>Chargement des données</strong></p>
+
+                </div>
+              }
+
+              {/************************************
+               *
+               *  If there is no loading state and no feed, go on that by default
+               *  
+               ***********************************/}
+              {
+                feedList.length === 0 && !isLoading &&
+                <div className="col-12">
+                  <h5>Aucune donnée ne semble disponible :( <br/><br/> Assurez-vous d'avoir une connexion internet fonctionnelle.</h5>
+                </div>
+              }
+
               <div className={`col-12 ${styles["home-page__feed-section--container"]}`}>
 
-                  {
-                    orgList.length < 1 && isLoading &&
-                    <>
-                      <div className={`col-12 ${styles["home-page__feed-section--spinner-container"]}`}>
-                        <Spinner reverse />
-                      </div>
-                      <p className="col-12"><strong>Chargement des données</strong></p>
-                    </>
-                  }
 
+                  {/************************************
+                   *
+                   * Display feed if there is one
+                   *  
+                   ***********************************/}
                   {
-                    orgList.length > 0 && !isLoading &&
-                  
-                    orgList.map(elem => (
+                    feedList.length > 0 && !isLoading &&
+                    
+                    feedList.map(elem => (
                         <PresentationCard
                           key={elem._id}
+                          header={elem.surnom ? "Personne" : "Organisation"}
+                          firstname={elem.prenom}
                           name={elem.nom}
+                          username={elem.surnom}
                           description={elem.description}
                           createdAt={elem.createdAt}
                           url={elem.url}
@@ -202,15 +254,7 @@ const HomePage = () => {
 
                     ))
                   }
-
-                  {
-                    orgList.length === 0 && !isLoading &&
-                    <div className="col-12">
-                      <h5>Aucune donnée ne semble disponible :( <br/><br/> Assurez-vous d'avoir une connexion internet fonctionnelle.</h5>
-                    </div>
-                  }
-
-
+                
               </div>
 
             </section>
