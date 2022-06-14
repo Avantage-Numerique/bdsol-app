@@ -1,4 +1,6 @@
-import React, { useContext } from 'react'
+import React, { useContext,useEffect } from 'react'
+import Router from 'next/router'
+
 
 //Validators
 import {VALIDATOR_REQUIRE, VALIDATOR_EMAIL} from '../../../../app/utils/validators'
@@ -6,6 +8,7 @@ import {VALIDATOR_REQUIRE, VALIDATOR_EMAIL} from '../../../../app/utils/validato
 //Custom hooks
 import { useForm } from '../../../../app/hooks/form-hook'
 import { useHttpClient } from '../../../../app/hooks/http-hook'
+import { useSessionHook } from '../../../hooks/useSessionHook'
 
 //Form components
 import Input from '../../../../app/common/FormElements/Input/Input'
@@ -59,8 +62,20 @@ const Register = () => {
     //Import the authentication context to make sure the user is well connected
     const auth = useContext(AuthContext);
 
+    const { login } = useSessionHook()
+
     //Extract the functions inside useHttpClient
     const {isLoading, sendRequest} = useHttpClient();
+
+    /*
+        First of all, verify if the user is logged in.
+        If he is, then redirect him in the account page
+    */
+   useEffect(() => {
+        if(auth.isLoggedIn) {
+            Router.push('/compte')
+        }
+    }, [auth.isLoggedIn])
 
 
     //Submit the form
@@ -106,11 +121,29 @@ const Register = () => {
                 //If positive
                 if(!response.error){
 
+                    /******
+                     *    
+                     *    WARNING 
+                     * 
+                     *    This is temporary, just to prevent the user from having to login after creating its account
+                     *    BUT IT IS REALLY NOT OPTIMISED
+                     * 
+                     *******/
+                    login({
+                        "username": formState.inputs.username.value,
+                        "password": formState.inputs.password.value
+                    })
+                    
+
+                    console.log(response)
+
                     //Notify the user
                     msg.addMessage({ 
                         text: response.message,
                         positive: true 
                     })
+
+
 
                 //If negative
                 } else {                    
@@ -140,11 +173,11 @@ const Register = () => {
     })
 */
     return (
-        <section className={styles.registerPage}>
+        <>
 
             { isLoading && <Spinner />}
 
-            <form onSubmit={submitHandler}>  
+            <form className={`${styles["registration-form"]}`} onSubmit={submitHandler}>  
 
                 <h3 className="blue">Création de compte</h3>
 
@@ -198,7 +231,7 @@ const Register = () => {
                 </div>
             </form>
             
-        </section>
+        </>
     )
 
 }

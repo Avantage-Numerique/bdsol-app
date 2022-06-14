@@ -61,20 +61,26 @@
 
             > .home-page__feed-section {
 
-                min-height: 60vh; /* Temporary value */
+                /* When the spinner is active*/
+                .home-page__feed-section--spinner-container {
 
-                .home-page__feed-section--container{
-                    position: relative;
-
-                    p {
-                        text-align: center;
-                    }
-
-                    .home-page__feed-section--spinner-container {
+                    > div {
                         position: relative;
                         min-height: 10rem;
-
                     }
+
+                > p { text-align: center; }
+
+                }
+
+                /* Section with a news feed */
+                .home-page__feed-section--container{
+
+                    position: relative;
+                    display: grid;
+                    grid-template-columns: repeat(auto-fill, min(40ch, 100%));
+                    align-items: baseline;
+                
                 }
 
             }

@@ -1,6 +1,10 @@
- 
+import { useContext } from 'react' 
+
 //Components
 import Button from '../../app/common/FormElements/Buttons/Button/Button'
+
+//Context
+import { AuthContext } from '../../authentication/context/auth-context'
 
 //styling
 import styles from './contribution-page.module.scss'
@@ -9,6 +13,9 @@ import styles from './contribution-page.module.scss'
 
 const Index = () => {    
 
+    //Import the authentication context
+    const auth = useContext(AuthContext);
+
     return (
         <div className={`col-12 ${styles["contribution-page"]}`}>
             
@@ -16,7 +23,7 @@ const Index = () => {
 
                 <div className="maxWidthPageContainer">
                     <h1 className={`col-12 blue`}>Créer une donnée</h1>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla eget est vitae justo hendrerit porta. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. In lobortis justo eu ex euismod, vel efficitur ligula varius. Sed rhoncus lectus nisl, id vestibulum magna laoreet at. Sed sollicitudin sit amet.</p>
+                    <p>Vous avez accès ici à tous les types de données qu'il est présentement possible d'intégrer à la base de données.</p>
                 </div>
 
             </header>
@@ -28,9 +35,18 @@ const Index = () => {
            
                     <div className={`col-12 ${styles["contribution-page__menu"]}`}>
                         <h4 className="col-12">Sélectionnez le type d'entité que vous voulez ajouter</h4>
-                        <Button href="/contribuer/personne">Personne</Button>
-                        <Button color="blue4" href="/contribuer/organisation">Organisation</Button>
-                        <Button color="blue2" disabled>Projet</Button>
+
+                        {/* Not beautiful but it works for now. Let know the user that he needs to be connected to edit the database */}
+                        { !auth.isLoggedIn &&
+                            <div className="col-12" style={{marginBottom: "1rem"}}>
+                                <span className="red"><strong>Attention ! </strong></span>
+                                Vous devez être connecté afin de pouvoir éditer la base de données.
+                            </div>    
+                        }
+
+                        <Button href="/contribuer/personne" disabled={!auth.isLoggedIn}>Personne</Button>
+                        <Button color="blue4" href="/contribuer/organisation" disabled={!auth.isLoggedIn}>Organisation</Button>
+                        <Button disabled>Projet</Button>
                         <Button disabled>Événement</Button>
                         <Button disabled>Matériel</Button>
                     </div>

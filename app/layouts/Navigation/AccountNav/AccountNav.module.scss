@@ -26,7 +26,8 @@
             font-size: 3rem;
         }
         ul {
-            li {
+            li, 
+            li > button {
                 font-size: 2rem;
                 color: white;
                 font-weight: bold;

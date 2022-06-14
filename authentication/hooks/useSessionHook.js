@@ -32,6 +32,7 @@ export const useSessionHook = () => {
 
             //Temporary
             try{
+
                 auth.logout()  
 
                 msg.addMessage({ 
@@ -109,7 +110,7 @@ export const useSessionHook = () => {
             if(!response.error) {
 
                 //Accept the user
-                auth.login(response.data.user.token);
+                auth.login(response.data.user);
 
                 //Alert the user
                 msg.addMessage({ 

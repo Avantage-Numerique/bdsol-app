@@ -1,4 +1,5 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
+import Router from 'next/router'
 
 //Custom hooks
 import { useForm } from '../../../../../app/hooks/form-hook'
@@ -32,13 +33,18 @@ const CreatePersonForm = () => {
         First of all, verify if the user is logged in.
         If he isn't, then redirect him in the connexion page
     */
-   /*
+   
    useEffect(() => {
         if(!auth.isLoggedIn) {
-        Router.push('/compte/connexion')
+
+            msg.addMessage({ 
+                text: "Vous devez être connecté pour pouvoir ajouter une entité à la base de données.",
+                positive: false 
+            })
+            Router.push('/compte/connexion')
         }
     }, [auth.isLoggedIn])
-    */
+    
 
     //Extract the functions inside useHttpClient
     const { isLoading, sendRequest} = useHttpClient();
@@ -142,6 +148,7 @@ const CreatePersonForm = () => {
                     errorText="Cette information est requise"
                     onInput={inputHandler}
                 />
+
                 <Input 
                     name="lastName"
                     label="Nom"
@@ -149,11 +156,13 @@ const CreatePersonForm = () => {
                     errorText="Cette information est requise"
                     onInput={inputHandler}
                 />
+
                 <Input  
                     name="nickName"
                     label="Surnom"
                     onInput={inputHandler}
                 />
+
                 <RichTextarea 
                     name="biography"
                     label="Biographie"
@@ -163,6 +172,7 @@ const CreatePersonForm = () => {
                 <div className="col-12">
                     <Button type="submit" disabled={!formState.isValid}>Soumettre</Button>
                 </div>
+
             </form>
         </>
     )
