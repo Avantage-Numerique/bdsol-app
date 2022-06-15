@@ -97,9 +97,10 @@ const HomePage = () => {
             } 
       }
 
-      fetchApi()
+      if(auth.isLoggedIn) fetchApi()
 
-    }, [])
+
+    }, [auth.isLoggedIn])
 
 
     /****************************
@@ -205,7 +206,7 @@ const HomePage = () => {
                *  
                ***********************************/}
               {
-                feedList.length < 1 && isLoading &&
+                isLoading &&
                 <div className={`col-12 ${styles["home-page__feed-section--spinner-container"]}`}>
 
                   <div className={`col-12`}>
@@ -222,9 +223,22 @@ const HomePage = () => {
                *  
                ***********************************/}
               {
-                feedList.length === 0 && !isLoading &&
+                feedList.length === 0 && !isLoading && auth.isLoggedIn &&
                 <div className="col-12">
                   <h5>Aucune donnée ne semble disponible :( <br/><br/> Assurez-vous d'avoir une connexion internet fonctionnelle.</h5>
+                </div>
+              }
+
+              {/**************************************
+               * 
+               *  If the user is not logged is, FOR NOW, display this message
+               * 
+               ***************************************/}
+               {
+                !auth.isLoggedIn &&
+                <div className="col-12">
+                  <h4 className="col-12">Veuillez vous connecter pour pouvoir visualiter le contenu de la base de données.</h4>
+                  <p>Ceci est très temporaire et, sous peu, vous pourrez consulter les données même sans être connecté.</p>
                 </div>
               }
 
@@ -237,7 +251,7 @@ const HomePage = () => {
                    *  
                    ***********************************/}
                   {
-                    feedList.length > 0 && !isLoading &&
+                    feedList.length > 0 && !isLoading && auth.isLoggedIn &&
                     
                     feedList.map(elem => (
                         <PresentationCard

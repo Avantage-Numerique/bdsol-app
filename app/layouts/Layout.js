@@ -13,7 +13,7 @@ import Footer from './Footer/Footer'
 import Header from './Header/Header'
 import Nav from './Navigation/MainNav/Nav'
 import AccountNav from './Navigation/AccountNav/AccountNav'
-import BottomBanner from '../common/UserNotifications/BottomBanner/BottomBanner'
+//import BottomBanner from '../common/UserNotifications/BottomBanner/BottomBanner'
 import Message from '../common/UserNotifications/Message/Message'
 
 import styles from './Layout.module.scss'
@@ -112,7 +112,7 @@ const Layout = ( {children} ) => {
                     buttonText="J'ai compris"
                 />
 */}
-
+                
                 {/* Section where the common messages and alerts to the user are made */}
                 <div className={`${styles["message-section"]}`}>
 
