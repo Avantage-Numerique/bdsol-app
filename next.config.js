@@ -9,12 +9,27 @@ const nextConfig = {
         }
         return config
     },
+    env: {
+        APP_BASE_URL: process.env.APP_BASE_URL ?? "http://localhost",
+        APP_PORT: process.env.APP_PORT ?? 3000,
+        APP_URL: process.env.APP_BASE_URL + ":" + process.env.APP_PORT,
 
+        //ontology : This would be deprecated soon.
+        API_ONTOLOGY_HOST_NAME: process.env.API_ONTOLOGY_HOST_NAME,
+        API_ONTOLOGY_METHOD: process.env.API_ONTOLOGY_METHOD,
+        API_ONTOLOGY_PORT: process.env.API_ONTOLOGY_PORT,
+
+        //Main API
+        API_HOST_NAME: process.env.API_HOST_NAME,
+        API_METHOD: process.env.API_METHOD,
+        API_PORT: process.env.API_PORT,
+        API_URL: process.env.API_HOST_NAME + ":" + process.env.API_PORT,
+    },
     //accessible only on serveur
     serverRuntimeConfig: {
 
         //APP CONFIG
-        baseUrl: process.env.APP_BASE_URL ?? "https://localhost",
+        baseUrl: process.env.APP_BASE_URL ?? "http://localhost",
         port: process.env.APP_PORT ?? 3000,
         appUrl: process.env.APP_BASE_URL + ":" + process.env.APP_PORT,
 
@@ -30,7 +45,17 @@ const nextConfig = {
         apiURL: process.env.API_HOST_NAME + ":" + process.env.API_PORT,
     },
     //serveur and public
-    publicRuntimeConfig: {},
+    publicRuntimeConfig: {
+        /*//APP CONFIG
+        baseUrl: process.env.APP_BASE_URL ?? "http://localhost",
+        port: process.env.APP_PORT ?? 3000,
+        appUrl: process.env.APP_BASE_URL + ":" + process.env.APP_PORT,
+        //Main API
+        apiHostName: process.env.API_HOST_NAME,
+        apiMethod: process.env.API_METHOD,
+        apiPort: process.env.API_PORT,
+        apiURL: process.env.API_HOST_NAME + ":" + process.env.API_PORT,*/
+    },
 }
 
 module.exports = nextConfig

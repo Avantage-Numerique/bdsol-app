@@ -3,7 +3,6 @@ import {useState, useCallback, useRef, useEffect, useContext} from 'react';
 //Custom hook
 import {AuthContext} from '../../authentication/context/auth-context'
 
-
 //Main hook function called for every request made to the database
 export const useHttpClient = () => {
 
@@ -25,11 +24,11 @@ export const useHttpClient = () => {
             const httpAbortCtrl = new AbortController();
             activeHttpRequests.current.push(httpAbortCtrl);
 
-            const baseApiRoute = 'http://localhost' + ':' + '8000';
+            const baseApiRoute = "http://" + process.env.API_URL;//'http://localhost' + ':' + '8000';
             //const apiPingRoute = baseApiRoute + '/ping';
 
             const defaultHeaders = {
-                'Origin': 'http://localhost:3000'
+                'Origin': process.env.APP_URL//'http://localhost:3000'
             };
 
             const authorization = auth.token ? {Authorization: 'Bearer ' + auth.token} : {}
