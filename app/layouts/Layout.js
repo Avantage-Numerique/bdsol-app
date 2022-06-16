@@ -4,7 +4,7 @@
     V.P.R - Created: 19-09-21
 
     */
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState } from "react";
 import Head from 'next/head'
 
 import { MessageContext } from '../common/UserNotifications/Message/Context/Message-Context'

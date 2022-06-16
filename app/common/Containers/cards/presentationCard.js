@@ -1,4 +1,7 @@
 
+//Components
+import SanitizedInnerHtml from '../../../utils/SanitizedInnerHtml'
+
 import styles from './presentationCard.module.scss'
 
 /*
@@ -57,7 +60,11 @@ const PresentationCard = ({header, name, firstname, description, username, creat
             <section className={`${styles["card__content"]}`}>
 
                 <h4 className="col-12">{firstname && firstname} {name}</h4>
-                <p className="col-12">{ description }</p>
+                <p className="col-12">
+                    <SanitizedInnerHtml>
+                        { description }
+                    </SanitizedInnerHtml>
+                </p>
 
                 <div className={`${styles["card__inner-line"]}`}></div>
                 
