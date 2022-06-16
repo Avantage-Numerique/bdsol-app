@@ -60,11 +60,6 @@ export const useHttpClient = () => {
                     reqCtrl => reqCtrl !== httpAbortCtrl
                 );
 
-                //Evaluate if the response is positive (code 200) or reprensent an error
-                //if (!response.ok || responseData.error) {
-                //  throw new Error(responseData);
-                //}
-
                 //The operation is done so we can now remove the loading state
                 setIsLoading(false);
 
@@ -75,8 +70,6 @@ export const useHttpClient = () => {
 
                 //Remove the loading state
                 setIsLoading(false);
-
-                console.log(err)
 
                 //Default return value
                 return {
