@@ -16,6 +16,7 @@ export const useHttpClient = () => {
     const activeHttpRequests = useRef([]);
 
     const sendRequest = useCallback(
+
         //Main request function with pre-determined values
         async (path, method = 'GET', body = null, headers = {}) => {
 
