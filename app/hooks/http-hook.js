@@ -24,6 +24,7 @@ export const useHttpClient = () => {
             const httpAbortCtrl = new AbortController();
             activeHttpRequests.current.push(httpAbortCtrl);
 
+            // @todo doest we need to manage the https:// here ? Or I think it should be in  the env scope.
             const baseApiRoute = "http://" + process.env.API_URL;//'http://localhost' + ':' + '8000';
             //const apiPingRoute = baseApiRoute + '/ping';
 
