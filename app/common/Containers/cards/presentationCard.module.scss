@@ -89,6 +89,10 @@
             color: grey;
         }
 
+        > p { 
+            max-height: 5rem;
+        }
+
         .card__infos {
             width: 100%;
             float: left;
