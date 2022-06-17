@@ -237,8 +237,8 @@ const HomePage = () => {
                {
                 !auth.isLoggedIn &&
                 <div className="col-12">
-                  <h4 className="col-12">Veuillez vous connecter pour pouvoir visualiter le contenu de la base de données.</h4>
-                  <p>Ceci est très temporaire et, sous peu, vous pourrez consulter les données même sans être connecté.</p>
+                  <h4 className="col-12">Veuillez vous connecter pour pouvoir visualiser le contenu de la base de données.</h4>
+                  <p>Ceci est temporaire et, sous peu, vous pourrez consulter les données même sans être connecté.</p>
                 </div>
               }
 

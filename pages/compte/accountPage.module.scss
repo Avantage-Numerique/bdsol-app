@@ -4,6 +4,32 @@
     /*
         Aside menu
     */
-    li { cursor: pointer; }
+    li {
+        cursor: pointer;
+    }
+
+
 
 }
+
+.side-menu {
+    padding-left: 50px;
+    text-align: left;
+}
+
+.grid-history {
+    display: grid;
+    grid-template-columns: 25% 65% 10%;
+    padding: 0px;
+    align-content: start;
+    border-bottom: 2px solid black;
+    border-left: 2px solid black;
+    >div{
+        background-color: var(--grey);
+        border-top: 2px solid black;
+        border-right: 2px solid black;
+        padding: 0px;
+        font-size: 15px;
+        text-align: center;
+    }
+  }
