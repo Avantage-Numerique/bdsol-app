@@ -62,15 +62,32 @@ const accountPage = () => {
 
     //const history = toArray(histObject).map((histArray) => {
     const history = histObject.map((hist) => {
+        //const menuTitle = (<h3>Historique de modification</h3>);
         const list = (
             <>
             <div>{hist.date}</div>
             <div>{hist.modif}</div>
-            <div onClick={"alert(hist.detail.toString())"}>Détails</div>
+            <div onClick={function() {alert(hist.detail.toString())}}>Détails</div>
             </>
         );
         return list;
     })
+
+    const preferences = () => {
+        return (
+            <>
+                <h3>Préférences</h3>
+                <div>ma préférence de couleur</div>
+                <div>ma préférence de langue</div>
+            </>)
+    }
+
+    const showAvatar = () => {
+        if (auth.avatar == undefined || auth.avatar.toString() == "")
+            return <img src="https://freesvg.org/img/1389952697.png" alt="Aucune image de profil" width="80px" length="80px"></img>;
+        else
+            return <img src={auth.avatar} alt="Ton avatar" width="80px" length="80px"></img>;
+    }
 
     return (
         <div className={`col-12 ${styles["account-page"]}`}>
@@ -99,9 +116,7 @@ const accountPage = () => {
                         
                         <tr>
                             <th>
-                                <img src="https://vignette.wikia.nocookie.net/dofus/images/0/06/Cawwot_Dofus.png/revision/latest?cb=20171120091818"
-                                    width="80px" length="80px"/>
-                                <div>{ auth.avatar }</div>
+                                {showAvatar}
                             </th>
                             <th onClick={pageModifProfile}>
                                 { auth.name }
@@ -112,8 +127,9 @@ const accountPage = () => {
                             </th>
                         </tr>
                     </table>
-                        <li className={`${styles["side-menu"]}`} onClick={logout}>Se déconnecter</li>
                         <li className={`${styles["side-menu"]}`}>Préférences</li>
+                        <li className={`${styles["side-menu"]}`}>Historique de modification</li>
+                        <li className={`${styles["side-menu"]}`} onClick={logout}>Se déconnecter</li>
                 </aside>           
             </div>
         </div>
