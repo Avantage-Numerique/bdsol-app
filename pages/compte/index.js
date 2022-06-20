@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef } from 'react'
+import { useContext, useEffect, useRef, useState } from 'react'
 import {useRouter}  from 'next/router';
 
 //Context
@@ -35,6 +35,9 @@ const accountPage = () => {
     //Import the authentication context to make sure the user is well connected
     const auth = useContext(AuthContext);
 
+    //UseState
+    const [leftMenu, setLeftMenu] = useState("history");
+
     //Make sure the user is connected to access this page
     useEffect(() => {
         if(!auth.isLoggedIn){
@@ -61,7 +64,7 @@ const accountPage = () => {
     ];
 
     //const history = toArray(histObject).map((histArray) => {
-    const history = histObject.map((hist) => {
+    const historyList = histObject.map((hist) => {
         //const menuTitle = (<h3>Historique de modification</h3>);
         const list = (
             <>
@@ -73,21 +76,29 @@ const accountPage = () => {
         return list;
     })
 
-    const preferences = () => {
-        return (
+    const history = (
+            <>
+                <h3>Historique de modification</h3>
+                <div className={`${styles["grid-history"]}`}>{historyList}</div>
+            </>
+    )
+
+    const profile = (
+            <>
+                <h3>Modification du profil</h3>
+                <div>1ère chose à modifier</div>
+                <div>2e chose à modifier</div>
+                <div>3e chose à modifier</div>
+            </>
+    )
+
+    const preferences = (
             <>
                 <h3>Préférences</h3>
                 <div>ma préférence de couleur</div>
                 <div>ma préférence de langue</div>
-            </>)
-    }
-
-    const showAvatar = () => {
-        if (auth.avatar == undefined || auth.avatar.toString() == "")
-            return <img src="https://freesvg.org/img/1389952697.png" alt="Aucune image de profil" width="80px" length="80px"></img>;
-        else
-            return <img src={auth.avatar} alt="Ton avatar" width="80px" length="80px"></img>;
-    }
+            </>
+    )
 
     return (
         <div className={`col-12 ${styles["account-page"]}`}>
@@ -101,10 +112,10 @@ const accountPage = () => {
             <div className="maxWidthPageContainer">
 
                 <section className="col-8">
-                    <h3>Historique de modification</h3>
-                    <div className={`${styles["grid-history"]}`}>
-                        {history}
-                    </div>
+                        <div>{leftMenu == "history" && history}
+                             {leftMenu == "preferences" && preferences}
+                             {leftMenu == "profile" && profile}
+                        </div>
                     <br></br>
                 </section>
 
@@ -116,20 +127,24 @@ const accountPage = () => {
                         
                         <tr>
                             <th>
-                                {showAvatar}
+                                {(auth.avatar == undefined || auth.avatar.toString() == "")?
+                                <img src="https://freesvg.org/img/1389952697.png" alt="Aucune image de profil" width="80px" length="80px"></img>
+                            :<img src={auth.avatar} alt="Ton avatar" width="80px" length="80px"></img>}
                             </th>
                             <th onClick={pageModifProfile}>
                                 { auth.name }
                                 <br></br>
                                 { auth.username }
                                 <br></br><br></br>
-                                Modifier mon profil
+                                <button onClick={()=>setLeftMenu("profile")}>Modifier mon profil</button>
                             </th>
                         </tr>
                     </table>
-                        <li className={`${styles["side-menu"]}`}>Préférences</li>
-                        <li className={`${styles["side-menu"]}`}>Historique de modification</li>
+                    <ul>
+                        <li className={`${styles["side-menu"]}`} onClick={()=>setLeftMenu("preferences")}>Préférences</li>
+                        <li className={`${styles["side-menu"]}`} onClick={()=>setLeftMenu("history")}>Historique de modification</li>
                         <li className={`${styles["side-menu"]}`} onClick={logout}>Se déconnecter</li>
+                    </ul>
                 </aside>           
             </div>
         </div>
