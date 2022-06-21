@@ -86,7 +86,7 @@ const accountPage = () => {
     const profile = (
             <>
                 <h3>Modification du profil</h3>
-                <div>1ère chose à modifier</div>
+                <button onClick={()=>setLeftMenu("modifPassword")}>Modifier mon mot de passe</button>
                 <div>2e chose à modifier</div>
                 <div>3e chose à modifier</div>
             </>
@@ -98,6 +98,15 @@ const accountPage = () => {
                 <div>ma préférence de couleur</div>
                 <div>ma préférence de langue</div>
             </>
+    )
+
+    const modifPassword = (
+        <>
+            <h3>Modification du mot de passe</h3>
+            <button onClick={()=>setLeftMenu("profile")}>Retour au modification du profil</button>
+            <div>Entrer votre mot de passe actuel</div>
+            <div>Entrer votre nouveau mot de passe</div>
+        </>
     )
 
     return (
@@ -115,6 +124,7 @@ const accountPage = () => {
                         <div>{leftMenu == "history" && history}
                              {leftMenu == "preferences" && preferences}
                              {leftMenu == "profile" && profile}
+                             {leftMenu == "modifPassword" && modifPassword}
                         </div>
                     <br></br>
                 </section>
