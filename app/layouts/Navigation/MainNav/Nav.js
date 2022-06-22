@@ -1,10 +1,6 @@
 /*
-
-
     Navigation bar displayed in the top of a page 
     V.P.R.
-    
-
 */
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
@@ -42,8 +38,8 @@ const Nav = ( {menuState, setMenuState} ) => {
                         <Link href="/contribuer">Contribuer à la base de données</Link>
                     </li>
 
-                    <li className={`col-12 ${navStyles["unactive"]}`}>
-                        À propos
+                    <li className="col-12">
+                        <Link href="/a-propos">À propos</Link>
                     </li>
 
                 </ul>
