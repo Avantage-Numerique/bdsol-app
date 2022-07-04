@@ -90,9 +90,9 @@ const CreatePersonForm = () => {
 
             const formData = {
                 "data": {
-                    "nom": formState.inputs.lastName.value,
-                    "prenom":  formState.inputs.firstName.value, 
-                    "surnom": formState.inputs.nickName.value,
+                    "lastName": formState.inputs.lastName.value,
+                    "firstName":  formState.inputs.firstName.value, 
+                    "nickname": formState.inputs.nickName.value,
                     "description": formState.inputs.biography.value 
                 }
             };

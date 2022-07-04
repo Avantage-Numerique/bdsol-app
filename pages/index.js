@@ -256,10 +256,10 @@ const HomePage = () => {
                     feedList.map(elem => (
                         <PresentationCard
                           key={elem._id}
-                          header={elem.surnom ? "Personne" : "Organisation"}
-                          firstname={elem.prenom}
-                          name={elem.nom}
-                          username={elem.surnom}
+                          header={elem.nickname ? "Personne" : "Organisation"}
+                          firstname={elem.firstName}
+                          name={elem.lastName}
+                          username={elem.nickname}
                           description={elem.description}
                           createdAt={elem.createdAt}
                           url={elem.url}
