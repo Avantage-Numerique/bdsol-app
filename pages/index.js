@@ -127,18 +127,18 @@ const HomePage = () => {
 
       {/* Page head element  */}
       <Head>
-        <title>Ontologie - Avantage Numérique</title>
+        <title>BDSOL - Avantage Numérique</title>
 
         {/* Keywords and description to evaluate */}
         <meta name="description" content="Documentation complète sur l'ontologie utilisée dans la base de donnée ouverte et liée d'Avantage Numérique." />
         <meta name="keywords" content="ontologie, classe, propriété, base de données, technologie, créateurs, communauté" /> 
 
         {/* social media meta tag */}
-        <meta property="og:title"              content="Ontologie - Avantage Numérique" />
-        <meta property="og:description"        content="Documentation complète sur l'ontologie utilisée dans la base de donnée ouverte et liée d'Avantage Numérique." />
+        <meta property="og:title"              content="BDSOL - Avantage Numérique" />
+        <meta property="og:description"        content="La base de donnée ouverte et liée d'Avantage Numérique." />
         
-        <meta name="twitter:title"             content="Ontologie - Avantage Numérique"/>
-        <meta name="twitter:description"       content="Documentation complète sur l'ontologie utilisée dans la base de donnée ouverte et liée d'Avantage Numérique."/>
+        <meta name="twitter:title"             content="BDSOL - Avantage Numérique"/>
+        <meta name="twitter:description"       content="La base de donnée ouverte et liée d'Avantage Numérique."/>
 
         {/* 
 

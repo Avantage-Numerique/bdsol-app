@@ -2,16 +2,27 @@ import { useCallback, useState, useEffect } from 'react'
 
 import { AuthContext } from '../authentication/context/auth-context'
 import Layout from '../app/layouts/Layout'
-
+import NamedRoutes from "../app/utils/NamedRoutes";
 
 /************************************
  * 
  * Import global SCSS files
  * 
  ***********************************/
-import '../styles/globals.scss'  
-import '../styles/normalize.scss'
+import '../styles/main.scss'
 
+
+
+const routeManager = new NamedRoutes();
+const routes = {
+    "about": {
+        pathname: '/a-propos'
+    }
+}
+
+for (let routeName in routes) {
+    routeManager.addRoute(routeName, routes[routeName]);
+}
 
 function MyApp( {Component, pageProps} ) {
 
@@ -22,7 +33,7 @@ function MyApp( {Component, pageProps} ) {
       avatar: null,
       name: null,
       username: null
-  }); 
+  });
 
   /*
   *
