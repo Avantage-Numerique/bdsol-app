@@ -16,18 +16,18 @@ import styles from './accountPage.module.scss'
 const accountPage = () => {
 
     //Default redirection path
-    const redirectPath = useRef('/compte/connexion')
+    const redirectPath = useRef('/compte/connexion');
 
     //Access router
-    const router = useRouter()
+    const router = useRouter();
 
     //Access logout function
     const { logout } = useSessionHook();
 
     //Create specific logout function for this page
     const pageLogout = () => {
-        redirectPath.current = "/" //Redirect to home page instead of login
-        logout()
+        redirectPath.current = "/"; //Redirect to home page instead of login
+        logout();
     }
 
     const pageModifProfile = () => {};
@@ -43,7 +43,7 @@ const accountPage = () => {
         if(!auth.isLoggedIn){
             router.push(redirectPath.current)
         }
-    },[auth.isLoggedIn, redirectPath.current])
+    },[auth.isLoggedIn, redirectPath.current]);
    
     const histObject = [
         {
