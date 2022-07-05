@@ -41,7 +41,7 @@ export default class NamedRoutes {
      */
     addRoute(name, route)
     {
-        if (!this.routeObjectExist())
+        if (!this.routeExists())
         {
             this.initRoutes();
         }
