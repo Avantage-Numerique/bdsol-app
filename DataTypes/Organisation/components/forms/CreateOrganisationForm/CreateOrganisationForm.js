@@ -86,10 +86,11 @@ const CreateOrganisationForm = () => {
             const formData = {
 
                 "data": {
-                    nom: formState.inputs.name.value,
+                    name: formState.inputs.name.value,
                     description:  formState.inputs.description.value, 
                     url: formState.inputs.url.value,
-                    contactPoint: formState.inputs.contactPoint.value 
+                    contactPoint: formState.inputs.contactPoint.value
+                    //fondationDate <-- Here
                 } 
 
             };
