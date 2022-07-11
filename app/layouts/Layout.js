@@ -17,6 +17,7 @@ import AccountNav from './Navigation/AccountNav/AccountNav'
 import Message from '../common/UserNotifications/Message/Message'
 
 import styles from './Layout.module.scss'
+import {FeedbackWidget} from "../common/Feedbacks/components/feedback-widget";
 
 
 const Layout = ( {children} ) => {
@@ -133,6 +134,7 @@ const Layout = ( {children} ) => {
                 </div>
 
             </div>
+            <FeedbackWidget />
         </>
     )   
 

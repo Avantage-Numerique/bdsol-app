@@ -24,6 +24,8 @@ const nextConfig = {
         API_METHOD: process.env.API_METHOD,
         API_PORT: process.env.API_PORT,
         API_URL: process.env.API_HOST_NAME + ":" + process.env.API_PORT,
+
+        FEEDBACK_API_KEY: process.env.FEEDBACK_API_KEY,
     },
     //accessible only on serveur
     serverRuntimeConfig: {
