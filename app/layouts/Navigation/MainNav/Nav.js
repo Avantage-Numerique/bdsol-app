@@ -39,6 +39,10 @@ const Nav = ( {menuState, setMenuState} ) => {
                     </li>
 
                     <li className="col-12">
+                        <Link href="/page-test">PAGE TEST</Link>
+                    </li>
+
+                    <li className="col-12">
                         <Link href="/a-propos">À propos</Link>
                     </li>
 
