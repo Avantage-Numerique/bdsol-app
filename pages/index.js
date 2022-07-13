@@ -19,8 +19,6 @@ import { AuthContext } from '../authentication/context/auth-context'
 //Styling
 import styles from './home-page.module.scss'
 
-
-
 const HomePage = () => {
 
     //Holds the state the organisations
@@ -196,7 +194,7 @@ const HomePage = () => {
              * 
              * ***********************************/}
 
-            <section className={`${styles["home-page__feed-section"]} col-8`}>
+            <section className={`${styles["home-page__feed-section"]}`}>
 
               <h2 className={`col-12 `}>Actualités</h2>
 
@@ -216,6 +214,7 @@ const HomePage = () => {
 
                 </div>
               }
+              
 
               {/************************************
                *
