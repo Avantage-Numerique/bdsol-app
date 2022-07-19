@@ -44,9 +44,7 @@ const HomePage = () => {
           const orgResponse = await sendRequest(
               "/organisations/list",
               'POST',
-              JSON.stringify({"data": {
-                "name": "jonathan"
-              }}),
+              JSON.stringify({"data": {}}),
               { 'Content-Type': 'application/json' }
           )
 
@@ -54,9 +52,7 @@ const HomePage = () => {
           const persResponse = await sendRequest(
               "/personnes/list",
               'POST',
-              JSON.stringify({"data": {
-                "name": "jonathan"
-              }}),
+              JSON.stringify({"data": {}}),
               { 'Content-Type': 'application/json' }
           )
 
@@ -258,7 +254,7 @@ const HomePage = () => {
                           key={elem._id}
                           header={elem.nickname ? "Personne" : "Organisation"}
                           firstname={elem.firstName}
-                          name={elem.lastName}
+                          name={elem.lastName ? elem.lastName : elem.name}
                           username={elem.nickname}
                           description={elem.description}
                           createdAt={elem.createdAt}

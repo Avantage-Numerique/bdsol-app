@@ -1,6 +1,8 @@
 import { useContext, useEffect, useRef, useState } from 'react'
 import {useRouter}  from 'next/router';
 
+import { useHttpClient } from '../../app/hooks/http-hook'
+
 //Context
 import { AuthContext } from '../../authentication/context/auth-context'
 
@@ -17,6 +19,9 @@ const accountPage = () => {
 
     //Default redirection path
     const redirectPath = useRef('/compte/connexion');
+
+    //Extract the functions inside useHttpClient
+    const { sendRequest } = useHttpClient();
 
     //Access router
     const router = useRouter();
@@ -35,16 +40,35 @@ const accountPage = () => {
     //Import the authentication context to make sure the user is well connected
     const auth = useContext(AuthContext);
 
+    
     //UseState
     const [leftMenu, setLeftMenu] = useState("history");
-
+    
     //Make sure the user is connected to access this page
     useEffect(() => {
         if(!auth.isLoggedIn){
             router.push(redirectPath.current)
         }
     },[auth.isLoggedIn, redirectPath.current]);
-   
+
+    //Data history
+    const formData = {
+        "data": {
+            "username": auth.username
+        }
+    };
+    let historyRes;
+
+    useEffect(() => {
+        //Fetch userHistory
+        if (auth.isLoggedIn)
+            historyRes = sendRequest(
+                "/userhistory/list",
+                'POST',
+                JSON.stringify(formData),
+                { 'Content-Type': 'application/json' }
+    )}, []);
+    
     const histObject = [
         {
             date:"2010-05-05",
@@ -62,6 +86,16 @@ const accountPage = () => {
             detail:"nom: Le drum à shawnee, roto..."
         }
     ];
+
+    /*const historyGrid = historyRes.data.map((hist) => {
+        const list = (
+            <>
+            <div>{hist.modifDate}</div>
+            <div>{hist.action} {hist.modifiedEntity}</div>
+            <div onClick={function() {alert(hist)}}>Détails</div>
+            </>
+        );
+    })*/
 
     //const history = toArray(histObject).map((histArray) => {
     const historyList = histObject.map((hist) => {
