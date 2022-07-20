@@ -22,13 +22,10 @@ import { AuthContext } from '../../../authentication/context/auth-context'
 //Styling
 import styles from './Header.module.scss'
 
-const Header = ( props ) => {
+const Header = ( {menuState, setMenuState} ) => {
 
     //Import the authentication context to make sure the user is well connected
     const auth = useContext(AuthContext);
-
-    //Destructuring to acces those elements easier
-    const { menuState, setMenuState } = props
 
     return (
         <header className={`${styles.header} dark_BG`}>
@@ -55,7 +52,7 @@ const Header = ( props ) => {
                 </div>
                 {/* Button for the main menu */}
                 <div className={`${styles["ham-menu-container"]} blue_BG`}>
-                    <HamburgerButton {...props} />
+                    <HamburgerButton menuState = {menuState} setMenuState = {setMenuState} />
                 </div>
             </div>
 
