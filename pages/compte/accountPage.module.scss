@@ -1,35 +1,52 @@
 .account-page {
-
-
     /*
         Aside menu
     */
     li {
         cursor: pointer;
     }
+}
 
-
-
+.account-page-content {
+    padding: 0 2rem;
 }
 
 .side-menu {
-    padding-left: 50px;
-    text-align: left;
+    padding: 0 1rem;
+}
+
+.user-card {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width:100%;
+    min-height: 6rem;
 }
 
 .grid-history {
-    display: grid;
-    grid-template-columns: 25% 65% 10%;
-    padding: 0px;
-    align-content: start;
-    border-bottom: 2px solid black;
-    border-left: 2px solid black;
-    >div{
-        background-color: var(--grey);
-        border-top: 2px solid black;
-        border-right: 2px solid black;
+    //display: grid;
+    //grid-template-columns: 25% 65% 10%;
+
+    //align-content: start;
+    //border-bottom: 2px solid black;
+    //border-left: 2px solid black;
+    /*> div{
+        //background-color: var(--grey);
+        //border-top: 2px solid black;
+        //border-right: 2px solid black;
         padding: 0px;
         font-size: 15px;
         text-align: center;
+    }*/
+}
+
+.history-table {
+    > div {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
     }
-  }
+}

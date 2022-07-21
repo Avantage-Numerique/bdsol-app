@@ -69,9 +69,8 @@ const Button = ({ rippleEffect, ...props }) => {
                 `}  
                     disabled={props.disabled}
                 >
-                
-                        {props.children}
-                        
+
+                    {props.children}
 
                 </button>
             </Link>
@@ -109,7 +108,6 @@ const Button = ({ rippleEffect, ...props }) => {
                         )}
                 />
             ))}
-            
 
             {/* Button text */}
             {props.children}
