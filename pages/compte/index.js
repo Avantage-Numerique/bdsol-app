@@ -94,35 +94,6 @@ const accountPage = () => {
     }, [auth.isLoggedIn]);
 
 
-    //temp
-    const histObject = [
-        {
-            date: "2010-05-05",
-            modif: "Création d'une Personne 'Shawnee Jacque-Godard'",
-            detail: "nom: Jacque-Godard, prenom: Shawnee, surnom:DrummerGod, description:Something"
-        },
-        {
-            date: "2011-05-05",
-            modif: "Création d'une Organisation 'Le band a shawnee?'",
-            detail: "nom: Le band a shawnee, roto..."
-        },
-        {
-            date: "2012-12-23",
-            modif: "Création d'un projet 'Le drum à shawnee'",
-            detail: "nom: Le drum à shawnee, roto..."
-        }
-    ];
-
-    /*const historyGrid = historyRes.data.map((hist) => {
-        const list = (
-            <>
-            <div>{hist.modifDate}</div>
-            <div>{hist.action} {hist.modifiedEntity}</div>
-            <div onClick={function() {alert(hist)}}>Détails</div>
-            </>
-        );
-    })*/
-
     const HistorySubView = (props) => {
 
         if (usersHistory
@@ -131,22 +102,22 @@ const accountPage = () => {
             && usersHistory.data.length > 0)
         {
 
-            const dateLanguage = 'fr-CA';
+            const dateLanguage = 'en-CA';
+            const timeLanguage = 'it-IT'
             return (
                 <>
                     <div key={`${styles["history-table"]}`} className={`${styles["history-table"]}`}>
                         {usersHistory.data.map( modification =>
-                            <div key={modification._id.toString()}>
-                                {modification._id.toString()}
-                                <div>{new Date(modification.modifDate).toLocaleDateString(dateLanguage)} {new Date(modification.modifDate).toLocaleTimeString(dateLanguage)}</div>
+                            <>
+                                <div>{new Date(modification.modifDate).toLocaleDateString(dateLanguage)} <br></br> {new Date(modification.modifDate).toLocaleTimeString(timeLanguage)}</div>
                                 <div>{modification.action}</div>
                                 <div>{Object.keys(modification.fields).length} champ{Object.keys(modification.fields).length > 1 ? 's' : ''}</div>
                                 <div>
                                     <Button slim key={modification._id.toString() + "BTN"} onClick={function () {
-                                        alert(modification.fields.toString())
+                                        alert(JSON.stringify(modification._id) + '  ' + JSON.stringify(modification.fields))
                                     }}>Détails</Button>
                                 </div>
-                            </div>
+                            </>
                         )}
                     </div>
                 </>
@@ -215,7 +186,6 @@ const accountPage = () => {
                         <h3 className={`col-12`}>
                             Menu
                         </h3>
-                        <div>
                             <div className={`${styles["user-card"]}`}>
                                 <div>
                                     { (auth.avatar === null || auth.avatar.toString() === "") ?
@@ -224,12 +194,11 @@ const accountPage = () => {
                                     }
                                 </div>
                                 <div onClick={pageModifProfile}>
-                                    <span>{auth.name}</span>
-                                    <span>{auth.username}</span>
+                                    <span>{auth.name}</span><br></br>
+                                    <span>{auth.username}</span><br></br>
                                     <button onClick={() => setLeftMenu("profile")}>Modifier mon profil</button>
                                 </div>
                             </div>
-                        </div>
 
                         <ul>
                             <li key="pref" className={`${styles["side-menu"]}`}

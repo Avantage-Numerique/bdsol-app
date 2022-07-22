@@ -18,30 +18,26 @@
 .user-card {
     display: flex;
     flex-direction: row;
-    align-items: center;
-    justify-content: center;
     width:100%;
     min-height: 6rem;
 }
 
-.grid-history {
-    //display: grid;
-    //grid-template-columns: 25% 65% 10%;
+.history-table {
+    display: grid;
+    grid-template-columns: 25% 40% 10% 10%;
 
     //align-content: start;
-    //border-bottom: 2px solid black;
-    //border-left: 2px solid black;
-    /*> div{
-        //background-color: var(--grey);
-        //border-top: 2px solid black;
-        //border-right: 2px solid black;
-        padding: 0px;
+    > div{
+        background-color: var(--grey);
+        outline:2px solid black;
+        //border: 2px solid black;
+        padding: 5px;
         font-size: 15px;
         text-align: center;
-    }*/
+    }
 }
 
-.history-table {
+/*.history-table {
     > div {
         width: 100%;
         display: flex;
@@ -49,4 +45,4 @@
         justify-content: space-between;
         align-items: center;
     }
-}
+}*/
