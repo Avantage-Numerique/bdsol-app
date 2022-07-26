@@ -21,28 +21,3 @@
     width:100%;
     min-height: 6rem;
 }
-
-.history-table {
-    display: grid;
-    grid-template-columns: 25% 40% 10% 10%;
-
-    //align-content: start;
-    > div{
-        background-color: var(--grey);
-        outline:2px solid black;
-        //border: 2px solid black;
-        padding: 5px;
-        font-size: 15px;
-        text-align: center;
-    }
-}
-
-/*.history-table {
-    > div {
-        width: 100%;
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-    }
-}*/
