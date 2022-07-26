@@ -16,30 +16,11 @@ import {useSessionHook} from '../../authentication/hooks/useSessionHook'
 //Styling
 import styles from './accountPage.module.scss'
 
-//useHttpClient don't work in the NExtjs context of getServerSideProps. export async function getServerSideProps(context)
-/*export async function getServerSideProps(context)
-{
-    const loggedInUser = {
-        username: 'datageek'
-    }
-    const usersHistory = await sendApiRequest(
-        "/userhistory/list",
-        'POST',
-        JSON.stringify(loggedInUser),
-        {'Content-Type': 'application/json'}
-    );
-    return {
-        props: {usersHistory}, // will be passed to the page component as props
-    }
-}*/
 
 const accountPage = () => {
 
     //Default redirection path
     const redirectPath = useRef('/compte/connexion');
-
-    //Extract the functions inside useHttpClient
-    const {sendRequest} = useHttpClient();
 
     //Access router
     const router = useRouter();
