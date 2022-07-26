@@ -5,9 +5,7 @@ const Select = () => {
 
 
     return (
-        <>
-
-        </>
+        <div>Ceci est un champ Select</div>
     );
 }
 
