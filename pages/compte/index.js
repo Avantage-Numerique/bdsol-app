@@ -7,6 +7,7 @@ import {useHttpClient} from '../../app/hooks/http-hook'
 import {AuthContext} from '../../authentication/context/auth-context'
 
 //Components
+import UserHistoryGrid from '../../DataTypes/UserHistory/UserHistoryGrid';
 
 //Hooks
 import {useSessionHook} from '../../authentication/hooks/useSessionHook'
@@ -14,7 +15,6 @@ import {useSessionHook} from '../../authentication/hooks/useSessionHook'
 
 //Styling
 import styles from './accountPage.module.scss'
-import Button from "../../app/common/FormElements/Buttons/Button/Button";
 
 //useHttpClient don't work in the NExtjs context of getServerSideProps. export async function getServerSideProps(context)
 /*export async function getServerSideProps(context)
@@ -71,70 +71,6 @@ const accountPage = () => {
     }, [auth.isLoggedIn, redirectPath.current]);
 
 
-    //Data history
-    const formData = {
-        "data": {
-            "username": auth.username
-        }
-    };
-    const [usersHistory, setUsersHistory] = useState([]);
-
-    useEffect(() => {
-        const getUsersHistory = async () => {
-            const usersHistory =  await sendRequest(
-                "/userhistory/list",
-                'POST',
-                JSON.stringify(formData),
-                { 'Content-Type': 'application/json' }
-            );
-            setUsersHistory(usersHistory);
-        }
-        if(auth.isLoggedIn) getUsersHistory();
-
-    }, [auth.isLoggedIn]);
-
-
-    const HistorySubView = (props) => {
-
-        if (usersHistory
-            && !usersHistory.error
-            && usersHistory.data
-            && usersHistory.data.length > 0)
-        {
-
-            const dateLanguage = 'en-CA';
-            const timeLanguage = 'it-IT'
-            return (
-                <>
-                    <div key={`${styles["history-table"]}`} className={`${styles["history-table"]}`}>
-                        {usersHistory.data.map( modification =>
-                            <>
-                                <div>{new Date(modification.modifDate).toLocaleDateString(dateLanguage)} <br></br> {new Date(modification.modifDate).toLocaleTimeString(timeLanguage)}</div>
-                                <div>{modification.action}</div>
-                                <div>{Object.keys(modification.fields).length} champ{Object.keys(modification.fields).length > 1 ? 's' : ''}</div>
-                                <div>
-                                    <Button slim key={modification._id.toString() + "BTN"} onClick={function () {
-                                        alert(JSON.stringify(modification._id) + '  ' + JSON.stringify(modification.fields))
-                                    }}>Détails</Button>
-                                </div>
-                            </>
-                        )}
-                    </div>
-                </>
-            )
-        }
-    }
-
-
-    const history = (
-        <>
-            <h3>Historique de modification</h3>
-            <div className={`${styles["grid-history"]}`}>
-                <HistorySubView />
-            </div>
-        </>
-    )
-
     const profile = (
         <>
             <h3>Modification du profil</h3>
@@ -174,7 +110,7 @@ const accountPage = () => {
 
                 <section className={"col-9"}>
                     <div className={"account-page-content"}>
-                        {leftMenu === "history" && history}
+                        {leftMenu === "history" && <UserHistoryGrid/>}
                         {leftMenu === "preferences" && preferences}
                         {leftMenu === "profile" && profile}
                         {leftMenu === "modifPassword" && modifPassword}
