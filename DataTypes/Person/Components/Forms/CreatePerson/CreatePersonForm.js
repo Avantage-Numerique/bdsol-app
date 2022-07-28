@@ -104,7 +104,7 @@ const CreatePersonForm = () => {
             };
 
             //Send the request with the specialized hook
-            const response = await sendRequest(
+            const response = await sendRequest (
                 "/personnes/create",
                 'POST',
                 JSON.stringify(formData),
