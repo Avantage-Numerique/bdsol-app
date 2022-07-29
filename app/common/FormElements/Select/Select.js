@@ -52,7 +52,17 @@ const Select = (props) => {
     }, [name, value, isValid, onInput]);
 
     const changeHandler = event => {
-        dispatch({val: event.target.value, isValid:true})
+        occupationList.data.forEach(occupation => {
+            if (event.target.value == occupation.name)
+                event.target.occId = occupation._id;
+        });
+        if (event.target.occId != "")
+            dispatch({val: event.target.occId, isValid:true});
+        //For the moment, this only send the id if the occupation exist
+        //If taxonomy schema expect and id, when the value is 12 char long, the cast to objectId succeed even tho it shouldn't. Beware
+        else
+            dispatch({val: "", isValid:true});
+        event.target.occId = "";
     }
 
     if( occupationList &&
@@ -62,12 +72,12 @@ const Select = (props) => {
     return (
         <>
             <label for='occupation'>{props.label}</label>
-            <input type="text" list='occupationsDatalist' name='occupationInput'
+            <input occId="" type="text" list='occupationsDatalist' name='occupationInput'
                 id='occupationInput' placeholder=' "Enseignant", "Architecte logiciel", [...]'
                 className={`${styles["datalist-input"]}`} onChange={changeHandler}/>
             <datalist id='occupationsDatalist' name="occupationsDatalist" className={`${styles["datalist-input"]}`}>
                 {occupationList.data.map( occ => 
-                    <option value={occ.id}>{occ.name}</option>
+                    <option value={occ.name}></option>
                 )}
             </datalist>
         </>
