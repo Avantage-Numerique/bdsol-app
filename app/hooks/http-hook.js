@@ -3,6 +3,51 @@ import {useState, useCallback, useRef, useEffect, useContext} from 'react';
 //Custom hook
 import {AuthContext} from '../../authentication/context/auth-context'
 
+export const sendApiRequest = async (path, method = 'GET', body = null, headers = {}) => {
+
+    // @todo doest we need to manage the https:// here ? Or I think it should be in  the env scope.
+    const baseApiRoute = "http://" + process.env.API_URL;//'http://localhost' + ':' + '8000';
+
+    //Access the authentication context
+    const auth = useContext(AuthContext);
+
+    const defaultHeaders = {
+        'Origin': process.env.APP_URL//'http://localhost:3000'
+    };
+
+    const authorization = auth.token ? {Authorization: 'Bearer ' + auth.token} : {}
+
+    const headerParams = {
+        ...authorization,
+        ...defaultHeaders,
+        ...headers
+    };
+
+    try {
+
+        //   Use the fetch request with the url (required) and with its options object filled with the full data that we want to pass, if so.
+        const response = await fetch(baseApiRoute + path, {
+            method: method,                                   //Get by default
+            body: body,                                       //Data
+            headers: new Headers(headerParams),
+            json: true,
+            signal: httpAbortCtrl.signal
+        });
+
+        //Return the data
+        return await response.json();
+
+    } catch (err) {
+
+        //Default return value
+        return {
+            error: true,
+            code: 504,
+            message: "Une erreur est survenue et le serveur ne semble pas répondre. Assurez-vous d'avoir une connexion."
+        }
+    }
+}
+
 //Main hook function called for every request made to the database
 export const useHttpClient = () => {
 

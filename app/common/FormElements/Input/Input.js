@@ -78,9 +78,9 @@ const Input = ({addRow, removeRow, ...props}) => {
                         className={` ${!inputState.isValid && inputState.isTouched && styles["control--invalid"]}`}
                         name={props.name}
                         id={props.name}
-                        type={props.type ? props.type : "text"} 
-                        placeholder={props.placeholder} 
-                        onChange={changeHandler} 
+                        type={props.type ? props.type : "text"}
+                        placeholder={props.placeholder}
+                        onChange={changeHandler}
                         onBlur={touchHandler}
                         autoComplete={props.type === "password" ? "on" : undefined}
                     /> 

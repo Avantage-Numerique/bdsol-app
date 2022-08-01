@@ -1,7 +1,8 @@
 
 //Components
 import SanitizedInnerHtml from '../../../utils/SanitizedInnerHtml'
-
+import { useContext } from 'react'
+import { AuthContext } from '../../../../authentication/context/auth-context'
 import styles from './presentationCard.module.scss'
 
 /*
@@ -19,6 +20,8 @@ import styles from './presentationCard.module.scss'
 */
 
 const PresentationCard = ({header, name, firstname, description, username, createdAt, url, contactPoint}) => {
+
+    const auth = useContext(AuthContext);
 
     return (
 
@@ -106,7 +109,7 @@ const PresentationCard = ({header, name, firstname, description, username, creat
 
             </section>
             <div className={`${styles["card__infos__sub-section"]}`}>
-                <div><strong>Créé par</strong> inconnu</div>
+                <div><strong>Créé par</strong> {auth.username} </div>
                 <div>{(new Date(createdAt)).toLocaleDateString('en-GB')}</div>
             </div> 
 
