@@ -54,6 +54,7 @@ const PresentationCard = ({header, name, firstname, description, username, creat
             {/************************************ 
                  
                  Main content of the component
+                @todo change markup for more robot friendly ones, p, h, etc.
             
             **************************************/}
 
