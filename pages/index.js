@@ -44,9 +44,7 @@ const HomePage = () => {
           const orgResponse = await sendRequest(
               "/organisations/list",
               'POST',
-              JSON.stringify({"data": {
-                "name": "jonathan"
-              }}),
+              JSON.stringify({"data": {}}),
               { 'Content-Type': 'application/json' }
           )
 
@@ -54,9 +52,7 @@ const HomePage = () => {
           const persResponse = await sendRequest(
               "/personnes/list",
               'POST',
-              JSON.stringify({"data": {
-                "name": "jonathan"
-              }}),
+              JSON.stringify({"data": {}}),
               { 'Content-Type': 'application/json' }
           )
 
@@ -97,7 +93,7 @@ const HomePage = () => {
             } 
       }
 
-      if(auth.isLoggedIn) fetchApi()
+      fetchApi()
 
 
     }, [auth.isLoggedIn])
@@ -229,19 +225,6 @@ const HomePage = () => {
                 </div>
               }
 
-              {/**************************************
-               * 
-               *  If the user is not logged is, FOR NOW, display this message
-               * 
-               ***************************************/}
-               {
-                !auth.isLoggedIn &&
-                <div className="col-12">
-                  <h4 className="col-12">Veuillez vous connecter pour pouvoir visualiser le contenu de la base de données.</h4>
-                  <p>Ceci est temporaire et, sous peu, vous pourrez consulter les données même sans être connecté.</p>
-                </div>
-              }
-
               <div className={`col-12 ${styles["home-page__feed-section--container"]}`}>
 
 
@@ -251,14 +234,14 @@ const HomePage = () => {
                    *  
                    ***********************************/}
                   {
-                    feedList.length > 0 && !isLoading && auth.isLoggedIn &&
+                    feedList.length > 0 && !isLoading &&
                     
                     feedList.map(elem => (
                         <PresentationCard
                           key={elem._id}
                           header={elem.nickname ? "Personne" : "Organisation"}
                           firstname={elem.firstName}
-                          name={elem.lastName}
+                          name={elem.lastName ? elem.lastName : elem.name}
                           username={elem.nickname}
                           description={elem.description}
                           createdAt={elem.createdAt}
@@ -286,7 +269,7 @@ const HomePage = () => {
               <h2 className={`col-12`}>Menu rapide</h2>
 
               {/* 
-                    Section : If user is not connected, offer the option to connect it self
+                    Section : If user is not connected, offer the option to connect itself
               */}
 
                 { !auth.isLoggedIn &&

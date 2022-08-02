@@ -9,6 +9,7 @@ import { useHttpClient } from '../../../../../app/hooks/http-hook'
 import Button from '../../../../../app/common/FormElements/Buttons/Button/Button'
 import Input from '../../../../../app/common/FormElements/Input/Input'
 import RichTextarea from '../../../../../app/common/FormElements/RichTextArea/RichTextarea'
+import Select from '../../../../../app/common/FormElements/Select/Select'
 import Spinner from '../../../../../app/common/widgets/spinner/Spinner'
 
 //contexts
@@ -67,6 +68,10 @@ const CreatePersonForm = () => {
         biography: {
             value: '',
             isValid: true
+        },
+        occupation: {
+            value: '',
+            isValid: true
         }
 
     }, 
@@ -93,12 +98,13 @@ const CreatePersonForm = () => {
                     "lastName": formState.inputs.lastName.value,
                     "firstName":  formState.inputs.firstName.value, 
                     "nickname": formState.inputs.nickName.value,
-                    "description": formState.inputs.biography.value 
+                    "description": formState.inputs.biography.value,
+                    "occupation": formState.inputs.occupation.value
                 }
             };
 
             //Send the request with the specialized hook
-            const response = await sendRequest(
+            const response = await sendRequest (
                 "/personnes/create",
                 'POST',
                 JSON.stringify(formData),
@@ -162,10 +168,16 @@ const CreatePersonForm = () => {
                     label="Surnom"
                     onInput={inputHandler}
                 />
-
+                
                 <RichTextarea 
                     name="biography"
                     label="Biographie"
+                    onInput={inputHandler}
+                />
+
+                <Select
+                    name="occupation"
+                    label="Occupation"
                     onInput={inputHandler}
                 />
 
