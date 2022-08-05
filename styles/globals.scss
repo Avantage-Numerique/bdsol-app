@@ -14,7 +14,7 @@
   Global variables of the platform
 *
 */
-$dark: #212121;
+
 :root {
   /* Maximum width the content of the page can take */
   --max-width-page-content: 85rem;
@@ -25,18 +25,9 @@ $dark: #212121;
   /* Main color of the web site (blue) 
       Hexa : #455ae6
   */
-  --mainBlue: rgb(69, 90, 230);
-  --blue1: rgb(69, 90, 230);
 
-  --altBlue: rgb(77, 100, 255);  /* To be removed */
-  --blue2: rgb(77, 100, 255);
-  --blue3: rgb(77, 196, 255);
-  --blue4: rgb(95, 113, 234);
   --grey: rgb(187, 191, 215);
 
-  --bs-red: rgb(221, 92, 92);
-  //--bs-dark: #212121;
-  --bs-dark-rgb: 33, 33, 33;
   --bs-body-color: var(--bs-dark);
 
   /* Main font */
@@ -94,29 +85,9 @@ h6 { font-size: 0.8rem; }
 *
 */
 
-/* blue color */
-.blue { color: var(--mainBlue); }
-.blue_BG { background-color: var(--mainBlue); }
-
-/* blue color */
-.blue1 { color: var(--blue1); }
-.blue1_BG { background-color: var(--blue1); }
-
-/* Secondary color */
-.sec-color { color: var(--altBlue);}
-.sec-color_BG { background-color: var(--altBlue); }
-
-/* secondary color */
-.blue2 { color: var(--blue2); }
-.blue2_BG { background-color: var(--blue2); }
-
 /* grey */
 .grey { color: var(--grey);}
 .grey_BG { background-color: var(--grey); }
-
-/* red */
-.red { color: var(--bs-red);}
-.red_BG { background-color: var(--bs-red); }
 
 /* White color */
 .white { color: white; }

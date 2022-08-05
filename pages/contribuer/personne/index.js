@@ -27,7 +27,7 @@ const CreatePersonPage = () => {
                 <header className={`col-12`}>
                     <div className="maxWidthPageContainer">
                         <div className={`${styles["create-person--max-width"]}`}>
-                            <h1 className={`col-12 blue`}>Personne</h1>
+                            <h1 className={`col-12 text-primary`}>Personne</h1>
                             <h4 className="col-12">Super formulaire</h4>
                             <p>Ajoutez ici une entité "Personne" afin de représenter un artiste, artisan ou professionnel de tout domaine que vous jugez pertinent à cette base de données.</p>
                         </div>

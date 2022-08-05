@@ -38,7 +38,7 @@ const ClassInfos = ( {data, active, globalData} ) => {
 
             {/* Description section */}
             <div className={`${styles.classDescription} col-12`}>
-                <h4 className="blue col-12">Description</h4>
+                <h4 className="text-primary col-12">Description</h4>
                 <p className="col-12">{ data.description }</p>
             </div>
 
@@ -54,7 +54,7 @@ const ClassInfos = ( {data, active, globalData} ) => {
 
             <div className={`${styles.classProperties} col-12`}>
 
-                <h4 className="blue col-12">Propriétés</h4>
+                <h4 className="text-primary col-12">Propriétés</h4>
 
                 <div className={`${styles.propertiesButtonContainer} col-12`}>     
                      
@@ -64,7 +64,7 @@ const ClassInfos = ( {data, active, globalData} ) => {
                         <button 
                             key={` ${propData.slug}-button`} 
                             onClick={ () => onPropertyDisplayClick( propIndex ) } 
-                            className={`${styles.propertyName} white ${ index == propIndex ? "blue_BG" : "grey_BG" } `} 
+                            className={`${styles.propertyName} white ${ index == propIndex ? "bg-primary" : "grey_BG" } `} 
                         >
                             { propData.title }
                         </button>
@@ -92,7 +92,7 @@ const ClassInfos = ( {data, active, globalData} ) => {
 
             <div className={`${styles.classLinkedClassed} col-12`}>
             
-                <h4 className="blue col-12">Classes liées</h4>
+                <h4 className="text-primary col-12">Classes liées</h4>
 
                 {/* Display every properties */}
                 {data.linkedClasses.map( (propData) => (

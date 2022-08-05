@@ -22,7 +22,7 @@ const Index = () => {
             <header className={`col-12`}>
 
                 <div className="maxWidthPageContainer">
-                    <h1 className={`col-12 blue`}>Créer une donnée</h1>
+                    <h1 className={`col-12 text-primary`}>Créer une donnée</h1>
                     <p>Vous avez accès ici à tous les types de données qu'il est présentement possible d'intégrer à la base de données.</p>
                 </div>
 
@@ -39,7 +39,7 @@ const Index = () => {
                         {/* Not beautiful but it works for now. Let know the user that he needs to be connected to edit the database */}
                         { !auth.isLoggedIn &&
                             <div className="col-12" style={{marginBottom: "1rem"}}>
-                                <span className="red"><strong>Attention ! </strong></span>
+                                <span className="text-danger"><strong>Attention ! </strong></span>
                                 Vous devez être connecté afin de pouvoir éditer la base de données.
                             </div>    
                         }

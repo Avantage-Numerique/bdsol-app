@@ -21,7 +21,7 @@ const Nav = ( {menuState, setMenuState} ) => {
 
     return (
 
-        <nav className={`${navStyles.navContainer} ${menuState === 1 && navStyles.displayed}`}>
+        <nav className={`${navStyles.navContainer} ${menuState === 1 && navStyles.displayed} bg-primary`}>
             <div className={navStyles.maxWidthPageContainer + ' ' + "maxWidthPageContainer"}>
              
                 <ul className={`${navStyles.mainMenu} col-9`}>

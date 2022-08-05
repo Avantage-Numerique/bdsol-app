@@ -54,7 +54,7 @@ const Header = ( props ) => {
                     </button>
                 </div>
                 {/* Button for the main menu */}
-                <div className={`${styles["ham-menu-container"]} blue_BG`}>
+                <div className={`${styles["ham-menu-container"]} bg-primary`}>
                     <HamburgerButton {...props} />
                 </div>
             </div>

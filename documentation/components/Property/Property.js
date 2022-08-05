@@ -16,7 +16,7 @@ const Property = ( {data} ) => {
 
             <header>
                 <h3> {data.title} </h3>
-                <div className={`${styles.requirementMention} blue_BG white`}>
+                <div className={`${styles.requirementMention} bg-primary white`}>
                     { data.title.required ? "Requise" : "Non requise" }
                 </div>
                 <small className="col-12">Source : { data.source }</small>
@@ -24,19 +24,19 @@ const Property = ( {data} ) => {
             
             {/* Description section of the property */}
             <section className='col-12'>
-                <h4 className="blue" >Description</h4>
+                <h4 className="text-primary" >Description</h4>
                 <p>{ data.description }</p>
             </section>
 
             {/* Use cases section of the property */}
             <section className='col-12'>
-                <h4 className="blue" >Cas d'utilisation</h4>
+                <h4 className="text-primary" >Cas d'utilisation</h4>
                 <p>{ data.uses }</p>
             </section>
 
             {/* Restrictions section of the property */}
             <section className='col-12'>
-                <h4 className="blue" >Restrictions</h4>
+                <h4 className="text-primary" >Restrictions</h4>
                 <p>{ data.restrictions }</p>
             </section>
             

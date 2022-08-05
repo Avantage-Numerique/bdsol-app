@@ -2,8 +2,6 @@
     Styles for the main navigation bar
 */
 .navContainer {
-
-    background-color: var(--mainBlue);
     position: fixed;
     top: calc(var(--headersHeight) - 1px);
     bottom: 0px;

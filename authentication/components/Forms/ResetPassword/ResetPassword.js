@@ -80,7 +80,7 @@ const ResetPassword = () => {
 
             <form onSubmit={authSubmitHandler}>
 
-                <h3 className="blue" >Réinitialiser votre mot de passe</h3>
+                <h3 className="text-primary" >Réinitialiser votre mot de passe</h3>
                 <p>Entrer une adresse courriel pour récupérer votre mot de passe.</p>
 
                 <Input

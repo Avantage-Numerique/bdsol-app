@@ -83,7 +83,7 @@ const accountPage = () => {
 
             <header className="col-12">
                 <div className="maxWidthPageContainer">
-                    <h1 className="col-12 blue1">Bienvenue {auth.username}</h1>
+                    <h1 className="col-12 text-primary">Bienvenue {auth.username}</h1>
                 </div>
             </header>
 

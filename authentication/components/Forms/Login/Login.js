@@ -103,7 +103,7 @@ const Login = () => {
 
             <form onSubmit={authSubmitHandler}>
 
-                <h3 className="blue" >Connexion</h3>
+                <h3 className="text-primary" >Connexion</h3>
 
                 <Input
                     name="username"
@@ -128,13 +128,13 @@ const Login = () => {
                 </div>
 
                 <p className={`${styles.formRedirection} col-12`}>Vous n'avez pas encore de compte ? 
-                    <span className="blue">
+                    <span className="text-primary">
                         <Link href="/compte/inscription"> C'est par ici.</Link>
                     </span>
                 </p>
                 
                 <p className={`${styles.formRedirection} col-12`}>Vous avez oublié votre mot de passe ?
-                    <span className="blue">
+                    <span className="text-primary">
                         <Link href="/compte/reinitialiser"> Vous pouvez le réinitialiser </Link>
                     </span>
                 </p>
