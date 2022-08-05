@@ -23,7 +23,7 @@ const ArrowButton = ( {openned, className, onclick} ) => {
 
     return (
 
-        <button onClick={ onclick } className={`${styles.xButton} ${openned ? styles.openned : " "} ${parentClassName}`}>
+        <button onClick={ onclick } className={`${styles.xButton} ${is_openned(openned)} ${parentClassName}`}>
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16.97 11.31">
                 <polygon points="0 2.83 2.83 0 8.48 5.66 14.14 0 16.97 2.83 8.48 11.31 0 2.83"/>
             </svg>
@@ -32,6 +32,12 @@ const ArrowButton = ( {openned, className, onclick} ) => {
     )   
 }
 
-
+function is_openned(value){
+    if(value){
+        return `${styles.openned} bg-primary`;
+    }else{
+        return " ";
+    }
+}
 
 export default ArrowButton;

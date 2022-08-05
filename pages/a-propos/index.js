@@ -38,6 +38,7 @@ const Index = () => {
                     <div className={`col-12}`}>
                         <h2 className="col-12">Pourqoi on développe une base de données ?</h2>
                         <p>Maecenas sed enim ut sem. Elit duis tristique sollicitudin nibh sit amet commodo. Quisque id diam vel quam elementum pulvinar. At tellus at urna condimentum. Id velit ut tortor pretium viverra. Porta non pulvinar neque laoreet suspendisse interdum consectetur libero id. Sagittis nisl rhoncus mattis rhoncus urna neque. Dui vivamus arcu felis bibendum ut tristique et. Nisl nunc mi ipsum faucibus vitae aliquet. Ante in nibh mauris cursus mattis molestie a iaculis. Hac habitasse platea dictumst quisque sagittis. Pharetra pharetra massa massa ultricies mi quis hendrerit dolor magna.</p>
+                        <button type="button" class="btn btn-dark">Dark</button>
                     </div>
 
                 </div>

@@ -14,7 +14,7 @@
   Global variables of the platform
 *
 */
-
+$dark: #212121;
 :root {
   /* Maximum width the content of the page can take */
   --max-width-page-content: 85rem;
@@ -32,43 +32,29 @@
   --blue2: rgb(77, 100, 255);
   --blue3: rgb(77, 196, 255);
   --blue4: rgb(95, 113, 234);
-  --red: rgb(221, 92, 92);
   --grey: rgb(187, 191, 215);
 
-  /* Dark color for the text and background-colors 
-         Hexa : #212121;
-  */
-  --dark: rgb(33, 33, 33);
+  --bs-red: rgb(221, 92, 92);
+  //--bs-dark: #212121;
+  --bs-dark-rgb: 33, 33, 33;
+  --bs-body-color: var(--bs-dark);
 
   /* Main font */
-  --generalFont: 'Open Sans', sans-serif;
+  // --generalFont: 'Open Sans', sans-serif;
+  --bs-body-font-family: 'Open Sans', sans-serif;
   --titleFont: 'Yeseva One';
+  --bs-body-font-size: 14px;
+  --bs-body-line-height: 1.4;
 
   /* Common border radius through the website */
   --commonRadius: 1.5em;
   
 }
 
-html,
-body {
-  padding: 0;
-  margin: 0;
-
-  /* Default font */
-  font-family: var(--generalFont);
-
-  /* Default text size */
-  font-size: 14px;
-  line-height: 1.4;
-
-  /* Default color */
-  color: var(--dark);
-
-
-}
-
-* {
-  box-sizing: border-box;
+html{
+  font-size: var(--bs-body-font-size);
+  line-height: var(--bs-body-line-height);
+  // color: var(--bs-body-color); // No sure if needed
 }
 
 /*
@@ -129,15 +115,15 @@ h6 { font-size: 0.8rem; }
 .grey_BG { background-color: var(--grey); }
 
 /* red */
-.red { color: var(--red);}
-.red_BG { background-color: var(--red); }
+.red { color: var(--bs-red);}
+.red_BG { background-color: var(--bs-red); }
 
 /* White color */
 .white { color: white; }
 
 /* Dark color */
-.dark { color: var(--dark); }
-.dark_BG { background-color: var(--dark); }
+.dark { color: var(--bs-dark); }
+.dark_BG { background-color: var(--bs-dark); }
 
 .cursorPointer { cursor: pointer; }
 .commonRadius { border-radius: var(--commonRadius); }
