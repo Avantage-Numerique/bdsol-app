@@ -1,5 +1,6 @@
 import React, {useEffect, useState, useReducer} from 'react'
 import {useHttpClient} from '../../../../app/hooks/http-hook'
+import Button from '../Buttons/Button/Button'
 //Styling
 import styles from './Select.module.scss'
 
@@ -21,29 +22,24 @@ const Select = (props) => {
         isValid: true
     });
 
-    //Data history query
-    const formData = {
-        "data": {
-            "category": "occupation"
-        }
-    };
-
-    const [occupationList, setOccupationList] = useState([]);
+    const [SelectList, setSelectList] = useState([]);
 
     useEffect(() => {
-        const getOccupation = async () => {
-            const occupationList =  await sendRequest(
-                "/taxonomy/list",
+        const getSelectList = async () => {
+            if(props.request != undefined && props.requestData != undefined){
+            const SelectList =  await sendRequest(
+                props.request,
                 'POST',
-                JSON.stringify(formData),
+                JSON.stringify(props.requestData),
                 { 'Content-Type': 'application/json' }
             );
-            setOccupationList(occupationList);
+            setSelectList(SelectList);
+            }
         }
-        getOccupation();
+        getSelectList();
     },[]);
-
-    //const inputState = {value:'', isValid:true};
+    
+    const SelectedItem = ["Pompier", "Architecte", "Joueur de soccer"];
     const { name, onInput } = props;
     const { value, isValid } = inputState;   //State of this element
 
@@ -52,7 +48,7 @@ const Select = (props) => {
     }, [name, value, isValid, onInput]);
 
     const changeHandler = event => {
-        occupationList.data.forEach(occupation => {
+        SelectList.data.forEach(occupation => {
             if (event.target.value == occupation.name)
                 event.target.occId = occupation._id;
         });
@@ -65,21 +61,33 @@ const Select = (props) => {
         event.target.occId = "";
     }
 
-    if( occupationList &&
-        !occupationList.error &&
-        occupationList.data &&
-        occupationList.data.length > 0)
+    if( SelectList &&
+        !SelectList.error &&
+        SelectList.data &&
+        SelectList.data.length > 0)
     return (
         <>
             <label for='occupation'>{props.label}</label>
-            <input occId="" type="text" list='occupationsDatalist' name='occupationInput'
-                id='occupationInput' placeholder=' "Enseignant", "Architecte logiciel", [...]'
-                className={`${styles["datalist-input"]}`} onChange={changeHandler}/>
-            <datalist id='occupationsDatalist' name="occupationsDatalist" className={`${styles["datalist-input"]}`}>
-                {occupationList.data.map( occ => 
-                    <option value={occ.name}></option>
+            <br/>
+            <div>
+                <Button slim="true">+</Button>
+                <input occId="" type="text" list='occupationsDatalist' name='occupationInput'
+                    id='occupationInput' placeholder=' "Enseignant", "Architecte logiciel", [...]'
+                    className={`${styles["datalist-input"]}`} onChange={changeHandler}/>
+                <datalist id='occupationsDatalist' name="occupationsDatalist" className={`${styles["datalist-input"]}`}>
+                    {SelectList.data.map( occ => 
+                        <option value={occ.name}></option>
+                    )}
+                </datalist>
+            </div>
+            <div className={`${styles['tagList']}`}>
+                {SelectedItem.map(selected =>
+                <>
+                    <input type="submit" value="x" className={`${styles['input']}`}></input>
+                    <label className={`${styles['label']}`}>{selected}</label>
+                </>
                 )}
-            </datalist>
+            </div>
         </>
     );
 }

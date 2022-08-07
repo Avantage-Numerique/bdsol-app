@@ -141,6 +141,12 @@ const CreatePersonForm = () => {
 
     }
 
+    const occupationSelectRequestData = {
+        "data": {
+            "category": "occupation"
+        }
+    };
+
     return (
         <>
             { isLoading && <Spinner fixed />}
@@ -178,6 +184,8 @@ const CreatePersonForm = () => {
                 <Select
                     name="occupation"
                     label="Occupation"
+                    request="/taxonomy/list"
+                    requestData={occupationSelectRequestData}
                     onInput={inputHandler}
                 />
 
