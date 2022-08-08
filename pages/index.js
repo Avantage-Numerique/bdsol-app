@@ -173,8 +173,8 @@ const HomePage = () => {
 
               <div className="col-12">
 
-                <h1 className="col-12 white">Avantage Numérique</h1>
-                <h3 className="col-12 white">Toutes les données du Croissant Boréal</h3>
+                <h1 className="col-12 text-white">Avantage Numérique</h1>
+                <h3 className="col-12 text-white">Toutes les données du Croissant Boréal</h3>
                 
               </div>
 
@@ -330,7 +330,7 @@ const HomePage = () => {
 
                 <section className={`col-12 ${styles["aside__register-option"]}`}>
                     
-                    <div className="col-12 bg-primary white">
+                    <div className="col-12 bg-primary text-white">
 
                       <h4>Pas encore de compte ?</h4>
 

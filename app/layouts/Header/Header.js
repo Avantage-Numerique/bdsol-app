@@ -31,7 +31,7 @@ const Header = ( props ) => {
     const { menuState, setMenuState } = props
 
     return (
-        <header className={`${styles.header} dark_BG`}>
+        <header className={`${styles.header} bg-dark`}>
 
             {/* Container that fills all the width of the platform and containerr the logo*/}
             <div className={`${styles["header__content"]} maxWidthPageContainer`}>

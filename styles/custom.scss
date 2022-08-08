@@ -1,0 +1,55 @@
+/*
+
+
+
+    Overrides default variables of React-Bootstrap to fit the custom style
+    01Hub - 08/08/2022
+
+    
+
+*/
+
+//colors
+$blue: rgb(69, 90, 230); // Avantage numérique's mainBlue (and blue1)
+$red: rgb(221, 92, 92);  // Avantage numérique's red
+$dark: rgb(33, 33, 33);
+
+$theme-colors:(
+    "primary": $blue,
+    "secondary": #bbbfd7,
+    "blue2": #4d64ff,   // Avantage numérique's altBlue (and blue2) rgb(77, 100, 255)
+    "blue3": #4dc4ff,   // Avantage numérique's blue3 rgb(77, 196, 255)
+    "blue4": #5f71ea,   // Avantage numérique's blue4 rgb(95, 113, 234)
+    "dark": $dark,    // 
+    "danger": $red,       // 
+);
+
+$body-color: $dark;
+
+
+//fonts
+$font-size-root: 14px;
+$font-family-base: 'Open Sans', sans-serif;
+$line-height-base: 1.4;
+
+$headings-font-family: 'Yeseva One'; //add alternative font 
+$headings-line-height: 1.1;
+$headings-font-weight: 400;
+
+$h1-font-size:                min(10vw, 4rem) !default; //older brower 4rem              ///original      $font-size-base * 2.5 !default;
+$h2-font-size:                min(8vw, 2.5rem) !default;
+$h3-font-size:                1.75rem !default;
+$h4-font-size:                1.1rem !default;
+$h5-font-size:                1rem !default;
+$h6-font-size:                0.8rem !default; //est-ce que c'est normal que le h6 soit plus petit qu'un texte regulier
+
+
+$link-decoration: none;
+
+$border-radius: 1.5em; 
+//to-do; transpose value from rem to em (only one button radius is used in the app for now.
+// $border-radius-sm:            .25rem !default;
+// $border-radius-lg:            .5rem !default;
+// $border-radius-xl:            1rem !default;
+// $border-radius-2xl:           2rem !default;
+// $border-radius-pill:          50rem !default;

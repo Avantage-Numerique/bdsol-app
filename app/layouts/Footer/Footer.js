@@ -15,7 +15,7 @@ const Footer = () => {
 
     return (
 
-        <footer id={styles.pageFooter} className="dark_BG">
+        <footer id={styles.pageFooter} className="bg-dark">
             {/* center the contain of the page */}
             <div className="maxWidthPageContainer">
 

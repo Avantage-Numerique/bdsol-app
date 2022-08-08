@@ -64,7 +64,7 @@ const ClassInfos = ( {data, active, globalData} ) => {
                         <button 
                             key={` ${propData.slug}-button`} 
                             onClick={ () => onPropertyDisplayClick( propIndex ) } 
-                            className={`${styles.propertyName} white ${ index == propIndex ? "bg-primary" : "grey_BG" } `} 
+                            className={`${styles.propertyName} text-white ${ index == propIndex ? "bg-primary" : "bg-secondary" } `} 
                         >
                             { propData.title }
                         </button>

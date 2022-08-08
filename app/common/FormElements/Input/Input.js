@@ -88,7 +88,7 @@ const Input = ({addRow, removeRow, ...props}) => {
                     { 
                         addRow &&
                         <button onClick={addRow} 
-                                className={`white bg-blue2`}
+                                className={`text-white bg-blue2`}
                                 type="button"
                         >   &#43;
                         </button>
@@ -97,7 +97,7 @@ const Input = ({addRow, removeRow, ...props}) => {
                         removeRow &&
                         <button  
                             onClick={removeRow} 
-                            className={`white bg-danger`}
+                            className={`text-white bg-danger`}
                             type="button"
                         >
                                 &#215;

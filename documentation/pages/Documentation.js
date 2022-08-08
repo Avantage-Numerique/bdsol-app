@@ -128,8 +128,8 @@ const Documentation = ( {documentation} ) => {
 
       {/* General header of the page */}
       <header className="bg-blue2">
-        <section className="white col-12">
-          <h1>Préparez vos données pour vous connecter au <br/><span className="dark">croissant boréal</span></h1>
+        <section className="text-white col-12">
+          <h1>Préparez vos données pour vous connecter au <br/><span className="text-dark">croissant boréal</span></h1>
 
           {/* SVG still to integrate and animate. This version is only temporary */}
           {/* @TODO : Warning du path, peut-être implémenté : https://nextjs.org/docs/basic-features/static-file-serving ?*/}
@@ -168,7 +168,7 @@ const Documentation = ( {documentation} ) => {
             </article>
 
             {/* Call to action */}
-            <aside className="white commonRadius bg-primary">
+            <aside className="text-white commonRadius bg-primary">
 
               <section>
                 <h3 className="col-12">Lorem ipsum dolor sit amet</h3>

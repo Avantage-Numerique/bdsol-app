@@ -16,36 +16,16 @@
 */
 
 :root {
+
   /* Maximum width the content of the page can take */
   --max-width-page-content: 85rem;
 
   /* Header's height.  */
   --headersHeight : 5em;
 
-  /* Main color of the web site (blue) 
-      Hexa : #455ae6
-  */
-
-  --grey: rgb(187, 191, 215);
-
-  --bs-body-color: var(--bs-dark);
-
-  /* Main font */
-  // --generalFont: 'Open Sans', sans-serif;
-  --bs-body-font-family: 'Open Sans', sans-serif;
-  --titleFont: 'Yeseva One';
-  --bs-body-font-size: 14px;
-  --bs-body-line-height: 1.4;
-
   /* Common border radius through the website */
   --commonRadius: 1.5em;
-  
-}
 
-html{
-  font-size: var(--bs-body-font-size);
-  line-height: var(--bs-body-line-height);
-  // color: var(--bs-body-color); // No sure if needed
 }
 
 /*
@@ -54,55 +34,16 @@ html{
 *
 */
 
-h1, h2, h3 {
-  font-family: var(--titleFont);
-  line-height: 1.1;
-  font-weight: normal;
-}
-
 h4, h5, h6 {
   font-weight: 700;
 }
 
-h1 { 
-  font-size: 4rem; /* For older browsers */
-  font-size: min(10vw, 4rem); }
-h2 { 
-  font-size: 2.5rem;  /* For older browsers */
-  font-size: min(2.5rem, 8vw); 
-}
-h3 { font-size: 1.75rem; }
-h4 { font-size: 1.1rem; }
-h5 { font-size: 1rem; }
-h6 { font-size: 0.8rem; }
-
-
-
-
-/*
-*
-*    Colors settings
-*
-*/
-
-/* grey */
-.grey { color: var(--grey);}
-.grey_BG { background-color: var(--grey); }
-
-/* White color */
-.white { color: white; }
-
-/* Dark color */
-.dark { color: var(--bs-dark); }
-.dark_BG { background-color: var(--bs-dark); }
-
-.cursorPointer { cursor: pointer; }
+.cursorPointer { cursor: pointer; } //peut-être voir si c'est nécessaire de garder dans le globals? c'est peut-être ok de mettre directement dans le component Class.module.scss
 .commonRadius { border-radius: var(--commonRadius); }
 
+
 a {
-  color: inherit;
-  text-decoration: none;
-  cursor: pointer;
+  color: inherit; //question posée dans Notion
 }
 
 /**
@@ -270,3 +211,27 @@ input:focus, textarea:focus, select:focus{
      
 }
 
+
+
+
+
+
+
+
+
+////////
+/// 
+/// NOT SURE YET
+/// 
+////////
+
+// html{
+//   // color: var(--bs-body-color); // No sure if needed
+// }
+
+// a {
+//    color: inherit; //question posée dans Notion
+// }
+
+// - border-radius
+// - cursor

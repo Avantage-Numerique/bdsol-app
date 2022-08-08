@@ -16,7 +16,7 @@ const Property = ( {data} ) => {
 
             <header>
                 <h3> {data.title} </h3>
-                <div className={`${styles.requirementMention} bg-primary white`}>
+                <div className={`${styles.requirementMention} bg-primary text-white`}>
                     { data.title.required ? "Requise" : "Non requise" }
                 </div>
                 <small className="col-12">Source : { data.source }</small>
