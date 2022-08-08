@@ -1,13 +1,29 @@
-
-.datalist-input {
+.selectInput {
     background-color: white;
-}   
+    margin-left: 1rem;
+}
 
 .tagList {
-    .input{
+    .tagInput{
+        cursor: pointer;
+        //padding: 0.3rem;
     }
-    .label {
-        padding:5px;
-        border: solid black 1px;
+    .tag {
+        user-select: none;
+        margin:5px;
+        padding:0.5rem;
+        outline: solid black 1px;
+        border-bottom-right-radius: 15px;
+        border-top-right-radius: 15px;
+    }
+    .tag::before {
+        /*content: '';
+        position: absolute;
+        width: 1%; height: 1%;
+        background: black;
+        transform-origin: 0% 0;
+        transform: rotate(45deg);
+        border-radius: 20px;
+        z-index: -1;*/
     }
 }
