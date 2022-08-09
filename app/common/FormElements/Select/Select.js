@@ -103,7 +103,7 @@ const Select = (props) => {
                 {selectedItems.map(selected =>
                 <>
                     <input className={`${styles['tagInput']}`} type="button" onClick={() => removeValueFromSelectedItem(selected)} value="x"></input>
-                    <tag className={`${styles['tag']}`}>{selected.name}</tag>
+                    <tag className={`${styles[props.tag] ? styles[props.tag] : styles['tag']}`}>{selected.name}</tag>
                 </>
                 )}
             </div>

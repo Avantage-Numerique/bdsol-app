@@ -12,18 +12,27 @@
         user-select: none;
         margin:5px;
         padding:0.5rem;
-        outline: solid black 1px;
+        outline: solid black 2px;
         border-bottom-right-radius: 15px;
         border-top-right-radius: 15px;
+        background-color: white;
     }
-    .tag::before {
-        /*content: '';
-        position: absolute;
-        width: 1%; height: 1%;
-        background: black;
-        transform-origin: 0% 0;
-        transform: rotate(45deg);
-        border-radius: 20px;
-        z-index: -1;*/
+    .occupation {
+        user-select: none;
+        margin:5px;
+        padding:0.5rem;
+        outline: solid black 2px;
+        border-bottom-right-radius: 15px;
+        border-top-right-radius: 15px;
+        background-color: rgba(56, 208, 235, 0.647);
+    }
+    .skill {
+        user-select: none;
+        margin:4px;
+        padding:0.5rem;
+        outline: solid black 2px;
+        border-bottom-right-radius: 15px;
+        border-top-right-radius: 15px;
+        background-color: rgba(56, 235, 137, 0.647);
     }
 }

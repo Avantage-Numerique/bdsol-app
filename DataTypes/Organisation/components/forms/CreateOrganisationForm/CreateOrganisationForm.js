@@ -10,6 +10,7 @@ import { useHttpClient } from '../../../../../app/hooks/http-hook'
 import Button from '../../../../../app/common/FormElements/Buttons/Button/Button'
 import Input from '../../../../../app/common/FormElements/Input/Input'
 import RichTextarea from '../../../../../app/common/FormElements/RichTextArea/RichTextarea'
+import Select from '../../../../../app/common/FormElements/Select/Select'
 import Spinner from '../../../../../app/common/widgets/spinner/Spinner'
 
 //contexts
@@ -71,6 +72,14 @@ const CreateOrganisationForm = () => {
         contactPoint: {
             value: '', 
             isValid: true
+        },
+        fondationDate: {
+            value: '',
+            isValid: true
+        },
+        offer: {
+            value: '',
+            isValid: true
         }
     }, 
     false)
@@ -89,8 +98,9 @@ const CreateOrganisationForm = () => {
                     name: formState.inputs.name.value,
                     description:  formState.inputs.description.value, 
                     url: formState.inputs.url.value,
-                    contactPoint: formState.inputs.contactPoint.value
-                    //fondationDate <-- Here
+                    contactPoint: formState.inputs.contactPoint.value,
+                    fondationDate: formState.inputs.fondationDate.value,
+                    offer: formState.inputs.offer.value
                 } 
 
             };
@@ -133,6 +143,11 @@ const CreateOrganisationForm = () => {
         }
     }
 
+    const offerSelectRequestData = {
+        "data": {
+            "category": "occupation"
+        }
+    };
 
     return (
         <>
@@ -166,6 +181,22 @@ const CreateOrganisationForm = () => {
                 <Input  
                     name="contactPoint"
                     label="Information de contact"
+                    onInput={inputHandler}
+                />
+
+                <Input  
+                    name="fondationDate"
+                    label="Date de fondation"
+                    type="date"
+                    onInput={inputHandler}
+                />
+
+                <Select
+                    name="offer"
+                    label="Offres de services"
+                    request="/taxonomy/list"
+                    requestData={offerSelectRequestData}
+                    tag="occupation"
                     onInput={inputHandler}
                 />
 
