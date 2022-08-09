@@ -63,7 +63,6 @@ function MyApp( {Component, pageProps} ) {
   }, [])
   
 
-
   //If the page is reloaded, this hook verify if there was a token stored in the local storage. 
   //If there is one, use it to login
 
@@ -105,13 +104,13 @@ function MyApp( {Component, pageProps} ) {
               logout: logout
       
       }}>
-
-          <Layout>
-
-              <Component {...pageProps} />
-
-          </Layout>
-
+     
+            <Layout>
+                
+                <Component {...pageProps} />
+              
+            </Layout>
+          
       </AuthContext.Provider>
 
     </>

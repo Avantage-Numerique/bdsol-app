@@ -82,7 +82,7 @@ const HomePage = () => {
 
             //If negative
             } else {          
-              
+            
                 if(orgResponse.error)
                   msg.addMessage({ 
                       text: orgResponse.message,
