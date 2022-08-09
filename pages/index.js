@@ -63,7 +63,7 @@ const HomePage = () => {
 
           /*
               Display the proper message relative to the api response
-         */
+          */
 
           //If positive
           if(!orgResponse.error && !persResponse.error){
@@ -166,6 +166,7 @@ const HomePage = () => {
 
           {/* Text content section that follow the normalized width of the app */}
           <div className="maxWidthPageContainer">
+
                <div className={`${styles["home-page__header--img-container"]}`}>
 
                   <img
@@ -182,8 +183,8 @@ const HomePage = () => {
                 
               </div>
 
-
           </div>
+
       </section>
 
       <div className={`${styles["home-page__main"]} maxWidthPageContainer`}>
