@@ -200,6 +200,11 @@ const HomePage = () => {
             <section className={`${styles["home-page__feed-section"]} col-8`}>
 
               <h2 className={`col-12 `}>Actualités</h2>
+              {
+                !auth.isPending && 
+                <> 
+
+                
 
               {/************************************
                *
@@ -272,6 +277,9 @@ const HomePage = () => {
                 
               </div>
 
+              </>
+              }
+
             </section>
 
             
@@ -286,11 +294,13 @@ const HomePage = () => {
 
               <h2 className={`col-12`}>Menu rapide</h2>
 
+
+
               {/* 
                     Section : If user is not connected, offer the option to connect it self
               */}
 
-                { !auth.isLoggedIn &&
+                { !auth.isLoggedIn && !auth.isPending &&
 
                 <section className={`col-12 ${styles["aside__connection-option"]}`}>
                     
@@ -344,7 +354,7 @@ const HomePage = () => {
                     Section : If user is not connected, propose to create an account if he doesn't have one
               */}
 
-              { !auth.isLoggedIn &&
+              { !auth.isLoggedIn && !auth.isPending &&
 
                 <section className={`col-12 ${styles["aside__register-option"]}`}>
                     
