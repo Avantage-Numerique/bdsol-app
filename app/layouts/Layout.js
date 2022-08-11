@@ -3,19 +3,22 @@
     General structure of a page 
     V.P.R - Created: 19-09-21
 
-    */
-import React, { useState } from "react";
+*/
+
+import { useState, useContext, useCallback, useEffect } from "react";
 import Head from 'next/head'
 
+//Context
 import { MessageContext } from '../common/UserNotifications/Message/Context/Message-Context'
 
+//Components
 import Footer from './Footer/Footer'
 import Header from './Header/Header'
 import Nav from './Navigation/MainNav/Nav'
 import AccountNav from './Navigation/AccountNav/AccountNav'
-//import BottomBanner from '../common/UserNotifications/BottomBanner/BottomBanner'
 import Message from '../common/UserNotifications/Message/Message'
 
+//Styling
 import styles from './Layout.module.scss'
 
 
@@ -39,7 +42,7 @@ const Layout = ( {children} ) => {
 
     */
 
-    //Message list
+    //message list
     const [messages, setMessages] = useState([])
 
     /* Return the current time number. Used to create unique Id to each message based on the time they were send */
@@ -55,6 +58,8 @@ const Layout = ( {children} ) => {
             creationTime: getCurrentTime()  
         }])
     }
+
+
 
     return (
         <>
@@ -98,9 +103,13 @@ const Layout = ( {children} ) => {
                 <Nav menuState={menuState} setMenuState={setMenuState} />
                 <AccountNav menuState={menuState} setMenuState={setMenuState} />
                 <MessageContext.Provider value={{ addMessage: addMessage }}>
+                
                 <main> 
-                    { children }
+                    
+                    { children } 
+
                 </main>
+
                 </MessageContext.Provider>
                 <Footer />
 

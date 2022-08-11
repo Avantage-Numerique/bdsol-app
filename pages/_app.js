@@ -1,4 +1,4 @@
-import { useCallback, useState, useEffect } from 'react'
+import { useCallback, useState, useEffect, useRef } from 'react'
 
 import { AuthContext } from '../authentication/context/auth-context'
 import Layout from '../app/layouts/Layout'
@@ -15,9 +15,11 @@ import '../styles/normalize.scss'
 
 function MyApp( {Component, pageProps} ) {
 
+  const storedData = useRef(null);
+
   //Store the session values
   const [session, setSession] = useState({
-      isLoading: true,                        //Tells the frontend that the localStorage has not been consulted yet
+      isPending: true,                        //Tells the frontend that the localStorage has not been consulted yet
       token: false,
       avatar: null,
       name: null,
@@ -31,7 +33,7 @@ function MyApp( {Component, pageProps} ) {
   */
 
   const login = useCallback(userData => {
-
+    
     const newSession = {
       token:      userData.token,     //There must be at least a token, for now
       avatar:     userData.avatar ? userData.avatar : null,
@@ -51,7 +53,7 @@ function MyApp( {Component, pageProps} ) {
   const logout = useCallback(() => {
 
     setSession({
-      isLoading:  false, 
+      isPending:  false, 
       token:      null,
       avatar:     null,
       name:       null,
@@ -61,30 +63,26 @@ function MyApp( {Component, pageProps} ) {
     localStorage.removeItem('userData')
 
   }, [])
-  
-
-  //If the page is reloaded, this hook verify if there was a token stored in the local storage. 
-  //If there is one, use it to login
-
-
 
   useEffect(() => {
+      //This has to be inside a useEffect to let the time at the browser to charge 
+      //and the local storage to be available 
 
-    const storedData = JSON.parse(localStorage.getItem('userData'));
+      //Fill the variable with session's data
+      storedData.current = JSON.parse(localStorage.getItem('userData'));
 
-    if(storedData){
+      //Verify if the user is connected of not
+      if(storedData.current){
+        //The user is logged in
+        setSession({...session, ...storedData.current, isPending: false});
+      } else {
+        //The user isn't logged in
+        setSession({...session, isPending: false});
+      }
 
-        //Update the state and remove the loading state to let the rest of the app know that the user is connected of not
-        setSession({...session, ...storedData, isLoading: false});
+  }, [])
 
-    } else {
 
-        //Only update the loading state
-        setSession({...session, isLoading: false});
-
-    }
-
-  },[])
 
 
   return (
@@ -94,7 +92,7 @@ function MyApp( {Component, pageProps} ) {
       {/* Authentication context provided to all the subsequent elements */}
       <AuthContext.Provider value={{ 
 
-              isLoading: session.isLoading,
+              isPending: session.isPending,
               isLoggedIn: session && session.token, 
               token: session.token,
               avatar: session.avatar,

@@ -5,8 +5,6 @@
 */
 #layout{
 
-
-
     width: 100%;
     min-height: 100vh;
 
@@ -16,7 +14,9 @@
         margin-top: var(--headersHeight);
         width: 100%;
         float: left;
-        min-height: 50vh;
+        min-height: 100vh;
+        //More precise version
+        min-height: calc(100vh - var(--headersHeight));
     }
 
     /* Message section */
@@ -28,4 +28,7 @@
         flex-direction: column;
         z-index: 1000;
     }
+
+    
 }
+
