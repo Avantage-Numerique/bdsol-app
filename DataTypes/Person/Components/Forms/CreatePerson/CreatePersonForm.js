@@ -36,15 +36,21 @@ const CreatePersonForm = () => {
     */
    
    useEffect(() => {
-        if(!auth.isLoggedIn) {
 
-            msg.addMessage({ 
-                text: "Vous devez être connecté pour pouvoir ajouter une entité à la base de données.",
-                positive: false 
-            })
-            Router.push('/compte/connexion')
+        if(!auth.isPending){
+
+            if(!auth.isLoggedIn) {
+
+                msg.addMessage({ 
+                    text: "Vous devez être connecté pour pouvoir ajouter une entité à la base de données.",
+                    positive: false 
+                })
+                Router.push('/compte/connexion')
+            }
+
         }
-    }, [auth.isLoggedIn])
+        
+    }, [auth.isLoggedIn, auth.isPending])
     
 
     //Extract the functions inside useHttpClient
@@ -148,10 +154,13 @@ const CreatePersonForm = () => {
         }
     };
 
+    //Prevent from displaying is the user is not logged in or if the app doesn't know the authentication state yet
+    if(!auth.isPending && auth.isLoggedIn)
+    
     return (
         <>
             { isLoading && <Spinner fixed />}
-
+      
             <form onSubmit={submitHandler} className={`col-12 ${styles["create-person-form"]}`}>
 
                 <Input 
@@ -196,6 +205,7 @@ const CreatePersonForm = () => {
                 </div>
 
             </form>
+   
         </>
     )
 }
