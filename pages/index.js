@@ -59,7 +59,7 @@ const HomePage = () => {
 
           /*
               Display the proper message relative to the api response
-         */
+          */
 
           //If positive
           if(!orgResponse.error && !persResponse.error){
@@ -78,7 +78,7 @@ const HomePage = () => {
 
             //If negative
             } else {          
-              
+            
                 if(orgResponse.error)
                   msg.addMessage({ 
                       text: orgResponse.message,
@@ -162,6 +162,7 @@ const HomePage = () => {
 
           {/* Text content section that follow the normalized width of the app */}
           <div className="maxWidthPageContainer">
+
                <div className={`${styles["home-page__header--img-container"]}`}>
 
                   <img
@@ -178,8 +179,8 @@ const HomePage = () => {
                 
               </div>
 
-
           </div>
+
       </section>
 
       <div className={`${styles["home-page__main"]} maxWidthPageContainer`}>
@@ -195,6 +196,11 @@ const HomePage = () => {
             <section className={`${styles["home-page__feed-section"]} col-8`}>
 
               <h2 className={`col-12 `}>Actualités</h2>
+              {
+                !auth.isPending && 
+                <> 
+
+                
 
               {/************************************
                *
@@ -254,6 +260,9 @@ const HomePage = () => {
                 
               </div>
 
+              </>
+              }
+
             </section>
 
             
@@ -268,11 +277,13 @@ const HomePage = () => {
 
               <h2 className={`col-12`}>Menu rapide</h2>
 
+
+
               {/* 
                     Section : If user is not connected, offer the option to connect itself
               */}
 
-                { !auth.isLoggedIn &&
+                { !auth.isLoggedIn && !auth.isPending &&
 
                 <section className={`col-12 ${styles["aside__connection-option"]}`}>
                     
@@ -326,7 +337,7 @@ const HomePage = () => {
                     Section : If user is not connected, propose to create an account if he doesn't have one
               */}
 
-              { !auth.isLoggedIn &&
+              { !auth.isLoggedIn && !auth.isPending &&
 
                 <section className={`col-12 ${styles["aside__register-option"]}`}>
                     

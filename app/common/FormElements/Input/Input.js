@@ -30,6 +30,7 @@ const inputReducer = (state, action) => {
 
         default:
             return state;
+
     }
 }
 
@@ -54,8 +55,6 @@ const Input = ({addRow, removeRow, ...props}) => {
     useEffect(() => {
         onInput(name, value, isValid)
     }, [name, value, isValid, onInput]);
-
-
 
     const changeHandler = event => {
         dispatch({type: 'CHANGE', val: event.target.value, validators: props.validators})

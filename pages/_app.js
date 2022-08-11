@@ -1,4 +1,4 @@
-import { useCallback, useState, useEffect } from 'react'
+import { useCallback, useState, useEffect, useRef } from 'react'
 
 import { AuthContext } from '../authentication/context/auth-context'
 import Layout from '../app/layouts/Layout'
@@ -26,9 +26,11 @@ for (let routeName in routes) {
 
 function MyApp( {Component, pageProps} ) {
 
+  const storedData = useRef(null);
 
   //Store the session values
   const [session, setSession] = useState({
+      isPending: true,                        //Tells the frontend that the localStorage has not been consulted yet
       token: false,
       avatar: null,
       name: null,
@@ -42,7 +44,7 @@ function MyApp( {Component, pageProps} ) {
   */
 
   const login = useCallback(userData => {
-
+    
     const newSession = {
       token:      userData.token,     //There must be at least a token, for now
       avatar:     userData.avatar ? userData.avatar : null,
@@ -51,7 +53,7 @@ function MyApp( {Component, pageProps} ) {
     }
 
     //Update the state
-    setSession(newSession);
+    setSession({...session, ...newSession});
 
     //Store in the local storage
     localStorage.setItem('userData', JSON.stringify(newSession))
@@ -62,6 +64,7 @@ function MyApp( {Component, pageProps} ) {
   const logout = useCallback(() => {
 
     setSession({
+      isPending:  false, 
       token:      null,
       avatar:     null,
       name:       null,
@@ -71,25 +74,27 @@ function MyApp( {Component, pageProps} ) {
     localStorage.removeItem('userData')
 
   }, [])
-  
-
-
-  //If the page is reloaded, this hook verify if there was a token stored in the local storage. 
-  //If there is one, use it to login
 
   useEffect(() => {
+      //This has to be inside a useEffect to let the time at the browser to charge 
+      //and the local storage to be available 
 
-    const storedData = JSON.parse(localStorage.getItem('userData'));
+      //Fill the variable with session's data
+      storedData.current = JSON.parse(localStorage.getItem('userData'));
 
-    if(storedData && storedData.token){
+      //Verify if the user is connected of not
+      if(storedData.current){
+        //The user is logged in
+        setSession({...session, ...storedData.current, isPending: false});
+      } else {
+        //The user isn't logged in
+        setSession({...session, isPending: false});
+      }
 
-        login(storedData)
+  }, [])
 
-    }
 
-  },[login])
 
-  
 
   return (
     
@@ -98,6 +103,7 @@ function MyApp( {Component, pageProps} ) {
       {/* Authentication context provided to all the subsequent elements */}
       <AuthContext.Provider value={{ 
 
+              isPending: session.isPending,
               isLoggedIn: session && session.token, 
               token: session.token,
               avatar: session.avatar,
@@ -107,13 +113,13 @@ function MyApp( {Component, pageProps} ) {
               logout: logout
       
       }}>
-
-          <Layout>
-
-              <Component {...pageProps} />
-
-          </Layout>
-
+     
+            <Layout>
+                
+                <Component {...pageProps} />
+              
+            </Layout>
+          
       </AuthContext.Provider>
 
     </>
