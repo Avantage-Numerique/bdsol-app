@@ -1,5 +1,4 @@
 import React, { useContext, useEffect } from 'react'
-import Router from 'next/router'
 
 //Custom hooks
 import { useForm } from '../../../../../app/hooks/form-hook'
@@ -8,21 +7,17 @@ import { useHttpClient } from '../../../../../app/hooks/http-hook'
 //Components
 import Button from '../../../../../app/common/FormElements/Buttons/Button/Button'
 import Input from '../../../../../app/common/FormElements/Input/Input'
-import RichTextarea from '../../../../../app/common/FormElements/RichTextArea/RichTextarea'
-import Select from '../../../../../app/common/FormElements/Select/Select'
 import Spinner from '../../../../../app/common/widgets/spinner/Spinner'
 
-//contexts
+//Contexts
 import { AuthContext } from '../../../../../authentication/context/auth-context'
 import { MessageContext } from '../../../../../app/common/UserNotifications/Message/Context/Message-Context'
 
-//Form validators
-import {VALIDATOR_REQUIRE} from '../../../../../app/utils/validators'
-
 //Styling
-import styles from './CreatePersonForm.module.scss'
+import styles from './CreateTaxonomyForm.module.scss'
 
-const CreatePersonForm = () => {
+
+const CreateTaxonomyForm = () => {
 
     //Import the authentication context to make sure the user is well connected
     const auth = useContext(AuthContext);
@@ -35,55 +30,45 @@ const CreatePersonForm = () => {
         If he isn't, then redirect him in the connexion page
     */
    
-   useEffect(() => {
+    useEffect(() => {
 
         if(!auth.isPending){
-
             if(!auth.isLoggedIn) {
-
                 msg.addMessage({ 
                     text: "Vous devez être connecté pour pouvoir ajouter une entité à la base de données.",
                     positive: false 
                 })
                 Router.push('/compte/connexion')
             }
-
         }
-        
     }, [auth.isLoggedIn, auth.isPending])
-    
 
     //Extract the functions inside useHttpClient
     const { isLoading, sendRequest} = useHttpClient();
 
     //Custom hook to manage the validity of the form 
     const [formState, inputHandler] = useForm(
-    {
-        firstName: {
-            value: '',
-            isValid: false
-        },
-        lastName: {
-            value: '',
-            isValid: false
+        {
+            category: {
+                value: '',
+                isValid: true
+            },
+            name: {
+                value: '',
+                isValid: true
+            }, 
+            description: {
+                value: '',
+                isValid: true
+            }, 
+            source: {
+                value: '',
+                isValid: true
+            }
         }, 
-        nickName: {
-            value: '',
-            isValid: false
-        }, 
-        biography: {
-            value: '',
-            isValid: true
-        },
-        occupation: {
-            value: '',
-            isValid: true
-        }
+        false)
 
-    }, 
-    false)
-
-    //Submit the form
+            //Submit the form
     const submitHandler = async event => { 
 
         event.preventDefault();
@@ -101,17 +86,16 @@ const CreatePersonForm = () => {
 
             const formData = {
                 "data": {
-                    "lastName": formState.inputs.lastName.value,
-                    "firstName":  formState.inputs.firstName.value, 
-                    "nickname": formState.inputs.nickName.value,
-                    "description": formState.inputs.biography.value,
-                    "occupation": formState.inputs.occupation.value
+                    "category": formState.inputs.category.value,
+                    "name":  formState.inputs.name.value, 
+                    "description": formState.inputs.description.value,
+                    "source": formState.inputs.source.value
                 }
             };
 
             //Send the request with the specialized hook
             const response = await sendRequest (
-                "/personnes/create",
+                "/taxonomy/create",
                 'POST',
                 JSON.stringify(formData),
                 { 'Content-Type': 'application/json' }
@@ -132,7 +116,7 @@ const CreatePersonForm = () => {
                     positive: false 
                 })
             }
-            
+
         } else {
             //The form is not valid. 
             //Inform the user
@@ -141,58 +125,38 @@ const CreatePersonForm = () => {
                 positive: false
             })
         }
-    }
 
-    const occupationSelectRequestData = {
-        "data": {
-            "category": "occupation",
-            "name": ""
-        }
-    };
+    }
 
     //Prevent from displaying is the user is not logged in or if the app doesn't know the authentication state yet
     if(!auth.isPending && auth.isLoggedIn)
-    
     return (
         <>
             { isLoading && <Spinner fixed />}
       
-            <form onSubmit={submitHandler} className={`col-12 ${styles["create-person-form"]}`}>
-
-                <Input 
-                    name="firstName"
-                    label="Prénom"
-                    validators={[VALIDATOR_REQUIRE()]}
-                    errorText="Cette information est requise"
-                    onInput={inputHandler}
-                />
-
-                <Input 
-                    name="lastName"
-                    label="Nom"
-                    validators={[VALIDATOR_REQUIRE()]}
-                    errorText="Cette information est requise"
-                    onInput={inputHandler}
-                />
-
-                <Input  
-                    name="nickName"
-                    label="Surnom"
-                    onInput={inputHandler}
-                />
+            <form onSubmit={submitHandler} className={`col-12 ${styles["create-taxonomy-form"]}`}>
                 
-                <RichTextarea 
-                    name="biography"
-                    label="Biographie"
+                <label for="category">Catégorie</label>
+                <br></br>
+                <select 
+                    name="category"
+                    onChange={inputHandler}>
+                    <option value="occupation">Occupation</option>
+                    <option value="skill">Aptitude</option>
+                    <option value="domain">Domaine</option>
+                    <option value="competence">Compétence</option>
+                </select>
+                <br></br>
+
+                <Input
+                    name="name"
+                    label="Nom"
                     onInput={inputHandler}
                 />
 
-                <Select
-                    name="occupation"
-                    label="Occupations"
-                    request="/taxonomy/list"
-                    requestData={occupationSelectRequestData}
-                    tag="occupation"
+                <Input
+                    name="description"
+                    label="Description"
                     onInput={inputHandler}
                 />
 
@@ -205,5 +169,4 @@ const CreatePersonForm = () => {
         </>
     )
 }
-
-export default CreatePersonForm
+export default CreateTaxonomyForm
