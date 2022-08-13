@@ -1,4 +1,5 @@
 import React, { useContext, useEffect } from 'react'
+import Router from 'next/router'
 
 //Custom hooks
 import { useForm } from '../../../../../app/hooks/form-hook'
@@ -7,6 +8,7 @@ import { useHttpClient } from '../../../../../app/hooks/http-hook'
 //Components
 import Button from '../../../../../app/common/FormElements/Buttons/Button/Button'
 import Input from '../../../../../app/common/FormElements/Input/Input'
+import RichTextarea from '../../../../../app/common/FormElements/RichTextArea/RichTextarea'
 import Spinner from '../../../../../app/common/widgets/spinner/Spinner'
 
 //Contexts
@@ -26,27 +28,23 @@ const CreateTaxonomyForm = () => {
     const msg = useContext(MessageContext);
 
     /*
-        First of all, verify if the user is logged in.
-        If he isn't, then redirect him in the connexion page
+    First of all, verify if the user is logged in.
+    If he isn't, then redirect him in the connexion page
     */
-   
     useEffect(() => {
-
-        if(!auth.isPending){
-            if(!auth.isLoggedIn) {
-                msg.addMessage({ 
-                    text: "Vous devez être connecté pour pouvoir ajouter une entité à la base de données.",
-                    positive: false 
-                })
-                Router.push('/compte/connexion')
-            }
+        if(!auth.isLoggedIn) {
+            msg.addMessage({ 
+                text: "Vous devez être connecté pour pouvoir ajouter une entité à la base de données.",
+                positive: false 
+            })
+            Router.push('/compte/connexion')
         }
     }, [auth.isLoggedIn, auth.isPending])
 
     //Extract the functions inside useHttpClient
     const { isLoading, sendRequest} = useHttpClient();
 
-    //Custom hook to manage the validity of the form 
+    //Custom hook to manage the validity of the form
     const [formState, inputHandler] = useForm(
         {
             category: {
@@ -64,12 +62,20 @@ const CreateTaxonomyForm = () => {
             source: {
                 value: '',
                 isValid: true
+            },
+            status: {
+                value: '',
+                isValid: true
+            },
+            addReason: {
+                value: '',
+                isValid: true
             }
         }, 
         false)
 
-            //Submit the form
-    const submitHandler = async event => { 
+        //Submit the form
+        const submitHandler = async event => { 
 
         event.preventDefault();
         
@@ -79,17 +85,19 @@ const CreateTaxonomyForm = () => {
 
             /*
                 Data must have this shape 
-                https://github.com/Avantage-Numerique/bdsol-api/blob/master/api/doc/Personnes.md
+                https://github.com/Avantage-Numerique/bdsol-api/blob/master/api/doc/Taxonomy.md
             */
 
             //There is no try/catch here because it is all handle by the custom hook
 
             const formData = {
                 "data": {
-                    "category": formState.inputs.category.value,
+                    "category": "occupation",//formState.inputs.category.value,
                     "name":  formState.inputs.name.value, 
                     "description": formState.inputs.description.value,
-                    "source": formState.inputs.source.value
+                    "source": formState.inputs.source.value,
+                    "status": "Pending",
+                    "addReason": formState.inputs.addReason.value
                 }
             };
 
@@ -135,18 +143,22 @@ const CreateTaxonomyForm = () => {
             { isLoading && <Spinner fixed />}
       
             <form onSubmit={submitHandler} className={`col-12 ${styles["create-taxonomy-form"]}`}>
-                
-                <label for="category">Catégorie</label>
-                <br></br>
-                <select 
-                    name="category"
-                    onChange={inputHandler}>
-                    <option value="occupation">Occupation</option>
-                    <option value="skill">Aptitude</option>
-                    <option value="domain">Domaine</option>
-                    <option value="competence">Compétence</option>
-                </select>
-                <br></br>
+                <div>
+                    <label for="category">
+                        Catégorie<br></br>
+                        (Non disponible pour le moment)
+                    </label>
+                    <br></br>
+                    <select 
+                        className={`${styles["select-component"]}`}
+                        name="category"
+                        required="true">
+                        <option value="occupation">Occupation</option>
+                        <option value="skill">Aptitude</option>
+                        <option value="domain">Domaine</option>
+                        <option value="competence">Compétence</option>
+                    </select>
+                </div>
 
                 <Input
                     name="name"
@@ -157,6 +169,13 @@ const CreateTaxonomyForm = () => {
                 <Input
                     name="description"
                     label="Description"
+                    onInput={inputHandler}
+                />
+
+                <RichTextarea
+                    name="addReason"
+                    label="Dites nous en quelques mots la raison de l'ajout"
+                    placeholder="Il s'agit du titre de mon métier [...]"
                     onInput={inputHandler}
                 />
 

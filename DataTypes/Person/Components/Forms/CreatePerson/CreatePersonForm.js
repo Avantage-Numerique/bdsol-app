@@ -31,25 +31,18 @@ const CreatePersonForm = () => {
     const msg = useContext(MessageContext);
 
     /*
-        First of all, verify if the user is logged in.
-        If he isn't, then redirect him in the connexion page
+    First of all, verify if the user is logged in.
+    If he isn't, then redirect him in the connexion page
     */
-   
-   useEffect(() => {
-
-        if(!auth.isPending){
-
+    useEffect(() => {
+        if(!auth.isPending)
             if(!auth.isLoggedIn) {
-
                 msg.addMessage({ 
                     text: "Vous devez être connecté pour pouvoir ajouter une entité à la base de données.",
                     positive: false 
                 })
                 Router.push('/compte/connexion')
             }
-
-        }
-        
     }, [auth.isLoggedIn, auth.isPending])
     
 

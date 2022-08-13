@@ -38,7 +38,7 @@ const CreateTaxonomyPage = () => {
 
                 <section className="col-12">
                     <div className="maxWidthPageContainer">
-                        <div className={`${styles["create-person--max-width"]}`}>
+                        <div className={`${styles["create-taxonomy--max-width"]}`}>
                             <CreateTaxonomyForm />
                         </div>
                     </div>
