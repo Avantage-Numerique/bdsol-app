@@ -147,6 +147,12 @@ const CreatePersonForm = () => {
 
     }
 
+    /*
+
+        Categorie : nom de la taxonomie
+        Name : Filtre à appliquer
+
+    */
     const occupationSelectRequestData = {
         "data": {
             "category": "occupation",
@@ -156,7 +162,7 @@ const CreatePersonForm = () => {
 
     //Prevent from displaying is the user is not logged in or if the app doesn't know the authentication state yet
     if(!auth.isPending && auth.isLoggedIn)
-    
+
     return (
         <>
             { isLoading && <Spinner fixed />}
