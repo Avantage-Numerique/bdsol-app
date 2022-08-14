@@ -92,7 +92,7 @@ const CreateTaxonomyForm = () => {
 
             const formData = {
                 "data": {
-                    "category": "occupation",//formState.inputs.category.value,
+                    "category": formState.inputs.category.value,
                     "name":  formState.inputs.name.value, 
                     "description": formState.inputs.description.value,
                     "source": formState.inputs.source.value,
@@ -141,18 +141,18 @@ const CreateTaxonomyForm = () => {
     return (
         <>
             { isLoading && <Spinner fixed />}
-      
+
             <form onSubmit={submitHandler} className={`col-12 ${styles["create-taxonomy-form"]}`}>
                 <div>
                     <label for="category">
-                        Catégorie<br></br>
-                        (Non disponible pour le moment)
+                        Catégorie
                     </label>
                     <br></br>
                     <select 
                         className={`${styles["select-component"]}`}
                         name="category"
-                        required="true">
+                        required="true"
+                        onChange={ (e) => { inputHandler( "category", e.target.value, true )}}>
                         <option value="occupation">Occupation</option>
                         <option value="skill">Aptitude</option>
                         <option value="domain">Domaine</option>
