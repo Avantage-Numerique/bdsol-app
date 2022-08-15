@@ -308,7 +308,7 @@ const HomePage = () => {
 
                   <div className={`col-12 ${styles["db-edit-options__button-set"]}`}>
                       <Button disabled slim>Personne</Button>
-                      <Button 
+                      <Button
                         disabled={!auth.isLoggedIn}
                         href="/contribuer/personne" 
                         slim
@@ -317,10 +317,19 @@ const HomePage = () => {
 
                   <div className={`col-12 ${styles["db-edit-options__button-set"]}`}>
                       <Button disabled slim>Organisation</Button>
-                      <Button 
+                      <Button
                         disabled={!auth.isLoggedIn} 
                         slim
                         href="/contribuer/organisation"
+                      >+</Button>
+                  </div>
+
+                  <div className={`col-12 ${styles["db-edit-options__button-set"]}`}>
+                      <Button disabled slim>Taxonomie</Button>
+                      <Button
+                        disabled={!auth.isLoggedIn}
+                        slim
+                        href="/contribuer/taxonomy"
                       >+</Button>
                   </div>
 

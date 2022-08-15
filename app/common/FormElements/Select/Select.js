@@ -1,6 +1,6 @@
 import React, {useEffect, useState, useReducer, useRef} from 'react'
 import {useHttpClient} from '../../../../app/hooks/http-hook'
-//import { useDebounce } from '../.././../hooks/useDebounce'
+import useDebounce from '../.././../hooks/useDebounce'
 import Button from '../Buttons/Button/Button'
 //Styling
 import styles from './Select.module.scss'
@@ -27,16 +27,14 @@ const Select = (props) => {
 
     const [selectList, setSelectList] = useState([]);
     const [selectedItems, setSelectedItems] = useState([]);
-    const [selectRequest, setSelectRequest] = useState(props.requestData)
-    //const debouncedRequestData = useDebounce(selectName, 1500);
+    const [selectRequest, setSelectRequest] = useState(props.requestData);
+    const debouncedRequest = useDebounce(selectRequest, 400);
 
     //Called whenever the user enter or modify a value into the field
     const formRequestData = (val) => {
-
-        const request = props.requestData;
-        request.data.name = val;
+        //This line might be problematic if we list something that has no "name". As it's hardcoded.
+        props.requestData.data.name = val;
         setSelectRequest({...props.requestData});
-        
     }
 
     const getSelectList = async () => {
@@ -53,9 +51,8 @@ const Select = (props) => {
         }
     }
     useEffect(() => {
-        console.log("UseEffect");
         getSelectList();
-    },[selectRequest]);
+    },[debouncedRequest]);
     
     const { name, onInput } = props;
     const { value, isValid } = inputState;   //State of this element
