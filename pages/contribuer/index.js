@@ -45,7 +45,7 @@ const Index = () => {
                         }
 
                         <Button href="/contribuer/personne" disabled={!auth.isLoggedIn}>Personne</Button>
-                        <Button color="blue4" href="/contribuer/organisation" disabled={!auth.isLoggedIn}>Organisation</Button>
+                        <Button href="/contribuer/organisation" disabled={!auth.isLoggedIn}>Organisation</Button>
                         <Button href="/contribuer/taxonomy" disabled={!auth.isLoggedIn}>Taxonomie</Button>
                         <Button disabled>Projet</Button>
                         <Button disabled>Événement</Button>
