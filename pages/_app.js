@@ -1,4 +1,4 @@
-import { useCallback, useState, useEffect, useRef } from 'react'
+import { useCallback, useState, useEffect } from 'react'
 
 import { AuthContext } from '../authentication/context/auth-context'
 import Layout from '../app/layouts/Layout'
@@ -25,8 +25,6 @@ for (let routeName in routes) {
 }
 
 function MyApp( {Component, pageProps} ) {
-
-  const storedData = useRef(null);
 
   //Store the session values
   const [session, setSession] = useState({
@@ -58,43 +56,43 @@ function MyApp( {Component, pageProps} ) {
     //Store in the local storage
     localStorage.setItem('userData', JSON.stringify(newSession))
 
-  }, [])
-
+  }, [session])
 
   const logout = useCallback(() => {
+    
+    localStorage.removeItem('userData')
 
     setSession({
-      isPending:  false, 
+      ...session,
       token:      null,
       avatar:     null,
       name:       null,
       username:   null
     });
-    
-    localStorage.removeItem('userData')
 
-  }, [])
+  }, [session])
 
+  /*
+  *
+     Consult the localStorage to see of the user is connected and remove the pending state
+  *
+  */
   useEffect(() => {
       //This has to be inside a useEffect to let the time at the browser to charge 
       //and the local storage to be available 
 
       //Fill the variable with session's data
-      storedData.current = JSON.parse(localStorage.getItem('userData'));
+      const storedData = JSON.parse(localStorage.getItem('userData'));
 
-      //Verify if the user is connected of not
-      if(storedData.current){
-        //The user is logged in
-        setSession({...session, ...storedData.current, isPending: false});
+      //Verify if there is data in the storedata
+      if(storedData){
+        //Then save the data into the state
+        setSession({...session, ...storedData, isPending: false});
       } else {
-        //The user isn't logged in
+        //These is nothing but it has been evaluate so we need to change the pending state 
         setSession({...session, isPending: false});
       }
-
   }, [])
-
-
-
 
   return (
     
@@ -113,13 +111,13 @@ function MyApp( {Component, pageProps} ) {
               logout: logout
       
       }}>
-     
+
             <Layout>
                 
                 <Component {...pageProps} />
               
             </Layout>
-          
+            
       </AuthContext.Provider>
 
     </>
