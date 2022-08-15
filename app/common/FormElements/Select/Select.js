@@ -30,6 +30,7 @@ const Select = (props) => {
     const [selectRequest, setSelectRequest] = useState(props.requestData);
     const debouncedRequest = useDebounce(selectRequest, 400);
 
+    //Called whenever the user enter or modify a value into the field
     const formRequestData = (val) => {
         //This line might be problematic if we list something that has no "name". As it's hardcoded.
         props.requestData.data.name = val;
@@ -37,6 +38,7 @@ const Select = (props) => {
     }
 
     const getSelectList = async () => {
+
         if(props.request != undefined && props.requestData != undefined) {
         const SelectList =  await sendRequest(
             props.request,
@@ -44,6 +46,7 @@ const Select = (props) => {
             JSON.stringify(selectRequest),
             { 'Content-Type': 'application/json' }
         );
+
         setSelectList(SelectList);
         }
     }
@@ -74,14 +77,14 @@ const Select = (props) => {
     }
 
     const removeValueFromSelectedItem = (select) => {
-        console.log(select);
+
         let tempTag=[];
+
         selectedItems.forEach(item => {
             if(item.name != select.name)
                 tempTag.push(item);
         })
-        //console.log(selectedItems);
-        //console.log(tempTag);
+
         setSelectedItems(tempTag);
         //Vincent! J'aimerais que le state se mette à jour avec le "setSelectedItems" au lieu de devoir faire dispatch
         //Si je ne fais pas dispatch il s'update seulement si j'add qqch
@@ -93,27 +96,41 @@ const Select = (props) => {
         selectList.data)
     return (
         <>
-            <label for='SelectInput'>{props.label}</label>
+            <label htmlFor='SelectInput'>{props.label}</label>
             <br/>
             <div>
+
                 <Button type="button" slim="true" onClick={addValueToSelectedItem}>+</Button>
                 <input type="text" list='SelectDatalist' name='SelectInput'
                     id='SelectInput' placeholder=' "Enseignant", "Architecte logiciel", [...]'
                     className={`${styles["selectInput"]}`} ref={selectTagRef} onChange={(e) => {formRequestData(e.target.value)}}/>
                 <datalist id='SelectDatalist' name="SelectDatalist" className={`${styles["datalist-input"]}`}>
                     {selectList.data.map( item => 
-                        <option value={item.name}></option>
+                        <option key={`datalist-${item.name}`} value={item.name}></option>
                     )}
                 </datalist>
+
             </div>
-            <div className={`${styles['tagList']}`}>
+
+            {/*
+
+                Display the selected items
+            
+            */}
+            <ul className={`${styles['tagList']}`}>
+
                 {selectedItems.map(selected =>
-                <>
-                    <input className={`${styles['tagInput']}`} type="button" onClick={() => removeValueFromSelectedItem(selected)} value="x"></input>
-                    <tag className={`${styles[props.tag] ? styles[props.tag] : styles['tag']}`}>{selected.name}</tag>
-                </>
+                <li 
+                    key={`select-tag-${selected.name}`}
+                    className={`${styles['tag']} ${props.tag ? styles[props.tag] : styles[props.generaltag]}`} 
+                >
+                    <button className={`${styles['closeButton']}`} type="button" onClick={() => removeValueFromSelectedItem(selected)}>&#x271A;</button>
+                    <span>{selected.name}</span>
+                </li>
                 )}
-            </div>
+
+            </ul>
+
         </>
     );
 }

@@ -4,28 +4,35 @@
 }
 
 .tagList {
-    .tagInput{
-        cursor: pointer;
-        //padding: 0.3rem;
-    }
+    
     .tag {
         user-select: none;
         margin:5px;
-        padding:0.5rem;
         outline: solid black 2px;
         border-bottom-right-radius: 15px;
         border-top-right-radius: 15px;
-        background-color: white;
+        float: left;
+
+
+        display: flex;
+        flex-direction: row;
+
+        span {
+            padding:0.5rem;
+        }
+
+        .closeButton{
+            cursor: pointer;
+            padding:0.5rem;
+            //padding: 0.3rem;
+        }
+
+        &.generaltag { background-color: white; }
+        &.occupation { background-color: rgba(56, 208, 235, 0.647); }
     }
-    .occupation {
-        user-select: none;
-        margin:5px;
-        padding:0.5rem;
-        outline: solid black 2px;
-        border-bottom-right-radius: 15px;
-        border-top-right-radius: 15px;
-        background-color: rgba(56, 208, 235, 0.647);
-    }
+
+
+
     .skill {
         user-select: none;
         margin:4px;
