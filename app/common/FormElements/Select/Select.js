@@ -8,6 +8,7 @@ import {useHttpClient} from '../../../../app/hooks/http-hook'
 import { MessageContext } from '../../UserNotifications/Message/Context/Message-Context'
 
 //Components
+import useDebounce from '../.././../hooks/useDebounce'
 import Button from '../Buttons/Button/Button'
 
 //Styling
@@ -54,9 +55,6 @@ const Select = (props) => {
     //List of options fetched by the api and proposed to the user in the data list in grey
     const [selectList, setSelectList] = useState([]);
     
-    //List of items selected by the user and displayed 
-    //const [selectedItems, setSelectedItems] = useState([]);
-
     //Value sent to the api to receive 10 options corresponding
     //shape : data: {category: 'occupation', name: 'ingenieur'}
     const [selectRequest, setSelectRequest] = useState(props.requestData)
@@ -64,14 +62,13 @@ const Select = (props) => {
 
 
     //const debouncedRequestData = useDebounce(selectName, 1500);
+    const debouncedRequest = useDebounce(selectRequest, 400);
 
     //Called whenever the user enter or modify a value into the field
     const formRequestData = (val) => {
-
-        const request = props.requestData;
-        request.data.name = val;
+        //This line might be problematic if we list something that has no "name". As it's hardcoded.
+        props.requestData.data.name = val;
         setSelectRequest({...props.requestData});
-        
     }
 
     const getSelectList = async () => {
@@ -96,16 +93,13 @@ const Select = (props) => {
 
     //Update the list of options to display
     useEffect(() => {
-            getSelectList();
-    },[selectRequest]);
-
-
-
+        getSelectList();
+    },[debouncedRequest]);
+    
 
     //Add the value to the displayed list 
     const addValueToSelectedItem = () => {
-        console.log("userSelectionState.value")
-        console.log(userSelectionState.value)
+
         //Make sure there is a value entered in the field
         if(selectTagRef.current.value){
 
