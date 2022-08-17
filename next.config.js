@@ -2,13 +2,13 @@
  * @type {import('next').NextConfig}
  */
 const nextConfig = {
-    webpackDevMiddleware: (config) => {
+    /*webpackDevMiddleware: (config) => {
         config.watchOptions = {
             poll: 1000,
             aggregateTimeout: 300,
         }
         return config
-    },
+    },*/
     env: {
         APP_BASE_URL: process.env.APP_BASE_URL ?? "http://localhost",
         APP_PORT: process.env.APP_PORT ?? 3000,
