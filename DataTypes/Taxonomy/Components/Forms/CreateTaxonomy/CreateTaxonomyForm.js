@@ -27,6 +27,15 @@ const CreateTaxonomyForm = () => {
     //Import message context 
     const msg = useContext(MessageContext);
 
+    //@todo fetch that from /taxonomy/taxonomies endpoint.
+    // prop = Label, value = option's value
+    const taxonomies = {
+        occupations: "Occupation",
+        domains: "Domaines",
+        abilities: "Compétence",
+        skills: "Aptitude"
+    };
+
     /*
     First of all, verify if the user is logged in.
     If he isn't, then redirect him in the connexion page
@@ -153,10 +162,12 @@ const CreateTaxonomyForm = () => {
                         name="category"
                         required="true"
                         onChange={ (e) => { inputHandler( "category", e.target.value, true )}}>
-                        <option value="occupations">Occupation</option>
-                        <option value="skills">Aptitude</option>
-                        <option value="domains">Domaine</option>
-                        <option value="competences">Compétence</option>
+
+                        {Object.keys(taxonomies).map((key) => {
+                            return (
+                                <option value="{key}">{taxonomies[key]}</option>
+                            );
+                        })}
                     </select>
                 </div>
 
