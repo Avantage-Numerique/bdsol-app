@@ -56,6 +56,8 @@ const HomePage = () => {
               { 'Content-Type': 'application/json' }
           )
 
+          console.log(persResponse)
+
 
           /*
               Display the proper message relative to the api response
