@@ -144,19 +144,19 @@ const CreateTaxonomyForm = () => {
 
             <form onSubmit={submitHandler} className={`col-12 ${styles["create-taxonomy-form"]}`}>
                 <div>
-                    <label for="category">
+                    <label htmlFor="category">
                         Catégorie
                     </label>
-                    <br></br>
+                    <br/>
                     <select 
                         className={`${styles["select-component"]}`}
                         name="category"
                         required="true"
                         onChange={ (e) => { inputHandler( "category", e.target.value, true )}}>
-                        <option value="occupation">Occupation</option>
-                        <option value="skill">Aptitude</option>
-                        <option value="domain">Domaine</option>
-                        <option value="competence">Compétence</option>
+                        <option value="occupations">Occupation</option>
+                        <option value="skills">Aptitude</option>
+                        <option value="domains">Domaine</option>
+                        <option value="competences">Compétence</option>
                     </select>
                 </div>
 
@@ -184,7 +184,6 @@ const CreateTaxonomyForm = () => {
                 </div>
 
             </form>
-   
         </>
     )
 }

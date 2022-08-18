@@ -29,8 +29,8 @@ const CreateTaxonomyPage = () => {
                         <div className={`${styles["create-taxonomy--max-width"]}`}>
                             <h1 className={`col-12 blue`}>Taxonomie</h1>
                             <h4 className="col-12">Super formulaire</h4>
-                            <p>Une taxonomie sert à classifier dans un système ordonné les relations entre les choses. <br></br>
-                                Ajoutez ici une taxonomie pour permettre à une entité d'être relié à cette taxonomie. <br></br>
+                            <p>Une taxonomie sert à classifier dans un système ordonné les relations entre les choses. <br/>
+                                Ajoutez ici une taxonomie pour permettre à une entité d'être relié à cette taxonomie. <br/>
                                 Par exemple, lier une <b>personne</b> à une <b>occupation</b> ou une <b>aptitude</b> et lier une <b>organisation</b> à une <b>offre de service</b> et bien d'autre.</p>
                         </div>
                     </div>
