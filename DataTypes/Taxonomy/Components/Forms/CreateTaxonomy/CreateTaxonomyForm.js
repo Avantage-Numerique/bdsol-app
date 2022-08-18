@@ -31,7 +31,7 @@ const CreateTaxonomyForm = () => {
     // prop = Label, value = option's value
     const taxonomies = {
         occupations: "Occupation",
-        domains: "Domaines",
+        domains: "Domaine",
         abilities: "Compétence",
         skills: "Aptitude"
     };
