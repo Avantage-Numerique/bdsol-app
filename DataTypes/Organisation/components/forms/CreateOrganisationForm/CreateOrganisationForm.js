@@ -191,7 +191,7 @@ const CreateOrganisationForm = () => {
                 <Select
                     name="offer"
                     label="Offres de services"
-                    request="/taxonomy/list"
+                    request="/taxonomies/list"
                     requestData={offerSelectRequestData}
                     tag="occupation"
                     onInput={inputHandler}

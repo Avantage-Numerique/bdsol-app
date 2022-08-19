@@ -189,7 +189,7 @@ const CreatePersonForm = () => {
                 <Select
                     name="occupation"
                     label="Occupations"
-                    request="/taxonomy/list"
+                    request="/taxonomies/list"
                     requestData={occupationSelectRequestData}
                     tag="occupation"
                     onInput={inputHandler}
