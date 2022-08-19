@@ -165,7 +165,7 @@ const CreateTaxonomyForm = () => {
 
                         {Object.keys(taxonomies).map((key) => {
                             return (
-                                <option value="{key}">{taxonomies[key]}</option>
+                                <option value={key}>{taxonomies[key]}</option>
                             );
                         })}
                     </select>
