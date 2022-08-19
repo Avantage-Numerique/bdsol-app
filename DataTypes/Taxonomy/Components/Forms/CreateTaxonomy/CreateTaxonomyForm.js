@@ -27,7 +27,7 @@ const CreateTaxonomyForm = () => {
     //Import message context 
     const msg = useContext(MessageContext);
 
-    //@todo fetch that from /taxonomy/taxonomies endpoint.
+    //@todo fetch that from /taxonomies/supported endpoint.
     // prop = Label, value = option's value
     const taxonomies = {
         occupations: "Occupation",
@@ -58,7 +58,7 @@ const CreateTaxonomyForm = () => {
         {
             category: {
                 value: '',
-                isValid: true
+                isValid: false
             },
             name: {
                 value: '',
@@ -112,7 +112,7 @@ const CreateTaxonomyForm = () => {
 
             //Send the request with the specialized hook
             const response = await sendRequest (
-                "/taxonomy/create",
+                "/taxonomies/create",
                 'POST',
                 JSON.stringify(formData),
                 { 'Content-Type': 'application/json' }
@@ -161,8 +161,8 @@ const CreateTaxonomyForm = () => {
                         className={`${styles["select-component"]}`}
                         name="category"
                         required="true"
-                        onChange={ (e) => { inputHandler( "category", e.target.value, true )}}>
-
+                        onChange={ (e) => { inputHandler( "category", e.target.value, (e.target.value !== "0" && e.target.value !== "") )}}>
+                        <option value="">-- Choisissez une taxonomy --</option>
                         {Object.keys(taxonomies).map((key) => {
                             return (
                                 <option value={key}>{taxonomies[key]}</option>
