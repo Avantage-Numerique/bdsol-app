@@ -16,10 +16,10 @@ const UserHistoryGrid = (props) => {
 
     const auth = useContext(AuthContext);
 
-    //Data history query
+    //Data UserHistory query
     const formData = {
         "data": {
-            "username": auth.username
+            "user": auth._id
         }
     };
 
@@ -54,11 +54,11 @@ const UserHistoryGrid = (props) => {
                     {usersHistory.data.map( modification =>
                         <>
                             <div>{new Date(modification.modifDate).toLocaleDateString(dateLanguage)} <br></br> {new Date(modification.modifDate).toLocaleTimeString(timeLanguage)}</div>
-                            <div>{modification.action}</div>
+                            <div>{modification.action == 'create' ? "Création de " : "Mise à jour de "}{modification.fields.name ? modification.fields.name : modification.fields.firstName + " " +modification.fields.lastName}</div>
                             <div>{Object.keys(modification.fields).length} champ{Object.keys(modification.fields).length > 1 ? 's' : ''}</div>
                             <div>
                                 <Button slim key={modification._id.toString() + "BTN"} onClick={function () {
-                                    alert(JSON.stringify(modification._id) + '  ' + JSON.stringify(modification.fields))
+                                    alert(JSON.stringify(modification.fields, null, 4));
                                 }}>Détails</Button>
                             </div>
                         </>
