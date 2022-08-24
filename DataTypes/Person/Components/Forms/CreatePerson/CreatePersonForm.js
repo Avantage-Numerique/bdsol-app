@@ -68,7 +68,7 @@ const CreatePersonForm = () => {
             value: '',
             isValid: true
         },
-        occupation: {
+        occupations: {
             value: '',
             isValid: true
         }
@@ -98,7 +98,7 @@ const CreatePersonForm = () => {
                     "firstName":  formState.inputs.firstName.value, 
                     "nickname": formState.inputs.nickName.value,
                     "description": formState.inputs.biography.value,
-                    "occupation": formState.inputs.occupation.value
+                    "occupations": formState.inputs.occupations.value
                 }
             };
 
@@ -187,11 +187,11 @@ const CreatePersonForm = () => {
                 />
 
                 <Select
-                    name="occupation"
+                    name="occupations"
                     label="Occupations"
                     request="/taxonomies/list"
                     requestData={occupationSelectRequestData}
-                    tag="occupation"
+                    tag="occupations"
                     onInput={inputHandler}
                 />
 

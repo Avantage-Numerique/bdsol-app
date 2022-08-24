@@ -73,7 +73,7 @@ const CreateOrganisationForm = () => {
             value: '',
             isValid: true
         },
-        offer: {
+        offers: {
             value: '',
             isValid: true
         }
@@ -96,7 +96,7 @@ const CreateOrganisationForm = () => {
                     url: formState.inputs.url.value,
                     contactPoint: formState.inputs.contactPoint.value,
                     fondationDate: formState.inputs.fondationDate.value,
-                    offer: formState.inputs.offer.value
+                    offers: formState.inputs.offers.value
                 } 
 
             };
@@ -189,11 +189,11 @@ const CreateOrganisationForm = () => {
                 />
 
                 <Select
-                    name="offer"
+                    name="offers"
                     label="Offres de services"
                     request="/taxonomies/list"
                     requestData={offerSelectRequestData}
-                    tag="occupation"
+                    tag="occupations"
                     onInput={inputHandler}
                 />
 
