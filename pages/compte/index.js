@@ -77,7 +77,6 @@ const accountPage = () => {
                         {leftMenu === "history" && <UserHistoryGrid/>}
                         {leftMenu === "preferences" && <Preferences/>}
                         {leftMenu === "profile" && <Profile/>}
-                        {leftMenu === "modifPassword" && modifPassword}
                         {leftMenu == "help" && <Help/>}
                     </div>
                 </section>
