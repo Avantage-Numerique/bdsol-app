@@ -6,7 +6,7 @@ import React from 'react'
 import styles from './MainPersonView.module.scss'
 
 
-const MainPersonView = () => {
+const MainPersonView = ({data}) => {
 
 
     return (
@@ -23,7 +23,7 @@ const MainPersonView = () => {
                 <div></div>
 
                 {/* Text content */}
-                <h1>Titre</h1>
+                <h1>{data.firstName} {data.lastName}</h1>
 
             </header>
 

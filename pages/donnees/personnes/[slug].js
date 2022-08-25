@@ -3,6 +3,9 @@ import { useRouter } from 'next/router';
 //import fs from 'fs/promises';
 import { sendApiRequest } from '../../../app/hooks/http-hook'
 
+//components
+import MainPersonView from '../../../DataTypes/Person/Components/Views/MainPersonView/MainPersonView'
+
 
 const SinglePersonPage = ({person, hasError}) => {
 
@@ -20,7 +23,9 @@ const SinglePersonPage = ({person, hasError}) => {
     
     return (
         <div>
-            <h1>Bonjour {person.firstName}</h1>
+
+            <MainPersonView data={person} />
+
         </div>
     )
 }
