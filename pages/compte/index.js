@@ -15,6 +15,9 @@ import {useSessionHook} from '../../authentication/hooks/useSessionHook'
 
 //Styling
 import styles from './accountPage.module.scss'
+import Profile from '../../app/common/Containers/UserAccount/Profile/profile';
+import Preferences from '../../app/common/Containers/UserAccount/Preferences/preferences';
+import Help from '../../app/common/Containers/UserAccount/Help/help';
 
 
 const accountPage = () => {
@@ -36,13 +39,11 @@ const accountPage = () => {
 
     const pageModifProfile = () => {};
 
-
     //Import the authentication context to make sure the user is connected
     const auth = useContext(AuthContext);
 
-
     //UseState
-    const [leftMenu, setLeftMenu] = useState("history");
+    const [leftMenu, setLeftMenu] = useState("help");
 
     //Make sure the user is connected to access this page
     useEffect(() => {
@@ -50,24 +51,6 @@ const accountPage = () => {
             router.push(redirectPath.current)
         }
     }, [auth.isLoggedIn, redirectPath.current]);
-
-
-    const profile = (
-        <>
-            <h3>Modification du profil</h3>
-            <button onClick={() => setLeftMenu("modifPassword")}>Modifier mon mot de passe</button>
-            <div>2e chose à modifier</div>
-            <div>3e chose à modifier</div>
-        </>
-    )
-
-    const preferences = (
-        <>
-            <h3>Préférences</h3>
-            <div>ma préférence de couleur</div>
-            <div>ma préférence de langue</div>
-        </>
-    )
 
     const modifPassword = (
         <>
@@ -92,9 +75,10 @@ const accountPage = () => {
                 <section className={"col-9"}>
                     <div className={"account-page-content"}>
                         {leftMenu === "history" && <UserHistoryGrid/>}
-                        {leftMenu === "preferences" && preferences}
-                        {leftMenu === "profile" && profile}
+                        {leftMenu === "preferences" && <Preferences/>}
+                        {leftMenu === "profile" && <Profile/>}
                         {leftMenu === "modifPassword" && modifPassword}
+                        {leftMenu == "help" && <Help/>}
                     </div>
                 </section>
 
@@ -110,21 +94,23 @@ const accountPage = () => {
                                         : <img src={auth.avatar} alt="Ton avatar" width="80px" height="80px"></img>
                                     }
                                 </div>
-                                <div onClick={pageModifProfile}>
+                                <div>
                                     <span>{auth.name}</span><br></br>
                                     <span>{auth.username}</span><br></br>
-                                    <button onClick={() => setLeftMenu("profile")}>Modifier mon profil</button>
+                                    <span>Membre depuis le X</span><br></br>
                                 </div>
                             </div>
 
                         <ul>
-                            <li key="pref" className={`${styles["side-menu"]}`}
+                            <li key="modif" className={`${styles["side-menu-control"]}`} onClick={() => setLeftMenu("profile")}>Modifier mon profil</li>
+                            <li key="pref" className={`${styles["side-menu-control"]}`}
                                 onClick={() => setLeftMenu("preferences")}>Préférences
                             </li>
-                            <li key="historique" className={`${styles["side-menu"]}`} onClick={() => setLeftMenu("history")}>Historique de
+                            <li key="historique" className={`${styles["side-menu-control"]}`} onClick={() => setLeftMenu("history")}>Historique de
                                 modification
                             </li>
-                            <li key="logout" className={`${styles["side-menu"]}`} onClick={logout}>Se déconnecter</li>
+                            <li key="help" className={`${styles["side-menu-control"]}`} onClick={() => setLeftMenu("help")}>Aide</li>
+                            <li key="logout" className={`${styles["side-menu-control"]}`} onClick={logout}>Se déconnecter</li>
                         </ul>
                     </div>
                 </aside>

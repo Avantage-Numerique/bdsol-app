@@ -50,7 +50,7 @@ function MyApp( {Component, pageProps} ) {
     
     const newSession = {
       token:      userData.token,     //There must be at least a token, for now
-      _id:        userData._id ? userData._id : null,
+      id:        userData.id ? userData.id : null,
       avatar:     userData.avatar ? userData.avatar : null,
       name:       userData.name ? userData.name : null,
       username:   userData.username ? userData.username : null
@@ -71,7 +71,7 @@ function MyApp( {Component, pageProps} ) {
     setSession({
       ...session,
       token:      null,
-      _id:        null,
+      id:        null,
       avatar:     null,
       name:       null,
       username:   null
@@ -111,7 +111,7 @@ function MyApp( {Component, pageProps} ) {
               isPending: session.isPending,
               isLoggedIn: session && session.token, 
               token: session.token,
-              _id: session._id,
+              id: session.id,
               avatar: session.avatar,
               name: session.name,
               username: session.username,

@@ -19,7 +19,7 @@ const UserHistoryGrid = (props) => {
     //Data UserHistory query
     const formData = {
         "data": {
-            "user": auth._id
+            "user": auth.id
         }
     };
 
@@ -39,6 +39,15 @@ const UserHistoryGrid = (props) => {
 
     }, [auth.isLoggedIn]);
 
+    const modificationMsg = (modif) => {
+        switch (modif){
+            case "create": return "Création de "; break;
+            case "update": return "Mise à jour de "; break;
+            case "delete": return "Suppression de "; break;
+            default : return "action state undefined";
+        }
+    }
+
     if (usersHistory
         && !usersHistory.error
         && usersHistory.data
@@ -54,7 +63,11 @@ const UserHistoryGrid = (props) => {
                     {usersHistory.data.map( modification =>
                         <>
                             <div>{new Date(modification.modifDate).toLocaleDateString(dateLanguage)} <br></br> {new Date(modification.modifDate).toLocaleTimeString(timeLanguage)}</div>
-                            <div>{modification.action == 'create' ? "Création de " : "Mise à jour de "}{modification.fields.name ? modification.fields.name : modification.fields.firstName + " " +modification.fields.lastName}</div>
+                            <div>{modificationMsg(modification.action)}
+                                {modification.user == modification.modifiedEntity ? "votre compte : " : "l'entité : " }
+                                {modification.fields.username ? modification.fields.username + ". " : null}
+                                {modification.fields.firstName ? modification.fields.firstName + " " + modification.fields.lastName : modification.fields.name}
+                            </div>
                             <div>{Object.keys(modification.fields).length} champ{Object.keys(modification.fields).length > 1 ? 's' : ''}</div>
                             <div>
                                 <Button slim key={modification._id.toString() + "BTN"} onClick={function () {
