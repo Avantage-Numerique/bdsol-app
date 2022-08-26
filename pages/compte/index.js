@@ -61,6 +61,8 @@ const accountPage = () => {
         </>
     )
 
+    const dateLanguage = 'en-CA';
+
     return (
         <div className={`col-12 ${styles["account-page"]}`}>
 
@@ -96,7 +98,7 @@ const accountPage = () => {
                                 <div>
                                     <span>{auth.name}</span><br></br>
                                     <span>{auth.username}</span><br></br>
-                                    <span>Membre depuis le X</span><br></br>
+                                    <span>Membre depuis le {new Date(auth.createdAt).toLocaleDateString(dateLanguage)}</span><br></br>
                                 </div>
                             </div>
 

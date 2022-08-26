@@ -53,7 +53,8 @@ function MyApp( {Component, pageProps} ) {
       id:        userData.id ? userData.id : null,
       avatar:     userData.avatar ? userData.avatar : null,
       name:       userData.name ? userData.name : null,
-      username:   userData.username ? userData.username : null
+      username:   userData.username ? userData.username : null,
+      createdAt:  userData.createdAt ? userData.createdAt : null
     }
 
     //Update the state
@@ -74,7 +75,8 @@ function MyApp( {Component, pageProps} ) {
       id:        null,
       avatar:     null,
       name:       null,
-      username:   null
+      username:   null,
+      createdAt:  null
     });
 
   }, [session])
@@ -115,6 +117,7 @@ function MyApp( {Component, pageProps} ) {
               avatar: session.avatar,
               name: session.name,
               username: session.username,
+              createdAt: session.createdAt,
               login: login, 
               logout: logout
       
