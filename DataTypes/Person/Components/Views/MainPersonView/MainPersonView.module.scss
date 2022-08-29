@@ -4,9 +4,102 @@
 
 */
 
-.mainPersonView {
+.main-person-piew {
 
         float: left;
         width: 100%;
+        background-color: rgb(246, 248, 248);
 
+        /*  HEADER  */
+        > header {
+
+                float: left;
+                width: 100%;
+                position: relative;
+
+                /*  Background image */
+                > figure {
+
+                        position: absolute;
+                        top: 0px;
+                        left: 0px;
+                        height: 100%;
+                        width: 100%;
+                        overflow: hidden;
+
+                        img {
+
+                           object-fit: cover;
+                           position: absolute;
+                           width: 100%;
+                           height: 100%;
+                           bottom: 0px;
+
+                        }
+                }
+
+                > .headers-text {
+
+                        position: relative;
+                        color: white;
+                        display: flex;
+                        flex-direction: column;
+                        
+                        > * {
+                                min-height: 5rem;
+                        }
+
+
+                        h1 {
+                                float: right;
+                                margin: 1rem;
+                                padding: 0px;
+                        }
+                        
+                }
+
+
+        }
+
+        .main-section {
+
+                float: left;
+                width: 100%;
+                padding: 2.5%;
+                padding: max(2.5%, 2rem);
+
+                > * { 
+                        margin: 1% 0px;
+                        margin: max(1%, 1rem) 0px;
+
+                        &:first-child { margin-top: 0px; }
+                        &:last-child { margin-bottom : 0px; }
+                }
+
+                h4 {
+                        margin: 0px;
+                        margin-bottom: 0.5rem;
+                        width: 100%;
+                }
+
+                .main-section__description {
+                        float: left;
+                        color: rgb(63, 63, 63);
+                        width: 100%; 
+
+
+                }
+
+                .main-section__line {
+                        width: 100%;
+                        float: left;
+                        border-bottom: 1px solid rgba(85, 85, 85, 0.315);
+                }
+
+                .main-section__singular-infos {
+                        width: 100%;
+                        float: left;
+                        border-bottom: 1px solid rgba(85, 85, 85, 0.315);
+                }
+        }
 }

@@ -1,16 +1,18 @@
-import { Main } from 'next/document'
 import React from 'react' 
 
+//Components
+import SanitizedInnerHtml from '../../../../../app/utils/SanitizedInnerHtml'
 
 //Styling
 import styles from './MainPersonView.module.scss'
 
 
-const MainPersonView = ({data}) => {
+const MainPersonView = ({ data }) => {
 
+    console.log(data)
 
     return (
-        <article className={`${styles["mainPersonView"]}`}>
+        <article className={`${styles["main-person-piew"]}`}>
             
             {/*
             *
@@ -20,10 +22,20 @@ const MainPersonView = ({data}) => {
             <header>
 
                 {/* Background image */}
-                <div></div>
+                <figure>
+                    <img src="/general_images\forestBG.jpg" alt="Background image for a person card"/>
+                </figure>
 
                 {/* Text content */}
-                <h1>{data.firstName} {data.lastName}</h1>
+                <div className={`${styles["headers-text"]}`}>
+                    <div></div>
+                    <div></div>
+                    <div>                    
+                        <h1>Le beau Jonathan</h1>
+                    </div>
+
+                </div>
+
 
             </header>
 
@@ -34,7 +46,20 @@ const MainPersonView = ({data}) => {
             */}
             <section>
 
-                <h2>blalba</h2>
+                <div className={`${styles["main-section"]}`}>
+
+                    <div className={`${styles["main-section__description"]}`}>
+                        <h4>Présentation</h4>
+                        <SanitizedInnerHtml>
+                            texte descriptif
+                        </SanitizedInnerHtml>
+                    </div>
+
+                    <div className={`${styles["main-section__line"]}`}></div>
+
+                    <div className={`${styles["main-section__singular-infos"]}`}></div>
+
+                </div>
 
             </section>
 
