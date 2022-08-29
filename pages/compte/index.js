@@ -38,8 +38,6 @@ const accountPage = () => {
         logout();
     }
 
-    const pageModifProfile = () => {};
-
     //Import the authentication context to make sure the user is connected
     const auth = useContext(AuthContext);
 
@@ -52,15 +50,6 @@ const accountPage = () => {
             router.push(redirectPath.current)
         }
     }, [auth.isLoggedIn, redirectPath.current]);
-
-    const modifPassword = (
-        <>
-            <h3>Modification du mot de passe</h3>
-            <button onClick={() => setLeftMenu("profile")}>Retour au modification du profil</button>
-            <div>Entrer votre mot de passe actuel</div>
-            <div>Entrer votre nouveau mot de passe</div>
-        </>
-    )
 
     const dateLanguage = 'en-CA';
 

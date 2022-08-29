@@ -21,6 +21,13 @@
             padding:0.5rem;
         }
 
+        .status {
+            font-size: x-small;
+        }
+        .accepted {color:green;}
+        .pending { color: yellow;}
+        .rejected { color: red;}
+
         .closeButton{
             cursor: pointer;
             padding:0.5rem;
@@ -28,7 +35,7 @@
         }
 
         &.generaltag { background-color: white; }
-        &.occupation { background-color: rgba(56, 208, 235, 0.647); }
+        &.occupations { background-color: rgba(56, 208, 235, 0.647); }
     }
 
 
