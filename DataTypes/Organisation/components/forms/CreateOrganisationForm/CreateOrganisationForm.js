@@ -141,7 +141,7 @@ const CreateOrganisationForm = () => {
 
     const offerSelectRequestData = {
         "data": {
-            "category": "occupation",
+            "category": "occupations",
             "name": ""
         }
     };

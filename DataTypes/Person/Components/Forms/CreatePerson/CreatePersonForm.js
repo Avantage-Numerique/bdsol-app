@@ -144,7 +144,7 @@ const CreatePersonForm = () => {
     */
     const occupationSelectRequestData = {
         "data": {
-            "category": "occupation",
+            "category": "occupations",
             "name": ""
         }
     };
