@@ -16,10 +16,10 @@ const UserHistoryGrid = (props) => {
 
     const auth = useContext(AuthContext);
 
-    //Data UserHistory query
+    //Data history query
     const formData = {
         "data": {
-            "user": auth.id
+            "username": auth.username
         }
     };
 
@@ -39,15 +39,6 @@ const UserHistoryGrid = (props) => {
 
     }, [auth.isLoggedIn]);
 
-    const modificationMsg = (modif) => {
-        switch (modif){
-            case "create": return "Création de "; break;
-            case "update": return "Mise à jour de "; break;
-            case "delete": return "Suppression de "; break;
-            default : return "action state undefined";
-        }
-    }
-
     if (usersHistory
         && !usersHistory.error
         && usersHistory.data
@@ -63,16 +54,11 @@ const UserHistoryGrid = (props) => {
                     {usersHistory.data.map( modification =>
                         <>
                             <div>{new Date(modification.modifDate).toLocaleDateString(dateLanguage)} <br></br> {new Date(modification.modifDate).toLocaleTimeString(timeLanguage)}</div>
-                            <div>{modificationMsg(modification.action)}
-                                {modification.user == modification.modifiedEntity ? "votre compte : " : "l'entité : " }
-                                {modification.fields.username ? modification.fields.username + ". " : null}
-                                {modification.fields.firstName ? modification.fields.firstName + " " + modification.fields.lastName : modification.fields.name}
-                            </div>
+                            <div>{modification.action}</div>
                             <div>{Object.keys(modification.fields).length} champ{Object.keys(modification.fields).length > 1 ? 's' : ''}</div>
                             <div>
                                 <Button slim key={modification._id.toString() + "BTN"} onClick={function () {
-                                    alert(Object.keys(modification.fields).map( key =>
-                                        '\n' + key + ' : ' + (modification.fields[key] ? modification.fields[key] : "\"\"")));
+                                    alert(JSON.stringify(modification._id) + '  ' + JSON.stringify(modification.fields))
                                 }}>Détails</Button>
                             </div>
                         </>
