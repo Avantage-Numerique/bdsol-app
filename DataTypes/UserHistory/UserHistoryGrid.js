@@ -71,7 +71,8 @@ const UserHistoryGrid = (props) => {
                             <div>{Object.keys(modification.fields).length} champ{Object.keys(modification.fields).length > 1 ? 's' : ''}</div>
                             <div>
                                 <Button slim key={modification._id.toString() + "BTN"} onClick={function () {
-                                    alert(JSON.stringify(modification.fields, null, 4));
+                                    alert(Object.keys(modification.fields).map( key =>
+                                        '\n' + key + ' : ' + (modification.fields[key] ? modification.fields[key] : "\"\"")));
                                 }}>Détails</Button>
                             </div>
                         </>
