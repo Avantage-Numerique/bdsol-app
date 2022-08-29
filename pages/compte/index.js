@@ -8,6 +8,7 @@ import {AuthContext} from '../../authentication/context/auth-context'
 
 //Components
 import UserHistoryGrid from '../../DataTypes/UserHistory/UserHistoryGrid';
+import Button from '../../app/common/FormElements/Buttons/Button/Button';
 
 //Hooks
 import {useSessionHook} from '../../authentication/hooks/useSessionHook'
@@ -102,17 +103,11 @@ const accountPage = () => {
                                 </div>
                             </div>
 
-                        <ul>
-                            <li key="modif" className={`${styles["side-menu-control"]}`} onClick={() => setLeftMenu("profile")}>Modifier mon profil</li>
-                            <li key="pref" className={`${styles["side-menu-control"]}`}
-                                onClick={() => setLeftMenu("preferences")}>Préférences
-                            </li>
-                            <li key="historique" className={`${styles["side-menu-control"]}`} onClick={() => setLeftMenu("history")}>Historique de
-                                modification
-                            </li>
-                            <li key="help" className={`${styles["side-menu-control"]}`} onClick={() => setLeftMenu("help")}>Aide</li>
-                            <li key="logout" className={`${styles["side-menu-control"]}`} onClick={logout}>Se déconnecter</li>
-                        </ul>
+                            <Button key="modif" onClick={() => setLeftMenu("profile")}>Modifier mon profil</Button>
+                            <Button key="pref" onClick={() => setLeftMenu("preferences")}>Préférences</Button>
+                            <Button key="historique" onClick={() => setLeftMenu("history")}>Historique de modification</Button>
+                            <Button key="help" onClick={() => setLeftMenu("help")}>Aide</Button>
+                            <Button key="logout" onClick={logout}>Se déconnecter</Button>
                     </div>
                 </aside>
             </div>
