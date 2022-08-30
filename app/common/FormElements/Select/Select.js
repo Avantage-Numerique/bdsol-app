@@ -56,7 +56,7 @@ const Select = (props) => {
     const [selectList, setSelectList] = useState([]);
     
     //Value sent to the api to receive 10 options corresponding
-    //shape : data: {category: 'occupation', name: 'ingenieur'}
+    //shape : data: {category: 'occupations', name: 'ingenieur'}
     const [selectRequest, setSelectRequest] = useState(props.requestData)
 
 
@@ -201,7 +201,7 @@ const Select = (props) => {
                 >
                     <button className={`${styles['closeButton']}`} type="button" onClick={() => removeValueFromSelectedItem(selected)}>&#x271A;</button>
                     <span className={`${styles['status']} ${selected.status == "Accepted" ? styles['accepted'] : (selected.status == "Pending" ? styles['pending'] : styles['rejected'])}`}>■</span>
-                    <span>{selected.name}</span><br></br>
+                    <span>{selected.name}</span>
                 </li>
                 )}
 
