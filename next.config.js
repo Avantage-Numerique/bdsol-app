@@ -61,3 +61,23 @@ const nextConfig = {
 }
 
 module.exports = nextConfig
+
+/**
+ * Prepare the app for production by determining the headers we need, from nginx, and docker, and the serveur.
+ * If : prod || staging add X headers
+ * Set the headers.
+ */
+/*
+const securityHeaders = []
+
+module.exports = {
+    async headers() {
+        return [
+            {
+                // Apply these headers to all routes in your application.
+                source: '/:path*',
+                headers: securityHeaders,
+            },
+        ]
+    },
+}*/

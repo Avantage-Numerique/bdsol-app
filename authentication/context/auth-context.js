@@ -1,15 +1,20 @@
 import { createContext } from 'react';
 
-export const AuthContext = createContext({ 
+export const defaultSessionData = {
     isPending: false,
-    isLoggedIn: false, 
+    isLoggedIn: false,
     token: null,
     id: null,
     avatar: null,
     name: null,
     username: null,
     createdAt: null,
-    login: () => {}, 
+    ip: null,
+    browser: null,
+    language: null,
+    login: () => {},
     logout: () => {}
-});
+};
+
+export const AuthContext = createContext(defaultSessionData);
 
