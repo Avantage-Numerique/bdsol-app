@@ -109,7 +109,7 @@ const PresentationCard = ({header, name, firstname, description, username, creat
 
             </section>
             <div className={`${styles["card__infos__sub-section"]}`}>
-                <div><strong>Créé par</strong> {auth.username} </div>
+                {/*<div><strong>Créé par</strong> {auth.username} </div>*/}
                 <div>{(new Date(createdAt)).toLocaleDateString('en-GB')}</div>
             </div> 
 
