@@ -50,8 +50,7 @@ const PresentationCard = ({header, name, firstname, description, username, creat
                         alt="Photo de putin qui chevauche un ours" 
                     />
                 }
-                
-                <div></div>
+
             </figure>
 
             {/************************************ 
@@ -64,11 +63,11 @@ const PresentationCard = ({header, name, firstname, description, username, creat
             <section className={`${styles["card__content"]}`}>
 
                 <h4 className="col-12">{firstname && firstname} {name}</h4>
-                <p className="col-12">
+                <div className="col-12">
                     <SanitizedInnerHtml>
                         { description }
                     </SanitizedInnerHtml>
-                </p>
+                </div>
 
                 <div className={`${styles["card__inner-line"]}`}></div>
                 

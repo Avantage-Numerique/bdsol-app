@@ -3,22 +3,27 @@ import {useState, useCallback, useRef, useEffect, useContext} from 'react';
 //Custom hook
 import {AuthContext} from '../../authentication/context/auth-context'
 
+
+/*
+
+        Limited request. 
+        Doesn't use any hook so we can call it before rendering the page. 
+
+        Usefull for the getStaticProps and getStaticPaths
+        But is possible, use the hook below instead
+        - V.P.R
+
+*/
 export const sendApiRequest = async (path, method = 'GET', body = null, headers = {}) => {
 
     // @todo doest we need to manage the https:// here ? Or I think it should be in  the env scope.
     const baseApiRoute = "http://" + process.env.API_URL;//'http://localhost' + ':' + '8000';
 
-    //Access the authentication context
-    const auth = useContext(AuthContext);
-
     const defaultHeaders = {
         'Origin': process.env.APP_URL//'http://localhost:3000'
     };
 
-    const authorization = auth.token ? {Authorization: 'Bearer ' + auth.token} : {}
-
     const headerParams = {
-        ...authorization,
         ...defaultHeaders,
         ...headers
     };
@@ -30,8 +35,7 @@ export const sendApiRequest = async (path, method = 'GET', body = null, headers 
             method: method,                                   //Get by default
             body: body,                                       //Data
             headers: new Headers(headerParams),
-            json: true,
-            signal: httpAbortCtrl.signal
+            json: true
         });
 
         //Return the data

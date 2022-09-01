@@ -56,6 +56,8 @@ const HomePage = () => {
               { 'Content-Type': 'application/json' }
           )
 
+          console.log(persResponse)
+
 
           /*
               Display the proper message relative to the api response
@@ -378,6 +380,9 @@ const HomePage = () => {
                     <Link href="/">En savoir plus</Link>
                   </span>
                 </p>
+                <h4 className="col-12">Vous avez des suggestions ?</h4>
+                <p className="col-12">Suite à votre expérience avec cette plateforme, nous vous invitions à nous faire part de vos commentaires et réflexions, ou encore de vos difficultés afin de nous aider à améliorer ce produit.</p>
+                <p className="col-12">Pour se faire, cliquez sur le bouton <strong>Partage d'idées</strong> au bas de la page.</p>
               </section>
 
 

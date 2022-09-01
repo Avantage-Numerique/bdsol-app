@@ -1,0 +1,306 @@
+/*
+
+        Styling for the view element of a person
+
+*/
+
+.main-person-view {
+
+        /*   Local variables  */
+        --page-margins: 5%;
+        --page-margins: clamp(0.5rem, 5%, 5rem);
+        --picture-size: 10rem;
+        --picture-size: clamp(8rem, 20vw, 12rem);
+
+
+        float: left;
+        width: 100%;
+        background-color: rgb(246, 248, 248);
+
+        /* 
+                Two divisions section
+        */
+        .two-divisions-container {
+
+                display: flex;
+                flex-wrap: wrap;
+                flex-direction: column;
+
+                > * {
+                        margin: 2.5vh 0px;
+                        margin: max(2.5vh, 1rem) 0px;
+                }
+
+                &>:first-child { flex:1; }
+
+                &>:last-child {
+                        flex: auto auto;
+                        width: 100%;
+                }
+
+        }
+
+        /*  HEADER  */
+        > header {
+
+                color: white;
+                float: left;
+                width: 100%;
+                position: relative;
+
+                /*  Background image */
+                > figure {
+
+                        position: absolute;
+                        left: 0px;
+                        height: 100%;
+                        width: 100%;
+                        overflow: hidden;
+                        border-radius: 0.5rem;
+
+                        img {
+
+                                object-fit: cover;
+                                position: absolute;
+                                width: 100%;
+                                height: 100%;
+                                bottom: 0px;
+
+                        }
+
+                        > .black-gradient {
+                                position: absolute;
+                                top: 0px;
+                                left: 0px;
+                                width: 100%;
+                                height: 100%;
+                                background: rgb(2,0,36);
+                                background: linear-gradient(0deg, rgba(2, 0, 36, 0.552) 0%, rgba(2,0,36,0.2) 100%);
+                        }
+
+                }
+
+                > .headers-content {
+
+                        position: relative;
+                        display: flex;
+                        flex-direction: column;
+                        padding: var(--page-margins);
+
+                        > * { min-height: 5rem; }
+
+                        .headers-content__top-options {
+                                
+                                button { color: white; }
+
+                                div {
+                                        float: right;
+
+                                        form{
+                                                label {
+                                                        color: white;
+
+                                                        select { 
+                                                                padding: 0.25rem;
+                                                                cursor: pointer;
+                                                                margin-left: 1rem;
+                                                                color: white;
+                                                                border: 0.1rem solid white;
+                                                                border-radius: 0.2rem;
+                                                                background-color: rgba(255, 255, 255, 0);
+                                                                transition: 0.3s;
+
+                                                                &:hover{ 
+                                                                        background-color: white;
+                                                                        color: rgb(70, 70, 70);
+                                                                }
+                                                        }
+                                                }
+                                        }
+                                }
+                        }
+
+                        .headers-content__bottom-row{
+
+                                position: relative; 
+
+                                .headers-content__profil-picture {
+                                        height: var(--picture-size);
+                                        width: var(--picture-size);
+                                        top: 40%;
+                                        position: absolute;
+                                        border-radius: 100%;
+                                        border: 0.2rem solid rgb(231, 231, 231);
+                                        overflow: hidden;
+        
+                                        img {
+                                                width: 100%;
+                                                height: 100%;
+                                        }
+                                }
+                        }
+
+                        
+
+                        .headers-content__main-section {
+              
+                                > aside {
+
+
+                                        > div {
+                                                padding: 1rem;
+                                                background-color: white;
+                                                -webkit-box-shadow: 1px 1px 3px 1px rgba(60,60,60,0.78); 
+                                                box-shadow: 1px 1px 3px 1px rgba(60,60,60,0.78);
+                                                color: rgb(37, 37, 37);
+                                                border-radius: 0.5rem;
+                                                float: right;
+
+                                                p {
+                                                        font-size: 0.9rem;
+                                                        margin: 0.2rem;
+                                                }
+
+                                                button { 
+                                                        width: 100%;
+                                                        margin-top: 1rem;
+                                                        float: left;
+                                                }
+                                        }
+                                }
+                        }
+
+                        h2 { margin: 0px; }
+                }
+
+
+        }
+
+        .quick-section {
+
+                padding: var(--page-margins) var(--page-margins) 0px 0px;
+                float: left;
+                width: 100%;
+
+                .quick-section__single-info {
+                        float: left;
+                        color: rgba(255, 255, 255, 0.767);
+                        margin-right: 2rem;
+                        font-size: 0.9rem;
+
+                        span { font-weight: 700; }
+                }
+
+        }
+
+        .main-section {
+
+                float: left;
+                margin-top: 2rem;
+                padding: var(--page-margins);
+
+                > * { 
+                        margin: var(--page-margins) 0px;
+                        &:first-child { margin-top: 0px; }
+                        &:last-child { margin-bottom : 0px; }
+                }
+
+
+                .main-section__single-info {
+                        float: left;
+                        width: 100%;
+                        font-size: 0.9rem;
+
+
+                        h4 { 
+                                margin-bottom: 1rem;
+                                color: rgb(88, 88, 88);
+                                width: 100%;
+                                font-size: 1.2rem;
+                        }
+
+                        p {
+                                margin: 0px;
+                        }
+
+                        .main-section__project {
+                                border-bottom: 1px solid rgb(88, 88, 88);
+                                border-top: 1px solid rgb(88, 88, 88);
+                                padding: var(--page-margins);
+                        }
+
+                        .main-section__single-competency {
+                                background-color: var(--blue3);
+                                float: left;
+                                padding: 0.25rem;
+                                border-radius: 0.2rem;
+                                font-size: 0.8rem;
+                                color: white;
+                                font-weight: 700;
+                                margin-right: 0.2rem;
+                                margin-bottom: 0.2rem;
+
+                        }
+                }
+
+          
+
+       
+        }
+
+
+}
+
+/*
+
+
+        MEDIA QUERIES
+
+
+*/
+
+//For small screens and tablets
+@media only screen and (min-width: 500px) {
+
+        .main-person-view {
+
+                /* 
+                        Two divisions section
+                */
+                .two-divisions-container { 
+
+
+                        &>:last-child {
+
+                                max-width: 40ch;
+                                max-width: clamp(35ch, 40%, 50ch);
+                                
+                        }
+                }
+        }
+}
+
+//For bigger screens than phone and small tablets
+@media only screen and (min-width: 650px) {
+
+        .main-person-view {
+
+                /* 
+                        Two divisions section
+                */
+                .two-divisions-container { 
+                        flex-direction: row;
+                        flex-wrap: nowrap;
+                        
+
+                        &>:last-child {
+
+                                > * {
+                                        float: right;
+                                        width: 90%;
+                                }
+                                
+                        }
+                }
+        }
+}
