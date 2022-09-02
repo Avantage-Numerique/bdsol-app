@@ -9,6 +9,8 @@ const Help = () => {
             <div>
                 Tout d'abord, merci de tester la BDSOL.
                 Vos commentaires nous aiderons à améliorer l'application pour la mettre à votre image!
+                C'est pour cela que nous vous fournissons un formulaire que vous pouvez remplir pour nous aider.
+                Voici le formulaire : <a href="https://form.jotform.com/222238272581253" target="_blank"><b><u>https://form.jotform.com/222238272581253.</u></b></a>
             </div>
             <div>
                 Un bouton nommé "<u>Partage d'idées</u>" se trouve sur la droite de votre écran. Il permet de prendre en image une partie de votre écran 

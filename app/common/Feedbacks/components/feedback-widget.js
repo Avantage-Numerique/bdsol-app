@@ -28,7 +28,9 @@ export const FeedbackWidget = ({ initParams = {}, children }) => {
 
     return (
         <UsersnapContext.Provider value={usersnapApi}>
+            <>
             {children}
+            </>
         </UsersnapContext.Provider>
     )
 }
