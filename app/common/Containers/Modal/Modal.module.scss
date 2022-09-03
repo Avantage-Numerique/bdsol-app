@@ -1,0 +1,95 @@
+/*
+
+        Styling for the Modal component
+
+*/
+
+
+.modal {
+
+    border: none;
+    border-radius: 0.25rem;
+    position: relative;
+    padding: 0px;
+
+    /*
+        Width
+    */
+    width: 95%;                             /* Prevent from touching the sides */
+
+    &.default-width {
+        max-width: 50ch;                        /* Fallback value if the navigator doesn't support the clamp */
+        max-width: clamp(40ch, 40%, 60ch);      /* Adjusting width value */
+    }
+
+    -webkit-box-shadow: 1px 1px 2px 1px rgba(0,0,0,0.27); 
+    box-shadow: 1px 1px 2px 1px rgba(0,0,0,0.27);
+
+    &.transparent-background::backdrop{
+
+        background: rgb(24, 24, 80);
+        opacity: 0.5;
+
+    }
+
+    /* Button to close the modal */
+    .closing-button {
+
+        --button-color: white;
+        --button-side-spacing: 1rem;
+        --button-side-spacing: clamp(0.5rem, 1.5vw, 1.5rem);
+
+        /*  Change the color of the button */
+        &.closing-button--dark-color { 
+            --button-color: rgb(82, 82, 82); 
+            font-weight: 900;
+            text-shadow: 1px 1px 1px #25252570;
+        }
+
+        text-shadow: 1px 1px 2px #252525;
+        position: absolute;
+        color: var(--button-color);
+        font-size: 1rem;
+        top: var(--button-side-spacing);
+        right: var(--button-side-spacing);
+
+        -webkit-transition: 0.3s;
+        transition: 0.3s;
+
+        .closing-button__underline {
+
+                width: 20%;
+                position: absolute;
+                bottom: -0.2rem;
+                left: 0px;
+                border-bottom: 0.1rem solid var(--button-color);
+                opacity: 0;
+
+
+                -webkit-transition: 0.3s;
+                transition: 0.3s;
+                
+                -webkit-transform-origin: 0%;
+                -moz-transform-origin: 0%;
+                -o-transform-origin: 0%;
+                -ms-transform-origin: 0%;
+                transform-origin: 0%;
+
+            }
+
+        &:hover {
+         
+            .closing-button__underline {
+                transform: scaleX(5);
+                opacity: 1;
+
+                -webkit-transform: scaleX(5);
+                -moz-transform: scaleX(5);
+                -o-transform: scaleX(5);
+                -ms-transform: scaleX(5);
+                transform: scaleX(5);
+            }
+        }
+    }
+
+}
