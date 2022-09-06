@@ -20,12 +20,12 @@ export function middleware(request) {
             data.ip = request.headers["x-forwarded-for"].split(',')[0];
         }
 
-        if (request.headers["x-real-ip"] && request.connection) {
-            data.ip = request.connection.remoteAddress;
+        if (request.headers["x-real-ip"] && request.socket) {
+            data.ip = request.socket.remoteAddress;
         }
 
-        if (request.connection && request.connection.remoteAddress) {
-            data.ip = request.connection.remoteAddress;
+        if (request.socket && request.socket) {
+            data.ip = request.socket.remoteAddress;
         }
     }
 

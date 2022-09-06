@@ -1,19 +1,15 @@
 import { createContext } from 'react';
 
 export const visitorContextDefaults = {
-    ip: "not set",
-    browser: "not set",
-    req: {},
-    messages: "Hi there from initial context",
+    ip: "",
+    browser: ""
 };
 
 export const VisitorContext = createContext(visitorContextDefaults);
 
-
 export const setVisitorData = (data) => {
     VisitorContext.ip = data.id;
-    VisitorContext.req = data.req;
-    VisitorContext.welcome = data.welcome;
+    //VisitorContext.browser = data.welcome;
 }
 
 export const getVisitorData = (context) => {
@@ -26,12 +22,12 @@ export const getVisitorData = (context) => {
             visitor.ip = req.headers["x-forwarded-for"].split(',')[0];
         }
 
-        if (req.headers["x-real-ip"]) {
-            visitor.ip = req.connection.remoteAddress;
+        if (req.headers["x-real-ip"] && req.socket) {
+            visitor.ip = req.socket.remoteAddress;
         }
 
-        if (req.connection.remoteAddress) {
-            visitor.ip = req.connection.remoteAddress;
+        if (req.socket.remoteAddress) {
+            visitor.ip = req.socket.remoteAddress;
         }
     }
     return visitor;

@@ -20,7 +20,7 @@ import {AuthContext} from '../authentication/context/auth-context';
 import styles from './home-page.module.scss'
 
 
-const HomePage = ({visitor}) => {
+const HomePage = () => {
 
     //Holds the state the organisations
     const [feedList, setFeedList] = useState([]);
@@ -69,7 +69,7 @@ const HomePage = ({visitor}) => {
             });
 
             //Finaly, update the state to display the result
-            setFeedList(feed)
+            setFeedList(feed);
 
             //If negative
         } else {
@@ -161,19 +161,13 @@ const HomePage = ({visitor}) => {
                 <div className="maxWidthPageContainer">
 
                     <div className={`${styles["home-page__header--img-container"]}`}>
-
-                        <img
-                            src="/general_images/Croissant-Boreal@3x-1440x1440.png"
-                            alt="Image d'un événement de projection devant public."
-                        />
-
+                        <Image src="/general_images/Croissant-Boreal@3x-1440x1440.png" alt="Image d'un événement de projection devant public." />
                     </div>
 
                     <div className="col-12">
 
                         <h1 className="col-12 white">Avantage Numérique</h1>
                         <h3 className="col-12 white">Toutes les données du Croissant Boréal</h3>
-                        <p>Hello there!</p>
                     </div>
 
                 </div>
@@ -187,16 +181,14 @@ const HomePage = ({visitor}) => {
                     {/************************************
                      *
                      * Page first section (main)
-                     *
+                     *!auth.isPending &&
                      * ***********************************/}
 
                     <section className={`${styles["home-page__feed-section"]} col-8`}>
 
                         <h2 className={`col-12 `}>Actualités</h2>
                         {
-                            !auth.isPending &&
                             <>
-
 
                                 {/************************************
                                  *
