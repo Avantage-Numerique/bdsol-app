@@ -14,6 +14,7 @@ import { useContext } from 'react'
 import AccountTopBar from '../AccountTopBar/AccountTopBar'
 import HamburgerButton from '../../common/FormElements/Buttons/HamburgerButton/HamburgerButton';
 import Link from 'next/link'
+import Button from 'react-bootstrap/Button';
 
 //Authentication context
 import { AuthContext } from '../../../authentication/context/auth-context'

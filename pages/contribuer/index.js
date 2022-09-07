@@ -2,6 +2,7 @@ import { useContext } from 'react'
 
 //Components
 import Button from '../../app/common/FormElements/Buttons/Button/Button'
+import Button2 from 'react-bootstrap/Button';
 
 //Context
 import { AuthContext } from '../../authentication/context/auth-context'
@@ -49,7 +50,26 @@ const Index = () => {
                         <Button disabled>Projet</Button>
                         <Button disabled>Événement</Button>
                         <Button disabled>Matériel</Button>
-                        
+
+                    </div>
+
+                    <div className={`col-12 ${styles["contribution-page__menu"]}`}>
+                        <h4 className="col-12">Sélectionnez le type d'entité que vous voulez ajouter</h4>
+
+                        {/* Not beautiful but it works for now. Let know the user that he needs to be connected to edit the database */}
+                        { !auth.isLoggedIn &&
+                            <div className="col-12" style={{marginBottom: "1rem"}}>
+                                <span className="text-danger"><strong>Attention ! </strong></span>
+                                Vous devez être connecté afin de pouvoir éditer la base de données.
+                            </div>    
+                        }
+
+                        <Button2 href="/contribuer/personne" size="lg" disabled={!auth.isLoggedIn}>Personne</Button2>
+                        <Button2 href="/contribuer/organisation" size="lg" variant="blue4" disabled={!auth.isLoggedIn}>Organisation</Button2>
+                        <Button disabled>Projet</Button>
+                        <Button disabled>Événement</Button>
+                        <Button disabled>Matériel</Button>
+
                     </div>
                     
                 </div>

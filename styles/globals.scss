@@ -16,16 +16,12 @@
 */
 
 :root {
-
   /* Maximum width the content of the page can take */
   --max-width-page-content: 85rem;
-
   /* Header's height.  */
   --headersHeight : 5em;
-
   /* Common border radius through the website */
   --commonRadius: 1.5em;
-
 }
 
 /*
@@ -38,34 +34,29 @@ h4, h5, h6 {
   font-weight: 700;
 }
 
-.cursorPointer { cursor: pointer; } //peut-être voir si c'est nécessaire de garder dans le globals? c'est peut-être ok de mettre directement dans le component Class.module.scss
+.cursorPointer { cursor: pointer; } /* peut-être voir si c'est nécessaire de garder dans le globals? c'est peut-être ok de mettre directement dans le component Class.module.scss */
 .commonRadius { border-radius: var(--commonRadius); }
 
 
 a {
-  color: inherit; //question posée dans Notion
+  color: inherit; /* question posée dans Notion */
 }
 
 /**
 *   Remove de the bullet
 */
-li { list-style-type: none;}
+li { list-style-type: none;} /* TODO should use Bootstrap's "list-unstyled" class on <ul> */
 
 /*
   Remove automatic padding
 */
-ul {padding: 0px;}
-
-/*
-  Remove automatic marges from figure
-*/
-figure { margin: 0px; }
+ul {padding: 0px;} /* TODO switch to Bootstrap's vertical nav component */
 
 /*
 *   Container that defines the Maximum width the content of the page can take
 */
 
-.maxWidthPageContainer {
+.maxWidthPageContainer { /* TODO switch to Bootstrap's grid method (container > row > col) */
   max-width: var(--max-width-page-content);
   margin: auto;
   padding: 0px 3rem; /* in case the browser do not support min() */
@@ -90,12 +81,12 @@ figure { margin: 0px; }
 .col-9,
 .col-10,
 .col-11,
-.col-12 {width: 100%; float: left;}
+.col-12 {width: 100%; float: left;} /* TODO switch to Bootstrap's grid method (container > row > col) */
 
 /*
   Line class for the design lines added to pages
 */
-.line{
+.line{ /* TODO to componentize  */
   height: 0.4rem;
   float: left;
   margin: 0.15rem 0.7rem 0.15rem 0rem;
@@ -106,23 +97,23 @@ figure { margin: 0px; }
 /*
   Remove and add some default styling of the button element
 */
-button {
+button { /* TODO to componentize */
   background: unset;
   border: unset;
-  cursor: pointer;
   padding: 0px;
 }
 
 /*
  Override some default styling of the input element 
 */
-
 label {
-  color:  #5d5d5d;
+  color:  $mild-dark;
 }
 
+/***
+* (start) TODO to refactor using Bootstrap's form-control https://react-bootstrap.github.io/forms/form-control/ & move to FormElements > Input
+***/
 input {
-
   /* variable to set equally the padding */
   --inputPadding: 0.75em;
 
@@ -137,12 +128,10 @@ input {
     padding: var(--inputPadding);
     margin: 0px 0.25em;
   }
-
-
 }
-
-/* text areas which are not submit buttons */
-input:not([type='submit']), textarea{
+/* text areas and input which are not submit buttons */
+input:not([type='submit']),
+textarea {
   border-bottom-width: 1px;
   border-bottom-style: solid;
   border-bottom-color: rgba(255,255,255,0.5);
@@ -152,20 +141,13 @@ input:not([type='submit']), textarea{
     border-bottom-color: rgba(255,255,255,1);
   }
 }
-
 input:focus, textarea:focus, select:focus{
   outline: none;
 }
+/***
+* (end) TODO to refactor using Bootstrap's form-control https://react-bootstrap.github.io/forms/form-control/ & move to FormElements > Input
+***/
 
-/*
-    Temporary styling to indicate the platform separation
-*/
-
-.TEMP__division-container {
-  border-radius: 2rem;
-  border: 0.5rem solid rgb(44, 44, 44);
-  padding: 2rem;
-}
 
 
 /*
@@ -177,14 +159,12 @@ input:focus, textarea:focus, select:focus{
 *
 */
 
-
+/***
+* (start) TODO switch to Bootstrap's grid method (container > row > col)
+***/
 /* Medium devices (landscape tablets, 768px and up) */
 @media only screen and (min-width: 768px) {
-
-  /*
-      Normal width of the col classes 
-  */
-
+  /* Normal width of the col classes */
   .col-1 {width: 8.33%; float: left;}
   .col-2 {width: 16.66%; float: left;}
   .col-3 {width: 25%; float: left;}
@@ -197,41 +177,31 @@ input:focus, textarea:focus, select:focus{
   .col-10 {width: 83.33%; float: left;}
   .col-11 {width: 91.66%; float: left;}
   .col-12 {width: 100%; float: left;}
-
 }
-
-
 /* Extra large devices (large laptops and desktops, 1200px and up) */
-@media only screen and (min-width: 1200px) {
-     
-}
-
+@media only screen and (min-width: 1200px) {}
 /* Extra large devices (large laptops and desktops, 1500px and up) */
-@media only screen and (min-width: 1500px) {
-     
+@media only screen and (min-width: 1500px) {}
+/***
+* (end) TODO switch to Bootstrap's grid method (container > row > col)
+***/
+
+
+
+/**
+***
+*** NOT SURE YET
+*** 
+
+html{
+  color: var(--bs-body-color); // No sure if needed
 }
 
+a {
+  color: inherit; // question posée dans Notion
+}
 
+ - border-radius
+ - cursor
 
-
-
-
-
-
-
-////////
-/// 
-/// NOT SURE YET
-/// 
-////////
-
-// html{
-//   // color: var(--bs-body-color); // No sure if needed
-// }
-
-// a {
-//    color: inherit; //question posée dans Notion
-// }
-
-// - border-radius
-// - cursor
+**/

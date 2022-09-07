@@ -7,8 +7,11 @@
 
 .hamButtonComponent {
 
-    height: 1.5rem;
-    width: 1.5rem;
+    height: 100%;
+    width: 100%;
+    align-items: center;
+    display: flex;
+    justify-content: center;
   
     /* Basinc stylings for an unactive menu */
     .menu_btn {
@@ -18,6 +21,8 @@
         height: inherit;
         width: inherit;
         transition: all .5s ease-in-out;
+        height: 1.5rem;
+        width: 1.5rem;
 
         .menu_btn__burger {
             width: inherit;

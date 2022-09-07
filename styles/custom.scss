@@ -13,6 +13,7 @@
 $blue: rgb(69, 90, 230); // Avantage numérique's mainBlue (and blue1)
 $red: rgb(221, 92, 92);  // Avantage numérique's red
 $dark: rgb(33, 33, 33);
+$mild-dark: rgb(93,93,93); // Avantage numérique's input labels
 
 $theme-colors:(
     "primary": $blue,
@@ -20,8 +21,8 @@ $theme-colors:(
     "blue2": #4d64ff,   // Avantage numérique's altBlue (and blue2) rgb(77, 100, 255)
     "blue3": #4dc4ff,   // Avantage numérique's blue3 rgb(77, 196, 255)
     "blue4": #5f71ea,   // Avantage numérique's blue4 rgb(95, 113, 234)
-    "dark": $dark,    // 
-    "danger": $red,       // 
+    "dark": $dark,
+    "danger": $red
 );
 
 $body-color: $dark;
@@ -53,3 +54,4 @@ $border-radius: 1.5em;
 // $border-radius-xl:            1rem !default;
 // $border-radius-2xl:           2rem !default;
 // $border-radius-pill:          50rem !default;
+
