@@ -9,6 +9,8 @@ import Button from '../app/common/FormElements/Buttons/Button/Button';
 import PresentationCard from '../app/common/Containers/cards/presentationCard';
 import Spinner from '../app/common/widgets/spinner/Spinner';
 
+import {sortDescBy} from "../app/common/Data/Sorting/Sort";
+
 //Costum hooks 
 import {useHttpClient} from '../app/hooks/http-hook';
 
@@ -36,11 +38,13 @@ const HomePage = () => {
 
     const fetchHomeFeed = async () => {
 
+        const listQuery = {"sort": "desc"};//{"sort": {"updatedAt": -1}}; //{};//
+
         //Send the request with the specialized hook
         const orgResponse = await sendRequest(
             "/organisations/list",
             'POST',
-            JSON.stringify({"data": {}}),
+            JSON.stringify({"data": listQuery}),
             {'Content-Type': 'application/json'}
         )
 
@@ -48,7 +52,7 @@ const HomePage = () => {
         const persResponse = await sendRequest(
             "/personnes/list",
             'POST',
-            JSON.stringify({"data": {}}),
+            JSON.stringify({"data": listQuery}),
             {'Content-Type': 'application/json'}
         )
 
@@ -62,11 +66,8 @@ const HomePage = () => {
             //store the data
             const feed = [...orgResponse.data, ...persResponse.data];
 
-            //Sort the data to display the new elements before
-            //Eventually, this will have to be done by the backend
-            feed.sort(function (a, b) {
-                return (a.createdAt > b.createdAt) ? -1 : ((a.createdAt < b.createdAt) ? 1 : 0);
-            });
+            //Sort and mixed both collection the data to display the new elements before
+            feed.sort(sortDescBy('createdAt'));
 
             //Finaly, update the state to display the result
             setFeedList(feed);
@@ -161,7 +162,12 @@ const HomePage = () => {
                 <div className="maxWidthPageContainer">
 
                     <div className={`${styles["home-page__header--img-container"]}`}>
-                        <Image src="/general_images/Croissant-Boreal@3x-1440x1440.png" alt="Image d'un événement de projection devant public." />
+
+                        <img
+                            src="/general_images/Croissant-Boreal@3x-1440x1440.png"
+                            alt="Image d'un événement de projection devant public."
+                        />
+
                     </div>
 
                     <div className="col-12">
@@ -213,10 +219,10 @@ const HomePage = () => {
                                  *
                                  ***********************************/}
                                 {
-                                    feedList.length === 0 && !isLoading && auth.isLoggedIn &&
+                                    feedList.length === 0 && !isLoading &&
                                     <div className="col-12">
-                                        <h5>Aucune donnée ne semble disponible :( <br/><br/> Assurez-vous d'avoir une
-                                            connexion internet fonctionnelle.</h5>
+                                        <h5>Aucune donnée ¯\_(ツ)_/¯, encore. On a peut-être un problème en arrière
+                                            plan.</h5>
                                     </div>
                                 }
 
@@ -265,25 +271,20 @@ const HomePage = () => {
 
                         <h2 className={`col-12`}>Menu rapide</h2>
 
-
                         {/*
-                    Section : If user is not connected, offer the option to connect itself
-              */}
+                            Section : If user is not connected, offer the option to connect itself
+                        */}
 
                         {!auth.isLoggedIn && !auth.isPending &&
-
                         <section className={`col-12 ${styles["aside__connection-option"]}`}>
-
                             <Button href="/compte/connexion">Se connecter</Button>
-
                         </section>
-
                         }
 
 
                         {/*
-                    Rapid options to access of edit the database  
-              */}
+                            Rapid options to access of edit the database
+                        */}
 
                         <section className={`col-12 ${styles["aside__db-edit-options"]}`}>
 
@@ -330,30 +331,24 @@ const HomePage = () => {
 
 
                         {/*
-                    Section : If user is not connected, propose to create an account if he doesn't have one
-              */}
+                            Section : If user is not connected, propose to create an account if he doesn't have one
+                        */}
 
                         {!auth.isLoggedIn && !auth.isPending &&
-
                         <section className={`col-12 ${styles["aside__register-option"]}`}>
 
                             <div className="col-12 blue_BG white">
-
                                 <h4>Pas encore de compte ?</h4>
-
                                 <p>Vous en aurez besoin afin de vous aussi contribuer aux données</p>
-
                                 <Button href="/compte/inscription">C'est par ici !</Button>
-
                             </div>
 
                         </section>
-
                         }
 
                         {/*
-                    Section : More informations about the project
-              */}
+                            Section : More informations about the project
+                        */}
                         <section className="col-12">
 
                             <h4 className="col-12">À propos</h4>
@@ -365,12 +360,10 @@ const HomePage = () => {
                                 <br/>
                                 <br/>
                                 <span className="col-12 blue1">
-                    <Link href="/">En savoir plus</Link>
-                  </span>
+                                    <Link href="/">En savoir plus</Link>
+                                </span>
                             </p>
                         </section>
-
-
                     </aside>
                 </div>
             </div>

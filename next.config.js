@@ -26,6 +26,8 @@ const nextConfig = {
         API_URL: process.env.API_HOST_NAME + ":" + process.env.API_PORT,
 
         FEEDBACK_API_KEY: process.env.FEEDBACK_API_KEY,
+
+        LANGUAGE: process.env.LANGUAGE ?? "fr-CA"
     },
     //accessible only on serveur
     serverRuntimeConfig: {
@@ -48,6 +50,10 @@ const nextConfig = {
     },
     //serveur and public
     publicRuntimeConfig: {
+        dates: {
+            defaultFormat: "YYYY-MM-DD HH:MM:SS",
+            defaultLanguage: process.env.LANGUAGE ?? "fr-CA"
+        }
         /*//APP CONFIG
         baseUrl: process.env.APP_BASE_URL ?? "http://localhost",
         port: process.env.APP_PORT ?? 3000,
@@ -57,10 +63,10 @@ const nextConfig = {
         apiMethod: process.env.API_METHOD,
         apiPort: process.env.API_PORT,
         apiURL: process.env.API_HOST_NAME + ":" + process.env.API_PORT,*/
-    },
+    }
 }
 
-module.exports = nextConfig
+module.exports = nextConfig;
 
 /**
  * Prepare the app for production by determining the headers we need, from nginx, and docker, and the serveur.

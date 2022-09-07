@@ -1,22 +1,21 @@
 
 //Components
-import SanitizedInnerHtml from '../../../utils/SanitizedInnerHtml'
-import { useContext } from 'react'
-import { AuthContext } from '../../../../authentication/context/auth-context'
-import styles from './presentationCard.module.scss'
+import SanitizedInnerHtml from '../../../utils/SanitizedInnerHtml';
+import { useContext } from 'react';
+import { AuthContext } from '../../../../authentication/context/auth-context';
+import styles from './presentationCard.module.scss';
+import getConfig from 'next/config';
 
+const { publicRuntimeConfig } = getConfig();
 /*
+    ABOUT...
 
-        ABOUT...
+    This component is currently used to display the infos of every type of entity
+    although this purpose is probably way to large for only one component.
 
-        This component is currently used to display the infos of every type of entity
-        although this purpose is probably way to large for only one component. 
-
-        In the futur, we'll have to think of something more durable and scalable. 
-        One option would be a general card component that receives the data and its structure
-        from every data entity folder.
-
-
+    In the futur, we'll have to think of something more durable and scalable.
+    One option would be a general card component that receives the data and its structure
+    from every data entity folder.
 */
 
 const PresentationCard = ({header, name, firstname, description, username, createdAt, url, contactPoint}) => {
@@ -110,8 +109,9 @@ const PresentationCard = ({header, name, firstname, description, username, creat
             </section>
             <div className={`${styles["card__infos__sub-section"]}`}>
                 {/*<div><strong>Créé par</strong> {auth.username} </div>*/}
-                <div>{(new Date(createdAt)).toLocaleDateString('en-GB')}</div>
-            </div> 
+                <p>{(new Date(createdAt)).toLocaleDateString(publicRuntimeConfig.dates.defaultLanguage)}</p>
+                <p>{(new Date(createdAt)).toLocaleTimeString(publicRuntimeConfig.dates.defaultLanguage)}</p>
+            </div>
 
         </article>
     )
