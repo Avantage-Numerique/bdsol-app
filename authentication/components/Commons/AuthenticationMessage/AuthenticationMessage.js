@@ -6,7 +6,6 @@ import styles from './AuthenticationMessage.module.scss'
 
 const AuthenticationMessage = ({header, message}) => {
 
-
     return (
         <article className={styles.authenticationMessage}>
 
