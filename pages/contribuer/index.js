@@ -1,4 +1,4 @@
-import { useContext } from 'react' 
+import { useContext } from 'react'
 
 //Components
 import Button from '../../app/common/FormElements/Buttons/Button/Button'
@@ -10,16 +10,19 @@ import { AuthContext } from '../../authentication/context/auth-context'
 //styling
 import styles from './contribution-page.module.scss'
 
+import Container from 'react-bootstrap/Container'
+import Col from 'react-bootstrap/Col'
+import Row from 'react-bootstrap/Row'
 
 
-const Index = () => {    
+const Index = () => {
 
     //Import the authentication context
     const auth = useContext(AuthContext);
 
     return (
         <div className={`col-12 ${styles["contribution-page"]}`}>
-            
+
             <header className={`col-12`}>
 
                 <div className="maxWidthPageContainer">
@@ -30,48 +33,55 @@ const Index = () => {
             </header>
 
             <section className={`col-12`}>
-                
+
                 {/* Menu for the differents forms */}
                 <div className={`maxWidthPageContainer`}>
-           
-                    <div className={`col-12 ${styles["contribution-page__menu"]}`}>
-                        <h4 className="col-12">Sélectionnez le type d'entité que vous voulez ajouter</h4>
-
-                        {/* Not beautiful but it works for now. Let know the user that he needs to be connected to edit the database */}
-                        { !auth.isLoggedIn &&
-                            <div className="col-12" style={{marginBottom: "1rem"}}>
-                                <span className="text-danger"><strong>Attention ! </strong></span>
-                                Vous devez être connecté afin de pouvoir éditer la base de données.
-                            </div>    
-                        }
-
-                        <Button href="/contribuer/personne" disabled={!auth.isLoggedIn}>Personne</Button>
-                        <Button color="blue4" href="/contribuer/organisation" disabled={!auth.isLoggedIn}>Organisation</Button>
-                        <Button disabled>Projet</Button>
-                        <Button disabled>Événement</Button>
-                        <Button disabled>Matériel</Button>
-
-                    </div>
 
                     <div className={`col-12 ${styles["contribution-page__menu"]}`}>
                         <h4 className="col-12">Sélectionnez le type d'entité que vous voulez ajouter</h4>
 
                         {/* Not beautiful but it works for now. Let know the user that he needs to be connected to edit the database */}
-                        { !auth.isLoggedIn &&
-                            <div className="col-12" style={{marginBottom: "1rem"}}>
+                        {!auth.isLoggedIn &&
+                            <div className="col-12" style={{ marginBottom: "1rem" }}>
                                 <span className="text-danger"><strong>Attention ! </strong></span>
                                 Vous devez être connecté afin de pouvoir éditer la base de données.
-                            </div>    
+                            </div>
                         }
 
-                        <Button2 href="/contribuer/personne" size="lg" disabled={!auth.isLoggedIn}>Personne</Button2>
-                        <Button2 href="/contribuer/organisation" size="lg" variant="blue4" disabled={!auth.isLoggedIn}>Organisation</Button2>
-                        <Button disabled>Projet</Button>
-                        <Button disabled>Événement</Button>
-                        <Button disabled>Matériel</Button>
+
+                        <Container fluid className='p-0'>
+                            <Row className='g-3'>
+                                <Col sm={6} md={4} xl>
+                                    <div class="d-grid">
+                                        <Button2 href="/contribuer/personne" size="lg" disabled={!auth.isLoggedIn}>Personne</Button2>
+                                    </div>
+                                </Col>
+                                <Col sm={6} md={4} xl>
+                                    <div class="d-grid">
+                                        <Button2 href="/contribuer/organisation" size="lg" disabled={!auth.isLoggedIn}>Organisation</Button2>
+                                    </div>
+                                </Col>
+                                <Col sm={6} md={4} xl>
+                                    <div class="d-grid">
+                                        <Button2 href="/" size='lg' disabled>Projet</Button2>
+                                    </div>
+                                </Col>
+                                <Col sm={6} md={4} xl>
+                                    <div class="d-grid">
+                                        <Button2 href="/" size='lg' disabled>Événement</Button2>
+                                    </div>
+                                </Col>
+                                <Col sm={6} md={4} xl>
+                                    <div class="d-grid">
+                                        <Button2 href="/" size='lg' disabled>Matériel</Button2>
+                                    </div>
+                                </Col>
+                            </Row>
+                        </Container>
+
 
                     </div>
-                    
+
                 </div>
 
             </section>

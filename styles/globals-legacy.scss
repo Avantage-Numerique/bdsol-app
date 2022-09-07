@@ -1,0 +1,180 @@
+/*
+
+
+
+    Legacy global styles applicable to every pages waiting to be refactored or adapted to Bootstrap
+    V.P.R && 0/1Hub- 07/09/2022
+
+    
+
+*/
+
+:root {
+    /* Common border radius through the website */
+  --commonRadius: 1.5em;
+}
+
+.commonRadius { border-radius: var(--commonRadius); } //only used in the documentation page, do we need this?
+
+
+/*
+*
+*   Font settings
+*
+*/
+
+h4, h5, h6 {
+    font-weight: 700;
+}
+
+a {
+    color: inherit; /* question posée dans Notion */
+}
+
+/*
+*   Container that defines the Maximum width the content of the page can take
+*/
+.maxWidthPageContainer { /* TODO switch to Bootstrap's grid method (container > row > col) */
+    max-width: var(--max-width-page-content);
+    margin: auto;
+    padding: 0px 3rem; /* in case the browser do not support min() */
+    padding: 0px min(3rem, 4vw);
+}
+
+/*
+*   responsive width classes
+*
+*   By default, it assumed to be a small size screen
+*/
+
+.col-1,
+.col-2,
+.col-3,
+.col-4,
+.col-5,
+.col-6,
+.col-7,
+.col-8,
+.col-9,
+.col-10,
+.col-11,
+.col-12 {width: 100%; float: left;} /* TODO switch to Bootstrap's grid method (container > row > col) */
+
+
+/*
+  Line class for the design lines added to pages
+*/
+.line{ /* TODO to componentize  */
+    height: 0.4rem;
+    float: left;
+    margin: 0.15rem 0.7rem 0.15rem 0rem;
+    border-radius: 0.2rem;
+    /* Every line will have a width and color precised to it */
+}
+
+/*
+ *  Remove and add some default styling of the button element
+ */
+ button { /* TODO to componentize */
+    background: unset;
+    border: unset;
+    padding: 0px;
+}
+
+
+/***
+* (start) TODO to refactor using Bootstrap's form-control https://react-bootstrap.github.io/forms/form-control/ & move to FormElements > Input
+***/
+input {
+    /* variable to set equally the padding */
+    --inputPadding: 0.75em;
+  
+    background-color: unset;
+    border: unset;
+    color: unset;
+    padding: var(--inputPadding) 0px;
+  
+    /* submit buttons */
+    &[type='submit']{ 
+      cursor: pointer; 
+      padding: var(--inputPadding);
+      margin: 0px 0.25em;
+    }
+  }
+  /* text areas and input which are not submit buttons */
+  input:not([type='submit']),
+  textarea {
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-bottom-color: rgba(255,255,255,0.5);
+    transition: 0.2s;
+  
+    &:focus{
+      border-bottom-color: rgba(255,255,255,1);
+    }
+  }
+  input:focus, textarea:focus, select:focus{
+    outline: none;
+  }
+  /***
+  * (end) TODO to refactor using Bootstrap's form-control https://react-bootstrap.github.io/forms/form-control/ & move to FormElements > Input
+  ***/
+
+
+  /*
+*
+*
+*     Media queries for responsive design
+*
+*
+*
+*/
+
+/***
+* (start) TODO switch to Bootstrap's grid method (container > row > col)
+***/
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+    /* Normal width of the col classes */
+    .col-1 {width: 8.33%; float: left;}
+    .col-2 {width: 16.66%; float: left;}
+    .col-3 {width: 25%; float: left;}
+    .col-4 {width: 33.33%; float: left;}
+    .col-5 {width: 41.66%; float: left;}
+    .col-6 {width: 50%; float: left;}
+    .col-7 {width: 58.33%; float: left;}
+    .col-8 {width: 66.66%; float: left;}
+    .col-9 {width: 75%; float: left;}
+    .col-10 {width: 83.33%; float: left;}
+    .col-11 {width: 91.66%; float: left;}
+    .col-12 {width: 100%; float: left;}
+  }
+  /* Extra large devices (large laptops and desktops, 1200px and up) */
+  @media only screen and (min-width: 1200px) {}
+  /* Extra large devices (large laptops and desktops, 1500px and up) */
+  @media only screen and (min-width: 1500px) {}
+  /***
+  * (end) TODO switch to Bootstrap's grid method (container > row > col)
+  ***/
+
+
+
+
+
+  /**
+***
+*** NOT SURE YET
+*** 
+
+html{
+  color: var(--bs-body-color); // No sure if needed
+}
+
+a {
+  color: inherit; // question posée dans Notion
+}
+
+ - border-radius
+ - cursor
+
+**/

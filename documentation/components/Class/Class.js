@@ -16,7 +16,7 @@ const Class = ( { data, onclick, active, globalData} ) => {
 
     return (
 
-        <article id={ data.slug } className={`${styles.classComponent} ${isActive}`}  onClick={ active ? null : onclick } >
+        <article id={ data.slug } className={`${styles.classComponent} ${isActive}`} onClick={ active ? null : onclick } >
               
                 {/* Inline quick presentation of the class */}
                 <header>

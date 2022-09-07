@@ -42,7 +42,7 @@ $h2-font-size:                min(8vw, 2.5rem) !default;
 $h3-font-size:                1.75rem !default;
 $h4-font-size:                1.1rem !default;
 $h5-font-size:                1rem !default;
-$h6-font-size:                0.8rem !default; //est-ce que c'est normal que le h6 soit plus petit qu'un texte regulier
+$h6-font-size:                0.8rem !default; //this is smaller than regular text
 
 
 $link-decoration: none;
@@ -55,3 +55,10 @@ $border-radius: 1.5em;
 // $border-radius-2xl:           2rem !default;
 // $border-radius-pill:          50rem !default;
 
+/*
+    bootstrap's variable button override
+*/
+$btn-padding-x-lg: 4rem;
+$btn-padding-y-lg: 2rem;
+$btn-font-size-lg: 1rem;
+$btn-border-radius-lg: 4px;
