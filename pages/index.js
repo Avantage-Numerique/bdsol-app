@@ -135,12 +135,9 @@ const HomePage = () => {
                 <meta name="twitter:description" content="La base de donnée ouverte et liée d'Avantage Numérique."/>
 
                 {/*
-
-        To add when the domain will be selected ....
-
-        <link rel="canonical" href="https://avantagenumerique.org/">  
-
-        */}
+                To add when the domain will be selected ....
+                <link rel="canonical" href="https://avantagenumerique.org/">
+                */}
 
                 {/* Structured data */}
                 <script
@@ -162,16 +159,13 @@ const HomePage = () => {
                 <div className="maxWidthPageContainer">
 
                     <div className={`${styles["home-page__header--img-container"]}`}>
-
                         <img
                             src="/general_images/Croissant-Boreal@3x-1440x1440.png"
                             alt="Image d'un événement de projection devant public."
                         />
-
                     </div>
 
                     <div className="col-12">
-
                         <h1 className="col-12 white">Avantage Numérique</h1>
                         <h3 className="col-12 white">Toutes les données du Croissant Boréal</h3>
                     </div>
