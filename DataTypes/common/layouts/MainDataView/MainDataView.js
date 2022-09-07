@@ -2,7 +2,7 @@ import React from 'react'
 
 
 //Styling
-import styles from './MainDataView.module.scss'
+//import styles from './MainDataView.module.scss'
 
 
 
