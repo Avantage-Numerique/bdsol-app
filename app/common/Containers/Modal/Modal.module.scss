@@ -9,7 +9,6 @@
 
     border: none;
     border-radius: 0.25rem;
-    position: relative;
     padding: 0px;
 
     /*
@@ -41,17 +40,17 @@
 
         /*  Change the color of the button */
         &.closing-button--dark-color { 
-            --button-color: rgb(82, 82, 82); 
+            --button-color: rgba(82, 82, 82, 0.808); 
             font-weight: 900;
-            text-shadow: 1px 1px 1px #25252570;
+            text-shadow: 1px 1px 1px #25252500;
         }
 
+        position: relative;
         text-shadow: 1px 1px 2px #252525;
-        position: absolute;
+        float: right;   
         color: var(--button-color);
         font-size: 1rem;
-        top: var(--button-side-spacing);
-        right: var(--button-side-spacing);
+        margin: var(--button-side-spacing);
 
         -webkit-transition: 0.3s;
         transition: 0.3s;

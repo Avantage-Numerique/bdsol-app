@@ -34,7 +34,7 @@ const inputReducer = (state, action) => {
     }
 }
 
-const Input = ({addRow, removeRow, ...props}) => {
+const Input = ({addRow, removeRow, name, onInput, formState, ...props}) => {
 
     //Initial state
     const [inputState, dispatch] = useReducer(inputReducer, {
@@ -45,16 +45,15 @@ const Input = ({addRow, removeRow, ...props}) => {
 
 
 
-    /*
-        Inform the form (parent component) of the value and validity of this input
-        whenever it changes
-    */
-    const { name, onInput } = props;          
+    /*  Inform the form (parent component) of the value and validity of this input
+        whenever it changes  */
     const { value, isValid } = inputState;   //State of this element
+
   
     useEffect(() => {
         onInput(name, value, isValid)
     }, [name, value, isValid, onInput]);
+
 
     const changeHandler = event => {
         dispatch({type: 'CHANGE', val: event.target.value, validators: props.validators})
@@ -64,6 +63,8 @@ const Input = ({addRow, removeRow, ...props}) => {
     const touchHandler = () => {
         dispatch({ type: 'TOUCH' });
     };
+
+ 
 
     return (
         
@@ -77,6 +78,8 @@ const Input = ({addRow, removeRow, ...props}) => {
                         className={` ${!inputState.isValid && inputState.isTouched && styles["control--invalid"]}`}
                         name={props.name}
                         id={props.name}
+                        //If there is a state attached to the component, make it a controlled components where the value depends on the state
+                        value={ formState ? formState.inputs[name].value : null} 
                         type={props.type ? props.type : "text"}
                         placeholder={props.placeholder}
                         onChange={changeHandler}

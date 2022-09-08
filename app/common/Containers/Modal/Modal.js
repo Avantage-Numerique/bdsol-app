@@ -47,9 +47,27 @@ const Modal = ({ children, darkColorButton = false, noDefaultWidth, transparentB
                 ${!noDefaultWidth && styles["default-width"]}
                 ${transparentBackground && styles["transparent-background"]}
             `}>
+
+                {/*
+                    CLOSING BUTTON
+                    Display itself automatically and trigger a function passed has props when clicked
+                */}
+                { closingFunction &&
+                    <div className="col-12">
+                        <button 
+                            onClick={() => closingFunction()} 
+                            className={`
+                                ${styles["closing-button"]}
+                                ${darkColorButton && styles["closing-button--dark-color"]}
+                            `}>
+                                Fermer &#10006;
+                            <div className={`${styles["closing-button__underline"]}`}></div>
+                        </button>
+                    </div>
+                }
             
-            {/* Prevent the document body from been scrollable while the modal is displayed */}
-            <style jsx global> {` body { overflow: hidden; } `} </style>
+            {/* Prevent the document body from been scrollable while the modal is displayed  */}
+            <style jsx global> {` body { overflow: hidden; } `} </style> 
 
             {/*
                 Here goes the content of the modal 
@@ -59,23 +77,6 @@ const Modal = ({ children, darkColorButton = false, noDefaultWidth, transparentB
             */}
 
             {children}
-
-            {/*
-                CLOSING BUTTON
-                Display itself automatically and trigger a function passed has props when clicked
-            */}
-
-            { closingFunction &&
-                <button 
-                    onClick={() => closingFunction()} 
-                    className={`
-                        ${styles["closing-button"]}
-                        ${darkColorButton && styles["closing-button--dark-color"]}
-                    `}>
-                        Fermer &#10006;
-                    <div className={`${styles["closing-button__underline"]}`}></div>
-                </button>
-            }
             
         </dialog>
     )

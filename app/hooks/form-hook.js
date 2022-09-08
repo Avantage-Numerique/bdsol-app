@@ -4,9 +4,7 @@
 
 */
 
-/*
-    TO DO => Add a function that clears all the fields
-*/
+
 import { useCallback, useReducer } from 'react';
 
 const formReducer = (state, action) => {
@@ -37,12 +35,25 @@ const formReducer = (state, action) => {
         },
         isValid: formIsValid
       };
+
+    case 'CLEAR_DATA':
+
+      console.log(state)
+      //Reset everything 
+      return {
+        ...state,
+        inputs: {
+          ...action.initialValues
+        },
+        isValid: action.initialFormValidity
+      };
       
     case 'SET_DATA':
       return {
         inputs: action.inputs,
         isValid: action.formIsValid
       };
+
     default:
       return state;
   }
@@ -50,11 +61,13 @@ const formReducer = (state, action) => {
 };
 
 export const useForm = (initialInputs, initialFormValidity) => {
+
   const [formState, dispatch] = useReducer(formReducer, {
     inputs: initialInputs,
     isValid: initialFormValidity
   });
 
+  //Note that the inputid is actually the "name" of the input
   const inputHandler = useCallback((id, value, isValid) => {
     dispatch({
       type: 'INPUT_CHANGE',
@@ -72,5 +85,13 @@ export const useForm = (initialInputs, initialFormValidity) => {
     });
   }, []);
 
-  return [formState, inputHandler, setFormData];
+  const clearFormData = useCallback(() => {
+    dispatch({
+      type: 'CLEAR_DATA',
+      initialValues: initialInputs,
+      initialValidity: initialFormValidity
+    });
+  }, []);
+
+  return [formState, inputHandler, clearFormData];
 };

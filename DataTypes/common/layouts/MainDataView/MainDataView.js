@@ -14,8 +14,6 @@ const MainDataView = ({children}) => {
 
     return (
         <article>
-
-        
             {children}
         </article>
     )

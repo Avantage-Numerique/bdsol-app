@@ -40,7 +40,7 @@ const Select = (props) => {
 
     //*********************
     //Whenever the value entered (user selection in this case), the data is sent to the form state
-    const { name, onInput } = props;
+    const { name, onInput, formState } = props;
     const { value, isValid } = userSelectionState;   //State of this element
 
     useEffect(() => {
@@ -120,6 +120,7 @@ const Select = (props) => {
                   });
             
                 if(!isDuplicate){
+
                     dispatch({val: [...userSelectionState.value, matchingValue]});
                     selectTagRef.current.value = "";
                     selectTagRef.current.focus();           //Reset focus on field
@@ -134,10 +135,7 @@ const Select = (props) => {
                     })
 
                 }
-
             }
-
-
         }
         
         //For the moment, this only send the id if the occupation exist

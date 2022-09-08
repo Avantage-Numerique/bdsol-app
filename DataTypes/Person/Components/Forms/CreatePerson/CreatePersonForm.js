@@ -11,9 +11,9 @@ import Input from '../../../../../app/common/FormElements/Input/Input'
 import RichTextarea from '../../../../../app/common/FormElements/RichTextArea/RichTextarea'
 import Select from '../../../../../app/common/FormElements/Select/Select'
 import Spinner from '../../../../../app/common/widgets/spinner/Spinner'
+import CommonFormFeatures from '../../../../common/layouts/CommonFormFeatures/CommonFormFeatures'
 
 //contexts
-import { AuthContext } from '../../../../../authentication/context/auth-context'
 import { MessageContext } from '../../../../../app/common/UserNotifications/Message/Context/Message-Context'
 
 //Form validators
@@ -24,33 +24,14 @@ import styles from './CreatePersonForm.module.scss'
 
 const CreatePersonForm = () => {
 
-    //Import the authentication context to make sure the user is well connected
-    const auth = useContext(AuthContext);
-
     //Import message context 
     const msg = useContext(MessageContext);
 
-    /*
-    First of all, verify if the user is logged in.
-    If he isn't, then redirect him in the connexion page
-    */
-    useEffect(() => {
-        if(!auth.isPending)
-            if(!auth.isLoggedIn) {
-                msg.addMessage({ 
-                    text: "Vous devez être connecté pour pouvoir ajouter une entité à la base de données.",
-                    positive: false 
-                })
-                Router.push('/compte/connexion')
-            }
-    }, [auth.isLoggedIn, auth.isPending])
-    
-
     //Extract the functions inside useHttpClient
-    const { isLoading, sendRequest} = useHttpClient();
+    const {isLoading, sendRequest} = useHttpClient();
 
     //Custom hook to manage the validity of the form 
-    const [formState, inputHandler] = useForm(
+    const [formState, inputHandler, clearFormData] = useForm(
     {
         firstName: {
             value: '',
@@ -75,6 +56,8 @@ const CreatePersonForm = () => {
 
     }, 
     false)
+
+        
 
     //Submit the form
     const submitHandler = async event => { 
@@ -117,6 +100,7 @@ const CreatePersonForm = () => {
                     text: response.message,
                     positive: true 
                 })
+                clearFormData()
 
             //If it is not positive for any reason
             } else {                    
@@ -133,6 +117,7 @@ const CreatePersonForm = () => {
                 text: "Attention. Le formulaire envoyé n'est pas valide. Assurez-vous que tous les champs sont bien remplis.",
                 positive: false
             })
+
         }
     }
 
@@ -149,13 +134,11 @@ const CreatePersonForm = () => {
         }
     };
 
-    //Prevent from displaying is the user is not logged in or if the app doesn't know the authentication state yet
-    if(!auth.isPending && auth.isLoggedIn)
 
     return (
         <>
-            { isLoading && <Spinner fixed />}
-      
+            { isLoading && <Spinner fixed /> }
+            <button onClick={() => clearFormData()}>Lets clear the data!!!!!!</button>
             <form onSubmit={submitHandler} className={`col-12 ${styles["create-person-form"]}`}>
 
                 <Input 
@@ -164,6 +147,7 @@ const CreatePersonForm = () => {
                     validators={[VALIDATOR_REQUIRE()]}
                     errorText="Cette information est requise"
                     onInput={inputHandler}
+                    formState={formState}
                 />
 
                 <Input 
@@ -172,18 +156,21 @@ const CreatePersonForm = () => {
                     validators={[VALIDATOR_REQUIRE()]}
                     errorText="Cette information est requise"
                     onInput={inputHandler}
+                    formState={formState}
                 />
 
                 <Input  
                     name="nickName"
                     label="Surnom"
                     onInput={inputHandler}
+                    formState={formState}
                 />
                 
                 <RichTextarea 
                     name="biography"
                     label="Biographie"
                     onInput={inputHandler}
+                    formState={formState}
                 />
 
                 <Select
@@ -193,6 +180,8 @@ const CreatePersonForm = () => {
                     requestData={occupationSelectRequestData}
                     tag="occupations"
                     onInput={inputHandler}
+                    formState={formState}
+
                 />
 
                 <div className="col-12">
@@ -206,3 +195,14 @@ const CreatePersonForm = () => {
 }
 
 export default CreatePersonForm
+
+
+export const FormattedPersonForm = () => {
+    return (
+        <>
+            <CommonFormFeatures>
+                <CreatePersonForm />
+            </CommonFormFeatures>
+        </>
+    )
+}

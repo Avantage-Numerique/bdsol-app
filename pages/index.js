@@ -8,6 +8,8 @@ import Link from 'next/link'
 import Button from '../app/common/FormElements/Buttons/Button/Button'
 import PresentationCard from '../app/common/Containers/cards/presentationCard'
 import Spinner from '../app/common/widgets/spinner/Spinner'
+import Modal from '../app/common/Containers/Modal/Modal'
+import { FormattedPersonForm } from '../DataTypes/Person/Components/Forms/CreatePerson/CreatePersonForm'
 
 //Costum hooks 
 import { useHttpClient } from '../app/hooks/http-hook'
@@ -35,6 +37,8 @@ const HomePage = () => {
     //Extract the functions inside useHttpClient
     const {isLoading, sendRequest} = useHttpClient();
 
+
+    const [test, setTest] = useState(false)
     //Fetch the data 
     useEffect(() => {
 
@@ -159,6 +163,12 @@ const HomePage = () => {
           Main content of the page
 
       */}
+
+      { test &&
+        <Modal transparentBackground  noDefaultWidth closingFunction={() => setTest(false)} darkColorButton>
+          <FormattedPersonForm />
+        </Modal>
+      }
 
       <section className="col-12">
 
@@ -312,7 +322,7 @@ const HomePage = () => {
                       <Button disabled slim>Personne</Button>
                       <Button
                         disabled={!auth.isLoggedIn}
-                        href="/contribuer/personne" 
+                        onClick={() => setTest(true)}
                         slim
                       >+</Button>
                   </div>
