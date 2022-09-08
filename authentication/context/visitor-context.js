@@ -26,7 +26,7 @@ export const getVisitorData = (context) => {
             visitor.ip = req.socket.remoteAddress;
         }
 
-        if (req.socket.remoteAddress) {
+        if (req.socket && req.socket.remoteAddress) {
             visitor.ip = req.socket.remoteAddress;
         }
     }
