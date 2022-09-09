@@ -10,6 +10,20 @@ import styles from './MainPersonView.module.scss'
 
 const MainPersonView = ({ data }) => {
 
+
+    const { 
+        _id,
+        firstName,
+        lastName,
+        nickname,
+        description,
+        createdAt,
+        updatedAt
+    } = data
+
+    const unavailableInfoMessage = <p>Aucune donnée n'a encore été fournie pour ce champ. <br/>Vous pourrez bientôt passer en mode édition afin d'ajouter et modifier des information.</p>
+    
+
     return (
 
         <article className={`${styles["main-person-view"]}`}>
@@ -55,8 +69,8 @@ const MainPersonView = ({ data }) => {
                     `}>
 
                         <div>
-                            <h2>Jonathan Champoin</h2>
-                            <p>shampoo boy</p>
+                            <h2>{firstName} {lastName}</h2>
+                            <p> {nickname} </p>
 
                             {/*
                             *
@@ -67,11 +81,11 @@ const MainPersonView = ({ data }) => {
                             <div className={`${styles["quick-section"]}`}>
 
                                 <div className={`${styles["quick-section__single-info"]}`}>
-                                    <span>Langue : </span>Français
+                                    <span>Langue : </span>Inconnu
                                 </div>
 
                                 <div className={`${styles["quick-section__single-info"]}`}>
-                                    <span>Citoyenneté : </span>Canadienne
+                                    <span>Citoyenneté : </span>Inconnu
                                 </div>
 
                             </div>
@@ -116,9 +130,19 @@ const MainPersonView = ({ data }) => {
                         <h4>
                             Présentation
                         </h4>
-                        <SanitizedInnerHtml>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris fringilla laoreet orci, in scelerisque eros accumsan non. Ut lorem elit, rutrum vitae ornare quis, iaculis ac nisl. Sed sit amet pulvinar purus. Pellentesque orci massa.
-                        </SanitizedInnerHtml>
+                        {/* If there is a description */}
+                        {
+                            !description && 
+                            <SanitizedInnerHtml>
+                                { description }
+                            </SanitizedInnerHtml>
+                        }
+
+                        {   
+                            description &&
+                            unavailableInfoMessage
+                        }
+                        
                     </div>
 
                     <div className={`${styles["main-section__single-info"]}`}>

@@ -5,19 +5,14 @@ import Head from 'next/head';
 import Link from 'next/link';
 
 //Components
-<<<<<<< HEAD
 import Button from '../app/common/FormElements/Buttons/Button/Button'
 import PresentationCard from '../app/common/Containers/cards/presentationCard'
 import Spinner from '../app/common/widgets/spinner/Spinner'
 import Modal from '../app/common/Containers/Modal/Modal'
 import { FormattedPersonForm } from '../DataTypes/Person/Components/Forms/CreatePerson/CreatePersonForm'
-=======
-import Button from '../app/common/FormElements/Buttons/Button/Button';
-import PresentationCard from '../app/common/Containers/cards/presentationCard';
-import Spinner from '../app/common/widgets/spinner/Spinner';
+
 
 import {sortDescBy} from "../app/common/Data/Sorting/Sort";
->>>>>>> 42c15fc9097c30f8befbbb239d89487da0ed9fd3
 
 //Costum hooks 
 import {useHttpClient} from '../app/hooks/http-hook';
@@ -44,12 +39,6 @@ const HomePage = () => {
     //Extract the functions inside useHttpClient
     const {isLoading, sendRequest} = useHttpClient();
 
-<<<<<<< HEAD
-
-    const [test, setTest] = useState(false)
-    //Fetch the data 
-    useEffect(() => {
-=======
     const fetchHomeFeed = async () => {
 
         const listQuery = {"sort": "desc"};//{"sort": {"updatedAt": -1}}; //{};//
@@ -76,8 +65,7 @@ const HomePage = () => {
 
         //If positive
         if (!orgResponse.error && !persResponse.error) {
->>>>>>> 42c15fc9097c30f8befbbb239d89487da0ed9fd3
-
+            console.log(persResponse.data)
             //store the data
             const feed = [...orgResponse.data, ...persResponse.data];
 
@@ -168,22 +156,7 @@ const HomePage = () => {
 
       */}
 
-<<<<<<< HEAD
-      { test &&
-        <Modal transparentBackground  noDefaultWidth closingFunction={() => setTest(false)} darkColorButton>
-          <FormattedPersonForm />
-        </Modal>
-      }
-
-      <section className="col-12">
-
-          {/* Text content section that follow the normalized width of the app */}
-          <div className="maxWidthPageContainer">
-
-               <div className={`${styles["home-page__header--img-container"]}`}>
-=======
             <section className="col-12">
->>>>>>> 42c15fc9097c30f8befbbb239d89487da0ed9fd3
 
                 {/* Text content section that follow the normalized width of the app */}
                 <div className="maxWidthPageContainer">
@@ -193,113 +166,6 @@ const HomePage = () => {
                             src="/general_images/Croissant-Boreal@3x-1440x1440.png"
                             alt="Image d'un événement de projection devant public."
                         />
-<<<<<<< HEAD
-
-                    ))
-                  }
-                
-              </div>
-
-              </>
-              }
-
-            </section>
-
-            
-
-            {/************************************
-             * 
-             * Page : Aside section
-             * 
-             * ***********************************/}
-
-            <aside className={`col-3`}>
-
-              <h2 className={`col-12`}>Menu rapide</h2>
-
-
-
-              {/* 
-                    Section : If user is not connected, offer the option to connect itself
-              */}
-
-                { !auth.isLoggedIn && !auth.isPending &&
-
-                <section className={`col-12 ${styles["aside__connection-option"]}`}>
-                    
-                    <Button href="/compte/connexion">Se connecter</Button>
-
-                </section>
-
-                }
-
-                  
-
-              {/*  
-                    Rapid options to access of edit the database  
-              */}
-
-              <section className={`col-12 ${styles["aside__db-edit-options"]}`}>
-                
-                  <div className={`col-12 ${styles["db-edit-options__button-set"]}`}>
-                      <Button disabled slim>Événement</Button>
-                      <Button disabled slim>+</Button>
-                  </div>
-
-                  <div className={`col-12 ${styles["db-edit-options__button-set"]}`}>
-                      <Button disabled slim>Personne</Button>
-                      <Button
-                        disabled={!auth.isLoggedIn}
-                        onClick={() => setTest(true)}
-                        slim
-                      >+</Button>
-                  </div>
-
-                  <div className={`col-12 ${styles["db-edit-options__button-set"]}`}>
-                      <Button disabled slim>Organisation</Button>
-                      <Button
-                        disabled={!auth.isLoggedIn} 
-                        slim
-                        href="/contribuer/organisation"
-                      >+</Button>
-                  </div>
-
-                  <div className={`col-12 ${styles["db-edit-options__button-set"]}`}>
-                      <Button disabled slim>Taxonomie</Button>
-                      <Button
-                        disabled={!auth.isLoggedIn}
-                        slim
-                        href="/contribuer/taxonomy"
-                      >+</Button>
-                  </div>
-
-                  { auth.isLoggedIn &&
-                    <Button color="blue4" reverse href="/contribuer">Ajouter une donnée</Button>
-                  }
-                  
-                  <p className="col-12"><strong className="red">DÉVELOPPEMENT EN COURS.</strong> Vous pourrez bientôt lancer des recherches et consulter toutes les données. </p>
-                  
-              </section>
-
-
-              {/* 
-                    Section : If user is not connected, propose to create an account if he doesn't have one
-              */}
-
-              { !auth.isLoggedIn && !auth.isPending &&
-
-                <section className={`col-12 ${styles["aside__register-option"]}`}>
-                    
-                    <div className="col-12 blue_BG white">
-
-                      <h4>Pas encore de compte ?</h4>
-
-                      <p>Vous en aurez besoin afin de vous aussi contribuer aux données</p>
-
-                      <Button href="/compte/inscription">C'est par ici !</Button>
-
-=======
->>>>>>> 42c15fc9097c30f8befbbb239d89487da0ed9fd3
                     </div>
 
                     <div className="col-12">

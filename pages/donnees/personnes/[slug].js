@@ -10,6 +10,9 @@ import MainPersonView from '../../../DataTypes/Person/Components/Views/MainPerso
 
 
 const SinglePersonPage = props => {
+
+                console.log(props)
+
   
     return (
         <div className={`${styles["single-person"]}`}>
@@ -29,17 +32,15 @@ export default SinglePersonPage
 
 export async function getServerSideProps(context) {
     const { slug } = context.query;
-
+    
     //Send the request with the specialized hook
     const response = await sendApiRequest(
         `/personnes/${slug}`,
-        'POST',
-        JSON.stringify({"data": {}})
+        'GET'
     )
   
-    console.log("Fetch")
-    console.log(response);
-    return { props: { response } };
+    console.log(response.data);
+    return { props: response.data };
 }
 
 
