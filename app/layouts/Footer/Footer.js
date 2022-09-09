@@ -30,12 +30,6 @@ const Footer = () => {
                         <h3 className={"col-12"}>Abonnez-vous à notre infolettre</h3>
                         <p className={"col-12"}>Restez au courant de tous les projets d'Avantage Numérique en vous abonnant à notre infolettre.</p>
                     </div>
-                    <div className={`${styles.formContainer} col-5`}>
-                        <form className={"col-12"}>
-                            <input placeholder="Courriel" />
-                            <input type="submit"/>
-                        </form> 
-                    </div>
                 </section >
 
                 {/* 

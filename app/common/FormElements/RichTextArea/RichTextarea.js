@@ -90,7 +90,6 @@ const RichTextarea = props => {
 
 
     const changeHandler = value => {
-        console.log('onChange --> html', value)
         dispatch({type: 'CHANGE', val: value, validators: props.validators})
     }
 

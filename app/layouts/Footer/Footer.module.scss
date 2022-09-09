@@ -30,23 +30,7 @@
         /* News letter section */
         section:nth-of-type(1){
 
-            .formContainer{
-
-                float: right;
-
-                form {
-                    width: 100%;
-                    margin: 1.5em 0px;
-                    display: flex;
-
-                    /* The input that is not submit will stretch to all the width */
-                    input:not([type='submit']){
-                        flex: 1;
-                    }
-
-              
-                }
-            }
+  
             
         }
 
