@@ -136,6 +136,14 @@ const Select = (props) => {
 
                 }
             }
+            //No matching Value displays message it's not a taxonomy
+            else {
+                msg.addMessage({
+                    text: "La valeur sélectionnée n'existe pas. Veuillez sélectionner dans la liste ou créer la taxonomie"
+                })
+            }
+
+
         }
         
         //For the moment, this only send the id if the occupation exist
