@@ -1,5 +1,4 @@
 import React, { useContext, useEffect } from 'react'
-import Router from 'next/router'
 
 //Custom hooks
 import { useForm } from '../../../../../app/hooks/form-hook'
@@ -31,7 +30,7 @@ const CreatePersonForm = () => {
     const {isLoading, sendRequest} = useHttpClient();
 
     //Custom hook to manage the validity of the form 
-    const [formState, inputHandler, clearFormData] = useForm(
+    const [formState, inputHandler, clearFormData, formTools] = useForm(
     {
         firstName: {
             value: '',
@@ -138,7 +137,7 @@ const CreatePersonForm = () => {
     return (
         <>
             { isLoading && <Spinner fixed /> }
-            <button onClick={() => clearFormData()}>Lets clear the data!!!!!!</button>
+            <button onClick={() => formTools.clearFormData()}>Lets clear the data!!!!!!</button>
             <form onSubmit={submitHandler} className={`col-12 ${styles["create-person-form"]}`}>
 
                 <Input 
@@ -146,8 +145,7 @@ const CreatePersonForm = () => {
                     label="Prénom"
                     validators={[VALIDATOR_REQUIRE()]}
                     errorText="Cette information est requise"
-                    onInput={inputHandler}
-                    formState={formState}
+                    formTools={formTools}
                 />
 
                 <Input 
@@ -155,22 +153,20 @@ const CreatePersonForm = () => {
                     label="Nom"
                     validators={[VALIDATOR_REQUIRE()]}
                     errorText="Cette information est requise"
-                    onInput={inputHandler}
-                    formState={formState}
+                    formTools={formTools}
                 />
 
                 <Input  
                     name="nickName"
                     label="Surnom"
-                    onInput={inputHandler}
-                    formState={formState}
+                    formTools={formTools}
                 />
                 
                 <RichTextarea 
                     name="biography"
                     label="Biographie"
-                    onInput={inputHandler}
-                    formState={formState}
+                    validators={[VALIDATOR_REQUIRE()]}
+                    formTools={formTools}
                 />
 
                 <Select
@@ -181,6 +177,7 @@ const CreatePersonForm = () => {
                     tag="occupations"
                     onInput={inputHandler}
                     formState={formState}
+                    formTools={formTools}
 
                 />
 

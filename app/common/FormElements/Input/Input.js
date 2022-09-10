@@ -1,4 +1,4 @@
-import React, {useReducer, useEffect} from 'react'
+import React from 'react'
 
 //Utils
 import { validate } from '../../../utils/validators'
@@ -7,65 +7,27 @@ import { validate } from '../../../utils/validators'
 import styles from './Input.module.scss'
 
 
+const Input = ({addRow, removeRow, name, formTools, ...props}) => {
 
-//Reducer function to manage the state of the input
-const inputReducer = (state, action) => {
+    /*
+        Access the differents form tools 
+    */
+    const {
+        formState,
+        inputHandler,
+        inputTouched
+    } = formTools;
 
-    switch (action.type) {
+    const currentState = formState.inputs[name];
 
-        case 'CHANGE':
-            return {
-                ...state,
-                value: action.val,
-                //if there are validators, then evaluate them and return bool
-                isValid: action.validators ? validate(action.val, action.validators) : true
-            };
-
-        case 'TOUCH': {
-            return {
-                ...state,
-                isTouched: true
-            };
-        }
-
-        default:
-            return state;
-
+    const updateValue = event => {
+        inputHandler(
+            name,
+            event.target.value,
+            props.validators ? validate(event.target.value, props.validators) : true
+        )
     }
-}
-
-const Input = ({addRow, removeRow, name, onInput, formState, ...props}) => {
-
-    //Initial state
-    const [inputState, dispatch] = useReducer(inputReducer, {
-        value: '', 
-        isTouched: false,
-        isValid: props.validators ? validate('', props.validators) : true
-    });
-
-
-
-    /*  Inform the form (parent component) of the value and validity of this input
-        whenever it changes  */
-    const { value, isValid } = inputState;   //State of this element
-
-  
-    useEffect(() => {
-        onInput(name, value, isValid)
-    }, [name, value, isValid, onInput]);
-
-
-    const changeHandler = event => {
-        dispatch({type: 'CHANGE', val: event.target.value, validators: props.validators})
-    }
-
-    //Prevent an error message when the input hasn't been touch
-    const touchHandler = () => {
-        dispatch({ type: 'TOUCH' });
-    };
-
  
-
     return (
         
             <label className={ styles.inputComponent } htmlFor={props.name}>
@@ -75,15 +37,15 @@ const Input = ({addRow, removeRow, name, onInput, formState, ...props}) => {
                 <div className={`col-12 ${styles["inputComponent__field-container"]}`}>
 
                     <input 
-                        className={` ${!inputState.isValid && inputState.isTouched && styles["control--invalid"]}`}
-                        name={props.name}
-                        id={props.name}
+                        className={` ${!currentState.isValid && currentState.isTouched && styles["control--invalid"]}`}
+                        name={ name }
+                        id={ name }
                         //If there is a state attached to the component, make it a controlled components where the value depends on the state
-                        value={ formState ? formState.inputs[name].value : null} 
+                        value={ currentState ? currentState.value : null } 
                         type={props.type ? props.type : "text"}
                         placeholder={props.placeholder}
-                        onChange={changeHandler}
-                        onBlur={touchHandler}
+                        onChange={updateValue}
+                        onBlur={() => inputTouched(name)}
                         autoComplete={props.type === "password" ? "on" : undefined}
                     /> 
 
@@ -108,7 +70,7 @@ const Input = ({addRow, removeRow, name, onInput, formState, ...props}) => {
 
                 </div>
                 
-                {!inputState.isValid && inputState.isTouched && 
+                {!currentState.isValid && currentState.isTouched && 
                     <small>{ props.errorText }</small>
                 }
 

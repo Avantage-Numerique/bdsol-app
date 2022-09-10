@@ -12,34 +12,43 @@ import 'react-quill/dist/quill.snow.css';
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
 
+/********************* 
+    Custom function to evaluate if an HTML string is empty of not
+********************
+const isHTMLStringNoEmpty = (str) => {
+	
+    //Value to return (initially false)
+    let notEmpty = false;
+    let currentlyInATag = false;
+    
+    for (let i in str) {
+    
+    	if(str[i] === "<" || str[i] === ">"){
+        	
+            //Annonce if we are in a tag of not
+            currentlyInATag = str[i] === "<" ? true : false
 
-//Reducer function to manage the state of the textarea
-const textareaReducer = (state, action) => {
-
-    switch (action.type) {
-        case 'CHANGE':
-            return {
-                ...state,
-                value: action.val,
-                //if there are validators, then evaluate them and return bool
-                isValid: action.validators ? validate(action.val, action.validators) : true
-            };
-
-        case 'TOUCH': {
-            return {
-                ...state,
-                isTouched: true
-            };
+        } else {
+        	//There is a value and we are not inside a tag so the html isn't empty
+            if(!currentlyInATag)
+            	notEmpty = true;
+                //break
         }
-
-        default:
-            return state;
+        
+        //Conditions to stop the loop early
+        //1. The first char is not a "<" so its not supposed to be html
+        //2. The variable notEmpty isn't negative
+    	if((i == 0 && str[i] !== "<") || notEmpty === true)
+        	break;
     }
+	
+    return notEmpty
 }
+*/
 
-/*
- * Custom toolbar component including insertStar button and dropdowns
- */
+/************************** 
+        Custom toolbar component including insertStar button and dropdowns
+****************************/
 const CustomToolbar = () => (
 
     <div id={`${styles["rich-text-tool-bar"]}`}  className={`ql-toolbar ql-snow`}>
@@ -72,32 +81,23 @@ const CustomToolbar = () => (
 
   )
 
-const RichTextarea = props => {
+const RichTextarea = ({name, formTools, ...props}) => {
 
-    const [textareaState,dispatch] = useReducer(textareaReducer, {
-        value: '', 
-        isTouched: false,
-        isValid: props.validators ? validate('', props.validators) : true
-    });
+    const {
+        formState,
+        inputHandler,
+        inputTouched
+    } = formTools;
 
-    //Inform the form (parent component) of the value and validity of this input
-    const { name, onInput, formState } = props;          
-    const { value, isValid } = textareaState;   //State of this element
+    const currentState = formState.inputs[name];
 
-    useEffect(() => {
-        onInput(name, value, isValid)
-    }, [name, value, isValid, onInput]);
-
-
-    const changeHandler = value => {
-        dispatch({type: 'CHANGE', val: value, validators: props.validators})
+    const updateValue = (value, delta, source, editor) => {
+        inputHandler(
+            name,
+            value,
+            props.validators ? validate(editor.getText(), props.validators) : true
+        )
     }
-
-    //Prevent an error message when the input hasn't been touch
-    const touchHandler = () => {
-        dispatch({ type: 'TOUCH' });
-    };
-    
 
     return (
 
@@ -116,20 +116,20 @@ const RichTextarea = props => {
                 <ReactQuill
                     className={` 
                         ${styles["rich-textarea__quill-content"]} 
-                        ${!textareaState.isValid && textareaState.isTouched && styles["control--invalid"]}
+                        ${!currentState.isValid && currentState.isTouched && styles["control--invalid"]}
                     `}
-                    onBlur={touchHandler}
-                    value={textareaState.value}
+                    onBlur={() => inputTouched(name)}
+                    value={currentState ? currentState.value : null}
                     modules={{toolbar: {
                         container: `#${styles["rich-text-tool-bar"]}`
                     }}}
-                    onChange={changeHandler}
+                    onChange={updateValue}
                     placeholder={props.placeholder}
-                    theme="snow" // pass false to use minimal theme
+                    theme="snow" 
                 />
             </div>
 
-            {!textareaState.isValid && textareaState.isTouched && 
+            {!currentState.isValid && currentState.isTouched && 
                 <small>{ props.errorText }</small>
             }
 

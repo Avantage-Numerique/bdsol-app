@@ -15,18 +15,23 @@ const formReducer = (state, action) => {
 
       let formIsValid = true;
 
+      //Loop through the state inputs
       for (const inputId in state.inputs) {
 
+        //If a corresponding element doesn't exist, than break this iteration
+        //and go to the next one. Otherwise, execute the next "if" statement
         if (!state.inputs[inputId]) {
           continue;
         }
         
+        //Evaluate the validity of the form
         if (inputId === action.inputId) {
           formIsValid = formIsValid && action.isValid;
         } else {
           formIsValid = formIsValid && state.inputs[inputId].isValid;
         }
       }
+
       return {
         ...state,
         inputs: {
@@ -38,7 +43,6 @@ const formReducer = (state, action) => {
 
     case 'CLEAR_DATA':
 
-      console.log(state)
       //Reset everything 
       return {
         ...state,
@@ -47,6 +51,19 @@ const formReducer = (state, action) => {
         },
         isValid: action.initialFormValidity
       };
+
+    case 'TOUCH': {
+        return {
+        ...state,
+        inputs: {
+          ...state.inputs,
+          [action.inputId]: { 
+            ...state.inputs[action.inputId],
+            isTouched: true 
+          }
+        }
+      };
+    }
       
     case 'SET_DATA':
       return {
@@ -77,6 +94,13 @@ export const useForm = (initialInputs, initialFormValidity) => {
     });
   }, []);
 
+  const inputTouched = useCallback((id) => {
+    dispatch({
+      type: 'TOUCH',
+      inputId: id
+    });
+  }, []);
+
   const setFormData = useCallback((inputData, formValidity) => {
     dispatch({
       type: 'SET_DATA',
@@ -93,5 +117,13 @@ export const useForm = (initialInputs, initialFormValidity) => {
     });
   }, []);
 
-  return [formState, inputHandler, clearFormData];
+  /* Regroup the form utils needed for the inputs */
+  const formTools = {
+    formState: formState,
+    inputHandler: inputHandler,
+    inputTouched: inputTouched, 
+    clearFormData: clearFormData
+  }
+
+  return [formState, inputHandler, clearFormData, formTools];
 };
