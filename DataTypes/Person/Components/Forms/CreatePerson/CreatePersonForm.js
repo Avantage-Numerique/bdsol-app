@@ -175,8 +175,7 @@ const CreatePersonForm = () => {
                     request="/taxonomies/list/"
                     requestData={occupationSelectRequestData}
                     tag="occupations"
-                    onInput={inputHandler}
-                    formState={formState}
+                    placeholder='"Enseignant", "Architecte logiciel", [...]'
                     formTools={formTools}
                 />
 

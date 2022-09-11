@@ -14,7 +14,7 @@ import Button from '../Buttons/Button/Button'
 //Styling
 import styles from './Select.module.scss'
 
-const Select = (props) => {
+const Select = ({name, formTools, ...props}) => {
 
     const selectTagRef = useRef();
 
@@ -24,29 +24,25 @@ const Select = (props) => {
     //Extract the functions inside useHttpClient
     const {sendRequest} = useHttpClient();
 
-    //Very basic reducer that doesn't receive any type of action
-    const inputReducer = (state, action) => {
-        return {
-            ...state,
-            value: action.val,
-            isValid: true        //For now, always good but eventually, we could need some validation...
-        };
+    /*
+        Access the differents form tools 
+    */
+    const {
+        formState,
+        inputHandler,
+        inputTouched
+    } = formTools;
+
+    //Make sure that the initial value is if type array. Otherwise, it create
+    const currentState = formState.inputs[name];
+
+    const updateValue = value => {
+        inputHandler(
+            name,
+            value,
+            props.validators ? validate(value, props.validators) : true
+        )
     }
-
-    const [userSelectionState, dispatch] = useReducer(inputReducer, {
-        value: [],
-        isValid: true
-    });
-
-    //*********************
-    //Whenever the value entered (user selection in this case), the data is sent to the form state
-    const { name, onInput, formState } = props;
-    const { value, isValid } = userSelectionState;   //State of this element
-
-    useEffect(() => {
-        onInput(name, value, isValid)
-    }, [name, value, isValid, onInput]);
-    //*********************
 
     /**************************
         Other select states
@@ -58,8 +54,6 @@ const Select = (props) => {
     //Value sent to the api to receive 10 options corresponding
     //shape : data: {category: 'occupations', name: 'ingenieur'}
     const [selectRequest, setSelectRequest] = useState(props.requestData)
-
-
 
     //const debouncedRequestData = useDebounce(selectName, 1500);
     const debouncedRequest = useDebounce(selectRequest, 400);
@@ -106,11 +100,11 @@ const Select = (props) => {
             //Find if there is a matching value between the proposed options and the entered value
             const matchingValue = selectList.data.find(e => {return e.name === selectTagRef.current.value})
 
-            //If the is a matching value, then go forward
+            //If there is a matching value, then go forward
             if (matchingValue) {
 
                 //Make sure that the object is not already in the list to prevent duplicates
-                const isDuplicate = userSelectionState.value.some(item => {
+                const isDuplicate = [...currentState.value].some(item => {
 
                     if (item._id == matchingValue._id) {
                       return true;
@@ -121,7 +115,7 @@ const Select = (props) => {
             
                 if(!isDuplicate){
 
-                    dispatch({val: [...userSelectionState.value, matchingValue]});
+                    updateValue([...currentState.value, matchingValue])              //Update the form state
                     selectTagRef.current.value = "";
                     selectTagRef.current.focus();           //Reset focus on field
                     formRequestData("")                     //Reset the input text stored in the state
@@ -154,23 +148,12 @@ const Select = (props) => {
 
         let tempTag=[];
 
-        userSelectionState.value.forEach(item => {
+        currentState.value.forEach(item => {
             if(item.name != select.name)
                 tempTag.push(item);
         })
 
-
-        //Vincent! J'aimerais que le state se mette à jour avec le "setSelectedItems" au lieu de devoir faire dispatch
-        //Si je ne fais pas dispatch il s'update seulement si j'add qqch
-        //Et pk si je met val: selectedItems sa fonctionne pas, je dois obligatoirement mettre tempTag
-
-        /*
-                Réponse : 
-                Normalement tout est réglé. Il y avait deux states qui faisaient la même chose et ça compliquait le flow
-                Pour le val, ça doit probablement être en raison du fait qu'il faut que l'objet ait changé pour appeler un rerender.
-                Il regarde donc probablement l'adresse de l'object et décide qu'il s'agit du même. 
-        */
-        dispatch({val: tempTag});
+        updateValue(tempTag);
     }
 
     if( selectList &&
@@ -182,9 +165,17 @@ const Select = (props) => {
             <div>
 
                 <Button type="button" slim="true" disabled={selectRequest.data.name ? false : true} onClick={addValueToSelectedItem}>+</Button>
-                <input type="text" list='SelectDatalist' name='SelectInput'
-                    id='SelectInput' placeholder=' "Enseignant", "Architecte logiciel", [...]'
-                    className={`${styles["selectInput"]}`} ref={selectTagRef} onChange={(e) => {formRequestData(e.target.value)}}/>
+                <input 
+                    type="text" 
+                    list='SelectDatalist' 
+                    name='SelectInput'
+                    id='SelectInput' 
+                    onBlur={() => inputTouched(name)}
+                    placeholder={props.placeholder}
+                    className={`${styles["selectInput"]}`} 
+                    ref={selectTagRef} 
+                    onChange={(e) => {formRequestData(e.target.value)}}
+                />
                 <datalist id='SelectDatalist' name="SelectDatalist" className={`${styles["datalist-input"]}`}>
                     {selectList.data.map( item => 
                         <option key={`datalist-${item.name}`} value={item.name}></option>
@@ -200,7 +191,7 @@ const Select = (props) => {
             */}
             <ul className={`${styles['tagList']}`}>
 
-                {userSelectionState.value.map(selected =>
+                {currentState.value && currentState.value.map(selected =>
                 <li 
                     key={`select-tag-${selected.name}`}
                     className={`${styles['tag']} ${props.tag ? styles[props.tag] : styles[props.generaltag]}`} 
