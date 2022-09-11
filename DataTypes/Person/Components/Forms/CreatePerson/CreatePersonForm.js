@@ -178,7 +178,6 @@ const CreatePersonForm = () => {
                     onInput={inputHandler}
                     formState={formState}
                     formTools={formTools}
-
                 />
 
                 <div className="col-12">
