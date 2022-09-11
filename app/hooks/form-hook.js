@@ -125,5 +125,5 @@ export const useForm = (initialInputs, initialFormValidity) => {
     clearFormData: clearFormData
   }
 
-  return [formState, inputHandler, clearFormData, formTools];
+  return [formState, formTools, clearFormData];
 };

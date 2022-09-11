@@ -42,7 +42,7 @@ const Login = () => {
     }, [auth.isLoggedIn])
 
 
-    const [formState, inputHandler] = useForm(
+    const [formState, formTools] = useForm(
         {
         username: {
             value: '',
@@ -111,7 +111,7 @@ const Login = () => {
                     label="Nom d'utilisateur"
                     validators={[VALIDATOR_REQUIRE()]}
                     errorText="Veuillez entrer un nom d'utilisateur valide"
-                    onInput={inputHandler}
+                    formTools={formTools}
                 />   
 
                 <Input
@@ -120,7 +120,7 @@ const Login = () => {
                     label="Mot de passe"
                     validators={[VALIDATOR_REQUIRE()]}
                     errorText="Veuillez entrer un mot de passe valide"
-                    onInput={inputHandler}
+                    formTools={formTools}
                 />   
 
                 <div className="col-12">

@@ -54,7 +54,7 @@ const CreateTaxonomyForm = () => {
     const { isLoading, sendRequest} = useHttpClient();
 
     //Custom hook to manage the validity of the form
-    const [formState, inputHandler] = useForm(
+    const [formState, formTools] = useForm(
         {
             category: {
                 value: '',
@@ -161,7 +161,7 @@ const CreateTaxonomyForm = () => {
                         className={`${styles["select-component"]}`}
                         name="category"
                         required="true"
-                        onChange={ (e) => { inputHandler( "category", e.target.value, (e.target.value !== "0" && e.target.value !== "") )}}>
+                        onChange={ (e) => { formTools.inputHandler( "category", e.target.value, (e.target.value !== "0" && e.target.value !== "") )}}>
                         <option value="">-- Choisissez une taxonomy --</option>
                         {Object.keys(taxonomies).map((key) => {
                             return (
@@ -174,20 +174,20 @@ const CreateTaxonomyForm = () => {
                 <Input
                     name="name"
                     label="Nom"
-                    onInput={inputHandler}
+                    formTools={formTools}
                 />
 
                 <Input
                     name="description"
                     label="Description"
-                    onInput={inputHandler}
+                    formTools={formTools}
                 />
 
                 <RichTextarea
                     name="addReason"
                     label="Dites nous en quelques mots la raison de l'ajout"
                     placeholder="Il s'agit du titre de mon métier [...]"
-                    onInput={inputHandler}
+                    formTools={formTools}
                 />
 
                 <div className="col-12">

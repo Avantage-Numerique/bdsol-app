@@ -51,7 +51,7 @@ const CreateOrganisationForm = () => {
     }, [auth.isLoggedIn])
 
     //State of the form
-    const [formState, inputHandler] = useForm(
+    const [formState, formTools] = useForm(
     {
         name: {
             value: '',
@@ -157,13 +157,13 @@ const CreateOrganisationForm = () => {
                     label="Nom de l'organisation"
                     validators={[VALIDATOR_REQUIRE()]}
                     errorText="Cette information est requise"
-                    onInput={inputHandler}
+                    formTools={formTools}
                 />
 
                 <RichTextarea 
                     name="description"
                     label="Description"
-                    onInput={inputHandler}
+                    formTools={formTools}
                 />
 
                 <Input 
@@ -172,20 +172,20 @@ const CreateOrganisationForm = () => {
                     type="url"
                     validators={[VALIDATOR_REQUIRE()]}
                     errorText="Cette information est requise"
-                    onInput={inputHandler}
+                    formTools={formTools}
                 />
 
                 <Input  
                     name="contactPoint"
                     label="Information de contact"
-                    onInput={inputHandler}
+                    formTools={formTools}
                 />
 
                 <Input  
                     name="fondationDate"
                     label="Date de fondation"
                     type="date"
-                    onInput={inputHandler}
+                    formTools={formTools}
                 />
 
                 <Select
@@ -194,7 +194,7 @@ const CreateOrganisationForm = () => {
                     request="/taxonomies/list"
                     requestData={offerSelectRequestData}
                     tag="occupations"
-                    onInput={inputHandler}
+                    formTools={formTools}
                 />
 
                 <div className="col-12">

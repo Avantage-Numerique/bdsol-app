@@ -30,7 +30,7 @@ const CreatePersonForm = () => {
     const {isLoading, sendRequest} = useHttpClient();
 
     //Custom hook to manage the validity of the form 
-    const [formState, inputHandler, clearFormData, formTools] = useForm(
+    const [formState, formTools, clearFormData] = useForm(
     {
         firstName: {
             value: '',
@@ -137,7 +137,6 @@ const CreatePersonForm = () => {
     return (
         <>
             { isLoading && <Spinner fixed /> }
-            <button onClick={() => formTools.clearFormData()}>Lets clear the data!!!!!!</button>
             <form onSubmit={submitHandler} className={`col-12 ${styles["create-person-form"]}`}>
 
                 <Input 

@@ -25,7 +25,7 @@ import styles from './Register.module.scss'
 const Register = () => {
 
     //State that hold the form data
-    const [formState, inputHandler] = useForm(
+    const [formState, formTools] = useForm(
 
         {
             username: {
@@ -187,7 +187,7 @@ const Register = () => {
                     label="Nom"
                     validators={[]}
                     errorText="Veuillez entrer un nom d'utilisateur valide"
-                    onInput={inputHandler}
+                    formTools={formTools}
                 /> 
 
                 <Input
@@ -196,7 +196,7 @@ const Register = () => {
                     label="Nom d'utilisateur"
                     validators={[VALIDATOR_REQUIRE()]}
                     errorText="Veuillez entrer un nom d'utilisateur valide"
-                    onInput={inputHandler}
+                    formTools={formTools}
                 />   
 
                 <Input
@@ -205,7 +205,7 @@ const Register = () => {
                     label="Courriel"
                     validators={[VALIDATOR_REQUIRE(), VALIDATOR_EMAIL()]}
                     errorText="Veuillez entrer une adresse courriel valide"
-                    onInput={inputHandler}
+                    formTools={formTools}
                 /> 
 
                 <Input
@@ -214,7 +214,7 @@ const Register = () => {
                     label="Mot de passe"
                     validators={[VALIDATOR_REQUIRE()]}
                     errorText="Veuillez entrer un mot de passe valide"
-                    onInput={inputHandler}
+                    formTools={formTools}
                 /> 
 
                 <Input
@@ -223,7 +223,7 @@ const Register = () => {
                     label="Confirmation du mot de passe "
                     validators={[VALIDATOR_REQUIRE()]}
                     errorText="Veuillez entrer un mot de passe valide"
-                    onInput={inputHandler}
+                    formTools={formTools}
                 />   
 
                 <div className="col-12">

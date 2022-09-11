@@ -16,7 +16,7 @@ import styles from './ResetPassword.module.scss'
 
 const ResetPassword = () => {
 
-    const [formState, inputHandler] = useForm(
+    const [formState, formTools] = useForm(
         {
         email: {
             value: '',
@@ -89,7 +89,7 @@ const ResetPassword = () => {
                     label="Adresse courriel"
                     validators={[VALIDATOR_REQUIRE()]}
                     errorText="Veuillez entrer une adresse courriel valide"
-                    onInput={inputHandler}
+                    formTools={formTools}
                 />     
 
                 <Button type="submit" disabled={!formState.isValid}>Soumettre</Button>
