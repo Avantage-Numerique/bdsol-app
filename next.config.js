@@ -10,7 +10,8 @@ const nextConfig = {
         return config
     },*/
     env: {
-        APP_BASE_URL: process.env.APP_BASE_URL ?? "http://localhost",
+        APP_PROTOCOLE: process.env.APP_PROTOCOLE ?? "http://",
+        APP_BASE_URL: process.env.APP_BASE_URL ?? "localhost",
         APP_PORT: process.env.APP_PORT ?? 3000,
         APP_URL: process.env.APP_BASE_URL + ":" + process.env.APP_PORT,
 

@@ -59,7 +59,6 @@ export default class StringDictionary {
      */
     setAliases() {
         for (const key in this.dictionnary) {
-            console.log("setAliases", key, this.dictionnary[key]);
             this.syncDictionnaryString(key, this.dictionnary, this.dictionnary[key]);
         }
     }

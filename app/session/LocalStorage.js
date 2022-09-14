@@ -4,7 +4,6 @@
 
 
 export const setLocalStorage = (objectName, value) => {
-    console.log("setLocalStorage", objectName, value);
     localStorage.setItem(objectName, JSON.stringify(value));
 };
 
