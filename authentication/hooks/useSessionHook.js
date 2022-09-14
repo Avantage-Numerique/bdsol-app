@@ -1,19 +1,13 @@
 import { useContext } from 'react'
-
-/*
-*
-*   Specific function to be call everytime
-*   we want to login or logout of the api
-*
-*/
-
-//Context
 import { AuthContext } from '../context/auth-context'
 import { MessageContext } from '../../app/common/UserNotifications/Message/Context/Message-Context'
-
-//Custom hooks
 import { useHttpClient } from '../../app/hooks/http-hook'
+import {lang} from "../../app/common/Data/GlobalConstants";
 
+
+/**
+ *   Specific function to be call everytime if we want to login or logout of the api
+ */
 export const useSessionHook = () => {
 
     //Import the authentication context to make sure the user is well connected
@@ -25,119 +19,94 @@ export const useSessionHook = () => {
     //Extract the functions inside useHttpClient
     const {isLoading, sendRequest} = useHttpClient();
 
+    const LogOutImplementedInAPI = false;
+
     const logout = async () => {
 
         //Make sure the user is logged in before sending the request
         if(auth.isLoggedIn){
 
             //Temporary
-            try{
+            if (!LogOutImplementedInAPI) {
+                try {
+                    auth.logout()
+                    msg.addMessage({
+                        text: lang.disconnectionSucceed,//"Félicitation ! Vous avez bien été déconnectés.",
+                        positive: true
+                    });
 
-                auth.logout()  
-
-                msg.addMessage({ 
-                    text: "Félicitation ! Vous avez bien été déconnectés.",
-                    positive: true
-                })
-
-            } catch (err){
-                msg.addMessage({ 
-                    text: "Une erreur est survenue lors de la déconnection",
-                    positive: false 
-                })
+                } catch (err) {
+                    msg.addMessage({
+                        text: lang.errorOnDisconnecting,//"Une erreur est survenue lors de la déconnection",
+                        positive: false
+                    });
+                }
             }
 
-/**************** To be activated when the backend will be ready *******************
 
-            //Send the request to logout and wait the answer
-            const response = await sendRequest(
-                "/logout",
-                'POST',
-                {},
-                { 'Content-Type': 'application/json' }
-            )
+            if (LogOutImplementedInAPI) {
 
-            //
-            //    Display a message to the user relative based
-            //    on the answer of the api
-            //
-           
-            //If positive
-            if(!response.error){
+                //Request to logout in the API
+                const response = await sendRequest(
+                    "/logout",
+                    'POST',
+                    {},
+                    { 'Content-Type': 'application/json' }
+                )
 
-                //Remove the connection from the context
-                //Erase the token il localstorage
-                auth.logout()
+                if(!response.error) {
+                    auth.logout();
+                }
 
-                //Notify the user
-                msg.addMessage({ 
+                msg.addMessage({
                     text: response.message,
-                    positive: true 
-                })
-
-            //If negative
-            } else {                    
-                msg.addMessage({ 
-                    text: response.message,
-                    positive: false 
-                })
+                    positive: !response.error
+                });
             }
-*/
 
         } else {
             msg.addMessage({ 
-                text: "Vous avez déjà été déconnecté.",
+                text: lang.youreAlreadyDisconnected,//"Vous avez déjà été déconnecté.",
                 positive: false
-            })
+            });
         }
     }
 
+    /**
+     * Authenfication with the API via the /login path and using sendRequest function.
+     * @param data
+     * @return {Promise<void>}
+     */
     const login = async (data) => {
 
-        //Make sur the use is not logged in.
-        //Prevent useless request
+        //Prevent useless request, making sure the use is not logged in.
         if(!auth.isLoggedIn){
 
-            //Send the request with the specialized hook
             const response = await sendRequest(
                 "/login",
                 'POST',
                 JSON.stringify(data),
                 { 'Content-Type': 'application/json' }
-            )
+            );
 
-            //If the answer is positive
             if(!response.error) {
-
-                //Accept the user
                 auth.login(response.data.user);
-
-                //Alert the user
-                msg.addMessage({ 
-                    text: response.message,
-                    positive: true 
-                })
-
-            //If it is not positive for any reason
-            } else {                    
-
-                //Inform the user
-                msg.addMessage({ 
-                    text: response.message,
-                    positive: false 
-                })
             }
+
+            msg.addMessage({
+                text: response.message,
+                positive: !response.error
+            });
 
         } else {
 
             //Tell the user he is already logged in
             msg.addMessage({ 
-                text: "Vous êtes déjà connecté.",
+                text: lang.youreAlreadyConnected, //"Vous êtes déjà connecté.",
                 positive: false
-            })
+            });
 
         }
-        
     }
     
     return {logout, login, isLoading}

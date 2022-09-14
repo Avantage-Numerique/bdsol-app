@@ -29,6 +29,10 @@ const nextConfig = {
 
         LANGUAGE: process.env.LANGUAGE ?? "fr-CA"
     },
+    i18n: {
+        locales: ["fr-CA"],
+        defaultLocale: "fr-CA",
+    },
     //accessible only on serveur
     serverRuntimeConfig: {
 

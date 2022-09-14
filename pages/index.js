@@ -8,8 +8,6 @@ import Link from 'next/link';
 import Button from '../app/common/FormElements/Buttons/Button/Button'
 import PresentationCard from '../app/common/Containers/cards/presentationCard'
 import Spinner from '../app/common/widgets/spinner/Spinner'
-import Modal from '../app/common/Containers/Modal/Modal'
-import { FormattedPersonForm } from '../DataTypes/Person/Components/Forms/CreatePerson/CreatePersonForm'
 
 
 import {sortDescBy} from "../app/common/Data/Sorting/Sort";
@@ -23,6 +21,7 @@ import {AuthContext} from '../authentication/context/auth-context';
 
 //Styling
 import styles from './home-page.module.scss'
+import {lang} from "../app/common/Data/GlobalConstants";
 
 
 const HomePage = () => {
@@ -65,8 +64,7 @@ const HomePage = () => {
 
         //If positive
         if (!orgResponse.error && !persResponse.error) {
-            console.log(persResponse.data)
-            //store the data
+
             const feed = [...orgResponse.data, ...persResponse.data];
 
             //Sort and mixed both collection the data to display the new elements before
@@ -104,14 +102,14 @@ const HomePage = () => {
     const schema = {
         '@context': 'http://schema.org',
         '@type': 'WebSite',
-        name: "Ontologie - Avantage Numérique",
-        description: "Base de donnée ouverte et liée crée par Avantage Numérique et qui recense les techno-créatifs sur le territoire du Croissant boréal.",
+        name: lang.appDefaultName,//"Ontologie - Avantage Numérique",
+        description: lang.appDefaultDescription,//"Base de donnée ouverte et liée crée par Avantage Numérique et qui recense les techno-créatifs sur le territoire du Croissant boréal.",
 
         producer: {
             '@context': 'http://schema.org',
             '@type': 'Organization',
-            name: "Avantage Numérique",
-            description: "Avantage numérique est un hub virtuel, physique et mobile qui dessert les secteurs de la culture, des affaires et du savoir. Il vise le développement de l’écosystème créatif, entrepreneurial et technologique du Croissant boréal.",
+            name: lang.appDefaultProducer,//"Avantage Numérique",
+            description: lang.appDefaultDescription,//"Avantage numérique est un hub virtuel, physique et mobile qui dessert les secteurs de la culture, des affaires et du savoir. Il vise le développement de l’écosystème créatif, entrepreneurial et technologique du Croissant boréal.",
             mainEntityOfPage: "https://avantagenumerique.org/"
         }
     }
@@ -122,20 +120,20 @@ const HomePage = () => {
 
             {/* Page head element  */}
             <Head>
-                <title>BDSOL - Avantage Numérique</title>
+                <title>{lang.appDefaultName}</title>
 
                 {/* Keywords and description to evaluate */}
                 <meta name="description"
-                      content="Documentation complète sur l'ontologie utilisée dans la base de donnée ouverte et liée d'Avantage Numérique."/>
+                      content={lang.appDefaultDescription}/>
                 <meta name="keywords"
-                      content="ontologie, classe, propriété, base de données, technologie, créateurs, communauté"/>
+                      content={lang.appDefaultKeywords} />
 
                 {/* social media meta tag */}
-                <meta property="og:title" content="BDSOL - Avantage Numérique"/>
-                <meta property="og:description" content="La base de donnée ouverte et liée d'Avantage Numérique."/>
+                <meta property="og:title" content={lang.appDefaultName}/>
+                <meta property="og:description" content={lang.appDefaultDescription} />
 
-                <meta name="twitter:title" content="BDSOL - Avantage Numérique"/>
-                <meta name="twitter:description" content="La base de donnée ouverte et liée d'Avantage Numérique."/>
+                <meta name="twitter:title" content={lang.appDefaultName}/>
+                <meta name="twitter:description" content={lang.appDefaultDescription} />
 
                 {/*
                 To add when the domain will be selected ....
