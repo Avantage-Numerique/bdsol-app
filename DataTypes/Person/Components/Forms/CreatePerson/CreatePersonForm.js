@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext } from 'react'
 
 //Custom hooks
 import { useForm } from '../../../../../app/hooks/form-hook'
@@ -49,7 +49,7 @@ const CreatePersonForm = () => {
             isValid: true
         },
         occupations: {
-            value: '',
+            value: [],
             isValid: true
         }
 
