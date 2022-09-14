@@ -61,3 +61,15 @@ label {
   color:  $mild-dark;
 }
 
+
+/*
+  Add custom minimum width to Bootstrap's containers 
+*/
+@each $breakpoint in sm, md, lg, xl, xxl { 
+  @media (min-width: map-get($grid-breakpoints, $breakpoint)) { 
+    .header-center {
+      min-width: map-get($container-max-widths, $breakpoint);
+    }
+  }
+}
+
