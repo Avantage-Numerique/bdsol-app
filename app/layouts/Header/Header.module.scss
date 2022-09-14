@@ -15,6 +15,7 @@
     width: 100%;
     position: fixed;
     height: var(--headersHeight);
+    top:0;
     display: flex;
     flex-direction: column;
     
@@ -27,53 +28,35 @@
     }
 
     /* Title container where is putted the logo */
-    > .header__content {        
-
+    .header__content{
         width: 100%;
-        height: calc(0.34 * var(--headersHeight));
-        margin-top: calc(0.33 * var(--headersHeight));
-        margin-bottom: calc(0.33 * var(--headersHeight));
+        height: var(--headersHeight);
+        padding-right: var(--navigation-options-with);  //Prevent the menu from overlapping
 
-        /* Back section with logo  */
-        > div {
-
-            float: left;
-            height: 100%;
-            padding-right: var(--navigation-options-with);  //Prevent the menu from overlapping
-
-            img {
+        img {
                 cursor: pointer;
                 width: 100%;
+                max-width:236px;
                 height: 100%;
                 object-fit: contain;
                 object-position: left center;
-            }
-        } 
+        }
     }
 
     .navigation-options {
-
-        width: var(--navigation-options-with);
-        position: absolute;
-        right: 0px;
-        height:  var(--headersHeight);
-        bottom: 0px;
-
         /* Align the hamburger menu in the center */
         display: flex;
         align-content: center;
+        position:absolute;
+        right:0;
+        top:0;
+        height:5em;
 
         .account-menu-container {
             position: relative;
             width: 5rem;
-            float: left;
             height: 100%;
             background-color: var(--bs-blue2);
-
-            /* Align the hamburger menu in the center */
-            display: flex;
-            justify-content: center;
-            align-items: center;
 
             button {
                 padding: 1.5rem;
@@ -94,23 +77,12 @@
                     width: 100%;
                 }
             }
-            
-
         }
 
         /* Blue button to open the nav */
         .ham-menu-container {
             position: relative;
-            width: 15vw;
-            float: right;
-
-            /* Align the hamburger menu in the center */
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            width:15vw;
         }
-
     }
-
-      
 }

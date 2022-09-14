@@ -37,18 +37,15 @@ const Header = (props) => {
     return (
         <header className={`${styles.header} bg-dark`}>
 
-            <Container fluid className='p-0'>
+            <Container>
                 <Row>
-                    <Col className='p-0'> </Col>
-                    <Col className='p-0'>
-                        {/* Container that fills all the width of the platform and containerr the logo*/}
+                    <Col>
+                        {/* Container that fills all the width of the platform and contain the logo*/}
                         <div className={`${styles["header__content"]} header-center`}>
                             <Link href="/">
                                 <img src="/logo.svg" alt="Logo Avantage Numérique" />
                             </Link>
                         </div>
-                    </Col>
-                    <Col className='p-0'>
                         {/* Container that contain the menu button */}
                         <div className={`${styles["navigation-options"]}`}>
 
