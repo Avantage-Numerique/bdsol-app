@@ -20,6 +20,7 @@ import {VALIDATOR_REQUIRE} from '../../../../../app/utils/validators'
 
 //Styling
 import styles from './CreatePersonForm.module.scss'
+import {lang} from "../../../../../app/common/Data/GlobalConstants";
 
 const CreatePersonForm = () => {
 
@@ -43,8 +44,8 @@ const CreatePersonForm = () => {
         nickName: {
             value: '',
             isValid: false
-        }, 
-        biography: {
+        },
+        description: {
             value: '',
             isValid: true
         },
@@ -52,10 +53,8 @@ const CreatePersonForm = () => {
             value: [],
             isValid: true
         }
-
     }, 
     false)
-
         
 
     //Submit the form
@@ -79,52 +78,40 @@ const CreatePersonForm = () => {
                     "lastName": formState.inputs.lastName.value,
                     "firstName":  formState.inputs.firstName.value, 
                     "nickname": formState.inputs.nickName.value,
-                    "description": formState.inputs.biography.value,
+                    "description": formState.inputs.description.value,
                     "occupations": formState.inputs.occupations.value
                 }
             };
 
             //Send the request with the specialized hook
-            const response = await sendRequest (
+            const response = await sendRequest(
                 "/personnes/create",
                 'POST',
-                JSON.stringify(formData),
-                { 'Content-Type': 'application/json' }
-            )
+                JSON.stringify(formData)
+            );
 
-            //If the answer is positive
-            if(!response.error){
-                //Alert the user
-                msg.addMessage({ 
-                    text: response.message,
-                    positive: true 
-                })
+            msg.addMessage({
+                text: response.message,
+                positive: !response.error
+            });
+
+            if(!response.error) {
                 clearFormData()
-
-            //If it is not positive for any reason
-            } else {                    
-                msg.addMessage({ 
-                    text: response.message,
-                    positive: false 
-                })
             }
             
         } else {
             //The form is not valid. 
             //Inform the user
             msg.addMessage({ 
-                text: "Attention. Le formulaire envoyé n'est pas valide. Assurez-vous que tous les champs sont bien remplis.",
+                text: lang.formNotValid,//"Attention. Le formulaire envoyé n'est pas valide. Assurez-vous que tous les champs sont bien remplis.",
                 positive: false
             })
-
         }
     }
 
     /*
-
         Categorie : nom de la taxonomie
         Name : Filtre à appliquer
-
     */
     const occupationSelectRequestData = {
         "data": {
@@ -162,33 +149,33 @@ const CreatePersonForm = () => {
                 />
                 
                 <RichTextarea 
-                    name="biography"
-                    label="Biographie"
+                    name="description"
+                    label="Biographie / description"
                     validators={[VALIDATOR_REQUIRE()]}
                     formTools={formTools}
                 />
 
                 <Select
                     name="occupations"
-                    label="Occupations"
+                    label={lang.Occupations}
                     request="/taxonomies/list/"
                     requestData={occupationSelectRequestData}
                     tag="occupations"
-                    placeholder='"Enseignant", "Architecte logiciel", [...]'
+                    placeholder={lang.occupationsPlaceholder}
                     formTools={formTools}
                 />
 
                 <div className="col-12">
-                    <Button type="submit" disabled={!formState.isValid}>Soumettre</Button>
+                    <Button type="submit" disabled={!formState.isValid}>{lang.submit}</Button>
                 </div>
 
             </form>
    
         </>
-    )
+    );
 }
 
-export default CreatePersonForm
+export default CreatePersonForm;
 
 
 export const FormattedPersonForm = () => {
@@ -198,5 +185,5 @@ export const FormattedPersonForm = () => {
                 <CreatePersonForm />
             </CommonFormFeatures>
         </>
-    )
+    );
 }

@@ -8,18 +8,21 @@ import {lang} from "../common/Data/GlobalConstants";
  * @param path {string} what is the API path we are targetting.
  * @param method {string} the http method GET, POST, etc.
  * @param body {object} If it's in post, do we need to pass data ?
- * @param headers {object}
+ * @param headers {object} By default it add the conten
  * @param additionnalFetchParams {object}
+ * @param isDataJson {boolean}
  * @return {Promise<any>}
  */
-export const sendApiRequest = async (path, method = 'GET', body = null, headers = {}, additionnalFetchParams={}) => {
+export const sendApiRequest = async (path, method = 'GET', body = null, headers = {}, additionnalFetchParams={}, isDataJson=true) => {
 
     const baseApiRoute = process.env.APP_PROTOCOLE + process.env.API_URL,
         defaultHeaders = {
             'Origin': process.env.APP_URL//'http://localhost:3000'
         },
+        jsonHeaders = isDataJson ? { 'Content-Type': 'application/json' } : {},
         headerParams = {
             ...defaultHeaders,
+            ...jsonHeaders,
             ...headers
         };
 
@@ -69,7 +72,7 @@ export const useHttpClient = () => {
                 };
 
             activeHttpRequests.current.push(httpAbortCtrl)
-
+            console.log(body);
             try {
 
                 const responseData = await sendApiRequest(

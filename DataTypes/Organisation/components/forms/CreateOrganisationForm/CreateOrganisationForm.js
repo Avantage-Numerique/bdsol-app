@@ -74,7 +74,7 @@ const CreateOrganisationForm = () => {
             isValid: true
         },
         offers: {
-            value: '',
+            value: [],
             isValid: true
         }
     }, 

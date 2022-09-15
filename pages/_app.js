@@ -60,18 +60,21 @@ function MyApp({Component, pageProps}) {
             const storedUserData = getLocalStorage('userData');
 
             if (!storedUserData || !storedUserData.isLoggedIn) {
-                setLocalStorage('userData', defaultSessionData);
+                //setLocalStorage('userData', defaultSessionData);
+
+                setSession({
+                    ...defaultSessionData,
+                    isPending: false,
+                    ip: pageProps.visitor.ip
+                });
+
             } else {
                 setSession(storedUserData);
             }
 
-            setSession({
-                ...defaultSessionData,
-                isPending: false,
-                ip: pageProps.visitor.ip
-            });
+            console.log("effect in app for storedUserData", storedUserData);
+            console.log("effect in app for session", session);
         }
-
     }, []);
 
     /**
@@ -83,6 +86,8 @@ function MyApp({Component, pageProps}) {
             session.isPending = false;
             setLocalStorage('userData', session);
         }
+
+        console.log("effect with session deps", session);
     }, [session])
 
 
