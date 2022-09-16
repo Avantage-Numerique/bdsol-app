@@ -3,6 +3,7 @@ import React, { useContext, useEffect } from 'react'
 //Custom hooks
 import { useForm } from '../../../../../app/hooks/form-hook'
 import { useHttpClient } from '../../../../../app/hooks/http-hook'
+import { useFormUtils } from '../../../../../app/hooks/useFormUtils/useFormUtils'
 
 //Components
 import Button from '../../../../../app/common/FormElements/Buttons/Button/Button'
@@ -26,11 +27,8 @@ const CreatePersonForm = () => {
     //Import message context 
     const msg = useContext(MessageContext);
 
-    //Extract the functions inside useHttpClient
-    const {isLoading, sendRequest} = useHttpClient();
-
-    //Custom hook to manage the validity of the form 
-    const [formState, formTools, clearFormData] = useForm(
+    //Main form functionalities
+    const { FormUI, submitRequest, formState, formTools } = useFormUtils(
     {
         firstName: {
             value: '',
@@ -53,26 +51,20 @@ const CreatePersonForm = () => {
             isValid: true
         }
 
-    }, 
-    false)
+    }
+    );
 
         
 
     //Submit the form
     const submitHandler = async event => { 
 
+
         event.preventDefault();
         
-        //Make sure that the form is valid before submitting it
+        //Costum validation for this form :
+        //  - The form must be valid
         if(formState.isValid){
-
-
-            /*
-                Data must have this shape 
-                https://github.com/Avantage-Numerique/bdsol-api/blob/master/api/doc/Personnes.md
-            */
-
-            //There is no try/catch here because it is all handle by the custom hook
 
             const formData = {
                 "data": {
@@ -84,30 +76,11 @@ const CreatePersonForm = () => {
                 }
             };
 
-            //Send the request with the specialized hook
-            const response = await sendRequest (
+            submitRequest(
                 "/personnes/create",
                 'POST',
-                JSON.stringify(formData),
-                { 'Content-Type': 'application/json' }
+                formData
             )
-
-            //If the answer is positive
-            if(!response.error){
-                //Alert the user
-                msg.addMessage({ 
-                    text: response.message,
-                    positive: true 
-                })
-                clearFormData()
-
-            //If it is not positive for any reason
-            } else {                    
-                msg.addMessage({ 
-                    text: response.message,
-                    positive: false 
-                })
-            }
             
         } else {
             //The form is not valid. 
@@ -116,7 +89,6 @@ const CreatePersonForm = () => {
                 text: "Attention. Le formulaire envoyé n'est pas valide. Assurez-vous que tous les champs sont bien remplis.",
                 positive: false
             })
-
         }
     }
 
@@ -136,9 +108,10 @@ const CreatePersonForm = () => {
 
     return (
         <>
-            { isLoading && <Spinner fixed /> }
-            <form onSubmit={submitHandler} className={`col-12 ${styles["create-person-form"]}`}>
+            <FormUI />
 
+            <form onSubmit={submitHandler} className={`col-12 ${styles["create-person-form"]}`}>
+                
                 <Input 
                     name="firstName"
                     label="Prénom"
@@ -164,7 +137,6 @@ const CreatePersonForm = () => {
                 <RichTextarea 
                     name="biography"
                     label="Biographie"
-                    validators={[VALIDATOR_REQUIRE()]}
                     formTools={formTools}
                 />
 
@@ -183,7 +155,6 @@ const CreatePersonForm = () => {
                 </div>
 
             </form>
-   
         </>
     )
 }

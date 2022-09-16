@@ -77,11 +77,11 @@ const formReducer = (state, action) => {
   
 };
 
-export const useForm = (initialInputs, initialFormValidity) => {
+export const useForm = (initialInputs) => {
 
   const [formState, dispatch] = useReducer(formReducer, {
     inputs: initialInputs,
-    isValid: initialFormValidity
+    isValid: false
   });
 
   //Note that the inputid is actually the "name" of the input
