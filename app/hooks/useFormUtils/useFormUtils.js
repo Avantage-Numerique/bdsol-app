@@ -4,7 +4,8 @@
         Note that the form state itself is controled by form-Hook file
 */
 
-import React, { useState, useContext, useCallback, memo } from 'react'
+import React, { useState, useContext, useEffect, useCallback } from 'react'
+import { scroller } from 'react-scroll'
 
 //Components 
 import Spinner from '../../common/widgets/spinner/Spinner'
@@ -19,7 +20,6 @@ import { MessageContext } from '../../common/UserNotifications/Message/Context/M
 
 //Form UI styling
 import styles from './formUI.module.scss'
-
 
 
 export const useFormUtils = ( initialState, redirection ) => {
@@ -65,13 +65,22 @@ export const useFormUtils = ( initialState, redirection ) => {
 
         }
     }
+
     
     //Import message context 
     const msg = useContext(MessageContext);
 
+    const FormUI = useCallback(() => {
 
-
-    const FormUI = () => {
+        useEffect(() => {
+            if(innerMessage)
+                scroller.scrollTo(styles["data-form-message"], {
+                    offset: -50,
+                    duration: 800,
+                    delay: 0,
+                    smooth: "easeInOutQuart",
+                });
+        }, [innerMessage])
     
         return (
             <>  
@@ -85,13 +94,11 @@ export const useFormUtils = ( initialState, redirection ) => {
             </>
         )
 
-    }
+    }, [innerMessage, isLoading])
 
     //State element for a message displayed inside the form
-    //const [localMessage, setLocalMessage] = useState();
 
-    return { FormUI, submitRequest, formState, formTools }
-
+    return { FormUI, submitRequest, formState, formTools,  }
 
 }
 
