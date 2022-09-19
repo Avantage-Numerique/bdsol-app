@@ -8,7 +8,6 @@
 .create-person {
 
 
-
     .create-person--max-width {
         
         margin: auto;
@@ -37,6 +36,7 @@
     }
 
     section {
+        position: relative;            /* To determine the spinner position */
         background-color: rgba(193, 201, 236, 0.178);
         padding: 5vh 0px;
     }

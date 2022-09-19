@@ -51,7 +51,7 @@ const isHTMLStringNoEmpty = (str) => {
 ****************************/
 const CustomToolbar = () => (
 
-    <div id={`${styles["rich-text-tool-bar"]}`}  className={`ql-toolbar ql-snow`}>
+    <div id={`${styles["rich-text-tool-bar"]}`} className={`ql-toolbar ql-snow`}>
 
       <select className="ql-header" defaultValue="">
             <option value="1">Titre 1</option>
