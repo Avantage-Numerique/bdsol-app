@@ -1,26 +1,26 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect } from 'react';
 
-import Link from 'next/link'
-import Router from 'next/router'
+import Link from 'next/link';
+import Router from 'next/router';
 
 //Context
-import { AuthContext } from '../../../context/auth-context'
-import { MessageContext } from '../../../../app/common/UserNotifications/Message/Context/Message-Context'
+import { AuthContext } from '../../../context/auth-context';
+import { MessageContext } from '../../../../app/common/UserNotifications/Message/Context/Message-Context';
 
 //Validators
-import {VALIDATOR_REQUIRE} from '../../../../app/utils/validators'
+import {VALIDATOR_REQUIRE} from '../../../../app/utils/validators';
 
 //Custom hooks
-import { useForm } from '../../../../app/hooks/form-hook'
-import { useSessionHook } from '../../../hooks/useSessionHook'
+import { useForm } from '../../../../app/hooks/form-hook';
+import { useSessionHook } from '../../../hooks/useSessionHook';
 
 //Form components
-import Input from '../../../../app/common/FormElements/Input/Input'
-import Button from '../../../../app/common/FormElements/Buttons/Button/Button'
-import Spinner from '../../../../app/common/widgets/spinner/Spinner'
+import Input from '../../../../app/common/FormElements/Input/Input';
+import Button from '../../../../app/common/FormElements/Buttons/Button/Button';
+import Spinner from '../../../../app/common/widgets/spinner/Spinner';
 
 //Styling
-import styles from './Login.module.scss'
+import styles from './Login.module.scss';
 
 const Login = () => {
 

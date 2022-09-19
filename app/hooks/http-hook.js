@@ -13,7 +13,7 @@ import {lang} from "../common/Data/GlobalConstants";
  * @param isDataJson {boolean}
  * @return {Promise<any>}
  */
-export const sendApiRequest = async (path, method = 'GET', body = null, headers = {}, additionnalFetchParams={}, isDataJson=true) => {
+export const sendExternalApiRequest = async (path, method = 'GET', body = null, headers = {}, additionnalFetchParams={}, isDataJson=true) => {
 
     const baseApiRoute = process.env.APP_PROTOCOLE + process.env.API_URL,
         defaultHeaders = {
@@ -75,7 +75,7 @@ export const useHttpClient = () => {
             console.log(body);
             try {
 
-                const responseData = await sendApiRequest(
+                const responseData = await sendExternalApiRequest(
                     path,
                     method,
                     body,

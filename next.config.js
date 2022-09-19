@@ -10,6 +10,7 @@ const nextConfig = {
         return config
     },*/
     env: {
+        ENVIRONNEMENT: process.env.NODE_ENV ?? 'development',
         APP_PROTOCOLE: process.env.APP_PROTOCOLE ?? "http://",
         APP_BASE_URL: process.env.APP_BASE_URL ?? "localhost",
         APP_PORT: process.env.APP_PORT ?? 3000,
@@ -28,7 +29,10 @@ const nextConfig = {
 
         FEEDBACK_API_KEY: process.env.FEEDBACK_API_KEY,
 
-        LANGUAGE: process.env.LANGUAGE ?? "fr-CA"
+        LANGUAGE: process.env.LANGUAGE ?? "fr-CA",
+
+        APP_COOKIE_NAME: process.env.APP_BASE_URL + '/bdsolAppAN',
+        COOKIE_PRIVATE_KEY: process.env.COOKIE_PRIVATE_KEY ?? 'private key not set'
     },
     i18n: {
         locales: ["fr-CA"],

@@ -3,6 +3,7 @@ import { AuthContext } from '../context/auth-context'
 import { MessageContext } from '../../app/common/UserNotifications/Message/Context/Message-Context'
 import { useHttpClient } from '../../app/hooks/http-hook'
 import {lang} from "../../app/common/Data/GlobalConstants";
+import fetchInternalApi from "../../app/api/fetchInternalApi";
 
 
 /**
@@ -82,14 +83,16 @@ export const useSessionHook = () => {
         //Prevent useless request, making sure the use is not logged in.
         if(!auth.isLoggedIn){
 
-            const response = await sendRequest(
+            /*const response = await sendRequest(
                 "/login",
                 'POST',
                 JSON.stringify(data),
                 { 'Content-Type': 'application/json' }
-            );
+            );*/
+            const response = await fetchInternalApi("/api/login", JSON.stringify(data));
+            console.log("UseSessionHook", response);
 
-            if(!response.error) {
+            if(!response.error && response.data) {
                 auth.login(response.data.user);
             }
 

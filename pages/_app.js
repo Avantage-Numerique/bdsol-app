@@ -18,6 +18,13 @@ import {getVisitorData} from "../authentication/context/visitor-context";
  ***********************************/
 import '../styles/main.scss'
 
+/*export async function getServerSideProps(context) {
+    const {req} = context;
+    return {
+        props: {}, // will be passed to the page component as props
+    }
+}*/
+
 
 function MyApp({Component, pageProps}) {
 
@@ -60,8 +67,6 @@ function MyApp({Component, pageProps}) {
             const storedUserData = getLocalStorage('userData');
 
             if (!storedUserData || !storedUserData.isLoggedIn) {
-                //setLocalStorage('userData', defaultSessionData);
-
                 setSession({
                     ...defaultSessionData,
                     isPending: false,
@@ -71,9 +76,6 @@ function MyApp({Component, pageProps}) {
             } else {
                 setSession(storedUserData);
             }
-
-            console.log("effect in app for storedUserData", storedUserData);
-            console.log("effect in app for session", session);
         }
     }, []);
 
@@ -86,8 +88,6 @@ function MyApp({Component, pageProps}) {
             session.isPending = false;
             setLocalStorage('userData', session);
         }
-
-        console.log("effect with session deps", session);
     }, [session])
 
 
