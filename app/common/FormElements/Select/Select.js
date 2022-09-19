@@ -10,6 +10,7 @@ import { MessageContext } from '../../UserNotifications/Message/Context/Message-
 //Components
 import useDebounce from '../.././../hooks/useDebounce'
 import Button from '../Buttons/Button/Button'
+import Modal from '../../Containers/Modal/Modal'
 
 //Styling
 import styles from './Select.module.scss'

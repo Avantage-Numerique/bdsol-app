@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext } from 'react'
 
 //Custom hooks
 import { useFormUtils } from '../../../../../app/hooks/useFormUtils/useFormUtils'
@@ -8,7 +8,6 @@ import Button from '../../../../../app/common/FormElements/Buttons/Button/Button
 import Input from '../../../../../app/common/FormElements/Input/Input'
 import RichTextarea from '../../../../../app/common/FormElements/RichTextArea/RichTextarea'
 import Select from '../../../../../app/common/FormElements/Select/Select'
-import CommonFormFeatures from '../../../../common/layouts/CommonFormFeatures/CommonFormFeatures'
 
 //contexts
 import { MessageContext } from '../../../../../app/common/UserNotifications/Message/Context/Message-Context'
@@ -56,37 +55,24 @@ const CreatePersonForm = () => {
     //Submit the form
     const submitHandler = async event => { 
 
-
         event.preventDefault();
         
-        //Costum validation for this form :
-        //  - The form must be valid
-        if(formState.isValid){
+        const formData = {
+            "data": {
+                "lastName": formState.inputs.lastName.value,
+                "firstName":  formState.inputs.firstName.value, 
+                "nickname": formState.inputs.nickName.value,
+                "description": formState.inputs.biography.value,
+                "occupations": formState.inputs.occupations.value
+            }
+        };
 
-            const formData = {
-                "data": {
-                    "lastName": formState.inputs.lastName.value,
-                    "firstName":  formState.inputs.firstName.value, 
-                    "nickname": formState.inputs.nickName.value,
-                    "description": formState.inputs.biography.value,
-                    "occupations": formState.inputs.occupations.value
-                }
-            };
-
-            submitRequest(
-                "/personnes/create",
-                'POST',
-                formData
-            )
+        submitRequest(
+            "/personnes/create",
+            'POST',
+            formData
+        )
             
-        } else {
-            //The form is not valid. 
-            //Inform the user
-            msg.addMessage({ 
-                text: "Attention. Le formulaire envoyé n'est pas valide. Assurez-vous que tous les champs sont bien remplis.",
-                positive: false
-            })
-        }
     }
 
     /*
@@ -151,19 +137,9 @@ const CreatePersonForm = () => {
                 </div>
 
             </form>
+
         </>
     )
 }
 
 export default CreatePersonForm
-
-
-export const FormattedPersonForm = () => {
-    return (
-        <>
-            <CommonFormFeatures>
-                <CreatePersonForm />
-            </CommonFormFeatures>
-        </>
-    )
-}
