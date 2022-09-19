@@ -46,6 +46,11 @@ export const useFormUtils = ( initialState, action ) => {
 
         //If the answer is positive
         if(!response.error){
+
+            //If a negative message has been displayed before, remove it 
+            if(innerMessage)
+                setInnerMessage("")
+
             //Alert the user
             msg.addMessage({ 
                 text: response.message,

@@ -1,8 +1,6 @@
 import React, { useContext, useEffect } from 'react'
 
 //Custom hooks
-import { useForm } from '../../../../../app/hooks/form-hook'
-import { useHttpClient } from '../../../../../app/hooks/http-hook'
 import { useFormUtils } from '../../../../../app/hooks/useFormUtils/useFormUtils'
 
 //Components
@@ -10,7 +8,6 @@ import Button from '../../../../../app/common/FormElements/Buttons/Button/Button
 import Input from '../../../../../app/common/FormElements/Input/Input'
 import RichTextarea from '../../../../../app/common/FormElements/RichTextArea/RichTextarea'
 import Select from '../../../../../app/common/FormElements/Select/Select'
-import Spinner from '../../../../../app/common/widgets/spinner/Spinner'
 import CommonFormFeatures from '../../../../common/layouts/CommonFormFeatures/CommonFormFeatures'
 
 //contexts
@@ -51,8 +48,7 @@ const CreatePersonForm = () => {
             isValid: true
         }
 
-    },
-    '/compte'
+    }
     );
 
         
@@ -112,7 +108,6 @@ const CreatePersonForm = () => {
             <FormUI />
 
             <form onSubmit={submitHandler} className={`col-12 ${styles["create-person-form"]}`}>
-                
                 <Input 
                     name="firstName"
                     label="Prénom"
