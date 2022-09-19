@@ -113,7 +113,7 @@ export const useForm = (initialInputs) => {
     dispatch({
       type: 'CLEAR_DATA',
       initialValues: initialInputs,
-      initialValidity: initialFormValidity
+      initialValidity: false
     });
   }, []);
 

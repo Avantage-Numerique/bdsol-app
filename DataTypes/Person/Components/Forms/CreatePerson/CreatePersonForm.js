@@ -51,7 +51,8 @@ const CreatePersonForm = () => {
             isValid: true
         }
 
-    }
+    },
+    '/compte'
     );
 
         

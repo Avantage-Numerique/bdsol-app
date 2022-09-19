@@ -6,6 +6,7 @@
 
 import React, { useState, useContext, useEffect, useCallback } from 'react'
 import { scroller } from 'react-scroll'
+import Router from 'next/router'
 
 //Components 
 import Spinner from '../../common/widgets/spinner/Spinner'
@@ -14,7 +15,7 @@ import Spinner from '../../common/widgets/spinner/Spinner'
 import { useHttpClient } from '../http-hook'
 import { useForm } from '../form-hook'
 //Custom contexts
-import { AuthContext } from '../../../authentication/context/auth-context'
+//import { AuthContext } from '../../../authentication/context/auth-context'
 import { MessageContext } from '../../common/UserNotifications/Message/Context/Message-Context'
 
 
@@ -22,7 +23,7 @@ import { MessageContext } from '../../common/UserNotifications/Message/Context/M
 import styles from './formUI.module.scss'
 
 
-export const useFormUtils = ( initialState, redirection ) => {
+export const useFormUtils = ( initialState, action ) => {
 
     //Other option of message to display
     const [innerMessage, setInnerMessage] = useState()
@@ -51,18 +52,27 @@ export const useFormUtils = ( initialState, redirection ) => {
                 positive: true 
             })
 
-            if(redirection){
-                //Program the redirection
-            } else {
-                //By default clear the form data
-                clearFormData()
+            //Evaluate the type of the action to realise if the form is positive
+            const actionType = Object.prototype.toString.call(action).slice(8, -1).toLowerCase()
+
+            //Actions to do in function of the type
+            switch(actionType) {
+                case 'string':
+                  // Then we assume it is a redirection
+                  Router.push( action )
+                  break;
+                case 'function':
+                  // The we execute the function
+                  action()
+                  break;
+                default:
+                  // By default, we clear the form to allow the user to fill it another time
+                  clearFormData()
             }
 
         //If it is not positive for any reason
         } else {       
-
             setInnerMessage(response.message)
-
         }
     }
 
