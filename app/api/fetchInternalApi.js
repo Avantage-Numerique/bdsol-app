@@ -1,4 +1,7 @@
 
+import {NextResponse} from "next/server";
+import { useRouter } from "next/router";
+
 /**
  * Call internal URI into the nextjs API routes.
  * @param internalURI
@@ -7,6 +10,7 @@
  * @return {Promise<any>}
  * initialu copied from : https://github.com/vvo/iron-session/blob/main/examples/next.js/lib/fetchJson.js
  */
+
 export default async function fetchInternalApi(internalURI, data, method = 'POST') {
 
     const internalDefaultHeaders = {
@@ -20,7 +24,6 @@ export default async function fetchInternalApi(internalURI, data, method = 'POST
         headers: new Headers(internalDefaultHeaders),
         json: true
     });
-    console.log("fetchInternalApi", response);
 
     const responseParsed = await response.json();
 

@@ -18,17 +18,17 @@ export const defaultSessionData = {
 
 export const getSessionFromData = (userData) => {
     return {
-        isPending: userData.isPending,
-        isLoggedIn: userData.token !== undefined && userData.token !== null,
+        isPending: false,//maybe will deprecate with we use cookie. The waiting for localstorage isn't needed anymore.
+        isLoggedIn: userData.token !== "" && userData.token !== undefined && userData.token !== null,
         token: userData.token ?? null, //There must be at least a token, for now
         id: userData.id ?? null,
         avatar: userData.avatar ?? null,
         name: userData.name ?? null,
         username: userData.username ?? null,
         createdAt: userData.createdAt ?? null,
-        /*ip: userData.ip ?? null,
+        ip: userData.ip ?? null,
         browser: userData.browser ?? null,
-        language: userData.language ?? null,*/
+        language: userData.language ?? null,
     }
 }
 

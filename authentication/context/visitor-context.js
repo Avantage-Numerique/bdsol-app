@@ -12,22 +12,25 @@ export const setVisitorData = (data) => {
     //VisitorContext.browser = data.welcome;
 }
 
-export const getVisitorData = (context) => {
-    const visitor = visitorContextDefaults;
+export const getVisitorDataFromContext = (context) => {
     const {req} = context;
+    return getVisitorDataFromRequest(req);
+}
 
-    if (req) {
+export const getVisitorDataFromRequest = (request) => {
+    const visitor = visitorContextDefaults;
+    if (request) {
 
-        if (req.headers["x-forwarded-for"]) {
-            visitor.ip = req.headers["x-forwarded-for"].split(',')[0];
+        if (request.headers["x-forwarded-for"]) {
+            visitor.ip = request.headers["x-forwarded-for"].split(',')[0];
         }
 
-        if (req.headers["x-real-ip"] && req.socket) {
-            visitor.ip = req.socket.remoteAddress;
+        if (request.headers["x-real-ip"] && req.socket) {
+            visitor.ip = request.socket.remoteAddress;
         }
 
-        if (req.socket && req.socket.remoteAddress) {
-            visitor.ip = req.socket.remoteAddress;
+        if (request.socket && request.socket.remoteAddress) {
+            visitor.ip = request.socket.remoteAddress;
         }
     }
     return visitor;

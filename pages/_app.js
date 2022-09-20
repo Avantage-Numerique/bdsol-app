@@ -1,6 +1,6 @@
 import {useCallback, useState, useEffect} from 'react'
 
-import {AuthContext, defaultSessionData, getSessionFromData} from '../authentication/context/auth-context'
+import {AuthContext, defaultSessionData, getSessionFromData} from '../authentication/context/auth-context';
 import Layout from '../app/layouts/Layout'
 
 import {
@@ -10,58 +10,49 @@ import {
     setLocalStorage
 } from "../app/session/LocalStorage";
 
-import {getVisitorData} from "../authentication/context/visitor-context";
+import {getVisitorDataFromContext} from "../authentication/context/visitor-context";
 /************************************
  *
  * Import global SCSS files
  *
  ***********************************/
 import '../styles/main.scss'
-
-/*export async function getServerSideProps(context) {
-    const {req} = context;
-    return {
-        props: {}, // will be passed to the page component as props
-    }
-}*/
+import {getIronSession} from "iron-session";
+import {appDefaultSessionOptions} from "../authentication/session/Session";
 
 
 function MyApp({Component, pageProps}) {
 
     //Store the session values
-    const [session, setSession] = useState({
-        ...defaultSessionData,
-        isPending: true,
-        ip: pageProps.visitor.ip
-    });
+    //const [session, setSession] = useState(pageProps.user);
 
     /**
      * Functions to modify the authentication context
     */
-    const login = useCallback(userData => {
+    /*const login = useCallback(userData => {
         userData.isPending = false;
         const newSession = getSessionFromData(userData);
 
-        const userSession = {...defaultSessionData, ...newSession, ip: pageProps.visitor.ip};
+        const userSession = {...defaultSessionData, ...newSession, ip: pageProps.user.ip};
 
         //Update the state
         setSession(userSession);
 
-    }, [session]);
+    }, [session]);*/
 
 
-    const logout = useCallback(() => {
+    /*const logout = useCallback(() => {
 
         deleteTargetLocalStorage('userData');//this change nothing, only that it's keeping up with the two others callback.
         setSession(defaultSessionData);
 
-    }, [session]);
+    }, [session]);*/
 
 
     /*
        Consult the localStorage to see of the user is connected and remove the pending state
     */
-    useEffect(() => {
+    /*useEffect(() => {
         if (isLocalStorageAccessible()) {
 
             const storedUserData = getLocalStorage('userData');
@@ -70,25 +61,26 @@ function MyApp({Component, pageProps}) {
                 setSession({
                     ...defaultSessionData,
                     isPending: false,
-                    ip: pageProps.visitor.ip
+                    ip: pageProps.user.ip
                 });
 
             } else {
                 setSession(storedUserData);
             }
         }
-    }, []);
+    }, []);*/
+
 
     /**
      * Set session trigger and then this effect apply userData into localStorage.
      */
-    useEffect(() => {
+    /*useEffect(() => {
         // save serssion data in the localStorage
         if (isLocalStorageAccessible()) {
             session.isPending = false;
             setLocalStorage('userData', session);
         }
-    }, [session])
+    }, [session])*/
 
 
     /**
@@ -96,13 +88,8 @@ function MyApp({Component, pageProps}) {
      */
     return (
         <>
-
             {/* Authentication context provided to all the subsequent elements */}
-            <AuthContext.Provider value={{
-                ...(session ?? defaultSessionData),
-                login: login,
-                logout: logout
-            }}>
+            <AuthContext.Provider value={{...pageProps.user}}>
                 <Layout>
                     <Component {...pageProps} />
                 </Layout>
@@ -120,11 +107,30 @@ function MyApp({Component, pageProps}) {
 MyApp.getInitialProps = async (context) => {
 
     const {ctx} = context;
+    const {req, res} = ctx;
+    const visitor = getVisitorDataFromContext(ctx);
+    let session;
+    try {
+        console.log('getIronSession', req, res, appDefaultSessionOptions);
+        session = await getIronSession(req, res, appDefaultSessionOptions);
+    } catch(e) {
+        throw(e);
+    }
+
+    if (!session.ip) {
+        session = {
+            ...visitor,
+            ...session
+        }
+    }
+
     return {
         pageProps: {
-            visitor: getVisitorData(ctx)
+            user: getSessionFromData(session)
         },
     }
 }
 
-export default MyApp
+//it isn't call in _app : noMyApp.getServerSideProps or I didn't declare it the good way.
+
+export default MyApp;

@@ -20,6 +20,7 @@ async function loginRoute(req, res) {
 
     res.send({
         text: response.message,
-        positive: !response.error
+        positive: !response.error,
+        redirectUri: response.error ? "/compte/connexion" : "/compte"
     });
 }

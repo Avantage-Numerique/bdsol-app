@@ -1,35 +1,38 @@
 import { NextResponse } from 'next/server';
+import {getIronSession} from "iron-session/edge";
+import {appDefaultSessionOptions} from "./authentication/session/Session";
 
 /**
  * Added in version 12.2 of nextjs, as for stable version.
- * @param request
+ * @param req
  * @return {NextResponse}
  */
-export function middleware(request) {
-    /**
-     * This run before, about every request.
-     */
-    const data = {
-            welcome: "Hi there from getServerSideProps",
-            ip: "not set",
-            req: (request !== undefined) && (request !== null)
-        }
-    if (request) {
+export async function middleware(request) {
 
-        if (request.headers["x-forwarded-for"]) {
-            data.ip = request.headers["x-forwarded-for"].split(',')[0];
-        }
+    const response = NextResponse.next();
+    const session = await getIronSession(request, response, appDefaultSessionOptions);
 
-        if (request.headers["x-real-ip"] && request.socket) {
-            data.ip = request.socket.remoteAddress;
-        }
+    // do anything with session here:
+    const { user } = session;
 
-        if (request.socket && request.socket) {
-            data.ip = request.socket.remoteAddress;
-        }
-    }
+    // like mutate user:
+    // user.something = someOtherThing;
+    // or:
+    // session.user = someoneElse;
 
-    return NextResponse.next();
+    // uncomment next line to commit changes:
+    // await session.save();
+    // or maybe you want to destroy session:
+    // await session.destroy();
+
+    //console.log("from middleware", user);
+
+    // demo:
+    /*if (user?.admin !== "true") {
+        // unauthorized to see pages inside admin/
+        return NextResponse.redirect(new URL('/unauthorized', req.url)) // redirect to /unauthorized page
+    }*/
+    return response;
 }
 
 // Where does this middleware would run

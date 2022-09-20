@@ -30,14 +30,14 @@ const Login = () => {
 
     //Extract the functions inside the session hook
     const { login, isLoading } = useSessionHook()
-
+    console.log(auth);
     /*
         First of all, verify if the user is logged in.
         If he isn't, then redirect him in the account page
     */
     useEffect(() => {
           if(auth.isLoggedIn) {
-            Router.push('/compte')
+            //Router.push('/compte')
           }
     }, [auth.isLoggedIn])
 
@@ -55,6 +55,7 @@ const Login = () => {
     }, 
     false)
 
+
     //Submit the form
     const authSubmitHandler = async event => {
 
@@ -63,7 +64,7 @@ const Login = () => {
         if(auth.isLoggedIn){
 
             //redirect the user to the account page. 
-            Router.push('/compte')
+            //Router.push('/compte');
 
         } else {
 
@@ -76,10 +77,9 @@ const Login = () => {
                 };
 
                 //Call the login hook responsible for the connection
-                login(formData)
+                await login(formData);
 
 
-                    
             } else {
 
                 /*
@@ -90,8 +90,6 @@ const Login = () => {
                     positive: false 
                  })
             }
-
-            
         }
     }
 
@@ -138,10 +136,8 @@ const Login = () => {
                         <Link href="/compte/reinitialiser"> Vous pouvez le réinitialiser </Link>
                     </span>
                 </p>
-           
 
             </form>
-
             
         </section>
     )

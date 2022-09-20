@@ -4,7 +4,8 @@ import { MessageContext } from '../../app/common/UserNotifications/Message/Conte
 import { useHttpClient } from '../../app/hooks/http-hook'
 import {lang} from "../../app/common/Data/GlobalConstants";
 import fetchInternalApi from "../../app/api/fetchInternalApi";
-
+import {useRouter} from 'next/router';
+import Router from 'next/router';
 
 /**
  *   Specific function to be call everytime if we want to login or logout of the api
@@ -80,6 +81,7 @@ export const useSessionHook = () => {
      */
     const login = async (data) => {
 
+
         //Prevent useless request, making sure the use is not logged in.
         if(!auth.isLoggedIn){
 
@@ -89,17 +91,23 @@ export const useSessionHook = () => {
                 JSON.stringify(data),
                 { 'Content-Type': 'application/json' }
             );*/
-            const response = await fetchInternalApi("/api/login", JSON.stringify(data));
-            console.log("UseSessionHook", response);
+            try {
+                const response = await fetchInternalApi("/api/login", JSON.stringify(data));
+                console.log("UseSessionHook", response);
 
-            if(!response.error && response.data) {
-                auth.login(response.data.user);
+                msg.addMessage({
+                    text: response.text,
+                    positive: response.positive
+                });
+
+                if(response.positive) {
+                    //auth.login(response.data.user);
+                    await Router.push(response.redirectUri);
+                }
+
+            } catch(e) {
+                throw e;
             }
-
-            msg.addMessage({
-                text: response.message,
-                positive: !response.error
-            });
 
         } else {
 
