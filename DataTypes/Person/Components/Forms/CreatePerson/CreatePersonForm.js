@@ -9,9 +9,6 @@ import Input from '../../../../../app/common/FormElements/Input/Input'
 import RichTextarea from '../../../../../app/common/FormElements/RichTextArea/RichTextarea'
 import Select from '../../../../../app/common/FormElements/Select/Select'
 
-//contexts
-import { MessageContext } from '../../../../../app/common/UserNotifications/Message/Context/Message-Context'
-
 //Form validators
 import {VALIDATOR_REQUIRE} from '../../../../../app/utils/validators'
 
@@ -20,8 +17,6 @@ import styles from './CreatePersonForm.module.scss'
 
 const CreatePersonForm = () => {
 
-    //Import message context 
-    const msg = useContext(MessageContext);
 
     //Main form functionalities
     const { FormUI, submitRequest, formState, formTools } = useFormUtils(
@@ -46,7 +41,6 @@ const CreatePersonForm = () => {
             value: '',
             isValid: true
         }
-
     }
     );
 

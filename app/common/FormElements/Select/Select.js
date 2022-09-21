@@ -11,6 +11,8 @@ import { MessageContext } from '../../UserNotifications/Message/Context/Message-
 import useDebounce from '../.././../hooks/useDebounce'
 import Button from '../Buttons/Button/Button'
 import Modal from '../../Containers/Modal/Modal'
+import CreateTaxonomyForm from '../../../../DataTypes/Taxonomy/Components/Forms/CreateTaxonomy/CreateTaxonomyForm'
+import RichTextarea from '../RichTextArea/RichTextarea'
 
 //Styling
 import styles from './Select.module.scss'
@@ -184,7 +186,6 @@ const Select = ({name, formTools, ...props}) => {
                 </datalist>
 
             </div>
-
             {/*
 
                 Display the selected items
@@ -204,6 +205,7 @@ const Select = ({name, formTools, ...props}) => {
                 )}
 
             </ul>
+
 
         </>
     );

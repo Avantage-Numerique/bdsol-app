@@ -66,15 +66,15 @@ export const useFormUtils = ( initialState, action ) => {
                 switch(actionType) {
                     case 'string':
                     // Then we assume it is a redirection
-                    Router.push( action )
-                    break;
+                        Router.push( action )
+                        break;
                     case 'function':
-                    // The we execute the function
-                    action()
-                    break;
+                    // Then we execute the function
+                        action()
+                        break;
                     default:
                     // By default, we clear the form to allow the user to fill it another time
-                    clearFormData()
+                        clearFormData()
                 }
 
             //If it is not positive for any reason
