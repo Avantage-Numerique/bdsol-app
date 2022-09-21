@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 
 //Custom hooks
 import { useFormUtils } from '../../../../../app/hooks/useFormUtils/useFormUtils'
@@ -8,6 +8,8 @@ import Button from '../../../../../app/common/FormElements/Buttons/Button/Button
 import Input from '../../../../../app/common/FormElements/Input/Input'
 import RichTextarea from '../../../../../app/common/FormElements/RichTextArea/RichTextarea'
 import Select from '../../../../../app/common/FormElements/Select/Select'
+import Modal from '../../../../../app/common/Containers/Modal/Modal'
+import CreateTaxonomyForm from '../../../../Taxonomy/Components/Forms/CreateTaxonomy/CreateTaxonomyForm'
 
 //Form validators
 import {VALIDATOR_REQUIRE} from '../../../../../app/utils/validators'

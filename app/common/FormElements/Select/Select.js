@@ -10,9 +10,7 @@ import { MessageContext } from '../../UserNotifications/Message/Context/Message-
 //Components
 import useDebounce from '../.././../hooks/useDebounce'
 import Button from '../Buttons/Button/Button'
-import Modal from '../../Containers/Modal/Modal'
 import CreateTaxonomyForm from '../../../../DataTypes/Taxonomy/Components/Forms/CreateTaxonomy/CreateTaxonomyForm'
-import RichTextarea from '../RichTextArea/RichTextarea'
 
 //Styling
 import styles from './Select.module.scss'
@@ -163,29 +161,41 @@ const Select = ({name, formTools, ...props}) => {
         selectList.data)
     return (
         <>
-            <label htmlFor='SelectInput'>{props.label}</label>
-            <br/>
-            <div>
+            <label className={`${styles["select-component"]}`}  htmlFor='SelectInput'>
+                
+                { props.label && props.label}
 
-                <Button type="button" slim="true" disabled={selectRequest.data.name ? false : true} onClick={addValueToSelectedItem}>+</Button>
-                <input 
-                    type="text" 
-                    list='SelectDatalist' 
-                    name='SelectInput'
-                    id='SelectInput' 
-                    onBlur={() => inputTouched(name)}
-                    placeholder={props.placeholder}
-                    className={`${styles["selectInput"]}`} 
-                    ref={selectTagRef} 
-                    onChange={(e) => {formRequestData(e.target.value)}}
-                />
-                <datalist id='SelectDatalist' name="SelectDatalist" className={`${styles["datalist-input"]}`}>
-                    {selectList.data.map( item => 
-                        <option key={`datalist-${item.name}`} value={item.name}></option>
-                    )}
-                </datalist>
+                <div>
 
-            </div>
+                    <Button type="button" slim="true" disabled={selectRequest.data.name ? false : true} onClick={addValueToSelectedItem}>+</Button>
+                    
+                    <input 
+                        type="text" 
+                        list='SelectDatalist' 
+                        name='SelectInput'
+                        id='SelectInput' 
+                        onBlur={() => inputTouched(name)}
+                        placeholder={props.placeholder}
+                        className={`${styles["select-input"]}`} 
+                        ref={selectTagRef} 
+                        onChange={(e) => {formRequestData(e.target.value)}}
+                    />
+                    
+                    <datalist id='SelectDatalist' name="SelectDatalist" className={`${styles["datalist-input"]}`}>
+                        {selectList.data.map( item => 
+                            <option key={`datalist-${item.name}`} value={item.name}></option>
+                        )}
+                    </datalist>
+
+                </div>
+                
+                {/* Button to call a form and add a new taxonomie */}
+                <div className={`col-12 ${styles["button-container"]}`}>
+                    <button disabled><small>Soumettre comme nouvelle taxonomie</small></button>
+                </div>
+
+
+            </label>
             {/*
 
                 Display the selected items

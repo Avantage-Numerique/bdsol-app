@@ -1,9 +1,56 @@
-.selectInput {
-    background-color: white;
-    margin-left: 1rem;
+.select-component{
+
+    //Container for the fields
+    > div {
+
+        display: flex;
+        flex-direction: row;
+
+        .select-input {
+            flex: 1;
+            background-color: white;
+            margin-left: 1ch;
+        }
+
+        
+
+    }
+    
+    /* Button to propose new modifications  */
+    .button-container {
+
+        justify-content: flex-end;
+
+        > button {
+            text-decoration: underline;
+            opacity: 0.7;
+            font-weight: 700;
+            color: rgb(79, 79, 79);
+
+            -webkit-transition: 0.2s ease;
+            -moz-transition: 0.2s ease;
+            -o-transition: 0.2s ease;
+            -ms-transition: 0.2s ease;
+            transition: 0.2s ease;
+
+            &:hover {
+                opacity: 1;
+            }
+
+            & :disabled, &[disabled]{
+              opacity: 0;
+              pointer-events: none;
+            }
+        }
+
+    }
+
 }
 
 .tagList {
+
+    margin: 0.5rem 0rem;
+    float: left;
     
     .tag {
         user-select: none;
