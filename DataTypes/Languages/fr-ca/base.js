@@ -15,6 +15,8 @@ export const base = {
 
     // useSessionHook
 
+    "successConnected": "Vous êtes maintenant connecté.",
+    "successDisconnected": "Vous êtes maintenant déconnecté.",
     "youreAlreadyConnected": "Vous êtes déjà connecté.",
     "youreAlreadyDisconnected": "Vous avez déjà été déconnecté.",
     "errorOnDisconnecting": "Une erreur est survenue lors de la déconnection",

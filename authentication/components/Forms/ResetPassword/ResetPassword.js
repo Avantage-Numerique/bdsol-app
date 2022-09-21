@@ -1,5 +1,5 @@
-import React, { useContext } from 'react'
-import { AuthContext } from '../../../context/auth-context'
+import React from 'react'
+import {useAuth} from '../../../context/auth-context'
 
 //Validators
 import {VALIDATOR_REQUIRE} from '../../../../app/utils/validators'
@@ -34,7 +34,6 @@ const ResetPassword = () => {
     const authSubmitHandler = async event => {
 
         event.preventDefault();
-        //console.log(event.target.userName.value);
 
         if(auth.isLoggedIn){
 
@@ -44,7 +43,7 @@ const ResetPassword = () => {
 
             try{
 
-                const response = await fetch('https://api.avantagenumerique.org/o/v1', {
+                /*const response = await fetch('https://api.avantagenumerique.org/o/v1', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -61,7 +60,7 @@ const ResetPassword = () => {
                     throw new Error(responseData.message);
                 }
                 
-                auth.login(responseData.token);
+                auth.login(responseData.token);*/
 
 
             } catch(err){

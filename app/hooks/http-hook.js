@@ -72,7 +72,7 @@ export const useHttpClient = () => {
                 };
 
             activeHttpRequests.current.push(httpAbortCtrl)
-            console.log(body);
+
             try {
 
                 const responseData = await sendExternalApiRequest(

@@ -25,50 +25,29 @@ export const useSessionHook = () => {
 
     const logout = async () => {
 
-        //Make sure the user is logged in before sending the request
-        if(auth.user.isLoggedIn){
-
-            //Temporary
-            if (!LogOutImplementedInAPI) {
-                try {
-                    auth.logout()
-                    msg.addMessage({
-                        text: lang.disconnectionSucceed,//"Félicitation ! Vous avez bien été déconnectés.",
-                        positive: true
-                    });
-
-                } catch (err) {
-                    msg.addMessage({
-                        text: lang.errorOnDisconnecting,//"Une erreur est survenue lors de la déconnection",
-                        positive: false
-                    });
-                }
-            }
-
-
-            if (LogOutImplementedInAPI) {
-
-                //Request to logout in the API
-                const response = await sendRequest(
-                    "/logout",
-                    'POST',
-                    {},
-                    { 'Content-Type': 'application/json' }
-                )
-
-                if(!response.error) {
-                    auth.logout();
-                }
+        if(auth.user.isLoggedIn) {
+            try {
+                const response = await fetchInternalApi("/api/logout", JSON.stringify({}));
+                auth.setUser(response.user);
 
                 msg.addMessage({
-                    text: response.message,
-                    positive: !response.error
+                    text: response.text,
+                    positive: response.positive
                 });
+
+                if(response.positive) {
+                    //auth.login(response.data.user);
+                    await Router.push(response.redirectUri);
+                }
+
+            } catch(e) {
+                throw e;
             }
 
         } else {
-            msg.addMessage({ 
-                text: lang.youreAlreadyDisconnected,//"Vous avez déjà été déconnecté.",
+            //Tell the user he is already logged in
+            msg.addMessage({
+                text: lang.youreAlreadyDisconnected, //"Vous êtes déjà connecté.",
                 positive: false
             });
         }
@@ -85,17 +64,10 @@ export const useSessionHook = () => {
         //Prevent useless request, making sure the use is not logged in.
         if(!auth.user.isLoggedIn){
 
-            /*const response = await sendRequest(
-                "/login",
-                'POST',
-                JSON.stringify(data),
-                { 'Content-Type': 'application/json' }
-            );*/
             try {
                 const response = await fetchInternalApi("/api/login", JSON.stringify(data));
-                console.log("UseSessionHook", response);
-
                 auth.setUser(response.user);
+
                 msg.addMessage({
                     text: response.text,
                     positive: response.positive

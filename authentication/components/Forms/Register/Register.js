@@ -133,9 +133,6 @@ const Register = () => {
                         "username": formState.inputs.username.value,
                         "password": formState.inputs.password.value
                     })
-                    
-
-                    console.log(response)
 
                     //Notify the user
                     msg.addMessage({ 

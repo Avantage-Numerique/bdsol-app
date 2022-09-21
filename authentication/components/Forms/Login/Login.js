@@ -29,8 +29,8 @@ const Login = () => {
     const msg = useContext(MessageContext);
 
     //Extract the functions inside the session hook
-    const { login, isLoading } = useSessionHook()
-    console.log(auth);
+    const { login, isLoading } = useSessionHook();
+
     /*
         First of all, verify if the user is logged in.
         If he isn't, then redirect him in the account page

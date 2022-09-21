@@ -1,20 +1,18 @@
-import {useCallback, useState, useEffect} from 'react'
 import {getIronSession} from "iron-session";
 import App from "next/app";
 import {appDefaultSessionOptions} from "../authentication/session/Session";
-import {withSessionRoute, withSessionSsr} from "../authentication/session/handlers/withSession";
-
 import {AuthProvider} from '../authentication/context/auth-context';
 import Layout from '../app/layouts/Layout'
 
-import {getVisitorDataFromContext} from "../authentication/context/visitor-context";
+//import {useCallback, useState, useEffect} from 'react'
+//import {getVisitorDataFromContext} from "../authentication/context/visitor-context";
+//import useAuthentification from "../authentication/hooks/useAuthentification";
 /************************************
  *
  * Import global SCSS files
  *
  ***********************************/
 import '../styles/main.scss'
-import useAuthentification from "../authentication/hooks/useAuthentification";
 
 
 function MyApp({Component, pageProps, user}) {
@@ -80,7 +78,6 @@ function MyApp({Component, pageProps, user}) {
             setLocalStorage('userData', session);
         }
     }, [session])*/
-    console.log("_app pageProps before render", user);
 
     /**
      * Main app render.

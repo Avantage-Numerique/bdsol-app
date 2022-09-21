@@ -14,7 +14,6 @@ const Ripple = ({ clear })  => {
 
     useEffect(() => {
         setTimeout(() => {
-            console.log("Bonjour")
             clear()
 
         }, 2000)

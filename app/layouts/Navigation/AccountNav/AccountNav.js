@@ -10,7 +10,7 @@ import { useEffect, useContext } from 'react'
 import { useRouter } from 'next/router'
 
 //Import the authentication context
-import {AuthContext, useAuth} from '../../../../authentication/context/auth-context'
+import {useAuth} from '../../../../authentication/context/auth-context'
 
 //Log options
 import { useSessionHook } from '../../../../authentication/hooks/useSessionHook'
@@ -40,7 +40,6 @@ const AccountNav = ( {menuState, setMenuState} ) => {
     }, [router.asPath]);
 
     return (
-
         <nav className={`${navStyles.navContainer} ${menuState === 2 && navStyles.displayed}`}>
             <div className={"maxWidthPageContainer"}>
 
@@ -49,7 +48,7 @@ const AccountNav = ( {menuState, setMenuState} ) => {
                 <ul className={`col-9`}>
 
                     {/* Options if the user is NOT logged in */}
-                    {   !auth.isLoggedIn &&
+                    {   !auth.user.isLoggedIn &&
                         <>
                             <li className="col-12">
                                 <Link href="/compte/connexion">Se connecter</Link>
@@ -61,7 +60,7 @@ const AccountNav = ( {menuState, setMenuState} ) => {
                     }
 
                     {/* Options if the user is logged in */}
-                    {   auth.isLoggedIn &&
+                    {   auth.user.isLoggedIn &&
                         <>
                             <li className="col-12">
                                 <Link href="/compte">Espace membre</Link>
@@ -75,11 +74,8 @@ const AccountNav = ( {menuState, setMenuState} ) => {
                         </>
                     }
                 </ul>
-
-         
             </div>
         </nav>
-        
     )   
 }
 

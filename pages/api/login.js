@@ -1,7 +1,6 @@
 import {withSessionRoute} from "../../authentication/session/handlers/withSession";
 import {sendExternalApiRequest} from "../../app/hooks/http-hook";
-import {useContext} from "react";
-import {AuthContext, getSessionFromData} from "../../authentication/context/auth-context";
+import {getSessionFromData} from "../../authentication/context/auth-context";
 
 export default withSessionRoute(loginRoute);
 
