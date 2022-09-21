@@ -9,6 +9,7 @@ import Spinner from '../../../../app/common/widgets/spinner/Spinner'
 
 //costum hooks 
 import { useHttpClient } from '../../../../app/hooks/http-hook'
+import {lang} from "../../../../app/common/Data/GlobalConstants";
 
 const CommonFormFeatures = ({ children }) => {
 
@@ -32,15 +33,14 @@ const CommonFormFeatures = ({ children }) => {
     If he isn't, then redirect him in the connexion page
     */
     useEffect(() => {
-            if(!auth.isPending)
-                if(!auth.isLoggedIn) {
-                    msg.addMessage({ 
-                        text: "Vous devez être connecté pour pouvoir contribuer à la base de données.",
-                        positive: false 
-                    })
-                    Router.push('/compte/connexion')
-                }
-    }, [auth.isLoggedIn, auth.isPending])
+        if(!auth.user.isLoggedIn) {
+            msg.addMessage({
+                text: lang.needAuthToContribute,//"Vous devez être connecté pour pouvoir contribuer à la base de données.",
+                positive: false
+            })
+            Router.push('/compte/connexion')
+        }
+    }, [auth.user.isLoggedIn])
 
     const newChildren = React.Children.map(children, child => {
 
@@ -51,7 +51,7 @@ const CommonFormFeatures = ({ children }) => {
     })
 
     //Prevent from displaying is the user is not logged in or if the app doesn't know the authentication state yet
-    if(!auth.isPending && auth.isLoggedIn)
+    if(auth.user.isLoggedIn)
 
     return (
         <>

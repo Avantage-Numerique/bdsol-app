@@ -36,56 +36,68 @@ export const useFormUtils = ( initialState, action ) => {
 
     const submitRequest = async (route, type, data, header = { 'Content-Type': 'application/json' }) => {
 
-        //Send the request with the specialized hook
-        const response = await sendRequest (
-            route,
-            type,
-            JSON.stringify(data),
-            header
-        )
+        if(formState.isValid){
 
-        //If the answer is positive
-        if(!response.error){
+            //Send the request with the specialized hook
+            const response = await sendRequest (
+                route,
+                type,
+                JSON.stringify(data),
+                header
+            )
 
-            //If a negative message has been displayed before, remove it 
-            if(innerMessage)
-                setInnerMessage("")
+            //If the answer is positive
+            if(!response.error){
 
-            //Alert the user
-            msg.addMessage({ 
-                text: response.message,
-                positive: true 
-            })
+                //If a negative message has been displayed before, remove it 
+                if(innerMessage)
+                    setInnerMessage("")
 
-            //Evaluate the type of the action to realise if the form is positive
-            const actionType = Object.prototype.toString.call(action).slice(8, -1).toLowerCase()
+                //Alert the user
+                msg.addMessage({ 
+                    text: response.message,
+                    positive: true 
+                })
 
-            //Actions to do in function of the type
-            switch(actionType) {
-                case 'string':
-                  // Then we assume it is a redirection
-                  Router.push( action )
-                  break;
-                case 'function':
-                  // The we execute the function
-                  action()
-                  break;
-                default:
-                  // By default, we clear the form to allow the user to fill it another time
-                  clearFormData()
+                //Evaluate the type of the action to realise if the form is positive
+                const actionType = Object.prototype.toString.call(action).slice(8, -1).toLowerCase()
+
+                //Actions to do in function of the type
+                switch(actionType) {
+                    case 'string':
+                    // Then we assume it is a redirection
+                        Router.push( action )
+                        break;
+                    case 'function':
+                    // Then we execute the function
+                        action()
+                        break;
+                    default:
+                    // By default, we clear the form to allow the user to fill it another time
+                        clearFormData()
+                }
+
+            //If it is not positive for any reason
+            } else {       
+                setInnerMessage(response.message)
             }
 
-        //If it is not positive for any reason
-        } else {       
-            setInnerMessage(response.message)
+        } else {
+
+            //Prevent the form to be submitted since it's not valid.
+            //Inform the user
+            setInnerMessage("Attention. Le formulaire envoyé n'est pas valide. Assurez-vous que tous les champs sont bien remplis.")
+            
         }
+
+    
     }
 
     
     //Import message context 
     const msg = useContext(MessageContext);
 
-    const FormUI = useCallback(() => {
+    const FormUI = useCallback(({fixedSpinner}) => {
 
         useEffect(() => {
             if(innerMessage)
@@ -105,7 +117,7 @@ export const useFormUtils = ( initialState, action ) => {
                         { innerMessage }
                     </div>
                 }
-                { isLoading && <Spinner /> }
+                { isLoading && <Spinner fixed={fixedSpinner} /> }
             </>
         )
 

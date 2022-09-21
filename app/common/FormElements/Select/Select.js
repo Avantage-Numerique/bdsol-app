@@ -1,7 +1,7 @@
 import React, {useEffect, useState, useRef, useContext} from 'react'
 
 //Custom Hooks
-import {useHttpClient} from '../../../../app/hooks/http-hook'
+import {useHttpClient} from '../../../hooks/http-hook'
 //import { useDebounce } from '../.././../hooks/useDebounce'
 
 //Contexts
@@ -10,6 +10,9 @@ import { MessageContext } from '../../UserNotifications/Message/Context/Message-
 //Components
 import useDebounce from '../.././../hooks/useDebounce'
 import Button from '../Buttons/Button/Button'
+import Modal from '../../Containers/Modal/Modal'
+import CreateTaxonomyForm from '../../../../DataTypes/Taxonomy/Components/Forms/CreateTaxonomy/CreateTaxonomyForm'
+import RichTextarea from '../RichTextArea/RichTextarea'
 
 //Styling
 import styles from './Select.module.scss'
@@ -174,12 +177,11 @@ const Select = ({name, formTools, ...props}) => {
                 />
                 <datalist id='SelectDatalist' name="SelectDatalist" className={`${styles["datalist-input"]}`}>
                     {selectList.data.map( item => 
-                        <option key={`datalist-${item.name}`} value={item.name}></option>
+                        <option key={`datalist-${item.name}`} value={item.name} />
                     )}
                 </datalist>
 
             </div>
-
             {/*
 
                 Display the selected items
@@ -199,6 +201,7 @@ const Select = ({name, formTools, ...props}) => {
                 )}
 
             </ul>
+
 
         </>
     );
