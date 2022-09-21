@@ -1,5 +1,5 @@
 import {useState, useCallback, useRef, useEffect, useContext} from 'react';
-import {AuthContext} from '../../authentication/context/auth-context'
+import {AuthContext, useAuth} from '../../authentication/context/auth-context'
 import {lang} from "../common/Data/GlobalConstants";
 
 
@@ -52,7 +52,7 @@ export const useHttpClient = () => {
     const [isLoading, setIsLoading] = useState(false);
 
     //Access the authentication context
-    const auth = useContext(AuthContext);
+    const auth = useAuth();
 
     const activeHttpRequests = useRef([]);
 
@@ -63,9 +63,9 @@ export const useHttpClient = () => {
 
             //Start the loading component
             setIsLoading(true);
-
+            //auth.user.ip
             const httpAbortCtrl = new AbortController(),
-                authorization = auth.token ? {Authorization: 'Bearer ' + auth.token} : {},
+                authorization = auth.user.token ? {Authorization: 'Bearer ' + auth.user.token} : {},
                 headersParams = {
                     ...authorization,
                     ...headers

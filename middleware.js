@@ -9,11 +9,11 @@ import {appDefaultSessionOptions} from "./authentication/session/Session";
  */
 export async function middleware(request) {
 
-    const response = NextResponse.next();
-    const session = await getIronSession(request, response, appDefaultSessionOptions);
+    //const session = await getIronSession(request, response, appDefaultSessionOptions);
 
     // do anything with session here:
-    const { user } = session;
+    //const { user } = session;
+    //response.user = user;
 
     // like mutate user:
     // user.something = someOtherThing;
@@ -28,11 +28,11 @@ export async function middleware(request) {
     //console.log("from middleware", user);
 
     // demo:
-    /*if (user?.admin !== "true") {
-        // unauthorized to see pages inside admin/
-        return NextResponse.redirect(new URL('/unauthorized', req.url)) // redirect to /unauthorized page
-    }*/
-    return response;
+    //if (user?.admin !== "true") {
+    //    // unauthorized to see pages inside admin/
+    //    return NextResponse.redirect(new URL('/unauthorized', req.url)) // redirect to /unauthorized page
+    //}
+    return NextResponse.next();
 }
 
 // Where does this middleware would run

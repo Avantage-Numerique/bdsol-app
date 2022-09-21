@@ -17,20 +17,21 @@ import {useHttpClient} from '../app/hooks/http-hook';
 
 //Context
 import {MessageContext} from '../app/common/UserNotifications/Message/Context/Message-Context';
-import {AuthContext} from '../authentication/context/auth-context';
+import {AuthContext, defaultSessionData, useAuth} from '../authentication/context/auth-context';
 
 //Styling
 import styles from './home-page.module.scss'
 import {lang} from "../app/common/Data/GlobalConstants";
 
 
-const HomePage = () => {
+const HomePage = ({}) => {
+
+
+    //Import the authentication context to make sure the user is well connected
+    const auth = useAuth();
 
     //Holds the state the organisations
     const [feedList, setFeedList] = useState([]);
-
-    //Import the authentication context to make sure the user is well connected
-    const auth = useContext(AuthContext);
 
     //Import message context 
     const msg = useContext(MessageContext);
@@ -216,19 +217,13 @@ const HomePage = () => {
                                 {
                                     feedList.length === 0 && !isLoading &&
                                     <div className="col-12">
-                                        <h5>Aucune donnée ¯\_(ツ)_/¯, encore. On a peut-être un problème en arrière
-                                            plan.</h5>
+                                        <h5>Aucune donnée ¯\_(ツ)_/¯ pour l'instant. On a peut-être un problème en arrière plan.</h5>
                                     </div>
                                 }
 
                                 <div className={`col-12 ${styles["home-page__feed-section--container"]}`}>
 
-
-                                    {/************************************
-                                     *
-                                     * Display feed if there is one
-                                     *
-                                     ***********************************/}
+                                    {/* Display feed if there is one */}
                                     {
                                         feedList.length > 0 && !isLoading &&
 
@@ -270,7 +265,7 @@ const HomePage = () => {
                             Section : If user is not connected, offer the option to connect itself
                         */}
 
-                        {!auth.isLoggedIn && !auth.isPending &&
+                        {!auth.user.isLoggedIn &&
                         <section className={`col-12 ${styles["aside__connection-option"]}`}>
                             <Button href="/compte/connexion">Se connecter</Button>
                         </section>
@@ -291,7 +286,7 @@ const HomePage = () => {
                             <div className={`col-12 ${styles["db-edit-options__button-set"]}`}>
                                 <Button disabled slim>Personne</Button>
                                 <Button
-                                    disabled={!auth.isLoggedIn}
+                                    disabled={!auth.user.isLoggedIn}
                                     href="/contribuer/personne"
                                     slim
                                 >+</Button>
@@ -300,7 +295,7 @@ const HomePage = () => {
                             <div className={`col-12 ${styles["db-edit-options__button-set"]}`}>
                                 <Button disabled slim>Organisation</Button>
                                 <Button
-                                    disabled={!auth.isLoggedIn}
+                                    disabled={!auth.user.isLoggedIn}
                                     slim
                                     href="/contribuer/organisation"
                                 >+</Button>
@@ -309,13 +304,13 @@ const HomePage = () => {
                             <div className={`col-12 ${styles["db-edit-options__button-set"]}`}>
                                 <Button disabled slim>Taxonomie</Button>
                                 <Button
-                                    disabled={!auth.isLoggedIn}
+                                    disabled={!auth.user.isLoggedIn}
                                     slim
                                     href="/contribuer/taxonomy"
                                 >+</Button>
                             </div>
 
-                            {auth.isLoggedIn &&
+                            {auth.user.isLoggedIn &&
                             <Button color="blue4" reverse href="/contribuer">Ajouter une donnée</Button>
                             }
 
@@ -329,7 +324,7 @@ const HomePage = () => {
                             Section : If user is not connected, propose to create an account if he doesn't have one
                         */}
 
-                        {!auth.isLoggedIn && !auth.isPending &&
+                        {!auth.user.isLoggedIn &&
                         <section className={`col-12 ${styles["aside__register-option"]}`}>
 
                             <div className="col-12 blue_BG white">

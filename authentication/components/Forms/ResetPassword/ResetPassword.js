@@ -27,7 +27,7 @@ const ResetPassword = () => {
 
 
     //Import the authentication context to make sure the user is well connected
-    const auth = useContext(AuthContext);
+    const auth = useAuth();
 
 
     //Submit the form

@@ -13,7 +13,7 @@ import { useHttpClient } from '../../../../app/hooks/http-hook'
 const CommonFormFeatures = ({ children }) => {
 
     //Import the authentication context to make sure the user is well connected
-    const auth = useContext(AuthContext);
+    const auth = useAuth();
 
     //Import message context 
     const msg = useContext(MessageContext);

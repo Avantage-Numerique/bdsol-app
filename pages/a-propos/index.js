@@ -16,7 +16,7 @@ import { AuthContext } from '../../authentication/context/auth-context'
 const Index = () => {
 
     //Import the authentication context
-    const auth = useContext(AuthContext);
+    const auth = useAuth();
 
     return (
         <div className={`col-12`}>

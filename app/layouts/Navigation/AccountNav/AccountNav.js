@@ -10,7 +10,7 @@ import { useEffect, useContext } from 'react'
 import { useRouter } from 'next/router'
 
 //Import the authentication context
-import { AuthContext } from '../../../../authentication/context/auth-context'
+import {AuthContext, useAuth} from '../../../../authentication/context/auth-context'
 
 //Log options
 import { useSessionHook } from '../../../../authentication/hooks/useSessionHook'
@@ -23,7 +23,7 @@ const AccountNav = ( {menuState, setMenuState} ) => {
     const { logout } = useSessionHook();
 
     //Import the authentication context to know if the user is connected
-    const auth = useContext(AuthContext);
+    const auth = useAuth();
 
     //Listen for a page change. If it happens, close the menu
     const router = useRouter();

@@ -15,7 +15,7 @@ import HamburgerButton from '../../common/FormElements/Buttons/HamburgerButton/H
 import Link from 'next/link';
 
 //Authentication context
-import { AuthContext } from '../../../authentication/context/auth-context';
+import {AuthContext, useAuth} from '../../../authentication/context/auth-context';
 
 
 //Styling
@@ -24,7 +24,7 @@ import styles from './Header.module.scss'
 const Header = ( props ) => {
 
     //Import the authentication context to make sure the user is well connected
-    const auth = useContext(AuthContext);
+    const auth = useAuth();
 
     //Destructuring to acces those elements easier
     const { menuState, setMenuState } = props

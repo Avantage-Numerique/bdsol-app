@@ -1,5 +1,5 @@
 import { useContext } from 'react'
-import { AuthContext } from '../context/auth-context'
+import {AuthContext, useAuth} from '../context/auth-context'
 import { MessageContext } from '../../app/common/UserNotifications/Message/Context/Message-Context'
 import { useHttpClient } from '../../app/hooks/http-hook'
 import {lang} from "../../app/common/Data/GlobalConstants";
@@ -13,7 +13,7 @@ import Router from 'next/router';
 export const useSessionHook = () => {
 
     //Import the authentication context to make sure the user is well connected
-    const auth = useContext(AuthContext);
+    const auth = useAuth();
 
     //Import message context 
     const msg = useContext(MessageContext);
@@ -26,7 +26,7 @@ export const useSessionHook = () => {
     const logout = async () => {
 
         //Make sure the user is logged in before sending the request
-        if(auth.isLoggedIn){
+        if(auth.user.isLoggedIn){
 
             //Temporary
             if (!LogOutImplementedInAPI) {
@@ -83,7 +83,7 @@ export const useSessionHook = () => {
 
 
         //Prevent useless request, making sure the use is not logged in.
-        if(!auth.isLoggedIn){
+        if(!auth.user.isLoggedIn){
 
             /*const response = await sendRequest(
                 "/login",
@@ -95,6 +95,7 @@ export const useSessionHook = () => {
                 const response = await fetchInternalApi("/api/login", JSON.stringify(data));
                 console.log("UseSessionHook", response);
 
+                auth.setUser(response.user);
                 msg.addMessage({
                     text: response.text,
                     positive: response.positive

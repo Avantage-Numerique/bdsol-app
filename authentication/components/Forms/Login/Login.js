@@ -4,7 +4,7 @@ import Link from 'next/link';
 import Router from 'next/router';
 
 //Context
-import { AuthContext } from '../../../context/auth-context';
+import { useAuth } from '../../../context/auth-context';
 import { MessageContext } from '../../../../app/common/UserNotifications/Message/Context/Message-Context';
 
 //Validators
@@ -25,7 +25,7 @@ import styles from './Login.module.scss';
 const Login = () => {
 
     //Import the authentication context to make sure the user is well connected
-    const auth = useContext(AuthContext);
+    const auth = useAuth();
     const msg = useContext(MessageContext);
 
     //Extract the functions inside the session hook

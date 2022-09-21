@@ -12,7 +12,7 @@ import RichTextarea from '../../../../../app/common/FormElements/RichTextArea/Ri
 import Spinner from '../../../../../app/common/widgets/spinner/Spinner'
 
 //Contexts
-import { AuthContext } from '../../../../../authentication/context/auth-context'
+import {AuthContext, useAuth} from '../../../../../authentication/context/auth-context'
 import { MessageContext } from '../../../../../app/common/UserNotifications/Message/Context/Message-Context'
 
 //Styling
@@ -22,7 +22,7 @@ import styles from './CreateTaxonomyForm.module.scss'
 const CreateTaxonomyForm = () => {
 
     //Import the authentication context to make sure the user is well connected
-    const auth = useContext(AuthContext);
+    const auth = useAuth();
 
     //Import message context 
     const msg = useContext(MessageContext);
@@ -41,14 +41,14 @@ const CreateTaxonomyForm = () => {
     If he isn't, then redirect him in the connexion page
     */
     useEffect(() => {
-        if(!auth.isLoggedIn) {
+        if(!auth.user.isLoggedIn) {
             msg.addMessage({ 
                 text: "Vous devez être connecté pour pouvoir ajouter une entité à la base de données.",
                 positive: false 
             })
             Router.push('/compte/connexion')
         }
-    }, [auth.isLoggedIn, auth.isPending])
+    }, [auth.user.isLoggedIn])
 
     //Extract the functions inside useHttpClient
     const { isLoading, sendRequest} = useHttpClient();
@@ -146,7 +146,7 @@ const CreateTaxonomyForm = () => {
     }
 
     //Prevent from displaying is the user is not logged in or if the app doesn't know the authentication state yet
-    if(!auth.isPending && auth.isLoggedIn)
+    if(auth.user.isLoggedIn)
     return (
         <>
             { isLoading && <Spinner fixed />}

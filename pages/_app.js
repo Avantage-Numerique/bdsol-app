@@ -1,14 +1,11 @@
 import {useCallback, useState, useEffect} from 'react'
+import {getIronSession} from "iron-session";
+import App from "next/app";
+import {appDefaultSessionOptions} from "../authentication/session/Session";
+import {withSessionRoute, withSessionSsr} from "../authentication/session/handlers/withSession";
 
-import {AuthContext, defaultSessionData, getSessionFromData} from '../authentication/context/auth-context';
+import {AuthProvider} from '../authentication/context/auth-context';
 import Layout from '../app/layouts/Layout'
-
-import {
-    deleteTargetLocalStorage,
-    getLocalStorage,
-    isLocalStorageAccessible,
-    setLocalStorage
-} from "../app/session/LocalStorage";
 
 import {getVisitorDataFromContext} from "../authentication/context/visitor-context";
 /************************************
@@ -17,11 +14,13 @@ import {getVisitorDataFromContext} from "../authentication/context/visitor-conte
  *
  ***********************************/
 import '../styles/main.scss'
-import {getIronSession} from "iron-session";
-import {appDefaultSessionOptions} from "../authentication/session/Session";
+import useAuthentification from "../authentication/hooks/useAuthentification";
 
 
-function MyApp({Component, pageProps}) {
+function MyApp({Component, pageProps, user}) {
+
+
+    //const {user, setUser} = AuthProvider();
 
     //Store the session values
     //const [session, setSession] = useState(pageProps.user);
@@ -53,6 +52,7 @@ function MyApp({Component, pageProps}) {
        Consult the localStorage to see of the user is connected and remove the pending state
     */
     /*useEffect(() => {
+        console.log(user);
         if (isLocalStorageAccessible()) {
 
             const storedUserData = getLocalStorage('userData');
@@ -70,7 +70,6 @@ function MyApp({Component, pageProps}) {
         }
     }, []);*/
 
-
     /**
      * Set session trigger and then this effect apply userData into localStorage.
      */
@@ -81,7 +80,7 @@ function MyApp({Component, pageProps}) {
             setLocalStorage('userData', session);
         }
     }, [session])*/
-
+    console.log("_app pageProps before render", user);
 
     /**
      * Main app render.
@@ -89,11 +88,11 @@ function MyApp({Component, pageProps}) {
     return (
         <>
             {/* Authentication context provided to all the subsequent elements */}
-            <AuthContext.Provider value={{...pageProps.user}}>
+            <AuthProvider fromSessionUser={user}>
                 <Layout>
                     <Component {...pageProps} />
                 </Layout>
-            </AuthContext.Provider>
+            </AuthProvider>
         </>
     )
 }
@@ -106,29 +105,27 @@ function MyApp({Component, pageProps}) {
  */
 MyApp.getInitialProps = async (context) => {
 
-    const {ctx} = context;
-    const {req, res} = ctx;
-    const visitor = getVisitorDataFromContext(ctx);
-    let session;
-    try {
-        console.log('getIronSession', req, res, appDefaultSessionOptions);
-        session = await getIronSession(req, res, appDefaultSessionOptions);
-    } catch(e) {
-        throw(e);
+    const appProps = await App.getInitialProps(context);
+
+    if (context.ctx.req && context.ctx.res) {
+
+        const { user } = await getIronSession(
+            context.ctx.req,
+            context.ctx.res,
+            appDefaultSessionOptions,
+        );
+
+        return {
+            pageProps: {
+                ...appProps,
+                user: user
+            },
+            ...appProps,
+            user: user
+        };
     }
 
-    if (!session.ip) {
-        session = {
-            ...visitor,
-            ...session
-        }
-    }
-
-    return {
-        pageProps: {
-            user: getSessionFromData(session)
-        },
-    }
+    return appProps
 }
 
 //it isn't call in _app : noMyApp.getServerSideProps or I didn't declare it the good way.

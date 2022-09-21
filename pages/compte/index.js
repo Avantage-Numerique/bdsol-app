@@ -4,7 +4,7 @@ import {useRouter} from 'next/router';
 import {useHttpClient} from '../../app/hooks/http-hook'
 
 //Context
-import {AuthContext} from '../../authentication/context/auth-context'
+import {AuthContext, useAuth} from '../../authentication/context/auth-context'
 
 //Components
 import UserHistoryGrid from '../../DataTypes/UserHistory/UserHistoryGrid';
@@ -19,9 +19,18 @@ import styles from './accountPage.module.scss'
 import Profile from '../../app/common/Containers/UserAccount/Profile/profile';
 import Preferences from '../../app/common/Containers/UserAccount/Preferences/preferences';
 import Help from '../../app/common/Containers/UserAccount/Help/help';
+import useAuthentification from "../../authentication/hooks/useAuthentification";
 
 
 const accountPage = () => {
+
+    /*const useAuthenficiation = useAuthentification({
+        redirectTo: "/compte/connexion",
+        redirectIfFound: true,
+    });*/
+
+    //Import the authentication context to make sure the user is connected
+    const auth = useAuth();
 
     //Default redirection path
     const redirectPath = useRef('/compte/connexion');
@@ -38,18 +47,15 @@ const accountPage = () => {
         logout();
     }
 
-    //Import the authentication context to make sure the user is connected
-    const auth = useContext(AuthContext);
-
     //UseState
     const [leftMenu, setLeftMenu] = useState("help");
 
     //Make sure the user is connected to access this page
-    useEffect(() => {
+    /*useEffect(() => {
         if (!auth.isLoggedIn) {
             router.push(redirectPath.current)
         }
-    }, [auth.isLoggedIn, redirectPath.current]);
+    }, [auth.isLoggedIn, redirectPath.current]);*/
 
     const dateLanguage = 'en-CA';
 
@@ -58,7 +64,7 @@ const accountPage = () => {
 
             <header className="col-12">
                 <div className="maxWidthPageContainer">
-                    <h1 className="col-12 blue1">Bienvenue {auth.username}</h1>
+                    <h1 className="col-12 blue1">Bienvenue {auth.user.username}</h1>
                 </div>
             </header>
 
@@ -80,15 +86,15 @@ const accountPage = () => {
                         </h3>
                             <div className={`${styles["user-card"]}`}>
                                 <div>
-                                    { (auth.avatar === null || auth.avatar.toString() === "") ?
+                                    { (auth.user.avatar === undefined || auth.user.avatar === null || auth.user.avatar.toString() === "") ?
                                         <img src="https://freesvg.org/img/1389952697.png" alt="Aucune image de profil" width="80px" height="80px"></img>
-                                        : <img src={auth.avatar} alt="Ton avatar" width="80px" height="80px"></img>
+                                        : <img src={auth.user.avatar} alt="Ton avatar" width="80px" height="80px"></img>
                                     }
                                 </div>
                                 <div>
-                                    <span>{auth.name}</span><br></br>
-                                    <span>{auth.username}</span><br></br>
-                                    <span>Membre depuis le {new Date(auth.createdAt).toLocaleDateString(dateLanguage)}</span><br></br>
+                                    <span>{auth.user.name}</span><br></br>
+                                    <span>{auth.user.username}</span><br></br>
+                                    <span>Membre depuis le {new Date(auth.user.createdAt).toLocaleDateString(dateLanguage)}</span><br></br>
                                 </div>
                             </div>
 
