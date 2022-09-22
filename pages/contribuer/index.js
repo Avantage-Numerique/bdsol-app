@@ -42,7 +42,7 @@ const Index = () => {
                             <div className="col-12" style={{marginBottom: "1rem"}}>
                                 <span className="red"><strong>Attention ! </strong></span>
                                 Vous devez être connecté afin de pouvoir éditer la base de données.
-                            </div>    
+                            </div>
                         }
 
                         <Button href="/contribuer/personne" disabled={!auth.user.isLoggedIn}>Personne</Button>

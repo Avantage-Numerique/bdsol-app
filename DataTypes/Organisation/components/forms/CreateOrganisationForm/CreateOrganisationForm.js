@@ -21,6 +21,7 @@ import {VALIDATOR_REQUIRE} from '../../../../../app/utils/validators'
 
 //Styling
 import styles from './CreateOrganisationForm.module.scss'
+import {lang} from "../../../../../app/common/Data/GlobalConstants";
 
 
 
@@ -42,12 +43,12 @@ const CreateOrganisationForm = () => {
     useEffect(() => {
         if(!auth.user.isLoggedIn) {
             msg.addMessage({ 
-                text: "Vous devez être connecté pour pouvoir ajouter une entité à la base de données.",
+                text: lang.needToBeConnectedToAccess,
                 positive: false 
             })
             Router.push('/compte/connexion')
         }
-    }, [auth.user.isLoggedIn])
+    }, [auth.user.isLoggedIn]);
 
     //State of the form
     const [formState, formTools] = useForm(
@@ -106,7 +107,7 @@ const CreateOrganisationForm = () => {
                 'POST',
                 JSON.stringify(formData),
                 { 'Content-Type': 'application/json' }
-            )
+            );
 
             /* 
                 Display a message relatively to the form validity

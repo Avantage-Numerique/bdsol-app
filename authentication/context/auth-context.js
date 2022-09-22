@@ -64,6 +64,3 @@ export function AuthProvider({fromSessionUser, children}) {
 export function useAuth() {
     return useContext(AuthContext);
 }
-
-
-//export const AuthContext = createContext(defaultSessionData);

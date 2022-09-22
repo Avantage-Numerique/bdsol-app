@@ -12,7 +12,6 @@ import {ssrCanAccess} from "../../../authentication/permissions/ssrCanAccess";
 
 const CreateOrganisationPage = () => {
 
-
     return (
         <div className={`col-12 ${styles["create-organisation-page"]}`}>
 
@@ -45,7 +44,6 @@ const CreateOrganisationPage = () => {
                         </div>
                     </div>
                 </section>
-
         </div>
     )
 }

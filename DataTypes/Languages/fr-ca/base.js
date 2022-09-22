@@ -13,6 +13,10 @@ export const base = {
     "appDefaultProducer": "Avantage Numérique",
     "appProducerDefaultDescription": "Avantage numérique est un hub virtuel, physique et mobile qui dessert les secteurs de la culture, des affaires et du savoir. Il vise le développement de l’écosystème créatif, entrepreneurial et technologique du Croissant boréal.",
 
+    //  Auth
+
+    "needToBeConnectedToAccess": "Vous devez être connecté pour pouvoir ajouter une entité à la base de données.",
+
     // useSessionHook
 
     "successConnected": "Vous êtes maintenant connecté.",
