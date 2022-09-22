@@ -1,8 +1,9 @@
-import {createContext, useContext, useEffect, useState} from 'react';
+import {createContext, useContext, useState} from 'react';
 
 export const defaultSessionData = {
     isPending: false,
     isLoggedIn: false,
+    tokenVerified: false,
     token: null,
     id: null,
     avatar: null,
@@ -19,8 +20,11 @@ export const defaultSessionData = {
 export const getSessionFromData = (userData) => {
     if (userData) {
         return {
-            isPending: false,//maybe will deprecate with we use cookie. The waiting for localstorage isn't needed anymore.
-            isLoggedIn: userData.token !== "" && userData.token !== undefined && userData.token !== null,
+            //maybe will deprecate with we use cookie. The waiting for localstorage isn't needed anymore.
+            isPending: false,
+            // on login, this is set to true by default
+            tokenVerified: userData.tokenVerified ?? false,
+            isLoggedIn: userData.tokenVerified ?? false,
             token: userData.token ?? null, //There must be at least a token, for now
             id: userData.id ?? null,
             avatar: userData.avatar ?? null,
@@ -58,7 +62,7 @@ export function AuthProvider({fromSessionUser, children}) {
 }
 
 export function useAuth() {
-    return useContext(AuthContext)
+    return useContext(AuthContext);
 }
 
 

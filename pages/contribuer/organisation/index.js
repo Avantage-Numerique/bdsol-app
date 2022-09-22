@@ -6,8 +6,8 @@ import Button from '../../../app/common/FormElements/Buttons/Button/Button'
 
 //styling
 import styles from './createOrganisation.module.scss'
-
-
+import {withSessionSsr} from "../../../authentication/session/handlers/withSession";
+import {ssrCanAccess} from "../../../authentication/permissions/ssrCanAccess";
 
 
 const CreateOrganisationPage = () => {
@@ -49,5 +49,7 @@ const CreateOrganisationPage = () => {
         </div>
     )
 }
+
+export const getServerSideProps = withSessionSsr(ssrCanAccess);
 
 export default CreateOrganisationPage

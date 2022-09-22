@@ -8,6 +8,8 @@ import Button from '../../../app/common/FormElements/Buttons/Button/Button'
 import styles from './createPerson.module.scss'
 import {lang} from "../../../app/common/Data/GlobalConstants";
 import SanitizedInnerHtml from "../../../app/utils/SanitizedInnerHtml";
+import {withSessionSsr} from "../../../authentication/session/handlers/withSession";
+import {ssrCanAccess} from "../../../authentication/permissions/ssrCanAccess";
 
 const CreatePersonPage = () => {
 
@@ -50,5 +52,7 @@ const CreatePersonPage = () => {
     )
 
 }
+
+export const getServerSideProps = withSessionSsr(ssrCanAccess);
 
 export default CreatePersonPage

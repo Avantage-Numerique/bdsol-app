@@ -4,20 +4,30 @@ import fetchInternalApi from "../../app/api/fetchInternalApi";
 
 export default function useUser({redirectTo = "", redirectIfFound = false} = {}) {
 
-    const {data: user, mutate: mutateUser} = fetchInternalApi("/api/user");
+    let user = null;
 
     useEffect(() => {
+        const {user} = fetchInternalApi("/api/user");
+        console.log("useUser", user);
+    }, [])
+
+    useEffect(() => {
+        const getUserSession = async () => {
+            const {user} = await fetchInternalApi("/api/user");
+            return user;
+        }
+        console.log("useEffect useUser", user);
+        user = getUserSession();
         if (!redirectTo || !user) return;
 
-        if (
-            // If redirectTo is set, redirect if the user was not found.
-            (redirectTo && !redirectIfFound && !user?.isLoggedIn) ||
-            // If redirectIfFound is also set, redirect if the user was found
-            (redirectIfFound && user?.isLoggedIn)
+        if (redirectTo
+            && !redirectIfFound
+            && !user?.tokenVerified
         ) {
+            console.log("supposed to redirect.", redirectTo);
             Router.push(redirectTo);
         }
-    }, [user, redirectIfFound, redirectTo]);
+    }, [user, redirectTo]);
 
-    return {user, mutateUser};
+    return {user};
 }

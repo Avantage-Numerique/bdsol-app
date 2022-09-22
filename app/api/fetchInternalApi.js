@@ -1,6 +1,5 @@
 
-import {NextResponse} from "next/server";
-import { useRouter } from "next/router";
+import {publicRuntimeConfig} from "../../next.config";
 
 /**
  * Call internal URI into the nextjs API routes.
@@ -14,11 +13,11 @@ import { useRouter } from "next/router";
 export default async function fetchInternalApi(internalURI, data, method = 'POST') {
 
     const internalDefaultHeaders = {
-        'Origin': process.env.APP_URL,//no cors implemented yet for internals calls.
+        'Origin': publicRuntimeConfig.appUrl,//no cors implemented yet for internals calls.
         'Content-Type': 'application/json'
     };
 
-    const response = await fetch(internalURI, {
+    const response = await fetch(publicRuntimeConfig.appUrl + internalURI, {
         method: method,
         body: data,
         headers: new Headers(internalDefaultHeaders),

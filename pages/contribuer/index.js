@@ -1,5 +1,3 @@
-import { useContext } from 'react' 
-import Link from 'next/link';
 
 //Components
 import Button from '../../app/common/FormElements/Buttons/Button/Button'
@@ -9,6 +7,8 @@ import {useAuth} from '../../authentication/context/auth-context'
 
 //styling
 import styles from './contribution-page.module.scss'
+import {withSessionSsr} from "../../authentication/session/handlers/withSession";
+import {ssrCanAccess} from "../../authentication/permissions/ssrCanAccess";
 
 
 
@@ -62,5 +62,6 @@ const Index = () => {
     )
 
 }
+export const getServerSideProps = withSessionSsr(ssrCanAccess);
 
 export default Index

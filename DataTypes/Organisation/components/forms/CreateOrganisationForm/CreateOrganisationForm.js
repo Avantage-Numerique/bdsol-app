@@ -1,7 +1,6 @@
 import React, { useContext, useEffect } from 'react'
 import Router from 'next/router'
 
-
 //Custom hooks
 import { useForm } from '../../../../../app/hooks/form-hook'
 import { useHttpClient } from '../../../../../app/hooks/http-hook'

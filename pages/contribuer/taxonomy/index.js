@@ -5,6 +5,8 @@ import Button from '../../../app/common/FormElements/Buttons/Button/Button'
 
 //Styling 
 import styles from './createTaxonomy.module.scss'
+import {withSessionSsr} from "../../../authentication/session/handlers/withSession";
+import {ssrCanAccess} from "../../../authentication/permissions/ssrCanAccess";
 
 
 const CreateTaxonomyPage = () => {
@@ -47,4 +49,7 @@ const CreateTaxonomyPage = () => {
         </div>
     )
 }
+
+export const getServerSideProps = withSessionSsr(ssrCanAccess);
+
 export default CreateTaxonomyPage

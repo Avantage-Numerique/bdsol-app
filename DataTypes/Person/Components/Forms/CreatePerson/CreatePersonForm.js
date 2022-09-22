@@ -65,7 +65,6 @@ const CreatePersonForm = () => {
         //Make sure that the form is valid before submitting it
         if(formState.isValid){
 
-
             /*
                 Data must have this shape 
                 https://github.com/Avantage-Numerique/bdsol-api/blob/master/api/doc/Personnes.md
