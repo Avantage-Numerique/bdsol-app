@@ -6,6 +6,10 @@ import Button from '../../../app/common/FormElements/Buttons/Button/Button'
 
 //Styling 
 import styles from './createPerson.module.scss'
+import {lang} from "../../../app/common/Data/GlobalConstants";
+import SanitizedInnerHtml from "../../../app/utils/SanitizedInnerHtml";
+import {withSessionSsr} from "../../../authentication/session/handlers/withSession";
+import {ssrCanAccess} from "../../../authentication/permissions/ssrCanAccess";
 
 const CreatePersonPage = () => {
 
@@ -20,16 +24,18 @@ const CreatePersonPage = () => {
                             reverse
                             href="/contribuer"
                         >
-                            Retour à la page précédente
+                            {lang.historyBack}
                         </Button>
                     </div>
                 </div>
                 <header className={`col-12`}>
                     <div className="maxWidthPageContainer">
                         <div className={`${styles["create-person--max-width"]}`}>
-                            <h1 className={`col-12 blue`}>Personne</h1>
-                            <h4 className="col-12">Super formulaire</h4>
-                            <p>Ajoutez ici une entité "Personne" afin de représenter un artiste, artisan ou professionnel de tout domaine que vous jugez pertinent à cette base de données.</p>
+                            <h1 className={`col-12 blue`}>{lang.Personnes}</h1>
+                            <h4 className="col-12">{lang.formPersonsSubtitle}</h4>
+                            <p>
+                                <SanitizedInnerHtml>{lang.formPersonsInstructions}</SanitizedInnerHtml>
+                            </p>
                         </div>
                     </div>
                 </header>
@@ -46,5 +52,7 @@ const CreatePersonPage = () => {
     )
 
 }
+
+export const getServerSideProps = withSessionSsr(ssrCanAccess);
 
 export default CreatePersonPage

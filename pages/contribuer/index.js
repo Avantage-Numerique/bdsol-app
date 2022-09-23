@@ -1,21 +1,21 @@
-import { useContext } from 'react' 
-import Link from 'next/link';
 
 //Components
 import Button from '../../app/common/FormElements/Buttons/Button/Button'
 
 //Context
-import { AuthContext } from '../../authentication/context/auth-context'
+import {useAuth} from '../../authentication/context/auth-context'
 
 //styling
 import styles from './contribution-page.module.scss'
+import {withSessionSsr} from "../../authentication/session/handlers/withSession";
+import {ssrCanAccess} from "../../authentication/permissions/ssrCanAccess";
 
 
 
 const Index = () => {    
 
-    //Import the authentication context
-    const auth = useContext(AuthContext);
+    //Import the auth.userentication context
+    const auth = useAuth();
 
     return (
         <div className={`col-12 ${styles["contribution-page"]}`}>
@@ -38,16 +38,16 @@ const Index = () => {
                         <h4 className="col-12">Sélectionnez le type d'entité que vous voulez ajouter</h4>
 
                         {/* Not beautiful but it works for now. Let know the user that he needs to be connected to edit the database */}
-                        { !auth.isLoggedIn &&
+                        { !auth.user.isLoggedIn &&
                             <div className="col-12" style={{marginBottom: "1rem"}}>
                                 <span className="red"><strong>Attention ! </strong></span>
                                 Vous devez être connecté afin de pouvoir éditer la base de données.
-                            </div>    
+                            </div>
                         }
 
-                        <Button href="/contribuer/personne" disabled={!auth.isLoggedIn}>Personne</Button>
-                        <Button href="/contribuer/organisation" disabled={!auth.isLoggedIn}>Organisation</Button>
-                        <Button href="/contribuer/taxonomy" disabled={!auth.isLoggedIn}>Taxonomie</Button>
+                        <Button href="/contribuer/personne" disabled={!auth.user.isLoggedIn}>Personne</Button>
+                        <Button href="/contribuer/organisation" disabled={!auth.user.isLoggedIn}>Organisation</Button>
+                        <Button href="/contribuer/taxonomy" disabled={!auth.user.isLoggedIn}>Taxonomie</Button>
                         <Button disabled>Projet</Button>
                         <Button disabled>Événement</Button>
                         <Button disabled>Matériel</Button>
@@ -62,5 +62,6 @@ const Index = () => {
     )
 
 }
+export const getServerSideProps = withSessionSsr(ssrCanAccess);
 
 export default Index

@@ -1,7 +1,7 @@
-import React, {useEffect, useState, useReducer, useRef, useContext} from 'react'
+import React, {useEffect, useState, useRef, useContext} from 'react'
 
 //Custom Hooks
-import {useHttpClient} from '../../../../app/hooks/http-hook'
+import {useHttpClient} from '../../../hooks/http-hook'
 //import { useDebounce } from '../.././../hooks/useDebounce'
 
 //Contexts
@@ -85,12 +85,11 @@ const Select = ({name, formTools, ...props}) => {
     }
 
     const getSelectList = async () => {
-        if(props.request != undefined && props.requestData != undefined) {
+        if(props.request !== undefined && props.requestData !== undefined) {
             const SelectList =  await sendRequest(
                 props.request,
                 'POST',
-                JSON.stringify(selectRequest),
-                { 'Content-Type': 'application/json' }
+                JSON.stringify(selectRequest)
             );
 
             //This function remove an option in the list when it is well written in the field. 
@@ -125,10 +124,7 @@ const Select = ({name, formTools, ...props}) => {
                 //Make sure that the object is not already in the list to prevent duplicates
                 const isDuplicate = [...currentState.value].some(item => {
 
-                    if (item._id == matchingValue._id) {
-                      return true;
-                    }
-                    return false;
+                    return item._id === matchingValue._id;
 
                   });
             
@@ -166,7 +162,7 @@ const Select = ({name, formTools, ...props}) => {
         let tempTag=[];
 
         currentState.value.forEach(item => {
-            if(item.name != select.name)
+            if(item.name !== select.name)
                 tempTag.push(item);
         })
 
@@ -242,7 +238,7 @@ const Select = ({name, formTools, ...props}) => {
                     className={`${styles['tag']} ${props.tag ? styles[props.tag] : styles[props.generaltag]}`} 
                 >
                     <button className={`${styles['closeButton']}`} type="button" onClick={() => removeValueFromSelectedItem(selected)}>&#x271A;</button>
-                    <span className={`${styles['status']} ${selected.status == "Accepted" ? styles['accepted'] : (selected.status == "Pending" ? styles['pending'] : styles['rejected'])}`}>■</span>
+                    <span className={`${styles['status']} ${selected.status === "Accepted" ? styles['accepted'] : (selected.status === "Pending" ? styles['pending'] : styles['rejected'])}`}>■</span>
                     <span>{selected.name}</span>
                 </li>
                 )}

@@ -72,20 +72,20 @@ const RichTextarea = ({name, formTools, ...props}) => {
 
                         <button className="ql-list" value="ordered" />
                         <button className="ql-list" value="bullet" />
-                        <button className="ql-bold"></button>
-                        <button className="ql-italic"></button>
+                        <button className="ql-bold" />
+                        <button className="ql-italic" />
                         <button className="ql-align" value="" />
                         <button className="ql-align" value="center" />
                         <button className="ql-align" value="right" />
 
                         <select className="ql-color" defaultValue="">
-                            <option value="#455ae6"></option>
-                            <option value="#4dc4ff"></option>
-                            <option value="#dd5c5c"></option>
-                            <option value="#bbbfd7"></option>
-                            <option value="#d4c87b"></option>
-                            <option value="#7bd485"></option>
-                            <option value=""></option>
+                            <option value="#455ae6" />
+                            <option value="#4dc4ff" />
+                            <option value="#dd5c5c" />
+                            <option value="#bbbfd7" />
+                            <option value="#d4c87b" />
+                            <option value="#7bd485" />
+                            <option value="" />
                         </select>
                     </div>
     
