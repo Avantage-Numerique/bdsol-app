@@ -17,7 +17,7 @@ import Spinner from '../../../../app/common/widgets/spinner/Spinner'
 
 //context
 import { MessageContext } from '../../../../app/common/UserNotifications/Message/Context/Message-Context'
-import { AuthContext } from '../../../context/auth-context'
+import {AuthContext, useAuth} from '../../../context/auth-context'
 
 //Styling
 import styles from './Register.module.scss'
