@@ -13,6 +13,7 @@ export const ssrCanAccess = async ({req,res}) => {
     res.setHeader("location", "/compte/connexion");
     res.statusCode = 302;
     res.end();
+
     return {
         props: {
             user: {...defaultSessionData},
