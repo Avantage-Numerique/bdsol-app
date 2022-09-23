@@ -35,13 +35,11 @@
     .closing-button {
 
         --button-color: white;
-        --button-side-spacing: 1rem;
-        --button-side-spacing: clamp(0.5rem, 1.5vw, 1.5rem);
 
         /*  Change the color of the button */
         &.closing-button--dark-color { 
             --button-color: rgba(82, 82, 82, 0.808); 
-            font-weight: 900;
+            font-weight: 700;
             text-shadow: 1px 1px 1px #25252500;
         }
 
@@ -50,7 +48,8 @@
         float: right;   
         color: var(--button-color);
         font-size: 1rem;
-        margin: var(--button-side-spacing);
+        margin: -1rem;
+        margin-bottom: 1rem;
 
         -webkit-transition: 0.3s;
         transition: 0.3s;

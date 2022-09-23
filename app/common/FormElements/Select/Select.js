@@ -10,7 +10,6 @@ import { MessageContext } from '../../UserNotifications/Message/Context/Message-
 //Components
 import useDebounce from '../.././../hooks/useDebounce'
 import Button from '../Buttons/Button/Button'
-import CreateTaxonomyForm from '../../../../DataTypes/Taxonomy/Components/Forms/CreateTaxonomy/CreateTaxonomyForm'
 
 //Styling
 import styles from './Select.module.scss'
@@ -45,6 +44,17 @@ const Select = ({name, formTools, ...props}) => {
         )
     }
 
+    /***********************
+     * 
+     * Function to be called later
+     *
+     ************************/
+
+    //Find if there is a matching value between the list proposed by the api and the value entered in the field by the user
+    const findMatchingValue = () => selectList.data.find(e => {return e.name === selectTagRef.current.value})
+
+    
+
     /**************************
         Other select states
     ***************************/
@@ -64,6 +74,14 @@ const Select = ({name, formTools, ...props}) => {
         //This line might be problematic if we list something that has no "name". As it's hardcoded.
         props.requestData.data.name = val;
         setSelectRequest({...props.requestData});
+    }
+
+    //Function to add a taxonomy element to the selected list that will be submitted with the form
+    const pushSelectedValue = newTaxonomyItem => {
+        updateValue([...currentState.value, newTaxonomyItem])              //Update the form state
+        selectTagRef.current.value = "";
+        selectTagRef.current.focus();           //Reset focus on field
+        formRequestData("")                     //Reset the input text stored in the state
     }
 
     const getSelectList = async () => {
@@ -98,8 +116,8 @@ const Select = ({name, formTools, ...props}) => {
         //Make sure there is a value entered in the field
         if(selectTagRef.current.value){
 
-            //Find if there is a matching value between the proposed options and the entered value
-            const matchingValue = selectList.data.find(e => {return e.name === selectTagRef.current.value})
+            //Get the matching value
+            const matchingValue = findMatchingValue()
 
             //If there is a matching value, then go forward
             if (matchingValue) {
@@ -116,10 +134,8 @@ const Select = ({name, formTools, ...props}) => {
             
                 if(!isDuplicate){
 
-                    updateValue([...currentState.value, matchingValue])              //Update the form state
-                    selectTagRef.current.value = "";
-                    selectTagRef.current.focus();           //Reset focus on field
-                    formRequestData("")                     //Reset the input text stored in the state
+                    //Add the new validated value to the form state to be submitted
+                    pushSelectedValue(matchingValue);
 
                 } else {
 
@@ -190,9 +206,26 @@ const Select = ({name, formTools, ...props}) => {
                 </div>
                 
                 {/* Button to call a form and add a new taxonomie */}
-                <div className={`col-12 ${styles["button-container"]}`}>
-                    <button disabled><small>Soumettre comme nouvelle taxonomie</small></button>
-                </div>
+                {/* If the updateModal function is defined, it meens that the modal functionnalities have to be activated */}
+                { props.updateModal &&
+                    <div className={`col-12 ${styles["button-container"]}`}>
+                        <button
+                            type="button"
+                            disabled={ ((selectTagRef.current && selectTagRef.current.value) && !findMatchingValue() && props.updateModal) ? false : true}
+                            onClick={() => props.updateModal(prev => ({
+                                ...prev, 
+                                display: true,
+                                enteredValues: {
+                                    ...prev.enteredValues,
+                                    name: selectTagRef.current.value
+                                },
+                                callback: pushSelectedValue
+                            }))}
+                        >
+                            <small>Soumettre comme nouvelle taxonomie</small>
+                        </button>
+                    </div>
+                }
 
 
             </label>
@@ -222,5 +255,3 @@ const Select = ({name, formTools, ...props}) => {
 }
 
 export default Select;
-
-

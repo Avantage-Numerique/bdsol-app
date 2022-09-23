@@ -16,15 +16,18 @@ import {useRef, useEffect} from 'react'
 //Styling
 import styles from './Modal.module.scss'
 
-const Modal = ({ children, darkColorButton = false, noDefaultWidth, transparentBackground, closingFunction}) => {
+const Modal = props => {
 
-    /*
-        PROPS REVIEW
-            darkColorButton :           Change the color of the closing button to make sure it is visible 
-            noDefaultWidth :            by default there is a defined and normalized smaller width. This cancel it
-            transparentBackground :     Add a css class to display a transparentBackground blue background
-            closingFunction:            a function that will modify the state of the parent element to remove this modal
-    */
+    //Extract all the props 
+    const { 
+        children, 
+        className, 
+        darkColorButton = false,        //Change the color of the closing button to make sure it is visible
+        noDefaultWidth,                 //by default there is a defined and normalized smaller width. This cancel it
+        coloredBackground,              //Add a css class to display a transparentBackground blue background
+        closingFunction,                //a function that will modify the state of the parent element to remove this modal
+        
+    } = props
 
 
     //Reference to the modal element to be able to call the native javascript functions
@@ -38,14 +41,14 @@ const Modal = ({ children, darkColorButton = false, noDefaultWidth, transparentB
 
     }, [])
 
-
     return (
         <dialog 
             ref={modal} 
             className={`
                 ${styles.modal} 
+                ${className}
                 ${!noDefaultWidth && styles["default-width"]}
-                ${transparentBackground && styles["transparent-background"]}
+                ${coloredBackground && styles["transparent-background"]}
             `}>
 
                 {/*

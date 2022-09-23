@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useState } from 'react'
 
 //Custom hooks
 import { useFormUtils } from '../../../../../app/hooks/useFormUtils/useFormUtils'
@@ -19,6 +19,15 @@ import styles from './CreatePersonForm.module.scss'
 
 const CreatePersonForm = () => {
 
+
+    const [modal, setModal] = useState({
+        display: false,
+        //Values to be passed from the person form to the taxonomy form
+        enteredValues: {
+            name: ''            //Only the name of the taxonomy
+        },
+        callback: () => {}
+    })
 
     //Main form functionalities
     const { FormUI, submitRequest, formState, formTools } = useFormUtils(
@@ -45,8 +54,6 @@ const CreatePersonForm = () => {
         }
     }
     );
-
-        
 
     //Submit the form
     const submitHandler = async event => { 
@@ -126,6 +133,7 @@ const CreatePersonForm = () => {
                     tag="occupations"
                     placeholder='"Enseignant", "Architecte logiciel", [...]'
                     formTools={formTools}
+                    updateModal={setModal}
                 />
 
                 <div className="col-12">
@@ -134,6 +142,30 @@ const CreatePersonForm = () => {
 
             </form>
 
+            { modal && modal.display &&
+                <Modal 
+                    className={`${styles["taxonomy-modal"]}`}
+                    coloredBackground
+                    darkColorButton
+                    closingFunction={() => {setModal(prev => ({...prev, display: false}))}}
+                >
+                    <h3>Ajouter une nouvelle taxonomie</h3>
+                    <p>Le nouvel élément de taxonomie que vous ajoutez ici pourra ensuite être directement intégrée à votre formulaire.</p>
+                    <div className={`${styles["hor-line"]}`}></div>
+                    <CreateTaxonomyForm 
+                        name={modal.enteredValues.name ? modal.enteredValues.name : ''}   //Prefilled value
+                        positiveRequestActions={{
+                            //CallbackFunction is one of the four behaviors the useFormUtils hook can apply when a request return a positive answer
+                            callbackFunction: requestResponse => {
+                                //In this case, the modal callback receives the object to be passed which is the taxonomy item in the response of the request
+                                modal.callback(requestResponse.data)
+                                //Close the modal 
+                                setModal(prev => ({...prev, display: false}))
+                            }
+                        }}
+                    />
+                </Modal>
+            }
         </>
     )
 }

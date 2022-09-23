@@ -23,10 +23,36 @@ import { MessageContext } from '../../common/UserNotifications/Message/Context/M
 import styles from './formUI.module.scss'
 
 
-export const useFormUtils = ( initialState, action ) => {
+
+export const useFormUtils = ( initialState, actions ) => {
+
+    //Actions to do if the form turns to be positive
+    //If no parameter is entered, then apply the default value below
+    //If many are selected, they'll be executed in this orther
+    let positiveResponseActions = {
+        clearForm: true,                        //1. "bool"     => Empty the form
+        displayResMessage: true,                //2. "bool"     => Use message component to display api response message
+        callbackFunction: undefined,            //3. "function" => Execute a function call back
+        redirect: undefined                     //4. "String"   => redirect to another page
+    }
+
+    //If the actions parameter contains data and is of object type
+    if(actions && typeof actions === 'object' && Object.keys(actions).length !== 0){
+
+        //Then assign the wanted values and set the rest to false 
+        positiveResponseActions = {
+            clearForm: actions.clearForm ? actions.clearForm : false,
+            displayResMessage: actions.displayResMessage ? actions.displayResMessage : false,
+            callbackFunction: actions.callbackFunction ? actions.callbackFunction : undefined,
+            redirect: actions.redirect ? actions.redirect : undefined
+        }
+    }
 
     //Other option of message to display
     const [innerMessage, setInnerMessage] = useState()
+
+    //Request response 
+    const [requestResponse, setRequestResponse] = useState(null)
 
     //Extract the functions inside useHttpClient to send api request
     const {isLoading, sendRequest} = useHttpClient();
@@ -45,6 +71,11 @@ export const useFormUtils = ( initialState, action ) => {
                 JSON.stringify(data),
                 header
             )
+           
+            //Store the response in state
+            setRequestResponse(response)
+
+            console.log(response)
 
             //If the answer is positive
             if(!response.error){
@@ -53,29 +84,30 @@ export const useFormUtils = ( initialState, action ) => {
                 if(innerMessage)
                     setInnerMessage("")
 
-                //Alert the user
-                msg.addMessage({ 
-                    text: response.message,
-                    positive: true 
-                })
 
-                //Evaluate the type of the action to realise if the form is positive
-                const actionType = Object.prototype.toString.call(action).slice(8, -1).toLowerCase()
+                /*
+                    Actions executed when the form is positive
+                */
 
-                //Actions to do in function of the type
-                switch(actionType) {
-                    case 'string':
-                    // Then we assume it is a redirection
-                        Router.push( action )
-                        break;
-                    case 'function':
-                    // Then we execute the function
-                        action()
-                        break;
-                    default:
-                    // By default, we clear the form to allow the user to fill it another time
-                        clearFormData()
-                }
+                //1.  the form
+                if(positiveResponseActions.clearForm)
+                    clearFormData()
+
+                //2. Display a notification to the user with the api response message
+                if(positiveResponseActions.displayResMessage)
+                    msg.addMessage({ 
+                        text: response.message,
+                        positive: true 
+                    })
+
+                //3. Execute a call back function to do any other task
+                if(positiveResponseActions.callbackFunction)
+                    positiveResponseActions.callbackFunction(response)
+
+                //4. Redirect the user to another page
+                if(positiveResponseActions.redirect)
+                    Router.push( positiveResponseActions.redirect )
+
 
             //If it is not positive for any reason
             } else {       
@@ -124,6 +156,6 @@ export const useFormUtils = ( initialState, action ) => {
     }, [innerMessage, isLoading])
 
 
-    return { FormUI, submitRequest, formState, formTools,  }
+    return { FormUI, submitRequest, formState, formTools, requestResponse }
 
 }

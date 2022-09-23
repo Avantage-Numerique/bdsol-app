@@ -17,7 +17,15 @@ import { MessageContext } from '../../../../../app/common/UserNotifications/Mess
 import styles from './CreateTaxonomyForm.module.scss'
 
 
-const CreateTaxonomyForm = () => {
+const CreateTaxonomyForm = ({name, positiveRequestActions}) => {
+
+    /*
+        Could be a great idea for every form in the application to have the possibility 
+        to recieve initial values passed as props with the exact corresponding field name
+        Ex : name
+
+        V.P.R. 
+    */
 
     //Import the authentication context to make sure the user is well connected
     const auth = useContext(AuthContext);
@@ -48,6 +56,7 @@ const CreateTaxonomyForm = () => {
         }
     }, [auth.isLoggedIn, auth.isPending])
 
+
     //Custom hook to manage the validity of the form
     const { FormUI, submitRequest, formState, formTools } = useFormUtils(
         {
@@ -56,7 +65,7 @@ const CreateTaxonomyForm = () => {
                 isValid: false
             },
             name: {
-                value: '',
+                value: (name ? name : ''),
                 isValid: true
             }, 
             description: {
@@ -75,11 +84,13 @@ const CreateTaxonomyForm = () => {
                 value: '',
                 isValid: true
             }
-        }
+        },
+        //Pass a set of rules to execute a valid response of an api request
+        positiveRequestActions || undefined         
     )
 
-        //Submit the form
-        const submitHandler = async event => { 
+    //Submit the form
+    const submitHandler = async event => { 
 
         event.preventDefault();
 
@@ -107,9 +118,8 @@ const CreateTaxonomyForm = () => {
             formData
         )
 
- 
-
     }
+
 
     //Prevent from displaying is the user is not logged in or if the app doesn't know the authentication state yet
     if(!auth.isPending && auth.isLoggedIn)
