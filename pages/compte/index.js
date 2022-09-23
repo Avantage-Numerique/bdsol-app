@@ -1,8 +1,5 @@
 import React, {useState} from 'react'
 
-//Context
-import {AuthContext} from '../../authentication/context/auth-context'
-
 //Components
 import UserHistoryGrid from '../../DataTypes/UserHistory/UserHistoryGrid';
 import Button from '../../app/common/FormElements/Buttons/Button/Button';
@@ -72,12 +69,10 @@ const accountPage = ({ user }) => {
 
                             <Button key="modif" onClick={() => setLeftMenu("profile")}>Modifier mon profil</Button>
                             <Button key="pref" onClick={() => setLeftMenu("preferences")}>Préférences</Button>
-                            <Button key="historique" onClick={() => setLeftMenu("history")}>Historique de
-                                modification</Button>
+                            <Button key="historique" onClick={() => setLeftMenu("history")}>Historique de modification</Button>
                             <Button key="help" onClick={() => setLeftMenu("help")}>Aide</Button>
                             <Button key="logout" onClick={logout}>Se déconnecter</Button>
                         </div>
-
                     )}
                 </aside>
             </div>
