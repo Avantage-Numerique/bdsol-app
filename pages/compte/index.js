@@ -1,15 +1,11 @@
 import React, {useState} from 'react'
 
-//Context
-import {AuthContext} from '../../authentication/context/auth-context'
-
 //Components
 import UserHistoryGrid from '../../DataTypes/UserHistory/UserHistoryGrid';
 import Button from '../../app/common/FormElements/Buttons/Button/Button';
 
 //Hooks
-import {useSessionHook} from '../../authentication/hooks/useSessionHook'
-
+import {useSessionHook} from '../../authentication/hooks/useSessionHook';
 
 //Styling
 import styles from './accountPage.module.scss'
@@ -72,12 +68,10 @@ const accountPage = ({ user }) => {
 
                             <Button key="modif" onClick={() => setLeftMenu("profile")}>Modifier mon profil</Button>
                             <Button key="pref" onClick={() => setLeftMenu("preferences")}>Préférences</Button>
-                            <Button key="historique" onClick={() => setLeftMenu("history")}>Historique de
-                                modification</Button>
+                            <Button key="historique" onClick={() => setLeftMenu("history")}>Historique de modification</Button>
                             <Button key="help" onClick={() => setLeftMenu("help")}>Aide</Button>
                             <Button key="logout" onClick={logout}>Se déconnecter</Button>
                         </div>
-
                     )}
                 </aside>
             </div>
@@ -85,7 +79,7 @@ const accountPage = ({ user }) => {
     );
 }
 
-export const getServerSideProps = withSessionSsr(ssrCanAccess);
+//export const getServerSideProps = withSessionSsr(ssrCanAccess);
 
 
 export default accountPage

@@ -1,5 +1,5 @@
 import {useState, useCallback, useRef, useEffect, useContext} from 'react';
-import {AuthContext, useAuth} from '../../authentication/context/auth-context'
+import {useAuth} from '../../authentication/context/auth-context'
 import {lang} from "../common/Data/GlobalConstants";
 
 

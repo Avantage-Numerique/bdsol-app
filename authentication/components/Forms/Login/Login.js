@@ -1,7 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 
 import Link from 'next/link';
-import Router from 'next/router';
 
 //Context
 import { useAuth } from '../../../context/auth-context';
@@ -79,16 +78,14 @@ const Login = () => {
                 //Call the login hook responsible for the connection
                 await login(formData);
 
-
             } else {
-
                 /*
                     Send a message if the form is not valid
                 */
                 msg.addMessage({ 
                     text: "Attention. Le formulaire envoyé n'est pas valide. Assurez-vous que tous les champs sont bien remplis.",
                     positive: false 
-                 })
+                });
             }
         }
     }
