@@ -72,4 +72,11 @@ export const base = {
     "Occupation": "Occupation",
 
     "occupationsPlaceholder": "Enseignant, Architecte logiciel, [...]",
+
+    //  AccountNav
+    "menuTitleMemberMenu": "Menu de membre",
+    "menuLabelConnect": "Se connecter",
+    "menuLabelCreateAccount": "Créer un compte",
+    "menuLabelToDashboard": "Espace membre",
+    "menuLabelToDisconnect": "Se déconnecter",
 }
