@@ -20,4 +20,6 @@ export const ssrCanAccess = async ({req,res}) => {
             },
         };
     }
+
+    return user;
 };

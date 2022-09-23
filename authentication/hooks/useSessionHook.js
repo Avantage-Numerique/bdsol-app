@@ -4,7 +4,6 @@ import { MessageContext } from '../../app/common/UserNotifications/Message/Conte
 import { useHttpClient } from '../../app/hooks/http-hook'
 import {lang} from "../../app/common/Data/GlobalConstants";
 import fetchInternalApi from "../../app/api/fetchInternalApi";
-import {useRouter} from 'next/router';
 import Router from 'next/router';
 
 /**
@@ -19,9 +18,7 @@ export const useSessionHook = () => {
     const msg = useContext(MessageContext);
 
     //Extract the functions inside useHttpClient
-    const {isLoading, sendRequest} = useHttpClient();
-
-    const LogOutImplementedInAPI = false;
+    const {isLoading} = useHttpClient();
 
     const logout = async () => {
 
@@ -60,7 +57,6 @@ export const useSessionHook = () => {
      */
     const login = async (data) => {
 
-
         //Prevent useless request, making sure the use is not logged in.
         if(!auth.user.isLoggedIn){
 
@@ -89,7 +85,6 @@ export const useSessionHook = () => {
                 text: lang.youreAlreadyConnected, //"Vous êtes déjà connecté.",
                 positive: false
             });
-
         }
     }
     
