@@ -17,7 +17,7 @@ import {useHttpClient} from '../app/hooks/http-hook';
 
 //Context
 import {MessageContext} from '../app/common/UserNotifications/Message/Context/Message-Context';
-import {AuthContext, defaultSessionData, useAuth} from '../authentication/context/auth-context';
+import {useAuth} from '../authentication/context/auth-context';
 
 //Styling
 import styles from './home-page.module.scss'
