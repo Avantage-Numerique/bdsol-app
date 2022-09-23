@@ -1,8 +1,7 @@
 import React, { useState } from 'react'
 
 //Custom hooks
-import { useForm } from '../../../../../app/hooks/form-hook'
-import { useHttpClient } from '../../../../../app/hooks/http-hook'
+import { useFormUtils } from '../../../../../app/hooks/useFormUtils/useFormUtils'
 
 //Components
 import Button from '../../../../../app/common/FormElements/Buttons/Button/Button'
@@ -20,12 +19,6 @@ import styles from './CreatePersonForm.module.scss'
 import {lang} from "../../../../../app/common/Data/GlobalConstants";
 
 const CreatePersonForm = () => {
-
-    //Import message context 
-    const msg = useContext(MessageContext);
-
-    //Extract the functions inside useHttpClient
-    const {isLoading, sendRequest} = useHttpClient();
 
     const [modal, setModal] = useState({
         display: false,
@@ -66,51 +59,27 @@ const CreatePersonForm = () => {
     const submitHandler = async event => { 
 
         event.preventDefault();
-        
-        //Make sure that the form is valid before submitting it
-        if(formState.isValid){
+    
+        //There is no try/catch here because it is all handle by the custom hook
 
-            /*
-                Data must have this shape 
-                https://github.com/Avantage-Numerique/bdsol-api/blob/master/api/doc/Personnes.md
-            */
-
-            //There is no try/catch here because it is all handle by the custom hook
-
-            const formData = {
-                "data": {
-                    "lastName": formState.inputs.lastName.value,
-                    "firstName":  formState.inputs.firstName.value, 
-                    "nickname": formState.inputs.nickName.value,
-                    "description": formState.inputs.description.value,
-                    "occupations": formState.inputs.occupations.value
-                }
-            };
-
-            //Send the request with the specialized hook
-            const response = await sendRequest(
-                "/personnes/create",
-                'POST',
-                JSON.stringify(formData)
-            );
-
-            msg.addMessage({
-                text: response.message,
-                positive: !response.error
-            });
-
-            if(!response.error) {
-                clearFormData()
+        const formData = {
+            "data": {
+                "lastName": formState.inputs.lastName.value,
+                "firstName":  formState.inputs.firstName.value, 
+                "nickname": formState.inputs.nickName.value,
+                "description": formState.inputs.description.value,
+                "occupations": formState.inputs.occupations.value
             }
-            
-        } else {
-            //The form is not valid. 
-            //Inform the user
-            msg.addMessage({ 
-                text: lang.formNotValid,//"Attention. Le formulaire envoyé n'est pas valide. Assurez-vous que tous les champs sont bien remplis.",
-                positive: false
-            })
-        }
+        };
+
+        //Send the request with the specialized hook
+        submitRequest(
+            "/personnes/create",
+            'POST',
+            formData
+        );
+
+
     }
 
     /*
@@ -127,9 +96,9 @@ const CreatePersonForm = () => {
 
     return (
         <>
-            { isLoading && <Spinner fixed /> }
             <form onSubmit={submitHandler} className={`col-12 ${styles["create-person-form"]}`}>
 
+                <FormUI />
                 <Input 
                     name="firstName"
                     label="Prénom"
