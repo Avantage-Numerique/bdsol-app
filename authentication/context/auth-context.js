@@ -12,9 +12,7 @@ export const defaultSessionData = {
     createdAt: null,
     ip: null,
     browser: null,
-    language: null,
-    login: () => {},
-    logout: () => {}
+    language: null
 };
 
 export const getSessionFromData = (userData) => {
