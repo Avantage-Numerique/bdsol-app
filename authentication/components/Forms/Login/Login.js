@@ -1,7 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 
 import Link from 'next/link';
-import Router from 'next/router';
 
 //Context
 import { useAuth } from '../../../context/auth-context';
