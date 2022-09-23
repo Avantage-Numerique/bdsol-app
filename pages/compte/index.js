@@ -5,8 +5,7 @@ import UserHistoryGrid from '../../DataTypes/UserHistory/UserHistoryGrid';
 import Button from '../../app/common/FormElements/Buttons/Button/Button';
 
 //Hooks
-import {useSessionHook} from '../../authentication/hooks/useSessionHook'
-
+import {useSessionHook} from '../../authentication/hooks/useSessionHook';
 
 //Styling
 import styles from './accountPage.module.scss'
@@ -80,7 +79,7 @@ const accountPage = ({ user }) => {
     );
 }
 
-export const getServerSideProps = withSessionSsr(ssrCanAccess);
+//export const getServerSideProps = withSessionSsr(ssrCanAccess);
 
 
 export default accountPage
