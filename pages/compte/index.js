@@ -79,7 +79,7 @@ const accountPage = ({ user }) => {
     );
 }
 
-//export const getServerSideProps = withSessionSsr(ssrCanAccess);
+export const getServerSideProps = withSessionSsr(ssrCanAccess);
 
 
 export default accountPage
