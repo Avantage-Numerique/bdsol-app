@@ -2,7 +2,7 @@
 //Components
 import SanitizedInnerHtml from '../../../utils/SanitizedInnerHtml';
 import { useContext } from 'react';
-import { AuthContext } from '../../../../authentication/context/auth-context';
+import {useAuth} from '../../../../authentication/context/auth-context';
 import styles from './presentationCard.module.scss';
 import getConfig from 'next/config';
 
@@ -20,7 +20,7 @@ const { publicRuntimeConfig } = getConfig();
 
 const PresentationCard = ({header, name, firstname, description, username, createdAt, url, contactPoint}) => {
 
-    const auth = useContext(AuthContext);
+    const auth = useAuth();
 
     return (
 

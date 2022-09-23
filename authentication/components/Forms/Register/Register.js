@@ -60,7 +60,7 @@ const Register = () => {
     const msg = useContext(MessageContext);
 
     //Import the authentication context to make sure the user is well connected
-    const auth = useContext(AuthContext);
+    const auth = useAuth();
 
     const { login } = useSessionHook()
 
@@ -133,9 +133,6 @@ const Register = () => {
                         "username": formState.inputs.username.value,
                         "password": formState.inputs.password.value
                     })
-                    
-
-                    console.log(response)
 
                     //Notify the user
                     msg.addMessage({ 

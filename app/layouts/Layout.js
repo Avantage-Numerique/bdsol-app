@@ -103,10 +103,8 @@ const Layout = ( {children} ) => {
                 <AccountNav menuState={menuState} setMenuState={setMenuState} />
                 <MessageContext.Provider value={{ addMessage: addMessage }}>
                 
-                <main> 
-                    
-                    { children } 
-
+                <main>
+                    { children }
                 </main>
 
                 </MessageContext.Provider>

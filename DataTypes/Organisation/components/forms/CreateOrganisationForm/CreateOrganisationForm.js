@@ -1,7 +1,6 @@
 import React, { useContext, useEffect } from 'react'
 import Router from 'next/router'
 
-
 //Custom hooks
 import { useForm } from '../../../../../app/hooks/form-hook'
 import { useHttpClient } from '../../../../../app/hooks/http-hook'
@@ -14,7 +13,7 @@ import Select from '../../../../../app/common/FormElements/Select/Select'
 import Spinner from '../../../../../app/common/widgets/spinner/Spinner'
 
 //contexts
-import { AuthContext } from '../../../../../authentication/context/auth-context'
+import {AuthContext, useAuth} from '../../../../../authentication/context/auth-context'
 import { MessageContext } from '../../../../../app/common/UserNotifications/Message/Context/Message-Context'
 
 //Form validators
@@ -22,13 +21,14 @@ import {VALIDATOR_REQUIRE} from '../../../../../app/utils/validators'
 
 //Styling
 import styles from './CreateOrganisationForm.module.scss'
+import {lang} from "../../../../../app/common/Data/GlobalConstants";
 
 
 
 const CreateOrganisationForm = () => {
 
     //Import the authentication context to make sure the user is well connected
-    const auth = useContext(AuthContext);
+    const auth = useAuth();
 
     //Import message context 
     const msg = useContext(MessageContext);
@@ -41,14 +41,14 @@ const CreateOrganisationForm = () => {
     If he isn't, then redirect him in the connexion page
     */
     useEffect(() => {
-        if(!auth.isLoggedIn) {
+        if(!auth.user.isLoggedIn) {
             msg.addMessage({ 
-                text: "Vous devez être connecté pour pouvoir ajouter une entité à la base de données.",
+                text: lang.needToBeConnectedToAccess,
                 positive: false 
             })
             Router.push('/compte/connexion')
         }
-    }, [auth.isLoggedIn])
+    }, [auth.user.isLoggedIn]);
 
     //State of the form
     const [formState, formTools] = useForm(
@@ -74,7 +74,7 @@ const CreateOrganisationForm = () => {
             isValid: true
         },
         offers: {
-            value: '',
+            value: [],
             isValid: true
         }
     }, 
@@ -107,7 +107,7 @@ const CreateOrganisationForm = () => {
                 'POST',
                 JSON.stringify(formData),
                 { 'Content-Type': 'application/json' }
-            )
+            );
 
             /* 
                 Display a message relatively to the form validity

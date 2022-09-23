@@ -1,35 +1,35 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect } from 'react';
 
-import Link from 'next/link'
-import Router from 'next/router'
+import Link from 'next/link';
+import Router from 'next/router';
 
 //Context
-import { AuthContext } from '../../../context/auth-context'
-import { MessageContext } from '../../../../app/common/UserNotifications/Message/Context/Message-Context'
+import { useAuth } from '../../../context/auth-context';
+import { MessageContext } from '../../../../app/common/UserNotifications/Message/Context/Message-Context';
 
 //Validators
-import {VALIDATOR_REQUIRE} from '../../../../app/utils/validators'
+import {VALIDATOR_REQUIRE} from '../../../../app/utils/validators';
 
 //Custom hooks
-import { useForm } from '../../../../app/hooks/form-hook'
-import { useSessionHook } from '../../../hooks/useSessionHook'
+import { useForm } from '../../../../app/hooks/form-hook';
+import { useSessionHook } from '../../../hooks/useSessionHook';
 
 //Form components
-import Input from '../../../../app/common/FormElements/Input/Input'
-import Button from '../../../../app/common/FormElements/Buttons/Button/Button'
-import Spinner from '../../../../app/common/widgets/spinner/Spinner'
+import Input from '../../../../app/common/FormElements/Input/Input';
+import Button from '../../../../app/common/FormElements/Buttons/Button/Button';
+import Spinner from '../../../../app/common/widgets/spinner/Spinner';
 
 //Styling
-import styles from './Login.module.scss'
+import styles from './Login.module.scss';
 
 const Login = () => {
 
     //Import the authentication context to make sure the user is well connected
-    const auth = useContext(AuthContext);
+    const auth = useAuth();
     const msg = useContext(MessageContext);
 
     //Extract the functions inside the session hook
-    const { login, isLoading } = useSessionHook()
+    const { login, isLoading } = useSessionHook();
 
     /*
         First of all, verify if the user is logged in.
@@ -37,7 +37,7 @@ const Login = () => {
     */
     useEffect(() => {
           if(auth.isLoggedIn) {
-            Router.push('/compte')
+            //Router.push('/compte')
           }
     }, [auth.isLoggedIn])
 
@@ -55,6 +55,7 @@ const Login = () => {
     }, 
     false)
 
+
     //Submit the form
     const authSubmitHandler = async event => {
 
@@ -63,7 +64,7 @@ const Login = () => {
         if(auth.isLoggedIn){
 
             //redirect the user to the account page. 
-            Router.push('/compte')
+            //Router.push('/compte');
 
         } else {
 
@@ -76,10 +77,9 @@ const Login = () => {
                 };
 
                 //Call the login hook responsible for the connection
-                login(formData)
+                await login(formData);
 
 
-                    
             } else {
 
                 /*
@@ -90,8 +90,6 @@ const Login = () => {
                     positive: false 
                  })
             }
-
-            
         }
     }
 
@@ -138,10 +136,8 @@ const Login = () => {
                         <Link href="/compte/reinitialiser"> Vous pouvez le réinitialiser </Link>
                     </span>
                 </p>
-           
 
             </form>
-
             
         </section>
     )

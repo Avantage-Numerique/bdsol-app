@@ -1,7 +1,4 @@
-import React, {useContext, useEffect, useRef, useState} from 'react'
-import {useRouter} from 'next/router';
-
-import {useHttpClient} from '../../app/hooks/http-hook'
+import React, {useState} from 'react'
 
 //Context
 import {AuthContext} from '../../authentication/context/auth-context'
@@ -19,37 +16,16 @@ import styles from './accountPage.module.scss'
 import Profile from '../../app/common/Containers/UserAccount/Profile/profile';
 import Preferences from '../../app/common/Containers/UserAccount/Preferences/preferences';
 import Help from '../../app/common/Containers/UserAccount/Help/help';
+import {withSessionSsr} from "../../authentication/session/handlers/withSession";
+import {ssrCanAccess} from "../../authentication/permissions/ssrCanAccess";
 
-
-const accountPage = () => {
-
-    //Default redirection path
-    const redirectPath = useRef('/compte/connexion');
-
-    //Access router
-    const router = useRouter();
+const accountPage = ({ user }) => {
 
     //Access logout function
     const {logout} = useSessionHook();
 
-    //Create specific logout function for this page
-    const pageLogout = () => {
-        redirectPath.current = "/"; //Redirect to home page instead of login
-        logout();
-    }
-
-    //Import the authentication context to make sure the user is connected
-    const auth = useContext(AuthContext);
-
     //UseState
     const [leftMenu, setLeftMenu] = useState("help");
-
-    //Make sure the user is connected to access this page
-    useEffect(() => {
-        if (!auth.isLoggedIn) {
-            router.push(redirectPath.current)
-        }
-    }, [auth.isLoggedIn, redirectPath.current]);
 
     const dateLanguage = 'en-CA';
 
@@ -58,7 +34,7 @@ const accountPage = () => {
 
             <header className="col-12">
                 <div className="maxWidthPageContainer">
-                    <h1 className="col-12 blue1">Bienvenue {auth.username}</h1>
+                    <h1 className="col-12 blue1">Bienvenue {user && (user.username)}</h1>
                 </div>
             </header>
 
@@ -69,39 +45,47 @@ const accountPage = () => {
                         {leftMenu === "history" && <UserHistoryGrid/>}
                         {leftMenu === "preferences" && <Preferences/>}
                         {leftMenu === "profile" && <Profile/>}
-                        {leftMenu == "help" && <Help/>}
+                        {leftMenu === "help" && <Help/>}
                     </div>
                 </section>
 
                 <aside className={"col-3"}>
-                    <div className={"side-menu"}>
-                        <h3 className={`col-12`}>
-                            Menu
-                        </h3>
+                    {user && (
+                        <div className={"side-menu"}>
+                            <h3 className={`col-12`}>
+                                Menu
+                            </h3>
                             <div className={`${styles["user-card"]}`}>
                                 <div>
-                                    { (auth.avatar === null || auth.avatar.toString() === "") ?
-                                        <img src="https://freesvg.org/img/1389952697.png" alt="Aucune image de profil" width="80px" height="80px"></img>
-                                        : <img src={auth.avatar} alt="Ton avatar" width="80px" height="80px"></img>
+                                    {(user.avatar === undefined || user.avatar === null || user.avatar.toString() === "") ?
+                                        <img src="https://freesvg.org/img/1389952697.png" alt="Aucune image de profil"
+                                             width="80px" height="80px"/>
+                                        : <img src={user.avatar} alt="Ton avatar" width="80px" height="80px"/>
                                     }
                                 </div>
                                 <div>
-                                    <span>{auth.name}</span><br></br>
-                                    <span>{auth.username}</span><br></br>
-                                    <span>Membre depuis le {new Date(auth.createdAt).toLocaleDateString(dateLanguage)}</span><br></br>
+                                    <span>{user.name}</span><br/>
+                                    <span>{user.username}</span><br/>
+                                    <span>Membre depuis le {new Date(user.createdAt).toLocaleDateString(dateLanguage)}</span><br/>
                                 </div>
                             </div>
 
                             <Button key="modif" onClick={() => setLeftMenu("profile")}>Modifier mon profil</Button>
                             <Button key="pref" onClick={() => setLeftMenu("preferences")}>Préférences</Button>
-                            <Button key="historique" onClick={() => setLeftMenu("history")}>Historique de modification</Button>
+                            <Button key="historique" onClick={() => setLeftMenu("history")}>Historique de
+                                modification</Button>
                             <Button key="help" onClick={() => setLeftMenu("help")}>Aide</Button>
                             <Button key="logout" onClick={logout}>Se déconnecter</Button>
-                    </div>
+                        </div>
+
+                    )}
                 </aside>
             </div>
         </div>
     );
 }
+
+export const getServerSideProps = withSessionSsr(ssrCanAccess);
+
 
 export default accountPage
