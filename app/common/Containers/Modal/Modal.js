@@ -13,6 +13,9 @@
 
 import {useRef, useEffect} from 'react'
 
+//Components
+import Button from '../../FormElements/Buttons/Button/Button'
+
 //Styling
 import styles from './Modal.module.scss'
 
@@ -56,16 +59,12 @@ const Modal = props => {
                     Display itself automatically and trigger a function passed has props when clicked
                 */}
                 { closingFunction &&
-                    <div className="col-12">
-                        <button 
-                            onClick={() => closingFunction()} 
-                            className={`
-                                ${styles["closing-button"]}
-                                ${darkColorButton && styles["closing-button--dark-color"]}
-                            `}>
-                                Fermer &#10006;
-                            <div className={`${styles["closing-button__underline"]}`}></div>
-                        </button>
+                    <div className={`
+                        ${styles["modal__close-button--container"]} 
+                    `}>
+     
+                        <Button>Fermer</Button>
+
                     </div>
                 }
             

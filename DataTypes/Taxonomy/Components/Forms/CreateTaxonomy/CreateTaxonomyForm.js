@@ -9,6 +9,9 @@ import Button from '../../../../../app/common/FormElements/Buttons/Button/Button
 import Input from '../../../../../app/common/FormElements/Input/Input'
 import RichTextarea from '../../../../../app/common/FormElements/RichTextArea/RichTextarea'
 
+//Form validators
+import {VALIDATOR_REQUIRE} from '../../../../../app/utils/validators'
+
 //Contexts
 import {AuthContext, useAuth} from '../../../../../authentication/context/auth-context'
 import { MessageContext } from '../../../../../app/common/UserNotifications/Message/Context/Message-Context'
@@ -17,7 +20,7 @@ import { MessageContext } from '../../../../../app/common/UserNotifications/Mess
 import styles from './CreateTaxonomyForm.module.scss'
 
 
-const CreateTaxonomyForm = ({name, positiveRequestActions}) => {
+const CreateTaxonomyForm = ({name, category, positiveRequestActions}) => {
 
     /*
         Could be a great idea for every form in the application to have the possibility 
@@ -61,7 +64,7 @@ const CreateTaxonomyForm = ({name, positiveRequestActions}) => {
     const { FormUI, submitRequest, formState, formTools } = useFormUtils(
         {
             category: {
-                value: '',
+                value: (category ? category : ''),
                 isValid: false
             },
             name: {
@@ -140,7 +143,7 @@ const CreateTaxonomyForm = ({name, positiveRequestActions}) => {
                         <option value="">-- Choisissez une taxonomy --</option>
                         {Object.keys(taxonomies).map((key) => {
                             return (
-                                <option key={`taxonomy-${key}`} value={key}>{taxonomies[key]}</option>
+                                <option key={`taxonomy-${key}`} value={key} disabled={(key !== category)} selected={(key === category)}>{taxonomies[key]}</option>
                             );
                         })}
                     </select>
@@ -150,6 +153,8 @@ const CreateTaxonomyForm = ({name, positiveRequestActions}) => {
                     name="name"
                     label="Nom"
                     formTools={formTools}
+                    validators={[VALIDATOR_REQUIRE()]}
+                    errorText="Cette information est requise"
                 />
 
                 <Input
