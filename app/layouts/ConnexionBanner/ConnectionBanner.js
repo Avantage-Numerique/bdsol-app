@@ -4,42 +4,42 @@ import { useEffect, useState } from "react";
 import styles from './ConnectionBanner.module.scss'
 import useApi from "../../hooks/useApi";
 
-
-
 const ConnexionBanner = () => {
     
-    const connected = useApi();
-    const [connectionState, setConnexionState] = useState(false);
+    const [apiUp, setApiUp] = useState(undefined);
     const [showBanner, setShowBanner] = useState(false);
 
+    useEffect(() => {
+        useApi(setApiUp)
+    }, []);
 
     useEffect(() => {
-        setConnexionState(connected)
-    }, [connected])
-
-    useEffect(() => {
-        if (connectionState)
+        if (apiUp === undefined)
+        {
+            setShowBanner(false);
+        }
+        else if (apiUp)
         {
             setTimeout(() => {
                 setShowBanner(false);
             }, 7000);
         }
+        //If api is down
         else
-         setShowBanner(true);
-    }, [connectionState])
+        {
+            setShowBanner(true);
+        }
+
+    }, [apiUp]);
 
     if (showBanner)
         return (
-            <div className={`${styles["banner"]} ${connectionState ? styles["connected-banner"] : styles["not-connected-banner"]}`}>
-                {connectionState ? "Connecté à l'application!" : "L'application ne répond pas. Vérifiez votre connexion ou réessayez plus tard."}
+            <div className={`${styles["banner"]} ${apiUp ? styles["connected-banner"] : styles["not-connected-banner"]}`}>
+                {apiUp ? "Connecté à l'application!" : "L'application ne répond pas. Vérifiez votre connexion ou réessayez plus tard."}
             </div>
         )
     else
-        return (
-            <div hidden className={`${styles["banner"]} ${connectionState ? styles["connected-banner"] : styles["not-connected-banner"]}`}>
-                {connectionState ? "Connecté à l'application!" : "L'application ne répond pas. Vérifiez votre connexion ou réessayez plus tard."}
-            </div>
-        )
+        return (<div hidden></div>)
 
 }
 

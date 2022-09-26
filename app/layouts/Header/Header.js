@@ -11,6 +11,7 @@
 
 import HamburgerButton from '../../common/FormElements/Buttons/HamburgerButton/HamburgerButton';
 import Link from 'next/link';
+import ConnexionBanner from "../ConnexionBanner/ConnectionBanner";
 
 //Authentication context
 import {useAuth} from '../../../authentication/context/auth-context';
@@ -69,6 +70,7 @@ const Header = ( props ) => {
                     <HamburgerButton {...props} />
                 </div>
             </div>
+            <ConnexionBanner></ConnexionBanner>
 
         </header>
     )   
