@@ -1,9 +1,9 @@
-import React, {useContext, useEffect, useState} from 'react'
+import React, {useEffect, useState} from 'react'
 
 import {useHttpClient} from '../../app/hooks/http-hook'
 
 //Context
-import {AuthContext, useAuth} from '../../authentication/context/auth-context'
+import {useAuth} from '../../authentication/context/auth-context'
 
 //Styling
 import styles from './UserHistoryGrid.module.scss'
@@ -39,14 +39,22 @@ const UserHistoryGrid = (props) => {
 
     }, [auth.user.isLoggedIn]);
 
+    const modificationMsg = (modif) => {
+        switch (modif){
+            case "create": return "Création de "; break;
+            case "update": return "Mise à jour de "; break;
+            case "delete": return "Suppression de "; break;
+            default : return "action state undefined";
+        }
+    }
+    const dateLanguage = 'en-CA';
+    const timeLanguage = 'it-IT'
+    
     if (usersHistory
         && !usersHistory.error
         && usersHistory.data
         && usersHistory.data.length > 0)
     {
-
-        const dateLanguage = 'en-CA';
-        const timeLanguage = 'it-IT'
         return (
             <>
                 <h3>Historique de modification</h3>
@@ -54,11 +62,16 @@ const UserHistoryGrid = (props) => {
                     {usersHistory.data.map( modification =>
                         <>
                             <div>{new Date(modification.modifDate).toLocaleDateString(dateLanguage)} <br></br> {new Date(modification.modifDate).toLocaleTimeString(timeLanguage)}</div>
-                            <div>{modification.action}</div>
+                            <div>{modificationMsg(modification.action)}
+                                {modification.user == modification.modifiedEntity ? "votre compte : " : "l'entité : " }
+                                {modification.fields.username ? modification.fields.username + ". " : null}
+                                {modification.fields.firstName ? modification.fields.firstName + " " + modification.fields.lastName : modification.fields.name}
+                            </div>
                             <div>{Object.keys(modification.fields).length} champ{Object.keys(modification.fields).length > 1 ? 's' : ''}</div>
                             <div>
                                 <Button slim key={modification._id.toString() + "BTN"} onClick={function () {
-                                    alert(JSON.stringify(modification._id) + '  ' + JSON.stringify(modification.fields))
+                                    alert(Object.keys(modification.fields).map( key =>
+                                        '\n' + key + ' : ' + (modification.fields[key] ? modification.fields[key] : "\"\"")));
                                 }}>Détails</Button>
                             </div>
                         </>
