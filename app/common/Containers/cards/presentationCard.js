@@ -1,27 +1,26 @@
 
 //Components
-import SanitizedInnerHtml from '../../../utils/SanitizedInnerHtml'
-import { useContext } from 'react'
-import { AuthContext } from '../../../../authentication/context/auth-context'
-import styles from './presentationCard.module.scss'
+import SanitizedInnerHtml from '../../../utils/SanitizedInnerHtml';
+import { useContext } from 'react';
+import {useAuth} from '../../../../authentication/context/auth-context';
+import styles from './presentationCard.module.scss';
+import getConfig from 'next/config';
 
+const { publicRuntimeConfig } = getConfig();
 /*
+    ABOUT...
 
-        ABOUT...
+    This component is currently used to display the infos of every type of entity
+    although this purpose is probably way to large for only one component.
 
-        This component is currently used to display the infos of every type of entity
-        although this purpose is probably way to large for only one component. 
-
-        In the futur, we'll have to think of something more durable and scalable. 
-        One option would be a general card component that receives the data and its structure
-        from every data entity folder.
-
-
+    In the futur, we'll have to think of something more durable and scalable.
+    One option would be a general card component that receives the data and its structure
+    from every data entity folder.
 */
 
 const PresentationCard = ({header, name, firstname, description, username, createdAt, url, contactPoint}) => {
 
-    const auth = useContext(AuthContext);
+    const auth = useAuth();
 
     return (
 
@@ -50,8 +49,7 @@ const PresentationCard = ({header, name, firstname, description, username, creat
                         alt="Photo de putin qui chevauche un ours" 
                     />
                 }
-                
-                <div></div>
+
             </figure>
 
             {/************************************ 
@@ -64,11 +62,11 @@ const PresentationCard = ({header, name, firstname, description, username, creat
             <section className={`${styles["card__content"]}`}>
 
                 <h4 className="col-12">{firstname && firstname} {name}</h4>
-                <p className="col-12">
+                <div className="col-12">
                     <SanitizedInnerHtml>
                         { description }
                     </SanitizedInnerHtml>
-                </p>
+                </div>
 
                 <div className={`${styles["card__inner-line"]}`}></div>
                 
@@ -110,9 +108,10 @@ const PresentationCard = ({header, name, firstname, description, username, creat
 
             </section>
             <div className={`${styles["card__infos__sub-section"]}`}>
-                <div><strong>Créé par</strong> {auth.username} </div>
-                <div>{(new Date(createdAt)).toLocaleDateString('en-GB')}</div>
-            </div> 
+                {/*<div><strong>Créé par</strong> {auth.username} </div>*/}
+                <p>{(new Date(createdAt)).toLocaleDateString(publicRuntimeConfig.dates.defaultLanguage)}</p>
+                <p>{(new Date(createdAt)).toLocaleTimeString(publicRuntimeConfig.dates.defaultLanguage)}</p>
+            </div>
 
         </article>
     )

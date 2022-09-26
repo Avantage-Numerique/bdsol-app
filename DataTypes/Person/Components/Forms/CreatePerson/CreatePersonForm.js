@@ -1,57 +1,36 @@
-import React, { useContext, useEffect } from 'react'
-import Router from 'next/router'
+import React, { useState } from 'react'
 
 //Custom hooks
-import { useForm } from '../../../../../app/hooks/form-hook'
-import { useHttpClient } from '../../../../../app/hooks/http-hook'
+import { useFormUtils } from '../../../../../app/hooks/useFormUtils/useFormUtils'
 
 //Components
 import Button from '../../../../../app/common/FormElements/Buttons/Button/Button'
 import Input from '../../../../../app/common/FormElements/Input/Input'
 import RichTextarea from '../../../../../app/common/FormElements/RichTextArea/RichTextarea'
 import Select from '../../../../../app/common/FormElements/Select/Select'
-import Spinner from '../../../../../app/common/widgets/spinner/Spinner'
-
-//contexts
-import { AuthContext } from '../../../../../authentication/context/auth-context'
-import { MessageContext } from '../../../../../app/common/UserNotifications/Message/Context/Message-Context'
+import Modal from '../../../../../app/common/Containers/Modal/Modal'
+import CreateTaxonomyForm from '../../../../Taxonomy/Components/Forms/CreateTaxonomy/CreateTaxonomyForm'
 
 //Form validators
 import {VALIDATOR_REQUIRE} from '../../../../../app/utils/validators'
 
 //Styling
 import styles from './CreatePersonForm.module.scss'
+import {lang} from "../../../../../app/common/Data/GlobalConstants";
 
 const CreatePersonForm = () => {
 
-    //Import the authentication context to make sure the user is well connected
-    const auth = useContext(AuthContext);
+    const [modal, setModal] = useState({
+        display: false,
+        //Values to be passed from the person form to the taxonomy form
+        enteredValues: {
+            name: ''            //Only the name of the taxonomy
+        },
+        callback: () => {}
+    })
 
-    //Import message context 
-    const msg = useContext(MessageContext);
-
-    /*
-        First of all, verify if the user is logged in.
-        If he isn't, then redirect him in the connexion page
-    */
-   
-   useEffect(() => {
-        if(!auth.isLoggedIn) {
-
-            msg.addMessage({ 
-                text: "Vous devez être connecté pour pouvoir ajouter une entité à la base de données.",
-                positive: false 
-            })
-            Router.push('/compte/connexion')
-        }
-    }, [auth.isLoggedIn])
-    
-
-    //Extract the functions inside useHttpClient
-    const { isLoading, sendRequest} = useHttpClient();
-
-    //Custom hook to manage the validity of the form 
-    const [formState, inputHandler] = useForm(
+    //Main form functionalities
+    const { FormUI, submitRequest, formState, formTools } = useFormUtils(
     {
         firstName: {
             value: '',
@@ -64,95 +43,68 @@ const CreatePersonForm = () => {
         nickName: {
             value: '',
             isValid: false
-        }, 
-        biography: {
+        },
+        description: {
             value: '',
             isValid: true
         },
-        occupation: {
-            value: '',
+        occupations: {
+            value: [],
             isValid: true
         }
-
-    }, 
-    false)
+    }
+    );
 
     //Submit the form
     const submitHandler = async event => { 
 
         event.preventDefault();
-        
-        //Make sure that the form is valid before submitting it
-        if(formState.isValid){
+    
+        //There is no try/catch here because it is all handle by the custom hook
 
-
-            /*
-                Data must have this shape 
-                https://github.com/Avantage-Numerique/bdsol-api/blob/master/api/doc/Personnes.md
-            */
-
-            //There is no try/catch here because it is all handle by the custom hook
-
-            const formData = {
-                "data": {
-                    "lastName": formState.inputs.lastName.value,
-                    "firstName":  formState.inputs.firstName.value, 
-                    "nickname": formState.inputs.nickName.value,
-                    "description": formState.inputs.biography.value,
-                    "occupation": formState.inputs.occupation.value
-                }
-            };
-
-            //Send the request with the specialized hook
-            const response = await sendRequest (
-                "/personnes/create",
-                'POST',
-                JSON.stringify(formData),
-                { 'Content-Type': 'application/json' }
-            )
-
-            //If the answer is positive
-            if(!response.error){
-
-                //Alert the user
-                msg.addMessage({ 
-                    text: response.message,
-                    positive: true 
-                })
-
-            //If it is not positive for any reason
-            } else {                    
-                msg.addMessage({ 
-                    text: response.message,
-                    positive: false 
-                })
+        const formData = {
+            "data": {
+                "lastName": formState.inputs.lastName.value,
+                "firstName":  formState.inputs.firstName.value, 
+                "nickname": formState.inputs.nickName.value,
+                "description": formState.inputs.description.value,
+                "occupations": formState.inputs.occupations.value
             }
+        };
 
-        } else {
+        //Send the request with the specialized hook
+        submitRequest(
+            "/personnes/create",
+            'POST',
+            formData
+        );
 
-            //The form is not valid. 
-            //Inform the user
-            msg.addMessage({ 
-                text: "Attention. Le formulaire envoyé n'est pas valide. Assurez-vous que tous les champs sont bien remplis.",
-                positive: false
-            })
-
-        }
 
     }
 
+    /*
+        Categorie : nom de la taxonomie
+        Name : Filtre à appliquer
+    */
+    const occupationSelectRequestData = {
+        "data": {
+            "category": "occupations",
+            "name": ""
+        }
+    };
+
+
     return (
         <>
-            { isLoading && <Spinner fixed />}
-
             <form onSubmit={submitHandler} className={`col-12 ${styles["create-person-form"]}`}>
 
+                <FormUI />
                 <Input 
                     name="firstName"
                     label="Prénom"
                     validators={[VALIDATOR_REQUIRE()]}
                     errorText="Cette information est requise"
-                    onInput={inputHandler}
+                    formTools={formTools}
                 />
 
                 <Input 
@@ -160,34 +112,65 @@ const CreatePersonForm = () => {
                     label="Nom"
                     validators={[VALIDATOR_REQUIRE()]}
                     errorText="Cette information est requise"
-                    onInput={inputHandler}
+                    formTools={formTools}
                 />
 
                 <Input  
                     name="nickName"
                     label="Surnom"
-                    onInput={inputHandler}
+                    formTools={formTools}
                 />
                 
                 <RichTextarea 
-                    name="biography"
-                    label="Biographie"
-                    onInput={inputHandler}
+                    name="description"
+                    label="Biographie / description"
+                    validators={[VALIDATOR_REQUIRE()]}
+                    formTools={formTools}
                 />
 
                 <Select
-                    name="occupation"
-                    label="Occupation"
-                    onInput={inputHandler}
+                    name="occupations"
+                    label={lang.Occupations}
+                    request="/taxonomies/list/"
+                    requestData={occupationSelectRequestData}
+                    tag="occupations"
+                    placeholder={lang.occupationsPlaceholder}
+                    formTools={formTools}
+                    updateModal={setModal}
                 />
 
                 <div className="col-12">
-                    <Button type="submit" disabled={!formState.isValid}>Soumettre</Button>
+                    <Button type="submit" disabled={!formState.isValid}>{lang.submit}</Button>
                 </div>
 
             </form>
+
+            { modal && modal.display &&
+                <Modal 
+                    className={`${styles["taxonomy-modal"]}`}
+                    coloredBackground
+                    darkColorButton
+                    closingFunction={() => {setModal(prev => ({...prev, display: false}))}}
+                >
+                    <h3>Ajouter une nouvelle taxonomie</h3>
+                    <p>Le nouvel élément de taxonomie que vous ajoutez ici pourra ensuite être directement intégrée à votre formulaire.</p>
+                    <div className={`${styles["hor-line"]}`}></div>
+                    <CreateTaxonomyForm 
+                        name={modal.enteredValues.name ? modal.enteredValues.name : ''}   //Prefilled value
+                        positiveRequestActions={{
+                            //CallbackFunction is one of the four behaviors the useFormUtils hook can apply when a request return a positive answer
+                            callbackFunction: requestResponse => {
+                                //In this case, the modal callback receives the object to be passed which is the taxonomy item in the response of the request
+                                modal.callback(requestResponse.data)
+                                //Close the modal 
+                                setModal(prev => ({...prev, display: false}))
+                            }
+                        }}
+                    />
+                </Modal>
+            }
         </>
-    )
+    );
 }
 
 export default CreatePersonForm

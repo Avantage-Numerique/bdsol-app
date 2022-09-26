@@ -1,5 +1,7 @@
 .create-person-form {
 
+    position: relative;
+
     label {
 
         font-weight: 600;
@@ -21,11 +23,31 @@
         }
     }
 
+    
+}
 
-    
-    
+/*
+    Modal to create a new taxonomy before adding a person
+*/
+.taxonomy-modal{
+    > * {
+        float: left;
+        width: 100%;
+    }
 
-    
+    h3 { 
+        color: var(--blue4); 
+        margin-top: 0px;
+    }
+
+    p { margin: 0px; }
+
+    .hor-line{
+        width: 100%;
+        float: left;
+        margin: 1rem 0px;
+        border-bottom: 0.05rem solid rgba(128, 128, 128, 0.425);
+    }
 }
 
 /* On screens that are 600px or more, set the background color to blue */

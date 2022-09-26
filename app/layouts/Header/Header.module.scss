@@ -9,8 +9,8 @@
 
 .header {
 
-    --navigation-options-with: 20vw;              //In case calc is not supported
-    --navigation-options-with: calc(15vw + 5rem);
+    --navigation-options-with: 25vw;              //In case calc is not supported
+    --navigation-options-with: calc(15vw + 10rem);
 
     width: 100%;
     position: fixed;
@@ -51,6 +51,38 @@
         right:0;
         top:0;
         height:5em;
+
+        .contribute-menu-container {
+            position: relative;
+            width: 5rem;
+            float: left;
+            height: 100%;
+            background-color: transparent;
+
+            /* Align center */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            a {
+                padding: 1.5rem;
+                color: white;
+                opacity: 0.75;
+                font-size: 1.8rem;
+                -webkit-transition: opacity 200ms;
+                -moz-transition: opacity 200ms;
+                -o-transition: opacity 200ms;
+                transition: opacity 200ms;
+
+                &:hover{
+                    opacity: 1;
+                }
+
+                svg {
+                    width: 100%;
+                }
+            }
+        }
 
         .account-menu-container {
             position: relative;

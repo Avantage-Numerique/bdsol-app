@@ -3,7 +3,7 @@ import React, {useContext, useEffect, useState} from 'react'
 import {useHttpClient} from '../../app/hooks/http-hook'
 
 //Context
-import {AuthContext} from '../../authentication/context/auth-context'
+import {AuthContext, useAuth} from '../../authentication/context/auth-context'
 
 //Styling
 import styles from './UserHistoryGrid.module.scss'
@@ -14,7 +14,7 @@ const UserHistoryGrid = (props) => {
     //Extract the functions inside useHttpClient
     const {sendRequest} = useHttpClient();
 
-    const auth = useContext(AuthContext);
+    const auth = useAuth();
 
     //Data history query
     const formData = {
@@ -35,9 +35,9 @@ const UserHistoryGrid = (props) => {
             );
             setUsersHistory(usersHistory);
         }
-        if(auth.isLoggedIn) getUsersHistory();
+        if(auth.user.isLoggedIn) getUsersHistory();
 
-    }, [auth.isLoggedIn]);
+    }, [auth.user.isLoggedIn]);
 
     if (usersHistory
         && !usersHistory.error

@@ -28,22 +28,24 @@
             /* variable to set equally the padding */
             --inputPadding: 0.75em;
 
-            background-color: whitesmoke;
+            background-color: white;
             border: unset;
-            color: unset;
-            padding: var(--inputPadding) 0px;
+            padding: var(--inputPadding);
+            border: 0.05rem solid rgba(94, 94, 94, 0.2);
+
       
+            &.control--invalid {
+                border: 0.1rem solid rgb(255, 135, 135);
+                background-color:  rgba(255, 135, 135, 0.09);
+            }
 
-
-  
+            &:focus{
+                background-color: rgba(227, 233, 255, 0.212);
+                border: 0.1rem solid rgb(178, 178, 235);
+            }
 
   
             
-
-
-            &.control--invalid {
-                border: 0.1rem solid rgb(255, 135, 135);
-            }
         }
     }
 }

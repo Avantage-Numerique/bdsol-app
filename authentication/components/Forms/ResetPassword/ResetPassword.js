@@ -1,5 +1,5 @@
-import React, { useContext } from 'react'
-import { AuthContext } from '../../../context/auth-context'
+import React from 'react'
+import {useAuth} from '../../../context/auth-context'
 
 //Validators
 import {VALIDATOR_REQUIRE} from '../../../../app/utils/validators'
@@ -16,7 +16,7 @@ import styles from './ResetPassword.module.scss'
 
 const ResetPassword = () => {
 
-    const [formState, inputHandler] = useForm(
+    const [formState, formTools] = useForm(
         {
         email: {
             value: '',
@@ -27,14 +27,13 @@ const ResetPassword = () => {
 
 
     //Import the authentication context to make sure the user is well connected
-    const auth = useContext(AuthContext);
+    const auth = useAuth();
 
 
     //Submit the form
     const authSubmitHandler = async event => {
 
         event.preventDefault();
-        //console.log(event.target.userName.value);
 
         if(auth.isLoggedIn){
 
@@ -44,7 +43,7 @@ const ResetPassword = () => {
 
             try{
 
-                const response = await fetch('https://api.avantagenumerique.org/o/v1', {
+                /*const response = await fetch('https://api.avantagenumerique.org/o/v1', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -61,7 +60,7 @@ const ResetPassword = () => {
                     throw new Error(responseData.message);
                 }
                 
-                auth.login(responseData.token);
+                auth.login(responseData.token);*/
 
 
             } catch(err){
@@ -89,7 +88,7 @@ const ResetPassword = () => {
                     label="Adresse courriel"
                     validators={[VALIDATOR_REQUIRE()]}
                     errorText="Veuillez entrer une adresse courriel valide"
-                    onInput={inputHandler}
+                    formTools={formTools}
                 />     
 
                 <Button type="submit" disabled={!formState.isValid}>Soumettre</Button>

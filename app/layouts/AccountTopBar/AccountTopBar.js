@@ -2,7 +2,7 @@ import { useContext } from 'react'
 import Link from 'next/link'
 
 //Authentication context
-import { AuthContext } from '../../../authentication/context/auth-context'
+import { useAuth } from '../../../authentication/context/auth-context'
 
 //Styling 
 import styles from './AccountTopBar.module.scss'
@@ -10,7 +10,7 @@ import styles from './AccountTopBar.module.scss'
 const AccountTopBar = () => {
 
     //Import the authentication context 
-    const auth = useContext(AuthContext);
+    const auth = useAuth();
    
     return (
         <div className={`${styles.accountTopBar} col-12 bg-blue2`}>

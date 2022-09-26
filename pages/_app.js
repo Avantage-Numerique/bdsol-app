@@ -1,124 +1,130 @@
-import { useCallback, useState, useEffect } from 'react'
-
-import { AuthContext } from '../authentication/context/auth-context'
+import {getIronSession} from "iron-session";
+import App from "next/app";
+import {appDefaultSessionOptions} from "../authentication/session/Session";
+import {AuthProvider} from '../authentication/context/auth-context';
 import Layout from '../app/layouts/Layout'
-import NamedRoutes from "../app/utils/NamedRoutes";
 
+//import {useCallback, useState, useEffect} from 'react'
+//import {getVisitorDataFromContext} from "../authentication/context/visitor-context";
+//import useAuthentification from "../authentication/hooks/useAuthentification";
 /************************************
- * 
+ *
  * Import global SCSS files
- * 
+ *
  ***********************************/
 import '../styles/main.scss'
 
 
+function MyApp({Component, pageProps, user}) {
 
-const routeManager = new NamedRoutes();
-const routes = {
-    "about": {
-        pathname: '/a-propos'
-    }
+
+    //const {user, setUser} = AuthProvider();
+
+    //Store the session values
+    //const [session, setSession] = useState(pageProps.user);
+
+    /**
+     * Functions to modify the authentication context
+    */
+    /*const login = useCallback(userData => {
+        userData.isPending = false;
+        const newSession = getSessionFromData(userData);
+
+        const userSession = {...defaultSessionData, ...newSession, ip: pageProps.user.ip};
+
+        //Update the state
+        setSession(userSession);
+
+    }, [session]);*/
+
+
+    /*const logout = useCallback(() => {
+
+        deleteTargetLocalStorage('userData');//this change nothing, only that it's keeping up with the two others callback.
+        setSession(defaultSessionData);
+
+    }, [session]);*/
+
+
+    /*
+       Consult the localStorage to see of the user is connected and remove the pending state
+    */
+    /*useEffect(() => {
+        console.log(user);
+        if (isLocalStorageAccessible()) {
+
+            const storedUserData = getLocalStorage('userData');
+
+            if (!storedUserData || !storedUserData.isLoggedIn) {
+                setSession({
+                    ...defaultSessionData,
+                    isPending: false,
+                    ip: pageProps.user.ip
+                });
+
+            } else {
+                setSession(storedUserData);
+            }
+        }
+    }, []);*/
+
+    /**
+     * Set session trigger and then this effect apply userData into localStorage.
+     */
+    /*useEffect(() => {
+        // save serssion data in the localStorage
+        if (isLocalStorageAccessible()) {
+            session.isPending = false;
+            setLocalStorage('userData', session);
+        }
+    }, [session])*/
+
+    /**
+     * Main app render.
+     */
+    return (
+        <>
+            {/* Authentication context provided to all the subsequent elements */}
+            <AuthProvider fromSessionUser={user}>
+                <Layout>
+                    <Component {...pageProps} />
+                </Layout>
+            </AuthProvider>
+        </>
+    )
 }
 
-for (let routeName in routes) {
-    routeManager.addRoute(routeName, routes[routeName]);
-}
+/**
+ * Get info from the user that requested the uri.
+ * @param context
+ * @return {Promise<{pageProps: {visitor: {ip: string, browser: string}}}>}
+ * @inheritDoc https://nextjs.org/docs/api-reference/data-fetching/get-initial-props
+ */
+MyApp.getInitialProps = async (context) => {
 
-function MyApp( {Component, pageProps} ) {
+    const appProps = await App.getInitialProps(context);
 
+    if (context.ctx.req && context.ctx.res) {
 
-  //Store the session values
-  const [session, setSession] = useState({
-      token: false,
-      avatar: null,
-      name: null,
-      username: null
-  });
+        const { user } = await getIronSession(
+            context.ctx.req,
+            context.ctx.res,
+            appDefaultSessionOptions,
+        );
 
-  /*
-  *
-    Functions to modify the authentication context 
-  *
-  */
-
-  const login = useCallback(userData => {
-
-    const newSession = {
-      token:      userData.token,     //There must be at least a token, for now
-      avatar:     userData.avatar ? userData.avatar : null,
-      name:       userData.name ? userData.name : null,
-      username:   userData.username ? userData.username : null
+        return {
+            pageProps: {
+                ...appProps,
+                user: user
+            },
+            ...appProps,
+            user: user
+        };
     }
 
-    //Update the state
-    setSession(newSession);
-
-    //Store in the local storage
-    localStorage.setItem('userData', JSON.stringify(newSession))
-
-  }, [])
-
-
-  const logout = useCallback(() => {
-
-    setSession({
-      token:      null,
-      avatar:     null,
-      name:       null,
-      username:   null
-    });
-    
-    localStorage.removeItem('userData')
-
-  }, [])
-  
-
-
-  //If the page is reloaded, this hook verify if there was a token stored in the local storage. 
-  //If there is one, use it to login
-
-  useEffect(() => {
-
-    const storedData = JSON.parse(localStorage.getItem('userData'));
-
-    if(storedData && storedData.token){
-
-        login(storedData)
-
-    }
-
-  },[login])
-
-  
-
-  return (
-    
-    <>
-
-      {/* Authentication context provided to all the subsequent elements */}
-      <AuthContext.Provider value={{ 
-
-              isLoggedIn: session && session.token, 
-              token: session.token,
-              avatar: session.avatar,
-              name: session.name,
-              username: session.username,
-              login: login, 
-              logout: logout
-      
-      }}>
-
-          <Layout>
-
-              <Component {...pageProps} />
-
-          </Layout>
-
-      </AuthContext.Provider>
-
-    </>
-  )
-  
+    return appProps
 }
 
-export default MyApp
+//it isn't call in _app : noMyApp.getServerSideProps or I didn't declare it the good way.
+
+export default MyApp;

@@ -1,0 +1,37 @@
+/*
+
+    Styling for the most basic shape of 
+    the form used to create an organisation
+
+*/
+
+.create-taxonomy-form {
+    
+    .select-component {
+        width: 25%;
+        height: 40px;
+    }
+
+    label {
+
+        font-weight: 600;
+        > * { font-weight: normal; }
+
+    }
+
+    /*
+
+        The direct children of this form element are fields elements
+
+    */
+
+    > * {
+        margin-bottom: 1rem;
+
+        &:not(button){
+            width: 100%;
+        }
+    }
+
+    
+}

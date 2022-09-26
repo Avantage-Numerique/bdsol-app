@@ -1,12 +1,5 @@
-import { useContext } from 'react'
-
-//Components
-
 //Context
-import { AuthContext } from '../../authentication/context/auth-context'
-
-//styling
-
+import {useAuth} from '../../authentication/context/auth-context'
 
 /**
  * Really basic page with plain text. This could be dry with an entry or some sort of markdown file.
@@ -16,7 +9,7 @@ import { AuthContext } from '../../authentication/context/auth-context'
 const Index = () => {
 
     //Import the authentication context
-    const auth = useContext(AuthContext);
+    const auth = useAuth();
 
     return (
         <div className={`col-12`}>

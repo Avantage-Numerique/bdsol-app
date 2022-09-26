@@ -1,118 +1,122 @@
-import {useReducer, useEffect} from 'react'
+import React, { useRef, useEffect, useState } from 'react'
+
+import dynamic from 'next/dynamic'
 
 //Utils and dependancies
-import { useQuill } from 'react-quilljs';
 import { validate } from '../../../utils/validators'
 
 //Styling
 import styles from './RichTextarea.module.scss'
-import 'quill/dist/quill.snow.css'; // Add css for snow theme
+import 'react-quill/dist/quill.snow.css';
+
+const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
 
 
-//Reducer function to manage the state of the textarea
-const textareaReducer = (state, action) => {
+const RichTextarea = ({name, formTools, ...props}) => {
 
-    switch (action.type) {
-        case 'CHANGE':
-            return {
-                ...state,
-                value: action.val,
-                //if there are validators, then evaluate them and return bool
-                isValid: action.validators ? validate(action.val, action.validators) : true
-            };
+    //Create a unique ID to link the custom tool bar to the quill element. 
+    //In a useRef because it must not be affected by component rerendering
+    const toolbarId = useRef(`rich-text-tool-bar-${Math.floor(Math.random() * 10000000)}`)
 
-        case 'TOUCH': {
-            return {
-                ...state,
-                isTouched: true
-            };
-        }
+    //Fixes a bug by waiting for the component to be rendered before charging quill
+    const [isRendered, setIsRendered] = useState(false)
 
-        default:
-            return state;
-    }
-}
-
-const RichTextarea = props => {
-
-    const { quill, quillRef } = useQuill();
-
-    const [textareaState,dispatch] = useReducer(textareaReducer, {
-        value: '', 
-        isTouched: false,
-        isValid: props.validators ? validate('', props.validators) : true
-    });
-
-    //Inform the form (parent component) of the value and validity of this input
-    const { name, onInput } = props;          
-    const { value, isValid } = textareaState;   //State of this element
-
+    //Tell quill that the component is rendered
     useEffect(() => {
-        onInput(name, value, isValid)
-    }, [name, value, isValid, onInput]);
+        if(!isRendered)
+            setIsRendered(true)
+    }, [])
 
-    //Watch for modifications in the text and call the dispatch function
-    useEffect(() => {
-        if (quill) {
-          quill.on('text-change', (delta, oldDelta, source) => {
-            //console.log('Text change!');
-            //console.log(quill.getText()); // Get text only
-            //console.log(quill.getContents()); // Get delta contents
-            //console.log(quill.root.innerHTML); // Get innerHTML using quill
-            //console.log(quillRef.current.firstChild.innerHTML); // Get innerHTML using quillRef
+    const {
+        formState,
+        inputHandler,
+        inputTouched
+    } = formTools;
 
-            changeHandler(quill.root.innerHTML)
-          });
-        }
-      }, [quill]);
+    const currentState = formState.inputs[name];
 
-    const changeHandler = value => {
-        dispatch({type: 'CHANGE', val: value, validators: props.validators})
+    const updateValue = (value, delta, source, editor) => {
+        inputHandler(
+            name,
+            value,
+            props.validators ? validate(editor.getText(), props.validators) : true
+        )
     }
-
-    //Prevent an error message when the input hasn't been touch
-    const touchHandler = () => {
-        dispatch({ type: 'TOUCH' });
-    };
 
     return (
 
-        <div className={` ${styles["rich-textarea"]}`} >
+        <div className={`${styles["rich-textarea"]}`} >
 
-        {props.label &&
+            {props.label &&
 
-            <label htmlFor={name}>    
-                {props.label}
-            </label>
+                <label htmlFor={name}>    
+                    {props.label}
+                </label>
 
-        } 
+            } 
 
-            <div className={` ${styles["rich-textarea__quill-container"]}`}>
+            <div className={` ${styles["rich-textarea__quill"]} `}> 
+                
+                {isRendered && <>
 
-                {/* This container receives the text entered by the user */}
+                    {/************************** 
+                            Custom toolbar component including insertStar button and dropdowns
+                    ****************************/}
+                    <div id={toolbarId.current} className={`ql-toolbar ql-snow`}>
+                        <select className="ql-header" defaultValue="">
+                            <option value="1">Titre 1</option>
+                            <option value="2">Titre 2</option>
+                            <option value="">Normal</option>
+                        </select>
 
-                <div 
-                    name={name}
-                    id={name}
-                    onBlur={touchHandler}
-                    className={` 
-                        ${styles["rich-textarea__quill-content"]} 
-                        ${!textareaState.isValid && textareaState.isTouched && styles["control--invalid"]}
-                    `} 
-                    ref={quillRef} 
-                />
+                        <button className="ql-list" value="ordered" />
+                        <button className="ql-list" value="bullet" />
+                        <button className="ql-bold" />
+                        <button className="ql-italic" />
+                        <button className="ql-align" value="" />
+                        <button className="ql-align" value="center" />
+                        <button className="ql-align" value="right" />
 
-                {!textareaState.isValid && textareaState.isTouched && 
-                    <small>{ props.errorText }</small>
-                }
-
+                        <select className="ql-color" defaultValue="">
+                            <option value="#455ae6" />
+                            <option value="#4dc4ff" />
+                            <option value="#dd5c5c" />
+                            <option value="#bbbfd7" />
+                            <option value="#d4c87b" />
+                            <option value="#7bd485" />
+                            <option value="" />
+                        </select>
+                    </div>
+    
+                    <ReactQuill
+                        className={` 
+                            ${styles["rich-textarea__quill-content"]} 
+                            ${!currentState.isValid && currentState.isTouched && styles["control--invalid"]}
+                        `}
+                        onBlur={() => inputTouched(name)}
+                        value={currentState ? currentState.value : null}
+                        modules={{toolbar: {
+                            container: `#${toolbarId.current}`
+                        }}}
+                        onChange={updateValue}
+                        placeholder={props.placeholder}
+                        theme="snow" 
+                    />
+             </>}  
+                
             </div>
-        
-        </div>
 
+            {!currentState.isValid && currentState.isTouched && 
+                <small>{ props.errorText }</small>
+            }
+
+        </div>
+       
+        
        
     );
 }
 
 export default RichTextarea;
+

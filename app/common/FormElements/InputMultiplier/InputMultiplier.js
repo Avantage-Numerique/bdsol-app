@@ -46,7 +46,6 @@ const InputMultiplier = ({ label, type, name, onInput, validators, errorText }) 
 
     //Send the information to the parent component
     useEffect(() => {
-        console.log(rows)
         onInput(
             name,                                                     //Name of the multiplier field
             rows.map(({ value }) => value),                           //Array of values

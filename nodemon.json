@@ -1,7 +1,11 @@
 {
     "verbose": true,
-    "ignore": ["node_modules", ".next"],
+    "ignore": [
+        "node_modules",
+        ".next",
+        "logs"
+    ],
     "watch": ["**/*"],
-    "ext": "js json",
+    "ext": "js json ts",
     "exec": "npm run dev"
 }
