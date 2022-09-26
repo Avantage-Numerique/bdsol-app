@@ -1,29 +1,27 @@
-import { useState } from 'react';
-import {useHttpClient} from './http-hook'
+import { sendExternalApiRequest } from './http-hook';
 
-export default function useApi() {
-
-    const {sendRequest} = useHttpClient();
-
-    const [apiUp, setApiUp] = useState(false);
-
+export default async function useApi(connectedSetter) {
     const pingApi = async () => {
         try {
-            const res =  await sendRequest(
+            const res = await sendExternalApiRequest(
                 "/ping",
                 'POST',
-                JSON.stringify({}),
-                { 'Content-Type': 'application/json' }
+                JSON.stringify({})
             );
             if (res !== undefined && res.data["/ping"] === "OK")
-                setApiUp(true);
+                connectedSetter(true);
             else
-                setApiUp(false); // Set as api is not up
+                connectedSetter(false); // Set as api is not up
 
         } catch (error) {
-            setApiUp(false);
-            console.error(error);
+            connectedSetter(false);
         }
-        return apiUp;
     }
+    
+    //First ping
+    pingApi();
+
+    //Then ping at interval of time
+    setInterval( async () => pingApi(), 20000);
+
 }

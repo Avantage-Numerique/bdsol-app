@@ -9,12 +9,8 @@
 
 */
 
-import { useContext } from 'react'
-
-import AccountTopBar from '../AccountTopBar/AccountTopBar'
 import HamburgerButton from '../../common/FormElements/Buttons/HamburgerButton/HamburgerButton';
 import Link from 'next/link'
-import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -25,6 +21,7 @@ import {useAuth} from '../../../authentication/context/auth-context';
 
 //Styling
 import styles from './Header.module.scss'
+import ConnexionBanner from "../ConnexionBanner/ConnectionBanner";
 
 
 const Header = (props) => {
@@ -82,7 +79,7 @@ const Header = (props) => {
                 </Row>
             </Container>
 
-
+            <ConnexionBanner />
         </header>
     )
 }

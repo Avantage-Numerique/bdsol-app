@@ -156,6 +156,12 @@ export const useFormUtils = ( initialState, actions ) => {
     }, [innerMessage, isLoading])
 
 
-    return { FormUI, submitRequest, formState, formTools, requestResponse }
+    return { 
+        FormUI,
+        submitRequest,
+        formState,
+        formTools, 
+        requestResponse
+    }
 
 }

@@ -33,9 +33,7 @@ const CreatePersonPage = () => {
                         <div className={`${styles["create-person--max-width"]}`}>
                             <h1 className={`col-12 text-primary`}>{lang.Personnes}</h1>
                             <h4 className="col-12">{lang.formPersonsSubtitle}</h4>
-                            <p>
-                                <SanitizedInnerHtml>{lang.formPersonsInstructions}</SanitizedInnerHtml>
-                            </p>
+                            <SanitizedInnerHtml>{lang.formPersonsInstructions}</SanitizedInnerHtml>
                         </div>
                     </div>
                 </header>
