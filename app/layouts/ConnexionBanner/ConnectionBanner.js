@@ -11,6 +11,7 @@ const ConnexionBanner = () => {
 
     useEffect(() => {
         useApi(setApiUp)
+        setInterval( async () => useApi(setApiUp), 5000);
     }, []);
 
     useEffect(() => {
@@ -22,7 +23,7 @@ const ConnexionBanner = () => {
         {
             setTimeout(() => {
                 setShowBanner(false);
-            }, 7000);
+            }, 6000);
         }
         //If api is down
         else

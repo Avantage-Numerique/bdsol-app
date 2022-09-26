@@ -18,10 +18,5 @@ export default async function useApi(connectedSetter) {
         }
     }
     
-    //First ping
     pingApi();
-
-    //Then ping at interval of time
-    setInterval( async () => pingApi(), 20000);
-
 }
