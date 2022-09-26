@@ -22,36 +22,9 @@ const Footer = () => {
 
         <footer id={styles.pageFooter} className="bg-dark">
             <Container>
-                <Row>
-                    <Col>
-                        {/* 
-                        *
-                            News letter section 
-                        *
-                        */}
-                        <section>
-                            <h3>Abonnez-vous à notre infolettre</h3>
-                            <Row className="align-items-center">
-                                <Col>
-                                    <p>Restez au courant de tous les projets d'Avantage Numérique en vous abonnant à notre infolettre.</p>
-                                </Col>
-                                <Col>
-                                    <form className={`${styles.newsletterSubscription}`}>
-                                        <input type="email" placeholder="Courriel" />
-                                        <input type="submit"/>
-                                    </form>
-                                </Col>
-                            </Row>
-                        </section>
-                    </Col>
-                </Row>
                 <Row className={`${styles.separatorLine}`}>
                     <Col>
-                        {/* 
-                        *
-                            Project partners section
-                        *
-                        */}
+                        {/*Project partners section*/}
                         <section>
                             {/* Section with partners logos */}
 

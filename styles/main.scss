@@ -1,7 +1,11 @@
-
 @import './custom.scss';
-@import '~bootstrap/scss/bootstrap';
+
+//Cherry picking of packages' styles.
+@import './packages/bootstrap';
+
 @import './globals-legacy.scss';
 @import './globals.scss';
 @import './layout-components/header.scss';
 @import './components/customScrollBar.scss';
+
+@import './layouts/home-page';

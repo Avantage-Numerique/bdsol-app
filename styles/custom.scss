@@ -1,32 +1,36 @@
 /*
-
-
-
     Overrides default variables of React-Bootstrap to fit the custom style
     01Hub - 08/08/2022
-
-    
-
 */
 
 //colors
-$blue: rgb(69, 90, 230); // Avantage numérique's mainBlue (and blue1)
-$red: rgb(221, 92, 92);  // Avantage numérique's red
-$dark: rgb(33, 33, 33);
-$mild-dark: rgb(93,93,93); // Avantage numérique's input labels
+$blue: #455ae6; // Avantage numérique's mainBlue (and blue1)
+$blue2: #4d64ff; // Avantage numérique's mainBlue (and blue2)
+$blue3: #4dc4ff; // Avantage numérique's mainBlue (and blue3)
+$blue4: #5f71ea; // Avantage numérique's mainBlue (and blue4)
+$pink: #c881ca;
+$pink-100: lighten($pink, 80%);
+$red: #dd5c5c;  // Avantage numérique's red
+
+$grey: #bbbfd7;
+$mild-dark: #606060; // Avantage numérique's input labels
+$dark: #292929;
 
 $theme-colors:(
     "primary": $blue,
-    "secondary": #bbbfd7,
-    "blue2": #4d64ff,   // Avantage numérique's altBlue (and blue2) rgb(77, 100, 255)
-    "blue3": #4dc4ff,   // Avantage numérique's blue3 rgb(77, 196, 255)
-    "blue4": #5f71ea,   // Avantage numérique's blue4 rgb(95, 113, 234)
+    "secondary": $grey,
+    "pink": $pink,
+    "pink-100": $pink-100,
+    "blue2": $blue2,   // Avantage numérique's altBlue (and blue2) rgb(77, 100, 255)
+    "blue3": $blue3,   // Avantage numérique's blue3 rgb(77, 196, 255)
+    "blue4": $blue4,   // Avantage numérique's blue4 rgb(95, 113, 234)
     "dark": $dark,
     "danger": $red
 );
 
 $body-color: $dark;
 
+$min-contrast-ratio: 4.5;
 
 //fonts
 $font-size-root: 14px;
@@ -47,7 +51,7 @@ $h6-font-size:                0.8rem !default; //this is smaller than regular te
 
 $link-decoration: none;
 
-$border-radius: 1.5em; 
+$border-radius: 0.5em;
 //to-do; transpose value from rem to em (only one button radius is used in the app for now.
 // $border-radius-sm:            .25rem !default;
 // $border-radius-lg:            .5rem !default;

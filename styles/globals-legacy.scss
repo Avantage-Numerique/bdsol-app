@@ -1,12 +1,5 @@
 /*
-
-
-
     Legacy global styles applicable to every pages waiting to be refactored or adapted to Bootstrap
-    V.P.R && 0/1Hub- 07/09/2022
-
-    
-
 */
 
 :root {
@@ -46,7 +39,7 @@ a {
 *
 *   By default, it assumed to be a small size screen
 */
-
+/*
 .col-1,
 .col-2,
 .col-3,
@@ -58,8 +51,8 @@ a {
 .col-9,
 .col-10,
 .col-11,
-.col-12 {width: 100%; float: left;} /* TODO switch to Bootstrap's grid method (container > row > col) */
-
+.col-12 {width: 100%; float: left;} //TODO switch to Bootstrap's grid method (container > row > col)
+*/
 
 /*
   Line class for the design lines added to pages
@@ -119,45 +112,6 @@ input {
   /***
   * (end) TODO to refactor using Bootstrap's form-control https://react-bootstrap.github.io/forms/form-control/ & move to FormElements > Input
   ***/
-
-
-  /*
-*
-*
-*     Media queries for responsive design
-*
-*
-*
-*/
-
-/***
-* (start) TODO switch to Bootstrap's grid method (container > row > col)
-***/
-/* Medium devices (landscape tablets, 768px and up) */
-@media only screen and (min-width: 768px) {
-    /* Normal width of the col classes */
-    .col-1 {width: 8.33%; float: left;}
-    .col-2 {width: 16.66%; float: left;}
-    .col-3 {width: 25%; float: left;}
-    .col-4 {width: 33.33%; float: left;}
-    .col-5 {width: 41.66%; float: left;}
-    .col-6 {width: 50%; float: left;}
-    .col-7 {width: 58.33%; float: left;}
-    .col-8 {width: 66.66%; float: left;}
-    .col-9 {width: 75%; float: left;}
-    .col-10 {width: 83.33%; float: left;}
-    .col-11 {width: 91.66%; float: left;}
-    .col-12 {width: 100%; float: left;}
-  }
-  /* Extra large devices (large laptops and desktops, 1200px and up) */
-  @media only screen and (min-width: 1200px) {}
-  /* Extra large devices (large laptops and desktops, 1500px and up) */
-  @media only screen and (min-width: 1500px) {}
-  /***
-  * (end) TODO switch to Bootstrap's grid method (container > row > col)
-  ***/
-
-
 
 
 

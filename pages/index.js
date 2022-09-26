@@ -20,12 +20,15 @@ import {MessageContext} from '../app/common/UserNotifications/Message/Context/Me
 import {useAuth} from '../authentication/context/auth-context';
 
 //Styling
-import styles from './home-page.module.scss'
+//import styles from './home-page.module.scss'
 import {lang} from "../app/common/Data/GlobalConstants";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Button2 from "react-bootstrap/Button";
 
 
 const HomePage = ({}) => {
-
 
     //Import the authentication context to make sure the user is well connected
     const auth = useAuth();
@@ -116,8 +119,7 @@ const HomePage = ({}) => {
     }
 
     return (
-
-        <div className={`col-12 ${styles["home-page"]}`}>
+        <div className={"home-page"}>
 
             {/* Page head element  */}
             <Head>
@@ -127,14 +129,14 @@ const HomePage = ({}) => {
                 <meta name="description"
                       content={lang.appDefaultDescription}/>
                 <meta name="keywords"
-                      content={lang.appDefaultKeywords} />
+                      content={lang.appDefaultKeywords}/>
 
                 {/* social media meta tag */}
                 <meta property="og:title" content={lang.appDefaultName}/>
-                <meta property="og:description" content={lang.appDefaultDescription} />
+                <meta property="og:description" content={lang.appDefaultDescription}/>
 
                 <meta name="twitter:title" content={lang.appDefaultName}/>
-                <meta name="twitter:description" content={lang.appDefaultDescription} />
+                <meta name="twitter:description" content={lang.appDefaultDescription}/>
 
                 {/*
                 To add when the domain will be selected ....
@@ -146,144 +148,98 @@ const HomePage = ({}) => {
                     type='application/ld+json'
                     dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(JSON.stringify(schema))}}
                 />
-
             </Head>
 
-            {/*
-
-          Main content of the page
-
-      */}
-
-            <section className="col-12">
-
-                {/* Text content section that follow the normalized width of the app */}
-                <div className="maxWidthPageContainer">
-
-                    <div className={`${styles["home-page__header--img-container"]}`}>
+            {/* Main content of the page  */}
+            <Container fluid className={"page-header bg-pink"}>
+                <Row>
+                    <Col xs={8} className={"d-flex flex-column justify-content-center"}>
+                        <h1 className="text-white">Avantage Numérique</h1>
+                        <h3 className="text-white">Toutes les données du Croissant Boréal</h3>
+                    </Col>
+                    <Col xs={4}>
                         <img
+                            className={"img-fluid"}
                             src="/general_images/Croissant-Boreal@3x-1440x1440.png"
                             alt="Image d'un événement de projection devant public."
                         />
-                    </div>
+                    </Col>
+                </Row>
+            </Container>
 
-                    <div className="col-12">
-                        <h1 className="col-12 text-white">Avantage Numérique</h1>
-                        <h3 className="col-12 text-white">Toutes les données du Croissant Boréal</h3>
-                    </div>
+            <Container fluid className={"home-page__main"}>
+                <Row>
+                    <Col xs={9}>
+                        <section className={"home-page__feed-section"}>
+                            <h2>Actualités</h2>
+                            {
+                                <>
 
-                </div>
-
-            </section>
-
-            <div className={`${styles["home-page__main"]} maxWidthPageContainer`}>
-
-                <div className="col-12">
-
-                    {/************************************
-                     *
-                     * Page first section (main)
-                     *!auth.isPending &&
-                     * ***********************************/}
-
-                    <section className={`${styles["home-page__feed-section"]} col-8`}>
-
-                        <h2 className={`col-12 `}>Actualités</h2>
-                        {
-                            <>
-
-                                {/************************************
-                                 *
-                                 * Loading state : If loading is on and there is no feed
-                                 *
-                                 ***********************************/}
-                                {
-                                    isLoading &&
-                                    <div className={`col-12 ${styles["home-page__feed-section--spinner-container"]}`}>
-
-                                        <div className={`col-12`}>
-                                            <Spinner reverse/>
-                                        </div>
-                                        <p className="col-12"><strong>Chargement des données</strong></p>
-
-                                    </div>
-                                }
-
-                                {/************************************
-                                 *
-                                 *  If there is no loading state and no feed, go on that by default
-                                 *
-                                 ***********************************/}
-                                {
-                                    feedList.length === 0 && !isLoading &&
-                                    <div className="col-12">
-                                        <h5>Aucune donnée ¯\_(ツ)_/¯ pour l'instant. On a peut-être un problème en arrière plan.</h5>
-                                    </div>
-                                }
-
-                                <div className={`col-12 ${styles["home-page__feed-section--container"]}`}>
-
-                                    {/* Display feed if there is one */}
+                                    {/* Loading state : If loading is on and there is no feed */}
                                     {
-                                        feedList.length > 0 && !isLoading &&
-
-                                        feedList.map(elem => (
-                                            <PresentationCard
-                                                key={elem._id}
-                                                header={elem.nickname ? "Personne" : "Organisation"}
-                                                firstname={elem.firstName}
-                                                name={elem.lastName ? elem.lastName : elem.name}
-                                                username={elem.nickname}
-                                                description={elem.description}
-                                                createdAt={elem.createdAt}
-                                                url={elem.url}
-                                                contactPoint={elem.contactPoint}
-                                            />
-
-                                        ))
+                                        isLoading &&
+                                        <div className={"home-page__feed-section--spinner-container"}>
+                                            <div>
+                                                <Spinner reverse/>
+                                            </div>
+                                            <p><strong>Chargement des données</strong></p>
+                                        </div>
                                     }
 
-                                </div>
+                                    {/* If there is no loading state and no feed, go on that by default */}
+                                    {
+                                        feedList.length === 0 && !isLoading &&
+                                        <div>
+                                            <h5>Aucune donnée ¯\_(ツ)_/¯ pour l'instant. On a peut-être un problème en
+                                                arrière
+                                                plan.</h5>
+                                        </div>
+                                    }
+                                    <Row className={"home-page__feed-section--container"}>
 
-                            </>
-                        }
+                                            {/* Display feed if there is one */}
+                                            {
+                                                feedList.length > 0 && !isLoading &&
+                                                feedList.map(elem => (
+                                                    <Col>
+                                                        <PresentationCard
+                                                            key={elem._id}
+                                                            header={elem.nickname ? "Personne" : "Organisation"}
+                                                            firstname={elem.firstName}
+                                                            name={elem.lastName ? elem.lastName : elem.name}
+                                                            username={elem.nickname}
+                                                            description={elem.description}
+                                                            createdAt={elem.createdAt}
+                                                            url={elem.url}
+                                                            contactPoint={elem.contactPoint}
+                                                        />
+                                                    </Col>
+                                                ))
+                                            }
+                                    </Row>
+                                </>
+                            }
+                        </section>
+                    </Col>
+                    <Col xs={3} as={"aside"} className={"px-3"}>
+                        <h2>Menu rapide</h2>
 
-                    </section>
-
-
-                    {/************************************
-                     *
-                     * Page : Aside section
-                     *
-                     * ***********************************/}
-
-                    <aside className={`col-3`}>
-
-                        <h2 className={`col-12`}>Menu rapide</h2>
-
-                        {/*
-                            Section : If user is not connected, offer the option to connect itself
-                        */}
-
+                        {/* If user is not connected, offer the option to connect itself*/}
                         {!auth.user.isLoggedIn &&
-                        <section className={`col-12 ${styles["aside__connection-option"]}`}>
-                            <Button href="/compte/connexion">Se connecter</Button>
+                        <section>
+                            <Button2 className={"btn btn-primary btn-block w-100"} href="/compte/connexion">Se connecter</Button2>
                         </section>
                         }
 
+                        {/*Rapid options to access of edit the database*/}
+                        <section className={"aside__db-edit-options"}>
 
-                        {/*
-                            Rapid options to access of edit the database
-                        */}
-
-                        <section className={`col-12 ${styles["aside__db-edit-options"]}`}>
-
-                            <div className={`col-12 ${styles["db-edit-options__button-set"]}`}>
+                            <div className={"db-edit-options__button-set"}>
                                 <Button disabled slim>Événement</Button>
                                 <Button disabled slim>+</Button>
                             </div>
 
-                            <div className={`col-12 ${styles["db-edit-options__button-set"]}`}>
+                            <div className={"db-edit-options__button-set"}>
                                 <Button disabled slim>Personne</Button>
                                 <Button
                                     disabled={!auth.user.isLoggedIn}
@@ -292,7 +248,7 @@ const HomePage = ({}) => {
                                 >+</Button>
                             </div>
 
-                            <div className={`col-12 ${styles["db-edit-options__button-set"]}`}>
+                            <div className={"db-edit-options__button-set"}>
                                 <Button disabled slim>Organisation</Button>
                                 <Button
                                     disabled={!auth.user.isLoggedIn}
@@ -301,7 +257,7 @@ const HomePage = ({}) => {
                                 >+</Button>
                             </div>
 
-                            <div className={`col-12 ${styles["db-edit-options__button-set"]}`}>
+                            <div className={"db-edit-options__button-set"}>
                                 <Button disabled slim>Taxonomie</Button>
                                 <Button
                                     disabled={!auth.user.isLoggedIn}
@@ -311,56 +267,50 @@ const HomePage = ({}) => {
                             </div>
 
                             {auth.user.isLoggedIn &&
-                            <Button color="blue4" reverse href="/contribuer">Ajouter une donnée</Button>
+                            <Button className={"btn-primary"} reverse href="/contribuer">Ajouter une donnée</Button>
                             }
-
-                            <p className="col-12"><strong className="text-danger">DÉVELOPPEMENT EN COURS.</strong> Vous pourrez
-                                bientôt lancer des recherches et consulter toutes les données. </p>
-
+                            <p>
+                                <strong className="text-danger">DÉVELOPPEMENT EN COURS.</strong> Vous pourrez
+                                bientôt lancer des recherches et consulter toutes les données.
+                            </p>
                         </section>
 
 
-                        {/*
-                            Section : If user is not connected, propose to create an account if he doesn't have one
-                        */}
-
+                        {/* Section : If user is not connected, propose to create an account if he doesn't have one */}
                         {!auth.user.isLoggedIn &&
-                        <section className={`col-12 ${styles["aside__register-option"]}`}>
-
-                            <div className="col-12 bg-primary text-white">
+                        <section className={"aside__register-option"}>
+                            <div className="bg-primary text-white">
                                 <h4>Pas encore de compte ?</h4>
                                 <p>Vous en aurez besoin afin de vous aussi contribuer aux données</p>
-                                <Button href="/compte/inscription">C'est par ici !</Button>
+                                <Button2 href="/compte/inscription" className={"btn btn-outline-white btn-block"}>C'est par ici !</Button2>
                             </div>
-
                         </section>
                         }
 
                         {/*
                             Section : More informations about the project
                         */}
-                        <section className="col-12">
-
-                            <h4 className="col-12">À propos</h4>
-                            <p className="col-12">
+                        <section>
+                            <h4>À propos</h4>
+                            <p>
                                 La Base de données structurées, ouvertes et liées (BDSOL) est le cœur du hub virtuel
-                                d’Avantage numérique. Elle vise à recenser et géolocaliser les talents, les compétences,
-                                les ressources, les initiatives techno-créatives à travers le territoire du Croissant
+                                d’Avantage numérique. Elle vise à recenser et géolocaliser les talents, les
+                                compétences,
+                                les ressources, les initiatives techno-créatives à travers le territoire du
+                                Croissant
                                 Boréal.
                                 <br/>
                                 <br/>
-                                <span className="col-12 text-primary">
+                                <span className="text-primary">
                                     <Link href="/">En savoir plus</Link>
                                 </span>
                             </p>
                         </section>
-                    </aside>
-                </div>
-            </div>
-
+                    </Col>
+                </Row>
+            </Container>
 
         </div>
-
     )
 }
 

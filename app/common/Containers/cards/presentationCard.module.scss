@@ -5,13 +5,11 @@
         control by the page that present the cards
     */
 
-    float: left;
     min-width: 20rem;
-    min-height: 20rem;
+    //min-height: 20rem;
     background-color: white;
     position: relative;
     border-radius: 0.5rem;
-    max-width: 30ch;
 
     -webkit-box-shadow: 0px 0px 8px 1px rgba(137,137,137,0.4); 
     box-shadow: 0px 0px 8px 1px rgba(137,137,137,0.4);
