@@ -31,63 +31,15 @@
 
     }
 
-    /* Button to close the modal */
-    .closing-button {
+    .modal__close-button--container {
+        float: right;
 
-        --button-color: white;
-
-        /*  Change the color of the button */
-        &.closing-button--dark-color { 
-            --button-color: rgba(82, 82, 82, 0.808); 
-            font-weight: 700;
-            text-shadow: 1px 1px 1px #25252500;
-        }
-
-        position: relative;
-        text-shadow: 1px 1px 2px #252525;
-        float: right;   
-        color: var(--button-color);
-        font-size: 1rem;
-        margin: -1rem;
-        margin-bottom: 1rem;
-
-        -webkit-transition: 0.3s;
-        transition: 0.3s;
-
-        .closing-button__underline {
-
-                width: 20%;
-                position: absolute;
-                bottom: -0.2rem;
-                left: 0px;
-                border-bottom: 0.1rem solid var(--button-color);
-                opacity: 0;
-
-
-                -webkit-transition: 0.3s;
-                transition: 0.3s;
-                
-                -webkit-transform-origin: 0%;
-                -moz-transform-origin: 0%;
-                -o-transform-origin: 0%;
-                -ms-transform-origin: 0%;
-                transform-origin: 0%;
-
-            }
-
-        &:hover {
-         
-            .closing-button__underline {
-                transform: scaleX(5);
-                opacity: 1;
-
-                -webkit-transform: scaleX(5);
-                -moz-transform: scaleX(5);
-                -o-transform: scaleX(5);
-                -ms-transform: scaleX(5);
-                transform: scaleX(5);
-            }
+        > button {
+            float: right;
         }
     }
+
+
+    
 
 }

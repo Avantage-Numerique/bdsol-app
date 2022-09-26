@@ -152,11 +152,11 @@ const CreatePersonForm = () => {
                     darkColorButton
                     closingFunction={() => {setModal(prev => ({...prev, display: false}))}}
                 >
-                    <h3>Ajouter une nouvelle taxonomie</h3>
                     <p>Le nouvel élément de taxonomie que vous ajoutez ici pourra ensuite être directement intégrée à votre formulaire.</p>
                     <div className={`${styles["hor-line"]}`}></div>
                     <CreateTaxonomyForm 
                         name={modal.enteredValues.name ? modal.enteredValues.name : ''}   //Prefilled value
+                        category="occupations"
                         positiveRequestActions={{
                             //CallbackFunction is one of the four behaviors the useFormUtils hook can apply when a request return a positive answer
                             callbackFunction: requestResponse => {
