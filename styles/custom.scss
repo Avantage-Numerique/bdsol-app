@@ -11,22 +11,33 @@ $blue4: #5f71ea; // Avantage numérique's mainBlue (and blue4)
 $pink: #c881ca;
 $pink-100: lighten($pink, 80%);
 $red: #dd5c5c;  // Avantage numérique's red
+$purple-light: #c1c9ec;
+$purple-lighter: lighten($purple-light, 12%);
 
 $grey: #bbbfd7;
 $mild-dark: #606060; // Avantage numérique's input labels
 $dark: #292929;
+$light: lighten($grey, 30%);
+$white: #FEFEFE;
+$black: #010101;
 
 $theme-colors:(
     "primary": $blue,
     "secondary": $grey,
+    "purplelight": $purple-light,
+    "purplelighter": $purple-lighter,
     "pink": $pink,
     "pink-100": $pink-100,
     "blue2": $blue2,   // Avantage numérique's altBlue (and blue2) rgb(77, 100, 255)
     "blue3": $blue3,   // Avantage numérique's blue3 rgb(77, 196, 255)
     "blue4": $blue4,   // Avantage numérique's blue4 rgb(95, 113, 234)
+    "danger": $red,
     "dark": $dark,
-    "danger": $red
+    "light": $light,
+    "white":$white,
+    "black":$black,
 );
+
 
 $body-color: $dark;
 

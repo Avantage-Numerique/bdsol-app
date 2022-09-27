@@ -5,7 +5,13 @@
 
 @import './globals-legacy.scss';
 @import './globals.scss';
+
+@import "./helpers/pv.scss";
+
+@import './tags/hr';
+
 @import './layout-components/header.scss';
 @import './components/customScrollBar.scss';
 
+@import './layouts/default';
 @import './layouts/home-page';

@@ -35,7 +35,7 @@ const Header = (props) => {
     return (
         <header className={`${styles.header} bg-dark`}>
 
-            <Container fluid>
+            <Container>
                 <Row>
                     <Col>
                         {/* Container that fills all the width of the platform and contain the logo*/}

@@ -1,7 +1,6 @@
 
 //Components
 import SanitizedInnerHtml from '../../../utils/SanitizedInnerHtml';
-import { useContext } from 'react';
 import {useAuth} from '../../../../authentication/context/auth-context';
 import styles from './presentationCard.module.scss';
 import getConfig from 'next/config';

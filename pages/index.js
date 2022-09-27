@@ -2,7 +2,6 @@ import React, {useContext, useEffect, useState} from 'react';
 
 import DOMPurify from 'isomorphic-dompurify';
 import Head from 'next/head';
-import Link from 'next/link';
 
 //Components
 import Button from '../app/common/FormElements/Buttons/Button/Button'
@@ -26,6 +25,7 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button2 from "react-bootstrap/Button";
+import PageHeader from "../app/layouts/Header/PageHeader";
 
 
 const HomePage = ({}) => {
@@ -150,28 +150,22 @@ const HomePage = ({}) => {
                 />
             </Head>
 
-            {/* Main content of the page  */}
-            <Container fluid className={"page-header bg-pink"}>
-                <Row>
-                    <Col xs={8} className={"d-flex flex-column justify-content-center"}>
-                        <h1 className="text-white">Avantage Numérique</h1>
-                        <h3 className="text-white">Toutes les données du Croissant Boréal</h3>
-                    </Col>
-                    <Col xs={4}>
-                        <img
-                            className={"img-fluid"}
-                            src="/general_images/Croissant-Boreal@3x-1440x1440.png"
-                            alt="Image d'un événement de projection devant public."
-                        />
-                    </Col>
-                </Row>
-            </Container>
 
-            <Container fluid className={"home-page__main"}>
+            <PageHeader
+                bg={"bg-pink"}
+                textColor={"text-white"}
+                title={lang.homePageTitle}
+                description={lang.homePageDescription}
+                image={"/general_images/Croissant-Boreal@3x-1440x1440.png"}
+                imgAlt={"Carte du croissant boréal"} />
+
+
+            <Container className={"home-page__main"}>
                 <Row>
                     <Col xs={9}>
-                        <section className={"home-page__feed-section"}>
-                            <h2>Actualités</h2>
+                        <section className={"home-page__feed-section px-3"}>
+                            <h2>{lang.actualities}</h2>
+                            <hr />
                             {
                                 <>
 
@@ -222,90 +216,92 @@ const HomePage = ({}) => {
                         </section>
                     </Col>
                     <Col xs={3} as={"aside"} className={"px-3"}>
-                        <h2>Menu rapide</h2>
+                        <div className={"px-3"}>
 
-                        {/* If user is not connected, offer the option to connect itself*/}
-                        {!auth.user.isLoggedIn &&
-                        <section>
-                            <Button2 className={"btn btn-primary btn-block w-100"} href="/compte/connexion">Se connecter</Button2>
-                        </section>
-                        }
-
-                        {/*Rapid options to access of edit the database*/}
-                        <section className={"aside__db-edit-options"}>
-
-                            <div className={"db-edit-options__button-set"}>
-                                <Button disabled slim>Événement</Button>
-                                <Button disabled slim>+</Button>
-                            </div>
-
-                            <div className={"db-edit-options__button-set"}>
-                                <Button disabled slim>Personne</Button>
-                                <Button
-                                    disabled={!auth.user.isLoggedIn}
-                                    href="/contribuer/personne"
-                                    slim
-                                >+</Button>
-                            </div>
-
-                            <div className={"db-edit-options__button-set"}>
-                                <Button disabled slim>Organisation</Button>
-                                <Button
-                                    disabled={!auth.user.isLoggedIn}
-                                    slim
-                                    href="/contribuer/organisation"
-                                >+</Button>
-                            </div>
-
-                            <div className={"db-edit-options__button-set"}>
-                                <Button disabled slim>Taxonomie</Button>
-                                <Button
-                                    disabled={!auth.user.isLoggedIn}
-                                    slim
-                                    href="/contribuer/taxonomy"
-                                >+</Button>
-                            </div>
-
-                            {auth.user.isLoggedIn &&
-                            <Button className={"btn-primary"} reverse href="/contribuer">Ajouter une donnée</Button>
+                            <h2>{lang.menu}</h2>
+                            <hr />
+                            {/* If user is not connected, offer the option to connect itself*/}
+                            {!auth.user.isLoggedIn &&
+                            <section>
+                                <Button2 className={"btn btn-primary btn-block w-100"} href="/compte/connexion">Se connecter</Button2>
+                                <hr />
+                            </section>
                             }
-                            <p>
-                                <strong className="text-danger">DÉVELOPPEMENT EN COURS.</strong> Vous pourrez
-                                bientôt lancer des recherches et consulter toutes les données.
-                            </p>
-                        </section>
 
+                            {/*Rapid options to access of edit the database*/}
+                            <section className={"aside__db-edit-options"}>
 
-                        {/* Section : If user is not connected, propose to create an account if he doesn't have one */}
-                        {!auth.user.isLoggedIn &&
-                        <section className={"aside__register-option"}>
-                            <div className="bg-primary text-white">
-                                <h4>Pas encore de compte ?</h4>
-                                <p>Vous en aurez besoin afin de vous aussi contribuer aux données</p>
-                                <Button2 href="/compte/inscription" className={"btn btn-outline-white btn-block"}>C'est par ici !</Button2>
-                            </div>
-                        </section>
-                        }
+                                <div className={"db-edit-options__button-set"}>
+                                    <Button disabled slim>Événement</Button>
+                                    <Button disabled slim>+</Button>
+                                </div>
 
-                        {/*
-                            Section : More informations about the project
-                        */}
-                        <section>
-                            <h4>À propos</h4>
-                            <p>
-                                La Base de données structurées, ouvertes et liées (BDSOL) est le cœur du hub virtuel
-                                d’Avantage numérique. Elle vise à recenser et géolocaliser les talents, les
-                                compétences,
-                                les ressources, les initiatives techno-créatives à travers le territoire du
-                                Croissant
-                                Boréal.
-                                <br/>
-                                <br/>
-                                <span className="text-primary">
-                                    <Link href="/">En savoir plus</Link>
-                                </span>
-                            </p>
-                        </section>
+                                <div className={"db-edit-options__button-set"}>
+                                    <Button disabled slim>Personne</Button>
+                                    <Button
+                                        disabled={!auth.user.isLoggedIn}
+                                        href="/contribuer/personne"
+                                        slim
+                                    >+</Button>
+                                </div>
+
+                                <div className={"db-edit-options__button-set"}>
+                                    <Button disabled slim>Organisation</Button>
+                                    <Button
+                                        disabled={!auth.user.isLoggedIn}
+                                        slim
+                                        href="/contribuer/organisation"
+                                    >+</Button>
+                                </div>
+
+                                <div className={"db-edit-options__button-set"}>
+                                    <Button disabled slim>Taxonomie</Button>
+                                    <Button
+                                        disabled={!auth.user.isLoggedIn}
+                                        slim
+                                        href="/contribuer/taxonomy"
+                                    >+</Button>
+                                </div>
+                                {auth.user.isLoggedIn &&
+                                    <div className={"d-flex flex-column mt-3"}>
+                                        <Button2 variant={"outline-primary"} href="/contribuer">Ajouter une donnée</Button2>
+                                    </div>
+                                }
+
+                                <hr/>
+                                <p>
+                                    <strong className="text-danger">DÉVELOPPEMENT EN COURS.</strong> Vous pourrez
+                                    bientôt lancer des recherches et consulter toutes les données.
+                                </p>
+                            </section>
+                            <hr />
+
+                            {/* Section : If user is not connected, propose to create an account if he doesn't have one */}
+                            {!auth.user.isLoggedIn &&
+                            <section className={"aside__register-option"}>
+                                <div className="bg-primary text-white d-flex flex-column">
+                                    <h4>Pas encore de compte ?</h4>
+                                    <p>Vous en aurez besoin afin de vous aussi contribuer aux données</p>
+                                    <Button2 href="/compte/inscription" variant={"outline-white"}>C'est par ici !</Button2>
+                                </div>
+                                <hr />
+                            </section>
+                            }
+
+                            {/*
+                                Section : More informations about the project
+                            */}
+                            <section className={"d-flex flex-column"}>
+                                <h4>À propos</h4>
+                                <p>
+                                    La Base de données structurées, ouvertes et liées (BDSOL) est le cœur du hub virtuel
+                                    d’Avantage numérique. Elle vise à recenser et géolocaliser les talents, les
+                                    compétences, les ressources, les initiatives techno-créatives à travers le territoire du Croissant Boréal.
+                                </p>
+                                <Button2 href="/a-propos" className="mt-3" variant={"outline-primary"}>En savoir plus</Button2>
+                            </section>
+
+                        </div>
                     </Col>
                 </Row>
             </Container>
