@@ -3,7 +3,7 @@
 import Button2 from 'react-bootstrap/Button';
 
 //Context
-import {useAuth} from '.@/auth/context/auth-context'
+import {useAuth} from '@/auth/context/auth-context'
 
 //styling
 import styles from './contribution-page.module.scss'
