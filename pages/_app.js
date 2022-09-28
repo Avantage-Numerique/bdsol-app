@@ -1,18 +1,19 @@
 import {getIronSession} from "iron-session";
 import App from "next/app";
-import {appDefaultSessionOptions} from "../authentication/session/Session";
-import {AuthProvider} from '../authentication/context/auth-context';
-import Layout from '../app/layouts/Layout'
+import {appDefaultSessionOptions} from "@/src/authentification/session/Session";
+import {AuthProvider} from '@/src/authentification/context/auth-context';
+import Layout from '@/src/layouts/Layout'
 
 //import {useCallback, useState, useEffect} from 'react'
-//import {getVisitorDataFromContext} from "../authentication/context/visitor-context";
-//import useAuthentification from "../authentication/hooks/useAuthentification";
+//import {getVisitorDataFromContext} from "@/src/authentication/context/visitor-context";
+//import useAuthentification from "@/src/authentication/hooks/useAuthentification";
 /************************************
  *
  * Import global SCSS files
  *
  ***********************************/
 import '../styles/main.scss'
+import {getVisitorDataFromContext} from "@/src/authentification/context/visitor-context";
 
 
 function MyApp({Component, pageProps, user}) {
@@ -106,11 +107,18 @@ MyApp.getInitialProps = async (context) => {
 
     if (context.ctx.req && context.ctx.res) {
 
-        const { user } = await getIronSession(
+        let { user } = await getIronSession(
             context.ctx.req,
             context.ctx.res,
             appDefaultSessionOptions,
         );
+
+        //Save the IP
+        const visitor = getVisitorDataFromContext(context);
+        user = {
+            ...user,
+            ...visitor
+        }
 
         return {
             pageProps: {
@@ -118,7 +126,8 @@ MyApp.getInitialProps = async (context) => {
                 user: user
             },
             ...appProps,
-            user: user
+            user: user,
+            visitor: visitor
         };
     }
 

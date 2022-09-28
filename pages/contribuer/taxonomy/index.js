@@ -1,20 +1,16 @@
 
 //Component 
-import CreateTaxonomyForm from '../../../DataTypes/Taxonomy/Components/Forms/CreateTaxonomy/CreateTaxonomyForm'
-import Button from '../../../app/common/FormElements/Buttons/Button/Button'
+import CreateTaxonomyForm from '@/DataTypes/Taxonomy/Components/Forms/CreateTaxonomy/CreateTaxonomyForm'
+
 
 //Styling 
 import styles from './createTaxonomy.module.scss'
-import {withSessionSsr} from "../../../authentication/session/handlers/withSession";
-import {ssrCanAccess} from "../../../authentication/permissions/ssrCanAccess";
-import PageHeader from "../../../app/layouts/Header/PageHeader";
+import {withSessionSsr} from "@/auth/session/handlers/withSession";
+import {ssrCanAccess} from "@/auth/permissions/ssrCanAccess";
 import React from "react";
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
 import SingleViewEntityFormLayout
-    from "../../../DataTypes/common/layouts/SingleViewEntityFormLayout/SingleViewEntityFormLayout";
-import {lang} from "../../../app/common/Data/GlobalConstants";
+    from "@/DataTypes/common/layouts/SingleViewEntityFormLayout/SingleViewEntityFormLayout";
+import {lang} from "@/src/common/Data/GlobalConstants";
 
 
 const CreateTaxonomyPage = () => {

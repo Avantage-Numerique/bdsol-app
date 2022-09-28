@@ -1,6 +1,6 @@
 
 //Importing the form
-import Register from '../../../authentication/components/Forms/Register/Register'
+import Register from '@/auth/components/Forms/Register/Register'
 
 //styling
 import styles from './inscription.module.scss'

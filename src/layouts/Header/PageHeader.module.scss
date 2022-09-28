@@ -1,0 +1,15 @@
+.page-header {
+
+    padding: 8vh 4vw;
+
+    h1 {
+        font-size: min(8vw, 3.2rem);
+    }
+
+    p {
+        max-width: 70ch;
+    }
+
+    background: var(--bs-pinklighter);
+
+}

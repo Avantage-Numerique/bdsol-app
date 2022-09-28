@@ -1,5 +1,5 @@
-import {withSessionRoute} from "../../authentication/session/handlers/withSession";
-import {sendExternalApiRequest} from "../../app/hooks/http-hook";
+import {withSessionRoute} from "@/auth/session/handlers/withSession";
+import {sendExternalApiRequest} from "@/src/hooks/http-hook";
 
 export default withSessionRoute(verifySessionRoute);
 

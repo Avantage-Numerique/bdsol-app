@@ -1,6 +1,6 @@
-import {withSessionRoute} from "../../authentication/session/handlers/withSession";
-import {defaultSessionData, getSessionFromData} from "../../authentication/context/auth-context";
-import {lang} from "../../app/common/Data/GlobalConstants";
+import {withSessionRoute} from "@/auth/session/handlers/withSession";
+import {defaultSessionData} from "@/auth/context/auth-context";
+import {lang} from "@/src/common/Data/GlobalConstants";
 
 export default withSessionRoute(logoutRoute);
 
