@@ -30,11 +30,11 @@ const Input = ({addRow, removeRow, name, formTools, ...props}) => {
  
     return (
         
-            <label className={ styles.inputComponent } htmlFor={props.name}>
+            <label className={ styles.inputComponent + " " + (props.className ? props.className : "") } htmlFor={props.name}>
 
                 {props.label}
 
-                <div className={`col-12 ${styles["inputComponent__field-container"]}`}>
+                <div className={`${styles["inputComponent__field-container"]}`}>
 
                     <input 
                         className={` ${!currentState.isValid && currentState.isTouched && styles["control--invalid"]}`}
