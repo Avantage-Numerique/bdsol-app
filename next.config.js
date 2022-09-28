@@ -15,6 +15,7 @@ const nextConfig = {
         APP_BASE_URL: process.env.APP_BASE_URL ?? "localhost",
         APP_PORT: process.env.APP_PORT ?? 3000,
         APP_URL: process.env.APP_PROTOCOLE + "" + process.env.APP_BASE_URL + ":" + process.env.APP_PORT,
+        APP_API_URL: process.env.APP_PROTOCOLE + "" + process.env.APP_BASE_URL + (process.env.APP_PORT ? ":" + process.env.APP_PORT : ""),
 
         //ontology : This would be deprecated soon.
         API_ONTOLOGY_HOST_NAME: process.env.API_ONTOLOGY_HOST_NAME,
