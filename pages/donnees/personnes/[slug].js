@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { sendApiRequest } from '@/src/hooks/http-hook';
+import { sendExternalApiRequest } from '@/src/hooks/http-hook';
 
 //Styling
 import styles from './singlePerson.module.scss';
@@ -27,14 +27,14 @@ const SinglePersonPage = props => {
     )
 }
     
-export default SinglePersonPage
+export default SinglePersonPage;
 
 
 export async function getServerSideProps(context) {
     const { slug } = context.query;
     
     //Send the request with the specialized hook
-    const response = await sendApiRequest(
+    const response = await sendExternalApiRequest(
         `/personnes/${slug}`,
         'GET'
     )
