@@ -15,7 +15,7 @@ const Nav = ( {menuState, setMenuState} ) => {
     
     useEffect(() => {
         //Verify the the menu is open. If it is, then close it
-        if (menuState === 1){ setMenuState(0) };
+        if (menuState === 1){ setMenuState(0) }
         
     }, [router.asPath]);
 
@@ -24,21 +24,21 @@ const Nav = ( {menuState, setMenuState} ) => {
         <nav className={`${navStyles.navContainer} ${menuState === 1 && navStyles.displayed} bg-primary`}>
             <div className={navStyles.maxWidthPageContainer + ' ' + "maxWidthPageContainer"}>
              
-                <ul className={`${navStyles.mainMenu} col-9`}>
+                <ul className={`${navStyles.mainMenu}`}>
 
-                    <li className="col-12">
+                    <li>
                         <Link href="/">Accueil</Link>
                     </li>
 
-                    <li className={`col-12 ${navStyles["unactive"]}`}>
+                    <li className={`${navStyles["unactive"]}`}>
                         Consulter les données
                     </li>
 
-                    <li className="col-12">
+                    <li>
                         <Link href="/contribuer">Contribuer à la base de données</Link>
                     </li>
 
-                    <li className="col-12">
+                    <li>
                         <Link href="/a-propos">À propos</Link>
                     </li>
 
@@ -46,7 +46,7 @@ const Nav = ( {menuState, setMenuState} ) => {
 
                 <div className={`${navStyles.line}`}></div>
 
-                <ul className={`${navStyles.secondaryMenu} col-12`}>
+                <ul className={`${navStyles.secondaryMenu} d-flex flex-column`}>
                     <li>
                         <Link href="https://avantagenumerique.org/le-croissant-boreal/">Le Croissant boréal</Link>
                     </li>

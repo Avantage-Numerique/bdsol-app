@@ -78,21 +78,24 @@ const ResetPassword = () => {
         <section className={styles.resetPassword}>
 
             <form onSubmit={authSubmitHandler}>
+                <div className={"d-flex flex-column"}>
 
-                <h3 className="text-primary" >Réinitialiser votre mot de passe</h3>
-                <p>Entrer une adresse courriel pour récupérer votre mot de passe.</p>
+                    <h3 className="text-primary">Réinitialiser votre mot de passe</h3>
+                    <p>Entrer une adresse courriel pour récupérer votre mot de passe.</p>
 
-                <Input
-                    name="email"
-                    type="email"
-                    label="Adresse courriel"
-                    validators={[VALIDATOR_REQUIRE()]}
-                    errorText="Veuillez entrer une adresse courriel valide"
-                    formTools={formTools}
-                />     
-
-                <Button type="submit" disabled={!formState.isValid}>Soumettre</Button>
-           
+                    <Input
+                        name="email"
+                        type="email"
+                        label="Adresse courriel"
+                        validators={[VALIDATOR_REQUIRE()]}
+                        errorText="Veuillez entrer une adresse courriel valide"
+                        formTools={formTools}
+                        className={"pb-3"}
+                    />
+                    <div>
+                        <Button type="submit" disabled={!formState.isValid}>Soumettre</Button>
+                    </div>
+                </div>
             </form>
 
             
