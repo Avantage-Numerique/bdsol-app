@@ -1,6 +1,7 @@
-import {withSessionRoute} from "../../authentication/session/handlers/withSession";
-import {sendExternalApiRequest} from "../../app/hooks/http-hook";
-import {getSessionFromData} from "../../authentication/context/auth-context";
+import {withSessionRoute} from "@/auth/session/handlers/withSession";
+import {sendExternalApiRequest} from "@/src/hooks/http-hook";
+import {getSessionFromData} from "@/auth/context/auth-context";
+import {getVisitorDataFromRequest} from "@/auth/context/visitor-context";
 
 export default withSessionRoute(loginRoute);
 
@@ -13,9 +14,14 @@ async function loginRoute(req, res) {
     );
 
     const sessionUser = getSessionFromData(response.data.user);
+    const visitor = getVisitorDataFromRequest(req);
+    console.log(visitor);
+    sessionUser.ip = visitor.ip;
+
     req.session.user = sessionUser;
     await req.session.save();
 
+    console.log(req.session.user);
     res.send({
         text: response.message,
         positive: !response.error,

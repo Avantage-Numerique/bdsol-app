@@ -1,12 +1,12 @@
 import React from 'react'
 
-import { sendApiRequest } from '../../../app/hooks/http-hook'
+import { sendApiRequest } from '@/src/hooks/http-hook';
 
 //Styling
-import styles from './singlePerson.module.scss'
+import styles from './singlePerson.module.scss';
 
 //components
-import MainPersonView from '../../../DataTypes/Person/Components/Views/MainPersonView/MainPersonView'
+import MainPersonView from '@/DataTypes/Person/Components/Views/MainPersonView/MainPersonView'
 
 
 const SinglePersonPage = props => {
