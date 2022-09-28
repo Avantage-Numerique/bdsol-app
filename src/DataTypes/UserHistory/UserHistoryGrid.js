@@ -3,11 +3,7 @@ import React, {useEffect, useState} from 'react'
 import {useHttpClient} from '@/src/hooks/http-hook'
 
 //Context
-<<<<<<< HEAD:DataTypes/UserHistory/UserHistoryGrid.js
-import {useAuth} from '../../authentication/context/auth-context'
-=======
 import {useAuth} from '@/src/authentification/context/auth-context'
->>>>>>> b55a3d96132f4e7e44db6e7d704358df3f52cd50:src/DataTypes/UserHistory/UserHistoryGrid.js
 
 //Styling
 import styles from './UserHistoryGrid.module.scss'
