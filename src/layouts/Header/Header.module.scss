@@ -1,0 +1,120 @@
+/*
+
+    Page main header stylings
+    V.P.R.
+
+    created on 15/10/2021
+
+*/
+
+.header {
+
+    --navigation-options-with: 25vw;              //In case calc is not supported
+    --navigation-options-with: calc(15vw + 10rem);
+
+    width: 100%;
+    position: fixed;
+    height: var(--headersHeight);
+    top:0;
+    display: flex;
+    flex-direction: column;
+    
+    z-index: 1000; /* nav component at 999 */
+
+    &.account-bar{
+        height: calc(var(--headersHeight) + 2rem);
+
+        .navButton { top: 2rem; }
+    }
+
+    /* Title container where is putted the logo */
+    .header__content{
+        width: 100%;
+        height: var(--headersHeight);
+        padding-right: var(--navigation-options-with);  //Prevent the menu from overlapping
+
+        img {
+                cursor: pointer;
+                width: 100%;
+                max-width:236px;
+                height: 100%;
+                object-fit: contain;
+                object-position: left center;
+        }
+    }
+
+    .navigation-options {
+        /* Align the hamburger menu in the center */
+        display: flex;
+        align-content: center;
+        position:absolute;
+        right:0;
+        top:0;
+        height:5em;
+
+        .contribute-menu-container {
+            position: relative;
+            width: 5rem;
+            float: left;
+            height: 100%;
+            background-color: transparent;
+
+            /* Align center */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            a {
+                padding: 1.5rem;
+                color: white;
+                opacity: 0.75;
+                font-size: 1.8rem;
+                -webkit-transition: opacity 200ms;
+                -moz-transition: opacity 200ms;
+                -o-transition: opacity 200ms;
+                transition: opacity 200ms;
+
+                &:hover{
+                    opacity: 1;
+                }
+
+                svg {
+                    width: 100%;
+                }
+            }
+        }
+
+        .account-menu-container {
+            position: relative;
+            width: 5rem;
+            height: 100%;
+            background-color: var(--bs-blue2);
+
+            button {
+                padding: 1.5rem;
+                padding: calc(0.35 *  var(--headersHeight));
+                fill: white;
+                opacity: 0.75;
+
+                -webkit-transition: opacity 200ms;
+                -moz-transition: opacity 200ms;
+                -o-transition: opacity 200ms;
+                transition: opacity 200ms;
+
+                &:hover{
+                    opacity: 1;
+                }
+
+                svg {
+                    width: 100%;
+                }
+            }
+        }
+
+        /* Blue button to open the nav */
+        .ham-menu-container {
+            position: relative;
+            width:15vw;
+        }
+    }
+}

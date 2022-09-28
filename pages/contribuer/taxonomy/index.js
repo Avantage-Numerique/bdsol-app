@@ -1,52 +1,32 @@
 
 //Component 
-import CreateTaxonomyForm from '../../../DataTypes/Taxonomy/Components/Forms/CreateTaxonomy/CreateTaxonomyForm'
-import Button from '../../../app/common/FormElements/Buttons/Button/Button'
+import CreateTaxonomyForm from '@/DataTypes/Taxonomy/Components/Forms/CreateTaxonomy/CreateTaxonomyForm'
+
 
 //Styling 
 import styles from './createTaxonomy.module.scss'
-import {withSessionSsr} from "../../../authentication/session/handlers/withSession";
-import {ssrCanAccess} from "../../../authentication/permissions/ssrCanAccess";
+import {withSessionSsr} from "@/auth/session/handlers/withSession";
+import {ssrCanAccess} from "@/auth/permissions/ssrCanAccess";
+import React from "react";
+import SingleViewEntityFormLayout
+    from "@/DataTypes/common/layouts/SingleViewEntityFormLayout/SingleViewEntityFormLayout";
+import {lang} from "@/src/common/Data/GlobalConstants";
 
 
 const CreateTaxonomyPage = () => {
 
     return (
-        
-        <div className={`col-12 ${styles["create-taxonomy"]}`}>
-
-                <div className={`col-12 ${styles["create-taxonomy__return-button"]}`}>
-                    <div className="maxWidthPageContainer">
-                        <Button 
-                            color="blue4"
-                            reverse
-                            href="/contribuer"
-                        >
-                            Retour à la page précédente
-                        </Button>
-                    </div>
-                </div>
-                <header className={`col-12`}>
-                    <div className="maxWidthPageContainer">
-                        <div className={`${styles["create-taxonomy--max-width"]}`}>
-                            <h1 className={`col-12 blue`}>Taxonomie</h1>
-                            <h4 className="col-12">Super formulaire</h4>
-                            <p>Une taxonomie sert à classifier dans un système ordonné les relations entre les choses. <br/>
-                                Ajoutez ici une taxonomie pour permettre à une entité d'être relié à cette taxonomie. <br/>
-                                Par exemple, lier une <b>personne</b> à une <b>occupation</b> ou une <b>aptitude</b> et lier une <b>organisation</b> à une <b>offre de service</b> et bien d'autre.</p>
-                        </div>
-                    </div>
-                </header>
-
-                <section className="col-12">
-                    <div className="maxWidthPageContainer">
-                        <div className={`${styles["create-taxonomy--max-width"]}`}>
-                            <CreateTaxonomyForm />
-                        </div>
-                    </div>
-                </section>
-
-        </div>
+        <SingleViewEntityFormLayout formName={"taxonomy"} headerProps={{
+            title: "Taxonomie",
+            subTitle: "Ajouter une nouvelle pour classifier les données",
+            colWidth: 8,
+            historyBack: {
+                uri: "/contribuer",
+                label: lang.historyBack
+            }
+        }}>
+            <CreateTaxonomyForm />
+        </SingleViewEntityFormLayout>
     )
 }
 

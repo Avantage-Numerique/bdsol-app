@@ -12,8 +12,8 @@ $articlePadding: 1rem;
 .linkedClassComponent {
 
     margin: 5px 0px;
-    border-top: 1px solid var(--grey);
-    border-bottom: 1px solid var(--grey);
+    border-top: 1px solid var(--bs-secondary);
+    border-bottom: 1px solid var(--bs-secondary);
     padding: 0.5rem $articlePadding;
     background-color: rgb(254, 254, 254);
     display: flex;
@@ -29,7 +29,7 @@ $articlePadding: 1rem;
         h4 { margin: 0.5em 0em; }
         
         .line {
-            border-left: 3px solid var(--grey);
+            border-left: 3px solid var(--bs-secondary);
             align-self: stretch;
             margin: 0px 10px;
             display: none;
@@ -49,12 +49,12 @@ $articlePadding: 1rem;
         > div {
 
             font-weight: 700;
-            color: var(--dark);
+            color: var(--bs-body-color);
             margin: 2px 20px 2px 0px;
             font-size: 0.95rem;
  
             span {
-                color: var(--grey);
+                color: var(--bs-secondary);
 
             }
         }

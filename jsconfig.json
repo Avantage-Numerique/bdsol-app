@@ -1,0 +1,15 @@
+{
+    "compilerOptions": {
+        "baseUrl": ".",
+        "paths": {
+            "@/src/*": ["src/*"],
+            "@/pages/*": ["pages/*"],
+            "@/styles/*": ["styles/*"],
+            "@/auth/*": ["src/authentification/*"],
+            "@/layouts/*": ["src/layouts/*"],
+            "@/DataTypes/*": ["src/DataTypes/*"],
+            "@/public/*": ["./public"],
+            "@/*": ["./*"]
+        }
+    }
+}

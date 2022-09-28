@@ -1,63 +1,82 @@
 
 //Components
-import Button from '../../app/common/FormElements/Buttons/Button/Button'
+import Button2 from 'react-bootstrap/Button';
 
 //Context
-import {useAuth} from '../../authentication/context/auth-context'
+import {useAuth} from '@/auth/context/auth-context'
 
 //styling
 import styles from './contribution-page.module.scss'
-import {withSessionSsr} from "../../authentication/session/handlers/withSession";
-import {ssrCanAccess} from "../../authentication/permissions/ssrCanAccess";
+import {withSessionSsr} from "@/auth/session/handlers/withSession";
+import {ssrCanAccess} from "@/auth/permissions/ssrCanAccess";
 
+import Container from 'react-bootstrap/Container';
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
+import PageHeader from "@/layouts/Header/PageHeader";
+import React from "react";
 
+ 
+const Index = () => {
 
-const Index = () => {    
-
-    //Import the auth.userentication context
     const auth = useAuth();
 
     return (
-        <div className={`col-12 ${styles["contribution-page"]}`}>
-            
-            <header className={`col-12`}>
+        <div className={`${styles["contribution-page"]}`}>
 
-                <div className="maxWidthPageContainer">
-                    <h1 className={`col-12 blue`}>Créer une donnée</h1>
-                    <p>Vous avez accès ici à tous les types de données qu'il est présentement possible d'intégrer à la base de données.</p>
-                </div>
+            <PageHeader
+                title={"Créer une donnée"}
+                description={"Vous avez accès ici à tous les types de données qu'il est présentement possible d'intégrer à la base de données."} />
 
-            </header>
+            <div className={`${styles["contribution-page__menu"]}`}>
+                <Container className='p-0'>
 
-            <section className={`col-12`}>
-                
-                {/* Menu for the differents forms */}
-                <div className={`maxWidthPageContainer`}>
-           
-                    <div className={`col-12 ${styles["contribution-page__menu"]}`}>
-                        <h4 className="col-12">Sélectionnez le type d'entité que vous voulez ajouter</h4>
-
-                        {/* Not beautiful but it works for now. Let know the user that he needs to be connected to edit the database */}
-                        { !auth.user.isLoggedIn &&
-                            <div className="col-12" style={{marginBottom: "1rem"}}>
-                                <span className="red"><strong>Attention ! </strong></span>
+                    { !auth.user.isLoggedIn &&
+                        <Row>
+                            <Col>
+                                <span className="text-danger"><strong>Attention ! </strong></span>
                                 Vous devez être connecté afin de pouvoir éditer la base de données.
-                            </div>
-                        }
+                            </Col>
+                        </Row>
+                    }
 
-                        <Button href="/contribuer/personne" disabled={!auth.user.isLoggedIn}>Personne</Button>
-                        <Button href="/contribuer/organisation" disabled={!auth.user.isLoggedIn}>Organisation</Button>
-                        <Button href="/contribuer/taxonomy" disabled={!auth.user.isLoggedIn}>Taxonomie</Button>
-                        <Button disabled>Projet</Button>
-                        <Button disabled>Événement</Button>
-                        <Button disabled>Matériel</Button>
-                        
-                    </div>
-                    
-                </div>
+                    <Row className='pt-3'>
+                        <Col>
+                            <h4 className="col-12">Sélectionnez le type d'entité que vous voulez ajouter</h4>
+                        </Col>
+                    </Row>
 
-            </section>
+                    <Row className='pt-3'>
+                        <Col>
+                            <Button2 href="/contribuer/personne" size="lg" className={"w-100"} disabled={!auth.user.isLoggedIn}>Personne</Button2>
+                        </Col>
+                        <Col>
+                            <Button2 href="/contribuer/organisation" size="lg" className={"w-100"} disabled={!auth.user.isLoggedIn}>Organisation</Button2>
+                        </Col>
+                        <Col>
+                            <Button2 href="/contribuer/taxonomy" size="lg" className={"w-100"} disabled={!auth.user.isLoggedIn}>Taxonomy</Button2>
+                        </Col>
+                    </Row>
 
+                    <Row className='pt-3'>
+                        <Col>
+                            <h4 className="col-12">Entités à venir</h4>
+                        </Col>
+                    </Row>
+
+                    <Row className='pt-3'>
+                        <Col>
+                            <Button2 href="/" size='lg' className={"w-100"} disabled>Projet</Button2>
+                        </Col>
+                        <Col>
+                            <Button2 href="/" size='lg' className={"w-100"} disabled>Événement</Button2>
+                        </Col>
+                        <Col>
+                            <Button2 href="/" size='lg' className={"w-100"} disabled>Matériel</Button2>
+                        </Col>
+                    </Row>
+                </Container>
+            </div>
         </div>
     )
 

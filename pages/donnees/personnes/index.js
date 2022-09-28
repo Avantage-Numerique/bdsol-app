@@ -3,8 +3,6 @@ import React from 'react'
 
 const PersonsPage = () => {
 
-
-    
     return (
         <>
        

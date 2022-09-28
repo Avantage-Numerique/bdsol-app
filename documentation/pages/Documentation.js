@@ -127,9 +127,9 @@ const Documentation = ( {documentation} ) => {
       
 
       {/* General header of the page */}
-      <header className="sec-color_BG">
-        <section className="white col-12">
-          <h1>Préparez vos données pour vous connecter au <br/><span className="dark">croissant boréal</span></h1>
+      <header className="bg-blue2">
+        <section className="text-white col-12">
+          <h1>Préparez vos données pour vous connecter au <br/><span className="text-dark">croissant boréal</span></h1>
 
           {/* SVG still to integrate and animate. This version is only temporary */}
           {/* @TODO : Warning du path, peut-être implémenté : https://nextjs.org/docs/basic-features/static-file-serving ?*/}
@@ -160,15 +160,15 @@ const Documentation = ( {documentation} ) => {
             <article>
               <h1>A - Documentation de l'ontologie AN</h1>
               <div className="col-12">
-                <div className={`${styles.line} line blue_BG`}></div>
-                <div className={`${styles.line} line blue_BG`}></div>
+                <div className={`${styles.line} line bg-primary`}></div>
+                <div className={`${styles.line} line bg-primary`}></div>
               </div>
-              <h5 className="blue">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean et urna iaculis, rutrum sapien eu, luctus ante. Integer dapibus, risus.</h5>
+              <h5 className="text-primary">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean et urna iaculis, rutrum sapien eu, luctus ante. Integer dapibus, risus.</h5>
               <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ut commodo felis, nec egestas massa. Suspendisse convallis tortor ac varius rutrum. In tincidunt efficitur nulla in faucibus. Donec efficitur vulputate ligula, nec ultrices mi ullamcorper eget. Cras sed interdum ex. Integer pellentesque, diam eu euismod lobortis, velit purus accumsan diam.</p>
             </article>
 
             {/* Call to action */}
-            <aside className="white commonRadius blue_BG">
+            <aside className="text-white commonRadius bg-primary">
 
               <section>
                 <h3 className="col-12">Lorem ipsum dolor sit amet</h3>

@@ -32,7 +32,7 @@ const LinkedClass = ( {data, globalData} ) => {
                     Set the title with the title of the class if defined.  
                     If its not define, simply use the class name of the linkedclass object
                 */}
-                <h4 className="blue"> {classObj ? classObj.title : data.class}</h4>
+                <h4 className="text-primary"> {classObj ? classObj.title : data.class}</h4>
                 <div className={styles.line}></div>
             </header>
             

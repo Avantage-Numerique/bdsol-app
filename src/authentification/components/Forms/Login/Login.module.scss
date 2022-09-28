@@ -1,0 +1,28 @@
+/*
+
+        Authentication page
+
+*/
+
+.authPage {
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 75vh;
+    position: relative;
+
+
+    form {
+        width: min(35rem, 95%);
+        padding: 2rem;
+        border: 1px solid var(--bs-secondary);
+        h3 { margin-top: 0px; }
+
+        .formRedirection {
+            margin: 0.7rem 0rem 0rem 0rem;
+            font-size: 0.9rem;
+        }
+    }
+
+}

@@ -1,50 +1,11 @@
 /*
-
-        Home page styling 
-        Created : 13/04/2022 - V.P.R
-
+    Home page styling
 */
 
 .home-page {
 
     padding-bottom: 7rem;
 
-    /* First section */
-    > section:nth-of-type(1) {
-
-        min-height: 100vh;
-        min-height: min(35rem, 100vh);
-        position: relative;
-
-        background-color: rgba(200, 129, 202, 0.507);
-
-        display: flex;
-        align-items: center;
-
-        h1, h3 { 
-            margin: 0px; 
-            position: relative;
-        }
-
-        h3 { margin-top: 1rem;}
-
-        .home-page__header--img-container {
-            position: absolute;
-            top: 0px;
-            right: 0px;
-            width: 50%;
-            height: 100%;
-            overflow: hidden;
-            
-
-            img {
-                position: relative;
-                height: 100%;
-                width: auto;
-                float: left;
-            }
-        }
-    }
 
     > .home-page__main {
 
@@ -52,80 +13,45 @@
 
             margin-top: 5vh;
 
-            /* 
-
-                Section one  : 
-                FEED SECTION
-            
-            */
+            /*Section one  : FEED SECTION  */
 
             > .home-page__feed-section {
-
-                /* When the spinner is active*/
-                .home-page__feed-section--spinner-container {
-
-                    > div {
-                        position: relative;
-                        min-height: 10rem;
-                    }
-
-                > p { text-align: center; }
-
-                }
 
                 /* Section with a news feed */
                 .home-page__feed-section--container{
 
-                    position: relative;
-                    display: grid;
-                    grid-template-columns: repeat(auto-fill, min(40ch, 100%));
-                    align-items: baseline;
-                
                 }
-
             }
 
-
-
-
-            /* 
-    
-                Aside section : 
-            
+            /*
+                Aside section :
             */
 
             aside {
-
-
                 min-height: 50vh; /* Temporary value */
-                float: right;
 
-                /*  
-                
+                /*
                     Every section in the aside block offers its own set of options
-                    
                 */
 
                 /* Common styling for every section elements */
                 > section {
 
                     padding: 1rem 0px;
-                    border-top: 0.1rem solid rgba(128, 128, 128, 0.664);
+                    border-top: 0.1rem solid $grey;
 
-                    h4 { 
+                    h4 {
                         margin: 0px;
                         margin-bottom: 1rem;
                     }
 
                     p { margin: 0px; }
-                    
+
                 }
 
 
-                /*      
-
+                /*
                     Differents sections and there specific styling
-
                 */
 
                 /* Rapid access to connection button  */
@@ -135,7 +61,7 @@
 
                 /* Account options : register */
                 .aside__register-option {
-                    
+
                     > div {
                         border-radius: 0.5rem;
                         padding: 1rem;
@@ -157,15 +83,15 @@
 
                         margin-top: 0.5rem;
                         display: flex;
-                        
+
                         > button:first-of-type {
                             flex:1;
                             margin-right: 0.5rem;
                         }
-                    }  
+                    }
 
                     p {
-                        color: grey;
+                        color: $grey;
                         font-size: 0.9rem;
                         line-height: 1;
                         margin-top: 1rem;

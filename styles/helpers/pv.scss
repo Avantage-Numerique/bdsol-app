@@ -1,0 +1,31 @@
+// scss-docs-start btn-variant-loops
+$pv-list: (
+    "1":"3",
+    "2":"8",
+    "3":"12",
+    "4":"15",
+);
+
+@each $prefix, $value in $pv-list {
+    .pvx-#{$prefix} {
+        padding: 0 #{$value + "vw"};
+    }
+
+    .pvl-#{$prefix} {
+        padding-left: #{$value + "vw"};
+    }
+    .pvr-#{$prefix} {
+        padding-right: #{$value + "vw"};
+    }
+
+    .pvy-#{$prefix} {
+        padding: #{$value + "vh"} 0;
+    }
+
+    .pvt-#{$prefix} {
+        padding-top: #{$value + "vh"};
+    }
+    .pvb-#{$prefix} {
+        padding-bottom: #{$value + "vh"};
+    }
+}

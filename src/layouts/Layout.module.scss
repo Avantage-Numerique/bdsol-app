@@ -1,0 +1,27 @@
+/*  
+
+    Global layout stylings
+
+*/
+#layout{
+
+    width: 100%;
+    min-height: 100vh;
+
+    /* Main element present in every pages */
+    main {
+        margin: 0px;
+        margin-top: var(--headersHeight);
+        width: 100%;
+    }
+
+    /* Message section */
+    .message-section {
+        position: fixed;
+        top: 0px;
+        right: 0px;
+        display: flex;
+        flex-direction: column;
+        z-index: 1000;
+    }
+}

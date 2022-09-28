@@ -1,52 +1,29 @@
 
-
 //Component 
-import CreatePersonForm from '../../../DataTypes/Person/Components/Forms/CreatePerson/CreatePersonForm'
-import Button from '../../../app/common/FormElements/Buttons/Button/Button'
+import CreatePersonForm from '@/DataTypes/Person/Components/Forms/CreatePerson/CreatePersonForm'
 
-//Styling 
-import styles from './createPerson.module.scss'
-import {lang} from "../../../app/common/Data/GlobalConstants";
-import SanitizedInnerHtml from "../../../app/utils/SanitizedInnerHtml";
-import {withSessionSsr} from "../../../authentication/session/handlers/withSession";
-import {ssrCanAccess} from "../../../authentication/permissions/ssrCanAccess";
+//Styling
+import {lang} from "@/src/common/Data/GlobalConstants";
+import {withSessionSsr} from "@/auth/session/handlers/withSession";
+import {ssrCanAccess} from "@/auth/permissions/ssrCanAccess";
+import SingleViewEntityFormLayout from "@/DataTypes/common/layouts/SingleViewEntityFormLayout/SingleViewEntityFormLayout";
+import React from "react";
 
 const CreatePersonPage = () => {
 
     return (
-        
-        <div className={`col-12 ${styles["create-person"]}`}>
-
-                <div className={`col-12 ${styles["create-person__return-button"]}`}>
-                    <div className="maxWidthPageContainer">
-                        <Button 
-                            color="blue4"
-                            reverse
-                            href="/contribuer"
-                        >
-                            {lang.historyBack}
-                        </Button>
-                    </div>
-                </div>
-                <header className={`col-12`}>
-                    <div className="maxWidthPageContainer">
-                        <div className={`${styles["create-person--max-width"]}`}>
-                            <h1 className={`col-12 blue`}>{lang.Personnes}</h1>
-                            <h4 className="col-12">{lang.formPersonsSubtitle}</h4>
-                            <SanitizedInnerHtml>{lang.formPersonsInstructions}</SanitizedInnerHtml>
-                        </div>
-                    </div>
-                </header>
-
-                <section className="col-12">
-                    <div className="maxWidthPageContainer">
-                        <div className={`${styles["create-person--max-width"]}`}>
-                            <CreatePersonForm />
-                        </div>
-                    </div>
-                </section>
-
-        </div>
+        <SingleViewEntityFormLayout formName={"person"} headerProps={{
+            title: lang.Personnes,
+            subTitle: lang.formPersonSubtitle,
+            description: lang.formPersonInstructions,
+            colWidth: 8,
+            historyBack: {
+                uri: "/contribuer",
+                label: lang.historyBack
+            }
+        }}>
+            <CreatePersonForm />
+        </SingleViewEntityFormLayout>
     )
 
 }

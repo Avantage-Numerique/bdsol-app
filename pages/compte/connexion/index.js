@@ -1,4 +1,4 @@
-import Login from '../../../authentication/components/Forms/Login/Login'
+import Login from '@/auth/components/Forms/Login/Login'
 
 
 const LoginPage = () => {

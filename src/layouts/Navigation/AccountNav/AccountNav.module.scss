@@ -1,0 +1,69 @@
+/*
+    Styles for the main navigation bar
+*/
+.navContainer {
+
+    background-color: var(--bs-blue2);
+    position: fixed;
+    top: calc(var(--headersHeight) - 1px);
+    bottom: 0px;
+    width: 100%;
+    color: white;
+    z-index: 999;
+    clip-path: inset(0 0 100% 0);
+    padding: 10vh 0px;
+
+    /* Transition for the openning animation */
+    -webkit-transition: all 500ms ease;
+    -moz-transition: all 500ms ease;
+    -ms-transition: all 500ms ease;
+    -o-transition: all 500ms ease;
+    transition: all 500ms ease;
+
+    > div {
+
+        h3 {
+            font-size: 3rem;
+        }
+        ul {
+            li, 
+            li > button {
+                font-size: 2rem;
+                color: white;
+                font-weight: bold;
+                line-height: 1.5em;
+                
+                /* Transition for the openning animation */
+                -webkit-transition: text-shadow 400ms ease;
+                -moz-transition: text-shadow 400ms ease;
+                -ms-transition: text-shadow 400ms ease;
+                -o-transition: text-shadow 400ms ease;
+                transition: text-shadow 400ms ease;
+
+                &:hover {
+                    text-shadow: 3px 3px grey;
+                }
+
+                &.unactive{
+                    opacity: 0.5;
+                    cursor: not-allowed;
+
+                    &:hover { text-shadow: none;}
+                }
+
+                >  { cursor: pointer; } /* TEMPORARY */
+
+
+            }
+        }
+
+        ul.mainMenu { font-size: 3rem;
+            
+        }
+
+    }
+    
+}
+
+.navContainer.displayed { clip-path: inset(0); }
+
