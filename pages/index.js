@@ -194,7 +194,7 @@ const HomePage = ({}) => {
                                             {
                                                 feedList.length > 0 && !isLoading &&
                                                 feedList.map(elem => (
-                                                    <Col>
+                                                    <Col key={elem._id + "-" + elem.slug}>
                                                         <PresentationCard
                                                             key={elem._id}
                                                             header={elem.nickname ? "Personne" : "Organisation"}
