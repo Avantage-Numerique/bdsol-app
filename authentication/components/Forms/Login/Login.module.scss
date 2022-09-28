@@ -23,14 +23,6 @@
             margin: 0.7rem 0rem 0rem 0rem;
             font-size: 0.9rem;
         }
-
-        /*
-            The fields are direct children of the form
-        */
-        > *:not(button){ 
-            width: 100%;
-            margin-bottom: 1rem;
-        }
     }
 
 }

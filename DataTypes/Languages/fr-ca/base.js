@@ -47,8 +47,13 @@ export const base = {
 
     // CreatePersonForm.js
 
-    "formPersonsSubtitle": "Super formulaire",
-    "formPersonsInstructions": "Ajoutez ici une entité <code>Personne</code> afin de représenter un artiste, artisan ou professionnel de tout domaine que vous jugez pertinent à cette base de données.",
+    "formPersonSubtitle": "Super formulaire",
+    "formPersonInstructions": "Ajoutez ici une entité <code>Personne</code> afin de représenter un artiste, artisan ou professionnel de tout domaine que vous jugez pertinent à cette base de données.",
+
+    //  CreateOrganisationForm.js
+
+    "formOrganisationSubtitle": "Vous pouvez ajouter ici une nouvelle organisation à la base de données.",
+    "formOrganisationInstructions": "Super formulaire",
 
     //  Personnes
 
