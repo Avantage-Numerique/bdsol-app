@@ -14,13 +14,14 @@
     "docker:dev:watch": "npx concurrently \"npm run dev:watch\" \"npm run docker:dev:run\"",
     "docker:dev:run": "npx nodemon --legacy-watch",
     "docker:start": "next start -p ${PORT:=3000}",
-    "docker:test": "echo \"Error: no test specified\" && exit 1"
+    "docker:test": "echo \"Error: no test specified\" && exit 1",
+    "postbuild": "purgecss --css .next/static/css/*.css --content .next/index.html .next/static/js/*.js --output .next/static/css"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.8.1",
     "blotter": "^1.0.0",
-    "iron-session": "^6.2.1",
     "bootstrap": "^5.2.0",
+    "iron-session": "^6.2.1",
     "isomorphic-dompurify": "^0.16.0",
     "jest-environment-jsdom": "^28.1.0",
     "next": "^12.2.5",
@@ -38,6 +39,7 @@
     "@testing-library/react": "^13.2.0",
     "concurrently": "^7.0.0",
     "jest": "^28.1.0",
-    "nodemon": "^2.0.15"
+    "nodemon": "^2.0.15",
+    "purgecss": "^5.0.0"
   }
 }
