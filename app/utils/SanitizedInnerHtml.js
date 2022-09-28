@@ -10,25 +10,27 @@ import DOMPurify from 'isomorphic-dompurify';
 
 */
 
-export const SanitizedInnerHtml = ( {tag, type, children} ) => {
+export const SanitizedInnerHtml = ( {tag, type, className, children} ) => {
 
     //Cleaning machine
     const cleanedData = DOMPurify.sanitize( children );
+    const typeProps = type ? {type: type} : {};
+    const Wrapper = tag ?? "div";
+    if (className) typeProps.className = className;
 
     //If the desired tag is a script tag
-    if(tag === "script")
-        return (
-            <script 
-                type={type ? type : ""}
-                dangerouslySetInnerHTML={{
-                __html: DOMPurify.sanitize(cleanedData)
-                }}
-            />
-        )
+    // if(tag === "script")
+    //     return (
+    //         <Wrapper {...typeProps}
+    //             dangerouslySetInnerHTML={{
+    //             __html: DOMPurify.sanitize(cleanedData)
+    //             }}
+    //         />
+    //     )
 
     //By default
     return (
-        <div
+        <Wrapper {...typeProps}
             dangerouslySetInnerHTML={{
                 __html: DOMPurify.sanitize(cleanedData)
             }}

@@ -1,5 +1,4 @@
 
-import {lang} from "../../common/Data/GlobalConstants";
 import React from "react";
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -35,6 +34,11 @@ const PageHeader = (props) => {
                                     <h1 className={textClass}>{props.title}</h1>
                                     {props.subTitle &&
                                         <h3 className={textClass}>{props.subTitle}</h3>
+                                    }
+                                    {props.description &&
+                                        <SanitizedInnerHtml tag={"p"}>
+                                            {props.description}
+                                        </SanitizedInnerHtml>
                                     }
                                     {props.children &&
                                         props.children
