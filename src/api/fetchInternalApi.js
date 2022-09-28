@@ -13,11 +13,11 @@ import {publicRuntimeConfig} from "@/next.config";
 export default async function fetchInternalApi(internalURI, data, method = 'POST') {
 
     const internalDefaultHeaders = {
-        'Origin': publicRuntimeConfig.appUrl,//no cors implemented yet for internals calls.
+        'Origin': process.env.APP_URL,//no cors implemented yet for internals calls.
         'Content-Type': 'application/json'
     };
 
-    const response = await fetch(publicRuntimeConfig.appUrl + internalURI, {
+    const response = await fetch(process.env.APP_URL + internalURI, {
         method: method,
         body: data,
         headers: new Headers(internalDefaultHeaders),
