@@ -139,11 +139,12 @@ const CreateTaxonomyForm = ({name, category, positiveRequestActions}) => {
                         className={`${styles["select-component"]}`}
                         name="category"
                         required={true}
+                        defaultValue={category ?? ""}
                         onChange={ (e) => { formTools.inputHandler( "category", e.target.value, (e.target.value !== "0" && e.target.value !== "") )}}>
                         <option value="">-- Choisissez une taxonomy --</option>
                         {Object.keys(taxonomies).map((key) => {
                             return (
-                                <option key={`taxonomy-${key}`} value={key} disabled={(key !== category)} selected={(key === category)}>{taxonomies[key]}</option>
+                                <option key={`taxonomy-${key}`} value={key} disabled={(key !== category)}>{taxonomies[key]}</option>
                             );
                         })}
                     </select>

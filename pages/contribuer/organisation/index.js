@@ -1,50 +1,31 @@
 
 //Component 
 import CreateOrganisationForm from '../../../DataTypes/Organisation/components/forms/CreateOrganisationForm/CreateOrganisationForm'
-import Button from '../../../app/common/FormElements/Buttons/Button/Button'
-
 
 //styling
-import styles from './createOrganisation.module.scss'
 import {withSessionSsr} from "../../../authentication/session/handlers/withSession";
 import {ssrCanAccess} from "../../../authentication/permissions/ssrCanAccess";
+import SingleViewEntityFormLayout
+    from "../../../DataTypes/common/layouts/SingleViewEntityFormLayout/SingleViewEntityFormLayout";
+import {lang} from "../../../app/common/Data/GlobalConstants";
+import React from "react";
 
 
 const CreateOrganisationPage = () => {
 
     return (
-        <div className={`col-12 ${styles["create-organisation-page"]}`}>
-
-                <div className={`col-12 ${styles["create-organisation__return-button"]}`}>
-                    <div className="maxWidthPageContainer">
-                        <Button 
-                            color="blue4"
-                            reverse
-                            href="/contribuer"
-                        >
-                            Retour à la page précédente
-                        </Button>
-                    </div>
-                </div>
-
-                <header className={`col-12`}>
-                    <div className="maxWidthPageContainer">
-                        <div className={`${styles["create-organisation--max-width"]}`}>
-                            <h1 className={`col-12 blue`}>Organisation</h1>
-                            <h4 className="col-12">Super formulaire</h4>
-                            <p>Vous pouvez ajouter ici une nouvelle organisation à la base de données.</p>
-                        </div>
-                    </div>
-                </header>
-
-                <section className="col-12">
-                    <div className="maxWidthPageContainer">
-                        <div className={`${styles["create-organisation--max-width"]}`}>
-                            <CreateOrganisationForm />
-                        </div>
-                    </div>
-                </section>
-        </div>
+        <SingleViewEntityFormLayout formName={"organisation"} headerProps={{
+            title: lang.Organisation,
+            subTitle: lang.formOrganisationSubtitle,
+            description: lang.formOrganisationInstructions,
+            colWidth: 8,
+            historyBack: {
+                uri: "/contribuer",
+                label: lang.historyBack
+            }
+        }}>
+            <CreateOrganisationForm />
+        </SingleViewEntityFormLayout>
     )
 }
 

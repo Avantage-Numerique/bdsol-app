@@ -30,11 +30,11 @@ const Input = ({addRow, removeRow, name, formTools, ...props}) => {
  
     return (
         
-            <label className={ styles.inputComponent } htmlFor={props.name}>
+            <label className={ styles.inputComponent + " " + (props.className ? props.className : "") } htmlFor={props.name}>
 
                 {props.label}
 
-                <div className={`col-12 ${styles["inputComponent__field-container"]}`}>
+                <div className={`${styles["inputComponent__field-container"]}`}>
 
                     <input 
                         className={` ${!currentState.isValid && currentState.isTouched && styles["control--invalid"]}`}
@@ -52,7 +52,7 @@ const Input = ({addRow, removeRow, name, formTools, ...props}) => {
                     { 
                         addRow &&
                         <button onClick={addRow} 
-                                className={`white sec-color_BG`}
+                                className={`text-white bg-blue2`}
                                 type="button"
                         >   &#43;
                         </button>
@@ -61,7 +61,7 @@ const Input = ({addRow, removeRow, name, formTools, ...props}) => {
                         removeRow &&
                         <button  
                             onClick={removeRow} 
-                            className={`white red_BG`}
+                            className={`text-white bg-danger`}
                             type="button"
                         >
                                 &#215;

@@ -31,18 +31,15 @@ export default class StringDictionary {
         this.language = lang;
     }
 
-
     loadDictionary(filename) {
         const dictionary = require(this.filepath + filename + ".js");
         this.setDictionnary(dictionary.base);
     }
 
-
     setDictionnary(dictionnary) {
         this.dictionnary = dictionnary;
         this.setAliases();
     }
-
 
     /**
      * Without alias
@@ -52,7 +49,6 @@ export default class StringDictionary {
     getString(key) {
         return this.dictionnary[key] ?? key;
     }
-
 
     /**
      *

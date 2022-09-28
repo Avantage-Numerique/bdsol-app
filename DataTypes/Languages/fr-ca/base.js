@@ -13,6 +13,13 @@ export const base = {
     "appDefaultProducer": "Avantage Numérique",
     "appProducerDefaultDescription": "Avantage numérique est un hub virtuel, physique et mobile qui dessert les secteurs de la culture, des affaires et du savoir. Il vise le développement de l’écosystème créatif, entrepreneurial et technologique du Croissant boréal.",
 
+    //  HomePage
+
+    "homePageTitle": "La base de données structurée ouverte et liée",
+    "homePageDescription": "Les acteur·es techno-créatifs·ves du croissant boréal",
+    "actualities": "Actualités",
+    "menu": "menu",
+
     //  Auth
 
     "needToBeConnectedToAccess": "Vous devez être connecté pour pouvoir ajouter une entité à la base de données.",
@@ -40,8 +47,13 @@ export const base = {
 
     // CreatePersonForm.js
 
-    "formPersonsSubtitle": "Super formulaire",
-    "formPersonsInstructions": "Ajoutez ici une entité <code>Personne</code> afin de représenter un artiste, artisan ou professionnel de tout domaine que vous jugez pertinent à cette base de données.",
+    "formPersonSubtitle": "Super formulaire",
+    "formPersonInstructions": "Ajoutez ici une entité <code>Personne</code> afin de représenter un artiste, artisan ou professionnel de tout domaine que vous jugez pertinent à cette base de données.",
+
+    //  CreateOrganisationForm.js
+
+    "formOrganisationSubtitle": "Vous pouvez ajouter ici une nouvelle organisation à la base de données.",
+    "formOrganisationInstructions": "Super formulaire",
 
     //  Personnes
 
@@ -59,9 +71,9 @@ export const base = {
 
     //  Taxonomy
 
-    "Taxonomy": "Taxonomy",
+    "Taxonomy": "Taxonomie",
     "Taxonomies": "Taxonomies",
-    "taxonomy": "taxonomy",
+    "taxonomy": "taxonomie",
     "taxonomies": "taxonomies",
 
     //  Occupations

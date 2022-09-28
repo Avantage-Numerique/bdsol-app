@@ -176,7 +176,7 @@ const Register = () => {
 
             <form className={`${styles["registration-form"]}`} onSubmit={submitHandler}>  
 
-                <h3 className="blue">Création de compte</h3>
+                <h3 className="text-primary">Création de compte</h3>
 
                 <Input
                     name="name"

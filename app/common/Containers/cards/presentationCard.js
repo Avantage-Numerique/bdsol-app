@@ -1,7 +1,6 @@
 
 //Components
 import SanitizedInnerHtml from '../../../utils/SanitizedInnerHtml';
-import { useContext } from 'react';
 import {useAuth} from '../../../../authentication/context/auth-context';
 import styles from './presentationCard.module.scss';
 import getConfig from 'next/config';
@@ -21,15 +20,16 @@ const { publicRuntimeConfig } = getConfig();
 const PresentationCard = ({header, name, firstname, description, username, createdAt, url, contactPoint}) => {
 
     const auth = useAuth();
+    const showFullDescription = false;
 
     return (
 
         <article className={`${styles["card"]}`}>
 
             {/* The header has been tough to receive the data type : Ex. Personne*/}
-            <header className="col-12">
-                <div className="col-12">
-                    <h5 className="col-12">{ header }</h5>
+            <header>
+                <div>
+                    <h5>{ header }</h5>
                 </div>
             </header>
 
@@ -60,19 +60,20 @@ const PresentationCard = ({header, name, firstname, description, username, creat
             **************************************/}
 
             <section className={`${styles["card__content"]}`}>
-
-                <h4 className="col-12">{firstname && firstname} {name}</h4>
-                <div className="col-12">
-                    <SanitizedInnerHtml>
-                        { description }
-                    </SanitizedInnerHtml>
-                </div>
+                <h4>{firstname && firstname} {name}</h4>
+                {showFullDescription &&
+                    <div>
+                        <SanitizedInnerHtml>
+                            { description }
+                        </SanitizedInnerHtml>
+                    </div>
+                }
 
                 <div className={`${styles["card__inner-line"]}`}></div>
                 
                 {/**********  URL ************/}
                 { url && 
-                <div className={`col-12 ${styles["card__infos"]}`}>
+                <div className={`${styles["card__infos"]}`}>
                     <div className={`${styles["card__infos--titles"]}`}>
                         <div>Url :</div>
                     </div>
@@ -84,7 +85,7 @@ const PresentationCard = ({header, name, firstname, description, username, creat
 
                 {/**********  contactPoint ************/}
                 { contactPoint &&
-                <div className={`col-12 ${styles["card__infos"]}`}>
+                <div className={`${styles["card__infos"]}`}>
                     <div className={`${styles["card__infos--titles"]}`}>
                         <div>Contact :</div>
                     </div>
@@ -96,7 +97,7 @@ const PresentationCard = ({header, name, firstname, description, username, creat
 
                 {/**********  username  ************/}
                 { username &&
-                <div className={`col-12 ${styles["card__infos"]}`}>
+                <div className={`${styles["card__infos"]}`}>
                     <div className={`${styles["card__infos--titles"]}`}>
                         <div>Surnom :</div>
                     </div>
@@ -105,8 +106,8 @@ const PresentationCard = ({header, name, firstname, description, username, creat
                     </div>
                 </div>
                 }
-
             </section>
+
             <div className={`${styles["card__infos__sub-section"]}`}>
                 {/*<div><strong>Créé par</strong> {auth.username} </div>*/}
                 <p>{(new Date(createdAt)).toLocaleDateString(publicRuntimeConfig.dates.defaultLanguage)}</p>

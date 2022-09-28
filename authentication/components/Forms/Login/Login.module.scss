@@ -16,20 +16,12 @@
     form {
         width: min(35rem, 95%);
         padding: 2rem;
-        border: 1px solid var(--grey);
+        border: 1px solid var(--bs-secondary);
         h3 { margin-top: 0px; }
 
         .formRedirection {
             margin: 0.7rem 0rem 0rem 0rem;
             font-size: 0.9rem;
-        }
-
-        /*
-            The fields are direct children of the form
-        */
-        > *:not(button){ 
-            width: 100%;
-            margin-bottom: 1rem;
         }
     }
 

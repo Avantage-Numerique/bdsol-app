@@ -1,0 +1,106 @@
+/*
+    Home page styling
+*/
+
+.home-page {
+
+    padding-bottom: 7rem;
+
+
+    > .home-page__main {
+
+        > div {
+
+            margin-top: 5vh;
+
+            /*Section one  : FEED SECTION  */
+
+            > .home-page__feed-section {
+
+                /* Section with a news feed */
+                .home-page__feed-section--container{
+
+                }
+            }
+
+            /*
+                Aside section :
+            */
+
+            aside {
+                min-height: 50vh; /* Temporary value */
+
+                /*
+                    Every section in the aside block offers its own set of options
+                */
+
+                /* Common styling for every section elements */
+                > section {
+
+                    padding: 1rem 0px;
+                    border-top: 0.1rem solid $grey;
+
+                    h4 {
+                        margin: 0px;
+                        margin-bottom: 1rem;
+                    }
+
+                    p { margin: 0px; }
+
+                }
+
+
+                /*
+                    Differents sections and there specific styling
+                */
+
+                /* Rapid access to connection button  */
+                .aside__connection-option {
+                    > button { width: 100%; }
+                }
+
+                /* Account options : register */
+                .aside__register-option {
+
+                    > div {
+                        border-radius: 0.5rem;
+                        padding: 1rem;
+
+                        > button {
+                            margin-top: 1rem;
+                            width: 100%;
+                            border: 0.15rem white solid;
+                        }
+                    }
+                }
+
+                /* Rapid options to access of edit the database */
+                .aside__db-edit-options {
+
+                    .db-edit-options__button-set {
+
+                        margin-top: 0.5rem;
+                        display: flex;
+
+                        > button:first-of-type {
+                            flex:1;
+                            margin-right: 0.5rem;
+                        }
+                    }
+
+                    p {
+                        color: $grey;
+                        font-size: 0.9rem;
+                        line-height: 1;
+                        margin-top: 1rem;
+                    }
+
+                    > button {
+                        width: 100%;
+                        margin-top: 1rem;
+                    }
+                }
+            }
+        }
+    }
+}

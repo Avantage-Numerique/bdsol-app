@@ -13,7 +13,7 @@ const AccountTopBar = () => {
     const auth = useAuth();
    
     return (
-        <div className={`${styles.accountTopBar} col-12 sec-color_BG`}>
+        <div className={`${styles.accountTopBar} col-12 bg-blue2`}>
 
             {/* Set the max with equal to the website norms */}
             <div className="maxWidthPageContainer">

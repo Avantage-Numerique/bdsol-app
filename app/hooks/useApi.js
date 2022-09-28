@@ -1,4 +1,4 @@
-import { sendExternalApiRequest } from '../hooks/http-hook';
+import { sendExternalApiRequest } from './http-hook';
 
 export default async function useApi(connectedSetter) {
     const pingApi = async () => {

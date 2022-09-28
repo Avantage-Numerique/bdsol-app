@@ -1,14 +1,14 @@
 .button {
 
     /* Starting color */
-    --currentColor: var(--blue1);
+    --currentColor: var(--bs-primary);
     --hover-brightness: 1.2;
 
     /* Personnalized colors */
-    &.blue2 { --currentColor: var(--blue2); }
-    &.blue3 { --currentColor: var(--blue3); }
-    &.blue4 { --currentColor: var(--blue4); }
-    &.red { --currentColor: var(--red); }
+    &.blue2 { --currentColor: var(--bs-blue2); }
+    &.blue3 { --currentColor: var(--bs-blue3); }
+    &.blue4 { --currentColor: var(--bs-blue4); }
+    &.red { --currentColor: var(--bs-red); }
 
     -webkit-transition: -webkit-filter 0.3s;
     transition: -webkit-filter 0.3s;

@@ -1,0 +1,11 @@
+/* When the spinner is active*/
+.spinner-container {
+
+    > div {
+        position: relative;
+        min-height: 10rem;
+    }
+
+    > p { text-align: center; }
+
+}

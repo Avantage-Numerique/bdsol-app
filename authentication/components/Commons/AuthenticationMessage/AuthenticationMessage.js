@@ -10,7 +10,7 @@ const AuthenticationMessage = ({header, message}) => {
         <article className={styles.authenticationMessage}>
 
             <header className="col-12">
-                <h2 className="blue">{header}</h2>
+                <h2 className="text-primary">{header}</h2>
             </header>
             <p className="col-12">
                 {message}

@@ -1,358 +1,62 @@
 /*
-
-
-
     Global styles applicable to every pages
-    V.P.R - 20/09/2021
-
-    
-
-*/
-
-/*
-*
-  Global variables of the platform
-*
 */
 
 :root {
   /* Maximum width the content of the page can take */
   --max-width-page-content: 85rem;
-
   /* Header's height.  */
   --headersHeight : 5em;
 
-  /* Main color of the web site (blue) 
-      Hexa : #455ae6
-  */
-  --mainBlue: rgb(69, 90, 230);
-  --blue1: rgb(69, 90, 230);
-
-  --altBlue: rgb(77, 100, 255);  /* To be removed */
-  --blue2: rgb(77, 100, 255);
-  --blue3: rgb(77, 196, 255);
-  --blue4: rgb(95, 113, 234);
-  --red: rgb(221, 92, 92);
-  --grey: rgb(187, 191, 215);
-
-  /* Dark color for the text and background-colors 
-         Hexa : #212121;
-  */
-  --dark: rgb(33, 33, 33);
-
-  /* Main font */
-  --generalFont: 'Open Sans', sans-serif;
-  --titleFont: 'Yeseva One';
-
-  /* Common border radius through the website */
-  --commonRadius: 1.5em;
-  
 }
-
-html,
-body {
-  padding: 0;
-  margin: 0;
-
-  /* Default font */
-  font-family: var(--generalFont);
-
-  /* Default text size */
-  font-size: 14px;
-  line-height: 1.4;
-
-  /* Default color */
-  color: var(--dark);
-
-
-}
-
-* {
-  box-sizing: border-box;
-}
-
-/*
-*
-*   Font settings
-*
-*/
-
-h1, h2, h3 {
-  font-family: var(--titleFont);
-  line-height: 1.1;
-  font-weight: normal;
-}
-
-h4, h5, h6 {
-  font-weight: 700;
-}
-
-h1 { 
-  font-size: 4rem; /* For older browsers */
-  font-size: min(10vw, 4rem); }
-h2 { 
-  font-size: 2.5rem;  /* For older browsers */
-  font-size: min(2.5rem, 8vw); 
-}
-h3 { font-size: 1.75rem; }
-h4 { font-size: 1.35rem; }
-h5 { font-size: 1rem; }
-h6 { font-size: 0.8rem; }
-
-
-
-
-/*
-*
-*    Colors settings
-*
-*/
-
-/* blue color */
-.blue { color: var(--mainBlue); }
-.blue_BG { background-color: var(--mainBlue); }
-
-/* blue color */
-.blue1 { color: var(--blue1); }
-.blue1_BG { background-color: var(--blue1); }
-
-/* Secondary color */
-.sec-color { color: var(--altBlue);}
-.sec-color_BG { background-color: var(--altBlue); }
-
-/* secondary color */
-.blue2 { color: var(--blue2); }
-.blue2_BG { background-color: var(--blue2); }
-
-/* grey */
-.grey { color: var(--grey);}
-.grey_BG { background-color: var(--grey); }
-
-/* red */
-.red { color: var(--red);}
-.red_BG { background-color: var(--red); }
-
-/* White color */
-.white { color: white; }
-
-/* Dark color */
-.dark { color: var(--dark); }
-.dark_BG { background-color: var(--dark); }
 
 .cursorPointer { cursor: pointer; }
-.commonRadius { border-radius: var(--commonRadius); }
-
-a {
-  color: inherit;
-  text-decoration: none;
-  cursor: pointer;
-}
 
 /**
 *   Remove de the bullet
 */
-li { list-style-type: none;}
+li { list-style-type: none;} /* TODO should use Bootstrap's "list-unstyled" class on <ul> */
 
 /*
   Remove automatic padding
 */
-ul {padding: 0px;}
+ul {padding: 0px;} /* TODO switch to Bootstrap's vertical nav component */
+
 
 /*
-  Remove automatic marges from figure
+  Define custom button style for React-Bootstrap components
 */
-figure { margin: 0px; }
-
-/*
-*   Container that defines the Maximum width the content of the page can take
-*/
-
-.maxWidthPageContainer {
-  max-width: var(--max-width-page-content);
-  margin: auto;
-  padding: 0px 3rem; /* in case the browser do not support min() */
-  padding: 0px min(3rem, 4vw);
+.btn-lg {
+  font-weight: 600;
+  border-width: 0.15rem;
 }
 
-/*
-*   responsive width classes
-*
-*   By default, it assumed to be a small size screen
-*/
+.btn.disabled, .btn:disabled, fieldset:disabled .btn {
 
-.col-1,
-.col-2,
-.col-3,
-.col-4,
-.col-5,
-.col-6,
-.col-7,
-.col-8,
-.col-9,
-.col-10,
-.col-11,
-.col-12 {width: 100%; float: left;}
+  pointer-events: auto;
+  cursor: not-allowed;
 
-/*
-  Line class for the design lines added to pages
-*/
-.line{
-  height: 0.4rem;
-  float: left;
-  margin: 0.15rem 0.7rem 0.15rem 0rem;
-  border-radius: 0.2rem;
-  /* Every line will have a width and color precised to it */
-}
-
-/*
-  Remove and add some default styling of the button element
-*/
-button {
-  background: unset;
-  border: unset;
-  cursor: pointer;
-  padding: 0px;
+  --bs-btn-disabled-bg: #AAAAAA;
+  --bs-btn-disabled-border-color: #AAAAAA;
+  --bs-btn-disabled-color: #4d4a4a;
 }
 
 /*
  Override some default styling of the input element 
 */
-
 label {
-  color:  #5d5d5d;
+  color:  $mild-dark;
 }
-
-input {
-
-  /* variable to set equally the padding */
-  --inputPadding: 0.75em;
-
-  background-color: unset;
-  border: unset;
-  color: unset;
-  padding: var(--inputPadding) 0px;
-
-  /* submit buttons */
-  &[type='submit']{ 
-    cursor: pointer; 
-    padding: var(--inputPadding);
-    margin: 0px 0.25em;
-  }
-
-
-}
-
-/* text areas which are not submit buttons */
-input:not([type='submit']), textarea{
-  border-bottom-width: 1px;
-  border-bottom-style: solid;
-  border-bottom-color: rgba(255,255,255,0.5);
-  transition: 0.2s;
-
-  &:focus{
-    border-bottom-color: rgba(255,255,255,1);
-  }
-}
-
-input:focus, textarea:focus, select:focus{
-  outline: none;
-}
-
-/*
-    Temporary styling to indicate the platform separation
-*/
-
-.TEMP__division-container {
-  border-radius: 2rem;
-  border: 0.5rem solid rgb(44, 44, 44);
-  padding: 2rem;
-}
-
-/*
-*
-*
-*     Custom scroll bar    
-*
-*
-*/
-
-::-webkit-scrollbar {
-  width: 0.9rem;
-  height: 0.5rem;
-}
-
-::-webkit-scrollbar-track {
-  background: #f1f1f1;
-  /*margin-block: 0.25rem;*/
-  border-radius: 0.5rem;
-  background-clip: padding-box;
-
-}
-
-::-webkit-scrollbar-thumb {
-  background: #8b94c0;
-  border-radius: 0.5rem;
-  background-clip: padding-box;
-  border: 0.15rem solid rgba(255, 255, 255, 0);
-
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #6f7bc7;
-  background-clip: padding-box;
-  border: 0.15rem solid rgba(255, 255, 255, 0);
-}
-
-@supports (scrollbar-color: #caccd4 #555B78) {
-  * {
-    scrollbar-color:#caccd4 #555B78;
-    scrollbar-width: thin;
-  }
-}
-
-
 
 
 /*
-*
-*
-*     Media queries for responsive design
-*
-*
-*
+  Add custom minimum width to Bootstrap's containers 
 */
-
-
-/* Medium devices (landscape tablets, 768px and up) */
-@media only screen and (min-width: 768px) {
-
-  /*
-      Normal width of the col classes 
-  */
-
-  .col-1 {width: 8.33%; float: left;}
-  .col-2 {width: 16.66%; float: left;}
-  .col-3 {width: 25%; float: left;}
-  .col-4 {width: 33.33%; float: left;}
-  .col-5 {width: 41.66%; float: left;}
-  .col-6 {width: 50%; float: left;}
-  .col-7 {width: 58.33%; float: left;}
-  .col-8 {width: 66.66%; float: left;}
-  .col-9 {width: 75%; float: left;}
-  .col-10 {width: 83.33%; float: left;}
-  .col-11 {width: 91.66%; float: left;}
-  .col-12 {width: 100%; float: left;}
-
-}
-
-
-/* Extra large devices (large laptops and desktops, 1200px and up) */
-@media only screen and (min-width: 1200px) {
-     
-}
-
-/* Extra large devices (large laptops and desktops, 1500px and up) */
-@media only screen and (min-width: 1500px) {
-     
+@each $breakpoint in sm, md, lg, xl, xxl { 
+  @media (min-width: map-get($grid-breakpoints, $breakpoint)) { 
+    .header-center {
+      min-width: map-get($container-max-widths, $breakpoint);
+    }
+  }
 }
 

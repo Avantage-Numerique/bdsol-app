@@ -28,7 +28,7 @@ const Ripple = ({ clear })  => {
 }
 
 
-const Button = ({ rippleEffect, ...props }) => { 
+const Button = ({ rippleEffect, ...props }) => {
 
     const [rippleList, setRippleList] = useState([])
 

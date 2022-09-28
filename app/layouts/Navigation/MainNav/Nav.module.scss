@@ -2,8 +2,6 @@
     Styles for the main navigation bar
 */
 .navContainer {
-
-    background-color: var(--mainBlue);
     position: fixed;
     top: calc(var(--headersHeight) - 1px);
     bottom: 0px;
@@ -53,10 +51,8 @@
         }
 
         .line {
-            float: left;
             border-bottom: 2px solid white;
             width: 20rem;
-            max-width: 100%;
             margin: 2rem 0rem;
         }
 
