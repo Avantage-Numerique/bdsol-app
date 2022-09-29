@@ -19,7 +19,6 @@ const { publicRuntimeConfig } = getConfig();
 
 const PresentationCard = ({header, name, firstname, description, username, createdAt, url, contactPoint}) => {
 
-    const auth = useAuth();
     const showFullDescription = false;
 
     return (
@@ -34,7 +33,7 @@ const PresentationCard = ({header, name, firstname, description, username, creat
             </header>
 
             {/* Background img */}
-            <figure className="col-12">
+            <figure>
 
                 { header === "Organisation" &&
                     <img 
