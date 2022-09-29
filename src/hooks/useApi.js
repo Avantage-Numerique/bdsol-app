@@ -1,6 +1,7 @@
+import { useEffect } from 'react';
 import { sendExternalApiRequest } from './http-hook';
 
-export default async function useApi(connectedSetter) {
+export default function useApi(connectedSetter) {
     const pingApi = async () => {
         try {
             const res = await sendExternalApiRequest(
@@ -9,14 +10,16 @@ export default async function useApi(connectedSetter) {
                 JSON.stringify({})
             );
             if (res !== undefined && res.data["/ping"] === "OK")
-                connectedSetter(true);
+                return connectedSetter(true);
             else
-                connectedSetter(false); // Set as api is not up
+                return connectedSetter(false); // Set as api is not up
 
         } catch (error) {
-            connectedSetter(false);
+            return connectedSetter(false);
         }
     }
-    
-    pingApi();
+    useEffect( () => {
+        pingApi();
+        setInterval( async () => pingApi(), 5000);
+    }, []);
 }

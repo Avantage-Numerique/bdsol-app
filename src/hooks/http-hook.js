@@ -14,7 +14,6 @@ import {lang} from "@/src/common/Data/GlobalConstants";
  * @return {Promise<any>}
  */
 export const sendExternalApiRequest = async (path, method = 'GET', body = null, headers = {}, additionnalFetchParams={}, isDataJson=true) => {
-
     const baseApiRoute = process.env.APP_PROTOCOLE + process.env.API_URL,
         defaultHeaders = {
             'Origin': process.env.APP_URL//'http://localhost:3000'

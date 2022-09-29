@@ -10,7 +10,7 @@ import styles from './UserHistoryGrid.module.scss'
 import Button from "@/src/common/FormElements/Buttons/Button/Button";
 
 
-const UserHistoryGrid = (props) => {
+const UserHistoryGrid = () => {
     //Extract the functions inside useHttpClient
     const {sendRequest} = useHttpClient();
 
@@ -41,9 +41,9 @@ const UserHistoryGrid = (props) => {
 
     const modificationMsg = (modif) => {
         switch (modif){
-            case "create": return "Création de "; break;
-            case "update": return "Mise à jour de "; break;
-            case "delete": return "Suppression de "; break;
+            case "create": return "Création de ";
+            case "update": return "Mise à jour de ";
+            case "delete": return "Suppression de ";
             default : return "action state undefined";
         }
     }

@@ -21,7 +21,7 @@ import {useAuth} from '@/auth/context/auth-context';
 
 //Styling
 import styles from './Header.module.scss'
-import ConnexionBanner from "@/src/layouts/ConnexionBanner/ConnectionBanner";
+import ConnectionBanner from "@/src/layouts/ConnexionBanner/ConnectionBanner";
 
 
 const Header = (props) => {
@@ -79,7 +79,7 @@ const Header = (props) => {
                 </Row>
             </Container>
 
-            <ConnexionBanner />
+            <ConnectionBanner />
         </header>
     )
 }
