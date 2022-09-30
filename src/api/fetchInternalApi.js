@@ -11,10 +11,10 @@
 export default async function fetchInternalApi(internalURI, data, method = 'POST') {
 
     const internalDefaultHeaders = {
-        'Origin': process.env.NEXT_PUBLIC_APP_URL,//no cors implemented yet for internals calls.
+        //'Origin': process.env.NEXT_PUBLIC_APP_URL,//no cors implemented yet for internals calls.
         'Content-Type': 'application/json'
     };
-    console.log(process.env.NEXT_PUBLIC_APP_API_URL + internalURI, process.env.NEXT_PUBLIC_APP_URL)
+    console.log(process.env.NEXT_PUBLIC_APP_API_URL + internalURI, process.env.NEXT_PUBLIC_APP_URL);
     const response = await fetch(process.env.NEXT_PUBLIC_APP_API_URL + internalURI, {
         method: method,
         body: data,

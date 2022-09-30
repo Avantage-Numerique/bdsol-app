@@ -15,13 +15,12 @@ async function loginRoute(req, res) {
 
     const sessionUser = getSessionFromData(response.data.user);
     const visitor = getVisitorDataFromRequest(req);
-    console.log(visitor);
-    sessionUser.ip = visitor.ip;
+
+    sessionUser.ip = visitor ? visitor.ip : "";
 
     req.session.user = sessionUser;
     await req.session.save();
 
-    console.log(req.session.user);
     res.send({
         text: response.message,
         positive: !response.error,
