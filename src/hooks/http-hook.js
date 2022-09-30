@@ -1,3 +1,4 @@
+
 import {useState, useCallback, useRef, useEffect} from 'react';
 import {useAuth} from '@/auth/context/auth-context'
 import {lang} from "@/src/common/Data/GlobalConstants";
@@ -25,7 +26,7 @@ export const sendExternalApiRequest = async (path, method = 'GET', body = null, 
             ...jsonHeaders,
             ...headers
         };
-
+    console.log(baseApiRoute, process.env.NEXT_PUBLIC_API_URL, process.env.NEXT_PUBLIC_APP_URL);
     try {
 
         //   Use the fetch request with the url (required) and with its options object filled with the full data that we want to pass, if so.

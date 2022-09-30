@@ -1,4 +1,5 @@
 import {createContext, useContext, useState} from 'react';
+import useApi from '@/src/hooks/useApi';
 
 export const defaultSessionData = {
     isPending: false,
@@ -46,13 +47,17 @@ export function AuthProvider({fromSessionUser, children}) {
 
     const [user, setUser] = useState(fromSessionUser ?? {...defaultSessionData} );
     const [loading, setLoading] = useState(true);
+    const [apiUp, setApiUp] = useState(true);
+    useApi(setApiUp);
 
     return (
         <AuthContext.Provider value={{
             user: user,
             setUser: setUser,
             loading: loading,
-            setLoading: setLoading
+            setLoading: setLoading,
+            apiUp : apiUp,
+            setApiUp : setApiUp
         }}>
             {children}
         </AuthContext.Provider>
