@@ -7,10 +7,15 @@ export default withSessionRoute(loginRoute);
 
 async function loginRoute(req, res) {
 
+    //path, method = 'GET', body = null, headers = {}, additionnalFetchParams={}, isDataJson=true, origin="browser"
     const response = await sendExternalApiRequest(
         "/login",
         'POST',
-        JSON.stringify(req.body)
+        JSON.stringify(req.body),
+        undefined,
+        undefined,
+        true,
+        "fromserver"
     );
 
     const sessionUser = getSessionFromData(response.data.user);

@@ -20,7 +20,7 @@ const ConnectionBanner = () => {
         {
             setTimeout(() => {
                 setShowBanner(false);
-            }, 6000);
+            }, Number(process.env.PING_INTERVAL));
         }
         //If api is down
         else

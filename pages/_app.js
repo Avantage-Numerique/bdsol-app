@@ -2,83 +2,15 @@ import {getIronSession} from "iron-session";
 import App from "next/app";
 import {appDefaultSessionOptions} from "@/src/authentification/session/Session";
 import {AuthProvider} from '@/src/authentification/context/auth-context';
-import Layout from '@/src/layouts/Layout'
-
-//import {useCallback, useState, useEffect} from 'react'
-//import {getVisitorDataFromContext} from "@/src/authentication/context/visitor-context";
-//import useAuthentification from "@/src/authentication/hooks/useAuthentification";
-/************************************
- *
- * Import global SCSS files
- *
- ***********************************/
-import '../styles/main.scss'
+import Layout from '@/src/layouts/Layout';
 import {getVisitorDataFromContext} from "@/src/authentification/context/visitor-context";
 
+/**
+ * Import global SCSS files
+ */
+import '@/styles/main.scss';
 
 function MyApp({Component, pageProps, user}) {
-
-
-    //const {user, setUser} = AuthProvider();
-
-    //Store the session values
-    //const [session, setSession] = useState(pageProps.user);
-
-    /**
-     * Functions to modify the authentication context
-    */
-    /*const login = useCallback(userData => {
-        userData.isPending = false;
-        const newSession = getSessionFromData(userData);
-
-        const userSession = {...defaultSessionData, ...newSession, ip: pageProps.user.ip};
-
-        //Update the state
-        setSession(userSession);
-
-    }, [session]);*/
-
-
-    /*const logout = useCallback(() => {
-
-        deleteTargetLocalStorage('userData');//this change nothing, only that it's keeping up with the two others callback.
-        setSession(defaultSessionData);
-
-    }, [session]);*/
-
-
-    /*
-       Consult the localStorage to see of the user is connected and remove the pending state
-    */
-    /*useEffect(() => {
-        console.log(user);
-        if (isLocalStorageAccessible()) {
-
-            const storedUserData = getLocalStorage('userData');
-
-            if (!storedUserData || !storedUserData.isLoggedIn) {
-                setSession({
-                    ...defaultSessionData,
-                    isPending: false,
-                    ip: pageProps.user.ip
-                });
-
-            } else {
-                setSession(storedUserData);
-            }
-        }
-    }, []);*/
-
-    /**
-     * Set session trigger and then this effect apply userData into localStorage.
-     */
-    /*useEffect(() => {
-        // save serssion data in the localStorage
-        if (isLocalStorageAccessible()) {
-            session.isPending = false;
-            setLocalStorage('userData', session);
-        }
-    }, [session])*/
 
     /**
      * Main app render.

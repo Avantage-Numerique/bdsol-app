@@ -12,13 +12,14 @@ import {lang} from "@/src/common/Data/GlobalConstants";
  * @param headers {object} By default it add the conten
  * @param additionnalFetchParams {object}
  * @param isDataJson {boolean}
+ * @param origin {string} From where the call is done. Maybe there is a way to determine if this a client or server side call ?
  * @return {Promise<any>}
  */
-export const sendExternalApiRequest = async (path, method = 'GET', body = null, headers = {}, additionnalFetchParams={}, isDataJson=true) => {
+export const sendExternalApiRequest = async (path, method = 'GET', body = null, headers = {}, additionnalFetchParams={}, isDataJson=true, origin="browser") => {
 
-    const baseApiRoute = process.env.NEXT_PUBLIC_API_URL,
+    const baseApiRoute = origin === "browser" ? process.env.NEXT_PUBLIC_API_URL : process.env.FROMSERVER_API_URL,
         defaultHeaders = {
-            'Origin': process.env.NEXT_PUBLIC_APP_URL//'http://localhost:3000'
+            'Origin': origin === "browser" ? process.env.NEXT_PUBLIC_APP_URL : process.env.FROMSERVER_APP_URL
         },
         jsonHeaders = isDataJson ? { 'Content-Type': 'application/json' } : {},
         headerParams = {
@@ -26,7 +27,14 @@ export const sendExternalApiRequest = async (path, method = 'GET', body = null, 
             ...jsonHeaders,
             ...headers
         };
-    console.log(baseApiRoute, process.env.NEXT_PUBLIC_API_URL, process.env.NEXT_PUBLIC_APP_URL);
+
+    //temp staging debug.
+    if (origin !== "browser") {
+        console.log(origin, baseApiRoute, defaultHeaders);
+        console.log(origin, "API", process.env.NEXT_PUBLIC_API_URL, process.env.FROMSERVER_API_URL);
+        console.log(origin, "APP", process.env.NEXT_PUBLIC_APP_URL, process.env.FROMSERVER_APP_URL);
+    }
+
     try {
 
         //   Use the fetch request with the url (required) and with its options object filled with the full data that we want to pass, if so.
