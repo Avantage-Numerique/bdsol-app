@@ -1,4 +1,4 @@
-import {useState, useCallback, useRef, useEffect, useContext} from 'react';
+import {useState, useCallback, useRef, useEffect} from 'react';
 import {useAuth} from '@/auth/context/auth-context'
 import {lang} from "@/src/common/Data/GlobalConstants";
 
@@ -15,9 +15,9 @@ import {lang} from "@/src/common/Data/GlobalConstants";
  */
 export const sendExternalApiRequest = async (path, method = 'GET', body = null, headers = {}, additionnalFetchParams={}, isDataJson=true) => {
 
-    const baseApiRoute = process.env.APP_PROTOCOLE + process.env.API_URL,
+    const baseApiRoute = process.env.NEXT_PUBLIC_API_URL,
         defaultHeaders = {
-            'Origin': process.env.APP_URL//'http://localhost:3000'
+            'Origin': process.env.NEXT_PUBLIC_APP_URL//'http://localhost:3000'
         },
         jsonHeaders = isDataJson ? { 'Content-Type': 'application/json' } : {},
         headerParams = {
