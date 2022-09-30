@@ -9,6 +9,7 @@ import {getVisitorDataFromContext} from "@/src/authentification/context/visitor-
  * Import global SCSS files
  */
 import '@/styles/main.scss';
+import {verifyToken} from "@/auth/callbacks/verify-token.callback";
 
 function MyApp({Component, pageProps, user}) {
 
@@ -39,7 +40,7 @@ MyApp.getInitialProps = async (context) => {
 
     if (context.ctx.req && context.ctx.res) {
 
-        let { user } = await getIronSession(
+        let session = await getIronSession(
             context.ctx.req,
             context.ctx.res,
             appDefaultSessionOptions,
@@ -47,18 +48,27 @@ MyApp.getInitialProps = async (context) => {
 
         //Save the IP
         const visitor = getVisitorDataFromContext(context);
-        user = {
-            ...user,
+
+        //verify if the token is
+        const serverVerificationResponse = await verifyToken(session.user.token);
+        console.log(serverVerificationResponse);
+
+        session.user.tokenVerified = session.user.isLoggedIn = !serverVerificationResponse.error && serverVerificationResponse.data.tokenVerified;
+
+        await session.save();
+
+        session.user = {
+            ...session.user,
             ...visitor
         }
 
         return {
             pageProps: {
                 ...appProps,
-                user: user
+                user: session.user
             },
             ...appProps,
-            user: user,
+            user: session.user,
             visitor: visitor
         };
     }
