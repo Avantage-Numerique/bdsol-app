@@ -31,7 +31,7 @@ const accountPage = ({ user }) => {
             <PageHeader title={`Bienvenue dans l'espace utilisateur, ${user && (user.username)}`} />
             <div className="container">
                 <div className="row">
-                    <div className="col col-xs-9 pb-3">
+                    <div className="col col-sm-9 pb-3">
                         <div className={"account-page-content"}>
                             {leftMenu === "history" && <UserHistoryGrid/>}
                             {leftMenu === "preferences" && <Preferences/>}
@@ -39,7 +39,7 @@ const accountPage = ({ user }) => {
                             {leftMenu === "help" && <Help/>}
                         </div>
                     </div>
-                    <aside className="col col-xs-3">
+                    <aside className="col col-sm-3">
                         {user && (
                             <div className={"side-menu"}>
                                 <h3>

@@ -3,6 +3,8 @@ import React from "react";
 
 import SanitizedInnerHtml from "@/src/utils/SanitizedInnerHtml";
 
+import Button from "@/src/common/FormElements/Buttons/Button/Button"
+
 import styles from './PageHeader.module.scss';
 
 const PageHeader = (props) => {
@@ -21,12 +23,12 @@ const PageHeader = (props) => {
                     <div className="col">
                         <div className="container">
                             <div className='row justify-content-center'>
-                                <div className={`col col-xs-${colNumberXs} d-flex flex-column justify-content-center`}>
+                                <div className={`col col-sm-${colNumberXs} d-flex flex-column justify-content-center`}>
                                     {historyBack &&
                                     <div className={"d-flex justify-content-end"}>
-                                        <Button2 variant="outline-primary" href={historyBack.uri}>
+                                        <Button variant="outline-primary" href={historyBack.uri}>
                                             {historyBack.label}
-                                        </Button2>
+                                        </Button>
                                     </div>
                                     }
                                     <h1 className={textClass}>{props.title}</h1>
@@ -43,7 +45,7 @@ const PageHeader = (props) => {
                                     }
                                 </div>
                                 {props.image &&
-                                    <div className={`col col-xs-${asideColNumberXs}`}>
+                                    <div className={`col-sm-${asideColNumberXs}`}>
                                         <img
                                             className={"img-fluid"}
                                             src={props.image}
