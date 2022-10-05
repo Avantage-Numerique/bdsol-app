@@ -24,6 +24,9 @@ module.exports = {
         defaultExtractor: content => content.match(/[\w-/:]+(?<!:)/g) || [],
         safelist: ["html", "body"],
         css: [
+          './pages/**/*.scss',
+          './documentation/**/*.scss',
+          './src/**/*.scss',
           './styles/**/*.scss'
         ],
       }
