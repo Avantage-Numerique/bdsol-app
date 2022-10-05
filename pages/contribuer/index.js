@@ -1,6 +1,6 @@
 
 //Components
-import Button2 from 'react-bootstrap/Button';
+import Button from "@/src/common/FormElements/Buttons/Button/Button.js"
 
 //Context
 import {useAuth} from '@/auth/context/auth-context'
@@ -45,13 +45,13 @@ const Index = () => {
 
                     <div className='row pt-3'>
                         <div className="col">
-                            <Button2 href="/contribuer/personne" size="lg" className={"w-100"} disabled={!auth.user.isLoggedIn}>Personne</Button2>
+                            <Button href="/contribuer/personne" size="lg" className={"w-100"} disabled={!auth.user.isLoggedIn}>Personne</Button>
                         </div>
                         <div className="col">
-                            <Button2 href="/contribuer/organisation" size="lg" className={"w-100"} disabled={!auth.user.isLoggedIn}>Organisation</Button2>
+                            <Button href="/contribuer/organisation" size="lg" className={"w-100"} disabled={!auth.user.isLoggedIn}>Organisation</Button>
                         </div>
                         <div className="col">
-                            <Button2 href="/contribuer/taxonomy" size="lg" className={"w-100"} disabled={!auth.user.isLoggedIn}>Taxonomy</Button2>
+                            <Button href="/contribuer/taxonomy" size="lg" className={"w-100"} disabled={!auth.user.isLoggedIn}>Taxonomy</Button>
                         </div>
                     </div>
 
@@ -63,13 +63,13 @@ const Index = () => {
 
                     <div className='row pt-3'>
                         <div className="col">
-                            <Button2 href="/" size='lg' className={"w-100"} disabled>Projet</Button2>
+                            <Button href="/" size='lg' className={"w-100"} disabled>Projet</Button>
                         </div>
                         <div className="col">
-                            <Button2 href="/" size='lg' className={"w-100"} disabled>Événement</Button2>
+                            <Button href="/" size='lg' className={"w-100"} disabled>Événement</Button>
                         </div>
                         <div className="col">
-                            <Button2 href="/" size='lg' className={"w-100"} disabled>Matériel</Button2>
+                            <Button href="/" size='lg' className={"w-100"} disabled>Matériel</Button>
                         </div>
                     </div>
                 </div>
