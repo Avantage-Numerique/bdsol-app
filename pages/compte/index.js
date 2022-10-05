@@ -1,23 +1,23 @@
 import React, {useState} from 'react'
 
 //Components
-import UserHistoryGrid from '../../DataTypes/UserHistory/UserHistoryGrid';
-import Button from '../../app/common/FormElements/Buttons/Button/Button';
+import UserHistoryGrid from '@/src/DataTypes/UserHistory/UserHistoryGrid';
+import Button from '@/src/common/FormElements/Buttons/Button/Button';
 
 //Hooks
-import {useSessionHook} from '../../authentication/hooks/useSessionHook';
+import {useSessionHook} from '@/auth/hooks/useSessionHook';
 
 //Styling
 import styles from './accountPage.module.scss'
-import Profile from '../../app/common/Containers/UserAccount/Profile/profile';
-import Preferences from '../../app/common/Containers/UserAccount/Preferences/preferences';
-import Help from '../../app/common/Containers/UserAccount/Help/help';
-import {withSessionSsr} from "../../authentication/session/handlers/withSession";
-import {ssrCanAccess} from "../../authentication/permissions/ssrCanAccess";
+import Profile from '@/src/common/Containers/UserAccount/Profile/profile';
+import Preferences from '@/src/common/Containers/UserAccount/Preferences/preferences';
+import Help from '@/src/common/Containers/UserAccount/Help/help';
+import {withSessionSsr} from "@/auth/session/handlers/withSession";
+import {ssrCanAccess} from "@/auth/permissions/ssrCanAccess";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import PageHeader from "../../app/layouts/Header/PageHeader";
+import PageHeader from "@/layouts/Header/PageHeader";
 
 const accountPage = ({ user }) => {
 

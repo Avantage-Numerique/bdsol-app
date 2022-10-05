@@ -1,4 +1,4 @@
-import Documentation from '../../documentation/pages/Documentation'
+import Documentation from '@/documentation/pages/Documentation'
 
 //get the config
 

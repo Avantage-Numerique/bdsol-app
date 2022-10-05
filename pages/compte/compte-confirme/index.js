@@ -1,6 +1,6 @@
 import React from 'react'
 
-import AuthenticationMessage from '../../../authentication/components/Commons/AuthenticationMessage/AuthenticationMessage'
+import AuthenticationMessage from '@/auth/components/Commons/AuthenticationMessage/AuthenticationMessage'
 
 
 import styles from './CompteConfirme.module.scss'

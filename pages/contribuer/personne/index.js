@@ -1,13 +1,12 @@
 
 //Component 
-import CreatePersonForm from '../../../DataTypes/Person/Components/Forms/CreatePerson/CreatePersonForm'
+import CreatePersonForm from '@/DataTypes/Person/Components/Forms/CreatePerson/CreatePersonForm'
 
 //Styling
-import {lang} from "../../../app/common/Data/GlobalConstants";
-import {withSessionSsr} from "../../../authentication/session/handlers/withSession";
-import {ssrCanAccess} from "../../../authentication/permissions/ssrCanAccess";
-import SingleViewEntityFormLayout
-    from "../../../DataTypes/common/layouts/SingleViewEntityFormLayout/SingleViewEntityFormLayout";
+import {lang} from "@/src/common/Data/GlobalConstants";
+import {withSessionSsr} from "@/auth/session/handlers/withSession";
+import {ssrCanAccess} from "@/auth/permissions/ssrCanAccess";
+import SingleViewEntityFormLayout from "@/DataTypes/common/layouts/SingleViewEntityFormLayout/SingleViewEntityFormLayout";
 import React from "react";
 
 const CreatePersonPage = () => {

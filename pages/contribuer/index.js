@@ -1,22 +1,19 @@
 
 //Components
-import Button from '../../app/common/FormElements/Buttons/Button/Button'
 import Button2 from 'react-bootstrap/Button';
 
 //Context
-import {useAuth} from '../../authentication/context/auth-context'
+import {useAuth} from '@/auth/context/auth-context'
 
 //styling
 import styles from './contribution-page.module.scss'
-import {withSessionSsr} from "../../authentication/session/handlers/withSession";
-import {ssrCanAccess} from "../../authentication/permissions/ssrCanAccess";
+import {withSessionSsr} from "@/auth/session/handlers/withSession";
+import {ssrCanAccess} from "@/auth/permissions/ssrCanAccess";
 
 import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
-import Nav from 'react-bootstrap/Nav';
-import {lang} from "../../app/common/Data/GlobalConstants";
-import PageHeader from "../../app/layouts/Header/PageHeader";
+import PageHeader from "@/layouts/Header/PageHeader";
 import React from "react";
 
  

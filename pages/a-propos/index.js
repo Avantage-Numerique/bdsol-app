@@ -1,6 +1,6 @@
 //Context
-import {useAuth} from '../../authentication/context/auth-context'
-import PageHeader from "../../app/layouts/Header/PageHeader";
+import {useAuth} from '@/auth/context/auth-context'
+import PageHeader from "@/layouts/Header/PageHeader";
 import React from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";

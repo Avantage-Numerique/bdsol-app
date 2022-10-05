@@ -1,12 +1,12 @@
 import React from 'react'
 
-import { sendApiRequest } from '../../../app/hooks/http-hook'
+import { sendExternalApiRequest } from '@/src/hooks/http-hook';
 
 //Styling
-import styles from './singlePerson.module.scss'
+import styles from './singlePerson.module.scss';
 
 //components
-import MainPersonView from '../../../DataTypes/Person/Components/Views/MainPersonView/MainPersonView'
+import MainPersonView from '@/DataTypes/Person/Components/Views/MainPersonView/MainPersonView'
 
 
 const SinglePersonPage = props => {
@@ -27,14 +27,14 @@ const SinglePersonPage = props => {
     )
 }
     
-export default SinglePersonPage
+export default SinglePersonPage;
 
 
 export async function getServerSideProps(context) {
     const { slug } = context.query;
     
     //Send the request with the specialized hook
-    const response = await sendApiRequest(
+    const response = await sendExternalApiRequest(
         `/personnes/${slug}`,
         'GET'
     )

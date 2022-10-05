@@ -1,4 +1,4 @@
-import { withSessionRoute } from "../../authentication/session/handlers/withSession";
+import { withSessionRoute } from "@/auth/session/handlers/withSession";
 
 export default withSessionRoute(userRoute);
 

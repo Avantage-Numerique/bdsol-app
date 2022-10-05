@@ -4,28 +4,28 @@ import DOMPurify from 'isomorphic-dompurify';
 import Head from 'next/head';
 
 //Components
-import Button from '../app/common/FormElements/Buttons/Button/Button'
-import PresentationCard from '../app/common/Containers/cards/presentationCard'
-import Spinner from '../app/common/widgets/spinner/Spinner'
+import Button from '@/src/common/FormElements/Buttons/Button/Button'
+import PresentationCard from '@/src/common/Containers/cards/presentationCard'
+import Spinner from '@/src/common/widgets/spinner/Spinner'
 
 
-import {sortDescBy} from "../app/common/Data/Sorting/Sort";
+import {sortDescBy} from "@/src/common/Data/Sorting/Sort";
 
 //Costum hooks 
-import {useHttpClient} from '../app/hooks/http-hook';
+import {useHttpClient} from '@/src/hooks/http-hook';
 
 //Context
-import {MessageContext} from '../app/common/UserNotifications/Message/Context/Message-Context';
-import {useAuth} from '../authentication/context/auth-context';
+import {MessageContext} from '@/src/common/UserNotifications/Message/Context/Message-Context';
+import {useAuth} from '@/src/authentification/context/auth-context';
 
 //Styling
 //import styles from './home-page.module.scss'
-import {lang} from "../app/common/Data/GlobalConstants";
+import {lang} from "@/src/common/Data/GlobalConstants";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button2 from "react-bootstrap/Button";
-import PageHeader from "../app/layouts/Header/PageHeader";
+import PageHeader from "@/src/layouts/Header/PageHeader";
 
 
 const HomePage = ({}) => {
