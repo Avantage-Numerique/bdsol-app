@@ -14,10 +14,10 @@
     "docker:dev:watch": "npx concurrently \"npm run dev:watch\" \"npm run docker:dev:run\"",
     "docker:dev:run": "npx nodemon --legacy-watch",
     "docker:start": "next start -p ${PORT:=3000}",
-    "docker:test": "echo \"Error: no test specified\" && exit 1",
-    "postbuild": "purgecss --css .next/static/css/*.css --content .next/index.html .next/static/js/*.js --output .next/static/css"
+    "docker:test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
+    "@fullhuman/postcss-purgecss": "^5.0.0",
     "@reduxjs/toolkit": "^1.8.1",
     "blotter": "^1.0.0",
     "bootstrap": "^5.2.0",
@@ -25,6 +25,8 @@
     "isomorphic-dompurify": "^0.16.0",
     "jest-environment-jsdom": "^28.1.0",
     "next": "^12.2.5",
+    "postcss-flexbugs-fixes": "^5.0.2",
+    "postcss-preset-env": "^7.8.2",
     "quill": "^1.3.7",
     "react": "^18.2.0",
     "react-bootstrap": "^2.5.0",
