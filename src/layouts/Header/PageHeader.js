@@ -1,10 +1,7 @@
 
 import React from "react";
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
+
 import SanitizedInnerHtml from "@/src/utils/SanitizedInnerHtml";
-import Button2 from "react-bootstrap/Button";
 
 import styles from './PageHeader.module.scss';
 
@@ -19,12 +16,12 @@ const PageHeader = (props) => {
 
     return (
         <header className={`${styles['page-header']} ${bgClass}`}>
-            <Container fluid>
-                <Row>
-                    <Col>
-                        <Container>
-                            <Row className={'justify-content-center'}>
-                                <Col xs={colNumberXs} className={"d-flex flex-column justify-content-center"}>
+            <div className="container-fluid">
+                <div className="row">
+                    <div className="col">
+                        <div className="container">
+                            <div className='row justify-content-center'>
+                                <div className={`col col-xs-${colNumberXs} d-flex flex-column justify-content-center`}>
                                     {historyBack &&
                                     <div className={"d-flex justify-content-end"}>
                                         <Button2 variant="outline-primary" href={historyBack.uri}>
@@ -44,21 +41,21 @@ const PageHeader = (props) => {
                                     {props.children &&
                                         props.children
                                     }
-                                </Col>
+                                </div>
                                 {props.image &&
-                                    <Col xs={asideColNumberXs}>
+                                    <div className={`col col-xs-${asideColNumberXs}`}>
                                         <img
                                             className={"img-fluid"}
                                             src={props.image}
                                             alt={(props.imageAlt ?? props.title)}
                                         />
-                                    </Col>
+                                    </div>
                                 }
-                            </Row>
-                        </Container>
-                    </Col>
-                </Row>
-            </Container>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </header>
     )
 }

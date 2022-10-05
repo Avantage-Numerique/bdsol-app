@@ -21,10 +21,6 @@ import {useAuth} from '@/src/authentification/context/auth-context';
 //Styling
 //import styles from './home-page.module.scss'
 import {lang} from "@/src/common/Data/GlobalConstants";
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import Button2 from "react-bootstrap/Button";
 import PageHeader from "@/src/layouts/Header/PageHeader";
 
 
@@ -160,10 +156,10 @@ const HomePage = ({}) => {
                 imgAlt={"Carte du croissant boréal"} />
 
 
-            <Container className={"home-page__main"}>
-                <Row>
-                    <Col xs={9}>
-                        <section className={"home-page__feed-section px-3"}>
+            <div className="container home-page__main">
+                <div className="row">
+                    <div className="col col-xs-9">
+                        <section className="home-page__feed-section px-3">
                             <h2>{lang.actualities}</h2>
                             <hr />
                             {
@@ -188,7 +184,7 @@ const HomePage = ({}) => {
                                                 plan.</h5>
                                         </div>
                                     }
-                                    <Row className={"home-page__feed-section--container"}>
+                                    <div className="row home-page__feed-section--container">
 
                                             {/* Display feed if there is one */}
                                             {
@@ -209,20 +205,20 @@ const HomePage = ({}) => {
                                                     </Col>
                                                 ))
                                             }
-                                    </Row>
+                                    </div>
                                 </>
                             }
                         </section>
-                    </Col>
-                    <Col xs={3} as={"aside"} className={"px-3"}>
-                        <div className={"px-3"}>
+                    </div>
+                    <aside className="col col-xs-3 px-3">
+                        <div className="px-3">
 
                             <h2>{lang.menu}</h2>
                             <hr />
                             {/* If user is not connected, offer the option to connect itself*/}
                             {!auth.user.isLoggedIn &&
                             <section>
-                                <Button2 className={"btn btn-primary btn-block w-100"} href="/compte/connexion">Se connecter</Button2>
+                                <Button className={"btn btn-primary btn-block w-100"} href="/compte/connexion">Se connecter</Button>
                                 <hr />
                             </section>
                             }
@@ -263,7 +259,7 @@ const HomePage = ({}) => {
                                 </div>
                                 {auth.user.isLoggedIn &&
                                     <div className={"d-flex flex-column mt-3"}>
-                                        <Button2 variant={"outline-primary"} href="/contribuer">Ajouter une donnée</Button2>
+                                        <Button variant={"outline-primary"} href="/contribuer">Ajouter une donnée</Button>
                                     </div>
                                 }
 
@@ -281,7 +277,7 @@ const HomePage = ({}) => {
                                 <div className="bg-primary text-white d-flex flex-column">
                                     <h4>Pas encore de compte ?</h4>
                                     <p>Vous en aurez besoin afin de vous aussi contribuer aux données</p>
-                                    <Button2 href="/compte/inscription" variant={"outline-white"}>C'est par ici !</Button2>
+                                    <Button href="/compte/inscription" variant={"outline-white"}>C'est par ici !</Button>
                                 </div>
                                 <hr />
                             </section>
@@ -297,13 +293,13 @@ const HomePage = ({}) => {
                                     d’Avantage numérique. Elle vise à recenser et géolocaliser les talents, les
                                     compétences, les ressources, les initiatives techno-créatives à travers le territoire du Croissant Boréal.
                                 </p>
-                                <Button2 href="/a-propos" className="mt-3" variant={"outline-primary"}>En savoir plus</Button2>
+                                <Button href="/a-propos" className="mt-3" variant={"outline-primary"}>En savoir plus</Button>
                             </section>
 
                         </div>
-                    </Col>
-                </Row>
-            </Container>
+                    </aside>
+                </div>
+            </div>
 
         </div>
     )

@@ -14,9 +14,6 @@ import Preferences from '@/src/common/Containers/UserAccount/Preferences/prefere
 import Help from '@/src/common/Containers/UserAccount/Help/help';
 import {withSessionSsr} from "@/auth/session/handlers/withSession";
 import {ssrCanAccess} from "@/auth/permissions/ssrCanAccess";
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
 import PageHeader from "@/layouts/Header/PageHeader";
 
 const accountPage = ({ user }) => {
@@ -32,17 +29,17 @@ const accountPage = ({ user }) => {
     return (
         <div className={"account-page pb-3"}>
             <PageHeader title={`Bienvenue dans l'espace utilisateur, ${user && (user.username)}`} />
-            <Container>
-                <Row>
-                    <Col xs={9} className={"pb-3"}>
+            <div className="container">
+                <div className="row">
+                    <div className="col col-xs-9 pb-3">
                         <div className={"account-page-content"}>
                             {leftMenu === "history" && <UserHistoryGrid/>}
                             {leftMenu === "preferences" && <Preferences/>}
                             {leftMenu === "profile" && <Profile/>}
                             {leftMenu === "help" && <Help/>}
                         </div>
-                    </Col>
-                    <Col as={"aside"} xs={3}>
+                    </div>
+                    <aside className="col col-xs-3">
                         {user && (
                             <div className={"side-menu"}>
                                 <h3>
@@ -70,9 +67,9 @@ const accountPage = ({ user }) => {
                                 <Button key="logout" onClick={logout}>Se déconnecter</Button>
                             </div>
                         )}
-                    </Col>
-                </Row>
-            </Container>
+                    </aside>
+                </div>
+            </div>
         </div>
     );
 }

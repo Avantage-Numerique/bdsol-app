@@ -1,9 +1,6 @@
 
 import PageHeader from "@/src/layouts/Header/PageHeader";
 import React from "react";
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
 
 
 const SingleViewEntityFormLayout = (props) => {
@@ -17,19 +14,19 @@ const SingleViewEntityFormLayout = (props) => {
                     Par exemple, lier une <strong>personne</strong> à une <strong>occupation</strong> ou une <strong>aptitude</strong> et lier une <strong>organisation</strong> à une <strong>offre de service</strong> et bien d'autre.</p>
             </PageHeader>
 
-            <Container fluid className={"bg-purplelighter pvy-2"}>
-                <Row>
-                    <Col>
-                        <Container>
-                            <Row className={"justify-content-center ma-classe"}>
+            <div className="container-fluid bg-purplelighter pvy-2">
+                <div>
+                    <div>
+                        <div className="container">
+                            <div className="row justify-content-center ma-classe">
                                 <Col xs={8}>
                                     {props.children}
                                 </Col>
-                            </Row>
-                        </Container>
-                    </Col>
-                </Row>
-            </Container>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     )
 }

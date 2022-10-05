@@ -3,10 +3,6 @@
 */
 import styles from './Footer.module.scss'
 
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-//import ListGroup from 'react-bootstrap/ListGroup';
 
 const Footer = () => {
 
@@ -18,9 +14,9 @@ const Footer = () => {
     return (
 
         <footer id={styles.pageFooter} className="bg-dark">
-            <Container>
-                <Row className={`${styles.separatorLine}`}>
-                    <Col>
+            <div className="container">
+                <div className={`row ${styles.separatorLine}`}>
+                    <div className="col">
                         {/*Project partners section*/}
                         <section>
                             {/* Section with partners logos */}
@@ -42,8 +38,8 @@ const Footer = () => {
                                 </li>
                             </ul>
                         </section>
-                    </Col>
-                    <Col className="text-end">
+                    </div>
+                    <div className="col text-end">
                         <section>
                             <h3>Suivez nous</h3>
                             <ul className={`${styles.socialMediaLogos}`}>
@@ -53,10 +49,10 @@ const Footer = () => {
                                 <li className={`${styles.YoutubeLogo} ${styles.socialMediaLogo}`} role="img" aria-label="Logo Youtube"><a href="https://www.youtube.com/channel/UCZ43sUJzg1_4CI1msKiTaLw?view_as=subscriber"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 394.48 394.48"><circle cx="197.24" cy="197.24" r="197.24" fill="#fff"/><path  className={`${styles.colorTransition}`} d="M330.65,129.78A35,35,0,0,0,306,105c-21.71-5.86-108.79-5.86-108.79-5.86s-87.07,0-108.79,5.86a35,35,0,0,0-24.62,24.77C58,151.64,58,197.24,58,197.24s0,45.6,5.81,67.46a35,35,0,0,0,24.62,24.78c21.72,5.85,108.79,5.85,108.79,5.85s87.08,0,108.79-5.85a35,35,0,0,0,24.62-24.78c5.82-21.86,5.82-67.46,5.82-67.46S336.47,151.64,330.65,129.78ZM168.76,238.64v-82.8l72.78,41.4Z" fill="#212121"/></svg></a></li>
                             </ul>
                         </section>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col>
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col">
                         {/* 
                         *
                             Logo section
@@ -74,9 +70,9 @@ const Footer = () => {
                             {/* BUtton to scroll to the top */}
                             <button className={`${styles.goPageTop}`} onClick={topFunction}>Haut <img alt="Arrow image" src="/arrow_top.svg"/></button>
                         </section>
-                    </Col>
-                </Row>
-            </Container>
+                    </div>
+                </div>
+            </div>
         </footer>
     )   
 }
