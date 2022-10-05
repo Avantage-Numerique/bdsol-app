@@ -158,7 +158,7 @@ const HomePage = ({}) => {
 
             <div className="container home-page__main">
                 <div className="row">
-                    <div className="col col-xs-9">
+                    <div className="col col-sm-9">
                         <section className="home-page__feed-section px-3">
                             <h2>{lang.actualities}</h2>
                             <hr />
@@ -210,7 +210,7 @@ const HomePage = ({}) => {
                             }
                         </section>
                     </div>
-                    <aside className="col col-xs-3 px-3">
+                    <aside className="col col-sm-3 px-3">
                         <div className="px-3">
 
                             <h2>{lang.menu}</h2>
