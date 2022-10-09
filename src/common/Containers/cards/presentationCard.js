@@ -32,28 +32,35 @@ const PresentationCard = ({header, name, firstname, description, username, creat
 
         <article className={`
             bg-white 
-            shadow-sm
             ${styles["card"]}
         `}>  
                 
-            <Container fluid>
+            <Container className="justify-content-between">
 
-                <Button>Consulter</Button>
-                
-                <Row >
-                    {/* Background img */}
-                    <figure className={`
-                        ${styles["card__img-container"]}
-                    `}>
+                <header>
 
-                        {/*
-                        *
-                        *      Temporary styling
-                        *      
-                        */}
+                    <Row className={`py-2 ${styles["card__header-container"]}`}>
+                      
+                        {/* Type of data displayed in the header */}
+                        <Col className="align-self-center">
+                            <h5 className="m-0">{ header }</h5>
+                        </Col>
+
+                        {/* Redirection link */}
+                        <Col className="d-flex justify-content-end">
+                            <Button small>Voir</Button>
+                        </Col>
+                        
+                    </Row>
+
+                </header>
+
+                <Row className={`${styles["card__img-container"]}`}>
+                        
+                        {/* Temporary shape */}
                         { header === "Organisation" &&
                             <img 
-                                className={`${styles["card__img-container__img"]}`}
+                                className={`px-0 ${styles["card__img-container__img"]}`}
                                 src="/general_images/putin.webp"
                                 alt="Photo de putin qui chevauche un ours" 
                             />
@@ -61,13 +68,11 @@ const PresentationCard = ({header, name, firstname, description, username, creat
 
                         { header !== "Organisation" &&
                             <img 
-                                className={`${styles["card__img-container__img"]}`}
+                                className={`px-0 ${styles["card__img-container__img"]}`}
                                 src="/general_images/Dennis_Nedry.webp"
                                 alt="Photo de putin qui chevauche un ours" 
                             />
                         }
-
-                    </figure>
 
                 </Row>
           
@@ -77,24 +82,14 @@ const PresentationCard = ({header, name, firstname, description, username, creat
             {/************************************ 
                  
                 Main content of the component
-                @todo change markup for more robot friendly ones, p, h, etc.
             
             **************************************/}
-            <Container>  
-
-                <Row>
-                    {/* The header has been tough to receive the data type : Ex. Personne*/}
-                    <header>
-                        <div>
-                            <h5>{ header }</h5>
-                        </div>
-                    </header>
-                </Row>
+            <Container className="pt-3"> 
     
                 <Row>
                     <section className={`${styles["card__content"]}`}>
 
-                        <h4>{firstname} {name}</h4>
+                        <h3>{firstname && firstname} {name && name}</h3>
 
                         {showFullDescription &&
                             <div>
@@ -103,56 +98,67 @@ const PresentationCard = ({header, name, firstname, description, username, creat
                                 </SanitizedInnerHtml>
                             </div>
                         }
-
-                        <div className={`${styles["card__inner-line"]}`}></div>
                         
                         {/**********  URL ************/}
                         { url && 
-                        <div className={`${styles["card__infos"]}`}>
-                            <div className={`${styles["card__infos--titles"]}`}>
-                                <div>Url :</div>
-                            </div>
-                            <div>   
-                                <div> {url}</div>
-                            </div>
-                        </div>
+                        <Row xs={"auto"} className={`${styles["card__content__single-info"]}`}>
+                            <Col className={`fw-semibold`}>
+                                <p>Url :</p>
+                            </Col>
+                            <Col>   
+                                <p> {url}</p>
+                            </Col>
+                        </Row>
                         }
 
                         {/**********  contactPoint ************/}
                         { contactPoint &&
-                        <div className={`${styles["card__infos"]}`}>
-                            <div className={`${styles["card__infos--titles"]}`}>
-                                <div>Contact :</div>
-                            </div>
-                            <div>   
-                                <div>{contactPoint}</div>
-                            </div>
-                        </div>
+                        <Row xs={"auto"} className={`${styles["card__content__single-info"]}`}>
+                            <Col className={`fw-semibold`}>
+                                <p>Contact :</p>
+                            </Col>
+                            <Col>   
+                                <p>{contactPoint}</p>
+                            </Col>
+                        </Row>
                         }
 
                         {/**********  username  ************/}
                         { username &&
-                        <div className={`${styles["card__infos"]}`}>
-                            <div className={`${styles["card__infos--titles"]}`}>
-                                <div>Surnom :</div>
-                            </div>
-                            <div>   
-                                <div>{username}</div>
-                            </div>
-                        </div>
+                        <Row xs={"auto"} className={`${styles["card__content__single-info"]}`}>
+                            <Col className={`fw-semibold`}>
+                                <p>Surnom :</p>
+                            </Col>
+                            <Col>   
+                                <p>{username}</p>
+                            </Col>
+                        </Row>
                         }
                     </section>
                 </Row>
 
-                <Row>
-                    <div className={`${styles["card__infos__sub-section"]}`}>
-                        {/*<div><strong>Créé par</strong> {auth.username} </div>*/}
-                        <p>{(new Date(createdAt)).toLocaleDateString(publicRuntimeConfig.dates.defaultLanguage)}</p>
-                        <p>{(new Date(createdAt)).toLocaleTimeString(publicRuntimeConfig.dates.defaultLanguage)}</p>
-                    </div>
-                </Row>
+            </Container>   
 
-                </Container>        
+            {/************************************ 
+                 
+                Article footer
+            
+            **************************************/}
+
+            <Container className="pt-3"> 
+                <Row>
+                    <Col>
+                        <p>
+                            {(new Date(createdAt)).toLocaleDateString(publicRuntimeConfig.dates.defaultLanguage)}
+                        </p>
+                    </Col>
+                    <Col>
+                        <p>
+                            {(new Date(createdAt)).toLocaleTimeString(publicRuntimeConfig.dates.defaultLanguage)}
+                        </p>
+                    </Col>
+                </Row>
+            </Container>     
         </article>
     )
 }
