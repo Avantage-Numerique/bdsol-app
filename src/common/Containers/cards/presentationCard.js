@@ -102,11 +102,11 @@ const PresentationCard = ({header, name, firstname, description, username, creat
                         {/**********  URL ************/}
                         { url && 
                         <Row xs={"auto"} className={`${styles["card__content__single-info"]}`}>
-                            <Col className={`fw-semibold`}>
+                            <Col xm={3} className={`fw-semibold`}>
                                 <p>Url :</p>
                             </Col>
                             <Col>   
-                                <p> {url}</p>
+                                <p className="text-truncate"> {url}</p>
                             </Col>
                         </Row>
                         }
@@ -114,11 +114,11 @@ const PresentationCard = ({header, name, firstname, description, username, creat
                         {/**********  contactPoint ************/}
                         { contactPoint &&
                         <Row xs={"auto"} className={`${styles["card__content__single-info"]}`}>
-                            <Col className={`fw-semibold`}>
+                            <Col xm={3} className={`fw-semibold`}>
                                 <p>Contact :</p>
                             </Col>
                             <Col>   
-                                <p>{contactPoint}</p>
+                                <p className="text-truncate">{contactPoint}</p>
                             </Col>
                         </Row>
                         }
@@ -126,11 +126,11 @@ const PresentationCard = ({header, name, firstname, description, username, creat
                         {/**********  username  ************/}
                         { username &&
                         <Row xs={"auto"} className={`${styles["card__content__single-info"]}`}>
-                            <Col className={`fw-semibold`}>
+                            <Col xm={3} className={`fw-semibold`}>
                                 <p>Surnom :</p>
                             </Col>
                             <Col>   
-                                <p>{username}</p>
+                                <p className="text-truncate">{username}</p>
                             </Col>
                         </Row>
                         }
@@ -144,21 +144,22 @@ const PresentationCard = ({header, name, firstname, description, username, creat
                 Article footer
             
             **************************************/}
-
-            <Container className="pt-3"> 
-                <Row>
-                    <Col>
-                        <p>
-                            {(new Date(createdAt)).toLocaleDateString(publicRuntimeConfig.dates.defaultLanguage)}
-                        </p>
-                    </Col>
-                    <Col>
-                        <p>
-                            {(new Date(createdAt)).toLocaleTimeString(publicRuntimeConfig.dates.defaultLanguage)}
-                        </p>
-                    </Col>
-                </Row>
-            </Container>     
+            <footer className={` py-2 `}>
+                <Container> 
+                    <Row className="justify-content-between">
+                        <Col sm="auto">
+                            <time>
+                                {(new Date(createdAt)).toLocaleDateString(publicRuntimeConfig.dates.defaultLanguage)}
+                            </time>
+                        </Col>
+                        <Col sm="auto">
+                            <time>
+                                {(new Date(createdAt)).toLocaleTimeString(publicRuntimeConfig.dates.defaultLanguage)}
+                            </time>
+                        </Col>
+                    </Row>
+                </Container>    
+            </footer> 
         </article>
     )
 }
