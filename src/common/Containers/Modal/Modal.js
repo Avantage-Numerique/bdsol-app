@@ -25,7 +25,6 @@ const Modal = props => {
     const { 
         children, 
         className, 
-        darkColorButton = false,        //Change the color of the closing button to make sure it is visible
         noDefaultWidth,                 //by default there is a defined and normalized smaller width. This cancel it
         coloredBackground,              //Add a css class to display a transparentBackground blue background
         closingFunction,                //a function that will modify the state of the parent element to remove this modal

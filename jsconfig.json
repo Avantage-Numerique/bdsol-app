@@ -9,6 +9,7 @@
             "@/layouts/*": ["src/layouts/*"],
             "@/DataTypes/*": ["src/DataTypes/*"],
             "@/public/*": ["./public"],
+            "@/common/*": ["./src/common/*"],
             "@/*": ["./*"]
         }
     }

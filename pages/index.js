@@ -194,7 +194,7 @@ const HomePage = ({}) => {
                                             {
                                                 feedList.length > 0 && !isLoading &&
                                                 feedList.map(elem => (
-                                                    <Col key={elem._id + "-" + elem.slug}>
+                                                    <Col md={6} lg={4} className="p-2" key={elem._id + "-" + elem.slug}>
                                                         <PresentationCard
                                                             key={elem._id}
                                                             header={elem.nickname ? "Personne" : "Organisation"}
@@ -209,6 +209,8 @@ const HomePage = ({}) => {
                                                     </Col>
                                                 ))
                                             }
+
+
                                     </Row>
                                 </>
                             }
