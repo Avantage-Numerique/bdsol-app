@@ -21,9 +21,11 @@ async function loginRoute(req, res) {
     const sessionUser = getSessionFromData(response.data.user);
     const visitor = getVisitorDataFromRequest(req);
 
-    sessionUser.ip = visitor ? visitor.ip : "";
+    req.session.user = {
+        ...sessionUser,
+        ...visitor
+    };
 
-    req.session.user = sessionUser;
     await req.session.save();
 
     res.send({

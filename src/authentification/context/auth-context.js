@@ -38,6 +38,19 @@ export const getSessionFromData = (userData) => {
     return defaultSessionData;
 }
 
+
+
+
+export const getUserHeadersFromSession = (user) => {
+    const userHeaders = {};
+    userHeaders["x-forwarded-for"] = user.ip ?? "";
+    userHeaders["user-agent"] = user.browser ?? "";
+    userHeaders["Authorization"] = user.token ? 'Bearer ' + user.token : '';
+    return userHeaders;
+
+}
+
+
 const AuthContext = createContext({});
 
 //inspired by https://stackoverflow.com/questions/71498723/next-js-how-to-use-usestate-and-authcontext-without-invalidating-ssg-html

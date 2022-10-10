@@ -2,6 +2,7 @@
 import {useState, useCallback, useRef, useEffect} from 'react';
 import {useAuth} from '@/auth/context/auth-context'
 import {lang} from "@/src/common/Data/GlobalConstants";
+import {getUserHeadersFromSession} from "@/auth/context/auth-context";
 
 
 /**
@@ -17,6 +18,8 @@ import {lang} from "@/src/common/Data/GlobalConstants";
  */
 export const sendExternalApiRequest = async (path, method = 'GET', body = null, headers = {}, additionnalFetchParams={}, isDataJson=true, origin="browser") => {
 
+    // URL change from the context of the call. When it's in effects, and click, the origin is the browser, when it's ssr and serveur, it's fromServer
+
     const baseApiRoute = origin === "browser" ? process.env.NEXT_PUBLIC_API_URL : process.env.FROMSERVER_API_URL,
         defaultHeaders = {
             'Origin': origin === "browser" ? process.env.NEXT_PUBLIC_APP_URL : process.env.FROMSERVER_APP_URL
@@ -27,13 +30,6 @@ export const sendExternalApiRequest = async (path, method = 'GET', body = null, 
             ...jsonHeaders,
             ...headers
         };
-
-    //temp staging debug.
-    if (origin !== "browser") {
-        console.log(origin, baseApiRoute, defaultHeaders);
-        console.log(origin, "API", process.env.NEXT_PUBLIC_API_URL, process.env.FROMSERVER_API_URL);
-        console.log(origin, "APP", process.env.NEXT_PUBLIC_APP_URL, process.env.FROMSERVER_APP_URL);
-    }
 
     try {
 
@@ -74,9 +70,9 @@ export const useHttpClient = () => {
             setIsLoading(true);
             //auth.user.ip
             const httpAbortCtrl = new AbortController(),
-                authorization = auth.user.token ? {Authorization: 'Bearer ' + auth.user.token} : {},
+                usersHeaders = getUserHeadersFromSession(auth.user),//authentificat, fowarded-from, user-agent.
                 headersParams = {
-                    ...authorization,
+                    ...usersHeaders,
                     ...headers
                 };
 

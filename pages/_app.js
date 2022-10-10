@@ -49,18 +49,16 @@ MyApp.getInitialProps = async (context) => {
         //Save the IP
         const visitor = getVisitorDataFromContext(context);
 
-        //verify if the token is
+        //verify and set if the token is verified by the API
         const serverVerificationResponse = await verifyToken(session.user.token);
-        console.log(serverVerificationResponse);
-
         session.user.tokenVerified = session.user.isLoggedIn = !serverVerificationResponse.error && serverVerificationResponse.data.tokenVerified;
-
-        await session.save();
 
         session.user = {
             ...session.user,
             ...visitor
         }
+
+        await session.save();
 
         return {
             pageProps: {

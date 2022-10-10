@@ -13,25 +13,42 @@ export const setVisitorData = (data) => {
 }
 
 export const getVisitorDataFromContext = (context) => {
-    const {req} = context;
-    return getVisitorDataFromRequest(req);
+    const {ctx} = context;
+    return getVisitorDataFromRequest(ctx.req);
 }
 
 export const getVisitorDataFromRequest = (request) => {
     const visitor = visitorContextDefaults;
+
+    visitor.ip = getVisitorIpFromRequest(request);
+    visitor.browser = getVisitorBrowserFromRequest(request);
+
+    return visitor;
+}
+
+export const getVisitorIpFromRequest = (request) => {
     if (request) {
 
         if (request.headers["x-forwarded-for"]) {
-            visitor.ip = request.headers["x-forwarded-for"].split(',')[0];
+            return request.headers["x-forwarded-for"].split(',')[0];
         }
 
         if (request.headers["x-real-ip"] && req.socket) {
-            visitor.ip = request.socket.remoteAddress;
+            return request.socket.remoteAddress;
         }
 
         if (request.socket && request.socket.remoteAddress) {
-            visitor.ip = request.socket.remoteAddress;
+            return request.socket.remoteAddress;
         }
     }
-    return visitor;
+    return undefined;
+}
+
+export const getVisitorBrowserFromRequest = (request) => {
+    if (request) {
+        if (request.headers["user-agent"]) {
+            return request.headers["user-agent"];
+        }
+    }
+    return undefined;
 }
