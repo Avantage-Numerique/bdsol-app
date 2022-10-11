@@ -19,6 +19,7 @@ import Button from '@/src/common/FormElements/Buttons/Button/Button'
 //Styling
 import styles from './Modal.module.scss'
 
+
 const Modal = props => {
 
     //Extract all the props 
@@ -62,7 +63,7 @@ const Modal = props => {
                         ${styles["modal__close-button--container"]} 
                     `}>
      
-                        <Button>Fermer</Button>
+                        <Button onClick={() => closingFunction()}>Fermer</Button>
 
                     </div>
                 }

@@ -1,8 +1,10 @@
-import React from 'react' 
+import { useState } from 'react' 
 
 //Components
 import SanitizedInnerHtml from '@/src/utils/SanitizedInnerHtml'
 import Button from '@/src/common/FormElements/Buttons/Button/Button'
+import Modal from '@/src/common/Containers/Modal/Modal'
+import UpdatePersonForm from '@/DataTypes/Person/Components/Forms/update/UpdatePersonForm'
 
 //Styling
 import styles from './MainPersonView.module.scss'
@@ -33,10 +35,32 @@ const MainPersonView = ({ data }) => {
         description,
         createdAt,
         updatedAt
-    } = data    
+    } = data   
+    
+    /*
+     *    
+        Modal State
+     *
+     */
+    const [modal, setModal] = useState({
+        display: false,
+        //Values to be passe from the first form to the form displayed in the modal. In this case, all the fields of a person form.
+        enteredValues: {
+
+        },  
+        callback: () => {}
+    })
+
+    const displayModal = selectStatus => {
+        
+        if(selectStatus === "editing")
+            setModal(prev => ({...prev, display: true}))
+
+    }
+
 
     return (
-
+    <>
         <article className={`${styles["person-view"]}`}>
             
             {/*
@@ -63,10 +87,10 @@ const MainPersonView = ({ data }) => {
                                 <form>
                                     <label className="text-white">
                                         Mode d'affichage : 
-                                        <select >
+                                        <select onChange={e => displayModal(e.target.value)}>
                                             <option value="viewing">Lecture</option>
                                             <option disabled value="commenting">Commentaires</option>
-                                            <option disabled value="editing">Édition</option>
+                                            <option value="editing">Édition</option>
                                         </select>
                                     </label>
                                 </form>
@@ -207,6 +231,18 @@ const MainPersonView = ({ data }) => {
 
         </article>
 
+        {/********** Modal display ************/}
+        { modal && modal.display &&
+            <Modal 
+                className={`${styles["person-form-modal"]}`}
+                coloredBackground
+                darkColorButton
+                closingFunction={() => {setModal(prev => ({...prev, display: false}))}}
+            >
+                <UpdatePersonForm initValues={data}/>
+            </Modal>
+            }
+    </>
     )
 }
 
