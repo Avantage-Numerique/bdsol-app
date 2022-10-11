@@ -11,10 +11,8 @@ import MainPersonView from '@/DataTypes/Person/Components/Views/MainPersonView/M
 
 const SinglePersonPage = props => {
 
-                console.log(props)
-
-  
     return (
+        
         <div className={`${styles["single-person"]}`}>
 
             <div className="maxWidthPageContainer">
@@ -38,8 +36,7 @@ export async function getServerSideProps(context) {
         `/personnes/${slug}`,
         'GET'
     )
-  
-    console.log(response.data);
+
     return { props: response.data };
 }
 

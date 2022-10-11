@@ -24,7 +24,21 @@ const { publicRuntimeConfig } = getConfig();
     from every data entity folder.
 */
 
-const PresentationCard = ({header, name, firstname, description, username, createdAt, url, contactPoint}) => {
+const PresentationCard = ({header, data}) => {
+
+    console.log(data)
+
+    const {
+        slug,
+        firstName,
+        lastName,
+        name,
+        username,
+        description,
+        createdAt,
+        url,
+        contactPoint
+    } = data
 
     const showFullDescription = false;
 
@@ -48,8 +62,9 @@ const PresentationCard = ({header, name, firstname, description, username, creat
 
                         {/* Redirection link */}
                         <Col className="d-flex justify-content-end">
-                            <Button small>Voir</Button>
+                            <Button disabled={(header === "Organisation")} href={`personnes/${slug}`} small >Voir</Button>
                         </Col>
+                        
                         
                     </Row>
 
@@ -89,7 +104,10 @@ const PresentationCard = ({header, name, firstname, description, username, creat
                 <Row>
                     <section className={`${styles["card__content"]}`}>
 
-                        <h3>{firstname && firstname} {name && name}</h3>
+        {name && <h3>name</h3>}
+        { (firstName || lastName) && 
+            <h3>{firstName && firstName} {lastName && lastName}</h3>
+        }
 
                         {showFullDescription &&
                             <div>

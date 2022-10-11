@@ -6,10 +6,24 @@ import Button from '@/src/common/FormElements/Buttons/Button/Button'
 
 //Styling
 import styles from './MainPersonView.module.scss'
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
+const SingleInfoLayout = ({ title, NAMessage, children }) => {
+
+    return (
+        <section className={`my-2 ${styles["singleInfoLayout"]}`}>
+            <h4>{title}</h4>
+            <div className={`px-3 ${styles["singleInfoLayout__main"]}`}>
+                {children && children}
+                {!children && NAMessage && (<>{NAMessage}</>)}
+            </div>
+        </section>
+    )
+}
 
 const MainPersonView = ({ data }) => {
-
 
     const { 
         _id,
@@ -19,99 +33,99 @@ const MainPersonView = ({ data }) => {
         description,
         createdAt,
         updatedAt
-    } = data
-
-    const unavailableInfoMessage = <p>Aucune donnée n'a encore été fournie pour ce champ. <br/>Vous pourrez bientôt passer en mode édition afin d'ajouter et modifier des information.</p>
-    
+    } = data    
 
     return (
 
-        <article className={`${styles["main-person-view"]}`}>
+        <article className={`${styles["person-view"]}`}>
             
             {/*
             *
             *  HEADER 
             * 
             */}
-            <header>
+            <header className={`${styles["person-view__header"]}`}>
 
                 {/* Background image */}
-                <figure>
-                    <img src="/general_images\forestBG.jpg" alt="Background image for a person card"/>
+                <figure className={`${styles["person-view__bg-img"]}`}>
+                    <img className={`${styles["person-view__bg-img__img"]}`} src="/general_images\forestBG.jpg" alt="Background image for a person card"/>
                     <div className={`${styles["black-gradient"]}`}></div>
                 </figure>
 
-
-                {/* Text content */}
-                <div className={`${styles["headers-content"]}`}>
-
-                    <div className={`${styles["headers-content__top-options"]}`}> 
-                        <button> &#8629; Retour </button>
-                        <div>
-    
-                            <form>
-                                <label>
-                                    Mode d'affichage
-                                    <select >
-                                        <option value="viewing">Lecture</option>
-                                        <option disabled value="commenting">Commentaires</option>
-                                        <option disabled value="editing">Édition</option>
-                                    </select>
-                                </label>
-                            </form>
-                        </div>
-                    </div>
-
-                    {/* Main content of the header */}
-                    <div className={`
-                        ${styles["headers-content__main-section"]}
-                        ${styles["two-divisions-container"]}
-                    `}>
-
-                        <div>
-                            <h2>{firstName} {lastName}</h2>
-                            <p> {nickname} </p>
-
-                            {/*
-                            *
-                            *      Quick informations
-                            * 
-                            */}
-
-                            <div className={`${styles["quick-section"]}`}>
-
-                                <div className={`${styles["quick-section__single-info"]}`}>
-                                    <span>Langue : </span>Inconnu
-                                </div>
-
-                                <div className={`${styles["quick-section__single-info"]}`}>
-                                    <span>Citoyenneté : </span>Inconnu
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                        <aside>
+                {/* To menu of the page */}
+                <Container className={`${styles["person-view__top-menu"]}`}> 
+                    <Row className="justify-content-between mb-4">
+                        <Col sm={6} lg={8}>
+                            <button className="text-white"> &#8629; Retour </button>
+                        </Col>
+                        <Col sm={"auto"} lg={4}>
                             <div>
-                                <p>Ceci est une proposition d'appel à l'action. Il reste donc à déterminer s'il est pertinent et quoi mettre à l'intérieur.</p>
-                                <Button small>Appel à l'action</Button>
+                                <form>
+                                    <label className="text-white">
+                                        Mode d'affichage : 
+                                        <select >
+                                            <option value="viewing">Lecture</option>
+                                            <option disabled value="commenting">Commentaires</option>
+                                            <option disabled value="editing">Édition</option>
+                                        </select>
+                                    </label>
+                                </form>
                             </div>
-                        </aside>
+                        </Col>
+                    </Row>
+                </Container>
 
-                    </div>
+                {/* Header's content */}
+                <section className={`${styles["person-view__header__content"]}`}>
+                    <Container className={`${styles["headers-content__main-section"]}`}>      
+                        <Row>
+                            <Col m={6} lg={8}>
 
-                    {/* Profile picture section */}
-                    <div className={`${styles["headers-content__bottom-row"]}`}>
-                        <figure className={`${styles["headers-content__profil-picture"]}`}>
-                            <img src="/general_images/Dennis_Nedry.webp" alt="Background image for a person card" />
-                        </figure>
-                    </div>
+                                <h2 className="mb-2">{firstName} {lastName}</h2>
+                                <p> {nickname} </p>
 
-                </div>
+                                {/*
+                                *
+                                *      Quick informations
+                                * 
+                                */}
+                                <div className={`${styles["quick-section"]}`}>
 
+                                    <div className={`${styles["quick-section__single-info"]}`}>
+                                        <span>Langue : </span>Inconnu
+                                    </div>
+
+                                    <div className={`${styles["quick-section__single-info"]}`}>
+                                        <span>Citoyenneté : </span>Inconnu
+                                    </div>
+
+                                </div>
+                            </Col>
+                            <Col sm={"auto"} lg={4}>
+                                <aside>
+                                    <div>
+                                        <p>Ceci est une proposition d'appel à l'action. Il reste donc à déterminer s'il est pertinent et quoi mettre à l'intérieur.</p>
+                                        <Button small>Appel à l'action</Button>
+                                    </div>
+                                </aside>
+                            </Col>
+
+                        
+
+                        </Row>
+                    </Container>
+
+                        {/* Profile picture section */}
+                        <div className={`${styles["headers-content__bottom-row"]}`}>
+                            <figure className={`${styles["headers-content__profil-picture"]}`}>
+                                <img src="/general_images/Dennis_Nedry.webp" alt="Background image for a person card" />
+                            </figure>
+                        </div>
+
+                        
+                </section>
+            
             </header>
-
 
 
             {/*
@@ -119,89 +133,73 @@ const MainPersonView = ({ data }) => {
             *  MAIN SECTION
             * 
             */}
-            <section className={`${styles["main-section"]}`}>
+            <section className={`${styles["person-view__main-section"]}`}>
+                <container>
+                    <Row>
+                        <Col sm={6} lg={8}>
+    
+                            <SingleInfoLayout 
+                                title={"Présentation"}
+                                NAMessage={<p>Aucune donnée n'a encore été fournie pour ce champ. <br />Vous pourrez bientôt passer en mode édition afin d'ajouter et modifier des information.</p>}
+                            >
+                                {description}
+                            </SingleInfoLayout>
 
-                <div className={`col-12 ${styles["two-divisions-container"]}`}>
+                            <SingleInfoLayout 
+                                title={"Projets"}
+                                NAMessage={<p>Aucune donnée n'a encore été fournie pour ce champ. <br />Vous pourrez bientôt passer en mode édition afin d'ajouter et modifier des information.</p>}
+                            >
 
-               
+                            </SingleInfoLayout>
 
-                <div>
-                    <div className={`${styles["main-section__single-info"]}`}>
-                        <h4>
-                            Présentation
-                        </h4>
-                        {/* If there is a description */}
-                        {
-                            !description && 
-                            <SanitizedInnerHtml>
-                                { description }
-                            </SanitizedInnerHtml>
-                        }
+                            <SingleInfoLayout 
+                                title={"Intérêts"}
+                                NAMessage={<p>Aucune donnée n'a encore été fournie pour ce champ. <br />Vous pourrez bientôt passer en mode édition afin d'ajouter et modifier des information.</p>}
+                            >
+                            </SingleInfoLayout>
 
-                        {   
-                            description &&
-                            unavailableInfoMessage
-                        }
-                        
-                    </div>
-
-                    <div className={`${styles["main-section__single-info"]}`}>
-                        <h4>
-                            Projets
-                        </h4>
-                        <div className={`${styles["main-section__project"]}`}>
-                            <p>+ Ajouter un projet auquel Jonathan collabore</p>
-                        </div>
+                        </Col>
+                        <Col sm={"auto"} lg={4}>
                     
-                    </div>
+                            <aside>
 
-                    <div className={`${styles["main-section__single-info"]}`}>
-                        <h4>
-                            Intérêts
-                        </h4>
-                        ajouter les organismes et autres trucs ...
-                    </div>
-                </div>
+                                <SingleInfoLayout 
+                                    title={"Moyen de contact"}
+                                    NAMessage={<p>Information non disponible</p>}
+                                >
+                                    <p>Tel : (819) 764-5692 <br/>
+                                        Email : mail@mail.com
+                                    </p>
+                                </SingleInfoLayout>
 
-                <aside>
+                                <SingleInfoLayout 
+                                    title={"Adresse"}
+                                    NAMessage={<p>Information non disponible</p>}
+                                >
+                                    <p>234 rue Larivière<br/>
+                                        Rouyn-Noranda, Qc
+                                        </p>
+                                </SingleInfoLayout>
 
-                <div className={`${styles["main-section__single-info"]}`}>
-                    <h4>Moyen de contact</h4>
-                    <p>Tel : (819) 764-5692 <br/>
-                    Email : mail@mail.com
-                    </p>
-                </div>
+                                <SingleInfoLayout 
+                                    title={"Comptétences"}
+                                    NAMessage={<p>Information non disponible</p>}
+                                >
+                                    <Container>
+                                        <ul className="row">
+                                            <li className={`col col-sm-auto ${styles["competency-tag"]}`}>Développement Web</li>
+                                            <li className={`col col-sm-auto ${styles["competency-tag"]}`}>SEO</li>
+                                            <li className={`col col-sm-auto ${styles["competency-tag"]}`}>Javascript</li>
+                                            <li className={`col col-sm-auto ${styles["competency-tag"]}`}>Design graphique</li>
+                                        </ul>
+                                    </Container>
+                                    
+                                </SingleInfoLayout>
 
-                <div className={`${styles["main-section__single-info"]}`}>
-                    <h4>Adresse</h4>
-                    <p>234 rue Larivière<br/>
-                    Rouyn-Noranda, Qc
-                    </p>
-                </div>
-
-                <div className={`${styles["main-section__single-info"]}`}>
-                    <h4>Compétences</h4>
-                    <div className={`${styles["main-section__single-competency"]}`}>
-                        Développement Web
-                    </div>
-                    <div className={`${styles["main-section__single-competency"]}`}>
-                        SEO
-                    </div>
-                    <div className={`${styles["main-section__single-competency"]}`}>
-                        Javascript
-                    </div>
-                    <div className={`${styles["main-section__single-competency"]}`}>
-                        Design graphique
-                    </div>
-                
-                </div>
-              
-
-
-                </aside>
-
-                </div>
-
+                            </aside>
+                        </Col>
+                    </Row>
+                </container>
 
 
             </section>
