@@ -15,8 +15,8 @@ const SingleViewEntityFormLayout = (props) => {
             </PageHeader>
 
             <div className="container-fluid bg-purplelighter pvy-2">
-                <div>
-                    <div>
+                <div className="row">
+                    <div className="col">
                         <div className="container">
                             <div className="row justify-content-center ma-classe">
                                 <div className="col col-sm-8">

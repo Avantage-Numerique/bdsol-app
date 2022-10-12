@@ -30,6 +30,8 @@ const Ripple = ({ clear })  => {
 
 const Button = ({ rippleEffect, ...props }) => {
 
+    let bootstrapClasses = "btn ";
+
     const [rippleList, setRippleList] = useState([])
 
     const addRipple = () => {
@@ -50,6 +52,38 @@ const Button = ({ rippleEffect, ...props }) => {
     
     */}
 
+    {
+        /*
+            Convert design to bootstrap classes
+        */
+        let bootstrapColor = "btn-primary";
+
+        if(props.color){
+            switch (props.color) {
+                case "primary":
+                    bootstrapColor = "btn-primary";
+                    break;
+                
+                default:
+                    bootstrapColor = "btn-primary";
+                    break;
+            }
+        }
+        bootstrapClasses += bootstrapColor;
+
+        if(props.design){
+            switch (props.design) {
+                case "slim":
+                    bootstrapClasses += " btn-sm";
+                    break;
+                
+                default:
+                    bootstrapClasses += "";
+                    break;
+            }
+        }
+    }
+
 
     {/* If the button is an external link */}
     if (props.href) {
@@ -58,13 +92,14 @@ const Button = ({ rippleEffect, ...props }) => {
             <Link href={props.href} >
                 <button 
                     className={`
-                        ${styles.button} 
+                        ${styles.button}
                         ${props.color ? styles[props.color] : ""}
                         ${props.reverse ? styles['button--reverse'] : ""}
                         ${props.small ? styles['button--small'] : ""}
                         ${props.big ? styles['button--big'] : ""}
                         ${props.slim ? styles['button--slim'] : ""}
                         ${props.fat ? styles['button--fat'] : ""}
+                        ${bootstrapClasses}
                 `}  
                     disabled={props.disabled}
                 >
@@ -88,6 +123,7 @@ const Button = ({ rippleEffect, ...props }) => {
                 ${props.big ? styles['button--big'] : ""}
                 ${props.slim ? styles['button--slim'] : ""}
                 ${props.fat ? styles['button--fat'] : ""}
+                ${bootstrapClasses}
             `}
             type={props.type}
             onClick={props.onClick}
