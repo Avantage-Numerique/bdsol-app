@@ -51,6 +51,7 @@ const MainPersonView = ({ data }) => {
         callback: () => {}
     })
 
+    //Called by the select. Not in use right now
     const displayModal = selectStatus => {
         
         if(selectStatus === "editing")
@@ -83,6 +84,10 @@ const MainPersonView = ({ data }) => {
                             <button className="text-white"> &#8629; Retour </button>
                         </Col>
                         <Col sm={"auto"} lg={4}>
+                            <Button onClick={() => setModal(prev => ({...prev, display: true}))}>
+                                Proposer une modification
+                            </Button>
+                            {/* 
                             <div>
                                 <form>
                                     <label className="text-white">
@@ -95,6 +100,7 @@ const MainPersonView = ({ data }) => {
                                     </label>
                                 </form>
                             </div>
+                            */}
                         </Col>
                     </Row>
                 </Container>
@@ -103,7 +109,7 @@ const MainPersonView = ({ data }) => {
                 <section className={`${styles["person-view__header__content"]}`}>
                     <Container className={`${styles["headers-content__main-section"]}`}>      
                         <Row>
-                            <Col m={6} lg={8}>
+                            <Col sm={6} lg={8}>
 
                                 <h2 className="mb-2">{firstName} {lastName}</h2>
                                 <p> {nickname} </p>
