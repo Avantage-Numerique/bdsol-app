@@ -49,7 +49,7 @@ const UpdatePersonForm = ({initValues}) => {
             }, 
             nickName: {
                 value: initValues.nickName ? initValues.nickName : "",
-                isValid: false
+                isValid: true
             },
             description: {
                 value: initValues.description ? initValues.description : "",
@@ -69,7 +69,7 @@ const UpdatePersonForm = ({initValues}) => {
 
             const formData = {
                 "data": {
-                    "_id": formState.inputs._id.value,
+                    "id": formState.inputs._id.value,
                     "lastName": formState.inputs.lastName.value,
                     "firstName":  formState.inputs.firstName.value, 
                     "nickname": formState.inputs.nickName.value,
