@@ -157,9 +157,9 @@ const HomePage = ({}) => {
 
 
             <div className="container home-page__main">
-                <div className="row">
+                <div className="row gx-5">
                     <div className="col col-sm-9">
-                        <section className="home-page__feed-section px-3">
+                        <section className="home-page__feed-section">
                             <h2>{lang.actualities}</h2>
                             <hr />
                             {
@@ -210,15 +210,15 @@ const HomePage = ({}) => {
                             }
                         </section>
                     </div>
-                    <aside className="col col-sm-3 px-3">
-                        <div className="px-3">
+                    <aside className="col col-sm-3">
+                        <div>
 
                             <h2>{lang.menu}</h2>
                             <hr />
                             {/* If user is not connected, offer the option to connect itself*/}
                             {!auth.user.isLoggedIn &&
                             <section className="d-grid">
-                                <Button design="primary" href="/compte/connexion">Se connecter</Button>
+                                <Button size="primary" href="/compte/connexion">Se connecter</Button>
                             </section>
                             }
                             {!auth.user.isLoggedIn &&
@@ -229,39 +229,42 @@ const HomePage = ({}) => {
                             <section className={"aside__db-edit-options"}>
 
                                 <div className={"db-edit-options__button-set"}>
-                                    <Button color="primary" design="slim" disabled>Événement</Button>
-                                    <Button color="primary" design="slim" disabled>+</Button>
+                                    <Button color="primary" size="slim" disabled>Événement</Button>
+                                    <Button color="primary" size="slim" disabled>+</Button>
                                 </div>
 
                                 <div className={"db-edit-options__button-set"}>
-                                    <Button disabled slim>Personne</Button>
+                                    <Button color="primary" size="slim" disabled>Personne</Button>
                                     <Button
+                                        color="primary"
+                                        size="slim"
                                         disabled={!auth.user.isLoggedIn}
                                         href="/contribuer/personne"
-                                        slim
                                     >+</Button>
                                 </div>
 
                                 <div className={"db-edit-options__button-set"}>
-                                    <Button disabled slim>Organisation</Button>
+                                    <Button color="primary" size="slim" disabled>Organisation</Button>
                                     <Button
+                                        color="primary"
+                                        size="slim"
                                         disabled={!auth.user.isLoggedIn}
-                                        slim
                                         href="/contribuer/organisation"
                                     >+</Button>
                                 </div>
 
                                 <div className={"db-edit-options__button-set"}>
-                                    <Button disabled slim>Taxonomie</Button>
+                                    <Button color="primary" size="slim" disabled>Taxonomie</Button>
                                     <Button
+                                        color="primary"
+                                        size="slim"
                                         disabled={!auth.user.isLoggedIn}
-                                        slim
                                         href="/contribuer/taxonomy"
                                     >+</Button>
                                 </div>
                                 {auth.user.isLoggedIn &&
                                     <div className={"d-flex flex-column mt-3"}>
-                                        <Button variant={"outline-primary"} href="/contribuer">Ajouter une donnée</Button>
+                                        <Button color="primary" outline href="/contribuer">Ajouter une donnée</Button>
                                     </div>
                                 }
 
@@ -279,7 +282,7 @@ const HomePage = ({}) => {
                                 <div className="bg-primary text-white d-flex flex-column">
                                     <h4>Pas encore de compte ?</h4>
                                     <p>Vous en aurez besoin afin de vous aussi contribuer aux données</p>
-                                    <Button href="/compte/inscription" variant={"outline-white"}>C'est par ici !</Button>
+                                    <Button color="white" outline href="/compte/inscription">C'est par ici !</Button>
                                 </div>
                                 <hr />
                             </section>
@@ -295,7 +298,7 @@ const HomePage = ({}) => {
                                     d’Avantage numérique. Elle vise à recenser et géolocaliser les talents, les
                                     compétences, les ressources, les initiatives techno-créatives à travers le territoire du Croissant Boréal.
                                 </p>
-                                <Button href="/a-propos" className="mt-3" variant={"outline-primary"}>En savoir plus</Button>
+                                <Button className="mt-3" color="primary" outline href="/a-propos">En savoir plus</Button>
                             </section>
 
                         </div>
