@@ -30,8 +30,41 @@ const accountPage = ({ user }) => {
         <div className={"account-page pb-3"}>
             <PageHeader title={`Bienvenue dans l'espace utilisateur, ${user && (user.username)}`} />
             <div className="container">
-                <div className="row">
-                    <div className="col col-sm-9 pb-3">
+                <div className="row gx-5">
+                    <aside className="col col-sm-3">
+                        {user && (
+                            <div className={"side-menu"}>
+                                <div className={`${styles["user-card"]}`}>
+                                    <div class="d-flex align-items-center">
+                                        <div class="flex-shrink-0">
+                                        {(user.avatar === undefined || user.avatar === null || user.avatar.toString() === "") ?
+                                                <img src="https://freesvg.org/img/1389952697.png" alt="Aucune image de profil" width="80" height="80"/>
+                                                :
+                                                <img src={user.avatar} alt="Ton avatar" width="80" height="80"/>
+                                            }
+                                        </div>
+                                        <div class="flex-grow-1 ms-3">
+                                            <div>{user.name}</div>
+                                            <div>{user.username}</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="mt-4">
+                                    Membre depuis le {new Date(user.createdAt).toLocaleDateString(dateLanguage)}
+                                </div>
+                                
+                                <div className="d-flex flex-column mt-4">
+                                    <Button classes="mt-1 mb-1" key="modif" onClick={() => setLeftMenu("profile")}>Modifier mon profil</Button>
+                                    <Button classes="mt-1 mb-1" key="pref" onClick={() => setLeftMenu("preferences")}>Préférences</Button>
+                                    <Button classes="mt-1 mb-1" key="historique" onClick={() => setLeftMenu("history")}>Historique de modification</Button>
+                                    <Button classes="mt-1 mb-1" key="help" onClick={() => setLeftMenu("help")}>Aide</Button>
+                                    <Button outline classes="mt-1 mb-1" key="logout" onClick={logout}>Se déconnecter</Button>
+                                </div>
+                            </div>
+                        )}
+                    </aside>
+                    <div className="col col-sm-9">
                         <div className={"account-page-content"}>
                             {leftMenu === "history" && <UserHistoryGrid/>}
                             {leftMenu === "preferences" && <Preferences/>}
@@ -39,35 +72,6 @@ const accountPage = ({ user }) => {
                             {leftMenu === "help" && <Help/>}
                         </div>
                     </div>
-                    <aside className="col col-sm-3">
-                        {user && (
-                            <div className={"side-menu"}>
-                                <h3>
-                                    Menu
-                                </h3>
-                                <div className={`${styles["user-card"]}`}>
-                                    <div>
-                                        {(user.avatar === undefined || user.avatar === null || user.avatar.toString() === "") ?
-                                            <img src="https://freesvg.org/img/1389952697.png" alt="Aucune image de profil" width="80" height="80"/>
-                                            :
-                                            <img src={user.avatar} alt="Ton avatar" width="80" height="80"/>
-                                        }
-                                    </div>
-                                    <div>
-                                        <span>{user.name}</span><br/>
-                                        <span>{user.username}</span><br/>
-                                        <span>Membre depuis le {new Date(user.createdAt).toLocaleDateString(dateLanguage)}</span><br/>
-                                    </div>
-                                </div>
-
-                                <Button key="modif" onClick={() => setLeftMenu("profile")}>Modifier mon profil</Button>
-                                <Button key="pref" onClick={() => setLeftMenu("preferences")}>Préférences</Button>
-                                <Button key="historique" onClick={() => setLeftMenu("history")}>Historique de modification</Button>
-                                <Button key="help" onClick={() => setLeftMenu("help")}>Aide</Button>
-                                <Button key="logout" onClick={logout}>Se déconnecter</Button>
-                            </div>
-                        )}
-                    </aside>
                 </div>
             </div>
         </div>
