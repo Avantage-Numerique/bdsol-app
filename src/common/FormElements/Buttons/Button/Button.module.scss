@@ -35,42 +35,11 @@
     position: relative;
     margin: 0.1rem;
 
-
-
-    &:focus {
-        outline: none
-    }
-
-    &:hover, 
-    &:active {
-        -webkit-filter: brightness(var(--hover-brightness));
-        filter: brightness(var(--hover-brightness));
-    }
-
     &.button--reverse {
         background: transparent;
         border-width: 0.15rem;
         font-weight: 600;
         color: var(--currentColor);
-    }
-
-    &.button--reverse:hover,
-    &.button--reverse:active {
-        color: white;
-        background: var(--currentColor);
-        -webkit-filter: brightness(1); /* No changes... */
-        filter: brightness(1);  /* No changes... */
-    }
-
-    &:disabled,
-    &:hover:disabled,
-    &:active:disabled {
-        background: #ccc;
-        color: #979797;
-        border-color: #ccc;
-        cursor: not-allowed;
-        -webkit-filter: brightness(1); /* No changes... */
-        filter: brightness(1);  /* No changes... */
     }
 
     /* Shapes of the button */
@@ -81,10 +50,6 @@
     
     &.button--big {
         font-size: 1.5rem;
-    }
-
-    &.button--slim {
-        padding: 0.25rem 0.75rem;
     }
 
     &.button--fat {

@@ -217,18 +217,20 @@ const HomePage = ({}) => {
                             <hr />
                             {/* If user is not connected, offer the option to connect itself*/}
                             {!auth.user.isLoggedIn &&
-                            <section>
-                                <Button className={"btn btn-primary btn-block w-100"} href="/compte/connexion">Se connecter</Button>
-                                <hr />
+                            <section className="d-grid">
+                                <Button design="primary" href="/compte/connexion">Se connecter</Button>
                             </section>
+                            }
+                            {!auth.user.isLoggedIn &&
+                            <hr />
                             }
 
                             {/*Rapid options to access of edit the database*/}
                             <section className={"aside__db-edit-options"}>
 
                                 <div className={"db-edit-options__button-set"}>
-                                    <Button disabled slim>Événement</Button>
-                                    <Button disabled slim>+</Button>
+                                    <Button color="primary" design="slim" disabled>Événement</Button>
+                                    <Button color="primary" design="slim" disabled>+</Button>
                                 </div>
 
                                 <div className={"db-edit-options__button-set"}>
