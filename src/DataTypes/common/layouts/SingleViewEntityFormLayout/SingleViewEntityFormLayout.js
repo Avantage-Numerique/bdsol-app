@@ -19,9 +19,9 @@ const SingleViewEntityFormLayout = (props) => {
                     <div>
                         <div className="container">
                             <div className="row justify-content-center ma-classe">
-                                <Col xs={8}>
+                                <div className="col col-sm-8">
                                     {props.children}
-                                </Col>
+                                </div>
                             </div>
                         </div>
                     </div>
