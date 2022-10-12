@@ -1,59 +1,8 @@
 .button {
-
-    /* Starting color */
-    --currentColor: var(--bs-primary);
-    --hover-brightness: 1.2;
-
-    /* Personnalized colors */
-    &.blue2 { --currentColor: var(--bs-blue2); }
-    &.blue3 { --currentColor: var(--bs-blue3); }
-    &.blue4 { --currentColor: var(--bs-blue4); }
-    &.red { --currentColor: var(--bs-red); }
-
-    -webkit-transition: -webkit-filter 0.3s;
-    transition: -webkit-filter 0.3s;
-    -o-transition: filter 0.3s;
-    transition: filter 0.3s;
-    transition: filter 0.3s, -webkit-filter 0.3s;
-
-    /*
-
-        Main button styling
-
-    */
-
-    float: left;
-    font: inherit;
-    padding: 0.5rem 1.5rem;
-    border: 1px solid var(--currentColor);
-    border-radius: 4px;
-    background: var(--currentColor);
-    color: white;
-    cursor: pointer;
-    text-decoration: none;
-    display: inline-block;
-    position: relative;
-    margin: 0.1rem;
-
-    &.button--reverse {
-        background: transparent;
-        border-width: 0.15rem;
-        font-weight: 600;
-        color: var(--currentColor);
-    }
-
     /* Shapes of the button */
 
     &.button--small {
         font-size: 0.8rem;
-    }
-    
-    &.button--big {
-        font-size: 1.5rem;
-    }
-
-    &.button--fat {
-        padding: 1rem 2rem;
     }
 
 }
