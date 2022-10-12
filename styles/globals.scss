@@ -48,6 +48,7 @@ fieldset:disabled .btn
   pointer-events: auto;
   cursor: not-allowed;
   filter:none;
+  opacity:unset;
 
   --bs-btn-disabled-bg: #CCCCCC;
   --bs-btn-disabled-border-color: #CCCCCC;
@@ -58,7 +59,6 @@ fieldset:disabled .btn
   --bs-btn-active-color:#979797;
   --bs-btn-active-bg:#CCCCCC;
   --bs-btn-active-border-color:#CCCCCC;
-
 }
 
 /*
