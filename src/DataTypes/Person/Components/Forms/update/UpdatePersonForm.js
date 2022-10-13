@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 //Custom hooks
 import { useFormUtils } from '@/src/hooks/useFormUtils/useFormUtils'
@@ -16,12 +16,12 @@ import {lang} from "@/src/common/Data/GlobalConstants";
 import {VALIDATOR_REQUIRE} from '@/src/utils/validators'
 
 //Styling
-import styles from './CreatePersonForm.module.scss'
+import styles from './UpdatePersonForm.module.scss'
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
-const CreatePersonForm = () => {
+const UpdatePersonForm = ({initValues}) => {
 
     const [modal, setModal] = useState({
         display: false,
@@ -34,70 +34,73 @@ const CreatePersonForm = () => {
 
     //Main form functionalities
     const { FormUI, submitRequest, formState, formTools } = useFormUtils(
-    {
-        firstName: {
-            value: '',
-            isValid: false
-        },
-        lastName: {
-            value: '',
-            isValid: false
-        }, 
-        nickName: {
-            value: '',
-            isValid: false
-        },
-        description: {
-            value: '',
-            isValid: true
-        },
-        occupations: {
-            value: [],
-            isValid: true
+        {
+            _id: {
+                value: initValues._id ? initValues._id : "",
+                isValid: true
+            },
+            firstName: {
+                value: initValues.firstName ? initValues.firstName : "",
+                isValid: false
+            },
+            lastName: {
+                value: initValues.lastName ? initValues.lastName : "",
+                isValid: false
+            }, 
+            nickName: {
+                value: initValues.nickName ? initValues.nickName : "",
+                isValid: false
+            },
+            description: {
+                value: initValues.description ? initValues.description : "",
+                isValid: true
+            },
+            occupations: {
+                value: initValues.occupations ? initValues.occupation : [],
+                isValid: true
+            }
         }
-    }
-    );
+        );
 
-    //Submit the form
-    const submitHandler = async event => { 
+        //Submit the form
+        const submitHandler = async event => { 
 
-        event.preventDefault();
-    
-        const formData = {
+            event.preventDefault();
+
+            const formData = {
+                "data": {
+                    "_id": formState.inputs._id.value,
+                    "lastName": formState.inputs.lastName.value,
+                    "firstName":  formState.inputs.firstName.value, 
+                    "nickname": formState.inputs.nickName.value,
+                    "description": formState.inputs.description.value,
+                    "occupations": formState.inputs.occupations.value
+                }
+            };
+
+            //Send the request with the specialized hook
+            submitRequest(
+                "/personnes/update",
+                'POST',
+                formData
+            );
+
+        }
+
+        /*
+            Categorie : nom de la taxonomie
+            Name : Filtre à appliquer
+        */
+        const occupationSelectRequestData = {
             "data": {
-                "lastName": formState.inputs.lastName.value,
-                "firstName":  formState.inputs.firstName.value, 
-                "nickname": formState.inputs.nickName.value,
-                "description": formState.inputs.description.value,
-                "occupations": formState.inputs.occupations.value
+                "category": "occupations",
+                "name": ""
             }
         };
 
-        //Send the request with the specialized hook
-        submitRequest(
-            "/personnes/create",
-            'POST',
-            formData
-        );
-
-
-    }
-
-    /*
-        Categorie : nom de la taxonomie
-        Name : Filtre à appliquer
-    */
-    const occupationSelectRequestData = {
-        "data": {
-            "category": "occupations",
-            "name": ""
-        }
-    };
-
-
     return (
         <>
-            <form onSubmit={submitHandler} className={`${styles["create-person-form"]}`}>
+            <form onSubmit={submitHandler} className={`${styles["update-form"]}`}>
 
                 <FormUI />
                 <Input 
@@ -175,7 +178,7 @@ const CreatePersonForm = () => {
                 </Modal>
             }
         </>
-    );
+    )
 }
 
-export default CreatePersonForm
+export default UpdatePersonForm

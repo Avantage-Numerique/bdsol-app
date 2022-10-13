@@ -32,11 +32,8 @@
     }
 
     .modal__close-button--container {
-        float: right;
-
-        > button {
-            float: right;
-        }
+        display: flex;
+        justify-content: flex-end;
     }
 
 

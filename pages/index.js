@@ -197,14 +197,8 @@ const HomePage = ({}) => {
                                                     <Col md={6} lg={4} className="p-2" key={elem._id + "-" + elem.slug}>
                                                         <PresentationCard
                                                             key={elem._id}
-                                                            header={elem.nickname ? "Personne" : "Organisation"}
-                                                            firstname={elem.firstName}
-                                                            name={elem.lastName ? elem.lastName : elem.name}
-                                                            username={elem.nickname}
-                                                            description={elem.description}
-                                                            createdAt={elem.createdAt}
-                                                            url={elem.url}
-                                                            contactPoint={elem.contactPoint}
+                                                            header={elem.nickname ? "Personne" : "Organisation"} /* VERY VERY VERY VERY VERY TEMPORARY */
+                                                            data={elem}
                                                         />
                                                     </Col>
                                                 ))
