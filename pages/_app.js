@@ -50,7 +50,7 @@ MyApp.getInitialProps = async (context) => {
         const visitor = getVisitorDataFromContext(context);
         const savedInSessionUser = session.user ?? {};
 
-        if (session && session.user) {
+        if (session && session.user && session.user.token && session.user.token !== "") {
             //verify and set if the token is verified by the API
             const serverVerificationResponse = await verifyToken(session.user.token);
             session.user.tokenVerified = session.user.isLoggedIn = !serverVerificationResponse.error && serverVerificationResponse.data.tokenVerified;

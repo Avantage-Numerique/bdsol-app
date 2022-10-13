@@ -36,16 +36,18 @@ export const getServerSideProps = withSessionSsr(personSlugSSProps);
 
 export async function personSlugSSProps(context) {
     const { slug } = context.query;
-    
+
+    const headers = getUserHeadersFromUserSession(context.req.session.user);
+
     //Send the request with the specialized hook
     const response = await sendExternalApiRequest(
         `/personnes/${slug}`,
         'GET',
-        getUserHeadersFromUserSession(context.ctx.req.session.user, false)
+        undefined,
+        headers
     );
   
-    console.log(response.data);
-    console.log(context.ctx.req.session.user);
+    console.log(response.data, headers);
     return { props: response.data };
 }
 
