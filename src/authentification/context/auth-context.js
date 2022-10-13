@@ -16,6 +16,11 @@ export const defaultSessionData = {
     language: null
 };
 
+/**
+ *
+ * @param userData
+ * @return {{createdAt: null, ip: null, browser: null, name: null, isLoggedIn: boolean, tokenVerified: boolean, language: null, id: null, avatar: null, isPending: boolean, token: null, username: null}|{createdAt: (any|number|null), ip: null, browser: (*|null), name: null, tokenVerified: (boolean|boolean|*), isLoggedIn: (boolean|boolean|*), language: ("typescript"|"flow"|string|*|null), id: null, avatar: null, isPending: boolean, token: (string|string|any|null), username: null}}
+ */
 export const getSessionFromData = (userData) => {
     if (userData) {
         return {
@@ -39,15 +44,21 @@ export const getSessionFromData = (userData) => {
 }
 
 
-
-
-export const getUserHeadersFromSession = (user) => {
+/**
+ * Builder les headers d'array pour réduire
+ * @param user {object}
+ * @param withAuthentification {boolean}ç
+ * @return {object}
+ */
+export const getUserHeadersFromUserSession = (user, withAuthentification=false) => {
     const userHeaders = {};
     userHeaders["x-forwarded-for"] = user.ip ?? "";
     userHeaders["user-agent"] = user.browser ?? "";
-    userHeaders["Authorization"] = user.token ? 'Bearer ' + user.token : '';
-    return userHeaders;
 
+    if (withAuthentification) {
+        userHeaders["Authorization"] = user.token ? 'Bearer ' + user.token : '';
+    }
+    return userHeaders;
 }
 
 

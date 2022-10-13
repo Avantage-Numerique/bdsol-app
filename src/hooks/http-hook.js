@@ -1,8 +1,7 @@
 
 import {useState, useCallback, useRef, useEffect} from 'react';
-import {useAuth} from '@/auth/context/auth-context'
+import {getUserHeadersFromUserSession, useAuth} from '@/auth/context/auth-context'
 import {lang} from "@/src/common/Data/GlobalConstants";
-import {getUserHeadersFromSession} from "@/auth/context/auth-context";
 
 
 /**
@@ -68,9 +67,9 @@ export const useHttpClient = () => {
 
             //Start the loading component
             setIsLoading(true);
-            //auth.user.ip
+
             const httpAbortCtrl = new AbortController(),
-                usersHeaders = getUserHeadersFromSession(auth.user),//authentificat, fowarded-from, user-agent.
+                usersHeaders = getUserHeadersFromUserSession(auth.user),//authentification, fowarded-from, user-agent.
                 headersParams = {
                     ...usersHeaders,
                     ...headers

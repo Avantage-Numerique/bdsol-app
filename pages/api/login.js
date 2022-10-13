@@ -1,6 +1,6 @@
 import {withSessionRoute} from "@/auth/session/handlers/withSession";
 import {sendExternalApiRequest} from "@/src/hooks/http-hook";
-import {getSessionFromData} from "@/auth/context/auth-context";
+import {getSessionFromData, getUserHeadersFromUserSession} from "@/auth/context/auth-context";
 import {getVisitorDataFromRequest} from "@/auth/context/visitor-context";
 
 export default withSessionRoute(loginRoute);
@@ -12,7 +12,7 @@ async function loginRoute(req, res) {
         "/login",
         'POST',
         JSON.stringify(req.body),
-        undefined,
+        getUserHeadersFromUserSession(req.session.user, false),
         undefined,
         true,
         "fromserver"
