@@ -1,13 +1,14 @@
 import { useEffect } from 'react';
-import { sendExternalApiRequest } from './http-hook';
+import {externalApiRequest} from './http-hook';
 
 export default function useApi(connectedSetter) {
     const pingApi = async () => {
         try {
-            const res = await sendExternalApiRequest(
+            const res = await externalApiRequest(
                 "/ping",
-                'POST',
-                JSON.stringify({})
+                {
+                    body: "{}"
+                }
             );
             if (res !== undefined && res.data["/ping"] === "OK")
                 return connectedSetter(true);

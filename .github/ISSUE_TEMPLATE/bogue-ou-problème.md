@@ -8,9 +8,11 @@ assignees: ''
 ---
 
 **Décrivez le bogue**
+
 Phrase courte qui décrit le bogue selon vous et vos observations
 
 **Est-ce que vous avez ajouté un commentaire via l'outil de commentaire ?**
+
 Si oui, partagez-nous le moment où vous l'avez fait.
 
 **Qu'elles sont les étapes à suivre pour reproduire le bogue ?**
@@ -21,6 +23,7 @@ Si oui, partagez-nous le moment où vous l'avez fait.
 4. Détaillé l'endroit où l'erreur se reproduit
 
 **Qu'est-ce qu'on aurait dû observer**
+
 Détaillez le plus clairement possible ce qu'on devrait observer à cet endroit.
 
 **Capture d'écran**
@@ -39,6 +42,7 @@ Si possible, ajoutez une capture d'écran
  - Version [e.g. 22]
 
 **Est-ce que vous auriez une hypothèse pour régler le problème / début d'implémentation ?**
+
 Partagez-nous votre hypothèse :)
 
 **Autre contenu pertinent ?**
