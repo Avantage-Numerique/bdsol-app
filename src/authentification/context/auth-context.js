@@ -43,14 +43,13 @@ export const getSessionFromData = (userData) => {
     return defaultSessionData;
 }
 
-
 /**
  * Builder les headers d'array pour réduire
  * @param user {object}
  * @param withAuthentification {boolean}ç
  * @return {object}
  */
-export const getUserHeadersFromUserSession = (user, withAuthentification=false) => {
+export const getUserHeadersFromUserSession = (user, withAuthentification= false) => {
     const userHeaders = {};
     userHeaders["x-forwarded-for"] = user.ip ?? "";
     userHeaders["user-agent"] = user.browser ?? "";
@@ -63,9 +62,6 @@ export const getUserHeadersFromUserSession = (user, withAuthentification=false) 
 
 
 const AuthContext = createContext({});
-
-//inspired by https://stackoverflow.com/questions/71498723/next-js-how-to-use-usestate-and-authcontext-without-invalidating-ssg-html
-//seem nice.https://solveforum.com/forums/threads/solved-cannot-destructure-property-of-object-from-context.520739/
 
 export function AuthProvider({fromSessionUser, children}) {
 
@@ -91,3 +87,9 @@ export function AuthProvider({fromSessionUser, children}) {
 export function useAuth() {
     return useContext(AuthContext);
 }
+
+
+
+
+
+//AuthProvider inspired by https://stackoverflow.com/questions/71498723/next-js-how-to-use-usestate-and-authcontext-without-invalidating-ssg-html //seem nice.https://solveforum.com/forums/threads/solved-cannot-destructure-property-of-object-from-context.520739/

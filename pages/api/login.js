@@ -1,5 +1,5 @@
 import {withSessionRoute} from "@/auth/session/handlers/withSession";
-import {sendExternalApiRequest} from "@/src/hooks/http-hook";
+import {externalApiRequest} from "@/src/hooks/http-hook";
 import {getSessionFromData, getUserHeadersFromUserSession} from "@/auth/context/auth-context";
 import {getVisitorDataFromRequest} from "@/auth/context/visitor-context";
 
@@ -7,15 +7,13 @@ export default withSessionRoute(loginRoute);
 
 async function loginRoute(req, res) {
 
-    //path, method = 'GET', body = null, headers = {}, additionnalFetchParams={}, isDataJson=true, origin="browser"
-    const response = await sendExternalApiRequest(
+    const response = await externalApiRequest(
         "/login",
-        'POST',
-        JSON.stringify(req.body),
-        getUserHeadersFromUserSession(req.session.user, false),
-        undefined,
-        true,
-        "fromserver"
+        {
+            body: JSON.stringify(req.body),
+            headers: getUserHeadersFromUserSession(req.session.user, false),
+            origin: "fromServer"
+        }
     );
 
     const sessionUser = getSessionFromData(response.data.user);

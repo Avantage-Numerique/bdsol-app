@@ -104,7 +104,7 @@ const PresentationCard = ({header, data}) => {
                 <Row>
                     <section className={`${styles["card__content"]}`}>
 
-        {name && <h3>name</h3>}
+        {name && <h3>{name}</h3>}
         { (firstName || lastName) && 
             <h3>{firstName && firstName} {lastName && lastName}</h3>
         }

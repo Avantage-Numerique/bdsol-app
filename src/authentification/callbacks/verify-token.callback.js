@@ -1,15 +1,11 @@
-import {sendExternalApiRequest} from "@/src/hooks/http-hook";
+import {externalApiRequest} from "@/src/hooks/http-hook";
 
 export const verifyToken = async (token) => {
-    return await sendExternalApiRequest(
+    return await externalApiRequest(
         "/verify-token",
-        'POST',
-        JSON.stringify({
-            token: token
-        }),
-        undefined,
-        undefined,
-        true,
-        "fromserver"
+        {
+            body: JSON.stringify({token: token}),
+            origin: "fromserver"
+        }
     );
 }
