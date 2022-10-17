@@ -172,12 +172,14 @@ const CreateOrganisationForm = () => {
                     type="url"
                     validators={[VALIDATOR_REQUIRE()]}
                     errorText="Cette information est requise"
+                    placeholder="Exemple : https://siteWeb.com/"
                     formTools={formTools}
                 />
 
                 <Input  
                     name="contactPoint"
                     label="Information de contact"
+                    placeholder="Adresse courriel, numéro de téléphone, etc..."
                     formTools={formTools}
                 />
 

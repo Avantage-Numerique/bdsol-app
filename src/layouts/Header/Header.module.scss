@@ -90,16 +90,11 @@
             height: 100%;
             background-color: var(--bs-blue2);
 
-            button {
+            .account-menu-container__button {
                 padding: 1.5rem;
                 padding: calc(0.35 *  var(--headersHeight));
-                fill: white;
-                opacity: 0.75;
 
-                -webkit-transition: opacity 200ms;
-                -moz-transition: opacity 200ms;
-                -o-transition: opacity 200ms;
-                transition: opacity 200ms;
+                fill: white;
 
                 &:hover{
                     opacity: 1;
@@ -107,6 +102,16 @@
 
                 svg {
                     width: 100%;
+                }
+
+                .user-img {
+                    position: absolute;
+                    object-fit: cover;
+                    top: 0%;
+                    height: 100%;
+                    width: 100%;
+                    left: 0%;
+                    border: 0.3rem solid rgb(230, 230, 230);
                 }
             }
         }
