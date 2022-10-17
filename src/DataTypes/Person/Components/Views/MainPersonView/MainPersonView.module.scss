@@ -13,8 +13,6 @@
         --picture-size: clamp(8rem, 20vw, 12rem);
 
         background-color: rgb(240, 240, 240);
-        border-radius: 0.5rem;
-        overflow: hidden;
 
         /*  HEADER  */
         .person-view__header {
@@ -22,8 +20,8 @@
                 color: white;
                 position: relative;
                 padding: var(--page-padding);
-                min-height: 30rem;
-                min-height: clamp(20rem, 60vh, 45rem);
+                /*min-height: 30rem;
+                min-height: clamp(20rem, 60vh, 45rem);*/
 
                 /*  Background image */
                 .person-view__bg-img {
@@ -56,38 +54,13 @@
                                 background: linear-gradient(0deg, rgba(2, 0, 36, 0.552) 0%, rgba(2,0,36,0.2) 100%);
                         }
 
+              
                 }
 
                 /* Top menu of the page */
                 .person-view__top-menu {
                         position: relative;
                         z-index: 1;
-
-                        /*
-                        div {
-
-                                form{
-                                        label {
-                                                color: white;
-
-                                                select { 
-                                                        padding: 0.25rem;
-                                                        cursor: pointer;
-                                                        margin-left: 1rem;
-                                                        color: white;
-                                                        border: 0.1rem solid white;
-                                                        border-radius: 0.2rem;
-                                                        background-color: rgba(255, 255, 255, 0);
-                                                        transition: 0.3s;
-
-                                                        &:hover{ 
-                                                                background-color: white;
-                                                                color: rgb(70, 70, 70);
-                                                        }
-                                                }
-                                        }
-                                }
-                        } */
                 }
 
                 /* Main content of the header */
@@ -147,7 +120,6 @@
                                         }
                                 }
                         }
-
                 }
 
 

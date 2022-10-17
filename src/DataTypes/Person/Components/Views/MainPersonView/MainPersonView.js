@@ -27,6 +27,7 @@ const SingleInfoLayout = ({ title, NAMessage, children }) => {
 
 const MainPersonView = ({ data }) => {
 
+    console.log(data)
     const { 
         _id,
         firstName,
@@ -80,7 +81,7 @@ const MainPersonView = ({ data }) => {
                 {/* To menu of the page */}
                 <Container className={`${styles["person-view__top-menu"]}`}> 
                     <Row className="justify-content-between mb-4">
-                        <Col sm={6} lg={8}>
+                        <Col sm={6} lg={8} className="justify-content-end">
                             <button className="text-white"> &#8629; Retour </button>
                         </Col>
                         <Col sm={"auto"} lg={4}>
@@ -145,12 +146,12 @@ const MainPersonView = ({ data }) => {
                         </Row>
                     </Container>
 
-                        {/* Profile picture section */}
-                        <div className={`${styles["headers-content__bottom-row"]}`}>
-                            <figure className={`${styles["headers-content__profil-picture"]}`}>
-                                <img src="/general_images/Dennis_Nedry.webp" alt="Background image for a person card" />
-                            </figure>
-                        </div>
+                    {/* Profile picture section */}
+                    <div className={`${styles["headers-content__bottom-row"]}`}>
+                        <figure className={`${styles["headers-content__profil-picture"]}`}>
+                            <img src="/general_images/Dennis_Nedry.webp" alt={`Profil picture of ${firstName} ${lastName}`}/>
+                        </figure>
+                    </div>
 
                         
                 </section>
@@ -172,19 +173,21 @@ const MainPersonView = ({ data }) => {
                                 title={"Présentation"}
                                 NAMessage={<p>Aucune donnée n'a encore été fournie pour ce champ. <br />Vous pourrez bientôt passer en mode édition afin d'ajouter et modifier des information.</p>}
                             >
-                                {description}
+                                <SanitizedInnerHtml>
+                                    {description}
+                                </SanitizedInnerHtml>
                             </SingleInfoLayout>
 
                             <SingleInfoLayout 
                                 title={"Projets"}
-                                NAMessage={<p>Aucune donnée n'a encore été fournie pour ce champ. <br />Vous pourrez bientôt passer en mode édition afin d'ajouter et modifier des information.</p>}
+                                NAMessage={<p>Information bientôt disponible.</p>}
                             >
 
                             </SingleInfoLayout>
 
                             <SingleInfoLayout 
                                 title={"Intérêts"}
-                                NAMessage={<p>Aucune donnée n'a encore été fournie pour ce champ. <br />Vous pourrez bientôt passer en mode édition afin d'ajouter et modifier des information.</p>}
+                                NAMessage={<p>Information bientôt disponible</p>}
                             >
                             </SingleInfoLayout>
 
