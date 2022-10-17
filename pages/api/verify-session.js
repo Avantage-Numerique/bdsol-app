@@ -1,30 +1,20 @@
 import {withSessionRoute} from "@/auth/session/handlers/withSession";
-import {sendExternalApiRequest} from "@/src/hooks/http-hook";
+import {verifyToken} from "@/auth/callbacks/verify-token.callback";
 
 export default withSessionRoute(verifySessionRoute);
 
 async function verifySessionRoute(req, res) {
 
-    //path, method = 'GET', body = null, headers = {}, additionnalFetchParams={}, isDataJson=true, origin="browser"
-    const response = await sendExternalApiRequest(
-        "/verify-token",
-        'POST',
-        JSON.stringify({
-            token: req.session.user.token
-        }),
-        undefined,
-        undefined,
-        true,
-        "fromserver"
-    );
+    const response = await verifyToken(req.session.user.token);
 
-    req.session.user.tokenVerified = !response.error && response.tokenVerified;
+    const isTokenVerified = !response.error && response.tokenVerified;
+    req.session.user.tokenVerified = isTokenVerified;
+    req.session.user.isLoggedIn = isTokenVerified;
     await req.session.save();
 
     res.send({
         text: response.message,
-        positive: !response.error,
-        redirectUri: response.error ? "/compte/connexion" : "/compte",
+        positive: isTokenVerified,
         user: req.session.user
     });
 }

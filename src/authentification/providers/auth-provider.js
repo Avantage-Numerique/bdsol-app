@@ -1,3 +1,6 @@
+/// NOT use for now.
+// we be refactored to have the auth-context and the provider seperated.
+
 import {createContext, useContext, useState} from 'react';
 import useApi from '@/src/hooks/useApi';
 
@@ -16,11 +19,6 @@ export const defaultSessionData = {
     language: null
 };
 
-/**
- *
- * @param userData
- * @return {{createdAt: null, ip: null, browser: null, name: null, isLoggedIn: boolean, tokenVerified: boolean, language: null, id: null, avatar: null, isPending: boolean, token: null, username: null}|{createdAt: (any|number|null), ip: null, browser: (*|null), name: null, tokenVerified: (boolean|boolean|*), isLoggedIn: (boolean|boolean|*), language: ("typescript"|"flow"|string|*|null), id: null, avatar: null, isPending: boolean, token: (string|string|any|null), username: null}}
- */
 export const getSessionFromData = (userData) => {
     if (userData) {
         return {
@@ -43,25 +41,10 @@ export const getSessionFromData = (userData) => {
     return defaultSessionData;
 }
 
-/**
- * Builder les headers d'array pour réduire
- * @param user {object}
- * @param withAuthentification {boolean}ç
- * @return {object}
- */
-export const getUserHeadersFromUserSession = (user, withAuthentification= false) => {
-    const userHeaders = {};
-    userHeaders["x-forwarded-for"] = user.ip ?? "";
-    userHeaders["user-agent"] = user.browser ?? "";
-
-    if (withAuthentification) {
-        userHeaders["Authorization"] = user.token ? 'Bearer ' + user.token : '';
-    }
-    return userHeaders;
-}
-
-
 const AuthContext = createContext({});
+
+//inspired by https://stackoverflow.com/questions/71498723/next-js-how-to-use-usestate-and-authcontext-without-invalidating-ssg-html
+//seem nice.https://solveforum.com/forums/threads/solved-cannot-destructure-property-of-object-from-context.520739/
 
 export function AuthProvider({fromSessionUser, children}) {
 
@@ -87,9 +70,3 @@ export function AuthProvider({fromSessionUser, children}) {
 export function useAuth() {
     return useContext(AuthContext);
 }
-
-
-
-
-
-//AuthProvider inspired by https://stackoverflow.com/questions/71498723/next-js-how-to-use-usestate-and-authcontext-without-invalidating-ssg-html //seem nice.https://solveforum.com/forums/threads/solved-cannot-destructure-property-of-object-from-context.520739/
