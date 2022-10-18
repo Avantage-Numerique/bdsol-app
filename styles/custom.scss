@@ -45,12 +45,14 @@ $min-contrast-ratio: 4.5;
 
 //fonts
 $font-size-root: 14px;
-$font-family-base: 'Open Sans', sans-serif;
+//$font-family-base: 'Open Sans', sans-serif;
+$font-family-base: 'SuisseIntl','Helvetica Neue','Helvetica','Arial',sans-serif;
+
 $line-height-base: 1.4;
 
-$headings-font-family: 'Yeseva One'; //add alternative font 
+$headings-font-family: 'SuisseIntl','Helvetica Neue','Helvetica','Arial',sans-serif;
 $headings-line-height: 1.1;
-$headings-font-weight: 400;
+$headings-font-weight: 600;
 
 $h1-font-size:                min(10vw, 4rem) !default; //older brower 4rem              ///original      $font-size-base * 2.5 !default;
 $h2-font-size:                min(8vw, 2.5rem) !default;
