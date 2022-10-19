@@ -218,7 +218,7 @@ const HomePage = ({}) => {
                             {/* If user is not connected, offer the option to connect itself*/}
                             {!auth.user.isLoggedIn &&
                             <section className="d-grid">
-                                <Button size="primary" href="/compte/connexion">Se connecter</Button>
+                                <Button color="primary" href="/compte/connexion">Se connecter</Button>
                             </section>
                             }
                             {!auth.user.isLoggedIn &&
@@ -264,7 +264,7 @@ const HomePage = ({}) => {
                                 </div>
                                 {auth.user.isLoggedIn &&
                                     <div className={"d-flex flex-column mt-3"}>
-                                        <Button color="primary" outline href="/contribuer">Ajouter une donnée</Button>
+                                        <Button color="white" outline="primary" href="/contribuer">Ajouter une donnée</Button>
                                     </div>
                                 }
 
@@ -282,7 +282,7 @@ const HomePage = ({}) => {
                                 <div className="bg-primary text-white d-flex flex-column">
                                     <h4>Pas encore de compte ?</h4>
                                     <p>Vous en aurez besoin afin de vous aussi contribuer aux données</p>
-                                    <Button color="white" outline href="/compte/inscription">C'est par ici !</Button>
+                                    <Button color="primary" outline="white" href="/compte/inscription">C'est par ici !</Button>
                                 </div>
                                 <hr />
                             </section>
@@ -298,7 +298,7 @@ const HomePage = ({}) => {
                                     d’Avantage numérique. Elle vise à recenser et géolocaliser les talents, les
                                     compétences, les ressources, les initiatives techno-créatives à travers le territoire du Croissant Boréal.
                                 </p>
-                                <Button className="mt-3" color="primary" outline href="/a-propos">En savoir plus</Button>
+                                <Button classes="mt-3" color="white" outline="primary" href="/a-propos">En savoir plus</Button>
                             </section>
 
                         </div>

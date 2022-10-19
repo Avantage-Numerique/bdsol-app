@@ -23,7 +23,7 @@ const Class = ( { data, onclick, active, globalData} ) => {
                     <img alt="Icone de représentant la classe" src="\class-icones\1356-wooden-box-outline.svg" />
                     <h3>{ data.title }</h3>
                     <p>{ data.intro }</p>
-                    <ArrowButton openned={ active } onclick={ onclick } active={ active } className={styles.closeOpenButton}/>
+                    <ArrowButton color='white' outline='primary' openned={ active } onclick={ onclick } classes={styles.closeOpenButton}/>
                 </header>
 
                 {/* Apply margins to the content block */}

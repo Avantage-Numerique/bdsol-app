@@ -3,7 +3,6 @@
     /* Common styles to every main sections of the page */
     > * {
         width: 100%;
-        float: left;
     }
 
     /* Page header */
@@ -204,8 +203,6 @@
 
         /* Section that hold the classes */ 
         > section {
-
-            float: left;
 
             .separation_line {
                 height: 1px;

@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import DOMPurify from 'isomorphic-dompurify';
 
-
 import Head from 'next/head'
-
 
 import Class from '../components/Class/Class'
 import styles from './Documentation.module.scss'
+import Button from '../../src/common/FormElements/Buttons/Button/Button'
+import ArrowButton from '../../src/common/FormElements/Buttons/ArrowButton/ArrowButton'
 
 //import jsonFile from '../doc/exemples.json'   Not used for now since, for development purposes, a mock api is used
 
@@ -180,6 +180,9 @@ const Documentation = ( {documentation} ) => {
                   <button className={styles.circle_Container}>
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 11.31 16.97"><polygon points="2.83 16.97 0 14.14 5.66 8.48 0 2.83 2.83 0 11.31 8.48 2.83 16.97"/></svg>
                   </button>
+                </div>
+                <div>
+                  <ArrowButton > </ArrowButton>
                 </div>
               </section>
             </aside>

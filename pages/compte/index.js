@@ -44,7 +44,7 @@ const accountPage = ({ user }) => {
                                             }
                                         </div>
                                         <div class="flex-grow-1 ms-3">
-                                            <div>{user.name}</div>
+                                            <h3>{user.name}</h3>
                                             <div>{user.username}</div>
                                         </div>
                                     </div>
@@ -59,7 +59,7 @@ const accountPage = ({ user }) => {
                                     <Button classes="mt-1 mb-1" key="pref" onClick={() => setLeftMenu("preferences")}>Préférences</Button>
                                     <Button classes="mt-1 mb-1" key="historique" onClick={() => setLeftMenu("history")}>Historique de modification</Button>
                                     <Button classes="mt-1 mb-1" key="help" onClick={() => setLeftMenu("help")}>Aide</Button>
-                                    <Button outline classes="mt-1 mb-1" key="logout" onClick={logout}>Se déconnecter</Button>
+                                    <Button color="white" outline="danger" classes="mt-1 mb-1" key="logout" onClick={logout}>Se déconnecter</Button>
                                 </div>
                             </div>
                         )}

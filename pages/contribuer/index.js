@@ -45,13 +45,13 @@ const Index = () => {
 
                     <div className='row pt-3'>
                         <div className="col">
-                            <Button href="/contribuer/personne" size="lg" className={"w-100"} disabled={!auth.user.isLoggedIn}>Personne</Button>
+                            <Button href="/contribuer/personne" size="large-100" disabled={!auth.user.isLoggedIn}>Personne</Button>
                         </div>
                         <div className="col">
-                            <Button href="/contribuer/organisation" size="lg" className={"w-100"} disabled={!auth.user.isLoggedIn}>Organisation</Button>
+                            <Button href="/contribuer/organisation" size="large-100" disabled={!auth.user.isLoggedIn}>Organisation</Button>
                         </div>
                         <div className="col">
-                            <Button href="/contribuer/taxonomy" size="lg" className={"w-100"} disabled={!auth.user.isLoggedIn}>Taxonomy</Button>
+                            <Button href="/contribuer/taxonomy" size="large-100" disabled={!auth.user.isLoggedIn}>Taxonomy</Button>
                         </div>
                     </div>
 
@@ -63,13 +63,13 @@ const Index = () => {
 
                     <div className='row pt-3'>
                         <div className="col">
-                            <Button href="/" size='lg' className={"w-100"} disabled>Projet</Button>
+                            <Button href="/" size="large-100" disabled>Projet</Button>
                         </div>
                         <div className="col">
-                            <Button href="/" size='lg' className={"w-100"} disabled>Événement</Button>
+                            <Button href="/" size="large-100" disabled>Événement</Button>
                         </div>
                         <div className="col">
-                            <Button href="/" size='lg' className={"w-100"} disabled>Matériel</Button>
+                            <Button href="/" size="large-100" disabled>Matériel</Button>
                         </div>
                     </div>
                 </div>

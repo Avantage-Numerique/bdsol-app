@@ -30,7 +30,10 @@ const Ripple = ({ clear })  => {
 
 const Button = ({ rippleEffect, ...props }) => {
 
-    let bootstrapClasses = props.listItem ? "" : "btn ";
+
+    let classList = [];
+    let classesString;
+
     let bsPrefix = props.listItem ? "list-group-item-" : "btn-";
 
     const [rippleList, setRippleList] = useState([])
@@ -56,34 +59,46 @@ const Button = ({ rippleEffect, ...props }) => {
         /*
             Convert design properties to bootstrap classes
         */
+
+        classList.push("btn");
+
         let bootstrapColor = props.color ? props.color : "primary";
 
-        let bootstrapOutline = props.outline ? "outline-" : "";
-        
-        bootstrapClasses += `${bsPrefix}${bootstrapOutline}${bootstrapColor}`;
+        if(props.outline){
+            classList.push(`btn-custom-outline-${props.color}`);
+            classList.push(`btn-outline-${props.outline}`);
+        } else {
+            classList.push(`${bsPrefix}${bootstrapColor}`);
+        }
 
         if(props.size){
             switch (props.size) {
+                case "large-100":
+                    classList.push('btn-lg');
+                    classList.push('w-100');
+                    break;
                 case "slim":
-                    bootstrapClasses += " btn-slim";
+                    classList.push('btn-slim');
                     break;
                 case "small":
-                    bootstrapClasses += " btn-sm";
+                    classList.push('btn-sm');
                     break;
                 default:
-                    bootstrapClasses += "";
                     break;
             }
         }
     }
     
     if(props.listItem){
-        bootstrapClasses += " list-group-item list-group-item-action";
+        classList.push('list-group-item');
+        classList.push('list-group-item-action');
     }
 
     if(props.classes){
-        bootstrapClasses += " " + props.classes;
+        classList.push(props.classes);
     }
+
+    classesString = classList.join(' ');
 
     {/* If the button is an external link */}
     if (props.href) {
@@ -91,7 +106,7 @@ const Button = ({ rippleEffect, ...props }) => {
         return (
             <Link href={props.href} >
                 <button 
-                    className={`${bootstrapClasses}`}
+                    className={`${classesString}`}
                     disabled={props.disabled}
                 >
 
@@ -106,7 +121,7 @@ const Button = ({ rippleEffect, ...props }) => {
     {/* If the button is not a link, then it calls an action with onClick */}
     return (
         <button
-            className={`${bootstrapClasses}`}
+            className={`${classesString}`}
             type={props.type}
             onClick={props.onClick}
             disabled={props.disabled}

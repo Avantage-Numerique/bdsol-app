@@ -60,7 +60,7 @@ const nextConfig = {
     publicRuntimeConfig: {
         dates: {
             defaultFormat: "YYYY-MM-DD HH:MM:SS",
-            defaultLanguage: process.env.LANGUAGE ?? "fr-CA"
+            defaultLanguage: "fr-CA"
         },
         appUrl: process.env.APP_PROTOCOLE + "" + process.env.APP_BASE_URL + ":" + process.env.APP_PORT,
         /*//APP CONFIG

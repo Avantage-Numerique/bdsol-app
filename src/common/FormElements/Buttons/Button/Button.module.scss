@@ -6,7 +6,7 @@
 .ripple {
 
     --circle-size: 5ch;
- 
+
     background-color: white;
     position: absolute;
     top: 50%;
@@ -25,12 +25,15 @@
     opacity: 0.3;
 
 }
+/* arrow */
+.btn-circle-arrow {
+    height: 1.5rem;
+    width: 1.5rem;
+    fill: white;
+    transition: inherit;
 
-
-
-
-
-
-
-
+    &:hover {
+        fill: var(--bs-primary);
+    }
+}
 

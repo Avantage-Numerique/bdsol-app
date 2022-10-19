@@ -10,7 +10,7 @@ $blue3: #4dc4ff; // Avantage numérique's mainBlue (and blue3)
 $blue4: #5f71ea; // Avantage numérique's mainBlue (and blue4)
 $pink: #c881ca;
 $pink-100: lighten($pink, 80%);
-$red: #dd5c5c;  // Avantage numérique's red
+$red: #dd5c5c; // Avantage numérique's red
 $purple-light: #c1c9ec;
 $purple-lighter: lighten($purple-light, 12%);
 
@@ -21,16 +21,19 @@ $light: lighten($grey, 30%);
 $white: #FEFEFE;
 $black: #010101;
 
-$theme-colors:(
+$theme-colors: (
     "primary": $blue,
     "secondary": $grey,
     "purplelight": $purple-light,
     "purplelighter": $purple-lighter,
     "pink": $pink,
     "pink-100": $pink-100,
-    "blue2": $blue2,   // Avantage numérique's altBlue (and blue2) rgb(77, 100, 255)
-    "blue3": $blue3,   // Avantage numérique's blue3 rgb(77, 196, 255)
-    "blue4": $blue4,   // Avantage numérique's blue4 rgb(95, 113, 234)
+    "blue2": $blue2,
+    // Avantage numérique's altBlue (and blue2) rgb(77, 100, 255)
+    "blue3": $blue3,
+    // Avantage numérique's blue3 rgb(77, 196, 255)
+    "blue4": $blue4,
+    // Avantage numérique's blue4 rgb(95, 113, 234)
     "danger": $red,
     "dark": $dark,
     "light": $light,
@@ -52,12 +55,12 @@ $headings-font-family: 'Yeseva One'; //add alternative font
 $headings-line-height: 1.1;
 $headings-font-weight: 400;
 
-$h1-font-size:                min(10vw, 4rem) !default; //older brower 4rem              ///original      $font-size-base * 2.5 !default;
-$h2-font-size:                min(8vw, 2.5rem) !default;
-$h3-font-size:                1.75rem !default;
-$h4-font-size:                1.1rem !default;
-$h5-font-size:                1rem !default;
-$h6-font-size:                0.8rem !default; //this is smaller than regular text
+$h1-font-size: min(10vw, 4rem) !default; //older brower 4rem              ///original      $font-size-base * 2.5 !default;
+$h2-font-size: min(8vw, 2.5rem) !default;
+$h3-font-size: 1.75rem !default;
+$h4-font-size: 1.1rem !default;
+$h5-font-size: 1rem !default;
+$h6-font-size: 0.8rem !default; //this is smaller than regular text
 
 
 $link-decoration: none;
@@ -77,3 +80,18 @@ $btn-padding-x-lg: 4rem;
 $btn-padding-y-lg: 2rem;
 $btn-font-size-lg: 1rem;
 $btn-border-radius-lg: 4px;
+
+@each $color, $value in $theme-colors {
+    .btn.btn-custom-outline-#{$color} {
+        --bs-btn-bg: #{$value};
+        --bs-btn-hover-color: #{$value};
+        --bs-btn-active-color: #{$value};
+    }
+}
+
+
+@each $color, $value in $theme-colors {
+    .btn.btn-arrow-svg-#{$color} svg {
+        fill: #{$value};
+    }
+}
