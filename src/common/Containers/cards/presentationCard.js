@@ -26,8 +26,6 @@ const { publicRuntimeConfig } = getConfig();
 
 const PresentationCard = ({header, data}) => {
 
-    console.log(data)
-
     const {
         slug,
         firstName,
@@ -64,7 +62,6 @@ const PresentationCard = ({header, data}) => {
                         <Col className="d-flex justify-content-end">
                             <Button disabled={(header === "Organisation")} href={`personnes/${slug}`} small >Voir</Button>
                         </Col>
-                        
                         
                     </Row>
 

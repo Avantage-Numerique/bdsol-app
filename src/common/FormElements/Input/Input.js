@@ -1,5 +1,8 @@
 import React from 'react'
 
+//Hooks
+import { useValidation } from '@/src/hooks/useValidation/useValidation'
+
 //Utils
 import { validate } from '@/src/utils/validators'
 
@@ -9,6 +12,7 @@ import styles from './Input.module.scss'
 
 const Input = ({addRow, removeRow, name, formTools, ...props}) => {
 
+    const { } = useValidation()
     /*
         Access the differents form tools 
     */

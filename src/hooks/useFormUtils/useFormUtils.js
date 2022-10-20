@@ -73,8 +73,6 @@ export const useFormUtils = ( initialState, actions ) => {
             //Store the response in state
             setRequestResponse(response)
 
-            console.log(response)
-
             //If the answer is positive
             if(!response.error){
 
@@ -82,12 +80,11 @@ export const useFormUtils = ( initialState, actions ) => {
                 if(innerMessage)
                     setInnerMessage("")
 
-
                 /*
                     Actions executed when the form is positive
                 */
 
-                //1.  the form
+                //1. Clear the form
                 if(positiveResponseActions.clearForm)
                     clearFormData()
 
@@ -119,11 +116,8 @@ export const useFormUtils = ( initialState, actions ) => {
             setInnerMessage("Attention. Le formulaire envoyé n'est pas valide. Assurez-vous que tous les champs sont bien remplis.")
             
         }
-
-    
     }
 
-    
     //Import message context 
     const msg = useContext(MessageContext);
 
