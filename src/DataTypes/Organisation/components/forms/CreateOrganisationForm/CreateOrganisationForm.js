@@ -59,7 +59,7 @@ const CreateOrganisationForm = () => {
         },
         description: {
             value: '',
-            isValid: false
+            isValid: true
         },
         url: {
             value: '',
