@@ -64,15 +64,23 @@ const RichTextarea = ({name, formTools, ...props}) => {
                         d-flex
                         flex-column
                         p-2
+                        form-element
+                        form-element--color-validation
                         ${styles["rich-textarea__quill__field"]}
-                        ${!currentState.isValid && currentState.isTouched && styles["control--invalid"]}
+                        ${!currentState.isValid && currentState.isTouched && "control--invalid"}
                     `}>
 
                         
                         {/************************** 
                                 Custom toolbar component including insertStar button and dropdowns
                         ****************************/}
-                        <div id={toolbarId.current} className={`ql-toolbar ql-snow shadow-sm ${styles["rich-textarea__tool-bar"]}`}>
+                        <div id={toolbarId.current} className={`
+                            ql-toolbar 
+                            ql-snow 
+                            shadow-sm 
+                            form-element--b-radius 
+                            ${styles["rich-textarea__tool-bar"]}
+                        `}>
                             <select className="ql-header" defaultValue="">
                                 <option value="1">Titre 1</option>
                                 <option value="2">Titre 2</option>

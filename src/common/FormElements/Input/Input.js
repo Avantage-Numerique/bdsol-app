@@ -46,10 +46,13 @@ const Input = ({name, formTools, ...props}) => {
             </div>
 
             <div className={`
+                form-element
+                form-element--color-validation
                 ${styles["input-component__field-container"]}
-                ${!currentState.isValid && currentState.isTouched && styles["control--invalid"]}
+                ${!currentState.isValid && currentState.isTouched && "control--invalid"}
             `}>
                 <input 
+                    className="form-element--field-padding"
                     name={ name }
                     id={ name }
                     //If there is a state attached to the component, make it a controlled components where the value depends on the state

@@ -164,6 +164,8 @@ const CreateOrganisationForm = () => {
                     name="description"
                     label="Description"
                     formTools={formTools}
+                    validators={[VALIDATOR_REQUIRE()]}
+                    errorText="Cette information est requise"
                 />
 
                 <Input 
