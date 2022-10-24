@@ -80,6 +80,18 @@ const Select = ({name, formTools, ...props}) => {
         let formatedObject = [];
         selectedEntities.forEach( item => {
 
+
+
+
+
+
+
+            //Ce useEffect disparait
+            
+            
+            
+            
+            
             formatedObject.push(
             {
                 offer: item._id,
@@ -155,6 +167,20 @@ const Select = ({name, formTools, ...props}) => {
                     //push the matchingValue (selected) into the selectedEntities state
                     const tempSelectedEntities = selectedEntities;
                     tempSelectedEntities.push(matchingValue);
+
+
+
+
+
+
+                    // Ici on doit Push dans le form state (la valeur de l'objet formaté qui se trouve dans le useEffect)
+                    //Prend en note dans le fetch la valeur relié à ce que t'as mis dans le state. ici ^
+
+
+
+
+
+
                     setSelectedEntities(tempSelectedEntities);
 
                     resetSelectComponent();
@@ -182,9 +208,23 @@ const Select = ({name, formTools, ...props}) => {
 
     const removeValueFromSelectedItem = (select) => {
 
+
+
+
+
+        
+        //Ici on doit appliquer le filtre sur le current state du form (En enlevant un objet du array)
+        //Et on doit faire la même chose pour la liste des entités qui contient les détails
+
+
+
+
+
+        
         const tempTag = selectedEntities.filter(item => {
             return item.name !== select.name
         });
+        selectedEntities.filter
         setSelectedEntities(tempTag);
     }
 
