@@ -13,6 +13,8 @@ import Button from '@/src/common/FormElements/Buttons/Button/Button'
 
 //Styling
 import styles from './Select.module.scss'
+import Button2 from "react-bootstrap/Button";
+
 
 const Select = ({name, formTools, ...props}) => {
 
@@ -177,9 +179,18 @@ const Select = ({name, formTools, ...props}) => {
                 
                 { props.label && props.label}
 
-                <div>
+                <div className="
+                    form-element
+                    form-element--color-validation
+                ">
 
-                    <Button type="button" slim="true" disabled={selectRequest.data.name ? false : true} onClick={addValueToSelectedItem}>+</Button>
+                    <Button2 
+                        className="py-2 px-3 m-1 rounded-1"
+                        type="button" 
+                        disabled={selectRequest.data.name ? false : true} 
+                        onClick={addValueToSelectedItem}>
+                            +
+                    </Button2>
                     
                     <input 
                         type="text" 
