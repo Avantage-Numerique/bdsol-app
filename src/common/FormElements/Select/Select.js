@@ -9,7 +9,6 @@ import { MessageContext } from '@/src/common/UserNotifications/Message/Context/M
 
 //Components
 import useDebounce from '@/src/hooks/useDebounce'
-import Button from '@/src/common/FormElements/Buttons/Button/Button'
 
 //Styling
 import styles from './Select.module.scss'
@@ -174,68 +173,77 @@ const Select = ({name, formTools, ...props}) => {
     if( selectList &&
         selectList.data)
     return (
-        <>
-            <label className={`${styles["select-component"]}`}  htmlFor='SelectInput'>
+        <div className={`${styles.select}`}> 
+
+            {/************ field label ************/}
+            { props.label && 
+            <div className={`${styles["select__label-row"]}`}>
+                <label htmlFor='SelectInput'>{ props.label }</label>
+            </div>
+            }
                 
-                { props.label && props.label}
+            {/************ field input ************/}
+            <div className={`
+                form-element
+                form-element--color-validation
+            `}>
 
-                <div className="
-                    form-element
-                    form-element--color-validation
-                ">
+                <Button2 
+                    className={`
+                        py-2 
+                        px-3 
+                        m-1 
+                        rounded-1
+                        ${(!selectRequest.data.name || props.disabled) ? "disabled" : ""}
+                    `}
+                    type="button" 
+                    onClick={addValueToSelectedItem}>
+                        +
+                </Button2>
+                
+                <input 
+                    type="text" 
+                    list='SelectDatalist' 
+                    name='SelectInput'
+                    id='SelectInput' 
+                    onBlur={() => inputTouched(name)}
+                    placeholder={props.placeholder}
+                    className={`${styles["select-input"]}`} 
+                    ref={selectTagRef} 
+                    onChange={(e) => {formRequestData(e.target.value)}}
+                />
+                
+                <datalist id='SelectDatalist' name="SelectDatalist" className={`${styles["datalist-input"]}`}>
+                    {selectList.data.map( item => 
+                        <option key={`datalist-${item.name}`} value={item.name}></option>
+                    )}
+                </datalist>
 
-                    <Button2 
-                        className="py-2 px-3 m-1 rounded-1"
-                        type="button" 
-                        disabled={selectRequest.data.name ? false : true} 
-                        onClick={addValueToSelectedItem}>
-                            +
-                    </Button2>
-                    
-                    <input 
-                        type="text" 
-                        list='SelectDatalist' 
-                        name='SelectInput'
-                        id='SelectInput' 
-                        onBlur={() => inputTouched(name)}
-                        placeholder={props.placeholder}
-                        className={`${styles["select-input"]}`} 
-                        ref={selectTagRef} 
-                        onChange={(e) => {formRequestData(e.target.value)}}
-                    />
-                    
-                    <datalist id='SelectDatalist' name="SelectDatalist" className={`${styles["datalist-input"]}`}>
-                        {selectList.data.map( item => 
-                            <option key={`datalist-${item.name}`} value={item.name}></option>
-                        )}
-                    </datalist>
-
+            </div>
+                
+            {/* Button to call a form and add a new taxonomie */}
+            {/* If the updateModal function is defined, it meens that the modal functionnalities have to be activated */}
+            { props.updateModal &&
+                <div className={`col-12 ${styles["button-container"]}`}>
+                    <button
+                        type="button"
+                        disabled={ ((selectTagRef.current && selectTagRef.current.value) && !findMatchingValue() && props.updateModal) ? false : true}
+                        onClick={() => props.updateModal(prev => ({
+                            ...prev, 
+                            display: true,
+                            enteredValues: {
+                                ...prev.enteredValues,
+                                name: selectTagRef.current.value
+                            },
+                            callback: pushSelectedValue
+                        }))}
+                    >
+                        <small>Soumettre comme nouvelle taxonomie</small>
+                    </button>
                 </div>
-                
-                {/* Button to call a form and add a new taxonomie */}
-                {/* If the updateModal function is defined, it meens that the modal functionnalities have to be activated */}
-                { props.updateModal &&
-                    <div className={`col-12 ${styles["button-container"]}`}>
-                        <button
-                            type="button"
-                            disabled={ ((selectTagRef.current && selectTagRef.current.value) && !findMatchingValue() && props.updateModal) ? false : true}
-                            onClick={() => props.updateModal(prev => ({
-                                ...prev, 
-                                display: true,
-                                enteredValues: {
-                                    ...prev.enteredValues,
-                                    name: selectTagRef.current.value
-                                },
-                                callback: pushSelectedValue
-                            }))}
-                        >
-                            <small>Soumettre comme nouvelle taxonomie</small>
-                        </button>
-                    </div>
-                }
+            }
 
 
-            </label>
             {/*
 
                 Display the selected items
@@ -256,7 +264,7 @@ const Select = ({name, formTools, ...props}) => {
 
             </ul>
 
-        </>
+        </div>
     );
 }
 

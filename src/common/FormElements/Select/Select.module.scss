@@ -1,19 +1,13 @@
-.select-component{
+.select{
 
-    //Container for the fields
-    > div {
+    display: flex;
+    flex-direction: column;
 
+    .select__label-row {
         display: flex;
-        flex-direction: row;
-
-        .select-input {
-            flex: 1;
-            margin-left: 1ch;
-        }
-
-        
-
+        justify-content: space-between;
     }
+
     
     /* Button to propose new modifications  */
     .button-container {
@@ -21,6 +15,7 @@
         justify-content: flex-end;
 
         > button {
+
             text-decoration: underline;
             opacity: 0.7;
             font-weight: 700;
