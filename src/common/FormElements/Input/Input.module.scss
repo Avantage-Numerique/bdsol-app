@@ -4,7 +4,6 @@
 
 
 */
-
 .input-component {
 
     display: flex;
@@ -13,6 +12,7 @@
     .input-component__label-container {
         display: flex;
         justify-content: space-between;
+        align-items: flex-end;
     }
     
     /* TODO : make this style global and combine it with bootstrap */

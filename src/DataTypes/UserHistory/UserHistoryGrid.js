@@ -58,25 +58,35 @@ const UserHistoryGrid = () => {
         return (
             <>
                 <h3>Historique de modification</h3>
-                <div key={`${styles["history-table"]}`} className={`${styles["history-table"]}`}>
+                <table key="userhistory-table" className="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col">Date</th>
+                            <th scope="col">Action</th>
+                            <th scope="col"># Champs modifiés</th>
+                            <th scope="col">Détails</th>
+                        </tr>
+                    </thead>
+                    <tbody>
                     {usersHistory.data.map( modification =>
-                        <>
-                            <div>{new Date(modification.modifDate).toLocaleDateString(dateLanguage)} <br/> {new Date(modification.modifDate).toLocaleTimeString(timeLanguage)}</div>
-                            <div>{modificationMsg(modification.action)}
-                                {modification.user === modification.modifiedEntity ? "votre compte : " : "l'entité : " }
+                        <tr>
+                            <td>{new Date(modification.modifDate).toLocaleDateString(dateLanguage)} <br></br> {new Date(modification.modifDate).toLocaleTimeString(timeLanguage)}</td>
+                            <td>{modificationMsg(modification.action)}
+                                {modification.user == modification.modifiedEntity ? "votre compte : " : "l'entité : " }
                                 {modification.fields.username ? modification.fields.username + ". " : null}
                                 {modification.fields.firstName ? modification.fields.firstName + " " + modification.fields.lastName : modification.fields.name}
-                            </div>
-                            <div>{Object.keys(modification.fields).length} champ{Object.keys(modification.fields).length > 1 ? 's' : ''}</div>
-                            <div>
+                            </td>
+                            <td>{Object.keys(modification.fields).length} champ{Object.keys(modification.fields).length > 1 ? 's' : ''}</td>
+                            <td>
                                 <Button slim key={modification._id.toString() + "BTN"} onClick={function () {
                                     alert(Object.keys(modification.fields).map( key =>
                                         '\n' + key + ' : ' + (modification.fields[key] ? modification.fields[key] : "\"\"")));
                                 }}>Détails</Button>
-                            </div>
-                        </>
-                    )}
-                </div>
+                            </td>
+                        </tr>
+                    )}       
+                    </tbody>
+                </table>
             </>
         )
     }

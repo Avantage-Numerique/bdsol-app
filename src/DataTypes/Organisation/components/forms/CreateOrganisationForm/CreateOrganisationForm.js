@@ -155,6 +155,10 @@ const CreateOrganisationForm = () => {
                 <Input 
                     name="name"
                     label="Nom de l'organisation"
+                    tip={{
+                        header: "À noter",
+                        body: "Assurez-vous de bien écrire le nom de l'organisation afin de faciliter les recherches."
+                    }}
                     validators={[VALIDATOR_REQUIRE()]}
                     errorText="Cette information est requise"
                     formTools={formTools}

@@ -6,6 +6,9 @@ import { useValidation } from '@/src/hooks/useValidation/useValidation'
 //Utils
 import { validate } from '@/src/utils/validators'
 
+//components
+import Tip from '@/src/common/FormElements/Tip/tip'
+
 //Styling
 import styles from './Input.module.scss'
 
@@ -31,6 +34,12 @@ const Input = ({name, formTools, ...props}) => {
             props.validators ? validate(event.target.value, props.validators) : true
         )
     }
+
+    if(props.tip){
+        console.log(props.tip)
+        console.log({...props.tip})
+
+    }
  
     return (
         <div className={`${styles["input-component"]}`}>  
@@ -40,9 +49,12 @@ const Input = ({name, formTools, ...props}) => {
                 >
                     {props.label}
                 </label>
-                <button type="button" className={` ${styles["information-button"]}`}>
-                &#x3f;
-                </button>
+                {
+                    props.tip &&
+                    <Tip 
+                        {...props.tip}
+                    />
+                }
             </div>
 
             <div className={`

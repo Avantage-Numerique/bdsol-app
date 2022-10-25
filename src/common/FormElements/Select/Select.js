@@ -14,6 +14,7 @@ import useDebounce from '@/src/hooks/useDebounce'
 import styles from './Select.module.scss'
 import Button2 from "react-bootstrap/Button";
 
+import { useAuth } from '@/src/authentification/context/auth-context'
 
 const Select = ({name, formTools, ...props}) => {
 
@@ -21,6 +22,9 @@ const Select = ({name, formTools, ...props}) => {
 
     //Import message context 
     const msg = useContext(MessageContext);
+
+    //Import Auth context
+    const auth = useAuth();
 
     //Extract the functions inside useHttpClient
     const {sendRequest} = useHttpClient();
@@ -54,14 +58,15 @@ const Select = ({name, formTools, ...props}) => {
     //Find if there is a matching value between the list proposed by the api and the value entered in the field by the user
     const findMatchingValue = () => selectList.data.find(e => {return e.name === selectTagRef.current.value})
 
-    
-
     /**************************
         Other select states
     ***************************/
 
     //List of options fetched by the api and proposed to the user in the data list in grey
     const [selectList, setSelectList] = useState([]);
+
+    //Full list of property about selected Entity
+    const [selectedEntities, setSelectedEntities] = useState([]); 
     
     //Value sent to the api to receive 10 options corresponding
     //shape : data: {category: 'occupations', name: 'ingenieur'}
@@ -70,6 +75,27 @@ const Select = ({name, formTools, ...props}) => {
     //const debouncedRequestData = useDebounce(selectName, 1500);
     const debouncedRequest = useDebounce(selectRequest, 400);
 
+    //Update the form state whenever the selectedEntites state change
+    useEffect(() => {
+
+        let formatedObject = [];
+        selectedEntities.forEach( item => {
+
+            formatedObject.push(
+            {
+                offer: item._id,
+                status: {
+                    state:"Pending",
+                    requestedBy: auth.user.id,
+                    lastModifiedBy: auth.user.id
+                }
+            });
+        });
+        updateValue(formatedObject);
+
+    }, [JSON.stringify(selectedEntities)])
+
+    
     //Called whenever the user enter or modify a value into the field
     const formRequestData = (val) => {
         //This line might be problematic if we list something that has no "name". As it's hardcoded.
@@ -78,8 +104,7 @@ const Select = ({name, formTools, ...props}) => {
     }
 
     //Function to add a taxonomy element to the selected list that will be submitted with the form
-    const pushSelectedValue = newTaxonomyItem => {
-        updateValue([...currentState.value, newTaxonomyItem])              //Update the form state
+    const resetSelectComponent = () => {
         selectTagRef.current.value = "";
         selectTagRef.current.focus();           //Reset focus on field
         formRequestData("")                     //Reset the input text stored in the state
@@ -123,25 +148,23 @@ const Select = ({name, formTools, ...props}) => {
             if (matchingValue) {
 
                 //Make sure that the object is not already in the list to prevent duplicates
-                const isDuplicate = [...currentState.value].some(item => {
-
+                const isDuplicate = [...selectedEntities].some(item => {
                     return item._id === matchingValue._id;
-
                   });
             
                 if(!isDuplicate){
+                    //push the matchingValue (selected) into the selectedEntities state
+                    const tempSelectedEntities = selectedEntities;
+                    tempSelectedEntities.push(matchingValue);
+                    setSelectedEntities(tempSelectedEntities);
 
-                    //Add the new validated value to the form state to be submitted
-                    pushSelectedValue(matchingValue);
-
+                    resetSelectComponent();
                 } else {
-
                     //If the value is a duplicate
                     msg.addMessage({ 
                         text: "La valeur que vous essayez d'ajouter est déjà dans la liste de vos choix.",
                         positive: false 
                     })
-
                 }
             }
             //No matching Value displays message it's not a taxonomy
@@ -160,14 +183,10 @@ const Select = ({name, formTools, ...props}) => {
 
     const removeValueFromSelectedItem = (select) => {
 
-        let tempTag=[];
-
-        currentState.value.forEach(item => {
-            if(item.name !== select.name)
-                tempTag.push(item);
-        })
-
-        updateValue(tempTag);
+        const tempTag = selectedEntities.filter(item => {
+            return item.name !== select.name
+        });
+        setSelectedEntities(tempTag);
     }
 
     if( selectList &&
@@ -189,11 +208,7 @@ const Select = ({name, formTools, ...props}) => {
             `}>
 
                 <Button2 
-                    className={`
-                        py-2 
-                        px-3 
-                        m-1 
-                        rounded-1
+                    className={`py-2 px-3 m-1 rounded-1
                         ${(!selectRequest.data.name || props.disabled) ? "disabled" : ""}
                     `}
                     type="button" 
@@ -221,27 +236,27 @@ const Select = ({name, formTools, ...props}) => {
 
             </div>
                 
-            {/* Button to call a form and add a new taxonomie */}
-            {/* If the updateModal function is defined, it meens that the modal functionnalities have to be activated */}
-            { props.updateModal &&
-                <div className={`col-12 ${styles["button-container"]}`}>
-                    <button
-                        type="button"
-                        disabled={ ((selectTagRef.current && selectTagRef.current.value) && !findMatchingValue() && props.updateModal) ? false : true}
-                        onClick={() => props.updateModal(prev => ({
-                            ...prev, 
-                            display: true,
-                            enteredValues: {
-                                ...prev.enteredValues,
-                                name: selectTagRef.current.value
-                            },
-                            callback: pushSelectedValue
-                        }))}
-                    >
-                        <small>Soumettre comme nouvelle taxonomie</small>
-                    </button>
-                </div>
-            }
+                {/* Button to call a form and add a new taxonomie */}
+                {/* If the updateModal function is defined, it meens that the modal functionnalities have to be activated */}
+                { props.updateModal &&
+                    <div className={`col-12 ${styles["button-container"]}`}>
+                        <button
+                            type="button"
+                            disabled={ ((selectTagRef.current && selectTagRef.current.value) && !findMatchingValue() && props.updateModal) ? false : true}
+                            onClick={() => props.updateModal(prev => ({
+                                ...prev, 
+                                display: true,
+                                enteredValues: {
+                                    ...prev.enteredValues,
+                                    name: selectTagRef.current.value
+                                },
+                                callback: resetSelectComponent
+                            }))}
+                        >
+                            <small>Soumettre comme nouvelle taxonomie</small>
+                        </button>
+                    </div>
+                }
 
 
             {/*
@@ -251,13 +266,13 @@ const Select = ({name, formTools, ...props}) => {
             */}
             <ul className={`${styles['tagList']}`}>
 
-                {currentState.value && currentState.value.map(selected =>
+                {selectedEntities && selectedEntities.map(selected =>
                 <li 
                     key={`select-tag-${selected.name}`}
                     className={`${styles['tag']} ${props.tag ? styles[props.tag] : styles[props.generaltag]}`} 
                 >
                     <button className={`${styles['closeButton']}`} type="button" onClick={() => removeValueFromSelectedItem(selected)}>&#x271A;</button>
-                    <span className={`${styles['status']} ${selected.status === "Accepted" ? styles['accepted'] : (selected.status === "Pending" ? styles['pending'] : styles['rejected'])}`}>■</span>
+                    <span className={`${styles['status']} ${selected.status.state === "Accepted" ? styles['accepted'] : (selected.status.state === "Pending" ? styles['pending'] : styles['rejected'])}`}>■</span>
                     <span>{selected.name}</span>
                 </li>
                 )}
