@@ -51,12 +51,15 @@ export const getSessionFromData = (userData) => {
  */
 export const getUserHeadersFromUserSession = (user, withAuthentification= false) => {
     const userHeaders = {};
-    userHeaders["x-forwarded-for"] = user.ip ?? "";
-    userHeaders["user-agent"] = user.browser ?? "";
+    if (user) {
+        userHeaders["x-forwarded-for"] = user.ip ?? "";
+        userHeaders["user-agent"] = user.browser ?? "";
 
-    if (withAuthentification) {
-        userHeaders["Authorization"] = user.token ? 'Bearer ' + user.token : '';
+        if (withAuthentification) {
+            userHeaders["Authorization"] = user.token ? 'Bearer ' + user.token : '';
+        }
     }
+
     return userHeaders;
 }
 

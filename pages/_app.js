@@ -37,7 +37,6 @@ function MyApp({Component, pageProps, user}) {
 MyApp.getInitialProps = async (context) => {
 
     const appProps = await App.getInitialProps(context);
-
     if (context.ctx.req && context.ctx.res) {
 
         let session = await getIronSession(
@@ -59,7 +58,7 @@ MyApp.getInitialProps = async (context) => {
         session.user = {
             ...savedInSessionUser,
             ...visitor
-        }
+        };
 
         await session.save();
 
