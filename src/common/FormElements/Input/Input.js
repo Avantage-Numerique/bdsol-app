@@ -7,7 +7,7 @@ import { useValidation } from '@/src/hooks/useValidation/useValidation'
 import { validate } from '@/src/utils/validators'
 
 //components
-import Tip from '@/src/common/FormElements/Tip/tip'
+import Tip from '@/common/FormElements/Tip/tip'
 
 //Styling
 import styles from './Input.module.scss'
