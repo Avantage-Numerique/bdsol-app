@@ -38,7 +38,7 @@ const Select = ({name, formTools, ...props}) => {
     } = formTools;
 
     //Make sure that the initial value is if type array. Otherwise, it create
-    const currentState = formState.inputs[name];
+    //const currentState = formState.inputs[name];
 
     const updateValue = value => {
         inputHandler(
@@ -55,7 +55,7 @@ const Select = ({name, formTools, ...props}) => {
      ************************/
 
     //Find if there is a matching value between the list proposed by the api and the value entered in the field by the user
-    const findMatchingValue = () => selectList.data.find(e => {return e.name === selectTagRef.current.value})
+    const findMatchingValue = () => selectList.data.find(e => {return e[props.searchField] === selectTagRef.current.value})
 
     /**************************
         Other select states
@@ -71,7 +71,6 @@ const Select = ({name, formTools, ...props}) => {
     //shape : data: {category: 'occupations', name: 'ingenieur'}
     const [selectRequest, setSelectRequest] = useState(props.requestData)
 
-    //const debouncedRequestData = useDebounce(selectName, 1500);
     const debouncedRequest = useDebounce(selectRequest, 400);
 
     //Update the form state whenever the selectedEntites state change
@@ -79,28 +78,49 @@ const Select = ({name, formTools, ...props}) => {
 
         let formatedObject = [];
         selectedEntities.forEach( item => {
-
-
-
-
-
-
-
-            //Ce useEffect disparait
+            switch(name){
+                case "team" :
+                    formatedObject.push(
+                    {
+                        member: item._id,
+                        status: {
+                            state:"Pending",
+                            requestedBy: auth.user.id,
+                            lastModifiedBy: auth.user.id
+                        }
+                    });break;
+                case "occupations":
+                    formatedObject.push(
+                        {
+                            occupation: item._id,
+                            status: {
+                                state:"Pending",
+                                requestedBy: auth.user.id,
+                                lastModifiedBy: auth.user.id
+                            }
+                        });break;
+                case "offers":
+                    formatedObject.push(
+                        {
+                            offer: item._id,
+                            status: {
+                                state:"Pending",
+                                requestedBy: auth.user.id,
+                                lastModifiedBy: auth.user.id
+                            }
+                        });break;
+                default :
+                formatedObject.push(
+                    {
+                        id: item._id,
+                        status: {
+                            state:"Pending",
+                            requestedBy: auth.user.id,
+                            lastModifiedBy: auth.user.id
+                        }
+                    });
+            }
             
-            
-            
-            
-            
-            formatedObject.push(
-            {
-                offer: item._id,
-                status: {
-                    state:"Pending",
-                    requestedBy: auth.user.id,
-                    lastModifiedBy: auth.user.id
-                }
-            });
         });
         updateValue(formatedObject);
 
@@ -109,8 +129,8 @@ const Select = ({name, formTools, ...props}) => {
     
     //Called whenever the user enter or modify a value into the field
     const formRequestData = (val) => {
-        //This line might be problematic if we list something that has no "name". As it's hardcoded.
-        props.requestData.data.name = val;
+        //Get the value inside the requestData in the "props.searchField" to send a new search request
+        props.requestData.data[props.searchField != undefined ? props.searchField : "name"] = val;
         setSelectRequest({...props.requestData});
     }
 
@@ -207,24 +227,10 @@ const Select = ({name, formTools, ...props}) => {
     }
 
     const removeValueFromSelectedItem = (select) => {
-
-
-
-
-
-        
-        //Ici on doit appliquer le filtre sur le current state du form (En enlevant un objet du array)
-        //Et on doit faire la même chose pour la liste des entités qui contient les détails
-
-
-
-
-
         
         const tempTag = selectedEntities.filter(item => {
-            return item.name !== select.name
+            return item[props.searchField] !== select[props.searchField]
         });
-        selectedEntities.filter
         setSelectedEntities(tempTag);
     }
 
@@ -238,12 +244,12 @@ const Select = ({name, formTools, ...props}) => {
 
                 <div>
 
-                    <Button type="button" slim="true" disabled={selectRequest.data.name ? false : true} onClick={addValueToSelectedItem}>+</Button>
+                    <Button type="button" slim="true" disabled={selectRequest.data[props.searchField] ? false : true} onClick={addValueToSelectedItem}>+</Button>
                     
                     <input 
                         type="text" 
-                        list='SelectDatalist' 
-                        name='SelectInput'
+                        list={props.label + props.searchField}
+                        name={'SelectInput-' + name }
                         id='SelectInput' 
                         onBlur={() => inputTouched(name)}
                         placeholder={props.placeholder}
@@ -252,9 +258,9 @@ const Select = ({name, formTools, ...props}) => {
                         onChange={(e) => {formRequestData(e.target.value)}}
                     />
                     
-                    <datalist id='SelectDatalist' name="SelectDatalist" className={`${styles["datalist-input"]}`}>
+                    <datalist id={props.label + props.searchField} name={"Datalist-"+ name } className={`${styles["datalist-input"]}`}>
                         {selectList.data.map( item => 
-                            <option key={`datalist-${item.name}`} value={item.name}></option>
+                            <option key={`datalist-${item[props.searchField]}`} value={item[props.searchField]}></option>
                         )}
                     </datalist>
 
@@ -293,12 +299,12 @@ const Select = ({name, formTools, ...props}) => {
 
                 {selectedEntities && selectedEntities.map(selected =>
                 <li 
-                    key={`select-tag-${selected.name}`}
+                    key={`select-tag-${selected[props.searchField]}`}
                     className={`${styles['tag']} ${props.tag ? styles[props.tag] : styles[props.generaltag]}`} 
                 >
                     <button className={`${styles['closeButton']}`} type="button" onClick={() => removeValueFromSelectedItem(selected)}>&#x271A;</button>
-                    <span className={`${styles['status']} ${selected.status.state === "Accepted" ? styles['accepted'] : (selected.status.state === "Pending" ? styles['pending'] : styles['rejected'])}`}>■</span>
-                    <span>{selected.name}</span>
+                    <span className={`${styles['status']}`}>■</span>
+                    <span>{selected[props.searchField]}</span>
                 </li>
                 )}
 
@@ -307,5 +313,5 @@ const Select = ({name, formTools, ...props}) => {
         </>
     );
 }
-
+// ${selected.status.state === "Accepted" ? styles['accepted'] : (selected.status.state === "Pending" ? styles['pending'] : styles['rejected'])}`
 export default Select;
