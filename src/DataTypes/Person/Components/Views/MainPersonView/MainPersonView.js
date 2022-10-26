@@ -193,6 +193,14 @@ const MainPersonView = ({ data }) => {
                             </SingleInfoLayout>
 
                             {
+                                status && status.state && status.state &&
+                                    <SingleInfoLayout
+                                        title="Statut de l'entité"
+                                        NAMessage={ status.state == 'Accepted' ? "Acceptée" : "En attente d'approbation"}>
+                                    </SingleInfoLayout>
+                            }
+
+                            {
                                 status && status.requestedBy &&
                                 <SingleInfoLayout
                                     title={"Créer par"}
