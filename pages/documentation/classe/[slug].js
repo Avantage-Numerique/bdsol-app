@@ -9,7 +9,7 @@ import DOMPurify from 'isomorphic-dompurify';
 */
 
 //Specify dynamic routes to pre-render pages based on data.
-export const getStaticPaths = async () => {
+/*export const getStaticPaths = async () => {
 
     const data = {
         "classes": [{
@@ -136,10 +136,10 @@ export const getStaticPaths = async () => {
         fallback: false
     }
 
-}
+}*/
 
 //Fetch the data and pass it as a props
-export const getStaticProps = async (context) => {
+export const getServerSideProps = async (context) => {
 
     const data = {
         "classes": [{

@@ -4,7 +4,7 @@ import Documentation from '@/documentation/pages/Documentation'
 
 // Fetch the documentation data from the Api and pass it as a props
 //Can only be done from the page
-export const getStaticProps = async () => {
+export const getServerSideProps = async () => {
 
     const data = {
         "classes": [
