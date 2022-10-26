@@ -26,7 +26,7 @@ const PageHeader = (props) => {
                                 <div className={`col col-sm-${colNumberXs} d-flex flex-column justify-content-center`}>
                                     {historyBack &&
                                     <div className={"d-flex justify-content-end"}>
-                                        <Button variant="outline-primary" href={historyBack.uri}>
+                                        <Button color="white" outline="primary" href={historyBack.uri}>
                                             {historyBack.label}
                                         </Button>
                                     </div>

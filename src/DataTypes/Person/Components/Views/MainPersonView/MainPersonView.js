@@ -46,7 +46,7 @@ const MainPersonView = ({ data }) => {
                 <div className={`${styles["headers-content"]}`}>
 
                     <div className={`${styles["headers-content__top-options"]}`}> 
-                        <button> &#8629; Retour </button>
+                        <Button> &#8629; Retour </Button>
                         <div>
     
                             <form>
@@ -95,7 +95,7 @@ const MainPersonView = ({ data }) => {
                         <aside>
                             <div>
                                 <p>Ceci est une proposition d'appel à l'action. Il reste donc à déterminer s'il est pertinent et quoi mettre à l'intérieur.</p>
-                                <Button small>Appel à l'action</Button>
+                                <Button size="small">Appel à l'action</Button>
                             </div>
                         </aside>
 

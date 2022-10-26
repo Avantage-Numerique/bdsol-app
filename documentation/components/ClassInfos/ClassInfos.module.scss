@@ -8,7 +8,9 @@
     max-height: 0px; */
     /*clip-path: polygon(0% 0%, 0% 0%, 0% 0%, 0% 0%);*/
     
-
+    h4 {
+        margin: 2em 0 1em 0;
+    }
 
     /*  When selected */
     &.active{
@@ -22,9 +24,6 @@
     *
     */
     > .classDescription {
-
-        h4 { margin-bottom: 1em 0rem; }
-
         p {
             margin-top: 0rem;
             column-count: 2;
@@ -32,43 +31,5 @@
             width: 100%;
             width: calc(100% - 2rem);
         }
-
     }
-
-    /*  
-    *
-    *   Properties section 
-    *
-    */
-    > .classProperties {
-
-        h4 { margin-bottom: 1em 0rem; }
-
-        .propertiesButtonContainer {
-            
-            display: flex; 
-            flex-wrap: wrap;
-            margin: -3px;
-
-            .propertyName {
-                border: none;
-                padding: 0.8rem;
-                font-size: 1.25rem;
-                border-radius: 6px;
-                float: left;
-                font-weight: 600;
-                margin: 3px;
-                cursor: pointer;
-                transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-
-            }
-        }
-    }
-
-    > .classLinkedClassed {
-
-    }
-
-
-
 }

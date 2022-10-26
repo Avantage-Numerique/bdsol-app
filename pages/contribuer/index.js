@@ -43,7 +43,7 @@ const Index = () => {
                         </div>
                     </div>
 
-                    <div className='row pt-3'>
+                    <div className='row pt-3 row-cols-1 row-cols-sm-3 gy-3'>
                         <div className="col">
                             <Button href="/contribuer/personne" size="large-100" disabled={!auth.user.isLoggedIn}>Personne</Button>
                         </div>
@@ -61,7 +61,7 @@ const Index = () => {
                         </div>
                     </div>
 
-                    <div className='row pt-3'>
+                    <div className='row pt-3 row-cols-1 row-cols-sm-3 gy-3'>
                         <div className="col">
                             <Button href="/" size="large-100" disabled>Projet</Button>
                         </div>

@@ -34,7 +34,9 @@ const Button = ({ rippleEffect, ...props }) => {
     let classList = [];
     let classesString;
 
-    let bsPrefix = props.listItem ? "list-group-item-" : "btn-";
+    // In case of using list-group-item Bootstrap feature
+    //let bsPrefix = props.listItem ? "list-group-item-" : "btn-";
+    let bsPrefix = "btn-";
 
     const [rippleList, setRippleList] = useState([])
 
@@ -64,7 +66,11 @@ const Button = ({ rippleEffect, ...props }) => {
 
         let bootstrapColor = props.color ? props.color : "primary";
 
-        if(props.outline){
+        if(
+            props.outline
+            &&
+            props.outline.length > 0
+        ){
             classList.push(`btn-custom-outline-${props.color}`);
             classList.push(`btn-outline-${props.outline}`);
         } else {
@@ -76,6 +82,9 @@ const Button = ({ rippleEffect, ...props }) => {
                 case "large-100":
                     classList.push('btn-lg');
                     classList.push('w-100');
+                    break;
+                case "large":
+                    classList.push('btn-lg');
                     break;
                 case "slim":
                     classList.push('btn-slim');
@@ -89,10 +98,13 @@ const Button = ({ rippleEffect, ...props }) => {
         }
     }
     
+    // In case of using list-group-item Bootstrap feature
+    /*
     if(props.listItem){
         classList.push('list-group-item');
         classList.push('list-group-item-action');
     }
+    */
 
     if(props.classes){
         classList.push(props.classes);

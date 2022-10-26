@@ -179,7 +179,7 @@ const Select = ({name, formTools, ...props}) => {
 
                 <div>
 
-                    <Button type="button" slim="true" disabled={selectRequest.data.name ? false : true} onClick={addValueToSelectedItem}>+</Button>
+                    <Button type="button" disabled={selectRequest.data.name ? false : true} onClick={addValueToSelectedItem}>+</Button>
                     
                     <input 
                         type="text" 

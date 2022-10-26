@@ -34,7 +34,7 @@ const PresentationCard = ({header, name, firstname, description, username, creat
             </header>
 
             {/* Background img */}
-            <figure className="col-12">
+            <figure>
 
                 { header === "Organisation" &&
                     <img 

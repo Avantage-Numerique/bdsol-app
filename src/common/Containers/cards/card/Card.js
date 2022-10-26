@@ -11,7 +11,7 @@ const Card = ({ header, children }) => {
             { header &&
                 <header className="col-12">
                     <div className="col-12">
-                        <h5 className="col-12"> {header} </h5>
+                        <h5>{header}</h5>
                     </div>
                 </header>
             }
