@@ -1,16 +1,16 @@
-import React from 'react'
+import React from 'react';
 
 //Hooks
-import { useValidation } from '@/src/hooks/useValidation/useValidation'
+import { useValidation } from '@/src/hooks/useValidation/useValidation';
 
 //Utils
-import { validate } from '@/src/utils/validators'
+import { validate } from '@/src/utils/validators';
 
 //components
-import Tip from '@/common/FormElements/Tip/tip'
+import Tip from '@/common/FormElements/Tip/Tip';
 
 //Styling
-import styles from './Input.module.scss'
+import styles from './Input.module.scss';
 
 
 const Input = ({name, formTools, ...props}) => {
