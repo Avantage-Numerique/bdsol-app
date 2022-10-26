@@ -151,7 +151,7 @@ const CreateOrganisationForm = () => {
             { isLoading && <Spinner fixed />}
 
             <form onSubmit={submitHandler} className={`col-12 ${styles["create-organisation-form"]}`}>
-                
+
                 <Input 
                     name="name"
                     label="Nom de l'organisation"
