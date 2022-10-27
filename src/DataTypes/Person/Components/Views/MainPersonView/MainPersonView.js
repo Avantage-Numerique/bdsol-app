@@ -35,7 +35,8 @@ const MainPersonView = ({ data }) => {
         nickname,
         description,
         createdAt,
-        updatedAt
+        updatedAt,
+        status
     } = data   
     
     /*
@@ -190,6 +191,29 @@ const MainPersonView = ({ data }) => {
                                 NAMessage={<p>Information bientôt disponible</p>}
                             >
                             </SingleInfoLayout>
+
+                            {
+                                status && status.state && status.state &&
+                                    <SingleInfoLayout
+                                        title="Statut de l'entité"
+                                        NAMessage={ status.state == 'Accepted' ? "Acceptée" : "En attente d'approbation"}>
+                                    </SingleInfoLayout>
+                            }
+
+                            {
+                                status && status.requestedBy &&
+                                <SingleInfoLayout
+                                    title={"Créer par"}
+                                    NAMessage={ <p>{ "Numéro d'identification de l'utilisateur : " + status.requestedBy}</p>}>
+                                </SingleInfoLayout>
+                            }
+                            {
+                                status && status.lastModifiedBy &&
+                                <SingleInfoLayout
+                                    title={"Dernière modifications par"}
+                                    NAMessage={ <p>{"Numéro d'identification de l'utilisateur : " + status.lastModifiedBy}</p>}>
+                                </SingleInfoLayout>
+                            }
 
                         </Col>
                         <Col sm={"auto"} lg={4}>
