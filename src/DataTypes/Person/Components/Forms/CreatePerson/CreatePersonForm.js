@@ -132,7 +132,7 @@ const CreatePersonForm = () => {
                 <Select
                     name="occupations"
                     label={lang.Occupations}
-                    request="/taxonomies/list/"
+                    request="/taxonomies"
                     requestData={occupationSelectRequestData}
                     tag="occupations"
                     placeholder={lang.occupationsPlaceholder}

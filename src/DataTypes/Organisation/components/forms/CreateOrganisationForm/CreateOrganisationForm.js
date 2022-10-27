@@ -76,7 +76,11 @@ const CreateOrganisationForm = () => {
         offers: {
             value: [],
             isValid: true
-        }
+        },
+        team: {
+            value: [],
+            isValid: true
+        },
     }, 
     false)
 
@@ -96,7 +100,8 @@ const CreateOrganisationForm = () => {
                     url: formState.inputs.url.value,
                     contactPoint: formState.inputs.contactPoint.value,
                     fondationDate: formState.inputs.fondationDate.value,
-                    offers: formState.inputs.offers.value
+                    offers: formState.inputs.offers.value,
+                    team: formState.inputs.team.value
                 } 
 
             };
@@ -145,13 +150,18 @@ const CreateOrganisationForm = () => {
             "name": ""
         }
     };
+    const teamSelectRequestData = {
+        "data": {
+            "firstName": ""
+        }
+    };
 
     return (
         <>
             { isLoading && <Spinner fixed />}
 
             <form onSubmit={submitHandler} className={`col-12 ${styles["create-organisation-form"]}`}>
-                
+
                 <Input 
                     name="name"
                     label="Nom de l'organisation"
@@ -196,12 +206,24 @@ const CreateOrganisationForm = () => {
 
                 <Select
                     name="offers"
+                    searchField="name"
                     label="Offres de services"
-                    request="/taxonomies/list"
+                    request="/taxonomies"
                     requestData={offerSelectRequestData}
                     tag="occupations"
                     formTools={formTools}
+                    placeholder="Directeur-trice artistique ..."
+                />
 
+                <Select
+                    name="team"
+                    searchField="firstName"
+                    label="Membre de l'équipe"
+                    request="/personnes"
+                    requestData={teamSelectRequestData}
+                    //tag="occupations"
+                    formTools={formTools}
+                    placeholder="Jean-Marc Parent ..."
                 />
 
                 <div className="col-12">
@@ -214,5 +236,4 @@ const CreateOrganisationForm = () => {
     )
 
 }
-
 export default CreateOrganisationForm 
