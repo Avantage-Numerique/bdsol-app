@@ -59,10 +59,6 @@ export const useValidation = () => {
 
     const [validators, setValidators] = useState(initiateValidators(TEMP))
 
-    useEffect(() => {
-        console.log(validators)
-    }, [validators])
-
     const validate = (value) => {
 
         //Evaluate the validity of the field => only positiv if every validation rules are respected

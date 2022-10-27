@@ -35,11 +35,6 @@ const Input = ({name, formTools, ...props}) => {
         )
     }
 
-    if(props.tip){
-        console.log(props.tip)
-        console.log({...props.tip})
-
-    }
  
     return (
         <div className={`${styles["input-component"]}`}>  

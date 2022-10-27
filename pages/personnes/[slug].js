@@ -15,8 +15,6 @@ import {withSessionSsr} from "@/auth/session/handlers/withSession";
 
 const SinglePersonPage = props => {
 
-                console.log(props);
-
     return (
         <div className={`${styles["single-person"]}`}>
 

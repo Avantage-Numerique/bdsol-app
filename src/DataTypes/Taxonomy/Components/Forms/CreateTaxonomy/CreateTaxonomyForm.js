@@ -78,14 +78,6 @@ const CreateTaxonomyForm = ({name, category, positiveRequestActions}) => {
             source: {
                 value: '',
                 isValid: true
-            },
-            status: {
-                value: '',
-                isValid: true
-            },
-            addReason: {
-                value: '',
-                isValid: true
             }
         },
         //Pass a set of rules to execute a valid response of an api request
@@ -110,8 +102,11 @@ const CreateTaxonomyForm = ({name, category, positiveRequestActions}) => {
                 "name":  formState.inputs.name.value, 
                 "description": formState.inputs.description.value,
                 "source": formState.inputs.source.value,
-                "status": "Pending",
-                "addReason": formState.inputs.addReason.value
+                "status": {
+                    "state": "Pending",
+                    "requestedBy": auth.user.id,
+                    "lastModifiedBy": auth.user.id
+                }//Hardcoded status to send at creation (Temporary, until we moderate it with the API)
             }
         };
 

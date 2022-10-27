@@ -12,7 +12,7 @@ import useDebounce from '@/src/hooks/useDebounce'
 
 //Styling
 import styles from './Select.module.scss'
-import Button2 from "react-bootstrap/Button";
+import Button from 'react-bootstrap/Button'
 
 import { useAuth } from '@/src/authentification/context/auth-context'
 
@@ -194,7 +194,6 @@ const Select = ({name, formTools, ...props}) => {
 
             //Get the NEW matching value or set it to undefined
             matchingValue.current = findMatchingValue() || undefined
-            console.log(matchingValue.current)
 
             //If there is a matching value, then go forward
             if (matchingValue.current) {
@@ -248,7 +247,7 @@ const Select = ({name, formTools, ...props}) => {
     if( selectList &&
         selectList.data)
     return (
-        <div className={`${styles.select}`}> 
+        <div className={`${styles["select"]}`}> 
 
             {/************ field label ************/}
             { props.label && 
@@ -256,22 +255,19 @@ const Select = ({name, formTools, ...props}) => {
                 <label htmlFor='SelectInput'>{ props.label }</label>
             </div>
             }
-                
-                { props.label && props.label}
-
                 <div>
 
                     <Button type="button" slim="true" disabled={selectRequest.data[props.searchField] ? false : true} onClick={addValueToSelectedItem}>+</Button>
                     
-                    <input 
+                    <input
                         type="text" 
                         list={props.label + props.searchField}
                         name={'SelectInput-' + name }
-                        id='SelectInput' 
+                        id={'SelectInput-'+ name}
                         onBlur={() => inputTouched(name)}
                         placeholder={props.placeholder}
-                        className={`${styles["select-input"]}`} 
-                        ref={selectTagRef} 
+                        className={`${styles["select-input"]}`}
+                        ref={selectTagRef}
                         onChange={(e) => {formRequestData(e.target.value)}}
                     />
                     

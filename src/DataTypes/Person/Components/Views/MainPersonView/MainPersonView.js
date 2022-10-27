@@ -27,7 +27,6 @@ const SingleInfoLayout = ({ title, NAMessage, children }) => {
 
 const MainPersonView = ({ data }) => {
 
-    console.log(data)
     const { 
         _id,
         firstName,

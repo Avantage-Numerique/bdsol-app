@@ -15,6 +15,9 @@ import {lang} from "@/src/common/Data/GlobalConstants";
 //Form validators
 import {VALIDATOR_REQUIRE} from '@/src/utils/validators'
 
+//Context
+import { useAuth } from "@/src/authentification/context/auth-context";
+
 //Styling
 import styles from './CreatePersonForm.module.scss'
 import Container from "react-bootstrap/Container";
@@ -22,7 +25,8 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
 const CreatePersonForm = () => {
-
+    const auth = useAuth();
+    
     const [modal, setModal] = useState({
         display: false,
         //Values to be passed from the person form to the taxonomy form
@@ -62,14 +66,20 @@ const CreatePersonForm = () => {
     const submitHandler = async event => { 
 
         event.preventDefault();
-    
+
         const formData = {
             "data": {
                 "lastName": formState.inputs.lastName.value,
                 "firstName":  formState.inputs.firstName.value, 
                 "nickname": formState.inputs.nickName.value,
                 "description": formState.inputs.description.value,
-                "occupations": formState.inputs.occupations.value
+                "occupations": formState.inputs.occupations.value,
+
+                "status": {
+                    "state": "Pending",
+                    "requestedBy": auth.user.id,
+                    "lastModifiedBy": auth.user.id
+                }//Hardcoded status to send at creation (Temporary, until we moderate it with the API)
             }
         };
 
@@ -131,6 +141,7 @@ const CreatePersonForm = () => {
 
                 <Select
                     name="occupations"
+                    searchField="name"
                     label={lang.Occupations}
                     request="/taxonomies"
                     requestData={occupationSelectRequestData}

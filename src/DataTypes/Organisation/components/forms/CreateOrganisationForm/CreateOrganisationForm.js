@@ -101,7 +101,13 @@ const CreateOrganisationForm = () => {
                     contactPoint: formState.inputs.contactPoint.value,
                     fondationDate: formState.inputs.fondationDate.value,
                     offers: formState.inputs.offers.value,
-                    team: formState.inputs.team.value
+                    team: formState.inputs.team.value,
+                    
+                    "status": {
+                        "state": "Pending",
+                        "requestedBy": auth.user.id,
+                        "lastModifiedBy": auth.user.id
+                    }//Hardcoded status to send at creation (Temporary, until we moderate it with the API)
                 } 
 
             };
