@@ -1,14 +1,21 @@
-import React from 'react'
+import React from 'react';
+
+//Hooks
+import { useValidation } from '@/src/hooks/useValidation/useValidation';
 
 //Utils
-import { validate } from '@/src/utils/validators'
+import { validate } from '@/src/utils/validators';
+
+//components
+import Tip from '@/common/FormElements/Tip/Tip';
 
 //Styling
-import styles from './Input.module.scss'
+import styles from './Input.module.scss';
 
 
-const Input = ({addRow, removeRow, name, formTools, ...props}) => {
+const Input = ({name, formTools, ...props}) => {
 
+    const { } = useValidation()
     /*
         Access the differents form tools 
     */
@@ -27,54 +34,56 @@ const Input = ({addRow, removeRow, name, formTools, ...props}) => {
             props.validators ? validate(event.target.value, props.validators) : true
         )
     }
+
+    if(props.tip){
+        console.log(props.tip)
+        console.log({...props.tip})
+
+    }
  
     return (
-        
-            <label className={ styles.inputComponent + " " + (props.className ? props.className : "") } htmlFor={props.name}>
-
-                {props.label}
-
-                <div className={`${styles["inputComponent__field-container"]}`}>
-
-                    <input 
-                        className={` ${!currentState.isValid && currentState.isTouched && styles["control--invalid"]}`}
-                        name={ name }
-                        id={ name }
-                        //If there is a state attached to the component, make it a controlled components where the value depends on the state
-                        value={ currentState ? currentState.value : null } 
-                        type={props.type ? props.type : "text"}
-                        placeholder={props.placeholder}
-                        onChange={updateValue}
-                        onBlur={() => inputTouched(name)}
-                        autoComplete={props.type === "password" ? "on" : undefined}
-                    /> 
-
-                    { 
-                        addRow &&
-                        <button onClick={addRow} 
-                                className={`text-white bg-blue2`}
-                                type="button"
-                        >   &#43;
-                        </button>
-                    }
-                    {
-                        removeRow &&
-                        <button  
-                            onClick={removeRow} 
-                            className={`text-white bg-danger`}
-                            type="button"
-                        >
-                                &#215;
-                        </button>
-                    }
-
-                </div>
-                
-                {!currentState.isValid && currentState.isTouched && 
-                    <small>{ props.errorText }</small>
+        <div className={`${styles["input-component"]}`}>  
+            <div className={`${styles["input-component__label-container"]}`} >
+                <label 
+                    htmlFor={name}
+                >
+                    {props.label}
+                </label>
+                {
+                    props.tip &&
+                    <Tip 
+                        {...props.tip}
+                    />
                 }
+            </div>
 
-            </label>
+            <div className={`
+                form-element
+                form-element--color-validation
+                ${styles["input-component__field-container"]}
+                ${!currentState.isValid && currentState.isTouched && "control--invalid"}
+            `}>
+                <input 
+                    className="form-element--field-padding"
+                    name={ name }
+                    id={ name }
+                    //If there is a state attached to the component, make it a controlled components where the value depends on the state
+                    value={ currentState ? currentState.value : null } 
+                    type={props.type ? props.type : "text"}
+                    placeholder={props.placeholder}
+                    onChange={updateValue}
+                    onBlur={() => inputTouched(name)}
+                    autoComplete={props.type === "password" ? "on" : undefined}
+                /> 
+            </div>
+                
+            {!currentState.isValid && currentState.isTouched && 
+            <div className={`${styles["input-component__add"]}`}>
+                <small>{ props.errorText }</small>
+            </div>
+            }
+
+        </div>
 
     ); 
 }

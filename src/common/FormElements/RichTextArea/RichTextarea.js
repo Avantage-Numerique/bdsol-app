@@ -60,49 +60,72 @@ const RichTextarea = ({name, formTools, ...props}) => {
                 
                 {isRendered && <>
 
-                    {/************************** 
-                            Custom toolbar component including insertStar button and dropdowns
-                    ****************************/}
-                    <div id={toolbarId.current} className={`ql-toolbar ql-snow`}>
-                        <select className="ql-header" defaultValue="">
-                            <option value="1">Titre 1</option>
-                            <option value="2">Titre 2</option>
-                            <option value="">Normal</option>
-                        </select>
+                    <div className={`
+                        d-flex
+                        flex-column
+                        p-2
+                        form-element
+                        form-element--color-validation
+                        ${styles["rich-textarea__quill__field"]}
+                        ${!currentState.isValid && currentState.isTouched && "control--invalid"}
+                    `}>
 
-                        <button className="ql-list" value="ordered" />
-                        <button className="ql-list" value="bullet" />
-                        <button className="ql-bold" />
-                        <button className="ql-italic" />
-                        <button className="ql-align" value="" />
-                        <button className="ql-align" value="center" />
-                        <button className="ql-align" value="right" />
+                        
+                        {/************************** 
+                                Custom toolbar component including insertStar button and dropdowns
+                        ****************************/}
+                        <div id={toolbarId.current} className={`
+                            ql-toolbar 
+                            ql-snow 
+                            shadow-sm 
+                            form-element--b-radius 
+                            ${styles["rich-textarea__tool-bar"]}
+                        `}>
+                            <select className="ql-header" defaultValue="">
+                                <option value="1">Titre 1</option>
+                                <option value="2">Titre 2</option>
+                                <option value="">Normal</option>
+                            </select>
 
-                        <select className="ql-color" defaultValue="">
-                            <option value="#455ae6" />
-                            <option value="#4dc4ff" />
-                            <option value="#dd5c5c" />
-                            <option value="#bbbfd7" />
-                            <option value="#d4c87b" />
-                            <option value="#7bd485" />
-                            <option value="" />
-                        </select>
+                            <button className="ql-list" value="ordered" />
+                            <button className="ql-list" value="bullet" />
+                            <button className="ql-bold" />
+                            <button className="ql-italic" />
+                            <button className="ql-align" value="" />
+                            <button className="ql-align" value="center" />
+                            <button className="ql-align" value="right" />
+
+                            <select className="ql-color" defaultValue="">
+                                <option value="#455ae6" />
+                                <option value="#4dc4ff" />
+                                <option value="#dd5c5c" />
+                                <option value="#bbbfd7" />
+                                <option value="#d4c87b" />
+                                <option value="#7bd485" />
+                                <option value="" />
+                            </select>
+                        </div>
+
+                        <ReactQuill
+                            className={` 
+                                ${styles["rich-textarea__quill-content"]} 
+                            `}
+                            onBlur={() => inputTouched(name)}
+                            value={currentState ? currentState.value : null}
+                            modules={{toolbar: {
+                                container: `#${toolbarId.current}`
+                            }}}
+                            onChange={updateValue}
+                            placeholder={props.placeholder}
+                            theme="snow" 
+                        />
+
+                        {/* Receive extra content like the validation tags */}
+                        <div className={`${styles["rich-textarea__quill__field__extra-content"]}`}>
+                            
+                        </div>
+
                     </div>
-    
-                    <ReactQuill
-                        className={` 
-                            ${styles["rich-textarea__quill-content"]} 
-                            ${!currentState.isValid && currentState.isTouched && styles["control--invalid"]}
-                        `}
-                        onBlur={() => inputTouched(name)}
-                        value={currentState ? currentState.value : null}
-                        modules={{toolbar: {
-                            container: `#${toolbarId.current}`
-                        }}}
-                        onChange={updateValue}
-                        placeholder={props.placeholder}
-                        theme="snow" 
-                    />
              </>}  
                 
             </div>

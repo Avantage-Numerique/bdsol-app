@@ -176,25 +176,25 @@ const Register = () => {
             <form className={`${styles["registration-form"]}`} onSubmit={submitHandler}>  
 
                 <h3 className="text-primary">Création de compte</h3>
-
-                <Input
-                    name="name"
-                    type="text"
-                    label="Nom"
-                    validators={[]}
-                    errorText="Veuillez entrer un nom d'utilisateur valide"
-                    formTools={formTools}
-                /> 
-
+                
                 <Input
                     name="username"
                     type="text"
                     label="Nom d'utilisateur"
+                    placeholder="Visible par tous"
                     validators={[VALIDATOR_REQUIRE()]}
                     errorText="Veuillez entrer un nom d'utilisateur valide"
                     formTools={formTools}
                 />   
-
+                <Input
+                    name="name"
+                    type="text"
+                    label="Prénom et nom"
+                    validators={[]}
+                    placeholder="Invisible aux usagers"
+                    errorText="Veuillez entrer un nom d'utilisateur valide"
+                    formTools={formTools}
+                /> 
                 <Input
                     name="email"
                     type="email"

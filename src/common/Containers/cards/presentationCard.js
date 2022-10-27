@@ -26,8 +26,6 @@ const { publicRuntimeConfig } = getConfig();
 
 const PresentationCard = ({header, data}) => {
 
-    console.log(data)
-
     const {
         slug,
         firstName,
@@ -65,7 +63,6 @@ const PresentationCard = ({header, data}) => {
                             <Button disabled={(header === "Organisation")} href={`personnes/${slug}`} small >Voir</Button>
                         </Col>
                         
-                        
                     </Row>
 
                 </header>
@@ -76,7 +73,7 @@ const PresentationCard = ({header, data}) => {
                         { header === "Organisation" &&
                             <img 
                                 className={`px-0 ${styles["card__img-container__img"]}`}
-                                src="/general_images/putin.webp"
+                                src="/general_images/Jurassic_Park_Main_Gate.jpg"
                                 alt="Photo de putin qui chevauche un ours" 
                             />
                         }

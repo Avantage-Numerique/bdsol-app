@@ -1,0 +1,33 @@
+/*******
+
+    SuisseIntl - Main font of Avantage Numerique
+    Added by V.P.R. - 18/10/2022
+
+********/
+@font-face {
+    font-family: 'SuisseIntl';
+    src: url('/fonts/SuisseIntl/SuisseIntl-Regular.woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'SuisseIntl';
+    src: url('/fonts/SuisseIntl/SuisseIntl-RegularItalic.woff2');
+    font-weight: normal;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'SuisseIntl';
+    src: url('/fonts/SuisseIntl/SuisseIntl-Bold.woff2');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'SuisseIntl';
+    src: url('/fonts/SuisseIntl/SuisseIntl-BoldItalic.woff2');
+    font-weight: bold;
+    font-style: italic;
+}

@@ -59,7 +59,7 @@ const CreateOrganisationForm = () => {
         },
         description: {
             value: '',
-            isValid: false
+            isValid: true
         },
         url: {
             value: '',
@@ -165,6 +165,10 @@ const CreateOrganisationForm = () => {
                 <Input 
                     name="name"
                     label="Nom de l'organisation"
+                    tip={{
+                        header: "À noter",
+                        body: "Assurez-vous de bien écrire le nom de l'organisation afin de faciliter les recherches."
+                    }}
                     validators={[VALIDATOR_REQUIRE()]}
                     errorText="Cette information est requise"
                     formTools={formTools}
@@ -182,12 +186,14 @@ const CreateOrganisationForm = () => {
                     type="url"
                     validators={[VALIDATOR_REQUIRE()]}
                     errorText="Cette information est requise"
+                    placeholder="Exemple : https://siteWeb.com/"
                     formTools={formTools}
                 />
 
                 <Input  
                     name="contactPoint"
                     label="Information de contact"
+                    placeholder="Adresse courriel, numéro de téléphone, etc..."
                     formTools={formTools}
                 />
 

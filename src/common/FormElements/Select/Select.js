@@ -9,10 +9,11 @@ import { MessageContext } from '@/src/common/UserNotifications/Message/Context/M
 
 //Components
 import useDebounce from '@/src/hooks/useDebounce'
-import Button from '@/src/common/FormElements/Buttons/Button/Button'
 
 //Styling
 import styles from './Select.module.scss'
+import Button2 from "react-bootstrap/Button";
+
 import { useAuth } from '@/src/authentification/context/auth-context'
 
 /*
@@ -247,8 +248,14 @@ const Select = ({name, formTools, ...props}) => {
     if( selectList &&
         selectList.data)
     return (
-        <>
-            <label className={`${styles["select-component"]}`}  htmlFor='SelectInput'>
+        <div className={`${styles.select}`}> 
+
+            {/************ field label ************/}
+            { props.label && 
+            <div className={`${styles["select__label-row"]}`}>
+                <label htmlFor='SelectInput'>{ props.label }</label>
+            </div>
+            }
                 
                 { props.label && props.label}
 
@@ -299,7 +306,6 @@ const Select = ({name, formTools, ...props}) => {
                 }
 
 
-            </label>
             {/*
 
                 Display the selected items
@@ -320,7 +326,7 @@ const Select = ({name, formTools, ...props}) => {
 
             </ul>
 
-        </>
+        </div>
     );
 }
 // ${selected.status.state === "Accepted" ? styles['accepted'] : (selected.status.state === "Pending" ? styles['pending'] : styles['rejected'])}`

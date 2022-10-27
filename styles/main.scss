@@ -1,4 +1,5 @@
 @import './custom.scss';
+@import './fonts';
 
 //Cherry picking of packages' styles.
 @import './packages/bootstrap';
@@ -11,6 +12,7 @@
 @import './tags/hr';
 
 @import './layout-components/header.scss';
+@import './layout-components/form-elements.scss';
 @import './components/customScrollBar.scss';
 
 @import './layouts/default';
