@@ -46,7 +46,7 @@ const RichTextarea = ({name, formTools, ...props}) => {
 
     return (
 
-        <div className={`${styles["rich-textarea"]}`} >
+        <div className={`${styles["rich-textarea"]}`}  >
 
             {props.label &&
 
@@ -56,7 +56,7 @@ const RichTextarea = ({name, formTools, ...props}) => {
 
             } 
 
-            <div className={` ${styles["rich-textarea__quill"]} `}> 
+            <div className={` ${styles["rich-textarea__quill"]} `} > 
                 
                 {isRendered && <>
 
@@ -68,34 +68,34 @@ const RichTextarea = ({name, formTools, ...props}) => {
                         form-element--color-validation
                         ${styles["rich-textarea__quill__field"]}
                         ${!currentState.isValid && currentState.isTouched && "control--invalid"}
-                    `}>
+                    `} >
 
                         
                         {/************************** 
                                 Custom toolbar component including insertStar button and dropdowns
                         ****************************/}
                         <div id={toolbarId.current} className={`
-                            ql-toolbar 
-                            ql-snow 
-                            shadow-sm 
-                            form-element--b-radius 
+                            ql-toolbar
+                            ql-snow
+                            shadow-sm
+                            form-element--b-radius
                             ${styles["rich-textarea__tool-bar"]}
-                        `}>
-                            <select className="ql-header" defaultValue="">
-                                <option value="1">Titre 1</option>
-                                <option value="2">Titre 2</option>
-                                <option value="">Normal</option>
+                        `} >
+                            <select className="ql-header" defaultValue="" >
+                                <option value="1" >Titre 1</option>
+                                <option value="2" >Titre 2</option>
+                                <option value="" >Normal</option>
                             </select>
 
-                            <button className="ql-list" value="ordered" />
-                            <button className="ql-list" value="bullet" />
-                            <button className="ql-bold" />
-                            <button className="ql-italic" />
-                            <button className="ql-align" value="" />
-                            <button className="ql-align" value="center" />
-                            <button className="ql-align" value="right" />
+                            <button className="ql-list" value="ordered" tabIndex={-1}/>
+                            <button className="ql-list" value="bullet" tabIndex={-1}/>
+                            <button className="ql-bold" tabIndex={-1}/>
+                            <button className="ql-italic" tabIndex={-1}/>
+                            <button className="ql-align" value="" tabIndex={-1}/>
+                            <button className="ql-align" value="center" tabIndex={-1}/>
+                            <button className="ql-align" value="right" tabIndex={-1}/>
 
-                            <select className="ql-color" defaultValue="">
+                            <select className="ql-color" defaultValue="" >
                                 <option value="#455ae6" />
                                 <option value="#4dc4ff" />
                                 <option value="#dd5c5c" />
