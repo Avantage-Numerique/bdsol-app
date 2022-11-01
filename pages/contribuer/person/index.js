@@ -13,7 +13,7 @@ const CreatePersonPage = () => {
 
     return (
         <SingleViewEntityFormLayout formName={"person"} headerProps={{
-            title: lang.Personnes,
+            title: lang.Persons,
             subTitle: lang.formPersonSubtitle,
             description: lang.formPersonInstructions,
             colWidth: 8,

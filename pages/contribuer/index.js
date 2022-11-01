@@ -48,7 +48,7 @@ const Index = () => {
 
                     <Row className='pt-3'>
                         <Col>
-                            <Button2 href="/contribuer/personne" size="lg" className={"w-100"} disabled={!auth.user.isLoggedIn}>Personne</Button2>
+                            <Button2 href="/contribuer/person" size="lg" className={"w-100"} disabled={!auth.user.isLoggedIn}>Personne</Button2>
                         </Col>
                         <Col>
                             <Button2 href="/contribuer/organisation" size="lg" className={"w-100"} disabled={!auth.user.isLoggedIn}>Organisation</Button2>

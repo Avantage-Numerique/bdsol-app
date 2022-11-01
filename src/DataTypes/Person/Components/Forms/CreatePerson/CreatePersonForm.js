@@ -85,7 +85,7 @@ const CreatePersonForm = () => {
 
         //Send the request with the specialized hook
         submitRequest(
-            "/personnes/create",
+            "/persons/create",
             'POST',
             formData
         );

@@ -7,7 +7,7 @@ export default class NamedRoutes {
 
     // be able to use for these type of routes :
     // basic, like /about
-    // Dynamic like /personnes/vincent
+    // Dynamic like /persons/vincent
     //
 
     // first idea :

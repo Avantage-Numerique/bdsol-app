@@ -37,7 +37,7 @@ export async function personSlugSSProps(context) {
     const { slug } = context.query;
 
     const response = await externalApiRequest(
-        `/personnes/${slug}`,
+        `/persons/${slug}`,
         {
             method: 'GET',
             headers: getUserHeadersFromUserSession(context.req.session.user)

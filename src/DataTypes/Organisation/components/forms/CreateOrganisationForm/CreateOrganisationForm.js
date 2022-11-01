@@ -225,7 +225,7 @@ const CreateOrganisationForm = () => {
                     name="team"
                     searchField="firstName"
                     label="Membre de l'équipe"
-                    request="/personnes"
+                    request="/persons"
                     requestData={teamSelectRequestData}
                     //tag="occupations"
                     formTools={formTools}

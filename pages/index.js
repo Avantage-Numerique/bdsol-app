@@ -56,7 +56,7 @@ const HomePage = ({}) => {
 
         //Send the request with the specialized hook
         const persResponse = await sendRequest(
-            "/personnes/list",
+            "/persons/list",
             'POST',
             JSON.stringify({"data": listQuery}),
             {'Content-Type': 'application/json'}
@@ -235,7 +235,7 @@ const HomePage = ({}) => {
                                     <Button disabled slim>Personne</Button>
                                     <Button
                                         disabled={!auth.user.isLoggedIn}
-                                        href="/contribuer/personne"
+                                        href="/contribuer/person"
                                         slim
                                     >+</Button>
                                 </div>

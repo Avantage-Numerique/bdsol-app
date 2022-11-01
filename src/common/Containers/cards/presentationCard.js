@@ -60,7 +60,7 @@ const PresentationCard = ({header, data}) => {
 
                         {/* Redirection link */}
                         <Col className="d-flex justify-content-end">
-                            <Button disabled={(header === "Organisation")} href={`personnes/${slug}`} small >Voir</Button>
+                            <Button disabled={(header === "Organisation")} href={`persons/${slug}`} small >Voir</Button>
                         </Col>
                         
                     </Row>
