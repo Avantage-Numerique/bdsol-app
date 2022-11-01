@@ -65,7 +65,7 @@ const CreateTaxonomyForm = ({name, category, positiveRequestActions}) => {
         {
             category: {
                 value: (category ? category : ''),
-                isValid: false
+                isValid: true
             },
             name: {
                 value: (name ? name : ''),
@@ -102,7 +102,7 @@ const CreateTaxonomyForm = ({name, category, positiveRequestActions}) => {
                 "category": formState.inputs.category.value,
                 "name":  formState.inputs.name.value, 
                 "description": formState.inputs.description.value,
-                "source": formState.inputs.source.value,
+                /*"source": formState.inputs.source.value,*/
                 "status": {
                     "state": "Pending",
                     "requestedBy": auth.user.id,
@@ -141,7 +141,7 @@ const CreateTaxonomyForm = ({name, category, positiveRequestActions}) => {
                         <option value="">-- Choisissez une taxonomy --</option>
                         {Object.keys(taxonomies).map((key) => {
                             return (
-                                <option key={`taxonomy-${key}`} value={key} disabled={(key !== category)}>{taxonomies[key]}</option>
+                                <option key={`taxonomy-${key}`} value={key} disabled={(key !== "occupations")}>{taxonomies[key]}</option>
                             );
                         })}
                     </select>
