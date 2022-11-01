@@ -265,24 +265,36 @@ const Select2 = ({name, formTools, ...props}) => {
                         className="m-1 rounded-1">
                             +
                     </Button>
+
+                    <div className="flex-grow-1 form-element--field-padding">
                     
-                    <input
-                        type="text" 
-                        list={props.label + props.searchField}
-                        name={'SelectInput-' + name }
-                        id={'SelectInput-'+ name}
-                        onBlur={() => inputTouched(name)}
-                        placeholder={props.placeholder}
-                        className={`${styles["select-input"]} form-element--field-padding flex-grow-1 `}
-                        ref={selectTagRef}
-                        onChange={(e) => {formRequestData(e.target.value)}}
-                    />
-                    
-                    <datalist id={props.label + props.searchField} name={"Datalist-"+ name } className={`${styles["datalist-input"]}`}>
-                        {selectList.data.map( item => 
-                            <option key={`datalist-${item[props.searchField]}`} value={item[props.searchField]}></option>
-                        )}
-                    </datalist>
+                        <input
+                            type="text" 
+                            list={props.label + props.searchField}
+                            name={'SelectInput-' + name }
+                            id={'SelectInput-'+ name}
+                            onBlur={() => inputTouched(name)}
+                            placeholder={props.placeholder}
+                            className={`
+                                w-100 
+                                p-0
+                                border-0  
+                            `}
+                            ref={selectTagRef}
+                            onChange={(e) => {formRequestData(e.target.value)}}
+                        />
+
+                        <div className="w-100 d-flex">
+                            {/* To fill with validation rules*/}
+                        </div>
+                        
+                        <datalist id={props.label + props.searchField} name={"Datalist-"+ name } className={`${styles["datalist-input"]}`}>
+                            {selectList.data.map( item => 
+                                <option key={`datalist-${item[props.searchField]}`} value={item[props.searchField]}></option>
+                            )}
+                        </datalist>
+
+                    </div>
 
                 </div>
                 
