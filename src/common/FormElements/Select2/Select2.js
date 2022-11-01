@@ -255,9 +255,16 @@ const Select2 = ({name, formTools, ...props}) => {
                 <label htmlFor='SelectInput'>{ props.label }</label>
             </div>
             }
-                <div className="form-element form-element--color-validation">
+                <div className="form-element form-element--color-validation d-flex">
 
-                    <Button type="button" slim="true" disabled={selectRequest.data[props.searchField] ? false : true} onClick={addValueToSelectedItem}>+</Button>
+                    <Button 
+                        type="button" 
+                        slim="true" 
+                        disabled={selectRequest.data[props.searchField] ? false : true} 
+                        onClick={addValueToSelectedItem}
+                        className="m-1 rounded-1">
+                            +
+                    </Button>
                     
                     <input
                         type="text" 
@@ -266,7 +273,7 @@ const Select2 = ({name, formTools, ...props}) => {
                         id={'SelectInput-'+ name}
                         onBlur={() => inputTouched(name)}
                         placeholder={props.placeholder}
-                        className={`${styles["select-input"]}`}
+                        className={`${styles["select-input"]} form-element--field-padding flex-grow-1 `}
                         ref={selectTagRef}
                         onChange={(e) => {formRequestData(e.target.value)}}
                     />
