@@ -11,7 +11,7 @@ import { MessageContext } from '@/src/common/UserNotifications/Message/Context/M
 import useDebounce from '@/src/hooks/useDebounce'
 
 //Styling
-import styles from './Select.module.scss'
+import styles from './Select2.module.scss'
 import Button from 'react-bootstrap/Button'
 
 import { useAuth } from '@/src/authentification/context/auth-context'
@@ -26,7 +26,7 @@ const dictionnary = {
 }
 
 
-const Select = ({name, formTools, ...props}) => {
+const Select2 = ({name, formTools, ...props}) => {
 
     const selectTagRef = useRef();
 
@@ -255,7 +255,7 @@ const Select = ({name, formTools, ...props}) => {
                 <label htmlFor='SelectInput'>{ props.label }</label>
             </div>
             }
-                <div>
+                <div className="form-element form-element--color-validation">
 
                     <Button type="button" slim="true" disabled={selectRequest.data[props.searchField] ? false : true} onClick={addValueToSelectedItem}>+</Button>
                     
@@ -326,4 +326,4 @@ const Select = ({name, formTools, ...props}) => {
     );
 }
 // ${selected.status.state === "Accepted" ? styles['accepted'] : (selected.status.state === "Pending" ? styles['pending'] : styles['rejected'])}`
-export default Select;
+export default Select2;

@@ -7,7 +7,7 @@ import { useFormUtils } from '@/src/hooks/useFormUtils/useFormUtils'
 import Button from '@/src/common/FormElements/Buttons/Button/Button'
 import Input from '@/src/common/FormElements/Input/Input'
 import RichTextarea from '@/src/common/FormElements/RichTextArea/RichTextarea'
-import Select from '@/src/common/FormElements/Select/Select'
+import Select2 from '@/src/common/FormElements/Select2/Select2'
 import Modal from '@/src/common/Containers/Modal/Modal'
 import CreateTaxonomyForm from '@/src/DataTypes/Taxonomy/Components/Forms/CreateTaxonomy/CreateTaxonomyForm'
 import {lang} from "@/src/common/Data/GlobalConstants";
@@ -132,7 +132,7 @@ const UpdatePersonForm = ({initValues}) => {
                     formTools={formTools}
                 />
 
-                <Select
+                <Select2
                     name="occupations"
                     label={lang.Occupations}
                     request="/taxonomies/list/"

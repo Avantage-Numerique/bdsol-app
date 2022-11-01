@@ -75,10 +75,11 @@ const CreateTaxonomyForm = ({name, category, positiveRequestActions}) => {
                 value: '',
                 isValid: true
             }, 
-            source: {
+            "status.message": {
                 value: '',
                 isValid: true
             }
+
         },
         //Pass a set of rules to execute a valid response of an api request
         positiveRequestActions || undefined         
@@ -105,7 +106,8 @@ const CreateTaxonomyForm = ({name, category, positiveRequestActions}) => {
                 "status": {
                     "state": "Pending",
                     "requestedBy": auth.user.id,
-                    "lastModifiedBy": auth.user.id
+                    "lastModifiedBy": auth.user.id,
+                    "message": formState.inputs["status.message"].value
                 }//Hardcoded status to send at creation (Temporary, until we moderate it with the API)
             }
         };
@@ -134,7 +136,7 @@ const CreateTaxonomyForm = ({name, category, positiveRequestActions}) => {
                         className={`${styles["select-component"]}`}
                         name="category"
                         required={true}
-                        defaultValue={category ?? ""}
+                        defaultValue={category ?? "occupations"}
                         onChange={ (e) => { formTools.inputHandler( "category", e.target.value, (e.target.value !== "0" && e.target.value !== "") )}}>
                         <option value="">-- Choisissez une taxonomy --</option>
                         {Object.keys(taxonomies).map((key) => {
@@ -160,7 +162,7 @@ const CreateTaxonomyForm = ({name, category, positiveRequestActions}) => {
                 />
 
                 <RichTextarea
-                    name="addReason"
+                    name="status.message"
                     label="Dites nous en quelques mots la raison de l'ajout"
                     placeholder="Il s'agit du titre de mon métier [...]"
                     formTools={formTools}

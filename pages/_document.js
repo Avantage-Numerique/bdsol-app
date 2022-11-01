@@ -6,28 +6,28 @@ export default function Document() {
       <Head>
         <link
             rel="preload"
-            href="/fonts/SuisseIntl-Regular.woff2"
+            href="/fonts/SuisseIntl/SuisseIntl-Regular.woff2"
             as="font"
             type="font/woff"
             crossOrigin=""
         />
         <link
             rel="preload"
-            href="/fonts/SuisseIntl-RegularItalic.woff2"
+            href="/fonts/SuisseIntl/SuisseIntl-RegularItalic.woff2"
             as="font"
             type="font/woff"
             crossOrigin=""
         />
         <link
             rel="preload"
-            href="/fonts/SuisseIntl-Bold.woff2"
+            href="/fonts/SuisseIntl/SuisseIntl-Bold.woff2"
             as="font"
             type="font/woff"
             crossOrigin=""
         />
         <link
             rel="preload"
-            href="/fonts/SuisseIntl-BoldItalic.woff2"
+            href="/fonts/SuisseIntl/SuisseIntl-BoldItalic.woff2"
             as="font"
             type="font/woff"
             crossOrigin=""
