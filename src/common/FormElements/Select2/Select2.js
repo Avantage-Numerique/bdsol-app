@@ -11,7 +11,7 @@ import { MessageContext } from '@/src/common/UserNotifications/Message/Context/M
 import useDebounce from '@/src/hooks/useDebounce'
 
 //Styling
-import styles from './Select.module.scss'
+import styles from './Select2.module.scss'
 import Button from 'react-bootstrap/Button'
 
 import { useAuth } from '@/src/authentification/context/auth-context'
@@ -26,7 +26,7 @@ const dictionnary = {
 }
 
 
-const Select = ({name, formTools, ...props}) => {
+const Select2 = ({name, formTools, ...props}) => {
 
     const selectTagRef = useRef();
 
@@ -255,27 +255,46 @@ const Select = ({name, formTools, ...props}) => {
                 <label htmlFor='SelectInput'>{ props.label }</label>
             </div>
             }
-                <div>
+                <div className="form-element form-element--color-validation d-flex">
 
-                    <Button type="button" slim="true" disabled={selectRequest.data[props.searchField] ? false : true} onClick={addValueToSelectedItem}>+</Button>
+                    <Button 
+                        type="button" 
+                        slim="true" 
+                        disabled={selectRequest.data[props.searchField] ? false : true} 
+                        onClick={addValueToSelectedItem}
+                        className="m-1 rounded-1">
+                            +
+                    </Button>
+
+                    <div className="flex-grow-1 form-element--field-padding">
                     
-                    <input
-                        type="text" 
-                        list={props.label + props.searchField}
-                        name={'SelectInput-' + name }
-                        id={'SelectInput-'+ name}
-                        onBlur={() => inputTouched(name)}
-                        placeholder={props.placeholder}
-                        className={`${styles["select-input"]}`}
-                        ref={selectTagRef}
-                        onChange={(e) => {formRequestData(e.target.value)}}
-                    />
-                    
-                    <datalist id={props.label + props.searchField} name={"Datalist-"+ name } className={`${styles["datalist-input"]}`}>
-                        {selectList.data.map( item => 
-                            <option key={`datalist-${item[props.searchField]}`} value={item[props.searchField]}></option>
-                        )}
-                    </datalist>
+                        <input
+                            type="text" 
+                            list={props.label + props.searchField}
+                            name={'SelectInput-' + name }
+                            id={'SelectInput-'+ name}
+                            onBlur={() => inputTouched(name)}
+                            placeholder={props.placeholder}
+                            className={`
+                                w-100 
+                                p-0
+                                border-0  
+                            `}
+                            ref={selectTagRef}
+                            onChange={(e) => {formRequestData(e.target.value)}}
+                        />
+
+                        <div className="w-100 d-flex">
+                            {/* To fill with validation rules*/}
+                        </div>
+                        
+                        <datalist id={props.label + props.searchField} name={"Datalist-"+ name } className={`${styles["datalist-input"]}`}>
+                            {selectList.data.map( item => 
+                                <option key={`datalist-${item[props.searchField]}`} value={item[props.searchField]}></option>
+                            )}
+                        </datalist>
+
+                    </div>
 
                 </div>
                 
@@ -326,4 +345,4 @@ const Select = ({name, formTools, ...props}) => {
     );
 }
 // ${selected.status.state === "Accepted" ? styles['accepted'] : (selected.status.state === "Pending" ? styles['pending'] : styles['rejected'])}`
-export default Select;
+export default Select2;

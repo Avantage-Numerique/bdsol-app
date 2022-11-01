@@ -9,7 +9,7 @@ import { useHttpClient } from '@/src/hooks/http-hook'
 import Button from '@/src/common/FormElements/Buttons/Button/Button'
 import Input from '@/src/common/FormElements/Input/Input'
 import RichTextarea from '@/src/common/FormElements/RichTextArea/RichTextarea'
-import Select from '@/src/common/FormElements/Select/Select'
+import Select2 from '@/src/common/FormElements/Select2/Select2'
 import Spinner from '@/src/common/widgets/spinner/Spinner'
 import {lang} from "@/src/common/Data/GlobalConstants";
 
@@ -210,7 +210,7 @@ const CreateOrganisationForm = () => {
                     formTools={formTools}
                 />
 
-                <Select
+                <Select2
                     name="offers"
                     searchField="name"
                     label="Offres de services"
@@ -221,7 +221,7 @@ const CreateOrganisationForm = () => {
                     placeholder="Directeur-trice artistique ..."
                 />
 
-                <Select
+                <Select2
                     name="team"
                     searchField="firstName"
                     label="Membre de l'équipe"
