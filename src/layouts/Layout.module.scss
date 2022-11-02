@@ -8,13 +8,6 @@
     width: 100%;
     min-height: 100vh;
 
-    /* Main element present in every pages */
-    main {
-        margin: 0px;
-        margin-top: var(--headersHeight);
-        width: 100%;
-    }
-
     /* Message section */
     .message-section {
         position: fixed;
@@ -22,6 +15,10 @@
         right: 0px;
         display: flex;
         flex-direction: column;
-        z-index: 1000;
+        z-index: 1021;
+    }
+
+    .main-container-min-height {
+        min-height: 90vh;
     }
 }

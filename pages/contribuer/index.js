@@ -22,8 +22,10 @@ const Index = () => {
         <div className={`${styles["contribution-page"]}`}>
 
             <PageHeader
-                title={"Créer une donnée"}
-                description={"Vous avez accès ici à tous les types de données qu'il est présentement possible d'intégrer à la base de données."} />
+                title="Créer une donnée"
+                subtitleColor="primary"
+                description="Vous avez accès ici à tous les types de données qu'il est présentement possible d'intégrer à la base de données."
+            />
 
             <div className={`${styles["contribution-page__menu"]}`}>
                 <div className='container p-0'>

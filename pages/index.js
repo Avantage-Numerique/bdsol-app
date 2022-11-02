@@ -148,15 +148,17 @@ const HomePage = ({}) => {
 
             <PageHeader
                 bg={"bg-pink"}
-                textColor={"text-white"}
+                titleColor={"white"}
+                subtitleColor={"dark"}
                 title={lang.homePageTitle}
                 subTitle={lang.homePageDescription}
-                description="test pour la description"
+                //description="test pour la description"
                 image={"/general_images/Croissant-Boreal@3x-1440x1440.png"}
-                imgAlt={"Carte du croissant boréal"} />
+                imgAlt={"Carte du croissant boréal"}
+            />
 
 
-            <div className="container home-page__main">
+            <div className="container home-page__main p-0">
                 <div className="row gx-5">
                     <div className="col col-12 col-md-9">
                         <section className="home-page__feed-section">

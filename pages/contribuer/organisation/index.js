@@ -16,8 +16,8 @@ const CreateOrganisationPage = () => {
         <SingleViewEntityFormLayout formName={"organisation"} headerProps={{
             title: lang.Organisation,
             subTitle: lang.formOrganisationSubtitle,
+            subtitleColor: "primary",
             description: lang.formOrganisationInstructions,
-            colWidth: 8,
             historyBack: {
                 uri: "/contribuer",
                 label: lang.historyBack

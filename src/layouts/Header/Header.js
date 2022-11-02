@@ -30,7 +30,7 @@ const Header = (props) => {
     const { menuState, setMenuState } = props
 
     return (
-        <header className={`${styles.header} bg-dark`}>
+        <header className={`${styles.header} bg-dark sticky-top`}>
 
             <div className="container">
                 <div className="row">

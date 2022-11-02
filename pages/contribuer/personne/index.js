@@ -12,16 +12,19 @@ import React from "react";
 const CreatePersonPage = () => {
 
     return (
-        <SingleViewEntityFormLayout formName={"person"} headerProps={{
-            title: lang.Personnes,
-            subTitle: lang.formPersonSubtitle,
-            description: lang.formPersonInstructions,
-            colWidth: 8,
-            historyBack: {
-                uri: "/contribuer",
-                label: lang.historyBack
-            }
-        }}>
+        <SingleViewEntityFormLayout
+            formName={"person"}
+            headerProps={{
+                title: lang.Personnes,
+                subtitleColor: "primary",
+                subTitle: lang.formPersonSubtitle,
+                description: lang.formPersonInstructions,
+                historyBack: {
+                    uri: "/contribuer",
+                    label: lang.historyBack
+                }
+            }}
+        >
             <CreatePersonForm />
         </SingleViewEntityFormLayout>
     )
