@@ -14,7 +14,7 @@ import Spinner from '@/src/common/widgets/spinner/Spinner'
 import {lang} from "@/src/common/Data/GlobalConstants";
 
 //contexts
-import {AuthContext, useAuth} from '@/auth/context/auth-context'
+import {useAuth} from '@/auth/context/auth-context'
 import { MessageContext } from '@/src/common/UserNotifications/Message/Context/Message-Context'
 
 //Form validators
@@ -22,6 +22,8 @@ import {VALIDATOR_REQUIRE} from '@/src/utils/validators'
 
 //Styling
 import styles from './CreateOrganisationForm.module.scss'
+import PersonRoleTemplate from '@/src/DataTypes/Person/Components/Template/PersonRoleTemplate'
+import Repeater from '@/src/common/Containers/Repeater/Repeater'
 
 
 
@@ -220,17 +222,24 @@ const CreateOrganisationForm = () => {
                     formTools={formTools}
                     placeholder="Directeur-trice artistique ..."
                 />
-
-                <Select2
-                    name="team"
-                    searchField="firstName"
-                    label="Membre de l'équipe"
-                    request="/persons"
-                    requestData={teamSelectRequestData}
-                    //tag="occupations"
-                    formTools={formTools}
-                    placeholder="Jean-Marc Parent ..."
-                />
+                
+                <Repeater
+                    name="team">
+                    <Select2
+                        name="team"
+                        searchField="firstName"
+                        label="Membre de l'équipe"
+                        request="/persons"
+                        requestData={teamSelectRequestData}
+                        formTools={formTools}
+                        placeholder="Jean-Marc Parent ..."
+                        >
+                        <PersonRoleTemplate
+                            name="Salut"
+                            formTools={formTools}
+                            />
+                    </Select2>
+                </Repeater>
 
                 <div className="col-12">
                     <Button type="submit" disabled={!formState.isValid}>Soumettre</Button>

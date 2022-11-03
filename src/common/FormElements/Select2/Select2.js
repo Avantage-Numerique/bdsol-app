@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useRef, useContext, useCallback} from 'react'
+import React, {useEffect, useState, useRef, useContext} from 'react'
 
 //Custom Hooks
 import {useHttpClient} from '@/src/hooks/http-hook'
@@ -26,7 +26,7 @@ const dictionnary = {
 }
 
 
-const Select2 = ({name, formTools, ...props}) => {
+const Select2 = ({name, formTools, children, ...props}) => {
 
     const selectTagRef = useRef();
 
@@ -207,6 +207,10 @@ const Select2 = ({name, formTools, ...props}) => {
 
                     const formatedObject = {
                         [dictionnary[name]]: matchingValue.current._id,
+                        role: {
+                            group:"",
+                            title:""
+                        },
                         status: {
                             state:"Pending",
                             requestedBy: auth.user.id,
@@ -326,6 +330,8 @@ const Select2 = ({name, formTools, ...props}) => {
                 Display the selected items
             
             */}
+            {/*selectedEntities.length != 0 && children*/ }
+            {
             <ul className={`${styles['tagList']}`}>
 
                 {selectedEntities && selectedEntities.map(selected =>
@@ -340,6 +346,7 @@ const Select2 = ({name, formTools, ...props}) => {
                 )}
 
             </ul>
+                }
 
         </div>
     );
