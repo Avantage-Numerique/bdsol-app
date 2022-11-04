@@ -1,0 +1,47 @@
+.tagList {
+
+    margin: 0.5rem 0rem;
+    float: left;
+    
+    .tag {
+        user-select: none;
+        margin:5px;
+        outline: solid black 2px;
+        border-bottom-right-radius: 15px;
+        border-top-right-radius: 15px;
+        float: left;
+
+
+        display: flex;
+        flex-direction: row;
+
+        span {
+            padding:0.5rem;
+        }
+
+        .status {
+            font-size: x-small;
+        }
+        .accepted {color:green;}
+        .pending { color: yellow;}
+        .rejected { color: red;}
+
+        .closeButton{
+            cursor: pointer;
+            padding:0.5rem;
+            //padding: 0.3rem;
+        }
+
+        &.generaltag { background-color: blue($color: #000000); }
+        &.occupations { background-color: rgba(56, 208, 235, 0.647); }
+    }
+    .skill {
+        user-select: none;
+        margin:4px;
+        padding:0.5rem;
+        outline: solid black 2px;
+        border-bottom-right-radius: 15px;
+        border-top-right-radius: 15px;
+        background-color: rgba(56, 235, 137, 0.647);
+    }
+}

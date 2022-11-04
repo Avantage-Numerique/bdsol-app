@@ -26,7 +26,7 @@ const dictionnary = {
 }
 
 
-const Select2 = ({name, formTools, children, ...props}) => {
+const Select2 = ({name, formTools, children, single, ...props}) => {
 
     const selectTagRef = useRef();
 
@@ -186,6 +186,29 @@ const Select2 = ({name, formTools, children, ...props}) => {
         }
     }
 
+    const passChildrenProps = (child) => {
+        if(child != undefined)
+            switch (child.type.name){
+                case "TaxonomyTagListTemplate" :
+                    return (
+                        { 
+                            entity: selectedEntities,
+                            removeEntity:removeValueFromSelectedItem,
+                            tag:props.tag,
+                            "name":name,
+                            searchField:props.searchField
+                        }
+                    )
+                case "PersonRoleTemplate" :
+                    return (
+                        {
+                            entity: selectedEntities,
+                            "name": name,
+                        }
+                    )
+            }
+    }
+
     //Update the list of options to display
     useEffect(() => {
         getSelectList();
@@ -225,7 +248,7 @@ const Select2 = ({name, formTools, children, ...props}) => {
                     };
 
                     //Update the value in the form state with the new value
-                    if ( HasChildren() && selectedEntities.length > 0){
+                    if ( single == "true"){
                         //If single mode, replace the entire object
                         updateValue([formatedObject]);
                     }
@@ -282,7 +305,7 @@ const Select2 = ({name, formTools, children, ...props}) => {
                         onClick={addValueToSelectedItem}
                         className="m-1 rounded-1">
                             {/* Change arrow symbol : https://unicode-table.com/en/sets/arrow-symbols/ */}
-                            { HasChildren() ? "⇅" : "+"}
+                            { single == "true" ? "⇅" : "+"}
                     </Button>
 
                     <div className="flex-grow-1 form-element--field-padding">
@@ -295,9 +318,9 @@ const Select2 = ({name, formTools, children, ...props}) => {
                             onBlur={() => inputTouched(name)}
                             placeholder={props.placeholder}
                             className={`
-                                w-100 
+                                w-100
                                 p-0
-                                border-0  
+                                border-0
                             `}
                             ref={selectTagRef}
                             onChange={(e) => {formRequestData(e.target.value)}}
@@ -345,33 +368,19 @@ const Select2 = ({name, formTools, children, ...props}) => {
                 Display the selected items
             
             */}
-            {/*selectedEntities.length != 0 && children*/ }
-            {(
-                React.Children.count(children) != 0 && //If there's a child and an entity is selected
-                selectedEntities.length != 0) ?
+            {
+                HasChildren() ?
                 (
                     <div>
-                        {React.cloneElement(children, { entity: selectedEntities[0] })}
+                        {React.cloneElement(children, passChildrenProps(children))}
                     </div>
                 )
                 :
                 (
-                    <ul className={`${styles['tagList']}`}>
-
-                        {selectedEntities && selectedEntities.map(selected =>
-                        <li 
-                            key={`select-tag-${selected[props.searchField]}`}
-                            className={`${styles['tag']} ${props.tag ? styles[props.tag] : styles[props.generaltag]}`} 
-                        >
-                            <button className={`${styles['closeButton']}`} type="button" onClick={() => removeValueFromSelectedItem(selected)}>&#x271A;</button>
-                            <span className={`${styles['status']}`}>■</span>
-                            <span>{selected[props.searchField]}</span>
-                        </li>
-                        )}
-
-                    </ul>
+                  <div> salut, no children</div>
                 )
-                }
+            }
+            
 
         </div>
     );

@@ -22,8 +22,9 @@ import {VALIDATOR_REQUIRE} from '@/src/utils/validators'
 
 //Styling
 import styles from './CreateOrganisationForm.module.scss'
-import PersonRoleTemplate from '@/src/DataTypes/Person/Components/Template/PersonRoleTemplate'
+import PersonRoleTemplate from '@/src/DataTypes/Person/Template/PersonRoleTemplate'
 import Repeater from '@/src/common/Containers/Repeater/Repeater'
+import TaxonomyTagListTemplate from '@/src/DataTypes/Taxonomy/Template/TaxonomyTagListTemplate'
 
 
 
@@ -221,7 +222,9 @@ const CreateOrganisationForm = () => {
                     tag="occupations"
                     formTools={formTools}
                     placeholder="Directeur-trice artistique ..."
-                />
+                    >
+                        <TaxonomyTagListTemplate/>
+                </Select2>
                 
                 {/*<Repeater
                     name="team">*/}
@@ -233,6 +236,7 @@ const CreateOrganisationForm = () => {
                         requestData={teamSelectRequestData}
                         formTools={formTools}
                         placeholder="Jean-Marc Parent ..."
+                        single="true"
                         >
                         <PersonRoleTemplate
                             formTools={formTools}
