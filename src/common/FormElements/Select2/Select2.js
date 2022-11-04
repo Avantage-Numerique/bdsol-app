@@ -26,7 +26,7 @@ const dictionnary = {
 }
 
 
-const Select2 = ({name, formTools, children, single, ...props}) => {
+const Select2 = ({name, formTools, children, ...props}) => {
 
     const selectTagRef = useRef();
 
@@ -89,6 +89,12 @@ const Select2 = ({name, formTools, children, single, ...props}) => {
     const [selectRequest, setSelectRequest] = useState(props.requestData)
 
     const debouncedRequest = useDebounce(selectRequest, 400);
+
+    const HasChildren = () => {
+        if(React.Children.count(children) != 0)
+            return true
+        return false
+    }
 
     const matchLocalToFormState = async () => {
 
@@ -219,7 +225,7 @@ const Select2 = ({name, formTools, children, single, ...props}) => {
                     };
 
                     //Update the value in the form state with the new value
-                    if (single == "true" && selectedEntities.length > 0){
+                    if ( HasChildren() && selectedEntities.length > 0){
                         //If single mode, replace the entire object
                         updateValue([formatedObject]);
                     }
@@ -276,7 +282,7 @@ const Select2 = ({name, formTools, children, single, ...props}) => {
                         onClick={addValueToSelectedItem}
                         className="m-1 rounded-1">
                             {/* Change arrow symbol : https://unicode-table.com/en/sets/arrow-symbols/ */}
-                            {single == "true" ? "⇅" : "+"}
+                            { HasChildren() ? "⇅" : "+"}
                     </Button>
 
                     <div className="flex-grow-1 form-element--field-padding">
@@ -340,21 +346,31 @@ const Select2 = ({name, formTools, children, single, ...props}) => {
             
             */}
             {/*selectedEntities.length != 0 && children*/ }
-            {
-            <ul className={`${styles['tagList']}`}>
+            {(
+                React.Children.count(children) != 0 && //If there's a child and an entity is selected
+                selectedEntities.length != 0) ?
+                (
+                    <div>
+                        {React.cloneElement(children, { entity: selectedEntities[0] })}
+                    </div>
+                )
+                :
+                (
+                    <ul className={`${styles['tagList']}`}>
 
-                {selectedEntities && selectedEntities.map(selected =>
-                <li 
-                    key={`select-tag-${selected[props.searchField]}`}
-                    className={`${styles['tag']} ${props.tag ? styles[props.tag] : styles[props.generaltag]}`} 
-                >
-                    <button className={`${styles['closeButton']}`} type="button" onClick={() => removeValueFromSelectedItem(selected)}>&#x271A;</button>
-                    <span className={`${styles['status']}`}>■</span>
-                    <span>{selected[props.searchField]}</span>
-                </li>
-                )}
+                        {selectedEntities && selectedEntities.map(selected =>
+                        <li 
+                            key={`select-tag-${selected[props.searchField]}`}
+                            className={`${styles['tag']} ${props.tag ? styles[props.tag] : styles[props.generaltag]}`} 
+                        >
+                            <button className={`${styles['closeButton']}`} type="button" onClick={() => removeValueFromSelectedItem(selected)}>&#x271A;</button>
+                            <span className={`${styles['status']}`}>■</span>
+                            <span>{selected[props.searchField]}</span>
+                        </li>
+                        )}
 
-            </ul>
+                    </ul>
+                )
                 }
 
         </div>

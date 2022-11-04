@@ -11,7 +11,7 @@ const PersonRoleTemplate = (props) => {
 
     return (
         <div>
-            <label>Le nom de la personne {props.name}</label><br/>
+            <label>Le nom de la personne : <strong>{props.entity.firstName + ' ' + props.entity.lastName}</strong></label><br/>
             <label>Group</label><br/>
             <input 
                 name="group"
@@ -20,7 +20,7 @@ const PersonRoleTemplate = (props) => {
             />
             <br/>
             <label>Titre</label><br/>
-            <input 
+            <input
                 name="title"
                 label="Titre"
                 placeholder="Directeur, Comptable ..."

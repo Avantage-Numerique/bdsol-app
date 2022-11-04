@@ -170,7 +170,7 @@ const CreateOrganisationForm = () => {
 
             <form onSubmit={submitHandler} className={`col-12 ${styles["create-organisation-form"]}`}>
 
-                <Input 
+                <Input
                     name="name"
                     label="Nom de l'organisation"
                     tip={{
@@ -182,13 +182,13 @@ const CreateOrganisationForm = () => {
                     formTools={formTools}
                 />
 
-                <RichTextarea 
+                <RichTextarea
                     name="description"
                     label="Description"
                     formTools={formTools}
                 />
 
-                <Input 
+                <Input
                     name="url"
                     label="Hyperlien"
                     type="url"
@@ -198,14 +198,14 @@ const CreateOrganisationForm = () => {
                     formTools={formTools}
                 />
 
-                <Input  
+                <Input
                     name="contactPoint"
                     label="Information de contact"
                     placeholder="Adresse courriel, numéro de téléphone, etc..."
                     formTools={formTools}
                 />
 
-                <Input  
+                <Input
                     name="fondationDate"
                     label="Date de fondation"
                     type="date"
@@ -221,11 +221,10 @@ const CreateOrganisationForm = () => {
                     tag="occupations"
                     formTools={formTools}
                     placeholder="Directeur-trice artistique ..."
-                    single="true"
                 />
                 
-                <Repeater
-                    name="team">
+                {/*<Repeater
+                    name="team">*/}
                     <Select2
                         name="team"
                         searchField="firstName"
@@ -236,11 +235,10 @@ const CreateOrganisationForm = () => {
                         placeholder="Jean-Marc Parent ..."
                         >
                         <PersonRoleTemplate
-                            name="Salut"
                             formTools={formTools}
                             />
                     </Select2>
-                </Repeater>
+                {/*</Repeater>*/}
 
                 <div className="col-12">
                     <Button type="submit" disabled={!formState.isValid}>Soumettre</Button>
