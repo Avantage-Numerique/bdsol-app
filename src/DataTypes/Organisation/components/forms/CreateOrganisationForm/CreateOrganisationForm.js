@@ -221,6 +221,7 @@ const CreateOrganisationForm = () => {
                     tag="occupations"
                     formTools={formTools}
                     placeholder="Directeur-trice artistique ..."
+                    single="true"
                 />
                 
                 <Repeater

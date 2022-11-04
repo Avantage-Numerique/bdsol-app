@@ -26,7 +26,7 @@ const dictionnary = {
 }
 
 
-const Select2 = ({name, formTools, children, ...props}) => {
+const Select2 = ({name, formTools, children, single, ...props}) => {
 
     const selectTagRef = useRef();
 
@@ -219,8 +219,16 @@ const Select2 = ({name, formTools, children, ...props}) => {
                     };
 
                     //Update the value in the form state with the new value
-                    updateValue([...currentState, formatedObject])
-                    //Reset the field 
+                    if (single == "true" && selectedEntities.length > 0){
+                        //If single mode, replace the entire object
+                        updateValue([formatedObject]);
+                    }
+                    else {
+                        //Add the value to the array
+                        updateValue([...currentState, formatedObject])
+                    }
+
+                    //Reset the field
                     resetSelectComponent();
 
                 } else {
@@ -267,7 +275,8 @@ const Select2 = ({name, formTools, children, ...props}) => {
                         disabled={selectRequest.data[props.searchField] ? false : true} 
                         onClick={addValueToSelectedItem}
                         className="m-1 rounded-1">
-                            +
+                            {/* Change arrow symbol : https://unicode-table.com/en/sets/arrow-symbols/ */}
+                            {single == "true" ? "⇅" : "+"}
                     </Button>
 
                     <div className="flex-grow-1 form-element--field-padding">
