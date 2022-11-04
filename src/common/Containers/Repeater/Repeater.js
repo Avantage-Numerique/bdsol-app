@@ -9,13 +9,18 @@ import Button from "../../FormElements/Buttons/Button/Button";
 
 
 const Repeater = ({children, ...props}) => {
-    const template = Object.assign(children);
+    //const template = Object.assign(children);
+    const template = React.cloneElement(children, { key: "FirstRepeatField-"+ Math.random()})
     const [repeatedComponent, setRepeatedComponent] = useState([]);
 
     const addRepeated = () => {
         const tempRepeated = Object.assign([],repeatedComponent);
         tempRepeated.push({
-            child: React.cloneElement(children, {anything: Math.random()}),
+            child: React.cloneElement(children,
+                {
+                    key: repeatedComponent.length + "-repeatedComponent-"+props.name,
+                    anything: Math.random()
+                }),
             data:{}
         });
         setRepeatedComponent(tempRepeated);
@@ -37,7 +42,7 @@ const Repeater = ({children, ...props}) => {
             {
                 repeatedComponent.map( (elem, index) => {
                     return (
-                        <div>
+                        <div key={index+"-repeatContainer-"+props.name}>
                             <div key={index+"-repeat-"+props.name}>{elem.child}{elem.child.props.anything}</div>
                             <Button key={index+"-btn-"+props.name} slim="true" type="button" onClick={ () => removeRepeated(index)}>x</Button>
                         </div>
