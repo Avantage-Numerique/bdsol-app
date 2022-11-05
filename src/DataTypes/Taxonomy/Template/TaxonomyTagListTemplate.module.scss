@@ -16,20 +16,22 @@
         flex-direction: row;
 
         span {
-            padding:0.5rem;
+            padding:0.2rem;
+            align-items: center;
+            justify-content: center;
+            display: flex;
         }
 
         .status {
             font-size: x-small;
         }
-        .accepted {color:green;}
-        .pending { color: yellow;}
-        .rejected { color: red;}
+        .Accepted {color:green;}
+        .Pending { color: yellow;}
+        .Rejected { color: red;}
 
         .closeButton{
             cursor: pointer;
             padding:0.5rem;
-            //padding: 0.3rem;
         }
 
         &.generaltag { background-color: blue($color: #000000); }
