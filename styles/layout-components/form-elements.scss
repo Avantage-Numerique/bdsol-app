@@ -6,34 +6,53 @@
 /* General form styling*/
 .form-element {
 
-        /*  
-                Variables 
-        */
-        --b-radius: 0.25rem;
+    /*
+            Variables
+    */
+    --b-radius: 0.25rem;
 
-        background-color: white;
-        border-radius: var(--b-radius);
-        border: 0.1rem solid rgba(94, 94, 94, 0.13);
+    background-color: white;
+    border-radius: var(--b-radius);
+    border: 0.1rem solid rgba(94, 94, 94, 0.13);
 
-        &.form-element--color-validation{
+    &.form-element--color-validation{
 
-                -webkit-transition: all 300ms ease;
-                -moz-transition: all 300ms ease;
-                -ms-transition: all 300ms ease;
-                -o-transition: all 300ms ease;
-                transition: all 300ms ease;
+        -webkit-transition: all 300ms ease;
+        -moz-transition: all 300ms ease;
+        -ms-transition: all 300ms ease;
+        -o-transition: all 300ms ease;
+        transition: all 300ms ease;
 
-                &:focus-within {
-                        background-color: rgba(227, 233, 255, 0.658);
-                        border: 0.1rem solid rgb(178, 178, 235);
-                }
-
-                &.control--invalid:not(:focus-within) {
-                        border: 0.1rem solid rgb(255, 158, 158);
-                        background-color:  rgba(255, 135, 135, 0.09);
-                }
+        &:focus-within {
+            background-color:lighten($purple-lighter, 5%);
+            border: 0.1rem solid $purple-lighter;
         }
 
-        .form-element--b-radius { border-radius: var(--b-radius); }
-        .form-element--field-padding { padding: 1rem 0.75rem; }
+        &.control--invalid:not(:focus-within) {
+            border: 0.1rem solid $danger;
+            background-color: lighten($danger, 10%);
+        }
+    }
+
+    .form-element--b-radius { border-radius: $border-radius; }
+    .form-element--field-padding { padding: 1rem 0.75rem; }
+}
+
+form {
+
+    background-color: $light;
+    position: relative;
+    padding: max(1rem, 2.5vw);
+
+    h3 {
+        margin-top: 0;
+    }
+
+    /*
+        The fields are direct children of the form
+    */
+    > *:not(button){
+        width: 100%;
+        margin-bottom: 1rem;
+    }
 }

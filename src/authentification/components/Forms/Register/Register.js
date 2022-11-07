@@ -173,7 +173,7 @@ const Register = () => {
 
             { isLoading && <Spinner />}
 
-            <form className={`${styles["registration-form"]}`} onSubmit={submitHandler}>  
+            <form className={`${styles["registration-form"]} auth-form-container`} onSubmit={submitHandler}>
 
                 <h3 className="text-primary">Création de compte</h3>
                 
