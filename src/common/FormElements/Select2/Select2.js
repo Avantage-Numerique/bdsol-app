@@ -119,6 +119,7 @@ const Select2 = ({name, formTools, children, single, ...props}) => {
 
     //Update the selectedEntities whenever the form state change to assure it will always reflect the main formstate
     useEffect(() => { matchLocalToFormState() }, [currentState])
+    useEffect(() => { console.log("current state changed", currentState) }, [currentState])
 
     //Called whenever the user enter or modify a value into the field
     const formRequestData = (val) => {
@@ -158,10 +159,6 @@ const Select2 = ({name, formTools, children, single, ...props}) => {
                     
                     const formatedObject = {
                         [dictionnary[name]]: matchingValue.current._id,
-                        role: {
-                            group:"",
-                            title:""
-                        },
                         status: {
                             state:"Pending",
                             requestedBy: auth.user.id,
@@ -229,6 +226,9 @@ const Select2 = ({name, formTools, children, single, ...props}) => {
                         {
                             entity: selectedEntities,
                             "name": name,
+                            key: props.templateProps.key,
+                            keyValue: props.templateProps.keyValue,
+                            updateChildData : props.templateProps.updateChildData
                         }
                     )
             }
@@ -315,6 +315,7 @@ const Select2 = ({name, formTools, children, single, ...props}) => {
                 React.Children.count(children) != 0 ?
                 (
                     <div>
+                        {console.log("select child 'entity' :", selectedEntities)}
                         {React.cloneElement(children, passChildrenProps(children))}
                     </div>
                 )

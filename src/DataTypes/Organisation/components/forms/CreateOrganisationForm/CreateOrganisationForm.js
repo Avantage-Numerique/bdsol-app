@@ -226,12 +226,12 @@ const CreateOrganisationForm = () => {
                         <TaxonomyTagListTemplate/>
                 </Select2>
                 
-                {/*<Repeater
-                    name="team">*/}
+                <Repeater 
+                    name="team"
+                    label="Membre de l'équipe">
                     <Select2
                         name="team"
                         searchField="firstName"
-                        label="Membre de l'équipe"
                         request="/persons"
                         requestData={teamSelectRequestData}
                         formTools={formTools}
@@ -242,7 +242,7 @@ const CreateOrganisationForm = () => {
                             formTools={formTools}
                             />
                     </Select2>
-                {/*</Repeater>*/}
+                </Repeater>
 
                 <div className="col-12">
                     <Button type="submit" disabled={!formState.isValid}>Soumettre</Button>
