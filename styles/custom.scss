@@ -8,6 +8,9 @@ $blue: #455ae6; // Avantage numérique's mainBlue (and blue1)
 $blue2: #4d64ff; // Avantage numérique's mainBlue (and blue2)
 $blue3: #4dc4ff; // Avantage numérique's mainBlue (and blue3)
 $blue4: #5f71ea; // Avantage numérique's mainBlue (and blue4)
+$green1:  #adc9b0; //Light green
+$green2:  #7ba076; 
+$green3:  #364637; //Darkgreen
 $pink: #c881ca;
 $pink-100: lighten($pink, 80%);
 $red: #dd5c5c;  // Avantage numérique's red
@@ -36,6 +39,9 @@ $theme-colors:(
     "light": $light,
     "white":$white,
     "black":$black,
+    "success": $green2,
+    "successlighter": $green1,
+    "successDarker": $green3,
 );
 
 

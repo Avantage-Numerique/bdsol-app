@@ -1,10 +1,10 @@
-import React from 'react';
+import {useEffect} from 'react';
 
 //Hooks
 import { useValidation } from '@/src/hooks/useValidation/useValidation';
 
 //Utils
-import { validate } from '@/src/utils/validators';
+//import { validate } from '@/src/utils/validators';
 
 //components
 import Tip from '@/common/FormElements/Tip/Tip';
@@ -15,7 +15,7 @@ import styles from './Input.module.scss';
 
 const Input = ({name, formTools, ...props}) => {
 
-    const { } = useValidation()
+    const { validate, RequirementsBadges, ValidationErrorMessages } = useValidation( props.validationRules )
     /*
         Access the differents form tools 
     */
@@ -31,9 +31,13 @@ const Input = ({name, formTools, ...props}) => {
         inputHandler(
             name,
             event.target.value,
-            props.validators ? validate(event.target.value, props.validators) : true
+            props.validationRules ? validate(event.target.value) : true
         )
     }
+
+    useEffect(() => {
+        console.log("current state touched", currentState.isTouched)
+    }, [currentState.isTouched])
 
  
     return (
@@ -52,14 +56,16 @@ const Input = ({name, formTools, ...props}) => {
                 }
             </div>
 
-            <div className={`
+            <div 
+                tabIndex="0"  //Allow the complete field to be focused, not only the input.
+                className={`
                 form-element
                 form-element--color-validation
                 ${styles["input-component__field-container"]}
                 ${!currentState.isValid && currentState.isTouched && "control--invalid"}
             `}>
                 <input 
-                    className="form-element--field-padding"
+                    className="w-100 border-0 form-element--field-padding"
                     name={ name }
                     id={ name }
                     //If there is a state attached to the component, make it a controlled components where the value depends on the state
@@ -70,13 +76,19 @@ const Input = ({name, formTools, ...props}) => {
                     onBlur={() => inputTouched(name)}
                     autoComplete={props.type === "password" ? "on" : undefined}
                 /> 
+
+                <RequirementsBadges /> 
             </div>
-                
-            {!currentState.isValid && currentState.isTouched && 
+
+            <div className="validation-error-messages-container">
+            { currentState.isTouched && <ValidationErrorMessages className=""/> }
+
+            </div>
+     {/*        {!currentState.isValid && currentState.isTouched && 
             <div className={`${styles["input-component__add"]}`}>
                 <small>{ props.errorText }</small>
             </div>
-            }
+            } */}
 
         </div>
 

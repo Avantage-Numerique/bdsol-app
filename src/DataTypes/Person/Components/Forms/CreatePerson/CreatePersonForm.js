@@ -113,7 +113,10 @@ const CreatePersonForm = () => {
                 <Input 
                     name="firstName"
                     label="Prénom"
-                    validators={[VALIDATOR_REQUIRE()]}
+                    validationRules={[
+                        {name: "REQUIRED"},
+                        {name: "MIN_LENGTH", specification: 4}
+                    ]}
                     errorText="Cette information est requise"
                     formTools={formTools}
                 />

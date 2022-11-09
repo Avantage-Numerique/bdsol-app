@@ -6,48 +6,51 @@
 */
 import { useState, useEffect } from 'react'
 
+//Import styling
+import styles from './validation.module.scss'
 
-const validators_settings = {
+
+const rules_settings = {
     REQUIRED: { 
         renderMessage: (() => "Ce champ est requis"),
-        validationMethod: (value => value.trim().length > 0)
+        validationMethod: (value => value.trim().length > 0),
+        renderBadge: (() => "Requis")
     },
     MIN_LENGTH: { 
         renderMessage: ((min = 5) => `Ce champ doit contenir au moins ${min} caractères`),
-        validationMethod: ((value, min = 5) => value.trim().length >= min)
+        validationMethod: ((value, min = 5) => value.trim().length >= min),
+        renderBadge: ((min = 5) => `Longueur min : ${min}`)
     },
     MAX_LENGTH: { 
         renderMessage: ((max = 15) => `Ce champ doit contenir un maximum de ${max} caractères`),
-        validationMethod: ((value, max = 15) => value.trim().length <= max)
+        validationMethod: ((value, max = 15) => value.trim().length <= max),
+        renderBadge: ((max = 5) => `Longueur max :${max}`)
     },
     TYPE_EMAIL: { 
         renderMessage: (() => "Ce champ doit être une adresse courriel valide"),
-        validationMethod: (value => /^\S+@\S+\.\S+$/.test(value))
+        validationMethod: (value => /^\S+@\S+\.\S+$/.test(value)),
+        renderBadge: (() => `Format courriel`)
     }
 }
 
-const TEMP = [
-    {validator: "REQUIRED"},
-    {validator: "MIN_LENGTH", specification: 4}
-]
-
-const initiateValidators = selectedRules => {
+const initiateValidator = selectedRules => {
 
     //New object that will be passed has state for the field validater
     let newFieldValidators = {}
 
     //Loop through the list of possible validators
-    for (const validatorName in validators_settings){
+    for (const settingRuleName in rules_settings){
         //Try to identify a matching validator between the presets and the passed rules
-        const matchingValidator = selectedRules.find(rule => rule.validator === validatorName)
+        const matchingValidator = selectedRules.find(rule => rule.name === settingRuleName)
         //If "matchingValidator" isn't undefined, then there's a match
         if(matchingValidator)
             //If there is a match, build the permanent validator object for this field
-            newFieldValidators[validatorName] = {
+            newFieldValidators[settingRuleName] = {
                 specification: matchingValidator.specification,
-                message: validators_settings[validatorName].renderMessage((matchingValidator.specification && matchingValidator.specification)),
-                validationMethod: validators_settings[validatorName].validationMethod,
-                isValid: true
+                message: rules_settings[settingRuleName].renderMessage((matchingValidator.specification && matchingValidator.specification)),
+                validationMethod: rules_settings[settingRuleName].validationMethod,
+                badge: rules_settings[settingRuleName].renderBadge((matchingValidator.specification && matchingValidator.specification)),
+                isValid: false
             }
     }
 
@@ -55,9 +58,9 @@ const initiateValidators = selectedRules => {
     return newFieldValidators
 }
 
-export const useValidation = () => {
+export const useValidation = ( setOfRules ) => {
 
-    const [validators, setValidators] = useState(initiateValidators(TEMP))
+    const [validator, setValidator] = useState(initiateValidator( setOfRules || [] ))
 
     const validate = (value) => {
 
@@ -65,20 +68,20 @@ export const useValidation = () => {
         let generalValidity = true
 
         //Evaluate the validity of every validators
-        for(const validatorName in validators){
+        for(const ruleName in validator){
             //Reference to the specific validator 
-            const validator = validators[validatorName]
+            const rule = validator[ruleName]
             //For each, apply the validation method 
-            const validationResult = validator.validationMethod(value, validator.specification)
+            const validationResult = rule.validationMethod(value, rule.specification)
             //Apply result to general validity variable
             if(!validationResult) generalValidity = false
             //Verify if there is a change of state
-            if(validationResult !== validator.isValid)
+            if(validationResult !== rule.isValid)
                 //If there is, update the state with the new validity
-                setValidators(prev => ({
+                setValidator(prev => ({
                     ...prev,
-                    [validatorName]: {
-                        ...prev[validatorName],
+                    [ruleName]: {
+                        ...prev[ruleName],
                         isValid: validationResult
                     }
                 }))
@@ -87,8 +90,68 @@ export const useValidation = () => {
         return generalValidity
     }
 
+
+    /* Validator badges sections displayed under the text in the selected field */
+    const RequirementsBadges = () => {
+
+        const rulesNameList = Object.keys(validator);
+
+        return (
+            <>
+                {/* At least one validator to */}
+                { rulesNameList.length > 0 && 
+                <ul className={`mb-0 form-element--field-padding-top-reverse badge-container`}>
+                    { rulesNameList.map(ruleName => (
+                        <li 
+                            title={`${validator[ruleName].message}`}
+                            className={`
+                                        me-2
+                                        mt-1 
+                                        rounded-1
+                                        badge-container__badge
+                                        ${validator[ruleName].isValid && "badge--validation-succes"}
+                                    `}
+                            key={"badge-" + ruleName}
+                            >{validator[ruleName].badge}
+                        </li>
+                    ))}
+                </ul>
+                }
+            </>
+        )
+    }
+
+    /* Validator badges sections displayed under the text in the selected field */
+    const ValidationErrorMessages = () => {
+
+        const completeRulesList = Object.keys(validator);
+
+        //List of errors to display (list of there names)
+        const errorRulesList = completeRulesList.filter(ruleName => validator[ruleName].isValid === false)
+
+        return (
+            <>
+                {/* At least one validator to */}
+                { errorRulesList.length > 0 && 
+                <ul className={`mt-1 d-inline-flex form-element--validation-errors-container `}>
+                    { errorRulesList.map(ruleName => (
+                        <li 
+                            className={`d-flex me-3 mb-2 validation-error ${validator[ruleName].isValid && "validation-error--positive"}`}
+                            key={"error-message-" + ruleName}
+                            >
+                                <small>{validator[ruleName].message}</small>
+                        </li>
+                    ))}
+                </ul>
+                }
+            </>
+        )
+    }
+
     //Exports utilities
     return {
-        validate
+        validate,
+        RequirementsBadges,
+        ValidationErrorMessages
     }
 }
