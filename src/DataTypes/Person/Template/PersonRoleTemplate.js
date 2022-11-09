@@ -30,7 +30,7 @@ const PersonRoleTemplate = (props) => {
     return (
         <div>
             <label>Le nom de la personne : <strong>{props.entity.length != 0 ? props.entity[0].firstName + ' ' + props.entity[0].lastName : "Aucun membre sélectionné"}</strong></label><br/>
-            {/*<label>Group</label><br/>
+            <label>Group</label><br/>
             <input 
                 name="group"
                 label="Groupe"
@@ -44,7 +44,7 @@ const PersonRoleTemplate = (props) => {
                 label="Titre"
                 placeholder="Directeur, Comptable ..."
                 onChange={ (e) => addDataToReturnObject("title", e.target.value)}
-    />*/}
+            />
         </div>
     )
 }

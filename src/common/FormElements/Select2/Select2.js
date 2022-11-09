@@ -213,7 +213,7 @@ const Select2 = ({name, formTools, children, single, ...props}) => {
             switch (child.type.name){
                 case "TaxonomyTagListTemplate" :
                     return (
-                        { 
+                        {
                             entity: selectedEntities,
                             removeEntity:removeValueFromSelectedItem,
                             tag:props.tag,
@@ -316,7 +316,7 @@ const Select2 = ({name, formTools, children, single, ...props}) => {
                 (
                     <div>
                         {console.log("select child 'entity' :", selectedEntities)}
-                        {React.cloneElement(children, passChildrenProps(children))}
+                        {React.Children.map(children, (child => React.cloneElement(child, passChildrenProps(children))))}
                     </div>
                 )
                 :
