@@ -3,9 +3,6 @@ import {useEffect} from 'react';
 //Hooks
 import { useValidation } from '@/src/hooks/useValidation/useValidation';
 
-//Utils
-//import { validate } from '@/src/utils/validators';
-
 //components
 import Tip from '@/common/FormElements/Tip/Tip';
 
@@ -57,7 +54,7 @@ const Input = ({name, formTools, ...props}) => {
             </div>
 
             <div 
-                tabIndex="0"  //Allow the complete field to be focused, not only the input.
+                //tabIndex="0"  Would allow the complete field to be focused, not only the input. But that would alos make two focusable elements by field
                 className={`
                 form-element
                 form-element--color-validation
@@ -77,18 +74,12 @@ const Input = ({name, formTools, ...props}) => {
                     autoComplete={props.type === "password" ? "on" : undefined}
                 /> 
 
-                <RequirementsBadges /> 
+                <RequirementsBadges addUlPadding /> 
             </div>
 
             <div className="validation-error-messages-container">
-            { currentState.isTouched && <ValidationErrorMessages className=""/> }
-
+                    { currentState.isTouched && <ValidationErrorMessages /> }
             </div>
-     {/*        {!currentState.isValid && currentState.isTouched && 
-            <div className={`${styles["input-component__add"]}`}>
-                <small>{ props.errorText }</small>
-            </div>
-            } */}
 
         </div>
 

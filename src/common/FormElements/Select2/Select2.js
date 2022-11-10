@@ -1,7 +1,8 @@
 import React, {useEffect, useState, useRef, useContext, useCallback} from 'react'
 
 //Custom Hooks
-import {useHttpClient} from '@/src/hooks/http-hook'
+import { useHttpClient } from '@/src/hooks/http-hook'
+import { useValidation } from '@/src/hooks/useValidation/useValidation';
 //import { useDebounce } from '@/src/hooks/useDebounce'
 
 //Contexts
@@ -30,6 +31,9 @@ const Select2 = ({name, formTools, ...props}) => {
 
     const selectTagRef = useRef();
 
+    //Extract validation methods
+    const { validate, RequirementsBadges, ValidationErrorMessages } = useValidation( props.validationRules )
+
     //Import message context 
     const msg = useContext(MessageContext);
 
@@ -55,10 +59,9 @@ const Select2 = ({name, formTools, ...props}) => {
         inputHandler(
             name,
             value,
-            props.validators ? validate(value, props.validators) : true
+            props.validationRules ? validate(value) : true
         )
     }
-
 
     /***********************
      * 
@@ -255,7 +258,12 @@ const Select2 = ({name, formTools, ...props}) => {
                 <label htmlFor='SelectInput'>{ props.label }</label>
             </div>
             }
-                <div className="form-element form-element--color-validation d-flex">
+                <div className={`
+                    form-element 
+                    form-element--color-validation 
+                    d-flex
+                    ${!formState.inputs[name].isValid && formState.inputs[name].isTouched && "control--invalid"}
+                `}>
 
                     <Button 
                         type="button" 
@@ -285,7 +293,7 @@ const Select2 = ({name, formTools, ...props}) => {
                         />
 
                         <div className="w-100 d-flex">
-                            {/* To fill with validation rules*/}
+                            <RequirementsBadges /> 
                         </div>
                         
                         <datalist id={props.label + props.searchField} name={"Datalist-"+ name } className={`${styles["datalist-input"]}`}>
@@ -296,6 +304,9 @@ const Select2 = ({name, formTools, ...props}) => {
 
                     </div>
 
+                </div>
+                <div className="validation-error-messages-container">
+                    { formState.inputs[name].isTouched && <ValidationErrorMessages /> }
                 </div>
                 
                 {/* Button to call a form and add a new taxonomie */}

@@ -4,7 +4,7 @@
     V.P.R. - 18/10/2022
 
 */
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 
 //Import styling
 import styles from './validation.module.scss'
@@ -13,7 +13,14 @@ import styles from './validation.module.scss'
 const rules_settings = {
     REQUIRED: { 
         renderMessage: (() => "Ce champ est requis"),
-        validationMethod: (value => value.trim().length > 0),
+        validationMethod: (value => {
+            //Make sure there is actually a value passed
+            if(!value) return false
+            //If the value is an array 
+            if(Array.isArray(value)) return value.length > 0 ? true : false;
+            //Everything else (for now), we convert it to string, trim it and compare
+            return value.toString().trim().length > 0 ? true : false
+        }),
         renderBadge: (() => "Requis")
     },
     MIN_LENGTH: { 
@@ -92,7 +99,7 @@ export const useValidation = ( setOfRules ) => {
 
 
     /* Validator badges sections displayed under the text in the selected field */
-    const RequirementsBadges = () => {
+    const RequirementsBadges = ( props ) => {
 
         const rulesNameList = Object.keys(validator);
 
@@ -100,7 +107,7 @@ export const useValidation = ( setOfRules ) => {
             <>
                 {/* At least one validator to */}
                 { rulesNameList.length > 0 && 
-                <ul className={`mb-0 form-element--field-padding-top-reverse badge-container`}>
+                <ul className={`mb-0 ${props.addUlPadding && "form-element--field-padding-top-reverse"} badge-container`}>
                     { rulesNameList.map(ruleName => (
                         <li 
                             title={`${validator[ruleName].message}`}
@@ -133,7 +140,7 @@ export const useValidation = ( setOfRules ) => {
             <>
                 {/* At least one validator to */}
                 { errorRulesList.length > 0 && 
-                <ul className={`mt-1 d-inline-flex form-element--validation-errors-container `}>
+                <ul className={`mt-1 mb-0 d-inline-flex form-element--validation-errors-container `}>
                     { errorRulesList.map(ruleName => (
                         <li 
                             className={`d-flex me-3 mb-2 validation-error ${validator[ruleName].isValid && "validation-error--positive"}`}

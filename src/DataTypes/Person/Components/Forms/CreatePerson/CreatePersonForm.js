@@ -114,8 +114,7 @@ const CreatePersonForm = () => {
                     name="firstName"
                     label="Prénom"
                     validationRules={[
-                        {name: "REQUIRED"},
-                        {name: "MIN_LENGTH", specification: 4}
+                        {name: "REQUIRED"}
                     ]}
                     errorText="Cette information est requise"
                     formTools={formTools}
@@ -124,7 +123,9 @@ const CreatePersonForm = () => {
                 <Input 
                     name="lastName"
                     label="Nom"
-                    validators={[VALIDATOR_REQUIRE()]}
+                    validationRules={[
+                        {name: "REQUIRED"}
+                    ]}
                     errorText="Cette information est requise"
                     formTools={formTools}
                 />
@@ -132,13 +133,18 @@ const CreatePersonForm = () => {
                 <Input  
                     name="nickName"
                     label="Surnom"
+                    validationRules={[
+                        {name: "REQUIRED"}
+                    ]}
                     formTools={formTools}
                 />
                 
                 <RichTextarea 
                     name="description"
                     label="Biographie / description"
-                    validators={[VALIDATOR_REQUIRE()]}
+                    validationRules={[
+                        {name: "REQUIRED"}
+                    ]}
                     formTools={formTools}
                 />
 
@@ -152,6 +158,9 @@ const CreatePersonForm = () => {
                     placeholder={lang.occupationsPlaceholder}
                     formTools={formTools}
                     updateModal={setModal}
+                    validationRules={[
+                        {name: "REQUIRED"}
+                    ]}
                 />
 
                 <Button type="submit" disabled={!formState.isValid}>{lang.submit}</Button>

@@ -39,9 +39,7 @@
         .badge-container {
                 
                 display: none;
-            
-                //transition: height .3ms ease-in-out; 
-        
+                    
                 .badge-container__badge {
                         --badge--color: rgba(87, 87, 87, 0.822);
                         --badge--bg-color: rgba(218, 218, 218, 0.336);
@@ -68,29 +66,29 @@
                 .badge-container { display: inline-flex }
         }
 
+        
+
 }
 
-
-
-
+/* Inner padding of every field that defines the distance between the content and the border */
 .form-element--field-padding { 
         padding: var(--horizontal-spacing) var(--vertical-spacing); 
 }
 
+/* Same values than the field padding, but with not padding-top. */
 .form-element--field-padding-top-reverse {
         padding: var(--horizontal-spacing) var(--vertical-spacing); 
         padding-top: 0;
 }
 
+/*  Container of the error messages displayed under the field */
 .form-element--validation-errors-container {
 
         font-size: 0.8rem;
         align-items: center;
 
         .validation-error {
-
                 &:before {
-
                         content:  "✖";
                         background-color: rgb(204, 137, 137);
                         color: white;
@@ -102,6 +100,5 @@
                 }
         }
 }
-
 
 

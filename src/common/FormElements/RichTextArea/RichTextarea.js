@@ -2,8 +2,8 @@ import React, { useRef, useEffect, useState } from 'react'
 
 import dynamic from 'next/dynamic'
 
-//Utils and dependancies
-import { validate } from '@/src/utils/validators'
+//Hooks
+import { useValidation } from '@/src/hooks/useValidation/useValidation';
 
 //Styling
 import styles from './RichTextarea.module.scss'
@@ -14,6 +14,9 @@ const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
 
 const RichTextarea = ({name, formTools, ...props}) => {
+
+    //Extract the validator methods and utilities
+    const { validate, RequirementsBadges, ValidationErrorMessages } = useValidation( props.validationRules )
 
     //Create a unique ID to link the custom tool bar to the quill element. 
     //In a useRef because it must not be affected by component rerendering
@@ -40,7 +43,7 @@ const RichTextarea = ({name, formTools, ...props}) => {
         inputHandler(
             name,
             value,
-            props.validators ? validate(editor.getText(), props.validators) : true
+            props.validationRules ? validate(editor.getText()) : true
         )
     }
 
@@ -122,7 +125,7 @@ const RichTextarea = ({name, formTools, ...props}) => {
 
                         {/* Receive extra content like the validation tags */}
                         <div className={`${styles["rich-textarea__quill__field__extra-content"]}`}>
-                            
+                            <RequirementsBadges /> 
                         </div>
 
                     </div>
@@ -130,9 +133,9 @@ const RichTextarea = ({name, formTools, ...props}) => {
                 
             </div>
 
-            {!currentState.isValid && currentState.isTouched && 
-                <small>{ props.errorText }</small>
-            }
+            <div className="validation-error-messages-container">
+                    { currentState.isTouched && <ValidationErrorMessages /> }
+            </div>
 
         </div>
        

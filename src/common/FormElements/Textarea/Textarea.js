@@ -1,14 +1,17 @@
 import React from 'react'
 
-
-//Utils
-import { validate } from '@/src/utils/validators'
+//Hooks
+import { useValidation } from '@/src/hooks/useValidation/useValidation';
 
 //Styling
 import styles from './Textarea.module.scss'
 
 
 const Textarea = ({name, formTools, ...props}) => {
+
+    //Extration of the validator functions and utilities
+    const { validate, RequirementsBadges, ValidationErrorMessages } = useValidation( props.validationRules )
+
 
     /*
         Access the differents form tools 
@@ -25,7 +28,7 @@ const Textarea = ({name, formTools, ...props}) => {
         inputHandler(
             name,
             event.target.value,
-            props.validators ? validate(event.target.value, props.validators) : true
+            props.validationRules ? validate(event.target.value) : true
         )
     }
 
