@@ -9,8 +9,8 @@ export const getServerSideProps = async () => {
     const data = {
         "classes": [
             {
-                "slug": "personne",
-                "title": "Personnes",
+                "slug": "person",
+                "title": "Persons",
                 "intro": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam convallis vehicula enim, sed commodo nunc.",
                 "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam convallis vehicula enim, sed commodo nunc. Ut vel ante aliquam felis facilisis varius vel a magna. Donec scelerisque augue non nisi vehicula, et tristique urna imperdiet. Aenean sit amet sollicitudin magna, eu ultrices justo. Fusce posuere augue sit amet odio imperdiet, in lobortis eros congue. Phasellus neque orci, vulputate a sollicitudin et, suscipit vel leo. Interdum et malesuada fames ac ante ipsum primis in faucibus. Mauris id sem eros.",
                 "properties": [{
@@ -57,7 +57,7 @@ export const getServerSideProps = async () => {
                     "restrictions": "Detail about it\'s restrictions.",
                     "required": false
                 }],
-                "linkedClasses": [{"class": "personne", "link": "part_of", "source": "schema.org"}, {
+                "linkedClasses": [{"class": "person", "link": "part_of", "source": "schema.org"}, {
                     "class": "team",
                     "link": "part_of",
                     "source": "schema.org"
@@ -84,7 +84,7 @@ export const getServerSideProps = async () => {
                     "restrictions": "Detail about it\'s restrictions.",
                     "required": false
                 }],
-                "linkedClasses": [{"class": "personne", "link": "part_of", "source": "schema.org"}, {
+                "linkedClasses": [{"class": "person", "link": "part_of", "source": "schema.org"}, {
                     "class": "projet",
                     "link": "part_of",
                     "source": "schema.org"
@@ -111,7 +111,7 @@ export const getServerSideProps = async () => {
                     "restrictions": "Detail about it\'s restrictions.",
                     "required": false
                 }],
-                "linkedClasses": [{"class": "personne", "link": "part_of", "source": "schema.org"}, {
+                "linkedClasses": [{"class": "person", "link": "part_of", "source": "schema.org"}, {
                     "class": "projet",
                     "link": "part_of",
                     "source": "schema.org"

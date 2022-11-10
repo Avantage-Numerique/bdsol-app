@@ -77,7 +77,7 @@ const UpdatePersonForm = ({initValues}) => {
 
             //Send the request with the specialized hook
             submitRequest(
-                "/personnes/update",
+                "/persons/update",
                 'POST',
                 formData
             );

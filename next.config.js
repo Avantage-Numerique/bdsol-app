@@ -1,3 +1,6 @@
+
+const path = require('path');
+
 /**
  * @type {import('next').NextConfig}
  */
@@ -78,6 +81,10 @@ const nextConfig = {
             defaultLanguage: process.env.LANGUAGE ?? "fr-CA"
         },
         appUrl: process.env.APP_PROTOCOLE + "" + process.env.APP_BASE_URL + ":" + process.env.APP_PORT,
+    },
+    sassOptions: {
+        includePaths: [path.join(__dirname, 'styles')],
+        additionalData: `@import "./styles/component-base-imports.scss";`,
     }
 }
 

@@ -30,12 +30,12 @@ const accountPage = ({ user }) => {
     const dateLanguage = 'en-CA';
 
     return (
-        <div className={"account-page pb-3"}>
+        <div className={"page-container pb-3"}>
             <PageHeader title={`Bienvenue dans l'espace utilisateur, ${user && (user.username)}`} />
             <Container>
                     <Row>
                         <Col xs={9} className={"pb-3"}>
-                            <div className={"account-page-content"}>
+                            <div className={"px-2"}>
                                 {leftMenu === "history" && <UserHistoryGrid/>}
                                 {leftMenu === "preferences" && <Preferences/>}
                                 {leftMenu === "profile" && <Profile/>}
@@ -49,7 +49,7 @@ const accountPage = ({ user }) => {
                                     <h3>
                                         Menu
                                     </h3>
-                                    <div className={`${styles["user-card"]}`}>
+                                    <div className={`d-flex flex-row user-card`}>
                                         <div>
                                             {(user.avatar === undefined || user.avatar === null || user.avatar.toString() === "") ?
                                                 <img src="https://freesvg.org/img/1389952697.png" alt="Aucune image de profil" width="80" height="80"/>

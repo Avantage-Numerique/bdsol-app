@@ -22,7 +22,7 @@ const Help = () => {
             <h4>Dans la barre, en haut de l'écran :</h4>
             <ul>
                 <li>Le bouton <strong>Avantage Numérique</strong> vous ramènera à la page d'accueil.</li>
-                <li>Un peu plus à droite, se trouve un <strong>bouton rond de "profil"</strong> permettant d'accéder à la page du compte, où vous vous trouvez présentement.</li>
+                <li>Un peu plus à droite, se trouve un <strong>bouton rond de "profil"</strong> ou une <strong>image de profil</strong>, permettant d'accéder à la page du compte, où vous vous trouvez présentement.</li>
                 <li>Totalement à droite, le bouton fait de <strong>3 lignes horizontales</strong> vous ouvre un menu qui facilitera la navigation vers les autres pages.</li>
             </ul>
             <h4>À droite de ce texte, sous votre photo de profil, les boutons bleu représentent le Menu du compte :</h4>
