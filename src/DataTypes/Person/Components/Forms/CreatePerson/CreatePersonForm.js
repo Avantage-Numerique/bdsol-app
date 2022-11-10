@@ -12,9 +12,6 @@ import Modal from '@/src/common/Containers/Modal/Modal'
 import CreateTaxonomyForm from '@/src/DataTypes/Taxonomy/Components/Forms/CreateTaxonomy/CreateTaxonomyForm'
 import {lang} from "@/src/common/Data/GlobalConstants";
 
-//Form validators
-import {VALIDATOR_REQUIRE} from '@/src/utils/validators'
-
 //Context
 import { useAuth } from "@/src/authentification/context/auth-context";
 
@@ -142,9 +139,6 @@ const CreatePersonForm = () => {
                 <RichTextarea 
                     name="description"
                     label="Biographie / description"
-                    validationRules={[
-                        {name: "REQUIRED"}
-                    ]}
                     formTools={formTools}
                 />
 
@@ -158,9 +152,6 @@ const CreatePersonForm = () => {
                     placeholder={lang.occupationsPlaceholder}
                     formTools={formTools}
                     updateModal={setModal}
-                    validationRules={[
-                        {name: "REQUIRED"}
-                    ]}
                 />
 
                 <Button type="submit" disabled={!formState.isValid}>{lang.submit}</Button>

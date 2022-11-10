@@ -1,10 +1,6 @@
 import React, { useContext,useEffect } from 'react'
 import Router from 'next/router'
 
-
-//Validators
-import {VALIDATOR_REQUIRE, VALIDATOR_EMAIL} from '@/src/utils/validators'
-
 //Custom hooks
 import { useForm } from '@/src/hooks/form-hook'
 import { useHttpClient } from '@/src/hooks/http-hook'
@@ -182,7 +178,9 @@ const Register = () => {
                     type="text"
                     label="Nom d'utilisateur"
                     placeholder="Visible par tous"
-                    validators={[VALIDATOR_REQUIRE()]}
+                    validationRules={[
+                        {name: "REQUIRED"}
+                    ]}
                     errorText="Veuillez entrer un nom d'utilisateur valide"
                     formTools={formTools}
                 />   
@@ -199,7 +197,9 @@ const Register = () => {
                     name="email"
                     type="email"
                     label="Courriel"
-                    validators={[VALIDATOR_REQUIRE(), VALIDATOR_EMAIL()]}
+                    validationRules={[
+                        {name: "REQUIRED"}
+                    ]}
                     errorText="Veuillez entrer une adresse courriel valide"
                     formTools={formTools}
                 /> 
@@ -208,7 +208,9 @@ const Register = () => {
                     name="password"
                     type="password"
                     label="Mot de passe"
-                    validators={[VALIDATOR_REQUIRE()]}
+                    validationRules={[
+                        {name: "REQUIRED"}
+                    ]}
                     errorText="Veuillez entrer un mot de passe valide"
                     formTools={formTools}
                 /> 
@@ -217,7 +219,9 @@ const Register = () => {
                     name="password2"
                     type="password"
                     label="Confirmation du mot de passe "
-                    validators={[VALIDATOR_REQUIRE()]}
+                    validationRules={[
+                        {name: "REQUIRED"}
+                    ]}
                     errorText="Veuillez entrer un mot de passe valide"
                     formTools={formTools}
                 />   

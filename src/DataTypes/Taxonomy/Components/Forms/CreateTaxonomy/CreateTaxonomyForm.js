@@ -9,9 +9,6 @@ import Button from '@/src/common/FormElements/Buttons/Button/Button'
 import Input from '@/src/common/FormElements/Input/Input'
 import RichTextarea from '@/src/common/FormElements/RichTextArea/RichTextarea'
 
-//Form validators
-import {VALIDATOR_REQUIRE} from '@/src/utils/validators'
-
 //Contexts
 import {AuthContext, useAuth} from '@/auth/context/auth-context'
 import { MessageContext } from '@/src/common/UserNotifications/Message/Context/Message-Context'
@@ -151,7 +148,9 @@ const CreateTaxonomyForm = ({name, category, positiveRequestActions}) => {
                     name="name"
                     label="Nom"
                     formTools={formTools}
-                    validators={[VALIDATOR_REQUIRE()]}
+                    validationRules={[
+                        {name: "REQUIRED"}
+                    ]}
                     errorText="Cette information est requise"
                 />
 

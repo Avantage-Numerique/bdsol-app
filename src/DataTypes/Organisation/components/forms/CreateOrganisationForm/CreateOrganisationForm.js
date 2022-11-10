@@ -17,9 +17,6 @@ import {lang} from "@/src/common/Data/GlobalConstants";
 import {AuthContext, useAuth} from '@/auth/context/auth-context'
 import { MessageContext } from '@/src/common/UserNotifications/Message/Context/Message-Context'
 
-//Form validators
-import {VALIDATOR_REQUIRE} from '@/src/utils/validators'
-
 //Styling
 import styles from './CreateOrganisationForm.module.scss'
 
@@ -175,7 +172,9 @@ const CreateOrganisationForm = () => {
                         header: "À noter",
                         body: "Assurez-vous de bien écrire le nom de l'organisation afin de faciliter les recherches."
                     }}
-                    validators={[VALIDATOR_REQUIRE()]}
+                    validationRules={[
+                        {name: "REQUIRED"}
+                    ]}
                     errorText="Cette information est requise"
                     formTools={formTools}
                 />
@@ -190,7 +189,9 @@ const CreateOrganisationForm = () => {
                     name="url"
                     label="Hyperlien"
                     type="url"
-                    validators={[VALIDATOR_REQUIRE()]}
+                    validationRules={[
+                        {name: "REQUIRED"}
+                    ]}
                     errorText="Cette information est requise"
                     placeholder="Exemple : https://siteWeb.com/"
                     formTools={formTools}

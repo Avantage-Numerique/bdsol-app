@@ -12,9 +12,6 @@ import Modal from '@/src/common/Containers/Modal/Modal'
 import CreateTaxonomyForm from '@/src/DataTypes/Taxonomy/Components/Forms/CreateTaxonomy/CreateTaxonomyForm'
 import {lang} from "@/src/common/Data/GlobalConstants";
 
-//Form validators
-import {VALIDATOR_REQUIRE} from '@/src/utils/validators'
-
 //Styling
 import styles from './UpdatePersonForm.module.scss'
 import Container from "react-bootstrap/Container";
@@ -106,7 +103,9 @@ const UpdatePersonForm = ({initValues}) => {
                 <Input 
                     name="firstName"
                     label="Prénom"
-                    validators={[VALIDATOR_REQUIRE()]}
+                    validationRules={[
+                        {name: "REQUIRED"}
+                    ]}
                     errorText="Cette information est requise"
                     formTools={formTools}
                 />
@@ -114,7 +113,9 @@ const UpdatePersonForm = ({initValues}) => {
                 <Input 
                     name="lastName"
                     label="Nom"
-                    validators={[VALIDATOR_REQUIRE()]}
+                    validationRules={[
+                        {name: "REQUIRED"}
+                    ]}
                     errorText="Cette information est requise"
                     formTools={formTools}
                 />
@@ -128,7 +129,9 @@ const UpdatePersonForm = ({initValues}) => {
                 <RichTextarea 
                     name="description"
                     label="Biographie / description"
-                    validators={[VALIDATOR_REQUIRE()]}
+                    validationRules={[
+                        {name: "REQUIRED"}
+                    ]}
                     formTools={formTools}
                 />
 
