@@ -16,15 +16,6 @@ import Button from 'react-bootstrap/Button'
 
 import { useAuth } from '@/src/authentification/context/auth-context'
 
-/*
-    Temporary hardcoded value to prevent making switch cases
-*/
-const dictionnary = {
-    offers: "offer",
-    occupations: "occupation",
-    team: "member"
-}
-
 
 const Select2 = ({name, formTools, children, single, ...props}) => {
 
@@ -32,24 +23,22 @@ const Select2 = ({name, formTools, children, single, ...props}) => {
 
     //Import context 
     const msg = useContext(MessageContext);
-    const auth = useAuth();
     const {sendRequest} = useHttpClient();
 
     //Store globally the matching value when evaluated
     const matchingValue = useRef();
 
-    /* Access the differents form tools */
-    const { formState, inputHandler, inputTouched } = formTools;
-
-    //Make sure that the initial value is an array
-    const currentState = formState.inputs[name].value;
-
     //List of options fetched by the api and proposed to the user in the datalist in grey
     const [selectList, setSelectList] = useState([]);
 
+
     //Full list of property about the selected Entity
-    const [selectedEntities, setSelectedEntities] = useState([]); 
+    const [selectedEntities, setSelectedEntities] = useState(props.selectedEntities || []);
+    useEffect( () => {props.dataSetter(selectedEntities)}, [selectedEntities]);
+    //If props.selectedEntities change, it sets the selectedEntities
+    useEffect( () => {setSelectedEntities(props.selectedEntities)}, [props.selectedEntities])
     
+
     //Research terms send to the api to refine the search
     //shape : data: {category: 'occupations', name: 'ingenieur'}
     const [selectRequest, setSelectRequest] = useState(props.requestData)
@@ -59,67 +48,9 @@ const Select2 = ({name, formTools, children, single, ...props}) => {
     //Update the list of options to display
     useEffect(() => { getSelectList() }, [debouncedRequest] );
 
-    // ***** Functions *****
-    const updateValue = value => {
-        inputHandler(
-            name,
-            value,
-            props.validators ? validate(value, props.validators) : true
-        )
-    }
 
     //Find if there is a matching value between the list proposed by the api and the value entered in the field by the user
     const findMatchingValue = () => selectList.data.find(e => {return e[props.searchField] === selectTagRef.current.value})
-
-    const matchLocalToFormState = async () => {
-        //New edited selectedEntities state 
-        let editedSelectedEntities = [];
-
-        //OPTION 1 : Evaluate if one or many ids present in the selectedEntities are not in the current State
-        //  => Action: we need to extract only the ones that match the formState
-        editedSelectedEntities = selectedEntities.filter(o1 => currentState.some(o2 => o1._id === o2[dictionnary[name]]));
-
-        //OPTION 2 : One or many ids in the current state doesn't appear in the selectedEntites
-        //  => Action: we need to add them
-        //Get a new array containing every elements present in the formstate that are not reflected in the selected entities
-        const absentFormStateObjs = currentState.filter(o1 => !selectedEntities.some(o2 => o1[dictionnary[name]] === o2._id));
-
-        if(absentFormStateObjs.length > 0)
-
-            //update the state with the new values
-            for(const entity of absentFormStateObjs){
-                //If the object data stored in the matching value 
-                if(matchingValue.current && (entity[dictionnary[name]] === matchingValue.current._id)){
-                    //Use this one to store in the selectedEntities
-                    editedSelectedEntities.push(matchingValue.current)
-
-                //If the object data is not in the matchingValue, we have to fetch it
-                } else {
-                    //Fetch by the Id
-                    const entityData =  await sendRequest(
-                        (props.request + "/search"),
-                        'POST',
-                        JSON.stringify({data:{id: entity[dictionnary[name]]}})
-                    );
-                    //If there is an error, passed the message to the user
-                    if(entityData.error){
-                        msg.addMessage({ 
-                            text: `Suite à une erreur, une ou plusieurs informations n'ont pas pu être importées et affichées dans le champ "${props.label}"`,
-                            positive: false 
-                        })
-                    } else {
-                        //Add the newly fetch entity to the selectedEntities so it can be displayed
-                        editedSelectedEntities.push(entityData.data)
-                    }     
-                }
-            }
-        //Finaly, we can update the local state with the new value
-        setSelectedEntities(editedSelectedEntities)
-    }
-
-    //Update the selectedEntities whenever the form state change to assure it will always reflect the main formstate
-    useEffect(() => { matchLocalToFormState() }, [currentState])
-    useEffect(() => { console.log("current state changed", currentState) }, [currentState])
 
     //Called whenever the user enter or modify a value into the field
     const formRequestData = (val) => {
@@ -151,29 +82,19 @@ const Select2 = ({name, formTools, children, single, ...props}) => {
             if (matchingValue.current) {
 
                 //Make sure that the object is not already in the list to prevent duplicates
-                const isDuplicate = [...currentState].some(item => {
-                    return item[dictionnary[name]] === matchingValue.current._id;
+                const isDuplicate = selectedEntities.some(item => {
+                    return item._id === matchingValue.current._id;
                 });
-            
+
                 if(!isDuplicate){
-                    
-                    const formatedObject = {
-                        [dictionnary[name]]: matchingValue.current._id,
-                        status: {
-                            state:"Pending",
-                            requestedBy: auth.user.id,
-                            lastModifiedBy: auth.user.id
-                        }
-                    };
-                    
-                    //Update the value in the form state with the new value
+                    //Update the value of selectedEntities
                     if ( single == "true"){
                         //If single mode, replace the entire object
-                        updateValue([formatedObject]);
+                        setSelectedEntities([matchingValue.current]);
                     }
                     else {
                         //(not single mode) Add the value to the array
-                        updateValue([...currentState, formatedObject])
+                        setSelectedEntities([...selectedEntities, matchingValue.current])
                     }
 
                     //Reset the field
@@ -197,8 +118,8 @@ const Select2 = ({name, formTools, children, single, ...props}) => {
     }
 
     const removeValueFromSelectedItem = (selectedObj) => {
-        //Update the value of the form, excluding the element to remove
-        updateValue(currentState.filter(arr => arr[dictionnary[name]] !== selectedObj._id));
+        //remove the selectedObj
+        setSelectedEntities(selectedEntities.filter(elem => elem._id !== selectedObj._id));
     }
 
     //Function to add a taxonomy element to the selected list that will be submitted with the form
@@ -206,32 +127,6 @@ const Select2 = ({name, formTools, children, single, ...props}) => {
         selectTagRef.current.value = "";
         selectTagRef.current.focus();           //Reset focus on field
         formRequestData("")                     //Reset the input text stored in the state
-    }
-    
-    const passChildrenProps = (child) => {
-        if(child != undefined)
-            switch (child.type.name){
-                case "TaxonomyTagListTemplate" :
-                    return (
-                        {
-                            entity: selectedEntities,
-                            removeEntity:removeValueFromSelectedItem,
-                            tag:props.tag,
-                            "name":name,
-                            searchField:props.searchField
-                        }
-                    )
-                case "PersonRoleTemplate" :
-                    return (
-                        {
-                            entity: selectedEntities,
-                            "name": name,
-                            key: props.templateProps.key,
-                            keyValue: props.templateProps.keyValue,
-                            updateChildData : props.templateProps.updateChildData
-                        }
-                    )
-            }
     }
 
     if( selectList &&
@@ -265,7 +160,7 @@ const Select2 = ({name, formTools, children, single, ...props}) => {
                             list={props.label + props.searchField}
                             name={'SelectInput-' + name }
                             id={'SelectInput-'+ name}
-                            onBlur={() => inputTouched(name)}
+                            //onBlur={() => inputTouched(name)}
                             placeholder={props.placeholder}
                             className={`
                                 w-100
@@ -290,7 +185,7 @@ const Select2 = ({name, formTools, children, single, ...props}) => {
                 
                 {/* Button to call a form and add a new taxonomie */}
                 {/* If the updateModal function is defined, it meens that the modal functionnalities have to be activated */}
-                { props.updateModal &&
+                {/* props.updateModal &&
                     <div className={`col-12 ${styles["button-container"]}`}>
                         <button
                             type="button"
@@ -307,26 +202,8 @@ const Select2 = ({name, formTools, children, single, ...props}) => {
                         >
                             <small>Soumettre comme nouvelle taxonomie</small>
                         </button>
-                    </div>
+                    </div>*/
                 }
-                
-            {/* Display the selected items in children */}
-            {
-                React.Children.count(children) != 0 ?
-                (
-                    <div>
-                        {console.log("select child 'entity' :", selectedEntities)}
-                        {React.Children.map(children, (child => React.cloneElement(child, passChildrenProps(children))))}
-                    </div>
-                )
-                :
-                (
-                  <div>
-                    Il est impossible d'afficher l'élément. Veuillez communiquer avec le support technique.
-                    Error code : Select2 no children passed as props
-                  </div>
-                )
-            }
         </div>
     );
 }

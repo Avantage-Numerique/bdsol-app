@@ -152,19 +152,7 @@ const CreateOrganisationForm = () => {
             })
         }
     }
-
-    const offerSelectRequestData = {
-        "data": {
-            "category": "occupations",
-            "name": ""
-        }
-    };
-    const teamSelectRequestData = {
-        "data": {
-            "firstName": ""
-        }
-    };
-
+    
     return (
         <>
             { isLoading && <Spinner fixed />}
@@ -213,36 +201,34 @@ const CreateOrganisationForm = () => {
                     formTools={formTools}
                 />
 
-                <Select2
-                    name="offers"
-                    searchField="name"
-                    label="Offres de services"
-                    request="/taxonomies"
-                    requestData={offerSelectRequestData}
+                <TaxonomyTagListTemplate
                     tag="occupations"
-                    formTools={formTools}
+                    name="offers"
+                    idField="offer"
+                    label="Offres de services"
+                    category="occupations"
                     placeholder="Directeur-trice artistique ..."
-                    >
-                        <TaxonomyTagListTemplate/>
-                </Select2>
-                
-                <Repeater 
+                    //taxonomyList={[...list]}
+                    />
+
+                <PersonRoleTemplate
+                    name="team"
+                    label="Membre de l'équipe"
+                    placeholder="Jean-Marc Parent ..."
+                    //personList={[...list]}
+                />
+
+                {/*<Repeater
                     name="team"
                     label="Membre de l'équipe">
-                    <Select2
-                        name="team"
-                        searchField="firstName"
-                        request="/persons"
-                        requestData={teamSelectRequestData}
-                        formTools={formTools}
-                        placeholder="Jean-Marc Parent ..."
-                        single="true"
-                        >
+
                         <PersonRoleTemplate
+                        placeholder="Jean-Marc Parent ..."
                             formTools={formTools}
                             />
-                    </Select2>
-                </Repeater>
+
+                </Repeater>*/
+                }
 
                 <div className="col-12">
                     <Button type="submit" disabled={!formState.isValid}>Soumettre</Button>
