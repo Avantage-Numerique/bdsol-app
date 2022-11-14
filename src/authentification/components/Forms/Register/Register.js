@@ -179,7 +179,8 @@ const Register = () => {
                     label="Nom d'utilisateur"
                     placeholder="Visible par tous"
                     validationRules={[
-                        {name: "REQUIRED"}
+                        {name: "REQUIRED"},
+                        {name: "TYPE_ALPHANUMERIC"}
                     ]}
                     errorText="Veuillez entrer un nom d'utilisateur valide"
                     formTools={formTools}

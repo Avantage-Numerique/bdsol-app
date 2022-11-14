@@ -37,6 +37,11 @@ const rules_settings = {
         renderMessage: (() => "Ce champ doit être une adresse courriel valide"),
         validationMethod: (value => /^\S+@\S+\.\S+$/.test(value)),
         renderBadge: (() => `Format courriel`)
+    },
+    TYPE_ALPHANUMERIC: {
+        renderMessage: (() => "Ce champ ne doit contenir que des caractères alphanumériques (lettres et chiffres)"),
+        validationMethod: (value => /^[A-Za-z0-9]*$/.test(value)),
+        renderBadge: (() => `Alphanumerique [A-Z/0-9]`)
     }
 }
 
