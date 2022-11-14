@@ -43,7 +43,11 @@ const Register = () => {
                 value: '',
                 isValid: true
             },
-            name: {
+            firstName: {
+                value: '',
+                isValid: true
+            },
+            lastName: {
                 value: '',
                 isValid: true
             }
@@ -97,7 +101,7 @@ const Register = () => {
                         "email": formState.inputs.email.value,
                         "password": formState.inputs.password.value,
                         "avatar": formState.inputs.avatar.value,
-                        "name": formState.inputs.name.value
+                        "name": formState.inputs.firstName.value + " " + formState.inputs.lastName.value
                     }
                 };
 
@@ -188,9 +192,19 @@ const Register = () => {
                     formTools={formTools}
                 />   
                 <Input
-                    name="name"
+                    name="firstName"
                     type="text"
-                    label="Prénom et nom"
+                    label="Prénom"
+                    validationRules={[
+                        {name: "REQUIRED"}
+                    ]}
+                    placeholder="Invisible aux usagers"
+                    formTools={formTools}
+                /> 
+                <Input
+                    name="lastName"
+                    type="text"
+                    label="Nom"
                     validationRules={[
                         {name: "REQUIRED"}
                     ]}
