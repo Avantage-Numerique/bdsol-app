@@ -168,14 +168,9 @@ const CreateOrganisationForm = () => {
                 <Input 
                     name="name"
                     label="Nom de l'organisation"
-                    tip={{
-                        header: "À noter",
-                        body: "Assurez-vous de bien écrire le nom de l'organisation afin de faciliter les recherches."
-                    }}
                     validationRules={[
                         {name: "REQUIRED"}
                     ]}
-                    errorText="Cette information est requise"
                     formTools={formTools}
                 />
 
@@ -189,10 +184,6 @@ const CreateOrganisationForm = () => {
                     name="url"
                     label="Hyperlien"
                     type="url"
-                    validationRules={[
-                        {name: "REQUIRED"}
-                    ]}
-                    errorText="Cette information est requise"
                     placeholder="Exemple : https://siteWeb.com/"
                     formTools={formTools}
                 />
@@ -200,6 +191,10 @@ const CreateOrganisationForm = () => {
                 <Input  
                     name="contactPoint"
                     label="Information de contact"
+                    tip={{
+                        header: "À noter",
+                        body: "Cette information vise à offrir une option pour rejoindre un représentant de l'organisation."
+                    }}
                     placeholder="Adresse courriel, numéro de téléphone, etc..."
                     formTools={formTools}
                 />

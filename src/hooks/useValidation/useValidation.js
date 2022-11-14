@@ -31,17 +31,27 @@ const rules_settings = {
     MAX_LENGTH: { 
         renderMessage: ((max = 15) => `Ce champ doit contenir un maximum de ${max} caractères`),
         validationMethod: ((value, max = 15) => value.trim().length <= max),
-        renderBadge: ((max = 5) => `Longueur max :${max}`)
+        renderBadge: ((max = 5) => `Longueur max : ${max}`)
+    },
+    MIN: { 
+        renderMessage: ((min = 5) => `Ce champ ne doit pas contenir de valeur plus petite que ${min}.`),
+        validationMethod: ((value, min = 5) => value.trim().length >= min),
+        renderBadge: ((min = 5) => `Min : ${min}`)
+    },
+    MAX: { 
+        renderMessage: ((max = 15) => `Ce champ ne doit pas contenir une valeur plus grande que ${max}.`),
+        validationMethod: ((value, max = 15) => value.trim().length <= max),
+        renderBadge: ((max = 5) => `Max : ${max}`)
     },
     TYPE_EMAIL: { 
         renderMessage: (() => "Ce champ doit être une adresse courriel valide"),
-        validationMethod: (value => /^\S+@\S+\.\S+$/.test(value)),
+        validationMethod: (value => /^[\w-\.]+@([\w-]+\.)+[\w-]{2,5}$/.test(value)),
         renderBadge: (() => `Format courriel`)
     },
     TYPE_ALPHANUMERIC: {
         renderMessage: (() => "Ce champ ne doit contenir que des caractères alphanumériques (lettres et chiffres)"),
         validationMethod: (value => /^[A-Za-z0-9]*$/.test(value)),
-        renderBadge: (() => `Alphanumerique [A-Z/0-9]`)
+        renderBadge: (() => `Alphanumerique (lettres et chiffres)`)
     }
 }
 
@@ -145,7 +155,7 @@ export const useValidation = ( setOfRules ) => {
             <>
                 {/* At least one validator to */}
                 { errorRulesList.length > 0 && 
-                <ul className={`mt-1 mb-0 d-inline-flex form-element--validation-errors-container `}>
+                <ul className={`mt-1 mb-0 d-inline-flex flex-wrap form-element--validation-errors-container `}>
                     { errorRulesList.map(ruleName => (
                         <li 
                             className={`d-flex me-3 mb-2 validation-error ${validator[ruleName].isValid && "validation-error--positive"}`}

@@ -180,7 +180,9 @@ const Register = () => {
                     placeholder="Visible par tous"
                     validationRules={[
                         {name: "REQUIRED"},
-                        {name: "TYPE_ALPHANUMERIC"}
+                        {name: "TYPE_ALPHANUMERIC"},
+                        {name: "MAX_LENGTH", specification: 16},
+                        {name: "MIN_LENGTH", specification: 3}
                     ]}
                     errorText="Veuillez entrer un nom d'utilisateur valide"
                     formTools={formTools}
@@ -189,9 +191,10 @@ const Register = () => {
                     name="name"
                     type="text"
                     label="Prénom et nom"
-                    validators={[]}
+                    validationRules={[
+                        {name: "REQUIRED"}
+                    ]}
                     placeholder="Invisible aux usagers"
-                    errorText="Veuillez entrer un nom d'utilisateur valide"
                     formTools={formTools}
                 /> 
                 <Input
@@ -199,7 +202,8 @@ const Register = () => {
                     type="email"
                     label="Courriel"
                     validationRules={[
-                        {name: "REQUIRED"}
+                        {name: "REQUIRED"},
+                        {name: "TYPE_EMAIL"}
                     ]}
                     errorText="Veuillez entrer une adresse courriel valide"
                     formTools={formTools}
@@ -210,7 +214,8 @@ const Register = () => {
                     type="password"
                     label="Mot de passe"
                     validationRules={[
-                        {name: "REQUIRED"}
+                        {name: "REQUIRED"},
+                        {name: "MIN_LENGTH", specification: 8}
                     ]}
                     errorText="Veuillez entrer un mot de passe valide"
                     formTools={formTools}
@@ -221,7 +226,8 @@ const Register = () => {
                     type="password"
                     label="Confirmation du mot de passe "
                     validationRules={[
-                        {name: "REQUIRED"}
+                        {name: "REQUIRED"},
+                        {name: "MIN_LENGTH", specification: 8}
                     ]}
                     errorText="Veuillez entrer un mot de passe valide"
                     formTools={formTools}
