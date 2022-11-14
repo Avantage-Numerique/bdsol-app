@@ -8,7 +8,7 @@ import {
 import styles from './singlePerson.module.scss';
 
 //components
-import MainPersonView from '@/DataTypes/Person/Components/Views/MainPersonView/MainPersonView'
+import MainPersonView from '@/src/DataTypes/Person/Components/layouts/single/MainPersonView'
 import {getUserHeadersFromUserSession} from "@/auth/context/auth-context";
 import {withSessionSsr} from "@/auth/session/handlers/withSession";
 

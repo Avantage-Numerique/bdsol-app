@@ -43,7 +43,11 @@ const Register = () => {
                 value: '',
                 isValid: true
             },
-            name: {
+            firstName: {
+                value: '',
+                isValid: true
+            },
+            lastName: {
                 value: '',
                 isValid: true
             }
@@ -97,7 +101,7 @@ const Register = () => {
                         "email": formState.inputs.email.value,
                         "password": formState.inputs.password.value,
                         "avatar": formState.inputs.avatar.value,
-                        "name": formState.inputs.name.value
+                        "name": formState.inputs.firstName.value + " " + formState.inputs.lastName.value
                     }
                 };
 
@@ -179,18 +183,32 @@ const Register = () => {
                     label="Nom d'utilisateur"
                     placeholder="Visible par tous"
                     validationRules={[
-                        {name: "REQUIRED"}
+                        {name: "REQUIRED"},
+                        {name: "TYPE_ALPHANUMERIC"},
+                        {name: "MAX_LENGTH", specification: 16},
+                        {name: "MIN_LENGTH", specification: 3}
                     ]}
                     errorText="Veuillez entrer un nom d'utilisateur valide"
                     formTools={formTools}
                 />   
                 <Input
-                    name="name"
+                    name="firstName"
                     type="text"
-                    label="Prénom et nom"
-                    validators={[]}
+                    label="Prénom"
+                    validationRules={[
+                        {name: "REQUIRED"}
+                    ]}
                     placeholder="Invisible aux usagers"
-                    errorText="Veuillez entrer un nom d'utilisateur valide"
+                    formTools={formTools}
+                /> 
+                <Input
+                    name="lastName"
+                    type="text"
+                    label="Nom"
+                    validationRules={[
+                        {name: "REQUIRED"}
+                    ]}
+                    placeholder="Invisible aux usagers"
                     formTools={formTools}
                 /> 
                 <Input
@@ -198,7 +216,8 @@ const Register = () => {
                     type="email"
                     label="Courriel"
                     validationRules={[
-                        {name: "REQUIRED"}
+                        {name: "REQUIRED"},
+                        {name: "TYPE_EMAIL"}
                     ]}
                     errorText="Veuillez entrer une adresse courriel valide"
                     formTools={formTools}
@@ -209,7 +228,8 @@ const Register = () => {
                     type="password"
                     label="Mot de passe"
                     validationRules={[
-                        {name: "REQUIRED"}
+                        {name: "REQUIRED"},
+                        {name: "MIN_LENGTH", specification: 8}
                     ]}
                     errorText="Veuillez entrer un mot de passe valide"
                     formTools={formTools}
@@ -220,7 +240,8 @@ const Register = () => {
                     type="password"
                     label="Confirmation du mot de passe "
                     validationRules={[
-                        {name: "REQUIRED"}
+                        {name: "REQUIRED"},
+                        {name: "MIN_LENGTH", specification: 8}
                     ]}
                     errorText="Veuillez entrer un mot de passe valide"
                     formTools={formTools}
