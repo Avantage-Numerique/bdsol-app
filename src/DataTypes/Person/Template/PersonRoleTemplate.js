@@ -2,6 +2,9 @@
 import { useState } from "react";
 import { useEffect } from "react";
 
+//Context
+import { useAuth } from "@/src/authentification/context/auth-context";
+
 //Component
 import Input from "@/src/common/FormElements/Input/Input";
 import Select2 from "@/src/common/FormElements/Select2/Select2";
@@ -12,6 +15,8 @@ const PersonRoleTemplate = (props) => {
 
     //******************************************************************************************************/
     //Pour le moment, fonctionne SEULEMENT AVEC UN SELECT EN MODE single="true".
+
+    const auth = useAuth();
     
     const personSelectRequestData = {
         "data": {
@@ -33,8 +38,8 @@ const PersonRoleTemplate = (props) => {
                 },
                 status: {
                     state: "Pending",
-                    lastModifiedBy: "",
-                    requestedBy: ""
+                    lastModifiedBy: auth.user.id,
+                    requestedBy: auth.user.id
                 }
             }
             const oldReturn = Object.assign( {}, templateReturnObjet)
@@ -63,7 +68,7 @@ const PersonRoleTemplate = (props) => {
             <Select2
                 name={props.name}
                 searchField="firstName"
-                label={props.label}
+                //label={props.label}
                 request="/persons"
                 requestData={personSelectRequestData}
                 placeholder={props.placeholder}
@@ -74,7 +79,8 @@ const PersonRoleTemplate = (props) => {
             <div>
                 { personList.length != 0 &&
                     <>
-                        <Button slim="true" type="button" onClick={ () => removeEntity()}>✖</Button><br/>
+                        {//<Button slim="true" type="button" onClick={ () => removeEntity()}>✖</Button><br/>
+                        }
                         <label>Le nom de la personne : <strong>{personList[0].firstName + ' ' + personList[0].lastName}</strong></label><br/>
                         <label>Group</label><br/>
                         <input 

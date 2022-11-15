@@ -4,12 +4,17 @@ import { useState } from "react";
 // Styles
 import styles from "./TaxonomyTagListTemplate.module.scss"
 
+//Context
+import { useAuth } from "@/src/authentification/context/auth-context";
+
 // Component
 import Select2 from "@/src/common/FormElements/Select2/Select2";
 import { useEffect } from "react";
 
 
 const TaxonomyTagListTemplate = (props) => {
+
+    const auth = useAuth()
 
     const [taxonomyList, setTaxonomyList] = useState(props.taxonomyList || [])
 
@@ -23,8 +28,8 @@ const TaxonomyTagListTemplate = (props) => {
                 [props.idField] : elem._id,
                 status: {
                     state: "Pending",
-                    lastModifiedBy: "",
-                    requestedBy: ""
+                    lastModifiedBy: auth.user.id,
+                    requestedBy: auth.user.id
                 }
             })
         });

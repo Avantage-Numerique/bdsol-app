@@ -211,24 +211,19 @@ const CreateOrganisationForm = () => {
                     //taxonomyList={[...list]}
                     />
 
-                <PersonRoleTemplate
+                <Repeater
                     name="team"
                     label="Membre de l'équipe"
-                    placeholder="Jean-Marc Parent ..."
-                    //personList={[...list]}
-                />
-
-                {/*<Repeater
-                    name="team"
-                    label="Membre de l'équipe">
-
-                        <PersonRoleTemplate
+                    addButtonLabel="Ajouter un membre"
+                    noComponentLabel="Aucun membre ajouté">
+                    
+                    <PersonRoleTemplate
+                        name="team"
+                        label="Membre de l'équipe"
                         placeholder="Jean-Marc Parent ..."
-                            formTools={formTools}
-                            />
-
-                </Repeater>*/
-                }
+                        //personList={[...list]}
+                    />
+                </Repeater>
 
                 <div className="col-12">
                     <Button type="submit" disabled={!formState.isValid}>Soumettre</Button>
