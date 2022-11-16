@@ -14,9 +14,18 @@ import useDebounce from '@/src/hooks/useDebounce'
 import styles from './Select2.module.scss'
 import Button from 'react-bootstrap/Button'
 
-import { useAuth } from '@/src/authentification/context/auth-context'
-
-
+/*
+Props :
+    - name : Mainly use for ids and keys
+    - searchField : The name of the field to make the search on
+    - label : When mentionned, add a label on top of the select field
+    - request : the url to fetch from
+    - requestData : the objet to send for the first request
+    - placeholder : placeholder inside the select field
+    - dataSetter : Setter to modify the state (add the selected entity to the list)
+    - selectedEntities : An array of already selected entity to register before adding others (if modified after first display, it will still update)
+    - single : if single = "true", select will allow only [ {1 entity} ] and if another is selected, replace it
+*/
 const Select2 = ({name, formTools, children, single, ...props}) => {
 
     const selectTagRef = useRef();

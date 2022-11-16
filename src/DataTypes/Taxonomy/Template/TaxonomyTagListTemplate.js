@@ -11,14 +11,40 @@ import { useAuth } from "@/src/authentification/context/auth-context";
 import Select2 from "@/src/common/FormElements/Select2/Select2";
 import { useEffect } from "react";
 
+/*
+Props :
+    - tag : the style the tag should take
+    - name : formtools storage field to pass it's return object
+    - idField : the field in which the id of the link should go (offer, occupation ...)(see database schema)
+    - label : Pass the label to the select which shows on top of it
+    - category : The taxonomy category in which the search should be done
+    - placeholder : placeholder for the select input
+    - formTools : formtools
 
-const TaxonomyTagListTemplate = (props) => {
+*/
+const TaxonomyTagListTemplate = ({name, formTools, ...props}) => {
 
-    const auth = useAuth()
+    const {
+        formState,
+        inputHandler,
+        inputTouched
+    } = formTools;
 
-    const [taxonomyList, setTaxonomyList] = useState(props.taxonomyList || [])
+    const currentState = formState.inputs[name];
 
-    const [templateReturnObjet, setTemplateReturnObject] = useState([])
+    const updateValue = (name, value) => {
+        inputHandler(
+            name,
+            value,
+            props.validators ? validate(event.target.value, props.validators) : true
+        )
+    }
+
+    const auth = useAuth();
+
+    const [taxonomyList, setTaxonomyList] = useState([])//currentState || [])
+
+    const [templateReturnObjet, setTemplateReturnObject] = useState([]);
 
     //Update the return object
     useEffect( () => {
@@ -34,6 +60,7 @@ const TaxonomyTagListTemplate = (props) => {
             })
         });
         setTemplateReturnObject(tempReturnObject);
+        //updateValue(name, tempReturnObject)
     }, [taxonomyList])
 
     const removeEntity = (selectedObj) => {

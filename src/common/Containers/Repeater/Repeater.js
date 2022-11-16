@@ -6,7 +6,16 @@ import { useState } from "react";
 //Component
 import Button from "../../FormElements/Buttons/Button/Button";
 
-
+/*
+Props :
+    - <Repeater> <children/> </Repeater>, children to repeat
+    - name : formtools storage field to pass it's return object
+    - formtool : the formtool which the repeater shall use
+    - label : Label on top of the repeater to specify the purpose of the field
+    - addButtonLabel : The label to describe what repeated each time. Default : +
+    - noComponentLabel : The label to display when the number of repeated component is 0
+    - maxRepeat : number of allowed repetition of the field
+*/
 const Repeater = ({children, ...props}) => {
 
     const [keyValueNumber, setKeyValueNumber] = useState(0);
@@ -15,11 +24,12 @@ const Repeater = ({children, ...props}) => {
     const addRepeated = () => {
         const tempRepeated = [...repeatedComponent];
 
+        if( props.maxRepeat ? tempRepeated.length < props.maxRepeat : true)
         tempRepeated.push(React.cloneElement(children, {
                 key: keyValueNumber.toString() + "-repeatedComponent-"+props.name,
                 keyValue: keyValueNumber.toString(),
             }));
-            
+
         setRepeatedComponent(tempRepeated);
         console.log("addRepeated",tempRepeated);
 
@@ -37,7 +47,7 @@ const Repeater = ({children, ...props}) => {
         <div>
             {props.label && <label>{props.label}</label>}
             <div>
-                <Button type="button" slim="true" key={"addChild-"+props.name} onClick={ () => addRepeated()}>{props.addButtonLabel}</Button>
+                <Button type="button" slim="true" key={"addChild-"+props.name} onClick={ () => addRepeated()}>{props.addButtonLabel || "+"}</Button>
             </div>
             { repeatedComponent.length == 0 ? <div>{props.noComponentLabel}</div>
             :

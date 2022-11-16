@@ -10,7 +10,12 @@ import Input from "@/src/common/FormElements/Input/Input";
 import Select2 from "@/src/common/FormElements/Select2/Select2";
 import Button from "@/src/common/FormElements/Buttons/Button/Button";
 
-
+/*
+Props :
+    - name : formtools storage field to pass it's return object
+    - label : Passed to the select to display on top of it
+    - placeholder : placeholder inside the select input
+*/
 const PersonRoleTemplate = (props) => {
 
     //******************************************************************************************************/
@@ -80,6 +85,7 @@ const PersonRoleTemplate = (props) => {
                 { personList.length != 0 &&
                     <>
                         {//<Button slim="true" type="button" onClick={ () => removeEntity()}>✖</Button><br/>
+                        //Commented because repeater already allows remove of the entity (by deleting the child)
                         }
                         <label>Le nom de la personne : <strong>{personList[0].firstName + ' ' + personList[0].lastName}</strong></label><br/>
                         <label>Group</label><br/>
