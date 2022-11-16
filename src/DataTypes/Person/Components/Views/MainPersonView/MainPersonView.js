@@ -1,5 +1,8 @@
 import { useState } from 'react' 
 
+//Custom Hooks
+import {useHttpClient} from '@/src/hooks/http-hook'
+
 //Components
 import SanitizedInnerHtml from '@/src/utils/SanitizedInnerHtml'
 import Button from '@/src/common/FormElements/Buttons/Button/Button'
@@ -11,6 +14,7 @@ import styles from './MainPersonView.module.scss'
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import { useEffect } from 'react'
 
 const SingleInfoLayout = ({ title, NAMessage, children }) => {
 
@@ -36,8 +40,26 @@ const MainPersonView = ({ data }) => {
         createdAt,
         updatedAt,
         status
-    } = data   
+    } = data;
+
+    const {sendRequest} = useHttpClient();
     
+    //State that contains the organisations that the person is part of
+    const [memberOfOrganisationList, setMemberOfOrganisationList] = useState([]);
+    useEffect( () => {
+        async function fetchMemberOf() {
+            const response = await sendRequest(
+                ("/organisations/list"),
+                'POST',
+                JSON.stringify({ data: { "team.member" : _id }})
+            );
+            setMemberOfOrganisationList(response.data)
+        }
+        fetchMemberOf()
+    }, [])
+
+    useEffect( () => console.log("memberOf", memberOfOrganisationList, memberOfOrganisationList.length != 0), [memberOfOrganisationList])
+
     /*
      *    
         Modal State
@@ -192,11 +214,29 @@ const MainPersonView = ({ data }) => {
                             </SingleInfoLayout>
 
                             {
-                                status && status.state && status.state &&
+                                status && status.state &&
                                     <SingleInfoLayout
                                         title="Statut de l'entité"
                                         NAMessage={ status.state == 'Accepted' ? "Acceptée" : "En attente d'approbation"}>
                                     </SingleInfoLayout>
+                            }
+
+                            {
+                                memberOfOrganisationList && memberOfOrganisationList.length != 0 && 
+                                    <SingleInfoLayout
+                                        title="Membre des organisations suivantes"
+                                        NAMessage={
+                                            <ul>
+                                                {
+                                                    memberOfOrganisationList.map( (elem, index) => (
+                                                        <li key={elem.name + index}>
+                                                            <div>{elem.name}</div>
+                                                        </li>
+                                                    ))
+                                                }
+                                            </ul>
+                                        }
+                                    ></SingleInfoLayout>
                             }
 
                             {
