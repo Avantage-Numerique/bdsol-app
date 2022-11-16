@@ -148,6 +148,7 @@ const CreatePersonForm = () => {
                     idField="occupation"
                     category="occupations"
                     placeholder={lang.occupationsPlaceholder}
+                    formTools={formTools}
                     //taxonomyList={[...list]}
                     />
 

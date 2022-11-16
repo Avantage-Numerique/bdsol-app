@@ -16,10 +16,50 @@ Props :
     - noComponentLabel : The label to display when the number of repeated component is 0
     - maxRepeat : number of allowed repetition of the field
 */
-const Repeater = ({children, ...props}) => {
+const Repeater = ({children, name, formTools, ...props}) => {
+
+    const {
+        formState,
+        inputHandler,
+        inputTouched
+    } = formTools;
+
+    const currentState = formState.inputs[name];
+
+    const updateValue = (name, value) => {
+        inputHandler(
+            name,
+            value,
+            props.validators ? validate(event.target.value, props.validators) : true
+        )
+    }
 
     const [keyValueNumber, setKeyValueNumber] = useState(0);
     const [repeatedComponent, setRepeatedComponent] = useState([]);
+    const [childData, setChildData] = useState([]);
+    const [tempChildObject, setTempChildObject] = useState([]);
+
+    useEffect( () => {console.log("tempChildObject", tempChildObject) }, [tempChildObject])
+    useEffect( () => {console.log("childData", childData)}, [childData])
+
+    useEffect( () => {
+        //Search keyValue in childData
+        const childIndex = childData.findIndex( (elem) => {
+            return elem.keyValue == tempChildObject.keyValue;
+        });
+
+        //Set childData with new value
+        if (childIndex != -1){
+            const tempChildData = [...childData];
+            tempChildData[childIndex] = tempChildObject;
+            setChildData(tempChildData);
+        }
+        else {
+            console.log("ERREUR - Repeater childIndex == -1")
+        }
+
+    }, [tempChildObject])
+
 
     const addRepeated = () => {
         const tempRepeated = [...repeatedComponent];
@@ -28,10 +68,14 @@ const Repeater = ({children, ...props}) => {
         tempRepeated.push(React.cloneElement(children, {
                 key: keyValueNumber.toString() + "-repeatedComponent-"+props.name,
                 keyValue: keyValueNumber.toString(),
+                dataSetter: setTempChildObject
             }));
 
         setRepeatedComponent(tempRepeated);
         console.log("addRepeated",tempRepeated);
+
+        const tempChildData = [...childData, {keyValue:keyValueNumber}]
+        setChildData(tempChildData)
 
         //Add 1 to keyValueNumber
         setKeyValueNumber( 1 + keyValueNumber );
@@ -41,6 +85,10 @@ const Repeater = ({children, ...props}) => {
         const tempRepeated = [...repeatedComponent];
         tempRepeated.splice(index, 1);
         setRepeatedComponent(tempRepeated);
+
+        const tempChildData = [...childData];
+        tempChildData.splice(index, 1);
+        setChildData(tempChildData);
     }
 
     return (

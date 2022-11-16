@@ -30,7 +30,7 @@ const PersonRoleTemplate = (props) => {
     };
 
     const [personList, setPersonList] = useState(props.personList || []);
-    const [templateReturnObjet, setTemplateReturnObject] = useState([]);
+    const [templateReturnObjet, setTemplateReturnObject] = useState({});
 
     useEffect( () => {
         if(personList.length != 0){
@@ -49,9 +49,16 @@ const PersonRoleTemplate = (props) => {
             }
             const oldReturn = Object.assign( {}, templateReturnObjet)
             setTemplateReturnObject(Object.assign(oldReturn, newMemberId));
+
+            //For repeater
+            if (props.dataSetter)
+                props.dataSetter((Object.assign(oldReturn, newMemberId, {keyValue:props.keyValue} )))
         }
-        else
+        else {
             setTemplateReturnObject([]);
+            if (props.dataSetter)
+                props.dataSetter({keyValue:props.keyValue})
+        }
     }, [personList]);
 
     useEffect(() => { console.log("return object", templateReturnObjet)}, [templateReturnObjet])
@@ -61,7 +68,9 @@ const PersonRoleTemplate = (props) => {
         let newRoleField = oldReturn.role
         newRoleField[field] = value;
 
-        setTemplateReturnObject(Object.assign(oldReturn, newRoleField));
+        setTemplateReturnObject(Object.assign(oldReturn, {role :newRoleField}));
+        if (props.dataSetter)
+                props.dataSetter((Object.assign(oldReturn, {role: newRoleField}, {keyValue:props.keyValue})))
     };
 
     const removeEntity = () => {

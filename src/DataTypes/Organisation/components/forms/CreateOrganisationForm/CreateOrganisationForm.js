@@ -84,11 +84,11 @@ const CreateOrganisationForm = () => {
             value: [],
             isValid: true
         },
-    }, 
+    },
     false)
 
     //Function to submit the form
-    const submitHandler = async event => { 
+    const submitHandler = async event => {
 
         event.preventDefault();
         
@@ -208,6 +208,7 @@ const CreateOrganisationForm = () => {
                     label="Offres de services"
                     category="occupations"
                     placeholder="Directeur-trice artistique ..."
+                    formTools={formTools}
                     //taxonomyList={[...list]}
                     />
 
@@ -215,7 +216,10 @@ const CreateOrganisationForm = () => {
                     name="team"
                     label="Membre de l'équipe"
                     addButtonLabel="Ajouter un membre"
-                    noComponentLabel="Aucun membre ajouté">
+                    noComponentLabel="Aucun membre ajouté"
+                    formTools={formTools}
+                    //maxRepeat="5"
+                    >
                     
                     <PersonRoleTemplate
                         name="team"
