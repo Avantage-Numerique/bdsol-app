@@ -25,6 +25,9 @@ $light: lighten($grey, 30%);
 $white: #FEFEFE;
 $black: #010101;
 
+//Inputs variables
+$selected-input: #455ae6;
+
 $theme-colors:(
     "primary": $blue,
     "primaryligth": $purple-light,
