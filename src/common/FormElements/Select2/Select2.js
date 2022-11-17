@@ -40,14 +40,6 @@ const Select2 = ({name, formTools, children, single, ...props}) => {
     //List of options fetched by the api and proposed to the user in the datalist in grey
     const [selectList, setSelectList] = useState([]);
 
-
-    //Full list of property about the selected Entity
-    const [selectedEntities, setSelectedEntities] = useState(props.selectedEntities || []);
-    useEffect( () => {props.dataSetter(selectedEntities)}, [selectedEntities]);
-    //If props.selectedEntities change, it sets the selectedEntities
-    useEffect( () => {setSelectedEntities(props.selectedEntities)}, [props.selectedEntities])
-    
-
     //Research terms send to the api to refine the search
     //shape : data: {category: 'occupations', name: 'ingenieur'}
     const [selectRequest, setSelectRequest] = useState(props.requestData)
@@ -91,7 +83,7 @@ const Select2 = ({name, formTools, children, single, ...props}) => {
             if (matchingValue.current) {
 
                 //Make sure that the object is not already in the list to prevent duplicates
-                const isDuplicate = selectedEntities.some(item => {
+                const isDuplicate = props.selectedEntities.some(item => {
                     return item._id === matchingValue.current._id;
                 });
 
@@ -99,11 +91,11 @@ const Select2 = ({name, formTools, children, single, ...props}) => {
                     //Update the value of selectedEntities
                     if ( single == "true"){
                         //If single mode, replace the entire object
-                        setSelectedEntities([matchingValue.current]);
+                        props.dataSetter([matchingValue.current]);
                     }
                     else {
                         //(not single mode) Add the value to the array
-                        setSelectedEntities([...selectedEntities, matchingValue.current])
+                        props.dataSetter([...props.selectedEntities, matchingValue.current])
                     }
 
                     //Reset the field
@@ -128,7 +120,7 @@ const Select2 = ({name, formTools, children, single, ...props}) => {
 
     const removeValueFromSelectedItem = (selectedObj) => {
         //remove the selectedObj
-        setSelectedEntities(selectedEntities.filter(elem => elem._id !== selectedObj._id));
+        props.dataSetter(props.selectedEntities.filter(elem => elem._id !== selectedObj._id));
     }
 
     //Function to add a taxonomy element to the selected list that will be submitted with the form

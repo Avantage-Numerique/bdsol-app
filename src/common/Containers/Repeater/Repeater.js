@@ -39,14 +39,17 @@ const Repeater = ({children, name, formTools, ...props}) => {
     const [childData, setChildData] = useState([]);
     const [tempChildObject, setTempChildObject] = useState([]);
 
-    useEffect( () => {console.log("tempChildObject", tempChildObject) }, [tempChildObject])
-    useEffect( () => {console.log("childData", childData)}, [childData])
+    useEffect( () => {updateValue(name, childData)}, [childData])
+    useEffect( () => {console.log("currentState", currentState)}, [childData])
 
     useEffect( () => {
+        let childIndex;
         //Search keyValue in childData
-        const childIndex = childData.findIndex( (elem) => {
-            return elem.keyValue == tempChildObject.keyValue;
-        });
+        if (childData.length > 0){
+            childIndex = childData.findIndex( (elem) => {
+                return elem.keyValue == tempChildObject.keyValue;
+            });
+        }
 
         //Set childData with new value
         if (childIndex != -1){

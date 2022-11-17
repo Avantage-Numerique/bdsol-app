@@ -44,8 +44,6 @@ const TaxonomyTagListTemplate = ({name, formTools, ...props}) => {
 
     const [taxonomyList, setTaxonomyList] = useState([])//currentState || [])
 
-    const [templateReturnObjet, setTemplateReturnObject] = useState([]);
-
     //Update the return object
     useEffect( () => {
         const tempReturnObject = [];
@@ -59,8 +57,7 @@ const TaxonomyTagListTemplate = ({name, formTools, ...props}) => {
                 }
             })
         });
-        setTemplateReturnObject(tempReturnObject);
-        //updateValue(name, tempReturnObject)
+        updateValue(name, tempReturnObject)
     }, [taxonomyList])
 
     const removeEntity = (selectedObj) => {
