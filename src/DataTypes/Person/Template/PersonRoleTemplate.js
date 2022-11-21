@@ -32,6 +32,8 @@ const PersonRoleTemplate = (props) => {
     const [personList, setPersonList] = useState(props.personList || []);
     const [templateReturnObjet, setTemplateReturnObject] = useState({});
 
+    useEffect( () => {console.log("personlist", personList)}, [personList])
+
     useEffect( () => {
         if(personList.length != 0){
             //Merge the member id into the state, without removing the role (group, title)
@@ -49,13 +51,13 @@ const PersonRoleTemplate = (props) => {
             }
             const oldReturn = Object.assign( {}, templateReturnObjet)
             setTemplateReturnObject(Object.assign(oldReturn, newMemberId));
+            props.dataSetter((Object.assign(oldReturn, newMemberId, {keyValue:props.keyValue} )))
 
             //For repeater
-            if (props.dataSetter)
-                props.dataSetter((Object.assign(oldReturn, newMemberId, {keyValue:props.keyValue} )))
+            //if (props.dataSetter)
         }
         else {
-            setTemplateReturnObject([]);
+            setTemplateReturnObject({});
             if (props.dataSetter)
                 props.dataSetter({keyValue:props.keyValue})
         }
@@ -68,9 +70,8 @@ const PersonRoleTemplate = (props) => {
         let newRoleField = oldReturn.role
         newRoleField[field] = value;
 
-        setTemplateReturnObject(Object.assign(oldReturn, {role :newRoleField}));
-        if (props.dataSetter)
-                props.dataSetter((Object.assign(oldReturn, {role: newRoleField}, {keyValue:props.keyValue})))
+        setTemplateReturnObject(Object.assign(oldReturn, {role : newRoleField}));
+        props.dataSetter((Object.assign(oldReturn, {role: newRoleField}, {keyValue:props.keyValue})))
     };
 
     const removeEntity = () => {
@@ -98,7 +99,7 @@ const PersonRoleTemplate = (props) => {
                         }
                         <label>Le nom de la personne : <strong>{personList[0].firstName + ' ' + personList[0].lastName}</strong></label><br/>
                         <label>Group</label><br/>
-                        <input 
+                        <input
                             name="group"
                             label="Groupe"
                             placeholder="Employé, Membre du CA ..."

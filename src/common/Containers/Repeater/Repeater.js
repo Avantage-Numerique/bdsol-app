@@ -39,8 +39,7 @@ const Repeater = ({children, name, formTools, ...props}) => {
     const [childData, setChildData] = useState([]);
     const [tempChildObject, setTempChildObject] = useState([]);
 
-    useEffect( () => {updateValue(name, childData)}, [childData])
-    useEffect( () => {console.log("currentState", currentState)}, [childData])
+    useEffect( () => {console.log("repeated", repeatedComponent)}, [repeatedComponent])
 
     useEffect( () => {
         let childIndex;
@@ -56,6 +55,7 @@ const Repeater = ({children, name, formTools, ...props}) => {
             const tempChildData = [...childData];
             tempChildData[childIndex] = tempChildObject;
             setChildData(tempChildData);
+            updateValue(name, tempChildData)
         }
         else {
             console.log("ERREUR - Repeater childIndex == -1")
@@ -67,28 +67,31 @@ const Repeater = ({children, name, formTools, ...props}) => {
     const addRepeated = () => {
         const tempRepeated = [...repeatedComponent];
 
-        if( props.maxRepeat ? tempRepeated.length < props.maxRepeat : true)
-        tempRepeated.push(React.cloneElement(children, {
-                key: keyValueNumber.toString() + "-repeatedComponent-"+props.name,
-                keyValue: keyValueNumber.toString(),
-                dataSetter: setTempChildObject
-            }));
+        const newChild = React.cloneElement(children, {
+            key: keyValueNumber.toString() + "-repeatedComponent-"+props.name,
+            keyValue: keyValueNumber.toString(),
+            dataSetter: setTempChildObject
+        });
 
-        setRepeatedComponent(tempRepeated);
+        if( props.maxRepeat ? tempRepeated.length < props.maxRepeat : true){
+            //Add children
+            setRepeatedComponent([...tempRepeated, newChild]);
+            
+            //Add children data space
+            const tempChildData = [...childData, {keyValue:keyValueNumber}];
+            setChildData(tempChildData);
+
+            //Add 1 to keyValueNumber
+            setKeyValueNumber( 1 + keyValueNumber );
+        }
         console.log("addRepeated",tempRepeated);
-
-        const tempChildData = [...childData, {keyValue:keyValueNumber}]
-        setChildData(tempChildData)
-
-        //Add 1 to keyValueNumber
-        setKeyValueNumber( 1 + keyValueNumber );
     }
     
     const removeRepeated = (index) => {
         const tempRepeated = [...repeatedComponent];
         tempRepeated.splice(index, 1);
         setRepeatedComponent(tempRepeated);
-
+        
         const tempChildData = [...childData];
         tempChildData.splice(index, 1);
         setChildData(tempChildData);
@@ -104,10 +107,11 @@ const Repeater = ({children, name, formTools, ...props}) => {
             :
             React.Children.map(repeatedComponent, ( (child, index) => {
                     return (
-                        <div key={index+"-repeatContainer-"+props.name}>
-                            <div key={index+"-repeat-"+props.name}>{index + 1} - {child}</div>
-
-                            <Button key={index+"-btn-"+props.name} slim="true" type="button" onClick={ () => removeRepeated(index)}>✖</Button>
+                        <div id={index + "-repeatedChild-"+props.name} key={index + "repeatedChild-" + props.name}>
+                            <div>
+                                <div>{index + 1} - {child}</div>
+                            </div>
+                            <Button slim="true" type="button" onClick={ () => removeRepeated(index)}>✖</Button>
                         </div>
                     )
                 }))
