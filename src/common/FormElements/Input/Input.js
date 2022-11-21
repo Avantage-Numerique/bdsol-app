@@ -31,11 +31,6 @@ const Input = ({name, formTools, ...props}) => {
             props.validationRules ? validate(event.target.value) : true
         )
     }
-
-    useEffect(() => {
-        console.log("current state touched", currentState.isTouched)
-    }, [currentState.isTouched])
-
  
     return (
         <div className={`${styles["input-component"]}`}>  

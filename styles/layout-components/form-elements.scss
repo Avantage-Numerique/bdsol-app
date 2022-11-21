@@ -33,6 +33,7 @@
                         */
                         background-color: lighten($selected-input, 32%);
                         border: 0.1rem solid lighten($selected-input, 15%);
+                        
                 }
 
                 &.control--invalid:not(:focus-within) {
