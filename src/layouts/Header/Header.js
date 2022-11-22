@@ -22,6 +22,7 @@ import {useAuth} from '@/auth/context/auth-context';
 //Styling
 import styles from './Header.module.scss'
 import ConnectionBanner from "@/src/layouts/ConnexionBanner/ConnectionBanner";
+import SearchBar from '@/src/common/Components/SearchBar';
 
 
 const Header = (props) => {
@@ -46,6 +47,11 @@ const Header = (props) => {
                         </div>
                         {/* Container that contain the menu button */}
                         <div className={`${styles["navigation-options"]}`}>
+                            
+                            <div className={`${styles["searchbar-menu-container"]}`}>
+                                <SearchBar></SearchBar>
+                            </div>
+
                             <div className={`${styles["contribute-menu-container"]}`} onClick={ () => setMenuState(0) }>
                                 <Link href="/contribuer">+</Link>
                             </div>

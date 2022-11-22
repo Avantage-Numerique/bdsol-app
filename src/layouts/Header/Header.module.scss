@@ -52,6 +52,19 @@
         top:0;
         height:5em;
 
+        .searchbar-menu-container {
+            position: relative;
+            width: 5rem;
+            float: left;
+            height: 100%;
+            background-color: transparent;
+            
+            /* Align center */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
         .contribute-menu-container {
             position: relative;
             width: 5rem;
