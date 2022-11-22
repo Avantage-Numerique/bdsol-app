@@ -142,7 +142,8 @@ export const useHttpClient = () => {
                         method: method,
                         body: body,
                         headers: headersParams,
-                        additionnalFetchParams: {signal: httpAbortCtrl.signal}
+                        additionnalFetchParams: {signal: httpAbortCtrl.signal},
+                        origin:"browser"
                     }
                 );
 
