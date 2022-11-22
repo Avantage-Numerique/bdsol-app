@@ -71,7 +71,7 @@ export const externalApiRequest = async (path, params = {}) => {
         };
 
     let headers = params.headers ?? undefined;
-
+    console.log("externalApiRequest", params, "baseApiRoute", baseApiRoute, "defaultHeaders", defaultHeaders);
     // add user header if context is set.
     if (params.context && params.context.req && params.context.req.session && params.context.req.user) {
         headers = {
