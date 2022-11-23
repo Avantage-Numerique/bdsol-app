@@ -1,4 +1,4 @@
-import {useEffect} from 'react';
+import {useEffect, useRef} from 'react';
 
 //Hooks
 import { useValidation } from '@/src/hooks/useValidation/useValidation';
@@ -8,6 +8,7 @@ import Tip from '@/common/FormElements/Tip/Tip';
 
 //Styling
 import styles from './Input.module.scss';
+
 
 
 const Input = ({name, formTools, ...props}) => {
@@ -24,6 +25,8 @@ const Input = ({name, formTools, ...props}) => {
 
     const currentState = formState.inputs[name];
 
+    const fieldRef = useRef(null);
+
     const updateValue = event => {
         inputHandler(
             name,
@@ -31,6 +34,15 @@ const Input = ({name, formTools, ...props}) => {
             props.validationRules ? validate(event.target.value) : true
         )
     }
+
+    useEffect(() => {
+        inputHandler(
+            name,
+            fieldRef.current.value,
+            props.validationRules ? validate(fieldRef.current.value) : true
+        )
+    }, [])
+
  
     return (
         <div className={`${styles["input-component"]}`}>  
@@ -57,6 +69,7 @@ const Input = ({name, formTools, ...props}) => {
                 ${!currentState.isValid && currentState.isTouched && "control--invalid"}
             `}>
                 <input 
+                    ref={fieldRef}
                     className="w-100 border-0 form-element--field-padding"
                     name={ name }
                     id={ name }

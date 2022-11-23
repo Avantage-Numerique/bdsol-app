@@ -83,6 +83,7 @@ const formReducer = (state, action) => {
 
 export const useForm = (initialInputs) => {
 
+  /* Global formstate => contains the value of all the inputs in the field */
   const [formState, dispatch] = useReducer(formReducer, {
     inputs: initialInputs,
     isValid: false
@@ -105,6 +106,7 @@ export const useForm = (initialInputs) => {
     });
   }, []);
 
+  /*
   const setFormData = useCallback((inputData, formValidity) => {
     dispatch({
       type: 'SET_DATA',
@@ -112,6 +114,7 @@ export const useForm = (initialInputs) => {
       formIsValid: formValidity
     });
   }, []);
+  */
 
   const clearFormData = useCallback(() => {
     dispatch({
