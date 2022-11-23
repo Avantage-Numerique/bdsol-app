@@ -29,7 +29,8 @@ const Select = props => {
         label,          //String - Displayed title of the field
         noValueText,    //String - Annonce if the is an empty option or not. Is the value is empty, than it is just a white line that is displayed
         options,        //Array  - Array of options with the format {label: " ", value: " "}. 
-        value
+        defaultValue,   //String - starting value 
+        validationRules //Object - containing the rules that are going to be verify every time we submit
     } = props;
 
     //Destructure functionalities from validation hook
@@ -51,6 +52,22 @@ const Select = props => {
             props.validationRules ? validate(event.target.value) : true
         )
     }
+
+    /* On mount, evaluate the initial value to see if it respect the validation */
+    useEffect(() => {
+
+        //Rules to prefill the select onMount
+        //Verify if there is a prefilled value setted by the currentState or the defaultValue prop.
+        //If there is one, put it and otherwise, display an empty string
+        //Note that, if both are filled, the currentState value is considered more important
+        const valueToUpdate = currentState.value ? currentState.value : defaultValue ? defaultValue : "";
+
+        inputHandler(
+            name,
+            valueToUpdate,
+            props.validationRules ? validate(valueToUpdate) : true
+        )
+    }, [])  
  
     return (
         <div className={`${styles["select-component"]}`}>  

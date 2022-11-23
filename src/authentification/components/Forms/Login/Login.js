@@ -40,7 +40,7 @@ const Login = () => {
     }, [auth.isLoggedIn])
 
 
-    const { FormUI, submitRequest, formState, formTools } = useFormUtils(
+    const [formState, formTools] = useForm(
         {
         username: {
             value: '',
@@ -50,7 +50,8 @@ const Login = () => {
             value: '',
             isValid: true
         }
-    })
+    }, 
+    false)
 
 
     //Submit the form
