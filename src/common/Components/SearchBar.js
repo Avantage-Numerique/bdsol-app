@@ -19,12 +19,24 @@ const SearchBar = () => {
         }
         );
         
-    const submit = () => {console.log("Submited")};
+        const submitHandler = async event => { 
+
+            event.preventDefault();
+    
+            //Send the request with the specialized hook
+            submitRequest(
+                "/search",
+                'GET',
+                { "data":{}}
+            );
+    
+    
+        }
 
 
     return (
-        <form>
-            <button type="submit" onClick={() => submit()}>
+        <form onSubmit={submitHandler}>
+            <button type="submit">
                 &#128269;
             </button>
             <Input
