@@ -35,7 +35,6 @@ const Input = ({name, formTools, ...props}) => {
         )
     }
 
-    
     useEffect(() => {
         inputHandler(
             name,

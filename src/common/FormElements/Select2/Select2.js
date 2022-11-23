@@ -344,7 +344,7 @@ const Select2 = ({name, formTools, ...props}) => {
                     key={`select-tag-${selected[props.searchField]}`}
                     className={`${styles['tag']} ${props.tag ? styles[props.tag] : styles[props.generaltag]}`} 
                 >
-                    <button className={`${styles['closeButton']}`} type="button" onClick={() => removeValueFromSelectedItem(selected)}>&#x271A;</button>
+                    <button className={`${styles['closeButton']}`} type="button" onClick={() => removeValueFromSelectedItem(selected)}>&#10006;</button>
                     <span className={`${styles['status']}`}>■</span>
                     <span>{selected[props.searchField]}</span>
                 </li>

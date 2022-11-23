@@ -121,10 +121,9 @@ const Select = props => {
                         ))
                     }
                 </select>
+
                 <RequirementsBadges addUlPadding />
 
-
-                
             </div>
 
             <div className="validation-error-messages-container">
@@ -132,7 +131,6 @@ const Select = props => {
             </div>
 
         </div>
-
     ); 
 }
 
