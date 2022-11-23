@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import {useAuth} from '@/auth/context/auth-context'
 import { MessageContext } from '@/src/common/UserNotifications/Message/Context/Message-Context'
 import { useHttpClient } from '@/src/hooks/http-hook'
@@ -17,13 +17,20 @@ export const useSessionHook = () => {
     //Import message context 
     const msg = useContext(MessageContext);
 
+    //Set a loading state to communicates to every form that use this hook
+    const [isLoading, setIsLoading] = useState(false);
+
     //Extract the functions inside useHttpClient
-    const {isLoading} = useHttpClient();
+    //const {isLoading} = useHttpClient();
 
     const logout = async () => {
 
         if(auth.user.isLoggedIn) {
             try {
+
+                //Annonce the start of the loading process
+                setIsLoading(true);
+
                 const response = await fetchInternalApi("/api/logout", JSON.stringify({}));
                 auth.setUser(response.user);
 
@@ -37,7 +44,12 @@ export const useSessionHook = () => {
                     await Router.push(response.redirectUri);
                 }
 
+                //End the loading process
+                setIsLoading(false)
+
             } catch(e) {
+                //End the loading process
+                setIsLoading(false)
                 throw e;
             }
 
@@ -60,6 +72,9 @@ export const useSessionHook = () => {
         //Prevent useless request, making sure the use is not logged in.
         if(!auth.user.isLoggedIn){
 
+            //Annonce the start of the loading process
+            setIsLoading(true);
+
             try {
                 const response = await fetchInternalApi("/api/login", JSON.stringify(data));
                 auth.setUser(response.user);
@@ -72,9 +87,15 @@ export const useSessionHook = () => {
                 if(response.positive) {
                     //auth.login(response.data.user);
                     await Router.push(response.redirectUri);
-                }
+                } 
+
+                //End the loading process
+                setIsLoading(false)
 
             } catch(e) {
+                //End the loading process
+                setIsLoading(false)
+
                 throw e;
             }
 
