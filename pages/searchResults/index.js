@@ -1,15 +1,34 @@
 //React
 import { useEffect, useState } from "react"
 
+//Router
+import { useRouter } from "next/router";
+
 //Component
 import SearchBar from "@/src/common/Components/SearchBar"
 import Button from "@/src/common/FormElements/Buttons/Button/Button";
+import { sendExternalApiRequest } from "@/src/hooks/http-hook";
 
 
 
 const SearchResults = () => {
 
-    const [searchList, setSearchList] = useState([1,2,3]);
+    const [searchList, setSearchList] = useState([]);
+    const router = useRouter();
+
+    useEffect(() => {
+        let response = [];
+        async function searchRequest(){
+            const response = await sendExternalApiRequest(
+                "/search?"+router.asPath.split("?")[1],
+                'GET',
+                null
+            );
+            setSearchList(response);
+        }
+        searchRequest();
+        console.log("res",response);
+    }, [router.asPath])
 
     return (
         <div>
@@ -31,20 +50,20 @@ const SearchResults = () => {
                 </thead>
                 <tbody>
                     {
-                    searchList.map( entity =>
-                        <tr>
+                    searchList.map( (entity, index) => 
+                        <tr key={index+"-searchList"}>
                             <td>
-                                <Button>
-                                    👀{
-                                        //On click ==> Redirect to single-view url : /entity.type/entity.slug
-                                    }
+                                <Button >
+                                    👀
                                 </Button>
                             </td>
-                            <td>1</td>
-                            <td>2</td>
-                            <td>3</td>
-                            <td>4</td>
+                            <td>{JSON.stringify(entity)}</td>
+                            <td>1 - map index {index}</td>
+                            <td>2 - map index {index}</td>
+                            <td>3 - map index {index}</td>
+
                         </tr>
+                    
                     )}
                 </tbody>
             </table>
