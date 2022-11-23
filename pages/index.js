@@ -69,6 +69,9 @@ const HomePage = ({}) => {
         //If positive
         if (!orgResponse.error && !persResponse.error) {
 
+            orgResponse.data.forEach(element => element.dataType = "organisation")
+            persResponse.data.forEach(element => element.dataType = "person")
+
             const feed = [...orgResponse.data, ...persResponse.data];
 
             //Sort and mixed both collection the data to display the new elements before
@@ -197,7 +200,7 @@ const HomePage = ({}) => {
                                                     <Col md={6} lg={4} className="p-2" key={elem._id + "-" + elem.slug}>
                                                         <PresentationCard
                                                             key={elem._id}
-                                                            header={elem.nickname ? "Personne" : "Organisation"} /* VERY VERY VERY VERY VERY TEMPORARY */
+                                                            header={elem.dataType === "person" ? "Personne" : "Organisation"} /* VERY VERY VERY VERY VERY TEMPORARY */
                                                             data={elem}
                                                         />
                                                     </Col>
