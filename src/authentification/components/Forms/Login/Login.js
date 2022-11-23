@@ -9,6 +9,8 @@ import { MessageContext } from '@/src/common/UserNotifications/Message/Context/M
 //Custom hooks
 import { useForm } from '@/src/hooks/form-hook';
 import { useSessionHook } from '@/auth/hooks/useSessionHook';
+import { useFormUtils } from '@/src/hooks/useFormUtils/useFormUtils'
+
 
 //Form components
 import Input from '@/src/common/FormElements/Input/Input';
@@ -42,11 +44,11 @@ const Login = () => {
         {
         username: {
             value: '',
-            isValid: false
+            isValid: true
         },
         password: {
             value: '',
-            isValid: false
+            isValid: true
         }
     }, 
     false)

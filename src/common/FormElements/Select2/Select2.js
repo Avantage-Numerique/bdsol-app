@@ -342,10 +342,10 @@ const Select2 = ({name, formTools, ...props}) => {
                 {selectedEntities && selectedEntities.map(selected =>
                 <li 
                     key={`select-tag-${selected[props.searchField]}`}
-                    className={`${styles['tag']} ${props.tag ? styles[props.tag] : styles[props.generaltag]}`} 
+                    className={`${styles['tag']} ${props.tag ? styles[props.tag] : styles["generaltag"]}`}
                 >
-                    <button className={`${styles['closeButton']}`} type="button" onClick={() => removeValueFromSelectedItem(selected)}>&#x271A;</button>
-                    <span className={`${styles['status']}`}>■</span>
+                    <button className={`${styles['closeButton']}`} type="button" onClick={() => removeValueFromSelectedItem(selected)}>&#10006;</button>
+                    <span className={`${styles[ selected.status ? selected.status.state : "Default"]}`}>◉</span>
                     <span>{selected[props.searchField]}</span>
                 </li>
                 )}

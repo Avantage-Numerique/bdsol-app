@@ -2,10 +2,10 @@ import React, { useContext,useEffect } from 'react'
 import Router from 'next/router'
 
 //Custom hooks
-import { useForm } from '@/src/hooks/form-hook'
 import { useHttpClient } from '@/src/hooks/http-hook'
 import { useSessionHook } from '@/auth/hooks/useSessionHook'
 import { useAuth } from '@/auth/context/auth-context'
+import { useFormUtils } from '@/src/hooks/useFormUtils/useFormUtils'
 
 //Form components
 import Input from '@/src/common/FormElements/Input/Input'
@@ -20,7 +20,7 @@ import styles from './Register.module.scss'
 const Register = () => {
 
     //State that hold the form data
-    const [formState, formTools] = useForm(
+    const { FormUI, submitRequest, formState, formTools } = useFormUtils(
 
         {
             username: {
@@ -51,9 +51,12 @@ const Register = () => {
                 value: '',
                 isValid: true
             }
-        
-        }, 
-    false)
+        },
+        {callbackFunction: () => login({
+            "username": formState.inputs.username.value,
+            "password": formState.inputs.password.value
+        })}
+        )
 
     //Import message context 
     const msg = useContext(MessageContext);
@@ -101,54 +104,17 @@ const Register = () => {
                         "email": formState.inputs.email.value,
                         "password": formState.inputs.password.value,
                         "avatar": formState.inputs.avatar.value,
-                        "name": formState.inputs.firstName.value + " " + formState.inputs.lastName.value
+                        "firstName": formState.inputs.firstName.value,
+                        "lastName": formState.inputs.lastName.value
                     }
                 };
 
                 //Send the request with the specialized hook
-                const response = await sendRequest(
+                submitRequest(
                     "/register",
                     'POST',
-                    JSON.stringify(newUser),
-                    { 'Content-Type': 'application/json' }
-                )
-
-                /*
-                    Display the proper message relative to the api response
-                */
-            
-                //If positive
-                if(!response.error){
-
-                    /******
-                     *    
-                     *    WARNING 
-                     * 
-                     *    This is temporary, just to prevent the user from having to login after creating its account
-                     *    BUT IT IS REALLY NOT OPTIMISED
-                     * 
-                     *******/
-                    login({
-                        "username": formState.inputs.username.value,
-                        "password": formState.inputs.password.value
-                    })
-
-                    //Notify the user
-                    msg.addMessage({ 
-                        text: response.message,
-                        positive: true 
-                    })
-
-
-
-                //If negative
-                } else {                    
-                    msg.addMessage({ 
-                        text: response.message,
-                        positive: false 
-                    })
-                }
-
+                    newUser
+                );
 
             } else {
 
@@ -176,7 +142,8 @@ const Register = () => {
             <form className={`${styles["registration-form"]} auth-form-container`} onSubmit={submitHandler}>
 
                 <h3 className="text-primary">Création de compte</h3>
-                
+                <FormUI />
+
                 <Input
                     name="username"
                     type="text"
@@ -188,7 +155,6 @@ const Register = () => {
                         {name: "MAX_LENGTH", specification: 16},
                         {name: "MIN_LENGTH", specification: 3}
                     ]}
-                    errorText="Veuillez entrer un nom d'utilisateur valide"
                     formTools={formTools}
                 />   
                 <Input
@@ -198,7 +164,6 @@ const Register = () => {
                     validationRules={[
                         {name: "REQUIRED"}
                     ]}
-                    placeholder="Invisible aux usagers"
                     formTools={formTools}
                 /> 
                 <Input
@@ -208,7 +173,6 @@ const Register = () => {
                     validationRules={[
                         {name: "REQUIRED"}
                     ]}
-                    placeholder="Invisible aux usagers"
                     formTools={formTools}
                 /> 
                 <Input

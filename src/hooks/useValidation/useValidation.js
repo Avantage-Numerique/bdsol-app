@@ -160,7 +160,7 @@ export const useValidation = ( setOfRules ) => {
                         <li 
                             className={`d-flex me-3 mb-2 validation-error ${validator[ruleName].isValid && "validation-error--positive"}`}
                             key={"error-message-" + ruleName}
-                            >
+                        >
                                 <small>{validator[ruleName].message}</small>
                         </li>
                     ))}

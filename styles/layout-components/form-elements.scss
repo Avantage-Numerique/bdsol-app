@@ -31,8 +31,9 @@
                         background-color: lighten($purple-lighter, 5%);
                         border: 0.1rem solid $purple-lighter;
                         */
-                        background-color: lighten(#b2b2eb, 5%);
-                        border: 0.1rem solid #b2b2eb;;
+                        background-color: lighten($selected-input, 32%);
+                        border: 0.1rem solid lighten($selected-input, 15%);
+                        
                 }
 
                 &.control--invalid:not(:focus-within) {
@@ -75,7 +76,8 @@
                 .badge-container { display: inline-flex }
         }
 
-        
+
+    
 
 }
 
