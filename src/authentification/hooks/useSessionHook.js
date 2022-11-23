@@ -32,16 +32,17 @@ export const useSessionHook = () => {
                 setIsLoading(true);
 
                 const response = await fetchInternalApi("/api/logout", JSON.stringify({}));
+                
                 auth.setUser(response.user);
-
-                msg.addMessage({
-                    text: response.text,
-                    positive: response.positive
-                });
 
                 if(response.positive) {
                     //auth.login(response.data.user);
                     await Router.push(response.redirectUri);
+                } else {
+                    msg.addMessage({
+                        text: response.text,
+                        positive: response.positive
+                    });
                 }
 
                 //End the loading process
