@@ -85,7 +85,7 @@ const MainPersonView = ({ data }) => {
                 <Container className={`${styles["person-view__top-menu"]}`}> 
                     <Row className="justify-content-between mb-4">
                         <Col sm={6} lg={8} className="justify-content-end">
-                            <button className="text-white"> &#8629; Retour </button>
+                            <a className="text-white" href="/"> &#8629; Retour </a>
                         </Col>
                         <Col sm={"auto"} lg={4}>
                             <Button onClick={() => setModal(prev => ({...prev, display: true}))}>
