@@ -54,7 +54,7 @@ const Index = () => {
                             <Button2 href="/contribuer/organisation" size="lg" className={"w-100"} disabled={!auth.user.isLoggedIn}>Organisation</Button2>
                         </Col>
                         <Col>
-                            <Button2 href="/contribuer/taxonomy" size="lg" className={"w-100"} disabled={!auth.user.isLoggedIn}>Taxonomy</Button2>
+                            <Button2 href="/contribuer/taxonomy" size="lg" className={"w-100"} disabled={!auth.user.isLoggedIn}>Taxonomie</Button2>
                         </Col>
                     </Row>
 
