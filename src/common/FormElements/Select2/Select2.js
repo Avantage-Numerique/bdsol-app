@@ -268,7 +268,7 @@ const Select2 = ({name, formTools, ...props}) => {
                     <Button 
                         type="button" 
                         slim="true" 
-                        disabled={selectRequest.data[props.searchField] ? false : true} 
+                        disabled={selectRequest.data[props.searchField] && findMatchingValue() ? false : true} 
                         onClick={addValueToSelectedItem}
                         className="m-1 rounded-1">
                             +
