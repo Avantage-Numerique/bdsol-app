@@ -11,6 +11,8 @@ import styles from './MainPersonView.module.scss'
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import { useEffect } from 'react'
+import { sendExternalApiRequest } from '@/src/hooks/http-hook'
 
 const SingleInfoLayout = ({ title, NAMessage, children }) => {
 
@@ -33,10 +35,11 @@ const MainPersonView = ({ data }) => {
         lastName,
         nickname,
         description,
+        occupations,
         createdAt,
         updatedAt,
         status
-    } = data   
+    } = data
     
     /*
      *    
@@ -123,11 +126,11 @@ const MainPersonView = ({ data }) => {
                                 <div className={`${styles["quick-section"]}`}>
 
                                     <div className={`${styles["quick-section__single-info"]}`}>
-                                        <span>Langue : </span>Inconnu
+                                        <span>Langue : </span>Information bientôt disponible.
                                     </div>
 
                                     <div className={`${styles["quick-section__single-info"]}`}>
-                                        <span>Citoyenneté : </span>Inconnu
+                                        <span>Citoyenneté : </span>Information bientôt disponible.
                                     </div>
 
                                 </div>
@@ -187,7 +190,7 @@ const MainPersonView = ({ data }) => {
 
                             <SingleInfoLayout 
                                 title={"Intérêts"}
-                                NAMessage={<p>Information bientôt disponible</p>}
+                                NAMessage={<p>Information bientôt disponible.</p>}
                             >
                             </SingleInfoLayout>
 
@@ -223,8 +226,8 @@ const MainPersonView = ({ data }) => {
                                     title={"Moyen de contact"}
                                     NAMessage={<p>Information non disponible</p>}
                                 >
-                                    <p>Tel : (819) 764-5692 <br/>
-                                        Email : mail@mail.com
+                                    <p>Tel : (123)-456-7890 <br/>
+                                        Courriel : mail@mail.com
                                     </p>
                                 </SingleInfoLayout>
 
@@ -232,8 +235,8 @@ const MainPersonView = ({ data }) => {
                                     title={"Adresse"}
                                     NAMessage={<p>Information non disponible</p>}
                                 >
-                                    <p>234 rue Larivière<br/>
-                                        Rouyn-Noranda, Qc
+                                    <p>123, rue Adresse<br/>
+                                        Ville, Code postal, Qc
                                         </p>
                                 </SingleInfoLayout>
 
@@ -243,10 +246,14 @@ const MainPersonView = ({ data }) => {
                                 >
                                     <Container>
                                         <ul className="row">
-                                            <li className={`col col-sm-auto ${styles["competency-tag"]}`}>Développement Web</li>
-                                            <li className={`col col-sm-auto ${styles["competency-tag"]}`}>SEO</li>
-                                            <li className={`col col-sm-auto ${styles["competency-tag"]}`}>Javascript</li>
-                                            <li className={`col col-sm-auto ${styles["competency-tag"]}`}>Design graphique</li>
+                                            {
+                                            occupations.length == 0 ?
+                                            <div>Aucune occupation associée</div>
+                                            :
+                                            occupations.map( (occ) => {
+                                                return <li key={"occupation-" + occ.occupation._id} className={`col col-sm-auto ${styles["competency-tag"]}`}>{occ.occupation.name}</li>
+                                            })
+                                            }
                                         </ul>
                                     </Container>
                                     
