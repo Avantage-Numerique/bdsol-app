@@ -19,9 +19,11 @@ const UserHistoryGrid = () => {
     //Data history query
     const formData = {
         "data": {
-            "username": auth.username
+            "user": auth.user.id
         }
     };
+
+    useEffect( () => {console.log("id", auth.user.id)}, [auth])
 
     const [usersHistory, setUsersHistory] = useState([]);
 
@@ -52,10 +54,12 @@ const UserHistoryGrid = () => {
     
     if (usersHistory
         && !usersHistory.error
-        && usersHistory.data
-        && usersHistory.data.length > 0)
+        && usersHistory.data)
     {
         return (
+            usersHistory.data.length == 0 ?
+            <div>Aucun historique de modification pour le moment</div>
+            :
             <>
                 <h3>Historique de modification</h3>
                 <table key="userhistory-table" className="table table-bordered">
@@ -68,8 +72,8 @@ const UserHistoryGrid = () => {
                         </tr>
                     </thead>
                     <tbody>
-                    {usersHistory.data.map( modification =>
-                        <tr>
+                    {usersHistory.data.map( (modification, index) =>
+                        <tr key={"userHistoryGridList-" + index}>
                             <td>{new Date(modification.modifDate).toLocaleDateString(dateLanguage)} <br></br> {new Date(modification.modifDate).toLocaleTimeString(timeLanguage)}</td>
                             <td>{modificationMsg(modification.action)}
                                 {modification.user == modification.modifiedEntity ? "votre compte : " : "l'entité : " }
