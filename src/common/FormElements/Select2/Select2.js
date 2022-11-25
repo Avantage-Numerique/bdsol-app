@@ -26,6 +26,17 @@ const dictionnary = {
     team: "member"
 }
 
+const convertFormatedObject = (name, valueId, userId) => {
+    return {
+        [dictionnary[name]]: valueId,
+        status: {
+            state:"Pending",
+            requestedBy: userId,
+            lastModifiedBy: userId
+        }
+    }
+}
+
 
 const Select2 = ({name, formTools, ...props}) => {
 
@@ -208,14 +219,17 @@ const Select2 = ({name, formTools, ...props}) => {
             
                 if(!isDuplicate){
 
-                    const formatedObject = {
+                    {/*const formatedObject = {
                         [dictionnary[name]]: matchingValue.current._id,
                         status: {
                             state:"Pending",
                             requestedBy: auth.user.id,
                             lastModifiedBy: auth.user.id
                         }
-                    };
+                    };*/}
+
+                    //Return a premade exportation format
+                    const formatedObject = convertFormatedObject(name, matchingValue.current._id, auth.user.id)
 
                     //Update the value in the form state with the new value
                     updateValue([...currentState, formatedObject])
@@ -323,7 +337,10 @@ const Select2 = ({name, formTools, ...props}) => {
                                     ...prev.enteredValues,
                                     name: selectTagRef.current.value
                                 },
-                                callback: resetSelectComponent
+                                callback: responseId => {
+                                    updateValue([...currentState, convertFormatedObject(name, responseId, auth.user.id)])
+                                    resetSelectComponent()
+                                }
                             }))}
                         >
                             <small>Soumettre comme nouvelle taxonomie</small>
