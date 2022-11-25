@@ -61,6 +61,7 @@ const Input = ({name, formTools, ...props}) => {
                     name={ name }
                     id={ name }
                     //If there is a state attached to the component, make it a controlled components where the value depends on the state
+                    list={props.list ? props.list : null}
                     value={ currentState ? currentState.value : null } 
                     type={props.type ? props.type : "text"}
                     placeholder={props.placeholder}

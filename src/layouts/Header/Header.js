@@ -49,7 +49,7 @@ const Header = (props) => {
                         <div className={`${styles["navigation-options"]}`}>
                             
                             <div className={`${styles["searchbar-menu-container"]}`}>
-                                <SearchBar></SearchBar>
+                                <SearchBar id="searchbar-layout"></SearchBar>
                             </div>
 
                             <div className={`${styles["contribute-menu-container"]}`} onClick={ () => setMenuState(0) }>
