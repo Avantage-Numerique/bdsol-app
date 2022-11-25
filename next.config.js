@@ -14,6 +14,8 @@ const nextConfig = {
     env: {
         //APP
         ENVIRONNEMENT: process.env.NODE_ENV ?? 'development',
+        IS_PRODUCTION: process.env.NODE_ENV === "production",
+        IS_DEV: process.env.NODE_ENV === "development",
 
         APP_PROTOCOLE: process.env.APP_PROTOCOLE ?? "http://",
         APP_BASE_URL: process.env.APP_BASE_URL ?? "localhost",
