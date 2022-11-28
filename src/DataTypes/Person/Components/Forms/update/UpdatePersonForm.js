@@ -18,7 +18,7 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
-const UpdatePersonForm = ({initValues}) => {
+const UpdatePersonForm = ({initValues, positiveRequestActions}) => {
 
     const [modal, setModal] = useState({
         display: false,
@@ -56,7 +56,12 @@ const UpdatePersonForm = ({initValues}) => {
                 value: initValues.occupations ? initValues.occupation : [],
                 isValid: true
             }
-        }
+        },
+        //Pass a set of rules to execute a valid response of an api request
+        positiveRequestActions || {
+            clearForm: true,            //Clear the form
+            displayResMessage: true     //Display a message to the user to confirm the succes
+        }  
         );
 
         //Submit the form

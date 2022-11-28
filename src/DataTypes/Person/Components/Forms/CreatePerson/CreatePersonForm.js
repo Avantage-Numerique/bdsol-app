@@ -48,6 +48,10 @@ const CreatePersonForm = () => {
                 value: [],
                 isValid: true
             }
+        },
+        {
+            clearForm: true,            //Clear the form
+            displayResMessage: true     //Display a message to the user to confirm the succes
         }
     );
 
