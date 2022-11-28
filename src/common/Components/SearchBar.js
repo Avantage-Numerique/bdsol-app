@@ -37,9 +37,8 @@ const SearchBar = (props) => {
     //Search suggestion
     const getSearchSuggestion = async () => {
         const suggestions =  await sendExternalApiRequest(
-            '/search',
+            '/search' + '?searchIndex=' + formState.inputs.searchIndex.value,
             'GET',
-            JSON.stringify(formState.inputs.searchIndex.value)
         );
         setSearchSuggestion(suggestions);
     }

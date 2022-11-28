@@ -20,8 +20,15 @@ const SearchResults = () => {
     useEffect(() => {
         let response = [];
         async function searchRequest(){
+            let paramToString = "";
+
+            if (router.query != {})
+            {
+                paramToString += "?" + router.asPath.split("?")[1]
+            }
+            
             const response = await sendExternalApiRequest(
-                "/search/results?"+router.asPath.split("?")[1], //Find a better way than this <---- .split()[1]
+                "/search/results"+paramToString,
                 'GET',
                 null
             );
