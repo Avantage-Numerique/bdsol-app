@@ -57,7 +57,8 @@ const SearchBar = (props) => {
             pathname: "/searchResults",
             query: { searchIndex : formState.inputs.searchIndex.value },
         });
-        clearFormData();
+        if(props.clearAfterSearch)
+            clearFormData();
     }
 
     return (
