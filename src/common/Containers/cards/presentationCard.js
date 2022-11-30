@@ -7,10 +7,7 @@ import Button from '@/common/FormElements/Buttons/Button/Button'
 
 //styling
 import styles from './presentationCard.module.scss';
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-
+import getConfig from 'next/config';
 
 const { publicRuntimeConfig } = getConfig();
 /*
@@ -42,139 +39,122 @@ const PresentationCard = ({header, data}) => {
 
     return (
 
-        <article className={`
-            bg-white 
-            ${styles["card"]}
-        `}>  
-                
-            <Container className="justify-content-between">
+        <article className={` bg-white  ${styles["card"]} `}>
+
+            <div className="container justify-content-between">
 
                 <header>
 
-                    <Row className={`py-2 ${styles["card__header-container"]}`}>
-                      
+                    <div className={`row py-2 ${styles["card__header-container"]}`}>
+
                         {/* Type of data displayed in the header */}
-                        <Col className="align-self-center">
+                        <div className="col align-self-center">
                             <h5 className="m-0">{ header }</h5>
-                        </Col>
+                        </div>
 
                         {/* Redirection link */}
-                        <Col className="d-flex justify-content-end">
+                        <div className="col d-flex justify-content-end">
                             <Button disabled={(header === "Organisation")} href={`persons/${slug}`} small >Voir</Button>
-                        </Col>
-                        
-                    </Row>
+                        </div>
 
+                    </div>
                 </header>
 
-                <Row className={`${styles["card__img-container"]}`}>
-                        
+                <div className={`row ${styles["card__img-container"]}`}>
+
                         {/* Temporary shape */}
                         { header === "Organisation" &&
-                            <img 
+                            <img
                                 className={`px-0 ${styles["card__img-container__img"]}`}
                                 src="/general_images/Jurassic_Park_Main_Gate.jpg"
-                                alt="Photo de putin qui chevauche un ours" 
+                                alt="Organisation"
                             />
                         }
 
                         { header !== "Organisation" &&
-                            <img 
+                            <img
                                 className={`px-0 ${styles["card__img-container__img"]}`}
                                 src="/general_images/Dennis_Nedry.webp"
-                                alt="Photo de putin qui chevauche un ours" 
+                                alt="Photo de putin qui chevauche un ours"
                             />
                         }
 
-                </Row>
-          
+                </div>
 
-            </Container>
 
-            {/************************************ 
-                 
-                Main content of the component
-            
-            **************************************/}
-            <Container className="pt-3"> 
-    
-                <Row>
-                    <section className={`${styles["card__content"]}`}>
+            </div>
 
-        {name && <h3>{name}</h3>}
-        { (firstName || lastName) && 
-            <h3>{firstName && firstName} {lastName && lastName}</h3>
-        }
+            {/*Main content of the component*/}
 
-                        {showFullDescription &&
-                            <div>
-                                <SanitizedInnerHtml>
-                                    { description }
-                                </SanitizedInnerHtml>
-                            </div>
-                        }
-                        
-                        {/**********  URL ************/}
-                        { url && 
-                        <Row xs={"auto"} className={`${styles["card__content__single-info"]}`}>
-                            <Col xm={3} className={`fw-semibold`}>
-                                <p>Url :</p>
-                            </Col>
-                            <Col>   
-                                <p className="text-truncate"> {url}</p>
-                            </Col>
-                        </Row>
-                        }
+            <div className="container pt-3">
+                <section className={`row ${styles["card__content"]}`}>
 
-                        {/**********  contactPoint ************/}
-                        { contactPoint &&
-                        <Row xs={"auto"} className={`${styles["card__content__single-info"]}`}>
-                            <Col xm={3} className={`fw-semibold`}>
-                                <p>Contact :</p>
-                            </Col>
-                            <Col>   
-                                <p className="text-truncate">{contactPoint}</p>
-                            </Col>
-                        </Row>
-                        }
+                    {name && <h3>{name}</h3>}
+                    { (firstName || lastName) &&
+                        <h3>{firstName && firstName} {lastName && lastName}</h3>
+                    }
 
-                        {/**********  username  ************/}
-                        { username &&
-                        <Row xs={"auto"} className={`${styles["card__content__single-info"]}`}>
-                            <Col xm={3} className={`fw-semibold`}>
-                                <p>Surnom :</p>
-                            </Col>
-                            <Col>   
-                                <p className="text-truncate">{username}</p>
-                            </Col>
-                        </Row>
-                        }
-                    </section>
-                </Row>
+                    {showFullDescription &&
+                        <div>
+                            <SanitizedInnerHtml>
+                                { description }
+                            </SanitizedInnerHtml>
+                        </div>
+                    }
 
-            </Container>   
-
-            {/************************************ 
-                 
-                Article footer
-            
-            **************************************/}
-            <footer className={` py-2 `}>
-                <Container> 
-                    <Row className="justify-content-between">
-                        <Col sm="auto">
-                            <time>
-                                {(new Date(createdAt)).toLocaleDateString(publicRuntimeConfig.dates.defaultLanguage)}
-                            </time>
+                    {/**********  URL ************/}
+                    { url &&
+                    <Row xs={"auto"} className={`${styles["card__content__single-info"]}`}>
+                        <Col xm={3} className={`fw-semibold`}>
+                            <p>Url :</p>
                         </Col>
-                        <Col sm="auto">
-                            <time>
-                                {(new Date(createdAt)).toLocaleTimeString(publicRuntimeConfig.dates.defaultLanguage)}
-                            </time>
+                        <Col>
+                            <p className="text-truncate"> {url}</p>
                         </Col>
                     </Row>
-                </Container>    
-            </footer> 
+                    }
+
+                    {/**********  contactPoint ************/}
+                    { contactPoint &&
+                    <Row xs={"auto"} className={`${styles["card__content__single-info"]}`}>
+                        <Col xm={3} className={`fw-semibold`}>
+                            <p>Contact :</p>
+                        </Col>
+                        <Col>
+                            <p className="text-truncate">{contactPoint}</p>
+                        </Col>
+                    </Row>
+                    }
+
+                    {/**********  username  ************/}
+                    { username &&
+                    <Row xs={"auto"} className={`${styles["card__content__single-info"]}`}>
+                        <Col xm={3} className={`fw-semibold`}>
+                            <p>Surnom :</p>
+                        </Col>
+                        <Col>
+                            <p className="text-truncate">{username}</p>
+                        </Col>
+                    </Row>
+                    }
+                </section>
+            </div>
+
+            {/* Article footer */}
+            <footer className={`container py-2 `}>
+                <div className="row justify-content-between">
+                    <div className={"col"}>
+                        <time>
+                            {(new Date(createdAt)).toLocaleDateString(publicRuntimeConfig.dates.defaultLanguage)}
+                        </time>
+                    </div>
+                    <div className={"col"}>
+                        <time>
+                            {(new Date(createdAt)).toLocaleTimeString(publicRuntimeConfig.dates.defaultLanguage)}
+                        </time>
+                    </div>
+                    </div>
+            </footer>
         </article>
     )
 }

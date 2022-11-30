@@ -21,10 +21,6 @@ import {useAuth} from '@/src/authentification/context/auth-context';
 //Styling
 //import styles from './home-page.module.scss'
 import {lang} from "@/src/common/Data/GlobalConstants";
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import Button2 from "react-bootstrap/Button";
 import PageHeader from "@/src/layouts/Header/PageHeader";
 
 
@@ -163,10 +159,10 @@ const HomePage = ({}) => {
                 imgAlt={"Carte du croissant boréal"} />
 
 
-            <Container className={"home-page__main"}>
-                <Row>
-                    <Col xs={9}>
-                        <section className={"home-page__feed-section px-3"}>
+            <div className="container home-page__main p-0">
+                <div className="row gx-5">
+                    <div className="col col-12 col-md-9">
+                        <section className="home-page__feed-section">
                             <h2>{lang.actualities}</h2>
                             <hr />
                             {
@@ -191,39 +187,39 @@ const HomePage = ({}) => {
                                                 plan.</h5>
                                         </div>
                                     }
-                                    <Row className={"home-page__feed-section--container"}>
+                                    <div className="row home-page__feed-section--container row-cols-1 row-cols-sm-2 row-cols-xl-3">
 
                                             {/* Display feed if there is one */}
                                             {
                                                 feedList.length > 0 && !isLoading &&
                                                 feedList.map(elem => (
-                                                    <Col md={6} lg={4} className="p-2" key={elem._id + "-" + elem.slug}>
+                                                    <div className="col" key={elem._id + "-" + elem.slug}>
                                                         <PresentationCard
                                                             key={elem._id}
                                                             header={elem.dataType === "person" ? "Personne" : "Organisation"} /* VERY VERY VERY VERY VERY TEMPORARY */
                                                             data={elem}
                                                         />
-                                                    </Col>
+                                                    </div>
                                                 ))
                                             }
-
-
-                                    </Row>
+                                    </div>
                                 </>
                             }
                         </section>
-                    </Col>
-                    <Col xs={3} as={"aside"} className={"px-3"}>
-                        <div className={"px-3"}>
+                    </div>
+                    <aside className="col col-12 col-md-3">
+                        <div>
 
                             <h2>{lang.menu}</h2>
                             <hr />
                             {/* If user is not connected, offer the option to connect itself*/}
                             {!auth.user.isLoggedIn &&
-                            <section>
-                                <Button2 className={"btn btn-primary btn-block w-100"} href="/compte/connexion">Se connecter</Button2>
-                                <hr />
+                            <section className="d-grid">
+                                <Button color="primary" href="/compte/connexion">Se connecter</Button>
                             </section>
+                            }
+                            {!auth.user.isLoggedIn &&
+                            <hr />
                             }
 
                             {/*Rapid options to access of edit the database*/}
@@ -237,32 +233,35 @@ const HomePage = ({}) => {
                                 <div className={"db-edit-options__button-set"}>
                                     <Button disabled slim>Personne</Button>
                                     <Button
+                                        color="primary"
+                                        size="slim"
                                         disabled={!auth.user.isLoggedIn}
                                         href="/contribuer/person"
-                                        slim
                                     >+</Button>
                                 </div>
 
                                 <div className={"db-edit-options__button-set"}>
-                                    <Button disabled slim>Organisation</Button>
+                                    <Button color="primary" size="slim" disabled>Organisation</Button>
                                     <Button
+                                        color="primary"
+                                        size="slim"
                                         disabled={!auth.user.isLoggedIn}
-                                        slim
                                         href="/contribuer/organisation"
                                     >+</Button>
                                 </div>
 
                                 <div className={"db-edit-options__button-set"}>
-                                    <Button disabled slim>Taxonomie</Button>
+                                    <Button color="primary" size="slim" disabled>Taxonomie</Button>
                                     <Button
+                                        color="primary"
+                                        size="slim"
                                         disabled={!auth.user.isLoggedIn}
-                                        slim
                                         href="/contribuer/taxonomy"
                                     >+</Button>
                                 </div>
                                 {auth.user.isLoggedIn &&
                                     <div className={"d-flex flex-column mt-3"}>
-                                        <Button2 variant={"outline-primary"} href="/contribuer">Ajouter une donnée</Button2>
+                                        <Button color="white" outline="primary" href="/contribuer">Ajouter une donnée</Button>
                                     </div>
                                 }
 
@@ -280,7 +279,7 @@ const HomePage = ({}) => {
                                 <div className="bg-primary text-white d-flex flex-column">
                                     <h4>Pas encore de compte ?</h4>
                                     <p>Vous en aurez besoin afin de vous aussi contribuer aux données</p>
-                                    <Button2 href="/compte/inscription" variant={"outline-white"}>C'est par ici !</Button2>
+                                    <Button color="primary" outline="white" href="/compte/inscription">C'est par ici !</Button>
                                 </div>
                                 <hr />
                             </section>
@@ -296,13 +295,13 @@ const HomePage = ({}) => {
                                     d’Avantage numérique. Elle vise à recenser et géolocaliser les talents, les
                                     compétences, les ressources, les initiatives techno-créatives à travers le territoire du Croissant Boréal.
                                 </p>
-                                <Button2 href="/a-propos" className="mt-3" variant={"outline-primary"}>En savoir plus</Button2>
+                                <Button classes="mt-3" color="white" outline="primary" href="/a-propos">En savoir plus</Button>
                             </section>
 
                         </div>
-                    </Col>
-                </Row>
-            </Container>
+                    </aside>
+                </div>
+            </div>
 
         </div>
     )

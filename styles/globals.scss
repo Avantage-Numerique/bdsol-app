@@ -24,21 +24,49 @@ ul {padding: 0px;} /* TODO switch to Bootstrap's vertical nav component */
 
 
 /*
-  Define custom button style for React-Bootstrap components
+  Define custom button style for Bootstrap components
 */
+.btn{
+  --bs-btn-padding-y:0.66rem;
+}
 .btn-lg {
   font-weight: 600;
   border-width: 0.15rem;
+  --bs-btn-border-radius:0.5em;
 }
 
-.btn.disabled, .btn:disabled, fieldset:disabled .btn {
+.btn-slim{
+  --bs-btn-font-size:1em;
+  --bs-btn-border-radius:0.5em;
+  --bs-btn-padding-y:0.375rem;
+}
+
+.w-100{
+  --bs-btn-padding-x:0rem;
+}
+
+.btn.disabled,
+.btn:disabled,
+fieldset:disabled .btn
+:not(.btn-check) + .btn:disabled:hover,
+.btn:first-child:disabled:hover,
+:not(.btn-check) + .btn:active:disabled,
+.btn:first-child:active:disabled{
 
   pointer-events: auto;
   cursor: not-allowed;
+  filter:none;
+  opacity:unset;
 
-  --bs-btn-disabled-bg: #AAAAAA;
-  --bs-btn-disabled-border-color: #AAAAAA;
-  --bs-btn-disabled-color: #4d4a4a;
+  --bs-btn-disabled-bg: #CCCCCC;
+  --bs-btn-disabled-border-color: #CCCCCC;
+  --bs-btn-disabled-color: #979797;
+  --bs-btn-hover-color: #979797;
+  --bs-btn-hover-bg: #CCCCCC;
+  --bs-btn-hover-border-color: #CCCCCC;
+  --bs-btn-active-color:#979797;
+  --bs-btn-active-bg:#CCCCCC;
+  --bs-btn-active-border-color:#CCCCCC;
 }
 
 /*

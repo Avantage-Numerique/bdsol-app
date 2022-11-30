@@ -11,9 +11,6 @@
 
 import HamburgerButton from '@/src/common/FormElements/Buttons/HamburgerButton/HamburgerButton';
 import Link from 'next/link'
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 
 //Authentication context
 import {useAuth} from '@/auth/context/auth-context';
@@ -33,11 +30,11 @@ const Header = (props) => {
     const { menuState, setMenuState } = props
 
     return (
-        <header className={`${styles.header} bg-dark`}>
+        <header className={`${styles.header} bg-dark sticky-top`}>
 
-            <Container>
-                <Row>
-                    <Col>
+            <div className="container">
+                <div className="row">
+                    <div className="col">
                         {/* Container that fills all the width of the platform and contain the logo*/}
                         <div className={`${styles["header__content"]} header-center`} onClick={ () => setMenuState(0) }>
                             <Link href="/">
@@ -86,9 +83,9 @@ const Header = (props) => {
                             </div>
 
                         </div>
-                    </Col>
-                </Row>
-            </Container>
+                    </div>
+                </div>
+            </div>
 
             <ConnectionBanner />
         </header>

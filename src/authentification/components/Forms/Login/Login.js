@@ -124,7 +124,7 @@ const Login = () => {
                     />
 
                     <div className={"pb-3"}>
-                        <Button type="submit" disabled={!formState.isValid}>Soumettre</Button>
+                        <Button type="submit" size="slim" disabled={!formState.isValid}>Soumettre</Button>
                     </div>
 
                     <p className={`${styles.formRedirection} pb-1`}>

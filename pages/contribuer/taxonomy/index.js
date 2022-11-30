@@ -19,7 +19,7 @@ const CreateTaxonomyPage = () => {
         <SingleViewEntityFormLayout formName={"taxonomy"} headerProps={{
             title: "Taxonomie",
             subTitle: "Ajouter une nouvelle pour classifier les données",
-            colWidth: 8,
+            subtitleColor: "primary",
             historyBack: {
                 uri: "/contribuer",
                 label: lang.historyBack

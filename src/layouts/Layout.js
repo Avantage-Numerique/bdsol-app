@@ -101,8 +101,14 @@ const Layout = ( {children} ) => {
                 <AccountNav menuState={menuState} setMenuState={setMenuState} />
                 <MessageContext.Provider value={{ addMessage: addMessage }}>
                 
-                <main className={"main-container-min-height"}>
-                    { children }
+                <main className={`${styles["main-container-min-height"]} container`}>
+                    <div className="row">
+                        <div className="col">
+
+                            { children }
+
+                        </div>
+                    </div>
                 </main>
 
                 </MessageContext.Provider>

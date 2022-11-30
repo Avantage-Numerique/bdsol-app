@@ -7,7 +7,7 @@
 
 import ClassInfos from '@/documentation/components/ClassInfos/ClassInfos';
 import ArrowButton from '@/src/common/FormElements/Buttons/ArrowButton/ArrowButton';
-import styles from './Class.module.scss'
+import styles from './Class.module.scss';
 
 const Class = ( { data, onclick, active, globalData} ) => {
 
@@ -23,7 +23,7 @@ const Class = ( { data, onclick, active, globalData} ) => {
                     <img alt="Icone de représentant la classe" src="\class-icones\1356-wooden-box-outline.svg" />
                     <h3>{ data.title }</h3>
                     <p>{ data.intro }</p>
-                    <ArrowButton openned={ active } onclick={ onclick } active={ active } className={styles.closeOpenButton}/>
+                    <ArrowButton color='white' outline='primary' direction="down" openned={ active } onclick={ onclick } />
                 </header>
 
                 {/* Apply margins to the content block */}

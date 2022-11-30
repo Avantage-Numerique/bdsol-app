@@ -9,18 +9,12 @@
 
 .header {
 
-    --navigation-options-with: 25vw;              //In case calc is not supported
-    --navigation-options-with: calc(15vw + 10rem);
+    --navigation-options-with: calc(15vw + 10rem); //Pretending enough browsers supports it
 
-    width: 100%;
-    position: fixed;
     height: var(--headersHeight);
-    top:0;
     display: flex;
     flex-direction: column;
     
-    z-index: 1000; /* nav component at 999 */
-
     &.account-bar{
         height: calc(var(--headersHeight) + 2rem);
 
