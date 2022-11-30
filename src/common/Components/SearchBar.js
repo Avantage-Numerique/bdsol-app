@@ -63,21 +63,25 @@ const SearchBar = (props) => {
 
     return (
         <form onSubmit={submitHandler}>
-            <button type="submit">
-                &#128269;
-            </button>
-            <Input
-                type="text"
-                name={"searchIndex"}
-                formTools={formTools}
-                placeholder="Rechercher"
-                list={props.id}
-            />
-            {<datalist id={props.id} name={"Datalist-"+ props.id }>
-                            {searchSuggestion.map( sugg => 
-                                <option key={sugg._id} value={sugg.name ?? sugg.firstName +' '+ sugg.lastName}>{sugg.type}</option>
-                            )}
-            </datalist>}
+            <div className="input-group">
+                <button type="submit" className="btn btn-outline-secondary">
+                    &#128269;
+                </button>
+                <Input
+                    className="form-control"
+                    type="text"
+                    name={"searchIndex"}
+                    formTools={formTools}
+                    placeholder="Rechercher"
+                    list={props.id}
+                    />
+                {<datalist id={props.id} name={"Datalist-"+ props.id }>
+                                {searchSuggestion.map( sugg => 
+                                    <option key={sugg._id} value={sugg.name ?? sugg.firstName +' '+ sugg.lastName}>{sugg.type}</option>
+                                    )}
+                </datalist>}
+            </div>
+
         </form>
     )
 }

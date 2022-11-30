@@ -31,7 +31,6 @@
     .header__content{
         width: 100%;
         height: var(--headersHeight);
-        padding-right: var(--navigation-options-with);  //Prevent the menu from overlapping
 
         img {
                 cursor: pointer;
@@ -54,21 +53,13 @@
 
         .searchbar-menu-container {
             position: relative;
-            width: 5rem;
-            float: left;
             height: 100%;
             background-color: transparent;
-            
-            /* Align center */
-            display: flex;
-            justify-content: center;
-            align-items: center;
         }
 
         .contribute-menu-container {
             position: relative;
             width: 5rem;
-            float: left;
             height: 100%;
             background-color: transparent;
 

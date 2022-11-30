@@ -36,8 +36,12 @@ const SearchResults = () => {
             setSearchList(response);
         }
         searchRequest();
-        console.log("res",searchList);
     }, [router.asPath])
+
+    const searchSortDate = () => {
+        //updatedAt or createdAt?
+        //asc or desc ?
+    }
 
     return (
         <div>
