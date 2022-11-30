@@ -325,23 +325,20 @@ const Select2 = ({name, formTools, ...props}) => {
                 
                 {/* Button to call a form and add a new taxonomie */}
                 {/* If the updateModal function is defined, it meens that the modal functionnalities have to be activated */}
-                { props.updateModal &&
+                { props.displayModal &&
                     <div className={`col-12 ${styles["button-container"]}`}>
                         <button
                             type="button"
-                            disabled={ ((selectTagRef.current && selectTagRef.current.value) && !findMatchingValue() && props.updateModal) ? false : true}
-                            onClick={() => props.updateModal(prev => ({
-                                ...prev, 
-                                display: true,
-                                enteredValues: {
-                                    ...prev.enteredValues,
+                            disabled={ ((selectTagRef.current && selectTagRef.current.value) && !findMatchingValue() && props.displayModal) ? false : true}
+                            onClick={() => props.displayModal(
+                                {
                                     name: selectTagRef.current.value
                                 },
-                                callback: responseId => {
+                                responseId => {
                                     updateValue([...currentState, convertFormatedObject(name, responseId, auth.user.id)])
                                     resetSelectComponent()
                                 }
-                            }))}
+                            )}
                         >
                             <small>Soumettre comme nouvelle taxonomie</small>
                         </button>

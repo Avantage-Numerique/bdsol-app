@@ -2,13 +2,13 @@ import React, { useState } from 'react'
 
 //Custom hooks
 import { useFormUtils } from '@/src/hooks/useFormUtils/useFormUtils'
+import { useModal } from '@/src/hooks/useModal/useModal'
 
 //Components
 import Button from '@/src/common/FormElements/Buttons/Button/Button'
 import Input from '@/src/common/FormElements/Input/Input'
 import RichTextarea from '@/src/common/FormElements/RichTextArea/RichTextarea'
 import Select2 from '@/src/common/FormElements/Select2/Select2'
-import Modal from '@/src/common/Containers/Modal/Modal'
 import CreateTaxonomyForm from '@/src/DataTypes/Taxonomy/Components/Forms/CreateTaxonomy/CreateTaxonomyForm'
 import {lang} from "@/src/common/Data/GlobalConstants";
 
@@ -17,13 +17,15 @@ import { useAuth } from "@/src/authentification/context/auth-context";
 
 //Styling
 import styles from './CreatePersonForm.module.scss'
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
+
 
 const CreatePersonForm = () => {
     
+    //Authentication ref
     const auth = useAuth();
+
+    //Modal hook
+    const { modal, Modal, displayModal, closeModal } = useModal()
 
     //Main form functionalities
     const { FormUI, submitRequest, formState, formTools } = useFormUtils(
@@ -54,7 +56,7 @@ const CreatePersonForm = () => {
             displayResMessage: true     //Display a message to the user to confirm the succes
         }
     );
-
+/*
     const [modal, setModal] = useState({
         display: false,
         //Values to be passed from the person form to the taxonomy form
@@ -63,6 +65,7 @@ const CreatePersonForm = () => {
         },
         callback: () => {}
     })
+*/
 
     //Submit the form
     const submitHandler = async event => { 
@@ -156,28 +159,27 @@ const CreatePersonForm = () => {
                     tag="occupations"
                     placeholder={lang.occupationsPlaceholder}
                     formTools={formTools}
-                    updateModal={setModal}
+                    displayModal={displayModal}
                 />
 
                 <Button type="submit" disabled={!formState.isValid}>{lang.submit}</Button>
 
             </form>
 
-            { modal && modal.display &&
+            { modal.display &&
                 <Modal 
                     className={`${styles["taxonomy-modal"]}`}
                     coloredBackground
                     darkColorButton
                 >
-                    <Container>
-                        <Row>
-                            <Col>                    
-                                <p>Le nouvel élément de taxonomie que vous ajoutez ici pourra ensuite être directement intégrée à votre formulaire.</p>
-                            </Col>
-                            <Col className="px-0" sm={"auto"}><Button onClick={() => {setModal(prev => ({...prev, display: false}))}}>Fermer</Button></Col>
-                        </Row>
-                    </Container>
-                    <div className={`${styles["hor-line"]}`}></div>
+                    <header className={`d-flex`}>
+                        <p>Le nouvel élément de taxonomie que vous ajoutez ici pourra ensuite être directement intégrée à votre formulaire.</p>
+                        <Button onClick={closeModal}>Fermer</Button>
+                    </header>               
+                      
+                    {/* Separation line */}
+                    <div className={`my-4 border-bottom`}></div>
+
                     <CreateTaxonomyForm 
                         name={modal.enteredValues.name ? modal.enteredValues.name : ''}   //Prefilled value
                         category="occupations"
@@ -189,10 +191,11 @@ const CreatePersonForm = () => {
                                 modal.callback(requestResponse.data._id)
                                 
                                 //Close the modal 
-                                setModal(prev => ({...prev, display: false}))
+                                closeModal()
                             }
                         }}
                     />
+
                 </Modal>
             }
         </>
