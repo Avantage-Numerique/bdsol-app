@@ -30,7 +30,7 @@ const PersonRoleTemplate = (props) => {
     };
 
     const [personList, setPersonList] = useState(props.personList || []);
-    const [templateReturnObjet, setTemplateReturnObject] = useState({});
+    const [templateReturnObjet, setTemplateReturnObject] = useState({keyValue:props.keyValue});
 
     useEffect( () => {console.log("personlist", personList)}, [personList])
 
@@ -49,21 +49,21 @@ const PersonRoleTemplate = (props) => {
                     requestedBy: auth.user.id
                 }
             }
-            const oldReturn = Object.assign( {}, templateReturnObjet)
+            const oldReturn = Object.assign({keyValue:props.keyValue},templateReturnObjet);
             setTemplateReturnObject(Object.assign(oldReturn, newMemberId));
-            props.dataSetter((Object.assign(oldReturn, newMemberId, {keyValue:props.keyValue} )))
+            props.dataSetter((Object.assign(oldReturn, newMemberId)))
 
             //For repeater
             //if (props.dataSetter)
         }
         else {
-            setTemplateReturnObject({});
+            setTemplateReturnObject({keyValue:props.keyValue});
             if (props.dataSetter)
                 props.dataSetter({keyValue:props.keyValue})
         }
     }, [personList]);
 
-    useEffect(() => { console.log("return object", templateReturnObjet)}, [templateReturnObjet])
+    useEffect(() => { console.log("return object of KV:", props.keyValue, templateReturnObjet)}, [templateReturnObjet])
 
     const addDataToReturnObject = (field, value) => {
         const oldReturn = Object.assign({}, templateReturnObjet);
