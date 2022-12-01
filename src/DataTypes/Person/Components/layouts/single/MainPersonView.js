@@ -1,9 +1,11 @@
 import { useState } from 'react' 
 
+//Hooks
+import { useModal } from '@/src/hooks/useModal/useModal'
+
 //Components
 import SanitizedInnerHtml from '@/src/utils/SanitizedInnerHtml'
 import Button from '@/src/common/FormElements/Buttons/Button/Button'
-import Modal from '@/src/common/Containers/Modal/Modal'
 import UpdatePersonForm from '@/DataTypes/Person/Components/Forms/update/UpdatePersonForm'
 
 //Styling
@@ -11,7 +13,6 @@ import styles from './MainPersonView.module.scss'
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import { useEffect } from 'react'
 import { sendExternalApiRequest } from '@/src/hooks/http-hook'
 
 const SingleInfoLayout = ({ title, NAMessage, children }) => {
@@ -40,28 +41,16 @@ const MainPersonView = ({ data }) => {
         updatedAt,
         status
     } = data
-    
-    /*
-     *    
-        Modal State
-     *
-     */
-    const [modal, setModal] = useState({
-        display: false,
-        //Values to be passe from the first form to the form displayed in the modal. In this case, all the fields of a person form.
-        enteredValues: {
 
-        },  
-        callback: () => {}
-    })
+    //Modal hook
+    const { modal, Modal, displayModal, closeModal } = useModal()
 
     //Called by the select. Not in use right now
-    const displayModal = selectStatus => {
-        
-        if(selectStatus === "editing")
-            setModal(prev => ({...prev, display: true}))
-
+    const displayUpdateForm = selectStatus => {
+       // if(selectStatus === "editing") displayModal()
+       displayModal()
     }
+    
 
 
     return (
@@ -88,7 +77,7 @@ const MainPersonView = ({ data }) => {
                             <a className="text-white" href="/"> &#8629; Retour </a>
                         </Col>
                         <Col sm={"auto"} lg={4}>
-                            <Button onClick={() => setModal(prev => ({...prev, display: true}))}>
+                            <Button onClick={displayUpdateForm}>
                                 Proposer une modification
                             </Button>
                             {/* 
@@ -168,7 +157,7 @@ const MainPersonView = ({ data }) => {
             * 
             */}
             <section className={`${styles["person-view__main-section"]}`}>
-                <container>
+                <Container>
                     <Row>
                         <Col sm={6} lg={8}>
     
@@ -262,7 +251,7 @@ const MainPersonView = ({ data }) => {
                             </aside>
                         </Col>
                     </Row>
-                </container>
+                </Container>
 
 
             </section>
@@ -271,14 +260,14 @@ const MainPersonView = ({ data }) => {
         </article>
 
         {/********** Modal display ************/}
-        { modal && modal.display &&
+        { modal.display &&
             <Modal 
                 className={`${styles["person-form-modal"]}`}
                 coloredBackground
                 darkColorButton
-                closingFunction={() => {setModal(prev => ({...prev, display: false}))}}
+                closingFunction={closeModal}
             >
-                <UpdatePersonForm initValues={data}/>
+               <UpdatePersonForm initValues={data}/>
             </Modal>
             }
     </>

@@ -129,11 +129,14 @@ const Select2 = ({name, formTools, ...props}) => {
 
                 //If the object data is not in the matchingValue, we have to fetch it
                 } else {
+
+                    console.log("data id" ,  entity[dictionnary[name]]._id)
                     //Fetch by the Id
                     const entityData =  await sendRequest(
                         (props.request + "/search"),
                         'POST',
-                        JSON.stringify({data:{id: entity[dictionnary[name]]}})
+                         JSON.stringify({data:{id: entity[dictionnary[name]]}})
+                        //JSON.stringify({data:{id: entity[dictionnary[name]]._id}})
                     );
                     //If there is an error, passed the message to the user
                     if(entityData.error){

@@ -2,32 +2,26 @@ import { useState } from 'react'
 
 //Custom hooks
 import { useFormUtils } from '@/src/hooks/useFormUtils/useFormUtils'
+import { useModal } from '@/src/hooks/useModal/useModal'
+
 
 //Components
 import Button from '@/src/common/FormElements/Buttons/Button/Button'
 import Input from '@/src/common/FormElements/Input/Input'
 import RichTextarea from '@/src/common/FormElements/RichTextArea/RichTextarea'
 import Select2 from '@/src/common/FormElements/Select2/Select2'
-import Modal from '@/src/common/Containers/Modal/Modal'
 import CreateTaxonomyForm from '@/src/DataTypes/Taxonomy/Components/Forms/CreateTaxonomy/CreateTaxonomyForm'
 import {lang} from "@/src/common/Data/GlobalConstants";
 
 //Styling
 import styles from './UpdatePersonForm.module.scss'
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
 
 const UpdatePersonForm = ({initValues, positiveRequestActions}) => {
 
-    const [modal, setModal] = useState({
-        display: false,
-        //Values to be passed from the person form to the taxonomy form
-        enteredValues: {
-            name: ''            //Only the name of the taxonomy
-        },
-        callback: () => {}
-    })
+    console.log("Initial values", initValues)
+
+    //Modal hook
+    const { modal, Modal, displayModal, closeModal } = useModal()
 
     //Main form functionalities
     const { FormUI, submitRequest, formState, formTools } = useFormUtils(
@@ -53,7 +47,7 @@ const UpdatePersonForm = ({initValues, positiveRequestActions}) => {
                 isValid: true
             },
             occupations: {
-                value: initValues.occupations ? initValues.occupation : [],
+                value: initValues.occupations ? initValues.occupations : [],
                 isValid: true
             }
         },
@@ -148,28 +142,27 @@ const UpdatePersonForm = ({initValues, positiveRequestActions}) => {
                     tag="occupations"
                     placeholder={lang.occupationsPlaceholder}
                     formTools={formTools}
-                    updateModal={setModal}
+                    displayModal={displayModal}
                 />
 
                 <Button type="submit" disabled={!formState.isValid}>{lang.submit}</Button>
 
             </form>
 
-            { modal && modal.display &&
+            { modal.display &&
                 <Modal 
                     className={`${styles["taxonomy-modal"]}`}
                     coloredBackground
                     darkColorButton
                 >
-                    <Container>
-                        <Row>
-                            <Col>                    
-                                <p>Le nouvel élément de taxonomie que vous ajoutez ici pourra ensuite être directement intégrée à votre formulaire.</p>
-                            </Col>
-                            <Col className="px-0" sm={"auto"}><Button onClick={() => {setModal(prev => ({...prev, display: false}))}}>Fermer</Button></Col>
-                        </Row>
-                    </Container>
-                    <div className={`${styles["hor-line"]}`}></div>
+                    <header className={`d-flex`}>                  
+                        <p>Le nouvel élément de taxonomie que vous ajoutez ici pourra ensuite être directement intégrée à votre formulaire.</p>
+                        <Button onClick={closeModal}>Fermer</Button>
+                    </header>   
+
+                    {/* Separation line */}
+                    <div className={`my-4 border-bottom`}></div>
+
                     <CreateTaxonomyForm 
                         name={modal.enteredValues.name ? modal.enteredValues.name : ''}   //Prefilled value
                         category="occupations"
@@ -179,7 +172,7 @@ const UpdatePersonForm = ({initValues, positiveRequestActions}) => {
                                 //In this case, the modal callback receives the object to be passed which is the taxonomy item in the response of the request
                                 modal.callback(requestResponse.data)
                                 //Close the modal 
-                                setModal(prev => ({...prev, display: false}))
+                                closeModal()
                             }
                         }}
                     />
