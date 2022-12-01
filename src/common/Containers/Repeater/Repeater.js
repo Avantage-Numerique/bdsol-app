@@ -1,7 +1,6 @@
 //React
 import React from "react";
-import { useEffect } from "react";
-import { useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 //Component
 import Button from "../../FormElements/Buttons/Button/Button";
@@ -38,33 +37,43 @@ const Repeater = ({children, name, formTools, ...props}) => {
     const [repeatedComponent, setRepeatedComponent] = useState([]);
     const [childData, setChildData] = useState([]);
     const [tempChildObject, setTempChildObject] = useState([]);
+    const notInitialRender = useRef(false)
 
-    useEffect( () => {console.log("repeated", repeatedComponent)}, [repeatedComponent])
+    useEffect( () => {console.log("currentState", currentState)}, [currentState])
 
     useEffect( () => {
-        let childIndex;
-        //Search keyValue in childData
-        if (childData.length > 0){
+
+        //If not initial render
+        if (notInitialRender.current) {
+
+            let childIndex;
+            //Search keyValue in childData
             childIndex = childData.findIndex( (elem) => {
                 return elem.keyValue == tempChildObject.keyValue;
             });
+    
+            console.log("tempChild changed index", childIndex, "with key value", tempChildObject.keyValue);
+            //Set childData with new value
+            if (childIndex != -1){
+                const tempChildData = [...childData];
+    
+                tempChildData[childIndex] = tempChildObject;
+                setChildData(tempChildData);
+                updateValue(name, tempChildData);
+                console.log("index != -1", tempChildData);
+            }
+            else {
+                const tempChildData = [...childData];
+                tempChildData.push(tempChildObject);
+                setChildData(tempChildData);
+                updateValue(name, tempChildData);
+                console.log("didnt find index", tempChildData);
+            }
         }
-
-        //Set childData with new value
-        if (childIndex != -1){
-            const tempChildData = [...childData];
-            tempChildData[childIndex] = tempChildObject;
-            setChildData(tempChildData);
-            updateValue(name, tempChildData)
-        }
-        else {
-            console.log("ERREUR - Repeater childIndex == -1")
-        }
+        else
+            notInitialRender.current = true;
 
     }, [tempChildObject])
-
-    useEffect( () => console.log("childData", childData), [childData])
-
 
     const addRepeated = () => {
         const tempRepeated = [...repeatedComponent];
@@ -78,17 +87,10 @@ const Repeater = ({children, name, formTools, ...props}) => {
         if( props.maxRepeat ? tempRepeated.length < props.maxRepeat : true){
             //Add children
             setRepeatedComponent([...tempRepeated, newChild]);
-            
-            //Add children data space
-            const tempChildData = [...childData];
-            tempChildData.push({keyValue:keyValueNumber});
-            setChildData(tempChildData)
-            console.log("childData", tempChildData)
 
             //Add 1 to keyValueNumber
             setKeyValueNumber( 1 + keyValueNumber );
         }
-        console.log("addRepeated",tempRepeated);
     }
     
     const removeRepeated = (keyValue) => {
@@ -98,7 +100,7 @@ const Repeater = ({children, name, formTools, ...props}) => {
             return elem.props.keyValue == keyValue;
         });
         if (childIndexRepeated == -1)
-            console.log("Fred tu pue");
+            console.log("ERREUR - Repeater childIndexRepeated == -1")
         else
         {
             tempRepeated.splice(childIndexRepeated, 1);
@@ -109,14 +111,12 @@ const Repeater = ({children, name, formTools, ...props}) => {
         const childIndexData = tempChildData.findIndex( (elem) => {
             return elem.keyValue == keyValue;
         });
-        if( childIndexData == -1)
-            console.log("fred tu pue encore plus");
-        else
+        if( childIndexData != -1)
         {
             tempChildData.splice(childIndexData, 1);
             setChildData(tempChildData);
+            updateValue(name, tempChildData);
         }
-        console.log("childIndexRepeated", childIndexRepeated, "childIndexData", childIndexData);
     }
 
     return (

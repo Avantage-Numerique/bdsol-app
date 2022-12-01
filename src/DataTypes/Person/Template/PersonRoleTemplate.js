@@ -43,8 +43,6 @@ const PersonRoleTemplate = (props) => {
                                                                 }
                                                             });
 
-    useEffect( () => {console.log("personlist", personList)}, [personList])
-
     useEffect( () => {
         //Merge the member id into the state, without removing the role (group, title)
         if(personList.length > 0) {
@@ -60,8 +58,6 @@ const PersonRoleTemplate = (props) => {
         }
      
     }, [personList]);
-
-    useEffect(() => { console.log("return object of KV:", props.keyValue, templateReturnObjet)}, [templateReturnObjet])
 
     const addDataToReturnObject = (field, value) => {
         const oldReturn = {
