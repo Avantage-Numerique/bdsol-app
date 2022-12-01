@@ -19,7 +19,7 @@ import Input from "../FormElements/Input/Input";
 Props :
     - id : isolate input/datalist with distinct ids
 */
-const SearchBar = (props) => {
+const SearchBar = ({small, ...props}) => {
 
      //Main form functionalities
      const { FormUI, submitRequest, formState, formTools, clearFormData } = useFormUtils(
@@ -62,8 +62,8 @@ const SearchBar = (props) => {
     }
 
     return (
-        <form onSubmit={submitHandler}>
-            <div className="input-group">
+        <form onSubmit={submitHandler} className={`${small && "small-searchBar"}`}>
+            <div className="input-group my-2 ">
                 <button type="submit" className="btn btn-outline-secondary">
                     &#128269;
                 </button>

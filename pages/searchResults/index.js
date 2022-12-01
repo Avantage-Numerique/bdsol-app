@@ -44,10 +44,10 @@ const SearchResults = () => {
     }
 
     return (
-        <div>
+        <div className="maxWidthPageContainer">
             <div>Ici gît tout les espoirs de Frédéric</div>
             <SearchBar id="searchResults-searchBar"></SearchBar>
-            <Row className={"home-page__feed-section--container"}>
+            <Row>
             {
             searchList.length == 0 ?
             <div>Aucune entité trouvée, réessayer avec d'autre critère de recherche</div>
