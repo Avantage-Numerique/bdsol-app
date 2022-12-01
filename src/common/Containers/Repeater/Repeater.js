@@ -39,8 +39,6 @@ const Repeater = ({children, name, formTools, ...props}) => {
     const [tempChildObject, setTempChildObject] = useState([]);
     const notInitialRender = useRef(false)
 
-    useEffect( () => {console.log("currentState", currentState)}, [currentState])
-
     useEffect( () => {
 
         //If not initial render
@@ -52,7 +50,6 @@ const Repeater = ({children, name, formTools, ...props}) => {
                 return elem.keyValue == tempChildObject.keyValue;
             });
     
-            console.log("tempChild changed index", childIndex, "with key value", tempChildObject.keyValue);
             //Set childData with new value
             if (childIndex != -1){
                 const tempChildData = [...childData];
@@ -60,16 +57,15 @@ const Repeater = ({children, name, formTools, ...props}) => {
                 tempChildData[childIndex] = tempChildObject;
                 setChildData(tempChildData);
                 updateValue(name, tempChildData);
-                console.log("index != -1", tempChildData);
             }
             else {
                 const tempChildData = [...childData];
                 tempChildData.push(tempChildObject);
                 setChildData(tempChildData);
                 updateValue(name, tempChildData);
-                console.log("didnt find index", tempChildData);
             }
         }
+        //If first render
         else
             notInitialRender.current = true;
 

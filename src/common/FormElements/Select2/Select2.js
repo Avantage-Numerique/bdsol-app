@@ -120,7 +120,7 @@ const Select2 = ({name, formTools, children, single, ...props}) => {
 
     const removeValueFromSelectedItem = (selectedObj) => {
         //remove the selectedObj
-        props.dataSetter(props.selectedEntities.filter(elem => elem._id !== selectedObj._id));
+        //props.dataSetter(props.selectedEntities.filter(elem => elem._id !== selectedObj._id));
     }
 
     //Function to add a taxonomy element to the selected list that will be submitted with the form
