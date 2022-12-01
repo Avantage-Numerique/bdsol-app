@@ -30,48 +30,50 @@ const PersonRoleTemplate = (props) => {
     };
 
     const [personList, setPersonList] = useState(props.personList || []);
-    const [templateReturnObjet, setTemplateReturnObject] = useState({keyValue:props.keyValue});
+    const [templateReturnObjet, setTemplateReturnObject] = useState({
+                                                                keyValue:props.keyValue,
+                                                                role:{
+                                                                    "group":"",
+                                                                    "title":""
+                                                                },
+                                                                status: {
+                                                                    state: "Pending",
+                                                                    lastModifiedBy: auth.user.id,
+                                                                    requestedBy: auth.user.id
+                                                                }
+                                                            });
 
     useEffect( () => {console.log("personlist", personList)}, [personList])
 
     useEffect( () => {
-        if(personList.length != 0){
-            //Merge the member id into the state, without removing the role (group, title)
-            const newMemberId = {
-                member : personList[0]._id,
-                role:{
-                    "group":"",
-                    "title":""
-                },
-                status: {
-                    state: "Pending",
-                    lastModifiedBy: auth.user.id,
-                    requestedBy: auth.user.id
-                }
-            }
-            const oldReturn = Object.assign({keyValue:props.keyValue},templateReturnObjet);
-            setTemplateReturnObject(Object.assign(oldReturn, newMemberId));
-            props.dataSetter((Object.assign(oldReturn, newMemberId)))
-
-            //For repeater
-            //if (props.dataSetter)
+        //Merge the member id into the state, without removing the role (group, title)
+        if(personList.length > 0) {
+            setTemplateReturnObject({
+                ...templateReturnObjet,
+                member: personList[0]._id
+            })
+    
+            props.dataSetter({
+                ...templateReturnObjet,
+                member: personList[0]._id
+            })
         }
-        else {
-            setTemplateReturnObject({keyValue:props.keyValue});
-            if (props.dataSetter)
-                props.dataSetter({keyValue:props.keyValue})
-        }
+     
     }, [personList]);
 
     useEffect(() => { console.log("return object of KV:", props.keyValue, templateReturnObjet)}, [templateReturnObjet])
 
     const addDataToReturnObject = (field, value) => {
-        const oldReturn = Object.assign({}, templateReturnObjet);
-        let newRoleField = oldReturn.role
-        newRoleField[field] = value;
+        const oldReturn = {
+            ...templateReturnObjet, 
+            role: {
+                ...templateReturnObjet.role,
+                [field]: value
+            }
+        };
 
-        setTemplateReturnObject(Object.assign(oldReturn, {role : newRoleField}));
-        props.dataSetter((Object.assign(oldReturn, {role: newRoleField}, {keyValue:props.keyValue})))
+        setTemplateReturnObject(oldReturn);
+        props.dataSetter(oldReturn);
     };
 
     const removeEntity = () => {
