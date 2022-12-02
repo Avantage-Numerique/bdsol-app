@@ -146,7 +146,7 @@ const CreatePersonForm = () => {
                 <TaxonomyTagListTemplate
                     tag="occupations"
                     searchField="name"
-                    name="offers"
+                    name="occupations"
                     label={lang.Occupations}
                     idField="occupation"
                     category="occupations"

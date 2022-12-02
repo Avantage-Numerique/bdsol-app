@@ -31,51 +31,13 @@ const Select2 = ({name, formTools, children, single, ...props}) => {
 
     const selectTagRef = useRef();
 
-<<<<<<< HEAD
-    //Import context 
-=======
     //Extract validation methods
     const { validate, RequirementsBadges, ValidationErrorMessages } = useValidation( props.validationRules )
 
     //Import message context 
->>>>>>> 30803c383f36e39e804faf0a57f965a4f15e61de
     const msg = useContext(MessageContext);
     const {sendRequest} = useHttpClient();
 
-<<<<<<< HEAD
-=======
-    /*
-        Access the differents form tools 
-    */
-    const {
-        formState,
-        inputHandler,
-        inputTouched
-    } = formTools;
-
-    //Make sure that the initial value is if type array. Otherwise, it create
-    const currentState = formState.inputs[name].value;
-
-    const updateValue = value => {
-        inputHandler(
-            name,
-            value,
-            props.validationRules ? validate(value) : true
-        )
-    }
-
-    /***********************
-     * 
-     *      Matching value 
-     * 
-     *      => Confirmed match between the field entered value and one entity in the database
-     * 
-     ************************/
-
-    //Find if there is a matching value between the list proposed by the api and the value entered in the field by the user
-    const findMatchingValue = () => selectList.data.find(e => {return e[props.searchField] === selectTagRef.current.value})
-
->>>>>>> 30803c383f36e39e804faf0a57f965a4f15e61de
     //Store globally the matching value when evaluated
     const matchingValue = useRef();
 
@@ -188,7 +150,6 @@ const Select2 = ({name, formTools, children, single, ...props}) => {
                 form-element 
                 form-element--color-validation 
                 d-flex
-                ${!formState.inputs[name].isValid && formState.inputs[name].isTouched && "control--invalid"}
             `}>
 
                 <Button 
@@ -231,7 +192,6 @@ const Select2 = ({name, formTools, children, single, ...props}) => {
                 </div>
             </div>
             <div className="validation-error-messages-container">
-                { formState.inputs[name].isTouched && <ValidationErrorMessages /> }
             </div>
         </div>
     );
