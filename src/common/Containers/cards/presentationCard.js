@@ -38,6 +38,10 @@ const PresentationCard = ({header, data}) => {
         contactPoint
     } = data
 
+    //Dictionnary for entity type. Set header = { type : label }
+    const dict = { "Person" : "Personne", "Organisation": "Organisation"}
+    header = dict[header];
+
     const showFullDescription = false;
 
     return (

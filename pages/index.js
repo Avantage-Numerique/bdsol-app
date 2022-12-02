@@ -200,7 +200,7 @@ const HomePage = ({}) => {
                                                     <Col md={6} lg={4} className="p-2" key={elem._id + "-" + elem.slug}>
                                                         <PresentationCard
                                                             key={elem._id}
-                                                            header={elem.dataType === "person" ? "Personne" : "Organisation"} /* VERY VERY VERY VERY VERY TEMPORARY */
+                                                            header={elem.type}
                                                             data={elem}
                                                         />
                                                     </Col>
