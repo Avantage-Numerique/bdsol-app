@@ -11,6 +11,7 @@ import Select2 from '@/src/common/FormElements/Select2/Select2'
 import Modal from '@/src/common/Containers/Modal/Modal'
 import CreateTaxonomyForm from '@/src/DataTypes/Taxonomy/Components/Forms/CreateTaxonomy/CreateTaxonomyForm'
 import {lang} from "@/src/common/Data/GlobalConstants";
+import TaxonomyTagListTemplate from '@/src/DataTypes/Taxonomy/Template/TaxonomyTagListTemplate'
 
 //Context
 import { useAuth } from "@/src/authentification/context/auth-context";
@@ -142,17 +143,17 @@ const CreatePersonForm = () => {
                     formTools={formTools}
                 />
 
-                <Select2
-                    name="occupations"
-                    searchField="name"
-                    label={lang.Occupations}
-                    request="/taxonomies"
-                    requestData={occupationSelectRequestData}
+                <TaxonomyTagListTemplate
                     tag="occupations"
+                    searchField="name"
+                    name="offers"
+                    label={lang.Occupations}
+                    idField="occupation"
+                    category="occupations"
                     placeholder={lang.occupationsPlaceholder}
                     formTools={formTools}
-                    updateModal={setModal}
-                />
+                    //taxonomyList={[...list]}
+                    />
 
                 <Button type="submit" disabled={!formState.isValid}>{lang.submit}</Button>
 

@@ -14,11 +14,14 @@ import Spinner from '@/src/common/widgets/spinner/Spinner'
 import {lang} from "@/src/common/Data/GlobalConstants";
 
 //contexts
-import {AuthContext, useAuth} from '@/auth/context/auth-context'
+import {useAuth} from '@/auth/context/auth-context'
 import { MessageContext } from '@/src/common/UserNotifications/Message/Context/Message-Context'
 
 //Styling
 import styles from './CreateOrganisationForm.module.scss'
+import PersonRoleTemplate from '@/src/DataTypes/Person/Template/PersonRoleTemplate'
+import Repeater from '@/src/common/Containers/Repeater/Repeater'
+import TaxonomyTagListTemplate from '@/src/DataTypes/Taxonomy/Template/TaxonomyTagListTemplate'
 
 
 
@@ -78,11 +81,11 @@ const CreateOrganisationForm = () => {
             value: [],
             isValid: true
         },
-    }, 
+    },
     false)
 
     //Function to submit the form
-    const submitHandler = async event => { 
+    const submitHandler = async event => {
 
         event.preventDefault();
         
@@ -146,26 +149,14 @@ const CreateOrganisationForm = () => {
             })
         }
     }
-
-    const offerSelectRequestData = {
-        "data": {
-            "category": "occupations",
-            "name": ""
-        }
-    };
-    const teamSelectRequestData = {
-        "data": {
-            "firstName": ""
-        }
-    };
-
+    
     return (
         <>
             { isLoading && <Spinner fixed />}
 
             <form onSubmit={submitHandler} className={`col-12 ${styles["create-organisation-form"]}`}>
 
-                <Input 
+                <Input
                     name="name"
                     label="Nom de l'organisation"
                     validationRules={[
@@ -174,13 +165,13 @@ const CreateOrganisationForm = () => {
                     formTools={formTools}
                 />
 
-                <RichTextarea 
+                <RichTextarea
                     name="description"
                     label="Description"
                     formTools={formTools}
                 />
 
-                <Input 
+                <Input
                     name="url"
                     label="Hyperlien"
                     type="url"
@@ -188,7 +179,7 @@ const CreateOrganisationForm = () => {
                     formTools={formTools}
                 />
 
-                <Input  
+                <Input
                     name="contactPoint"
                     label="Information de contact"
                     tip={{
@@ -199,34 +190,40 @@ const CreateOrganisationForm = () => {
                     formTools={formTools}
                 />
 
-                <Input  
+                <Input
                     name="fondationDate"
                     label="Date de fondation"
                     type="date"
                     formTools={formTools}
                 />
 
-                <Select2
-                    name="offers"
-                    searchField="name"
-                    label="Offres de services"
-                    request="/taxonomies"
-                    requestData={offerSelectRequestData}
+                <TaxonomyTagListTemplate
                     tag="occupations"
-                    formTools={formTools}
+                    name="offers"
+                    idField="offer"
+                    label="Offres de services"
+                    category="occupations"
                     placeholder="Directeur-trice artistique ..."
-                />
-
-                <Select2
-                    name="team"
-                    searchField="firstName"
-                    label="Membre de l'équipe"
-                    request="/persons"
-                    requestData={teamSelectRequestData}
-                    //tag="occupations"
                     formTools={formTools}
-                    placeholder="Jean-Marc Parent ..."
-                />
+                    //taxonomyList={[...list]}
+                    />
+
+                <Repeater
+                    name="team"
+                    label="Membre de l'équipe"
+                    addButtonLabel="Ajouter un membre"
+                    noComponentLabel="Aucun membre ajouté"
+                    formTools={formTools}
+                    //maxRepeat="5"
+                    >
+                    
+                    <PersonRoleTemplate
+                        name="team"
+                        label="Membre de l'équipe"
+                        placeholder="Jean-Marc Parent ..."
+                        //personList={[...list]}
+                    />
+                </Repeater>
 
                 <div className="col-12">
                     <Button type="submit" disabled={!formState.isValid}>Soumettre</Button>
