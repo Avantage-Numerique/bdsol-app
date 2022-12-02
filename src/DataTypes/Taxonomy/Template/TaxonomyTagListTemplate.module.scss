@@ -25,9 +25,10 @@
         .status {
             font-size: x-small;
         }
-        .Accepted {color:green;}
-        .Pending { color: yellow;}
-        .Rejected { color: red;}
+        .accepted {color:green;}
+        .pending { color: yellow;}
+        .rejected { color: red;}
+        .deprecated { color: black;}
 
         .closeButton{
             cursor: pointer;

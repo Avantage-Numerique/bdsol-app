@@ -51,7 +51,7 @@ const TaxonomyTagListTemplate = ({name, formTools, ...props}) => {
             tempReturnObject.push({
                 [props.idField] : elem._id,
                 status: {
-                    state: "Pending",
+                    state: "pending",
                     lastModifiedBy: auth.user.id,
                     requestedBy: auth.user.id
                 }

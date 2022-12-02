@@ -37,7 +37,7 @@ const PersonRoleTemplate = (props) => {
                                                                     "title":""
                                                                 },
                                                                 status: {
-                                                                    state: "Pending",
+                                                                    state: "pending",
                                                                     lastModifiedBy: auth.user.id,
                                                                     requestedBy: auth.user.id
                                                                 }
