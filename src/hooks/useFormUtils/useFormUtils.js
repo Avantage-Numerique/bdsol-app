@@ -153,7 +153,8 @@ export const useFormUtils = ( initialState, actions ) => {
         submitRequest,
         formState,
         formTools, 
-        requestResponse
+        requestResponse,
+        clearFormData
     }
 
 }
