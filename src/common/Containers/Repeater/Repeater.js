@@ -35,7 +35,6 @@ const Repeater = ({children, name, formTools, ...props}) => {
 
     const [keyValueNumber, setKeyValueNumber] = useState(0);
     const [repeatedComponent, setRepeatedComponent] = useState([]);
-    const [childData, setChildData] = useState([]);
     const [tempChildObject, setTempChildObject] = useState([]);
     const notInitialRender = useRef(false)
 
@@ -46,22 +45,20 @@ const Repeater = ({children, name, formTools, ...props}) => {
 
             let childIndex;
             //Search keyValue in childData
-            childIndex = childData.findIndex( (elem) => {
+            childIndex = currentState.value.findIndex( (elem) => {
                 return elem.keyValue == tempChildObject.keyValue;
             });
     
-            //Set childData with new value
+            //Set currentState with new value
             if (childIndex != -1){
-                const tempChildData = [...childData];
+                const tempChildData = [...currentState.value];
     
                 tempChildData[childIndex] = tempChildObject;
-                setChildData(tempChildData);
                 updateValue(name, tempChildData);
             }
             else {
-                const tempChildData = [...childData];
+                const tempChildData = [...currentState.value];
                 tempChildData.push(tempChildObject);
-                setChildData(tempChildData);
                 updateValue(name, tempChildData);
             }
         }
@@ -103,14 +100,13 @@ const Repeater = ({children, name, formTools, ...props}) => {
             setRepeatedComponent(tempRepeated);
         }
         
-        const tempChildData = [...childData];
+        const tempChildData = [...currentState.value];
         const childIndexData = tempChildData.findIndex( (elem) => {
             return elem.keyValue == keyValue;
         });
         if( childIndexData != -1)
         {
             tempChildData.splice(childIndexData, 1);
-            setChildData(tempChildData);
             updateValue(name, tempChildData);
         }
     }
