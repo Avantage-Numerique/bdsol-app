@@ -136,8 +136,9 @@ const UpdatePersonForm = ({initValues, positiveRequestActions}) => {
 
                 <Select2
                     name="occupations"
+                    searchField="name"
                     label={lang.Occupations}
-                    request="/taxonomies/list/"
+                    request="/taxonomies"
                     requestData={occupationSelectRequestData}
                     tag="occupations"
                     placeholder={lang.occupationsPlaceholder}

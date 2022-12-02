@@ -30,7 +30,7 @@ const convertFormatedObject = (name, valueId, userId) => {
     return {
         [dictionnary[name]]: valueId,
         status: {
-            state:"Pending",
+            state:"pending",
             requestedBy: userId,
             lastModifiedBy: userId
         }
@@ -129,15 +129,13 @@ const Select2 = ({name, formTools, ...props}) => {
 
                 //If the object data is not in the matchingValue, we have to fetch it
                 } else {
-
-                    console.log("data id" ,  entity[dictionnary[name]]._id)
                     //Fetch by the Id
                     const entityData =  await sendRequest(
                         (props.request + "/search"),
                         'POST',
-                         JSON.stringify({data:{id: entity[dictionnary[name]]}})
-                        //JSON.stringify({data:{id: entity[dictionnary[name]]._id}})
+                        JSON.stringify({data:{_id: entity[dictionnary[name]]}})
                     );
+
                     //If there is an error, passed the message to the user
                     if(entityData.error){
                         msg.addMessage({ 
@@ -152,16 +150,15 @@ const Select2 = ({name, formTools, ...props}) => {
                 }
             }
         //Finaly, we can update the local state with the new value
+        
         setSelectedEntities(editedSelectedEntities)
     }
 
     //Update the selectedEntities whenever the form state change.
     //This way, the "selectedEntities" state is bind to the main form state and will always reflect it
     useEffect(() => {
-
         //call the function
         matchLocalToFormState()
-
     }, [currentState])
 
     //Called whenever the user enter or modify a value into the field
@@ -260,8 +257,9 @@ const Select2 = ({name, formTools, ...props}) => {
     }
 
     const removeValueFromSelectedItem = (selectedObj) => {
+        console.log(currentState)
         //Update the value of the form, excluding the element to remove
-        updateValue(currentState.filter(arr => arr[dictionnary[name]] !== selectedObj._id));
+        updateValue(currentState.filter(arr => (arr[dictionnary[name]]._id || arr[dictionnary[name]]) !== selectedObj._id));
     }
 
     if( selectList &&
