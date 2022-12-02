@@ -8,10 +8,14 @@ $blue: #455ae6; // Avantage numérique's mainBlue (and blue1)
 $blue2: #4d64ff; // Avantage numérique's mainBlue (and blue2)
 $blue3: #4dc4ff; // Avantage numérique's mainBlue (and blue3)
 $blue4: #5f71ea; // Avantage numérique's mainBlue (and blue4)
+$green1:  #adc9b0; //Light green
+$green2:  #7ba076; 
+$green3:  #364637; //Darkgreen
 $pink: #c881ca;
 $pink-100: lighten($pink, 80%);
 $red: #dd5c5c;  // Avantage numérique's red
-$purple-light: #c1c9ec;
+$red-ligth: #ff9e9e;  // Avantage numérique's red
+$purple-light: #b2b2eb;
 $purple-lighter: lighten($purple-light, 12%);
 
 //Taxonomies colors
@@ -33,8 +37,12 @@ $light: lighten($grey, 30%);
 $white: #FEFEFE;
 $black: #010101;
 
+//Inputs variables
+$selected-input: #455ae6;
+
 $theme-colors:(
     "primary": $blue,
+    "primaryligth": $purple-light,
     "secondary": $grey,
     "purplelight": $purple-light,
     "purplelighter": $purple-lighter,
@@ -43,12 +51,16 @@ $theme-colors:(
     "blue2": $blue2,   // Avantage numérique's altBlue (and blue2) rgb(77, 100, 255)
     "blue3": $blue3,   // Avantage numérique's blue3 rgb(77, 196, 255)
     "blue4": $blue4,   // Avantage numérique's blue4 rgb(95, 113, 234)
-    "danger": $red,
+    "danger": $red-ligth,
     "dark": $dark,
     "light": $light,
     "white":$white,
     "black":$black,
 
+    "success": $green2,
+    "successlighter": $green1,
+    "successDarker": $green3,
+    
     //Taxonomies
     "accepted":$green-accepted,
     "pending":$yellow-pending,
@@ -59,6 +71,7 @@ $theme-colors:(
     "domains":$domains,
     "abilities":$abilities,
     "general-tag":$general-tag,
+    
 );
 
 
@@ -102,3 +115,5 @@ $btn-padding-x-lg: 4rem;
 $btn-padding-y-lg: 2rem;
 $btn-font-size-lg: 1rem;
 $btn-border-radius-lg: 4px;
+
+

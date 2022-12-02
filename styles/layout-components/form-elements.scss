@@ -9,10 +9,13 @@
         /*  
                 Variables 
         */
-        --b-radius: 0.25rem;
+        --horizontal-spacing: 0.75rem;
+        --vertical-spacing: 0.75rem;
 
-        background-color: white;
-        border-radius: var(--b-radius);
+        background-color: $light;
+        position: relative;
+        
+        border-radius: 0.25rem;
         border: 0.1rem solid rgba(94, 94, 94, 0.13);
 
         &.form-element--color-validation{
@@ -24,16 +27,89 @@
                 transition: all 300ms ease;
 
                 &:focus-within {
-                        background-color: rgba(227, 233, 255, 0.658);
-                        border: 0.1rem solid rgb(178, 178, 235);
+                        /*  VARIABLE NOT WORKING YET
+                        background-color: lighten($purple-lighter, 5%);
+                        border: 0.1rem solid $purple-lighter;
+                        */
+                        background-color: lighten($selected-input, 32%);
+                        border: 0.1rem solid lighten($selected-input, 15%);
+                        
                 }
 
                 &.control--invalid:not(:focus-within) {
-                        border: 0.1rem solid rgb(255, 158, 158);
-                        background-color:  rgba(255, 135, 135, 0.09);
+                        /* lighten not working yet 
+                        border: 0.1rem solid $danger;
+                        background-color: lighten($danger, 10%);
+                        */
+                        border: 0.1rem solid #dd5c5cb9;
+                        background-color: #dd5c5c23;
+                }
+        }  
+
+        .badge-container {
+                
+                display: none;
+                    
+                .badge-container__badge {
+                        --badge--color: rgba(87, 87, 87, 0.822);
+                        --badge--bg-color: rgba(218, 218, 218, 0.336);
+                        --badge--border-color: rgba(170, 170, 170, 0.623);
+                        
+                        
+                        background-color: var(--badge--bg-color);
+                        border: 0.12rem solid var(--badge--border-color);
+                        font-size: 0.7rem;
+                        padding: 0.15rem;
+                        color: var(--badge--color);
+                        
+                        /* Variables BOOTSTRAP to define */
+                        &.badge--validation-succes {
+
+                                --badge--color: #364637c1;
+                                --badge--bg-color: #adc9b07e;
+                                --badge--border-color: #7ba07681;
+                        }       
                 }
         }
 
-        .form-element--b-radius { border-radius: var(--b-radius); }
-        .form-element--field-padding { padding: 1rem 0.75rem; }
+        &:focus-within {
+                .badge-container { display: inline-flex }
+        }
+
+
+    
+
+}
+
+/* Inner padding of every field that defines the distance between the content and the border */
+.form-element--field-padding { 
+        padding: var(--horizontal-spacing) var(--vertical-spacing); 
+}
+
+.form-element--b-radius { border-radius: $border-radius; }
+
+/* Same values than the field padding, but with not padding-top. */
+.form-element--field-padding-top-reverse {
+        padding: var(--horizontal-spacing) var(--vertical-spacing); 
+        padding-top: 0;
+}
+
+/*  Container of the error messages displayed under the field */
+.form-element--validation-errors-container {
+
+        font-size: 0.8rem;
+        align-items: center;
+
+        .validation-error {
+                &:before {
+                        content:  "✖";
+                        background-color: rgb(204, 137, 137);
+                        color: white;
+                        border-radius: 100%;
+                        font-size: 0.6rem;
+                        height: fit-content;
+                        padding: 0.075em 0.25em 0em 0.25em;
+                        margin-right: 0.25rem;
+                }
+        }
 }

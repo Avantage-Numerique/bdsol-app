@@ -13,9 +13,6 @@ import CreateTaxonomyForm from '@/src/DataTypes/Taxonomy/Components/Forms/Create
 import {lang} from "@/src/common/Data/GlobalConstants";
 import TaxonomyTagListTemplate from '@/src/DataTypes/Taxonomy/Template/TaxonomyTagListTemplate'
 
-//Form validators
-import {VALIDATOR_REQUIRE} from '@/src/utils/validators'
-
 //Context
 import { useAuth } from "@/src/authentification/context/auth-context";
 
@@ -77,7 +74,7 @@ const CreatePersonForm = () => {
                 "occupations": formState.inputs.occupations.value,
 
                 "status": {
-                    "state": "Pending",
+                    "state": "pending",
                     "requestedBy": auth.user.id,
                     "lastModifiedBy": auth.user.id
                 }//Hardcoded status to send at creation (Temporary, until we moderate it with the API)
@@ -114,7 +111,9 @@ const CreatePersonForm = () => {
                 <Input 
                     name="firstName"
                     label="Prénom"
-                    validators={[VALIDATOR_REQUIRE()]}
+                    validationRules={[
+                        {name: "REQUIRED"}
+                    ]}
                     errorText="Cette information est requise"
                     formTools={formTools}
                 />
@@ -122,7 +121,9 @@ const CreatePersonForm = () => {
                 <Input 
                     name="lastName"
                     label="Nom"
-                    validators={[VALIDATOR_REQUIRE()]}
+                    validationRules={[
+                        {name: "REQUIRED"}
+                    ]}
                     errorText="Cette information est requise"
                     formTools={formTools}
                 />
@@ -130,13 +131,15 @@ const CreatePersonForm = () => {
                 <Input  
                     name="nickName"
                     label="Surnom"
+                    validationRules={[
+                        {name: "REQUIRED"}
+                    ]}
                     formTools={formTools}
                 />
                 
                 <RichTextarea 
                     name="description"
                     label="Biographie / description"
-                    validators={[VALIDATOR_REQUIRE()]}
                     formTools={formTools}
                 />
 

@@ -1,9 +1,6 @@
 import React from 'react'
 import {useAuth} from '@/auth/context/auth-context'
 
-//Validators
-import {VALIDATOR_REQUIRE} from '@/src/utils/validators'
-
 //Custom hooks
 import { useForm } from '@/src/hooks/form-hook'
 
@@ -87,7 +84,9 @@ const ResetPassword = () => {
                         name="email"
                         type="email"
                         label="Adresse courriel"
-                        validators={[VALIDATOR_REQUIRE()]}
+                        validationRules={[
+                            {name: "REQUIRED"}
+                        ]}
                         errorText="Veuillez entrer une adresse courriel valide"
                         formTools={formTools}
                         className={"pb-3"}

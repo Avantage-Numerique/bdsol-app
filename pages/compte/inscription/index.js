@@ -7,8 +7,10 @@ import styles from './inscription.module.scss'
 const RegisterPage = () => {
 
     return (
-        <section className={`col-12 ${styles["inscription-page"]}`}>
+        <section className={`auth-page d-flex align-items-center justify-content-center`}>
+            <div className={`${styles["inscription-page"]}`}>
             <Register/>
+            </div>
         </section>
     )
     

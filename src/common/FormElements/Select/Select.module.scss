@@ -1,0 +1,25 @@
+.select-component {
+
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+
+
+    .select-component__label-container {
+
+    }
+
+    .select-component__field-container {
+
+        min-width: 20ch;
+        display: flex;
+        flex-direction: column;
+
+        
+        .select-component__field-container__select-field {
+            background-color: unset;
+        }
+
+    }
+
+}

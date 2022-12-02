@@ -8,9 +8,7 @@ import { useFormUtils } from '@/src/hooks/useFormUtils/useFormUtils'
 import Button from '@/src/common/FormElements/Buttons/Button/Button'
 import Input from '@/src/common/FormElements/Input/Input'
 import RichTextarea from '@/src/common/FormElements/RichTextArea/RichTextarea'
-
-//Form validators
-import {VALIDATOR_REQUIRE} from '@/src/utils/validators'
+import Select from '@/src/common/FormElements/Select/Select'
 
 //Contexts
 import {AuthContext, useAuth} from '@/auth/context/auth-context'
@@ -36,15 +34,6 @@ const CreateTaxonomyForm = ({name, category, positiveRequestActions}) => {
     //Import message context 
     const msg = useContext(MessageContext);
 
-    //@todo fetch that from /taxonomies/supported endpoint.
-    // prop = Label, value = option's value
-    const taxonomies = {
-        occupations: "Occupation",
-        domains: "Domaine",
-        abilities: "Compétence",
-        skills: "Aptitude"
-    };
-
     /*
     First of all, verify if the user is logged in.
     If he isn't, then redirect him in the connexion page
@@ -67,6 +56,7 @@ const CreateTaxonomyForm = ({name, category, positiveRequestActions}) => {
                 value: (category ? category : ''),
                 isValid: true
             },
+
             name: {
                 value: (name ? name : ''),
                 isValid: true
@@ -104,7 +94,7 @@ const CreateTaxonomyForm = ({name, category, positiveRequestActions}) => {
                 "description": formState.inputs.description.value,
                 /*"source": formState.inputs.source.value,*/
                 "status": {
-                    "state": "Pending",
+                    "state": "pending",
                     "requestedBy": auth.user.id,
                     "lastModifiedBy": auth.user.id,
                     "message": formState.inputs["status.message"].value
@@ -127,32 +117,31 @@ const CreateTaxonomyForm = ({name, category, positiveRequestActions}) => {
         <>
             <form onSubmit={submitHandler} className={`col-12 ${styles["create-taxonomy-form"]}`}>
                 <FormUI />
-                <div>
-                    <label htmlFor="category">
-                        Catégorie
-                    </label>
-                    <br/>
-                    <select 
-                        className={`${styles["select-component"]}`}
-                        name="category"
-                        required={true}
-                        defaultValue={category ?? "occupations"}
-                        onChange={ (e) => { formTools.inputHandler( "category", e.target.value, (e.target.value !== "0" && e.target.value !== "") )}}>
-                        <option value="">-- Choisissez une taxonomy --</option>
-                        {Object.keys(taxonomies).map((key) => {
-                            return (
-                                <option key={`taxonomy-${key}`} value={key} disabled={(key !== "occupations")}>{taxonomies[key]}</option>
-                            );
-                        })}
-                    </select>
-                </div>
+
+                <Select 
+                    name="category"
+                    label="Catégorie"
+                    formTools={formTools}
+                    noValueText="Choisissez une taxonomie"
+                    options={[
+                        {label: "Occupation", value: "occupations"},
+                        {label: "Domaine", value: "domains", disabled: true},
+                        {label: "Compétence", value: "abilities", disabled: true},
+                        {label: "Aptitude", value: "skills", disabled: true}
+                    ]}
+                    validationRules={[
+                        {name: "REQUIRED"}
+                    ]}
+                    defaultValue="occupations"
+                />
 
                 <Input
                     name="name"
                     label="Nom"
                     formTools={formTools}
-                    validators={[VALIDATOR_REQUIRE()]}
-                    errorText="Cette information est requise"
+                    validationRules={[
+                        {name: "REQUIRED"}
+                    ]}
                 />
 
                 <Input

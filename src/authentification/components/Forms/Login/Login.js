@@ -6,12 +6,11 @@ import Link from 'next/link';
 import { useAuth } from '@/auth/context/auth-context';
 import { MessageContext } from '@/src/common/UserNotifications/Message/Context/Message-Context';
 
-//Validators
-import {VALIDATOR_REQUIRE} from '@/src/utils/validators';
-
 //Custom hooks
 import { useForm } from '@/src/hooks/form-hook';
 import { useSessionHook } from '@/auth/hooks/useSessionHook';
+import { useFormUtils } from '@/src/hooks/useFormUtils/useFormUtils'
+
 
 //Form components
 import Input from '@/src/common/FormElements/Input/Input';
@@ -45,11 +44,11 @@ const Login = () => {
         {
         username: {
             value: '',
-            isValid: false
+            isValid: true
         },
         password: {
             value: '',
-            isValid: false
+            isValid: true
         }
     }, 
     false)
@@ -104,7 +103,9 @@ const Login = () => {
                         name="username"
                         type="text"
                         label="Nom d'utilisateur"
-                        validators={[VALIDATOR_REQUIRE()]}
+                        validationRules={[
+                            {name: "REQUIRED"}
+                        ]}
                         errorText="Veuillez entrer un nom d'utilisateur valide"
                         formTools={formTools}
                         className={"pb-3"}
@@ -114,7 +115,9 @@ const Login = () => {
                         name="password"
                         type="password"
                         label="Mot de passe"
-                        validators={[VALIDATOR_REQUIRE()]}
+                        validationRules={[
+                            {name: "REQUIRED"}
+                        ]}
                         errorText="Veuillez entrer un mot de passe valide"
                         formTools={formTools}
                         className={"pb-3"}

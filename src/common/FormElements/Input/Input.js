@@ -1,10 +1,7 @@
-import React from 'react';
+import {useEffect, useRef} from 'react';
 
 //Hooks
 import { useValidation } from '@/src/hooks/useValidation/useValidation';
-
-//Utils
-import { validate } from '@/src/utils/validators';
 
 //components
 import Tip from '@/common/FormElements/Tip/Tip';
@@ -13,9 +10,10 @@ import Tip from '@/common/FormElements/Tip/Tip';
 import styles from './Input.module.scss';
 
 
+
 const Input = ({name, formTools, ...props}) => {
 
-    const { } = useValidation()
+    const { validate, RequirementsBadges, ValidationErrorMessages } = useValidation( props.validationRules )
     /*
         Access the differents form tools 
     */
@@ -27,13 +25,23 @@ const Input = ({name, formTools, ...props}) => {
 
     const currentState = formState.inputs[name];
 
+    const fieldRef = useRef(null);
+
     const updateValue = event => {
         inputHandler(
             name,
             event.target.value,
-            props.validators ? validate(event.target.value, props.validators) : true
+            props.validationRules ? validate(event.target.value) : true
         )
     }
+
+    useEffect(() => {
+        inputHandler(
+            name,
+            fieldRef.current.value,
+            props.validationRules ? validate(fieldRef.current.value) : true
+        )
+    }, [])
 
  
     return (
@@ -52,14 +60,17 @@ const Input = ({name, formTools, ...props}) => {
                 }
             </div>
 
-            <div className={`
+            <div 
+                //tabIndex="0"  Would allow the complete field to be focused, not only the input. But that would alos make two focusable elements by field
+                className={`
                 form-element
                 form-element--color-validation
                 ${styles["input-component__field-container"]}
                 ${!currentState.isValid && currentState.isTouched && "control--invalid"}
             `}>
                 <input 
-                    className="form-element--field-padding"
+                    ref={fieldRef}
+                    className="w-100 border-0 form-element--field-padding"
                     name={ name }
                     id={ name }
                     //If there is a state attached to the component, make it a controlled components where the value depends on the state
@@ -70,13 +81,13 @@ const Input = ({name, formTools, ...props}) => {
                     onBlur={() => inputTouched(name)}
                     autoComplete={props.type === "password" ? "on" : undefined}
                 /> 
+
+                <RequirementsBadges addUlPadding /> 
             </div>
-                
-            {!currentState.isValid && currentState.isTouched && 
-            <div className={`${styles["input-component__add"]}`}>
-                <small>{ props.errorText }</small>
+
+            <div className="validation-error-messages-container">
+                    { currentState.isTouched && <ValidationErrorMessages /> }
             </div>
-            }
 
         </div>
 

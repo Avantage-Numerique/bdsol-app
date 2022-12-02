@@ -1,7 +1,8 @@
 import React, {useEffect, useState, useRef, useContext} from 'react'
 
 //Custom Hooks
-import {useHttpClient} from '@/src/hooks/http-hook'
+import { useHttpClient } from '@/src/hooks/http-hook'
+import { useValidation } from '@/src/hooks/useValidation/useValidation';
 //import { useDebounce } from '@/src/hooks/useDebounce'
 
 //Contexts
@@ -30,10 +31,51 @@ const Select2 = ({name, formTools, children, single, ...props}) => {
 
     const selectTagRef = useRef();
 
+<<<<<<< HEAD
     //Import context 
+=======
+    //Extract validation methods
+    const { validate, RequirementsBadges, ValidationErrorMessages } = useValidation( props.validationRules )
+
+    //Import message context 
+>>>>>>> 30803c383f36e39e804faf0a57f965a4f15e61de
     const msg = useContext(MessageContext);
     const {sendRequest} = useHttpClient();
 
+<<<<<<< HEAD
+=======
+    /*
+        Access the differents form tools 
+    */
+    const {
+        formState,
+        inputHandler,
+        inputTouched
+    } = formTools;
+
+    //Make sure that the initial value is if type array. Otherwise, it create
+    const currentState = formState.inputs[name].value;
+
+    const updateValue = value => {
+        inputHandler(
+            name,
+            value,
+            props.validationRules ? validate(value) : true
+        )
+    }
+
+    /***********************
+     * 
+     *      Matching value 
+     * 
+     *      => Confirmed match between the field entered value and one entity in the database
+     * 
+     ************************/
+
+    //Find if there is a matching value between the list proposed by the api and the value entered in the field by the user
+    const findMatchingValue = () => selectList.data.find(e => {return e[props.searchField] === selectTagRef.current.value})
+
+>>>>>>> 30803c383f36e39e804faf0a57f965a4f15e61de
     //Store globally the matching value when evaluated
     const matchingValue = useRef();
 
@@ -142,69 +184,55 @@ const Select2 = ({name, formTools, children, single, ...props}) => {
             </div>
 
             }
-                <div className="form-element form-element--color-validation d-flex">
+            <div className={`
+                form-element 
+                form-element--color-validation 
+                d-flex
+                ${!formState.inputs[name].isValid && formState.inputs[name].isTouched && "control--invalid"}
+            `}>
 
-                    <Button 
-                        type="button" 
-                        slim="true" 
-                        disabled={selectRequest.data[props.searchField] ? false : true} 
-                        onClick={addValueToSelectedItem}
-                        className="m-1 rounded-1">
-                            {/* Change arrow symbol : https://unicode-table.com/en/sets/arrow-symbols/ */}
-                            { single == "true" ? "⇅" : "+"}
-                    </Button>
+                <Button 
+                    type="button" 
+                    slim="true" 
+                    disabled={selectRequest.data[props.searchField] ? false : true} 
+                    onClick={addValueToSelectedItem}
+                    className="m-1 rounded-1">
+                        {/* Change arrow symbol : https://unicode-table.com/en/sets/arrow-symbols/ */}
+                        { single == "true" ? "⇅" : "+"}
+                </Button>
 
-                    <div className="flex-grow-1 form-element--field-padding">
-                    
-                        <input
-                            type="text" 
-                            list={props.label + props.searchField}
-                            name={'SelectInput-' + name }
-                            id={'SelectInput-'+ name}
-                            //onBlur={() => inputTouched(name)}
-                            placeholder={props.placeholder}
-                            className={`
-                                w-100
-                                p-0
-                                border-0
-                            `}
-                            ref={selectTagRef}
-                            onChange={(e) => {formRequestData(e.target.value)}}
-                        />
-
-                        <div className="w-100 d-flex">
-                            {/* To fill with validation rules*/}
-                        </div>
-                        
-                        <datalist id={props.label + props.searchField} name={"Datalist-"+ name } className={`${styles["datalist-input"]}`}>
-                            {selectList.data.map( item => 
-                                <option key={`datalist-${item[props.searchField]}`} value={item[props.searchField]}></option>
-                            )}
-                        </datalist>
-                    </div>
-                </div>
+                <div className="flex-grow-1 form-element--field-padding">
                 
-                {/* Button to call a form and add a new taxonomie */}
-                {/* If the updateModal function is defined, it meens that the modal functionnalities have to be activated */}
-                {/* props.updateModal &&
-                    <div className={`col-12 ${styles["button-container"]}`}>
-                        <button
-                            type="button"
-                            disabled={ ((selectTagRef.current && selectTagRef.current.value) && !findMatchingValue() && props.updateModal) ? false : true}
-                            onClick={() => props.updateModal(prev => ({
-                                ...prev, 
-                                display: true,
-                                enteredValues: {
-                                    ...prev.enteredValues,
-                                    name: selectTagRef.current.value
-                                },
-                                callback: resetSelectComponent
-                            }))}
-                        >
-                            <small>Soumettre comme nouvelle taxonomie</small>
-                        </button>
-                    </div>*/
-                }
+                    <input
+                        type="text" 
+                        list={props.label + props.searchField}
+                        name={'SelectInput-' + name }
+                        id={'SelectInput-'+ name}
+                        //onBlur={() => inputTouched(name)}
+                        placeholder={props.placeholder}
+                        className={`
+                            w-100
+                            p-0
+                            border-0
+                        `}
+                        ref={selectTagRef}
+                        onChange={(e) => {formRequestData(e.target.value)}}
+                    />
+
+                    <div className="w-100 d-flex">
+                        <RequirementsBadges /> 
+                    </div>
+                    
+                    <datalist id={props.label + props.searchField} name={"Datalist-"+ name } className={`${styles["datalist-input"]}`}>
+                        {selectList.data.map( item => 
+                            <option key={`datalist-${item[props.searchField]}`} value={item[props.searchField]}></option>
+                        )}
+                    </datalist>
+                </div>
+            </div>
+            <div className="validation-error-messages-container">
+                { formState.inputs[name].isTouched && <ValidationErrorMessages /> }
+            </div>
         </div>
     );
 }

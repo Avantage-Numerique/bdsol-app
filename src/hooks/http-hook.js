@@ -2,6 +2,7 @@
 import {useState, useCallback, useRef, useEffect} from 'react';
 import {getUserHeadersFromUserSession, useAuth} from '@/auth/context/auth-context'
 import {lang} from "@/src/common/Data/GlobalConstants";
+import {pingExternalApi} from "@/src/api/external/callbacks/pingExternalApi";
 
 
 /**
@@ -29,39 +30,28 @@ export const sendExternalApiRequest = async (path, method = 'GET', body = null, 
             ...defaultHeaders,
             ...jsonHeaders,
             ...headers
-        };
+        },
+        isApiUp = await pingExternalApi();
 
-    try {
+    if (isApiUp)
+    {
+        try {
+            //   Use the fetch request with the url (required) and with its options object filled with the full data that we want to pass, if so.
+            const response = await fetch(baseApiRoute + path, {
+                method: method,
+                body: body,
+                headers: new Headers(headerParams),
+                json: true,
+                ...additionnalFetchParams
+            });
 
-        //   Use the fetch request with the url (required) and with its options object filled with the full data that we want to pass, if so.
-        const response = await fetch(baseApiRoute + path, {
-            method: method,
-            body: body,
-            headers: new Headers(headerParams),
-            json: true,
-            ...additionnalFetchParams
-        });
+            //Return the data
+            return await response.json();
 
-        //Return the data
-        return await response.json();
-
-    } catch (err) {
-        throw err;
+        } catch (err) {
+            throw err;
+        }
     }
-}
-
-/**
- * Interface to help development when using externalApiRequest.
- * @type {{headers: {}, method: string, additionnalFetchParams: {}, origin: string, context: undefined, isBodyJson: boolean, body: string}}
- */
-const externalApiRequestParamsInterface = {
-    method: "POST",
-    body: "",
-    origin: "fromserver",//|browser
-    isBodyJson: true,
-    headers: {},
-    additionnalFetchParams: {},
-    context: undefined,
 }
 
 /**
@@ -76,7 +66,6 @@ export const externalApiRequest = async (path, params = {}) => {
 
     const baseApiRoute = params.origin === "browser" ? process.env.NEXT_PUBLIC_API_URL : process.env.FROMSERVER_API_URL;
     const jsonHeaders = params.isBodyJson ? {'Content-Type': 'application/json'} : {};
-    const isExternalApiReturnJson = true;//@deprated
     const defaultHeaders = {
             'Origin': params.origin === "browser" ? process.env.NEXT_PUBLIC_APP_URL : process.env.FROMSERVER_APP_URL
         };
@@ -106,7 +95,6 @@ export const externalApiRequest = async (path, params = {}) => {
             method: params.method ?? "POST",
             body: params.body ?? undefined,
             headers: new Headers(headerParams),
-            //no-need//json: isExternalApiReturnJson,
             ...params.additionnalFetchParams
         });
 

@@ -37,6 +37,7 @@ const MainPersonView = ({ data }) => {
         lastName,
         nickname,
         description,
+        occupations,
         createdAt,
         updatedAt,
         status
@@ -104,7 +105,7 @@ const MainPersonView = ({ data }) => {
                 <Container className={`${styles["person-view__top-menu"]}`}> 
                     <Row className="justify-content-between mb-4">
                         <Col sm={6} lg={8} className="justify-content-end">
-                            <button className="text-white"> &#8629; Retour </button>
+                            <a className="text-white" href="/"> &#8629; Retour </a>
                         </Col>
                         <Col sm={"auto"} lg={4}>
                             <Button onClick={() => setModal(prev => ({...prev, display: true}))}>
@@ -145,11 +146,11 @@ const MainPersonView = ({ data }) => {
                                 <div className={`${styles["quick-section"]}`}>
 
                                     <div className={`${styles["quick-section__single-info"]}`}>
-                                        <span>Langue : </span>Inconnu
+                                        <span>Langue : </span>Information bientôt disponible.
                                     </div>
 
                                     <div className={`${styles["quick-section__single-info"]}`}>
-                                        <span>Citoyenneté : </span>Inconnu
+                                        <span>Citoyenneté : </span>Information bientôt disponible.
                                     </div>
 
                                 </div>
@@ -209,7 +210,7 @@ const MainPersonView = ({ data }) => {
 
                             <SingleInfoLayout 
                                 title={"Intérêts"}
-                                NAMessage={<p>Information bientôt disponible</p>}
+                                NAMessage={<p>Information bientôt disponible.</p>}
                             >
                             </SingleInfoLayout>
 
@@ -217,7 +218,7 @@ const MainPersonView = ({ data }) => {
                                 status && status.state &&
                                     <SingleInfoLayout
                                         title="Statut de l'entité"
-                                        NAMessage={ status.state == 'Accepted' ? "Acceptée" : "En attente d'approbation"}>
+                                        NAMessage={ status.state == 'accepted' ? "Acceptée" : "En attente d'approbation"}>
                                     </SingleInfoLayout>
                             }
 
@@ -263,8 +264,8 @@ const MainPersonView = ({ data }) => {
                                     title={"Moyen de contact"}
                                     NAMessage={<p>Information non disponible</p>}
                                 >
-                                    <p>Tel : (819) 764-5692 <br/>
-                                        Email : mail@mail.com
+                                    <p>Tel : (123)-456-7890 <br/>
+                                        Courriel : mail@mail.com
                                     </p>
                                 </SingleInfoLayout>
 
@@ -272,8 +273,8 @@ const MainPersonView = ({ data }) => {
                                     title={"Adresse"}
                                     NAMessage={<p>Information non disponible</p>}
                                 >
-                                    <p>234 rue Larivière<br/>
-                                        Rouyn-Noranda, Qc
+                                    <p>123, rue Adresse<br/>
+                                        Ville, Code postal, Qc
                                         </p>
                                 </SingleInfoLayout>
 
@@ -283,10 +284,14 @@ const MainPersonView = ({ data }) => {
                                 >
                                     <Container>
                                         <ul className="row">
-                                            <li className={`col col-sm-auto ${styles["competency-tag"]}`}>Développement Web</li>
-                                            <li className={`col col-sm-auto ${styles["competency-tag"]}`}>SEO</li>
-                                            <li className={`col col-sm-auto ${styles["competency-tag"]}`}>Javascript</li>
-                                            <li className={`col col-sm-auto ${styles["competency-tag"]}`}>Design graphique</li>
+                                            {
+                                            occupations.length == 0 ?
+                                            <div>Aucune occupation associée</div>
+                                            :
+                                            occupations.map( (occ) => {
+                                                return <li key={"occupation-" + occ.occupation._id} className={`col col-sm-auto ${styles["competency-tag"]}`}>{occ.occupation.name}</li>
+                                            })
+                                            }
                                         </ul>
                                     </Container>
                                     

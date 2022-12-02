@@ -1,15 +1,11 @@
 import React, { useContext,useEffect } from 'react'
 import Router from 'next/router'
 
-
-//Validators
-import {VALIDATOR_REQUIRE, VALIDATOR_EMAIL} from '@/src/utils/validators'
-
 //Custom hooks
-import { useForm } from '@/src/hooks/form-hook'
 import { useHttpClient } from '@/src/hooks/http-hook'
 import { useSessionHook } from '@/auth/hooks/useSessionHook'
 import { useAuth } from '@/auth/context/auth-context'
+import { useFormUtils } from '@/src/hooks/useFormUtils/useFormUtils'
 
 //Form components
 import Input from '@/src/common/FormElements/Input/Input'
@@ -24,7 +20,7 @@ import styles from './Register.module.scss'
 const Register = () => {
 
     //State that hold the form data
-    const [formState, formTools] = useForm(
+    const { FormUI, submitRequest, formState, formTools } = useFormUtils(
 
         {
             username: {
@@ -47,13 +43,20 @@ const Register = () => {
                 value: '',
                 isValid: true
             },
-            name: {
+            firstName: {
+                value: '',
+                isValid: true
+            },
+            lastName: {
                 value: '',
                 isValid: true
             }
-        
-        }, 
-    false)
+        },
+        {callbackFunction: () => login({
+            "username": formState.inputs.username.value,
+            "password": formState.inputs.password.value
+        })}
+        )
 
     //Import message context 
     const msg = useContext(MessageContext);
@@ -101,54 +104,17 @@ const Register = () => {
                         "email": formState.inputs.email.value,
                         "password": formState.inputs.password.value,
                         "avatar": formState.inputs.avatar.value,
-                        "name": formState.inputs.name.value
+                        "firstName": formState.inputs.firstName.value,
+                        "lastName": formState.inputs.lastName.value
                     }
                 };
 
                 //Send the request with the specialized hook
-                const response = await sendRequest(
+                submitRequest(
                     "/register",
                     'POST',
-                    JSON.stringify(newUser),
-                    { 'Content-Type': 'application/json' }
-                )
-
-                /*
-                    Display the proper message relative to the api response
-                */
-            
-                //If positive
-                if(!response.error){
-
-                    /******
-                     *    
-                     *    WARNING 
-                     * 
-                     *    This is temporary, just to prevent the user from having to login after creating its account
-                     *    BUT IT IS REALLY NOT OPTIMISED
-                     * 
-                     *******/
-                    login({
-                        "username": formState.inputs.username.value,
-                        "password": formState.inputs.password.value
-                    })
-
-                    //Notify the user
-                    msg.addMessage({ 
-                        text: response.message,
-                        positive: true 
-                    })
-
-
-
-                //If negative
-                } else {                    
-                    msg.addMessage({ 
-                        text: response.message,
-                        positive: false 
-                    })
-                }
-
+                    newUser
+                );
 
             } else {
 
@@ -173,33 +139,50 @@ const Register = () => {
 
             { isLoading && <Spinner />}
 
-            <form className={`${styles["registration-form"]}`} onSubmit={submitHandler}>  
+            <form className={`${styles["registration-form"]} auth-form-container`} onSubmit={submitHandler}>
 
                 <h3 className="text-primary">Création de compte</h3>
-                
+                <FormUI />
+
                 <Input
                     name="username"
                     type="text"
                     label="Nom d'utilisateur"
                     placeholder="Visible par tous"
-                    validators={[VALIDATOR_REQUIRE()]}
-                    errorText="Veuillez entrer un nom d'utilisateur valide"
+                    validationRules={[
+                        {name: "REQUIRED"},
+                        {name: "TYPE_ALPHANUMERIC"},
+                        {name: "MAX_LENGTH", specification: 16},
+                        {name: "MIN_LENGTH", specification: 3}
+                    ]}
                     formTools={formTools}
                 />   
                 <Input
-                    name="name"
+                    name="firstName"
                     type="text"
-                    label="Prénom et nom"
-                    validators={[]}
-                    placeholder="Invisible aux usagers"
-                    errorText="Veuillez entrer un nom d'utilisateur valide"
+                    label="Prénom"
+                    validationRules={[
+                        {name: "REQUIRED"}
+                    ]}
+                    formTools={formTools}
+                /> 
+                <Input
+                    name="lastName"
+                    type="text"
+                    label="Nom"
+                    validationRules={[
+                        {name: "REQUIRED"}
+                    ]}
                     formTools={formTools}
                 /> 
                 <Input
                     name="email"
                     type="email"
                     label="Courriel"
-                    validators={[VALIDATOR_REQUIRE(), VALIDATOR_EMAIL()]}
+                    validationRules={[
+                        {name: "REQUIRED"},
+                        {name: "TYPE_EMAIL"}
+                    ]}
                     errorText="Veuillez entrer une adresse courriel valide"
                     formTools={formTools}
                 /> 
@@ -208,7 +191,10 @@ const Register = () => {
                     name="password"
                     type="password"
                     label="Mot de passe"
-                    validators={[VALIDATOR_REQUIRE()]}
+                    validationRules={[
+                        {name: "REQUIRED"},
+                        {name: "MIN_LENGTH", specification: 8}
+                    ]}
                     errorText="Veuillez entrer un mot de passe valide"
                     formTools={formTools}
                 /> 
@@ -217,7 +203,10 @@ const Register = () => {
                     name="password2"
                     type="password"
                     label="Confirmation du mot de passe "
-                    validators={[VALIDATOR_REQUIRE()]}
+                    validationRules={[
+                        {name: "REQUIRED"},
+                        {name: "MIN_LENGTH", specification: 8}
+                    ]}
                     errorText="Veuillez entrer un mot de passe valide"
                     formTools={formTools}
                 />   

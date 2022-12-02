@@ -51,8 +51,12 @@ MyApp.getInitialProps = async (context) => {
 
         if (session && session.user && session.user.token && session.user.token !== "") {
             //verify and set if the token is verified by the API
-            const serverVerificationResponse = await verifyToken(session.user.token);
-            session.user.tokenVerified = session.user.isLoggedIn = !serverVerificationResponse.error && serverVerificationResponse.data.tokenVerified;
+            try {
+                const serverVerificationResponse = await verifyToken(session.user.token);
+                session.user.tokenVerified = session.user.isLoggedIn = !serverVerificationResponse.error && serverVerificationResponse.data.tokenVerified;
+            } catch (error) {
+                console.log("verify token failed");
+            }
         }
 
         session.user = {
@@ -77,5 +81,4 @@ MyApp.getInitialProps = async (context) => {
 }
 
 //it isn't call in _app : noMyApp.getServerSideProps or I didn't declare it the good way.
-
 export default MyApp;

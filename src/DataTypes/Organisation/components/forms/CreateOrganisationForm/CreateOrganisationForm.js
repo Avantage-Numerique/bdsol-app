@@ -17,9 +17,6 @@ import {lang} from "@/src/common/Data/GlobalConstants";
 import {useAuth} from '@/auth/context/auth-context'
 import { MessageContext } from '@/src/common/UserNotifications/Message/Context/Message-Context'
 
-//Form validators
-import {VALIDATOR_REQUIRE} from '@/src/utils/validators'
-
 //Styling
 import styles from './CreateOrganisationForm.module.scss'
 import PersonRoleTemplate from '@/src/DataTypes/Person/Template/PersonRoleTemplate'
@@ -107,7 +104,7 @@ const CreateOrganisationForm = () => {
                     team: formState.inputs.team.value,
                     
                     "status": {
-                        "state": "Pending",
+                        "state": "pending",
                         "requestedBy": auth.user.id,
                         "lastModifiedBy": auth.user.id
                     }//Hardcoded status to send at creation (Temporary, until we moderate it with the API)
@@ -162,12 +159,9 @@ const CreateOrganisationForm = () => {
                 <Input
                     name="name"
                     label="Nom de l'organisation"
-                    tip={{
-                        header: "À noter",
-                        body: "Assurez-vous de bien écrire le nom de l'organisation afin de faciliter les recherches."
-                    }}
-                    validators={[VALIDATOR_REQUIRE()]}
-                    errorText="Cette information est requise"
+                    validationRules={[
+                        {name: "REQUIRED"}
+                    ]}
                     formTools={formTools}
                 />
 
@@ -181,8 +175,6 @@ const CreateOrganisationForm = () => {
                     name="url"
                     label="Hyperlien"
                     type="url"
-                    validators={[VALIDATOR_REQUIRE()]}
-                    errorText="Cette information est requise"
                     placeholder="Exemple : https://siteWeb.com/"
                     formTools={formTools}
                 />
@@ -190,6 +182,10 @@ const CreateOrganisationForm = () => {
                 <Input
                     name="contactPoint"
                     label="Information de contact"
+                    tip={{
+                        header: "À noter",
+                        body: "Cette information vise à offrir une option pour rejoindre un représentant de l'organisation."
+                    }}
                     placeholder="Adresse courriel, numéro de téléphone, etc..."
                     formTools={formTools}
                 />
