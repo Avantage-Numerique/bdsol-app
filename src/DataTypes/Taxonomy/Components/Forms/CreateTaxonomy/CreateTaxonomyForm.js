@@ -94,7 +94,7 @@ const CreateTaxonomyForm = ({name, category, positiveRequestActions}) => {
                 "description": formState.inputs.description.value,
                 /*"source": formState.inputs.source.value,*/
                 "status": {
-                    "state": "Pending",
+                    "state": "pending",
                     "requestedBy": auth.user.id,
                     "lastModifiedBy": auth.user.id,
                     "message": formState.inputs["status.message"].value

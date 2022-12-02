@@ -101,7 +101,7 @@ const CreateOrganisationForm = () => {
                     team: formState.inputs.team.value,
                     
                     "status": {
-                        "state": "Pending",
+                        "state": "pending",
                         "requestedBy": auth.user.id,
                         "lastModifiedBy": auth.user.id
                     }//Hardcoded status to send at creation (Temporary, until we moderate it with the API)
