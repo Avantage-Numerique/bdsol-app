@@ -20,14 +20,14 @@ $purple-lighter: lighten($purple-light, 12%);
 
 //Taxonomies colors
 $green-accepted: green;
-$yellow-pending: black;
-$red-rejected: black;
-$grey-deprecated: black;
-$occupations:black;
-$skills:black;
-$domains:black;
-$abilities:black;
-$general-tag:black;
+$yellow-pending: yellow;
+$red-rejected: red;
+$grey-deprecated: grey;
+$occupations:rgba(56, 208, 235, 0.647);
+$skills:rgba(56, 235, 137, 0.647);
+$domains:rgba(235, 56, 137, 0.647);
+$abilities:rgba(233, 165, 17, 0.647);
+$general-tag:rgba(148, 148, 148, 0.392);
 
 
 $grey: #bbbfd7;

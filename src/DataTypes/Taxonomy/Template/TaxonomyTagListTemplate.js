@@ -90,12 +90,12 @@ const TaxonomyTagListTemplate = ({name, formTools, ...props}) => {
                 {taxonomyList.length > 0 && taxonomyList.map( (selected, index) =>
                 
                     <li 
-                        key={index + '-tagItem-' + props.name}
-                        className={`${styles['tag']} ${props.tag ? styles[props.tag] : styles["generaltag"]}`} 
+                        key={selected._id + '-tagItem-' + props.name}
+                        className={`${styles['tag']} ${"bg-" + (props.tag ?? "generaltag")}`} 
                     >
                         <button className={`${styles['closeButton']}`} type="button" onClick={ () => removeEntity(selected)}>✖</button>
-                        <span className={`${styles['status'] && styles[selected.status.state]}`}>◉</span>
-                        <span>{selected.name}{console.log(selected)}</span>
+                        <span className={"text-"+ (selected.status.state ?? "general-tag")}>◉</span>
+                        <span>{selected.name}</span>
                     </li>
                 )}
             </ul>
