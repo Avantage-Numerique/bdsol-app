@@ -14,6 +14,18 @@ $red: #dd5c5c;  // Avantage numérique's red
 $purple-light: #c1c9ec;
 $purple-lighter: lighten($purple-light, 12%);
 
+//Taxonomies colors
+$green-accepted: green;
+$yellow-pending: black;
+$red-rejected: black;
+$grey-deprecated: black;
+$occupations:black;
+$skills:black;
+$domains:black;
+$abilities:black;
+$general-tag:black;
+
+
 $grey: #bbbfd7;
 $mild-dark: #606060; // Avantage numérique's input labels
 $dark: #292929;
@@ -36,14 +48,17 @@ $theme-colors:(
     "light": $light,
     "white":$white,
     "black":$black,
-    "accepted":$black,
-    "rejected":$black,
-    "pending":$black,
-    "deprecated":$black,
-    "occupations":$black,
-    "skills":$black,
-    "domains":$black,
-    "abilities":$black,
+
+    //Taxonomies
+    "accepted":$green-accepted,
+    "pending":$yellow-pending,
+    "rejected":$red-rejected,
+    "deprecated":$grey-deprecated,
+    "occupations":$occupations,
+    "skills":$skills,
+    "domains":$domains,
+    "abilities":$abilities,
+    "general-tag":$general-tag,
 );
 
 
