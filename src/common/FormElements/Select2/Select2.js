@@ -134,6 +134,15 @@ const Select2 = ({name, formTools, children, single, ...props}) => {
         formRequestData("")                     //Reset the input text stored in the state
     }
 
+    //Handle ENTER to simulate a button press (add value)
+    const handleKeypress = (e) => {
+        //If ENTER, add value
+        console.log(e)
+        if (e.charCode === 13) {
+            addValueToSelectedItem();
+        }
+    };
+
     if( selectList &&
         selectList.data)
     return (
@@ -178,6 +187,7 @@ const Select2 = ({name, formTools, children, single, ...props}) => {
                         `}
                         ref={selectTagRef}
                         onChange={(e) => {formRequestData(e.target.value)}}
+                        onKeyPress={ (e) =>handleKeypress(e)}
                     />
 
                     <div className="w-100 d-flex">
