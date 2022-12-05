@@ -236,7 +236,7 @@ const HomePage = ({}) => {
                                         color="primary"
                                         size="slim"
                                         disabled={!auth.user.isLoggedIn}
-                                        href="/contribuer/person"
+                                        href="/contribuer/personne"
                                     >+</Button>
                                 </div>
 

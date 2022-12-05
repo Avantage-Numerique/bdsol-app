@@ -1,7 +1,7 @@
 /*
 *
 *       Styling for the page createPerson 
-*       /contribuer/person
+*       /contribuer/personne
 *
 */
 
@@ -23,22 +23,22 @@
 
     header {
 
-        h1 {  margin: 0px; }
+        h1 {  margin: 0; }
         h4 { 
             
-            margin: 0px 0px 1rem 0px; 
+            margin: 0 0 1rem 0;
             color: rgba(83, 83, 83, 0.651);
 
         }
 
-        padding: 10vh 0px;
+        padding: 10vh 0;
 
     }
 
     section {
         position: relative;            /* To determine the spinner position */
         background-color: rgba(193, 201, 236, 0.178);
-        padding: 5vh 0px;
+        padding: 5vh 0;
     }
 
 
