@@ -10,6 +10,11 @@
 
 }
 
+
+body {
+  overflow-x:hidden;
+}
+
 .cursorPointer { cursor: pointer; }
 
 /**
@@ -20,7 +25,7 @@ li { list-style-type: none;} /* TODO should use Bootstrap's "list-unstyled" clas
 /*
   Remove automatic padding
 */
-ul {padding: 0px;} /* TODO switch to Bootstrap's vertical nav component */
+ul {padding: 0;} /* TODO switch to Bootstrap's vertical nav component */
 
 
 /*

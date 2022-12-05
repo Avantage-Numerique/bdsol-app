@@ -8,11 +8,6 @@ import UpdatePersonForm from '@/DataTypes/Person/Components/Forms/update/UpdateP
 
 //Styling
 import styles from './MainPersonView.module.scss'
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import { useEffect } from 'react'
-import { sendExternalApiRequest } from '@/src/hooks/http-hook'
 
 const SingleInfoLayout = ({ title, NAMessage, children }) => {
 
@@ -82,12 +77,12 @@ const MainPersonView = ({ data }) => {
                 </figure>
 
                 {/* To menu of the page */}
-                <Container className={`${styles["person-view__top-menu"]}`}> 
-                    <Row className="justify-content-between mb-4">
-                        <Col sm={6} lg={8} className="justify-content-end">
+                <div className={`container ${styles["person-view__top-menu"]}`}>
+                    <div className="row justify-content-between mb-4">
+                        <div className="col-6 col-lg-8 justify-content-end">
                             <a className="text-white" href="/"> &#8629; Retour </a>
-                        </Col>
-                        <Col sm={"auto"} lg={4}>
+                        </div>
+                        <div className={"col-auto col-lg-4"}>
                             <Button onClick={() => setModal(prev => ({...prev, display: true}))}>
                                 Proposer une modification
                             </Button>
@@ -105,24 +100,20 @@ const MainPersonView = ({ data }) => {
                                 </form>
                             </div>
                             */}
-                        </Col>
-                    </Row>
-                </Container>
+                        </div>
+                    </div>
+                </div>
 
                 {/* Header's content */}
                 <section className={`${styles["person-view__header__content"]}`}>
-                    <Container className={`${styles["headers-content__main-section"]}`}>      
-                        <Row>
-                            <Col sm={6} lg={8}>
+                    <div className={`container ${styles["headers-content__main-section"]}`}>
+                        <div className={'row'}>
+                            <div className={"col-6 col-lg-8"}>
 
                                 <h2 className="mb-2">{firstName} {lastName}</h2>
-                                <p> {nickname} </p>
+                                <p>{nickname}</p>
 
-                                {/*
-                                *
-                                *      Quick informations
-                                * 
-                                */}
+                                {/* Quick informations */}
                                 <div className={`${styles["quick-section"]}`}>
 
                                     <div className={`${styles["quick-section__single-info"]}`}>
@@ -134,20 +125,15 @@ const MainPersonView = ({ data }) => {
                                     </div>
 
                                 </div>
-                            </Col>
-                            <Col sm={"auto"} lg={4}>
-                                <aside>
+                            </div>
+                            <aside className={"col-auto col-lg-4"}>
                                     <div>
                                         <p>Ceci est une proposition d'appel à l'action. Il reste donc à déterminer s'il est pertinent et quoi mettre à l'intérieur.</p>
                                         <Button small>Appel à l'action</Button>
                                     </div>
-                                </aside>
-                            </Col>
-
-                        
-
-                        </Row>
-                    </Container>
+                            </aside>
+                        </div>
+                    </div>
 
                     {/* Profile picture section */}
                     <div className={`${styles["headers-content__bottom-row"]}`}>
@@ -168,9 +154,9 @@ const MainPersonView = ({ data }) => {
             * 
             */}
             <section className={`${styles["person-view__main-section"]}`}>
-                <container>
-                    <Row>
-                        <Col sm={6} lg={8}>
+                <div className={"container"}>
+                    <div className={"row"}>
+                        <div className={"col-6 col-lg-8"} sm={6} lg={8}>
     
                             <SingleInfoLayout 
                                 title={"Présentation"}
@@ -217,52 +203,46 @@ const MainPersonView = ({ data }) => {
                                 </SingleInfoLayout>
                             }
 
-                        </Col>
-                        <Col sm={"auto"} lg={4}>
-                    
-                            <aside>
+                        </div>
+                        <aside className={"col-auto col-lg-4"}>
+                            <SingleInfoLayout
+                                title={"Moyen de contact"}
+                                NAMessage={<p>Information non disponible</p>}
+                            >
+                                <p>Tel : (123)-456-7890 <br/>
+                                    Courriel : mail@mail.com
+                                </p>
+                            </SingleInfoLayout>
 
-                                <SingleInfoLayout 
-                                    title={"Moyen de contact"}
-                                    NAMessage={<p>Information non disponible</p>}
-                                >
-                                    <p>Tel : (123)-456-7890 <br/>
-                                        Courriel : mail@mail.com
+                            <SingleInfoLayout
+                                title={"Adresse"}
+                                NAMessage={<p>Information non disponible</p>}
+                            >
+                                <p>123, rue Adresse<br/>
+                                    Ville, Code postal, Qc
                                     </p>
-                                </SingleInfoLayout>
+                            </SingleInfoLayout>
 
-                                <SingleInfoLayout 
-                                    title={"Adresse"}
-                                    NAMessage={<p>Information non disponible</p>}
-                                >
-                                    <p>123, rue Adresse<br/>
-                                        Ville, Code postal, Qc
-                                        </p>
-                                </SingleInfoLayout>
-
-                                <SingleInfoLayout 
-                                    title={"Comptétences"}
-                                    NAMessage={<p>Information non disponible</p>}
-                                >
-                                    <Container>
-                                        <ul className="row">
-                                            {
-                                            occupations.length == 0 ?
+                            <SingleInfoLayout
+                                title={"Comptétences"}
+                                NAMessage={<p>Information non disponible</p>}
+                            >
+                                <div className={"container"}>
+                                    <ul className="row">
+                                        { occupations.length == 0 ?
                                             <div>Aucune occupation associée</div>
                                             :
                                             occupations.map( (occ) => {
                                                 return <li key={"occupation-" + occ.occupation._id} className={`col col-sm-auto ${styles["competency-tag"]}`}>{occ.occupation.name}</li>
                                             })
-                                            }
-                                        </ul>
-                                    </Container>
-                                    
-                                </SingleInfoLayout>
+                                        }
+                                    </ul>
+                                </div>
 
-                            </aside>
-                        </Col>
-                    </Row>
-                </container>
+                            </SingleInfoLayout>
+                        </aside>
+                    </div>
+                </div>
 
 
             </section>

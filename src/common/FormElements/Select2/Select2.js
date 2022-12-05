@@ -13,9 +13,9 @@ import useDebounce from '@/src/hooks/useDebounce'
 
 //Styling
 import styles from './Select2.module.scss'
-import Button from 'react-bootstrap/Button'
 
 import { useAuth } from '@/src/authentification/context/auth-context'
+import Button from "@/common/FormElements/Buttons/Button/Button";
 
 /*
     Temporary hardcoded value to prevent making switch cases
@@ -266,11 +266,10 @@ const Select2 = ({name, formTools, ...props}) => {
                 `}>
 
                     <Button 
-                        type="button" 
-                        slim="true" 
+                        type="button"
                         disabled={selectRequest.data[props.searchField] ? false : true} 
                         onClick={addValueToSelectedItem}
-                        className="m-1 rounded-1">
+                        className="btn-sm m-1 rounded-1">
                             +
                     </Button>
 

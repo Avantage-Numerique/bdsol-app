@@ -17,9 +17,6 @@ import { useAuth } from "@/src/authentification/context/auth-context";
 
 //Styling
 import styles from './CreatePersonForm.module.scss'
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
 
 const CreatePersonForm = () => {
     const auth = useAuth();
@@ -164,14 +161,16 @@ const CreatePersonForm = () => {
                     coloredBackground
                     darkColorButton
                 >
-                    <Container>
-                        <Row>
-                            <Col>                    
+                    <div className={"container"}>
+                        <div className={"row"}>
+                            <div className={"col"}>
                                 <p>Le nouvel élément de taxonomie que vous ajoutez ici pourra ensuite être directement intégrée à votre formulaire.</p>
-                            </Col>
-                            <Col className="px-0" sm={"auto"}><Button onClick={() => {setModal(prev => ({...prev, display: false}))}}>Fermer</Button></Col>
-                        </Row>
-                    </Container>
+                            </div>
+                            <div className="col-auto px-0">
+                                <Button onClick={() => {setModal(prev => ({...prev, display: false}))}}>Fermer</Button>
+                            </div>
+                        </div>
+                    </div>
                     <div className={`${styles["hor-line"]}`}></div>
                     <CreateTaxonomyForm 
                         name={modal.enteredValues.name ? modal.enteredValues.name : ''}   //Prefilled value

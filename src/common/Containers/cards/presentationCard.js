@@ -1,5 +1,4 @@
 import React from 'react';
-import getConfig from 'next/config';
 
 //Components
 import SanitizedInnerHtml from '@/src/utils/SanitizedInnerHtml';
@@ -8,6 +7,7 @@ import Button from '@/common/FormElements/Buttons/Button/Button'
 //styling
 import styles from './presentationCard.module.scss';
 import getConfig from 'next/config';
+import {lang} from "@/common/Data/GlobalConstants";
 
 const { publicRuntimeConfig } = getConfig();
 /*
@@ -36,37 +36,37 @@ const PresentationCard = ({header, data}) => {
     } = data
 
     const showFullDescription = false;
+    const singleUrl = '/persons/'+slug;
+    const defaultPersonAvatar = '/general_images/Dennis_Nedry.webp';
+    const defaultOrgAvatar = '/general_images/Jurassic_Park_Main_Gate.jpg';
 
     return (
+        <article className={`bg-white ${styles["card"]}`}>
 
-        <article className={` bg-white  ${styles["card"]} `}>
-
-            <div className="container justify-content-between">
+            <div className="container">
 
                 <header>
 
-                    <div className={`row py-2 ${styles["card__header-container"]}`}>
+                    <div className={`d-flex justify-content-between align-items-center py-2 ${styles["card__header-container"]}`}>
 
                         {/* Type of data displayed in the header */}
-                        <div className="col align-self-center">
+                        <div className="">
                             <h5 className="m-0">{ header }</h5>
                         </div>
 
                         {/* Redirection link */}
-                        <div className="col d-flex justify-content-end">
-                            <Button disabled={(header === "Organisation")} href={`persons/${slug}`} small >Voir</Button>
+                        <div className="">
+                            <Button disabled={(header === "Organisation")} href={`${singleUrl}`} small >{lang.see}</Button>
                         </div>
-
                     </div>
                 </header>
 
                 <div className={`row ${styles["card__img-container"]}`}>
-
-                        {/* Temporary shape */}
+                        {/* Temporary */}
                         { header === "Organisation" &&
                             <img
                                 className={`px-0 ${styles["card__img-container__img"]}`}
-                                src="/general_images/Jurassic_Park_Main_Gate.jpg"
+                                src={defaultOrgAvatar}
                                 alt="Organisation"
                             />
                         }
@@ -74,11 +74,10 @@ const PresentationCard = ({header, data}) => {
                         { header !== "Organisation" &&
                             <img
                                 className={`px-0 ${styles["card__img-container__img"]}`}
-                                src="/general_images/Dennis_Nedry.webp"
+                                src={defaultPersonAvatar}
                                 alt="Photo de putin qui chevauche un ours"
                             />
                         }
-
                 </div>
 
 
@@ -104,38 +103,38 @@ const PresentationCard = ({header, data}) => {
 
                     {/**********  URL ************/}
                     { url &&
-                    <Row xs={"auto"} className={`${styles["card__content__single-info"]}`}>
-                        <Col xm={3} className={`fw-semibold`}>
-                            <p>Url :</p>
-                        </Col>
-                        <Col>
-                            <p className="text-truncate"> {url}</p>
-                        </Col>
-                    </Row>
+                    <div className={`row ${styles["card__content__single-info"]}`}>
+                        <div className={`col-2 fw-semibold`}>
+                            <SanitizedInnerHtml tag={"p"}>{lang.urlLabel}</SanitizedInnerHtml>
+                        </div>
+                        <div className={`col`}>
+                            <p className="text-truncate">{url}</p>
+                        </div>
+                    </div>
                     }
 
                     {/**********  contactPoint ************/}
                     { contactPoint &&
-                    <Row xs={"auto"} className={`${styles["card__content__single-info"]}`}>
-                        <Col xm={3} className={`fw-semibold`}>
-                            <p>Contact :</p>
-                        </Col>
-                        <Col>
+                    <div className={`row ${styles["card__content__single-info"]}`}>
+                        <div className={`col-2 fw-semibold`}>
+                            <SanitizedInnerHtml tag={"p"}>{lang.contactLabel}</SanitizedInnerHtml>
+                        </div>
+                        <div>
                             <p className="text-truncate">{contactPoint}</p>
-                        </Col>
-                    </Row>
+                        </div>
+                    </div>
                     }
 
                     {/**********  username  ************/}
                     { username &&
-                    <Row xs={"auto"} className={`${styles["card__content__single-info"]}`}>
-                        <Col xm={3} className={`fw-semibold`}>
-                            <p>Surnom :</p>
-                        </Col>
-                        <Col>
+                    <div className={`row ${styles["card__content__single-info"]}`}>
+                        <div className={`col-2 fw-semibold`}>
+                            <SanitizedInnerHtml tag={"p"}>{lang.nicknameLabel}</SanitizedInnerHtml>
+                        </div>
+                        <div>
                             <p className="text-truncate">{username}</p>
-                        </Col>
-                    </Row>
+                        </div>
+                    </div>
                     }
                 </section>
             </div>

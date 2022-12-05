@@ -4,6 +4,7 @@ export const base = {
     //  Common
 
     "historyBack": "Retour à la page précédente",
+    "see": "Voir",
 
     // App
 
@@ -61,6 +62,12 @@ export const base = {
     "Personnes": "Personnes",
     "personne": "personne",
     "personnes": "personnes",
+    "url": "url",
+    "urlLabel": "Url&nbsp;:&nbsp;",
+    "contact": "contact",
+    "contactLabel": "Contact&nbsp;:&nbsp;",
+    "nickname": "surnom",
+    "nicknameLabel": "Surnom&nbsp;:&nbsp;",
 
     //  Organisations
 
