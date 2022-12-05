@@ -67,6 +67,7 @@ const Select2 = ({name, formTools, ...props}) => {
     const currentState = formState.inputs[name].value;
 
     const updateValue = value => {
+        console.log(value)
         inputHandler(
             name,
             value,
@@ -147,11 +148,41 @@ const Select2 = ({name, formTools, ...props}) => {
                         //Add the newly fetch entity to the selectedEntities so it can be displayed
                         editedSelectedEntities.push(entityData.data)
                     }     
+                }                
+            }
+        
+        //Finaly, we can update the local state with the new value
+        setSelectedEntities(editedSelectedEntities)
+    }
+
+    //Standardize the return values stored in the state to make such they have the right shape for the server. 
+    //This is in the case the form has been prefilled with the right data but wrong shape.
+    const standardizeCurrentState = () => {
+
+        let isModified = false;
+        let newStateToReturn = [...currentState];
+/*
+        newStateToReturn.forEach((obj, i) => {
+            if( obj._id ||
+                (typeof obj[dictionnary[name]] == "object" )
+            ){
+                isModified = true;
+                newStateToReturn[i] = {
+                    occupation: obj[dictionnary[name]]._id,
+                    status: {
+                        state: obj.status.state,
+                        requestedBy: obj.status.requestedBy,
+                        lastModifiedBy:obj.status.lastModifiedBy
+                    }
                 }
             }
-        //Finaly, we can update the local state with the new value
-        
-        setSelectedEntities(editedSelectedEntities)
+        })
+
+        */
+
+        console.log("state to return", newStateToReturn);
+        if(isModified)
+            updateValue(newStateToReturn)
     }
 
     //Update the selectedEntities whenever the form state change.
@@ -159,6 +190,7 @@ const Select2 = ({name, formTools, ...props}) => {
     useEffect(() => {
         //call the function
         matchLocalToFormState()
+        //standardizeCurrentState()
     }, [currentState])
 
     //Called whenever the user enter or modify a value into the field
