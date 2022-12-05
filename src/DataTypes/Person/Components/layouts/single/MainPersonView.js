@@ -8,6 +8,8 @@ import UpdatePersonForm from '@/DataTypes/Person/Components/Forms/update/UpdateP
 
 //Styling
 import styles from './MainPersonView.module.scss'
+import { useEffect } from 'react'
+import { sendExternalApiRequest } from '@/src/hooks/http-hook'
 
 const SingleInfoLayout = ({ title, NAMessage, children }) => {
 
@@ -34,8 +36,26 @@ const MainPersonView = ({ data }) => {
         createdAt,
         updatedAt,
         status
-    } = data
+    } = data;
+
+    const {sendRequest} = useHttpClient();
     
+    //State that contains the organisations that the person is part of
+    const [memberOfOrganisationList, setMemberOfOrganisationList] = useState([]);
+    useEffect( () => {
+        async function fetchMemberOf() {
+            const response = await sendRequest(
+                ("/organisations/list"),
+                'POST',
+                JSON.stringify({ data: { "team.member" : _id }})
+            );
+            setMemberOfOrganisationList(response.data)
+        }
+        fetchMemberOf()
+    }, [])
+
+    useEffect( () => console.log("memberOf", memberOfOrganisationList, memberOfOrganisationList.length != 0), [memberOfOrganisationList])
+
     /*
      *    
         Modal State
@@ -111,7 +131,7 @@ const MainPersonView = ({ data }) => {
                             <div className={"col-6 col-lg-8"}>
 
                                 <h2 className="mb-2">{firstName} {lastName}</h2>
-                                <p>{nickname}</p>
+                                <p> {nickname} </p>
 
                                 {/* Quick informations */}
                                 <div className={`${styles["quick-section"]}`}>
@@ -181,10 +201,10 @@ const MainPersonView = ({ data }) => {
                             </SingleInfoLayout>
 
                             {
-                                status && status.state && status.state &&
+                                status && status.state &&
                                     <SingleInfoLayout
                                         title="Statut de l'entité"
-                                        NAMessage={ status.state == 'Accepted' ? "Acceptée" : "En attente d'approbation"}>
+                                        NAMessage={ status.state == 'accepted' ? "Acceptée" : "En attente d'approbation"}>
                                     </SingleInfoLayout>
                             }
 

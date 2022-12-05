@@ -1,5 +1,6 @@
 /*
     Overrides default variables of React-Bootstrap to fit the custom style
+    01Hub - 08/08/2022
 */
 
 //colors
@@ -7,12 +8,27 @@ $blue: #455ae6; // Avantage numérique's mainBlue (and blue1)
 $blue2: #4d64ff; // Avantage numérique's mainBlue (and blue2)
 $blue3: #4dc4ff; // Avantage numérique's mainBlue (and blue3)
 $blue4: #5f71ea; // Avantage numérique's mainBlue (and blue4)
+$green1:  #adc9b0; //Light green
+$green2:  #7ba076; 
+$green3:  #364637; //Darkgreen
 $pink: #c881ca;
 $pink-100: lighten($pink, 80%);
 $red: #dd5c5c;  // Avantage numérique's red
 $red-ligth: #ff9e9e;  // Avantage numérique's red
 $purple-light: #b2b2eb;
 $purple-lighter: lighten($purple-light, 12%);
+
+//Taxonomies colors
+$green-accepted: green;
+$yellow-pending: yellow;
+$red-rejected: red;
+$grey-deprecated: grey;
+$occupations:rgba(56, 208, 235, 0.647);
+$skills:rgba(56, 235, 137, 0.647);
+$domains:rgba(235, 56, 137, 0.647);
+$abilities:rgba(233, 165, 17, 0.647);
+$general-tag:rgba(148, 148, 148, 0.392);
+
 
 $grey: #bbbfd7;
 $mild-dark: #606060; // Avantage numérique's input labels
@@ -26,6 +42,7 @@ $selected-input: #455ae6;
 
 $theme-colors:(
     "primary": $blue,
+    "primaryligth": $purple-light,
     "secondary": $grey,
     "purplelight": $purple-light,
     "purplelighter": $purple-lighter,
@@ -39,6 +56,22 @@ $theme-colors:(
     "light": $light,
     "white":$white,
     "black":$black,
+
+    "success": $green2,
+    "successlighter": $green1,
+    "successDarker": $green3,
+    
+    //Taxonomies
+    "accepted":$green-accepted,
+    "pending":$yellow-pending,
+    "rejected":$red-rejected,
+    "deprecated":$grey-deprecated,
+    "occupations":$occupations,
+    "skills":$skills,
+    "domains":$domains,
+    "abilities":$abilities,
+    "general-tag":$general-tag,
+    
 );
 
 
@@ -57,12 +90,12 @@ $headings-font-family: 'SuisseIntl','Helvetica Neue','Helvetica','Arial',sans-se
 $headings-line-height: 1.1;
 $headings-font-weight: 600;
 
-$h1-font-size: min(10vw, 4rem) !default; //older brower 4rem              ///original      $font-size-base * 2.5 !default;
-$h2-font-size: min(8vw, 2.5rem) !default;
-$h3-font-size: 1.75rem !default;
-$h4-font-size: 1.1rem !default;
-$h5-font-size: 1rem !default;
-$h6-font-size: 0.8rem !default; //this is smaller than regular text
+$h1-font-size:                min(10vw, 4rem) !default; //older brower 4rem              ///original      $font-size-base * 2.5 !default;
+$h2-font-size:                min(8vw, 2.5rem) !default;
+$h3-font-size:                1.75rem !default;
+$h4-font-size:                1.1rem !default;
+$h5-font-size:                1rem !default;
+$h6-font-size:                0.8rem !default; //this is smaller than regular text
 
 
 $link-decoration: none;
@@ -83,22 +116,4 @@ $btn-padding-y-lg: 2rem;
 $btn-font-size-lg: 1rem;
 $btn-border-radius-lg: 4px;
 
-@each $color, $value in $theme-colors {
-    // Overwrite some outline colors depending on defined $theme-colors
-    .btn.btn-custom-outline-#{$color} {
-        --bs-btn-bg: #{$value};
-        --bs-btn-hover-color: #{$value};
-        --bs-btn-active-color: #{$value};
-    }
-}
 
-@each $color, $value in $theme-colors {
-    .btn.btn-arrow-svg-#{$color} svg {
-        fill: #{$value};
-    }
-
-    .btn.btn-arrow-svg-custom-outline-hover-#{$color}:hover svg,
-    .btn.btn-arrow-svg-custom-outline-hover-#{$color}:active svg{
-        fill: #{$value};
-    }
-}

@@ -196,7 +196,7 @@ const HomePage = ({}) => {
                                                     <div className="col g-3" key={elem._id + "-" + elem.slug}>
                                                         <PresentationCard
                                                             key={elem._id}
-                                                            header={elem.dataType === "person" ? "Personne" : "Organisation"} /* VERY VERY VERY VERY VERY TEMPORARY */
+                                                            header={elem.type}
                                                             data={elem}
                                                         />
                                                     </div>
