@@ -1,6 +1,6 @@
 
 //Components
-import Button from "@/src/common/FormElements/Buttons/Button/Button"
+import Button from "@/src/common/FormElements/Button/Button"
 
 //Context
 import {useAuth} from '@/auth/context/auth-context'

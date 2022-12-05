@@ -2,14 +2,14 @@ import { useState } from 'react'
 
 //Components
 import SanitizedInnerHtml from '@/src/utils/SanitizedInnerHtml'
-import Button from '@/src/common/FormElements/Buttons/Button/Button'
+import Button from '@/src/common/FormElements/Button/Button'
 import Modal from '@/src/common/Containers/Modal/Modal'
 import UpdatePersonForm from '@/DataTypes/Person/Components/Forms/update/UpdatePersonForm'
+import { useEffect } from 'react'
+import {useHttpClient} from '@/src/hooks/http-hook';
 
 //Styling
 import styles from './MainPersonView.module.scss'
-import { useEffect } from 'react'
-import { sendExternalApiRequest } from '@/src/hooks/http-hook'
 
 const SingleInfoLayout = ({ title, NAMessage, children }) => {
 

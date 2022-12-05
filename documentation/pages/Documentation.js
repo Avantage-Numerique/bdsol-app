@@ -5,7 +5,7 @@ import Head from 'next/head'
 
 import Class from '../components/Class/Class'
 import styles from './Documentation.module.scss'
-import ArrowButton from '../../src/common/FormElements/Buttons/ArrowButton/ArrowButton'
+import ArrowButton from '../../src/common/FormElements/ArrowButton/ArrowButton'
 
 //import jsonFile from '../doc/exemples.json'   Not used for now since, for development purposes, a mock api is used
 

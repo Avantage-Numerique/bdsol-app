@@ -10,6 +10,7 @@
             "@/DataTypes/*": ["src/DataTypes/*"],
             "@/public/*": ["./public"],
             "@/common/*": ["./src/common/*"],
+            "@/FormElements/*": ["./src/common/FormElements/*"],
             "@/*": ["./*"]
         }
     }

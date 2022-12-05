@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { useFormUtils } from '@/src/hooks/useFormUtils/useFormUtils'
 
 //Components
-import Button from '@/src/common/FormElements/Buttons/Button/Button'
+import Button from '@/src/common/FormElements/Button/Button'
 import Input from '@/src/common/FormElements/Input/Input'
 import RichTextarea from '@/src/common/FormElements/RichTextArea/RichTextarea'
 import Select2 from '@/src/common/FormElements/Select2/Select2'

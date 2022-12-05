@@ -48,8 +48,8 @@ export const base = {
 
     // CreatePersonForm.js
 
-    "formPersonSubtitle": "Super formulaire",
-    "formPersonInstructions": "Ajoutez ici une entité <code>Personne</code> afin de représenter un artiste, artisan ou professionnel de tout domaine que vous jugez pertinent à cette base de données.",
+    "formPersonSubtitle": "Ajoutez ici une entité <code>Personne</code>, afin de représenter un artiste, artisan ou professionnel de tout domaine que vous jugez pertinent à cette base de données.",
+    "formPersonInstructions": "",
 
     //  CreateOrganisationForm.js
 
@@ -82,6 +82,7 @@ export const base = {
     "Taxonomies": "Taxonomies",
     "taxonomy": "taxonomie",
     "taxonomies": "taxonomies",
+    "taxonomyExplications": "Une taxonomie sert à classifier dans un système ordonné les relations entre les choses. Ajoutez ici une taxonomie pour permettre à une entité d'être relié à cette taxonomie. Par exemple, lier une <strong>personne</strong> à une <strong>occupation</strong> ou une <strong>aptitude</strong> et lier une <strong>organisation</strong> à une <strong>offre de service</strong> et bien d'autre.",
 
     //  Occupations
 

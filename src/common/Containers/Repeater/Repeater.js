@@ -3,7 +3,7 @@ import React from "react";
 import { useEffect, useState, useRef } from "react";
 
 //Component
-import Button from "../../FormElements/Buttons/Button/Button";
+import Button from "../../FormElements/Button/Button";
 
 /*
 Props :

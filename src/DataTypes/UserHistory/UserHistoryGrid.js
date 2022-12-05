@@ -7,7 +7,7 @@ import {useAuth} from '@/src/authentification/context/auth-context'
 
 //Styling
 import styles from './UserHistoryGrid.module.scss'
-import Button from "@/src/common/FormElements/Buttons/Button/Button";
+import Button from "@/src/common/FormElements/Button/Button";
 
 
 const UserHistoryGrid = () => {

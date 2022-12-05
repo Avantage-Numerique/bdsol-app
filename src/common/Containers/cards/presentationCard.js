@@ -2,7 +2,7 @@ import React from 'react';
 
 //Components
 import SanitizedInnerHtml from '@/src/utils/SanitizedInnerHtml';
-import Button from '@/common/FormElements/Buttons/Button/Button'
+import Button from '@/common/FormElements/Button/Button'
 
 //styling
 import styles from './presentationCard.module.scss';

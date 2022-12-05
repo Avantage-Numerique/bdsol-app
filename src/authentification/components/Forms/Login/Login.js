@@ -14,7 +14,7 @@ import { useFormUtils } from '@/src/hooks/useFormUtils/useFormUtils'
 
 //Form components
 import Input from '@/src/common/FormElements/Input/Input';
-import Button from '@/src/common/FormElements/Buttons/Button/Button';
+import Button from '@/src/common/FormElements/Button/Button';
 import Spinner from '@/src/common/widgets/spinner/Spinner';
 
 //Styling

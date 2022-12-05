@@ -4,7 +4,7 @@ import DOMPurify from 'isomorphic-dompurify';
 import Head from 'next/head';
 
 //Components
-import Button from '@/src/common/FormElements/Buttons/Button/Button'
+import Button from '@/src/common/FormElements/Button/Button'
 import PresentationCard from '@/src/common/Containers/cards/presentationCard'
 import Spinner from '@/src/common/widgets/spinner/Spinner'
 

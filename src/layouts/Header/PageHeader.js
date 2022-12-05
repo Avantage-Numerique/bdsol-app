@@ -3,7 +3,7 @@ import React from "react";
 
 import SanitizedInnerHtml from "@/src/utils/SanitizedInnerHtml";
 
-import Button from "@/src/common/FormElements/Buttons/Button/Button"
+import Button from "@/src/common/FormElements/Button/Button"
 
 import styles from './PageHeader.module.scss';
 
@@ -47,7 +47,7 @@ const PageHeader = (props) => {
                         </div>
                         
                         {props.subTitle &&
-                            <h3 className={subtitleColor}>{props.subTitle}</h3>
+                            <h3 className={subtitleColor} dangerouslySetInnerHTML={{ __html: props.subTitle}}></h3>
                         }
                         
                         {props.description &&

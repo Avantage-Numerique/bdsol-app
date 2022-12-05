@@ -6,7 +6,7 @@
 */
 
 import ClassInfos from '@/documentation/components/ClassInfos/ClassInfos';
-import ArrowButton from '@/src/common/FormElements/Buttons/ArrowButton/ArrowButton';
+import ArrowButton from '@/src/common/FormElements/ArrowButton/ArrowButton';
 import styles from './Class.module.scss';
 
 const Class = ( { data, onclick, active, globalData} ) => {

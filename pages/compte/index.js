@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 
 //Components
 import UserHistoryGrid from '@/src/DataTypes/UserHistory/UserHistoryGrid';
-import Button from '@/src/common/FormElements/Buttons/Button/Button';
+import Button from '@/src/common/FormElements/Button/Button';
 
 //Hooks
 import {useSessionHook} from '@/auth/hooks/useSessionHook';
@@ -35,15 +35,15 @@ const accountPage = ({ user }) => {
                         {user && (
                             <div className={"side-menu"}>
                                 <div className={`${styles["user-card"]}`}>
-                                    <div class="d-flex align-items-center">
-                                        <div class="flex-shrink-0">
+                                    <div className="d-flex align-items-center">
+                                        <div className="flex-shrink-0">
                                         {(user.avatar === undefined || user.avatar === null || user.avatar.toString() === "") ?
                                                 <img src="https://freesvg.org/img/1389952697.png" alt="Aucune image de profil" width="80" height="80"/>
                                                 :
                                                 <img src={user.avatar} alt="Ton avatar" width="80" height="80"/>
                                             }
                                         </div>
-                                        <div class="flex-grow-1 ms-3">
+                                        <div className="flex-grow-1 ms-3">
                                             <h3>{user.name}</h3>
                                             <div>{user.username}</div>
                                         </div>

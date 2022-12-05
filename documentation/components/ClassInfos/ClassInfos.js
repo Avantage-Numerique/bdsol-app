@@ -10,7 +10,7 @@ import React, { useState } from 'react';
 import styles from './ClassInfos.module.scss';
 import Property from '../Property/Property';
 import LinkedClass from '../LinkedClass/LinkedClass';
-import Button from '../../../src/common/FormElements/Buttons/Button/Button'
+import Button from '@/FormElements/Button/Button'
 
 
 const ClassInfos = ( {data, active, globalData} ) => {

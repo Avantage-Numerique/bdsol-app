@@ -4,7 +4,7 @@
     V.P.R - created: 15/10/2021
 
 */
-import React, { useState } from 'react';
+import React from 'react';
 
 import styles from './hamburgerButton.module.scss'
 

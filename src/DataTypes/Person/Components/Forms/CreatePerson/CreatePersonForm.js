@@ -4,10 +4,10 @@ import React, { useState } from 'react'
 import { useFormUtils } from '@/src/hooks/useFormUtils/useFormUtils'
 
 //Components
-import Button from '@/src/common/FormElements/Buttons/Button/Button'
-import Input from '@/src/common/FormElements/Input/Input'
-import RichTextarea from '@/src/common/FormElements/RichTextArea/RichTextarea'
-import Select2 from '@/src/common/FormElements/Select2/Select2'
+import Button from '@/FormElements/Button/Button'
+import Input from '@/FormElements/Input/Input'
+import RichTextarea from '@/FormElements/RichTextArea/RichTextarea'
+import Select2 from '@/FormElements/Select2/Select2'
 import Modal from '@/src/common/Containers/Modal/Modal'
 import CreateTaxonomyForm from '@/src/DataTypes/Taxonomy/Components/Forms/CreateTaxonomy/CreateTaxonomyForm'
 import {lang} from "@/src/common/Data/GlobalConstants";

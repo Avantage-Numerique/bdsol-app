@@ -13,7 +13,7 @@ import useDebounce from '@/src/hooks/useDebounce'
 
 //Styling
 import styles from './Select2.module.scss'
-import Button from 'react-bootstrap/Button'
+import Button from '@/FormElements/Button/Button';
 
 /*
 Props :

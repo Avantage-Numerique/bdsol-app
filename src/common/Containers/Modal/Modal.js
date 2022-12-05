@@ -14,7 +14,7 @@
 import {useRef, useEffect} from 'react'
 
 //Components
-import Button from '@/src/common/FormElements/Buttons/Button/Button'
+import Button from '@/src/common/FormElements/Button/Button'
 
 //Styling
 import styles from './Modal.module.scss'

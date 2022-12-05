@@ -9,7 +9,7 @@
 
 */
 
-import HamburgerButton from '@/src/common/FormElements/Buttons/HamburgerButton/HamburgerButton';
+import HamburgerButton from '@/src/common/FormElements/HamburgerButton/HamburgerButton';
 import Link from 'next/link'
 
 //Authentication context
@@ -42,10 +42,10 @@ const Header = (props) => {
                                 <img src="/logo.svg" alt="Logo Avantage Numérique" />
                             </Link>
                         </div>
-                    </Col>
+                    </div>
 
                     
-                    <Col>
+                    <div className="col">
                         {/* Container that contain the menu button */}
                         <div className={`${styles["navigation-options"]}`}>
                             
