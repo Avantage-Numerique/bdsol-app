@@ -158,7 +158,7 @@ const HomePage = ({}) => {
                 textColor={"text-white"}
                 title={lang.homePageTitle}
                 subTitle={lang.homePageDescription}
-                description="test pour la description"
+                description=""
                 image={"/general_images/Croissant-Boreal@3x-1440x1440.png"}
                 imgAlt={"Carte du croissant boréal"} />
 

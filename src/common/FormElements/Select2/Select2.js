@@ -26,6 +26,17 @@ const dictionnary = {
     team: "member"
 }
 
+const convertFormatedObject = (name, valueId, userId) => {
+    return {
+        [dictionnary[name]]: valueId,
+        status: {
+            state:"Pending",
+            requestedBy: userId,
+            lastModifiedBy: userId
+        }
+    }
+}
+
 
 const Select2 = ({name, formTools, ...props}) => {
 
@@ -56,6 +67,7 @@ const Select2 = ({name, formTools, ...props}) => {
     const currentState = formState.inputs[name].value;
 
     const updateValue = value => {
+        console.log(value)
         inputHandler(
             name,
             value,
@@ -122,8 +134,9 @@ const Select2 = ({name, formTools, ...props}) => {
                     const entityData =  await sendRequest(
                         (props.request + "/search"),
                         'POST',
-                        JSON.stringify({data:{id: entity[dictionnary[name]]}})
+                        JSON.stringify({data:{_id: entity[dictionnary[name]]}})
                     );
+
                     //If there is an error, passed the message to the user
                     if(entityData.error){
                         msg.addMessage({ 
@@ -135,19 +148,48 @@ const Select2 = ({name, formTools, ...props}) => {
                         //Add the newly fetch entity to the selectedEntities so it can be displayed
                         editedSelectedEntities.push(entityData.data)
                     }     
-                }
+                }                
             }
+        
         //Finaly, we can update the local state with the new value
         setSelectedEntities(editedSelectedEntities)
+    }
+
+    //Standardize the return values stored in the state to make such they have the right shape for the server. 
+    //This is in the case the form has been prefilled with the right data but wrong shape.
+    //convertFormatedObject = (name, valueId, userId) 
+    const standardizeCurrentState = () => {
+
+        let isModified = false;
+        let newStateToReturn = [...currentState];
+
+        newStateToReturn.forEach((obj, i) => {
+            if(obj._id || (typeof obj[dictionnary[name]] == "object" )){
+                isModified = true;
+                newStateToReturn[i] = convertFormatedObject(name, obj[dictionnary[name]]._id, auth.user.id)
+/*
+            {
+                    [dictionnary[name]]: obj[dictionnary[name]]._id,
+                    status: {
+                        state: obj.status.state,
+                        requestedBy: obj.status.requestedBy,
+                        lastModifiedBy:obj.status.lastModifiedBy
+                    }
+                } */
+            }
+        })
+
+        console.log("state to return", newStateToReturn);
+        if(isModified)
+            updateValue(newStateToReturn)
     }
 
     //Update the selectedEntities whenever the form state change.
     //This way, the "selectedEntities" state is bind to the main form state and will always reflect it
     useEffect(() => {
-
         //call the function
         matchLocalToFormState()
-
+        standardizeCurrentState()
     }, [currentState])
 
     //Called whenever the user enter or modify a value into the field
@@ -208,14 +250,17 @@ const Select2 = ({name, formTools, ...props}) => {
             
                 if(!isDuplicate){
 
-                    const formatedObject = {
+                    {/*const formatedObject = {
                         [dictionnary[name]]: matchingValue.current._id,
                         status: {
                             state:"Pending",
                             requestedBy: auth.user.id,
                             lastModifiedBy: auth.user.id
                         }
-                    };
+                    };*/}
+
+                    //Return a premade exportation format
+                    const formatedObject = convertFormatedObject(name, matchingValue.current._id, auth.user.id)
 
                     //Update the value in the form state with the new value
                     updateValue([...currentState, formatedObject])
@@ -243,8 +288,9 @@ const Select2 = ({name, formTools, ...props}) => {
     }
 
     const removeValueFromSelectedItem = (selectedObj) => {
+        console.log(currentState)
         //Update the value of the form, excluding the element to remove
-        updateValue(currentState.filter(arr => arr[dictionnary[name]] !== selectedObj._id));
+        updateValue(currentState.filter(arr => (arr[dictionnary[name]]._id || arr[dictionnary[name]]) !== selectedObj._id));
     }
 
     if( selectList &&
@@ -268,7 +314,7 @@ const Select2 = ({name, formTools, ...props}) => {
                     <Button 
                         type="button" 
                         slim="true" 
-                        disabled={selectRequest.data[props.searchField] ? false : true} 
+                        disabled={selectRequest.data[props.searchField] && findMatchingValue() ? false : true} 
                         onClick={addValueToSelectedItem}
                         className="m-1 rounded-1">
                             +
@@ -311,20 +357,20 @@ const Select2 = ({name, formTools, ...props}) => {
                 
                 {/* Button to call a form and add a new taxonomie */}
                 {/* If the updateModal function is defined, it meens that the modal functionnalities have to be activated */}
-                { props.updateModal &&
+                { props.displayModal &&
                     <div className={`col-12 ${styles["button-container"]}`}>
                         <button
                             type="button"
-                            disabled={ ((selectTagRef.current && selectTagRef.current.value) && !findMatchingValue() && props.updateModal) ? false : true}
-                            onClick={() => props.updateModal(prev => ({
-                                ...prev, 
-                                display: true,
-                                enteredValues: {
-                                    ...prev.enteredValues,
+                            disabled={ ((selectTagRef.current && selectTagRef.current.value) && !findMatchingValue() && props.displayModal) ? false : true}
+                            onClick={() => props.displayModal(
+                                {
                                     name: selectTagRef.current.value
                                 },
-                                callback: resetSelectComponent
-                            }))}
+                                responseId => {
+                                    updateValue([...currentState, convertFormatedObject(name, responseId, auth.user.id)])
+                                    resetSelectComponent()
+                                }
+                            )}
                         >
                             <small>Soumettre comme nouvelle taxonomie</small>
                         </button>

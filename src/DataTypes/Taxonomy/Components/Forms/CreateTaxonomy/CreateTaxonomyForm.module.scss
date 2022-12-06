@@ -6,6 +6,8 @@
 */
 
 .create-taxonomy-form {
+
+    position: relative; //For the spinner to attach itself to it
     
     .select-component {
         width: 25%;
