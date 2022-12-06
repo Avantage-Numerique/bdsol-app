@@ -1,0 +1,8 @@
+@each $color, $value in $theme-colors {
+    // Overwrite some outline colors depending on defined $theme-colors
+    .btn.btn-custom-outline-#{$color} {
+        --bs-btn-bg: #{$value};
+        --bs-btn-hover-color: #{$value};
+        --bs-btn-active-color: #{$value};
+    }
+}
