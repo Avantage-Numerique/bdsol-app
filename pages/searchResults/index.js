@@ -8,8 +8,6 @@ import { useRouter } from "next/router";
 import SearchBar from "@/src/common/Components/SearchBar"
 import { sendExternalApiRequest } from "@/src/hooks/http-hook";
 import PresentationCard from '@/src/common/Containers/cards/presentationCard'
-import { Row, Col } from "react-bootstrap";
-
 
 
 const SearchResults = () => {
@@ -22,7 +20,7 @@ const SearchResults = () => {
         async function searchRequest(){
             let paramToString = "";
 
-            if (router.query != {})
+            if (router.query !== {})
             {
                 paramToString += "?" + router.asPath.split("?")[1]
             }
@@ -47,23 +45,23 @@ const SearchResults = () => {
         <div className="maxWidthPageContainer">
             <div>Ici gît tout les espoirs de Frédéric</div>
             <SearchBar id="searchResults-searchBar"></SearchBar>
-            <Row>
+            <div className={"row"}>
             {
-            searchList.length == 0 ?
+            searchList.length === 0 ?
             <div>Aucune entité trouvée, réessayer avec d'autre critère de recherche</div>
             : //if length != 0
             searchList.map( (entity) => {
                 return (
-                    <Col md={6} lg={4} className="p-2" key={entity._id + "-" + entity.slug}>
+                    <div className="col col-md-6 col-lg-4 p-2" key={entity._id + "-" + entity.slug}>
                         <PresentationCard
                             key={entity._id}
                             header={entity.type}
                             data={entity}
                             />
-                    </Col>)
+                    </div>)
             })
             }
-            </Row>
+            </div>
             {/*<table className="table table-bordered">
                 <thead>
                     <tr>
