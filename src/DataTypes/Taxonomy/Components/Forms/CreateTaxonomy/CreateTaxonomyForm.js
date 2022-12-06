@@ -72,7 +72,10 @@ const CreateTaxonomyForm = ({name, category, positiveRequestActions}) => {
 
         },
         //Pass a set of rules to execute a valid response of an api request
-        positiveRequestActions || undefined         
+        positiveRequestActions || {
+            clearForm: true,            //Clear the form
+            displayResMessage: true     //Display a message to the user to confirm the succes
+        }         
     )
 
     //Submit the form

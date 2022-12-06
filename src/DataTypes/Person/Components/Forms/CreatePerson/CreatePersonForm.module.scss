@@ -1,6 +1,6 @@
 .create-person-form {
 
-    position: relative;
+    position: relative;  //So the spinner knows where to fixe itself
 
     label {
 
@@ -38,12 +38,6 @@
 
     p { margin: 0px; }
 
-    .hor-line{
-        width: 100%;
-        float: left;
-        margin: 1rem 0px;
-        border-bottom: 0.05rem solid rgba(128, 128, 128, 0.425);
-    }
 }
 
 /* On screens that are 600px or more, set the background color to blue */

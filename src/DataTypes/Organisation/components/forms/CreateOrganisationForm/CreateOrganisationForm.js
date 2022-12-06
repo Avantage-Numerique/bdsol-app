@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from 'react'
 import Router from 'next/router'
 
 //Custom hooks
-import { useForm } from '@/src/hooks/form-hook'
+import { useFormUtils } from '@/src/hooks/useFormUtils/useFormUtils'
 import { useHttpClient } from '@/src/hooks/http-hook'
 
 //Components 
@@ -30,9 +30,6 @@ const CreateOrganisationForm = () => {
     //Import message context 
     const msg = useContext(MessageContext);
 
-    //Extract the functions inside useHttpClient
-    const { isLoading, sendRequest} = useHttpClient();
-
     /*
     First of all, verify if the user is logged in.
     If he isn't, then redirect him in the connexion page
@@ -47,8 +44,8 @@ const CreateOrganisationForm = () => {
         }
     }, [auth.user.isLoggedIn]);
 
-    //State of the form
-    const [formState, formTools] = useForm(
+    //Main form functionalities
+    const { FormUI, submitRequest, formState, formTools } = useFormUtils(
     {
         name: {
             value: '',
@@ -78,73 +75,44 @@ const CreateOrganisationForm = () => {
             value: [],
             isValid: true
         },
-    }, 
-    false)
+    },
+    {
+        clearForm: true,            //Clear the form
+        displayResMessage: true     //Display a message to the user to confirm the succes
+    })
 
     //Function to submit the form
     const submitHandler = async event => { 
 
         event.preventDefault();
-        
-        //Make sure that the form is valid before submitting it
-        if(formState.isValid){
 
-            const formData = {
+        const formData = {
 
-                "data": {
-                    name: formState.inputs.name.value,
-                    description:  formState.inputs.description.value, 
-                    url: formState.inputs.url.value,
-                    contactPoint: formState.inputs.contactPoint.value,
-                    fondationDate: formState.inputs.fondationDate.value,
-                    offers: formState.inputs.offers.value,
-                    team: formState.inputs.team.value,
-                    
-                    "status": {
-                        "state": "Pending",
-                        "requestedBy": auth.user.id,
-                        "lastModifiedBy": auth.user.id
-                    }//Hardcoded status to send at creation (Temporary, until we moderate it with the API)
-                } 
+            "data": {
+                name: formState.inputs.name.value,
+                description:  formState.inputs.description.value, 
+                url: formState.inputs.url.value,
+                contactPoint: formState.inputs.contactPoint.value,
+                fondationDate: formState.inputs.fondationDate.value,
+                offers: formState.inputs.offers.value,
+                team: formState.inputs.team.value,
+                
+                "status": {
+                    "state": "Pending",
+                    "requestedBy": auth.user.id,
+                    "lastModifiedBy": auth.user.id
+                }//Hardcoded status to send at creation (Temporary, until we moderate it with the API)
+            } 
 
-            };
+        };
 
-            //Send the request with the specialized hook
-            const response = await sendRequest(
-                "/organisations/create",
-                'POST',
-                JSON.stringify(formData),
-                { 'Content-Type': 'application/json' }
-            );
+        //Send the request with the specialized hook
+        submitRequest(
+            "/organisations/create",
+            'POST',
+            formData
+        );
 
-            /* 
-                Display a message relatively to the form validity
-            */
-
-            //Positive answer
-            if(!response.error){
-
-                msg.addMessage({ 
-                    text: response.message,
-                    positive: true 
-                })
-
-            //Negative answer
-            } else {                    
-                msg.addMessage({ 
-                    text: response.message,
-                    positive: false 
-                })
-            }
-
-        } else {
-
-            //Something happened and the server didn't returned and answer
-            msg.addMessage({ 
-                text: "Attention. Le formulaire envoyé n'est pas valide. Assurez-vous que tous les champs sont bien remplis.",
-                positive: false
-            })
-        }
     }
 
     const offerSelectRequestData = {
@@ -161,10 +129,8 @@ const CreateOrganisationForm = () => {
 
     return (
         <>
-            { isLoading && <Spinner fixed />}
-
             <form onSubmit={submitHandler} className={`col-12 ${styles["create-organisation-form"]}`}>
-
+                <FormUI />
                 <Input 
                     name="name"
                     label="Nom de l'organisation"
