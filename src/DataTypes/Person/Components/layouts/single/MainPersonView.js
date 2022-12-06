@@ -1,4 +1,5 @@
 import { useState } from 'react' 
+import Router from 'next/router';
 
 //Hooks
 import { useModal } from '@/src/hooks/useModal/useModal'
@@ -37,10 +38,13 @@ const MainPersonView = ({ data }) => {
         nickname,
         description,
         occupations,
+        slug,
         createdAt,
         updatedAt,
         status
     } = data
+
+    console.log('Nickmname',nickname)
 
     //Modal hook
     const { modal, Modal, displayModal, closeModal } = useModal()
@@ -236,12 +240,11 @@ const MainPersonView = ({ data }) => {
                                     <Container>
                                         <ul className="row">
                                             {
-                                            occupations.length == 0 ?
-                                            <div>Aucune occupation associée</div>
-                                            :
+                                            occupations && occupations.length > 0 ?
                                             occupations.map( (occ) => {
                                                 return <li key={"occupation-" + occ.occupation._id} className={`col col-sm-auto ${styles["competency-tag"]}`}>{occ.occupation.name}</li>
-                                            })
+                                            }) : 
+                                            <div>Aucune occupation associée</div>
                                             }
                                         </ul>
                                     </Container>
@@ -267,7 +270,20 @@ const MainPersonView = ({ data }) => {
                 darkColorButton
                 closingFunction={closeModal}
             >
-               <UpdatePersonForm initValues={data}/>
+               <UpdatePersonForm 
+                    initValues={data}
+                    positiveRequestActions={{
+                        //CallbackFunction is one of the four behaviors the useFormUtils hook can apply when a request return a positive answer
+                        callbackFunction: requestResponse => {
+
+                            //Redirect to the right path if the slug changes and otherwise, at least reflect the changes
+                            Router.push(`/persons/${requestResponse.data.slug}`);
+                            
+                            //Close the modal 
+                            closeModal()
+                        }
+                    }}
+                />
             </Modal>
             }
     </>

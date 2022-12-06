@@ -30,7 +30,7 @@ const convertFormatedObject = (name, valueId, userId) => {
     return {
         [dictionnary[name]]: valueId,
         status: {
-            state:"pending",
+            state:"Pending",
             requestedBy: userId,
             lastModifiedBy: userId
         }
@@ -157,28 +157,27 @@ const Select2 = ({name, formTools, ...props}) => {
 
     //Standardize the return values stored in the state to make such they have the right shape for the server. 
     //This is in the case the form has been prefilled with the right data but wrong shape.
+    //convertFormatedObject = (name, valueId, userId) 
     const standardizeCurrentState = () => {
 
         let isModified = false;
         let newStateToReturn = [...currentState];
-/*
+
         newStateToReturn.forEach((obj, i) => {
-            if( obj._id ||
-                (typeof obj[dictionnary[name]] == "object" )
-            ){
+            if(obj._id || (typeof obj[dictionnary[name]] == "object" )){
                 isModified = true;
-                newStateToReturn[i] = {
-                    occupation: obj[dictionnary[name]]._id,
+                newStateToReturn[i] = convertFormatedObject(name, obj[dictionnary[name]]._id, auth.user.id)
+/*
+            {
+                    [dictionnary[name]]: obj[dictionnary[name]]._id,
                     status: {
                         state: obj.status.state,
                         requestedBy: obj.status.requestedBy,
                         lastModifiedBy:obj.status.lastModifiedBy
                     }
-                }
+                } */
             }
         })
-
-        */
 
         console.log("state to return", newStateToReturn);
         if(isModified)
@@ -190,7 +189,7 @@ const Select2 = ({name, formTools, ...props}) => {
     useEffect(() => {
         //call the function
         matchLocalToFormState()
-        //standardizeCurrentState()
+        standardizeCurrentState()
     }, [currentState])
 
     //Called whenever the user enter or modify a value into the field

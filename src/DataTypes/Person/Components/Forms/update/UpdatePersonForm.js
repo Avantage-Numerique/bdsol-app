@@ -39,7 +39,7 @@ const UpdatePersonForm = ({initValues, positiveRequestActions}) => {
                 isValid: false
             }, 
             nickName: {
-                value: initValues.nickName ? initValues.nickName : "",
+                value: initValues.nickname ? initValues.nickname : "",
                 isValid: true
             },
             description: {
