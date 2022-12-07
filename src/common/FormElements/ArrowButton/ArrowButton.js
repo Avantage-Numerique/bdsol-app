@@ -41,7 +41,11 @@ const ArrowButton = ( { ...props } ) => {
     classList.push(props.color ? `btn-${props.color}` : `btn-${btnColor}` );
     classList.push(props.outline ? `btn-custom-outline-${btnColor} btn-outline-${props.outline}` : '');
     classList.push(`btn-arrow-svg-${arrowColor}`);
-    classList.push(`btn-arrow-svg-custom-outline-hover-${btnColor}`)
+
+    if(props.outline){
+        classList.push(`btn-arrow-svg-custom-outline-hover-${btnColor}`)
+    }
+    
     classList.push(props.classes);
     classList.push(props.openned ? `${styles.openned}` : '');
 
