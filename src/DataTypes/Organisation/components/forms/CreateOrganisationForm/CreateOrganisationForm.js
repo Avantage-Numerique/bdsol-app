@@ -2,15 +2,14 @@ import React, { useContext, useEffect } from 'react'
 import Router from 'next/router'
 
 //Custom hooks
-import { useFormUtils } from '@/src/hooks/useFormUtils/useFormUtils'
-import { useHttpClient } from '@/src/hooks/http-hook'
+import { useFormUtils } from '@/src/hooks/useFormUtils/useFormUtils';
 
 //Components 
 import Button from '@/src/common/FormElements/Buttons/Button/Button'
 import Input from '@/src/common/FormElements/Input/Input'
 import RichTextarea from '@/src/common/FormElements/RichTextArea/RichTextarea'
 import Select2 from '@/src/common/FormElements/Select2/Select2'
-import Spinner from '@/src/common/widgets/spinner/Spinner'
+//import Spinner from '@/src/common/widgets/spinner/Spinner'
 import {lang} from "@/src/common/Data/GlobalConstants";
 
 //contexts
@@ -150,7 +149,8 @@ const CreateOrganisationForm = () => {
                     name="url"
                     label="Hyperlien"
                     type="url"
-                    placeholder="Exemple : https://siteWeb.com/"
+                    pattern="^https?:\/\/[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$"
+                    placeholder="Une url avec le https, exemple : https://siteWeb.com"
                     formTools={formTools}
                 />
 
