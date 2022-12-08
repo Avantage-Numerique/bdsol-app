@@ -18,6 +18,7 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import PageHeader from "@/layouts/Header/PageHeader";
+import {lang} from "@/common/Data/GlobalConstants";
 
 const accountPage = ({ user }) => {
 
@@ -31,7 +32,7 @@ const accountPage = ({ user }) => {
 
     return (
         <div className={"page-container pb-3"}>
-            <PageHeader title={`Bienvenue dans l'espace utilisateur, ${user && (user.username)}`} />
+            <PageHeader title={`${lang.memberSpaceWelcome}, ${user && (user.username)}`} />
             <Container>
                     <Row>
                         <Col xs={9} className={"pb-3"}>
