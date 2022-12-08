@@ -24,6 +24,9 @@ export const base = {
 
     "needToBeConnectedToAccess": "Vous devez être connecté pour pouvoir ajouter une entité à la base de données.",
 
+    //  Espace membre
+    "memberSpaceWelcome": "Bienvenue dans l'espace membre",
+
     // useSessionHook
 
     "successConnected": "Vous êtes maintenant connecté.",
