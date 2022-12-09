@@ -13,7 +13,7 @@ const Help = () => {
                 C'est pour cela que nous vous fournissons un formulaire que vous pouvez remplir pour nous aider.
             </p>
             <p>
-                <a href="https://form.jotform.com/222238272581253" className={"btn btn-outline-primary"} target="_blank">Consulter et remplir le formulaire</a>
+                <a href="https://form.jotform.com/222895513868268" className={"btn btn-outline-primary"} target="_blank">Consulter et remplir le formulaire</a>
             </p>
             <p>
                 Un bouton nommé "<strong>Partage d'idées</strong>" se trouve sur la droite de votre écran. Il permet de prendre en image une partie de votre écran 
