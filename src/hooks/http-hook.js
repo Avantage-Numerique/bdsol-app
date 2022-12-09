@@ -71,7 +71,6 @@ export const externalApiRequest = async (path, params = {}) => {
         };
 
     let headers = params.headers ?? undefined;
-
     // add user header if context is set.
     if (params.context && params.context.req && params.context.req.session && params.context.req.user) {
         headers = {
@@ -142,7 +141,8 @@ export const useHttpClient = () => {
                         method: method,
                         body: body,
                         headers: headersParams,
-                        additionnalFetchParams: {signal: httpAbortCtrl.signal}
+                        additionnalFetchParams: {signal: httpAbortCtrl.signal},
+                        origin:"browser"
                     }
                 );
 

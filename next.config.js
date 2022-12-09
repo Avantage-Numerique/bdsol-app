@@ -5,11 +5,17 @@ const path = require('path');
  * @type {import('next').NextConfig}
  */
 const nextConfig = {
-
+    /*compiler: {
+        removeConsole: {
+            exclude: ['error', 'log', 'warn'],
+        },
+    },*/
     //define default value for env variables that aren't declare in the .env file or add some there.
     env: {
         //APP
         ENVIRONNEMENT: process.env.NODE_ENV ?? 'development',
+        IS_PRODUCTION: process.env.NODE_ENV === "production",
+        IS_DEV: process.env.NODE_ENV === "development",
 
         APP_PROTOCOLE: process.env.APP_PROTOCOLE ?? "http://",
         APP_BASE_URL: process.env.APP_BASE_URL ?? "localhost",

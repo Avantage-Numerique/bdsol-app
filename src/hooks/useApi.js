@@ -3,7 +3,7 @@ import {pingExternalApi} from "@/src/api/external/callbacks/pingExternalApi";
 
 export default function useApi(connectedSetter) {
     const pingApi = async () => {
-        const isApiUp = await pingExternalApi();
+        const isApiUp = await pingExternalApi({origin:"browser"});
         return connectedSetter(isApiUp);
     }
     useEffect( () => {

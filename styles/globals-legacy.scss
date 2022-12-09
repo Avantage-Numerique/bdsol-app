@@ -22,15 +22,22 @@ h6 {
     font-weight: $font-weight-bold;
 }
 
-a:not(.btn) {
-    color: $primary; /* question posée dans Notion ?  */
-    @include transition();
-    text-decoration: none;
-    &:hover {
-        color: $primarylight;
-        text-decoration: underline;
+p {
+    a:not(.btn) {
+        color: $primary; /* question posée dans Notion ?  */
+        @include transition();
+        text-decoration: none;
+        &:hover {
+            color: $primarylight;
+            text-decoration: underline;
+        }
     }
 }
+
+a {
+    color: inherit;
+}
+
 
 /*
 *   Container that defines the Maximum width the content of the page can take
