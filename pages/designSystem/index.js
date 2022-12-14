@@ -1,7 +1,8 @@
-
 import Button from "@/src/common/FormElements/Button/Button";
 import ArrowButton from "@/src/common/FormElements/ArrowButton/ArrowButton";
 
+//Styling
+import styles from './designSystem.module.scss';
 
 const DesignSystem = () => {
     return (
@@ -114,68 +115,69 @@ const DesignSystem = () => {
             <div>
                 <h1>Button</h1>
 
+                <pre className={`${styles["codebox"]}`}>
+                    <code className="language-html" data-lang="html">
+                        <span>{'import Button from "@/src/common/FormElements/Button/Button";'}</span>
+                    </code>
+                </pre>
+
+
                 <h2>Default</h2>
                 <Button> Button Default </Button>
-                <pre tabindex="0" className="chroma">
+                <pre className={`${styles["codebox"]}`}>
                     <code className="language-html" data-lang="html">
                         <span>{'<Button>'}</span>
                     </code>
                 </pre>
 
-                <h2>Size</h2>
-
-                {/* size */}
-                <div>
-                    <Button size="slim"> Button Slim </Button>
-                    <pre tabindex="0" className="chroma">
-                        <code className="language-html" data-lang="html">
-                            <span>{'<Button size="slim">'}</span>
-                        </code>
-                    </pre>
-
-                    <Button size="large"> Button Large </Button>
-                    <pre tabindex="0" className="chroma">
-                        <code className="language-html" data-lang="html">
-                            <span>{'<Button size="large">'}</span>
-                        </code>
-                    </pre>
-
-
-                    <Button size="large-100"> Button Large-100 </Button>
-                    <pre tabindex="0" className="chroma">
-                        <code className="language-html" data-lang="html">
-                            <span>{'<Button size="large-100">'}</span>
-                        </code>
-                    </pre>
-
-                </div>
-
+                {/* disabled */}
                 <h2>Disabled</h2>
 
-                {/* disabled */}
-                <div>
-                    <Button disabled> Button Disabled </Button>
-                    <pre tabindex="0" className="chroma">
-                        <code className="language-html" data-lang="html">
-                            <span>{'<Button disabled>'}</span>
-                        </code>
-                    </pre>
-                </div>
+                <Button disabled> Button Disabled </Button>
+                <pre className={`${styles["codebox"]}`}>
+                    <code className="language-html" data-lang="html">
+                        <span>{'<Button disabled>'}</span>
+                    </code>
+                </pre>
 
+                {/* size */}
+                <h2>Size</h2>
 
-                <h2>Color</h2>
-                <p>Utilise les $theme-colors</p>
+                <Button size="slim"> Button Slim </Button>
+                <pre className={`${styles["codebox"]}`}>
+                    <code className="language-html" data-lang="html">
+                        <span>{'<Button size="slim">'}</span>
+                    </code>
+                </pre>
+
+                <Button size="large"> Button Large </Button>
+                <pre className={`${styles["codebox"]}`}>
+                    <code className="language-html" data-lang="html">
+                        <span>{'<Button size="large">'}</span>
+                    </code>
+                </pre>
+
+                <Button size="large-100"> Button Large-100 </Button>
+                <pre className={`${styles["codebox"]}`}>
+                    <code className="language-html" data-lang="html">
+                        <span>{'<Button size="large-100">'}</span>
+                    </code>
+                </pre>
+
                 {/* color */}
+                <h2>Color</h2>
+                <p className={`${styles["codebox-info"]}`}>Utilise les $theme-colors</p>
+                
                 <div>
                     <Button color="primary"> Button Default </Button>
-                    <pre tabindex="0" className="chroma">
+                    <pre className={`${styles["codebox"]}`}>
                         <code className="language-html" data-lang="html">
                             <span>{'<Button color="primary">'}</span>
                         </code>
                     </pre>
 
                     <Button color="secondary"> Button Secondary </Button>
-                    <pre tabindex="0" className="chroma">
+                    <pre className={`${styles["codebox"]}`}>
                         <code className="language-html" data-lang="html">
                             <span>{'<Button color="secondary">'}</span>
                         </code>
@@ -183,19 +185,19 @@ const DesignSystem = () => {
                 </div>
 
                 <h2>Outline</h2>
-                <p>Utilise les $theme-colors</p>
+                <p className={`${styles["codebox-info"]}`}>Utilise les $theme-colors</p>
                 {/* outline */}
                 <div>
 
                     <Button outline="primary"> Button Outline Primary </Button>
-                    <pre tabindex="0" className="chroma">
+                    <pre className={`${styles["codebox"]}`}>
                         <code className="language-html" data-lang="html">
                             <span>{'<Button outline="primary">'}</span>
                         </code>
                     </pre>
 
                     <Button color="pink" outline="blue3"> Button Color Secondary Outline Primary </Button>
-                    <pre tabindex="0" className="chroma">
+                    <pre className={`${styles["codebox"]}`}>
                         <code className="language-html" data-lang="html">
                             <span>{'<Button color="pink" outline="blue3">'}</span>
                         </code>
@@ -207,7 +209,7 @@ const DesignSystem = () => {
                 <h3>Classes</h3>
 
                 {/* classes */}
-                <pre tabindex="0" className="chroma">
+                <pre className={`${styles["codebox"]}`}>
                     <code className="language-html" data-lang="html">
                         <span>{"<Button classes='whatever-className-you-want-to-add-to-this-button'>"}</span>
                     </code>
@@ -216,7 +218,7 @@ const DesignSystem = () => {
                 <h3>href</h3>
 
                 {/* href */}
-                <pre tabindex="0" className="chroma">
+                <pre className={`${styles["codebox"]}`}>
                     <code className="language-html" data-lang="html">
                         <span>{"<Button href='/designSystem'>"}</span>
                     </code>
@@ -227,9 +229,16 @@ const DesignSystem = () => {
             {/* ArrowButton */}
             <div>
                 <h1>ArrowButton</h1>
+
+                <pre className={`${styles["codebox"]}`}>
+                    <code className="language-html" data-lang="html">
+                    <span>{'import ArrowButton from "@/src/common/FormElements/ArrowButton/ArrowButton";'}</span>
+                    </code>
+                </pre>
+
                 <h2>Default</h2>
                 <ArrowButton> </ArrowButton>
-                <pre tabindex="0" className="chroma">
+                <pre className={`${styles["codebox"]}`}>
                     <code className="language-html" data-lang="html">
                         <span>{"<ArrowButton>"}</span>
                     </code>
@@ -238,7 +247,7 @@ const DesignSystem = () => {
                 <h2> Size </h2>
 
                 <ArrowButton size="large"> Large </ArrowButton>
-                <pre tabindex="0" className="chroma">
+                <pre className={`${styles["codebox"]}`}>
                     <code className="language-html" data-lang="html">
                         <span>{"<ArrowButton size='large'>"}</span>
                     </code>
@@ -247,7 +256,7 @@ const DesignSystem = () => {
                 <h2> Color </h2>
 
                 <ArrowButton color="success"> Success </ArrowButton>
-                <pre tabindex="0" className="chroma">
+                <pre className={`${styles["codebox"]}`}>
                     <code className="language-html" data-lang="html">
                         <span>{'<ArrowButton color="success">'}</span>
                     </code>
@@ -255,14 +264,14 @@ const DesignSystem = () => {
 
                 <h2> Outline </h2>
                 <ArrowButton outline="blue3"> Success </ArrowButton>
-                <pre tabindex="0" className="chroma">
+                <pre className={`${styles["codebox"]}`}>
                     <code className="language-html" data-lang="html">
                         <span>{'<ArrowButton outline="blue3">'}</span>
                     </code>
                 </pre>
 
                 <ArrowButton color="white" outline="success"> Success </ArrowButton>
-                <pre tabindex="0" className="chroma">
+                <pre className={`${styles["codebox"]}`}>
                     <code className="language-html" data-lang="html">
                         <span>{'<ArrowButton color="white" outline="success">'}</span>
                     </code>
@@ -270,48 +279,63 @@ const DesignSystem = () => {
 
                 <h2> Direction </h2>
 
-                <ArrowButton direction="up"> </ArrowButton>
-                <pre tabindex="0" className="chroma">
-                    <code className="language-html" data-lang="html">
-                        <span>{'<ArrowButton direction="up">'}</span>
-                    </code>
-                </pre>
+                <div className="container">
+                    <div className="row">
+                        
+                        <div className="col">
+                            <ArrowButton direction="up"> </ArrowButton>
+                            <pre className={`${styles["codebox"]}`}>
+                                <code className="language-html" data-lang="html">
+                                    <span>{'<ArrowButton direction="up">'}</span>
+                                </code>
+                            </pre>
+                        </div>
+                        
+                        <div className="col">
+                            <ArrowButton direction="down"> </ArrowButton>
+                            <pre className={`${styles["codebox"]}`}>
+                                <code className="language-html" data-lang="html">
+                                    <span>{'<ArrowButton direction="down">'}</span>
+                                </code>
+                            </pre>
+                        </div>
+                        
+                        <div className="col">
+                            <ArrowButton direction="left">  </ArrowButton>
+                            <pre className={`${styles["codebox"]}`}>
+                                <code className="language-html" data-lang="html">
+                                    <span>{'<ArrowButton direction="left">'}</span>
+                                </code>
+                            </pre>
+                        </div>
+                        
+                        <div className="col">
+                            <ArrowButton direction="right"> </ArrowButton>
+                            <pre className={`${styles["codebox"]}`}>
+                                <code className="language-html" data-lang="html">
+                                    <span>{'<ArrowButton direction="right">'}</span>
+                                </code>
+                            </pre>
+                        </div>
 
-                <ArrowButton direction="down"> </ArrowButton>
-                <pre tabindex="0" className="chroma">
-                    <code className="language-html" data-lang="html">
-                        <span>{'<ArrowButton direction="down">'}</span>
-                    </code>
-                </pre>
-
-                <ArrowButton direction="left">  </ArrowButton>
-                <pre tabindex="0" className="chroma">
-                    <code className="language-html" data-lang="html">
-                        <span>{'<ArrowButton direction="left">'}</span>
-                    </code>
-                </pre>
-
-                <ArrowButton direction="right"> </ArrowButton>
-                <pre tabindex="0" className="chroma">
-                    <code className="language-html" data-lang="html">
-                        <span>{'<ArrowButton direction="right">'}</span>
-                    </code>
-                </pre>
+                    </div>
+                </div>
 
                 <h2>Autres</h2>
                 <h3> Openned </h3>
-                <p>Fait pointer la flèche dans la direction opposée. Applique, s'il-y a lieu, la classe Openned à l'élément. </p>
+                <p className={`${styles["codebox-info"]}`}>Fait pointer la flèche dans la direction opposée. Applique, s'il-y a lieu, la classe Openned à l'élément. </p>
                 <ArrowButton openned> </ArrowButton>
-                <pre tabindex="0" className="chroma">
+                <pre className={`${styles["codebox"]}`}>
                     <code className="language-html" data-lang="html">
                         <span>{'<ArrowButton openned>'}</span>
                     </code>
                 </pre>
 
                 <h3> Classes </h3>
-                <pre tabindex="0" className="chroma">
+                <p className={`${styles["codebox-info"]}`}>Permet d'ajouter d'autres classes Bootstrap ou personnalisées.</p>
+                <pre className={`${styles["codebox"]}`}>
                     <code className="language-html" data-lang="html">
-                        <span>{'<ArrowButton classes="classes-supplementaire-custom1 deuxieme-classe">'}</span>
+                        <span>{'<ArrowButton classes="classes-personnalisee classe-bootstrap">'}</span>
                     </code>
                 </pre>
 
@@ -360,10 +384,7 @@ const DesignSystem = () => {
             {/* Padding and Margin */}
             <div>
                 <h1>Padding and Margin</h1>
-                <p>
-                    <a href="https://getbootstrap.com/docs/5.2/layout/utilities/#margin-and-padding">https://getbootstrap.com/docs/5.2/layout/utilities/#margin-and-padding</a>
-                </p>
-
+                <p className={`${styles["codebox-info"]}`}>Il est possible d'appliquer du padding ou des marges en utilisant des classes Bootstrap. <a href="https://getbootstrap.com/docs/5.2/layout/utilities/#margin-and-padding" className={`${styles["force-underline"]}`}>Consultez la documentation pour en savoir plus.</a></p>
             </div>
 
 
