@@ -8,11 +8,11 @@ import styles from './Simple.module.scss'
         and styling common to all the entities's simple component 
 */
 
-const Simple = () => {
+const Simple = ({ children, className }) => {
 
     return (
-        <article className={`${styles.simple}`}>
-
+        <article className={`p-3 bg-white rounded ${styles.simple} ${className}`}>
+            {children}
         </article>
     )
 }

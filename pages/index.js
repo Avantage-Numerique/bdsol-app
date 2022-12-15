@@ -7,7 +7,7 @@ import Head from 'next/head';
 import Button from '@/src/common/FormElements/Button/Button'
 import PresentationCard from '@/src/common/Containers/cards/presentationCard'
 import Spinner from '@/src/common/widgets/spinner/Spinner'
-
+import PersonSimple from '@/DataTypes/Person/Components/layouts/simple/PersonSimple'
 
 import {sortDescBy} from "@/src/common/Data/Sorting/Sort";
 
@@ -72,6 +72,8 @@ const HomePage = ({}) => {
 
             //Sort and mixed both collection the data to display the new elements before
             feed.sort(sortDescBy('createdAt'));
+
+            console.log(feed)
 
             //Finaly, update the state to display the result
             setFeedList(feed);
@@ -193,13 +195,25 @@ const HomePage = ({}) => {
                                             {
                                                 feedList.length > 0 && !isLoading &&
                                                 feedList.map(elem => (
-                                                    <div className="col g-3" key={elem._id + "-" + elem.slug}>
-                                                        <PresentationCard
-                                                            key={elem._id}
-                                                            header={elem.type}
-                                                            data={elem}
-                                                        />
-                                                    </div>
+                                                    <>
+                                                    {
+                                                        elem.dataType === "person" &&
+                                                        <div className="col g-3" key={elem._id + "-" + elem.slug}>
+                                                        <PersonSimple data={elem} />
+                                                        </div>
+                                                    }
+                                                    {
+                                                        elem.dataType !== "person" &&
+                                                        <div className="col g-3" key={elem._id + "-" + elem.slug}>
+                                                            <PresentationCard
+                                                                key={elem._id}
+                                                                header={elem.dataType}
+                                                                data={elem}
+                                                            />
+                                                        </div>
+                                                    }
+                                                    
+                                                    </>
                                                 ))
                                             }
                                     </div>

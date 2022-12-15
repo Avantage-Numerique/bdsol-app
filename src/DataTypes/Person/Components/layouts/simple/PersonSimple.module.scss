@@ -1,0 +1,50 @@
+.person-simple {
+
+    .person-simple__header {
+
+        /* Top section of the header containing the picture and button */
+       .person-simple__header__top-section { 
+          
+            .person-simple__header__picture {
+
+                width: 7rem;
+                aspect-ratio: 1 / 1;
+                border-radius: 100%;
+                overflow: hidden;
+
+                img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                }
+    
+            }
+
+            .person-simple__header__button {
+            
+                height: 1rem;
+                fill: grey;
+                opacity: 0.6;
+    
+                -webkit-transition: opacity 0.3s ease;
+                transition: opacity 0.3s ease;
+                &:hover { opacity: 1; }
+            }
+        }
+
+        /* Bottom section of the header that contains the textual informations */
+        .person-simple__header__bottom-section {
+
+            .occupations-container {
+
+                font-size: 0.7rem;
+                gap: 0.45rem;
+
+                .occupation {
+                    max-width: 50%;
+                }
+            }
+        }
+    }
+
+}
