@@ -8,6 +8,7 @@ import Button from '@/src/common/FormElements/Button/Button'
 import PresentationCard from '@/src/common/Containers/cards/presentationCard'
 import Spinner from '@/src/common/widgets/spinner/Spinner'
 import PersonSimple from '@/DataTypes/Person/Components/layouts/simple/PersonSimple'
+import OrganisationSimple from '@/DataTypes/Organisation/components/layouts/simple/OrganisationSimple'
 
 import {sortDescBy} from "@/src/common/Data/Sorting/Sort";
 
@@ -68,12 +69,11 @@ const HomePage = ({}) => {
             orgResponse.data.forEach(element => element.dataType = "organisation")
             persResponse.data.forEach(element => element.dataType = "person")
 
+            //Merge the two lists to create one single feed
             const feed = [...orgResponse.data, ...persResponse.data];
 
             //Sort and mixed both collection the data to display the new elements before
             feed.sort(sortDescBy('createdAt'));
-
-            console.log(feed)
 
             //Finaly, update the state to display the result
             setFeedList(feed);
@@ -205,11 +205,7 @@ const HomePage = ({}) => {
                                                     {
                                                         elem.dataType !== "person" &&
                                                         <div className="col g-3" key={elem._id + "-" + elem.slug}>
-                                                            <PresentationCard
-                                                                key={elem._id}
-                                                                header={elem.dataType}
-                                                                data={elem}
-                                                            />
+                                                            <OrganisationSimple data={elem} />
                                                         </div>
                                                     }
                                                     

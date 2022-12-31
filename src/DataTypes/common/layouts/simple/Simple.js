@@ -11,7 +11,7 @@ import styles from './Simple.module.scss'
 const Simple = ({ children, className }) => {
 
     return (
-        <article className={`p-3 bg-white rounded ${styles.simple} ${className}`}>
+        <article className={`bg-white rounded ${styles.simple} ${className}`}>
             {children}
         </article>
     )

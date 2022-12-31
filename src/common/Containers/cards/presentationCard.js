@@ -105,7 +105,7 @@ const PresentationCard = ({header, data}) => {
                         </div>
                     }
 
-                    {/**********  URL ************/}
+                    {/***********  URL *************/}
                     { url &&
                     <div className={`row ${styles["card__content__single-info"]}`}>
                         <div className={`col-2 fw-semibold`}>

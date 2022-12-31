@@ -1,15 +1,14 @@
 import React from "react"
-import Link from 'next/link'
 import getConfig from 'next/config';
-
 
 /***  Components  ****/
 import Simple from '@/DataTypes/common/layouts/simple/Simple'
+import KebabButton from '@/common/FormElements/KebabButton/KebabButton'
 
 /***  Local styling ***/
 import styles from './PersonSimple.module.scss'
 
-const PersonSimple = ({ data, key, header }) => {
+const PersonSimple = ({ data }) => {
 
     const { publicRuntimeConfig } = getConfig();
 
@@ -18,13 +17,13 @@ const PersonSimple = ({ data, key, header }) => {
         firstName,
         lastName,
         nickname,
-        name,
-        username,
-        description,
+        //name,
+        //username,
+        //description,
         createdAt,
         occupations,
-        url,
-        contactPoint
+        //url,
+        //contactPoint
     } = data
 
     console.log("occupations", occupations)
@@ -36,25 +35,15 @@ const PersonSimple = ({ data, key, header }) => {
 
                 <section className={`d-flex justify-content-between ${styles["person-simple__header__top-section"]}`}>
                     {/* Empty container - user full for the layout of the row */}
-                    <div className=""></div>
+                    <div className="w-0">
+                    </div>
                     {/* Profil picture */}
                     <figure className={`mx-1 my-4 ${styles["person-simple__header__picture"]}`}>
                         <img src={"/general_images/Dennis_Nedry.webp"} alt={`Photo de profil de l'utilisateur ${firstName} ${lastName}`} />
                     </figure>
                     {/* Button to see more details */}
-                    <Link href={`/persons/${slug}`}>
-                        <button 
-                            className={`d-flex ${styles["person-simple__header__button"]}`}>
-                            <svg 
-                                className="h-100"
-                                xmlns="http://www.w3.org/2000/svg" 
-                                viewBox="0 0 10 36">
-                                    <circle cx="5" cy="5" r="4"/>
-                                    <circle cx="5" cy="18" r="4"/>
-                                    <circle cx="5" cy="31" r="4"/>
-                            </svg>
-                        </button>
-                    </Link>
+                    <KebabButton href={`/persons/${slug}`} />
+
                 </section>
                 {/* Header's text and infos */}
                 <section className={`${styles["person-simple__header__bottom-section"]}`}>
@@ -67,10 +56,10 @@ const PersonSimple = ({ data, key, header }) => {
                             occupations.map((elem, index) => (
                                 <>
                                 {   index < 3 &&
-                                    <li key={"occ" + elem._id} className={`mw-100 py-1 px-2 border border-secondary text-secondary rounded-4 d-flex text-truncate text-nowrap ${styles["occupation"]}`}><div className="text-truncate">{elem.occupation.name}</div></li>
+                                    <li key={"occ" + elem._id} className={`mw-100 border text-general-tag rounded-4 d-flex text-truncate text-nowrap ${styles["occupation"]}`}><div className="text-truncate">{elem.occupation.name}</div></li>
                                 }
                                 {   index == 3 &&
-                                    <li key="occ999999999999" className={`mw-100 py-1 px-2 border border-secondary text-secondary rounded-4 d-flex text-truncate text-nowrap ${styles["occupation"]}`}><div className="text-truncate">...</div></li>
+                                    <li key="occ999999999999" className={`mw-100 border  text-general-tag rounded-4 d-flex text-truncate text-nowrap ${styles["occupation"]}`}><div className="text-truncate">...</div></li>
                                 }
                                 </>
                             ))

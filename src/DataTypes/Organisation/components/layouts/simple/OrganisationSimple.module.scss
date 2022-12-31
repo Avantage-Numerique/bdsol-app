@@ -1,0 +1,73 @@
+.org-simple {
+
+    --container-padding: 0.75rem;
+
+    .container-padding { padding: var(--container-padding); }
+
+    /************** Top img ***************/
+    .org-img-content {
+        height: 15rem;
+        height: clamp(7rem, 25vh, 13rem);
+
+        .org-img {
+            object-fit: cover;
+        }
+
+        .radient-cover {
+            background: rgba(0, 0, 0, 0);
+            background: linear-gradient(0deg, rgba(0,0,0,0.5919410000328256) 0%, rgba(0,0,0,0.051324753534226164) 70%);        }
+
+        .figcaption {
+            color: white;
+            opacity: 0.9;
+            padding: var(--container-padding);
+        }
+    }
+
+    /************* Section : Presentation *************/
+    .org-section-presentation {
+        max-height: 4rem;
+        overflow: hidden;
+        font-size: 0.8rem;
+        line-height: 0.8rem;
+        position: relative;
+        color: $mild-dark;
+
+        .presentation-white-gradient {
+            height: 4rem;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;    
+            background: rgb(255,255,255, 0);
+            background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 14%, rgba(255,255,255,0) 34%);
+        }
+    }
+
+    /************* Section : Services offer *************/
+    .org-section-offers{
+
+        h4 { color: grey; }
+
+        .offers-container {
+            font-size: 0.7rem;
+            gap: 0.45rem;
+
+            .offer {
+                max-width: 50%;
+                padding: 0.15rem 0.3rem;
+                background-color: rgb(250,250,255);
+            }
+        }
+        
+    }
+
+
+    /************** Article's footer ***************/
+    .org-footer {
+        time {
+            font-size: 0.8rem;
+        }
+    }
+
+}

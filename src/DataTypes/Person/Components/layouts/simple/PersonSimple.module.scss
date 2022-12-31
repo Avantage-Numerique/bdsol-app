@@ -1,5 +1,7 @@
 .person-simple {
 
+    padding: 0.75rem;
+
     .person-simple__header {
 
         /* Top section of the header containing the picture and button */
@@ -17,18 +19,6 @@
                     height: 100%;
                     object-fit: cover;
                 }
-    
-            }
-
-            .person-simple__header__button {
-            
-                height: 1rem;
-                fill: grey;
-                opacity: 0.6;
-    
-                -webkit-transition: opacity 0.3s ease;
-                transition: opacity 0.3s ease;
-                &:hover { opacity: 1; }
             }
         }
 
@@ -42,16 +32,17 @@
 
                 .occupation {
                     max-width: 50%;
+                    padding: 0.15rem 0.3rem;
+                    background-color: rgb(250,250,255);
                 }
             }
         }
-
     }
 
     /* Footer */
     .person-single__footer {
         time {
-            font-size: 0.7rem;
+            font-size: 0.8rem;
         }
     }
 }
