@@ -79,6 +79,9 @@ const Button = ({ rippleEffect, ...props }) => {
 
         if(props.size){
             switch (props.size) {
+                case "reg-100":
+                    classList.push('w-100');
+                    break;
                 case "large-100":
                     classList.push('btn-lg');
                     classList.push('w-100');

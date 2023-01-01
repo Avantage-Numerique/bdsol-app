@@ -5,7 +5,7 @@ import Head from 'next/head';
 
 //Components
 import Button from '@/src/common/FormElements/Button/Button'
-import PresentationCard from '@/src/common/Containers/cards/presentationCard'
+//import PresentationCard from '@/src/common/Containers/cards/presentationCard'
 import Spinner from '@/src/common/widgets/spinner/Spinner'
 import PersonSimple from '@/DataTypes/Person/Components/layouts/simple/PersonSimple'
 import OrganisationSimple from '@/DataTypes/Organisation/components/layouts/simple/OrganisationSimple'
@@ -163,7 +163,7 @@ const HomePage = ({}) => {
 
             <div className="container home-page__main p-0">
                 <div className="row gx-5">
-                    <div className="col col-12 col-md-9">
+                    <div className="col col-12 col-md-9 position-relative">
                         <section className="home-page__feed-section">
                             <h2>{lang.actualities}</h2>
                             <hr />
@@ -236,12 +236,23 @@ const HomePage = ({}) => {
                             <section className={"aside__db-edit-options"}>
 
                                 <div className={"db-edit-options__button-set"}>
-                                    <Button disabled slim>Événement</Button>
-                                    <Button disabled slim>+</Button>
+                                    <Button 
+                                        disabled 
+                                        size="slim" 
+                                    >Événement</Button>
+                                    <Button 
+                                        disabled     
+                                        size="slim" 
+                                    >+</Button>
                                 </div>
 
                                 <div className={"db-edit-options__button-set"}>
-                                    <Button disabled slim>Personne</Button>
+                                    <Button 
+                                        href="/persons/"
+                                        size="slim" 
+                                        color="primary"
+                                        slim>
+                                    Personne</Button>
                                     <Button
                                         color="primary"
                                         size="slim"
@@ -251,7 +262,11 @@ const HomePage = ({}) => {
                                 </div>
 
                                 <div className={"db-edit-options__button-set"}>
-                                    <Button color="primary" size="slim" disabled>Organisation</Button>
+                                    <Button 
+                                        color="primary" 
+                                        size="slim" 
+                                        disabled
+                                    >Organisation</Button>
                                     <Button
                                         color="primary"
                                         size="slim"
