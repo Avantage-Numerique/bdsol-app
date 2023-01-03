@@ -263,9 +263,9 @@ const HomePage = ({}) => {
 
                                 <div className={"db-edit-options__button-set"}>
                                     <Button 
+                                        href="/organisations/"
                                         color="primary" 
                                         size="slim" 
-                                        disabled
                                     >Organisation</Button>
                                     <Button
                                         color="primary"
