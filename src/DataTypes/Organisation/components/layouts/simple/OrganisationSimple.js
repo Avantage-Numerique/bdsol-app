@@ -22,7 +22,7 @@ const OrganisationSimple = ({ data }) => {
         //fondationDate,
         name,
         offers,
-        //slug,
+        slug,
         //status,
         //team,
         //url,
@@ -53,7 +53,7 @@ const OrganisationSimple = ({ data }) => {
                 </figcaption>
                 <div className="position-absolute top-0 end-0">
                     <div className="p-3">
-                        <KebabButton color="reverse" />
+                        <KebabButton href={`/organisations/${slug}`} color="reverse" />
                     </div>
                 </div>
             </figure>
@@ -63,7 +63,7 @@ const OrganisationSimple = ({ data }) => {
                 {/******** Header ***********/}
                 <header className={`d-flex justify-content-between`}>
                     <h3 className="mt-0 h4">{name}</h3>
-                    <KebabButton />
+                    <KebabButton href={`/organisations/${slug}`} />
                 </header>
 
                 {/******** Presentation ***********/}

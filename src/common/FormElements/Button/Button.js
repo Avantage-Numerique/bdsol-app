@@ -92,6 +92,10 @@ const Button = ({ rippleEffect, ...props }) => {
                 case "slim":
                     classList.push('btn-slim');
                     break;
+                case "slim-100":
+                    classList.push('btn-slim');
+                    classList.push('w-100');
+                    break;
                 case "small":
                     classList.push('btn-sm');
                     break;

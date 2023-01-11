@@ -76,7 +76,7 @@ const SearchBar = ({small, ...props}) => {
                     list={props.id}
                     />
                 {<datalist id={props.id} name={"Datalist-"+ props.id }>
-                                {searchSuggestion.length != 0 && searchSuggestion.map( sugg => 
+                                {searchSuggestion && searchSuggestion.length != 0 && searchSuggestion.map( sugg => 
                                     <option key={sugg._id} value={sugg.name ?? sugg.firstName +' '+ sugg.lastName}>{sugg.type}</option>
                                     )}
                 </datalist>}
