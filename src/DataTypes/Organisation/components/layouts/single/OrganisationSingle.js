@@ -71,6 +71,8 @@ const OrganisationSimple = ({ data }) => {
 
             <div className="p-4 container">
                 <div className="row pt-4">
+
+                    {/*********** Main section on the left ************/}
                     <section className="col col-12 col-md-8">
 
                         {/******** Header **********/}
@@ -136,14 +138,10 @@ const OrganisationSimple = ({ data }) => {
                                 <p className="small">Personne n'est inscrit comme membre de l'équipe de cette organisation.</p>
                             }
                         </section>
-                        
-                  
-
-                        
-
-                        
 
                     </section>
+
+                    {/********** Aside section on the right of the page ******************/}
                     <aside className="col col-12 col-md-4">
 
                         <div className="border-top border-bottom py-3 mb-4">
