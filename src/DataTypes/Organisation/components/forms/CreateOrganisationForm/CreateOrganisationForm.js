@@ -8,6 +8,7 @@ import { useHttpClient } from '@/src/hooks/http-hook'
 //Components 
 import Button from '@/src/common/FormElements/Button/Button'
 import Input from '@/src/common/FormElements/Input/Input'
+import FileInput from '@/src/common/FormElements/FileInput/FileInput'
 import RichTextarea from '@/src/common/FormElements/RichTextArea/RichTextarea'
 import Spinner from '@/src/common/widgets/spinner/Spinner'
 import {lang} from "@/src/common/Data/GlobalConstants";
@@ -80,6 +81,10 @@ const CreateOrganisationForm = () => {
             value: [],
             isValid: true
         },
+        test: {
+            value: [],
+            isValid: true
+        }
     },
     false)
 
@@ -223,6 +228,20 @@ const CreateOrganisationForm = () => {
                         //personList={[...list]}
                     />
                 </Repeater>
+
+                <FileInput
+                    name="test"
+                    label="Date de fondation"
+                    type="date"
+                    formTools={formTools}
+                    validationRules={[
+                        {name: "REQUIRED"}
+                    ]}
+                    tip={{
+                        header: "À noter",
+                        body: "Cette information vise à offrir une option pour rejoindre un représentant de l'organisation."
+                    }}
+                />
 
                 <div className="col-12">
                     <Button type="submit" disabled={!formState.isValid}>Soumettre</Button>
