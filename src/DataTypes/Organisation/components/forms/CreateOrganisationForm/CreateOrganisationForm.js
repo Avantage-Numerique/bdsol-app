@@ -232,10 +232,10 @@ const CreateOrganisationForm = () => {
                 <FileInput
                     name="test"
                     label="Date de fondation"
-                    type="date"
                     formTools={formTools}
                     validationRules={[
-                        {name: "REQUIRED"}
+                        {name: "REQUIRED"},
+                        {name: "FILE_MAX_SIZE", value: 1}
                     ]}
                     tip={{
                         header: "À noter",

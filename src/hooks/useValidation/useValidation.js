@@ -6,10 +6,6 @@
 */
 import { useState } from 'react'
 
-//Import styling
-import styles from './validation.module.scss'
-
-
 const rules_settings = {
     REQUIRED: { 
         renderMessage: (() => "Ce champ est requis"),
@@ -52,6 +48,11 @@ const rules_settings = {
         renderMessage: (() => "Ce champ ne doit contenir que des caractères alphanumériques (lettres et chiffres)"),
         validationMethod: (value => /^[A-Za-z0-9]*$/.test(value)),
         renderBadge: (() => `Alphanumerique (lettres et chiffres)`)
+    },
+    FILE_MAX_SIZE: {
+        renderMessage: ((mo = 5) => `Ce champ n'accepte que les fichiers de ${mo} Mo et moins.`),
+        validationMethod: ((value, mo = 5) => value?.size <= (mo * 1024 * 1024)),
+        renderBadge: ((mo = 5) => `${mo} Mo max`)
     }
 }
 

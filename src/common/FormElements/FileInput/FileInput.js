@@ -15,13 +15,14 @@ const FileInput = ({...props}) => {
 
     /**************************
 
-        EXPECTED PROPS
+        EXPECTED AND ACCEPTED PROPS
 
     ***************************/
    const {
         name,               //Unique and essentiel to the field. It is the key to recognizing it in the formState
         formTools,          //Access to the state of the hole form
         validationRules,    //Rules that define what is needed and accepted for this field
+        label,              //Displayed title of the field
         accept,             //Accepted types : 
                                 /*  A string containing one or many of the following, separeted by comas
                                         image/*  =>  any img file. (Many mobile devices also let the user take a picture with the camera when this is used.)
@@ -65,17 +66,14 @@ const FileInput = ({...props}) => {
             ) 
     }
 
-    //Call the input handler once at the rendering
+    //Call the input handler once at the rendering 
     useEffect(() => {
         inputHandler(
             name,
             fieldRef.current.files[0],
-            validationRules ? validate(fieldRef.current.value) : true
+            validationRules ? validate(fieldRef.current.files[0]) : true
         )
     }, [])
-
-
-
 
     return (
         <div className={`${styles["input-component"]}`}>  
@@ -84,7 +82,7 @@ const FileInput = ({...props}) => {
                 <label 
                     htmlFor={name}
                 >
-                    {props.label}
+                    {label}
                 </label>
                 {/* Display the tip button id there is one */}
                 {
@@ -102,13 +100,16 @@ const FileInput = ({...props}) => {
                 ${styles["input-component__field-container"]}
                 ${!currentState.isValid && currentState.isTouched && "control--invalid"}
             `}>
+                {/* Customization of the field */}
                 <div 
                     className={`
                         w-100 border-0 form-element--field-padding d-flex align-items-center gap-3
                         ${styles["input-ui"]}
                     `}
+                    onBlur={() => inputTouched(name)}
                     tabIndex="0"
                   >
+                    {/* New Ui button to replace the default one displayed by the browser */}
                     <Button 
                         type="button" 
                         size="slim"
@@ -117,33 +118,30 @@ const FileInput = ({...props}) => {
                     >
                         Ajouter un fichier
                     </Button>
+                    {/* Display of the selected file */}
                     <div 
                         dir="rtl"
                         className={`text-secondary text-truncate ${styles["input-ui__file-name"]}`}
                     >
                         {currentState.value?.name ? currentState.value.name : "Aucun fichier n'est sélectionné"}
-                    
                     </div>
-                    
                 </div>
+
+                {/* Real input used for its fonctionalities */}
                 <input 
                     hidden="hidden"      //Because this is the real input but it is not displayed
                     ref={fieldRef}
-                    className="w-100 border-0 form-element--field-padding"
                     name={ name }
                     accept={accept ? accept : ""}
-                    id="test"
                     type="file"
                     onChange={updateValue}
-                    onBlur={() => inputTouched(name)}
                 /> 
 
                 <RequirementsBadges addUlPadding /> 
             </div>
 
             <div className="validation-error-messages-container">
-            <ValidationErrorMessages /> 
-                    { currentState.isTouched && <ValidationErrorMessages /> }
+                { currentState.isTouched && <ValidationErrorMessages /> }
             </div>
 
         </div>
