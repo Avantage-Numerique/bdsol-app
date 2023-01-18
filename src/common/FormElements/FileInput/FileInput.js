@@ -28,11 +28,7 @@ const FileInput = ({...props}) => {
                                         video/*  =>  any video file
                                         audio/*  =>  any audio file
                                         
-                                        or 
-
-                                        any specific entension with a dot as follow : 
-                                        .jpg, .png, .dpf 
-
+                                        .jpg, .png, .dpf  => specific format
                                         more : https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file
                                 */
         tip,                //Display and interrogation button that offers some informations
@@ -111,7 +107,7 @@ const FileInput = ({...props}) => {
                         w-100 border-0 form-element--field-padding d-flex align-items-center gap-3
                         ${styles["input-ui"]}
                     `}
-                    tabindex="0"
+                    tabIndex="0"
                   >
                     <Button 
                         type="button" 

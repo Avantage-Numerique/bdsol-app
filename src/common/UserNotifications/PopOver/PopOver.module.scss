@@ -1,0 +1,104 @@
+/*
+        Styling specific for the pop over 
+*/
+
+.pop-over {
+
+    /* Default for a display on the left side */
+
+    /* Position of the dialog box relatively to itself*/
+    --dialog-translate-X: -100%;
+    --dialog-translate-Y: 0%;
+    /* Position of the pointer relatively to itself */
+    --pointer-translate-x: 50%;     
+    --pointer-translate-y: 50%;     
+ 
+    /* Position over other elements */
+    z-index: 4;
+
+    /* Dimensions */
+    width: 40ch;        /* Temporary */
+    max-width: 90vw;    /* Temporary */
+    
+    /* Shadow arround the dialog box */
+    -webkit-filter: drop-shadow(0.1rem 0.1rem 0.1rem grey);
+            filter: drop-shadow(0.1rem 0.1rem 0.1rem grey);
+
+    /* Horizontaly move the dialog box */
+    -webkit-transform: translate(var(--dialog-translate-X), var(--dialog-translate-Y));
+        -ms-transform: translate(var(--dialog-translate-X), var(--dialog-translate-Y));
+            transform: translate(var(--dialog-translate-X), var(--dialog-translate-Y));
+            
+
+    /***********   
+    
+            Positionning classes 
+            
+    ***************/
+
+    /* Vertical positionning */
+    &.position-top {
+        top: -1rem;
+        .pointing-corner { top: 1.5rem; }
+    }
+
+    &.position-bottom {
+        bottom: -1rem;
+        .pointing-corner { bottom: 1.5rem; }
+    }
+
+    &.position-over {
+        --dialog-translate-Y: -105%;    /* For older browsers */
+        --dialog-translate-Y: calc(-100% + -1rem);
+        --pointer-translate-y: -50%;
+        .pointing-corner { bottom: - 0.5rem; }
+    }
+
+    &.position-under {
+        bottom: -1rem;
+        --dialog-translate-Y: 100%;  
+        --pointer-translate-y: 50%;
+        .pointing-corner { top: - 0.5rem; }
+    }
+
+    /* Horizontal positionning */
+    &.position-left { 
+        left: -1rem;
+        .pointing-corner {
+            right: 0;
+        }
+    }
+
+    &.position-right { 
+        /* Translate dialog box on the X axis */
+        --dialog-translate-X: 0%;
+        /* Modification of the pointer position relatively to itself */
+        --pointer-translate-x: -50%;
+        left: 105%; /* For older browsers */
+        left: calc(100% + 1rem);
+        .pointing-corner { left: 0; }
+    }
+
+    &.position-center { 
+        /* Translate dialog box on the X axis */
+        --dialog-translate-X: -50%;
+        /* Modification of the pointer position relatively to itself */
+        --pointer-translate-x: -50%;
+        /* Modification of the dialog box in relation with the parent component */
+        left: 50%;  
+        .pointing-corner { left: 50%; }
+    }
+
+    /* Small pointer positionning */
+    .pointing-corner {
+       background-color: white; 
+       position: absolute;
+       height: 0.5rem;
+       width: 0.5rem;
+       border-width: 1px 1px 0px 0px;
+
+       -webkit-transform: translate(var(--pointer-translate-x), var(--pointer-translate-y)) rotate(45deg);
+           -ms-transform: translate(var(--pointer-translate-x), var(--pointer-translate-y)) rotate(45deg);
+               transform: translate(var(--pointer-translate-x), var(--pointer-translate-y)) rotate(45deg);
+    }
+}
