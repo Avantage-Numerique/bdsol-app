@@ -8,6 +8,7 @@ import Button from '@/FormElements/Button/Button'
 import Input from '@/FormElements/Input/Input'
 import RichTextarea from '@/FormElements/RichTextArea/RichTextarea'
 import Select2 from '@/FormElements/Select2/Select2'
+import FileInput from '@/src/common/FormElements/FileInput/FileInput'
 import Modal from '@/src/common/Containers/Modal/Modal'
 import CreateTaxonomyForm from '@/src/DataTypes/Taxonomy/Components/Forms/CreateTaxonomy/CreateTaxonomyForm'
 import {lang} from "@/src/common/Data/GlobalConstants";
@@ -53,6 +54,10 @@ const CreatePersonForm = () => {
         occupations: {
             value: [],
             isValid: true
+        },
+        mainImage: {
+            value: "",
+            isValid: true
         }
     }
     );
@@ -69,6 +74,7 @@ const CreatePersonForm = () => {
                 "nickname": formState.inputs.nickName.value,
                 "description": formState.inputs.description.value,
                 "occupations": formState.inputs.occupations.value,
+                "mainImage": formState.inputs.mainImage.value,
 
                 "status": {
                     "state": "pending",
@@ -138,6 +144,15 @@ const CreatePersonForm = () => {
                     name="description"
                     label="Biographie / description"
                     formTools={formTools}
+                />
+
+                <FileInput
+                    name="mainImage"
+                    label="Image principale"
+                    formTools={formTools}
+                    validationRules={[
+                        {name: "FILE_MAX_SIZE", specification: 2}
+                    ]}
                 />
 
                 <TaxonomyTagListTemplate

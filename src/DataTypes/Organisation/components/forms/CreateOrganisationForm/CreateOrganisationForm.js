@@ -80,10 +80,6 @@ const CreateOrganisationForm = () => {
         team: {
             value: [],
             isValid: true
-        },
-        test: {
-            value: [],
-            isValid: true
         }
     },
     false)
@@ -228,20 +224,6 @@ const CreateOrganisationForm = () => {
                         //personList={[...list]}
                     />
                 </Repeater>
-
-                <FileInput
-                    name="test"
-                    label="Date de fondation"
-                    formTools={formTools}
-                    validationRules={[
-                        {name: "REQUIRED"},
-                        {name: "FILE_MAX_SIZE", value: 1}
-                    ]}
-                    tip={{
-                        header: "À noter",
-                        body: "Cette information vise à offrir une option pour rejoindre un représentant de l'organisation."
-                    }}
-                />
 
                 <div className="col-12">
                     <Button type="submit" disabled={!formState.isValid}>Soumettre</Button>

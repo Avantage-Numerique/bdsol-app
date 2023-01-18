@@ -51,7 +51,7 @@ const rules_settings = {
     },
     FILE_MAX_SIZE: {
         renderMessage: ((mo = 5) => `Ce champ n'accepte que les fichiers de ${mo} Mo et moins.`),
-        validationMethod: ((value, mo = 5) => value?.size <= (mo * 1024 * 1024)),
+        validationMethod: ((value, mo = 5) => value ? value?.size <= (mo * 1024 * 1024) : true),
         renderBadge: ((mo = 5) => `${mo} Mo max`)
     }
 }
