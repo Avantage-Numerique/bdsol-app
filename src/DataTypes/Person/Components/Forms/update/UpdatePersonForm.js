@@ -10,7 +10,11 @@ import RichTextarea from '@/src/common/FormElements/RichTextArea/RichTextarea'
 import Select2 from '@/src/common/FormElements/Select2/Select2'
 import Modal from '@/src/common/Containers/Modal/Modal'
 import CreateTaxonomyForm from '@/src/DataTypes/Taxonomy/Components/Forms/CreateTaxonomy/CreateTaxonomyForm'
+import FileInput from '@/src/common/FormElements/FileInput/FileInput'
+
+//Utils 
 import {lang} from "@/src/common/Data/GlobalConstants";
+
 
 //Styling
 import styles from './UpdatePersonForm.module.scss'
@@ -52,6 +56,10 @@ const UpdatePersonForm = ({initValues}) => {
             occupations: {
                 value: initValues.occupations ? initValues.occupation : [],
                 isValid: true
+            },
+            mainImage: {
+                value: "",
+                isValid: true
             }
         }
         );
@@ -68,7 +76,8 @@ const UpdatePersonForm = ({initValues}) => {
                     "firstName":  formState.inputs.firstName.value, 
                     "nickname": formState.inputs.nickName.value,
                     "description": formState.inputs.description.value,
-                    "occupations": formState.inputs.occupations.value
+                    "occupations": formState.inputs.occupations.value,
+                    "mainImage": formState.inputs.mainImage.value,
                 }
             };
 
@@ -130,6 +139,16 @@ const UpdatePersonForm = ({initValues}) => {
                         {name: "REQUIRED"}
                     ]}
                     formTools={formTools}
+                />
+                
+                <FileInput
+                    name="mainImage"
+                    label="Image principale"
+                    accept="image/*"
+                    formTools={formTools}
+                    validationRules={[
+                        {name: "FILE_MAX_SIZE", specification: 2}
+                    ]}
                 />
 
                 <Select2

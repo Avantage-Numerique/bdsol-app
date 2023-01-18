@@ -77,7 +77,7 @@ const CreatePersonForm = () => {
                 "mainImage": formState.inputs.mainImage.value,
 
                 "status": {
-                    "state": "pending",
+                    "state": "Pending",
                     "requestedBy": auth.user.id,
                     "lastModifiedBy": auth.user.id
                 }//Hardcoded status to send at creation (Temporary, until we moderate it with the API)
@@ -149,6 +149,7 @@ const CreatePersonForm = () => {
                 <FileInput
                     name="mainImage"
                     label="Image principale"
+                    accept="image/*"
                     formTools={formTools}
                     validationRules={[
                         {name: "FILE_MAX_SIZE", specification: 2}
