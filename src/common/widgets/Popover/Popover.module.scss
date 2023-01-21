@@ -1,7 +1,9 @@
 
-$tooltip-height: .5em;
 
 .tooltip-container {
+
+    $tooltip-height: .5em;
+
     position: relative;
     display: inline-block;
 
@@ -45,7 +47,7 @@ $tooltip-height: .5em;
             bottom: calc(100% + calc($tooltip-height * 2));
         }
     }
-}
+
 
 /* Tooltip styles */
 [role="tooltip"] {
@@ -74,4 +76,6 @@ $tooltip-height: .5em;
 */
 [aria-hidden="true"] {
     pointer-events: none;
+}
+
 }

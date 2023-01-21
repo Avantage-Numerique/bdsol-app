@@ -8,7 +8,6 @@ import { useHttpClient } from '@/src/hooks/http-hook'
 //Components 
 import Button from '@/src/common/FormElements/Button/Button'
 import Input from '@/src/common/FormElements/Input/Input'
-import FileInput from '@/src/common/FormElements/FileInput/FileInput'
 import RichTextarea from '@/src/common/FormElements/RichTextArea/RichTextarea'
 import Spinner from '@/src/common/widgets/spinner/Spinner'
 import {lang} from "@/src/common/Data/GlobalConstants";
@@ -22,7 +21,6 @@ import styles from './CreateOrganisationForm.module.scss'
 import PersonRoleTemplate from '@/src/DataTypes/Person/Template/PersonRoleTemplate'
 import Repeater from '@/src/common/Containers/Repeater/Repeater'
 import TaxonomyTagListTemplate from '@/src/DataTypes/Taxonomy/Template/TaxonomyTagListTemplate'
-
 
 
 const CreateOrganisationForm = () => {
@@ -224,6 +222,8 @@ const CreateOrganisationForm = () => {
                         //personList={[...list]}
                     />
                 </Repeater>
+
+     
 
                 <div className="col-12">
                     <Button type="submit" disabled={!formState.isValid}>Soumettre</Button>

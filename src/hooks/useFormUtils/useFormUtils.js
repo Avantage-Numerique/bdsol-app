@@ -59,7 +59,7 @@ export const useFormUtils = ( initialState, actions ) => {
     const [formState, formTools, clearFormData] = useForm(initialState)
 
     const submitRequest = async (route, type, data, header = { 'Content-Type': 'application/json' }) => {
-
+        console.log("header", header);
         if(formState.isValid){
 
             //Send the request with the specialized hook

@@ -88,7 +88,8 @@ const CreatePersonForm = () => {
         submitRequest(
             "/persons/create",
             'POST',
-            formData
+            formData,
+            {'Content-Type': 'multipart/form-data'}                        
         );
 
 

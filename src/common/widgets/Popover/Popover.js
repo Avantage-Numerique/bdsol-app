@@ -1,4 +1,4 @@
-import React from 'react';
+import { useRef, useEffect } from 'react';
 import styles from './Popover.module.scss';
 
 // the W3C is disccussion a widget in html for this. this is still in discussion
@@ -22,7 +22,7 @@ import styles from './Popover.module.scss';
 class Tooltip {
     constructor(element) {
         this.container = element;
-        this.trigger = element.querySelector('[data-tooltip-trigger]');
+        this.trigger = element.querySelector('button');
         this.tooltip = element.querySelector('[role=tooltip]');
         this.tooltipPosition = this.getTooltipPosition();
         this.globalEscapeBound = this.globalEscape.bind(this);
@@ -93,13 +93,13 @@ class Tooltip {
 
     // Show or hide the tooltip
     showTooltip() {
-        this.container.classList.add('tooltip-visible')
-        this.tooltip.classList.remove('tooltip-hidden')
+        this.container.classList.add(styles['tooltip-visible'])
+        this.tooltip.classList.remove(styles['tooltip-hidden'])
     }
 
     hideTooltip() {
-        this.container.classList.remove('tooltip-visible')
-        this.tooltip.classList.add('tooltip-hidden')
+        this.container.classList.remove(styles['tooltip-visible'])
+        this.tooltip.classList.add(styles['tooltip-hidden'])
     }
 
     // Get the desired default position for the tooltip (defaults to 'bottom')
@@ -118,11 +118,11 @@ class Tooltip {
     initialiseClassList() {
         switch (this.tooltipPosition) {
             case 'top':
-                this.container.classList.add('top')
+                this.container.classList.add(styles['top'])
                 break
 
             default:
-                this.container.classList.remove('top')
+                this.container.classList.remove(styles['top'])
                 break
         }
     }
@@ -175,7 +175,7 @@ class Tooltip {
 
     // Move the tooltip so it fits within the viewport
     moveTooltipUp() {
-        this.container.classList.add('top')
+        this.container.classList.add(styles['top'])
     }
 
     moveTooltipRight(bounds) {
@@ -184,7 +184,7 @@ class Tooltip {
     }
 
     moveTooltipDown() {
-        this.container.classList.remove('top')
+        this.container.classList.remove(styles['top'])
     }
 
     moveTooltipLeft(bounds, windowWidth) {
@@ -194,11 +194,12 @@ class Tooltip {
 
     // Reset the changes made by the bounding box functions
     resetBoundingBox() {
+        /*
         if (tooltip.style.left || tooltip.style.transform) {
             tooltip.style.left = null
             tooltip.style.transform = null
         }
-
+        */
         this.initialiseClassList()
     }
 }
@@ -208,14 +209,16 @@ function Popover(props) {
 
     const {label, title, content, uniqueName} = props;
 
-    const tooltip = new Tooltip();
+    const element = useRef()
+
+    useEffect(() => { const tooltip = new Tooltip(element.current); }, [])
 
     return (
-        <div className="tooltip-container">
+        <div ref={element} className={styles["tooltip-container"]}>
             <button type="button" aria-describedby={uniqueName}>
                 {label}
             </button>
-            <div id={uniqueName} role="tooltip" className="tooltip-hidden tooltip-content">
+            <div id={uniqueName} role="tooltip" className={styles["tooltip-hidden tooltip-content"]}>
                 <h5>{title}</h5>
                 <p>{content}</p>
             </div>
