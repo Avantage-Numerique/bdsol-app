@@ -108,7 +108,11 @@ const CreatePersonForm = () => {
 
     return (
         <>
-            <form onSubmit={submitHandler} className={`${styles["create-person-form"]}`}>
+            <form 
+                onSubmit={submitHandler} 
+                className={`${styles["create-person-form"]}`}
+                enctype='multipart/form-data'
+            >
 
                 <FormUI />
                 <Input 
