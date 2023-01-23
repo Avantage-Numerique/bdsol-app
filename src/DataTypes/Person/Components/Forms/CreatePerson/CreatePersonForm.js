@@ -74,7 +74,7 @@ const CreatePersonForm = () => {
                 "nickname": formState.inputs.nickName.value,
                 "description": formState.inputs.description.value,
                 "occupations": formState.inputs.occupations.value,
-                "mainImage": formState.inputs.mainImage.value,
+                "mainImage": formState.inputs.mainImage.value, 
 
                 "status": {
                     "state": "Pending",
@@ -89,7 +89,10 @@ const CreatePersonForm = () => {
             "/persons/create",
             'POST',
             formData,
-            {'Content-Type': 'multipart/form-data'}                        
+            {   
+                'Content-Type': 'multipart/form-data',
+                'content-length': `${formState.inputs.mainImage.value.size}`
+            }                        
         );
 
 
@@ -112,7 +115,7 @@ const CreatePersonForm = () => {
             <form 
                 onSubmit={submitHandler} 
                 className={`${styles["create-person-form"]}`}
-                enctype='multipart/form-data'
+                encType="multipart/form-data"
             >
 
                 <FormUI />

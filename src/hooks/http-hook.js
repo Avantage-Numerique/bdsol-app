@@ -133,7 +133,6 @@ export const useHttpClient = () => {
                 };
 
             activeHttpRequests.current.push(httpAbortCtrl)
-
             try {
 
                 const responseData = await externalApiRequest(
