@@ -67,46 +67,45 @@ const CreatePersonForm = () => {
         event.preventDefault();
 
         console.log(formState.inputs.mainImage.value);
-        //const rawFromData = new FormData();
+        const rawFromData = new FormData();
         const formData = {
-            'data': {
-                "lastName": formState.inputs.lastName.value,
-                "firstName":  formState.inputs.firstName.value,
-                "nickname": formState.inputs.nickName.value,
-                "description": formState.inputs.description.value,
-                "occupations": formState.inputs.occupations.value,
-                "status": {
-                    "state": "pending",
-                    "requestedBy": auth.user.id,
-                    "lastModifiedBy": auth.user.id
-                },
-                "media": {
-                    "title": "allo",
-                    "alt": "picasso",
-                    "description": "une patate",
-                    "path": "toDetermine",
-                    "licence": "Public Domain (CC0)",
-                    "fileType": "image",
-                }
-                //Hardcoded status to send at creation (Temporary, until we moderate it with the API)
+            "lastName": formState.inputs.lastName.value,
+            "firstName":  formState.inputs.firstName.value,
+            "nickname": formState.inputs.nickName.value,
+            "description": formState.inputs.description.value,
+            "occupations": formState.inputs.occupations.value,
+            "status": {
+                "state": "pending",
+                "requestedBy": auth.user.id,
+                "lastModifiedBy": auth.user.id
+            },
+            "media": {
+                "title": "allo",
+                "alt": "picasso",
+                "description": "une patate",
+                "path": "toDetermine",
+                "licence": "Public Domain (CC0)",
+                "fileType": "image",
             }
+            //Hardcoded status to send at creation (Temporary, until we moderate it with the API)
         };
-        formData.mainImage = formState.inputs.mainImage.value;
-        console.log(formData.mainImage);
+        rawFromData.append("mainImage", formState.inputs.mainImage.value);
+        rawFromData.append("data", JSON.stringify(formData));
 
         //rawFromData.append('data', JSON.stringify(formData));
         //rawFromData.append('mainImage', formState.inputs.mainImage.value);
 
-        console.log(formData);
-
         //Send the request with the specialized hook
-        submitRequest(
+        await submitRequest(
             "/persons/create",
             'POST',
-            formData,
+            rawFromData,
             {
-                'Content-Type': 'multipart/form-data',
+                //'Content-Type': 'multipart/form-data',
                 'Accept': 'application/json'
+            },
+            {
+                isBodyJson: false
             }
         );
     }
