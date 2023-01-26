@@ -7,7 +7,6 @@ import { useFormUtils } from '@/src/hooks/useFormUtils/useFormUtils'
 import Button from '@/FormElements/Button/Button'
 import Input from '@/FormElements/Input/Input'
 import RichTextarea from '@/FormElements/RichTextArea/RichTextarea'
-import Select2 from '@/FormElements/Select2/Select2'
 import FileInput from '@/src/common/FormElements/FileInput/FileInput'
 import Modal from '@/src/common/Containers/Modal/Modal'
 import CreateTaxonomyForm from '@/src/DataTypes/Taxonomy/Components/Forms/CreateTaxonomy/CreateTaxonomyForm'
@@ -67,35 +66,48 @@ const CreatePersonForm = () => {
 
         event.preventDefault();
 
+        console.log(formState.inputs.mainImage.value);
+        const rawFromData = new FormData();
         const formData = {
-            "data": {
-                "lastName": formState.inputs.lastName.value,
-                "firstName":  formState.inputs.firstName.value, 
-                "nickname": formState.inputs.nickName.value,
-                "description": formState.inputs.description.value,
-                "occupations": formState.inputs.occupations.value,
-                "mainImage": formState.inputs.mainImage.value, 
-
-                "status": {
-                    "state": "Pending",
-                    "requestedBy": auth.user.id,
-                    "lastModifiedBy": auth.user.id
-                }//Hardcoded status to send at creation (Temporary, until we moderate it with the API)
+            "lastName": formState.inputs.lastName.value,
+            "firstName":  formState.inputs.firstName.value,
+            "nickname": formState.inputs.nickName.value,
+            "description": formState.inputs.description.value,
+            "occupations": formState.inputs.occupations.value,
+            "status": {
+                "state": "pending",
+                "requestedBy": auth.user.id,
+                "lastModifiedBy": auth.user.id
+            },
+            "media": {
+                "title": "allo",
+                "alt": "picasso",
+                "description": "une patate",
+                "path": "toDetermine",
+                "licence": "Public Domain (CC0)",
+                "fileType": "image",
             }
+            //Hardcoded status to send at creation (Temporary, until we moderate it with the API)
         };
+        rawFromData.append("mainImage", formState.inputs.mainImage.value);
+        rawFromData.append("data", JSON.stringify(formData));
+
+        //rawFromData.append('data', JSON.stringify(formData));
+        //rawFromData.append('mainImage', formState.inputs.mainImage.value);
 
         //Send the request with the specialized hook
-        submitRequest(
+        await submitRequest(
             "/persons/create",
             'POST',
-            formData,
-            {   
-                'Content-Type': 'multipart/form-data',
-                'content-length': `${formState.inputs.mainImage.value.size}`
-            }                        
+            rawFromData,
+            {
+                //'Content-Type': 'multipart/form-data',
+                'Accept': 'application/json'
+            },
+            {
+                isBodyJson: false
+            }
         );
-
-
     }
 
     /*
@@ -115,7 +127,7 @@ const CreatePersonForm = () => {
             <form 
                 onSubmit={submitHandler} 
                 className={`${styles["create-person-form"]}`}
-                encType="multipart/form-data"
+                encType='multipart/form-data'
             >
 
                 <FormUI />
