@@ -207,7 +207,7 @@ class Tooltip {
 
 function Popover(props) {
 
-    const {label, title, content, uniqueName} = props;
+    const {label, title, content, uniqueName} = props; 
 
     const element = useRef()
 
