@@ -120,7 +120,7 @@ export const useHttpClient = () => {
     const sendRequest = useCallback(
 
         //Main request function with pre-determined values
-        async (path, method = 'GET', body = null, headers = {}) => {
+        async (path, method = 'GET', body = null, headers = {}, params={}) => {
 
             //Start the loading component
             setIsLoading(true);
@@ -141,7 +141,8 @@ export const useHttpClient = () => {
                         method: method,
                         body: body,
                         headers: headersParams,
-                        additionnalFetchParams: {signal: httpAbortCtrl.signal}
+                        additionnalFetchParams: {signal: httpAbortCtrl.signal},
+                        ...params
                     }
                 );
 
