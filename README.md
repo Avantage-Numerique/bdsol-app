@@ -1,4 +1,5 @@
 # Application public et tableau de bord de la BDSOL
+[![Build Status](https://github.com/Avantage-Numerique/bdsol-app/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/Avantage-Numerique/bdsol-app/actions)
 
 ## Mise à jours
 

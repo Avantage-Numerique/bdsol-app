@@ -8,7 +8,6 @@ import React from "react";
  * @constructor
  */
 const Index = () => {
-
     const pClass = "";
 
     return (

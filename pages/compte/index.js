@@ -15,6 +15,7 @@ import Help from '@/src/common/Containers/UserAccount/Help/help';
 import {withSessionSsr} from "@/auth/session/handlers/withSession";
 import {ssrCanAccess} from "@/auth/permissions/ssrCanAccess";
 import PageHeader from "@/layouts/Header/PageHeader";
+import {lang} from "@/common/Data/GlobalConstants";
 
 const accountPage = ({ user }) => {
 
@@ -28,7 +29,7 @@ const accountPage = ({ user }) => {
 
     return (
         <div className={"account-page pb-3"}>
-            <PageHeader title={`Bienvenue dans l'espace utilisateur, ${user && (user.username)}`} />
+            <PageHeader title={`${lang.memberSpaceWelcome}, ${user && (user.username)}`} />
             <div className="container">
                 <div className="row gx-5">
                     <aside className="col col-sm-3">

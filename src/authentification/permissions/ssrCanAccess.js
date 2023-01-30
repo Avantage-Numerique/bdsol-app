@@ -1,22 +1,22 @@
 import {defaultSessionData} from "@/auth/context/auth-context";
 
-export const ssrCanAccess = async ({req,res}) => {
-
+export const ssrCanAccess = async ({req}) => {
     const user = req.session.user;
 
-    if (user && user.isLoggedIn && user.tokenVerified) {
+    // redirect if the user isn't logged in.
+    if (!user || !user.isLoggedIn || !user.tokenVerified) {
         return {
-            props: { user: req.session.user }
+            redirect: {
+                permanent: false,
+                destination: "/compte/connexion"
+            },
+            props: {
+                user: {...defaultSessionData},
+            }
         };
     }
 
-    res.setHeader("location", "/compte/connexion");
-    res.statusCode = 302;
-    res.end();
-
     return {
-        props: {
-            user: {...defaultSessionData},
-        }
+        props: { user: req.session.user }
     };
 };

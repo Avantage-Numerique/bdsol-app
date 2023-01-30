@@ -1,9 +1,12 @@
 import { useState } from 'react' 
+import Router from 'next/router';
+
+//Hooks
+import { useModal } from '@/src/hooks/useModal/useModal'
 
 //Components
 import SanitizedInnerHtml from '@/src/utils/SanitizedInnerHtml'
 import Button from '@/src/common/FormElements/Button/Button'
-import Modal from '@/src/common/Containers/Modal/Modal'
 import UpdatePersonForm from '@/DataTypes/Person/Components/Forms/update/UpdatePersonForm'
 import { useEffect } from 'react'
 import {useHttpClient} from '@/src/hooks/http-hook';
@@ -33,6 +36,7 @@ const MainPersonView = ({ data }) => {
         nickname,
         description,
         occupations,
+        slug,
         createdAt,
         updatedAt,
         status
@@ -54,29 +58,15 @@ const MainPersonView = ({ data }) => {
         fetchMemberOf()
     }, [])
 
-    useEffect( () => console.log("memberOf", memberOfOrganisationList, memberOfOrganisationList.length != 0), [memberOfOrganisationList])
-
-    /*
-     *    
-        Modal State
-     *
-     */
-    const [modal, setModal] = useState({
-        display: false,
-        //Values to be passe from the first form to the form displayed in the modal. In this case, all the fields of a person form.
-        enteredValues: {
-
-        },  
-        callback: () => {}
-    })
+    //Modal hook
+    const { modal, Modal, displayModal, closeModal } = useModal()
 
     //Called by the select. Not in use right now
-    const displayModal = selectStatus => {
-        
-        if(selectStatus === "editing")
-            setModal(prev => ({...prev, display: true}))
-
+    const displayUpdateForm = selectStatus => {
+       // if(selectStatus === "editing") displayModal()
+       displayModal()
     }
+    
 
 
     return (
@@ -271,14 +261,27 @@ const MainPersonView = ({ data }) => {
         </article>
 
         {/********** Modal display ************/}
-        { modal && modal.display &&
+        { modal.display &&
             <Modal 
                 className={`${styles["person-form-modal"]}`}
                 coloredBackground
                 darkColorButton
-                closingFunction={() => {setModal(prev => ({...prev, display: false}))}}
+                closingFunction={closeModal}
             >
-                <UpdatePersonForm initValues={data}/>
+               <UpdatePersonForm 
+                    initValues={data}
+                    positiveRequestActions={{
+                        //CallbackFunction is one of the four behaviors the useFormUtils hook can apply when a request return a positive answer
+                        callbackFunction: requestResponse => {
+
+                            //Redirect to the right path if the slug changes and otherwise, at least reflect the changes
+                            Router.push(`/persons/${requestResponse.data.slug}`);
+                            
+                            //Close the modal 
+                            closeModal()
+                        }
+                    }}
+                />
             </Modal>
             }
     </>
