@@ -13,6 +13,7 @@ import {useHttpClient} from '@/src/hooks/http-hook';
 
 //Styling
 import styles from './MainPersonView.module.scss'
+import {lang} from "@/common/Data/GlobalConstants";
 
 const SingleInfoLayout = ({ title, NAMessage, children }) => {
 
@@ -82,7 +83,7 @@ const MainPersonView = ({ data }) => {
 
                 {/* Background image */}
                 <figure className={`${styles["person-view__bg-img"]}`}>
-                    <img className={`${styles["person-view__bg-img__img"]}`} src="/general_images\forestBG.jpg" alt="Background image for a person card"/>
+                    <img className={`${styles["person-view__bg-img__img"]}`} src="/general_images/forestBG.jpg" alt="Background image for a person card"/>
                     <div className={`${styles["black-gradient"]}`}></div>
                 </figure>
 
@@ -93,8 +94,8 @@ const MainPersonView = ({ data }) => {
                             <a className="text-white" href="/"> &#8629; Retour </a>
                         </div>
                         <div className={"col-auto col-lg-4"}>
-                            <Button onClick={() => setModal(prev => ({...prev, display: true}))}>
-                                Proposer une modification
+                            <Button onClick={displayUpdateForm}>
+                                {lang.proposeContentChangeLabel}
                             </Button>
                             {/* 
                             <div>
@@ -166,7 +167,7 @@ const MainPersonView = ({ data }) => {
             <section className={`${styles["person-view__main-section"]}`}>
                 <div className={"container"}>
                     <div className={"row"}>
-                        <div className={"col-6 col-lg-8"} sm={6} lg={8}>
+                        <div className={"col-6 col-lg-8"}>
     
                             <SingleInfoLayout 
                                 title={"Présentation"}
@@ -194,7 +195,7 @@ const MainPersonView = ({ data }) => {
                                 status && status.state &&
                                     <SingleInfoLayout
                                         title="Statut de l'entité"
-                                        NAMessage={ status.state == 'accepted' ? "Acceptée" : "En attente d'approbation"}>
+                                        NAMessage={ status.state === 'accepted' ? "Acceptée" : "En attente d'approbation"}>
                                     </SingleInfoLayout>
                             }
 
@@ -239,7 +240,7 @@ const MainPersonView = ({ data }) => {
                             >
                                 <div className={"container"}>
                                     <ul className="row">
-                                        { occupations.length == 0 ?
+                                        { occupations.length === 0 ?
                                             <div>Aucune occupation associée</div>
                                             :
                                             occupations.map( (occ) => {

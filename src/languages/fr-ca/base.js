@@ -59,6 +59,9 @@ export const base = {
     "formOrganisationSubtitle": "Vous pouvez ajouter ici une nouvelle organisation à la base de données.",
     "formOrganisationInstructions": "Super formulaire",
 
+    // SINGLE
+    "proposeContentChangeLabel": "Proposer une modification",
+
     //  Personnes
 
     "Personne": "Personne",
