@@ -81,6 +81,7 @@ const Input = ({name, formTools, ...props}) => {
                     onChange={updateValue}
                     onBlur={() => inputTouched(name)}
                     autoComplete={props.type === "password" ? "on" : undefined}
+                    pattern={props.pattern ?? undefined}
                 /> 
 
                 <RequirementsBadges addUlPadding /> 

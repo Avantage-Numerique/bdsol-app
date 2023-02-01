@@ -14,7 +14,7 @@ $green3:  #364637; //Darkgreen
 $pink: #c881ca;
 $pink-100: lighten($pink, 80%);
 $red: #dd5c5c;  // Avantage numérique's red
-$red-ligth: #ff9e9e;  // Avantage numérique's red
+$red-light: #ff9e9e;  // Avantage numérique's red
 $purple-light: #b2b2eb;
 $purple-lighter: lighten($purple-light, 12%);
 
@@ -40,9 +40,13 @@ $black: #010101;
 //Inputs variables
 $selected-input: #455ae6;
 
+// scss-docs-start theme-color-variables
+$primary:       $blue;
+$primarylight:  $purple-light;
+
 $theme-colors:(
     "primary": $blue,
-    "primaryligth": $purple-light,
+    "primarylight": $purple-light,
     "secondary": $grey,
     "purplelight": $purple-light,
     "purplelighter": $purple-lighter,
@@ -51,7 +55,7 @@ $theme-colors:(
     "blue2": $blue2,   // Avantage numérique's altBlue (and blue2) rgb(77, 100, 255)
     "blue3": $blue3,   // Avantage numérique's blue3 rgb(77, 196, 255)
     "blue4": $blue4,   // Avantage numérique's blue4 rgb(95, 113, 234)
-    "danger": $red-ligth,
+    "danger": $red-light,
     "dark": $dark,
     "light": $light,
     "white":$white,

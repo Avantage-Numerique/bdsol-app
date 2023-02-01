@@ -17,13 +17,16 @@ export const base = {
     //  HomePage
 
     "homePageTitle": "La base de données structurée ouverte et liée",
-    "homePageDescription": "Les acteur·es techno-créatifs·ves du croissant boréal",
+    "homePageDescription": "Les acteurs·trices techno-créatifs·ves du croissant boréal",
     "actualities": "Actualités",
     "menu": "menu",
 
     //  Auth
 
     "needToBeConnectedToAccess": "Vous devez être connecté pour pouvoir ajouter une entité à la base de données.",
+
+    //  Espace membre
+    "memberSpaceWelcome": "Bienvenue dans l'espace membre",
 
     // useSessionHook
 
@@ -55,6 +58,9 @@ export const base = {
 
     "formOrganisationSubtitle": "Vous pouvez ajouter ici une nouvelle organisation à la base de données.",
     "formOrganisationInstructions": "Super formulaire",
+
+    // SINGLE
+    "proposeContentChangeLabel": "Proposer une modification",
 
     //  Personnes
 

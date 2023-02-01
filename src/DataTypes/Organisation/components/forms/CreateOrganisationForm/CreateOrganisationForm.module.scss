@@ -7,6 +7,8 @@
 
 .create-organisation-form {
 
+    position: relative;  //So the spinner knows where to fixe itself
+
     label {
 
         font-weight: 600;

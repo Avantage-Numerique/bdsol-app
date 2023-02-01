@@ -1,14 +1,14 @@
-import React, { useState } from 'react'
+import React from 'react'
 
 //Custom hooks
 import { useFormUtils } from '@/src/hooks/useFormUtils/useFormUtils'
+import { useModal } from '@/src/hooks/useModal/useModal'
 
 //Components
 import Button from '@/FormElements/Button/Button'
 import Input from '@/FormElements/Input/Input'
 import RichTextarea from '@/FormElements/RichTextArea/RichTextarea'
 import FileInput from '@/src/common/FormElements/FileInput/FileInput'
-import Modal from '@/src/common/Containers/Modal/Modal'
 import CreateTaxonomyForm from '@/src/DataTypes/Taxonomy/Components/Forms/CreateTaxonomy/CreateTaxonomyForm'
 import {lang} from "@/src/common/Data/GlobalConstants";
 import TaxonomyTagListTemplate from '@/src/DataTypes/Taxonomy/Template/TaxonomyTagListTemplate'
@@ -20,8 +20,43 @@ import { useAuth } from "@/src/authentification/context/auth-context";
 import styles from './CreatePersonForm.module.scss'
 
 const CreatePersonForm = () => {
-    const auth = useAuth();
     
+    //Authentication ref
+    const auth = useAuth();
+
+    //Modal hook
+    const { modal, Modal, displayModal, closeModal } = useModal()
+
+    //Main form functionalities
+    const { FormUI, submitRequest, formState, formTools } = useFormUtils(
+        {
+            firstName: {
+                value: '',
+                isValid: false
+            },
+            lastName: {
+                value: '',
+                isValid: false
+            }, 
+            nickName: {
+                value: '',
+                isValid: false
+            },
+            description: {
+                value: '',
+                isValid: true
+            },
+            occupations: {
+                value: [],
+                isValid: true
+            }
+        },
+        {
+            clearForm: true,            //Clear the form
+            displayResMessage: true     //Display a message to the user to confirm the succes
+        }
+    );
+/*
     const [modal, setModal] = useState({
         display: false,
         //Values to be passed from the person form to the taxonomy form
@@ -30,36 +65,7 @@ const CreatePersonForm = () => {
         },
         callback: () => {}
     })
-
-    //Main form functionalities
-    const { FormUI, submitRequest, formState, formTools } = useFormUtils(
-    {
-        firstName: {
-            value: '',
-            isValid: false
-        },
-        lastName: {
-            value: '',
-            isValid: false
-        }, 
-        nickName: {
-            value: '',
-            isValid: false
-        },
-        description: {
-            value: '',
-            isValid: true
-        },
-        occupations: {
-            value: [],
-            isValid: true
-        },
-        mainImage: {
-            value: "",
-            isValid: true
-        }
-    }
-    );
+*/
 
     //Submit the form
     const submitHandler = async event => { 
@@ -192,36 +198,36 @@ const CreatePersonForm = () => {
 
             </form>
 
-            { modal && modal.display &&
+            { modal.display &&
                 <Modal 
                     className={`${styles["taxonomy-modal"]}`}
                     coloredBackground
                     darkColorButton
                 >
-                    <div className={"container"}>
-                        <div className={"row"}>
-                            <div className={"col"}>
-                                <p>Le nouvel élément de taxonomie que vous ajoutez ici pourra ensuite être directement intégrée à votre formulaire.</p>
-                            </div>
-                            <div className="col-auto px-0">
-                                <Button onClick={() => {setModal(prev => ({...prev, display: false}))}}>Fermer</Button>
-                            </div>
-                        </div>
-                    </div>
-                    <div className={`${styles["hor-line"]}`}></div>
+                    <header className={`d-flex`}>
+                        <p>Le nouvel élément de taxonomie que vous ajoutez ici pourra ensuite être directement intégrée à votre formulaire.</p>
+                        <Button onClick={closeModal}>Fermer</Button>
+                    </header>               
+                      
+                    {/* Separation line */}
+                    <div className={`my-4 border-bottom`}></div>
+
                     <CreateTaxonomyForm 
                         name={modal.enteredValues.name ? modal.enteredValues.name : ''}   //Prefilled value
                         category="occupations"
                         positiveRequestActions={{
                             //CallbackFunction is one of the four behaviors the useFormUtils hook can apply when a request return a positive answer
                             callbackFunction: requestResponse => {
+
                                 //In this case, the modal callback receives the object to be passed which is the taxonomy item in the response of the request
-                                modal.callback(requestResponse.data)
+                                modal.callback(requestResponse.data._id)
+                                
                                 //Close the modal 
-                                setModal(prev => ({...prev, display: false}))
+                                closeModal()
                             }
                         }}
                     />
+
                 </Modal>
             }
         </>

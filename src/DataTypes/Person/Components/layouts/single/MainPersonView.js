@@ -1,15 +1,19 @@
 import { useState } from 'react' 
+import Router from 'next/router';
+
+//Hooks
+import { useModal } from '@/src/hooks/useModal/useModal'
 
 //Components
 import SanitizedInnerHtml from '@/src/utils/SanitizedInnerHtml'
 import Button from '@/src/common/FormElements/Button/Button'
-import Modal from '@/src/common/Containers/Modal/Modal'
 import UpdatePersonForm from '@/DataTypes/Person/Components/Forms/update/UpdatePersonForm'
 import { useEffect } from 'react'
 import {useHttpClient} from '@/src/hooks/http-hook';
 
 //Styling
 import styles from './MainPersonView.module.scss'
+import {lang} from "@/common/Data/GlobalConstants";
 
 const SingleInfoLayout = ({ title, NAMessage, children }) => {
 
@@ -33,6 +37,7 @@ const MainPersonView = ({ data }) => {
         nickname,
         description,
         occupations,
+        slug,
         createdAt,
         updatedAt,
         status
@@ -54,29 +59,15 @@ const MainPersonView = ({ data }) => {
         fetchMemberOf()
     }, [])
 
-    useEffect( () => console.log("memberOf", memberOfOrganisationList, memberOfOrganisationList.length != 0), [memberOfOrganisationList])
-
-    /*
-     *    
-        Modal State
-     *
-     */
-    const [modal, setModal] = useState({
-        display: false,
-        //Values to be passe from the first form to the form displayed in the modal. In this case, all the fields of a person form.
-        enteredValues: {
-
-        },  
-        callback: () => {}
-    })
+    //Modal hook
+    const { modal, Modal, displayModal, closeModal } = useModal()
 
     //Called by the select. Not in use right now
-    const displayModal = selectStatus => {
-        
-        if(selectStatus === "editing")
-            setModal(prev => ({...prev, display: true}))
-
+    const displayUpdateForm = selectStatus => {
+       // if(selectStatus === "editing") displayModal()
+       displayModal()
     }
+    
 
 
     return (
@@ -92,7 +83,7 @@ const MainPersonView = ({ data }) => {
 
                 {/* Background image */}
                 <figure className={`${styles["person-view__bg-img"]}`}>
-                    <img className={`${styles["person-view__bg-img__img"]}`} src="/general_images\forestBG.jpg" alt="Background image for a person card"/>
+                    <img className={`${styles["person-view__bg-img__img"]}`} src="/general_images/forestBG.jpg" alt="Background image for a person card"/>
                     <div className={`${styles["black-gradient"]}`}></div>
                 </figure>
 
@@ -103,8 +94,8 @@ const MainPersonView = ({ data }) => {
                             <a className="text-white" href="/"> &#8629; Retour </a>
                         </div>
                         <div className={"col-auto col-lg-4"}>
-                            <Button onClick={() => setModal(prev => ({...prev, display: true}))}>
-                                Proposer une modification
+                            <Button onClick={displayUpdateForm}>
+                                {lang.proposeContentChangeLabel}
                             </Button>
                             {/* 
                             <div>
@@ -176,7 +167,7 @@ const MainPersonView = ({ data }) => {
             <section className={`${styles["person-view__main-section"]}`}>
                 <div className={"container"}>
                     <div className={"row"}>
-                        <div className={"col-6 col-lg-8"} sm={6} lg={8}>
+                        <div className={"col-6 col-lg-8"}>
     
                             <SingleInfoLayout 
                                 title={"Présentation"}
@@ -204,7 +195,7 @@ const MainPersonView = ({ data }) => {
                                 status && status.state &&
                                     <SingleInfoLayout
                                         title="Statut de l'entité"
-                                        NAMessage={ status.state == 'accepted' ? "Acceptée" : "En attente d'approbation"}>
+                                        NAMessage={ status.state === 'accepted' ? "Acceptée" : "En attente d'approbation"}>
                                     </SingleInfoLayout>
                             }
 
@@ -249,7 +240,7 @@ const MainPersonView = ({ data }) => {
                             >
                                 <div className={"container"}>
                                     <ul className="row">
-                                        { occupations.length == 0 ?
+                                        { occupations.length === 0 ?
                                             <div>Aucune occupation associée</div>
                                             :
                                             occupations.map( (occ) => {
@@ -271,14 +262,27 @@ const MainPersonView = ({ data }) => {
         </article>
 
         {/********** Modal display ************/}
-        { modal && modal.display &&
+        { modal.display &&
             <Modal 
                 className={`${styles["person-form-modal"]}`}
                 coloredBackground
                 darkColorButton
-                closingFunction={() => {setModal(prev => ({...prev, display: false}))}}
+                closingFunction={closeModal}
             >
-                <UpdatePersonForm initValues={data}/>
+               <UpdatePersonForm 
+                    initValues={data}
+                    positiveRequestActions={{
+                        //CallbackFunction is one of the four behaviors the useFormUtils hook can apply when a request return a positive answer
+                        callbackFunction: requestResponse => {
+
+                            //Redirect to the right path if the slug changes and otherwise, at least reflect the changes
+                            Router.push(`/persons/${requestResponse.data.slug}`);
+                            
+                            //Close the modal 
+                            closeModal()
+                        }
+                    }}
+                />
             </Modal>
             }
     </>
