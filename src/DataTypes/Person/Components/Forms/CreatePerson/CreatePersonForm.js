@@ -49,6 +49,10 @@ const CreatePersonForm = () => {
             occupations: {
                 value: [],
                 isValid: true
+            },
+            mainImage: {
+                value: "",
+                isValid: true
             }
         },
         {
@@ -56,6 +60,7 @@ const CreatePersonForm = () => {
             displayResMessage: true     //Display a message to the user to confirm the succes
         }
     );
+    
 /*
     const [modal, setModal] = useState({
         display: false,

@@ -11,7 +11,7 @@ import styles from './PersonSimple.module.scss'
 const PersonSimple = ({ data }) => {
 
     const { publicRuntimeConfig } = getConfig();
-
+console.log("person", data)
     const {
         slug,
         firstName,
@@ -22,12 +22,18 @@ const PersonSimple = ({ data }) => {
         //description,
         createdAt,
         occupations,
+        mainImage,
         //url,
         //contactPoint
     } = data
 
     console.log("occupations", occupations)
 
+    let fullImagePath;
+    if(mainImage)
+        fullImagePath = process.env.NEXT_PUBLIC_API_URL + (mainImage.path.charAt(0) === '.' ? mainImage.path.slice(1) : mainImage.path) + "/" + mainImage.fileName + "." + mainImage.extension;
+
+    console.log("img path", fullImagePath)
     return (
         <Simple className={`${styles["person-simple"]}`}>
 
@@ -39,7 +45,10 @@ const PersonSimple = ({ data }) => {
                     </div>
                     {/* Profil picture */}
                     <figure className={`mx-1 my-4 ${styles["person-simple__header__picture"]}`}>
-                        <img src={"/general_images/Dennis_Nedry.webp"} alt={`Photo de profil de l'utilisateur ${firstName} ${lastName}`} />
+                        {/* If there is an image for the user */}
+                        {mainImage && <img src={fullImagePath} alt={mainImage.alt} />}
+                        {/* If there is NO an image for the user */}
+                        {!mainImage && <img src={"/general_images/Dennis_Nedry.webp"} alt={`Photo de profil de l'utilisateur ${firstName} ${lastName}`} />}
                     </figure>
                     {/* Button to see more details */}
                     <KebabButton href={`/persons/${slug}`} />
