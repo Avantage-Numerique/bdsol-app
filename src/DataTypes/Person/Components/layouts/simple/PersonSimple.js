@@ -11,7 +11,7 @@ import styles from './PersonSimple.module.scss'
 const PersonSimple = ({ data }) => {
 
     const { publicRuntimeConfig } = getConfig();
-console.log("person", data)
+
     const {
         _id,
         slug,
@@ -28,13 +28,10 @@ console.log("person", data)
         //contactPoint
     } = data
 
-    console.log("occupations", occupations)
-
     let fullImagePath;
     if(mainImage)
         fullImagePath = process.env.NEXT_PUBLIC_API_URL +  "/medias/persons/" + _id + "/" + mainImage.fileName + "." + mainImage.extension;
 
-    console.log("img path", fullImagePath)
     return (
         <Simple className={`${styles["person-simple"]}`}>
 
