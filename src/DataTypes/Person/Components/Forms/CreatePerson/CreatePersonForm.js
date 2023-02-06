@@ -58,16 +58,6 @@ const CreatePersonForm = () => {
         }
     );
     
-/*
-    const [modal, setModal] = useState({
-        display: false,
-        //Values to be passed from the person form to the taxonomy form
-        enteredValues: {
-            name: ''            //Only the name of the taxonomy
-        },
-        callback: () => {}
-    })
-*/
 
     //Submit the form
     const submitHandler = async event => { 
