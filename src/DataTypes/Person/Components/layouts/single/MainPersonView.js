@@ -40,7 +40,8 @@ const MainPersonView = ({ data }) => {
         slug,
         createdAt,
         updatedAt,
-        status
+        status,
+        mainImage,
     } = data;
 
     const {sendRequest} = useHttpClient();
@@ -149,7 +150,10 @@ const MainPersonView = ({ data }) => {
                     {/* Profile picture section */}
                     <div className={`${styles["headers-content__bottom-row"]}`}>
                         <figure className={`${styles["headers-content__profil-picture"]}`}>
-                            <img src="/general_images/Dennis_Nedry.webp" alt={`Profil picture of ${firstName} ${lastName}`}/>
+                            {/* If there is an image for the user */}
+                            {mainImage && <img src={fullImagePath} alt={mainImage.alt} />}
+                            {/* If there is NO an image for the user */}
+                            {!mainImage && <img src={"/general_images/Dennis_Nedry.webp"} alt={`Photo de profil de l'utilisateur ${firstName} ${lastName}`} />}
                         </figure>
                     </div>
 
