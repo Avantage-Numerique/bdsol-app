@@ -13,6 +13,7 @@ const PersonSimple = ({ data }) => {
     const { publicRuntimeConfig } = getConfig();
 console.log("person", data)
     const {
+        _id,
         slug,
         firstName,
         lastName,
@@ -31,7 +32,7 @@ console.log("person", data)
 
     let fullImagePath;
     if(mainImage)
-        fullImagePath = process.env.NEXT_PUBLIC_API_URL + (mainImage.path.charAt(0) === '.' ? mainImage.path.slice(1) : mainImage.path) + "/" + mainImage.fileName + "." + mainImage.extension;
+        fullImagePath = process.env.NEXT_PUBLIC_API_URL +  "/medias/persons/" + _id + "/" + mainImage.fileName + "." + mainImage.extension;
 
     console.log("img path", fullImagePath)
     return (

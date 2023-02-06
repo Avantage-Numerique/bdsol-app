@@ -50,10 +50,7 @@ const CreatePersonForm = () => {
                 value: [],
                 isValid: true
             },
-            mainImage: {
-                value: "",
-                isValid: true
-            }
+
         },
         {
             clearForm: true,            //Clear the form
@@ -77,7 +74,33 @@ const CreatePersonForm = () => {
 
         event.preventDefault();
 
-        console.log(formState.inputs.mainImage.value);
+        const formData = {
+
+            "data": {
+
+                "lastName": formState.inputs.lastName.value,
+                "firstName":  formState.inputs.firstName.value,
+                "nickname": formState.inputs.nickName.value,
+                "description": formState.inputs.description.value,
+                "occupations": formState.inputs.occupations.value,
+                "status": {
+                    "state": "pending",
+                    "requestedBy": auth.user.id,
+                    "lastModifiedBy": auth.user.id
+                },
+            }
+            
+        };
+
+        /*
+
+            CODE TO REPRODUCE INTO THE RIGHT UI
+            Upload a media file will be seperate from the creation of an account
+
+        */
+
+        /*
+
         const rawFromData = new FormData();
         const formData = {
             "lastName": formState.inputs.lastName.value,
@@ -106,11 +129,13 @@ const CreatePersonForm = () => {
         //rawFromData.append('data', JSON.stringify(formData));
         //rawFromData.append('mainImage', formState.inputs.mainImage.value);
 
+        */
         //Send the request with the specialized hook
+        /*
         await submitRequest(
             "/persons/create",
             'POST',
-            rawFromData,
+            formData,
             {
                 //'Content-Type': 'multipart/form-data',
                 'Accept': 'application/json'
@@ -118,6 +143,12 @@ const CreatePersonForm = () => {
             {
                 isBodyJson: false
             }
+        );
+        */
+       await submitRequest(
+            "/persons/create",
+            'POST',
+            JSON.stringify(formData)
         );
     }
 
@@ -177,6 +208,7 @@ const CreatePersonForm = () => {
                     formTools={formTools}
                 />
 
+                {/* 
                 <FileInput
                     name="mainImage"
                     label="Image principale"
@@ -186,6 +218,7 @@ const CreatePersonForm = () => {
                         {name: "FILE_MAX_SIZE", specification: 2}
                     ]}
                 />
+                */}
 
                 <TaxonomyTagListTemplate
                     tag="occupations"
