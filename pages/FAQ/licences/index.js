@@ -1,8 +1,20 @@
 import PageHeader from "@/src/layouts/Header/PageHeader";
+import {getLicencesData} from "@/src/api/external/callbacks/getLicencesData";
+import {lang} from "@/common/Data/GlobalConstants";
+
+export async function getStaticProps() {
+
+    const licences = await getLicencesData();
+
+    return {
+        props: {
+            licences: licences
+        }, // will be passed to the page component as props
+    }
+}
 
 
-const Licences = () => {
-//https://creativecommons.org/about/cclicenses/
+const Licences = (props) => {
 
     return (
         <div className="content">
@@ -31,92 +43,113 @@ const Licences = () => {
                     <h4>Les définitions suivantes sont des résumés.</h4>
                     <p>* Veuillez lire les définitions en vous dirigeant sur les liens avant toutes manipulations d'oeuvre.</p>
                     <ul>
-                        <li>
-                            <h4>
-                                <a href="https://creativecommons.org/publicdomain/zero/1.0/deed.fr" target="_blank">
-                                    <img src="https://i.creativecommons.org/p/zero/1.0/88x31.png" alt="Public domain image" className={"pe-2"} />
-                                    CC0 (Domaine public) :
-                                </a>
-                            </h4>
-                            <p>
-                                L'Oeuvre fait partie du domaine public. Il n'y a aucun droit d'auteur.
-                                <br/>
-                                Vous pouvez copier, modifier, distribuer, représenter l'oeuvre, même à des fins commerciales, sans avoir besoin de demander l'autorisation.
-                            </p>
-                        </li>
-                        <li>
-                            <h4>
-                                <a href="https://creativecommons.org/licenses/by/4.0/deed.fr" target="_blank">
-                                    <img src="https://i.creativecommons.org/l/by/4.0/88x31.png" alt="By image" className={"pe-2"} />
-                                    CC-By :
-                                </a>
-                            </h4>
-                            <p>
-                                Permet le partage et la modification de l'oeuvre, y compris pour une utilisation commerciale.<br/>
-                                Vous devez créditer l'auteur-trice.
-                            </p>
-                        </li>
-                        <li>
-                            <h4>
-                                <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.fr" target="_blank">
-                                    <img src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" alt="By-SA image" className={"pe-2"} />
-                                    CC-By-SA :
-                                </a>
-                            </h4>
-                            <p>
-                                Permet le partage et la modification de l'oeuvre, y compris pour une utilisation commerciale.<br/>
-                                Vous devez créditer l'auteur-trice et si vous modifier l'oeuvre, vous devez la partager sous la même licence que l'originale.
-                            </p>
-                        </li>
-                        <li>
-                            <h4>
-                                <a href="https://creativecommons.org/licenses/by-nc/4.0/deed.fr" target="_blank">
-                                    <img src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" alt="By-NC image" className={"pe-2"} />
-                                    CC-By-NC :
-                                </a>
-                            </h4>
-                            <p>
-                                Permet le partage et la modification de l'oeuvre.<br/>
-                                Vous devez créditer l'auteur-trice et ne pouvez pas utiliser l'oeuvre de façon commerciale.
-                            </p>
-                        </li>
-                        <li>
-                            <h4>
-                                <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.fr" target="_blank">
-                                    <img src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" alt="By-NC-SA image" className={"pe-2"} />
-                                    CC-By-NC-SA :
-                                </a>
-                            </h4>
-                            <p>
-                                Permet le partage et la modification de l'oeuvre.<br/>
-                                Vous devez créditer l'auteur-trice, ne pouvez pas utiliser l'oeuvre de façon commerciale et devez partager l'oeuvre sous la même licence que l'originale.
-                            </p>
-                        </li>
-                        <li>
-                            <h4>
-                                <a href="https://creativecommons.org/licenses/by-nd/4.0/deed.fr" target="_blank">
-                                    <img src="https://i.creativecommons.org/l/by-nd/4.0/88x31.png" alt="By-ND image" className={"pe-2"} />
-                                    CC-By-ND :
-                                </a>
-                            </h4>
-                            <p>
-                                Permet seulement le partage, y compris pour une utilisation commerciale.<br/>
-                                Vous devez créditer l'auteur-trice. Vous ne pouvez pas modifier l'oeuvre. Si vous modifier l'oeuvre, vous n'êtes pas autorisé à la partager ou la distribuer.
-                            </p>
-                        </li>
-                        <li>
-                            <h4>
-                                <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.fr" target="_blank">
-                                    <img src="https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png" alt="By-NC-ND image" className={"pe-2"} />
-                                    CC-By-NC-ND :
-                                </a>
-                            </h4>
-                            <p>
-                                Permet seulement le partage.<br/>
-                                Vous devez créditer l'auteur-trice, ne pouvez pas utiliser l'oeuvre de façon commerciale et n'êtes pas autorisé à modifier l'oeuvre. Si vous modifier l'oeuvre, vous n'êtes pas autorisé à la partager ou la distribuer.
-                            </p>
-                        </li>
+                        {props.licences ?
+                            Object.keys(props.licences).map((licence, i) => {
+                                const current = props.licences[licence];
+                                console.log(current);
+                                return (
+                                    <li className={"pb-3"} key={i}>
+                                        <h4><a href={current.source} target="_blank" title={current.label}>
+                                            <img src={current.image} alt={current.name} className={"pe-2"} /> {current.label}
+                                        </a></h4>
+                                        {current.guide && current.guide !== "" && <p dangerouslySetInnerHTML={{ __html: current.guide }}></p>}
+                                        {current.description && current.description !== "" && <p dangerouslySetInnerHTML={{ __html: current.description }}></p> }
+                                    </li>
+                                )
+                            })
+                            :
+                            <li>{lang.noLicenceData}</li>
+                        }
                     </ul>
+                    {!props.licences &&
+                        <ul>
+                            <li>
+                                <h4>
+                                    <a href="https://creativecommons.org/publicdomain/zero/1.0/deed.fr" target="_blank">
+                                        <img src="https://i.creativecommons.org/p/zero/1.0/88x31.png" alt="Public domain image" className={"pe-2"} />
+                                        CC0 (Domaine public) :
+                                    </a>
+                                </h4>
+                                <p>
+                                    L'Oeuvre fait partie du domaine public. Il n'y a aucun droit d'auteur.
+                                    <br/>
+                                    Vous pouvez copier, modifier, distribuer, représenter l'oeuvre, même à des fins commerciales, sans avoir besoin de demander l'autorisation.
+                                </p>
+                            </li>
+                            <li>
+                                <h4>
+                                    <a href="https://creativecommons.org/licenses/by/4.0/deed.fr" target="_blank">
+                                        <img src="https://i.creativecommons.org/l/by/4.0/88x31.png" alt="By image" className={"pe-2"} />
+                                        CC-By :
+                                    </a>
+                                </h4>
+                                <p>
+                                    Permet le partage et la modification de l'oeuvre, y compris pour une utilisation commerciale.<br/>
+                                    Vous devez créditer l'auteur-trice.
+                                </p>
+                            </li>
+                            <li>
+                                <h4>
+                                    <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.fr" target="_blank">
+                                        <img src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" alt="By-SA image" className={"pe-2"} />
+                                        CC-By-SA :
+                                    </a>
+                                </h4>
+                                <p>
+                                    Permet le partage et la modification de l'oeuvre, y compris pour une utilisation commerciale.<br/>
+                                    Vous devez créditer l'auteur-trice et si vous modifier l'oeuvre, vous devez la partager sous la même licence que l'originale.
+                                </p>
+                            </li>
+                            <li>
+                                <h4>
+                                    <a href="https://creativecommons.org/licenses/by-nc/4.0/deed.fr" target="_blank">
+                                        <img src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" alt="By-NC image" className={"pe-2"} />
+                                        CC-By-NC :
+                                    </a>
+                                </h4>
+                                <p>
+                                    Permet le partage et la modification de l'oeuvre.<br/>
+                                    Vous devez créditer l'auteur-trice et ne pouvez pas utiliser l'oeuvre de façon commerciale.
+                                </p>
+                            </li>
+                            <li>
+                                <h4>
+                                    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.fr" target="_blank">
+                                        <img src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" alt="By-NC-SA image" className={"pe-2"} />
+                                        CC-By-NC-SA :
+                                    </a>
+                                </h4>
+                                <p>
+                                    Permet le partage et la modification de l'oeuvre.<br/>
+                                    Vous devez créditer l'auteur-trice, ne pouvez pas utiliser l'oeuvre de façon commerciale et devez partager l'oeuvre sous la même licence que l'originale.
+                                </p>
+                            </li>
+                            <li>
+                                <h4>
+                                    <a href="https://creativecommons.org/licenses/by-nd/4.0/deed.fr" target="_blank">
+                                        <img src="https://i.creativecommons.org/l/by-nd/4.0/88x31.png" alt="By-ND image" className={"pe-2"} />
+                                        CC-By-ND :
+                                    </a>
+                                </h4>
+                                <p>
+                                    Permet seulement le partage, y compris pour une utilisation commerciale.<br/>
+                                    Vous devez créditer l'auteur-trice. Vous ne pouvez pas modifier l'oeuvre. Si vous modifier l'oeuvre, vous n'êtes pas autorisé à la partager ou la distribuer.
+                                </p>
+                            </li>
+                            <li>
+                                <h4>
+                                    <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.fr" target="_blank">
+                                        <img src="https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png" alt="By-NC-ND image" className={"pe-2"} />
+                                        CC-By-NC-ND :
+                                    </a>
+                                </h4>
+                                <p>
+                                    Permet seulement le partage.<br/>
+                                    Vous devez créditer l'auteur-trice, ne pouvez pas utiliser l'oeuvre de façon commerciale et n'êtes pas autorisé à modifier l'oeuvre. Si vous modifier l'oeuvre, vous n'êtes pas autorisé à la partager ou la distribuer.
+                                </p>
+                            </li>
+                        </ul>
+                    }
                     <hr />
                 </div>
             </div>
