@@ -82,6 +82,18 @@ label {
 }
 
 
+.content {
+    a:not(.btn) {
+        color: $primary;
+        @include transition();
+        text-decoration: none;
+        &:hover {
+            color: $primarylight;
+            text-decoration: underline;
+        }
+    }
+}
+
 /*
   Add custom minimum width to Bootstrap's containers 
 

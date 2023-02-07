@@ -22,18 +22,6 @@ h6 {
     font-weight: $font-weight-bold;
 }
 
-p {
-    a:not(.btn) {
-        color: $primary; /* question posée dans Notion ?  */
-        @include transition();
-        text-decoration: none;
-        &:hover {
-            color: $primarylight;
-            text-decoration: underline;
-        }
-    }
-}
-
 a {
     color: inherit;
 }
