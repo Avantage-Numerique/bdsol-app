@@ -105,4 +105,7 @@ export const base = {
     "menuLabelCreateAccount": "Créer un compte",
     "menuLabelToDashboard": "Espace membre",
     "menuLabelToDisconnect": "Se déconnecter",
+
+    //  FAQ
+    "noLicenceData": "Les données sur les licences dans l'API n'ont pas été trouvées.",
 }

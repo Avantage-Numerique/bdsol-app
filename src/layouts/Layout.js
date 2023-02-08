@@ -68,10 +68,10 @@ const Layout = ( {children} ) => {
                 <meta name="robots" content="index, follow" />
 
                 {/* Icone to appear on the top of the page */}
-                <link rel="icon" href="icones/cropped-Frame-10-32x32.png" sizes="32x32" />
-                <link rel="icon" href="icones/cropped-Frame-10-192x192.png" sizes="192x192" />
-                <link rel="apple-touch-icon" href="icones/cropped-Frame-10-180x180.png" />
-                <meta name="msapplication-TileImage" content="icones/cropped-Frame-10-270x270.png" />
+                <link rel="icon" href="/icones/cropped-Frame-10-32x32.png" sizes="32x32" />
+                <link rel="icon" href="/icones/cropped-Frame-10-192x192.png" sizes="192x192" />
+                <link rel="apple-touch-icon" href="/icones/cropped-Frame-10-180x180.png" />
+                <meta name="msapplication-TileImage" content="/icones/cropped-Frame-10-270x270.png" />
 
                 <meta name="theme-color" content="#000" />
 
