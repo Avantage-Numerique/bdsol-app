@@ -14,19 +14,26 @@ const SearchResults = () => {
 
     const [searchList, setSearchList] = useState([]);
     const router = useRouter();
+    const [searchMessage, setSearchMessage] = useState("");
 
     useEffect(() => {
         async function searchRequest(){
 
             let response = [];
-            if(router.query.searchIndex)
+            if(router.query.searchIndex){
                 response = await getResultsRouteResponse(router.query.searchIndex);
+                setSearchMessage("par texte")
+            }
             
-            if(router.query.linkId)
+            if(router.query.linkId){
                 response = await getIdRouteResponse(router.query.linkId);
+                setSearchMessage("par taxonomies");
+            }
 
-            if(router.query.entityType)
+            if(router.query.entityType){
                 response = (await getEntityTypeResponse(router.query.entityType)).data;
+                setSearchMessage("par type d'entité");
+            }
             
             setSearchList(response);
         }
@@ -65,8 +72,9 @@ const SearchResults = () => {
 
     return (
         <div className="maxWidthPageContainer">
-            <div>Ici gît tout les espoirs de Frédéric</div>
+            <div>Page de recherche</div>
             <SearchBar id="searchResults-searchBar"></SearchBar>
+            <div>Résultats de recherche {searchMessage} :</div>
             <div className={"row"}>
             {
             searchList.length === 0 ?
