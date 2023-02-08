@@ -124,6 +124,7 @@ export const useHttpClient = () => {
             //Start the loading component
             setIsLoading(true);
 
+            const stringnifyBody = typeof body === "object" && typeof body !== "string";
             const httpAbortCtrl = new AbortController(),
                 usersHeaders = getUserHeadersFromUserSession(auth.user, true),//authentification, fowarded-from, user-agent.
                 headersParams = {
@@ -131,14 +132,14 @@ export const useHttpClient = () => {
                     ...headers
                 };
 
-            activeHttpRequests.current.push(httpAbortCtrl)
+            activeHttpRequests.current.push(httpAbortCtrl);
             try {
 
                 const responseData = await externalApiRequest(
                     path,
                     {
                         method: method,
-                        body: body,
+                        body: (stringnifyBody ? JSON.stringify(body) : body),
                         headers: headersParams,
                         additionnalFetchParams: {signal: httpAbortCtrl.signal},
                         ...params

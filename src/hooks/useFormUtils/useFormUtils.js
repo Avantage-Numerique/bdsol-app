@@ -58,7 +58,7 @@ export const useFormUtils = ( initialState, actions ) => {
     //Custom hook to manage the state of the form (data)
     const [formState, formTools, clearFormData] = useForm(initialState)
 
-    const submitRequest = async (route, type, data, header = { 'Content-Type': 'application/json' }, params={}) => {
+    const submitRequest = async (route, type, data, header = { 'Content-Type': 'application/json' }, params={isBodyJson:true}) => {
 
         if(formState.isValid){
 
