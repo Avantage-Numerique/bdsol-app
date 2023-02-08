@@ -29,6 +29,7 @@ const OrganisationSimple = ({ data }) => {
         //url,
         //updatedAt
     } = data;
+
     const link = `/organisations/${slug}`;
     const type = lang.Occupation;//"Organisation";
 
@@ -65,7 +66,7 @@ const OrganisationSimple = ({ data }) => {
                 {/******** Header ***********/}
                 <header className={`d-flex justify-content-between`}>
                     <h3 className="mt-0 h4">{name}</h3>
-                    <KebabButton href={`/organisations/${slug}`} />
+                    <KebabButton href={link} />
                 </header>
 
                 {/******** Presentation ***********/}
@@ -80,19 +81,15 @@ const OrganisationSimple = ({ data }) => {
                 {/******** Presentation ***********/}
                 {offers && (offers.length > 0) &&
                 <section className={`${styles["org-section-offers"]}`}>
-                    <h4 className="h6 rejected">Services</h4>
+                    <h4 className="h6 rejected">{lang.Services}</h4>
                     <ul className={`mt-0 w-100 d-inline-flex flex-wrap ${styles["offers-container"]}`}>
                         {
                             offers.map((elem, index) => (
-                                <>
-                                    {   (index < 3) &&
-                                        <li key={"off" + elem.offer._id} className={`mw-100 border text-general-tag rounded-4 d-flex text-truncate text-nowrap ${styles["offer"]}`}><div className="text-truncate">{elem.offer.name}</div></li>
-                                    }
-                                    {   (index === 3) &&
-                                        <li key={"off-1"} className={`mw-100 border text-general-tag rounded-4 d-flex text-truncate text-nowrap ${styles["offer"]}`}><div className="text-truncate">...</div></li>
-                                    }
-                                </>
+                                <li className={`mw-100 border text-general-tag rounded-4 d-flex text-truncate text-nowrap ${styles["offer"]}`} key={"offer" + elem.offer._id + index}>{elem.offer.name}</li>
                             ))
+                        }
+                        {   (offers.length > 2) &&
+                            <li className={`mw-100 border text-general-tag rounded-4 d-flex text-truncate text-nowrap ${styles["offer"]}`} key={"offerMore"+name}>&hellip;</li>
                         }
                     </ul>
                 </section>

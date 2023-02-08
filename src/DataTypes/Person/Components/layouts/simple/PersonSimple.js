@@ -65,18 +65,15 @@ const PersonSimple = ({ data }) => {
                     {nickname && <h4 className="text-center h5 text-secondary fw-normal">{nickname}</h4>}
  
                     {/* Display the three first occupations, then three dots to reprensent that there are others */}
-                    {occupations && <ul className={`mt-3 w-100 d-inline-flex flex-wrap ${styles["occupations-container"]}`}>
+                    {occupations &&
+                        <ul className={`mt-3 w-100 d-inline-flex flex-wrap ${styles["occupations-container"]}`}>
                         {
                             occupations.map((elem, index) => (
-                                <>
-                                {   index < 3 &&
-                                    <li key={"occ" + elem._id} className={`mw-100 border text-general-tag rounded-4 d-flex text-truncate text-nowrap ${styles["occupation"]}`}><div className="text-truncate">{elem.occupation.name}</div></li>
-                                }
-                                {   index === 3 &&
-                                    <li key="occ-1" className={`mw-100 border  text-general-tag rounded-4 d-flex text-truncate text-nowrap ${styles["occupation"]}`}><div className="text-truncate">...</div></li>
-                                }
-                                </>
+                                <li className={`mw-100 border text-general-tag rounded-4 d-flex text-truncate text-nowrap ${styles["occupation"]}`} key={"occupation" + elem.occupation._id + index}>{elem.occupation.name}</li>
                             ))
+                        }
+                        {   (occupations.length > 2) &&
+                            <li className={`mw-100 border text-general-tag rounded-4 d-flex text-truncate text-nowrap ${styles["occupation"]}`} key={"occupationMore"+name}>&hellip;</li>
                         }
                     </ul>}
                         

@@ -101,6 +101,10 @@ const HomePage = ({}) => {
     }, [])
 
 
+    const gridComponenents = new Map();
+    gridComponenents.set("person", PersonSimple);
+    gridComponenents.set("organisation", OrganisationSimple);
+
     /****************************
      LD+Json data
      ****************************/
@@ -152,13 +156,13 @@ const HomePage = ({}) => {
             </Head>
 
             <PageHeader
-                bg={"bg-pink"}
+                bg={"bg-purplelight"}
                 textColor={"text-white"}
                 title={lang.homePageTitle}
                 subTitle={lang.homePageDescription}
                 description=""
                 image={"/general_images/Croissant-Boreal@3x-1440x1440.png"}
-                imgAlt={"Carte du croissant boréal"} />
+                imgAlt={"Carte du croissant boréal"} key={"pageHeaderHomePage"} />
 
 
             <div className="container home-page__main p-0">
@@ -184,9 +188,7 @@ const HomePage = ({}) => {
                                     {
                                         feedList.length === 0 && !isLoading &&
                                         <div>
-                                            <h5>Aucune donnée ¯\_(ツ)_/¯ pour l'instant. On a peut-être un problème en
-                                                arrière
-                                                plan.</h5>
+                                            <h5>{lang.noResult}</h5>
                                         </div>
                                     }
                                     <div className="row home-page__feed-section--container row-cols-1 row-cols-sm-2 row-cols-xl-3">
@@ -194,23 +196,15 @@ const HomePage = ({}) => {
                                             {/* Display feed if there is one */}
                                             {
                                                 feedList.length > 0 && !isLoading &&
-                                                feedList.map(elem => (
-                                                    <>
-                                                    {
-                                                        elem.dataType === "person" &&
-                                                        <div className="col g-3" key={elem._id + "-" + elem.slug}>
-                                                            <PersonSimple data={elem} />
+                                                feedList.map((elem, index) => {
+                                                    let TargetSimpleComponent = gridComponenents.get(elem.dataType);
+                                                    TargetSimpleComponent = TargetSimpleComponent ?? OrganisationSimple;
+                                                    return (
+                                                        <div className="col g-3" key={"container"+elem.dataType+elem._id + "-" + elem.slug+index}>
+                                                            <TargetSimpleComponent data={elem} key={"simple"+elem.dataType+elem._id + "-" + elem.slug+index} />
                                                         </div>
-                                                    }
-                                                    {
-                                                        elem.dataType !== "person" &&
-                                                        <div className="col g-3" key={elem._id + "-" + elem.slug}>
-                                                            <OrganisationSimple data={elem} />
-                                                        </div>
-                                                    }
-                                                    
-                                                    </>
-                                                ))
+                                                    )
+                                                })
                                             }
                                     </div>
                                 </>

@@ -5,6 +5,8 @@ export const base = {
 
     "historyBack": "Retour à la page précédente",
     "see": "Voir",
+    "noResult": "Aucune donnée ¯\\_(ツ)_/¯ pour l'instant. On a peut-être un problème en arrière plan.",
+    "loadingData": "Chargement des données",
 
     // App
 
@@ -89,6 +91,12 @@ export const base = {
     "taxonomy": "taxonomie",
     "taxonomies": "taxonomies",
     "taxonomyExplications": "Une taxonomie sert à classifier dans un système ordonné les relations entre les choses. Ajoutez ici une taxonomie pour permettre à une entité d'être relié à cette taxonomie. Par exemple, lier une <strong>personne</strong> à une <strong>occupation</strong> ou une <strong>aptitude</strong> et lier une <strong>organisation</strong> à une <strong>offre de service</strong> et bien d'autre.",
+
+    //      Services
+    "Services": "Services",
+    "Service": "Service",
+    "services": "Services",
+    "service": "Service",
 
     //  Occupations
 

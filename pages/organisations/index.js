@@ -69,88 +69,83 @@ const OrganisationsPage = () => {
                 image={"/general_images/Croissant-Boreal@3x-1440x1440.png"}
                 imgAlt={"Carte du croissant boréal"} />
 
-                <div className="container">
-                    <div className="row my-4 py-4">
+            <div className="container">
+                <div className="row my-4 py-4">
 
-                        {/* Feed section */}
-                        <section className="col col-12 col-md-9">
-                            <h2>{lang.actualities}</h2>
-                            <hr />
-                            <div className="position-relative row row-cols-1 row-cols-sm-2 row-cols-xl-3">
+                    {/* Feed section */}
+                    <section className="col col-12 col-md-9">
+                        <h2>{lang.actualities}</h2>
+                        <hr />
+                        <div className="position-relative row row-cols-1 row-cols-sm-2 row-cols-xl-3">
 
-                                {/* Loading state : If loading is on and there is no feed */}
-                                {
-                                        isLoading &&
-                                        <div className={"home-page__feed-section--spinner-container"}>
-                                            <div>
-                                                <Spinner reverse/>
-                                            </div>
-                                            <p><strong>Chargement des données</strong></p>
+                            {/* Loading state : If loading is on and there is no feed */}
+                            {
+                                    isLoading &&
+                                    <div className={"home-page__feed-section--spinner-container"}>
+                                        <div>
+                                            <Spinner reverse/>
                                         </div>
-                                }
-
-                                {/* If there is no loading state and no feed, go on that by default */}
-                                {
-                                    orgList.length === 0 && !isLoading &&
-                                    <div>
-                                        <h5>Aucune donnée ¯\_(ツ)_/¯ pour l'instant. On a peut-être un problème en
-                                            arrière plan.</h5>
+                                        <p><strong>{lang.loadingData}</strong></p>
                                     </div>
-                                }
-                                {
+                            }
 
-                                }
-                                { !isLoading && orgList.length > 0 && 
-                                    orgList.map(org => (
-                                        <div className="col g-3">
-                                            <OrganisationSimple data={org} />
-                                        </div>
-                                    ))
-                                }
+                            {/* If there is no loading state and no feed, go on that by default */}
+                            {
+                                orgList.length === 0 && !isLoading &&
+                                <div>
+                                    <h5>{lang.noResult}</h5>
+                                </div>
+                            }
+                            {
 
-                            </div>
-                        
-                        </section>
+                            }
+                            { !isLoading && orgList.length > 0 &&
+                                orgList.map( (org, index) => (
+                                    <div className="col g-3" key={`indexOrgContainer${index}`}>
+                                        <OrganisationSimple data={org} key={`indexOrg${index}`} />
+                                    </div>
+                                ))
+                            }
 
-                        {/* Aside section */}
-                        <aside className="col col-12 col-md-3">
-                            <h2>{lang.menu}</h2>
-                            <hr />
-                            <div className="my-4">
-                                <Button 
-                                    disabled={!auth.user.isLoggedIn}
-                                    href="/contribuer/organisation" 
-                                    size="reg-100">
-                                        Ajouter une organisation
-                                </Button>
+                        </div>
 
-                                {
-                                    !auth.user.isLoggedIn &&
-                                    <p className="mt-2">
-                                        Notez que vous devez être <b className="text-primary">connecté</b> pour pouvoir ajouter des entitées à la base de données.
-                                    </p>
-                                }
-                            </div>
-                            <hr />
-                                {   !auth.user.isLoggedIn &&
+                    </section>
 
-                                    <>
-                                    <Button 
-                                        size="reg-100"
-                                        href="/compte/connexion"
-                                    >Se connecter</Button>
+                    {/* Aside section */}
+                    <aside className="col col-12 col-md-3">
+                        <h2>{lang.menu}</h2>
+                        <hr />
+                        <div className="my-4">
+                            <Button
+                                disabled={!auth.user.isLoggedIn}
+                                href="/contribuer/organisation"
+                                size="reg-100">
+                                    Ajouter une organisation
+                            </Button>
 
-                                    <hr />
-                                    </>
-                                }
-                            
-                        </aside>
+                            {
+                                !auth.user.isLoggedIn &&
+                                <p className="mt-2">
+                                    Notez que vous devez être <b className="text-primary">connecté</b> pour pouvoir ajouter des entitées à la base de données.
+                                </p>
+                            }
+                        </div>
+                        <hr />
+                            {   !auth.user.isLoggedIn &&
 
-                    </div>
+                                <>
+                                <Button
+                                    size="reg-100"
+                                    href="/compte/connexion"
+                                >Se connecter</Button>
+
+                                <hr />
+                                </>
+                            }
+                    </aside>
+
                 </div>
-
-                    
-                
+            </div>
         </div>
     )
 }
