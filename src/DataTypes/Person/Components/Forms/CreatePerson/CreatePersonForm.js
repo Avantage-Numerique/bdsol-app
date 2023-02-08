@@ -8,7 +8,6 @@ import { useModal } from '@/src/hooks/useModal/useModal'
 import Button from '@/FormElements/Button/Button'
 import Input from '@/FormElements/Input/Input'
 import RichTextarea from '@/FormElements/RichTextArea/RichTextarea'
-import FileInput from '@/src/common/FormElements/FileInput/FileInput'
 import CreateTaxonomyForm from '@/src/DataTypes/Taxonomy/Components/Forms/CreateTaxonomy/CreateTaxonomyForm'
 import {lang} from "@/src/common/Data/GlobalConstants";
 import TaxonomyTagListTemplate from '@/src/DataTypes/Taxonomy/Template/TaxonomyTagListTemplate'
@@ -138,7 +137,7 @@ const CreatePersonForm = () => {
        await submitRequest(
             "/persons/create",
             'POST',
-            JSON.stringify(formData)
+            JSON.stringify(formData)   //Temporary fix
         );
     }
 

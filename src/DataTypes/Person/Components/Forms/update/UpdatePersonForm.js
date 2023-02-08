@@ -22,8 +22,6 @@ import styles from './UpdatePersonForm.module.scss'
 
 const UpdatePersonForm = ({initValues, positiveRequestActions}) => {
 
-    console.log("Initial values", initValues)
-
     //Modal hook
     const { modal, Modal, displayModal, closeModal } = useModal()
 
@@ -53,10 +51,6 @@ const UpdatePersonForm = ({initValues, positiveRequestActions}) => {
             occupations: {
                 value: initValues.occupations ? initValues.occupations : [],
                 isValid: true
-            },
-            mainImage: {
-                value: "",
-                isValid: true
             }
         },
         //Pass a set of rules to execute a valid response of an api request
@@ -79,7 +73,6 @@ const UpdatePersonForm = ({initValues, positiveRequestActions}) => {
                     "nickname": formState.inputs.nickName.value,
                     "description": formState.inputs.description.value,
                     "occupations": formState.inputs.occupations.value,
-                    "mainImage": formState.inputs.mainImage.value,
                 }
             };
 
@@ -141,16 +134,6 @@ const UpdatePersonForm = ({initValues, positiveRequestActions}) => {
                         {name: "REQUIRED"}
                     ]}
                     formTools={formTools}
-                />
-                
-                <FileInput
-                    name="mainImage"
-                    label="Image principale"
-                    accept="image/*"
-                    formTools={formTools}
-                    validationRules={[
-                        {name: "FILE_MAX_SIZE", specification: 2}
-                    ]}
                 />
 
                 <Select2
