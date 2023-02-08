@@ -19,11 +19,14 @@ const SearchResults = () => {
         async function searchRequest(){
 
             let response = [];
-            if(router.query.searchIndex != undefined)
+            if(router.query.searchIndex)
                 response = await getResultsRouteResponse(router.query.searchIndex);
             
             if(router.query.linkId)
                 response = await getIdRouteResponse(router.query.linkId);
+
+            if(router.query.entityType)
+                response = (await getEntityTypeResponse(router.query.entityType)).data;
             
             setSearchList(response);
         }
@@ -48,6 +51,15 @@ const SearchResults = () => {
             "/search/"+linkId,
             'GET',
             null
+        )
+    }
+
+    const getEntityTypeResponse = (entityType) => {
+        return sendExternalApiRequest(
+            "/"+entityType+"/list",
+            'POST',
+            JSON.stringify({"data": {}}),
+            {'Content-Type': 'application/json'}
         )
     }
 
