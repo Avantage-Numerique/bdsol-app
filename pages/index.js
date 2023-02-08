@@ -199,7 +199,7 @@ const HomePage = ({}) => {
                                                     {
                                                         elem.dataType === "person" &&
                                                         <div className="col g-3" key={elem._id + "-" + elem.slug}>
-                                                        <PersonSimple data={elem} />
+                                                            <PersonSimple data={elem} />
                                                         </div>
                                                     }
                                                     {

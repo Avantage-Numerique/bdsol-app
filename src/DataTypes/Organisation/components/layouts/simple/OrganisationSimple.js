@@ -10,6 +10,7 @@ import KebabButton from '@/common/FormElements/KebabButton/KebabButton'
 
 /***  Local styling ***/
 import styles from './OrganisationSimple.module.scss'
+import {lang} from "@/common/Data/GlobalConstants";
 
 const OrganisationSimple = ({ data }) => {
 
@@ -27,9 +28,9 @@ const OrganisationSimple = ({ data }) => {
         //team,
         //url,
         //updatedAt
-    } = data
-
-    console.log(data)
+    } = data;
+    const link = `/organisations/${slug}`;
+    const type = lang.Occupation;//"Organisation";
 
     const defaultOrgAvatar = '/general_images/Jurassic_Park_Main_Gate.jpg';
 
@@ -39,21 +40,22 @@ const OrganisationSimple = ({ data }) => {
 
             {/******** Top img ***********/}
             <figure className={`position-relative top-0 start-0 w-100 mb-0 ${styles["org-img-content"]}`}>
-                <img
-                    className={`position-absolute w-100 h-100 ${styles["org-img"]}`}
-                    src={defaultOrgAvatar}
-                    alt={`${name}`}
-                />
-                <div className={`position-absolute w-100 h-100 ${styles["radient-cover"]}`}></div>
+                <a href={link} title={name} className={"position-absolute w-100 h-100"} target={"_self"} rel={"follow"}>
+                    <img
+                        className={`position-absolute w-100 h-100 ${styles["org-img"]}`}
+                        src={defaultOrgAvatar}
+                        alt={`${type} : ${name}`}
+                    />
+                </a>
+                <div className={`position-absolute w-100 h-100 no-pointer-events ${styles["radient-cover"]}`}></div>
                 <figcaption className={`bottom-0  position-absolute ${styles["figcaption"]}`}>
                     <small>
-                    Organisation
-
+                        {type}
                     </small>
                 </figcaption>
                 <div className="position-absolute top-0 end-0">
                     <div className="p-3">
-                        <KebabButton href={`/organisations/${slug}`} color="reverse" />
+                        <KebabButton href={link} color="reverse" />
                     </div>
                 </div>
             </figure>
@@ -86,8 +88,8 @@ const OrganisationSimple = ({ data }) => {
                                     {   (index < 3) &&
                                         <li key={"off" + elem.offer._id} className={`mw-100 border text-general-tag rounded-4 d-flex text-truncate text-nowrap ${styles["offer"]}`}><div className="text-truncate">{elem.offer.name}</div></li>
                                     }
-                                    {   (index == 3) &&
-                                        <li key={"off999999999999"} className={`mw-100 border text-general-tag rounded-4 d-flex text-truncate text-nowrap ${styles["offer"]}`}><div className="text-truncate">...</div></li>
+                                    {   (index === 3) &&
+                                        <li key={"off-1"} className={`mw-100 border text-general-tag rounded-4 d-flex text-truncate text-nowrap ${styles["offer"]}`}><div className="text-truncate">...</div></li>
                                     }
                                 </>
                             ))

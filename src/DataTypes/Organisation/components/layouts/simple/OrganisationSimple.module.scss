@@ -8,6 +8,7 @@
     .org-img-content {
         height: 15rem;
         height: clamp(7rem, 25vh, 13rem);
+        @include transition();
 
         .org-img {
             object-fit: cover;
@@ -15,10 +16,19 @@
 
         .radient-cover {
             background: rgba(0, 0, 0, 0);
-            background: linear-gradient(0deg, rgba(0,0,0,0.5919410000328256) 0%, rgba(0,0,0,0.051324753534226164) 70%);        }
+            background: linear-gradient(0deg, rgba(0,0,0,0.5919410000328256) 0%, rgba(0,0,0,0.051324753534226164) 70%);
+            opacity: 1;
+            @include transition();
+        }
+
+        &:hover {
+            .radient-cover {
+                opacity: 0.3;
+            }
+        }
 
         .figcaption {
-            color: white;
+            color: $light;
             opacity: 0.9;
             padding: var(--container-padding);
         }
