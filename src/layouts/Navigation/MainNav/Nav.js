@@ -42,7 +42,7 @@ const Nav = ( {menuState, setMenuState} ) => {
                         <Link href="/a-propos">À propos de nous</Link>
                     </li>
                     <li>
-                        <Link href="/FAQ/licences">À propos des licences</Link>
+                        <Link href="/faq/licences">À propos des licences</Link>
                     </li>
 
                 </ul>
