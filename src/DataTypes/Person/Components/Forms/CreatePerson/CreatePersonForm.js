@@ -11,7 +11,7 @@ import RichTextarea from '@/FormElements/RichTextArea/RichTextarea'
 import FileInput from '@/src/common/FormElements/FileInput/FileInput'
 import CreateTaxonomyForm from '@/src/DataTypes/Taxonomy/Components/Forms/CreateTaxonomy/CreateTaxonomyForm'
 import {lang} from "@/src/common/Data/GlobalConstants";
-import TaxonomyTagListTemplate from '@/src/DataTypes/Taxonomy/Template/TaxonomyTagListTemplate'
+import TaxonomySelectTagListTemplate from '@/src/DataTypes/Taxonomy/Template/TaxonomySelectTagListTemplate'
 
 //Context
 import { useAuth } from "@/src/authentification/context/auth-context";
@@ -210,7 +210,7 @@ const CreatePersonForm = () => {
                 />
                 */}
 
-                <TaxonomyTagListTemplate
+                <TaxonomySelectTagListTemplate
                     tag="occupations"
                     searchField="name"
                     name="occupations"
