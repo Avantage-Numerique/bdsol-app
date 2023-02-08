@@ -14,7 +14,7 @@ const Index = () => {
         <div className={"page-apropos"}>
             <PageHeader title={`Qu'est-ce que la BDSOL ?`}/>
 
-            <div className={"container home-page__main"}>
+            <div className={"container home-page__main content"}>
                 <div className={"row"}>
                     <div className={"col"}>
                         <h3>Un projet en développement</h3>
@@ -23,11 +23,9 @@ const Index = () => {
                             virtuel. Elle a pour objectif de recenser et de géolocaliser les talents, les compétences,
                             les équipements et les initiatives technocréatives dans le
                             &nbsp;
-                            <u>
                                 <a href="https://avantagenumerique.org/le-croissant-boreal/" target="_blank">
                                     Croissant Boréal
                                 </a>
-                            </u>
                             &nbsp;
                             (Abitibi-Témiscamingue, nord de l’Ontario francophone, Nord-du-Québec). La mise en ligne de
                             cet outil augmentera la
@@ -86,12 +84,10 @@ const Index = () => {
                             <li>
                                 <strong>Améliorer la
                                     &nbsp;
-                                    <u>
                                         <a href="https://avantagenumerique.org/2020/07/quest-ce-que-la-decouvrabilite/"
                                            target="_blank">
                                             découvrabilité
                                         </a>
-                                    </u>
                                     &nbsp;
                                 </strong>
                                 d’un projet ou d’un organisme.
@@ -125,12 +121,10 @@ const Index = () => {
                                 gouvernance des données. Toute information entrée dans le formulaire sera sous la
                                 licence CC0
                                 &nbsp;
-                                (<u>
-                                    <a href="https://creativecommons.org/share-your-work/public-domain/cc0/"
+                                    (<a href="https://creativecommons.org/share-your-work/public-domain/cc0/"
                                        target="_blank">
                                         Creative Commons 0
-                                    </a>
-                                </u>)
+                                    </a>)
                                 &nbsp;
                                 de manière temporaire. Cette licence affirme que les informations sont entièrement
                                 libres de droit et appartiennent au domaine public. Éventuellement, lorsqu’une

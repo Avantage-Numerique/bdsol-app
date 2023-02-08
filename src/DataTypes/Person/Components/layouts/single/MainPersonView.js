@@ -14,6 +14,7 @@ import {useHttpClient} from '@/src/hooks/http-hook';
 //Styling
 import styles from './MainPersonView.module.scss'
 import {lang} from "@/common/Data/GlobalConstants";
+import SearchTag from '@/src/common/Components/SearchTag';
 
 const SingleInfoLayout = ({ title, NAMessage, children }) => {
 
@@ -243,26 +244,23 @@ const MainPersonView = ({ data }) => {
                                 NAMessage={<p>Information non disponible</p>}
                             >
                                 <div className={"container"}>
-                                    <ul className="row">
-                                        { occupations.length === 0 ?
-                                            <div>Aucune occupation associée</div>
-                                            :
-                                            occupations.map( (occ) => {
-                                                return <li key={"occupation-" + occ.occupation._id} className={`col col-sm-auto ${styles["competency-tag"]}`}>{occ.occupation.name}</li>
+                                    <SearchTag 
+                                        className="row"
+                                        list={
+                                            occupations.map( (entity) => {
+                                                return { name : entity.occupation.name, _id: entity.occupation._id }
                                             })
                                         }
-                                    </ul>
+                                        textField="name"
+                                        NAMessage="Aucune occupation associée"
+                                    />
                                 </div>
 
                             </SingleInfoLayout>
                         </aside>
                     </div>
                 </div>
-
-
             </section>
-
-
         </article>
 
         {/********** Modal display ************/}

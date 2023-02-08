@@ -16,29 +16,39 @@ const SearchResults = () => {
     const router = useRouter();
 
     useEffect(() => {
-        let response = [];
         async function searchRequest(){
-            let paramToString = "";
 
-            if (router.query !== {})
-            {
-                paramToString += "?" + router.asPath.split("?")[1]
-            }
-            console.log(paramToString);
+            let response = [];
+            if(router.query.searchIndex != undefined)
+                response = await getResultsRouteResponse(router.query.searchIndex);
             
-            const response = await sendExternalApiRequest(
-                "/search/results"+paramToString,
-                'GET',
-                null
-            );
+            if(router.query.linkId)
+                response = await getIdRouteResponse(router.query.linkId);
+            
             setSearchList(response);
         }
         searchRequest();
     }, [router.asPath])
-
+    
     const searchSortDate = () => {
         //updatedAt or createdAt?
         //asc or desc ?
+    }
+    
+    const getResultsRouteResponse = (searchIndex) => {
+        return sendExternalApiRequest(
+            "/search/results?searchIndex="+searchIndex,
+            'GET',
+            null
+        );
+    }
+
+    const getIdRouteResponse = (linkId) => {
+        return sendExternalApiRequest(
+            "/search/"+linkId,
+            'GET',
+            null
+        )
     }
 
     return (

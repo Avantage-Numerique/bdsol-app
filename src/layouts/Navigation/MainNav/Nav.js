@@ -41,6 +41,9 @@ const Nav = ( {menuState, setMenuState} ) => {
                     <li>
                         <Link href="/a-propos">À propos de nous</Link>
                     </li>
+                    <li>
+                        <Link href="/faq/licences">À propos des licences</Link>
+                    </li>
 
                 </ul>
 
@@ -57,7 +60,7 @@ const Nav = ( {menuState, setMenuState} ) => {
                         <Link href="https://avantagenumerique.org/notre-equipe/">Notre équipe</Link>
                     </li>
                     <li>
-                        <Link href="https://avantagenumerique.org/a-propos/">À propos d'Avantage Numérique</Link>
+                        <Link href="https://avantagenumerique.org/a-propos">À propos d'Avantage Numérique</Link>
                     </li>
                     <li>
                         <Link href="https://avantagenumerique.org/nous-joindre/">Nous joindre</Link>

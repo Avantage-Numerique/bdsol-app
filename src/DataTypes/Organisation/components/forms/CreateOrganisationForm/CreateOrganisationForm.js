@@ -18,7 +18,7 @@ import { MessageContext } from '@/src/common/UserNotifications/Message/Context/M
 import styles from './CreateOrganisationForm.module.scss'
 import PersonRoleTemplate from '@/src/DataTypes/Person/Template/PersonRoleTemplate'
 import Repeater from '@/src/common/Containers/Repeater/Repeater'
-import TaxonomyTagListTemplate from '@/src/DataTypes/Taxonomy/Template/TaxonomyTagListTemplate'
+import TaxonomySelectTagListTemplate from '@/src/DataTypes/Taxonomy/Template/TaxonomySelectTagListTemplate'
 
 
 const CreateOrganisationForm = () => {
@@ -160,7 +160,7 @@ const CreateOrganisationForm = () => {
                     formTools={formTools}
                 />
 
-                <TaxonomyTagListTemplate
+                <TaxonomySelectTagListTemplate
                     tag="occupations"
                     name="offers"
                     idField="offer"

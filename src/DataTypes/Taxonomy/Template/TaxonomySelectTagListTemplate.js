@@ -2,7 +2,7 @@
 import { useState } from "react";
 
 // Styles
-import styles from "./TaxonomyTagListTemplate.module.scss"
+import styles from "./TaxonomySelectTagListTemplate.module.scss"
 
 //Context
 import { useAuth } from "@/src/authentification/context/auth-context";
@@ -22,7 +22,7 @@ Props :
     - formTools : formtools
 
 */
-const TaxonomyTagListTemplate = ({name, formTools, ...props}) => {
+const TaxonomySelectTagListTemplate = ({name, formTools, ...props}) => {
 
     const {
         formState,
@@ -102,4 +102,4 @@ const TaxonomyTagListTemplate = ({name, formTools, ...props}) => {
         </>
     )
 }
-export default TaxonomyTagListTemplate;
+export default TaxonomySelectTagListTemplate;
