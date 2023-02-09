@@ -16,7 +16,7 @@ import {withSessionSsr} from "@/auth/session/handlers/withSession";
 const SinglePersonPage = props => {
 
     return (
-        <div className={`${styles["single-person"]}`}>
+        <div className={`single ${styles["single-person"]}`}>
 
             <div className="maxWidthPageContainer">
             
