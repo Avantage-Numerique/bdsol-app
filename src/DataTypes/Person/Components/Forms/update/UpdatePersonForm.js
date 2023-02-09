@@ -1,32 +1,21 @@
-import { useState } from 'react'
 
-//Custom hooks
-import { useFormUtils } from '@/src/hooks/useFormUtils/useFormUtils'
-import { useModal } from '@/src/hooks/useModal/useModal'
-
-
-//Components
-import Button from '@/src/common/FormElements/Button/Button'
-import Input from '@/src/common/FormElements/Input/Input'
-import RichTextarea from '@/src/common/FormElements/RichTextArea/RichTextarea'
-import Select2 from '@/src/common/FormElements/Select2/Select2'
-import CreateTaxonomyForm from '@/src/DataTypes/Taxonomy/Components/Forms/CreateTaxonomy/CreateTaxonomyForm'
-import FileInput from '@/src/common/FormElements/FileInput/FileInput'
-
-//Utils 
+import { useFormUtils } from '@/src/hooks/useFormUtils/useFormUtils';
+import { useModal } from '@/src/hooks/useModal/useModal';
+import Button from '@/src/common/FormElements/Button/Button';
+import Input from '@/src/common/FormElements/Input/Input';
+import RichTextarea from '@/src/common/FormElements/RichTextArea/RichTextarea';
+import Select2 from '@/src/common/FormElements/Select2/Select2';
+import CreateTaxonomyForm from '@/src/DataTypes/Taxonomy/Components/Forms/CreateTaxonomy/CreateTaxonomyForm';
 import {lang} from "@/src/common/Data/GlobalConstants";
 
+import styles from './UpdatePersonForm.module.scss';
 
-//Styling
-import styles from './UpdatePersonForm.module.scss'
 
 const UpdatePersonForm = ({initValues, positiveRequestActions}) => {
 
-    console.log("Initial values", initValues)
-
     //Modal hook
-    const { modal, Modal, displayModal, closeModal } = useModal()
-
+    const { modal, Modal, displayModal, closeModal } = useModal();
+    console.log(initValues);
     //Main form functionalities
     const { FormUI, submitRequest, formState, formTools } = useFormUtils(
         {
@@ -53,17 +42,13 @@ const UpdatePersonForm = ({initValues, positiveRequestActions}) => {
             occupations: {
                 value: initValues.occupations ? initValues.occupations : [],
                 isValid: true
-            },
-            mainImage: {
-                value: "",
-                isValid: true
             }
         },
         //Pass a set of rules to execute a valid response of an api request
         positiveRequestActions || {
             clearForm: true,            //Clear the form
             displayResMessage: true     //Display a message to the user to confirm the succes
-        }  
+        }
         );
 
         //Submit the form
@@ -78,8 +63,7 @@ const UpdatePersonForm = ({initValues, positiveRequestActions}) => {
                     "firstName":  formState.inputs.firstName.value, 
                     "nickname": formState.inputs.nickName.value,
                     "description": formState.inputs.description.value,
-                    "occupations": formState.inputs.occupations.value,
-                    "mainImage": formState.inputs.mainImage.value,
+                    "occupations": formState.inputs.occupations.value
                 }
             };
 
@@ -141,16 +125,6 @@ const UpdatePersonForm = ({initValues, positiveRequestActions}) => {
                         {name: "REQUIRED"}
                     ]}
                     formTools={formTools}
-                />
-                
-                <FileInput
-                    name="mainImage"
-                    label="Image principale"
-                    accept="image/*"
-                    formTools={formTools}
-                    validationRules={[
-                        {name: "FILE_MAX_SIZE", specification: 2}
-                    ]}
                 />
 
                 <Select2

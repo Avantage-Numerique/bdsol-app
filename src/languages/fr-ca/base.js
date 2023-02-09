@@ -8,6 +8,7 @@ export const base = {
     "noResult": "Aucune donnée ¯\\_(ツ)_/¯ pour l'instant. On a peut-être un problème en arrière plan.",
     "loadingData": "Chargement des données",
     "back": "Retour",
+    "close": "Fermer",
     "noInfoAvailable": "Information bientôt disponible.",
 
     // App

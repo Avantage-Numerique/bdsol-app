@@ -1,8 +1,4 @@
-import { useState } from 'react' 
-import Router from 'next/router';
-
-//Hooks
-import { useModal } from '@/src/hooks/useModal/useModal'
+import { useState } from 'react'
 
 //Components
 import SanitizedInnerHtml from '@/src/utils/SanitizedInnerHtml'
@@ -64,9 +60,6 @@ const MainPersonView = ({ data }) => {
         fetchMemberOf()
     }, []);
 
-    //Modal hook
-    const { Modal, closeModal } = useModal()
-
     const aside = (
         <>
             <SingleInfoLayout
@@ -96,29 +89,7 @@ const MainPersonView = ({ data }) => {
         </div>
     );
 
-    const modalComponent = (
-        <Modal
-            className={`${styles["person-form-modal"]}`}
-            coloredBackground
-            darkColorButton
-            closingFunction={closeModal}
-        >
-            <UpdatePersonForm
-                initValues={data}
-                positiveRequestActions={{
-                    //CallbackFunction is one of the four behaviors the useFormUtils hook can apply when a request return a positive answer
-                    callbackFunction: requestResponse => {
-
-                        //Redirect to the right path if the slug changes and otherwise, at least reflect the changes
-                        Router.push(`/persons/${requestResponse.data.slug}`);
-
-                        //Close the modal
-                        closeModal()
-                    }
-                }}
-            />
-        </Modal>
-    );
+    const ModalComponent = UpdatePersonForm;
 
 
     return (
@@ -128,7 +99,7 @@ const MainPersonView = ({ data }) => {
             aside={aside}
             headerMainContent={headerMainContent}
             entity={data}
-            modalComponent={modalComponent}
+            ModalForm={ModalComponent}
             showCTA={true}
             cta={"Ceci est une proposition d'appel à l'action. Il reste donc à déterminer s'il est pertinent et quoi mettre à l'intérieur."}
         >

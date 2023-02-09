@@ -4,9 +4,6 @@ import styles from './Single.module.scss'
 import Button from "@/FormElements/Button/Button";
 import {lang} from "@/common/Data/GlobalConstants";
 import EntityNavBar from "@/DataTypes/common/layouts/Navigation/EntityNavBar";
-import SanitizedInnerHtml from "@/src/utils/SanitizedInnerHtml";
-import {useModal} from "@/src/hooks/useModal/useModal";
-
 
 /*
     Receive and apply all the rules of a single view for entities
@@ -17,7 +14,7 @@ const Single = (props) => {
         headerMainContent,
         children,
         aside,
-        modalComponent
+        ModalForm
     } = props;
 
     const entity = props?.entity ?? {};
@@ -51,7 +48,7 @@ const Single = (props) => {
                 <EntityNavBar
                     entity={entity}
                     containerClass={`${styles["single__top-menu"]}`}
-                    modalComponent={modalComponent}
+                    ModalForm={ModalForm}
                 />
 
                 {/* Header's content */}
