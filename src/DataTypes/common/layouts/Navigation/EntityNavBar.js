@@ -8,14 +8,15 @@ import Router from "next/router";
 const EntityNavBar = ({ entity, containerClass, ModalForm }) => {
 
     const backUrl = "/";
-    const type = entity.type ?? "person";
-    const closingModalBaseURI = `/${type}s/`;
+    const type = entity.type ?? "persons";
+    const closingModalBaseURI = `/${type.toLowerCase()}s/`;
 
     const {displayModal, modal, closeModal, Modal} = useModal()
 
-    const displayUpdateForm = selectStatus => {
+    const displayUpdateForm = () => {
         displayModal();
-    }
+    }//selectStatus
+
     return (
         <>
             <div className={`container ${containerClass}`}>
@@ -44,10 +45,14 @@ const EntityNavBar = ({ entity, containerClass, ModalForm }) => {
                             //CallbackFunction is one of the four behaviors the useFormUtils hook can apply when a request return a positive answer
                             callbackFunction: requestResponse => {
                                 //Redirect to the right path if the slug changes and otherwise, at least reflect the changes
-                                Router.push(`${closingModalBaseURI}${requestResponse.data.slug}`);
+                                if (requestResponse.data.slug !== undefined) {
+                                    Router.push(`${closingModalBaseURI}${requestResponse.data.slug}`);
 
-                                //Close the modal
-                                closeModal()
+                                    //Close the modal
+                                    closeModal()
+                                } else {
+                                    thow(new Error("Un problème est survenue."))
+                                }
                             }
                         }}
                     />

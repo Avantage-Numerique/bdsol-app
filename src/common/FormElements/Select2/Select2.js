@@ -46,21 +46,22 @@ const Select2 = ({name, formTools, children, single, ...props}) => {
 
     //Research terms send to the api to refine the search
     //shape : data: {category: 'occupations', name: 'ingenieur'}
-    const [selectRequest, setSelectRequest] = useState(props.requestData)
+    const [selectRequest, setSelectRequest] = useState(props.requestData);
 
     //Allow only one request per 400ms, after the user stop typing
     const debouncedRequest = useDebounce(selectRequest, 400);
+
     //Update the list of options to display
     useEffect(() => { getSelectList() }, [debouncedRequest] );
 
 
     //Find if there is a matching value between the list proposed by the api and the value entered in the field by the user
-    const findMatchingValue = () => selectList.data.find(e => {return e[props.searchField] === selectTagRef.current.value})
+    const findMatchingValue = () => selectList.data.find(e => {return e[props.searchField] === selectTagRef.current.value});//[idField]
 
     //Called whenever the user enter or modify a value into the field
     const formRequestData = (val) => {
         //Get the value inside the requestData in the "props.searchField" to send a new search request
-        props.requestData.data[props.searchField != undefined ? props.searchField : "name"] = val;
+        props.requestData.data[props.searchField !== undefined ? props.searchField : "name"] = val;
         setSelectRequest({...props.requestData});
     }
 
@@ -81,7 +82,7 @@ const Select2 = ({name, formTools, children, single, ...props}) => {
         //Make sure there is a value entered in the field
         if(selectTagRef.current.value){
             //Get the NEW matching value or set it to undefined
-            matchingValue.current = findMatchingValue() || undefined
+            matchingValue.current = findMatchingValue() || undefined;
 
             //If there is a matching value, then go forward
             if (matchingValue.current) {
@@ -93,13 +94,16 @@ const Select2 = ({name, formTools, children, single, ...props}) => {
 
                 if(!isDuplicate){
                     //Update the value of selectedEntities
-                    if ( single == "true"){
+                    if ( single === "true"){
                         //If single mode, replace the entire object
                         props.dataSetter([matchingValue.current]);
                     }
                     else {
                         //(not single mode) Add the value to the array
-                        props.dataSetter([...props.selectedEntities, matchingValue.current])
+                        props.dataSetter([...props.selectedEntities, {
+                            occupation:matchingValue.current,
+                            status: matchingValue.current.status
+                        }]);
                     }
 
                     //Reset the field
@@ -136,8 +140,6 @@ const Select2 = ({name, formTools, children, single, ...props}) => {
 
     //Handle ENTER to simulate a button press (add value)
     const handleKeypress = (e) => {
-        //If ENTER, add value
-        console.log(e)
         if (e.charCode === 13) {
             addValueToSelectedItem();
         }
@@ -195,8 +197,11 @@ const Select2 = ({name, formTools, children, single, ...props}) => {
                     </div>
                     
                     <datalist id={props.label + props.searchField} name={"Datalist-"+ name } className={`${styles["datalist-input"]}`}>
-                        {selectList.data.map( item => 
-                            <option key={`datalist-${item[props.searchField]}`} value={item[props.searchField]}></option>
+                        {selectList.data.map( item => {
+                                return (
+                                    <option key={`datalist-${item[props.searchField]}`} value={item[props.searchField]}></option>
+                                )
+                            }
                         )}
                     </datalist>
                 </div>

@@ -40,13 +40,14 @@ const MainPersonView = ({ data }) => {
         createdAt,
         updatedAt,
         status,
-        mainImage,
+        mainImage
     } = data;
 
     const {sendRequest} = useHttpClient();
     
     //State that contains the organisations that the person is part of
     const [memberOfOrganisationList, setMemberOfOrganisationList] = useState([]);
+
 
     useEffect( () => {
         async function fetchMemberOf() {
@@ -55,10 +56,11 @@ const MainPersonView = ({ data }) => {
                 'POST',
                 JSON.stringify({ data: { "team.member" : _id }})
             );
-            setMemberOfOrganisationList(response.data)
+            setMemberOfOrganisationList(response.data);
         }
         fetchMemberOf()
     }, []);
+
 
     const aside = (
         <>
@@ -69,7 +71,7 @@ const MainPersonView = ({ data }) => {
                 <div className={"container"}>
                     <SearchTag
                         className="row"
-                        list={
+                        list={occupations &&
                             occupations.map( (entity) => {
                                 return { name : entity.occupation.name, _id: entity.occupation._id }
                             })
@@ -139,6 +141,7 @@ const MainPersonView = ({ data }) => {
                     NAMessage={ <p>{"Numéro d'identification de l'utilisateur : " + status.lastModifiedBy}</p>}>
                 </SingleInfoLayout>
             }
+
         </Single>
     </>
     )
