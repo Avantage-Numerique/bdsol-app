@@ -14,7 +14,8 @@ const Single = (props) => {
         headerMainContent,
         children,
         aside,
-        ModalForm
+        ModalForm,
+        modalParams
     } = props;
 
     const entity = props?.entity ?? {};
@@ -36,7 +37,7 @@ const Single = (props) => {
     const asideClass = `col-auto col-lg-${asideColWidthLg}`;
 
     return (
-        <article className={`${styles.single}`}>
+        <article className={`single ${styles.single}`}>
             <header className={`${styles["single__header"]}`}>
 
                 {/* Background image */}
@@ -49,6 +50,7 @@ const Single = (props) => {
                     entity={entity}
                     containerClass={`${styles["single__top-menu"]}`}
                     ModalForm={ModalForm}
+                    modalParams={modalParams}
                 />
 
                 {/* Header's content */}

@@ -3,19 +3,25 @@ import {lang} from "@/common/Data/GlobalConstants";
 import React from "react";
 import {useModal} from "@/src/hooks/useModal/useModal";
 import Router from "next/router";
+import {useAuth} from "@/auth/context/auth-context";
 
 
-const EntityNavBar = ({ entity, containerClass, ModalForm }) => {
+const EntityNavBar = ({ entity, containerClass, ModalForm, modalParams }) => {
 
     const backUrl = "/";
     const type = entity.type ?? "persons";
     const closingModalBaseURI = `/${type.toLowerCase()}s/`;
+    const modalParameters = modalParams ?? {};
 
-    const {displayModal, modal, closeModal, Modal} = useModal()
+    const {displayModal, modal, closeModal, Modal} = useModal();
+
+    const auth = useAuth();
 
     const displayUpdateForm = () => {
         displayModal();
-    }//selectStatus
+    }
+
+    console.log("EntityNavBar modal params", modalParams);
 
     return (
         <>
@@ -24,11 +30,13 @@ const EntityNavBar = ({ entity, containerClass, ModalForm }) => {
                     <div className="col-6 col-lg-8 justify-content-end">
                         <a className="text-white" href={backUrl} title={lang.back}> &#8629; {lang.back}</a>
                     </div>
-                    <div className={"col-auto col-lg-4 d-flex justify-content-end"}>
-                        <Button onClick={displayUpdateForm}>
-                            {lang.proposeContentChangeLabel}
-                        </Button>
-                    </div>
+                    {auth.user.isLoggedIn &&
+                        <div className={"col-auto col-lg-4 d-flex justify-content-end"}>
+                            <Button onClick={displayUpdateForm}>
+                                {lang.proposeContentChangeLabel}
+                            </Button>
+                        </div>
+                    }
                 </div>
             </div>
             {
@@ -55,6 +63,7 @@ const EntityNavBar = ({ entity, containerClass, ModalForm }) => {
                                 }
                             }
                         }}
+                        {...modalParameters}
                     />
                 </Modal>
             }

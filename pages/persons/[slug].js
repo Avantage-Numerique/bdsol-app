@@ -8,7 +8,7 @@ import {
 import styles from './singlePerson.module.scss';
 
 //components
-import MainPersonView from '@/src/DataTypes/Person/Components/layouts/single/MainPersonView'
+import PersonSingle from '@/DataTypes/Person/Components/layouts/single/PersonSingle'
 import {getUserHeadersFromUserSession} from "@/auth/context/auth-context";
 import {withSessionSsr} from "@/auth/session/handlers/withSession";
 
@@ -20,7 +20,7 @@ const SinglePersonPage = props => {
 
             <div className="maxWidthPageContainer">
             
-                <MainPersonView data={props} />
+                <PersonSingle data={props} />
 
             </div>
             

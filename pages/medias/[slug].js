@@ -1,18 +1,7 @@
 import React from 'react'
-
-import {
-    externalApiRequest
-} from '@/src/hooks/http-hook';
-
-//Styling
 import styles from './singleMedia.module.scss';
-
-//components
-import MainPersonView from '@/src/DataTypes/Person/Components/layouts/single/MainPersonView'
-import {getUserHeadersFromUserSession} from "@/auth/context/auth-context";
 import {withSessionSsr} from "@/auth/session/handlers/withSession";
 import SingleMediaView from "@/DataTypes/Media/layouts/SingleMediaView";
-
 
 const SingleMediaPage = props => {
 

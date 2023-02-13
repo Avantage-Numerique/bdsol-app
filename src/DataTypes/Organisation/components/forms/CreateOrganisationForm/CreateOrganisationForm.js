@@ -21,7 +21,19 @@ import Repeater from '@/src/common/Containers/Repeater/Repeater'
 import TaxonomySelectTagListTemplate from '@/src/DataTypes/Taxonomy/Template/TaxonomySelectTagListTemplate'
 
 
-const CreateOrganisationForm = () => {
+const CreateOrganisationForm = (props) => {
+
+    const submitUri = props.uri ?? "create";
+
+    const initialValues = props.initValues ? {...props.initValues} : {
+        name: '',
+        description: '',
+        url: '',
+        contactPoint: '',
+        fondationDate: '',
+        offers: [],
+        team: [],
+    }
 
     //Import the authentication context to make sure the user is well connected
     const auth = useAuth();
@@ -43,35 +55,36 @@ const CreateOrganisationForm = () => {
         }
     }, [auth.user.isLoggedIn]);
 
+
     //Main form functionalities
     const { FormUI, submitRequest, formState, formTools } = useFormUtils(
     {
         name: {
-            value: '',
+            value: initialValues.name,
             isValid: false
         },
         description: {
-            value: '',
+            value: initialValues.description,
             isValid: true
         },
         url: {
-            value: '',
+            value: initialValues.url,
             isValid: true
         },
         contactPoint: {
-            value: '', 
+            value: initialValues.contactPoint,
             isValid: true
         },
         fondationDate: {
-            value: '',
+            value: initialValues.fondationDate,
             isValid: true
         },
         offers: {
-            value: [],
+            value: initialValues.offers,
             isValid: true
         },
         team: {
-            value: [],
+            value: initialValues.team,
             isValid: true
         },
     },
@@ -107,7 +120,7 @@ const CreateOrganisationForm = () => {
 
         //Send the request with the specialized hook
         submitRequest(
-            "/organisations/create",
+            `/organisations/${submitUri}`,
             'POST',
             formData
         );
@@ -187,8 +200,6 @@ const CreateOrganisationForm = () => {
                         //personList={[...list]}
                     />
                 </Repeater>
-
-     
 
                 <div className="col-12">
                     <Button type="submit" disabled={!formState.isValid}>Soumettre</Button>

@@ -1,13 +1,13 @@
 import { useState } from 'react'
 
 //Components
-import SanitizedInnerHtml from '@/src/utils/SanitizedInnerHtml'
-import UpdatePersonForm from '@/DataTypes/Person/Components/Forms/update/UpdatePersonForm'
-import { useEffect } from 'react'
+import SanitizedInnerHtml from '@/src/utils/SanitizedInnerHtml';
+import UpdatePersonForm from '@/DataTypes/Person/Components/Forms/update/UpdatePersonForm';
+import { useEffect } from 'react';
 import {useHttpClient} from '@/src/hooks/http-hook';
 
 //Styling
-import styles from './MainPersonView.module.scss'
+import styles from './PersonSingle.module.scss'
 import {lang} from "@/common/Data/GlobalConstants";
 import SearchTag from '@/src/common/Components/SearchTag';
 import Single from "@/DataTypes/common/layouts/single/Single";
@@ -27,7 +27,7 @@ const SingleInfoLayout = ({ title, NAMessage, children }) => {
     )
 }
 
-const MainPersonView = ({ data }) => {
+const PersonSingle = ({ data }) => {
 
     const { 
         _id,
@@ -93,11 +93,10 @@ const MainPersonView = ({ data }) => {
 
     const ModalComponent = UpdatePersonForm;
 
-
+    //Remove because this isn't planned in the ontologie yet  :<SingleInfoLayout title={"Intérêts"} />
     return (
-    <>
         <Single
-            className={`single ${styles["person-view"]}`}
+            className={`${styles["person-view"]}`}
             aside={aside}
             headerMainContent={headerMainContent}
             entity={data}
@@ -105,19 +104,13 @@ const MainPersonView = ({ data }) => {
             showCTA={true}
             cta={"Ceci est une proposition d'appel à l'action. Il reste donc à déterminer s'il est pertinent et quoi mettre à l'intérieur."}
         >
-            <SingleInfoLayout
-                title={"Présentation"}
-                NAMessage={<p>Aucune donnée n'a encore été fournie pour ce champ. <br />Vous pourrez bientôt passer en mode édition afin d'ajouter et modifier des information.</p>}
-            >
+            <SingleInfoLayout title={"Présentation"}>
                 <SanitizedInnerHtml>
                     {description}
                 </SanitizedInnerHtml>
             </SingleInfoLayout>
 
             <SingleInfoLayout title={"Projets"} />
-
-            <SingleInfoLayout title={"Intérêts"}>
-            </SingleInfoLayout>
 
             {
                 status && status.state &&
@@ -141,11 +134,9 @@ const MainPersonView = ({ data }) => {
                     NAMessage={ <p>{"Numéro d'identification de l'utilisateur : " + status.lastModifiedBy}</p>}>
                 </SingleInfoLayout>
             }
-
         </Single>
-    </>
     )
 }
 
 
-export default MainPersonView
+export default PersonSingle
