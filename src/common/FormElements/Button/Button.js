@@ -2,7 +2,9 @@ import { useState, useEffect} from 'react'
 import Link from 'next/link'
 
 //scss styling
-import styles from './Button.module.scss' 
+import styles from './Button.module.scss'
+import DOMPurify from "isomorphic-dompurify";
+import {externalLinkIcon} from "@/common/Icons/IconsManager";
 
 
 const getCurrentTime = () => {
@@ -120,6 +122,18 @@ const Button = ({ rippleEffect, ...props }) => {
     classesString = classList.join(' ');
 
     {/* If the button is an external link */}
+    if (props.href && props.external) {
+        return (
+            <a href={props.href}
+               className={`${classesString}`}
+               disabled={props.disabled}
+               dangerouslySetInnerHTML={{
+                   __html: DOMPurify.sanitize(props.children+" "+externalLinkIcon)
+               }}>
+            </a>
+        );
+    }
+
     if (props.href) {
 
         return (
@@ -134,7 +148,6 @@ const Button = ({ rippleEffect, ...props }) => {
                 </button>
             </Link>
         );
-
     }
 
     {/* If the button is not a link, then it calls an action with onClick */}

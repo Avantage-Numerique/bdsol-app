@@ -18,15 +18,21 @@ const Single = (props) => {
         modalParams
     } = props;
 
+    const defaultMainImage = props.defaultMainImage ?? "/general_images/Dennis_Nedry.webp";
+    const defaultHeaderBg = props.defaultHeaderBg ?? "/general_images/forestBG.jpg";
+
     const entity = props?.entity ?? {};
-    const headerBgImage = entity.headerBG ?? "/general_images/forestBG.jpg";
+    const headerBgImage = entity.headerBG ?? defaultHeaderBg;
     const mainImage = entity.mainImage && entity.mainImage !== "" ? entity.mainImage : {};
-    const mainImageUrl = entity.mainImage?.url ?? "/general_images/Dennis_Nedry.webp";
+    const mainImageUrl = entity.mainImage?.url ?? defaultMainImage;
     const mainImageAlt= entity.mainImage?.alt ?? "main image alt";
 
     const showCTA = props?.showCTA ?? false;
     const cta = props?.cta ?? "Entrez en contact avec l'auteur";
     const ctaLabel = props?.ctaLabel ?? lang.ctaLabel;
+    const ctaUrl = props?.ctaUrl ?? "";
+
+    console.log("CTA SINGLE", ctaUrl, ctaLabel, cta, showCTA);
 
     const showAside = aside ?? false;
     const asideColWidthLg = 4;
@@ -64,9 +70,9 @@ const Single = (props) => {
                             </div>
                             {showCTA &&
                                 <aside className={"col-auto col-lg-4"}>
-                                    <div>
+                                    <div className={"d-flex flex-column"}>
                                         <p>{cta}</p>
-                                        <Button small>{ctaLabel}</Button>
+                                        <Button href={ctaUrl} className={"btn-block"} external>{ctaLabel}</Button>
                                     </div>
                                 </aside>
                             }
