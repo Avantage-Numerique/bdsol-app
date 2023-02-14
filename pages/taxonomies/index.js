@@ -1,104 +1,85 @@
+import { useHttpClient } from "@/src/hooks/http-hook";
+import { useState, useEffect } from "react";
+
+const TaxonomiesCategoryPage = () => {
+
+    const {sendRequest} = useHttpClient();
+    const [taxonomiesList, setTaxonomiesList] = useState([]);
+    const [taxonomyMenu, setTaxonomyMenu] = useState("")
+    const categoryList = ["occupations", "domains", "abilities", "skills"];
 
 
-const TaxonomiesPage = () => {
+    const fetchTaxonomyByCategory = async (category) => {
+        if(!category){return}
 
+        const response = await sendRequest(
+            "/taxonomies/list",
+            'POST',
+            JSON.stringify({
+                "data": {
+                    "category": category
+                }}),
+            { 'Content-Type': 'application/json' }
+        );
+        
+        return response.data
+    }
+    
+    useEffect( () => {
 
-    const taxoList = [
-        {
-            name:"taxo occ 1",
-            category: "occupations"
-        },
-        {
-            name:"taxo occ 2",
-            category: "occupations"
-        },
-        {
-            name:"taxo occ 3",
-            category: "occupations"
-        },
-        {
-            name:"taxo dom 1",
-            category: "domains"
-        },
-        {
-            name:"taxo dom 2",
-            category: "domains"
-        },
-        {
-            name:"taxo ab 1",
-            category: "abilities"
-        },
-    ]
+        let taxonomiesFiltered = {};
+        //Fetch taxonomy list
+        categoryList.forEach( async (category) => {
+            const response = await fetchTaxonomyByCategory(category);
+            if(response)
+                taxonomiesFiltered[category] = response;
+        })
 
-    const occList = taxoList.filter( (taxo) =>{
-        return taxo.category != undefined && taxo.category == 'occupations'
-    });
-    const domainList = taxoList.filter( (taxo) =>{
-        return taxo.category != undefined && taxo.category == 'domains'
-    });
-    const abilityList = taxoList.filter( (taxo) =>{
-        return taxo.category != undefined && taxo.category == 'abilities'
-    });
+        setTaxonomiesList(taxonomiesFiltered);
+    }, [])
 
-    const tableOutOfList = (list) => {
+    const mapArrayToListComponent = (list) => {
         if(list == undefined || list.length == 0)
             return (
-                <table>Liste introuvable</table>
+                <div>Liste introuvable ou vide</div>
             )
-
         return (
-            <table className="table thead-dark">
-                <thead>
-                    <tr>
-                        <th>
-                            <a href={`/taxonomies/${list[0].category}`}>
-                                {list[0].category}
-                            </a>
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {
-                        list.map( (elem) => 
-                            <tr>
-                                <td href={"/taxonomies/"+elem.category+"/"+elem.slug}>
-                                    {elem.name}
-                                </td>
-                            </tr>
-                        )
-                    }
-                </tbody>
-            </table>
+            list.map( (elem) => 
+                <div key={elem.slug}>
+                    <a href={`/taxonomies/${elem.slug}`}>{elem.name}</a>
+                </div>
+            )
         )
-
     }
 
     return (
         <div>
-            Les différentes catégories de taxonomies disponible :
-            <table className="table">
-                <tbody>
-                    <tr>
-                        <th>
-                            {
-                                tableOutOfList(occList)
-                            }
-                        </th>
-                        <th>
-                            {
-                                tableOutOfList(domainList)
-                            }
-                        </th>
-                        <th>
-                            {
-                                tableOutOfList(abilityList)
-                            }
-                        </th>
-                    </tr>
-                </tbody>
-            </table>
+            <div>
+                Les différentes catégories de taxonomies disponible :
+            </div>
+            <div>
+                {
+                    categoryList.map((elem) =>
+                        <div key={elem+"-categoryMenuBtn"} onClick={() => setTaxonomyMenu(elem)}>
+                            {elem}
+                        </div>
+                    )
+                }
+            </div>
+                {
+                    taxonomyMenu != "" && 
+                    <div>
+                        <h3>
+                            {taxonomyMenu} :
+                        </h3>
+                        <div>
+                            {mapArrayToListComponent(taxonomiesList[taxonomyMenu])}
+                        </div>
+                    </div>
+                }
+
         </div>
     )
 }
 
-export default TaxonomiesPage
+export default TaxonomiesCategoryPage
