@@ -7,6 +7,7 @@ import SanitizedInnerHtml from '@/src/utils/SanitizedInnerHtml';
 import styles from './OrganisationSimple.module.scss';
 import Single from "@/DataTypes/common/layouts/single/Single";
 import CreateOrganisationForm from "@/DataTypes/Organisation/components/forms/CreateOrganisationForm/CreateOrganisationForm";
+import {lang} from "@/common/Data/GlobalConstants";
 
 
 const OrganisationSimple = ({ data }) => {
@@ -18,6 +19,7 @@ const OrganisationSimple = ({ data }) => {
         //contactPoint,
         createdAt,
         description,
+        contactPoint,
         fondationDate,
         name,
         offers,
@@ -107,10 +109,17 @@ const OrganisationSimple = ({ data }) => {
             {/******** Description section **********/}
             {
                 description &&
-                <section className="border-bottom my-4">
+                <section className="border-bottom py-4">
                     <SanitizedInnerHtml>
                         {description}
                     </SanitizedInnerHtml>
+                </section>
+            }
+            {/******** Description section **********/}
+            {
+                contactPoint &&
+                <section className="border-bottom py-4">
+                    <span>{lang.bestContactPointLabel}</span><SanitizedInnerHtml tag={"span"}>{contactPoint}</SanitizedInnerHtml>
                 </section>
             }
             {/******** Description section **********/}

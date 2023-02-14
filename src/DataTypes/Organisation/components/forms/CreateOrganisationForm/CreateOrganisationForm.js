@@ -19,6 +19,7 @@ import styles from './CreateOrganisationForm.module.scss'
 import PersonRoleTemplate from '@/src/DataTypes/Person/Template/PersonRoleTemplate'
 import Repeater from '@/src/common/Containers/Repeater/Repeater'
 import TaxonomySelectTagListTemplate from '@/src/DataTypes/Taxonomy/Template/TaxonomySelectTagListTemplate'
+import {getDefaultUpdateEntityStatus} from "@/DataTypes/Status/EntityStatus";
 
 
 const CreateOrganisationForm = (props) => {
@@ -98,25 +99,38 @@ const CreateOrganisationForm = (props) => {
 
         event.preventDefault();
 
+        const taxonomySubmitValue = [];
+        const taxonomyFormStateValue = "offer";
+        const taxonomyFormStateField = "offers";
+        formState.inputs[taxonomyFormStateField].value.forEach( (elem) => {
+            taxonomySubmitValue.push({
+                [taxonomyFormStateValue]: elem[taxonomyFormStateValue]._id,
+                status: getDefaultUpdateEntityStatus(auth.user)
+            })
+        });
+
         const formData = {
 
-                "data": {
-                    name: formState.inputs.name.value,
-                    description:  formState.inputs.description.value, 
-                    url: formState.inputs.url.value,
-                    contactPoint: formState.inputs.contactPoint.value,
-                    fondationDate: formState.inputs.fondationDate.value,
-                    offers: formState.inputs.offers.value,
-                    team: formState.inputs.team.value,
-                    
-                    "status": {
-                        "state": "pending",
-                        "requestedBy": auth.user.id,
-                        "lastModifiedBy": auth.user.id
-                    }//Hardcoded status to send at creation (Temporary, until we moderate it with the API)
-                } 
+            "data": {
+                name: formState.inputs.name.value,
+                description:  formState.inputs.description.value,
+                url: formState.inputs.url.value,
+                contactPoint: formState.inputs.contactPoint.value,
+                fondationDate: formState.inputs.fondationDate.value,
+                offers: taxonomySubmitValue,
+                team: formState.inputs.team.value,
 
+                "status": {
+                    "state": "pending",
+                    "requestedBy": auth.user.id,
+                    "lastModifiedBy": auth.user.id
+                }//Hardcoded status to send at creation (Temporary, until we moderate it with the API)
+            }
         };
+        if (submitUri === "update") {
+            formData.data.id = initialValues._id
+        }
+
 
         //Send the request with the specialized hook
         submitRequest(

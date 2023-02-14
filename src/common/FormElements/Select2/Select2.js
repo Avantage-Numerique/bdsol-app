@@ -101,7 +101,7 @@ const Select2 = ({name, formTools, children, single, ...props}) => {
                     else {
                         //(not single mode) Add the value to the array
                         props.dataSetter([...props.selectedEntities, {
-                            occupation:matchingValue.current,
+                            [props.idField]:matchingValue.current,
                             status: matchingValue.current.status
                         }]);
                     }
@@ -166,11 +166,11 @@ const Select2 = ({name, formTools, children, single, ...props}) => {
                 <Button 
                     type="button" 
                     slim="true" 
-                    disabled={selectRequest.data[props.searchField] ? false : true} 
+                    disabled={!selectRequest.data[props.searchField]}
                     onClick={addValueToSelectedItem}
                     className="m-1 rounded-1">
                         {/* Change arrow symbol : https://unicode-table.com/en/sets/arrow-symbols/ */}
-                        { single == "true" ? "⇅" : "+"}
+                        { single === "true" ? "⇅" : "+"}
                 </Button>
 
                 <div className="flex-grow-1 form-element--field-padding">
@@ -196,8 +196,9 @@ const Select2 = ({name, formTools, children, single, ...props}) => {
                         <RequirementsBadges /> 
                     </div>
                     
-                    <datalist id={props.label + props.searchField} name={"Datalist-"+ name } className={`${styles["datalist-input"]}`}>
+                    <datalist id={props.label + props.searchField} className={`${styles["datalist-input"]}`}>
                         {selectList.data.map( item => {
+                                //name={"Datalist-"+ name } not allowed in datalist
                                 return (
                                     <option key={`datalist-${item[props.searchField]}`} value={item[props.searchField]}></option>
                                 )

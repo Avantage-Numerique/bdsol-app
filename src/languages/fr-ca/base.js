@@ -87,6 +87,8 @@ export const base = {
     "organisation": "organisation",
     "organisations": "organisations",
 
+    "bestContactPointLabel": "Meilleur moyen pour les contacter : ",
+
     //  Taxonomy
 
     "Taxonomy": "Taxonomie",
