@@ -40,8 +40,6 @@ const TaxonomySelectTagListTemplate = ({name, formTools, ...props}) => {
         )
     }
 
-    //const auth = useAuth();
-
     const [taxonomyList, setTaxonomyList] = useState( currentState ?? []);//props.taxonomyList
 
     //Update the return object
@@ -59,7 +57,6 @@ const TaxonomySelectTagListTemplate = ({name, formTools, ...props}) => {
             })
         });*/
         //updateValue(name, tempReturnObject);
-        console.log("SetTaxonomyList", taxonomyList);
         updateValue(name, taxonomyList);
     }, [taxonomyList])
 
