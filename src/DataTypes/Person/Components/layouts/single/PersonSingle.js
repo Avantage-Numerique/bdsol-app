@@ -84,6 +84,7 @@ const PersonSingle = ({ data }) => {
             </SingleInfoLayout>
         </>
     );
+
     const headerMainContent = (
         <div className={`${styles["quick-section"]}`}>
             <h2 className="mb-2">{firstName} {lastName}</h2>

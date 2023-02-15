@@ -8,7 +8,6 @@ import { useModal } from '@/src/hooks/useModal/useModal'
 import Button from '@/FormElements/Button/Button'
 import Input from '@/FormElements/Input/Input'
 import RichTextarea from '@/FormElements/RichTextArea/RichTextarea'
-import FileInput from '@/src/common/FormElements/FileInput/FileInput'
 import CreateTaxonomyForm from '@/src/DataTypes/Taxonomy/Components/Forms/CreateTaxonomy/CreateTaxonomyForm'
 import {lang} from "@/src/common/Data/GlobalConstants";
 import TaxonomySelectTagListTemplate from '@/src/DataTypes/Taxonomy/Template/TaxonomySelectTagListTemplate'
@@ -18,6 +17,7 @@ import { useAuth } from "@/src/authentification/context/auth-context";
 
 //Styling
 import styles from './CreatePersonForm.module.scss'
+import {getDefaultCreateEntityStatus} from "@/DataTypes/Status/EntityStatus";
 
 const CreatePersonForm = () => {
     
@@ -28,7 +28,7 @@ const CreatePersonForm = () => {
     const { modal, Modal, displayModal, closeModal } = useModal()
 
     //Main form functionalities
-    const { FormUI, submitRequest, formState, formTools } = useFormUtils(
+    const { FormUI, submitRequest, formState, formTools, transmuteTaxonomyTargetInput } = useFormUtils(
         {
             firstName: {
                 value: '',
@@ -65,21 +65,18 @@ const CreatePersonForm = () => {
         event.preventDefault();
 
         const formData = {
-
             "data": {
-
                 "lastName": formState.inputs.lastName.value,
                 "firstName":  formState.inputs.firstName.value,
                 "nickname": formState.inputs.nickName.value,
                 "description": formState.inputs.description.value,
-                "occupations": formState.inputs.occupations.value,
-                "status": {
-                    "state": "pending",
-                    "requestedBy": auth.user.id,
-                    "lastModifiedBy": auth.user.id
-                },
+                "occupations": transmuteTaxonomyTargetInput({
+                    inputs: formState.inputs["occupations"],
+                    fieldName:"occupation",
+                    user: auth.user
+                }),
+                "status": getDefaultCreateEntityStatus(auth.user),
             }
-            
         };
 
         /*

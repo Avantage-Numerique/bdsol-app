@@ -1,30 +1,25 @@
-import React, { useContext, useEffect } from 'react'
-import Router from 'next/router'
-
-//Custom hooks
-import { useFormUtils } from '@/src/hooks/useFormUtils/useFormUtils';
-
-//Components 
-import Button from '@/src/common/FormElements/Button/Button'
-import Input from '@/src/common/FormElements/Input/Input'
-import RichTextarea from '@/src/common/FormElements/RichTextArea/RichTextarea'
+import React, { useContext, useEffect } from 'react';
+import Router from 'next/router';
+import {useFormUtils} from '@/src/hooks/useFormUtils/useFormUtils';
+import Button from '@/src/common/FormElements/Button/Button';
+import Input from '@/src/common/FormElements/Input/Input';
+import RichTextarea from '@/src/common/FormElements/RichTextArea/RichTextarea';
 import {lang} from "@/src/common/Data/GlobalConstants";
-
-//contexts
-import {useAuth} from '@/auth/context/auth-context'
-import { MessageContext } from '@/src/common/UserNotifications/Message/Context/Message-Context'
-
-//Styling
+import {useAuth} from '@/auth/context/auth-context';
+import { MessageContext } from '@/src/common/UserNotifications/Message/Context/Message-Context';
+import PersonRoleTemplate from '@/src/DataTypes/Person/Template/PersonRoleTemplate';
+import Repeater from '@/src/common/Containers/Repeater/Repeater';
+import TaxonomySelectTagListTemplate from '@/src/DataTypes/Taxonomy/Template/TaxonomySelectTagListTemplate';
+import {getDefaultCreateEntityStatus, getDefaultUpdateEntityStatus} from "@/DataTypes/Status/EntityStatus";
 import styles from './CreateOrganisationForm.module.scss'
-import PersonRoleTemplate from '@/src/DataTypes/Person/Template/PersonRoleTemplate'
-import Repeater from '@/src/common/Containers/Repeater/Repeater'
-import TaxonomySelectTagListTemplate from '@/src/DataTypes/Taxonomy/Template/TaxonomySelectTagListTemplate'
-import {getDefaultUpdateEntityStatus} from "@/DataTypes/Status/EntityStatus";
+import {getDateFromIsoString} from "@/src/utils/DateHelper";
 
 
 const CreateOrganisationForm = (props) => {
 
     const submitUri = props.uri ?? "create";
+
+    const positiveRequestActions= props.positiveRequestActions;
 
     const initialValues = props.initValues ? {...props.initValues} : {
         name: '',
@@ -56,9 +51,10 @@ const CreateOrganisationForm = (props) => {
         }
     }, [auth.user.isLoggedIn]);
 
+    console.log(initialValues.fondationDate);
 
     //Main form functionalities
-    const { FormUI, submitRequest, formState, formTools } = useFormUtils(
+    const { FormUI, submitRequest, formState, formTools, transmuteTaxonomyTargetInput } = useFormUtils(
     {
         name: {
             value: initialValues.name,
@@ -77,7 +73,7 @@ const CreateOrganisationForm = (props) => {
             isValid: true
         },
         fondationDate: {
-            value: initialValues.fondationDate,
+            value: getDateFromIsoString(initialValues.fondationDate),
             isValid: true
         },
         offers: {
@@ -89,48 +85,37 @@ const CreateOrganisationForm = (props) => {
             isValid: true
         },
     },
-    {
-        clearForm: true,            //Clear the form
-        displayResMessage: true     //Display a message to the user to confirm the succes
-    })
+        positiveRequestActions || {
+            clearForm: true,            //Clear the form
+            displayResMessage: true     //Display a message to the user to confirm the succes
+        })
 
     //Function to submit the form
     const submitHandler = async event => {
 
         event.preventDefault();
 
-        const taxonomySubmitValue = [];
-        const taxonomyFormStateValue = "offer";
-        const taxonomyFormStateField = "offers";
-        formState.inputs[taxonomyFormStateField].value.forEach( (elem) => {
-            taxonomySubmitValue.push({
-                [taxonomyFormStateValue]: elem[taxonomyFormStateValue]._id,
-                status: getDefaultUpdateEntityStatus(auth.user)
-            })
-        });
-
         const formData = {
-
             "data": {
                 name: formState.inputs.name.value,
                 description:  formState.inputs.description.value,
                 url: formState.inputs.url.value,
                 contactPoint: formState.inputs.contactPoint.value,
                 fondationDate: formState.inputs.fondationDate.value,
-                offers: taxonomySubmitValue,
+                offers: transmuteTaxonomyTargetInput({
+                    inputs: formState.inputs["offers"],
+                    fieldName:"offer",
+                    user: auth.user
+                }),
                 team: formState.inputs.team.value,
 
-                "status": {
-                    "state": "pending",
-                    "requestedBy": auth.user.id,
-                    "lastModifiedBy": auth.user.id
-                }//Hardcoded status to send at creation (Temporary, until we moderate it with the API)
+                "status": submitUri === "create" ? getDefaultCreateEntityStatus(auth.user) : getDefaultUpdateEntityStatus(auth.user)
             }
         };
+
         if (submitUri === "update") {
             formData.data.id = initialValues._id
         }
-
 
         //Send the request with the specialized hook
         submitRequest(
@@ -138,7 +123,6 @@ const CreateOrganisationForm = (props) => {
             'POST',
             formData
         );
-
     }
     
     return (

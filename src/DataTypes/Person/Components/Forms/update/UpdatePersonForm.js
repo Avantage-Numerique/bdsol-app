@@ -23,7 +23,7 @@ const UpdatePersonForm = ({initValues, positiveRequestActions}) => {
     const { modal, Modal, closeModal } = useModal();
 
     //Main form functionalities
-    const { FormUI, submitRequest, formState, formTools } = useFormUtils(
+    const { FormUI, submitRequest, formState, formTools, transmuteTaxonomyTargetInput } = useFormUtils(
         {
             _id: {
                 value: initValues._id ? initValues._id : "",
@@ -62,18 +62,6 @@ const UpdatePersonForm = ({initValues, positiveRequestActions}) => {
 
             event.preventDefault();
 
-            const occupationsSubmitValue = [];
-            formState.inputs.occupations.value.forEach( (elem) => {
-                occupationsSubmitValue.push({
-                    occupation: elem.occupation._id,
-                    status: {
-                        state: "pending",
-                        lastModifiedBy: auth.user.id,
-                        requestedBy: auth.user.id
-                    }
-                })
-            });
-
             const formData = {
                 "data": {
                     "id": formState.inputs._id.value,
@@ -81,7 +69,11 @@ const UpdatePersonForm = ({initValues, positiveRequestActions}) => {
                     "firstName":  formState.inputs.firstName.value, 
                     "nickname": formState.inputs.nickName.value,
                     "description": formState.inputs.description.value,
-                    "occupations": occupationsSubmitValue
+                    "occupations": transmuteTaxonomyTargetInput({
+                        inputs: formState.inputs["occupations"],
+                        fieldName:"occupation",
+                        user: auth.user
+                    })
                 }
             };
 
