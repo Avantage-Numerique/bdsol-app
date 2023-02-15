@@ -5,6 +5,7 @@ import UpdatePersonForm from '@/DataTypes/Person/Components/Forms/update/UpdateP
 import styles from './singleMediaView.module.scss';
 import Single from "@/DataTypes/common/layouts/single/Single";
 import SanitizedInnerHtml from "@/src/utils/SanitizedInnerHtml";
+import React from "react";
 
 
 const SingleInfoLayout = ({ title, NAMessage, children }) => {
@@ -29,35 +30,22 @@ const SingleMediaView = ({ data }) => {
     const aside = (
         <>
             <SingleInfoLayout
-                title={"Moyen de contact"}
+                title={"Métadonnées"}
                 NAMessage={<p>Information non disponible</p>}
             >
-                <p>Tel : (123)-456-7890 <br/>
-                    Courriel : mail@mail.com
-                </p>
-            </SingleInfoLayout>
-
-            <SingleInfoLayout
-                title={"Adresse"}
-                NAMessage={<p>Information non disponible</p>}
-            >
-                <p>123, rue Adresse<br/>
-                    Ville, Code postal, Qc
-                </p>
+                <p>Type de fichier: {data.fileType} ({data.extension})</p>
             </SingleInfoLayout>
         </>
     )
     const headerMainContent = (
         <div className={`${styles["quick-section"]}`}>
-
+            <h1>{data.title}</h1>
             <div className={`${styles["quick-section__single-info"]}`}>
-                <span>Langue : </span>Information bientôt disponible.
+                <span>fileName : </span>{data.fileName}
             </div>
-
             <div className={`${styles["quick-section__single-info"]}`}>
-                <span>Citoyenneté : </span>Information bientôt disponible.
+                <span>licence : </span>{data.licence}
             </div>
-
         </div>
     )
 
@@ -92,48 +80,53 @@ const SingleMediaView = ({ data }) => {
             headerMainContent={headerMainContent}
             entity={data}
             modalComponent={modalComponent}
-            showCTA={true}
+            showCTA={false}
+            showMainImageInHeader={false}
+            mainImageClass={"header-content__media-preview"}
         >
+
+            <div className={`single-media-main-image`}>
+                <figure>
+                    <img className={"img-fluid"} src={data.url} alt={data.alt} />
+                </figure>
+            </div>
+
             <SingleInfoLayout
-                title={"Présentation"}
-                NAMessage={<p>Aucune donnée n'a encore été fournie pour ce champ. <br />Vous pourrez bientôt passer en mode édition afin d'ajouter et modifier des information.</p>}
-            >
-                <SanitizedInnerHtml>
-                    {data.description}
-                </SanitizedInnerHtml>
+                title={"Alt"}>
+                <SanitizedInnerHtml tag={"span"}>{data.alt}</SanitizedInnerHtml>
             </SingleInfoLayout>
 
             <SingleInfoLayout
-                title={"Projets"}
-                NAMessage={<p>Information bientôt disponible.</p>}
-            />
+                title={"Description"}>
+                <SanitizedInnerHtml tag={"span"}>{data.description}</SanitizedInnerHtml>
+            </SingleInfoLayout>
 
             <SingleInfoLayout
-                title={"Intérêts"}
-                NAMessage={<p>Information bientôt disponible.</p>}
-            />
+                title={"Associé à l'entité"}>
+                <SanitizedInnerHtml tag={"span"}>{data.entityId}</SanitizedInnerHtml>
+            </SingleInfoLayout>
 
 
             {
-                status && status.state &&
+                data.status && data.status.state &&
                 <SingleInfoLayout
                     title="Statut de l'entité"
-                    NAMessage={ status.state === 'accepted' ? "Acceptée" : "En attente d'approbation"}>
+                    NAMessage={ data.status.state === 'accepted' ? "Acceptée" : "En attente d'approbation"}>
                 </SingleInfoLayout>
             }
 
             {
-                status && status.requestedBy &&
+                data.status && data.status.requestedBy &&
                 <SingleInfoLayout
                     title={"Créer par"}
-                    NAMessage={ <p>{ "Numéro d'identification de l'utilisateur : " + status.requestedBy}</p>}>
+                    NAMessage={ <p>{ "Numéro d'identification de l'utilisateur : " + data.status.requestedBy}</p>}>
                 </SingleInfoLayout>
             }
             {
-                status && status.lastModifiedBy &&
+                data.status && data.status.lastModifiedBy &&
                 <SingleInfoLayout
                     title={"Dernière modifications par"}
-                    NAMessage={ <p>{"Numéro d'identification de l'utilisateur : " + status.lastModifiedBy}</p>}>
+                    NAMessage={ <p>{"Numéro d'identification de l'utilisateur : " + data.status.lastModifiedBy}</p>}>
                 </SingleInfoLayout>
             }
         </Single>

@@ -6,7 +6,7 @@ import SingleMediaView from "@/DataTypes/Media/layouts/SingleMediaView";
 const SingleMediaPage = props => {
 
     return (
-        <div className={`single ${styles["single-media"]}`}>
+        <div className={`single-container ${styles["single-media"]}`}>
 
             <div className="maxWidthPageContainer">
 
@@ -33,11 +33,11 @@ export async function mediaSlugSSProps(context) {
             alt: "alt",
             description: "description",
             path: "path",
-            url: "url",
-            licence: "licence",
-            fileType: "filetype",
-            fileName: "filename",
-            extension: "extension",
+            url: "/show_screen_shot.jpg",
+            licence: "copyright",
+            fileType: "Image/jpg",
+            fileName: "show_screen_shot.jpg",
+            extension: "jpg",
             entityId: "targetEntity",
             entityType: "type entité",
             uploadedBy: "user qui a upload",

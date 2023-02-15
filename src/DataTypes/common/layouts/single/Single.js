@@ -26,6 +26,9 @@ const Single = (props) => {
     const mainImage = entity.mainImage && entity.mainImage !== "" ? entity.mainImage : {};
     const mainImageUrl = entity.mainImage?.url ?? defaultMainImage;
     const mainImageAlt= entity.mainImage?.alt ?? "main image alt";
+    const mainImageClass = props.mainImageClass ?? "headers-content__profil-picture";
+    const mainImageAdditionnalClass = props.mainImageAdditionnalClass ?? "";
+    const showMainImageInHeader = props.showMainImageInHeader ?? true;
 
     const showCTA = props?.showCTA ?? false;
     const cta = props?.cta ?? "Entrez en contact avec l'auteur";
@@ -34,11 +37,14 @@ const Single = (props) => {
 
     const showAside = aside ?? false;
     const asideColWidthLg = 4;
-    const mainCOntentColWidthLg = (12-asideColWidthLg);
+    const mainContentColWidthLg = (12-asideColWidthLg);
     const asideColWidthSm = 6;
-    const mainCOntentColWidthSm = (12-asideColWidthSm);
-    const mainContentClass = showAside ? `col-${mainCOntentColWidthSm} col-lg-${mainCOntentColWidthLg}` : "";
+    const mainContentColWidthSm = (12-asideColWidthSm);
+    const mainContentClass = showAside ? `col-${mainContentColWidthSm} col-lg-${mainContentColWidthLg}` : "";
+    const mainContentContainerClass = showMainImageInHeader ? "single__main-section-with-profile-picture" : "single__main-section";
     const asideClass = `col-auto col-lg-${asideColWidthLg}`;
+
+
 
     return (
         <article className={`single ${styles.single}`}>
@@ -77,21 +83,24 @@ const Single = (props) => {
                         </div>
                     </div>
 
-                    {/* Profile picture section */}
-                    <div className={`${styles["single-header-content__bottom-row"]}`}>
-                        <figure className={`${styles["headers-content__profil-picture"]}`}>
-                            {mainImage &&
-                                <img src={mainImageUrl} alt={mainImageAlt} />
-                            }
-                        </figure>
-                    </div>
 
+                    {/* Profile picture section */}
+                    {
+                        showMainImageInHeader &&
+                        <div className={`${styles["single-header-content__bottom-row"]}`}>
+                            <figure className={`${styles[mainImageClass]} ${styles[mainImageAdditionnalClass]}`}>
+                                {mainImage &&
+                                    <img src={mainImageUrl} alt={mainImageAlt} />
+                                }
+                            </figure>
+                        </div>
+                    }
                 </section>
 
             </header>
 
             {/*MAIN SECTION*/}
-            <section className={`${styles["single__main-section"]}`}>
+            <section className={`${styles[mainContentContainerClass]}`}>
                 <div className={"container"}>
                     <div className={"row"}>
                         <div className={mainContentClass}>
