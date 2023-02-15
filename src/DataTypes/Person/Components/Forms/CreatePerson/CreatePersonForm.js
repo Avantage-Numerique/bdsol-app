@@ -219,6 +219,10 @@ const CreatePersonForm = () => {
                     //taxonomyList={[...list]}
                     />
 
+                <blockquote>
+                    * Note : {lang.personUploadMediaMainImage}
+                </blockquote>
+
                 <Button type="submit" disabled={!formState.isValid}>{lang.submit}</Button>
 
             </form>

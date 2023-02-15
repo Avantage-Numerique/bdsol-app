@@ -11,6 +11,9 @@ export const base = {
     "close": "Fermer",
     "noInfoAvailable": "Information bientôt disponible.",
 
+    //  UPLOAD
+    "entityUploadMediaNoteOnCreateEntity": `Vous pourrez téléverser une image à partir de la page de cette %entity%. Cette image représentera cette %entity% et sera affiché dans sa fiche et dans les pages qui la liste.`,
+
     // App
 
     "appDefaultName": "BDSOL d'Avantage Numérique",
@@ -58,11 +61,13 @@ export const base = {
 
     "formPersonSubtitle": "Ajoutez ici une entité <code>Personne</code>, afin de représenter un artiste, artisan ou professionnel de tout domaine que vous jugez pertinent à cette base de données.",
     "formPersonInstructions": "",
+    "personUploadMediaMainImage": "Vous pourrez téléverser une image à partir de la page de cette personne. Cette image représentera cette personne et sera affiché dans sa fiche et dans les pages qui la liste.",
 
     //  CreateOrganisationForm.js
 
     "formOrganisationSubtitle": "Vous pouvez ajouter ici une nouvelle organisation à la base de données.",
     "formOrganisationInstructions": "Super formulaire",
+    "organisationUploadMediaMainImage": "Vous pourrez téléverser une image à partir de la page de cette organisation. Cette image représentera cette organisation et sera affiché dans sa fiche et dans les pages qui la liste.",
 
     // SINGLE
     "proposeContentChangeLabel": "Proposer une modification",

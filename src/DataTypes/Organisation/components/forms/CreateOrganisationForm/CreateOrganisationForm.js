@@ -197,6 +197,11 @@ const CreateOrganisationForm = (props) => {
                     />
                 </Repeater>
 
+
+                <blockquote>
+                    * Note : {lang.organisationUploadMediaMainImage}
+                </blockquote>
+
                 <div className="col-12">
                     <Button type="submit" disabled={!formState.isValid}>Soumettre</Button>
                 </div>
