@@ -8,22 +8,20 @@ import SanitizedInnerHtml from "@/src/utils/SanitizedInnerHtml";
 import React from "react";
 
 
-const SingleInfoLayout = ({ title, NAMessage, children }) => {
-
+const SingleInfoLayout = ({ title, NAMessage="-", children }) => {
+    const haveChildren = children && children !== "";
     return (
         <section className={`my-2 ${styles["singleInfoLayout"]}`}>
             <h4>{title}</h4>
             <div className={`px-3 ${styles["singleInfoLayout__main"]}`}>
-                {children && children}
-                {!children && NAMessage && (<>{NAMessage}</>)}
+                {haveChildren && children}
+                {!haveChildren && NAMessage && (<>{NAMessage}</>)}
             </div>
         </section>
     )
 }
 
 const SingleMediaView = ({ data }) => {
-
-    const {status} = data;
 
     const { Modal, closeModal } = useModal();
 
@@ -34,6 +32,11 @@ const SingleMediaView = ({ data }) => {
                 NAMessage={<p>Information non disponible</p>}
             >
                 <p>Type de fichier: {data.fileType} ({data.extension})</p>
+            </SingleInfoLayout>
+
+            <SingleInfoLayout
+                title={"Associé à l'entité"}>
+                <SanitizedInnerHtml tag={"span"}>{data.entityId}</SanitizedInnerHtml>
             </SingleInfoLayout>
         </>
     )
@@ -99,11 +102,6 @@ const SingleMediaView = ({ data }) => {
             <SingleInfoLayout
                 title={"Description"}>
                 <SanitizedInnerHtml tag={"span"}>{data.description}</SanitizedInnerHtml>
-            </SingleInfoLayout>
-
-            <SingleInfoLayout
-                title={"Associé à l'entité"}>
-                <SanitizedInnerHtml tag={"span"}>{data.entityId}</SanitizedInnerHtml>
             </SingleInfoLayout>
 
 
