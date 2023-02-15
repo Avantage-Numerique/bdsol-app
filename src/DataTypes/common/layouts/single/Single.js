@@ -32,8 +32,6 @@ const Single = (props) => {
     const ctaLabel = props?.ctaLabel ?? lang.ctaLabel;
     const ctaUrl = props?.ctaUrl ?? "";
 
-    console.log("CTA SINGLE", ctaUrl, ctaLabel, cta, showCTA);
-
     const showAside = aside ?? false;
     const asideColWidthLg = 4;
     const mainCOntentColWidthLg = (12-asideColWidthLg);

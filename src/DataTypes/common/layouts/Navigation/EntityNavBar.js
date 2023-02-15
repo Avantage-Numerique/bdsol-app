@@ -21,8 +21,6 @@ const EntityNavBar = ({ entity, containerClass, ModalForm, modalParams }) => {
         displayModal();
     }
 
-    console.log("EntityNavBar modal params", modalParams);
-
     return (
         <>
             <div className={`container ${containerClass}`}>

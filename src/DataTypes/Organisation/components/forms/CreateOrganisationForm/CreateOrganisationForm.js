@@ -51,8 +51,6 @@ const CreateOrganisationForm = (props) => {
         }
     }, [auth.user.isLoggedIn]);
 
-    console.log(initialValues.fondationDate);
-
     //Main form functionalities
     const { FormUI, submitRequest, formState, formTools, transmuteTaxonomyTargetInput } = useFormUtils(
     {
