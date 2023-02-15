@@ -1,20 +1,27 @@
-import { useState } from 'react' 
+import { useState, useEffect } from 'react' 
 import Router from 'next/router';
 
 //Hooks
 import { useModal } from '@/src/hooks/useModal/useModal'
+import {useHttpClient} from '@/src/hooks/http-hook';
 
 //Components
-import SanitizedInnerHtml from '@/src/utils/SanitizedInnerHtml'
 import Button from '@/src/common/FormElements/Button/Button'
 import UpdatePersonForm from '@/DataTypes/Person/Components/Forms/update/UpdatePersonForm'
-import { useEffect } from 'react'
-import {useHttpClient} from '@/src/hooks/http-hook';
+import CreateMediaForm from '@/DataTypes/Media/components/forms/CreateMedia/CreateMediaForm'
 
 //Styling
 import styles from './MainPersonView.module.scss'
 import {lang} from "@/common/Data/GlobalConstants";
 import SearchTag from '@/src/common/Components/SearchTag';
+
+//Context
+import { useAuth } from "@/src/authentification/context/auth-context";
+
+//Utils
+import SanitizedInnerHtml from '@/src/utils/SanitizedInnerHtml'
+
+
 
 const SingleInfoLayout = ({ title, NAMessage, children }) => {
 
@@ -46,6 +53,9 @@ const MainPersonView = ({ data }) => {
     } = data;
 
     const {sendRequest} = useHttpClient();
+
+    //Authentication ref
+    const auth = useAuth();
     
     //State that contains the organisations that the person is part of
     const [memberOfOrganisationList, setMemberOfOrganisationList] = useState([]);
@@ -63,6 +73,8 @@ const MainPersonView = ({ data }) => {
 
     //Modal hook
     const { modal, Modal, displayModal, closeModal } = useModal()
+
+    const img_Modal = useModal();
 
     //Called by the select. Not in use right now
     const displayUpdateForm = selectStatus => {
@@ -151,6 +163,11 @@ const MainPersonView = ({ data }) => {
                     {/* Profile picture section */}
                     <div className={`${styles["headers-content__bottom-row"]}`}>
                         <figure className={`${styles["headers-content__profil-picture"]}`}>
+                            {/* Appearing button on mouse over to propose to the user to change the image */}
+                            {auth.user.isLoggedIn && //Option only available if connected
+                            <button onClick={img_Modal.displayModal} className={`w-100 h-100 position-absolute d-flex align-items-center justify-content-center p-1 text-white ${styles["profile-picture--modification-opt"]}`}>
+                                Modifier l'image
+                            </button>}
                             {/* If there is an image for the user */}
                             {mainImage && <img src={fullImagePath} alt={mainImage.alt} />}
                             {/* If there is NO an image for the user */}
@@ -286,7 +303,26 @@ const MainPersonView = ({ data }) => {
                     }}
                 />
             </Modal>
-            }
+        }
+
+        {/******** Img Modal Display **********/}
+        { 
+            img_Modal.modal.display && 
+            <Modal 
+                className={`${styles["person-form-modal"]}`}
+                coloredBackground
+                darkColorButton
+            >
+                <header className="d-flex justify-content-between align-items-center">
+                    <h3 className="m-0 fs-4 fw-normal">Téléverser un ficher média</h3>
+                    <Button onClick={img_Modal.closeModal}>Fermer</Button>
+                </header>
+                {/* Separation line */}
+                <div className="border-bottom w-100 my-2"></div>
+                <CreateMediaForm />
+            </Modal>
+        }
+        
     </>
     )
 }
