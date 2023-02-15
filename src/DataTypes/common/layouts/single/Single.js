@@ -22,12 +22,16 @@ const Single = (props) => {
     const defaultHeaderBg = props.defaultHeaderBg ?? "/general_images/forestBG.jpg";
 
     const entity = props?.entity ?? {};
+
     const headerBgImage = entity.headerBG ?? defaultHeaderBg;
-    const mainImage = entity.mainImage && entity.mainImage !== "" ? entity.mainImage : {};
+
+    const haveMainImage = entity.mainImage !== undefined && entity.mainImage !== "";
+    const mainImage = haveMainImage && entity.mainImage !== "" ? entity.mainImage : {};
+    const mainImageRootUrl = haveMainImage ? process.env.NEXT_PUBLIC_API_URL : "";//we dont add api path if it's local.
     const mainImageUrl = entity.mainImage?.url ?? defaultMainImage;
     const mainImageAlt= entity.mainImage?.alt ?? "main image alt";
     const mainImageClass = props.mainImageClass ?? "headers-content__profil-picture";
-    const mainImageAdditionnalClass = props.mainImageAdditionnalClass ?? "";
+    const mainImageAdditionalClass = props.mainImageAdditionnalClass ?? "";
     const showMainImageInHeader = props.showMainImageInHeader ?? true;
 
     const showCTA = props?.showCTA ?? false;
@@ -88,9 +92,9 @@ const Single = (props) => {
                     {
                         showMainImageInHeader &&
                         <div className={`${styles["single-header-content__bottom-row"]}`}>
-                            <figure className={`${styles[mainImageClass]} ${styles[mainImageAdditionnalClass]}`}>
+                            <figure className={`${styles[mainImageClass]} ${styles[mainImageAdditionalClass]}`}>
                                 {mainImage &&
-                                    <img src={mainImageUrl} alt={mainImageAlt} />
+                                    <img src={mainImageRootUrl+mainImageUrl} alt={mainImageAlt} />
                                 }
                             </figure>
                         </div>

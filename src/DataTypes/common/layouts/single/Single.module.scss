@@ -6,8 +6,10 @@
     /*   Local variables  */
     //--page-padding: 5%;
     --page-padding: clamp(0.5rem, 5%, 5rem);
+    $page-padding: clamp(0.5rem, 5%, 5rem);
     //--picture-size: 10rem;
     --picture-size: clamp(8rem, 20vw, 12rem);
+    $picture-size: clamp(8rem, 20vw, 12rem);
 
     background-color: rgb(240, 240, 240);
 
@@ -130,12 +132,12 @@
     }
 
     .single__main-section-with-profile-picture {
-        padding: var(--page-padding);
+        padding: $page-padding;
         //margin-top: 5rem;
-        margin-top: calc(var(--picture-size / 2))
+        margin-top: calc($picture-size / 2)
     }
 
     .single__main-section {
-        padding: var(--page-padding);
+        padding: $page-padding;
     }
 }
