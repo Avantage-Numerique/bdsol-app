@@ -31,11 +31,11 @@ const SearchResults = () => {
             }
 
             if(router.query.entityType){
-                response = (await getEntityTypeResponse(router.query.entityType)).data;
+                response = await getEntityTypeResponse(router.query.entityType);
                 setSearchMessage("par type d'entité");
             }
             
-            setSearchList(response);
+            setSearchList(response.data);
         }
         searchRequest();
     }, [router.asPath])
@@ -77,7 +77,7 @@ const SearchResults = () => {
             <div>Résultats de recherche {searchMessage} :</div>
             <div className={"row"}>
             {
-            searchList.length === 0 ?
+            searchList.length == 0 ?
             <div>Aucune entité trouvée, réessayer avec d'autre critère de recherche</div>
             : //if length != 0
             searchList.map( (entity) => {

@@ -28,7 +28,7 @@ const TaxonomiesCategoryPage = () => {
     useEffect( () => {
 
         let taxonomiesFiltered = {};
-        //Fetch taxonomy list
+        //Fetch taxonomy list and construct filtered list
         categoryList.forEach( async (category) => {
             const response = await fetchTaxonomyByCategory(category);
             if(response)
@@ -44,10 +44,10 @@ const TaxonomiesCategoryPage = () => {
                 <div>Liste introuvable ou vide</div>
             )
         return (
-            list.map( (elem) => 
-                <div key={elem.slug}>
-                    <a href={`/taxonomies/${elem.slug}`}>{elem.name}</a>
-                </div>
+            list.map( (elem, index) => 
+                <a key={elem.slug} href={`/taxonomies/${elem.category}/${elem.slug}`} className="col-3 p-2 border">
+                    {elem.name}
+                </a>
             )
         )
     }
@@ -72,7 +72,7 @@ const TaxonomiesCategoryPage = () => {
                         <h3>
                             {taxonomyMenu} :
                         </h3>
-                        <div>
+                        <div className="container d-flex flex-wrap gap-2">
                             {mapArrayToListComponent(taxonomiesList[taxonomyMenu])}
                         </div>
                     </div>
