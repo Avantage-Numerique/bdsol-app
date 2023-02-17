@@ -16,10 +16,9 @@ import styles from './SearchTag.module.scss'
 const SearchTag = ({list, textField, ...props}) => {
 
     
-    const submitHandler = async (_id) => {
+    const submitHandler = async (category, slug) => {
         Router.push({
-            pathname: "/searchResults",
-            query: { linkId : _id },
+            pathname: "/taxonomies/"+category+"/"+slug,
         });
     }
 
@@ -32,7 +31,7 @@ const SearchTag = ({list, textField, ...props}) => {
                     return <li
                             key={"searchTag-"+entity._id}
                             className={`col col-sm-auto ${styles["competency-tag"]}`}
-                            onClick={() => submitHandler(entity._id)}>
+                            onClick={() => submitHandler(entity.category, entity.slug)}>
                                 {entity[textField]}
                             </li>
                 })

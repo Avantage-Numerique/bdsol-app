@@ -1,11 +1,12 @@
 import { useHttpClient } from "@/src/hooks/http-hook";
 import { useState, useEffect } from "react";
+import PageHeader from "@/src/layouts/Header/PageHeader";
 
 const TaxonomiesCategoryPage = () => {
 
     const {sendRequest} = useHttpClient();
     const [taxonomiesList, setTaxonomiesList] = useState([]);
-    const [taxonomyMenu, setTaxonomyMenu] = useState("")
+    const [taxonomyMenu, setTaxonomyMenu] = useState("occupations")
     const categoryList = ["occupations", "domains", "abilities", "skills"];
 
 
@@ -44,36 +45,42 @@ const TaxonomiesCategoryPage = () => {
                 <div>Liste introuvable ou vide</div>
             )
         return (
-            list.map( (elem, index) => 
-                <a key={elem.slug} href={`/taxonomies/${elem.category}/${elem.slug}`} className="col-3 p-2 border">
-                    {elem.name}
-                </a>
+            list.map( (elem) => 
+                <div className="col-3 p-2">
+                    <a key={elem.slug} href={`/taxonomies/${elem.category}/${elem.slug}`} className="d-block p-2 border">
+                        {elem.name}
+                    </a>
+                </div>
             )
         )
     }
 
     return (
         <div>
-            <div>
-                Les différentes catégories de taxonomies disponible :
-            </div>
-            <div>
-                {
-                    categoryList.map((elem) =>
-                        <div key={elem+"-categoryMenuBtn"} onClick={() => setTaxonomyMenu(elem)}>
-                            {elem}
-                        </div>
-                    )
-                }
-            </div>
+            <PageHeader title={`Catégories de taxonomies`}/>
+                <ul className="nav nav-pills nav-fill gap-5">
+                    {
+                        categoryList.map((elem) =>
+                            <li key={elem+"-categoryMenuBtn"} className="nav-item">
+                                <a key={elem+"-categoryMenuBtn"} onClick={() => setTaxonomyMenu(elem)}
+                                    className={`btn btn-outline-primary border nav-link ${elem == taxonomyMenu ? "active" : ""}`}>
+                                    {elem}
+                                </a>
+                            </li>
+                        )
+                    }
+                </ul>
                 {
                     taxonomyMenu != "" && 
                     <div>
-                        <h3>
+                        <h3 className="py-4">
                             {taxonomyMenu} :
                         </h3>
-                        <div className="container d-flex flex-wrap gap-2">
-                            {mapArrayToListComponent(taxonomiesList[taxonomyMenu])}
+                        <div className="container">
+                            <div className="row">
+                                {mapArrayToListComponent(taxonomiesList[taxonomyMenu])}
+
+                            </div>
                         </div>
                     </div>
                 }

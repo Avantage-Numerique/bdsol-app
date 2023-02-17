@@ -1,6 +1,4 @@
 import { externalApiRequest } from '@/src/hooks/http-hook';
-import {getUserHeadersFromUserSession} from "@/auth/context/auth-context";
-import {withSessionSsr} from "@/auth/session/handlers/withSession";
 import PresentationCard from '@/src/common/Containers/cards/presentationCard';
 
 
@@ -41,7 +39,6 @@ export async function getServerSideProps(context) {
         `/search/${category}/${slug}`,
         {
             method: 'GET',
-            //headers: getUserHeadersFromUserSession(context.req.session.user)
         });
 
     return { props: {data:response.data} };
