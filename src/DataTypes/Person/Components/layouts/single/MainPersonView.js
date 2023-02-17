@@ -325,7 +325,18 @@ const MainPersonView = ({ data }) => {
                 {/* Separation line */}
                 <div className="border-bottom w-100 my-2"></div>
                 <CreateMediaForm
-                    entityId={_id}
+                    initValues={data}
+                    positiveRequestActions={{
+                        //CallbackFunction is one of the four behaviors the useFormUtils hook can apply when a request return a positive answer
+                        callbackFunction: requestResponse => {
+
+                            //Reflect the changes
+                            //Router.push(`/persons/${requestResponse.data.slug}`);
+                            
+                            //Close the modal 
+                            img_Modal.closeModal()
+                        }
+                    }}
                 />
             </Modal>
         }

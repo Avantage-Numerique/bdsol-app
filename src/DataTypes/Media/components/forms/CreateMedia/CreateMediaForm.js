@@ -17,7 +17,7 @@ import { useAuth } from "@/src/authentification/context/auth-context";
 import { MessageContext } from '@/src/common/UserNotifications/Message/Context/Message-Context'
 
 
-const CreateMediaForm = ( {entityId} ) => {
+const CreateMediaForm = ( {initValues, positiveRequestActions} ) => {
 
     //Authentication ref
     const auth = useAuth();
@@ -32,7 +32,7 @@ const CreateMediaForm = ( {entityId} ) => {
     const { FormUI, submitRequest, formState, formTools } = useFormUtils(
         {
             entityId: {
-                value: entityId,
+                value: initValues._id,
                 isValid: true
             },
             mainImage: {
@@ -49,10 +49,11 @@ const CreateMediaForm = ( {entityId} ) => {
             },
 
         },
-        {
+        //Pass a set of rules to execute a valid response of an api request
+        positiveRequestActions || {
             clearForm: true,            //Clear the form
             displayResMessage: true     //Display a message to the user to confirm the succes
-        }
+        }  
     );
 
     //State that holds the licence list
