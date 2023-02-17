@@ -105,6 +105,7 @@ $h6-font-size:                0.8rem !default; //this is smaller than regular te
 $link-decoration: none;
 
 $border-radius: 0.5em;
+$border-width: 2px;
 //to-do; transpose value from rem to em (only one button radius is used in the app for now.
 // $border-radius-sm:            .25rem !default;
 // $border-radius-lg:            .5rem !default;
@@ -131,3 +132,8 @@ $border-light: $image-border-width solid $image-border-color;
 $default-box-shadow: 1px 1px 3px 1px rgba(60,60,60,0.78);
 
 
+/*
+    nav
+*/
+$nav-tabs-border-color:             $primary;
+$nav-tabs-border-width:             $border-width;

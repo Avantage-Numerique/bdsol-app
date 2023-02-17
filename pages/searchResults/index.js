@@ -31,11 +31,10 @@ const SearchResults = () => {
             }
 
             if(router.query.entityType){
-                response = (await getEntityTypeResponse(router.query.entityType)).data;
+                response = await getEntityTypeResponse(router.query.entityType);
                 setSearchMessage("par type d'entité");
             }
-            
-            setSearchList(response);
+            setSearchList(response.data);
         }
         searchRequest();
     }, [router.asPath])
@@ -77,7 +76,7 @@ const SearchResults = () => {
             <div>Résultats de recherche {searchMessage} :</div>
             <div className={"row"}>
             {
-            searchList.length === 0 ?
+            searchList.length == 0 ?
             <div>Aucune entité trouvée, réessayer avec d'autre critère de recherche</div>
             : //if length != 0
             searchList.map( (entity) => {
@@ -92,36 +91,6 @@ const SearchResults = () => {
             })
             }
             </div>
-            {/*<table className="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>Voir</th>
-                        <th>Type d'entité</th>
-                        <th>Propriété de l'entité 1</th>
-                        <th>Propriété de l'entité 2</th>
-                        <th>Propriété de l'entité 3</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {
-                    searchList.map( (entity, index) => 
-                        <tr key={index+"-searchList"}>
-                            <td>
-                                <Button >
-                                    👀
-                                </Button>
-                            </td>
-                            <td>{JSON.stringify(entity)}</td>
-                            <td>1 - map index {index}</td>
-                            <td>2 - map index {index}</td>
-                            <td>3 - map index {index}</td>
-
-                        </tr>
-                    
-                    )}
-                </tbody>
-            </table>*/
-            }
         </div>
     )
 }

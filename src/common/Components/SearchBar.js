@@ -40,7 +40,7 @@ const SearchBar = ({small, ...props}) => {
             '/search' + '?searchIndex=' + formState.inputs.searchIndex.value,
             'GET',
         );
-        setSearchSuggestion(suggestions);
+        setSearchSuggestion(suggestions.data);
     }
 
     //Request Debounce

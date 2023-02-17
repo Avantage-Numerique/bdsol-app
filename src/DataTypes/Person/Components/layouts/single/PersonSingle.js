@@ -71,9 +71,12 @@ const PersonSingle = ({ data }) => {
                 <div className={"container"}>
                     <SearchTag
                         className="row"
-                        list={occupations &&
+                        list={
                             occupations.map( (entity) => {
-                                return { name : entity.occupation.name, _id: entity.occupation._id }
+                                return {
+                                    name : entity.occupation.name,
+                                    slug : entity.occupation.slug,
+                                    category:entity.occupation.category }
                             })
                         }
                         textField="name"
