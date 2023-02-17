@@ -74,14 +74,12 @@ const PersonSingle = ({ data }) => {
                         list={
                             occupations.map( (entity) => {
                                 return {
-                                    name : entity.occupation.name,
-                                    slug : entity.occupation.slug,
-                                    category:entity.occupation.category }
+                                    label : entity.occupation.name,
+                                    url: "/"+entity.occupation.category + "/" + entity.occupation.slug
+                                }
                             })
                         }
-                        textField="name"
-                        NAMessage="Aucune occupation associée"
-                    />
+                        />
                 </div>
 
             </SingleInfoLayout>
