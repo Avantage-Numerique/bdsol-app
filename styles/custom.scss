@@ -38,7 +38,7 @@ $white: #FEFEFE;
 $black: #010101;
 
 //Inputs variables
-$selected-input: #455ae6;
+$selected-input: $blue;
 
 // scss-docs-start theme-color-variables
 $primary:       $blue;
@@ -120,6 +120,16 @@ $btn-padding-x-lg: 4rem;
 $btn-padding-y-lg: 2rem;
 $btn-font-size-lg: 1rem;
 $btn-border-radius-lg: 4px;
+
+$image-border-color: rgb(231, 231, 231);
+$image-border-width: 0.2rem;
+$border-light: $image-border-width solid $image-border-color;
+
+
+/**
+        SHADOW
+ */
+$default-box-shadow: 1px 1px 3px 1px rgba(60,60,60,0.78);
 
 
 /*

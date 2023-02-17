@@ -7,6 +7,12 @@ export const base = {
     "see": "Voir",
     "noResult": "Aucune donnée ¯\\_(ツ)_/¯ pour l'instant. On a peut-être un problème en arrière plan.",
     "loadingData": "Chargement des données",
+    "back": "Retour",
+    "close": "Fermer",
+    "noInfoAvailable": "Information bientôt disponible.",
+
+    //  UPLOAD
+    "entityUploadMediaNoteOnCreateEntity": `Vous pourrez téléverser une image à partir de la page de cette %entity%. Cette image représentera cette %entity% et sera affiché dans sa fiche et dans les pages qui la liste.`,
 
     // App
 
@@ -55,11 +61,13 @@ export const base = {
 
     "formPersonSubtitle": "Ajoutez ici une entité <code>Personne</code>, afin de représenter un artiste, artisan ou professionnel de tout domaine que vous jugez pertinent à cette base de données.",
     "formPersonInstructions": "",
+    "personUploadMediaMainImage": "Vous pourrez téléverser une image à partir de la page de cette personne. Cette image représentera cette personne et sera affiché dans sa fiche et dans les pages qui la liste.",
 
     //  CreateOrganisationForm.js
 
     "formOrganisationSubtitle": "Vous pouvez ajouter ici une nouvelle organisation à la base de données.",
     "formOrganisationInstructions": "Super formulaire",
+    "organisationUploadMediaMainImage": "Vous pourrez téléverser une image à partir de la page de cette organisation. Cette image représentera cette organisation et sera affiché dans sa fiche et dans les pages qui la liste.",
 
     // SINGLE
     "proposeContentChangeLabel": "Proposer une modification",
@@ -84,6 +92,8 @@ export const base = {
     "organisation": "organisation",
     "organisations": "organisations",
 
+    "bestContactPointLabel": "Meilleur moyen pour les contacter : ",
+
     //  Taxonomy
 
     "Taxonomy": "Taxonomie",
@@ -92,7 +102,7 @@ export const base = {
     "taxonomies": "taxonomies",
     "taxonomyExplications": "Une taxonomie sert à classifier dans un système ordonné les relations entre les choses. Ajoutez ici une taxonomie pour permettre à une entité d'être relié à cette taxonomie. Par exemple, lier une <strong>personne</strong> à une <strong>occupation</strong> ou une <strong>aptitude</strong> et lier une <strong>organisation</strong> à une <strong>offre de service</strong> et bien d'autre.",
 
-    //      Services
+    //  --Services
     "Services": "Services",
     "Service": "Service",
     "services": "Services",
@@ -116,4 +126,7 @@ export const base = {
 
     //  FAQ
     "noLicenceData": "Les données sur les licences dans l'API n'ont pas été trouvées.",
+
+    // Single
+    "ctaLabel": "Appel à l'action"
 }

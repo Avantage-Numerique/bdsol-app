@@ -24,7 +24,7 @@ const SearchTag = ({list, textField, ...props}) => {
 
     return (
         <ul className="row">
-            { list.length === 0 ?
+            { list?.length === 0 ?
                 <div>{props.NAMessage}</div>
                 :
                 list.map( (entity) => {

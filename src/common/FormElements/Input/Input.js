@@ -27,6 +27,15 @@ const Input = ({name, formTools, ...props}) => {
 
     const fieldRef = useRef(null);
 
+
+    const transmuteIn = (value) => {
+        return value;
+    }
+
+    const transmuteOut = (value) => {
+        return value
+    }
+
     const updateValue = event => {
         inputHandler(
             name,
