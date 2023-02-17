@@ -46,7 +46,6 @@ const Licences = (props) => {
                         {props.licences ?
                             Object.keys(props.licences).map((licence, i) => {
                                 const current = props.licences[licence];
-                                console.log(current);
                                 return (
                                     <li className={"pb-3"} key={i}>
                                         <h4><a href={current.source} target="_blank" title={current.label}>

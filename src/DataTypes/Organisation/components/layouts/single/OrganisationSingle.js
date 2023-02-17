@@ -9,6 +9,7 @@ import styles from './OrganisationSimple.module.scss';
 import Single from "@/DataTypes/common/layouts/single/Single";
 import CreateOrganisationForm from "@/DataTypes/Organisation/components/forms/CreateOrganisationForm/CreateOrganisationForm";
 import {lang} from "@/common/Data/GlobalConstants";
+import {SingleInfo} from "@/DataTypes/common/layouts/SingleInfo/SingleInfo";
 
 
 const OrganisationSimple = ({ data }) => {
@@ -29,6 +30,7 @@ const OrganisationSimple = ({ data }) => {
         team,
         updatedAt,
         url,
+        status,
         //__v,
         //_id
     } = data;
@@ -51,6 +53,13 @@ const OrganisationSimple = ({ data }) => {
 
     const aside = (
         <>
+            {
+                contactPoint &&
+                <section className={"border-bottom"}>
+                    <h4 className="h5">{lang.bestContactPointLabel}</h4>
+                    <SanitizedInnerHtml tag={"p"}>{contactPoint}</SanitizedInnerHtml>
+                </section>
+            }
             <section className={"border-bottom"}>
                 <h4 className="h5 my-3">Membres de l'équipe</h4>
                 { team && team.length > 0 &&
@@ -89,7 +98,7 @@ const OrganisationSimple = ({ data }) => {
             }
         </>
     );
-
+    const singleInfoCommonClass = "border-bottom py-4";
     return (
         <Single
             className={`single ${styles["organisation-view"]}`}
@@ -103,32 +112,40 @@ const OrganisationSimple = ({ data }) => {
             ctaUrl={url}
             defaultMainImage={defaultOrgAvatar}
         >
-            {/******** Description section **********/}
+
             {
                 description &&
-                <section className="border-bottom py-4">
+                <SingleInfo className={singleInfoCommonClass} title={"Présentation"}>
                     <SanitizedInnerHtml>
                         {description}
                     </SanitizedInnerHtml>
-                </section>
+                </SingleInfo>
             }
-            {/******** Description section **********/}
+
+
             {
-                contactPoint &&
-                <section className="border-bottom py-4">
-                    <span>{lang.bestContactPointLabel}</span><SanitizedInnerHtml tag={"span"}>{contactPoint}</SanitizedInnerHtml>
-                </section>
-            }
-            {/******** Description section **********/}
-            {
-                date_createdAt &&
-                <section className="border-bottom my-4">
-                    <p className="small w-100 my-0"><span>Date de création : </span> {date_createdAt.toLocaleDateString("fr-CA")}</p>
-                    {
-                        createdAt !== updatedAt &&
-                        <p className="small w-100"><span>Dernière modification : </span> {date_updatedAt.toLocaleDateString("fr-CA")}</p>
-                    }
-                </section>
+                (date_createdAt || date_updatedAt || status) &&
+                <SingleInfo className={singleInfoCommonClass} title={lang.modificationHistory}>
+                    <ul className={"list-style-none"}>
+                        {
+                            date_createdAt &&
+                            <li><span>Date de création : </span> {date_createdAt.toLocaleDateString("fr-CA")}</li>
+                        }
+                        {
+                            date_createdAt !== date_updatedAt &&
+                            <li><span>Dernière modification : </span> {date_updatedAt.toLocaleDateString("fr-CA")}</li>
+                        }
+                        {
+                            status && status.requestedBy &&
+                            <li><span>Créer par : </span> {status.requestedBy}</li>
+                        }
+                        {
+                            status && status.lastModifiedBy &&
+                            <li><span>Dernière modifications par : </span> {status.lastModifiedBy}</li>
+                        }
+
+                    </ul>
+                </SingleInfo>
             }
         </Single>
     )

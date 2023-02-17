@@ -85,8 +85,15 @@ $min-contrast-ratio: 4.5;
 
 //fonts
 $font-size-root: 16px;//moved from 14px to 16px font base size.
-//$font-family-base: 'Open Sans', sans-serif;
-$font-family-base: 'SuisseIntl','Helvetica Neue','Helvetica','Arial',sans-serif;
+
+$font-family-sans-serif:      'SuisseIntl','Helvetica Neue','Helvetica','Arial',sans-serif;
+
+$font-weight-lighter:         lighter;
+$font-weight-light:           300;
+$font-weight-normal:          400;
+$font-weight-semibold:        600;
+$font-weight-bold:            700;
+$font-weight-bolder:          bolder;
 
 $line-height-base: 1.4;
 
@@ -103,6 +110,9 @@ $h6-font-size:                0.8rem !default; //this is smaller than regular te
 
 
 $link-decoration: none;
+
+
+//  BORDER
 
 $border-radius: 0.5em;
 $border-width: 2px;
@@ -137,3 +147,17 @@ $default-box-shadow: 1px 1px 3px 1px rgba(60,60,60,0.78);
 */
 $nav-tabs-border-color:             $primary;
 $nav-tabs-border-width:             $border-width;
+
+
+/*
+    Badges
+ */
+// Badges
+
+// scss-docs-start badge-variables
+$badge-font-size:                   .75em;
+$badge-font-weight:                 $font-weight-normal;
+$badge-color:                       $white;
+$badge-padding-y:                   .35em;
+$badge-padding-x:                   .65em;
+$badge-border-radius:               $border-radius;

@@ -1,7 +1,6 @@
 
 .competency-tag {
-    cursor: pointer;
-    background-color: rgb(197, 197, 241);
+    background-color: $primarylight;
     margin: 0.25rem;
-    border-radius: 0.5rem;
+    border-radius: $border-radius;
 }

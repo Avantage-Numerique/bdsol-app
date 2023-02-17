@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 
 //Components
 import SanitizedInnerHtml from '@/src/utils/SanitizedInnerHtml';
@@ -11,21 +11,8 @@ import styles from './PersonSingle.module.scss'
 import {lang} from "@/common/Data/GlobalConstants";
 import SearchTag from '@/src/common/Components/SearchTag';
 import Single from "@/DataTypes/common/layouts/single/Single";
+import {SingleInfo} from "@/DataTypes/common/layouts/SingleInfo/SingleInfo";
 
-const SingleInfoLayout = ({ title, NAMessage, children }) => {
-
-    const defaultNotAvailableMessage = NAMessage ?? (<p>{lang.noInfoAvailable}</p>);
-
-    return (
-        <section className={`my-2 ${styles["singleInfoLayout"]}`}>
-            <h4>{title}</h4>
-            <div className={`px-3 ${styles["singleInfoLayout__main"]}`}>
-                {children && children}
-                {!children && (defaultNotAvailableMessage)}
-            </div>
-        </section>
-    )
-}
 
 const PersonSingle = ({ data }) => {
 
@@ -42,6 +29,9 @@ const PersonSingle = ({ data }) => {
         status,
         mainImage
     } = data;
+
+    const date_createdAt = new Date(createdAt);
+    const date_updatedAt = new Date(updatedAt);
 
     const {sendRequest} = useHttpClient();
     
@@ -64,25 +54,23 @@ const PersonSingle = ({ data }) => {
 
     const aside = (
         <>
-            <SingleInfoLayout
+            <SingleInfo
                 title={"Comptétences"}
                 NAMessage={<p>Information non disponible</p>}
             >
-                <div className={"container"}>
-                    <SearchTag
-                        className="row"
-                        list={
-                            occupations.map( (entity) => {
-                                return {
-                                    label : entity.occupation.name,
-                                    url: "/"+entity.occupation.category + "/" + entity.occupation.slug
-                                }
-                            })
-                        }
-                        />
-                </div>
+                <SearchTag
+                    className="row"
+                    list={
+                        occupations.map( (entity) => {
+                            return {
+                                label : entity.occupation.name,
+                                url: "/"+entity.occupation.category + "/" + entity.occupation.slug
+                            }
+                        })
+                    }
+                    />
 
-            </SingleInfoLayout>
+            </SingleInfo>
         </>
     );
 
@@ -93,9 +81,11 @@ const PersonSingle = ({ data }) => {
         </div>
     );
 
-    const ModalComponent = UpdatePersonForm;
+    const singleInfoCommonClass = "border-bottom py-4";
 
-    //Remove because this isn't planned in the ontologie yet  :<SingleInfoLayout title={"Intérêts"} />
+    const ModalComponent = UpdatePersonForm;
+    console.log(status);
+    //Remove because this isn't planned in the ontologie yet  :<SingleInfo title={"Intérêts"} />
     return (
         <Single
             className={`${styles["person-view"]}`}
@@ -106,35 +96,45 @@ const PersonSingle = ({ data }) => {
             showCTA={true}
             cta={"Ceci est une proposition d'appel à l'action. Il reste donc à déterminer s'il est pertinent et quoi mettre à l'intérieur."}
         >
-            <SingleInfoLayout title={"Présentation"}>
+            <SingleInfo title={"Présentation"}>
                 <SanitizedInnerHtml>
                     {description}
                 </SanitizedInnerHtml>
-            </SingleInfoLayout>
+            </SingleInfo>
 
-            <SingleInfoLayout title={"Projets"} />
+            <SingleInfo title={"Projets"} />
 
             {
                 status && status.state &&
-                    <SingleInfoLayout
-                        title="Statut de l'entité"
-                        NAMessage={ status.state === 'accepted' ? "Acceptée" : "En attente d'approbation"}>
-                    </SingleInfoLayout>
+                    <SingleInfo className={singleInfoCommonClass}
+                        title="Statut de l'entité">
+                        <p>{status.state === 'accepted' ? "Acceptée" : "En attente d'approbation"}</p>
+                    </SingleInfo>
             }
 
             {
-                status && status.requestedBy &&
-                <SingleInfoLayout
-                    title={"Créer par"}
-                    NAMessage={ <p>{ "Numéro d'identification de l'utilisateur : " + status.requestedBy}</p>}>
-                </SingleInfoLayout>
-            }
-            {
-                status && status.lastModifiedBy &&
-                <SingleInfoLayout
-                    title={"Dernière modifications par"}
-                    NAMessage={ <p>{"Numéro d'identification de l'utilisateur : " + status.lastModifiedBy}</p>}>
-                </SingleInfoLayout>
+                (date_createdAt || date_updatedAt || status) &&
+                <SingleInfo className={singleInfoCommonClass} title={lang.modificationHistory}>
+                    <ul className={"list-style-none"}>
+                    {
+                        date_createdAt &&
+                        <li><span>Date de création : </span> {date_createdAt.toLocaleDateString("fr-CA")}</li>
+                    }
+                    {
+                        date_createdAt !== date_updatedAt &&
+                        <li><span>Dernière modification : </span> {date_updatedAt.toLocaleDateString("fr-CA")}</li>
+                    }
+                    {
+                        status && status.requestedBy &&
+                        <li><span>Créer par : </span> {status.requestedBy}</li>
+                    }
+                    {
+                        status && status.lastModifiedBy &&
+                        <li><span>Dernière modifications par : </span> {status.lastModifiedBy}</li>
+                    }
+
+                    </ul>
+                </SingleInfo>
             }
         </Single>
     )

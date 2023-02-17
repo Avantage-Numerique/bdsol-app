@@ -21,23 +21,22 @@ const SearchTag = ({list, ...props}) => {
             pathname: "/taxonomies"+url,
         });
     }
-
+// ${styles["competency-tag"]}
     return (
         <>
-            {
-                list?.length > 0 && (
-                    <ul className="row">
+            { list?.length > 0 &&
+                <p>
                 {
                     list.map( (entity) => {
-                        return <li
-                        key={"searchTag-"+entity.url}
-                        className={`col col-sm-auto ${styles["competency-tag"]}`}
-                        onClick={() => submitHandler(entity.url)}>
+                        return (
+                            <a href={`/taxonomies${entity.url}`} className={`badge text-bg-primarylight me-1`} title={entity.label} rel={"follow"}
+                               key={"searchTag-"+entity.url}>
                                 {entity.label}
-                            </li>
-                    })}
-                </ul>
-                )
+                            </a>
+                        )
+                    })
+                }
+                </p>
             }
         </>
     );
