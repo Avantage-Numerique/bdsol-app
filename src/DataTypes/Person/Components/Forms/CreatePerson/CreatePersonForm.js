@@ -135,7 +135,7 @@ const CreatePersonForm = () => {
        await submitRequest(
             "/persons/create",
             'POST',
-            JSON.stringify(formData)
+            JSON.stringify(formData)   //Temporary fix
         );
     }
 

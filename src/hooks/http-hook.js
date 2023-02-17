@@ -124,7 +124,8 @@ export const useHttpClient = () => {
             //Start the loading component
             setIsLoading(true);
 
-            const stringnifyBody = typeof body === "object" && typeof body !== "string";
+            const stringnifyBody = params.isBodyJson && typeof body === "object" && typeof body !== "string";
+
             const httpAbortCtrl = new AbortController(),
                 usersHeaders = getUserHeadersFromUserSession(auth.user, true),//authentification, fowarded-from, user-agent.
                 headersParams = {
