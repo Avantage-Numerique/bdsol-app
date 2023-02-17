@@ -1,11 +1,141 @@
 /*
-
-
-        Container's styling for every entities's single component
-
-
+    Container's styling for every entities's single component
 */
-
 .single {
-    
+
+    /*   Local variables  */
+    //--page-padding: 5%;
+    --page-padding: clamp(0.5rem, 5%, 5rem);
+    $page-padding: clamp(0.5rem, 5%, 5rem);
+    //--picture-size: 10rem;
+    --picture-size: clamp(8rem, 20vw, 12rem);
+    $picture-size: clamp(8rem, 20vw, 12rem);
+
+    background-color: rgb(240, 240, 240);
+
+    /*  HEADER  */
+    .single__header {
+
+        color: white;
+        position: relative;
+        padding: var(--page-padding);
+
+        /*  Background image */
+        .single__bg-img {
+
+            z-index: 0;
+            overflow: hidden;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+
+            .single__bg-img__img {
+
+                object-fit: cover;
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                bottom: 0;
+
+            }
+        }
+
+        /* Top menu of the page */
+        .single__top-menu {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Main content of the header */
+        .single__header__content {
+
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            padding: var(--page-margins);
+
+            > * { min-height: 5rem; } // dangerous rules, to verify.
+
+            .single-header-content__main-section {
+
+                aside {
+
+                    > div {
+                        padding: 1rem;
+                        background-color: $light;
+                        -webkit-box-shadow: $default-box-shadow;
+                        box-shadow: $default-box-shadow;
+                        color: $dark;
+                        border-radius: 0.5rem;
+                        float: right;//this is scary.
+
+                        button {
+                            width: 100%;
+                            margin-top: 1rem;
+                            float: left;
+                        }
+                    }
+                }
+            }
+
+            .single-header-content__bottom-row {
+
+                position: relative;
+
+                .headers-content__profil-picture {
+                    height: var(--picture-size);
+                    width: var(--picture-size);
+                    top: 40%;
+                    position: absolute;
+                    border-radius: 100%;
+                    border: $border-light;
+                    overflow: hidden;
+
+                    img {
+                        width: 100%;
+                        height: 100%;
+                    }
+                }
+
+                .header-content__media-preview {
+                    height: var(--picture-size);
+                    width: var(--picture-size);
+                    top: 40%;
+                    position: absolute;
+                    border-radius: 0;
+                    border: $border-light;
+                    overflow: hidden;
+
+                    img {
+                        width: 100%;
+                        height: 100%;
+                    }
+                }
+            }
+        }
+    }
+
+    .quick-section {
+
+        .quick-section__single-info {
+            color: rgba(255, 255, 255, 0.767);
+            margin-right: 2rem;
+            font-size: 0.9rem;
+
+            span { font-weight: 700; }
+        }
+
+    }
+
+    .single__main-section-with-profile-picture {
+        padding: $page-padding;
+        //margin-top: 5rem;
+        margin-top: calc($picture-size / 2)
+    }
+
+    .single__main-section {
+        padding: $page-padding;
+    }
 }

@@ -14,8 +14,6 @@ export default async function fetchInternalApi(internalURI, data, method = 'POST
         //'Origin': process.env.NEXT_PUBLIC_APP_URL,//no cors implemented yet for internals calls.
         'Content-Type': 'application/json'
     };
-    console.log(process.env.NEXT_PUBLIC_APP_API_URL + internalURI, process.env.NEXT_PUBLIC_APP_URL);
-    // =>       <------http://localhost:3000/api/login---------->  <----http://localhost:3000----->
 
     const response = await fetch(process.env.NEXT_PUBLIC_APP_API_URL + internalURI, {
         method: method,

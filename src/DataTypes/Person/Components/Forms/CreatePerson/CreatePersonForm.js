@@ -17,6 +17,7 @@ import { useAuth } from "@/src/authentification/context/auth-context";
 
 //Styling
 import styles from './CreatePersonForm.module.scss'
+import {getDefaultCreateEntityStatus} from "@/DataTypes/Status/EntityStatus";
 
 const CreatePersonForm = () => {
     
@@ -27,7 +28,7 @@ const CreatePersonForm = () => {
     const { modal, Modal, displayModal, closeModal } = useModal()
 
     //Main form functionalities
-    const { FormUI, submitRequest, formState, formTools } = useFormUtils(
+    const { FormUI, submitRequest, formState, formTools, transmuteTaxonomyTargetInput } = useFormUtils(
         {
             firstName: {
                 value: '',
@@ -64,21 +65,18 @@ const CreatePersonForm = () => {
         event.preventDefault();
 
         const formData = {
-
             "data": {
-
                 "lastName": formState.inputs.lastName.value,
                 "firstName":  formState.inputs.firstName.value,
                 "nickname": formState.inputs.nickName.value,
                 "description": formState.inputs.description.value,
-                "occupations": formState.inputs.occupations.value,
-                "status": {
-                    "state": "pending",
-                    "requestedBy": auth.user.id,
-                    "lastModifiedBy": auth.user.id
-                },
+                "occupations": transmuteTaxonomyTargetInput({
+                    inputs: formState.inputs["occupations"],
+                    fieldName:"occupation",
+                    user: auth.user
+                }),
+                "status": getDefaultCreateEntityStatus(auth.user),
             }
-            
         };
 
         /*
@@ -220,6 +218,10 @@ const CreatePersonForm = () => {
                     formTools={formTools}
                     //taxonomyList={[...list]}
                     />
+
+                <blockquote>
+                    * Note : {lang.personUploadMediaMainImage}
+                </blockquote>
 
                 <Button type="submit" disabled={!formState.isValid}>{lang.submit}</Button>
 

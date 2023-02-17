@@ -1,27 +1,35 @@
-import React, { useContext, useEffect } from 'react'
-import Router from 'next/router'
-
-//Custom hooks
-import { useFormUtils } from '@/src/hooks/useFormUtils/useFormUtils';
-
-//Components 
-import Button from '@/src/common/FormElements/Button/Button'
-import Input from '@/src/common/FormElements/Input/Input'
-import RichTextarea from '@/src/common/FormElements/RichTextArea/RichTextarea'
+import React, { useContext, useEffect } from 'react';
+import Router from 'next/router';
+import {useFormUtils} from '@/src/hooks/useFormUtils/useFormUtils';
+import Button from '@/src/common/FormElements/Button/Button';
+import Input from '@/src/common/FormElements/Input/Input';
+import RichTextarea from '@/src/common/FormElements/RichTextArea/RichTextarea';
 import {lang} from "@/src/common/Data/GlobalConstants";
-
-//contexts
-import {useAuth} from '@/auth/context/auth-context'
-import { MessageContext } from '@/src/common/UserNotifications/Message/Context/Message-Context'
-
-//Styling
+import {useAuth} from '@/auth/context/auth-context';
+import { MessageContext } from '@/src/common/UserNotifications/Message/Context/Message-Context';
+import PersonRoleTemplate from '@/src/DataTypes/Person/Template/PersonRoleTemplate';
+import Repeater from '@/src/common/Containers/Repeater/Repeater';
+import TaxonomySelectTagListTemplate from '@/src/DataTypes/Taxonomy/Template/TaxonomySelectTagListTemplate';
+import {getDefaultCreateEntityStatus, getDefaultUpdateEntityStatus} from "@/DataTypes/Status/EntityStatus";
 import styles from './CreateOrganisationForm.module.scss'
-import PersonRoleTemplate from '@/src/DataTypes/Person/Template/PersonRoleTemplate'
-import Repeater from '@/src/common/Containers/Repeater/Repeater'
-import TaxonomySelectTagListTemplate from '@/src/DataTypes/Taxonomy/Template/TaxonomySelectTagListTemplate'
+import {getDateFromIsoString} from "@/src/utils/DateHelper";
 
 
-const CreateOrganisationForm = () => {
+const CreateOrganisationForm = (props) => {
+
+    const submitUri = props.uri ?? "create";
+
+    const positiveRequestActions= props.positiveRequestActions;
+
+    const initialValues = props.initValues ? {...props.initValues} : {
+        name: '',
+        description: '',
+        url: '',
+        contactPoint: '',
+        fondationDate: '',
+        offers: [],
+        team: [],
+    }
 
     //Import the authentication context to make sure the user is well connected
     const auth = useAuth();
@@ -44,41 +52,41 @@ const CreateOrganisationForm = () => {
     }, [auth.user.isLoggedIn]);
 
     //Main form functionalities
-    const { FormUI, submitRequest, formState, formTools } = useFormUtils(
+    const { FormUI, submitRequest, formState, formTools, transmuteTaxonomyTargetInput } = useFormUtils(
     {
         name: {
-            value: '',
+            value: initialValues.name,
             isValid: false
         },
         description: {
-            value: '',
+            value: initialValues.description,
             isValid: true
         },
         url: {
-            value: '',
+            value: initialValues.url,
             isValid: true
         },
         contactPoint: {
-            value: '', 
+            value: initialValues.contactPoint,
             isValid: true
         },
         fondationDate: {
-            value: '',
+            value: getDateFromIsoString(initialValues.fondationDate),
             isValid: true
         },
         offers: {
-            value: [],
+            value: initialValues.offers,
             isValid: true
         },
         team: {
-            value: [],
+            value: initialValues.team,
             isValid: true
         },
     },
-    {
-        clearForm: true,            //Clear the form
-        displayResMessage: true     //Display a message to the user to confirm the succes
-    })
+        positiveRequestActions || {
+            clearForm: true,            //Clear the form
+            displayResMessage: true     //Display a message to the user to confirm the succes
+        })
 
     //Function to submit the form
     const submitHandler = async event => {
@@ -86,32 +94,33 @@ const CreateOrganisationForm = () => {
         event.preventDefault();
 
         const formData = {
+            "data": {
+                name: formState.inputs.name.value,
+                description:  formState.inputs.description.value,
+                url: formState.inputs.url.value,
+                contactPoint: formState.inputs.contactPoint.value,
+                fondationDate: formState.inputs.fondationDate.value,
+                offers: transmuteTaxonomyTargetInput({
+                    inputs: formState.inputs["offers"],
+                    fieldName:"offer",
+                    user: auth.user
+                }),
+                team: formState.inputs.team.value,
 
-                "data": {
-                    name: formState.inputs.name.value,
-                    description:  formState.inputs.description.value, 
-                    url: formState.inputs.url.value,
-                    contactPoint: formState.inputs.contactPoint.value,
-                    fondationDate: formState.inputs.fondationDate.value,
-                    offers: formState.inputs.offers.value,
-                    team: formState.inputs.team.value,
-                    
-                    "status": {
-                        "state": "pending",
-                        "requestedBy": auth.user.id,
-                        "lastModifiedBy": auth.user.id
-                    }//Hardcoded status to send at creation (Temporary, until we moderate it with the API)
-                } 
-
+                "status": submitUri === "create" ? getDefaultCreateEntityStatus(auth.user) : getDefaultUpdateEntityStatus(auth.user)
+            }
         };
+
+        if (submitUri === "update") {
+            formData.data.id = initialValues._id
+        }
 
         //Send the request with the specialized hook
         submitRequest(
-            "/organisations/create",
+            `/organisations/${submitUri}`,
             'POST',
             formData
         );
-
     }
     
     return (
@@ -188,7 +197,10 @@ const CreateOrganisationForm = () => {
                     />
                 </Repeater>
 
-     
+
+                <blockquote>
+                    * Note : {lang.organisationUploadMediaMainImage}
+                </blockquote>
 
                 <div className="col-12">
                     <Button type="submit" disabled={!formState.isValid}>Soumettre</Button>

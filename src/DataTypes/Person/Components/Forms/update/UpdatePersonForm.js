@@ -1,32 +1,29 @@
-import { useState } from 'react'
 
-//Custom hooks
-import { useFormUtils } from '@/src/hooks/useFormUtils/useFormUtils'
-import { useModal } from '@/src/hooks/useModal/useModal'
-
-
-//Components
-import Button from '@/src/common/FormElements/Button/Button'
-import Input from '@/src/common/FormElements/Input/Input'
-import RichTextarea from '@/src/common/FormElements/RichTextArea/RichTextarea'
-import Select2 from '@/src/common/FormElements/Select2/Select2'
-import CreateTaxonomyForm from '@/src/DataTypes/Taxonomy/Components/Forms/CreateTaxonomy/CreateTaxonomyForm'
-import FileInput from '@/src/common/FormElements/FileInput/FileInput'
-
-//Utils 
+import { useFormUtils } from '@/src/hooks/useFormUtils/useFormUtils';
+import { useModal } from '@/src/hooks/useModal/useModal';
+import Button from '@/src/common/FormElements/Button/Button';
+import Input from '@/src/common/FormElements/Input/Input';
+import RichTextarea from '@/src/common/FormElements/RichTextArea/RichTextarea';
+import CreateTaxonomyForm from '@/src/DataTypes/Taxonomy/Components/Forms/CreateTaxonomy/CreateTaxonomyForm';
 import {lang} from "@/src/common/Data/GlobalConstants";
 
+import styles from './UpdatePersonForm.module.scss';
+import TaxonomySelectTagListTemplate from "@/DataTypes/Taxonomy/Template/TaxonomySelectTagListTemplate";
+import React from "react";
+import {useAuth} from "@/auth/context/auth-context";
 
-//Styling
-import styles from './UpdatePersonForm.module.scss'
 
 const UpdatePersonForm = ({initValues, positiveRequestActions}) => {
 
+    //Authentication ref
+    const auth = useAuth();
+
+
     //Modal hook
-    const { modal, Modal, displayModal, closeModal } = useModal()
+    const { modal, Modal, closeModal } = useModal();
 
     //Main form functionalities
-    const { FormUI, submitRequest, formState, formTools } = useFormUtils(
+    const { FormUI, submitRequest, formState, formTools, transmuteTaxonomyTargetInput } = useFormUtils(
         {
             _id: {
                 value: initValues._id ? initValues._id : "",
@@ -57,7 +54,7 @@ const UpdatePersonForm = ({initValues, positiveRequestActions}) => {
         positiveRequestActions || {
             clearForm: true,            //Clear the form
             displayResMessage: true     //Display a message to the user to confirm the succes
-        }  
+        }
         );
 
         //Submit the form
@@ -72,7 +69,11 @@ const UpdatePersonForm = ({initValues, positiveRequestActions}) => {
                     "firstName":  formState.inputs.firstName.value, 
                     "nickname": formState.inputs.nickName.value,
                     "description": formState.inputs.description.value,
-                    "occupations": formState.inputs.occupations.value,
+                    "occupations": transmuteTaxonomyTargetInput({
+                        inputs: formState.inputs["occupations"],
+                        fieldName:"occupation",
+                        user: auth.user
+                    })
                 }
             };
 
@@ -84,17 +85,6 @@ const UpdatePersonForm = ({initValues, positiveRequestActions}) => {
             );
 
         }
-
-        /*
-            Categorie : nom de la taxonomie
-            Name : Filtre à appliquer
-        */
-        const occupationSelectRequestData = {
-            "data": {
-                "category": "occupations",
-                "name": ""
-            }
-        };
 
     return (
         <>
@@ -136,16 +126,15 @@ const UpdatePersonForm = ({initValues, positiveRequestActions}) => {
                     formTools={formTools}
                 />
 
-                <Select2
-                    name="occupations"
-                    searchField="name"
-                    label={lang.Occupations}
-                    request="/taxonomies"
-                    requestData={occupationSelectRequestData}
+                <TaxonomySelectTagListTemplate
                     tag="occupations"
+                    searchField="name"
+                    name="occupations"
+                    label={lang.Occupations}
+                    idField="occupation"
+                    category="occupations"
                     placeholder={lang.occupationsPlaceholder}
                     formTools={formTools}
-                    displayModal={displayModal}
                 />
 
                 <Button type="submit" disabled={!formState.isValid}>{lang.submit}</Button>

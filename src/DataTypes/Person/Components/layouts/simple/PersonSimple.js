@@ -7,6 +7,8 @@ import KebabButton from '@/common/FormElements/KebabButton/KebabButton'
 
 /***  Local styling ***/
 import styles from './PersonSimple.module.scss'
+import {lang} from "@/common/Data/GlobalConstants";
+import SearchTag from "@/src/common/Components/SearchTag";
 
 const PersonSimple = ({ data }) => {
 
@@ -26,11 +28,18 @@ const PersonSimple = ({ data }) => {
         mainImage,
         //url,
         //contactPoint
-    } = data
+    } = data;
 
     let fullImagePath;
     if(mainImage)
         fullImagePath = process.env.NEXT_PUBLIC_API_URL +  "/medias/persons/" + _id + "/" + mainImage.fileName + "." + mainImage.extension;
+
+    const imageUrl = mainImage ? fullImagePath : "/general_images/Dennis_Nedry.webp";
+    const imageAlt = mainImage ? mainImage.alt : `Photo de profil de l'utilisateur ${firstName} ${lastName}`;
+
+    const link = `/persons/${slug}`;
+    const type = lang.Personne;//"Organisation";
+    const name = `${firstName} ${lastName}`;
 
     return (
         <Simple className={`${styles["person-simple"]}`}>
@@ -43,37 +52,34 @@ const PersonSimple = ({ data }) => {
                     </div>
                     {/* Profil picture */}
                     <figure className={`mx-1 my-4 ${styles["person-simple__header__picture"]}`}>
-                        {/* If there is an image for the user */}
-                        {mainImage && <img src={fullImagePath} alt={mainImage.alt} />}
-                        {/* If there is NO an image for the user */}
-                        {!mainImage && <img src={"/general_images/Dennis_Nedry.webp"} alt={`Photo de profil de l'utilisateur ${firstName} ${lastName}`} />}
+                        <a href={link} title={`${type} : ${name}`} className={"position-absolute w-100 h-100"} target={"_self"} rel={"follow"}>
+                            <img src={imageUrl} alt={imageAlt} />
+                        </a>
                     </figure>
                     {/* Button to see more details */}
-                    <KebabButton href={`/persons/${slug}`} />
+                    <KebabButton href={link} />
 
                 </section>
                 {/* Header's text and infos */}
-                <section className={`${styles["person-simple__header__bottom-section"]}`}>
-                    <h3 className="text-center h4 mb-1">{firstName} {lastName}</h3>
-                    {nickname && <h4 className="text-center h5 text-secondary fw-normal">{nickname}</h4>}
- 
-                    {/* Display the three first occupations, then three dots to reprensent that there are others */}
-                    {occupations && <ul className={`mt-3 w-100 d-inline-flex flex-wrap ${styles["occupations-container"]}`}>
-                        {
-                            occupations.map((elem, index) => (
-                                <>
-                                {   index < 3 &&
-                                    <li key={"occ" + elem._id} className={`mw-100 border text-general-tag rounded-4 d-flex text-truncate text-nowrap ${styles["occupation"]}`}><div className="text-truncate">{elem.occupation.name}</div></li>
-                                }
-                                {   index == 3 &&
-                                    <li key="occ999999999999" className={`mw-100 border  text-general-tag rounded-4 d-flex text-truncate text-nowrap ${styles["occupation"]}`}><div className="text-truncate">...</div></li>
-                                }
-                                </>
-                            ))
-                        }
-                    </ul>}
-                        
-                </section>
+                {occupations &&
+                    <section className={`${styles["person-simple__header__bottom-section"]}`}>
+                        <h3 className="text-center h4 mb-1">{name}</h3>
+                        {nickname && <h4 className="text-center h5 text-secondary fw-normal">{nickname}</h4>}
+    
+                        {/* Display the three first occupations, then three dots to reprensent that there are others */}
+                            <SearchTag
+                            className="row"
+                            list={
+                                occupations.map( (entity) => {
+                                    return {
+                                        label : entity.occupation.name,
+                                        url: "/"+entity.occupation.category + "/" + entity.occupation.slug
+                                    }
+                                })
+                            }
+                            />
+                    </section>
+                }
 
             </header>
             <div className="border-bottom my-1"></div>

@@ -5,7 +5,7 @@ import { useState } from "react";
 import styles from "./TaxonomySelectTagListTemplate.module.scss"
 
 //Context
-import { useAuth } from "@/src/authentification/context/auth-context";
+//import { useAuth } from "@/src/authentification/context/auth-context";
 
 // Component
 import Select2 from "@/src/common/FormElements/Select2/Select2";
@@ -27,10 +27,10 @@ const TaxonomySelectTagListTemplate = ({name, formTools, ...props}) => {
     const {
         formState,
         inputHandler,
-        inputTouched
+        //inputTouched
     } = formTools;
 
-    const currentState = formState.inputs[name];
+    const currentState = formState.inputs[name].value;
 
     const updateValue = (name, value) => {
         inputHandler(
@@ -40,24 +40,24 @@ const TaxonomySelectTagListTemplate = ({name, formTools, ...props}) => {
         )
     }
 
-    const auth = useAuth();
-
-    const [taxonomyList, setTaxonomyList] = useState([])//currentState || [])
+    const [taxonomyList, setTaxonomyList] = useState( currentState ?? []);//props.taxonomyList
 
     //Update the return object
     useEffect( () => {
+        /*
         const tempReturnObject = [];
         taxonomyList.forEach( (elem) => {
             tempReturnObject.push({
-                [props.idField] : elem._id,
+                [props.idField] : elem,
                 status: {
                     state: "pending",
                     lastModifiedBy: auth.user.id,
                     requestedBy: auth.user.id
                 }
             })
-        });
-        updateValue(name, tempReturnObject)
+        });*/
+        //updateValue(name, tempReturnObject);
+        updateValue(name, taxonomyList);
     }, [taxonomyList])
 
     const removeEntity = (selectedObj) => {
@@ -83,20 +83,25 @@ const TaxonomySelectTagListTemplate = ({name, formTools, ...props}) => {
                 placeholder={props.placeholder}
                 dataSetter={setTaxonomyList}
                 selectedEntities={taxonomyList}
+                idField={props.idField}
             />
 
             <ul className={`${styles['tagList']}`}>
 
-                {taxonomyList.length > 0 && taxonomyList.map( (selected, index) =>
-                
-                    <li 
-                        key={selected._id + '-tagItem-' + props.name}
-                        className={`${styles['tag']} ${"bg-" + (props.tag ?? "generaltag")}`} 
-                    >
-                        <button className={`${styles['closeButton']}`} type="button" onClick={ () => removeEntity(selected)}>✖</button>
-                        <span className={"text-"+ (selected.status.state ?? "general-tag")}>◉</span>
-                        <span>{selected.name}</span>
-                    </li>
+                {taxonomyList.length > 0 && taxonomyList.map( (selected, index) => {
+
+                    const taxonomySelected = selected[props.idField] ?? selected;
+
+                    return (
+                        <li
+                            key={taxonomySelected._id + '-tagItem-' + props.name+index}
+                            className={`${styles['tag']} ${"bg-" + (props.tag ?? "generaltag")}`}
+                        >
+                            <button className={`${styles['closeButton']}`} type="button" onClick={() => removeEntity(selected)}>✖</button>
+                            <span className={"text-"+ (taxonomySelected.status.state ?? "general-tag")}>◉</span>
+                            <span>{taxonomySelected.name}</span>
+                        </li>
+                    )}
                 )}
             </ul>
         </>

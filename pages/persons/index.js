@@ -86,7 +86,7 @@ const PersonsPage = () => {
                                             <div>
                                                 <Spinner reverse/>
                                             </div>
-                                            <p><strong>Chargement des données</strong></p>
+                                            <p><strong>{lang.loadingData}</strong></p>
                                         </div>
                                 }
 
@@ -94,17 +94,16 @@ const PersonsPage = () => {
                                 {
                                     personList.length === 0 && !isLoading &&
                                     <div>
-                                        <h5>Aucune donnée ¯\_(ツ)_/¯ pour l'instant. On a peut-être un problème en
-                                            arrière plan.</h5>
+                                        <h5>{lang.noResult}</h5>
                                     </div>
                                 }
                                 {
 
                                 }
                                 { !isLoading && personList.length > 0 && 
-                                    personList.map(person => (
-                                        <div className="col g-3">
-                                            <PersonSimple data={person} />
+                                    personList.map((person, index) => (
+                                        <div className="col g-3" key={`indexPersonContainer${index}`} >
+                                            <PersonSimple data={person} key={`indexPerson${index}`} />
                                         </div>
                                     ))
                                 }

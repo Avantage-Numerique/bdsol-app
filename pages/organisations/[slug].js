@@ -14,7 +14,7 @@ import {withSessionSsr} from "@/auth/session/handlers/withSession";
 const SingleOrganisationPage = props => {
 
     return (
-        <div>
+        <div className={`single-container single-organisation`}>
 
             <div className="maxWidthPageContainer">
             
