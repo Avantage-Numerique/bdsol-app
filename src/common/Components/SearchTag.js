@@ -13,30 +13,33 @@ import styles from './SearchTag.module.scss'
  * 
  */
 
-const SearchTag = ({list, textField, ...props}) => {
+const SearchTag = ({list, ...props}) => {
 
     
-    const submitHandler = async (category, slug) => {
+    const submitHandler = async (url) => {
         Router.push({
-            pathname: "/taxonomies/"+category+"/"+slug,
+            pathname: "/taxonomies"+url,
         });
     }
 
     return (
-        <ul className="row">
-            { list?.length === 0 ?
-                <div>{props.NAMessage}</div>
-                :
-                list.map( (entity) => {
-                    return <li
-                            key={"searchTag-"+entity._id}
-                            className={`col col-sm-auto ${styles["competency-tag"]}`}
-                            onClick={() => submitHandler(entity.category, entity.slug)}>
-                                {entity[textField]}
+        <>
+            {
+                list?.length > 0 && (
+                    <ul className="row">
+                {
+                    list.map( (entity) => {
+                        return <li
+                        key={"searchTag-"+entity.url}
+                        className={`col col-sm-auto ${styles["competency-tag"]}`}
+                        onClick={() => submitHandler(entity.url)}>
+                                {entity.label}
                             </li>
-                })
+                    })}
+                </ul>
+                )
             }
-        </ul>
+        </>
     );
 
 }

@@ -46,8 +46,8 @@ const TaxonomiesCategoryPage = () => {
             )
         return (
             list.map( (elem) => 
-                <div className="col-3 p-2">
-                    <a key={elem.slug} href={`/taxonomies/${elem.category}/${elem.slug}`} className="d-block p-2 border">
+                <div key={elem.slug} className="col-3 p-2">
+                    <a href={`/taxonomies/${elem.category}/${elem.slug}`} className="d-block p-2 border">
                         {elem.name}
                     </a>
                 </div>

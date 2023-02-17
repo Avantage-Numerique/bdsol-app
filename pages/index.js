@@ -66,9 +66,6 @@ const HomePage = ({}) => {
         //If positive
         if (!orgResponse.error && !persResponse.error) {
 
-            orgResponse.data.forEach(element => element.dataType = "organisation")
-            persResponse.data.forEach(element => element.dataType = "person")
-
             //Merge the two lists to create one single feed
             const feed = [...orgResponse.data, ...persResponse.data];
 
@@ -197,11 +194,11 @@ const HomePage = ({}) => {
                                             {
                                                 feedList.length > 0 && !isLoading &&
                                                 feedList.map((elem, index) => {
-                                                    let TargetSimpleComponent = gridComponenents.get(elem.dataType);
+                                                    let TargetSimpleComponent = gridComponenents.get(elem.type);
                                                     TargetSimpleComponent = TargetSimpleComponent ?? OrganisationSimple;
                                                     return (
-                                                        <div className="col g-3" key={"container"+elem.dataType+elem._id + "-" + elem.slug+index}>
-                                                            <TargetSimpleComponent data={elem} key={"simple"+elem.dataType+elem._id + "-" + elem.slug+index} />
+                                                        <div className="col g-3" key={"container"+elem.type+elem._id + "-" + elem.slug+index}>
+                                                            <TargetSimpleComponent data={elem} key={"simple"+elem.type+elem._id + "-" + elem.slug+index} />
                                                         </div>
                                                     )
                                                 })

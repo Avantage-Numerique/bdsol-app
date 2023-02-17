@@ -2,6 +2,7 @@ import React from 'react'
 
 //Components
 import SanitizedInnerHtml from '@/src/utils/SanitizedInnerHtml';
+import SearchTag from '@/src/common/Components/SearchTag';
 
 //Styling 
 import styles from './OrganisationSimple.module.scss';
@@ -70,26 +71,22 @@ const OrganisationSimple = ({ data }) => {
                 }
             </section>
             {/******** Display of the offer's list **********/}
-            <section className="mt-4">
-                <h4 className="h5 my-3">Services offerts</h4>
-                { offers && offers.length > 0 &&
-                    <ul className="d-flex flex-wrap gap-2">
-                        {
-                            offers &&
-                            offers.map(elem => (
-                                <li
-                                    key={elem.offer._id}
-                                    className="border p-1 rounded-1 small"
-                                >{elem.offer.name}</li>
-                            ))
+            { offers &&
+                <section className="mt-4">
+                    <h4 className="h5 my-3">Services offerts</h4>
+                        <SearchTag
+                        className="row"
+                        list={
+                            offers.map( (entity) => {
+                                return {
+                                    label : entity.offer.name,
+                                    url: "/"+entity.offer.category + "/" + entity.offer.slug
+                                }
+                            })
                         }
-                    </ul>
-                }
-                {
-                    !offers &&
-                    <p className="small">Aucun service n'est proposé pour cette organisation.</p>
-                }
-            </section>
+                        />
+                </section>
+            }
         </>
     );
 

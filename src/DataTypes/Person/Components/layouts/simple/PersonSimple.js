@@ -8,6 +8,7 @@ import KebabButton from '@/common/FormElements/KebabButton/KebabButton'
 /***  Local styling ***/
 import styles from './PersonSimple.module.scss'
 import {lang} from "@/common/Data/GlobalConstants";
+import SearchTag from "@/src/common/Components/SearchTag";
 
 const PersonSimple = ({ data }) => {
 
@@ -60,24 +61,25 @@ const PersonSimple = ({ data }) => {
 
                 </section>
                 {/* Header's text and infos */}
-                <section className={`${styles["person-simple__header__bottom-section"]}`}>
-                    <h3 className="text-center h4 mb-1">{name}</h3>
-                    {nickname && <h4 className="text-center h5 text-secondary fw-normal">{nickname}</h4>}
- 
-                    {/* Display the three first occupations, then three dots to reprensent that there are others */}
-                    {occupations &&
-                        <ul className={`mt-3 w-100 d-inline-flex flex-wrap ${styles["occupations-container"]}`}>
-                        {
-                            occupations.map((elem, index) => (
-                                <li className={`mw-100 border text-general-tag rounded-4 d-flex text-truncate text-nowrap ${styles["occupation"]}`} key={"occupation" + elem.occupation._id + index}>{elem.occupation.name}</li>
-                            ))
-                        }
-                        {   (occupations.length > 2) &&
-                            <li className={`mw-100 border text-general-tag rounded-4 d-flex text-truncate text-nowrap ${styles["occupation"]}`} key={"occupationMore"+name}>&hellip;</li>
-                        }
-                    </ul>}
-                        
-                </section>
+                {occupations &&
+                    <section className={`${styles["person-simple__header__bottom-section"]}`}>
+                        <h3 className="text-center h4 mb-1">{name}</h3>
+                        {nickname && <h4 className="text-center h5 text-secondary fw-normal">{nickname}</h4>}
+    
+                        {/* Display the three first occupations, then three dots to reprensent that there are others */}
+                            <SearchTag
+                            className="row"
+                            list={
+                                occupations.map( (entity) => {
+                                    return {
+                                        label : entity.occupation.name,
+                                        url: "/"+entity.occupation.category + "/" + entity.occupation.slug
+                                    }
+                                })
+                            }
+                            />
+                    </section>
+                }
 
             </header>
             <div className="border-bottom my-1"></div>

@@ -6,6 +6,7 @@ import getConfig from 'next/config';
 import Simple from '@/DataTypes/common/layouts/simple/Simple'
 import SanitizedInnerHtml from '@/src/utils/SanitizedInnerHtml';
 import KebabButton from '@/common/FormElements/KebabButton/KebabButton'
+import SearchTag from "@/src/common/Components/SearchTag";
 
 
 /***  Local styling ***/
@@ -79,19 +80,20 @@ const OrganisationSimple = ({ data }) => {
                 </section>
 
                 {/******** Presentation ***********/}
-                {offers && (offers.length > 0) &&
+                {offers &&
                 <section className={`${styles["org-section-offers"]}`}>
                     <h4 className="h6 rejected">{lang.Services}</h4>
-                    <ul className={`mt-0 w-100 d-inline-flex flex-wrap ${styles["offers-container"]}`}>
-                        {
-                            offers.map((elem, index) => (
-                                <li className={`mw-100 border text-general-tag rounded-4 d-flex text-truncate text-nowrap ${styles["offer"]}`} key={"offer" + elem.offer._id + index}>{elem.offer.name}</li>
-                            ))
+                    <SearchTag
+                        className="row"
+                        list={
+                            offers.map( (entity) => {
+                                return {
+                                    label : entity.offer.name,
+                                    url: "/"+entity.offer.category + "/" + entity.offer.slug
+                                }
+                            })
                         }
-                        {   (offers.length > 2) &&
-                            <li className={`mw-100 border text-general-tag rounded-4 d-flex text-truncate text-nowrap ${styles["offer"]}`} key={"offerMore"+name}>&hellip;</li>
-                        }
-                    </ul>
+                    />
                 </section>
                 }
 
