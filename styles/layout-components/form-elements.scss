@@ -18,6 +18,9 @@
         border-radius: 0.25rem;
         border: 0.1rem solid rgba(94, 94, 94, 0.13);
 
+        //To prevent the field from overflowing the container
+        max-width: 100%;
+
         &.form-element--color-validation{
 
                 -webkit-transition: all 300ms ease;

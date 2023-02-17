@@ -1,7 +1,9 @@
-import React from 'react'
+import { useEffect, useState, useContext } from 'react'
 
 //Custom hooks
 import { useFormUtils } from '@/src/hooks/useFormUtils/useFormUtils';
+import { useHttpClient } from '@/src/hooks/http-hook'
+
 
 //Components
 import Button from '@/FormElements/Button/Button';
@@ -12,11 +14,19 @@ import LargeFileInput from '@/FormElements/LargeFileInput/LargeFileInput'
 
 //Context
 import { useAuth } from "@/src/authentification/context/auth-context";
+import { MessageContext } from '@/src/common/UserNotifications/Message/Context/Message-Context'
+
 
 const CreateMediaForm = ( {entityId} ) => {
 
     //Authentication ref
     const auth = useAuth();
+
+    //Extract the functions inside useHttpClient to send api request
+    const {isLoading, sendRequest} = useHttpClient();
+
+    //Import message context 
+    const msg = useContext(MessageContext);
 
     //Main form functionalities
     const { FormUI, submitRequest, formState, formTools } = useFormUtils(
@@ -45,6 +55,37 @@ const CreateMediaForm = ( {entityId} ) => {
         }
     );
 
+    //State that holds the licence list
+    const [licences, setLicences] = useState([]);
+
+    
+
+    //Fetch licence list on load
+    useEffect(() => {
+        const fetchLicences = async() => {
+            //Send the request with the specialized hook
+            const response = await sendRequest (
+                '/static/licences/',
+                'GET',
+                null
+            )
+            //If response is positive, update the state and pass the result to the select input
+            if(!response.error){
+                console.log(response.data)
+                const arrayOfLicences = Object.values(response.data);
+                const options = arrayOfLicences.map(obj => ({label: obj.label, value: obj.label, disabled: false}));
+                setLicences(options);
+            } else{
+                //If negative, for now, inform the user
+                msg.addMessage({ 
+                    text: "Une erreur est survenue et la liste des licences n'a pas pu être chargée.",
+                    positive: false 
+                })
+            }
+        }
+        fetchLicences();
+    }, [])
+
     //Submit the form
     const submitHandler = async event => { 
 
@@ -57,14 +98,13 @@ const CreateMediaForm = ( {entityId} ) => {
     
             */
 
-            console.log("called")
             let  rawFromData = new FormData();
 
             const formData = {
                 "title": "allo",
                 "alt": "picasso",
-                "description": "une patate",
-                "licence": "Public Domain (CC0)",
+                "description": formState.inputs.description.value,
+                "licence":  "Public Domain (CC0)",
                 "fileType":"image",
                 "mediaField": "mainImage",
                 "entityType": "persons",
@@ -76,67 +116,62 @@ const CreateMediaForm = ( {entityId} ) => {
                 }
             }
 
+            //Add data to the formData
             rawFromData.append("mainImage", formState.inputs.mainImage.value);
-
             rawFromData.append("data", JSON.stringify(formData));
 
-    
-            //rawFromData.append('data', JSON.stringify(formData));
-            //rawFromData.append('mainImage', formState.inputs.mainImage.value);
-    
-            //Send the request with the specialized hook
-            
             await submitRequest(
                 "/medias/upload",
                 'POST',
                 rawFromData,
                 {
-                    //'Content-Type': 'multipart/form-data, boundary=patate',
-                    
                     'Accept': 'application/json'
                 },
                 {
                     isBodyJson: false
                 }
             );
-
-            
-            
-
     }
 
     return (
-        <form encType='multipart/form-data' className="d-flex w-100">
-            <div className="row w-100 gx-3">
-            <div className="col-6">
-                <LargeFileInput 
-                    name="mainImage"
-                    label="Fichier"
-                    formTools={formTools}
-                    validationRules={[
-                        {name: "REQUIRED"},
-                        {name: "FILE_MAX_SIZE", specification: 2}
-                    ]}
-                />
-            </div>
-            <div className="col-6">
-            <Select 
-                name="licence"
-                label="licence"
-                formTools={formTools}
-            />
-            <Textarea 
-                name="description"
-                label="description"
-                formTools={formTools}
-            />
-            <Button
-                onClick={submitHandler}
-                size="slim"
-            > Soumettre
-            </Button>
-
-            </div>
+        <form encType='multipart/form-data' className={`w-100`}>
+            <FormUI />
+            <div className="d-flex w-100">
+                <div className="row w-100 gx-3">
+                    {/* Column one */}
+                    <div className="col-6">
+                        <LargeFileInput 
+                            name="mainImage"
+                            label="Fichier"
+                            formTools={formTools}
+                            validationRules={[
+                                {name: "REQUIRED"},
+                                {name: "FILE_MAX_SIZE", specification: 2}
+                            ]}
+                        />
+                    </div>
+                    {/* Column two */}
+                    <div className="col-6">
+                        <Select 
+                            name="licence"
+                            label="licence"
+                            options={licences}
+                            formTools={formTools}
+                        />
+                        <Textarea 
+                            name="description"
+                            label="description"
+                            formTools={formTools}
+                        />
+                        <div className="mt-2">
+                            <Button
+                                onClick={submitHandler}
+                                size="slim"
+                            > Soumettre
+                            </Button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </form>
     )
