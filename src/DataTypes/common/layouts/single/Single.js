@@ -4,6 +4,7 @@ import styles from './Single.module.scss'
 import Button from "@/FormElements/Button/Button";
 import {lang} from "@/common/Data/GlobalConstants";
 import EntityNavBar from "@/DataTypes/common/layouts/Navigation/EntityNavBar";
+import {useAuth} from "@/auth/context/auth-context";
 
 /*
     Receive and apply all the rules of a single view for entities
@@ -15,7 +16,8 @@ const Single = (props) => {
         children,
         aside,
         ModalForm,
-        modalParams
+        modalParams,
+        modalMainImageControl//Controlling the Image modal from outside single->entityNavBar.
     } = props;
 
     const defaultMainImage = props.defaultMainImage ?? "/general_images/Dennis_Nedry.webp";
@@ -48,7 +50,7 @@ const Single = (props) => {
     const mainContentContainerClass = showMainImageInHeader ? "single__main-section-with-profile-picture" : "single__main-section";
     const asideClass = `col-auto col-lg-${asideColWidthLg}`;
 
-
+    const auth = useAuth();
 
     return (
         <article className={`single ${styles.single}`}>
@@ -65,6 +67,7 @@ const Single = (props) => {
                     containerClass={`${styles["single__top-menu"]}`}
                     ModalForm={ModalForm}
                     modalParams={modalParams}
+                    modalMainImageControl={modalMainImageControl}
                 />
 
                 {/* Header's content */}
@@ -93,6 +96,10 @@ const Single = (props) => {
                         showMainImageInHeader &&
                         <div className={`${styles["single-header-content__bottom-row"]}`}>
                             <figure className={`${styles[mainImageClass]} ${styles[mainImageAdditionalClass]}`}>
+                                {auth.user.isLoggedIn && //Option only available if connected
+                                    <button onClick={modalMainImageControl.displayModal} className={`w-100 h-100 position-absolute d-flex align-items-center justify-content-center p-1 text-white ${styles["profile-picture--modification-opt"]}`}>
+                                        Modifier l'image
+                                    </button>}
                                 {mainImage &&
                                     <img src={mainImageRootUrl+mainImageUrl} alt={mainImageAlt} />
                                 }

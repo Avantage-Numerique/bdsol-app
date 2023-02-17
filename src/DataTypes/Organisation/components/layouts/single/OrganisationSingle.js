@@ -10,6 +10,7 @@ import Single from "@/DataTypes/common/layouts/single/Single";
 import CreateOrganisationForm from "@/DataTypes/Organisation/components/forms/CreateOrganisationForm/CreateOrganisationForm";
 import {lang} from "@/common/Data/GlobalConstants";
 import {SingleInfo} from "@/DataTypes/common/layouts/SingleInfo/SingleInfo";
+import {useModal} from "@/src/hooks/useModal/useModal";
 
 
 const OrganisationSimple = ({ data }) => {
@@ -43,6 +44,8 @@ const OrganisationSimple = ({ data }) => {
     const modalComponentParams = {
         uri:"update"
     };
+
+    const imgModalControl = useModal();
 
     const headerMainContent = (
         <div className={`${styles["quick-section"]}`}>
@@ -111,6 +114,7 @@ const OrganisationSimple = ({ data }) => {
             cta={"Visiter la page de la ressource"}
             ctaUrl={url}
             defaultMainImage={defaultOrgAvatar}
+            modalMainImageControl={imgModalControl}
         >
 
             {

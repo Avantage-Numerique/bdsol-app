@@ -12,6 +12,7 @@ import {lang} from "@/common/Data/GlobalConstants";
 import SearchTag from '@/src/common/Components/SearchTag';
 import Single from "@/DataTypes/common/layouts/single/Single";
 import {SingleInfo} from "@/DataTypes/common/layouts/SingleInfo/SingleInfo";
+import {useModal} from "@/src/hooks/useModal/useModal";
 
 
 const PersonSingle = ({ data }) => {
@@ -38,6 +39,7 @@ const PersonSingle = ({ data }) => {
     //State that contains the organisations that the person is part of
     const [memberOfOrganisationList, setMemberOfOrganisationList] = useState([]);
 
+    const imgModalControl = useModal();
 
     useEffect( () => {
         async function fetchMemberOf() {
@@ -84,7 +86,7 @@ const PersonSingle = ({ data }) => {
     const singleInfoCommonClass = "border-bottom py-4";
 
     const ModalComponent = UpdatePersonForm;
-    console.log(status);
+
     //Remove because this isn't planned in the ontologie yet  :<SingleInfo title={"Intérêts"} />
     return (
         <Single
@@ -95,6 +97,7 @@ const PersonSingle = ({ data }) => {
             ModalForm={ModalComponent}
             showCTA={true}
             cta={"Ceci est une proposition d'appel à l'action. Il reste donc à déterminer s'il est pertinent et quoi mettre à l'intérieur."}
+            modalMainImageControl={imgModalControl}
         >
             <SingleInfo title={"Présentation"}>
                 <SanitizedInnerHtml>
