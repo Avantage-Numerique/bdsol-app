@@ -24,8 +24,8 @@ export const base = {
 
     //  HomePage
 
-    "homePageTitle": "La base de données structurée ouverte et liée",
-    "homePageDescription": "Les acteurs·trices techno-créatifs·ves du croissant boréal",
+    "homePageTitle": "Explorer les acteurs·trices techno-créatifs·ves dans le croissant boréal",
+    "homePageDescription": "Nom de code : Base de données structurée ouverte et liée d'avantage numérique.",
     "actualities": "Actualités",
     "menu": "menu",
 
