@@ -7,10 +7,15 @@ import { useRouter } from "next/router";
 //Component
 import SearchBar from "@/src/common/Components/SearchBar"
 import { sendExternalApiRequest } from "@/src/hooks/http-hook";
-import PresentationCard from '@/src/common/Containers/cards/presentationCard'
+import PersonSimple from '@/DataTypes/Person/Components/layouts/simple/PersonSimple'
+import OrganisationSimple from '@/DataTypes/Organisation/components/layouts/simple/OrganisationSimple'
 
 
 const SearchResults = () => {
+
+    const gridComponenents = new Map();
+    gridComponenents.set("person", PersonSimple);
+    gridComponenents.set("organisation", OrganisationSimple);
 
     const [searchList, setSearchList] = useState([]);
     const router = useRouter();
@@ -74,22 +79,21 @@ const SearchResults = () => {
             <div>Page de recherche</div>
             <SearchBar id="searchResults-searchBar"></SearchBar>
             <div>Résultats de recherche {searchMessage} :</div>
-            <div className={"row"}>
-            {
-            searchList.length == 0 ?
-            <div>Aucune entité trouvée, réessayer avec d'autre critère de recherche</div>
-            : //if length != 0
-            searchList.map( (entity) => {
-                return (
-                    <div className="col col-md-6 col-lg-4 p-2" key={entity._id + "-" + entity.slug}>
-                        <PresentationCard
-                            key={entity._id}
-                            header={entity.type}
-                            data={entity}
-                            />
-                    </div>)
-            })
-            }
+            <div className="row home-page__feed-section--container row-cols-1 row-cols-sm-2 row-cols-xl-3">
+                {
+                    searchList?.length > 0 ?
+                    searchList.map((elem, index) => {
+                        let TargetSimpleComponent = gridComponenents.get(elem.type);
+                        TargetSimpleComponent = TargetSimpleComponent ?? OrganisationSimple;
+                        return (
+                            <div className="col g-3" key={"container"+elem.type+elem._id + "-" + elem.slug+index}>
+                                <TargetSimpleComponent data={elem} key={"simple"+elem.type+elem._id + "-" + elem.slug+index} />
+                            </div>
+                        )
+                    })
+                    :
+                    <div>Aucune entité trouvée, réessayer avec d'autre critère de recherche</div>
+                }
             </div>
         </div>
     )
