@@ -10,9 +10,12 @@ export const base = {
     "back": "Retour",
     "close": "Fermer",
     "noInfoAvailable": "Information bientôt disponible.",
+    "colon": " : ",
 
     //  UPLOAD
+
     "entityUploadMediaNoteOnCreateEntity": `Vous pourrez téléverser une image à partir de la page de cette %entity%. Cette image représentera cette %entity% et sera affiché dans sa fiche et dans les pages qui la liste.`,
+
 
     // App
 
@@ -22,6 +25,7 @@ export const base = {
     "appDefaultProducer": "Avantage Numérique",
     "appProducerDefaultDescription": "Avantage numérique est un hub virtuel, physique et mobile qui dessert les secteurs de la culture, des affaires et du savoir. Il vise le développement de l’écosystème créatif, entrepreneurial et technologique du Croissant boréal.",
 
+
     //  HomePage
 
     "homePageTitle": "Explorer les acteurs·trices techno-créatifs·ves dans le croissant boréal",
@@ -30,6 +34,7 @@ export const base = {
     "menu": "menu",
 
     //  History (user Histories, etc)
+
     "modificationHistory": "Historique de modification",
 
 
@@ -37,8 +42,11 @@ export const base = {
 
     "needToBeConnectedToAccess": "Vous devez être connecté pour pouvoir ajouter une entité à la base de données.",
 
+
     //  Espace membre
+
     "memberSpaceWelcome": "Bienvenue dans l'espace membre",
+
 
     // useSessionHook
 
@@ -74,7 +82,9 @@ export const base = {
     "organisationUploadMediaMainImage": "Vous pourrez téléverser une image à partir de la page de cette organisation. Cette image représentera cette organisation et sera affiché dans sa fiche et dans les pages qui la liste.",
 
     // SINGLE
+
     "proposeContentChangeLabel": "Proposer une modification",
+
 
     //  Personnes
 
@@ -89,14 +99,18 @@ export const base = {
     "nickname": "surnom",
     "nicknameLabel": "Surnom&nbsp;:&nbsp;",
 
+
     //  Organisations
 
     "Organisation": "Organisation",
     "Organisations": "Organisations",
     "organisation": "organisation",
     "organisations": "organisations",
+    "teamMembers": "Membres de l'équipe",
+    "fondationDate": "Date de fondation",
 
     "bestContactPointLabel": "Meilleur moyen pour les contacter : ",
+
 
     //  Taxonomy
 
@@ -106,11 +120,14 @@ export const base = {
     "taxonomies": "taxonomies",
     "taxonomyExplications": "Une taxonomie sert à classifier dans un système ordonné les relations entre les choses. Ajoutez ici une taxonomie pour permettre à une entité d'être relié à cette taxonomie. Par exemple, lier une <strong>personne</strong> à une <strong>occupation</strong> ou une <strong>aptitude</strong> et lier une <strong>organisation</strong> à une <strong>offre de service</strong> et bien d'autre.",
 
-    //  --Services
+
+    //  Services
+
     "Services": "Services",
     "Service": "Service",
     "services": "Services",
     "service": "Service",
+
 
     //  Occupations
 
@@ -121,12 +138,27 @@ export const base = {
 
     "occupationsPlaceholder": "Enseignant, Architecte logiciel, [...]",
 
+
+    //  TEAMS
+
+    "noTeamMemberSetMessage": "Personne n'est inscrit comme membre de l'équipe de cette organisation.",
+
+
+    //  Medias
+
+    "seeImage": "Voir l'image",
+    "updateImage": "Modifier l'image",
+    "addImage": "Définir une image principale",
+
+
     //  AccountNav
+
     "menuTitleMemberMenu": "Menu de membre",
     "menuLabelConnect": "Se connecter",
     "menuLabelCreateAccount": "Créer un compte",
     "menuLabelToDashboard": "Espace membre",
     "menuLabelToDisconnect": "Se déconnecter",
+
 
     //  FAQ
     "noLicenceData": "Les données sur les licences dans l'API n'ont pas été trouvées.",

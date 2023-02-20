@@ -50,7 +50,7 @@ const OrganisationSimple = ({ data }) => {
     const headerMainContent = (
         <div className={`${styles["quick-section"]}`}>
             <h2 className="mb-2">{name}</h2>
-            <p className="small w-100 my-0"><span>Date de fondation : </span> {date_fondationDate.toLocaleDateString("fr-CA")}</p>
+            <p className="small w-100 my-0"><span>{lang.fondationDate+lang.colon}</span> {date_fondationDate.toLocaleDateString("fr-CA")}</p>
         </div>
     );
 
@@ -63,25 +63,26 @@ const OrganisationSimple = ({ data }) => {
                     <SanitizedInnerHtml tag={"p"}>{contactPoint}</SanitizedInnerHtml>
                 </section>
             }
-            <section className={"border-bottom"}>
-                <h4 className="h5 my-3">Membres de l'équipe</h4>
-                { team && team.length > 0 &&
-                    <ul className="d-flex flex-wrap gap-2">
-                        {
-                            team &&
-                            team.map(elem => (
-                                <li key={elem.member._id} className="border p-1 rounded-1 small">
-                                    {elem.member.firstName} {elem.member.lastName}
-                                </li>
-                            ))
-                        }
-                    </ul>
-                }
-                {
-                    (!team || team.length === 0) &&
-                    <p className="small">Personne n'est inscrit comme membre de l'équipe de cette organisation.</p>
-                }
-            </section>
+            { team && team.length > 0 &&
+                <section className={"border-bottom"}>
+                    <h4 className="h5 my-3">{lang.teamMembers}</h4>
+
+                        <ul className="d-flex flex-wrap gap-2">
+                            {
+                                team &&
+                                team.map(elem => (
+                                    <li key={elem.member._id} className="border p-1 rounded-1 small">
+                                        {elem.member.firstName} {elem.member.lastName}
+                                    </li>
+                                ))
+                            }
+                        </ul>
+                </section>
+            }
+            {
+                (!team || team.length === 0) &&
+                <p className="small">{lang.noTeamMemberSetMessage}</p>
+            }
             {/******** Display of the offer's list **********/}
             { offers &&
                 <section className="mt-4">
@@ -101,7 +102,9 @@ const OrganisationSimple = ({ data }) => {
             }
         </>
     );
+
     const singleInfoCommonClass = "border-bottom py-4";
+
     return (
         <Single
             className={`single ${styles["organisation-view"]}`}
@@ -125,8 +128,6 @@ const OrganisationSimple = ({ data }) => {
                     </SanitizedInnerHtml>
                 </SingleInfo>
             }
-
-
             {
                 (date_createdAt || date_updatedAt || status) &&
                 <SingleInfo className={singleInfoCommonClass} title={lang.modificationHistory}>

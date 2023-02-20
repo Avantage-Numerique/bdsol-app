@@ -62,23 +62,26 @@ const PersonSingle = ({ data }) => {
 
     const aside = (
         <>
-            <SingleInfo
-                title={"Comptétences"}
-                NAMessage={<p>Information non disponible</p>}
-            >
-                <SearchTag
-                    className="row"
-                    list={
-                        occupations.map( (entity) => {
-                            return {
-                                label : entity.occupation.name,
-                                url: "/"+entity.occupation.category + "/" + entity.occupation.slug
-                            }
-                        })
-                    }
-                    />
+            {
+                occupations &&
+                <SingleInfo
+                    title={"Comptétences"}
+                    NAMessage={<p>Information non disponible</p>}
+                >
+                    <SearchTag
+                        className="row"
+                        list={
+                            occupations.map( (entity) => {
+                                return {
+                                    label : entity.occupation.name,
+                                    url: "/"+entity.occupation.category + "/" + entity.occupation.slug
+                                }
+                            })
+                        }
+                        />
 
-            </SingleInfo>
+                </SingleInfo>
+            }
         </>
     );
 

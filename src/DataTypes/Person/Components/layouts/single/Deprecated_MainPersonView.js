@@ -36,7 +36,13 @@ const SingleInfoLayout = ({ title, NAMessage, children }) => {
     )
 }
 
-const MainPersonView = ({ data }) => {
+/**
+ * Kept to assure the integration of the PersonSingle.
+ * @param data
+ * @return {JSX.Element}
+ * @constructor
+ */
+const Deprecated_MainPersonView = ({ data }) => {
 
     const { 
         _id,
@@ -346,4 +352,4 @@ const MainPersonView = ({ data }) => {
 }
 
 
-export default MainPersonView
+export default Deprecated_MainPersonView

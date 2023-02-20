@@ -5,6 +5,7 @@ import Button from "@/FormElements/Button/Button";
 import {lang} from "@/common/Data/GlobalConstants";
 import EntityNavBar from "@/DataTypes/common/layouts/Navigation/EntityNavBar";
 import {useAuth} from "@/auth/context/auth-context";
+import Link from "next/link";
 
 /*
     Receive and apply all the rules of a single view for entities
@@ -32,7 +33,7 @@ const Single = (props) => {
     const mainImageRootUrl = haveMainImage ? process.env.NEXT_PUBLIC_API_URL : "";//we dont add api path if it's local.
     const mainImageUrl = entity.mainImage?.url ?? defaultMainImage;
     const mainImageAlt= entity.mainImage?.alt ?? "main image alt";
-    const mainImageClass = props.mainImageClass ?? "headers-content__profil-picture";
+    const mainImageClass = props.mainImageClass ?? "headers-content__main-image";
     const mainImageAdditionalClass = props.mainImageAdditionnalClass ?? "";
     const showMainImageInHeader = props.showMainImageInHeader ?? true;
 
@@ -95,11 +96,19 @@ const Single = (props) => {
                     {
                         showMainImageInHeader &&
                         <div className={`${styles["single-header-content__bottom-row"]}`}>
-                            <figure className={`${styles[mainImageClass]} ${styles[mainImageAdditionalClass]}`}>
-                                {auth.user.isLoggedIn && //Option only available if connected
-                                    <button onClick={modalMainImageControl.displayModal} className={`w-100 h-100 position-absolute d-flex align-items-center justify-content-center p-1 text-white ${styles["profile-picture--modification-opt"]}`}>
-                                        Modifier l'image
-                                    </button>}
+                            <figure className={`d-flex justify-content-center ${styles[mainImageClass]} ${styles[mainImageAdditionalClass]}`}>
+                                {auth.user.isLoggedIn &&    //mainImage Menu.
+                                    <div className={`w-100 h-100 position-absolute d-flex align-items-center justify-content-center`}>
+                                        <button onClick={modalMainImageControl.displayModal}  className={`p-1 text-white ${styles["profile-picture--modification-opt"]}`}>
+                                            {haveMainImage ? lang.updateImage : lang.addImage}
+                                        </button>
+                                    { haveMainImage &&
+                                        <Link href={`/medias/${entity.mainImage._id}`} className={`w-100 h-100 position-absolute d-flex align-items-center justify-content-center p-1 text-white ${styles["profile-picture--modification-opt"]}`}>
+                                            {lang.seeImage}
+                                        </Link>
+                                    }
+                                    </div>
+                                }
                                 {mainImage &&
                                     <img src={mainImageRootUrl+mainImageUrl} alt={mainImageAlt} />
                                 }
