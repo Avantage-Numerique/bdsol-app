@@ -23,7 +23,7 @@ const accountPage = ({ user }) => {
     const {logout} = useSessionHook();
 
     //UseState
-    const [leftMenu, setLeftMenu] = useState("help");
+    const [leftMenu, setLeftMenu] = useState("history");
 
     const dateLanguage = 'en-CA';
 

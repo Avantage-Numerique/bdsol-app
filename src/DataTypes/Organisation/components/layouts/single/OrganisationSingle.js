@@ -64,7 +64,7 @@ const OrganisationSimple = ({ data }) => {
                 </section>
             }
             <section className={"border-bottom"}>
-                <h4 className="h5 my-3">Membres de l'équipe</h4>
+                <h4 className="h5 my-3">Membre(s) de l'organisation</h4>
                 { team && team.length > 0 &&
                     <ul className="d-flex flex-wrap gap-2">
                         {
@@ -79,11 +79,11 @@ const OrganisationSimple = ({ data }) => {
                 }
                 {
                     (!team || team.length === 0) &&
-                    <p className="small">Personne n'est inscrit comme membre de l'équipe de cette organisation.</p>
+                    <p className="small">Personne n'est inscrit comme membre de l'organisation de cette organisation.</p>
                 }
             </section>
             {/******** Display of the offer's list **********/}
-            { offers &&
+            { offers?.length > 0 &&
                 <section className="mt-4">
                     <h4 className="h5 my-3">Services offerts</h4>
                         <SearchTag

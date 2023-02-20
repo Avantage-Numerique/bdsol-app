@@ -61,10 +61,10 @@ const PersonSimple = ({ data }) => {
 
                 </section>
                 {/* Header's text and infos */}
-                {occupations &&
+                <h3 className="text-center h4 mb-1">{name}</h3>
+                {nickname && <h4 className="text-center h5 text-secondary fw-normal">{nickname}</h4>}
+                {occupations?.length > 0 &&
                     <section className={`${styles["person-simple__header__bottom-section"]}`}>
-                        <h3 className="text-center h4 mb-1">{name}</h3>
-                        {nickname && <h4 className="text-center h5 text-secondary fw-normal">{nickname}</h4>}
     
                         {/* Display the three first occupations, then three dots to reprensent that there are others */}
                             <SearchTag

@@ -104,12 +104,12 @@ export const base = {
     "Taxonomies": "Taxonomies",
     "taxonomy": "taxonomie",
     "taxonomies": "taxonomies",
-    "taxonomyExplications": "Une taxonomie sert à classifier dans un système ordonné les relations entre les choses. Ajoutez ici une taxonomie pour permettre à une entité d'être relié à cette taxonomie. Par exemple, lier une <strong>personne</strong> à une <strong>occupation</strong> ou une <strong>aptitude</strong> et lier une <strong>organisation</strong> à une <strong>offre de service</strong> et bien d'autre.",
+    "taxonomyExplications": "Une taxonomie sert à classifier dans un système ordonné les relations entre les choses. Ajoutez ici une taxonomie pour permettre à une entité d'être reliée à cette taxonomie. Par exemple, lier une <strong>personne</strong> à une <strong>occupation</strong> ou une <strong>aptitude</strong> et lier une <strong>organisation</strong> à un <strong>service offert</strong> et bien d'autre.",
 
     //  --Services
-    "Services": "Services",
+    "Services": "Services offerts",
     "Service": "Service",
-    "services": "Services",
+    "services": "Services offerts",
     "service": "Service",
 
     //  Occupations
