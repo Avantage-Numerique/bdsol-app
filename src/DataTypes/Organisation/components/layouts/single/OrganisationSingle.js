@@ -63,28 +63,25 @@ const OrganisationSimple = ({ data }) => {
                     <SanitizedInnerHtml tag={"p"}>{contactPoint}</SanitizedInnerHtml>
                 </section>
             }
-            { team && team.length > 0 &&
-                <section className={"border-bottom"}>
-                    <h4 className="h5 my-3">{lang.teamMembers}</h4>
+            <section className={"border-bottom"}>
+                <h4 className="h5 my-3">{lang.teamMembers}</h4>
+                { team?.length > 0 ?
+                    <ul className="d-flex flex-wrap gap-2">
+                        {
+                            team.map(elem => (
+                                <li key={elem.member._id} className="border p-1 rounded-1 small">
+                                    {elem.member.firstName} {elem.member.lastName}
+                                </li>
+                            ))
+                        }
+                    </ul>
+                    :
+                    <p className="small">{lang.noTeamMemberSetMessage}</p>
+                }
+            </section>
 
-                        <ul className="d-flex flex-wrap gap-2">
-                            {
-                                team &&
-                                team.map(elem => (
-                                    <li key={elem.member._id} className="border p-1 rounded-1 small">
-                                        {elem.member.firstName} {elem.member.lastName}
-                                    </li>
-                                ))
-                            }
-                        </ul>
-                </section>
-            }
-            {
-                (!team || team.length === 0) &&
-                <p className="small">{lang.noTeamMemberSetMessage}</p>
-            }
             {/******** Display of the offer's list **********/}
-            { offers &&
+            { offers?.length > 0 &&
                 <section className="mt-4">
                     <h4 className="h5 my-3">Services offerts</h4>
                         <SearchTag

@@ -173,7 +173,7 @@ const CreateOrganisationForm = (props) => {
                     tag="occupations"
                     name="offers"
                     idField="offer"
-                    label="Offres de services"
+                    label="Services offerts"
                     category="occupations"
                     placeholder="Directeur-trice artistique ..."
                     formTools={formTools}
@@ -182,7 +182,7 @@ const CreateOrganisationForm = (props) => {
 
                 <Repeater
                     name="team"
-                    label="Membre de l'équipe"
+                    label="Membres de l'organisation"
                     addButtonLabel="Ajouter un membre"
                     noComponentLabel="Aucun membre ajouté"
                     formTools={formTools}
@@ -191,7 +191,7 @@ const CreateOrganisationForm = (props) => {
                     
                     <PersonRoleTemplate
                         name="team"
-                        label="Membre de l'équipe"
+                        label="Membre de l'organisation"
                         placeholder="Jean-Marc Parent ..."
                         //personList={[...list]}
                     />

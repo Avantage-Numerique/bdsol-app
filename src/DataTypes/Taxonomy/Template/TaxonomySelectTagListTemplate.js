@@ -62,7 +62,7 @@ const TaxonomySelectTagListTemplate = ({name, formTools, ...props}) => {
 
     const removeEntity = (selectedObj) => {
         //remove the selectedObj
-        setTaxonomyList(taxonomyList.filter(elem => elem._id !== selectedObj._id));
+        setTaxonomyList(taxonomyList.filter(elem => elem[props.idField]._id !== selectedObj[props.idField]._id));
     }
 
     const taxonomySelectRequestData = {

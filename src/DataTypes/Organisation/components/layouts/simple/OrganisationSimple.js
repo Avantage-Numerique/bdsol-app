@@ -33,7 +33,7 @@ const OrganisationSimple = ({ data }) => {
     } = data;
 
     const link = `/organisations/${slug}`;
-    const type = lang.Occupation;//"Organisation";
+    const type = lang.Organisation;//"Organisation";
 
     const defaultOrgAvatar = '/general_images/Jurassic_Park_Main_Gate.jpg';
     const mainImageAbsoluteUrl = mainImage?.url ? process.env.NEXT_PUBLIC_API_URL + mainImage.url : defaultOrgAvatar;
@@ -81,7 +81,7 @@ const OrganisationSimple = ({ data }) => {
                 </section>
 
                 {/******** Presentation ***********/}
-                {offers &&
+                {offers?.length > 0 &&
                 <section className={`${styles["org-section-offers"]}`}>
                     <h4 className="h6 rejected">{lang.Services}</h4>
                     <SearchTag

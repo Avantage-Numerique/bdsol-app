@@ -54,9 +54,14 @@ const Select2 = ({name, formTools, children, single, ...props}) => {
     //Update the list of options to display
     useEffect(() => { getSelectList() }, [debouncedRequest] );
 
+    //ToLowerCase, trim whitespace and others
+    const lowerCaseRemoveWhiteSpace = (word) => {
+        return word.toLowerCase().replace(/ /g,'')
+    }
 
     //Find if there is a matching value between the list proposed by the api and the value entered in the field by the user
-    const findMatchingValue = () => selectList.data.find(e => {return e[props.searchField] === selectTagRef.current.value});//[idField]
+    const findMatchingValue = () => selectList.data.find(e => {return lowerCaseRemoveWhiteSpace(e[props.searchField]) === lowerCaseRemoveWhiteSpace(selectTagRef.current.value);})//[idField]
+
 
     //Called whenever the user enter or modify a value into the field
     const formRequestData = (val) => {
@@ -84,12 +89,13 @@ const Select2 = ({name, formTools, children, single, ...props}) => {
             //Get the NEW matching value or set it to undefined
             matchingValue.current = findMatchingValue() || undefined;
 
+
             //If there is a matching value, then go forward
             if (matchingValue.current) {
 
                 //Make sure that the object is not already in the list to prevent duplicates
                 const isDuplicate = props.selectedEntities.some(item => {
-                    return item._id === matchingValue.current._id;
+                    return item[props.idField]._id === matchingValue.current._id;
                 });
 
                 if(!isDuplicate){
@@ -140,7 +146,15 @@ const Select2 = ({name, formTools, children, single, ...props}) => {
 
     //Handle ENTER to simulate a button press (add value)
     const handleKeypress = (e) => {
-        if (e.charCode === 13) {
+        if (
+            //Handle "ENTER" and ","
+            e.key === "Enter" || e.key === "," ||
+
+            //Handle click on suggestion (datalist) Although for sure not the best check
+            e.nativeEvent.composed === false
+            )
+        {
+            selectTagRef.current.value = selectTagRef.current.value.replace(",","");
             addValueToSelectedItem();
         }
     };
@@ -158,20 +172,10 @@ const Select2 = ({name, formTools, children, single, ...props}) => {
 
             }
             <div className={`
-                form-element 
-                form-element--color-validation 
+                form-element
+                form-element--color-validation
                 d-flex
             `}>
-
-                <Button 
-                    type="button" 
-                    slim="true" 
-                    disabled={!selectRequest.data[props.searchField]}
-                    onClick={addValueToSelectedItem}
-                    className="m-1 rounded-1">
-                        {/* Change arrow symbol : https://unicode-table.com/en/sets/arrow-symbols/ */}
-                        { single === "true" ? "⇅" : "+"}
-                </Button>
 
                 <div className="flex-grow-1 form-element--field-padding">
                 
@@ -188,8 +192,8 @@ const Select2 = ({name, formTools, children, single, ...props}) => {
                             border-0
                         `}
                         ref={selectTagRef}
-                        onChange={(e) => {formRequestData(e.target.value)}}
-                        onKeyPress={ (e) =>handleKeypress(e)}
+                        onChange={(e) => formRequestData(e.target.value)}
+                        onKeyUp={(e) => handleKeypress(e)}
                     />
 
                     <div className="w-100 d-flex">

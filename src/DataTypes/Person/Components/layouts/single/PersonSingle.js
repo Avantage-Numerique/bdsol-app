@@ -65,8 +65,8 @@ const PersonSingle = ({ data }) => {
             {
                 occupations &&
                 <SingleInfo
-                    title={"Comptétences"}
-                    NAMessage={<p>Information non disponible</p>}
+                    title={"Occupations"}
+                    NAMessage={<p>Aucune occupation spécifié</p>}
                 >
                     <SearchTag
                         className="row"
@@ -117,7 +117,7 @@ const PersonSingle = ({ data }) => {
             <SingleInfo title={"Projets"} />
 
             {
-                status && status.state &&
+                status?.state &&
                     <SingleInfo className={singleInfoCommonClass}
                         title="Statut de l'entité">
                         <p>{status.state === 'accepted' ? "Acceptée" : "En attente d'approbation"}</p>
@@ -137,11 +137,11 @@ const PersonSingle = ({ data }) => {
                         <li><span>Dernière modification : </span> {date_updatedAt.toLocaleDateString("fr-CA")}</li>
                     }
                     {
-                        status && status.requestedBy &&
+                        status?.requestedBy &&
                         <li><span>Créer par : </span> {status.requestedBy}</li>
                     }
                     {
-                        status && status.lastModifiedBy &&
+                        status?.lastModifiedBy &&
                         <li><span>Dernière modifications par : </span> {status.lastModifiedBy}</li>
                     }
 
