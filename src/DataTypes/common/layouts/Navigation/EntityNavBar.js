@@ -18,6 +18,7 @@ const EntityNavBar = (props) => {
         ModalMainImageForm,
         modalMainImageParams,
         modalMainImageControl,
+        showUpdateMenu
     } = props;
 
     const backUrl = "/";
@@ -30,6 +31,8 @@ const EntityNavBar = (props) => {
     const {displayModal, modal, closeModal, Modal} = useModal();
 
     const mainImageModalControl = modalMainImageControl ?? undefined;// ?? useModal()
+
+    const showMenu = showUpdateMenu !== undefined ? showUpdateMenu : true;
 
     const auth = useAuth();
 
@@ -46,7 +49,7 @@ const EntityNavBar = (props) => {
                             <a className="text-white" href={backUrl} title={lang.back}> &#8629; {lang.back}</a>
                         </div>
                     </div>
-                    {auth.user.isLoggedIn &&
+                    {auth.user.isLoggedIn && showMenu &&
                         <div className={"col-auto col-lg-6 d-flex justify-content-end"}>
                             {mainImageModalControl !== undefined &&
                                 <Button onClick={mainImageModalControl.displayModal} className={`btn btn-primary`}>

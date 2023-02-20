@@ -18,7 +18,8 @@ const Single = (props) => {
         aside,
         ModalForm,
         modalParams,
-        modalMainImageControl//Controlling the Image modal from outside single->entityNavBar.
+        modalMainImageControl,//Controlling the Image modal from outside single->entityNavBar.
+        showUpdateMenu
     } = props;
 
     const defaultMainImage = props.defaultMainImage ?? "/general_images/Dennis_Nedry.webp";
@@ -44,12 +45,15 @@ const Single = (props) => {
 
     const showAside = aside ?? false;
     const asideColWidthLg = 4;
+
     const mainContentColWidthLg = (12-asideColWidthLg);
     const asideColWidthSm = 6;
     const mainContentColWidthSm = (12-asideColWidthSm);
     const mainContentClass = showAside ? `col-${mainContentColWidthSm} col-lg-${mainContentColWidthLg}` : "";
     const mainContentContainerClass = showMainImageInHeader ? "single__main-section-with-profile-picture" : "single__main-section";
     const asideClass = `col-auto col-lg-${asideColWidthLg}`;
+
+    const showMenu = showUpdateMenu !== undefined ? showUpdateMenu : true;
 
     const auth = useAuth();
 
@@ -69,6 +73,7 @@ const Single = (props) => {
                     ModalForm={ModalForm}
                     modalParams={modalParams}
                     modalMainImageControl={modalMainImageControl}
+                    showUpdateMenu={showMenu}
                 />
 
                 {/* Header's content */}
