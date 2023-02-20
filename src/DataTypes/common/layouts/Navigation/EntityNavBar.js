@@ -5,7 +5,7 @@ import {useModal} from "@/src/hooks/useModal/useModal";
 import Router from "next/router";
 import {useAuth} from "@/auth/context/auth-context";
 import CreateMediaForm from "@/DataTypes/Media/components/forms/CreateMedia/CreateMediaForm";
-import style from "./EntityNavBar.module.scss";
+//import style from "./EntityNavBar.module.scss";
 
 const EntityNavBar = (props) => {
 
@@ -18,6 +18,7 @@ const EntityNavBar = (props) => {
         ModalMainImageForm,
         modalMainImageParams,
         modalMainImageControl,
+        showUpdateMenu
     } = props;
 
     const backUrl = "/";
@@ -29,7 +30,9 @@ const EntityNavBar = (props) => {
 
     const {displayModal, modal, closeModal, Modal} = useModal();
 
-    const mainImageModalControl = modalMainImageControl;// ?? useModal()
+    const mainImageModalControl = modalMainImageControl ?? undefined;// ?? useModal()
+
+    const showMenu = showUpdateMenu !== undefined ? showUpdateMenu : true;
 
     const auth = useAuth();
 
@@ -46,12 +49,13 @@ const EntityNavBar = (props) => {
                             <a className="text-white" href={backUrl} title={lang.back}> &#8629; {lang.back}</a>
                         </div>
                     </div>
-                    {auth.user.isLoggedIn &&
+                    {auth.user.isLoggedIn && showMenu &&
                         <div className={"col-auto col-lg-6 d-flex justify-content-end"}>
-                            {/* Appearing button on mouse over to propose to the user to change the image */}
-                            <Button onClick={mainImageModalControl.displayModal} className={`btn btn-primary`}>
-                                <img src={"/icones/edit-icon.svg"} alt={"Changer l'image"} /> Modifier l'image
-                            </Button>
+                            {mainImageModalControl !== undefined &&
+                                <Button onClick={mainImageModalControl.displayModal} className={`btn btn-primary`}>
+                                    <img src={"/icones/edit-icon.svg"} alt={"Changer l'image"}/> Modifier l'image
+                                </Button>
+                            }
                             <Button onClick={displayUpdateForm}>
                                 {lang.proposeContentChangeLabel}
                             </Button>
@@ -91,7 +95,7 @@ const EntityNavBar = (props) => {
 
             {/******** Img Modal Display *********/}
             {
-                mainImageModalControl.modal.display &&
+                mainImageModalControl && mainImageModalControl.modal.display &&
                 <Modal
                     coloredBackground
                     darkColorButton
@@ -107,9 +111,8 @@ const EntityNavBar = (props) => {
                         positiveRequestActions={{
                             //CallbackFunction is one of the four behaviors the useFormUtils hook can apply when a request return a positive answer
                             callbackFunction: requestResponse => {
-
                                 //Reflect the changes
-                                Router.push(`${closingModalBaseURI}${requestResponse.data.slug}`);
+                                Router.push(`${closingModalBaseURI}${entity.slug}`);
 
                                 //Close the modal
                                 mainImageModalControl.closeModal();

@@ -84,7 +84,7 @@
 
                 position: relative;
 
-                .headers-content__profil-picture {
+                .headers-content__main-image {
                     height: var(--picture-size);
                     width: var(--picture-size);
                     top: 40%;
@@ -94,7 +94,7 @@
                     overflow: hidden;
 
                     img {
-                        width: 100%;
+                        width: auto;
                         height: 100%;
                     }
                 }
@@ -110,7 +110,7 @@
 
                     img {
                         width: 100%;
-                        height: 100%;
+                        height: auto;
                     }
                 }
             }

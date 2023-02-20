@@ -85,6 +85,7 @@ const SingleMediaView = ({ data }) => {
             modalComponent={modalComponent}
             showCTA={false}
             showMainImageInHeader={false}
+            showUpdateMenu={false}
             mainImageClass={"header-content__media-preview"}
         >
 

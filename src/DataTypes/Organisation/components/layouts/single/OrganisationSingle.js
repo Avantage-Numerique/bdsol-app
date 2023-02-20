@@ -50,7 +50,7 @@ const OrganisationSimple = ({ data }) => {
     const headerMainContent = (
         <div className={`${styles["quick-section"]}`}>
             <h2 className="mb-2">{name}</h2>
-            <p className="small w-100 my-0"><span>Date de fondation : </span> {date_fondationDate.toLocaleDateString("fr-CA")}</p>
+            <p className="small w-100 my-0"><span>{lang.fondationDate+lang.colon}</span> {date_fondationDate.toLocaleDateString("fr-CA")}</p>
         </div>
     );
 
@@ -64,11 +64,10 @@ const OrganisationSimple = ({ data }) => {
                 </section>
             }
             <section className={"border-bottom"}>
-                <h4 className="h5 my-3">Membre(s) de l'organisation</h4>
-                { team && team.length > 0 &&
+                <h4 className="h5 my-3">{lang.teamMembers}</h4>
+                { team?.length > 0 ?
                     <ul className="d-flex flex-wrap gap-2">
                         {
-                            team &&
                             team.map(elem => (
                                 <li key={elem.member._id} className="border p-1 rounded-1 small">
                                     {elem.member.firstName} {elem.member.lastName}
@@ -76,12 +75,11 @@ const OrganisationSimple = ({ data }) => {
                             ))
                         }
                     </ul>
-                }
-                {
-                    (!team || team.length === 0) &&
-                    <p className="small">Personne n'est inscrit comme membre de l'organisation de cette organisation.</p>
+                    :
+                    <p className="small">{lang.noTeamMemberSetMessage}</p>
                 }
             </section>
+
             {/******** Display of the offer's list **********/}
             { offers?.length > 0 &&
                 <section className="mt-4">
@@ -101,7 +99,9 @@ const OrganisationSimple = ({ data }) => {
             }
         </>
     );
+
     const singleInfoCommonClass = "border-bottom py-4";
+
     return (
         <Single
             className={`single ${styles["organisation-view"]}`}
@@ -125,8 +125,6 @@ const OrganisationSimple = ({ data }) => {
                     </SanitizedInnerHtml>
                 </SingleInfo>
             }
-
-
             {
                 (date_createdAt || date_updatedAt || status) &&
                 <SingleInfo className={singleInfoCommonClass} title={lang.modificationHistory}>
