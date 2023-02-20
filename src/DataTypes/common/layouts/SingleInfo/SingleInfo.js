@@ -14,4 +14,4 @@ const SingleInfo = ({ title, NAMessage, children }) => {
         </section>
     )
 }
-export {SingleInfo};
+export default SingleInfo

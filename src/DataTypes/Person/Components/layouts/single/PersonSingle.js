@@ -1,18 +1,24 @@
-import React, { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 //Components
-import SanitizedInnerHtml from '@/src/utils/SanitizedInnerHtml';
 import UpdatePersonForm from '@/DataTypes/Person/Components/Forms/update/UpdatePersonForm';
-import { useEffect } from 'react';
-import {useHttpClient} from '@/src/hooks/http-hook';
 
 //Styling
 import styles from './PersonSingle.module.scss'
-import {lang} from "@/common/Data/GlobalConstants";
 import SearchTag from '@/src/common/Components/SearchTag';
 import Single from "@/DataTypes/common/layouts/single/Single";
-import {SingleInfo} from "@/DataTypes/common/layouts/SingleInfo/SingleInfo";
+import SingleInfo from "@/DataTypes/common/layouts/SingleInfo/SingleInfo";
+
+//Hooks
 import {useModal} from "@/src/hooks/useModal/useModal";
+import {useHttpClient} from '@/src/hooks/http-hook';
+
+//Utils
+import SanitizedInnerHtml from '@/src/utils/SanitizedInnerHtml';
+import {lang} from "@/common/Data/GlobalConstants";
+
+
+
 
 
 const PersonSingle = ({ data }) => {
