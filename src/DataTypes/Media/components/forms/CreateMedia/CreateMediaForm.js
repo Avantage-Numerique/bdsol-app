@@ -17,7 +17,13 @@ import { useAuth } from "@/src/authentification/context/auth-context";
 import { MessageContext } from '@/src/common/UserNotifications/Message/Context/Message-Context'
 
 
-const CreateMediaForm = ( {initValues, positiveRequestActions} ) => {
+const CreateMediaForm = (props) => {
+
+    const {
+        initValues,
+        positiveRequestActions,
+        entity
+    } = props;
 
     //Authentication ref
     const auth = useAuth();
@@ -46,8 +52,7 @@ const CreateMediaForm = ( {initValues, positiveRequestActions} ) => {
             description: {
                 value: '',
                 isValid:  true
-            },
-
+            }
         },
         //Pass a set of rules to execute a valid response of an api request
         positiveRequestActions || {
@@ -64,19 +69,21 @@ const CreateMediaForm = ( {initValues, positiveRequestActions} ) => {
     //Fetch licence list on load
     useEffect(() => {
         const fetchLicences = async() => {
+
             //Send the request with the specialized hook
             const response = await sendRequest (
                 '/static/licences/',
                 'GET',
                 null
-            )
+            );
+
             //If response is positive, update the state and pass the result to the select input
-            if(!response.error){
-                console.log(response.data)
+            if(!response.error) {
                 const arrayOfLicences = Object.values(response.data);
                 const options = arrayOfLicences.map(obj => ({label: obj.label, value: obj.label, disabled: false}));
                 setLicences(options);
-            } else{
+
+            } else {
                 //If negative, for now, inform the user
                 msg.addMessage({ 
                     text: "Une erreur est survenue et la liste des licences n'a pas pu être chargée.",
@@ -91,24 +98,21 @@ const CreateMediaForm = ( {initValues, positiveRequestActions} ) => {
     const submitHandler = async event => { 
 
             event.preventDefault();
-            console.log(formState.inputs.mainImage.value)
             /*
-    
                 CODE TO REPRODUCE INTO THE RIGHT UI
                 Upload a media file will be seperate from the creation of an account
-    
             */
 
             let  rawFromData = new FormData();
 
             const formData = {
-                "title": "allo",
-                "alt": "picasso",
+                "title": entity.name ?? "allo",
+                "alt": entity.name ?? "picasso",
                 "description": formState.inputs.description.value,
                 "licence":  "Public Domain (CC0)",
-                "fileType":"image",
+                "fileType": "image",
                 "mediaField": "mainImage",
-                "entityType": "persons",
+                "entityType": entity.type+"s",
                 "entityId": formState.inputs.entityId.value,
                 "status": {
                     "state": "pending",

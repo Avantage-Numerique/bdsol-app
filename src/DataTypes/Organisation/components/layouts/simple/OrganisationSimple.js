@@ -25,6 +25,7 @@ const OrganisationSimple = ({ data }) => {
         name,
         offers,
         slug,
+        mainImage,
         //status,
         //team,
         //url,
@@ -35,8 +36,8 @@ const OrganisationSimple = ({ data }) => {
     const type = lang.Occupation;//"Organisation";
 
     const defaultOrgAvatar = '/general_images/Jurassic_Park_Main_Gate.jpg';
+    const mainImageAbsoluteUrl = mainImage?.url ? process.env.NEXT_PUBLIC_API_URL + mainImage.url : defaultOrgAvatar;
 
-    
     return (
         <Simple className={`${styles["org-simple"]}`}>
 
@@ -45,7 +46,7 @@ const OrganisationSimple = ({ data }) => {
                 <a href={link} title={name} className={"position-absolute w-100 h-100"} target={"_self"} rel={"follow"}>
                     <img
                         className={`position-absolute w-100 h-100 ${styles["org-img"]}`}
-                        src={defaultOrgAvatar}
+                        src={mainImageAbsoluteUrl}
                         alt={`${type} : ${name}`}
                     />
                 </a>
