@@ -30,18 +30,19 @@ const PersonRoleTemplate = (props) => {
     };
 
     const [personList, setPersonList] = useState(props.personList || []);
-    const [templateReturnObjet, setTemplateReturnObject] = useState({
-                                                                keyValue:props.keyValue,
-                                                                role:{
-                                                                    "group":"",
-                                                                    "title":""
-                                                                },
-                                                                status: {
-                                                                    state: "pending",
-                                                                    lastModifiedBy: auth.user.id,
-                                                                    requestedBy: auth.user.id
-                                                                }
-                                                            });
+    const [templateReturnObjet, setTemplateReturnObject] = useState(
+    {
+        keyValue:props.keyValue,
+        role:{
+            "group":"",
+            "title":""
+        },
+        status: {
+            state: "pending",
+            lastModifiedBy: auth.user.id,
+            requestedBy: auth.user.id
+        }
+    });
 
     useEffect( () => {
         //Merge the member id into the state, without removing the role (group, title)

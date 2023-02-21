@@ -94,7 +94,12 @@ const Select2 = ({name, formTools, children, single, ...props}) => {
 
                 //Make sure that the object is not already in the list to prevent duplicates
                 const isDuplicate = props.selectedEntities.some(item => {
-                    return item[props.idField]._id === matchingValue.current._id;
+                    if(props.idField)
+                        return item[props.idField]._id === matchingValue.current._id;
+                    
+                    //Allow objects that have _id not embedded
+                    else
+                        return item._id === matchingValue.current._id
                 });
 
                 if(!isDuplicate){
