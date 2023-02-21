@@ -56,8 +56,12 @@ const RichTextarea = ({name, formTools, ...props}) => {
                 <label htmlFor={name}>    
                     {props.label}
                 </label>
-
-            } 
+            }
+            {props.labelNote &&
+                <blockquote>
+                * Note : {props.labelNote}
+                </blockquote>
+            }
 
             <div className={` ${styles["rich-textarea__quill"]} `} > 
                 

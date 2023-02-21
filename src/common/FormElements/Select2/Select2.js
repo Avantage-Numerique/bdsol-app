@@ -13,7 +13,6 @@ import useDebounce from '@/src/hooks/useDebounce'
 
 //Styling
 import styles from './Select2.module.scss'
-import Button from '@/FormElements/Button/Button';
 
 /*
 Props :
@@ -121,6 +120,7 @@ const Select2 = ({name, formTools, children, single, ...props}) => {
                         text: "La valeur que vous essayez d'ajouter est déjà dans la liste de vos choix.",
                         positive: false 
                     })
+                    resetSelectComponent();
                 }
             }
             //No matching Value displays message it's not a taxonomy

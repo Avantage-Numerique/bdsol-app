@@ -155,8 +155,9 @@ const CreateTaxonomyForm = ({name, category, positiveRequestActions}) => {
 
                 <RichTextarea
                     name="status.message"
-                    label="Dites nous en quelques mots la raison de l'ajout"
-                    placeholder="Il s'agit du titre de mon métier [...]"
+                    label="Dites nous en quelques mots la raison de l'ajout de cette taxonomie"
+                    labelNote="Cette information restera privée. Elle nous permet seulement de mieux comprendre la demande d'ajout."
+                    placeholder="Je préfère cette appellation pour décrire mon activité professionnelle plutôt qu'une autre [...]"
                     formTools={formTools}
                 />
 

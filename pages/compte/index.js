@@ -61,11 +61,13 @@ const accountPage = ({ user }) => {
                                     <Button size="slim" classes="mt-1 mb-1" key="historique" onClick={() => setLeftMenu("history")}>Historique de modification</Button>
                                     <Button size="slim" classes="mt-1 mb-1" key="help" onClick={() => setLeftMenu("help")}>Aide</Button>
                                     <Button size="slim" color="white" outline="danger" classes="mt-1 mb-1" key="logout" onClick={logout}>Se déconnecter</Button>
+                                    <Button href={"/contribuer"} className={"btn-block"} external>Contribuer à la base de donnée</Button>
+
                                 </div>
                             </div>
                         )}
                     </aside>
-                    <div className="col col-sm-9">
+                    <div className="col col-sm-9 border">
                         <div className={"account-page-content"}>
                             {leftMenu === "history" && <UserHistoryGrid/>}
                             {leftMenu === "preferences" && <Preferences/>}

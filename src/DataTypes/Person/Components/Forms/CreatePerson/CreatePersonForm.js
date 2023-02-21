@@ -40,7 +40,7 @@ const CreatePersonForm = () => {
             }, 
             nickName: {
                 value: '',
-                isValid: false
+                isValid: true
             },
             description: {
                 value: '',
@@ -79,84 +79,18 @@ const CreatePersonForm = () => {
             }
         };
 
-        /*
-
-            CODE TO REPRODUCE INTO THE RIGHT UI
-            Upload a media file will be seperate from the creation of an account
-
-        */
-
-        /*
-
-        const rawFromData = new FormData();
-        const formData = {
-            "lastName": formState.inputs.lastName.value,
-            "firstName":  formState.inputs.firstName.value,
-            "nickname": formState.inputs.nickName.value,
-            "description": formState.inputs.description.value,
-            "occupations": formState.inputs.occupations.value,
-            "status": {
-                "state": "pending",
-                "requestedBy": auth.user.id,
-                "lastModifiedBy": auth.user.id
-            },
-            "media": {
-                "title": "allo",
-                "alt": "picasso",
-                "description": "une patate",
-                "path": "toDetermine",
-                "licence": "Public Domain (CC0)",
-                "fileType": "image",
-            }
-            //Hardcoded status to send at creation (Temporary, until we moderate it with the API)
-        };
-        rawFromData.append("mainImage", formState.inputs.mainImage.value);
-        rawFromData.append("data", JSON.stringify(formData));
-
-        //rawFromData.append('data', JSON.stringify(formData));
-        //rawFromData.append('mainImage', formState.inputs.mainImage.value);
-
-        */
-        //Send the request with the specialized hook
-        /*
-        await submitRequest(
-            "/persons/create",
-            'POST',
-            formData,
-            {
-                //'Content-Type': 'multipart/form-data',
-                'Accept': 'application/json'
-            },
-            {
-                isBodyJson: false
-            }
-        );
-        */
        await submitRequest(
             "/persons/create",
             'POST',
-            JSON.stringify(formData)   //Temporary fix
+            JSON.stringify(formData)
         );
     }
-
-    /*
-        Categorie : nom de la taxonomie
-        Name : Filtre à appliquer
-    */
-    const occupationSelectRequestData = {
-        "data": {
-            "category": "occupations",
-            "name": ""
-        }
-    };
-
 
     return (
         <>
             <form 
                 onSubmit={submitHandler} 
                 className={`${styles["create-person-form"]}`}
-                encType='multipart/form-data'
             >
 
                 <FormUI />
@@ -183,9 +117,6 @@ const CreatePersonForm = () => {
                 <Input  
                     name="nickName"
                     label="Surnom"
-                    validationRules={[
-                        {name: "REQUIRED"}
-                    ]}
                     formTools={formTools}
                 />
                 
@@ -194,18 +125,6 @@ const CreatePersonForm = () => {
                     label="Biographie / description"
                     formTools={formTools}
                 />
-
-                {/* 
-                <FileInput
-                    name="mainImage"
-                    label="Image principale"
-                    accept="image/*"
-                    formTools={formTools}
-                    validationRules={[
-                        {name: "FILE_MAX_SIZE", specification: 2}
-                    ]}
-                />
-                */}
 
                 <TaxonomySelectTagListTemplate
                     tag="occupations"
