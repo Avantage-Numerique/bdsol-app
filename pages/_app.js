@@ -12,7 +12,7 @@ import '@/styles/main.scss';
 import {verifyToken} from "@/auth/callbacks/verify-token.callback";
 
 // Extends basic Javascript for the project.
-require("@/src/helpers/ExtendedString");
+import "@/src/helpers/ExtendedString";
 
 function MyApp({Component, pageProps, user}) {
 
