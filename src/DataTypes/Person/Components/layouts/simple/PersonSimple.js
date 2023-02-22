@@ -32,13 +32,13 @@ const PersonSimple = ({ data }) => {
 
     let fullImagePath;
     if(mainImage)
-        fullImagePath = process.env.NEXT_PUBLIC_API_URL +  "/medias/persons/" + _id + "/" + mainImage.fileName + "." + mainImage.extension;
+        fullImagePath = process.env.NEXT_PUBLIC_API_URL +  mainImage.url;
 
     const imageUrl = mainImage ? fullImagePath : "/general_images/Dennis_Nedry.webp";
     const imageAlt = mainImage ? mainImage.alt : `Photo de profil de l'utilisateur ${firstName} ${lastName}`;
 
     const link = `/persons/${slug}`;
-    const type = lang.Personne;//"Organisation";
+    const type = lang.Personne;//"Personne";
     const name = `${firstName} ${lastName}`;
 
     return (

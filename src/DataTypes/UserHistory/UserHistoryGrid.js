@@ -6,7 +6,6 @@ import {useHttpClient} from '@/src/hooks/http-hook'
 import {useAuth} from '@/src/authentification/context/auth-context'
 
 //Styling
-import styles from './UserHistoryGrid.module.scss'
 import Button from "@/src/common/FormElements/Button/Button";
 
 
@@ -30,7 +29,7 @@ const UserHistoryGrid = () => {
     useEffect(() => {
         const getUsersHistory = async () => {
             const usersHistory =  await sendRequest(
-                "/userhistory/list",
+                "/userhistories/list",
                 'POST',
                 JSON.stringify(formData),
                 { 'Content-Type': 'application/json' }

@@ -112,7 +112,7 @@ const CreateMediaForm = (props) => {
                 "licence":  "Public Domain (CC0)",
                 "fileType": "image",
                 "mediaField": "mainImage",
-                "entityType": entity.type+"s",
+                "entityType": entity.type,
                 "entityId": formState.inputs.entityId.value,
                 "status": {
                     "state": "pending",

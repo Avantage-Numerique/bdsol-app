@@ -22,7 +22,7 @@ const EntityNavBar = (props) => {
     } = props;
 
     const backUrl = "/";
-    const type = entity.type ?? "persons";
+    const type = entity.type ?? "person";
     const closingModalBaseURI = `/${type.toLowerCase()}s/`;
 
     const modalParameters = modalParams ?? {};
