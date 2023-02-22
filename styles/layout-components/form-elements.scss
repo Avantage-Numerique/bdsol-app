@@ -54,9 +54,9 @@
                 display: none;
                     
                 .badge-container__badge {
-                        --badge--color: rgba(87, 87, 87, 0.822);
-                        --badge--bg-color: rgba(218, 218, 218, 0.336);
-                        --badge--border-color: rgba(170, 170, 170, 0.623);
+                        --badge--color: rgb(103, 103, 103);
+                        --badge--bg-color: rgb(241, 241, 241);
+                        --badge--border-color: rgb(179, 179, 179);
                         
                         
                         background-color: var(--badge--bg-color);
@@ -67,10 +67,9 @@
                         
                         /* Variables BOOTSTRAP to define */
                         &.badge--validation-succes {
-
-                                --badge--color: #364637c1;
-                                --badge--bg-color: #adc9b07e;
-                                --badge--border-color: #7ba07681;
+                                --badge--color: rgb(54, 70, 55);
+                                --badge--bg-color:  rgb(192, 216, 194);
+                                --badge--border-color:  rgb(155, 173, 155);
                         }       
                 }
         }

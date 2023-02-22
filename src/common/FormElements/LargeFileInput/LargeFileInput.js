@@ -99,8 +99,7 @@ const LargeFileInput = ( props ) => {
                 form-element
                 form-element--color-validation
                 h-100
-                d-flex
-                flex-column
+                overflow-hidden
                 ${styles["input-component__field-container"]}
                 ${!currentState.isValid && currentState.isTouched && "control--invalid"}
             `}>
@@ -108,13 +107,13 @@ const LargeFileInput = ( props ) => {
                 <div 
                     className={`
                         w-100 
+                        h-100
                         border-0 
                         form-element--field-padding
                         d-flex 
                         align-items-center 
-                        gap-3
-                        flex-grow-1
                         ${styles["input-ui"]}
+                        p-0
                     `}
                     onBlur={() => inputTouched(name)}
                     tabIndex="0"
@@ -123,34 +122,65 @@ const LargeFileInput = ( props ) => {
                     <button 
                         type="button"
                         className="
+                            position-relative
                             w-100
                             h-100
-                            d-flex 
-                            p-4
-                            justify-content-center
-                            flex-column                        
-                            align-items-center 
                         "
                         //When the user click on the Ui button, this trigger a click on the real one to
                         onClick={() => fieldRef.current.click()}   
                     >
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21.75 21">
-                                <polyline points="5.25 10 1.5 10 1.5 19.5 20.25 19.5 20.25 10 16.5 10" fill="none" stroke="#000" strokeLinecap="round" strokeLinejoin="round" strokeWidth="3"/>
-                                <polyline points="6.87 5.5 10.87 1.5 14.87 5.5 10.87 1.5 10.87 15" fill="none" stroke="#000" strokeLinecap="round" strokeLinejoin="round" strokeWidth="3"/>
-                        </svg>
 
-                        {/* Display of the selected file */}
+                        {/* Field that holds a current image or one to be uploaded */}
+                        {   currentState.value &&
+                            <figure className={`
+                                position-absolute 
+                                top-0
+                                start-0
+                                w-100
+                                h-100
+                                m-0
+                                ${styles["input-ui__img-container"]}
+                            `}>
+                                <img 
+                                    src={URL.createObjectURL(currentState.value)} alt="Aperçu de la photo à téléverser" />
+                            </figure>
+                        }
+
+                        {/* Field informations displayed over an image if there is */}
                         <div 
-                            dir="rtl"
                             className={`
-                                fs-6
-                                mt-2
-                                ${styles["input-ui__file-name"]}`}
+                                position-absolute
+                                w-100
+                                h-100
+                                top-0
+                                start-0
+                                d-flex 
+                                justify-content-center
+                                flex-column                        
+                                align-items-center
+                                ${styles["input-ui__over-img-content"]} 
+                            `}
                         >
-                            {currentState.value?.name ? currentState.value.name : "Aucun fichier n'est sélectionné"}
-                        </div>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21.75 21">
+                                    <polyline points="5.25 10 1.5 10 1.5 19.5 20.25 19.5 20.25 10 16.5 10" fill="none" stroke="#000" strokeLinecap="round" strokeLinejoin="round" strokeWidth="3"/>
+                                    <polyline points="6.87 5.5 10.87 1.5 14.87 5.5 10.87 1.5 10.87 15" fill="none" stroke="#000" strokeLinecap="round" strokeLinejoin="round" strokeWidth="3"/>
+                            </svg>
+
+                            {/* Display of the selected file */}
+                            <div 
+                                dir="rtl"
+                                className={`
+                                    fs-6
+                                    m-2
+                                    ${styles["input-ui__file-name"]}`}
+                            >
+                                { !currentState.value?.name && "Sélectionnez un fichier"}
+                            </div>
+                            <div className={`px-1 ${styles["input-ui__RequirementsBadges-container"]}`}>
+                                <RequirementsBadges alwaysDisplay /> 
+                            </div>
+                        </div>                    
                     </button>
-                    
                 </div>
 
                 {/* Real input used for its fonctionalities */}
@@ -162,8 +192,6 @@ const LargeFileInput = ( props ) => {
                     type="file"
                     onChange={updateValue}
                 /> 
-
-                <RequirementsBadges addUlPadding /> 
             </div>
 
             <div className="validation-error-messages-container">
