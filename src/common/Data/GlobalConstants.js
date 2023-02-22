@@ -5,3 +5,5 @@ import StringDictionary from "@/src/languages/StringDictionary";
  */
 
 export const lang = StringDictionary.getInstance("base");
+
+export const now = new Date();

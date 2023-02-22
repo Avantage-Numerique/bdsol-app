@@ -2,6 +2,7 @@
     Footer section at the bottom of every pages
 */
 import styles from './Footer.module.scss'
+import {now} from "@/common/Data/GlobalConstants";
 
 
 const Footer = () => {
@@ -25,16 +26,16 @@ const Footer = () => {
                             <h3>Nos partenaires</h3>
                             <ul className={`${styles.partnersLogos}`}>
                                 <li>
-                                    <a href="https://ccat.qc.ca/"><img alt="Logo du conseil de la culture de l'Abitibi-Témiscamingue" src="\Conseil-de-la-culture-de-lAbitibi-Témiscamingue_logo.svg"/></a>
+                                    <a href="https://ccat.qc.ca/"><img alt="Logo du conseil de la culture de l'Abitibi-Témiscamingue" src="/Conseil-de-la-culture-de-lAbitibi-Témiscamingue_logo.svg"/></a>
                                 </li>
                                 <li>
                                     <a href="https://www.uqat.ca/"><img alt="Logo de l'Université du Québec en Abitibi-Témiscamingue - UQAT" src="/UQAT_logo_NB.svg"/></a>
                                 </li>
                                 <li>
-                                    <a href="https://www.petittheatre.org/"><img alt="Logo du Petit Théâtre du Vieux Noranda" src="\Le-Petit-Théâtre_logo.svg"/></a>
+                                    <a href="https://www.petittheatre.org/"><img alt="Logo du Petit Théâtre du Vieux Noranda" src="/Le-Petit-Théâtre_logo.svg"/></a>
                                 </li>
                                 <li>
-                                    <a href="https://avantagenumerique.org/"><img alt="Logo de l'Administration régionale Baie-James" src="\arbj_logo_BLANC_logo.png"/></a>
+                                    <a href="https://avantagenumerique.org/"><img alt="Logo de l'Administration régionale Baie-James" src="/arbj_logo_BLANC_logo.png"/></a>
                                 </li>
                             </ul>
                         </section>
@@ -64,7 +65,7 @@ const Footer = () => {
                                 <a href="https://avantagenumerique.org/">
                                     <img alt="Logo avantage numérique" src="/logo.svg" />
                                 </a> 
-                                <span className={styles.creditYear}>&copy; 2021</span>
+                                <span className={styles.creditYear}>&copy; {now.getFullYear()}</span>
                             </small>
                             
                             {/* BUtton to scroll to the top */}
