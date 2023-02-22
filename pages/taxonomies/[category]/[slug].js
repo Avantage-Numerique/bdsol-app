@@ -1,9 +1,13 @@
 import { externalApiRequest } from '@/src/hooks/http-hook';
 import PersonSimple from '@/DataTypes/Person/Components/layouts/simple/PersonSimple'
 import OrganisationSimple from '@/DataTypes/Organisation/components/layouts/simple/OrganisationSimple'
+import PageHeader from "@/layouts/Header/PageHeader";
+import React from "react";
 
 
 const TaxonomiesSinglePage = (props) => {
+
+    const {data, taxonomy} = props;
     //console.log("Router.query", window.location.pathname.split("/").pop())
 
     const gridComponenents = new Map();
@@ -12,12 +16,24 @@ const TaxonomiesSinglePage = (props) => {
 
     return (
         <div>
-            <a href='/taxonomies'>Retour à la liste des taxonomies</a>
+            <PageHeader
+                bg={"bg-purplelight"}
+                textColor={"text-white"}
+                htmlTitle={taxonomy.category.capitalize() + " &mdash; " + taxonomy.name}
+                subTitle={taxonomy.description}
+                description=""
+            >
+                <p className={"pt-4"}>
+                    <a href='/taxonomies' className={"btn btn-outline-light"}>Retour à la liste des taxonomies</a>
+                </p>
+            </PageHeader>
+
+
             <div className="row home-page__feed-section--container row-cols-1 row-cols-sm-2 row-cols-xl-3">
 
                 {
-                    props.data?.length > 0 ?
-                    props.data.map((elem, index) => {
+                    data?.length > 0 ?
+                    data.map((elem, index) => {
                         let TargetSimpleComponent = gridComponenents.get(elem.type);
                         TargetSimpleComponent = TargetSimpleComponent ?? OrganisationSimple;
                         return (
@@ -52,17 +68,57 @@ const TaxonomiesSinglePage = (props) => {
 }
 export default TaxonomiesSinglePage;
 
-//export const getServerSideProps = withSessionSsr(getEntitiesLinkedWithTaxonomy);
 
-export async function getServerSideProps(context) {
-    const { slug, category } = context.query;
+export async function getStaticPaths() {
 
-    const response = await externalApiRequest(
+    const taxonomies = await externalApiRequest(
+        `/taxonomies/list`,
+        {
+            method: 'GET',
+        });
+
+    if (taxonomies.data.length > 0) {
+
+        const paths = taxonomies.data.map((tax) => {
+            return {
+                params: {
+                    category: tax.category,
+                    slug: tax.slug,
+                },
+            };
+        });
+
+        return {
+            paths: paths,
+            fallback: false
+        }
+    }
+
+    return {
+        paths: [],
+        fallback: false
+    }
+
+}
+
+export async function getStaticProps(context) {
+    const { slug, category } = context.params;
+
+    const entities = await externalApiRequest(
         `/search/${category}/${slug}`,
         {
             method: 'GET',
         });
 
-    return { props: {data:response.data} };
+    const taxonomy = await externalApiRequest(
+        `/taxonomies/${category}/${slug}`,
+        {
+            method: 'GET',
+        });
+
+    return { props: {
+        taxonomy: taxonomy.data,
+        data: entities.data
+    } };
 }
 
