@@ -123,7 +123,7 @@ export const useValidation = ( setOfRules ) => {
             <>
                 {/* At least one validator to */}
                 { rulesNameList.length > 0 && 
-                <ul className={`mb-0 ${props.addUlPadding && "form-element--field-padding-top-reverse"} badge-container`}>
+                <ul className={`mb-0 ${props.addUlPadding && "form-element--field-padding-top-reverse"} ${props.alwaysDisplay && "d-flex"} badge-container`}>
                     { rulesNameList.map(ruleName => (
                         <li 
                             title={`${validator[ruleName].message}`}
