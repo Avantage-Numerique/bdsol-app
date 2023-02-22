@@ -69,6 +69,7 @@ const PersonSimple = ({ data }) => {
                         {/* Display the three first occupations, then three dots to reprensent that there are others */}
                             <SearchTag
                             className="row"
+                            max={3}
                             list={
                                 occupations.map( (entity) => {
                                     return {
