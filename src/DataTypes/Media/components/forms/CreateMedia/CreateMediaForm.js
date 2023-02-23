@@ -41,11 +41,11 @@ const CreateMediaForm = (props) => {
     const {FormUI, submitRequest, formState, formTools} = useFormUtils(
         {
             entityId: {
-                value: initValues._id,
+                value: entity._id,
                 isValid: true
             },
             mainImage: {
-                value: mainImageUrl ?? "",
+                value: "",
                 isValid: true
             },
             licence: {
