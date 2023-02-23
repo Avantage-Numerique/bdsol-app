@@ -51,11 +51,6 @@ const EntityNavBar = (props) => {
                     </div>
                     {auth.user.isLoggedIn && showMenu &&
                         <div className={"col-auto col-lg-6 d-flex justify-content-end"}>
-                            {mainImageModalControl !== undefined &&
-                                <Button onClick={mainImageModalControl.displayModal} className={`btn btn-primary`}>
-                                    <img src={"/icones/edit-icon.svg"} alt={"Changer l'image"}/> Modifier l'image
-                                </Button>
-                            }
                             <Button onClick={displayUpdateForm}>
                                 {lang.proposeContentChangeLabel}
                             </Button>
