@@ -102,7 +102,7 @@ const EntityNavBar = (props) => {
                     {/* Separation line */}
                     <div className="border-bottom w-100 my-2"></div>
                     <CreateMediaForm
-                        initValues={entity}
+                        initValues={entity.mainImage}
                         entity={entity}
                         positiveRequestActions={{
                             //CallbackFunction is one of the four behaviors the useFormUtils hook can apply when a request return a positive answer

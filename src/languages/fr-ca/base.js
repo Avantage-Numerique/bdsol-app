@@ -88,10 +88,10 @@ export const base = {
 
     //  Personnes
 
-    "Personne": "Personne",
-    "Personnes": "Personnes",
-    "personne": "personne",
-    "personnes": "personnes",
+    "Person": "Personne",
+    "Persons": "Personnes",
+    "person": "personne",
+    "persons": "personnes",
     "url": "url",
     "urlLabel": "Url&nbsp;:&nbsp;",
     "contact": "contact",

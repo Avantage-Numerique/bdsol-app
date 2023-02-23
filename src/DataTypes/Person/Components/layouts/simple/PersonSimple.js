@@ -38,7 +38,7 @@ const PersonSimple = ({ data }) => {
     const imageAlt = mainImage ? mainImage.alt : `Photo de profil de l'utilisateur ${firstName} ${lastName}`;
 
     const link = `/persons/${slug}`;
-    const type = lang.Personne;//"Personne";
+    const type = lang.Person;
     const name = `${firstName} ${lastName}`;
 
     return (

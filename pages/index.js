@@ -243,7 +243,7 @@ const HomePage = ({}) => {
                                         size="slim" 
                                         color="primary"
                                         slim>
-                                    Personne</Button>
+                                        {lang.Persons}</Button>
                                     <Button
                                         color="primary"
                                         size="slim"
@@ -257,7 +257,7 @@ const HomePage = ({}) => {
                                         href="/organisations/"
                                         color="primary" 
                                         size="slim" 
-                                    >Organisation</Button>
+                                    >{lang.Organisations}</Button>
                                     <Button
                                         color="primary"
                                         size="slim"
@@ -267,7 +267,7 @@ const HomePage = ({}) => {
                                 </div>
 
                                 <div className={"db-edit-options__button-set"}>
-                                    <Button color="primary" size="slim" disabled>Taxonomie</Button>
+                                    <Button href="/taxonomies" color="primary" size="slim">Catégories</Button>
                                     <Button
                                         color="primary"
                                         size="slim"

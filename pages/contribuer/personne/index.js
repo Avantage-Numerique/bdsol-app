@@ -15,7 +15,7 @@ const CreatePersonPage = () => {
         <SingleViewEntityFormLayout
             formName={"person"}
             headerProps={{
-                title: lang.Personnes,
+                title: lang.Persons,
                 subtitleColor: "primary",
                 subTitle: lang.formPersonSubtitle,
                 description: lang.formPersonInstructions,
