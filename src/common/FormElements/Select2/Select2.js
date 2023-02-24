@@ -151,14 +151,16 @@ const Select2 = ({name, formTools, children, single, ...props}) => {
 
     //Handle ENTER to simulate a button press (add value)
     const handleKeypress = (e) => {
+        console.log(e);
         if (
             //Handle "ENTER" and ","
             e.key === "Enter" || e.key === "," ||
 
             //Handle click on suggestion (datalist) Although for sure not the best check
-            e.nativeEvent.composed === false
+            e.nativeEvent.charCode === undefined
             )
         {
+
             selectTagRef.current.value = selectTagRef.current.value.replace(",","");
             addValueToSelectedItem();
         }
@@ -198,7 +200,8 @@ const Select2 = ({name, formTools, children, single, ...props}) => {
                         `}
                         ref={selectTagRef}
                         onChange={(e) => formRequestData(e.target.value)}
-                        onKeyUp={(e) => handleKeypress(e)}
+                        onSelect={(e) => handleKeypress(e)}
+                        //onKeyUp={(e) => handleKeypress(e)}
                     />
 
                     <div className="w-100 d-flex">

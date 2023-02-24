@@ -57,7 +57,7 @@ const accountPage = ({ user }) => {
                                 
                                 <div className="d-flex flex-column mt-4">
                                     <Button size="slim" classes="mt-1 mb-1" key="modif" onClick={() => setLeftMenu("profile")}>Modifier mon profil</Button>
-                                    <Button size="slim" classes="mt-1 mb-1" key="pref" onClick={() => setLeftMenu("preferences")}>Préférences</Button>
+                                    {/*<Button size="slim" classes="mt-1 mb-1" key="pref" onClick={() => setLeftMenu("preferences")}>Préférences</Button>*/}
                                     <Button size="slim" classes="mt-1 mb-1" key="historique" onClick={() => setLeftMenu("history")}>Historique de modification</Button>
                                     <Button size="slim" classes="mt-1 mb-1" key="help" onClick={() => setLeftMenu("help")}>Aide</Button>
                                     <Button size="slim" color="white" outline="danger" classes="mt-1 mb-1" key="logout" onClick={logout}>Se déconnecter</Button>
@@ -67,10 +67,10 @@ const accountPage = ({ user }) => {
                             </div>
                         )}
                     </aside>
-                    <div className="col col-sm-9 border">
+                    <div className="col col-sm-9">
                         <div className={"account-page-content"}>
                             {leftMenu === "history" && <UserHistoryGrid/>}
-                            {leftMenu === "preferences" && <Preferences/>}
+                            {/*leftMenu === "preferences" && <Preferences/>*/}
                             {leftMenu === "profile" && <Profile/>}
                             {leftMenu === "help" && <Help/>}
                         </div>
