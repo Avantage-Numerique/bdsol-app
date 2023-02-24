@@ -4,170 +4,109 @@ import React, {useEffect, useState, useRef, useContext} from 'react'
 import { useHttpClient } from '@/src/hooks/http-hook'
 import { useValidation } from '@/src/hooks/useValidation/useValidation';
 //import { useDebounce } from '@/src/hooks/useDebounce'
+import {getDefaultCreateEntityStatus} from "@/DataTypes/Status/EntityStatus";
+
 
 //Contexts
 import { MessageContext } from '@/src/common/UserNotifications/Message/Context/Message-Context'
+import { useAuth } from "@/src/authentification/context/auth-context";
+
 
 //Components
 import useDebounce from '@/src/hooks/useDebounce'
+import Select from 'react-select';
 
 //Styling
 import styles from './Select2.module.scss'
 
 /*
 Props :
-    - name : Mainly use for ids and keys
+    - formTools : For formState update
+    - name : formState update and mainly use for ids and keys
     - searchField : The name of the field to make the search on
     - label : When mentionned, add a label on top of the select field
-    - request : the url to fetch from
+    - fetch : the url to fetch from
     - requestData : the objet to send for the first request
     - placeholder : placeholder inside the select field
-    - dataSetter : Setter to modify the state (add the selected entity to the list)
-    - selectedEntities : An array of already selected entity to register before adding others (if modified after first display, it will still update)
-    - single : if single = "true", select will allow only [ {1 entity} ] and if another is selected, replace it
+    - idField : field the id should go in ==> select tag set formState value to [ { idField : value, status: {statusObject} }.
 */
-const Select2 = ({name, formTools, children, single, ...props}) => {
 
-    const selectTagRef = useRef();
+const Select2Tag = ({name, formTools, ...props}) => {
+
+    //Authentication ref
+    const auth = useAuth();
+
+    const {
+        formState,
+        inputHandler,
+        //inputTouched
+    } = formTools;
+
+    const updateValue = (selectedValue) => {
+        const selectedList = selectedValue.map( (item) =>{
+            return { [props.idField]: item.value, status: getDefaultCreateEntityStatus(auth.user)};
+        });
+        inputHandler(
+            name,
+            selectedList,
+            props.validators ? validate(event.target.value, props.validators) : true
+        )
+    }
 
     //Extract validation methods
     const { validate, RequirementsBadges, ValidationErrorMessages } = useValidation( props.validationRules )
 
     //Import message context 
-    const msg = useContext(MessageContext);
     const {sendRequest} = useHttpClient();
 
-    //Store globally the matching value when evaluated
-    const matchingValue = useRef();
-
     //List of options fetched by the api and proposed to the user in the datalist in grey
-    const [selectList, setSelectList] = useState([]);
+    const [selectResponse, setSelectResponse] = useState([]);
+    const [optionList, setOptionList] = useState([]);
 
     //Research terms send to the api to refine the search
     //shape : data: {category: 'occupations', name: 'ingenieur'}
-    const [selectRequest, setSelectRequest] = useState(props.requestData);
+    const [requestData, setRequestData] = useState({...props.requestData});
 
     //Allow only one request per 400ms, after the user stop typing
-    const debouncedRequest = useDebounce(selectRequest, 400);
+    const debouncedRequest = useDebounce(requestData, 400);
 
     //Update the list of options to display
-    useEffect(() => { getSelectList() }, [debouncedRequest] );
-
-    //ToLowerCase, trim whitespace and others
-    const lowerCaseRemoveWhiteSpace = (word) => {
-        return word.toLowerCase().replace(/ /g,'')
-    }
-
-    //Find if there is a matching value between the list proposed by the api and the value entered in the field by the user
-    const findMatchingValue = () => selectList.data.find(e => {return lowerCaseRemoveWhiteSpace(e[props.searchField]) === lowerCaseRemoveWhiteSpace(selectTagRef.current.value);})//[idField]
-
+    useEffect(() => { getSelectResponse() }, [debouncedRequest] );
 
     //Called whenever the user enter or modify a value into the field
     const formRequestData = (val) => {
-        //Get the value inside the requestData in the "props.searchField" to send a new search request
-        props.requestData.data[props.searchField !== undefined ? props.searchField : "name"] = val;
-        setSelectRequest({...props.requestData});
+        const newRequestData = {...requestData};
+        newRequestData[props.searchField ?? 'name'] = val;
+        setRequestData(newRequestData);
     }
 
-    const getSelectList = async () => {
-        if(props.request !== undefined && props.requestData !== undefined) {
-            const SelectList =  await sendRequest(
-                (props.request + "/list"),
+    const getSelectResponse = async () => {
+        if(props.fetch !== undefined && props.requestData !== undefined) {
+            const serverResponse =  await sendRequest(
+                (props.fetch),
                 'POST',
-                JSON.stringify(selectRequest)
+                JSON.stringify(requestData)
             );
-            setSelectList(SelectList);
-        }
-    }
-    
-    //Add the value to the displayed list 
-    const addValueToSelectedItem = () => {
-
-        //Make sure there is a value entered in the field
-        if(selectTagRef.current.value){
-            //Get the NEW matching value or set it to undefined
-            matchingValue.current = findMatchingValue() || undefined;
-
-
-            //If there is a matching value, then go forward
-            if (matchingValue.current) {
-
-                //Make sure that the object is not already in the list to prevent duplicates
-                const isDuplicate = props.selectedEntities.some(item => {
-                    if(props.idField)
-                        return item[props.idField]._id === matchingValue.current._id;
-                    
-                    //Allow objects that have _id not embedded
-                    else
-                        return item._id === matchingValue.current._id
-                });
-
-                if(!isDuplicate){
-                    //Update the value of selectedEntities
-                    if ( single === "true"){
-                        //If single mode, replace the entire object
-                        props.dataSetter([matchingValue.current]);
-                    }
-                    else {
-                        //(not single mode) Add the value to the array
-                        props.dataSetter([...props.selectedEntities, {
-                            [props.idField]:matchingValue.current,
-                            status: matchingValue.current.status
-                        }]);
-                    }
-
-                    //Reset the field
-                    resetSelectComponent();
-
-                } else {
-                    //If the value is a duplicate
-                    msg.addMessage({ 
-                        text: "La valeur que vous essayez d'ajouter est déjà dans la liste de vos choix.",
-                        positive: false 
-                    })
-                    resetSelectComponent();
-                }
-            }
-            //No matching Value displays message it's not a taxonomy
-            else {
-                msg.addMessage({
-                    text: "La valeur sélectionnée n'existe pas. Veuillez sélectionner dans la liste ou créer la taxonomie"
-                })
-            }
+            setSelectResponse(serverResponse);
         }
     }
 
-    const removeValueFromSelectedItem = (selectedObj) => {
-        //remove the selectedObj
-        //props.dataSetter(props.selectedEntities.filter(elem => elem._id !== selectedObj._id));
-    }
+    useEffect( () => {
+        let newOptionList = [];
+        if (selectResponse?.data?.length > 0)
+            newOptionList = selectResponse.data.map( (elem) => {
+            return { value: elem._id, label: elem.name }
+        })
+        setOptionList(newOptionList)
+    },[selectResponse])
 
     //Function to add a taxonomy element to the selected list that will be submitted with the form
     const resetSelectComponent = () => {
-        selectTagRef.current.value = "";
-        selectTagRef.current.focus();           //Reset focus on field
-        formRequestData("")                     //Reset the input text stored in the state
+        //selectTagRef.current.value = "";
+        //selectTagRef.current.focus();           //Reset focus on field
+        //formRequestData("")                     //Reset the input text stored in the state
     }
 
-    //Handle ENTER to simulate a button press (add value)
-    const handleKeypress = (e) => {
-        console.log(e);
-        if (
-            //Handle "ENTER" and ","
-            e.key === "Enter" || e.key === "," ||
-
-            //Handle click on suggestion (datalist) Although for sure not the best check
-            e.nativeEvent.charCode === undefined
-            )
-        {
-
-            selectTagRef.current.value = selectTagRef.current.value.replace(",","");
-            addValueToSelectedItem();
-        }
-    };
-
-    if( selectList &&
-        selectList.data)
     return (
         <div className={`${styles["select"]}`}> 
 
@@ -186,37 +125,18 @@ const Select2 = ({name, formTools, children, single, ...props}) => {
 
                 <div className="flex-grow-1 form-element--field-padding">
                 
-                    <input
-                        type="text" 
-                        list={props.label + props.searchField}
-                        name={'SelectInput-' + name }
-                        id={'SelectInput-'+ name}
-                        //onBlur={() => inputTouched(name)}
+                    <Select
+                        instanceId={"SelectTag-"+props.name}
                         placeholder={props.placeholder}
-                        className={`
-                            w-100
-                            p-0
-                            border-0
-                        `}
-                        ref={selectTagRef}
-                        onChange={(e) => formRequestData(e.target.value)}
-                        onSelect={(e) => handleKeypress(e)}
-                        //onKeyUp={(e) => handleKeypress(e)}
+                        options={optionList}
+                        isMulti
+                        onInputChange={(val) => formRequestData(val)}
+                        onChange={(val) => updateValue(val)}
                     />
 
                     <div className="w-100 d-flex">
                         <RequirementsBadges /> 
                     </div>
-                    
-                    <datalist id={props.label + props.searchField} className={`${styles["datalist-input"]}`}>
-                        {selectList.data.map( item => {
-                                //name={"Datalist-"+ name } not allowed in datalist
-                                return (
-                                    <option key={`datalist-${item[props.searchField]}`} value={item[props.searchField]}></option>
-                                )
-                            }
-                        )}
-                    </datalist>
                 </div>
             </div>
             <div className="validation-error-messages-container">
@@ -224,4 +144,4 @@ const Select2 = ({name, formTools, children, single, ...props}) => {
         </div>
     );
 }
-export default Select2;
+export default Select2Tag;

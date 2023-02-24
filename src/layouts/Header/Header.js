@@ -50,7 +50,7 @@ const Header = (props) => {
                         <div className={`${styles["navigation-options"]}`}>
                             
                         <div className={`${styles["searchbar-menu-container"]}`}>
-                            <SearchBar id="searchbar-layout" clearAfterSearch="true" small ></SearchBar>
+                            {<SearchBar id="searchbar-layout" clearAfterSearch="true" small ></SearchBar>}
                         </div>
 
                             <div className={`${styles["contribute-menu-container"]}`} onClick={ () => setMenuState(0) }>

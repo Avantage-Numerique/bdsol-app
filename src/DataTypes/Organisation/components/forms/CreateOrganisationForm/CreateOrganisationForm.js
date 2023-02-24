@@ -9,7 +9,7 @@ import {useAuth} from '@/auth/context/auth-context';
 import { MessageContext } from '@/src/common/UserNotifications/Message/Context/Message-Context';
 import PersonRoleTemplate from '@/src/DataTypes/Person/Template/PersonRoleTemplate';
 import Repeater from '@/src/common/Containers/Repeater/Repeater';
-import TaxonomySelectTagListTemplate from '@/src/DataTypes/Taxonomy/Template/TaxonomySelectTagListTemplate';
+import Select2Tag from '@/src/common/FormElements/Select2/Select2';
 import {getDefaultCreateEntityStatus, getDefaultUpdateEntityStatus} from "@/DataTypes/Status/EntityStatus";
 import styles from './CreateOrganisationForm.module.scss'
 import {getDateFromIsoString} from "@/src/utils/DateHelper";
@@ -100,13 +100,8 @@ const CreateOrganisationForm = (props) => {
                 url: formState.inputs.url.value,
                 contactPoint: formState.inputs.contactPoint.value,
                 fondationDate: formState.inputs.fondationDate.value,
-                offers: transmuteTaxonomyTargetInput({
-                    inputs: formState.inputs["offers"],
-                    fieldName:"offer",
-                    user: auth.user
-                }),
+                offers: formState.inputs.offers.value,
                 team: formState.inputs.team.value,
-
                 "status": submitUri === "create" ? getDefaultCreateEntityStatus(auth.user) : getDefaultUpdateEntityStatus(auth.user)
             }
         };
@@ -169,18 +164,18 @@ const CreateOrganisationForm = (props) => {
                     formTools={formTools}
                 />
 
-                <TaxonomySelectTagListTemplate
-                    tag="occupations"
+                <Select2Tag
+                    label="Services offerts"
+                    searchField="name"
+                    fetch="/taxonomies/list"
+                    requestData={{category:"occupations", name:""}}
                     name="offers"
                     idField="offer"
-                    label="Services offerts"
-                    category="occupations"
-                    placeholder="Directeur-trice artistique ..."
+                    placeholder={lang.occupationsPlaceholder}
                     formTools={formTools}
-                    //taxonomyList={[...list]}
-                    />
+                />
 
-                <Repeater
+                {/*<Repeater
                     name="team"
                     label="Membres de l'organisation"
                     addButtonLabel="Ajouter un membre"
@@ -195,7 +190,7 @@ const CreateOrganisationForm = (props) => {
                         placeholder="Jean-Marc Parent ..."
                         //personList={[...list]}
                     />
-                </Repeater>
+                </Repeater>*/}
 
 
                 <blockquote>

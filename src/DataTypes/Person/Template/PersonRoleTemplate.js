@@ -7,7 +7,7 @@ import { useAuth } from "@/src/authentification/context/auth-context";
 
 //Component
 import Input from "@/src/common/FormElements/Input/Input";
-import Select2 from "@/src/common/FormElements/Select2/Select2";
+import Select2Tag from "@/src/common/FormElements/Select2/Select2";
 import Button from "@/src/common/FormElements/Button/Button";
 
 /*
@@ -79,7 +79,7 @@ const PersonRoleTemplate = (props) => {
 
     return (
         <>
-            <Select2
+            <Select2Tag
                 name={props.name}
                 searchField="firstName"
                 //label={props.label}
