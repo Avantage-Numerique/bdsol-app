@@ -69,7 +69,8 @@ const TaxonomiesSinglePage = (props) => {
 export default TaxonomiesSinglePage;
 
 
-export async function getStaticPaths() {
+//  L'API a besoin de la BD Pour construire les paths.
+/*export async function getStaticPaths() {
 
     const taxonomies = await externalApiRequest(
         `/taxonomies/list`,
@@ -98,10 +99,10 @@ export async function getStaticPaths() {
         paths: [],
         fallback: false
     }
+}*/
 
-}
-
-export async function getStaticProps(context) {
+//export async function getStaticProps(context) {
+export async function getServerSideProps(context) {
     const { slug, category } = context.params;
 
     const entities = await externalApiRequest(
