@@ -9,7 +9,7 @@ import {useAuth} from '@/auth/context/auth-context';
 import { MessageContext } from '@/src/common/UserNotifications/Message/Context/Message-Context';
 import PersonRoleTemplate from '@/src/DataTypes/Person/Template/PersonRoleTemplate';
 import Repeater from '@/src/common/Containers/Repeater/Repeater';
-import Select2Tag from '@/src/common/FormElements/Select2/Select2';
+import Select2Tag from '@/src/common/FormElements/Select2/Select2Tag';
 import {getDefaultCreateEntityStatus, getDefaultUpdateEntityStatus} from "@/DataTypes/Status/EntityStatus";
 import styles from './CreateOrganisationForm.module.scss'
 import {getDateFromIsoString} from "@/src/utils/DateHelper";

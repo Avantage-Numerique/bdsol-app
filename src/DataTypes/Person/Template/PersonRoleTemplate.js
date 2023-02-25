@@ -6,9 +6,7 @@ import { useEffect } from "react";
 import { useAuth } from "@/src/authentification/context/auth-context";
 
 //Component
-import Input from "@/src/common/FormElements/Input/Input";
-import Select2Tag from "@/src/common/FormElements/Select2/Select2";
-import Button from "@/src/common/FormElements/Button/Button";
+import Select2Tag from "@/src/common/FormElements/Select2/Select2Tag";
 
 /*
 Props :

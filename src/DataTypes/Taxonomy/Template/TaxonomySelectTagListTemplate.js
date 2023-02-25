@@ -8,7 +8,7 @@ import styles from "./TaxonomySelectTagListTemplate.module.scss"
 //import { useAuth } from "@/src/authentification/context/auth-context";
 
 // Component
-import Select2Tag from "@/src/common/FormElements/Select2/Select2";
+import Select2Tag from "@/src/common/FormElements/Select2/Select2Tag";
 import { useEffect } from "react";
 
 /*

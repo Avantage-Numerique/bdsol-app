@@ -8,7 +8,6 @@ import {getDefaultCreateEntityStatus} from "@/DataTypes/Status/EntityStatus";
 
 
 //Contexts
-import { MessageContext } from '@/src/common/UserNotifications/Message/Context/Message-Context'
 import { useAuth } from "@/src/authentification/context/auth-context";
 
 
@@ -17,7 +16,8 @@ import useDebounce from '@/src/hooks/useDebounce'
 import Select from 'react-select';
 
 //Styling
-import styles from './Select2.module.scss'
+import styles from './Select2Tag.module.scss'
+import makeAnimated from 'react-select/animated';
 
 /*
 Props :
@@ -32,6 +32,8 @@ Props :
 */
 
 const Select2Tag = ({name, formTools, ...props}) => {
+
+
 
     //Authentication ref
     const auth = useAuth();
@@ -107,6 +109,8 @@ const Select2Tag = ({name, formTools, ...props}) => {
         //formRequestData("")                     //Reset the input text stored in the state
     }
 
+    const animatedComponents = makeAnimated();
+
     return (
         <div className={`${styles["select"]}`}> 
 
@@ -129,9 +133,19 @@ const Select2Tag = ({name, formTools, ...props}) => {
                         instanceId={"SelectTag-"+props.name}
                         placeholder={props.placeholder}
                         options={optionList}
+                        components={animatedComponents}
                         isMulti
                         onInputChange={(val) => formRequestData(val)}
                         onChange={(val) => updateValue(val)}
+                        theme={(theme) => ({
+                            ...theme,
+                            borderRadius: 5,
+                            colors: {
+                              ...theme.colors,
+                              primary25: 'hotpink',
+                              primary: 'black',
+                            },
+                          })}
                     />
 
                     <div className="w-100 d-flex">

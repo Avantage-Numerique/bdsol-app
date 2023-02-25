@@ -10,7 +10,7 @@ import Input from '@/FormElements/Input/Input'
 import RichTextarea from '@/FormElements/RichTextArea/RichTextarea'
 import CreateTaxonomyForm from '@/src/DataTypes/Taxonomy/Components/Forms/CreateTaxonomy/CreateTaxonomyForm'
 import {lang} from "@/src/common/Data/GlobalConstants";
-import Select2Tag from '@/src/common/FormElements/Select2/Select2'
+import Select2Tag from '@/src/common/FormElements/Select2/Select2Tag'
 //Context
 import { useAuth } from "@/src/authentification/context/auth-context";
 
