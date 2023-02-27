@@ -29,7 +29,8 @@ Props :
     - requestData : the objet to send for the first request
     - placeholder : placeholder inside the select field
     - idField : field the id should go in ==> select tag set formState value to [ { idField : value, status: {statusObject} }.
-*/
+    - If there is an initial value to formState, it should be an array, and elem.[idField]._id and elem[searchField] should exist
+        */
 
 const Select2Tag = ({name, formTools, ...props}) => {
 
@@ -44,8 +45,20 @@ const Select2Tag = ({name, formTools, ...props}) => {
         //inputTouched
     } = formTools;
 
+    const selectRef = useRef();
+    //Set default selectValue
+    useEffect(() => {
+        if(formState.inputs[name] && formState.inputs[name].value.length > 0)
+        {
+            const state = formState.inputs[name].value.map((elem) => {
+                return { value: elem[props.idField]._id, label: elem[props.idField][props.searchField]
+            }})
+            selectRef.current.setValue(state, "set-value");
+        }
+    }, [])
+
     const updateValue = (selectedValue) => {
-        const selectedList = selectedValue.map( (item) =>{
+        const selectedList = selectedValue.map( (item) => {
             return { [props.idField]: item.value, status: getDefaultCreateEntityStatus(auth.user)};
         });
         inputHandler(
@@ -53,6 +66,15 @@ const Select2Tag = ({name, formTools, ...props}) => {
             selectedList,
             props.validators ? validate(event.target.value, props.validators) : true
         )
+    }
+
+    const setValueWithComma = () => {
+        selectRef.current.setValue([...selectRef.current.state.selectValue, selectRef.current.state.focusedOption], "set-value")
+        
+        //This V doesn't work but here should reset input value
+        console.log(selectRef.current.inputRef.value)
+        selectRef.current.inputRef.value = '';
+        console.log(selectRef.current.inputRef.value)
     }
 
     //Extract validation methods
@@ -97,7 +119,7 @@ const Select2Tag = ({name, formTools, ...props}) => {
         let newOptionList = [];
         if (selectResponse?.data?.length > 0)
             newOptionList = selectResponse.data.map( (elem) => {
-            return { value: elem._id, label: elem.name }
+            return { value: elem._id, label: elem[props.searchField] }
         })
         setOptionList(newOptionList)
     },[selectResponse])
@@ -130,12 +152,18 @@ const Select2Tag = ({name, formTools, ...props}) => {
                 <div className="flex-grow-1 form-element--field-padding">
                 
                     <Select
+                        ref={selectRef}
                         instanceId={"SelectTag-"+props.name}
                         placeholder={props.placeholder}
                         options={optionList}
                         components={animatedComponents}
                         isMulti
-                        onInputChange={(val) => formRequestData(val)}
+                        onInputChange={(val) => {
+                            val.slice(-1) == ',' ?
+                            setValueWithComma()
+                            :
+                            formRequestData(val)
+                        }}
                         onChange={(val) => updateValue(val)}
                         theme={(theme) => ({
                             ...theme,

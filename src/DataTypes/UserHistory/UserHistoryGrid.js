@@ -27,10 +27,8 @@ const UserHistoryGrid = () => {
         }
     };
 
-    useEffect( () => {console.log("id", auth.user.id)}, [auth])
     
     const [usersHistory, setUsersHistory] = useState({data:[]});
-    useEffect( () => {console.log("userHistory", usersHistory, "is length > 0", usersHistory?.data?.length > 0)}, [usersHistory])
 
     useEffect(() => {
         const getUsersHistory = async () => {
