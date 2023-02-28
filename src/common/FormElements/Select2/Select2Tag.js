@@ -34,8 +34,6 @@ Props :
 
 const Select2Tag = ({name, formTools, ...props}) => {
 
-
-
     //Authentication ref
     const auth = useAuth();
 

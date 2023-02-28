@@ -29,7 +29,7 @@ async function loginRoute(req, res) {
     res.send({
         text: response.message,
         positive: !response.error,
-        redirectUri: response.error ? "/compte/connexion" : "/compte",
+        redirectUri: response.error ? "/compte/connexion" : "/",
         user: sessionUser
     });
 }

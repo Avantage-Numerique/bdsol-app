@@ -54,7 +54,7 @@ const Header = (props) => {
                         </div>
 
                             <div className={`${styles["contribute-menu-container"]}`} onClick={ () => setMenuState(0) }>
-                                <Link href="/contribuer">+</Link>
+                                <Link href="/contribuer">{ auth.user.isLoggedIn ? "+" : "Se connecter / S'inscrire"}</Link>
                             </div>
                             {/* Button for the connection menu */}
                             <div className={`${styles["account-menu-container"]}`}>
