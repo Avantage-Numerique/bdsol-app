@@ -53,9 +53,16 @@ const Header = (props) => {
                             {<SearchBar id="searchbar-layout" clearAfterSearch="true" small ></SearchBar>}
                         </div>
 
+                            {auth.user.isLoggedIn ?
                             <div className={`${styles["contribute-menu-container"]}`} onClick={ () => setMenuState(0) }>
-                                <Link href="/contribuer">{ auth.user.isLoggedIn ? "+" : "Se connecter / S'inscrire"}</Link>
+                                <Link href="/contribuer">+</Link>
                             </div>
+                            :
+                            <div className={`${styles["connection-menu-container"]}`}>
+                                <Link href="/compte/connexion">Se connecter</Link>
+                                <Link href="/compte/inscription">S'inscrire</Link>
+                            </div>
+                            }
                             {/* Button for the connection menu */}
                             <div className={`${styles["account-menu-container"]}`}>
                                 { auth.user.isLoggedIn &&

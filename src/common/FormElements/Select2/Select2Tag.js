@@ -141,13 +141,6 @@ const Select2Tag = ({name, formTools, ...props}) => {
         selectRef.current.setValue([...selectRef.current.state.selectValue, val], "set-value");
         //updateValue()
     }
-        //If success
-            //Create selected with modal return
-            //selectRef.current.setValue([...selectRef.current.state.selectValue, modalReturnedValue(value: id, label: props.searchField)], "set-value")
-            //updateValue(whole set of value)
-
-        //else
-            //don't create option?
 
     const animatedComponents = makeAnimated();
 
@@ -195,6 +188,12 @@ const Select2Tag = ({name, formTools, ...props}) => {
                             },
                           })}
                     />
+
+                    <div className="w-100 d-flex">
+                        <RequirementsBadges /> 
+                    </div>
+                </div>
+            </div>
                     {modal.display &&
                     <Modal
                         closingFunction={closeModal}
@@ -206,7 +205,7 @@ const Select2Tag = ({name, formTools, ...props}) => {
                         {/* Separation line */}
                         <div className={`my-4 border-bottom`}></div>
 
-                        <CreateTaxonomyForm 
+                        <CreateTaxonomyForm
                             name={modal.enteredValues.name ?? ''}   //Prefilled value
                             category="occupations"
                             positiveRequestActions={{
@@ -225,11 +224,6 @@ const Select2Tag = ({name, formTools, ...props}) => {
                     </Modal>
                     }
 
-                    <div className="w-100 d-flex">
-                        <RequirementsBadges /> 
-                    </div>
-                </div>
-            </div>
             <div className="validation-error-messages-container">
             </div>
         </div>

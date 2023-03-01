@@ -54,6 +54,19 @@
             align-items: center;
         }
 
+        .connection-menu-container {
+            width: 15rem;
+            height: 100%;
+            display: flex;
+            background-color: transparent;
+            justify-content: center;
+            align-items: center;
+            color:white;
+            a {
+                margin: 1rem;
+            }
+        }
+
         .contribute-menu-container {
             position: relative;
             width: 5rem;
