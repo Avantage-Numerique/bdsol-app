@@ -26,7 +26,6 @@ const UserHistoryGrid = () => {
             "user": auth.user.id
         }
     };
-
     
     const [usersHistory, setUsersHistory] = useState({data:[]});
 

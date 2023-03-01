@@ -3,8 +3,9 @@ import React, {useEffect, useState, useRef, useContext} from 'react'
 //Custom Hooks
 import { useHttpClient } from '@/src/hooks/http-hook'
 import { useValidation } from '@/src/hooks/useValidation/useValidation';
-//import { useDebounce } from '@/src/hooks/useDebounce'
+import { useModal } from '@/src/hooks/useModal/useModal';
 import {getDefaultCreateEntityStatus} from "@/DataTypes/Status/EntityStatus";
+import useDebounce from '@/src/hooks/useDebounce'
 
 
 //Contexts
@@ -12,8 +13,9 @@ import { useAuth } from "@/src/authentification/context/auth-context";
 
 
 //Components
-import useDebounce from '@/src/hooks/useDebounce'
-import Select from 'react-select';
+import CreatableSelect from 'react-select/creatable';
+import Button from '../Button/Button';
+import CreateTaxonomyForm from '@/src/DataTypes/Taxonomy/Components/Forms/CreateTaxonomy/CreateTaxonomyForm';
 
 //Styling
 import styles from './Select2Tag.module.scss'
@@ -37,6 +39,9 @@ const Select2Tag = ({name, formTools, ...props}) => {
     //Authentication ref
     const auth = useAuth();
 
+    //Create taxonomy modal
+    const {displayModal, modal, closeModal, Modal} = useModal();
+
     const {
         formState,
         inputHandler,
@@ -44,6 +49,7 @@ const Select2Tag = ({name, formTools, ...props}) => {
     } = formTools;
 
     const selectRef = useRef();
+    const [inputValue, setInputValue] = useState("");
     //Set default selectValue
     useEffect(() => {
         if(formState.inputs[name] && formState.inputs[name].value.length > 0)
@@ -68,11 +74,6 @@ const Select2Tag = ({name, formTools, ...props}) => {
 
     const setValueWithComma = () => {
         selectRef.current.setValue([...selectRef.current.state.selectValue, selectRef.current.state.focusedOption], "set-value")
-        
-        //This V doesn't work but here should reset input value
-        console.log(selectRef.current.inputRef.value)
-        selectRef.current.inputRef.value = '';
-        console.log(selectRef.current.inputRef.value)
     }
 
     //Extract validation methods
@@ -97,6 +98,7 @@ const Select2Tag = ({name, formTools, ...props}) => {
 
     //Called whenever the user enter or modify a value into the field
     const formRequestData = (val) => {
+        setInputValue(val);
         const newRequestData = {...requestData};
         newRequestData[props.searchField ?? 'name'] = val;
         setRequestData(newRequestData);
@@ -124,10 +126,28 @@ const Select2Tag = ({name, formTools, ...props}) => {
 
     //Function to add a taxonomy element to the selected list that will be submitted with the form
     const resetSelectComponent = () => {
-        //selectTagRef.current.value = "";
-        //selectTagRef.current.focus();           //Reset focus on field
-        //formRequestData("")                     //Reset the input text stored in the state
+        selectTagRef.current.value = [];
+        updateValue([]);
+        formRequestData("");
     }
+
+    const handleCreateOption = (val) => {
+        //Open modal
+        modal.enteredValues.name = val;
+        displayModal();
+    }
+
+    const addFromCreatedModal = (val) => {
+        selectRef.current.setValue([...selectRef.current.state.selectValue, val], "set-value");
+        //updateValue()
+    }
+        //If success
+            //Create selected with modal return
+            //selectRef.current.setValue([...selectRef.current.state.selectValue, modalReturnedValue(value: id, label: props.searchField)], "set-value")
+            //updateValue(whole set of value)
+
+        //else
+            //don't create option?
 
     const animatedComponents = makeAnimated();
 
@@ -149,13 +169,14 @@ const Select2Tag = ({name, formTools, ...props}) => {
 
                 <div className="flex-grow-1 form-element--field-padding">
                 
-                    <Select
+                    <CreatableSelect
                         ref={selectRef}
                         instanceId={"SelectTag-"+props.name}
                         placeholder={props.placeholder}
                         options={optionList}
                         components={animatedComponents}
                         isMulti
+                        inputValue={inputValue}
                         onInputChange={(val) => {
                             val.slice(-1) == ',' ?
                             setValueWithComma()
@@ -163,6 +184,7 @@ const Select2Tag = ({name, formTools, ...props}) => {
                             formRequestData(val)
                         }}
                         onChange={(val) => updateValue(val)}
+                        onCreateOption={(val) => handleCreateOption(val)}
                         theme={(theme) => ({
                             ...theme,
                             borderRadius: 5,
@@ -173,6 +195,35 @@ const Select2Tag = ({name, formTools, ...props}) => {
                             },
                           })}
                     />
+                    {modal.display &&
+                    <Modal
+                        closingFunction={closeModal}
+                        >
+                            <header className={`d-flex`}>
+                                <p>Le nouvel élément de taxonomie que vous ajoutez ici pourra ensuite être directement intégrée au formulaire.</p>
+                            </header>               
+                      
+                        {/* Separation line */}
+                        <div className={`my-4 border-bottom`}></div>
+
+                        <CreateTaxonomyForm 
+                            name={modal.enteredValues.name ?? ''}   //Prefilled value
+                            category="occupations"
+                            positiveRequestActions={{
+                                //CallbackFunction is one of the four behaviors the useFormUtils hook can apply when a request return a positive answer
+                                callbackFunction: requestResponse => {
+                                    //In this case, the modal callback receives the object to be passed which is the taxonomy item in the response of the request
+                                    //modal.callback(requestResponse.data)
+                                    if(requestResponse.data[props.searchField] && requestResponse.data._id)
+                                        addFromCreatedModal({value:requestResponse.data._id, label: requestResponse.data[props.searchField]})
+                                    //Close the modal
+                                    closeModal()
+                                }
+                            }}
+                        />
+
+                    </Modal>
+                    }
 
                     <div className="w-100 d-flex">
                         <RequirementsBadges /> 
