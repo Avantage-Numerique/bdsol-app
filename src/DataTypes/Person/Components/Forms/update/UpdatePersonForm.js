@@ -12,6 +12,9 @@ import Select2Tag from '@/src/common/FormElements/Select2/Select2Tag';
 import React from "react";
 import {useAuth} from "@/auth/context/auth-context";
 
+//FormData
+import { getSelectedToFormData } from '@/src/common/FormElements/Select2/Select2Tag';
+
 
 const UpdatePersonForm = ({initValues, positiveRequestActions}) => {
 
@@ -69,7 +72,7 @@ const UpdatePersonForm = ({initValues, positiveRequestActions}) => {
                     "firstName":  formState.inputs.firstName.value, 
                     "nickname": formState.inputs.nickName.value,
                     "description": formState.inputs.description.value,
-                    "occupations": formState.inputs.occupations.value,
+                    "occupations": getSelectedToFormData(formState.inputs.occupations.value, "occupation", auth.user)
                 }
             };
 

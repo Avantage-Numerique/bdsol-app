@@ -79,7 +79,7 @@ const EntityNavBar = (props) => {
                                     //Close the modal
                                     closeModal()
                                 } else {
-                                    trhow(new Error("Un problème est survenu."))
+                                    throw(new Error("Un problème est survenu."))
                                 }
                             }
                         }}

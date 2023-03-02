@@ -11,6 +11,7 @@ import PersonRoleTemplate from '@/src/DataTypes/Person/Template/PersonRoleTempla
 import Repeater from '@/src/common/Containers/Repeater/Repeater';
 import Select2Tag from '@/src/common/FormElements/Select2/Select2Tag';
 import {getDefaultCreateEntityStatus, getDefaultUpdateEntityStatus} from "@/DataTypes/Status/EntityStatus";
+import { getSelectedToFormData } from '@/src/common/FormElements/Select2/Select2Tag';
 import styles from './CreateOrganisationForm.module.scss'
 import {getDateFromIsoString} from "@/src/utils/DateHelper";
 
@@ -100,7 +101,7 @@ const CreateOrganisationForm = (props) => {
                 url: formState.inputs.url.value,
                 contactPoint: formState.inputs.contactPoint.value,
                 fondationDate: formState.inputs.fondationDate.value,
-                offers: formState.inputs.offers.value,
+                offers: getSelectedToFormData(formState.inputs.offers.value, "offer", auth.user),
                 team: formState.inputs.team.value,
                 "status": submitUri === "create" ? getDefaultCreateEntityStatus(auth.user) : getDefaultUpdateEntityStatus(auth.user)
             }

@@ -52,7 +52,7 @@ const Select2Tag = ({name, formTools, ...props}) => {
     const [inputValue, setInputValue] = useState("");
     //Set default selectValue
     useEffect(() => {
-        if(formState.inputs[name] && formState.inputs[name].value.length > 0)
+        if(formState.inputs[name]?.value?.length > 0)
         {
             const state = formState.inputs[name].value.map((elem) => {
                 return { value: elem[props.idField]._id, label: elem[props.idField][props.searchField]
@@ -62,14 +62,17 @@ const Select2Tag = ({name, formTools, ...props}) => {
     }, [])
 
     const updateValue = (selectedValue) => {
-        const selectedList = selectedValue.map( (item) => {
-            return { [props.idField]: item.value, status: getDefaultCreateEntityStatus(auth.user)};
-        });
-        inputHandler(
-            name,
-            selectedList,
-            props.validators ? validate(event.target.value, props.validators) : true
-        )
+        if(selectResponse?.data?.length > 0){
+            //Set an array full of "populated alike" item ( [occupation : {full object}, ...] )
+            const selectedList = selectedValue.map( (item) => {
+                return { [props.idField]: selectResponse?.data.find( (elem) => { return elem._id == item.value }) };
+            });
+            inputHandler(
+                name,
+                selectedList,
+                props.validators ? validate(event.target.value, props.validators) : true
+            )
+        }
     }
 
     const setValueWithComma = () => {
@@ -126,8 +129,9 @@ const Select2Tag = ({name, formTools, ...props}) => {
 
     //Function to add a taxonomy element to the selected list that will be submitted with the form
     const resetSelectComponent = () => {
-        setInputValue([]);
+        //setInputValue([]);
         //updateValue([]);
+        selectRef.current.setValue([], "set-value");
         //formRequestData("");
     }
 
@@ -231,3 +235,18 @@ const Select2Tag = ({name, formTools, ...props}) => {
     );
 }
 export default Select2Tag;
+
+
+export const getSelectedToFormData = (selected, idField, user ) => {
+    
+    return selected.map( (elem) => {
+        return {
+            [idField] : elem[idField]._id,
+            status: {
+                state: "pending",
+                lastModifiedBy: user.id,
+                requestedBy: user.id
+            }
+        }
+    })
+}

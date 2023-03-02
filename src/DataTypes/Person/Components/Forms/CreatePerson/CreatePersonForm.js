@@ -16,7 +16,10 @@ import { useAuth } from "@/src/authentification/context/auth-context";
 
 //Styling
 import styles from './CreatePersonForm.module.scss'
+
+//FormData
 import {getDefaultCreateEntityStatus} from "@/DataTypes/Status/EntityStatus";
+import { getSelectedToFormData } from '@/src/common/FormElements/Select2/Select2Tag'
 
 const CreatePersonForm = () => {
     
@@ -69,7 +72,7 @@ const CreatePersonForm = () => {
                 "firstName":  formState.inputs.firstName.value,
                 "nickname": formState.inputs.nickName.value,
                 "description": formState.inputs.description.value,
-                "occupations": formState.inputs.occupations.value,
+                "occupations": getSelectedToFormData(formState.inputs.occupations.value, "occupation", auth.user),
                 "status": getDefaultCreateEntityStatus(auth.user),
             }
         };
