@@ -85,23 +85,14 @@ const PersonSimple = ({ data }) => {
             </header>
             <div className="border-bottom my-1"></div>
 
-            {/* 
-                <small>
-                    <time className="">
-                        {(new Date(createdAt)).toLocaleDateString(publicRuntimeConfig.dates.defaultLanguage)}
-                    </time>
-                </small>
-            */}
             <footer className={`${styles["person-single__footer"]}`}>
                 <div className="d-flex justify-content-between">
                     <small>
-                        <time>
-                            {(new Date(createdAt)).toLocaleDateString(publicRuntimeConfig.dates.defaultLanguage)}
-                        </time>
+                        Créé le
                     </small>
                     <small>
                         <time>
-                            {(new Date(createdAt)).toLocaleTimeString(publicRuntimeConfig.dates.defaultLanguage)}
+                            {(new Date(createdAt)).toLocaleDateString(publicRuntimeConfig.dates.defaultLanguage)}
                         </time>
                     </small>
                 </div>

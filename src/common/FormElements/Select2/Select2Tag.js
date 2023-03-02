@@ -126,9 +126,9 @@ const Select2Tag = ({name, formTools, ...props}) => {
 
     //Function to add a taxonomy element to the selected list that will be submitted with the form
     const resetSelectComponent = () => {
-        selectTagRef.current.value = [];
-        updateValue([]);
-        formRequestData("");
+        setInputValue([]);
+        //updateValue([]);
+        //formRequestData("");
     }
 
     const handleCreateOption = (val) => {
@@ -138,6 +138,7 @@ const Select2Tag = ({name, formTools, ...props}) => {
     }
 
     const addFromCreatedModal = (val) => {
+        //Format val to {value:id, label:name}
         selectRef.current.setValue([...selectRef.current.state.selectValue, val], "set-value");
         //updateValue()
     }

@@ -53,7 +53,7 @@ const Index = () => {
                             <Button href="/contribuer/organisation" size="large-100" disabled={!auth.user.isLoggedIn}>Organisation</Button>
                         </div>
                         <div className="col">
-                            <Button href="/contribuer/taxonomy" size="large-100" disabled={!auth.user.isLoggedIn}>Taxonomy</Button>
+                            <Button href="/contribuer/taxonomy" size="large-100" disabled={!auth.user.isLoggedIn}>Catégorie</Button>
                         </div>
                     </div>
 
