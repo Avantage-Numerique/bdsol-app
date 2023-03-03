@@ -73,11 +73,17 @@ const Header = (props) => {
                                     `}
                                     onClick={() => setMenuState(menuState !== 2 ? 2 : 0) }>
                                     
-                                    <img 
-                                        className={`${styles["user-img"]}`}
-                                        src="/general_images/Dennis_Nedry.webp"
-                                        alt="Photo générale d'utilisateur" 
-                                    />
+                                    {(auth.user.avatar === undefined || auth.user.avatar === null || auth.user.avatar.toString() === "") ?
+                                                <img className={`${styles["user-img"]}`}
+                                                    src="https://freesvg.org/img/1389952697.png"
+                                                    alt="Aucune image de profil"/>
+                                                :
+                                                <img 
+                                                    className={`${styles["user-img"]}`}
+                                                    src={auth.user.avatar}
+                                                    alt="Votre avatar"
+                                                />
+                                        }
 
                                 </button>
                                 }

@@ -25,7 +25,8 @@ const accountPage = ({ user }) => {
     //UseState
     const [leftMenu, setLeftMenu] = useState("history");
 
-    const dateLanguage = 'en-CA';
+    const dateLanguage = 'fr-CA';
+    const dateOption = {year: 'numeric', month: 'long', day: 'numeric'}
 
     return (
         <div className={"account-page pb-3"}>
@@ -42,7 +43,7 @@ const accountPage = ({ user }) => {
                                                 <img src="https://freesvg.org/img/1389952697.png" alt="Aucune image de profil" width="80" height="80"/>
                                                 :
                                                 <img src={user.avatar} alt="Ton avatar" width="80" height="80"/>
-                                            }
+                                        }
                                         </div>
                                         <div className="flex-grow-1 ms-3">
                                             <h3>{user.name}</h3>
@@ -52,7 +53,8 @@ const accountPage = ({ user }) => {
                                 </div>
 
                                 <div className="mt-4">
-                                    Membre depuis le {new Date(user.createdAt).toLocaleDateString(dateLanguage)}
+                                    Membre depuis le <br/>
+                                    {new Date(user.createdAt).toLocaleDateString(dateLanguage, dateOption)}
                                 </div>
                                 
                                 <div className="d-flex flex-column mt-4">

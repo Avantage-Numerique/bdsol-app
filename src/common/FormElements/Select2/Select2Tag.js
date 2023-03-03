@@ -52,6 +52,7 @@ const Select2Tag = ({name, formTools, ...props}) => {
     const [inputValue, setInputValue] = useState("");
     //Set default selectValue
     useEffect(() => {
+        console.log("useEffect")
         if(formState.inputs[name]?.value?.length > 0)
         {
             const state = formState.inputs[name].value.map((elem) => {
@@ -82,7 +83,7 @@ const Select2Tag = ({name, formTools, ...props}) => {
     //Extract validation methods
     const { validate, RequirementsBadges, ValidationErrorMessages } = useValidation( props.validationRules )
 
-    //Import message context 
+    //Import message context
     const {sendRequest} = useHttpClient();
 
     //List of options fetched by the api and proposed to the user in the datalist in grey
