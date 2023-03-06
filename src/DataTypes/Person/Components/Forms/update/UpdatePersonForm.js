@@ -8,9 +8,12 @@ import CreateTaxonomyForm from '@/src/DataTypes/Taxonomy/Components/Forms/Create
 import {lang} from "@/src/common/Data/GlobalConstants";
 
 import styles from './UpdatePersonForm.module.scss';
-import TaxonomySelectTagListTemplate from "@/DataTypes/Taxonomy/Template/TaxonomySelectTagListTemplate";
+import Select2Tag from '@/src/common/FormElements/Select2/Select2Tag';
 import React from "react";
 import {useAuth} from "@/auth/context/auth-context";
+
+//FormData
+import { getSelectedToFormData } from '@/src/common/FormElements/Select2/Select2Tag';
 
 
 const UpdatePersonForm = ({initValues, positiveRequestActions}) => {
@@ -69,11 +72,7 @@ const UpdatePersonForm = ({initValues, positiveRequestActions}) => {
                     "firstName":  formState.inputs.firstName.value, 
                     "nickname": formState.inputs.nickName.value,
                     "description": formState.inputs.description.value,
-                    "occupations": transmuteTaxonomyTargetInput({
-                        inputs: formState.inputs["occupations"],
-                        fieldName:"occupation",
-                        user: auth.user
-                    })
+                    "occupations": getSelectedToFormData(formState.inputs.occupations.value, "occupation", auth.user)
                 }
             };
 
@@ -126,16 +125,16 @@ const UpdatePersonForm = ({initValues, positiveRequestActions}) => {
                     formTools={formTools}
                 />
 
-                <TaxonomySelectTagListTemplate
-                    tag="occupations"
-                    searchField="name"
-                    name="occupations"
+                <Select2Tag
                     label={lang.Occupations}
+                    searchField="name"
+                    fetch="/taxonomies/list"
+                    requestData={{category:"occupations", name:""}}
+                    name="occupations"
                     idField="occupation"
-                    category="occupations"
                     placeholder={lang.occupationsPlaceholder}
                     formTools={formTools}
-                />
+                    />
 
                 <Button type="submit" disabled={!formState.isValid}>{lang.submit}</Button>
 

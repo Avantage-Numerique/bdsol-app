@@ -50,12 +50,19 @@ const Header = (props) => {
                         <div className={`${styles["navigation-options"]}`}>
                             
                         <div className={`${styles["searchbar-menu-container"]}`}>
-                            <SearchBar id="searchbar-layout" clearAfterSearch="true" small ></SearchBar>
+                            {<SearchBar id="searchbar-layout" clearAfterSearch="true" small ></SearchBar>}
                         </div>
 
+                            {auth.user.isLoggedIn ?
                             <div className={`${styles["contribute-menu-container"]}`} onClick={ () => setMenuState(0) }>
                                 <Link href="/contribuer">+</Link>
                             </div>
+                            :
+                            <div className={`${styles["connection-menu-container"]}`}>
+                                <Link href="/compte/connexion">Se connecter</Link>
+                                <Link href="/compte/inscription">S'inscrire</Link>
+                            </div>
+                            }
                             {/* Button for the connection menu */}
                             <div className={`${styles["account-menu-container"]}`}>
                                 { auth.user.isLoggedIn &&
@@ -66,11 +73,17 @@ const Header = (props) => {
                                     `}
                                     onClick={() => setMenuState(menuState !== 2 ? 2 : 0) }>
                                     
-                                    <img 
-                                        className={`${styles["user-img"]}`}
-                                        src="/general_images/Dennis_Nedry.webp"
-                                        alt="Photo générale d'utilisateur" 
-                                    />
+                                    {(auth.user.avatar === undefined || auth.user.avatar === null || auth.user.avatar.toString() === "") ?
+                                                <img className={`${styles["user-img"]}`}
+                                                    src="https://freesvg.org/img/1389952697.png"
+                                                    alt="Aucune image de profil"/>
+                                                :
+                                                <img 
+                                                    className={`${styles["user-img"]}`}
+                                                    src={auth.user.avatar}
+                                                    alt="Votre avatar"
+                                                />
+                                        }
 
                                 </button>
                                 }

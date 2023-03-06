@@ -5,7 +5,6 @@ import Button from "@/FormElements/Button/Button";
 import {lang} from "@/common/Data/GlobalConstants";
 import EntityNavBar from "@/DataTypes/common/layouts/Navigation/EntityNavBar";
 import {useAuth} from "@/auth/context/auth-context";
-import Link from "next/link";
 
 /*
     Receive and apply all the rules of a single view for entities
@@ -103,24 +102,26 @@ const Single = (props) => {
                     {/* Profile picture section */}
                     {
                         showMainImageInHeader &&
-                        <div className={`${styles["single-header-content__bottom-row"]}`}>
-                            <figure className={`d-flex justify-content-center ${styles[mainImageClass]} ${styles[mainImageAdditionalClass]}`}>
-                                {auth.user.isLoggedIn &&    //mainImage Menu.
-                                    <div className={`w-100 h-100 position-absolute d-flex align-items-center justify-content-center`}>
-                                        <button onClick={modalMainImageControl.displayModal}  className={`p-1 text-white ${styles["profile-picture--modification-opt"]}`}>
-                                            {haveMainImage ? lang.updateImage : lang.addImage}
-                                        </button>
+                        <div className={`${styles["single-header-content__bottom-container"]}`}>
+                            <div className={`${styles["single-header-content__bottom-row"]} d-flex flex-row justify-content-start`}>
+                                <figure className={`${styles[mainImageClass]} ${styles[mainImageAdditionalClass]}`}>
                                     { haveMainImage &&
-                                        <Link href={`/medias/${entity.mainImage._id}`} className={`w-100 h-100 position-absolute d-flex align-items-center justify-content-center p-1 text-white ${styles["profile-picture--modification-opt"]}`}>
-                                            {lang.seeImage}
-                                        </Link>
+                                        <a href={`/medias/${entity.mainImage._id}`} className={`w-100 h-100 position-absolute d-flex align-items-center justify-content-center p-1 ${styles["profile-picture--modification-opt"]}`}>
+                                            &nbsp;
+                                        </a>
                                     }
+                                    {mainImage &&
+                                        <img src={mainImageRootUrl+mainImageUrl} alt={mainImageAlt} />
+                                    }
+                                </figure>
+                                {auth.user.isLoggedIn &&    //mainImage Menu.
+                                    <div className={`${styles["single-header-content__nav"]}`}>
+                                        <a href={"#"} onClick={modalMainImageControl.displayModal} className={` ${styles["profile-picture--modification-opt"]}`}>
+                                            <img src={"/icones/edit-icon.svg"} alt={"Changer l'image"}/>  {haveMainImage ? lang.updateImage : lang.addImage}
+                                        </a>
                                     </div>
                                 }
-                                {mainImage &&
-                                    <img src={mainImageRootUrl+mainImageUrl} alt={mainImageAlt} />
-                                }
-                            </figure>
+                            </div>
                         </div>
                     }
                 </section>

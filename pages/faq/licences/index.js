@@ -2,7 +2,7 @@ import PageHeader from "@/src/layouts/Header/PageHeader";
 import {getLicencesData} from "@/src/api/external/callbacks/getLicencesData";
 import {lang} from "@/common/Data/GlobalConstants";
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
 
     const licences = await getLicencesData();
 

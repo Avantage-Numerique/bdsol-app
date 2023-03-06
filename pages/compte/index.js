@@ -25,7 +25,8 @@ const accountPage = ({ user }) => {
     //UseState
     const [leftMenu, setLeftMenu] = useState("history");
 
-    const dateLanguage = 'en-CA';
+    const dateLanguage = 'fr-CA';
+    const dateOption = {year: 'numeric', month: 'long', day: 'numeric'}
 
     return (
         <div className={"account-page pb-3"}>
@@ -42,7 +43,7 @@ const accountPage = ({ user }) => {
                                                 <img src="https://freesvg.org/img/1389952697.png" alt="Aucune image de profil" width="80" height="80"/>
                                                 :
                                                 <img src={user.avatar} alt="Ton avatar" width="80" height="80"/>
-                                            }
+                                        }
                                         </div>
                                         <div className="flex-grow-1 ms-3">
                                             <h3>{user.name}</h3>
@@ -52,12 +53,13 @@ const accountPage = ({ user }) => {
                                 </div>
 
                                 <div className="mt-4">
-                                    Membre depuis le {new Date(user.createdAt).toLocaleDateString(dateLanguage)}
+                                    Membre depuis le <br/>
+                                    {new Date(user.createdAt).toLocaleDateString(dateLanguage, dateOption)}
                                 </div>
                                 
                                 <div className="d-flex flex-column mt-4">
                                     <Button size="slim" classes="mt-1 mb-1" key="modif" onClick={() => setLeftMenu("profile")}>Modifier mon profil</Button>
-                                    <Button size="slim" classes="mt-1 mb-1" key="pref" onClick={() => setLeftMenu("preferences")}>Préférences</Button>
+                                    {/*<Button size="slim" classes="mt-1 mb-1" key="pref" onClick={() => setLeftMenu("preferences")}>Préférences</Button>*/}
                                     <Button size="slim" classes="mt-1 mb-1" key="historique" onClick={() => setLeftMenu("history")}>Historique de modification</Button>
                                     <Button size="slim" classes="mt-1 mb-1" key="help" onClick={() => setLeftMenu("help")}>Aide</Button>
                                     <Button size="slim" color="white" outline="danger" classes="mt-1 mb-1" key="logout" onClick={logout}>Se déconnecter</Button>
@@ -67,10 +69,10 @@ const accountPage = ({ user }) => {
                             </div>
                         )}
                     </aside>
-                    <div className="col col-sm-9 border">
+                    <div className="col col-sm-9">
                         <div className={"account-page-content"}>
                             {leftMenu === "history" && <UserHistoryGrid/>}
-                            {leftMenu === "preferences" && <Preferences/>}
+                            {/*leftMenu === "preferences" && <Preferences/>*/}
                             {leftMenu === "profile" && <Profile/>}
                             {leftMenu === "help" && <Help/>}
                         </div>

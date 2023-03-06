@@ -80,37 +80,52 @@
                 }
             }
 
-            .single-header-content__bottom-row {
+            .single-header-content__bottom-container {
 
                 position: relative;
 
-                .headers-content__main-image {
-                    height: var(--picture-size);
-                    width: var(--picture-size);
-                    top: 40%;
-                    position: absolute;
-                    border-radius: 100%;
-                    border: $border-light;
-                    overflow: hidden;
+                .single-header-content__bottom-row {
 
-                    img {
-                        width: auto;
-                        height: 100%;
+                    position: relative;
+                    // Refactor the alignment and positionning here. It makes things harder to implement on.
+                    .headers-content__main-image {
+                        position: absolute;
+                        top: 40%;
+                        height: var(--picture-size);
+                        width: var(--picture-size);
+                        border-radius: 100%;
+                        border: $border-light;
+                        overflow: hidden;
+
+                        img {
+                            width: auto;
+                            height: 100%;
+                        }
                     }
-                }
+                    .single-header-content__nav {
+                        position: absolute;
+                        top: 40%;
+                        left: calc(var(--picture-size) - 20px);
 
-                .header-content__media-preview {
-                    height: var(--picture-size);
-                    width: var(--picture-size);
-                    top: 40%;
-                    position: absolute;
-                    border-radius: 0;
-                    border: $border-light;
-                    overflow: hidden;
+                        &.over {
+                            top: calc(40% + ( var(--picture-size) / 2 )) !important;
+                            left: calc(var(--picture-size) / 2) !important;
+                        }
+                    }
 
-                    img {
-                        width: 100%;
-                        height: auto;
+                    .header-content__media-preview {
+                        height: var(--picture-size);
+                        width: var(--picture-size);
+                        top: 40%;
+                        position: absolute;
+                        border-radius: 0;
+                        border: $border-light;
+                        overflow: hidden;
+
+                        img {
+                            width: 100%;
+                            height: auto;
+                        }
                     }
                 }
             }

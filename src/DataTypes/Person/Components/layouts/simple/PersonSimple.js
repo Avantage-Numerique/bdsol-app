@@ -32,13 +32,13 @@ const PersonSimple = ({ data }) => {
 
     let fullImagePath;
     if(mainImage)
-        fullImagePath = process.env.NEXT_PUBLIC_API_URL +  "/medias/persons/" + _id + "/" + mainImage.fileName + "." + mainImage.extension;
+        fullImagePath = process.env.NEXT_PUBLIC_API_URL +  mainImage.url;
 
     const imageUrl = mainImage ? fullImagePath : "/general_images/Dennis_Nedry.webp";
     const imageAlt = mainImage ? mainImage.alt : `Photo de profil de l'utilisateur ${firstName} ${lastName}`;
 
     const link = `/persons/${slug}`;
-    const type = lang.Personne;//"Organisation";
+    const type = lang.Person;
     const name = `${firstName} ${lastName}`;
 
     return (
@@ -69,6 +69,7 @@ const PersonSimple = ({ data }) => {
                         {/* Display the three first occupations, then three dots to reprensent that there are others */}
                             <SearchTag
                             className="row"
+                            max={3}
                             list={
                                 occupations.map( (entity) => {
                                     return {
@@ -84,23 +85,14 @@ const PersonSimple = ({ data }) => {
             </header>
             <div className="border-bottom my-1"></div>
 
-            {/* 
-                <small>
-                    <time className="">
-                        {(new Date(createdAt)).toLocaleDateString(publicRuntimeConfig.dates.defaultLanguage)}
-                    </time>
-                </small>
-            */}
             <footer className={`${styles["person-single__footer"]}`}>
                 <div className="d-flex justify-content-between">
                     <small>
-                        <time>
-                            {(new Date(createdAt)).toLocaleDateString(publicRuntimeConfig.dates.defaultLanguage)}
-                        </time>
+                        Créé le
                     </small>
                     <small>
                         <time>
-                            {(new Date(createdAt)).toLocaleTimeString(publicRuntimeConfig.dates.defaultLanguage)}
+                            {(new Date(createdAt)).toLocaleDateString(publicRuntimeConfig.dates.defaultLanguage)}
                         </time>
                     </small>
                 </div>

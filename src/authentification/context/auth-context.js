@@ -30,7 +30,7 @@ export const getSessionFromData = (userData) => {
             tokenVerified: userData.tokenVerified ?? false,
             isLoggedIn: userData.tokenVerified ?? false,
             token: userData.token ?? null, //There must be at least a token, for now
-            id: userData.id ?? null,
+            id: userData._id ?? null,
             avatar: userData.avatar ?? null,
             name: userData.name ?? null,
             username: userData.username ?? null,

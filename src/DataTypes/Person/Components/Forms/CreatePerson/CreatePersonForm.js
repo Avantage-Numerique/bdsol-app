@@ -10,14 +10,16 @@ import Input from '@/FormElements/Input/Input'
 import RichTextarea from '@/FormElements/RichTextArea/RichTextarea'
 import CreateTaxonomyForm from '@/src/DataTypes/Taxonomy/Components/Forms/CreateTaxonomy/CreateTaxonomyForm'
 import {lang} from "@/src/common/Data/GlobalConstants";
-import TaxonomySelectTagListTemplate from '@/src/DataTypes/Taxonomy/Template/TaxonomySelectTagListTemplate'
-
+import Select2Tag from '@/src/common/FormElements/Select2/Select2Tag'
 //Context
 import { useAuth } from "@/src/authentification/context/auth-context";
 
 //Styling
 import styles from './CreatePersonForm.module.scss'
+
+//FormData
 import {getDefaultCreateEntityStatus} from "@/DataTypes/Status/EntityStatus";
+import { getSelectedToFormData } from '@/src/common/FormElements/Select2/Select2Tag'
 
 const CreatePersonForm = () => {
     
@@ -70,11 +72,7 @@ const CreatePersonForm = () => {
                 "firstName":  formState.inputs.firstName.value,
                 "nickname": formState.inputs.nickName.value,
                 "description": formState.inputs.description.value,
-                "occupations": transmuteTaxonomyTargetInput({
-                    inputs: formState.inputs["occupations"],
-                    fieldName:"occupation",
-                    user: auth.user
-                }),
+                "occupations": getSelectedToFormData(formState.inputs.occupations.value, "occupation", auth.user),
                 "status": getDefaultCreateEntityStatus(auth.user),
             }
         };
@@ -126,16 +124,15 @@ const CreatePersonForm = () => {
                     formTools={formTools}
                 />
 
-                <TaxonomySelectTagListTemplate
-                    tag="occupations"
-                    searchField="name"
-                    name="occupations"
+                <Select2Tag
                     label={lang.Occupations}
+                    searchField="name"
+                    fetch="/taxonomies/list"
+                    requestData={{category:"occupations", name:""}}
+                    name="occupations"
                     idField="occupation"
-                    category="occupations"
                     placeholder={lang.occupationsPlaceholder}
                     formTools={formTools}
-                    //taxonomyList={[...list]}
                     />
 
                 <blockquote>

@@ -8,7 +8,7 @@ import styles from "./TaxonomySelectTagListTemplate.module.scss"
 //import { useAuth } from "@/src/authentification/context/auth-context";
 
 // Component
-import Select2 from "@/src/common/FormElements/Select2/Select2";
+import Select2Tag from "@/src/common/FormElements/Select2/Select2Tag";
 import { useEffect } from "react";
 
 /*
@@ -74,7 +74,7 @@ const TaxonomySelectTagListTemplate = ({name, formTools, ...props}) => {
     
     return (
         <>
-            <Select2
+            <Select2Tag
                 name={props.name}
                 searchField="name"
                 label={props.label}

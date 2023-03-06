@@ -1,6 +1,7 @@
 import { useHttpClient } from "@/src/hooks/http-hook";
 import { useState, useEffect } from "react";
 import PageHeader from "@/src/layouts/Header/PageHeader";
+import {lang} from "@/common/Data/GlobalConstants";
 
 const TaxonomiesCategoryPage = () => {
 
@@ -37,10 +38,10 @@ const TaxonomiesCategoryPage = () => {
         })
 
         setTaxonomiesList(taxonomiesFiltered);
-    }, [])
+    }, []);
 
     const mapArrayToListComponent = (list) => {
-        if(list == undefined || list.length == 0)
+        if(list === undefined || list.length === 0)
             return (
                 <div>Liste introuvable ou vide</div>
             )
@@ -57,29 +58,28 @@ const TaxonomiesCategoryPage = () => {
 
     return (
         <div>
-            <PageHeader title={`Catégories de taxonomies`}/>
+            <PageHeader title={`Toutes les catégories`}/>
                 <ul className="nav nav-pills nav-fill gap-5">
                     {
                         categoryList.map((elem) =>
                             <li key={elem+"-categoryMenuBtn"} className="nav-item">
                                 <a key={elem+"-categoryMenuBtn"} onClick={() => setTaxonomyMenu(elem)}
-                                    className={`btn btn-outline-primary border nav-link ${elem == taxonomyMenu ? "active" : ""}`}>
-                                    {elem}
+                                    className={`btn btn-outline-primary border nav-link ${elem === taxonomyMenu ? "active" : ""}`}>
+                                    {elem.capitalize()}
                                 </a>
                             </li>
                         )
                     }
                 </ul>
                 {
-                    taxonomyMenu != "" && 
+                    taxonomyMenu !== "" &&
                     <div>
                         <h3 className="py-4">
-                            {taxonomyMenu} :
+                            {taxonomyMenu.capitalize()}{lang.colon}
                         </h3>
                         <div className="container">
                             <div className="row">
                                 {mapArrayToListComponent(taxonomiesList[taxonomyMenu])}
-
                             </div>
                         </div>
                     </div>

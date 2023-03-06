@@ -1,9 +1,4 @@
 
-//Router
-import Router from 'next/router';
-
-import styles from './SearchTag.module.scss'
-
 /**
  * Params:
  *  list : object containing a "textField" to show in the tag an "_id" to fetch
@@ -15,26 +10,33 @@ import styles from './SearchTag.module.scss'
 
 const SearchTag = ({list, ...props}) => {
 
-    
-    const submitHandler = async (url) => {
-        Router.push({
-            pathname: "/taxonomies"+url,
-        });
-    }
-// ${styles["competency-tag"]}
+
+    const searchTagLength = list?.length;
+    const max = props.max ?? -1;
+    const listIsLargerThanMax = max > 0 && searchTagLength > max;
+    const searchTagList = listIsLargerThanMax ? list.slice(0, max) : list;
+
     return (
         <>
-            { list?.length > 0 &&
+            { searchTagLength > 0 &&
                 <p>
                 {
-                    list.map( (entity) => {
-                        return (
-                            <a href={`/taxonomies${entity.url}`} className={`badge text-bg-primarylight me-1`} title={entity.label} rel={"follow"}
-                               key={"searchTag-"+entity.url}>
-                                {entity.label}
-                            </a>
-                        )
+                    searchTagList.map( (entity, index) => {
+                        if (index < max || max === -1) {
+                            return (
+                                <a href={`/taxonomies${entity.url}`} className={`badge text-bg-primarylight me-1`} title={entity.label} rel={"follow"}
+                                   key={"searchTag-"+entity.url}>
+                                    {entity.label}
+                                </a>
+                            )
+                        }
                     })
+                }
+                {
+                    listIsLargerThanMax &&
+                    <span className={`badge text-bg-primarylight me-1`} key={"searchTag-showmore"}>
+                        &hellip;
+                    </span>
                 }
                 </p>
             }

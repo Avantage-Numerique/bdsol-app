@@ -28,7 +28,7 @@ const EntityNavBar = (props) => {
 
 
     const backUrl = "/";
-    const type = entity.type ?? "persons";
+    const type = entity.type ?? "person";
     const closingModalBaseURI = `/${type.toLowerCase()}s/`;
 
     const modalParameters = modalParams ?? {};
@@ -59,11 +59,6 @@ const EntityNavBar = (props) => {
                     </div>
                     {auth.user.isLoggedIn && showMenu &&
                         <div className={"col-auto col-lg-6 d-flex justify-content-end"}>
-                            {mainImageModalControl !== undefined &&
-                                <Button onClick={mainImageModalControl.displayModal} className={`btn btn-primary`}>
-                                    <img src={"/icones/edit-icon.svg"} alt={"Changer l'image"}/> Modifier l'image
-                                </Button>
-                            }
                             <Button onClick={displayUpdateForm}>
                                 {lang.proposeContentChangeLabel}
                             </Button>
@@ -92,7 +87,7 @@ const EntityNavBar = (props) => {
                                     //Close the modal
                                     closeModal()
                                 } else {
-                                    throw(new Error("Un problème est survenue."))
+                                    throw(new Error("Un problème est survenu."))
                                 }
                             }
                         }}
@@ -115,7 +110,7 @@ const EntityNavBar = (props) => {
                     {/* Separation line */}
                     <div className="border-bottom w-100 my-2"></div>
                     <CreateMediaForm
-                        initValues={entity}
+                        initValues={entity.mainImage}
                         entity={entity}
                         positiveRequestActions={{
                             //CallbackFunction is one of the four behaviors the useFormUtils hook can apply when a request return a positive answer

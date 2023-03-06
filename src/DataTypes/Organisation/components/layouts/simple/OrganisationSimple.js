@@ -86,6 +86,7 @@ const OrganisationSimple = ({ data }) => {
                     <h4 className="h6 rejected">{lang.Services}</h4>
                     <SearchTag
                         className="row"
+                        max={3}
                         list={
                             offers.map( (entity) => {
                                 return {
