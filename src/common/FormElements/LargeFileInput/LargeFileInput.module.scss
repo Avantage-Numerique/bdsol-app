@@ -24,7 +24,7 @@
             height: 100%;
 
             svg {
-                background-color: white;
+                /*background-color: white;*/
                 padding: 0.25rem;
                 border-radius: 100%;
                 width: 4rem;
@@ -33,7 +33,7 @@
                     -o-transition: 0.2s ease;
                     transition: 0.2s ease;
 
-                    stroke: rgb(153, 153, 153);
+                    stroke: rgb(192, 192, 192);
                 }
             }
 
@@ -46,7 +46,7 @@
             //Styling preference. Prevent the text in the button from wrapping on two lines
             button { white-space: nowrap; }
             .input-ui__over-img-content {
-                background-color: rgba(255, 255, 255, 0.589);
+                background-color: #8b8b8b52;
                 .input-ui__file-name { direction: rtl; }
             }
             .input-ui__img-container {
@@ -81,9 +81,5 @@
         &:hover {
             background-color: rgba(110, 110, 110, 0.705);
         }
-
-        
     }
-        
-
 }    

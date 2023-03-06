@@ -22,6 +22,9 @@ const Single = (props) => {
         showUpdateMenu
     } = props;
 
+    console.log("Single rendered")
+
+
     const defaultMainImage = props.defaultMainImage ?? "/general_images/Dennis_Nedry.webp";
     const defaultHeaderBg = props.defaultHeaderBg ?? "/general_images/forestBG.jpg";
 
