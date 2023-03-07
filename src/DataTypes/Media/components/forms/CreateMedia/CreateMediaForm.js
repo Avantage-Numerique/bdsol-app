@@ -28,8 +28,6 @@ const CreateMediaForm = (props) => {
         entity
     } = props;
 
-    console.log("createMediaForm : ", entity, initValues);
-
     //For now, we assume the it is always going to be mainImage
     const {
         alt,
@@ -61,7 +59,7 @@ const CreateMediaForm = (props) => {
     const {FormUI, submitRequest, formState, formTools} = useFormUtils(
         {
             entityId: {
-                value: '',
+                value: entity._id,
                 isValid: true
             },
             mainImage: {
@@ -116,7 +114,7 @@ const CreateMediaForm = (props) => {
                 }));*/
                 let options = [
                     {
-                        label: '-- Choisissez une licence pour ce partage --',
+                        label: '-- Choisissez une licence --',
                         value: '-1',
                         disabled: false
                     }
@@ -232,8 +230,8 @@ const CreateMediaForm = (props) => {
                                 <div className={`d-flex flex-column ms-2 py-1 ${styles["temporary-entity-tag__texts"]}`}>
                                     {entity.fullName && <p className="m-0 fs-6">{entity.fullName}</p>}
                                     {entity.name && <p className="m-0 fs-6">{entity.name}</p>}
-                                    {entity.type == "person" && <p className="m-0 fs-6">Personne</p>}
-                                    {entity.type == "organisation" && <p className="m-0 fs-6">Organisation</p>}
+                                    {entity.type === "person" && <p className="m-0 fs-6">Personne</p>}
+                                    {entity.type === "organisation" && <p className="m-0 fs-6">Organisation</p>}
                                 </div>
                             </article>
                             <Select 
