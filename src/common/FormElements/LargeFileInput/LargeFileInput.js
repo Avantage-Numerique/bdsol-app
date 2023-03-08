@@ -55,6 +55,8 @@ const LargeFileInput = ( props ) => {
     //State specific to this field
     const currentState = formState.inputs[name];
 
+    console.log(formState);
+
     /********* Component's references *************/
     const fieldRef = useRef("");    //Real input
 
@@ -71,7 +73,7 @@ const LargeFileInput = ( props ) => {
     useEffect(() => {
         inputHandler(
             name,
-            fieldRef.current.files[0],
+            currentState.value,
             validationRules ? validate(fieldRef.current.files[0]) : true
         )
     }, [])
@@ -97,7 +99,6 @@ const LargeFileInput = ( props ) => {
             <div 
                 className={`
                 form-element
-                form-element--color-validation
                 h-100
                 overflow-hidden
                 ${styles["input-component__field-container"]}
@@ -142,7 +143,7 @@ const LargeFileInput = ( props ) => {
                                 ${styles["input-ui__img-container"]}
                             `}>
                                 <img 
-                                    src={URL.createObjectURL(currentState.value)} alt="Aperçu de la photo à téléverser" />
+                                    src={typeof currentState.value === 'object' ? URL.createObjectURL(currentState.value) : currentState.value} alt="Aperçu de la photo à téléverser" />
                             </figure>
                         }
 
@@ -174,7 +175,7 @@ const LargeFileInput = ( props ) => {
                                     m-2
                                     ${styles["input-ui__file-name"]}`}
                             >
-                                { !currentState.value?.name && "Sélectionnez un fichier"}
+                                { !currentState.value && !currentState.value?.name && "Sélectionnez un fichier"}
                             </div>
                             <div className={`px-1 ${styles["input-ui__RequirementsBadges-container"]}`}>
                                 <RequirementsBadges alwaysDisplay /> 

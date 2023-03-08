@@ -7,6 +7,7 @@
     "dev": "next dev",
     "dev:watch": "next dev",
     "build": "next build",
+    "build:debug": "next build --debug",
     "build:staging": "next build && next export",
     "test": "jest --watch",
     "start": "next start -p 3000",
@@ -41,7 +42,9 @@
   "devDependencies": {
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.2.0",
+    "babel-eslint": "^10.1.0",
     "concurrently": "^7.0.0",
+    "eslint": "^8.35.0",
     "jest": "^28.1.0",
     "nodemon": "^2.0.15",
     "purgecss": "^5.0.0"

@@ -13,7 +13,7 @@ import { useAuth } from "@/src/authentification/context/auth-context";
 
 
 //Components
-import CreatableSelect from 'react-select/creatable';
+import CreatableSelect from 'react-select';
 import Button from '../Button/Button';
 import CreateTaxonomyForm from '@/src/DataTypes/Taxonomy/Components/Forms/CreateTaxonomy/CreateTaxonomyForm';
 

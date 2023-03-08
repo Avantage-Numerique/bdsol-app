@@ -17,10 +17,6 @@ import {useHttpClient} from '@/src/hooks/http-hook';
 import SanitizedInnerHtml from '@/src/utils/SanitizedInnerHtml';
 import {lang} from "@/common/Data/GlobalConstants";
 
-
-
-
-
 const PersonSingle = ({ data }) => {
 
     const { 
@@ -37,16 +33,19 @@ const PersonSingle = ({ data }) => {
         mainImage
     } = data;
 
+    console.log("Person single rendered", data );
+
+
     const date_createdAt = new Date(createdAt);
     const date_updatedAt = new Date(updatedAt);
 
     const {sendRequest} = useHttpClient();
     
     //State that contains the organisations that the person is part of
-    const [memberOfOrganisationList, setMemberOfOrganisationList] = useState([]);
+    //const [memberOfOrganisationList, setMemberOfOrganisationList] = useState([]);
 
     const imgModalControl = useModal();
-
+/*
     useEffect( () => {
         async function fetchMemberOf() {
             const response = await sendRequest(
@@ -58,7 +57,7 @@ const PersonSingle = ({ data }) => {
         }
         fetchMemberOf()
     }, []);
-
+*/
 
     const aside = (
         <>

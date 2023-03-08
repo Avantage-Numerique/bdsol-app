@@ -7,7 +7,10 @@ import {useAuth} from "@/auth/context/auth-context";
 import CreateMediaForm from "@/DataTypes/Media/components/forms/CreateMedia/CreateMediaForm";
 //import style from "./EntityNavBar.module.scss";
 
+
+
 const EntityNavBar = (props) => {
+
 
     const {
         entity,
@@ -15,11 +18,14 @@ const EntityNavBar = (props) => {
         //these modals, can be dry, but by a "manager like".
         ModalForm,
         modalParams,
-        ModalMainImageForm,
+        ModalMainImageForm,  
         modalMainImageParams,
         modalMainImageControl,
         showUpdateMenu
     } = props;
+
+    console.log("Entity nav bar rendered", entity);
+
 
     const backUrl = "/";
     const type = entity.type ?? "person";
@@ -30,7 +36,9 @@ const EntityNavBar = (props) => {
 
     const {displayModal, modal, closeModal, Modal} = useModal();
 
+    //MainImageModalControl receives the modal hook reference. 
     const mainImageModalControl = modalMainImageControl ?? undefined;// ?? useModal()
+    console.log(mainImageModalControl)
 
     const showMenu = showUpdateMenu !== undefined ? showUpdateMenu : true;
 
