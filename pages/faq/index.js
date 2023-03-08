@@ -7,7 +7,7 @@ const FAQ = () => {
         <div>
             <PageHeader title={`FAQ`}/>
             <div className="content">
-                <a href="/FAQ/licences">
+                <a href="/faq/licences">
                     Tout sur les licences
                 </a>
             </div>

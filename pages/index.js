@@ -267,12 +267,12 @@ const HomePage = ({}) => {
                                 </div>
 
                                 <div className={"db-edit-options__button-set"}>
-                                    <Button href="/taxonomies" color="primary" size="slim">Catégories</Button>
+                                    <Button href="/categories" color="primary" size="slim">Catégories</Button>
                                     <Button
                                         color="primary"
                                         size="slim"
                                         disabled={!auth.user.isLoggedIn}
-                                        href="/contribuer/taxonomy"
+                                        href="/contribuer/categorie"
                                     >+</Button>
                                 </div>
                                 {auth.user.isLoggedIn &&

@@ -180,6 +180,7 @@ const CreateMediaForm = (props) => {
                             options={licences}
                             formTools={formTools}
                         />
+                        <blockquote>allo</blockquote>
                         <Textarea
                             name="description"
                             label="description"

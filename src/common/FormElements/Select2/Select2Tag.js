@@ -36,9 +36,6 @@ Props :
 
 const Select2Tag = ({name, formTools, ...props}) => {
 
-    //Authentication ref
-    const auth = useAuth();
-
     //Create taxonomy modal
     const {displayModal, modal, closeModal, Modal} = useModal();
 
@@ -128,9 +125,8 @@ const Select2Tag = ({name, formTools, ...props}) => {
         setOptionList(newOptionList)
     },[selectResponse])
 
-    //Function to add a taxonomy element to the selected list that will be submitted with the form
     const resetSelectComponent = () => {
-        //setInputValue([]);
+        //setInputValue("");
         //updateValue([]);
         selectRef.current.setValue([], "set-value");
         //formRequestData("");
