@@ -69,7 +69,7 @@ const TaxonomiesSinglePage = (props) => {
 export default TaxonomiesSinglePage;
 
 
-//  L'API a besoin de la BD Pour construire les paths.
+//  L'APP a besoin de la BD Pour construire les paths.
 /*export async function getStaticPaths() {
 
     const taxonomies = await externalApiRequest(
