@@ -33,8 +33,6 @@ const PersonSingle = ({ data }) => {
         mainImage
     } = data;
 
-    console.log("Person single rendered", data );
-
 
     const date_createdAt = new Date(createdAt);
     const date_updatedAt = new Date(updatedAt);

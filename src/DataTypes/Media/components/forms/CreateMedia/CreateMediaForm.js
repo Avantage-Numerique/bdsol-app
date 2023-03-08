@@ -40,8 +40,6 @@ const CreateMediaForm = (props) => {
         licence,
         url,
     } = initValues;
-
-    console.log("init value in field" , (initValues) ? process.env.NEXT_PUBLIC_API_URL + url : '')
     
     //Authentication ref
     const auth = useAuth();
