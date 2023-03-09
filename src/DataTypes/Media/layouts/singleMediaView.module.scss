@@ -146,4 +146,23 @@
                 margin-top: 5rem;
                 margin-top: calc(var(--picture-size / 2))
         }
+
+
+}
+
+.single-media-container {
+        background-color: rgba(151, 151, 151, 0.651);
+        .single-media-container__behind-img {
+                z-index: 0;
+                img { 
+                        object-fit: cover; 
+                        opacity: 0.3;
+                        -webkit-filter: blur(4px);
+                        filter: blur(4px);
+                }
+        }
+        .single-media-img {
+                z-index: 1;
+                max-height: 20rem;
+        }
 }

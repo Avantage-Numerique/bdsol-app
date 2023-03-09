@@ -1,4 +1,4 @@
-import {useEffect, useState, useContext} from 'react'
+import {useEffect, useState, useContext, useRef} from 'react'
 
 //Custom hooks
 import {useFormUtils} from '@/src/hooks/useFormUtils/useFormUtils';
@@ -28,6 +28,10 @@ const CreateMediaForm = (props) => {
         entity
     } = props;
 
+    //Define if the form is creating a new file or if it is in an update state.
+    //Starting state is false since no new file has been passed
+    const isNewFile = useRef(false);
+
     //For now, we assume the it is always going to be mainImage
     const {
         alt,
@@ -37,6 +41,7 @@ const CreateMediaForm = (props) => {
         extension,
         fileName,
         fileType,
+        title,
         licence,
         url,
     } = initValues;
@@ -45,37 +50,38 @@ const CreateMediaForm = (props) => {
     const auth = useAuth();
 
     //Extract the functions inside useHttpClient to send api request
-    //NOT SUPPOSED TO BE USED
     const {isLoading, sendRequest} = useHttpClient();
 
     //Import message context 
     const msg = useContext(MessageContext);
 
-    const mainImageUrl = initValues.url ? process.env.NEXT_PUBLIC_API_URL + initValues.url : undefined;
+    //Initial main image value 
+    const initImgValue =  useRef(initValues ? process.env.NEXT_PUBLIC_API_URL + url : '');
 
     //Main form functionalities
     const {FormUI, submitRequest, formState, formTools} = useFormUtils(
         {
-            entityId: {
-                value: entity._id,
-                isValid: true
-            },
             mainImage: {
-                value: initValues ? process.env.NEXT_PUBLIC_API_URL + url : '',
+                value: initImgValue.current,
                 isValid:  true
             },
             licence: {
-                value: initValues.licence ?? "-1",
-                isValid: false
+                value: licence ?? "-1",
+                isValid: true
             },
             description: {
-                value: initValues.description ? description : '',
+                value: description ? description : '',
                 isValid:  true
             },
             alt: {
-                value: initValues.alt ? alt : '',
+                value: alt ? alt : '',
+                isValid: true
+            },
+            title: {
+                value: title ? title : '',
                 isValid: true
             }
+
         },
         //Pass a set of rules to execute a valid response of an api request
         positiveRequestActions || {
@@ -89,6 +95,14 @@ const CreateMediaForm = (props) => {
 
     //State to display the differents form "pages"
     const [formPage, setFormPage] = useState(0);
+
+    //Watch for a new fil uploaded
+    useEffect(() => {
+        if(url && formState.inputs["mainImage"].value !== initImgValue.current){
+            //Tell the component that the image has been changed and so, if submitted, we have to upload it
+            isNewFile.current = true;
+        }
+    }, [formState.inputs["mainImage"].value])
 
     
     //Fetch licence list on load
@@ -138,6 +152,8 @@ const CreateMediaForm = (props) => {
         fetchLicences();
     }, [])
 
+    //upload vs update
+
     //Submit the form
     const submitHandler = async event => {
 
@@ -147,35 +163,60 @@ const CreateMediaForm = (props) => {
             Upload a media file will be seperate from the creation of an account
         */
 
-        let rawFromData = new FormData();
+        if(isNewFile.current){
+            
+            let rawFromData = new FormData();
 
-        const formData = {
-            "title": entity.name ?? "allo",
-            "alt": entity.name ?? "picasso",
-            "description": formState.inputs.description.value,
-            "licence": formState.inputs.licence.value,
-            "fileType": "image",
-            "mediaField": "mainImage",
-            "entityType": entity.type,
-            "entityId": formState.inputs.entityId.value,
-            "status": getDefaultCreateEntityStatus(auth.user)
+            //Feilds values
+            const formData = {
+                "title": formState.inputs.title.value,
+                "alt": formState.inputs.alt.value,
+                "description": formState.inputs.description.value,
+                "licence": formState.inputs.licence.value,
+                "fileType": "image",
+                "mediaField": "mainImage",
+                "entityType": entity.type,
+                "entityId": entity._id,
+                "status": getDefaultCreateEntityStatus(auth.user)
+            }
+            //Add the image to the form data object
+            rawFromData.append("mainImage", formState.inputs.mainImage.value);
+            //Add the field values
+            rawFromData.append("data", JSON.stringify(formData));
+            
+            await submitRequest(
+                "/medias/upload",
+                'POST',
+                rawFromData,
+                {
+                    'Accept': 'application/json'
+                },
+                {
+                    isBodyJson: false
+                }
+            );
         }
 
-        //Add data to the formData
-        rawFromData.append("mainImage", formState.inputs.mainImage.value);
-        rawFromData.append("data", JSON.stringify(formData));
+        if(!isNewFile.current){
 
-        await submitRequest(
-            "/medias/upload",
-            'POST',
-            rawFromData,
-            {
-                'Accept': 'application/json'
-            },
-            {
-                isBodyJson: false
+            const formData = {
+                "data": {
+                    "id": entity.mainImage._id,
+                    "title": formState.inputs.title.value,
+                    "alt": formState.inputs.alt.value,
+                    "description": formState.inputs.description.value,
+                    "licence": formState.inputs.licence.value
+                }
             }
-        );
+            
+            //Add data to the formData
+            await submitRequest(
+                "/medias/update",
+                'POST',
+                formData
+            );
+        }
+
     }
 
     return (
@@ -189,10 +230,7 @@ const CreateMediaForm = (props) => {
                             name="mainImage"
                             label="Fichier"
                             formTools={formTools}
-                            validationRules={[
-                                {name: "REQUIRED"},
-                                {name: "FILE_MAX_SIZE", specification: 2}
-                            ]}
+                           
                         />
                     </div>
 
@@ -200,11 +238,12 @@ const CreateMediaForm = (props) => {
                     <div className={`col-6 ${styles["fields-column"]}`}>
                 
                         <nav className={`container mb-2 ${styles["form-inner-nav"]}`}>
+                            <p className="mb-0 ">Informations</p>
                             <div className="row">
-                                <button aria-current={ formPage === 0 ? "page" : ""} className={`${styles["form-inner-nav__button"]} col`} type="button" onClick={() => setFormPage(0)}>
+                                <button aria-current={ formPage === 0 ? "page" : ""} className={`${styles["form-inner-nav__button"]} col fs-6`} type="button" onClick={() => setFormPage(0)}>
                                     De base
                                 </button>
-                                <button aria-current={ formPage === 1 ? "page" : ""} className={`${styles["form-inner-nav__button"]} col`} type="button" onClick={() => setFormPage(1)}>
+                                <button aria-current={ formPage === 1 ? "page" : ""} className={`${styles["form-inner-nav__button"]} col fs-6`} type="button" onClick={() => setFormPage(1)}>
                                     Avancées
                                 </button>
                             </div>
@@ -212,7 +251,7 @@ const CreateMediaForm = (props) => {
                         {/* Section one of the form */}
                         {formPage === 0 &&
                         <div>
-                            <small>Média associé à </small>
+                            Média associé à 
                             {/* Waiting for the tag components */}
                             <article className={`rounded d-flex ${styles["temporary-entity-tag"]}`}>
                                 {entity.mainImage && 
@@ -249,6 +288,12 @@ const CreateMediaForm = (props) => {
                                     onClick={submitHandler}
                                     size="slim"
                                 > Soumettre
+                                </Button>
+                                <Button 
+                                    color="danger"
+                                    size="slim"
+                                >
+                                    Supprimer
                                 </Button>
           
                             </div>

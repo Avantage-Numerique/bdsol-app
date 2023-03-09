@@ -103,8 +103,8 @@ const Single = (props) => {
                             <div className={`${styles["single-header-content__bottom-row"]} d-flex flex-row justify-content-start`}>
                                 <figure className={`${styles[mainImageClass]} ${styles[mainImageAdditionalClass]}`}>
                                     { haveMainImage &&
-                                        <a href={`/medias/${entity.mainImage._id}`} className={`w-100 h-100 position-absolute d-flex align-items-center justify-content-center p-1 ${styles["profile-picture--modification-opt"]}`}>
-                                            &nbsp;
+                                        <a href={`/medias/${entity.mainImage._id}`} className={`fs-4 w-100 h-100 position-absolute d-flex align-items-center justify-content-center p-1 ${styles["profile-picture--modification-opt"]}`}>
+                                            Afficher
                                         </a>
                                     }
                                     {mainImage &&
