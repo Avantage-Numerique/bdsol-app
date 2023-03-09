@@ -45,7 +45,7 @@ const TaxonomiesSinglePage = (props) => {
                 description=""
             >
                 <p className={"pt-4"}>
-                    <a href='/categories' className={"btn btn-outline-light"}>Retour à la liste des taxonomies</a>
+                    <a href='/categories' className={"btn btn-outline-light"}>Retour à toutes les catégories</a>
                 </p>
             </PageHeader>
 

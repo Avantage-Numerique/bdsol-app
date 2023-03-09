@@ -55,8 +55,6 @@ const LargeFileInput = ( props ) => {
     //State specific to this field
     const currentState = formState.inputs[name];
 
-    console.log(formState);
-
     /********* Component's references *************/
     const fieldRef = useRef("");    //Real input
 

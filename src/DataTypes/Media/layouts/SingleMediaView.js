@@ -1,12 +1,22 @@
-
-import Router from 'next/router';
-import { useModal } from '@/src/hooks/useModal/useModal';
-import UpdatePersonForm from '@/DataTypes/Person/Components/Forms/update/UpdatePersonForm';
-import styles from './singleMediaView.module.scss';
-import Single from "@/DataTypes/common/layouts/single/Single";
-import SanitizedInnerHtml from "@/src/utils/SanitizedInnerHtml";
 import React from "react";
 import LicenceDisplay from '@/src/common/FormElements/SelectLicence/LicenceDisplay';
+import Router from 'next/router';
+
+//Components
+import UpdatePersonForm from '@/DataTypes/Person/Components/Forms/update/UpdatePersonForm';
+import Single from "@/DataTypes/common/layouts/single/Single";
+import Button from "@/FormElements/Button/Button"
+
+//hooks
+import { useModal } from '@/src/hooks/useModal/useModal';
+
+//Utils
+import SanitizedInnerHtml from "@/src/utils/SanitizedInnerHtml";
+
+//Styling
+import styles from './singleMediaView.module.scss';
+
+
 
 
 const SingleInfoLayout = ({ title, NAMessage="-", children }) => {
@@ -39,6 +49,11 @@ const SingleMediaView = ({ data }) => {
                 title={"Associé à l'entité"}>
                 <SanitizedInnerHtml tag={"span"}>{data.entityId}</SanitizedInnerHtml>
             </SingleInfoLayout>
+            <div className="d-flex flex-wrap gap-2">
+                <Button size="slim-100">Modifier le contenu</Button>
+                <Button color="secondary" size="slim-100">Changer l'image</Button>
+                <button className="text-danger">Supprimer l'image</button>
+            </div>
         </>
     )
     const headerMainContent = (
@@ -85,20 +100,23 @@ const SingleMediaView = ({ data }) => {
             headerMainContent={headerMainContent}
             entity={data}
             modalComponent={modalComponent}
-            showCTA={false}
+            showCTA={true}
             showMainImageInHeader={false}
             showUpdateMenu={false}
             mainImageClass={"header-content__media-preview"}
         >
 
             <div className={`single-media-main-image`}>
-                <figure>
-                    <img className={"img-fluid"} src={data.url} alt={data.alt} />
+                <figure className={`position-relative d-flex justify-content-center ${styles["single-media-container"]}`}>
+                    <div className={`position-absolute top-0 start-0 w-100 h-100 ${styles["single-media-container__behind-img"]}`}>
+                        <img className={`position-absolute top-0 start-0 w-100 h-100 `} src={data.url} alt={data.alt} />
+                    </div>
+                    <img className={`img-fluid ${styles["single-media-img"]}`} src={data.url} alt={data.alt} />
                 </figure>
             </div>
 
             <SingleInfoLayout
-                title={"Alt"}>
+                title={"Texte alternatif"}>
                 <SanitizedInnerHtml tag={"span"}>{data.alt}</SanitizedInnerHtml>
             </SingleInfoLayout>
 

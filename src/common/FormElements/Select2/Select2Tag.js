@@ -49,7 +49,7 @@ const Select2Tag = ({name, formTools, ...props}) => {
     const [inputValue, setInputValue] = useState("");
     //Set default selectValue
     useEffect(() => {
-        console.log("useEffect")
+
         if(formState.inputs[name]?.value?.length > 0)
         {
             const state = formState.inputs[name].value.map((elem) => {
@@ -63,7 +63,7 @@ const Select2Tag = ({name, formTools, ...props}) => {
         if(selectResponse?.data?.length > 0){
             //Set an array full of "populated alike" item ( [occupation : {full object}, ...] )
             const selectedList = selectedValue.map( (item) => {
-                return { [props.idField]: selectResponse?.data.find( (elem) => { return elem._id == item.value }) };
+                return { [props.idField]: selectResponse?.data.find( (elem) => { return elem._id === item.value }) };
             });
             inputHandler(
                 name,
@@ -173,7 +173,7 @@ const Select2Tag = ({name, formTools, ...props}) => {
                         isMulti
                         inputValue={inputValue}
                         onInputChange={(val) => {
-                            val.slice(-1) == ',' ?
+                            val.slice(-1) === ',' ?
                             setValueWithComma()
                             :
                             formRequestData(val)

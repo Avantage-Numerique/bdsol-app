@@ -132,8 +132,10 @@ export const useHttpClient = () => {
                     ...usersHeaders,
                     ...headers
                 };
-
             activeHttpRequests.current.push(httpAbortCtrl);
+
+            params.origin = "browser";//Force set to browser, because send request is used to be called only from in client call.
+
             try {
 
                 const responseData = await externalApiRequest(
