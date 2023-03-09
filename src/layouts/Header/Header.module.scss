@@ -14,22 +14,24 @@
     height: var(--headersHeight);
     display: flex;
     flex-direction: column;
-    
-    &.account-bar{
+
+    &.account-bar {
         height: calc(var(--headersHeight) + 2rem);
 
-        .navButton { top: 2rem; }
+        .navButton {
+            top: 2rem;
+        }
     }
 
     /* Title container where is putted the logo */
-    .header__content{
+    .header__content {
         width: 100%;
         height: var(--headersHeight);
 
         img {
             cursor: pointer;
             width: 100%;
-            max-width:236px;
+            max-width: 236px;
             height: 100%;
             object-fit: contain;
             object-position: left center;
@@ -48,10 +50,10 @@
         /* Align the hamburger menu in the center */
         display: flex;
         align-content: center;
-        position:absolute;
-        right:0;
-        top:0;
-        height:5em;
+        position: absolute;
+        right: 0;
+        top: 0;
+        height: 5em;
 
         .connection-menu-container {
             width: 15rem;
@@ -60,7 +62,8 @@
             background-color: transparent;
             justify-content: center;
             align-items: center;
-            color:white;
+            color: white;
+
             a {
                 margin: 1rem;
             }
@@ -87,7 +90,7 @@
                 -o-transition: opacity 200ms;
                 transition: opacity 200ms;
 
-                &:hover{
+                &:hover {
                     opacity: 1;
                 }
 
@@ -96,38 +99,32 @@
                 }
             }
         }
+    }
 
-        .account-menu-container {
-            position: relative;
-            min-width: 5rem;
+    .account-menu-container {
+        position: relative;
+        max-width: 5rem;
+        width: 5rem;
+        height: 100%;
+        overflow: hidden;
+
+        .account-menu-container__button {
             height: 100%;
+            width: 100%;
+            fill: white;
 
-            .account-menu-container__button {
-                padding: calc(0.35 *  var(--headersHeight));
+            &:hover {
+                opacity: 1;
+            }
 
-                fill: white;
+            svg {
+                width: 100%;
+            }
 
-                &:hover{
-                    opacity: 1;
-                }
-
-                svg {
-                    width: 100%;
-                }
-
-                .user-img {
-                    position: absolute;
-                    object-fit: cover;
-                    top: 0;
-                    height: 100%;
-                    width: 100%;
-                    left: 0;
-                    border: 0.3rem solid rgb(230, 230, 230);
-                    background-color: rgb(230, 230, 230);
-                }
+            .user-img {
+                object-fit: cover;
             }
         }
-
     }
 
     /* Blue button to open the nav */
@@ -135,7 +132,7 @@
         /* Align the hamburger menu in the center */
         display: flex;
         align-content: center;
-        height:5em;
-        width:7vw;
+        height: 5em;
+        width: 7vw;
     }
 }

@@ -1,28 +1,25 @@
 //React
-import { useEffect, useState } from "react"
-
-//Router
-import { useRouter } from "next/router";
-
-//Component
+import React, {useEffect, useState} from "react"
+import {useRouter} from "next/router";
 import SearchBar from "@/src/common/Components/SearchBar"
-import { sendExternalApiRequest } from "@/src/hooks/http-hook";
+import {sendExternalApiRequest} from "@/src/hooks/http-hook";
 import PersonSimple from '@/DataTypes/Person/Components/layouts/simple/PersonSimple'
 import OrganisationSimple from '@/DataTypes/Organisation/components/layouts/simple/OrganisationSimple'
+import PageHeader from "@/layouts/Header/PageHeader";
 
 
 const SearchResults = () => {
 
-    const gridComponenents = new Map();
-    gridComponenents.set("person", PersonSimple);
-    gridComponenents.set("organisation", OrganisationSimple);
+    const gridComponents = new Map();
+    gridComponents.set("person", PersonSimple);
+    gridComponents.set("organisation", OrganisationSimple);
 
     const [searchList, setSearchList] = useState([]);
     const router = useRouter();
     const [searchMessage, setSearchMessage] = useState("");
 
     useEffect(() => {
-        async function searchRequest(){
+        async function searchRequest() {
 
             let response = [];
             if(router.query.searchIndex){
@@ -75,15 +72,21 @@ const SearchResults = () => {
     }
 
     return (
-        <div className="maxWidthPageContainer">
-            <div>Page de recherche</div>
-            <SearchBar id="searchResults-searchBar"></SearchBar>
-            <div>Résultats de recherche {searchMessage} :</div>
+        <div>
+            <PageHeader
+                bg={"bg-purplelight"}
+                textColor={"text-white"}
+                htmlTitle={"Résultats de recherche" + " pour " + router.query.searchIndex}
+                description=""
+            >
+                <SearchBar id="searchResults-searchBar" />
+            </PageHeader>
+
             <div className="row home-page__feed-section--container row-cols-1 row-cols-sm-2 row-cols-xl-3">
                 {
                     searchList?.length > 0 ?
                     searchList.map((elem, index) => {
-                        let TargetSimpleComponent = gridComponenents.get(elem.type);
+                        let TargetSimpleComponent = gridComponents.get(elem.type);
                         TargetSimpleComponent = TargetSimpleComponent ?? OrganisationSimple;
                         return (
                             <div className="col g-3" key={"container"+elem.type+elem._id + "-" + elem.slug+index}>

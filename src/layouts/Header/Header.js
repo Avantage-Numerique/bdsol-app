@@ -1,22 +1,6 @@
-/*
-
-
-    Header bar presented on the top of the page
-    V.P.R.
-
-    created on 15/10/2021
-    
-
-*/
-
 import HamburgerButton from '@/src/common/FormElements/HamburgerButton/HamburgerButton';
-import Link from 'next/link'
-
-//Authentication context
+import Link from 'next/link';
 import {useAuth} from '@/auth/context/auth-context';
-
-
-//Styling
 import styles from './Header.module.scss'
 import ConnectionBanner from "@/src/layouts/ConnexionBanner/ConnectionBanner";
 import SearchBar from '@/src/common/Components/SearchBar';
@@ -45,10 +29,23 @@ const Header = (props) => {
                         </div>
                     </div>
 
-                    
-                    <div className="col">
-                        <div className={`${styles["searchbar-menu-container"]} align-items-center`}>
-                            <SearchBar id="searchbar-layout" clearAfterSearch="true" small />
+
+                    <div className="col-6 d-flex justify-content-center align-items-center">
+                        <div className={"container"}>
+                            <div className={"row"}>
+                                <div className={"col"}>
+                                    <div className={`${styles["searchbar-menu-container"]} align-items-center`}>
+                                        <SearchBar id="searchbar-layout" clearAfterSearch="true" small />
+                                    </div>
+                                </div>
+                                {auth.user.isLoggedIn &&
+                                    <div className={"col d-flex justify-content-center align-items-center"}>
+                                            <div className="d-grid w-100" onClick={ () => setMenuState(0) }>
+                                                <a href="/contribuer" className={"btn btn-outline-light"}><i className="las la-plus-circle"></i> {lang.menuContributeLabel}</a>
+                                            </div>
+                                    </div>
+                                }
+                            </div>
                         </div>
                     </div>
 
@@ -65,30 +62,19 @@ const Header = (props) => {
                                     </li>
                                 </ul>
                             }
-                            {auth.user.isLoggedIn &&
-                                <ul className="nav align-items-center" onClick={ () => setMenuState(0) }>
-                                    <li className={`nav-item`} onClick={ () => setMenuState(0) }>
-                                        <a href="/contribuer" className={"nav-link"}><i className="las la-plus-circle"></i> {lang.menuContributeLabel}</a>
-                                    </li>
-                                </ul>
-                            }
-
                             { auth.user.isLoggedIn &&
-                                <div className={`d-flex align-items-center ${styles["account-menu-container"]}`}>
+                                <div className={`bg-primary d-flex align-items-center ${styles["account-menu-container"]}`}>
                                     <button
-                                        className={`
-                                        ${styles["account-menu-container__button"]}
-                                        ${styles["account-menu-container__button--connected"]}
-                                    `}
+                                        className={`${styles["account-menu-container__button"]}`}
                                         onClick={() => setMenuState(menuState !== 2 ? 2 : 0) }>
 
                                         {(auth.user.avatar === undefined || auth.user.avatar === null || auth.user.avatar.toString() === "") ?
-                                            <img className={`${styles["user-img"]}`}
+                                            <img className={`${styles["user-img"]} img-fluid`}
                                                  src="https://freesvg.org/img/1389952697.png"
                                                  alt="Aucune image de profil"/>
                                             :
                                             <img
-                                                className={`${styles["user-img"]}`}
+                                                className={`${styles["user-img"]} img-fluid`}
                                                 src={auth.user.avatar}
                                                 alt="Votre avatar"
                                             />

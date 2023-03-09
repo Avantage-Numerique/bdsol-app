@@ -30,8 +30,8 @@ const Nav = ( {menuState, setMenuState} ) => {
                         <Link href="/">Accueil</Link>
                     </li>
 
-                    <li className={`${navStyles["unactive"]}`}>
-                        Consulter les données
+                    <li>
+                        <Link href="/categories">Consulter les données</Link>
                     </li>
 
                     <li>
