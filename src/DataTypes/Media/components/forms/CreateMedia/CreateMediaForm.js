@@ -7,7 +7,7 @@ import {useHttpClient} from '@/src/hooks/http-hook'
 //Components
 import Button from '@/FormElements/Button/Button';
 import Textarea from '@/FormElements/Textarea/Textarea';
-import Select from '@/FormElements/Select/Select';
+import SelectLicence from '@/src/common/FormElements/SelectLicence/SelectLicence';
 import Input from '@/FormElements/Input/Input'
 import LargeFileInput from '@/FormElements/LargeFileInput/LargeFileInput'
 
@@ -91,54 +91,6 @@ const CreateMediaForm = (props) => {
 
     //State to display the differents form "pages"
     const [formPage, setFormPage] = useState(0);
-
-    
-    //Fetch licence list on load
-    useEffect(() => {
-        const fetchLicences = async () => {
-
-            //Send the request with the specialized hook
-            const response = await sendRequest(
-                '/static/licences/',
-                'GET',
-                null
-            );
-
-            //If response is positive, update the state and pass the result to the select input
-            if (!response.error) {
-                /*const arrayOfLicences = Object.values(response.data);
-                const options = arrayOfLicences.map(obj => ({
-                    label: obj.label,
-                    value: obj.label,
-                    disabled: false
-                }));*/
-                let options = [
-                    {
-                        label: '-- Choisissez une licence --',
-                        value: '-1',
-                        disabled: false
-                    }
-                ];
-                Object.keys(response.data).map((licenceKey) => {
-                        options.push({
-                            label: response.data[licenceKey].label,
-                            value: licenceKey,
-                            disabled: false
-                        });
-                    }
-                );
-                setLicences(options);
-
-            } else {
-                //If negative, for now, inform the user
-                msg.addMessage({
-                    text: "Une erreur est survenue et la liste des licences n'a pas pu être chargée.",
-                    positive: false
-                })
-            }
-        }
-        fetchLicences();
-    }, [])
 
     //Submit the form
     const submitHandler = async event => {
@@ -234,13 +186,11 @@ const CreateMediaForm = (props) => {
                                     {entity.type === "organisation" && <p className="m-0 fs-6">Organisation</p>}
                                 </div>
                             </article>
-                            <Select 
-                                name="licence"
-                                label="licence"
-                                options={licences}
+                            
+                            <SelectLicence
                                 formTools={formTools}
-                            />
-                            <small className="fs-6">Plus de détails sur les licences possibles.</small>
+                                name="licence"/>
+
                             <Textarea 
                                 name="description"
                                 label="description"

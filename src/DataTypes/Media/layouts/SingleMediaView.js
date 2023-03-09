@@ -6,6 +6,7 @@ import styles from './singleMediaView.module.scss';
 import Single from "@/DataTypes/common/layouts/single/Single";
 import SanitizedInnerHtml from "@/src/utils/SanitizedInnerHtml";
 import React from "react";
+import LicenceDisplay from '@/src/common/FormElements/SelectLicence/LicenceDisplay';
 
 
 const SingleInfoLayout = ({ title, NAMessage="-", children }) => {
@@ -44,10 +45,11 @@ const SingleMediaView = ({ data }) => {
         <div className={`${styles["quick-section"]}`}>
             <h1>{data.title}</h1>
             <div className={`${styles["quick-section__single-info"]}`}>
-                <span>fileName : </span>{data.fileName}
+                <span>Nom de fichier : </span>{data.fileName}
             </div>
             <div className={`${styles["quick-section__single-info"]}`}>
-                <span>licence : </span>{data.licence}
+                <span>Licence : </span>
+                <LicenceDisplay licenceKey={data.licence}/>
             </div>
         </div>
     )

@@ -24,7 +24,7 @@ const SearchTag = ({list, ...props}) => {
                     searchTagList.map( (entity, index) => {
                         if (index < max || max === -1) {
                             return (
-                                <a href={`/taxonomies${entity.url}`} className={`badge text-bg-primarylight me-1`} title={entity.label} rel={"follow"}
+                                <a href={`/categories${entity.url}`} className={`badge text-bg-primarylight me-1`} title={entity.label} rel={"follow"}
                                    key={"searchTag-"+entity.url}>
                                     {entity.label}
                                 </a>
