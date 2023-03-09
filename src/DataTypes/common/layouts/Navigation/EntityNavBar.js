@@ -2,7 +2,7 @@ import Button from "@/FormElements/Button/Button";
 import {lang} from "@/common/Data/GlobalConstants";
 import React from "react";
 import {useModal} from "@/src/hooks/useModal/useModal";
-import Router from "next/router";
+import Router, {useRouter} from "next/router";
 import {useAuth} from "@/auth/context/auth-context";
 import CreateMediaForm from "@/DataTypes/Media/components/forms/CreateMedia/CreateMediaForm";
 //import style from "./EntityNavBar.module.scss";
@@ -43,14 +43,17 @@ const EntityNavBar = (props) => {
     const displayUpdateForm = () => {
         displayModal();
     }
-// onClick={modalMainImageControl.displayModal}
+
+    const router = useRouter();
+
     return (
         <>
             <div className={`container ${containerClass}`}>
                 <div className="row justify-content-between mb-4">
                     <div className="col-6 col-lg-6 justify-content-end">
                         <div>
-                            <a className="text-white" href={backUrl} title={lang.back}> &#8629; {lang.back}</a>
+                            <button type="button" className="btn btn-outline-light" title={lang.back} onClick={() => router.back()}>
+                                <i className="las la-chevron-circle-left"></i> {lang.back}</button>
                         </div>
                     </div>
                     {auth.user.isLoggedIn && showMenu &&
