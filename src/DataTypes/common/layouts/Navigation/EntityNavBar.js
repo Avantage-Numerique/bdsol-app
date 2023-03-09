@@ -38,7 +38,6 @@ const EntityNavBar = (props) => {
 
     //MainImageModalControl receives the modal hook reference. 
     const mainImageModalControl = modalMainImageControl ?? undefined;// ?? useModal()
-    console.log(mainImageModalControl)
 
     const showMenu = showUpdateMenu !== undefined ? showUpdateMenu : true;
 

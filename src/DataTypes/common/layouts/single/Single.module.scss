@@ -96,12 +96,26 @@
                         border-radius: 100%;
                         border: $border-light;
                         overflow: hidden;
+                        background-color: white;
 
                         img {
                             width: auto;
                             height: 100%;
+                            width: 100%;
+                            object-fit: cover;
+                        }
+                        .profile-picture--modification-opt {
+                            color: white;
+                            opacity: 0;
+                            background-color: rgba(0, 0, 0, 0.309);
+                            -webkit-transition: opacity 0.3s ease;
+                            -o-transition: opacity 0.3s ease;
+                            transition: opacity 0.3s ease;
+
+                            &:hover{ opacity: 1; }
                         }
                     }
+                    
                     .single-header-content__nav {
                         position: absolute;
                         top: 40%;
