@@ -24,9 +24,6 @@ const EntityNavBar = (props) => {
         showUpdateMenu
     } = props;
 
-    console.log("Entity nav bar rendered", entity);
-
-
     const backUrl = "/";
     const type = entity.type ?? "person";
     const closingModalBaseURI = `/${type.toLowerCase()}s/`;

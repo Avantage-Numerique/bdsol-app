@@ -11,7 +11,7 @@ import UpdatePersonForm from '@/DataTypes/Person/Components/Forms/update/UpdateP
 import CreateMediaForm from '@/DataTypes/Media/components/forms/CreateMedia/CreateMediaForm'
 
 //Styling
-import styles from './MainPersonView.module.scss'
+//import styles from './MainPersonView.module.scss'
 import {lang} from "@/common/Data/GlobalConstants";
 import SearchTag from '@/src/common/Components/SearchTag';
 
@@ -63,8 +63,6 @@ const Deprecated_MainPersonView = ({ data }) => {
         fullImagePath = process.env.NEXT_PUBLIC_API_URL +  "/medias/persons/" + _id + "/" + mainImage.fileName + "." + mainImage.extension;
 
     const {sendRequest} = useHttpClient();
-
-    console.log(mainImage)
     //Authentication ref
     const auth = useAuth();
     

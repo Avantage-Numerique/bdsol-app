@@ -36,9 +36,6 @@ Props :
 
 const Select2Tag = ({name, formTools, ...props}) => {
 
-    //Authentication ref
-    const auth = useAuth();
-
     //Create taxonomy modal
     const {displayModal, modal, closeModal, Modal} = useModal();
 
@@ -52,7 +49,7 @@ const Select2Tag = ({name, formTools, ...props}) => {
     const [inputValue, setInputValue] = useState("");
     //Set default selectValue
     useEffect(() => {
-        console.log("useEffect")
+
         if(formState.inputs[name]?.value?.length > 0)
         {
             const state = formState.inputs[name].value.map((elem) => {
@@ -66,7 +63,7 @@ const Select2Tag = ({name, formTools, ...props}) => {
         if(selectResponse?.data?.length > 0){
             //Set an array full of "populated alike" item ( [occupation : {full object}, ...] )
             const selectedList = selectedValue.map( (item) => {
-                return { [props.idField]: selectResponse?.data.find( (elem) => { return elem._id == item.value }) };
+                return { [props.idField]: selectResponse?.data.find( (elem) => { return elem._id === item.value }) };
             });
             inputHandler(
                 name,
@@ -128,9 +125,8 @@ const Select2Tag = ({name, formTools, ...props}) => {
         setOptionList(newOptionList)
     },[selectResponse])
 
-    //Function to add a taxonomy element to the selected list that will be submitted with the form
     const resetSelectComponent = () => {
-        //setInputValue([]);
+        //setInputValue("");
         //updateValue([]);
         selectRef.current.setValue([], "set-value");
         //formRequestData("");
@@ -177,7 +173,7 @@ const Select2Tag = ({name, formTools, ...props}) => {
                         isMulti
                         inputValue={inputValue}
                         onInputChange={(val) => {
-                            val.slice(-1) == ',' ?
+                            val.slice(-1) === ',' ?
                             setValueWithComma()
                             :
                             formRequestData(val)

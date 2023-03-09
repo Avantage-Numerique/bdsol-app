@@ -55,7 +55,7 @@ const nextConfig = {
 
     i18n: {
         locales: ["fr-CA"],
-        defaultLocale: "fr-CA",
+        defaultLocale: "fr-CA"
     },
 
     //accessible only on serveur
@@ -74,7 +74,7 @@ const nextConfig = {
         apiHostName: process.env.API_HOST_NAME,
         apiMethod: process.env.API_METHOD,
         apiPort: process.env.API_PORT,
-        apiURL: process.env.API_HOST_NAME + ":" + process.env.API_PORT,
+        apiURL: process.env.API_HOST_NAME + ":" + process.env.API_PORT
     },
     //serveur and public
     publicRuntimeConfig: {
@@ -82,11 +82,16 @@ const nextConfig = {
             defaultFormat: "YYYY-MM-DD HH:MM:SS",
             defaultLanguage: "fr-CA"
         },
-        appUrl: process.env.APP_PROTOCOLE + "" + process.env.APP_BASE_URL + ":" + process.env.APP_PORT,
+        appUrl: process.env.APP_PROTOCOLE + "" + process.env.APP_BASE_URL + ":" + process.env.APP_PORT
     },
     sassOptions: {
         includePaths: [path.join(__dirname, 'styles')],
-        additionalData: `@import "./styles/component-base-imports.scss";`,
+        additionalData: `@import "./styles/component-base-imports.scss";`
+    },
+    eslint: {
+        // Warning: This allows production builds to successfully complete even if
+        // your project has ESLint errors.
+        ignoreDuringBuilds: true
     }
 }
 

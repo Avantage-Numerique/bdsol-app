@@ -123,9 +123,9 @@ const CreateTaxonomyForm = ({name, category, positiveRequestActions}) => {
 
                 <Select 
                     name="category"
-                    label="Catégorie"
+                    label="Type de catégorie"
                     formTools={formTools}
-                    noValueText="Choisissez une taxonomie"
+                    noValueText="Choisissez une catégorie"
                     options={[
                         {label: "Occupation", value: "occupations"},
                         {label: "Domaine", value: "domains", disabled: true},
@@ -155,7 +155,7 @@ const CreateTaxonomyForm = ({name, category, positiveRequestActions}) => {
 
                 <RichTextarea
                     name="status.message"
-                    label="Dites nous en quelques mots la raison de l'ajout de cette taxonomie"
+                    label="Dites nous en quelques mots la raison de l'ajout de cette catégorie"
                     labelNote="Cette information restera privée. Elle nous permet seulement de mieux comprendre la demande d'ajout."
                     placeholder="Je préfère cette appellation pour décrire mon activité professionnelle plutôt qu'une autre [...]"
                     formTools={formTools}
