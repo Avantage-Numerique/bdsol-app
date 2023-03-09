@@ -1,4 +1,5 @@
 import React from "react";
+import LicenceDisplay from '@/src/common/FormElements/SelectLicence/LicenceDisplay';
 import Router from 'next/router';
 
 //Components
@@ -57,14 +58,13 @@ const SingleMediaView = ({ data }) => {
     )
     const headerMainContent = (
         <div className={`${styles["quick-section"]}`}>
-            <div>
-                <h1>{data.title}</h1>
-                <div className={`${styles["quick-section__single-info"]}`}>
-                    <span>fileName : </span>{data.fileName}
-                </div>
-                <div className={`${styles["quick-section__single-info"]}`}>
-                    <span>licence : </span>{data.licence}
-                </div>
+            <h1>{data.title}</h1>
+            <div className={`${styles["quick-section__single-info"]}`}>
+                <span>Nom de fichier : </span>{data.fileName}
+            </div>
+            <div className={`${styles["quick-section__single-info"]}`}>
+                <span>Licence : </span>
+                <LicenceDisplay licenceKey={data.licence}/>
             </div>
         </div>
     )
