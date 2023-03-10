@@ -2,6 +2,13 @@
 
     .image-column {
         min-height: 14rem;
+        display: grid;
+        grid-template-rows: 1fr auto;
+
+        .img-preview {
+            object-fit: cover;
+            opacity: 0.85;
+        }
     }
 
     .fields-column {

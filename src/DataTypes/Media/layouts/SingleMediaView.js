@@ -16,8 +16,6 @@ import SanitizedInnerHtml from "@/src/utils/SanitizedInnerHtml";
 import styles from './singleMediaView.module.scss';
 
 
-
-
 const SingleInfoLayout = ({ title, NAMessage="-", children }) => {
     const haveChildren = children && children !== "";
     return (

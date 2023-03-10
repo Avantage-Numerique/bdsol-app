@@ -75,6 +75,18 @@ const formReducer = (state, action) => {
                 isValid: action.formIsValid
             };
 
+        case 'UPDATE_MANY_FIELDS':
+            //Receives an object of this shape : {[fieldName]: [fieldNewValue], [fieldName]: [fieldNewValue]}
+            //create a new object to edit
+            let newState = {...state};
+            //Loop through the keys of the object modifiedFields
+            for (const key in action.modifiedFields) {
+                if (action.modifiedFields.hasOwnProperty(key) && newState.inputs.hasOwnProperty(key)) {
+                    newState.inputs[key].value = action.modifiedFields[key];
+                }
+            }
+            return newState;
+
         default:
             return state;
     }
@@ -124,13 +136,24 @@ export const useForm = (initialInputs) => {
         });
     }, []);
 
+    const updateManyFields = useCallback(modificationsObj => {
+        //Receives an object of this shape : {[fieldName]: [fieldNewValue], [fieldName]: [fieldNewValue]}
+
+        /* Expect to receive an object of this shape */
+        dispatch({
+            type: 'UPDATE_MANY_FIELDS',
+            modifiedFields: modificationsObj
+        });
+    }, []);
+
     /* Regroup the form utils needed for the inputs */
     const formTools = {
         formState: formState,
         inputHandler: inputHandler,
         inputTouched: inputTouched,
-        clearFormData: clearFormData
+        clearFormData: clearFormData,
+        updateManyFields: updateManyFields
     }
 
-    return [formState, formTools, clearFormData];
+    return [formState, formTools, clearFormData, updateManyFields];
 };

@@ -2,12 +2,12 @@ import { useEffect, useState } from 'react'
 
 //Components
 import UpdatePersonForm from '@/DataTypes/Person/Components/Forms/update/UpdatePersonForm';
-
-//Styling
-import styles from './PersonSingle.module.scss'
 import SearchTag from '@/src/common/Components/SearchTag';
 import Single from "@/DataTypes/common/layouts/single/Single";
 import SingleInfo from "@/DataTypes/common/layouts/SingleInfo/SingleInfo";
+
+//Styling
+import styles from './PersonSingle.module.scss'
 
 //Hooks
 import {useModal} from "@/src/hooks/useModal/useModal";

@@ -57,7 +57,7 @@ export const useFormUtils = ( initialState, actions ) => {
     const {isLoading, sendRequest} = useHttpClient();
 
     //Custom hook to manage the state of the form (data)
-    const [formState, formTools, clearFormData] = useForm(initialState);
+    const [formState, formTools, clearFormData, updateManyFields] = useForm(initialState);
 
     const submitRequest = async (route, type, data, header = { 'Content-Type': 'application/json' }, params={isBodyJson:true}) => {
 
@@ -177,7 +177,8 @@ export const useFormUtils = ( initialState, actions ) => {
         formTools, 
         requestResponse,
         clearFormData,
-        transmuteTaxonomyTargetInput
+        transmuteTaxonomyTargetInput,
+        updateManyFields
     }
 
 }

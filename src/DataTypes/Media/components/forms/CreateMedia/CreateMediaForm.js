@@ -28,9 +28,8 @@ const CreateMediaForm = (props) => {
         entity
     } = props;
 
-    //Define if the form is creating a new file or if it is in an update state.
-    //Starting state is false since no new file has been passed
-    const isNewFile = useRef(false);
+    console.log("entitu", entity);
+    console.log(initValues);
 
     //For now, we assume the it is always going to be mainImage
     const {
@@ -45,7 +44,10 @@ const CreateMediaForm = (props) => {
         licence,
         url,
     } = initValues;
-    
+
+    //Define if the form is creating a new file or if it is updating the values of an existing one.
+    //Starting state is false since no new file has been passed
+    const [isNewFile, setIsNewFile] = useState((initValues && url) ? false : true);
     //Authentication ref
     const auth = useAuth();
 
@@ -59,26 +61,26 @@ const CreateMediaForm = (props) => {
     const initImgValue =  useRef(initValues ? process.env.NEXT_PUBLIC_API_URL + url : '');
 
     //Main form functionalities
-    const {FormUI, submitRequest, formState, formTools} = useFormUtils(
+    const {FormUI, submitRequest, formState, formTools, clearFormData, updateManyFields} = useFormUtils(
         {
             mainImage: {
-                value: initImgValue.current,
+                value: "",
                 isValid:  true
             },
             licence: {
-                value: licence ?? "-1",
+                value: "-1",
                 isValid: true
             },
             description: {
-                value: description ? description : '',
+                value: '',
                 isValid:  true
             },
             alt: {
-                value: alt ? alt : '',
+                value: '',
                 isValid: true
             },
             title: {
-                value: title ? title : '',
+                value: '',
                 isValid: true
             }
 
@@ -90,6 +92,24 @@ const CreateMediaForm = (props) => {
         }
     );
 
+    
+    const convertToNewImageMode = () => {
+       setIsNewFile(true);
+       clearFormData();
+    }
+
+    useEffect(() => {
+        if(!isNewFile){
+            updateManyFields({
+                mainImage: "", 
+                licence: licence ?? "-1",
+                description: description ?? '',
+                alt: alt ?? '',
+                title: title ?? '',
+            });
+        }
+    }, [isNewFile])
+
     //State that holds the licence list
     const [licences, setLicences] = useState([]);
 
@@ -97,12 +117,12 @@ const CreateMediaForm = (props) => {
     const [formPage, setFormPage] = useState(0);
 
     //Watch for a new fil uploaded
-    useEffect(() => {
-        if(url && formState.inputs["mainImage"].value !== initImgValue.current){
+    //useEffect(() => {
+    //    if(url && formState.inputs["mainImage"].value !== initImgValue.current){
             //Tell the component that the image has been changed and so, if submitted, we have to upload it
-            isNewFile.current = true;
-        }
-    }, [formState.inputs["mainImage"].value])
+    //        setIsNewFile(true);
+    //    }
+    //}, [formState.inputs["mainImage"].value])
 
     
     //Fetch licence list on load
@@ -163,7 +183,7 @@ const CreateMediaForm = (props) => {
             Upload a media file will be seperate from the creation of an account
         */
 
-        if(isNewFile.current){
+        if(isNewFile){
             
             let rawFromData = new FormData();
 
@@ -197,7 +217,7 @@ const CreateMediaForm = (props) => {
             );
         }
 
-        if(!isNewFile.current){
+        if(!isNewFile){
 
             const formData = {
                 "data": {
@@ -216,7 +236,25 @@ const CreateMediaForm = (props) => {
                 formData
             );
         }
+    }
 
+    const submitDelete = async event => {
+
+        event.preventDefault();
+
+        if (!confirm('Êtes-vous sûr de vouloir détruire cette photo ?')) {
+            //Exit the function
+            return;
+        }
+
+        //Execute the request
+        //Send the request
+        const path = `/medias/delete/${entity.type}/${entity._id}/${initValues.fileName}`;
+        await submitRequest(
+            path,
+            'GET',
+            {}
+        );
     }
 
     return (
@@ -226,12 +264,37 @@ const CreateMediaForm = (props) => {
                 <div className="row w-100 gx-3">
                     {/* Column one */}
                     <div className={`col-6 ${styles["image-column"]}`}>
-                        <LargeFileInput 
-                            name="mainImage"
-                            label="Fichier"
-                            formTools={formTools}
-                           
-                        />
+                        {isNewFile && 
+                            <LargeFileInput 
+                                name="mainImage"
+                                label="Fichier"
+                                formTools={formTools}
+                            />
+                        }
+                        {!isNewFile && 
+                            <>
+                                {url && 
+                                    <div className="position-relative">
+                                        <img 
+                                            className={`${styles["img-preview"]} position-absolute w-100 h-100`}
+                                            src={process.env.NEXT_PUBLIC_API_URL + url} 
+                                            alt={alt} 
+                                        />
+                                    </div>
+                                }
+                                {!url && 
+                                    <div className="position-relative bg-secondary d-flex justify-content-center align-items-center">
+                                        <p className="text-dark">Image impossible à afficher</p>
+                                    </div>
+                                }
+                            </>
+                            
+                        }
+                    
+                        {/* Offer the option of adding a new file if the user wants to */}
+                        { !isNewFile &&
+                            <button type="button" onClick={convertToNewImageMode} className="mb-0 mt-1 fs-6 text-primary">Ajouter une nouvelle image</button>
+                        }
                     </div>
 
                     {/* Column two */}
@@ -252,14 +315,13 @@ const CreateMediaForm = (props) => {
                         {formPage === 0 &&
                         <div>
                             Média associé à 
-                            {/* Waiting for the tag components */}
+                            {/************  Waiting for the tag components ************/}
                             <article className={`rounded d-flex ${styles["temporary-entity-tag"]}`}>
                                 {entity.mainImage && 
                                 <figure className="m-0">
                                     <img 
                                         src={process.env.NEXT_PUBLIC_API_URL + entity.mainImage.url} 
                                         alt={entity.mainImage.alt && entity.mainImage.alt} 
-                                        className={``} 
                                     />
                                 </figure>
                                 }
@@ -273,28 +335,27 @@ const CreateMediaForm = (props) => {
                             </article>
                             <Select 
                                 name="licence"
-                                label="licence"
+                                label="Licence"
                                 options={licences}
                                 formTools={formTools}
                             />
                             <small className="fs-6">Plus de détails sur les licences possibles.</small>
-                            <Textarea 
-                                name="description"
-                                label="description"
+
+                            <Input 
+                                name="title"
+                                label="Titre de l'image"
                                 formTools={formTools}
                             />
-                            <div className="mt-2">
+
+                            <div className="mt-2 d-flex gap-2 flex-wrap">
                                 <Button
                                     onClick={submitHandler}
                                     size="slim"
                                 > Soumettre
                                 </Button>
-                                <Button 
-                                    color="danger"
-                                    size="slim"
-                                >
-                                    Supprimer
-                                </Button>
+                                {!isNewFile &&
+                                    <button onClick={submitDelete} type="button" className="text-danger fs-5"><u>Supprimer l'image</u></button>
+                                }
           
                             </div>
                         </div>
@@ -306,6 +367,11 @@ const CreateMediaForm = (props) => {
                             <Input 
                                 name="alt"
                                 label="Texte alternatif"
+                                formTools={formTools}
+                            />
+                            <Textarea 
+                                name="description"
+                                label="Description"
                                 formTools={formTools}
                             />
                         </div>
