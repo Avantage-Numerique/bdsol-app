@@ -2,7 +2,7 @@
 import React, {useEffect, useState} from "react"
 import {useRouter} from "next/router";
 import SearchBar from "@/src/common/Components/SearchBar"
-import {sendExternalApiRequest} from "@/src/hooks/http-hook";
+import {externalApiRequest} from "@/src/hooks/http-hook";
 import PersonSimple from '@/DataTypes/Person/Components/layouts/simple/PersonSimple'
 import OrganisationSimple from '@/DataTypes/Organisation/components/layouts/simple/OrganisationSimple'
 import PageHeader from "@/layouts/Header/PageHeader";
@@ -47,27 +47,31 @@ const SearchResults = () => {
     }
     
     const getResultsRouteResponse = (searchIndex) => {
-        return sendExternalApiRequest(
+        return externalApiRequest(
             "/search/results?searchIndex="+searchIndex,
-            'GET',
-            null
+            {
+                method: 'GET'
+            }
         );
     }
 
     const getIdRouteResponse = (linkId) => {
-        return sendExternalApiRequest(
+        return externalApiRequest(
             "/search/"+linkId,
-            'GET',
-            null
+            {
+                method: 'GET'
+            }
         )
     }
 
     const getEntityTypeResponse = (entityType) => {
-        return sendExternalApiRequest(
+        return externalApiRequest(
             "/"+entityType+"/list",
-            'POST',
-            JSON.stringify({"data": {}}),
-            {'Content-Type': 'application/json'}
+            {
+                method: 'POST',
+                body: JSON.stringify({"data": {}}),
+                isBodyJson: true
+            }
         )
     }
 

@@ -2,7 +2,6 @@
     Container's styling for every entities's single component
 */
 .single {
-
     /*   Local variables  */
     //--page-padding: 5%;
     --page-padding: clamp(0.5rem, 5%, 5rem);
@@ -11,7 +10,7 @@
     --picture-size: clamp(8rem, 20vw, 12rem);
     $picture-size: clamp(8rem, 20vw, 12rem);
 
-    background-color: rgb(240, 240, 240);
+    background-color: darken($light, 4%);
 
     /*  HEADER  */
     .single__header {
@@ -100,7 +99,6 @@
                         background-color: white;
 
                         img {
-                            width: auto;
                             height: 100%;
                             width: 100%;
                             object-fit: cover;
@@ -161,8 +159,7 @@
 
     .single__main-section-with-profile-picture {
         padding: $page-padding;
-        //margin-top: 5rem;
-        margin-top: calc($picture-size / 2)
+        margin-top: calc($picture-size / 4)
     }
 
     .single__main-section {
