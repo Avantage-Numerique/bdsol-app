@@ -98,7 +98,7 @@ const SingleMediaView = ({ data }) => {
             headerMainContent={headerMainContent}
             entity={data}
             modalComponent={modalComponent}
-            showCTA={true}
+            showCTA={false}
             showMainImageInHeader={false}
             showUpdateMenu={false}
             mainImageClass={"header-content__media-preview"}

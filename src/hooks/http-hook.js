@@ -55,6 +55,21 @@ export const externalApiRequest = async (path, params = {}) => {
     }
 }
 
+
+/**
+ * Fetch the external API with all the speficity of Server Side and Client side but with origin force to browser;
+ * Version 2 of sendExternalApiRequest. It used params intead of infinite function parameters.
+ * @param path {string}
+ * @param params {{headers: {}, method: string, additionnalFetchParams: {}, origin: string, context: undefined, isBodyJson: boolean, body: string, withAuth:boolean}} origin is defaulted to browser.
+ * @return {Promise<*>}
+ */
+export const clientSideExternalApiRequest = async (path, params = {}) => {
+    params.origin = "browser";
+    return await externalApiRequest(path, params);
+}
+
+
+
 //Main hook function called for every request made to the database
 export const useHttpClient = () => {
 
@@ -84,11 +99,9 @@ export const useHttpClient = () => {
                 };
             activeHttpRequests.current.push(httpAbortCtrl);
 
-            params.origin = "browser";//Force set to browser, because send request is used to be called only from in client call.
-
             try {
 
-                const responseData = await externalApiRequest(
+                const responseData = await clientSideExternalApiRequest(
                     path,
                     {
                         method: method,

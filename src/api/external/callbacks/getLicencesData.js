@@ -1,12 +1,11 @@
-import {externalApiRequest} from "@/src/hooks/http-hook";
+import {clientSideExternalApiRequest} from "@/src/hooks/http-hook";
 
 export const getLicencesData = async (params={}) => {
     try {
-        const res = await externalApiRequest(
+        const res = await clientSideExternalApiRequest(
             "/static/licences",
             {
                 method: "GET",
-                origin: "browser",
                 isBodyJson: false,
                 ...params
             }
