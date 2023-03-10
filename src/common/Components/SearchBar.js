@@ -1,5 +1,5 @@
 import {useState, useEffect} from 'react';
-import {sendExternalApiRequest} from '@/src/hooks/http-hook';
+import {externalApiRequest} from '@/src/hooks/http-hook';
 import {useFormUtils} from '@/src/hooks/useFormUtils/useFormUtils';
 import useDebounce from '@/src/hooks/useDebounce';
 import Router, {useRouter} from 'next/router';
@@ -32,9 +32,11 @@ const SearchBar = ({small, ...props}) => {
 
     //Search suggestion
     const getSearchSuggestion = async () => {
-        const suggestions = await sendExternalApiRequest(
+        const suggestions = await externalApiRequest(
             '/search' + '?searchIndex=' + formState.inputs.searchIndex.value,
-            'GET',
+            {
+                method: 'GET'
+            }
         );
         setSearchSuggestion(suggestions.data);
     }

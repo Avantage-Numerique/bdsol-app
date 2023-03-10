@@ -29,7 +29,6 @@ const Header = (props) => {
                         </div>
                     </div>
 
-
                     <div className="col-6 d-flex justify-content-center align-items-center">
                         <div className={"container"}>
                             <div className={"row"}>
@@ -39,7 +38,7 @@ const Header = (props) => {
                                     </div>
                                 </div>
                                 {auth.user.isLoggedIn &&
-                                    <div className={"col d-flex justify-content-center align-items-center"}>
+                                    <div className={"col d-flex-content-center"}>
                                             <div className="d-grid w-100" onClick={ () => setMenuState(0) }>
                                                 <a href="/contribuer" className={"btn btn-outline-light"}><i className="las la-plus-circle"></i> {lang.menuContributeLabel}</a>
                                             </div>

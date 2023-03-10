@@ -1,6 +1,6 @@
 import React from 'react' 
 
-import styles from './Single.module.scss'
+import styles from './Single.module.scss';
 import Button from "@/FormElements/Button/Button";
 import {lang} from "@/common/Data/GlobalConstants";
 import EntityNavBar from "@/DataTypes/common/layouts/Navigation/EntityNavBar";
