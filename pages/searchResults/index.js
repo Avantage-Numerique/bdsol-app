@@ -2,7 +2,7 @@
 import React, {useEffect, useState} from "react"
 import {useRouter} from "next/router";
 import SearchBar from "@/src/common/Components/SearchBar"
-import {externalApiRequest} from "@/src/hooks/http-hook";
+import {clientSideExternalApiRequest, externalApiRequest} from "@/src/hooks/http-hook";
 import PersonSimple from '@/DataTypes/Person/Components/layouts/simple/PersonSimple'
 import OrganisationSimple from '@/DataTypes/Organisation/components/layouts/simple/OrganisationSimple'
 import PageHeader from "@/layouts/Header/PageHeader";
@@ -47,7 +47,7 @@ const SearchResults = () => {
     }
     
     const getResultsRouteResponse = (searchIndex) => {
-        return externalApiRequest(
+        return clientSideExternalApiRequest(
             "/search/results?searchIndex="+searchIndex,
             {
                 method: 'GET'
@@ -56,7 +56,7 @@ const SearchResults = () => {
     }
 
     const getIdRouteResponse = (linkId) => {
-        return externalApiRequest(
+        return clientSideExternalApiRequest(
             "/search/"+linkId,
             {
                 method: 'GET'
@@ -65,7 +65,7 @@ const SearchResults = () => {
     }
 
     const getEntityTypeResponse = (entityType) => {
-        return externalApiRequest(
+        return clientSideExternalApiRequest(
             "/"+entityType+"/list",
             {
                 method: 'POST',
@@ -83,7 +83,6 @@ const SearchResults = () => {
                 htmlTitle={"Résultats de recherche" + " pour " + router.query.searchIndex}
                 description=""
             >
-                <SearchBar id="searchResults-searchBar" />
             </PageHeader>
 
             <div className="row home-page__feed-section--container row-cols-1 row-cols-sm-2 row-cols-xl-3">
