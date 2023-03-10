@@ -1,5 +1,3 @@
-import { useEffect, useState } from 'react'
-
 //Components
 import UpdatePersonForm from '@/DataTypes/Person/Components/Forms/update/UpdatePersonForm';
 import SearchTag from '@/src/common/Components/SearchTag';
@@ -11,11 +9,11 @@ import styles from './PersonSingle.module.scss'
 
 //Hooks
 import {useModal} from "@/src/hooks/useModal/useModal";
-import {useHttpClient} from '@/src/hooks/http-hook';
 
 //Utils
 import SanitizedInnerHtml from '@/src/utils/SanitizedInnerHtml';
-import {lang} from "@/common/Data/GlobalConstants";
+//import {lang} from "@/common/Data/GlobalConstants";
+import {SingleEntityStatus} from "@/DataTypes/Status/Components/SingleEntityStatus";
 
 const PersonSingle = ({ data }) => {
 
@@ -34,10 +32,8 @@ const PersonSingle = ({ data }) => {
     } = data;
 
 
-    const date_createdAt = new Date(createdAt);
-    const date_updatedAt = new Date(updatedAt);
 
-    const {sendRequest} = useHttpClient();
+    //const {sendRequest} = useHttpClient();
     
     //State that contains the organisations that the person is part of
     //const [memberOfOrganisationList, setMemberOfOrganisationList] = useState([]);
@@ -122,28 +118,8 @@ const PersonSingle = ({ data }) => {
             }
 
             {
-                (date_createdAt || date_updatedAt || status) &&
-                <SingleInfo className={singleInfoCommonClass} title={lang.modificationHistory}>
-                    <ul className={"list-style-none"}>
-                    {
-                        date_createdAt &&
-                        <li><span>Date de création : </span> {date_createdAt.toLocaleDateString("fr-CA")}</li>
-                    }
-                    {
-                        date_createdAt !== date_updatedAt &&
-                        <li><span>Dernière modification : </span> {date_updatedAt.toLocaleDateString("fr-CA")}</li>
-                    }
-                    {
-                        status?.requestedBy &&
-                        <li><span>Créer par : </span> {status.requestedBy}</li>
-                    }
-                    {
-                        status?.lastModifiedBy &&
-                        <li><span>Dernière modifications par : </span> {status.lastModifiedBy}</li>
-                    }
-
-                    </ul>
-                </SingleInfo>
+                (createdAt || updatedAt || status) &&
+                <SingleEntityStatus className={singleInfoCommonClass} createdAt={createdAt} updatedAt={updatedAt} status={status} />
             }
         </Single>
     )
