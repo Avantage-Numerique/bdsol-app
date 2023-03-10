@@ -114,11 +114,11 @@ export const base = {
 
     //  Taxonomy
 
-    "Taxonomy": "Taxonomie",
-    "Taxonomies": "Taxonomies",
-    "taxonomy": "taxonomie",
-    "taxonomies": "taxonomies",
-    "taxonomyExplications": "Une taxonomie sert à classifier dans un système ordonné les relations entre les choses. Ajoutez ici une taxonomie pour permettre à une entité d'être reliée à cette taxonomie. Par exemple, lier une <strong>personne</strong> à une <strong>occupation</strong> ou une <strong>aptitude</strong> et lier une <strong>organisation</strong> à un <strong>service offert</strong> et bien d'autre.",
+    "Taxonomy": "Catégorie",
+    "Taxonomies": "Catégories",
+    "taxonomy": "catégorie",
+    "taxonomies": "catégories",
+    "taxonomyExplications": "Une catégorie sert à classifier dans un système ordonné les relations entre les choses. Ajoutez ici une catégorie pour permettre à une entité d'être reliée à cette taxonomie. Par exemple, lier une <strong>personne</strong> à une <strong>occupation</strong> ou une <strong>aptitude</strong> et lier une <strong>organisation</strong> à un <strong>service offert</strong> et bien d'autre.",
 
     //  Services
     "Services": "Services offerts",
@@ -148,6 +148,15 @@ export const base = {
     "updateImage": "Modifier l'image",
     "addImage": "Définir une image principale",
 
+
+    //  NAV
+
+    "menuContributeLabel": "Contribuer",
+
+    //  Connexion NAV
+
+    "menuConnectLabel": "Se connecter",
+    "menuSubscribeLabel": "S'inscrire",
 
     //  AccountNav
 

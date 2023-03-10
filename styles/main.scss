@@ -2,7 +2,8 @@
 @import './fonts';
 
 //Cherry picking of packages' styles.
-@import './packages/bootstrap';
+@import './packages/bootstrap';//bootstrap style. docs : https://icons8.com/line-awesome
+@import './packages/line-awesome';//icon font
 
 @import './globals-legacy.scss';
 @import './globals.scss';
@@ -16,12 +17,14 @@
 @import './layout-components/form-elements.scss';
 @import './layout-components/side-menu.scss';
 
+@import './components/nav.scss';
 @import './components/customScrollBar.scss';
 @import './components/user-card.scss';
 @import './components/spinner.scss';
 @import './components/buttons';
 @import './components/arrow-button.scss';
 @import './components/gradients.scss';
+@import './components/search-bar.scss';
 
 @import './layouts/default';
 @import './layouts/home-page';

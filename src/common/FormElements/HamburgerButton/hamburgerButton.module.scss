@@ -18,8 +18,6 @@
         position: relative;
         display: flex;
         align-items: center;
-        height: inherit;
-        width: inherit;
         transition: all .5s ease-in-out;
         height: 1.5rem;
         width: 1.5rem;
@@ -36,7 +34,7 @@
         .menu_btn__burger::after {
             content: '';
             position: absolute;
-            right: 0px;
+            right: 0;
             width: inherit;
             height: 4px;
             background: #ffffff;

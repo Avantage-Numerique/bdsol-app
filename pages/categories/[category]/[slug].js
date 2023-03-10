@@ -49,9 +49,7 @@ const TaxonomiesSinglePage = (props) => {
                 </p>
             </PageHeader>
 
-
             <div className="row home-page__feed-section--container row-cols-1 row-cols-sm-2 row-cols-xl-3">
-
                 {
                     data?.length > 0 ?
                     data.map((elem, index) => {
@@ -65,7 +63,6 @@ const TaxonomiesSinglePage = (props) => {
                     })
                     :
                     <div>Aucun résultats</div>
-
                 }
 
                 {/*

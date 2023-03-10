@@ -112,10 +112,12 @@ $h6-font-size:                0.8rem !default; //this is smaller than regular te
 $link-decoration: none;
 
 
-//  BORDER
+/*
+    BORDER
+ */
 
 $border-radius: 0.5em;
-$border-width: 2px;
+$border-width: 0.15rem;
 //to-do; transpose value from rem to em (only one button radius is used in the app for now.
 // $border-radius-sm:            .25rem !default;
 // $border-radius-lg:            .5rem !default;
@@ -123,28 +125,32 @@ $border-width: 2px;
 // $border-radius-2xl:           2rem !default;
 // $border-radius-pill:          50rem !default;
 
+
 /*
     bootstrap's variable button override
 */
+
 $btn-padding-x-lg: 4rem;
 $btn-padding-y-lg: 2rem;
 $btn-font-size-lg: 1rem;
-$btn-border-radius-lg: 4px;
+$btn-border-radius-lg: $border-radius;
 
 $image-border-color: rgb(231, 231, 231);
-$image-border-width: 0.2rem;
+$image-border-width: $border-width;
 $border-light: $image-border-width solid $image-border-color;
 
 
 /**
         SHADOW
  */
+
 $default-box-shadow: 1px 1px 3px 1px rgba(60,60,60,0.78);
 
 
 /*
     nav
 */
+
 $nav-tabs-border-color:             $primary;
 $nav-tabs-border-width:             $border-width;
 
@@ -152,7 +158,6 @@ $nav-tabs-border-width:             $border-width;
 /*
     Badges
  */
-// Badges
 
 // scss-docs-start badge-variables
 $badge-font-size:                   .75em;
@@ -161,3 +166,8 @@ $badge-color:                       $white;
 $badge-padding-y:                   .35em;
 $badge-padding-x:                   .65em;
 $badge-border-radius:               $border-radius;
+
+/*
+    INPUT
+ */
+$input-border-radius: $border-radius;

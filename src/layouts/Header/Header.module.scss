@@ -14,45 +14,46 @@
     height: var(--headersHeight);
     display: flex;
     flex-direction: column;
-    
-    &.account-bar{
+
+    &.account-bar {
         height: calc(var(--headersHeight) + 2rem);
 
-        .navButton { top: 2rem; }
+        .navButton {
+            top: 2rem;
+        }
     }
 
     /* Title container where is putted the logo */
-    .header__content{
+    .header__content {
         width: 100%;
         height: var(--headersHeight);
 
         img {
-                cursor: pointer;
-                width: 100%;
-                max-width:236px;
-                height: 100%;
-                object-fit: contain;
-                object-position: left center;
+            cursor: pointer;
+            width: 100%;
+            max-width: 236px;
+            height: 100%;
+            object-fit: contain;
+            object-position: left center;
         }
+    }
+
+
+    .searchbar-menu-container {
+        position: relative;
+        display: flex;
+        height: 100%;
+        background-color: transparent;
     }
 
     .navigation-options {
         /* Align the hamburger menu in the center */
         display: flex;
         align-content: center;
-        position:absolute;
-        right:0;
-        top:0;
-        height:5em;
-
-        .searchbar-menu-container {
-            position: relative;
-            display: flex;
-            height: 100%;
-            background-color: transparent;
-            justify-content: center;
-            align-items: center;
-        }
+        position: absolute;
+        right: 0;
+        top: 0;
+        height: 5em;
 
         .connection-menu-container {
             width: 15rem;
@@ -61,7 +62,8 @@
             background-color: transparent;
             justify-content: center;
             align-items: center;
-            color:white;
+            color: white;
+
             a {
                 margin: 1rem;
             }
@@ -80,7 +82,7 @@
 
             a {
                 padding: 1.5rem;
-                color: white;
+                color: $light;
                 opacity: 0.75;
                 font-size: 1.8rem;
                 -webkit-transition: opacity 200ms;
@@ -88,7 +90,7 @@
                 -o-transition: opacity 200ms;
                 transition: opacity 200ms;
 
-                &:hover{
+                &:hover {
                     opacity: 1;
                 }
 
@@ -97,44 +99,40 @@
                 }
             }
         }
+    }
 
-        .account-menu-container {
-            position: relative;
-            width: 5rem;
+    .account-menu-container {
+        position: relative;
+        max-width: 5rem;
+        width: 5rem;
+        height: 100%;
+        overflow: hidden;
+
+        .account-menu-container__button {
             height: 100%;
-            background-color: var(--bs-blue2);
+            width: 100%;
+            fill: white;
 
-            .account-menu-container__button {
-                padding: 1.5rem;
-                padding: calc(0.35 *  var(--headersHeight));
+            &:hover {
+                opacity: 1;
+            }
 
-                fill: white;
+            svg {
+                width: 100%;
+            }
 
-                &:hover{
-                    opacity: 1;
-                }
-
-                svg {
-                    width: 100%;
-                }
-
-                .user-img {
-                    position: absolute;
-                    object-fit: cover;
-                    top: 0%;
-                    height: 100%;
-                    width: 100%;
-                    left: 0%;
-                    border: 0.3rem solid rgb(230, 230, 230);
-                    background-color: rgb(230, 230, 230);
-                }
+            .user-img {
+                object-fit: cover;
             }
         }
+    }
 
-        /* Blue button to open the nav */
-        .ham-menu-container {
-            position: relative;
-            width:15vw;
-        }
+    /* Blue button to open the nav */
+    .ham-menu-container {
+        /* Align the hamburger menu in the center */
+        display: flex;
+        align-content: center;
+        height: 5em;
+        width: 7vw;
     }
 }

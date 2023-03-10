@@ -1,0 +1,12 @@
+.search-bar {
+    .input-group {
+        button {
+            min-width: 4rem;
+            font-size: 1.1rem;
+        }
+        input[type="text"] {
+            background: transparent;
+            color: $light;
+        }
+    }
+}

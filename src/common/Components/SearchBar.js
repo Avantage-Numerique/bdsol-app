@@ -1,16 +1,11 @@
-//React
-import { useState, useEffect } from 'react';
-
-//Custom hooks
-import { sendExternalApiRequest } from '@/src/hooks/http-hook';
-import { useFormUtils } from '@/src/hooks/useFormUtils/useFormUtils';
+import {useState, useEffect} from 'react';
+import {sendExternalApiRequest} from '@/src/hooks/http-hook';
+import {useFormUtils} from '@/src/hooks/useFormUtils/useFormUtils';
 import useDebounce from '@/src/hooks/useDebounce';
-
-//Router
-import Router from 'next/router';
-
+import Router, {useRouter} from 'next/router';
+import InputBasic from "@/FormElements/InputBasic/InputBasic";
 //Component
-import Input from "../FormElements/Input/Input";
+//import Input from "../FormElements/Input/Input";
 
 //&#128269; is HTML Entity (decimal) for magnifying glass
 
@@ -21,11 +16,12 @@ Props :
 */
 const SearchBar = ({small, ...props}) => {
 
-     //Main form functionalities
-     const { FormUI, submitRequest, formState, formTools, clearFormData } = useFormUtils(
+    const router = useRouter();
+    //Main form functionalities
+    const {FormUI, submitRequest, formState, formTools, clearFormData} = useFormUtils(
         {
             searchIndex: {
-                value: '',
+                value: router.query.searchIndex ?? '',
                 isValid: true
             }
         },
@@ -36,7 +32,7 @@ const SearchBar = ({small, ...props}) => {
 
     //Search suggestion
     const getSearchSuggestion = async () => {
-        const suggestions =  await sendExternalApiRequest(
+        const suggestions = await sendExternalApiRequest(
             '/search' + '?searchIndex=' + formState.inputs.searchIndex.value,
             'GET',
         );
@@ -48,44 +44,52 @@ const SearchBar = ({small, ...props}) => {
     //Update the list of options to display
     useEffect(() => {
         getSearchSuggestion();
-    },[debouncedRequest]);
+    }, [debouncedRequest]);
 
 
     const submitHandler = async event => {
         event.preventDefault();
         Router.push({
             pathname: "/searchResults",
-            query: { searchIndex : formState.inputs.searchIndex.value },
+            query: {searchIndex: formState.inputs.searchIndex.value},
         });
-        if(props.clearAfterSearch)
+        if (props.clearAfterSearch)
             clearFormData();
     }
 
+    //datalist name={"Datalist-"+ props.id }
     return (
-        <form onSubmit={submitHandler} className={`${small && "small-searchBar"}`}>
+        <form onSubmit={submitHandler} className={`search-bar ${small && "small-searchBar w-100"}`}>
             <div className="input-group my-2 ">
-                <button type="submit" className="btn btn-outline-secondary">
-                    &#128269;
+                <button type="submit" className="btn btn-outline-light">
+                    <i className="las la-search"></i>
                 </button>
-                <Input
-                    className="form-control"
-                    type="text"
+                <InputBasic
+                    className={"form-control px-3 py-2"}
+                    type={"text"}
                     name={"searchIndex"}
                     formTools={formTools}
-                    placeholder="Rechercher"
+                    placeholder={"Rechercher"}
                     list={props.id}
-                    />
-                <datalist id={props.id} name={"Datalist-"+ props.id }>
-                    {
-                        searchSuggestion && searchSuggestion.length != 0 && searchSuggestion.map( sugg => 
-                            <option key={sugg._id} value={sugg.name ?? sugg.firstName +' '+ sugg.lastName}>{sugg.type}</option>
-                            )
-                    }
-                </datalist>
+                />
             </div>
-
+            <datalist id={props.id}>
+                {
+                    searchSuggestion && searchSuggestion.length !== 0 && searchSuggestion.map((sugg) => {
+                        let suggestionLabel = sugg.name ?? (sugg.firstName + ' ' + sugg.lastName);
+                        //suggestionLabel = sugg.type ? suggestionLabel + ` (${sugg.type.capitalize()})` : suggestionLabel;
+                        return (
+                            <option key={sugg._id} value={suggestionLabel}/>
+                        )
+                    })
+                }
+            </datalist>
         </form>
     )
 }
 
 export default SearchBar;
+
+/*
+<input type={"text"} className={"form-control px-4 py-3"} placeholder={"Rechercher"} list={props.id} />
+ */
