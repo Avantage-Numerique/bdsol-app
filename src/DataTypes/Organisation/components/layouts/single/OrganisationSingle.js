@@ -11,6 +11,7 @@ import CreateOrganisationForm from "@/DataTypes/Organisation/components/forms/Cr
 import {lang} from "@/common/Data/GlobalConstants";
 import SingleInfo from "@/DataTypes/common/layouts/SingleInfo/SingleInfo";
 import {useModal} from "@/src/hooks/useModal/useModal";
+import {SingleEntityStatus} from "@/DataTypes/Status/Components/SingleEntityStatus";
 
 
 const OrganisationSimple = ({ data }) => {
@@ -116,7 +117,6 @@ const OrganisationSimple = ({ data }) => {
             defaultMainImage={defaultOrgAvatar}
             modalMainImageControl={imgModalControl}
         >
-
             {
                 description &&
                 <SingleInfo className={singleInfoCommonClass} title={"Présentation"}>
@@ -126,28 +126,8 @@ const OrganisationSimple = ({ data }) => {
                 </SingleInfo>
             }
             {
-                (date_createdAt || date_updatedAt || status) &&
-                <SingleInfo className={singleInfoCommonClass} title={lang.modificationHistory}>
-                    <ul className={"list-style-none"}>
-                        {
-                            date_createdAt &&
-                            <li><span>Date de création : </span> {date_createdAt.toLocaleDateString("fr-CA")}</li>
-                        }
-                        {
-                            date_createdAt !== date_updatedAt &&
-                            <li><span>Dernière modification : </span> {date_updatedAt.toLocaleDateString("fr-CA")}</li>
-                        }
-                        {
-                            status && status.requestedBy &&
-                            <li><span>Créer par : </span> {status.requestedBy}</li>
-                        }
-                        {
-                            status && status.lastModifiedBy &&
-                            <li><span>Dernière modifications par : </span> {status.lastModifiedBy}</li>
-                        }
-
-                    </ul>
-                </SingleInfo>
+                (createdAt || updatedAt || status) &&
+                <SingleEntityStatus className={singleInfoCommonClass} createdAt={createdAt} updatedAt={updatedAt} status={status} />
             }
         </Single>
     )
