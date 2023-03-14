@@ -28,6 +28,7 @@ const CreateOrganisationForm = (props) => {
         url: '',
         contactPoint: '',
         fondationDate: '',
+        catchphrase: '',
         offers: [],
         team: [],
     }
@@ -75,6 +76,10 @@ const CreateOrganisationForm = (props) => {
             value: getDateFromIsoString(initialValues.fondationDate),
             isValid: true
         },
+        catchphrase: {
+            value: initialValues.catchphrase,
+            isValid: true
+        },
         offers: {
             value: initialValues.offers,
             isValid: true
@@ -101,6 +106,7 @@ const CreateOrganisationForm = (props) => {
                 url: formState.inputs.url.value,
                 contactPoint: formState.inputs.contactPoint.value,
                 fondationDate: formState.inputs.fondationDate.value,
+                catchphrase: formState.inputs.catchphrase.value,
                 offers: getSelectedToFormData(formState.inputs.offers.value, "offer", auth.user),
                 team: formState.inputs.team.value,
                 "status": submitUri === "create" ? getDefaultCreateEntityStatus(auth.user) : getDefaultUpdateEntityStatus(auth.user)
@@ -162,6 +168,12 @@ const CreateOrganisationForm = (props) => {
                     name="fondationDate"
                     label="Date de fondation"
                     type="date"
+                    formTools={formTools}
+                />
+
+                <Input
+                    name="catchphrase"
+                    label={lang.catchphrase}
                     formTools={formTools}
                 />
 

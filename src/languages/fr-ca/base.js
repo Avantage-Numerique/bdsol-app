@@ -98,6 +98,7 @@ export const base = {
     "contactLabel": "Contact&nbsp;:&nbsp;",
     "nickname": "surnom",
     "nicknameLabel": "Surnom&nbsp;:&nbsp;",
+    "catchphrase": "Phrase d'accroche",
 
 
     //  Organisations

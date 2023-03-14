@@ -25,6 +25,7 @@ const OrganisationSimple = ({ data }) => {
         description,
         contactPoint,
         fondationDate,
+        catchphrase,
         name,
         offers,
         //slug,
@@ -51,7 +52,10 @@ const OrganisationSimple = ({ data }) => {
     const headerMainContent = (
         <div className={`${styles["quick-section"]}`}>
             <h2 className="mb-2">{name}</h2>
-            <p className="small w-100 my-0"><span>{lang.fondationDate+lang.colon}</span> {date_fondationDate.toLocaleDateString("fr-CA")}</p>
+            <p className="small w-100 my-0">
+                { catchphrase && <><span>{catchphrase}</span><br/></>}
+                { fondationDate && <span>{lang.fondationDate+lang.colon} {date_fondationDate.toLocaleDateString("fr-CA")} </span>}
+            </p>
         </div>
     );
 

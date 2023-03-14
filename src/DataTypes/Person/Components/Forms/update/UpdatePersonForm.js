@@ -48,6 +48,10 @@ const UpdatePersonForm = ({initValues, positiveRequestActions}) => {
                 value: initValues.description ? initValues.description : "",
                 isValid: true
             },
+            catchphrase: {
+                value: initValues.catchphrase ? initValues.catchphrase : "",
+                isValid: true
+            },
             occupations: {
                 value: initValues.occupations ? initValues.occupations : [],
                 isValid: true
@@ -66,13 +70,14 @@ const UpdatePersonForm = ({initValues, positiveRequestActions}) => {
             event.preventDefault();
 
             const formData = {
-                "data": {
-                    "id": formState.inputs._id.value,
-                    "lastName": formState.inputs.lastName.value,
-                    "firstName":  formState.inputs.firstName.value, 
-                    "nickname": formState.inputs.nickName.value,
-                    "description": formState.inputs.description.value,
-                    "occupations": getSelectedToFormData(formState.inputs.occupations.value, "occupation", auth.user)
+                data: {
+                    id: formState.inputs._id.value,
+                    lastName: formState.inputs.lastName.value,
+                    firstName:  formState.inputs.firstName.value, 
+                    nickname: formState.inputs.nickName.value,
+                    description: formState.inputs.description.value,
+                    catchphrase: formState.inputs.catchphrase.value,
+                    occupations: getSelectedToFormData(formState.inputs.occupations.value, "occupation", auth.user)
                 }
             };
 
@@ -122,6 +127,12 @@ const UpdatePersonForm = ({initValues, positiveRequestActions}) => {
                     validationRules={[
                         {name: "REQUIRED"}
                     ]}
+                    formTools={formTools}
+                />
+
+                <Input
+                    name="catchphrase"
+                    label={lang.catchphrase}
                     formTools={formTools}
                 />
 

@@ -84,7 +84,7 @@ const SingleMediaView = ({ data }) => {
                         Router.push(`/persons/${requestResponse.data.slug}`);
 
                         //Close the modal
-                        closeModal()
+                        closeModal();
                     }
                 }}
             />

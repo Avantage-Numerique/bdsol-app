@@ -25,6 +25,7 @@ const PersonSingle = ({ data }) => {
         description,
         occupations,
         slug,
+        catchphrase,
         createdAt,
         updatedAt,
         status,
@@ -81,6 +82,7 @@ const PersonSingle = ({ data }) => {
     const headerMainContent = (
         <div className={`${styles["quick-section"]}`}>
             <h2 className="mb-2">{firstName} {lastName}</h2>
+            <p> {catchphrase} </p>
             <p> {nickname} </p>
         </div>
     );

@@ -48,6 +48,10 @@ const CreatePersonForm = () => {
                 value: '',
                 isValid: true
             },
+            catchphrase: {
+                value: '',
+                isValid: true
+            },
             occupations: {
                 value: [],
                 isValid: true
@@ -67,13 +71,14 @@ const CreatePersonForm = () => {
         event.preventDefault();
 
         const formData = {
-            "data": {
-                "lastName": formState.inputs.lastName.value,
-                "firstName":  formState.inputs.firstName.value,
-                "nickname": formState.inputs.nickName.value,
-                "description": formState.inputs.description.value,
-                "occupations": getSelectedToFormData(formState.inputs.occupations.value, "occupation", auth.user),
-                "status": getDefaultCreateEntityStatus(auth.user),
+            data: {
+                lastName: formState.inputs.lastName.value,
+                firstName:  formState.inputs.firstName.value,
+                nickname: formState.inputs.nickName.value,
+                description: formState.inputs.description.value,
+                catchphrase: formState.inputs.catchphrase.value,
+                occupations: getSelectedToFormData(formState.inputs.occupations.value, "occupation", auth.user),
+                status: getDefaultCreateEntityStatus(auth.user),
             }
         };
 
@@ -121,6 +126,12 @@ const CreatePersonForm = () => {
                 <RichTextarea 
                     name="description"
                     label="Biographie / description"
+                    formTools={formTools}
+                />
+
+                <Input
+                    name="catchphrase"
+                    label={lang.catchphrase}
                     formTools={formTools}
                 />
 
