@@ -188,22 +188,17 @@ const CreateOrganisationForm = (props) => {
                     formTools={formTools}
                 />
 
-                {/*<Repeater
+                <Repeater
                     name="team"
                     label="Membres de l'organisation"
                     addButtonLabel="Ajouter un membre"
                     noComponentLabel="Aucun membre ajouté"
                     formTools={formTools}
-                    //maxRepeat="5"
+                    maxRepeat="6"
                     >
                     
-                    <PersonRoleTemplate
-                        name="team"
-                        label="Membre de l'organisation"
-                        placeholder="Jean-Marc Parent ..."
-                        //personList={[...list]}
-                    />
-                </Repeater>*/}
+                    <Input/>
+                </Repeater>
 
 
                 <blockquote>
