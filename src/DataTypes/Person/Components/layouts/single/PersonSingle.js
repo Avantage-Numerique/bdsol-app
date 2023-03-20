@@ -1,8 +1,12 @@
+import {useState} from 'react'
+
 //Components
+import Button from "@/FormElements/Button/Button"
 import UpdatePersonForm from '@/DataTypes/Person/Components/Forms/update/UpdatePersonForm';
 import SearchTag from '@/src/common/Components/SearchTag';
 import Single from "@/DataTypes/common/layouts/single/Single";
 import SingleInfo from "@/DataTypes/common/layouts/SingleInfo/SingleInfo";
+import UpdateSkillGroup from '@/src/DataTypes/common/Forms/UpdateSkillGroup/UpdateSkillGroup';
 
 //Styling
 import styles from './PersonSingle.module.scss'
@@ -32,6 +36,7 @@ const PersonSingle = ({ data }) => {
         mainImage
     } = data;
 
+    const [displayUpdateGroups, setDisplayUpdateGroups] = useState(false);
 
 
     //const {sendRequest} = useHttpClient();
@@ -56,11 +61,11 @@ const PersonSingle = ({ data }) => {
 
     const aside = (
         <>
-            {
+            {/*
                 occupations &&
                 <SingleInfo
                     title={"Occupations"}
-                    NAMessage={<p>Aucune occupation spécifié</p>}
+                    NAMessage={<p>Aucune occupation spécifiée</p>}
                 >
                     <SearchTag
                         className="row"
@@ -75,7 +80,24 @@ const PersonSingle = ({ data }) => {
                         />
 
                 </SingleInfo>
-            }
+                    */}
+
+                <SingleInfo
+                    title={"Occupations"}
+                    NAMessage={<p></p>}
+                >
+                    <Button size="slim" onClick={() => setDisplayUpdateGroups(true)}>Modifier les groupes</Button>
+                </SingleInfo>
+
+                
+
+                <SingleInfo
+                    title={"Compétences"}
+                    NAMessage={<p>Aucune occupation spécifiée</p>}
+                >
+                    
+                </SingleInfo>
+            
         </>
     );
 
@@ -93,6 +115,7 @@ const PersonSingle = ({ data }) => {
 
     //Remove because this isn't planned in the ontologie yet  :<SingleInfo title={"Intérêts"} />
     return (
+        <>
         <Single
             className={`${styles["person-view"]}`}
             aside={aside}
@@ -124,6 +147,12 @@ const PersonSingle = ({ data }) => {
                 <SingleEntityStatus className={singleInfoCommonClass} createdAt={createdAt} updatedAt={updatedAt} status={status} />
             }
         </Single>
+
+        {
+            displayUpdateGroups &&
+            <UpdateSkillGroup />
+        }
+        </>
     )
 }
 
