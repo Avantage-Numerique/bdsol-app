@@ -21,6 +21,7 @@ import {SingleEntityStatus} from "@/DataTypes/Status/Components/SingleEntityStat
 
 const PersonSingle = ({ data }) => {
 
+    console.log("Person data", data);
     const { 
         _id,
         firstName,
