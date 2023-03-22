@@ -8,7 +8,12 @@ const TaxonomiesCategoryPage = () => {
     const {sendRequest} = useHttpClient();
     const [taxonomiesList, setTaxonomiesList] = useState([]);
     const [taxonomyMenu, setTaxonomyMenu] = useState("occupations")
-    const categoryList = ["occupations", "domains", "abilities", "skills"];
+    const categoryList = [
+        {value:"occupations", label:lang.Occupations},
+        {value:"domains", label: lang.Domains},
+        {value:"technology", label: lang.Technologies},
+        {value:"skills", label: lang.Skills},
+    ];
 
 
     const fetchTaxonomyByCategory = async (category) => {
@@ -32,9 +37,9 @@ const TaxonomiesCategoryPage = () => {
         let taxonomiesFiltered = {};
         //Fetch taxonomy list and construct filtered list
         categoryList.forEach( async (category) => {
-            const response = await fetchTaxonomyByCategory(category);
+            const response = await fetchTaxonomyByCategory(category.value);
             if(response)
-                taxonomiesFiltered[category] = response;
+                taxonomiesFiltered[category.value] = response;
         })
 
         setTaxonomiesList(taxonomiesFiltered);
@@ -62,10 +67,10 @@ const TaxonomiesCategoryPage = () => {
                 <ul className="nav nav-pills nav-fill gap-5">
                     {
                         categoryList.map((elem) =>
-                            <li key={elem+"-categoryMenuBtn"} className="nav-item">
-                                <a key={elem+"-categoryMenuBtn"} onClick={() => setTaxonomyMenu(elem)}
-                                    className={`btn btn-outline-primary border nav-link ${elem === taxonomyMenu ? "active" : ""}`}>
-                                    {elem.capitalize()}
+                            <li key={elem.label+"-categoryMenuBtn"} className="nav-item">
+                                <a key={elem.label+"-categoryMenuBtn"} onClick={() => setTaxonomyMenu(elem.value)}
+                                    className={`btn btn-outline-primary border nav-link ${elem.value === taxonomyMenu ? "active" : ""}`}>
+                                    {elem.label}
                                 </a>
                             </li>
                         )
@@ -75,7 +80,7 @@ const TaxonomiesCategoryPage = () => {
                     taxonomyMenu !== "" &&
                     <div>
                         <h3 className="py-4">
-                            {taxonomyMenu.capitalize()}{lang.colon}
+                            {categoryList.find( el => taxonomyMenu == el.value ).label}{lang.colon}
                         </h3>
                         <div className="container">
                             <div className="row">

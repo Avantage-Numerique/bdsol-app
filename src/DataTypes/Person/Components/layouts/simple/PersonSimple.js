@@ -70,15 +70,8 @@ const PersonSimple = ({ data }) => {
                             <SearchTag
                             className="row"
                             max={3}
-                            list={
-                                occupations.map( (entity) => {
-                                    return {
-                                        label : entity.occupation.name,
-                                        url: "/"+entity.occupation.category + "/" + entity.occupation.slug
-                                    }
-                                })
-                            }
-                            />
+                            list={occupations}
+                        />
                     </section>
                 }
 
