@@ -70,14 +70,8 @@ const PersonSingle = ({ data }) => {
                 >
                     <SearchTag
                         className="row"
-                        list={
-                            occupations.map( (entity) => {
-                                return {
-                                    label : entity.occupation.name,
-                                    url: "/"+entity.occupation.category + "/" + entity.occupation.slug
-                                }
-                            })
-                        }
+                        list={occupations}
+                        max="-1"
                         />
 
                 </SingleInfo>

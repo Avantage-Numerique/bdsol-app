@@ -4,6 +4,7 @@ import {useFormUtils} from '@/src/hooks/useFormUtils/useFormUtils';
 import useDebounce from '@/src/hooks/useDebounce';
 import Router, {useRouter} from 'next/router';
 import InputBasic from "@/FormElements/InputBasic/InputBasic";
+import Icon from "@/common/widgets/Icon/Icon";
 //Component
 //import Input from "../FormElements/Input/Input";
 
@@ -64,7 +65,7 @@ const SearchBar = ({small, ...props}) => {
         <form onSubmit={submitHandler} className={`search-bar ${small && "small-searchBar w-100"}`}>
             <div className="input-group my-2 ">
                 <button type="submit" className="btn btn-outline-light">
-                    <i className="las la-search"></i>
+                    <Icon iconName="search" />
                 </button>
                 <InputBasic
                     className={"form-control px-3 py-2"}

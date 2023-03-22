@@ -22,6 +22,7 @@ const OrganisationSimple = ({ data }) => {
         createdAt,
         description,
         //fondationDate,
+        catchphrase,
         name,
         offers,
         slug,
@@ -70,6 +71,9 @@ const OrganisationSimple = ({ data }) => {
                     <h3 className="mt-0 h4">{name}</h3>
                     <KebabButton href={link} />
                 </header>
+                <div>
+                    {catchphrase && <h4 className="text-center h5 text-secondary fw-normal">{catchphrase}</h4>}
+                </div>
 
                 {/******** Presentation ***********/}
                 <section className={`${styles["org-section-presentation"]}`}>
@@ -87,15 +91,9 @@ const OrganisationSimple = ({ data }) => {
                     <SearchTag
                         className="row"
                         max={3}
-                        list={
-                            offers.map( (entity) => {
-                                return {
-                                    label : entity.offer.name,
-                                    url: "/"+entity.offer.category + "/" + entity.offer.slug
-                                }
-                            })
-                        }
+                        list={offers}
                     />
+                
                 </section>
                 }
 

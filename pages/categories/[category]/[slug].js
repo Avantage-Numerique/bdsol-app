@@ -29,6 +29,14 @@ export async function getServerSideProps(context) {
 
 const TaxonomiesSinglePage = (props) => {
 
+    const category = [
+        {label: "Compétence", value: "skills"},
+        {label: "Domaine", value: "domains"},
+        {label: "Aptitude", value: "abilities", disabled: true},
+        {label: "Occupation", value: "occupations", disabled: true},
+        {label: "Technologie", value: "technologies"}
+    ]
+
     const {data, taxonomy} = props;
 
     const gridComponents = new Map();
@@ -40,7 +48,7 @@ const TaxonomiesSinglePage = (props) => {
             <PageHeader
                 bg={"bg-purplelight"}
                 textColor={"text-white"}
-                htmlTitle={taxonomy.category.capitalize() + " &mdash; " + taxonomy.name}
+                htmlTitle={category.find( el => taxonomy.category == el.value ).label + " &mdash; " + taxonomy.name}
                 subTitle={taxonomy.description}
                 description=""
             >
@@ -48,7 +56,6 @@ const TaxonomiesSinglePage = (props) => {
                     <a href='/categories' className={"btn btn-outline-light"}>Retour à toutes les catégories</a>
                 </p>
             </PageHeader>
-
             <div className="row home-page__feed-section--container row-cols-1 row-cols-sm-2 row-cols-xl-3">
                 {
                     data?.length > 0 ?
@@ -63,22 +70,6 @@ const TaxonomiesSinglePage = (props) => {
                     })
                     :
                     <div>Aucun résultats</div>
-                }
-
-                {/*
-                    props.data.length == 0 ?
-                    <div>f</div>
-                    :
-                    props.data.map( (entity) => {
-                    return (
-                        <div className="col col-md-6 col-lg-4 p-2" key={entity._id + "-" + entity.slug}>
-                            <PresentationCard
-                                key={entity._id}
-                                header={entity.type}
-                                data={entity}
-                                />
-                        </div>)
-                    })*/
                 }
             </div>
         </div>

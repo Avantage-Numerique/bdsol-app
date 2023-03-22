@@ -5,6 +5,7 @@ import {useModal} from "@/src/hooks/useModal/useModal";
 import Router, {useRouter} from "next/router";
 import {useAuth} from "@/auth/context/auth-context";
 import CreateMediaForm from "@/DataTypes/Media/components/forms/CreateMedia/CreateMediaForm";
+import Icon from "@/common/widgets/Icon/Icon";
 //import style from "./EntityNavBar.module.scss";
 
 
@@ -44,6 +45,25 @@ const EntityNavBar = (props) => {
         displayModal();
     }
 
+    const redirectOnClosingHandler = (requestResponse, closingCallback, targetSlug) => {
+        let redirectUrl = "";
+
+        if (closingModalBaseURI !== undefined) {    //Add the baseURI
+            redirectUrl += `${closingModalBaseURI}`;
+        }
+
+        if (targetSlug !== undefined) {             //Add the slug if it's set
+            redirectUrl += `${targetSlug}`;
+        }
+
+        if (redirectUrl !== "") {
+            Router.push(`${redirectUrl}`);
+            closingCallback();
+        } else {
+            throw(new Error("Un problème est survenu."));
+        }
+    }
+
     const router = useRouter();
 
     return (
@@ -53,7 +73,7 @@ const EntityNavBar = (props) => {
                     <div className="col-6 col-lg-6 justify-content-end">
                         <div>
                             <button type="button" className="btn btn-outline-light" title={lang.back} onClick={() => router.back()}>
-                                <i className="las la-chevron-circle-left"></i> {lang.back}</button>
+                                <Icon iconName="chevron-circle-left" /> {lang.back}</button>
                         </div>
                     </div>
                     {auth.user.isLoggedIn && showMenu &&
@@ -77,17 +97,8 @@ const EntityNavBar = (props) => {
                     <ModalForm
                         initValues={entity}
                         positiveRequestActions={{
-                            //CallbackFunction is one of the four behaviors the useFormUtils hook can apply when a request return a positive answer
-                            callbackFunction: requestResponse => {
-                                //Redirect to the right path if the slug changes and otherwise, at least reflect the changes
-                                if (requestResponse.data.slug !== undefined) {
-                                    Router.push(`${closingModalBaseURI}${requestResponse.data.slug}`);
-
-                                    //Close the modal
-                                    closeModal()
-                                } else {
-                                    throw(new Error("Un problème est survenu."))
-                                }
+                            callbackFunction: requestResponse => {  //CallbackFunction is one of the four behaviors the useFormUtils hook can apply when a request return a positive answer
+                                redirectOnClosingHandler(requestResponse, closeModal, requestResponse.data.slug);
                             }
                         }}
                         {...modalParameters}
@@ -111,14 +122,9 @@ const EntityNavBar = (props) => {
                     <CreateMediaForm
                         initValues={entity.mainImage}
                         entity={entity}
-                        positiveRequestActions={{
-                            //CallbackFunction is one of the four behaviors the useFormUtils hook can apply when a request return a positive answer
-                            callbackFunction: requestResponse => {
-                                //Reflect the changes
-                                Router.push(`${closingModalBaseURI}${entity.slug}`);
-
-                                //Close the modal
-                                mainImageModalControl.closeModal();
+                        positiveRequestActions={{//CallbackFunction is one of the four behaviors the useFormUtils hook can apply when a request return a positive answer
+                            callbackFunction: (requestResponse) => {
+                                redirectOnClosingHandler(requestResponse, mainImageModalControl.closeModal, entity.slug);
                             }
                         }}
                         {...modalMainImageParameters}

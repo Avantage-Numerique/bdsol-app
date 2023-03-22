@@ -91,14 +91,8 @@ const OrganisationSimple = ({ data }) => {
                     <h4 className="h5 my-3">Services offerts</h4>
                         <SearchTag
                         className="row"
-                        list={
-                            offers.map( (entity) => {
-                                return {
-                                    label : entity.offer.name,
-                                    url: "/"+entity.offer.category + "/" + entity.offer.slug
-                                }
-                            })
-                        }
+                        list={offers}
+                        max="-1"
                         />
                 </section>
             }

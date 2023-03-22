@@ -127,15 +127,16 @@ const CreateTaxonomyForm = ({name, category, positiveRequestActions}) => {
                     formTools={formTools}
                     noValueText="Choisissez une catégorie"
                     options={[
-                        {label: "Occupation", value: "occupations"},
-                        {label: "Domaine", value: "domains", disabled: true},
-                        {label: "Compétence", value: "abilities", disabled: true},
-                        {label: "Aptitude", value: "skills", disabled: true}
+                        {label: "Compétence", value: "skills"},
+                        {label: "Domaine", value: "domains"},
+                        //{label: "Aptitude", value: "abilities", disabled: true},
+                        //{label: "Aptitude", value: "skills", disabled: true},
+                        {label: "Technologie", value: "technologies"},
                     ]}
                     validationRules={[
                         {name: "REQUIRED"}
                     ]}
-                    defaultValue="occupations"
+                    defaultValue="skills"
                 />
 
                 <Input

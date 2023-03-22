@@ -121,6 +121,31 @@ export const base = {
     "taxonomies": "catégories",
     "taxonomyExplications": "Une catégorie sert à classifier dans un système ordonné les relations entre les choses. Ajoutez ici une catégorie pour permettre à une entité d'être reliée à cette taxonomie. Par exemple, lier une <strong>personne</strong> à une <strong>occupation</strong> ou une <strong>aptitude</strong> et lier une <strong>organisation</strong> à un <strong>service offert</strong> et bien d'autre.",
 
+    //Specific taxonomy
+    "Technology": "Technologie",
+    "Technologies": "Technologies",
+    "technology": "Technologie",
+    "technologies": "Technologies",
+
+    "Skills": "Compétences",
+    "Skill": "Compétence",
+    "skills": "Compétences",
+    "skill": "Compétence",
+
+    "Domains": "Domaines",
+    "Domain": "Domaine",
+    "domains": "Domaines",
+    "domain": "Domaine",
+
+    //  Occupations
+    "occupations": "occupations",
+    "Occupations": "Occupations",
+    "occupation": "occupation",
+    "Occupation": "Occupation",
+
+    "occupationsPlaceholder": "Enseignant, Architecte logiciel, [...]",
+
+
     //  Services
     "Services": "Services offerts",
     "Service": "Service",
@@ -128,14 +153,6 @@ export const base = {
     "service": "Service",
 
 
-    //  Occupations
-
-    "occupations": "occupations",
-    "Occupations": "Occupations",
-    "occupation": "occupation",
-    "Occupation": "Occupation",
-
-    "occupationsPlaceholder": "Enseignant, Architecte logiciel, [...]",
 
 
     //  TEAMS

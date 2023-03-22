@@ -5,6 +5,7 @@ import styles from './Header.module.scss'
 import ConnectionBanner from "@/src/layouts/ConnexionBanner/ConnectionBanner";
 import SearchBar from '@/src/common/Components/SearchBar';
 import {lang} from "@/common/Data/GlobalConstants";
+import Icon from "@/common/widgets/Icon/Icon";
 
 
 const Header = (props) => {
@@ -40,7 +41,7 @@ const Header = (props) => {
                                 {auth.user.isLoggedIn &&
                                     <div className={"col d-flex-content-center"}>
                                             <div className="d-grid w-100" onClick={ () => setMenuState(0) }>
-                                                <a href="/contribuer" className={"btn btn-outline-light"}><i className="las la-plus-circle"></i> {lang.menuContributeLabel}</a>
+                                                <a href="/contribuer" className={"btn btn-outline-light"}><Icon iconName="plus-circle" /> {lang.menuContributeLabel}</a>
                                             </div>
                                     </div>
                                 }
@@ -56,8 +57,7 @@ const Header = (props) => {
                                         <a href="/compte/inscription" className={"nav-link"}>{lang.menuSubscribeLabel}</a>
                                     </li>
                                     <li className="nav-item">
-                                        <a href="/compte/connexion" className={`nav-link`}><i
-                                            className="las la-sign-in-alt la-lg"></i> {lang.menuConnectLabel}</a>
+                                        <a href="/compte/connexion" className={`nav-link`}><Icon iconName="sign-in-alt" className={"la-lg"} /> {lang.menuConnectLabel}</a>
                                     </li>
                                 </ul>
                             }
