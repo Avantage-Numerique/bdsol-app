@@ -23,6 +23,7 @@ const PersonSimple = ({ data }) => {
         //name,
         //username,
         //description,
+        catchphrase,
         createdAt,
         occupations,
         mainImage,
@@ -63,6 +64,7 @@ const PersonSimple = ({ data }) => {
                 {/* Header's text and infos */}
                 <h3 className="text-center h4 mb-1">{name}</h3>
                 {nickname && <h4 className="text-center h5 text-secondary fw-normal">{nickname}</h4>}
+                {catchphrase && <h4 className="text-center h5 text-secondary fw-normal">{catchphrase}</h4>}
                 {occupations?.length > 0 &&
                     <section className={`${styles["person-simple__header__bottom-section"]}`}>
     
