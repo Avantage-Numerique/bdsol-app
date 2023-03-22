@@ -16,6 +16,7 @@ import { MessageContext } from '@/src/common/UserNotifications/Message/Context/M
 
 //Styling
 import styles from './CreateTaxonomyForm.module.scss'
+import { lang } from '@/src/common/Data/GlobalConstants'
 
 
 const CreateTaxonomyForm = ({name, category, positiveRequestActions}) => {
@@ -127,10 +128,11 @@ const CreateTaxonomyForm = ({name, category, positiveRequestActions}) => {
                     formTools={formTools}
                     noValueText="Choisissez une catégorie"
                     options={[
-                        {label: "Occupation", value: "occupations"},
-                        {label: "Domaine", value: "domains", disabled: true},
-                        {label: "Compétence", value: "abilities", disabled: true},
-                        {label: "Aptitude", value: "skills", disabled: true}
+                        {label: "Compétence", value: "skills"},
+                        {label: "Technologie", value: "technologies"},
+                        {label: "Domaine", value: "domains"},
+                        {label: "Occupation", value: "occupations", disabled: true},
+                        {label: "Aptitude", value: "abilities", disabled: true}
                     ]}
                     validationRules={[
                         {name: "REQUIRED"}
