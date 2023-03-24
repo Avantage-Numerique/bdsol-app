@@ -26,7 +26,7 @@ const CreatePersonForm = ({initValues, positiveRequestActions, ...props}) => {
 
 
     const submitUri = props.uri ?? "create";
-    console.log(submitUri);
+
     //Authentication ref
     const auth = useAuth();
 
@@ -34,7 +34,8 @@ const CreatePersonForm = ({initValues, positiveRequestActions, ...props}) => {
     const modal = useModal()
 
     //Main form functionalities
-    const { FormUI, submitRequest, formState, formTools, transmuteTaxonomyTargetInput } = useFormUtils(
+    //not used : transmuteTaxonomyTargetInput
+    const { FormUI, submitRequest, formState, formTools } = useFormUtils(
         {
             _id: {
                 value: initValues._id ? initValues._id : "",
