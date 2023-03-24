@@ -5,7 +5,8 @@ export const base = {
 
     "historyBack": "Retour à la page précédente",
     "see": "Voir",
-    "noResult": "Aucune donnée ¯\\_(ツ)_/¯ pour l'instant. On a peut-être un problème en arrière plan.",
+    "noResult": "Aucune donnée ¯\\_(ツ)_/¯ pour l'instant.",
+    "maybeABackendProblem": "On a peut-être un problème en arrière plan.",
     "loadingData": "Chargement des données",
     "back": "Retour",
     "close": "Fermer",
@@ -128,6 +129,8 @@ export const base = {
     "taxonomyExplications": "Une catégorie sert à classifier dans un système ordonné les relations entre les choses. Ajoutez ici une catégorie pour permettre à une entité d'être reliée à cette taxonomie. Par exemple, lier une <strong>personne</strong> à une <strong>occupation</strong> ou une <strong>aptitude</strong> et lier une <strong>organisation</strong> à un <strong>service offert</strong> et bien d'autre.",
 
     "taxonomyCreateWhenDoNotExistDirective": "Le nouvel élément de taxonomie que vous ajoutez ici pourra ensuite être directement intégrée au formulaire.",
+
+    "backToTaxonomyIndexBtnLabel": "Retour à toutes les catégories",
 
     //Specific taxonomy
 

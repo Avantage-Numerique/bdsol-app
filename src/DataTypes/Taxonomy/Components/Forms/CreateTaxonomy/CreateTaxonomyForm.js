@@ -17,23 +17,32 @@ import { MessageContext } from '@/src/common/UserNotifications/Message/Context/M
 //Styling
 import styles from './CreateTaxonomyForm.module.scss'
 import { lang } from '@/src/common/Data/GlobalConstants'
+import Select2Tag, {getSelectedToFormData} from "@/FormElements/Select2/Select2Tag";
+import {getDefaultCreateEntityStatus} from "@/DataTypes/Status/EntityStatus";
+import {useModal} from "@/src/hooks/useModal/useModal";
 
 
-const CreateTaxonomyForm = ({name, category, positiveRequestActions}) => {
+const CreateTaxonomyForm = ({name, category, initValues, positiveRequestActions, ...props}) => {
+
+    const submitUri = props.uri ?? "create";
 
     /*
         Could be a great idea for every form in the application to have the possibility 
         to recieve initial values passed as props with the exact corresponding field name
         Ex : name
 
-        V.P.R. 
+        V.P.R.
+
+        yessss 8-)
+
+        M-A.M.
     */
 
-    //Import the authentication context to make sure the user is well connected
     const auth = useAuth();
 
-    //Import message context 
     const msg = useContext(MessageContext);
+
+    const modal = useModal();
 
     /*
     First of all, verify if the user is logged in.
@@ -54,18 +63,22 @@ const CreateTaxonomyForm = ({name, category, positiveRequestActions}) => {
     const { FormUI, submitRequest, formState, formTools } = useFormUtils(
         {
             category: {
-                value: (category ? category : ''),
+                value: (initValues.category ? initValues.category : ''),
                 isValid: true
             },
 
             name: {
-                value: (name ? name : ''),
+                value: (initValues.name ? initValues.name : ''),
                 isValid: true
             }, 
             description: {
-                value: '',
+                value: initValues.description ? initValues.description : '',
                 isValid: true
-            }, 
+            },
+            domains: {
+                value: initValues.domains ? initValues.domains : [],
+                isValid: true
+            },
             "status.message": {
                 value: '',
                 isValid: true
@@ -96,18 +109,18 @@ const CreateTaxonomyForm = ({name, category, positiveRequestActions}) => {
                 "category": formState.inputs.category.value,
                 "name":  formState.inputs.name.value, 
                 "description": formState.inputs.description.value,
+                "domains": getSelectedToFormData(formState.inputs.domains.value, "domain", auth.user),
                 /*"source": formState.inputs.source.value,*/
-                "status": {
-                    "state": "pending",
-                    "requestedBy": auth.user.id,
-                    "lastModifiedBy": auth.user.id,
-                    "message": formState.inputs["status.message"].value
-                }//Hardcoded status to send at creation (Temporary, until we moderate it with the API)
+                "status": getDefaultCreateEntityStatus(auth.user)
             }
         };
 
+        if (submitUri === "update") {
+            formData.data.id = initValues._id
+        }
+
         submitRequest(
-            "/taxonomies/create",
+            `/taxonomies/${submitUri}`,
             'POST',
             formData
         )
@@ -161,6 +174,18 @@ const CreateTaxonomyForm = ({name, category, positiveRequestActions}) => {
                     labelNote="Cette information restera privée. Elle nous permet seulement de mieux comprendre la demande d'ajout."
                     placeholder="Je préfère cette appellation pour décrire mon activité professionnelle plutôt qu'une autre [...]"
                     formTools={formTools}
+                />
+
+                <Select2Tag
+                    label={lang.Domains}
+                    searchField="name"
+                    fetch="/taxonomies/list"
+                    requestData={{category:"domains", name:""}}
+                    name="domains"
+                    idField="domain"
+                    placeholder={lang.domainsInputPlaceholder}
+                    formTools={formTools}
+                    creatableModal={modal}
                 />
 
                 <div className="col-12">

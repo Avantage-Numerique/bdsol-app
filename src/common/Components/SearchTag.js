@@ -15,6 +15,7 @@ const SearchTag = ({list, max, ...props}) => {
     const [moreThanMax, setMoreThanMax] = useState(false);
 
     max = max ?? "-1";
+    const tagBgColor = props.tagBgColor ?? "primarylight";
 
     useEffect( () => {
         const setupList = list.map( (listElement) => {
@@ -40,7 +41,7 @@ const SearchTag = ({list, max, ...props}) => {
                     searchTagList.map( (tag, index) => {
                         if (index < max || max === "-1") {
                             return (
-                                <a href={`/categories${tag.url}`} className={`badge text-bg-primarylight me-1`} title={tag.name} rel={"follow"}
+                                <a href={`/categories${tag.url}`} className={`badge text-bg-${tagBgColor} me-1`} title={tag.name} rel={"follow"}
                                    key={"searchTag-"+tag.url}>
                                     {tag.name}
                                 </a>

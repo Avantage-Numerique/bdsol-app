@@ -68,13 +68,10 @@ const Button = ({ rippleEffect, ...props }) => {
 
         let bootstrapColor = props.color ? props.color : "primary";
 
-        if(
-            props.outline
-            &&
-            props.outline.length > 0
-        ){
-            classList.push(`btn-custom-outline-${props.color}`);
-            classList.push(`btn-outline-${props.outline}`);
+        if(props.outline){
+            //const outlineLength = props.outline.length > 0 ? props.outline.length : 0;//I don't know what it is used for.
+            //classList.push(`btn-custom-outline-${props.color}`);
+            classList.push(`btn-outline-${props.color}`);
         } else {
             classList.push(`${bsPrefix}${bootstrapColor}`);
         }
