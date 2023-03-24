@@ -33,6 +33,7 @@ export const base = {
     "actualities": "Actualités",
     "menu": "menu",
 
+
     //  History (user Histories, etc)
 
     "modificationHistory": "Historique de modification",
@@ -69,11 +70,13 @@ export const base = {
     "formNotValid": "Attention. Le formulaire envoyé n'est pas valide. Assurez-vous que tous les champs sont bien remplis.",
     "submit": "Soumettre",
 
+
     // CreatePersonForm.js
 
     "formPersonSubtitle": "Ajoutez ici une entité <code>Personne</code>, afin de représenter un artiste, artisan ou professionnel de tout domaine que vous jugez pertinent à cette base de données.",
     "formPersonInstructions": "",
     "personUploadMediaMainImage": "Vous pourrez téléverser une image à partir de la page de cette personne. Cette image représentera cette personne et sera affiché dans sa fiche et dans les pages qui la liste.",
+
 
     //  CreateOrganisationForm.js
 
@@ -99,6 +102,7 @@ export const base = {
     "nickname": "surnom",
     "nicknameLabel": "Surnom&nbsp;:&nbsp;",
     "catchphrase": "Phrase d'accroche",
+    "addPersonButtonLabel": "Ajouter une personne",
 
 
     //  Organisations

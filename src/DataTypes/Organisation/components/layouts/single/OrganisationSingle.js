@@ -12,6 +12,7 @@ import {lang} from "@/common/Data/GlobalConstants";
 import SingleInfo from "@/DataTypes/common/layouts/SingleInfo/SingleInfo";
 import {useModal} from "@/src/hooks/useModal/useModal";
 import {SingleEntityStatus} from "@/DataTypes/Status/Components/SingleEntityStatus";
+import DateWidget from "@/common/widgets/DateWidget/DateWidget";
 
 
 const OrganisationSimple = ({ data }) => {
@@ -38,10 +39,6 @@ const OrganisationSimple = ({ data }) => {
         //_id
     } = data;
 
-    const date_createdAt = new Date(createdAt);
-    const date_updatedAt = new Date(updatedAt);
-    const date_fondationDate = new Date(fondationDate);
-
     const ModalComponent = CreateOrganisationForm;
     const modalComponentParams = {
         uri:"update"
@@ -54,7 +51,7 @@ const OrganisationSimple = ({ data }) => {
             <h2 className="mb-2">{name}</h2>
             <p className="small w-100 my-0">
                 { catchphrase && <><span>{catchphrase}</span><br/></>}
-                { fondationDate && <span>{lang.fondationDate+lang.colon} {date_fondationDate.toLocaleDateString("fr-CA")} </span>}
+                { fondationDate && <span>{lang.fondationDate+lang.colon} </span>} <DateWidget stringDate={fondationDate} />
             </p>
         </div>
     );

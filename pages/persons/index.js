@@ -75,8 +75,6 @@ const PersonsPage = () => {
 
                         {/* Feed section */}
                         <section className="col col-12 col-md-9">
-                            <h2>{lang.actualities}</h2>
-                            <hr />
                             <div className="position-relative row row-cols-1 row-cols-sm-2 row-cols-xl-3">
 
                                 {/* Loading state : If loading is on and there is no feed */}
@@ -114,14 +112,12 @@ const PersonsPage = () => {
 
                         {/* Aside section */}
                         <aside className="col col-12 col-md-3">
-                            <h2>{lang.menu}</h2>
-                            <hr />
                             <div className="my-4">
                                 <Button 
                                     disabled={!auth.user.isLoggedIn}
                                     href="/contribuer/personne" 
                                     size="reg-100">
-                                        Ajouter une personne
+                                    {lang.addPersonButtonLabel}
                                 </Button>
 
                                 {
@@ -131,16 +127,13 @@ const PersonsPage = () => {
                                     </p>
                                 }
                             </div>
-                            <hr />
                                 {   !auth.user.isLoggedIn &&
-
                                     <>
-                                    <Button 
-                                        size="reg-100"
-                                        href="/compte/connexion"
-                                    >Se connecter</Button>
-
-                                    <hr />
+                                        <hr/>
+                                        <Button
+                                            size="reg-100"
+                                            href="/compte/connexion"
+                                        >Se connecter</Button>
                                     </>
                                 }
                             
