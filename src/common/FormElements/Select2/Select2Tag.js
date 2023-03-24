@@ -1,21 +1,12 @@
-import React, {useEffect, useState, useRef, useContext} from 'react'
+import React, {useEffect, useState, useRef} from 'react';//useContext
 
 //Custom Hooks
 import { useHttpClient } from '@/src/hooks/http-hook'
 import { useValidation } from '@/src/hooks/useValidation/useValidation';
-import { useModal } from '@/src/hooks/useModal/useModal';
-import {getDefaultCreateEntityStatus} from "@/DataTypes/Status/EntityStatus";
 import useDebounce from '@/src/hooks/useDebounce'
-
-
-//Contexts
-import { useAuth } from "@/src/authentification/context/auth-context";
-
 
 //Components
 import CreatableSelect from 'react-select/creatable';
-import Button from '../Button/Button';
-import CreateTaxonomyForm from '@/src/DataTypes/Taxonomy/Components/Forms/CreateTaxonomy/CreateTaxonomyForm';
 
 //Styling
 import styles from './Select2Tag.module.scss'
@@ -69,12 +60,12 @@ const Select2Tag = ({name, formTools, ...props}) => {
     }, [])
 
     const fetchSingleTaxonomy = async (id) => {
-        const serverResponse =  await sendRequest(
+
+        return await sendRequest(
             "/taxonomies/search",
             'POST',
             JSON.stringify({data:{id:id}})
         );
-        return serverResponse;
     }
     
 
@@ -84,14 +75,14 @@ const Select2Tag = ({name, formTools, ...props}) => {
         const updatedList = selectedValue.map( (selected) => {
             //if is in entitiesList
             const inEntityList = entitiesList.current.find( elem => {
-                return selected.value == elem[props.idField]._id
+                return selected.value === elem[props.idField]._id
             })
             if(inEntityList)
                 return inEntityList;
 
             //If is in selectResponse
             const inSelectResponse = selectResponse?.data.find( elem => {
-                return selected.value == elem._id
+                return selected.value === elem._id
             })
             if(inSelectResponse){
                 entitiesList.current.push({[props.idField]: inSelectResponse});
