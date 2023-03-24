@@ -19,7 +19,7 @@ import CreateTaxonomyForm from '@/src/DataTypes/Taxonomy/Components/Forms/Create
 import { getSelectedToFormData } from '@/src/common/FormElements/Select2/Select2Tag';
 
 
-const UpdatePersonForm = ({initValues, positiveRequestActions}) => {
+const DEPRECATED_UpdatePersonForm = ({initValues, positiveRequestActions}) => {
 
     //Authentication ref
     const auth = useAuth();
@@ -57,6 +57,10 @@ const UpdatePersonForm = ({initValues, positiveRequestActions}) => {
             occupations: {
                 value: initValues.occupations ? initValues.occupations : [],
                 isValid: true
+            },
+            domains: {
+                value: initValues.domains ? initValues.domains : [],
+                isValid: true
             }
         },
         //Pass a set of rules to execute a valid response of an api request
@@ -79,7 +83,8 @@ const UpdatePersonForm = ({initValues, positiveRequestActions}) => {
                     nickname: formState.inputs.nickName.value,
                     description: formState.inputs.description.value,
                     catchphrase: formState.inputs.catchphrase.value,
-                    occupations: getSelectedToFormData(formState.inputs.occupations.value, "occupation", auth.user)
+                    occupations: getSelectedToFormData(formState.inputs.occupations.value, "occupation", auth.user),
+                    domains: getSelectedToFormData(formState.inputs.domains.value, "domain", auth.user)
                 }
             };
 
@@ -150,6 +155,18 @@ const UpdatePersonForm = ({initValues, positiveRequestActions}) => {
                     creatableModal={modal}
                     />
 
+                <Select2Tag
+                    label={lang.Domains}
+                    searchField="name"
+                    fetch="/taxonomies/list"
+                    requestData={{category:"domains", name:""}}
+                    name="domains"
+                    idField="domain"
+                    placeholder={lang.domainsInputPlaceholder}
+                    formTools={formTools}
+                    creatableModal={modal}
+                />
+
                 <Button type="submit" disabled={!formState.isValid}>{lang.submit}</Button>
 
             </form>
@@ -190,4 +207,4 @@ const UpdatePersonForm = ({initValues, positiveRequestActions}) => {
     )
 }
 
-export default UpdatePersonForm
+export default DEPRECATED_UpdatePersonForm

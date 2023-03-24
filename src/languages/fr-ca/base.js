@@ -114,7 +114,9 @@ export const base = {
     "teamMembers": "Membres de l'organisation",
     "fondationDate": "Date de fondation",
 
+    "singleDescriptionLabel": "Présentation",
     "bestContactPointLabel": "Meilleur moyen pour les contacter : ",
+
 
 
     //  Taxonomy
@@ -164,7 +166,7 @@ export const base = {
     "domain": "Domaine",
 
     "domainsInputPlaceholder": "Art, informatique, communication, [...]",
-
+    "domainsSingleLabel": "Les domaines",
 
     //  TEAMS
 

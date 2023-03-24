@@ -9,7 +9,6 @@ import {useFormUtils} from '@/src/hooks/useFormUtils/useFormUtils';
 import { useModal } from '@/src/hooks/useModal/useModal';
 
 //Component
-import PersonRoleTemplate from '@/src/DataTypes/Person/Template/PersonRoleTemplate';
 import Repeater from '@/src/common/Containers/Repeater/Repeater';
 import Select2Tag from '@/src/common/FormElements/Select2/Select2Tag';
 import Button from '@/src/common/FormElements/Button/Button';
@@ -113,7 +112,7 @@ const CreateOrganisationForm = (props) => {
     const submitHandler = async event => {
 
         event.preventDefault();
-        console.log(formState.inputs.offers.value)
+
         const formData = {
             "data": {
                 name: formState.inputs.name.value,
@@ -209,12 +208,12 @@ const CreateOrganisationForm = (props) => {
                     label={lang.Domains}
                     searchField="name"
                     fetch="/taxonomies/list"
-                    slug={"domains"}
                     requestData={{category:"domains", name:""}}
                     name="domains"
                     idField="domain"
                     placeholder={lang.domainsInputPlaceholder}
                     formTools={formTools}
+                    creatableModal={modal}
                 />
 
                 <Repeater

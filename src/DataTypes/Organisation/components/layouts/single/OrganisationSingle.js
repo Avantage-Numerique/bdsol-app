@@ -15,7 +15,7 @@ import {SingleEntityStatus} from "@/DataTypes/Status/Components/SingleEntityStat
 import DateWidget from "@/common/widgets/DateWidget/DateWidget";
 
 
-const OrganisationSimple = ({ data }) => {
+const OrganisationSingle = ({ data }) => {
 
     const defaultOrgAvatar = '/general_images/Jurassic_Park_Main_Gate.jpg';
 
@@ -29,6 +29,7 @@ const OrganisationSimple = ({ data }) => {
         catchphrase,
         name,
         offers,
+        domains,
         //slug,
         //status,
         team,
@@ -38,6 +39,8 @@ const OrganisationSimple = ({ data }) => {
         //__v,
         //_id
     } = data;
+
+    console.log(domains);
 
     const ModalComponent = CreateOrganisationForm;
     const modalComponentParams = {
@@ -58,6 +61,17 @@ const OrganisationSimple = ({ data }) => {
 
     const aside = (
         <>
+            {
+                domains && domains.length > 0 &&
+                <>
+                    <h4>{lang.domainsSingleLabel}</h4>
+                    <SearchTag
+                        className="row"
+                        list={domains}
+                        listProperty={"domain"}
+                    />
+                </>
+            }
             {
                 contactPoint &&
                 <section className={"border-bottom"}>
@@ -89,7 +103,6 @@ const OrganisationSimple = ({ data }) => {
                         <SearchTag
                         className="row"
                         list={offers}
-                        max="-1"
                         />
                 </section>
             }
@@ -114,7 +127,7 @@ const OrganisationSimple = ({ data }) => {
         >
             {
                 description &&
-                <SingleInfo className={singleInfoCommonClass} title={"Présentation"}>
+                <SingleInfo className={singleInfoCommonClass} title={lang.singleDescriptionLabel}>
                     <SanitizedInnerHtml>
                         {description}
                     </SanitizedInnerHtml>
@@ -128,4 +141,4 @@ const OrganisationSimple = ({ data }) => {
     )
 }
 
-export default OrganisationSimple
+export default OrganisationSingle
