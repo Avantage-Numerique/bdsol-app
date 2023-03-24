@@ -84,6 +84,10 @@ const CreateOrganisationForm = (props) => {
             value: initialValues.offers,
             isValid: true
         },
+        domains: {
+            value: initialValues.domains,
+            isValid: true
+        },
         team: {
             value: initialValues.team,
             isValid: true
@@ -108,6 +112,7 @@ const CreateOrganisationForm = (props) => {
                 fondationDate: formState.inputs.fondationDate.value,
                 catchphrase: formState.inputs.catchphrase.value,
                 offers: getSelectedToFormData(formState.inputs.offers.value, "offer", auth.user),
+                domains: getSelectedToFormData(formState.inputs.domains.value, "domain", auth.user),
                 team: formState.inputs.team.value,
                 "status": submitUri === "create" ? getDefaultCreateEntityStatus(auth.user) : getDefaultUpdateEntityStatus(auth.user)
             }
@@ -185,6 +190,18 @@ const CreateOrganisationForm = (props) => {
                     name="offers"
                     idField="offer"
                     placeholder={lang.occupationsPlaceholder}
+                    formTools={formTools}
+                />
+
+                <Select2Tag
+                    label={lang.Domains}
+                    searchField="name"
+                    fetch="/taxonomies/list"
+                    slug={"domains"}
+                    requestData={{category:"domains", name:""}}
+                    name="domains"
+                    idField="domain"
+                    placeholder={lang.domainsInputPlaceholder}
                     formTools={formTools}
                 />
 

@@ -20,6 +20,7 @@ import CreateTaxonomyForm from '@/src/DataTypes/Taxonomy/Components/Forms/Create
 //Styling
 import styles from './Select2Tag.module.scss'
 import makeAnimated from 'react-select/animated';
+import {lang} from "@/common/Data/GlobalConstants";
 
 /*
 Props :
@@ -112,6 +113,7 @@ const Select2Tag = ({name, formTools, ...props}) => {
                 'POST',
                 JSON.stringify(requestData)
             );
+            console.log(requestData);
             setSelectResponse(serverResponse);
         }
     }
@@ -201,7 +203,7 @@ const Select2Tag = ({name, formTools, ...props}) => {
                         closingFunction={closeModal}
                         >
                             <header className={`d-flex`}>
-                                <p>Le nouvel élément de taxonomie que vous ajoutez ici pourra ensuite être directement intégrée au formulaire.</p>
+                                <p>{lang.taxonomyCreateWhenDoNotExistDirective}</p>
                             </header>               
                       
                         {/* Separation line */}
@@ -209,7 +211,7 @@ const Select2Tag = ({name, formTools, ...props}) => {
 
                         <CreateTaxonomyForm
                             name={modal.enteredValues.name ?? ''}   //Prefilled value
-                            category="occupations"
+                            category={props.slug}
                             positiveRequestActions={{
                                 //CallbackFunction is one of the four behaviors the useFormUtils hook can apply when a request return a positive answer
                                 callbackFunction: requestResponse => {
