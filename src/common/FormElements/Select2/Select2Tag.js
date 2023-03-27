@@ -36,7 +36,7 @@ const Select2Tag = ({name, formTools, ...props}) => {
     //Import message context
     const {sendRequest} = useHttpClient();
 
-    //List of options fetched by the api and proposed to the user in the datalist in grey
+    //List of options fetched by the api and proposed to the user
     const [selectResponse, setSelectResponse] = useState([]);
     const [optionList, setOptionList] = useState([]);
 
@@ -70,7 +70,6 @@ const Select2Tag = ({name, formTools, ...props}) => {
     
 
     const updateValue = (selectedValue) => {
-
         //Create formState object to update it with
         const updatedList = selectedValue.map( (selected) => {
             //if is in entitiesList

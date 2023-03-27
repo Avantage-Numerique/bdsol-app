@@ -26,7 +26,6 @@ export async function getServerSideProps(context) {
         {
             method: 'GET',
         });
-
     return { props: {
             taxonomy: taxonomy.data,
             data: entities.data
@@ -87,7 +86,6 @@ const TaxonomiesSinglePage = (props) => {
     const gridComponents = new Map();
     gridComponents.set("person", PersonSimple);
     gridComponents.set("organisation", OrganisationSimple);
-
 
     return (
         <div>

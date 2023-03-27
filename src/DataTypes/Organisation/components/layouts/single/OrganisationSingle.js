@@ -40,8 +40,6 @@ const OrganisationSingle = ({ data }) => {
         //_id
     } = data;
 
-    console.log(domains);
-
     const ModalComponent = CreateOrganisationForm;
     const modalComponentParams = {
         uri:"update"
