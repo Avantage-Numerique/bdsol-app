@@ -6,7 +6,7 @@ import Single from "@/DataTypes/common/layouts/single/Single";
 import Button from "@/FormElements/Button/Button"
 
 //hooks
-import { useModal } from '@/src/hooks/useModal/useModal';
+//import { useModal } from '@/src/hooks/useModal/useModal';
 
 //Utils
 import SanitizedInnerHtml from "@/src/utils/SanitizedInnerHtml";
@@ -73,7 +73,6 @@ const SingleMediaView = ({ data }) => {
             aside={aside}
             headerMainContent={headerMainContent}
             entity={data}
-            modalComponent={}
             showCTA={false}
             showMainImageInHeader={false}
             showUpdateMenu={false}
