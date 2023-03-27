@@ -13,11 +13,6 @@ export const base = {
     "noInfoAvailable": "Information bientôt disponible.",
     "colon": " : ",
 
-    //  UPLOAD
-
-    "entityUploadMediaNoteOnCreateEntity": `Vous pourrez téléverser une image à partir de la page de cette %entity%. Cette image représentera cette %entity% et sera affiché dans sa fiche et dans les pages qui la liste.`,
-
-
     // App
 
     "appDefaultName": "BDSOL d'Avantage Numérique",
@@ -30,9 +25,9 @@ export const base = {
     //  HomePage
 
     "homePageTitle": "Explorer les acteurs·trices techno-créatifs·ves dans le croissant boréal",
-    "homePageDescription": "Nom de code : Base de données structurée ouverte et liée d'avantage numérique.",
+    "homePageDescription": "Nom de code : Base de données structurée ouverte et liée d'Avantage Numérique.",
     "actualities": "Actualités",
-    "menu": "menu",
+    "menu": "Menu",
 
 
     //  History (user Histories, etc)
@@ -56,19 +51,19 @@ export const base = {
     "successDisconnected": "Vous êtes maintenant déconnecté.",
     "youreAlreadyConnected": "Vous êtes déjà connecté.",
     "youreAlreadyDisconnected": "Vous avez déjà été déconnecté.",
-    "errorOnDisconnecting": "Une erreur est survenue lors de la déconnection",
-    "disconnectionSucceed": "Félicitation ! Vous avez bien été déconnectés.",
+    "errorOnDisconnecting": "Une erreur est survenue lors de la déconnexion",
+    "disconnectionSucceed": "Vous avez bien été déconnecté.",
 
     //  DataType/common/commonFormFeatures/commonFormFeatures.js
     "needAuthToContribute": "Vous devez être connecté pour pouvoir contribuer à la base de données.",
 
     // http-hook
 
-    "fetchErrorMessage": "Une erreur est survenue et le serveur ne semble pas répondre. Assurez-vous d'avoir une connexion.",
+    "fetchErrorMessage": "Une erreur est survenue et le serveur ne semble pas répondre. Assurez-vous d'avoir une connexion internet.",
 
     //  Forms
 
-    "formNotValid": "Attention. Le formulaire envoyé n'est pas valide. Assurez-vous que tous les champs sont bien remplis.",
+    "formNotValid": "Attention. Le formulaire envoyé est invalide. Assurez-vous que tous les champs requis sont bien remplis.",
     "submit": "Soumettre",
 
 
@@ -126,9 +121,9 @@ export const base = {
     "Taxonomies": "Catégories",
     "taxonomy": "catégorie",
     "taxonomies": "catégories",
-    "taxonomyExplications": "Une catégorie sert à classifier dans un système ordonné les relations entre les choses. Ajoutez ici une catégorie pour permettre à une entité d'être reliée à cette taxonomie. Par exemple, lier une <strong>personne</strong> à une <strong>occupation</strong> ou une <strong>aptitude</strong> et lier une <strong>organisation</strong> à un <strong>service offert</strong> et bien d'autre.",
+    "taxonomyExplications": "Une catégorie sert à classifier dans un système ordonné les relations entre les entités. Ajoutez ici une catégorie pour permettre à une entité d'être reliée à cette catégorie. Par exemple, lier une <strong>personne</strong> à une <strong>occupation</strong> ou une <strong>compétence</strong> et lier une <strong>organisation</strong> à un <strong>service offert</strong> et bien d'autre.",
 
-    "taxonomyCreateWhenDoNotExistDirective": "Le nouvel élément de taxonomie que vous ajoutez ici pourra ensuite être directement intégrée au formulaire.",
+    "taxonomyCreateWhenDoNotExistDirective": "Le nouvel élément de catégorie que vous ajoutez ici pourra ensuite être directement intégrée au formulaire.",
 
     "backToTaxonomyIndexBtnLabel": "Retour à toutes les catégories",
 
@@ -136,13 +131,13 @@ export const base = {
 
     "Technology": "Technologie",
     "Technologies": "Technologies",
-    "technology": "Technologie",
-    "technologies": "Technologies",
+    "technology": "technologie",
+    "technologies": "technologies",
 
     "Skills": "Compétences",
     "Skill": "Compétence",
-    "skills": "Compétences",
-    "skill": "Compétence",
+    "skills": "compétences",
+    "skill": "compétence",
 
     //  Occupations
 
@@ -151,22 +146,22 @@ export const base = {
     "occupation": "occupation",
     "Occupation": "Occupation",
 
-    "occupationsPlaceholder": "Enseignant, Architecte logiciel, [...]",
+    "occupationsPlaceholder": "Teacher, Software architect, [...]",
 
 
     //  Services
 
     "Services": "Services offerts",
     "Service": "Service",
-    "services": "Services offerts",
-    "service": "Service",
+    "services": "services offerts",
+    "service": "service",
 
     //  Domains
 
     "Domains": "Domaines",
     "Domain": "Domaine",
-    "domains": "Domaines",
-    "domain": "Domaine",
+    "domains": "domaines",
+    "domain": "domaine",
 
     "domainsInputPlaceholder": "Art, informatique, communication, [...]",
     "domainsSingleLabel": "Les domaines",
