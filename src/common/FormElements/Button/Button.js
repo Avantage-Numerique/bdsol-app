@@ -122,7 +122,7 @@ const Button = ({ rippleEffect, ...props }) => {
     if (props.href && props.external) {
         return (
             <a href={props.href}
-               className={`${classesString}${(prop.disabled ? ' disabled': '')}`}
+               className={`${classesString}${(props.disabled ? ' disabled': '')}`}
                target={"_blank"}>
                 {props.children}
             </a>
@@ -135,11 +135,8 @@ const Button = ({ rippleEffect, ...props }) => {
             <Link href={props.href} >
                 <button 
                     className={`${classesString}`}
-                    disabled={props.disabled}
-                >
-
+                    disabled={props.disabled}>
                     {props.children}
-
                 </button>
             </Link>
         );
