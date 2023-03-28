@@ -5,6 +5,7 @@ import Button from "@/FormElements/Button/Button";
 import {lang} from "@/common/Data/GlobalConstants";
 import EntityNavBar from "@/DataTypes/common/layouts/Navigation/EntityNavBar";
 import {useAuth} from "@/auth/context/auth-context";
+import Icon from "@/common/widgets/Icon/Icon";
 
 /*
     Receive and apply all the rules of a single view for entities
@@ -88,7 +89,7 @@ const Single = (props) => {
                                 <aside className={"col-auto col-lg-4"}>
                                     <div className={"d-flex flex-column"}>
                                         <p>{cta}</p>
-                                        <Button href={ctaUrl} className={"btn-block"} external>{ctaLabel}</Button>
+                                        <Button href={ctaUrl} className={"btn-block"} external>{ctaLabel}&nbsp;<Icon iconName={"external-link-alt"} /></Button>
                                     </div>
                                 </aside>
                             }

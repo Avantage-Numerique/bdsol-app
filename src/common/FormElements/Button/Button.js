@@ -4,7 +4,7 @@ import Link from 'next/link'
 //scss styling
 import styles from './Button.module.scss'
 import DOMPurify from "isomorphic-dompurify";
-import {externalLinkIcon} from "@/common/Icons/IconsManager";
+import Icon from "@/common/widgets/Icon/Icon";
 
 
 const getCurrentTime = () => {
@@ -40,16 +40,16 @@ const Button = ({ rippleEffect, ...props }) => {
     //let bsPrefix = props.listItem ? "list-group-item-" : "btn-";
     let bsPrefix = "btn-";
 
-    const [rippleList, setRippleList] = useState([])
+    const [rippleList, setRippleList] = useState([]);
 
-    const addRipple = () => {
+    /*const addRipple = () => {
 
         setRippleList([
             ...rippleList,
             {id: "ripple_" + getCurrentTime()}
         ])
     
-    }
+    }*/
 
     {/*
 
@@ -122,11 +122,9 @@ const Button = ({ rippleEffect, ...props }) => {
     if (props.href && props.external) {
         return (
             <a href={props.href}
-               className={`${classesString}`}
-               disabled={props.disabled}
-               dangerouslySetInnerHTML={{
-                   __html: DOMPurify.sanitize(props.children+" "+externalLinkIcon)
-               }}>
+               className={`${classesString}${(prop.disabled ? ' disabled': '')}`}
+               target={"_blank"}>
+                {props.children}
             </a>
         );
     }
