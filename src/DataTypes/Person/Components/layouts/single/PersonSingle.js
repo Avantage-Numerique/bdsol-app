@@ -60,6 +60,27 @@ const PersonSingle = ({ data }) => {
         fetchMemberOf()
     }, []);
 */
+    const OccupationGroup = ({occupationName, skillList}) => {
+
+        return (
+            <article className="d-flex flex-column bg-secondary p-2 rounded mb-2">
+                <h5 className="text-blue2">{occupationName}</h5>
+                {
+                    skillList && skillList.length > 0 &&
+                    <ul className="d-flex">
+                        {
+                            skillList.map(skill => (
+                            <li 
+                                key={skill._id}
+                                className="fs-6 border rounded px-1 bg-white border-white"
+                            >{skill.name}</li>
+                            ))
+                        }
+                    </ul>
+                }
+            </article>
+        )
+    }
 
     const aside = (
         <>
@@ -91,7 +112,17 @@ const PersonSingle = ({ data }) => {
 
             <SingleInfo title={"Occupations"}
                 NAMessage={<p></p>}
-            >
+            >    
+                {/* Display the different groupes of occupations */}
+                { occupations &&
+                    occupations.map(occ => (
+                        <OccupationGroup 
+                            occupationName={occ.occupation} 
+                            skillList={occ.skills}
+                            key={occ._id}
+                        />
+                    ))
+                }
                 <Button size="slim" onClick={displayModal}>Modifier les groupes</Button>
             </SingleInfo>
 
