@@ -21,7 +21,8 @@ import {SingleEntityStatus} from "@/DataTypes/Status/Components/SingleEntityStat
 
 const PersonSingle = ({ data }) => {
 
-    console.log("Person data", data);
+    const { modal, Modal, displayModal, closeModal } = useModal();
+
     const { 
         _id,
         firstName,
@@ -37,7 +38,6 @@ const PersonSingle = ({ data }) => {
         mainImage
     } = data;
 
-    const [displayUpdateGroups, setDisplayUpdateGroups] = useState(false);
 
 
     //const {sendRequest} = useHttpClient();
@@ -81,7 +81,7 @@ const PersonSingle = ({ data }) => {
                     title={"Occupations"}
                     NAMessage={<p></p>}
                 >
-                    <Button size="slim" onClick={() => setDisplayUpdateGroups(true)}>Modifier les groupes</Button>
+                    <Button size="slim" onClick={displayModal}>Modifier les groupes</Button>
                 </SingleInfo>
 
                 
@@ -144,9 +144,19 @@ const PersonSingle = ({ data }) => {
         </Single>
 
         {
-            displayUpdateGroups &&
-            <UpdateSkillGroup />
+            modal.display &&
+            <Modal>
+                <div className="d-flex mb-3">
+                    <h3 className="text-blue4">Éditez vos groupes de compétences</h3>
+                    <Button type="button" onClick={closeModal}>Fermer</Button>
+                </div>
+                
+                <UpdateSkillGroup />
+
+            </Modal>
         }
+
+        
         </>
     )
 }

@@ -17,9 +17,7 @@ import styles from './UpdateSkillGroup.module.scss';
 import SkillGroupRepeater from '../SkillGroupRepeater/SkillGroupRepeater';
 
 const UpdateSkillGroup = () => {
-
-    const { Modal, closeModal } = useModal();
-
+    
     const {FormUI, submitRequest, formState, formTools} = useFormUtils({
         skillGoups: {
             value: [],
@@ -28,10 +26,7 @@ const UpdateSkillGroup = () => {
     })
 
     return (
-        <> 
-            <Modal>
-
-                <form className="w-100">
+        <form className="w-100">
 
                 <SkillGroupRepeater
                     mainFormTools={formTools}
@@ -97,12 +92,11 @@ const UpdateSkillGroup = () => {
 
                 </SkillGroupRepeater>
 
+                <Button type="button">
+                    Soumettre
+                </Button>
 
-
-                </form>
- 
-            </Modal>
-        </>
+        </form>  
     )
 };
 
