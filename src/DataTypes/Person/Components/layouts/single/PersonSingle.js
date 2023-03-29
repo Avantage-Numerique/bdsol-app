@@ -39,7 +39,7 @@ const PersonSingle = ({ data }) => {
         mainImage
     } = data;
 
-
+    console.log("Data", data)
 
     //const {sendRequest} = useHttpClient();
     
@@ -160,7 +160,7 @@ const PersonSingle = ({ data }) => {
                     <Button type="button" onClick={closeModal}>Fermer</Button>
                 </div>
                 
-                <UpdateSkillGroup />
+                <UpdateSkillGroup parentEntity={data}  />
 
             </Modal>
         }

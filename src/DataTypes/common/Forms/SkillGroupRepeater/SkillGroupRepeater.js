@@ -1,8 +1,15 @@
 import {useState, useEffect, useRef, useCallback} from 'react';
 import React from 'react';
 
+//Hooks
 import { useFormUtils } from '@/src/hooks/useFormUtils/useFormUtils';
+
+//Components
 import Button from "@/FormElements/Button/Button"
+
+//Context
+import {useAuth} from '@/auth/context/auth-context';
+import {getDefaultCreateEntityStatus} from "@/DataTypes/Status/EntityStatus";
 
 
 const iterateOverChildren = (children, formInitStructure, formTools, deleteIteration) => {
@@ -28,6 +35,8 @@ const RepeaterSingleIteration = ({children, formInitStructure, iterationKey, upd
         //Create its own sub form state
         const {formState, formTools} = useFormUtils(formInitStructure);
 
+        console.log("Sub formstate", formState)
+
         useEffect(() => {
             // update the value
             updateIterationValue(iterationKey, formState.inputs, formState.isValid);
@@ -43,6 +52,9 @@ function getKeyByValue(object, value) {
 
 
 const SkillGroupRepeater = props => {
+
+    //Import the authentication context to make sure the user is well connected
+    const auth = useAuth();
 
     /*
         List of props 
@@ -60,7 +72,10 @@ const SkillGroupRepeater = props => {
         inputHandler
     } = mainFormTools;
 
-    //const currentState = formState.inputs[name];
+
+
+    const currentState = formState.inputs[name];
+    console.log("main Form state", currentState)
     //Value of the current state : {value: Array(0), isValid: true}
     //The main form is going to look out for the isValid property to let the user know if the state can be submited or not.
 
@@ -79,8 +94,11 @@ const SkillGroupRepeater = props => {
         //Loop through it to look at every children
         arrayOfIterationsValues.forEach(ite => {
             //If only one isn't valid, the hole feild becomes invalid
-            if(!ite.value.isValid)
+            if(!ite.isValid)
                 isValid = false;
+            /*
+                GOTTA FIXE SOMETHING BEFORE ACTIVATING THIS FUNCTION
+
             //Shape the entered values
             let returnShape = {...formReturnStructure}
             //Create an array of keys to exame based on the inital structure
@@ -90,13 +108,21 @@ const SkillGroupRepeater = props => {
                 //replace the name by the value to return
                 returnShape[getKeyByValue(returnShape, fieldName)] = ite.value[fieldName] ? ite.value[fieldName].value : {};
             })
+            //Add the proper status
+            returnShape.status = ite.status;
             //Add the result to the return array
             value.push(returnShape);
+            */
         })
+
+        value = Object.values(iterations);
 
         inputHandler(name, value, isValid)
 
     }, [iterations])
+
+
+    console.log("Iterations", iterations);
 
     /*************
      * 
@@ -150,6 +176,7 @@ const SkillGroupRepeater = props => {
                 key: key,
                 order: 1,  //not used for now
                 value: {},
+                status: getDefaultCreateEntityStatus(auth.user),
                 isValid: true
             }
         }

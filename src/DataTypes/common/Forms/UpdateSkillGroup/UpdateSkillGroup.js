@@ -1,9 +1,11 @@
-import { useEffect } from 'react';
+import React from 'react';
 
 //hooks
-import { useModal } from '@/src/hooks/useModal/useModal';
 import { useFormUtils } from '@/src/hooks/useFormUtils/useFormUtils';
 
+//context
+import {getDefaultCreateEntityStatus} from "@/DataTypes/Status/EntityStatus";
+import {useAuth} from '@/auth/context/auth-context';
 
 //components
 import Button from "@/FormElements/Button/Button"
@@ -16,7 +18,10 @@ import styles from './UpdateSkillGroup.module.scss';
 
 import SkillGroupRepeater from '../SkillGroupRepeater/SkillGroupRepeater';
 
-const UpdateSkillGroup = () => {
+const UpdateSkillGroup = ({parentEntity}) => {
+
+    //Import the authentication context to make sure the user is well connected
+    const auth = useAuth();
     
     const {FormUI, submitRequest, formState, formTools} = useFormUtils({
         skillGoups: {
@@ -25,6 +30,40 @@ const UpdateSkillGroup = () => {
         },
     })
 
+    console.log("MAIN MAIN FORM STATE", formState)
+
+
+    const submitHandler = async event => {
+        
+        event.preventDefault();
+
+        const formattedOccupations = formState.inputs.skillGoups.value.map(function(occ){
+            return {
+                status: occ.status,
+                occupation: occ.value.occupation.value,
+                skills: occ.value.skills.value.map(skill => skill.skill._id)
+            }
+        })
+
+        console.log("Formated data passed in the request : ", formattedOccupations)
+
+        const formData = {
+            "data": {
+                id: parentEntity._id,
+                occupations: formattedOccupations,
+                status: parentEntity.status
+            }
+        }
+        
+        //Add data to the formData
+        await submitRequest(
+            "/persons/update",
+            'POST',
+            formData
+        );
+
+    }
+
     return (
         <form className="w-100">
 
@@ -32,19 +71,20 @@ const UpdateSkillGroup = () => {
                     mainFormTools={formTools}
                     name="skillGoups"
                     formInitStructure={{
-                        groupName: {
+                        occupation: {
                             value: "",
                             isValid: false
                         },
-                        skillList: {
+                        skills: {
                             value: [],
                             isValid: true
                         }
                     }}
-                    formReturnStructure={{
-                        groupName: "groupName",
-                        skillList: "skillList"
-                    }}
+                    /* formReturnStructure={{
+                        occupation: "occupation",
+                        skills: "skills",
+                        status: undefined
+                    }} */
                 >
 
                     <article className={`
@@ -74,7 +114,7 @@ const UpdateSkillGroup = () => {
                             </div>
                             <Input 
                                 label="Nom de groupe"
-                                name="groupName"
+                                name="occupation"
                                 validationRules={[
                                     {name: "REQUIRED"}
                                 ]}
@@ -84,7 +124,7 @@ const UpdateSkillGroup = () => {
                                 searchField="name"
                                 fetch="/taxonomies/list"
                                 requestData={{category:"occupations", name:""}}
-                                name="skillList"
+                                name="skills"
                                 idField="skill"
                             />
                         </section>
@@ -92,7 +132,7 @@ const UpdateSkillGroup = () => {
 
                 </SkillGroupRepeater>
 
-                <Button type="button">
+                <Button type="button" onClick={submitHandler} disabled={!formState.isValid}>
                     Soumettre
                 </Button>
 
