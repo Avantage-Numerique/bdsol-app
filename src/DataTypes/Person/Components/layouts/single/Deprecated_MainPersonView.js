@@ -7,7 +7,7 @@ import {useHttpClient} from '@/src/hooks/http-hook';
 
 //Components
 import Button from '@/src/common/FormElements/Button/Button'
-import UpdatePersonForm from '@/DataTypes/Person/Components/Forms/update/UpdatePersonForm'
+import DEPRECATED_UpdatePersonForm from '@/DataTypes/Person/Components/Forms/update/DEPRECATED_UpdatePersonForm'
 import CreateMediaForm from '@/DataTypes/Media/components/forms/CreateMedia/CreateMediaForm'
 
 //Styling
@@ -297,7 +297,7 @@ const Deprecated_MainPersonView = ({ data }) => {
                 darkColorButton
                 closingFunction={closeModal}
             >
-               <UpdatePersonForm 
+               <DEPRECATED_UpdatePersonForm
                     initValues={data}
                     positiveRequestActions={{
                         //CallbackFunction is one of the four behaviors the useFormUtils hook can apply when a request return a positive answer

@@ -1,21 +1,12 @@
-import React, {useEffect, useState, useRef, useContext} from 'react'
+import React, {useEffect, useState, useRef} from 'react';//useContext
 
 //Custom Hooks
 import { useHttpClient } from '@/src/hooks/http-hook'
 import { useValidation } from '@/src/hooks/useValidation/useValidation';
-import { useModal } from '@/src/hooks/useModal/useModal';
-import {getDefaultCreateEntityStatus} from "@/DataTypes/Status/EntityStatus";
 import useDebounce from '@/src/hooks/useDebounce'
 
-
-//Contexts
-import { useAuth } from "@/src/authentification/context/auth-context";
-
-
 //Components
-import CreatableSelect from 'react-select';
-import Button from '../Button/Button';
-import CreateTaxonomyForm from '@/src/DataTypes/Taxonomy/Components/Forms/CreateTaxonomy/CreateTaxonomyForm';
+import CreatableSelect from 'react-select/creatable';
 
 //Styling
 import styles from './Select2Tag.module.scss'
@@ -36,49 +27,11 @@ Props :
 
 const Select2Tag = ({name, formTools, ...props}) => {
 
-    //Create taxonomy modal
-    const {displayModal, modal, closeModal, Modal} = useModal();
-
     const {
         formState,
         inputHandler,
         //inputTouched
     } = formTools;
-
-    const selectRef = useRef();
-    const [inputValue, setInputValue] = useState("");
-    //Set default selectValue
-    useEffect(() => {
-
-        if(formState.inputs[name]?.value?.length > 0)
-        {
-            const state = formState.inputs[name].value.map((elem) => {
-                return { value: elem[props.idField]._id, label: elem[props.idField][props.searchField]
-            }})
-            selectRef.current.setValue(state, "set-value");
-        }
-    }, [])
-
-    const updateValue = (selectedValue) => {
-        if(selectResponse?.data?.length > 0){
-            //Set an array full of "populated alike" item ( [occupation : {full object}, ...] )
-            const selectedList = selectedValue.map( (item) => {
-                return { [props.idField]: selectResponse?.data.find( (elem) => { return elem._id === item.value }) };
-            });
-            inputHandler(
-                name,
-                selectedList,
-                props.validators ? validate(event.target.value, props.validators) : true
-            )
-        }
-    }
-
-    const setValueWithComma = () => {
-        selectRef.current.setValue([...selectRef.current.state.selectValue, selectRef.current.state.focusedOption], "set-value")
-    }
-
-    //Extract validation methods
-    const { validate, RequirementsBadges, ValidationErrorMessages } = useValidation( props.validationRules )
 
     //Import message context
     const {sendRequest} = useHttpClient();
@@ -86,6 +39,65 @@ const Select2Tag = ({name, formTools, ...props}) => {
     //List of options fetched by the api and proposed to the user in the datalist in grey
     const [selectResponse, setSelectResponse] = useState([]);
     const [optionList, setOptionList] = useState([]);
+
+    const selectRef = useRef();
+    const [inputValue, setInputValue] = useState("");
+
+    //List of probably chosen entities
+    const entitiesList = useRef([]);
+
+    //Set default selectValue
+    useEffect(() => {
+
+        if(formState.inputs[name]?.value?.length > 0)
+        {
+            const state = formState.inputs[name].value.map((elem) => {
+                entitiesList.current.push(...formState.inputs[name].value)
+                return { value: elem[props.idField]._id, label: elem[props.idField][props.searchField]
+            }})
+            selectRef.current.setValue(state, "set-value");
+        }
+    }, [])
+
+    const fetchSingleTaxonomy = async (id) => {
+
+        return await sendRequest(
+            "/taxonomies/search",
+            'POST',
+            JSON.stringify({data:{id:id}})
+        );
+    }
+    
+
+    const updateValue = (selectedValue) => {
+
+        //Create formState object to update it with
+        const updatedList = selectedValue.map( (selected) => {
+            //if is in entitiesList
+            const inEntityList = entitiesList.current.find( elem => {
+                return selected.value === elem[props.idField]._id
+            })
+            if(inEntityList)
+                return inEntityList;
+
+            //If is in selectResponse
+            const inSelectResponse = selectResponse?.data.find( elem => {
+                return selected.value === elem._id
+            })
+            if(inSelectResponse){
+                entitiesList.current.push({[props.idField]: inSelectResponse});
+                return {[props.idField]: inSelectResponse};
+            }
+        });
+        inputHandler(
+            name,
+            updatedList,
+            props.validators ? validate(event.target.value, props.validators) : true
+        )
+    }
+
+    //Extract validation methods
+    const { validate, RequirementsBadges, ValidationErrorMessages } = useValidation( props.validationRules )
 
     //Research terms send to the api to refine the search
     //shape : data: {category: 'occupations', name: 'ingenieur'}
@@ -110,7 +122,7 @@ const Select2Tag = ({name, formTools, ...props}) => {
             const serverResponse =  await sendRequest(
                 (props.fetch),
                 'POST',
-                JSON.stringify(requestData)
+                JSON.stringify({data:requestData})
             );
             setSelectResponse(serverResponse);
         }
@@ -120,7 +132,7 @@ const Select2Tag = ({name, formTools, ...props}) => {
         let newOptionList = [];
         if (selectResponse?.data?.length > 0)
             newOptionList = selectResponse.data.map( (elem) => {
-            return { value: elem._id, label: elem[props.searchField] }
+            return { value: elem._id, label: elem[props.searchField], category: elem.category }
         })
         setOptionList(newOptionList)
     },[selectResponse])
@@ -133,15 +145,18 @@ const Select2Tag = ({name, formTools, ...props}) => {
     }
 
     const handleCreateOption = (val) => {
-        //Open modal
-        modal.enteredValues.name = val;
-        displayModal();
+        props.creatableModal.displayModal({name: val}, addFromCreatedModal);
     }
 
     const addFromCreatedModal = (val) => {
         //Format val to {value:id, label:name}
-        selectRef.current.setValue([...selectRef.current.state.selectValue, val], "set-value");
-        //updateValue()
+        entitiesList.current.push({[props.idField]:val});
+        const newSelectedFromCreate = { value: val._id, label: val.name };
+        selectRef.current.setValue([...selectRef.current.state.selectValue, newSelectedFromCreate], "set-value");
+    }
+
+    const setValueWithComma = () => {
+        selectRef.current.setValue([...selectRef.current.state.selectValue, selectRef.current.state.focusedOption], "set-value")
     }
 
     const animatedComponents = makeAnimated();
@@ -179,6 +194,7 @@ const Select2Tag = ({name, formTools, ...props}) => {
                             formRequestData(val)
                         }}
                         onChange={(val) => updateValue(val)}
+                        formatCreateLabel={(val)=> "Créer : "+val}
                         onCreateOption={(val) => handleCreateOption(val)}
                         theme={(theme) => ({
                             ...theme,
@@ -196,36 +212,6 @@ const Select2Tag = ({name, formTools, ...props}) => {
                     </div>
                 </div>
             </div>
-                    {modal.display &&
-                    <Modal
-                        closingFunction={closeModal}
-                        >
-                            <header className={`d-flex`}>
-                                <p>Le nouvel élément de taxonomie que vous ajoutez ici pourra ensuite être directement intégrée au formulaire.</p>
-                            </header>               
-                      
-                        {/* Separation line */}
-                        <div className={`my-4 border-bottom`}></div>
-
-                        <CreateTaxonomyForm
-                            name={modal.enteredValues.name ?? ''}   //Prefilled value
-                            category="occupations"
-                            positiveRequestActions={{
-                                //CallbackFunction is one of the four behaviors the useFormUtils hook can apply when a request return a positive answer
-                                callbackFunction: requestResponse => {
-                                    //In this case, the modal callback receives the object to be passed which is the taxonomy item in the response of the request
-                                    //modal.callback(requestResponse.data)
-                                    if(requestResponse.data[props.searchField] && requestResponse.data._id)
-                                        addFromCreatedModal({value:requestResponse.data._id, label: requestResponse.data[props.searchField]})
-                                    //Close the modal
-                                    closeModal()
-                                }
-                            }}
-                        />
-
-                    </Modal>
-                    }
-
             <div className="validation-error-messages-container">
             </div>
         </div>

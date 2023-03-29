@@ -33,6 +33,7 @@ export const base = {
     "actualities": "Actualités",
     "menu": "menu",
 
+
     //  History (user Histories, etc)
 
     "modificationHistory": "Historique de modification",
@@ -69,11 +70,13 @@ export const base = {
     "formNotValid": "Attention. Le formulaire envoyé n'est pas valide. Assurez-vous que tous les champs sont bien remplis.",
     "submit": "Soumettre",
 
+
     // CreatePersonForm.js
 
     "formPersonSubtitle": "Ajoutez ici une entité <code>Personne</code>, afin de représenter un artiste, artisan ou professionnel de tout domaine que vous jugez pertinent à cette base de données.",
     "formPersonInstructions": "",
     "personUploadMediaMainImage": "Vous pourrez téléverser une image à partir de la page de cette personne. Cette image représentera cette personne et sera affiché dans sa fiche et dans les pages qui la liste.",
+
 
     //  CreateOrganisationForm.js
 
@@ -99,6 +102,7 @@ export const base = {
     "nickname": "surnom",
     "nicknameLabel": "Surnom&nbsp;:&nbsp;",
     "catchphrase": "Phrase d'accroche",
+    "addPersonButtonLabel": "Ajouter une personne",
 
 
     //  Organisations
@@ -110,7 +114,9 @@ export const base = {
     "teamMembers": "Membres de l'organisation",
     "fondationDate": "Date de fondation",
 
+    "singleDescriptionLabel": "Présentation",
     "bestContactPointLabel": "Meilleur moyen pour les contacter : ",
+
 
 
     //  Taxonomy
@@ -121,7 +127,10 @@ export const base = {
     "taxonomies": "catégories",
     "taxonomyExplications": "Une catégorie sert à classifier dans un système ordonné les relations entre les choses. Ajoutez ici une catégorie pour permettre à une entité d'être reliée à cette taxonomie. Par exemple, lier une <strong>personne</strong> à une <strong>occupation</strong> ou une <strong>aptitude</strong> et lier une <strong>organisation</strong> à un <strong>service offert</strong> et bien d'autre.",
 
+    "taxonomyCreateWhenDoNotExistDirective": "Le nouvel élément de taxonomie que vous ajoutez ici pourra ensuite être directement intégrée au formulaire.",
+
     //Specific taxonomy
+
     "Technology": "Technologie",
     "Technologies": "Technologies",
     "technology": "Technologie",
@@ -132,12 +141,8 @@ export const base = {
     "skills": "Compétences",
     "skill": "Compétence",
 
-    "Domains": "Domaines",
-    "Domain": "Domaine",
-    "domains": "Domaines",
-    "domain": "Domaine",
-
     //  Occupations
+
     "occupations": "occupations",
     "Occupations": "Occupations",
     "occupation": "occupation",
@@ -147,13 +152,21 @@ export const base = {
 
 
     //  Services
+
     "Services": "Services offerts",
     "Service": "Service",
     "services": "Services offerts",
     "service": "Service",
 
+    //  Domains
 
+    "Domains": "Domaines",
+    "Domain": "Domaine",
+    "domains": "Domaines",
+    "domain": "Domaine",
 
+    "domainsInputPlaceholder": "Art, informatique, communication, [...]",
+    "domainsSingleLabel": "Les domaines",
 
     //  TEAMS
 

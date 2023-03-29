@@ -11,6 +11,7 @@ import RichTextarea from '@/FormElements/RichTextArea/RichTextarea'
 import CreateTaxonomyForm from '@/src/DataTypes/Taxonomy/Components/Forms/CreateTaxonomy/CreateTaxonomyForm'
 import {lang} from "@/src/common/Data/GlobalConstants";
 import Select2Tag from '@/src/common/FormElements/Select2/Select2Tag'
+import Modal from '@/src/hooks/useModal/Modal/Modal'
 //Context
 import { useAuth } from "@/src/authentification/context/auth-context";
 
@@ -21,44 +22,55 @@ import styles from './CreatePersonForm.module.scss'
 import {getDefaultCreateEntityStatus} from "@/DataTypes/Status/EntityStatus";
 import { getSelectedToFormData } from '@/src/common/FormElements/Select2/Select2Tag'
 
-const CreatePersonForm = () => {
-    
+const CreatePersonForm = ({initValues, positiveRequestActions, ...props}) => {
+
+
+    const submitUri = props.uri ?? "create";
+    console.log(submitUri);
     //Authentication ref
     const auth = useAuth();
 
     //Modal hook
-    const { modal, Modal, displayModal, closeModal } = useModal()
+    const modal = useModal()
 
     //Main form functionalities
     const { FormUI, submitRequest, formState, formTools, transmuteTaxonomyTargetInput } = useFormUtils(
         {
+            _id: {
+                value: initValues._id ? initValues._id : "",
+                isValid: true
+            },
             firstName: {
-                value: '',
+                value: initValues.firstName ? initValues.firstName : "",
                 isValid: false
             },
             lastName: {
-                value: '',
+                value: initValues.lastName ? initValues.lastName : "",
                 isValid: false
-            }, 
+            },
             nickName: {
-                value: '',
+                value: initValues.nickname ? initValues.nickname : "",
                 isValid: true
             },
             description: {
-                value: '',
+                value: initValues.description ? initValues.description : "",
                 isValid: true
             },
             catchphrase: {
-                value: '',
+                value: initValues.catchphrase ? initValues.catchphrase : "",
                 isValid: true
             },
             occupations: {
-                value: [],
+                value: initValues.occupations ? initValues.occupations : [],
                 isValid: true
             },
-
+            domains: {
+                value: initValues.domains ? initValues.domains : [],
+                isValid: true
+            }
         },
-        {
+        //Pass a set of rules to execute a valid response of an api request
+        positiveRequestActions || {
             clearForm: true,            //Clear the form
             displayResMessage: true     //Display a message to the user to confirm the succes
         }
@@ -77,13 +89,18 @@ const CreatePersonForm = () => {
                 nickname: formState.inputs.nickName.value,
                 description: formState.inputs.description.value,
                 catchphrase: formState.inputs.catchphrase.value,
-                occupations: getSelectedToFormData(formState.inputs.occupations.value, "occupation", auth.user),
+                occupations: [],//the state of this is unstable, it get always the form to crash.//getSelectedToFormData(formState.inputs.occupations.value, "occupation", auth.user),
+                domains: getSelectedToFormData(formState.inputs.domains.value, "domain", auth.user),
                 status: getDefaultCreateEntityStatus(auth.user),
             }
         };
 
+        if (submitUri === "update") {
+            formData.data.id = initValues._id
+        }
+
        await submitRequest(
-            "/persons/create",
+            `/persons/${submitUri}`,
             'POST',
             JSON.stringify(formData)
         );
@@ -139,12 +156,25 @@ const CreatePersonForm = () => {
                     label={lang.Occupations}
                     searchField="name"
                     fetch="/taxonomies/list"
-                    requestData={{category:"occupations", name:""}}
+                    requestData={{name:""}}
                     name="occupations"
                     idField="occupation"
                     placeholder={lang.occupationsPlaceholder}
                     formTools={formTools}
+                    creatableModal={modal}
                     />
+
+                <Select2Tag
+                    label={lang.Domains}
+                    searchField="name"
+                    fetch="/taxonomies/list"
+                    requestData={{category:"domains", name:""}}
+                    name="domains"
+                    idField="domain"
+                    placeholder={lang.domainsInputPlaceholder}
+                    formTools={formTools}
+                    creatableModal={modal}
+                />
 
                 <blockquote>
                     * Note : {lang.personUploadMediaMainImage}
@@ -154,7 +184,7 @@ const CreatePersonForm = () => {
 
             </form>
 
-            { modal.display &&
+            { modal.modal.display &&
                 <Modal 
                     className={`${styles["taxonomy-modal"]}`}
                     coloredBackground
@@ -162,24 +192,24 @@ const CreatePersonForm = () => {
                 >
                     <header className={`d-flex`}>
                         <p>Le nouvel élément de taxonomie que vous ajoutez ici pourra ensuite être directement intégrée à votre formulaire.</p>
-                        <Button onClick={closeModal}>Fermer</Button>
+                        <Button onClick={modal.closeModal}>Fermer</Button>
                     </header>               
                       
                     {/* Separation line */}
                     <div className={`my-4 border-bottom`}></div>
 
                     <CreateTaxonomyForm 
-                        name={modal.enteredValues.name ? modal.enteredValues.name : ''}   //Prefilled value
-                        category="occupations"
+                        name={modal.modal.enteredValues.name ? modal.modal.enteredValues.name : ''}   //Prefilled value
+                        category="skills"
                         positiveRequestActions={{
                             //CallbackFunction is one of the four behaviors the useFormUtils hook can apply when a request return a positive answer
                             callbackFunction: requestResponse => {
 
                                 //In this case, the modal callback receives the object to be passed which is the taxonomy item in the response of the request
-                                modal.callback(requestResponse.data._id)
+                                modal.modal.callback(requestResponse.data)
                                 
                                 //Close the modal 
-                                closeModal()
+                                modal.closeModal()
                             }
                         }}
                     />

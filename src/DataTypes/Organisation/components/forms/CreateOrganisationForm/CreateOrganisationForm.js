@@ -1,15 +1,22 @@
 import React, { useContext, useEffect } from 'react';
 import Router from 'next/router';
+import {lang} from "@/src/common/Data/GlobalConstants";
+import { MessageContext } from '@/src/common/UserNotifications/Message/Context/Message-Context';
+
+//Hooks
+import {useAuth} from '@/auth/context/auth-context';
 import {useFormUtils} from '@/src/hooks/useFormUtils/useFormUtils';
+import { useModal } from '@/src/hooks/useModal/useModal';
+
+//Component
+import Repeater from '@/src/common/Containers/Repeater/Repeater';
+import Select2Tag from '@/src/common/FormElements/Select2/Select2Tag';
 import Button from '@/src/common/FormElements/Button/Button';
 import Input from '@/src/common/FormElements/Input/Input';
 import RichTextarea from '@/src/common/FormElements/RichTextArea/RichTextarea';
-import {lang} from "@/src/common/Data/GlobalConstants";
-import {useAuth} from '@/auth/context/auth-context';
-import { MessageContext } from '@/src/common/UserNotifications/Message/Context/Message-Context';
-import PersonRoleTemplate from '@/src/DataTypes/Person/Template/PersonRoleTemplate';
-import Repeater from '@/src/common/Containers/Repeater/Repeater';
-import Select2Tag from '@/src/common/FormElements/Select2/Select2Tag';
+import CreateTaxonomyForm from '@/src/DataTypes/Taxonomy/Components/Forms/CreateTaxonomy/CreateTaxonomyForm';
+import Modal from '@/src/hooks/useModal/Modal/Modal';
+
 import {getDefaultCreateEntityStatus, getDefaultUpdateEntityStatus} from "@/DataTypes/Status/EntityStatus";
 import { getSelectedToFormData } from '@/src/common/FormElements/Select2/Select2Tag';
 import styles from './CreateOrganisationForm.module.scss'
@@ -17,6 +24,9 @@ import {getDateFromIsoString} from "@/src/utils/DateHelper";
 
 
 const CreateOrganisationForm = (props) => {
+
+    //Modal hook
+    const modal = useModal()
 
     const submitUri = props.uri ?? "create";
 
@@ -84,6 +94,10 @@ const CreateOrganisationForm = (props) => {
             value: initialValues.offers,
             isValid: true
         },
+        domains: {
+            value: initialValues.domains,
+            isValid: true
+        },
         team: {
             value: initialValues.team,
             isValid: true
@@ -108,6 +122,7 @@ const CreateOrganisationForm = (props) => {
                 fondationDate: formState.inputs.fondationDate.value,
                 catchphrase: formState.inputs.catchphrase.value,
                 offers: getSelectedToFormData(formState.inputs.offers.value, "offer", auth.user),
+                domains: getSelectedToFormData(formState.inputs.domains.value, "domain", auth.user),
                 team: formState.inputs.team.value,
                 "status": submitUri === "create" ? getDefaultCreateEntityStatus(auth.user) : getDefaultUpdateEntityStatus(auth.user)
             }
@@ -181,11 +196,24 @@ const CreateOrganisationForm = (props) => {
                     label="Services offerts"
                     searchField="name"
                     fetch="/taxonomies/list"
-                    requestData={{category:"occupations", name:""}}
+                    requestData={{name:""}}
                     name="offers"
                     idField="offer"
                     placeholder={lang.occupationsPlaceholder}
                     formTools={formTools}
+                    creatableModal={modal}
+                />
+
+                <Select2Tag
+                    label={lang.Domains}
+                    searchField="name"
+                    fetch="/taxonomies/list"
+                    requestData={{category:"domains", name:""}}
+                    name="domains"
+                    idField="domain"
+                    placeholder={lang.domainsInputPlaceholder}
+                    formTools={formTools}
+                    creatableModal={modal}
                 />
 
                 <Repeater
@@ -209,6 +237,39 @@ const CreateOrganisationForm = (props) => {
                     <Button type="submit" disabled={!formState.isValid}>Soumettre</Button>
                 </div>
             </form>
+
+            { modal.modal.display &&
+                <Modal 
+                    className={`${styles["taxonomy-modal"]}`}
+                    coloredBackground
+                    darkColorButton
+                >
+                    <header className={`d-flex`}>
+                        <p>Le nouvel élément de taxonomie que vous ajoutez ici pourra ensuite être directement intégrée à votre formulaire.</p>
+                        <Button onClick={modal.closeModal}>Fermer</Button>
+                    </header>               
+                      
+                    {/* Separation line */}
+                    <div className={`my-4 border-bottom`}></div>
+
+                    <CreateTaxonomyForm 
+                        name={modal.modal.enteredValues.name ? modal.modal.enteredValues.name : ''}   //Prefilled value
+                        category="skills"
+                        positiveRequestActions={{
+                            //CallbackFunction is one of the four behaviors the useFormUtils hook can apply when a request return a positive answer
+                            callbackFunction: requestResponse => {
+
+                                //In this case, the modal callback receives the object to be passed which is the taxonomy item in the response of the request
+                                modal.modal.callback(requestResponse.data)
+                                
+                                //Close the modal 
+                                modal.closeModal()
+                            }
+                        }}
+                    />
+
+                </Modal>
+            }
       
         
         </>

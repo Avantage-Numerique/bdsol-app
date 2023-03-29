@@ -12,9 +12,10 @@ import {lang} from "@/common/Data/GlobalConstants";
 import SingleInfo from "@/DataTypes/common/layouts/SingleInfo/SingleInfo";
 import {useModal} from "@/src/hooks/useModal/useModal";
 import {SingleEntityStatus} from "@/DataTypes/Status/Components/SingleEntityStatus";
+import DateWidget from "@/common/widgets/DateWidget/DateWidget";
 
 
-const OrganisationSimple = ({ data }) => {
+const OrganisationSingle = ({ data }) => {
 
     const defaultOrgAvatar = '/general_images/Jurassic_Park_Main_Gate.jpg';
 
@@ -28,6 +29,7 @@ const OrganisationSimple = ({ data }) => {
         catchphrase,
         name,
         offers,
+        domains,
         //slug,
         //status,
         team,
@@ -38,9 +40,7 @@ const OrganisationSimple = ({ data }) => {
         //_id
     } = data;
 
-    const date_createdAt = new Date(createdAt);
-    const date_updatedAt = new Date(updatedAt);
-    const date_fondationDate = new Date(fondationDate);
+    console.log(domains);
 
     const ModalComponent = CreateOrganisationForm;
     const modalComponentParams = {
@@ -54,13 +54,24 @@ const OrganisationSimple = ({ data }) => {
             <h2 className="mb-2">{name}</h2>
             <p className="small w-100 my-0">
                 { catchphrase && <><span>{catchphrase}</span><br/></>}
-                { fondationDate && <span>{lang.fondationDate+lang.colon} {date_fondationDate.toLocaleDateString("fr-CA")} </span>}
+                { fondationDate && <span>{lang.fondationDate+lang.colon} </span>} <DateWidget stringDate={fondationDate} />
             </p>
         </div>
     );
 
     const aside = (
         <>
+            {
+                domains && domains.length > 0 &&
+                <>
+                    <h4>{lang.domainsSingleLabel}</h4>
+                    <SearchTag
+                        className="row"
+                        list={domains}
+                        listProperty={"domain"}
+                    />
+                </>
+            }
             {
                 contactPoint &&
                 <section className={"border-bottom"}>
@@ -92,7 +103,6 @@ const OrganisationSimple = ({ data }) => {
                         <SearchTag
                         className="row"
                         list={offers}
-                        max="-1"
                         />
                 </section>
             }
@@ -117,7 +127,7 @@ const OrganisationSimple = ({ data }) => {
         >
             {
                 description &&
-                <SingleInfo className={singleInfoCommonClass} title={"Présentation"}>
+                <SingleInfo className={singleInfoCommonClass} title={lang.singleDescriptionLabel}>
                     <SanitizedInnerHtml>
                         {description}
                     </SanitizedInnerHtml>
@@ -131,4 +141,4 @@ const OrganisationSimple = ({ data }) => {
     )
 }
 
-export default OrganisationSimple
+export default OrganisationSingle

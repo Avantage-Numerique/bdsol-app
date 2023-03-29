@@ -1,9 +1,7 @@
 import React from "react";
 import LicenceDisplay from '@/src/common/FormElements/SelectLicence/LicenceDisplay';
-import Router from 'next/router';
 
 //Components
-import UpdatePersonForm from '@/DataTypes/Person/Components/Forms/update/UpdatePersonForm';
 import Single from "@/DataTypes/common/layouts/single/Single";
 import Button from "@/FormElements/Button/Button"
 
@@ -32,7 +30,7 @@ const SingleInfoLayout = ({ title, NAMessage="-", children }) => {
 
 const SingleMediaView = ({ data }) => {
 
-    const { Modal, closeModal } = useModal();
+    //const { Modal, closeModal } = useModal();
 
     const aside = (
         <>
@@ -67,29 +65,7 @@ const SingleMediaView = ({ data }) => {
         </div>
     )
 
-    const modalComponent = (
-        <Modal
-            className={`${styles["media-form-modal"]}`}
-            coloredBackground
-            darkColorButton
-            closingFunction={closeModal}
-        >
-            <UpdatePersonForm
-                initValues={data}
-                positiveRequestActions={{
-                    //CallbackFunction is one of the four behaviors the useFormUtils hook can apply when a request return a positive answer
-                    callbackFunction: requestResponse => {
-
-                        //Redirect to the right path if the slug changes and otherwise, at least reflect the changes
-                        Router.push(`/persons/${requestResponse.data.slug}`);
-
-                        //Close the modal
-                        closeModal();
-                    }
-                }}
-            />
-        </Modal>
-    )
+    //const modalComponent = undefined;
 
     return (
         <Single
@@ -97,7 +73,7 @@ const SingleMediaView = ({ data }) => {
             aside={aside}
             headerMainContent={headerMainContent}
             entity={data}
-            modalComponent={modalComponent}
+            modalComponent={}
             showCTA={false}
             showMainImageInHeader={false}
             showUpdateMenu={false}

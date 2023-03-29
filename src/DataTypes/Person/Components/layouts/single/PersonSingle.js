@@ -1,8 +1,8 @@
-import {useState} from 'react'
+import React, {useState} from 'react'
 
 //Components
-import Button from "@/FormElements/Button/Button"
-import UpdatePersonForm from '@/DataTypes/Person/Components/Forms/update/UpdatePersonForm';
+import Button from "@/FormElements/Button/Button";
+import CreatePersonForm from "@/DataTypes/Person/Components/Forms/CreatePerson/CreatePersonForm";
 import SearchTag from '@/src/common/Components/SearchTag';
 import Single from "@/DataTypes/common/layouts/single/Single";
 import SingleInfo from "@/DataTypes/common/layouts/SingleInfo/SingleInfo";
@@ -16,8 +16,8 @@ import {useModal} from "@/src/hooks/useModal/useModal";
 
 //Utils
 import SanitizedInnerHtml from '@/src/utils/SanitizedInnerHtml';
-//import {lang} from "@/common/Data/GlobalConstants";
 import {SingleEntityStatus} from "@/DataTypes/Status/Components/SingleEntityStatus";
+import {lang} from "@/common/Data/GlobalConstants";
 
 const PersonSingle = ({ data }) => {
 
@@ -30,6 +30,7 @@ const PersonSingle = ({ data }) => {
         nickname,
         description,
         occupations,
+        domains,
         slug,
         catchphrase,
         createdAt,
@@ -75,23 +76,27 @@ const PersonSingle = ({ data }) => {
                         />
 
                 </SingleInfo>
-                    */}
+            */}
 
-                <SingleInfo
-                    title={"Occupations"}
-                    NAMessage={<p></p>}
-                >
-                    <Button size="slim" onClick={displayModal}>Modifier les groupes</Button>
-                </SingleInfo>
+            { domains && domains.length > 0 &&
+                <>
+                    <h4>{lang.domainsSingleLabel}</h4>
+                    <SearchTag
+                        className="row"
+                        list={domains}
+                        listProperty={"domain"}
+                    />
+                </>
+            }
 
-                
+            <SingleInfo title={"Occupations"}
+                NAMessage={<p></p>}
+            >
+                <Button size="slim" onClick={displayModal}>Modifier les groupes</Button>
+            </SingleInfo>
 
-                <SingleInfo
-                    title={"Compétences"}
-                    NAMessage={<p>Aucune occupation spécifiée</p>}
-                >
-                    
-                </SingleInfo>
+            <SingleInfo title={"Compétences"}
+                NAMessage={<p>Aucune occupation spécifiée</p>} />
             
         </>
     );
@@ -106,7 +111,10 @@ const PersonSingle = ({ data }) => {
 
     const singleInfoCommonClass = "border-bottom py-4";
 
-    const ModalComponent = UpdatePersonForm;
+    const ModalComponent = CreatePersonForm;
+    const modalComponentParams = {
+        uri:"update"
+    };
 
     //Remove because this isn't planned in the ontologie yet  :<SingleInfo title={"Intérêts"} />
     return (
@@ -117,6 +125,7 @@ const PersonSingle = ({ data }) => {
             headerMainContent={headerMainContent}
             entity={data}
             ModalForm={ModalComponent}
+            modalParams={modalComponentParams}
             showCTA={true}
             cta={"Ceci est une proposition d'appel à l'action. Il reste donc à déterminer s'il est pertinent et quoi mettre à l'intérieur."}
             modalMainImageControl={imgModalControl}
