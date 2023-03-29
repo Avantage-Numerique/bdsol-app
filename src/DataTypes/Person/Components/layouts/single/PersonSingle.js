@@ -67,7 +67,7 @@ const PersonSingle = ({ data }) => {
                 <h5 className="text-blue2">{occupationName}</h5>
                 {
                     skillList && skillList.length > 0 &&
-                    <ul className="d-flex">
+                    <ul className="d-flex flex-wrap gap-1">
                         {
                             skillList.map(skill => (
                             <li 
