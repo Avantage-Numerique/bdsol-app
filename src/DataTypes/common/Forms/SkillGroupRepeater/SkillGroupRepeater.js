@@ -5,21 +5,25 @@ import { useFormUtils } from '@/src/hooks/useFormUtils/useFormUtils';
 import Button from "@/FormElements/Button/Button"
 
 
-const iterateOverChildren = (children, formInitStructure, formTools) => {
+const iterateOverChildren = (children, formInitStructure, formTools, deleteIteration) => {
+
     return React.Children.map((children), (child) => {
       // equal to (if (child == null || typeof child == 'string'))
       if (!React.isValidElement(child)) return child;
       //If this child has a name prop, and if the value is equal to one of the values declared for the formState, then it means it is a field and require a formtool
       const newProps = Object.keys(formInitStructure).some(key => key === child.props?.name) ? {'formTools': formTools} : {};
+      const deleteButton = child.props?.repeaterDeleteElem ? {'onClick': () => deleteIteration()} : {};
+
       return React.cloneElement(child, {
         ...child.props,
         ...newProps,
+        ...deleteButton,
         // you can alse read child original className by child.props.className
-        children: iterateOverChildren(child.props.children, formInitStructure, formTools)})
+        children: iterateOverChildren(child.props.children, formInitStructure, formTools, deleteIteration)})
     })
 };
 
-const RepeaterSingleIteration = ({children, formInitStructure, iterationKey, updateIterationValue}) => {
+const RepeaterSingleIteration = ({children, formInitStructure, iterationKey, updateIterationValue, deleteIterationByKey}) => {
 
         //Create its own sub form state
         const {formState, formTools} = useFormUtils(formInitStructure);
@@ -29,7 +33,7 @@ const RepeaterSingleIteration = ({children, formInitStructure, iterationKey, upd
             updateIterationValue(iterationKey, formState.inputs, formState.isValid);
          }, [formState])
 
-        return iterateOverChildren(children, formInitStructure, formTools);
+        return iterateOverChildren(children, formInitStructure, formTools, deleteIterationByKey);
 }
 
 //Util function to get a key in an object based on its value
@@ -119,6 +123,12 @@ const SkillGroupRepeater = props => {
         })
     }
 
+    const deleteIterationByKey = ( key ) => {
+        let updatedIterations = {...iterations};
+        delete updatedIterations[ key ];
+        setIterations(updatedIterations);
+    }
+
     //Create a new Id and make sure its not gonna be in double
     function generateUniqueId(){
         //Create a new Id
@@ -154,6 +164,7 @@ const SkillGroupRepeater = props => {
                     <RepeaterSingleIteration 
                         key={iteration.key} 
                         iterationKey={iteration.key}
+                        deleteIterationByKey={() => deleteIterationByKey(iteration.key)}
                         formInitStructure={formInitStructure}
                         updateIterationValue={updateIterationValue}
                     >

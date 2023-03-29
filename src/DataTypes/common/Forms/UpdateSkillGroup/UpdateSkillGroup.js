@@ -67,7 +67,13 @@ const UpdateSkillGroup = () => {
                         `}>
                             <div className="d-flex justify-content-between align-items-end my-2">
                                 <h4>Occupation / groupe de compétences</h4> 
-                                <Button type="button" color="danger" size="slim">
+                                <Button 
+                                    repeaterDeleteElem={true}
+                                    type="button" 
+                                    color="danger" 
+                                    size="slim"
+                                    //onClick={() => alert("Bonjour")}
+                                >
                                     &#x2716;
                                 </Button>
                             </div>
