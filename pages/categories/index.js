@@ -11,7 +11,7 @@ const TaxonomiesCategoryPage = () => {
     const categoryList = [
         {value:"occupations", label:lang.Occupations},
         {value:"domains", label: lang.Domains},
-        {value:"technology", label: lang.Technologies},
+        {value:"technologies", label: lang.Technologies},
         {value:"skills", label: lang.Skills},
     ];
 
