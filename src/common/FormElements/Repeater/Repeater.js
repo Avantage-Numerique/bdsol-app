@@ -1,4 +1,4 @@
-import {useState, useEffect, useRef, useCallback} from 'react';
+import {useState, useEffect} from 'react';
 import React from 'react';
 
 //Hooks
@@ -35,7 +35,7 @@ const RepeaterSingleIteration = ({children, formInitStructure, iterationKey, upd
         //Create its own sub form state
         const {formState, formTools} = useFormUtils(formInitStructure);
 
-        console.log("Sub formstate", formState)
+        console.log("SUB FORM INIT STRUCTURE", formInitStructure)
 
         useEffect(() => {
             // update the value
@@ -51,7 +51,7 @@ function getKeyByValue(object, value) {
 }
 
 
-const SkillGroupRepeater = props => {
+const Repeater = props => {
 
     //Import the authentication context to make sure the user is well connected
     const auth = useAuth();
@@ -64,7 +64,8 @@ const SkillGroupRepeater = props => {
         formInitStructure,
         mainFormTools,
         name,
-        formReturnStructure
+        initValues,             //Expected to be an array
+        //formReturnStructure
     } = props;
 
     const {
@@ -72,15 +73,19 @@ const SkillGroupRepeater = props => {
         inputHandler
     } = mainFormTools;
 
+    console.log("FORM INIT STRUCTURE AT THE RENDERING", formInitStructure)
 
 
-    const currentState = formState.inputs[name];
-    console.log("main Form state", currentState)
+    
     //Value of the current state : {value: Array(0), isValid: true}
     //The main form is going to look out for the isValid property to let the user know if the state can be submited or not.
 
     //State to manage the values of every iterations of the repeater
-    const [iterations, setIterations] = useState(createIteration());
+    const [iterations, setIterations] = useState(addInitValuesToState(initValues, formInitStructure));
+
+    useEffect(() => {
+        console.log("FUNCTION RÉINITIALISÉE");
+    }, [])
 
     //Whenever the iteration state change, apply the changes on the main state
     useEffect(() => {
@@ -122,13 +127,54 @@ const SkillGroupRepeater = props => {
     }, [iterations])
 
 
-    console.log("Iterations", iterations);
-
     /*************
      * 
      * Functions
      * 
      ****/
+    function addInitValuesToState( initValues ){
+        //Prevent the function from executing if there is no initValues
+        if(!initValues || initValues.length == 0)
+            return {};
+
+        //It is expected that initValues is an array of objects containing the same keywords has present in the formInitStructure
+        //1. Get an array containing all the keys to fill
+        const arrayOfKeyWords = Object.keys(formInitStructure);
+
+        //2. Initialize the return object that is going to fill the iterations state at the first rendering
+        let startIterationsObj = {};
+
+        //3. Loop in the initialValues passed has props to fill the startIterationsObj
+        initValues.forEach((elem, i) => {
+            console.log("START", i)
+            console.log("ELEM", elem)
+            console.log("START ITERATION OBJ AT THE BEGENNING", startIterationsObj)
+            //Initialize the value that are going to compose the return object
+            let current_status = elem.status ? elem.status : undefined;
+            let current_id = elem._id ? elem._id : elem.id ? elem.id : undefined;
+            let formInitStructureWithValues = {...formInitStructure};  //Same shape but going to be filled with the values
+            //For the last one, lets loop into the array of key words to search for a fit
+
+            arrayOfKeyWords.forEach(keyWord => {
+                if(elem[keyWord] != "" && elem[keyWord] != null && elem[keyWord] != undefined && elem[keyWord].length != 0){
+                    formInitStructureWithValues[keyWord].value = elem[keyWord];
+                }
+            })
+
+            console.log("formInitStructureWithValues", formInitStructureWithValues)
+            //New lets build the formObject with thoses values
+            const newIterationObj = createIteration( current_status, current_id, formInitStructureWithValues );
+            console.log("new it object", newIterationObj)
+            //Update the return object
+            startIterationsObj = {...startIterationsObj, ...newIterationObj};
+            console.log("START ITERATION OBJ AT THE END", startIterationsObj)
+            console.log("END", i)
+
+        });
+        //4. Finally, return the value
+        return startIterationsObj;
+    };
+
     function updateIterationValue(key, value, isValid) {
         setIterations({
             ...iterations,
@@ -139,7 +185,6 @@ const SkillGroupRepeater = props => {
             }
         })
     }
-
 
     function addNewIteration(){
         const newValue = createIteration();
@@ -158,7 +203,7 @@ const SkillGroupRepeater = props => {
     //Create a new Id and make sure its not gonna be in double
     function generateUniqueId(){
         //Create a new Id
-        const newId = Math.floor((Math.random() * 100000) + 1);
+        const newId = Math.floor((Math.random() * 1000000) + 1);
         //Make sure it doesn't exist already into the state. Also accept is iteration is not defined yet
         if(!iterations || !Object.keys(iterations).some(key => key == newId))
             return newId;
@@ -167,7 +212,7 @@ const SkillGroupRepeater = props => {
     }
 
     //Create a new Id and make sure its not gonna be in double
-    function createIteration(){
+    function createIteration( status, _id, initFormStructureWithValues ){
         //Create an ID
         const key = generateUniqueId();
         //Build the object
@@ -176,7 +221,9 @@ const SkillGroupRepeater = props => {
                 key: key,
                 order: 1,  //not used for now
                 value: {},
-                status: getDefaultCreateEntityStatus(auth.user),
+                status: status ? status : getDefaultCreateEntityStatus(auth.user),
+                initFormStructureWithValues: initFormStructureWithValues ? initFormStructureWithValues : null,
+                _id: _id ? _id : null,
                 isValid: true
             }
         }
@@ -187,12 +234,12 @@ const SkillGroupRepeater = props => {
     return (
         <>  
             <section>
-               { iterations && Object.values(iterations).map(iteration => (
+               {iterations && Object.values(iterations).map(iteration => (
                     <RepeaterSingleIteration 
                         key={iteration.key} 
                         iterationKey={iteration.key}
                         deleteIterationByKey={() => deleteIterationByKey(iteration.key)}
-                        formInitStructure={formInitStructure}
+                        formInitStructure={iteration.initFormStructureWithValues ? iteration.initFormStructureWithValues : formInitStructure}
                         updateIterationValue={updateIterationValue}
                     >
                         {children}
@@ -206,4 +253,4 @@ const SkillGroupRepeater = props => {
     )
 }
 
-export default SkillGroupRepeater
+export default Repeater

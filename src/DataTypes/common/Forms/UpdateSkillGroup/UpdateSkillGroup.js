@@ -12,11 +12,12 @@ import Button from "@/FormElements/Button/Button"
 import Input from '@/src/common/FormElements/Input/Input';
 import Select2Tag from '@/src/common/FormElements/Select2/Select2Tag';
 import Icon from '@/src/common/widgets/Icon/Icon';
+import Repeater from '@/src/common/FormElements/Repeater/Repeater';
+
 
 //styling
 import styles from './UpdateSkillGroup.module.scss';
 
-import SkillGroupRepeater from '../SkillGroupRepeater/SkillGroupRepeater';
 
 const UpdateSkillGroup = ({parentEntity}) => {
 
@@ -67,7 +68,7 @@ const UpdateSkillGroup = ({parentEntity}) => {
     return (
         <form className="w-100">
 
-                <SkillGroupRepeater
+                <Repeater
                     mainFormTools={formTools}
                     name="skillGoups"
                     formInitStructure={{
@@ -80,38 +81,18 @@ const UpdateSkillGroup = ({parentEntity}) => {
                             isValid: true
                         }
                     }}
-                    /* formReturnStructure={{
-                        occupation: "occupation",
-                        skills: "skills",
-                        status: undefined
-                    }} */
+                    initValues={parentEntity.occupations}
                 >
 
                     <article className={`
                         row border border-1 rounded p-2 my-2 bg-white
                         ${styles["update-skill-group"]}
                     `}>
-                        {/* Icone to move the element */}
-                        <div className="col flex-grow-0 fs-2 text-secondary">
-                            <Icon iconName={"arrows-alt-v"} />
-                        </div>
                         {/* Content of the elements */}
                         <section className={`
                             col
                             ${styles["skill-group-inputs-container"]}
                         `}>
-                            <div className="d-flex justify-content-between align-items-end my-2">
-                                <h4>Occupation / groupe de compétences</h4> 
-                                <Button 
-                                    repeaterDeleteElem={true}
-                                    type="button" 
-                                    color="danger" 
-                                    size="slim"
-                                    //onClick={() => alert("Bonjour")}
-                                >
-                                    &#x2716;
-                                </Button>
-                            </div>
                             <Input 
                                 label="Nom de groupe"
                                 name="occupation"
@@ -128,9 +109,20 @@ const UpdateSkillGroup = ({parentEntity}) => {
                                 idField="skill"
                             />
                         </section>
+                        {/* Icone to move the element */}
+                        <div className="col flex-grow-0 text-secondary">
+                            <Button 
+                                    repeaterDeleteElem={true}
+                                    type="button" 
+                                    color="danger" 
+                                    size="slim"
+                                >
+                                    &#x2716;
+                                </Button>
+                        </div>
                     </article>
 
-                </SkillGroupRepeater>
+                </Repeater>
 
                 <Button type="button" onClick={submitHandler} disabled={!formState.isValid}>
                     Soumettre
