@@ -38,35 +38,35 @@ const CreatePersonForm = ({initValues, positiveRequestActions, ...props}) => {
     const { FormUI, submitRequest, formState, formTools } = useFormUtils(
         {
             _id: {
-                value: initValues._id ? initValues._id : "",
+                value: initValues?._id ?? "",
                 isValid: true
             },
             firstName: {
-                value: initValues.firstName ? initValues.firstName : "",
+                value: initValues?.firstName ?? "",
                 isValid: false
             },
             lastName: {
-                value: initValues.lastName ? initValues.lastName : "",
+                value: initValues?.lastName ?? "",
                 isValid: false
             },
             nickName: {
-                value: initValues.nickname ? initValues.nickname : "",
+                value: initValues?.nickname ?? "",
                 isValid: true
             },
             description: {
-                value: initValues.description ? initValues.description : "",
+                value: initValues?.description ?? "",
                 isValid: true
             },
             catchphrase: {
-                value: initValues.catchphrase ? initValues.catchphrase : "",
+                value: initValues?.catchphrase ?? "",
                 isValid: true
             },
             occupations: {
-                value: initValues.occupations ? initValues.occupations : [],
+                value: initValues?.occupations ?? [],
                 isValid: true
             },
             domains: {
-                value: initValues.domains ? initValues.domains : [],
+                value: initValues?.domains ?? [],
                 isValid: true
             }
         },

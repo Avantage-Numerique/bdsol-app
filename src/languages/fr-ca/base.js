@@ -146,7 +146,7 @@ export const base = {
     "occupation": "occupation",
     "Occupation": "Occupation",
 
-    "occupationsPlaceholder": "Teacher, Software architect, [...]",
+    "occupationsPlaceholder": "Enseignant, Architecte logiciel, [...]",
 
 
     //  Services

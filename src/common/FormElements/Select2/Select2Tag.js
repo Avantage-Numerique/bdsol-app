@@ -11,6 +11,7 @@ import CreatableSelect from 'react-select/creatable';
 //Styling
 import styles from './Select2Tag.module.scss'
 import makeAnimated from 'react-select/animated';
+import { selectStyle } from '@/src/styles/datatypeStyle';
 
 /*
 Props :
@@ -60,7 +61,6 @@ const Select2Tag = ({name, formTools, ...props}) => {
     }, [])
 
     const fetchSingleTaxonomy = async (id) => {
-
         return await sendRequest(
             "/taxonomies/search",
             'POST',
@@ -160,6 +160,8 @@ const Select2Tag = ({name, formTools, ...props}) => {
 
     const animatedComponents = makeAnimated();
 
+    const colourStyles = selectStyle(); //From our styling factory
+
     return (
         <div className={`${styles["select"]}`}> 
 
@@ -195,7 +197,7 @@ const Select2Tag = ({name, formTools, ...props}) => {
                         onChange={(val) => updateValue(val)}
                         formatCreateLabel={(val)=> "Créer : "+val}
                         onCreateOption={(val) => handleCreateOption(val)}
-                        theme={(theme) => ({
+                        /*theme={(theme) => ({
                             ...theme,
                             borderRadius: 5,
                             colors: {
@@ -203,7 +205,8 @@ const Select2Tag = ({name, formTools, ...props}) => {
                               primary25: 'hotpink',
                               primary: 'black',
                             },
-                          })}
+                          })}*/
+                        styles={colourStyles}
                     />
 
                     <div className="w-100 d-flex">
