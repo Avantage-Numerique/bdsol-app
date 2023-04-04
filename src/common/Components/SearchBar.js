@@ -77,11 +77,11 @@ const SearchBar = ({small, ...props}) => {
 
     const submitSelectedItem = (selected, action) => {
         const typeToUrl = {
-            person : "persons",
-            organisation : "organisations",
-            taxonomy : "categories",
+            Person : "persons",
+            Organisation : "organisations",
+            Taxonomy : "categories",
         }
-        if(selected.type == "taxonomy"){
+        if(selected.type === "Taxonomy"){
             Router.push({
                 pathname: "/"+typeToUrl[selected.type]+"/"+selected.category+"/"+selected.slug,
             });
