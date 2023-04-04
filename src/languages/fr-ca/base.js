@@ -28,6 +28,7 @@ export const base = {
     "homePageDescription": "Nom de code : Base de données structurée ouverte et liée d'Avantage Numérique.",
     "actualities": "Actualités",
     "menu": "Menu",
+    "homePageBreadcrumbLabel": "Accueil",
 
 
     //  History (user Histories, etc)

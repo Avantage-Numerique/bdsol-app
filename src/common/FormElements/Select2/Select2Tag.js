@@ -161,6 +161,8 @@ const Select2Tag = ({name, formTools, ...props}) => {
     const animatedComponents = makeAnimated();
     const colourStyles = selectStyle(); //From our styling factory
 
+    const colourStyles = selectStyle(); //From our styling factory
+
     return (
         <div className={`${styles["select"]}`}> 
 

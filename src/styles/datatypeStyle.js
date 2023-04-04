@@ -1,8 +1,10 @@
 import chroma from 'chroma-js';
 
+
 export const selectStyle = () => {
 
     const defaultColor = "black";
+  
     const colorDict = {
         skills: "red",
         occupations:"blue",
@@ -97,5 +99,5 @@ export const selectStyle = () => {
         ...multiValue,
         ...multiValueLabel,
         ...multiValueRemove
-    };    
+    };
 }

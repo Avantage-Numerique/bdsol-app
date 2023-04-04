@@ -46,7 +46,7 @@ const SearchBar = ({small, ...props}) => {
             return { value: elem._id, label: elem.name ?? elem.firstName + ' ' + elem.lastName, type: elem.type, slug: elem.slug, category:elem.category }
         })
         setOptionList(newOptionList)
-        console.log("optionList",newOptionList)
+
     },[selectResponse])
 
     //Search suggestion

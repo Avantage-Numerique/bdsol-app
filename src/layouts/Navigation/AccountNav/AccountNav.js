@@ -48,7 +48,7 @@ const AccountNav = ( {menuState, setMenuState} ) => {
                 <ul className={`col-9`}>
 
                     {/* Options if the user is NOT logged in */}
-                    {   !auth.user.isLoggedIn &&
+                    { !auth.user.isLoggedIn &&
                         <>
                             <li className="col-12">
                                 <Link href="/compte/connexion">{lang.menuLabelConnect}</Link>
@@ -60,7 +60,7 @@ const AccountNav = ( {menuState, setMenuState} ) => {
                     }
 
                     {/* Options if the user is logged in */}
-                    {   auth.user.isLoggedIn &&
+                    { auth.user.isLoggedIn &&
                         <>
                             <li className="col-12">
                                 <Link href="/compte">{lang.menuLabelToDashboard}</Link>

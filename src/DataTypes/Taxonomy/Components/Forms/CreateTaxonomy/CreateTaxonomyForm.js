@@ -127,11 +127,11 @@ const CreateTaxonomyForm = ({name, category, initValues, positiveRequestActions,
 
     }
 
-    /*let domainQuery = {category:"domains", name:""};
+    let domainQuery = {category:"domains", name:""};
 
     if (submitUri === "update") {
-        domainQuery.id = {not: initValues._id};
-    }*/
+        //domainQuery.id = {not: initValues._id};
+    }
 
 
     //Prevent from displaying is the user is not logged in or if the app doesn't know the authentication state yet

@@ -3,8 +3,6 @@ import Link from 'next/link'
 
 //scss styling
 import styles from './Button.module.scss'
-import DOMPurify from "isomorphic-dompurify";
-import Icon from "@/common/widgets/Icon/Icon";
 
 
 const getCurrentTime = () => {
@@ -71,7 +69,7 @@ const Button = ({ rippleEffect, ...props }) => {
         if(props.outline){
             //const outlineLength = props.outline.length > 0 ? props.outline.length : 0;//I don't know what it is used for.
             //classList.push(`btn-custom-outline-${props.color}`);
-            classList.push(`btn-outline-${props.color}`);
+            classList.push(`btn-outline-${props.outline}`);
         } else {
             classList.push(`${bsPrefix}${bootstrapColor}`);
         }

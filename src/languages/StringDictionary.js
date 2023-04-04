@@ -10,14 +10,25 @@ export default class StringDictionary {
     static _instance;
 
     language;
-    dictionnary;
+    dictionary;
+    dictionaries = [];
+    dictionaryFiles = [];
     filepath;
 
-    constructor(file, lang="fr-ca") {
+    constructor(file, lang="fr-ca")
+    {
         //will need some refactor to load multiple file.
         this.language = lang;
         this.filepath = `./${this.language}/`;
-        this.loadDictionary(file);
+
+        if (typeof file === "string") {
+            this.loadDictionary(file);
+        }
+
+        if (typeof file === "object") {
+            this.setDictionaryFiles(file);
+        }
+
     }
 
     static getInstance(file, lang="fr-ca") {
@@ -27,19 +38,47 @@ export default class StringDictionary {
         return StringDictionary._instance;
     }
 
+
     setLanguage(lang) {
         this.language = lang;
+        this.filepath = `./${this.language}/`;
+        this.loadDictionary(file);
     }
+
+
+    setDictionaryFiles(files) {
+        this.dictionaryFiles = files;
+        this.loadDictionaries();
+    }
+
+
+    loadDictionaries()
+    {
+        if (this.dictionaries.length === 0 && this.dictionaryFiles.length > 0)
+        {
+            for (const dictionaryFile of this.dictionaryFiles) {
+                this.loadDictionary(dictionaryFile);
+            }
+        } else {
+            for (const dictionary of this.dictionaries) {
+                this.setDictionary(dictionary);
+            }
+        }
+    }
+
 
     loadDictionary(filename) {
         const dictionary = require(this.filepath + filename + ".js");
-        this.setDictionnary(dictionary.base);
+        this.setDictionary(dictionary.base);
     }
 
-    setDictionnary(dictionnary) {
-        this.dictionnary = dictionnary;
-        this.setAliases();
+
+    setDictionary(dictionnary) {
+        this.dictionary = dictionnary;
+        this.dictionaries.push(dictionnary);
+        this.setAliases(dictionnary);
     }
+
 
     /**
      * Without alias
@@ -47,31 +86,32 @@ export default class StringDictionary {
      * @return {*}
      */
     getString(key) {
-        return this.dictionnary[key] ?? key;
+        return this.dictionary[key] ?? key;
     }
+
 
     /**
      *
      */
-    setAliases() {
-        for (const key in this.dictionnary) {
-            this.syncDictionnaryString(key, this.dictionnary, this.dictionnary[key]);
+    setAliases(dictionary) {
+        for (const key in dictionary) {
+            this.syncDictionaryString(key, dictionary, dictionary[key]);
         }
     }
+
 
     /**
      * Set all the properties into this scope
      * @param property
-     * @param dictionnary
+     * @param dictionary
      * @param string
      * @return {*}
      */
-    syncDictionnaryString(property, dictionnary, string) {
+    syncDictionaryString(property, dictionary, string) {
         Object.defineProperty(this, property, {
             value: string,
             enumerable: true,
             configurable: true,
         });
     }
-
 }

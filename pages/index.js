@@ -99,8 +99,8 @@ const HomePage = ({}) => {
 
 
     const gridComponenents = new Map();
-    gridComponenents.set("person", PersonSimple);
-    gridComponenents.set("organisation", OrganisationSimple);
+    gridComponenents.set("Person", PersonSimple);
+    gridComponenents.set("Organisation", OrganisationSimple);
 
     /****************************
      LD+Json data
@@ -295,7 +295,7 @@ const HomePage = ({}) => {
                                 <div className="bg-primary text-white d-flex flex-column">
                                     <h4>Pas encore de compte ?</h4>
                                     <p>Vous en aurez besoin afin de vous aussi contribuer aux données</p>
-                                    <Button color="primary" outline="white" href="/compte/inscription">C'est par ici !</Button>
+                                    <Button color="light" outline="light" href="/compte/inscription">C'est par ici !</Button>
                                 </div>
                                 <hr />
                             </section>

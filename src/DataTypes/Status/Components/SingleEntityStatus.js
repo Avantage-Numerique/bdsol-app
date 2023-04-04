@@ -26,12 +26,39 @@ export const SingleEntityStatus = (props) => {
         <SingleInfo className={className} title={lang.modificationHistory}>
             <ul className={"list-style-none"}>
                 {
-                    status?.requestedBy?.username && createdAt &&
-                    <li><span>Créer par : </span> <span>{status.requestedBy.username}</span> le <DateWidget stringDate={createdAt} /></li>
+                    (status?.requestedBy?.username || createdAt) &&
+                    <li>
+                        <span>Créer</span>
+                        {
+                            status?.requestedBy?.username &&
+                            <span>
+                                &nbsp;par&nbsp;:&nbsp;
+                                {status.requestedBy.username}
+                            </span>
+                        }
+                        { createdAt &&
+                            <span>
+                                &nbsp;le&nbsp;<DateWidget stringDate={createdAt} noTag={true} />
+                            </span>
+                        }
+                    </li>
                 }
                 {
-                    status?.lastModifiedBy?.username && createdAt !== updatedAt &&
-                    <li><span>Dernière modifications par : </span> <span>{status.lastModifiedBy.username}</span> le <DateWidget stringDate={updatedAt} /></li>
+                    (status?.lastModifiedBy?.username || updatedAt) &&
+                    <li>
+                        <span>Dernière modifications</span>
+                        {
+                            status?.lastModifiedBy?.username &&
+                            <span>
+                                &nbsp;par&nbsp;:&nbsp;{status.lastModifiedBy.username}
+                            </span>
+                        }
+                        { createdAt !== updatedAt &&
+                            <span>
+                                &nbsp;le&nbsp;<DateWidget stringDate={updatedAt} noTag={true} />
+                            </span>
+                        }
+                    </li>
                 }
             </ul>
             {
