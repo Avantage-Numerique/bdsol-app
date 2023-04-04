@@ -1,7 +1,9 @@
 import { useHttpClient } from "@/src/hooks/http-hook";
-import { useState, useEffect } from "react";
+import React, {useState, useEffect, useCallback} from "react";
 import PageHeader from "@/src/layouts/Header/PageHeader";
 import {lang} from "@/common/Data/GlobalConstants";
+import {Breadcrumbs} from "@/common/Breadcrumbs/Breadcrumbs";
+import AppRoutes from "@/src/Routing/AppRoutes";
 
 const TaxonomiesCategoryPage = () => {
 
@@ -11,7 +13,7 @@ const TaxonomiesCategoryPage = () => {
     const categoryList = [
         {value:"occupations", label:lang.Occupations},
         {value:"domains", label: lang.Domains},
-        {value:"technology", label: lang.Technologies},
+        {value:"technologies", label: lang.Technologies},
         {value:"skills", label: lang.Skills},
     ];
 
@@ -61,9 +63,17 @@ const TaxonomiesCategoryPage = () => {
         )
     }
 
+    const getLabelGenerator = useCallback((param, query) => {
+        return {
+            "categories": "Toutes les catégories",
+        }[param];
+    }, []);
+
     return (
         <div>
-            <PageHeader title={`Toutes les catégories`}/>
+            <PageHeader title={`Toutes les catégories`}>
+                <Breadcrumbs className={"pt-2"} route={AppRoutes.categories} getLabelGenerator={getLabelGenerator} />
+            </PageHeader>
                 <ul className="nav nav-pills nav-fill gap-5">
                     {
                         categoryList.map((elem) =>
@@ -80,7 +90,7 @@ const TaxonomiesCategoryPage = () => {
                     taxonomyMenu !== "" &&
                     <div>
                         <h3 className="py-4">
-                            {categoryList.find( el => taxonomyMenu == el.value ).label}{lang.colon}
+                            {categoryList.find( el => taxonomyMenu === el.value ).label}{lang.colon}
                         </h3>
                         <div className="container">
                             <div className="row">

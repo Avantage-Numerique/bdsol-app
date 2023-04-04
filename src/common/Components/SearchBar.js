@@ -46,7 +46,7 @@ const SearchBar = ({small, ...props}) => {
             return { value: elem._id, label: elem.name ?? elem.firstName + ' ' + elem.lastName, type: elem.type, slug: elem.slug, category:elem.category }
         })
         setOptionList(newOptionList)
-        console.log("optionList",newOptionList)
+
     },[selectResponse])
 
     //Search suggestion
@@ -78,11 +78,11 @@ const SearchBar = ({small, ...props}) => {
     const submitSelectedItem = (selected, action) => {
         //if(action.action == "select-option"){
             const typeToUrl = {
-                person : "persons",
-                organisation : "organisations",
-                taxonomy : "categories",
+                Person : "persons",
+                Organisation : "organisations",
+                Taxonomy : "categories",
             }
-            if(selected.type == "taxonomy"){
+            if(selected.type === "Taxonomy"){
                 Router.push({
                     pathname: "/"+typeToUrl[selected.type]+"/"+selected.category+"/"+selected.slug,
                 });

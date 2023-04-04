@@ -11,16 +11,17 @@ import styles from './singlePerson.module.scss';
 import PersonSingle from '@/DataTypes/Person/Components/layouts/single/PersonSingle'
 import {getUserHeadersFromUserSession} from "@/auth/context/auth-context";
 import {withSessionSsr} from "@/auth/session/handlers/withSession";
+import AppRoutes from "@/src/Routing/AppRoutes";
 
 
 const SinglePersonPage = props => {
-
+    console.log("person single route: ", AppRoutes.singlePerson);
     return (
         <div className={`single-container ${styles["single-person"]}`}>
 
             <div className="maxWidthPageContainer">
             
-                <PersonSingle data={props} />
+                <PersonSingle data={props} route={AppRoutes.personSingle} />
 
             </div>
             

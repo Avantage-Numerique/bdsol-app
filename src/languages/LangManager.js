@@ -1,10 +1,16 @@
 import StringDictionary from "./StringDictionary";
 
+/**
+ *
+ */
 class LangManager {
 
     static _instance;
     dictionaries = [];
 
+    /**
+     *
+     */
     constructor() {
         this.dictionaries.push(new StringDictionary("base"));
     }
@@ -18,14 +24,6 @@ class LangManager {
             LangManager._instance = new LangManager();
         }
         return LangManager._instance;
-    }
-
-    getDictionary() {
-        let regroupedDictionaries = {};
-        for (const dict of this.dictionaries) {
-
-        }
-        return regroupedDictionaries
     }
 
 }

@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect } from 'react'
+import React, {useState, useContext, useEffect, useCallback} from 'react'
 
 //Components 
 import PageHeader from "@/src/layouts/Header/PageHeader";
@@ -16,6 +16,8 @@ import {useAuth} from '@/src/authentification/context/auth-context';
 
 //Utils
 import {lang} from "@/src/common/Data/GlobalConstants";
+import {Breadcrumbs} from "@/common/Breadcrumbs/Breadcrumbs";
+import AppRoutes from "@/src/Routing/AppRoutes";
 
 
 const PersonsPage = () => {
@@ -58,23 +60,33 @@ const PersonsPage = () => {
 
     useEffect(() => { fetchData() }, [])
 
+    const getLabelGenerator = useCallback((param, query) => {
+        return {
+            "persons": "Personnes",
+        }[param];
+    }, []);
+
     return (
 
         <div>
             <PageHeader
-                bg={"bg-purplelight"}
+                bg={"bg-purplelighter"}
                 textColor={"text-white"}
                 title={"Consulter les personnes"}
                 subTitle={"Qu'elles proviennent du milieu de la culture, des affaires ou de l'éducation..."}
                 description="Les personnes listée ci-dessous peuvent être des créateurs.trices numériques, des individus possédant une exertise ou bien de l'équipement spécialisé, des promoteurs d'initiatives numériques, ou encore tout autres personnes intéressée à prendre part, d'une façon ou d'une autre, au développement des technologies numériques sur le territoire du Croissant Boréal."
-                image={"/general_images/Croissant-Boreal@3x-1440x1440.png"}
-                imgAlt={"Carte du croissant boréal"} />
+            >
+                <Breadcrumbs className={"pt-2"} route={AppRoutes.persons} getLabelGenerator={getLabelGenerator} />
+            </PageHeader>
 
                 <div className="container">
                     <div className="row my-4 py-4">
 
                         {/* Feed section */}
                         <section className="col col-12 col-md-9">
+
+
+
                             <div className="position-relative row row-cols-1 row-cols-sm-2 row-cols-xl-3">
 
                                 {/* Loading state : If loading is on and there is no feed */}

@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useCallback, useState} from 'react'
 
 //Components
 import Button from "@/FormElements/Button/Button";
@@ -19,7 +19,7 @@ import SanitizedInnerHtml from '@/src/utils/SanitizedInnerHtml';
 import {SingleEntityStatus} from "@/DataTypes/Status/Components/SingleEntityStatus";
 import {lang} from "@/common/Data/GlobalConstants";
 
-const PersonSingle = ({ data }) => {
+const PersonSingle = ({ data, route }) => {
 
     const { 
         _id,
@@ -115,6 +115,24 @@ const PersonSingle = ({ data }) => {
         uri:"update"
     };
 
+
+    const getHrefGenerator = useCallback(() => {
+        return {
+            "[slug]": data?.slug ?? "no-set",
+            "[person.slug]": data.slug ?? "no-set",
+            "persons": "persons",
+        };
+    }, []);
+
+    const getLabelGenerator = useCallback((param, query) => {
+        return {
+            "slug": () => data?.fullName ?? "title must be set",
+            "person.slug": () => data.fullName ?? "Personne",
+            "persons": () => "Personnes",
+        }[param];
+    }, []);
+
+
     //Remove because this isn't planned in the ontologie yet  :<SingleInfo title={"Intérêts"} />
     return (
         <>
@@ -128,6 +146,11 @@ const PersonSingle = ({ data }) => {
             showCTA={true}
             cta={"Ceci est une proposition d'appel à l'action. Il reste donc à déterminer s'il est pertinent et quoi mettre à l'intérieur."}
             modalMainImageControl={imgModalControl}
+            route={route}
+            breadcrumbParams={{
+                labelGenerator: getLabelGenerator,
+                hrefGenerator: getHrefGenerator
+            }}
         >
             <SingleInfo title={"Présentation"}>
                 <SanitizedInnerHtml>

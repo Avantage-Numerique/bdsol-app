@@ -2,7 +2,7 @@ import { externalApiRequest } from '@/src/hooks/http-hook';
 import PersonSimple from '@/DataTypes/Person/Components/layouts/simple/PersonSimple'
 import OrganisationSimple from '@/DataTypes/Organisation/components/layouts/simple/OrganisationSimple'
 import PageHeader from "@/layouts/Header/PageHeader";
-import React from "react";
+import React, {useCallback} from "react";
 import {lang} from "@/common/Data/GlobalConstants";
 import CreateTaxonomyForm from "@/DataTypes/Taxonomy/Components/Forms/CreateTaxonomy/CreateTaxonomyForm";
 import {useModal} from "@/src/hooks/useModal/useModal";
@@ -10,6 +10,8 @@ import Router, {useRouter} from "next/router";
 import Button from "@/FormElements/Button/Button";
 import {useAuth} from "@/auth/context/auth-context";
 import Icon from "@/common/widgets/Icon/Icon";
+import AppRoutes from "@/src/Routing/AppRoutes";
+import {Breadcrumbs} from "@/common/Breadcrumbs/Breadcrumbs";
 
 
 export async function getServerSideProps(context) {
@@ -46,7 +48,7 @@ const TaxonomiesSinglePage = (props) => {
     const {data, taxonomy} = props;
 
 
-    //  NEEDED FOR EDIT THE TAXONOMIE >
+    //  NEEDED FOR EDIT THE TAXONOMY >
     const auth = useAuth();
     const router = useRouter();
     const closingModalBaseURI = router.asPath;
@@ -79,9 +81,23 @@ const TaxonomiesSinglePage = (props) => {
     const displayUpdateForm = () => {
         displayModal();
     }
-    // < NEEDED FOR EDIT THE TAXONOMIE
+    // < NEEDED FOR EDIT THE TAXONOMY
 
+    const currentTaxonomy = category.find( el => taxonomy.category === el.value );
+    const currentTitle = currentTaxonomy.label + " &mdash; " + taxonomy.name;
 
+    const getLabelGenerator = useCallback((param, query) => {
+        return {
+            "categories": "Toutes les catégories",
+            "category": currentTitle
+        }[param];
+    }, []);
+
+    const getHrefGenerator = useCallback(() => {
+        return {
+            "categories": "categories"
+        };
+    }, []);
 
     const gridComponents = new Map();
     gridComponents.set("person", PersonSimple);
@@ -90,17 +106,18 @@ const TaxonomiesSinglePage = (props) => {
     return (
         <div>
             <PageHeader
-                bg={"bg-purplelight"}
+                bg={"bg-purplelighter"}
                 textColor={"text-white"}
-                htmlTitle={category.find( el => taxonomy.category === el.value ).label + " &mdash; " + taxonomy.name}
+                htmlTitle={currentTitle}
                 tags={{
                     list:taxonomy.domains,
                     listProperty: "domain"
                 }}
                 description={taxonomy.description}
             >
+                <Breadcrumbs className={"pt-2"} route={AppRoutes.categorySingle} getLabelGenerator={getLabelGenerator} hrefGenerator={getHrefGenerator} />
+
                 <p className={"pt-2"}>
-                    <a href='/categories' className={"btn btn-outline-light me-3"}>{lang.backToTaxonomyIndexBtnLabel}</a>
                     {auth.user.isLoggedIn &&
                         <Button outline color="primary" onClick={displayUpdateForm}>
                             <Icon iconName={"edit"} /> {lang.proposeContentChangeLabel}

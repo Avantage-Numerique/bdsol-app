@@ -10,7 +10,10 @@
     --picture-size: clamp(8rem, 20vw, 12rem);
     $picture-size: clamp(8rem, 20vw, 12rem);
 
-    background-color: darken($light, 4%);
+
+    .bg-single {
+        background-color: darken($light, 4%);
+    }
 
     /*  HEADER  */
     .single__header {

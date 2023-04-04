@@ -13,6 +13,7 @@ import SingleInfo from "@/DataTypes/common/layouts/SingleInfo/SingleInfo";
 import {useModal} from "@/src/hooks/useModal/useModal";
 import {SingleEntityStatus} from "@/DataTypes/Status/Components/SingleEntityStatus";
 import DateWidget from "@/common/widgets/DateWidget/DateWidget";
+import AppRoutes from "@/src/Routing/AppRoutes";
 
 
 const OrganisationSingle = ({ data }) => {
@@ -122,6 +123,10 @@ const OrganisationSingle = ({ data }) => {
             ctaUrl={url}
             defaultMainImage={defaultOrgAvatar}
             modalMainImageControl={imgModalControl}
+            route={AppRoutes.organisationSingle}
+            breadcrumbParams={{
+                    title: `${name}`
+                }}
         >
             {
                 description &&
