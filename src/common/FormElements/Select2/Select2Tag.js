@@ -131,7 +131,7 @@ const Select2Tag = ({name, formTools, ...props}) => {
         let newOptionList = [];
         if (selectResponse?.data?.length > 0)
             newOptionList = selectResponse.data.map( (elem) => {
-            return { value: elem._id, label: elem[props.searchField], category: elem.category }
+            return { value: elem._id, label: elem[props.searchField], category: elem.category, type: elem.type }
         })
         setOptionList(newOptionList)
     },[selectResponse])
@@ -159,6 +159,7 @@ const Select2Tag = ({name, formTools, ...props}) => {
     }
 
     const animatedComponents = makeAnimated();
+    const colourStyles = selectStyle(); //From our styling factory
 
     const colourStyles = selectStyle(); //From our styling factory
 

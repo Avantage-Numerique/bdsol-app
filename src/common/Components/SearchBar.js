@@ -76,26 +76,23 @@ const SearchBar = ({small, ...props}) => {
     }
 
     const submitSelectedItem = (selected, action) => {
-        //if(action.action == "select-option"){
-            const typeToUrl = {
-                Person : "persons",
-                Organisation : "organisations",
-                Taxonomy : "categories",
-            }
-            if(selected.type === "Taxonomy"){
-                Router.push({
-                    pathname: "/"+typeToUrl[selected.type]+"/"+selected.category+"/"+selected.slug,
-                });
-            }
-            else{
-                Router.push({
-                    pathname: "/"+typeToUrl[selected.type]+"/"+selected.slug,
-                });
-            }
-            setValue(null)
-            setInputValue('');
-            //clearFormData();
-        //}
+        const typeToUrl = {
+            person : "persons",
+            organisation : "organisations",
+            taxonomy : "categories",
+        }
+        if(selected.type == "taxonomy"){
+            Router.push({
+                pathname: "/"+typeToUrl[selected.type]+"/"+selected.category+"/"+selected.slug,
+            });
+        }
+        else{
+            Router.push({
+                pathname: "/"+typeToUrl[selected.type]+"/"+selected.slug,
+            });
+        }
+        setValue(null)
+        setInputValue('');
     }
 
     const submitHandler = async event => {
@@ -105,9 +102,7 @@ const SearchBar = ({small, ...props}) => {
             query: {searchIndex: inputValue},
         });
         setValue(null)
-        //selectRef.current.clearValue();
         setInputValue('');
-        clearFormData();
     }
 
     return (
@@ -128,9 +123,7 @@ const SearchBar = ({small, ...props}) => {
                     inputValue={inputValue}
                     onInputChange={(val, action) => {if (action.action === "input-change") formRequestData(val)}}
                     onChange={(val, action) => {
-                        if(action.action === "select-option") {
-                            submitSelectedItem(val, action)
-                        }
+                        if(action.action === "select-option") { submitSelectedItem(val, action) }
                     }}
                     theme={(theme) => ({
                         ...theme,
