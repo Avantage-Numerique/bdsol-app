@@ -30,7 +30,6 @@ const Ripple = ({ clear })  => {
 
 const Button = ({ rippleEffect, ...props }) => {
 
-
     let classList = [];
     let classesString;
 

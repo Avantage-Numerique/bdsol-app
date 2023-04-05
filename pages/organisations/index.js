@@ -34,8 +34,7 @@ const OrganisationsPage = () => {
     const msg = useContext(MessageContext);
 
     /* 
-        Fetch data  
-        
+        Fetch data
     */
     const fetchData = async () => {
 

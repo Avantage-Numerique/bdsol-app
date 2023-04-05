@@ -1,40 +1,32 @@
-import PageHeader from "@/layouts/Header/PageHeader";
-import {Breadcrumbs} from "@/common/Breadcrumbs/Breadcrumbs";
-import AppRoutes from "@/src/Routing/AppRoutes";
 import React from "react";
-import {lang} from "@/common/Data/GlobalConstants";
+import Error from "@/src/layouts/Errors/Error";
+import AppRoutes from "@/src/Routing/AppRoutes";
+import Button from "@/FormElements/Button/Button";
 
 function Error404() {
 
-    const statusCode = 404;
+    const entities = [
+        AppRoutes.organisations,
+        AppRoutes.persons,
+        AppRoutes.categories,
+    ];
+
+
     return (
-
-        <div>
-            <PageHeader
-                bg={"bg-purplelighter"}
-                textColor={"text-white"}
-                htmlTitle={lang.title404}
-                subTitle={lang.description404}
-            >
-                <Breadcrumbs className={"pt-2"} route={AppRoutes.error404} />
-            </PageHeader>
-
-            <div className="container">
-                <div className="row my-4 py-4">
-
-                    {/* Feed section */}
-                    <section className="col col-12 col-md-9">
-                        <p>{statusCode}</p>
-                    </section>
-
-                    {/* Aside section */}
-                    <aside className="col col-12 col-md-3">
-                        aside
-                    </aside>
-
-                </div>
-            </div>
-        </div>
+        <Error statusCode={404}>
+            <h4 className={"mb-3"}>Peut-être qu'une de ces sections vous aideras</h4>
+            <nav className="row pt-3 row-cols-1 row-cols-sm-3 gy-3">
+                {
+                    entities.map((route, index) => {
+                        return (
+                            <div className="col" key={`li${index}${route.label}`}>
+                                <Button href={route.pathname} size="large-100">{route.label}</Button>
+                            </div>
+                        )
+                    })
+                }
+            </nav>
+        </Error>
     )
 }
 

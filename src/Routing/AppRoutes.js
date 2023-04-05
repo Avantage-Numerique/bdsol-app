@@ -4,18 +4,23 @@ import Routes from "@/src/Routing/Routes";
 const AppRoutesRaw = {
 
     accueil : {
+        label: "Accueil",
         pathname: "/",
+        asPath: "/",
     },
 
     persons : {
+        label: "Toutes les personnes",
         pathname: "/persons",
         asPath: "/persons"
     },
     personSingle : {
+        label: "Média d'une personne",
         pathname: "/persons/[slug]",
         asPath: "/persons/[slug]",
     },
     personSingleMedia : {
+        label: "Person",
         pathname: "/medias/[slug]",
         asPath: "/medias/[slug]",
         breadcrumbPathName: "/persons/[person.slug]/[slug]",
@@ -27,10 +32,12 @@ const AppRoutesRaw = {
     },
 
     categories : {
+        label: "Toutes les catégories",
         pathname: "/categories",
         asPath: "/categories"
     },
     categorySingle : {
+        label: "Une catégorie",
         pathname: "/categories/[category]/[slug]",
         asPath: "/categories/[category]/[slug]",
         breadcrumbPathName: "/categories/[category]",
@@ -42,14 +49,17 @@ const AppRoutesRaw = {
     },
 
     organisations : {
+        label: "Toutes les organisations",
         pathname: "/organisations",
         asPath: "/organisations",
     },
     organisationSingle : {
+        label: "Une organisation",
         pathname: "/organisations/[slug]",
         asPath: "/organisations/[slug]"
     },
     organisationSingleMedia : {
+        label: "Média d'une organisation",
         pathname: "/medias/[slug]",
         asPath: "/medias/[slug]",
         breadcrumbPathName: "/organisations/[organisation.slug]/[slug]",
@@ -61,23 +71,27 @@ const AppRoutesRaw = {
     },
 
     apropos: {
+        label: "À propos",
         pathname: "/a-propos",
         asPath: "/a-propos"
     },
 
     compte: {
+        label: "Votre compte",
         pathname: "/compte",
         asPath: "/compte",
         needAuth: true
     },
 
     contribuer: {
+        label: "Contribuer",
         pathname: "/contribuer",
         asPath: "/contribuer",
         needAuth: true
     },
 
     error404: {
+        label: "Error 404",
         pathname: "/404",
         asPath: "/404"
     }

@@ -93,6 +93,7 @@ class Route {
      * @param params.needAuth {boolean} Optionnal, if it's a private Route that need an auth token to access.
      */
     constructor(params) {
+        this.label = params.label ?? "";
         this.name = params.name ?? "";
         this.pathname = params.pathname ?? "";
         this.asPath = params.asPath ?? "";
