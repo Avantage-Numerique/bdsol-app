@@ -66,7 +66,6 @@ const CreateTaxonomyForm = ({name, category, initValues, positiveRequestActions,
                 value: (initValues.category ? initValues.category : ''),
                 isValid: true
             },
-
             name: {
                 value: (initValues.name ? initValues.name : ''),
                 isValid: true
@@ -123,14 +122,16 @@ const CreateTaxonomyForm = ({name, category, initValues, positiveRequestActions,
             `/taxonomies/${submitUri}`,
             'POST',
             formData
-        )
-
+        );
     }
 
-    let domainQuery = {category:"domains", name:""};
+    let domainQuery = {
+        category:"domains",
+        name:""
+    };
 
     if (submitUri === "update") {
-        //domainQuery.id = {not: initValues._id};
+        domainQuery.id = `not:${initValues._id}`;
     }
 
 
