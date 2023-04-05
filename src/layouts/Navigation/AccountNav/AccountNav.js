@@ -51,10 +51,10 @@ const AccountNav = ( {menuState, setMenuState} ) => {
                     { !auth.user.isLoggedIn &&
                         <>
                             <li className="col-12">
-                                <Link href="/compte/connexion">{lang.menuLabelConnect}</Link>
+                                <Link href="/compte/connexion">{lang.menuLabelConnect || "Connexion"}</Link>
                             </li>
                             <li className="col-12">
-                                <Link href="/compte/inscription">{lang.menuLabelCreateAccount}</Link>
+                                <Link href="/compte/inscription">{lang.menuLabelCreateAccount || "Créer votre compte"}</Link>
                             </li>
                         </>
                     }
@@ -63,11 +63,11 @@ const AccountNav = ( {menuState, setMenuState} ) => {
                     { auth.user.isLoggedIn &&
                         <>
                             <li className="col-12">
-                                <Link href="/compte">{lang.menuLabelToDashboard}</Link>
+                                <Link href="/compte">{lang.menuLabelToDashboard || "Tableau de bord"}</Link>
                             </li>
                             
                             <li className="col-12">
-                                <button onClick={deconnection}>{lang.menuLabelToDisconnect}</button>
+                                <button onClick={deconnection}>{lang.menuLabelToDisconnect || "Déconnecter"}</button>
                             </li>
                         </>
                     }

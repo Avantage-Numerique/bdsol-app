@@ -75,6 +75,11 @@ const AppRoutesRaw = {
         pathname: "/contribuer",
         asPath: "/contribuer",
         needAuth: true
+    },
+
+    error404: {
+        pathname: "/404",
+        asPath: "/404"
     }
 }
 

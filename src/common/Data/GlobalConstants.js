@@ -7,7 +7,8 @@ import StringDictionary from "@/src/languages/StringDictionary";
 export const lang = StringDictionary.getInstance([
     "base",
     "organisations",
-    "persons"
+    "persons",
+    "errors",
 ]);
 
 export const now = new Date();

@@ -1,5 +1,5 @@
 
-export const base = {
+const base = {
 
     //  Common
 
@@ -203,3 +203,4 @@ export const base = {
     // Single
     "ctaLabel": "Appel à l'action"
 }
+exports.base = base;

@@ -28,7 +28,6 @@ export default class StringDictionary {
         if (typeof file === "object") {
             this.setDictionaryFiles(file);
         }
-
     }
 
     static getInstance(file, lang="fr-ca") {
@@ -52,8 +51,7 @@ export default class StringDictionary {
     }
 
 
-    loadDictionaries()
-    {
+    loadDictionaries() {
         if (this.dictionaries.length === 0 && this.dictionaryFiles.length > 0)
         {
             for (const dictionaryFile of this.dictionaryFiles) {
@@ -69,7 +67,10 @@ export default class StringDictionary {
 
     loadDictionary(filename) {
         const dictionary = require(this.filepath + filename + ".js");
-        this.setDictionary(dictionary.base);
+        const dictionaryObject = dictionary[filename];
+        if (dictionaryObject) {
+            this.setDictionary(dictionaryObject);
+        }
     }
 
 
@@ -86,7 +87,7 @@ export default class StringDictionary {
      * @return {*}
      */
     getString(key) {
-        return this.dictionary[key] ?? key;
+        //return this.dictionary[key] ?? key;//this must be reimplemented for multiple files.
     }
 
 

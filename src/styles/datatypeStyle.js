@@ -13,16 +13,16 @@ export const selectStyle = () => {
     }
 
     const getColor = (data) => {
-        if (data.type == "taxonomy"){
+        if (data.type === "Taxonomy"){
             if (data.category){
                 return chroma( colorDict[data.category] );
             }
             return chroma(defaultColor)
         }
-        if (data.type == "person"){
+        if (data.type === "Person"){
             return defaultColor;
         }
-        if (data.type == "organisation"){
+        if (data.type === "Organisation"){
             return defaultColor;
         }
 

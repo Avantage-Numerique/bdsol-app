@@ -18,7 +18,6 @@ import {useAuth} from '@/src/authentification/context/auth-context';
 import {lang} from "@/src/common/Data/GlobalConstants";
 import {Breadcrumbs} from "@/common/Breadcrumbs/Breadcrumbs";
 import AppRoutes from "@/src/Routing/AppRoutes";
-import Icon from "@/common/widgets/Icon/Icon";
 
 
 const OrganisationsPage = () => {
@@ -69,7 +68,6 @@ const OrganisationsPage = () => {
     }, []);
 
     return (
-
         <div>
             <PageHeader
                 bg={"bg-purplelighter"}
@@ -114,7 +112,6 @@ const OrganisationsPage = () => {
                                     </div>
                                 ))
                             }
-
                         </div>
 
                     </section>
