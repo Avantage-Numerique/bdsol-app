@@ -39,10 +39,10 @@ const Header = (props) => {
                                     </div>
                                 </div>
                                 {auth.user.isLoggedIn &&
-                                    <div className={"col d-flex-content-center"}>
-                                            <div className="d-grid w-100" onClick={ () => setMenuState(0) }>
-                                                <a href="/contribuer" className={"btn btn-outline-light"}><Icon iconName="plus-circle" /> {lang.menuContributeLabel}</a>
-                                            </div>
+                                    <div className={"col-2 d-flex-content-center"}>
+                                        <div className="d-grid w-100" onClick={ () => setMenuState(0) }>
+                                            <a href="/contribuer" className={"btn btn-outline-light"}><Icon iconName="plus-circle" /> {lang.menuContributeLabel}</a>
+                                        </div>
                                     </div>
                                 }
                             </div>
