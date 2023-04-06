@@ -1,4 +1,6 @@
 import React, {useCallback, useState} from 'react'
+import Router, {useRouter} from "next/router";
+
 
 //Components
 import Button from "@/FormElements/Button/Button";
@@ -21,6 +23,8 @@ import {lang} from "@/common/Data/GlobalConstants";
 
 const PersonSingle = ({ data, route }) => {
 
+    const { modal, Modal, displayModal, closeModal } = useModal();
+
     const { 
         _id,
         firstName,
@@ -37,8 +41,7 @@ const PersonSingle = ({ data, route }) => {
         mainImage
     } = data;
 
-    const [displayUpdateGroups, setDisplayUpdateGroups] = useState(false);
-
+    console.log("Data", data)
 
     //const {sendRequest} = useHttpClient();
     
@@ -59,6 +62,66 @@ const PersonSingle = ({ data, route }) => {
         fetchMemberOf()
     }, []);
 */
+    const OccupationGroup = ({occupationName, skillList}) => {
+
+        return (
+            <article className={`d-flex flex-column p-2 mb-2 ${styles["occupation-group"]}`}>
+                <h5 className="text-dark mb-0">{occupationName}</h5>
+                {
+                    skillList && skillList.length > 0 &&
+                    <ul className="d-flex flex-wrap gap-1 mb-0 mt-2">
+                        {
+                            skillList.map(skill => (
+                            <li 
+                                key={skill._id}
+                                className={`fs-6 rounded px-1 ${styles["skill-tag"]}`}
+                            >{skill.name}</li>
+                            ))
+                        }
+                    </ul>
+                }
+            </article>
+        )
+    }
+
+    const SkillsList = ({occupations}) => {
+
+        //Extract every skill objects from the occupations
+        const arrayOfSkillObjects = occupations.map(occ => occ.skills);
+        console.log("arrayOfSkillObjects", arrayOfSkillObjects)
+        //Extract the values of those objects
+        const arrayOfSkills = arrayOfSkillObjects ? arrayOfSkillObjects.flat(1) : [];
+        console.log("arrayOfSkills", arrayOfSkills)
+
+        //Only keep single instances
+        let arrayUniqueBy_id = [...new Map(arrayOfSkills.map(item => [item["_id"], item])).values()];
+        //Sort the array before returning the value
+        arrayUniqueBy_id.sort((a, b) => {
+            const nameA = a.name.toUpperCase(); // ignore upper and lowercase
+            const nameB = b.name.toUpperCase(); // ignore upper and lowercase
+            if (nameA < nameB) {
+              return -1;
+            }
+            if (nameA > nameB) {
+              return 1;
+            }
+            // names must be equal
+            return 0;
+          });
+
+        return (
+            <>
+                <ul>
+                    {
+                        arrayUniqueBy_id && arrayUniqueBy_id.map(skill => (
+                            <li key={skill._id} className="fs-6">{skill.name}</li>
+                        ))
+                    }
+                </ul>
+            </>
+        );
+        
+    }
 
     const aside = (
         <>
@@ -90,12 +153,25 @@ const PersonSingle = ({ data, route }) => {
 
             <SingleInfo title={"Occupations"}
                 NAMessage={<p></p>}
-            >
-                <Button size="slim" onClick={() => setDisplayUpdateGroups(true)}>Modifier les groupes</Button>
+            >    
+                {/* Display the different groupes of occupations */}
+                { occupations &&
+                    occupations.map(occ => (
+                        <OccupationGroup 
+                            occupationName={occ.occupation} 
+                            skillList={occ.skills}
+                            key={occ._id}
+                        />
+                    ))
+                }
+                <Button size="slim" onClick={() => displayModal()}>Modifier les groupes</Button>
             </SingleInfo>
 
             <SingleInfo title={"Compétences"}
-                NAMessage={<p>Aucune occupation spécifiée</p>} />
+                NAMessage={<p>Vous n'avez aucune compétence d'entrée pour le moment</p>}
+            >
+                <SkillsList occupations={occupations}/>
+            </SingleInfo>
             
         </>
     );
@@ -175,9 +251,27 @@ const PersonSingle = ({ data, route }) => {
         </Single>
 
         {
-            displayUpdateGroups &&
-            <UpdateSkillGroup />
+            modal.display &&
+            <Modal>
+                <div className="d-flex mb-3">
+                    <h3 className="text-blue4">Éditez vos groupes de compétences</h3>
+                    <Button type="button" onClick={closeModal}>Fermer</Button>
+                </div>
+                
+                <UpdateSkillGroup 
+                    parentEntity={data}  
+                    positiveRequestActions={{
+                        callbackFunction: (requestResponse) => {
+                            closeModal();
+                            Router.push(window.location.href);
+                        },
+                        displayResMessage: true     //Display a message to the user to confirm the succes
+                    }}
+                />
+            </Modal>
         }
+
+        
         </>
     )
 }
