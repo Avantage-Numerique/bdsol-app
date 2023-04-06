@@ -56,7 +56,20 @@ const Select2Tag = ({name, formTools, ...props}) => {
         if(formState.inputs[name]?.value?.length > 0)
         {
             const state = formState.inputs[name].value.map((elem) => {
-                entitiesList.current.push(...formState.inputs[name].value)
+                //FIX. If the field recieve an array of direct data instead if the structure : { idField: { data} }
+                if(elem._id){
+                    //If yes, we need to ajust the shape of the data
+                    const formatedObj = formState.inputs[name].value.map(obj => ({[props.idField] : obj}));
+                    entitiesList.current.push(...formatedObj)
+                } else {
+                    //Normal behavior
+                    entitiesList.current.push(...formState.inputs[name].value)
+                }
+
+                //If the data is directly inside
+                if(elem._id)
+                    return { value: elem._id, label: elem[props.searchField]}
+                //Else
                 return { value: elem[props.idField]._id, label: elem[props.idField][props.searchField]
             }})
             selectRef.current.setValue(state, "set-value");

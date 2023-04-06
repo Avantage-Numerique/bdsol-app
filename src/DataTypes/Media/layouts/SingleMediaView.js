@@ -73,6 +73,7 @@ const SingleMediaView = ({ data }) => {
             aside={aside}
             headerMainContent={headerMainContent}
             entity={data}
+            modalComponent={""}
             showCTA={false}
             showMainImageInHeader={false}
             showUpdateMenu={false}

@@ -20,7 +20,6 @@ export const useModal = ( prefilledValues ) => {
             {
                 lastName: "Boudreau",
                 firstName: "Walter"
-
             }
         */
         setModal(prev => ({
