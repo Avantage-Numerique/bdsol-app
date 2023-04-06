@@ -1,4 +1,6 @@
 import React, {useState} from 'react'
+import Router, {useRouter} from "next/router";
+
 
 //Components
 import Button from "@/FormElements/Button/Button";
@@ -123,7 +125,7 @@ const PersonSingle = ({ data }) => {
                         />
                     ))
                 }
-                <Button size="slim" onClick={displayModal}>Modifier les groupes</Button>
+                <Button size="slim" onClick={() => displayModal()}>Modifier les groupes</Button>
             </SingleInfo>
 
             <SingleInfo title={"Compétences"}
@@ -191,8 +193,16 @@ const PersonSingle = ({ data }) => {
                     <Button type="button" onClick={closeModal}>Fermer</Button>
                 </div>
                 
-                <UpdateSkillGroup parentEntity={data}  />
-
+                <UpdateSkillGroup 
+                    parentEntity={data}  
+                    positiveRequestActions={{
+                        callbackFunction: (requestResponse) => {
+                            closeModal();
+                            Router.push(window.location.href);
+                        },
+                        displayResMessage: true     //Display a message to the user to confirm the succes
+                    }}
+                />
             </Modal>
         }
 

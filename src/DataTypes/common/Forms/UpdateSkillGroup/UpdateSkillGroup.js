@@ -14,12 +14,11 @@ import Select2Tag from '@/src/common/FormElements/Select2/Select2Tag';
 import Icon from '@/src/common/widgets/Icon/Icon';
 import Repeater from '@/src/common/FormElements/Repeater/Repeater';
 
-
 //styling
 import styles from './UpdateSkillGroup.module.scss';
 
 
-const UpdateSkillGroup = ({parentEntity}) => {
+const UpdateSkillGroup = ({parentEntity, positiveRequestActions}) => {
 
     //Import the authentication context to make sure the user is well connected
     const auth = useAuth();
@@ -29,10 +28,11 @@ const UpdateSkillGroup = ({parentEntity}) => {
             value: [],
             isValid: true
         },
+    },
+    //Pass a set of rules to execute a valid response of an api request
+    positiveRequestActions || {
+        displayResMessage: true     //Display a message to the user to confirm the succes
     })
-
-    console.log("MAIN MAIN FORM STATE", formState)
-
 
     const submitHandler = async event => {
         
@@ -45,8 +45,6 @@ const UpdateSkillGroup = ({parentEntity}) => {
                 skills: occ.value.skills.value.map(skill => skill.skill._id)
             }
         })
-
-        console.log("Formated data passed in the request : ", formattedOccupations)
 
         const formData = {
             "data": {
@@ -83,7 +81,6 @@ const UpdateSkillGroup = ({parentEntity}) => {
                     }}
                     initValues={parentEntity.occupations}
                 >
-
                     <article className={`
                         row border border-1 rounded p-2 my-2 bg-white
                         ${styles["update-skill-group"]}
@@ -110,7 +107,7 @@ const UpdateSkillGroup = ({parentEntity}) => {
                             />
                         </section>
                         {/* Icone to move the element */}
-                        <div className="col flex-grow-0 text-secondary">
+                        <div className="col pr-0 flex-grow-0 text-secondary">
                             <Button 
                                     repeaterDeleteElem={true}
                                     type="button" 
