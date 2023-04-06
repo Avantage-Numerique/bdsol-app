@@ -65,16 +65,16 @@ const PersonSingle = ({ data }) => {
     const OccupationGroup = ({occupationName, skillList}) => {
 
         return (
-            <article className="d-flex flex-column bg-secondary p-2 rounded mb-2">
-                <h5 className="text-blue2">{occupationName}</h5>
+            <article className={`d-flex flex-column p-2 mb-2 ${styles["occupation-group"]}`}>
+                <h5 className="text-dark mb-0">{occupationName}</h5>
                 {
                     skillList && skillList.length > 0 &&
-                    <ul className="d-flex flex-wrap gap-1">
+                    <ul className="d-flex flex-wrap gap-1 mb-0 mt-2">
                         {
                             skillList.map(skill => (
                             <li 
                                 key={skill._id}
-                                className="fs-6 border rounded px-1 bg-white border-white"
+                                className={`fs-6 rounded px-1 ${styles["skill-tag"]}`}
                             >{skill.name}</li>
                             ))
                         }
