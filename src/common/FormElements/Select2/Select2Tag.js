@@ -11,21 +11,24 @@ import CreatableSelect from 'react-select/creatable';
 //Styling
 import styles from './Select2Tag.module.scss'
 import makeAnimated from 'react-select/animated';
-import { selectStyle } from '@/src/styles/datatypeStyle';
+import {getColor, selectStyle} from '@/src/styles/datatypeStyle';
+import Icon from "@/common/widgets/Icon/Icon";
 
-/*
-Props :
-    - formTools : For formState update
-    - name : formState update and mainly use for ids and keys
-    - searchField : The name of the field to make the search on
-    - label : When mentionned, add a label on top of the select field
-    - fetch : the url to fetch from
-    - requestData : the objet to send for the first request
-    - placeholder : placeholder inside the select field
-    - idField : field the id should go in ==> select tag set formState value to [ { idField : value, status: {statusObject} }.
-    - If there is an initial value to formState, it should be an array, and elem.[idField]._id and elem[searchField] should exist
-        */
-
+/**
+ * Input to fetch taxonomy and add X elements to the form as an array.
+ * @param name {string} formState update and mainly use for ids and keys
+ * @param formTools {any} For formState update (If there is an initial value to formState, it should be an array, and elem.[idField]._id and elem[searchField] should exist)
+ * @param props {object} all the props.
+ * @param props.idField {string} field the id should go in ==> select tag set formState value to [ { idField : value, status: {statusObject} }.
+ * @param props.searchField {any} The name of the field to make the search on
+ * @param props.validators
+ * @param props.fetch {string} the url to fetch from
+ * @param props.label {string} When mentionned, add a label on top of the select field
+ * @param props.requestData {object} the objet to send for the first request
+ * @param props.placeholder {string} the objet to send for the first request
+ * @return {JSX.Element}
+ * @constructor
+ */
 const Select2Tag = ({name, formTools, ...props}) => {
 
     const {
@@ -75,7 +78,7 @@ const Select2Tag = ({name, formTools, ...props}) => {
             //if is in entitiesList
             const inEntityList = entitiesList.current.find( elem => {
                 return selected.value === elem[props.idField]._id
-            })
+            });
             if(inEntityList)
                 return inEntityList;
 
@@ -131,7 +134,7 @@ const Select2Tag = ({name, formTools, ...props}) => {
         let newOptionList = [];
         if (selectResponse?.data?.length > 0)
             newOptionList = selectResponse.data.map( (elem) => {
-            return { value: elem._id, label: elem[props.searchField], category: elem.category, type: elem.type }
+            return { value: elem._id, label: elem[props.searchField], category: elem.category, type: elem.type, color: getColor(elem) };
         })
         setOptionList(newOptionList)
     },[selectResponse])

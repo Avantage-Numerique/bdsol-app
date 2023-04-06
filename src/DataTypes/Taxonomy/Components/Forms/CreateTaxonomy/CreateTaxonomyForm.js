@@ -63,19 +63,19 @@ const CreateTaxonomyForm = ({name, category, initValues, positiveRequestActions,
     const { FormUI, submitRequest, formState, formTools } = useFormUtils(
         {
             category: {
-                value: (initValues.category ? initValues.category : ''),
+                value: initValues?.category ?? '',
                 isValid: true
             },
             name: {
-                value: (initValues.name ? initValues.name : ''),
+                value: initValues?.name ?? '',
                 isValid: true
             }, 
             description: {
-                value: initValues.description ? initValues.description : '',
+                value: initValues?.description ?? '',
                 isValid: true
             },
             domains: {
-                value: initValues.domains ? initValues.domains : [],
+                value: initValues?.domains ?? [],
                 isValid: true
             },
             "status.message": {
@@ -131,7 +131,7 @@ const CreateTaxonomyForm = ({name, category, initValues, positiveRequestActions,
     };
 
     if (submitUri === "update") {
-        domainQuery.id = `not:${initValues._id}`;
+        domainQuery._id = `ne:${initValues._id}`;
     }
 
 

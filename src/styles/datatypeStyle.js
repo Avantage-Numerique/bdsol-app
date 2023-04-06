@@ -1,40 +1,36 @@
 import chroma from 'chroma-js';
 
 
+export const defaultColor = "black";
+
+export const colorDict = {
+    skills: "red",
+    occupations:"blue",
+    technologies:"green",
+    domains:"purple"
+}
+
+export const getColor = (data, chromatise=false) => {
+    let color =  defaultColor;
+    if (data.type === "Taxonomy"){
+        color = colorDict[data.category] ?? defaultColor;
+    }
+    /*if (data.type === "Person"){
+        color defaultColor;
+    }
+    if (data.type === "Organisation"){
+        return defaultColor;
+    }*/
+    return chromatise ? chroma(color) : color;
+}
+
 export const selectStyle = () => {
-
-    const defaultColor = "black";
-  
-    const colorDict = {
-        skills: "red",
-        occupations:"blue",
-        technologies:"green",
-        domains:"purple"
-    }
-
-    const getColor = (data) => {
-        if (data.type === "Taxonomy"){
-            if (data.category){
-                return chroma( colorDict[data.category] );
-            }
-            return chroma(defaultColor)
-        }
-        if (data.type === "Person"){
-            return defaultColor;
-        }
-        if (data.type === "Organisation"){
-            return defaultColor;
-        }
-
-        //if no type, it probably is inputValue with the create option that gets the default color 
-        return chroma(defaultColor);
-    }
 
     const control = { control: (styles) => ({ ...styles, backgroundColor: 'white' }) };
 
     const option = { 
         option: (styles, { data, isDisabled, isFocused, isSelected }) => {
-            const color = getColor(data);
+            const color = getColor(data, true);
             return {
                 ...styles,
                 backgroundColor: isDisabled
@@ -67,7 +63,7 @@ export const selectStyle = () => {
     
     const multiValue = {
         multiValue: (styles, { data }) => {
-            const color = chroma(colorDict[data.category]);
+            const color = data.color ? chroma(data.color) : chroma(defaultColor);//getColor(data);//chroma(colorDict[data.category]);
             return {
               ...styles,
               backgroundColor: color.alpha(0.1).css(),
@@ -76,18 +72,20 @@ export const selectStyle = () => {
     }
 
     const multiValueLabel = {
-        multiValueLabel: (styles, { data }) => ({
-            ...styles,
-            color: colorDict[data.category],
-        })
+        multiValueLabel: (styles, { data }) => {
+            return {
+                ...styles,
+                color: data.color,
+            }
+        }
     }
 
     const multiValueRemove = {
         multiValueRemove: (styles, { data }) => ({
             ...styles,
-            color: colorDict[data.category],
+            color: data.color,
             ':hover': {
-                backgroundColor: colorDict[data.category],
+                backgroundColor: data.color,
                 color: 'white',
             },
         })
