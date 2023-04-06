@@ -23,6 +23,7 @@
     "@reduxjs/toolkit": "^1.8.1",
     "blotter": "^1.0.0",
     "bootstrap": "^5.2.0",
+    "chroma-js": "^2.4.2",
     "iron-session": "^6.2.1",
     "isomorphic-dompurify": "^0.16.0",
     "jest-environment-jsdom": "^28.1.0",

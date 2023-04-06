@@ -3,8 +3,6 @@ import Link from 'next/link'
 
 //scss styling
 import styles from './Button.module.scss'
-import DOMPurify from "isomorphic-dompurify";
-import {externalLinkIcon} from "@/common/Icons/IconsManager";
 
 
 const getCurrentTime = () => {
@@ -32,7 +30,6 @@ const Ripple = ({ clear })  => {
 
 const Button = ({ rippleEffect, ...props }) => {
 
-
     let classList = [];
     let classesString;
 
@@ -40,16 +37,16 @@ const Button = ({ rippleEffect, ...props }) => {
     //let bsPrefix = props.listItem ? "list-group-item-" : "btn-";
     let bsPrefix = "btn-";
 
-    const [rippleList, setRippleList] = useState([])
+    const [rippleList, setRippleList] = useState([]);
 
-    const addRipple = () => {
+    /*const addRipple = () => {
 
         setRippleList([
             ...rippleList,
             {id: "ripple_" + getCurrentTime()}
         ])
     
-    }
+    }*/
 
     {/*
 
@@ -68,12 +65,9 @@ const Button = ({ rippleEffect, ...props }) => {
 
         let bootstrapColor = props.color ? props.color : "primary";
 
-        if(
-            props.outline
-            &&
-            props.outline.length > 0
-        ){
-            classList.push(`btn-custom-outline-${props.color}`);
+        if(props.outline){
+            //const outlineLength = props.outline.length > 0 ? props.outline.length : 0;//I don't know what it is used for.
+            //classList.push(`btn-custom-outline-${props.color}`);
             classList.push(`btn-outline-${props.outline}`);
         } else {
             classList.push(`${bsPrefix}${bootstrapColor}`);
@@ -125,11 +119,9 @@ const Button = ({ rippleEffect, ...props }) => {
     if (props.href && props.external) {
         return (
             <a href={props.href}
-               className={`${classesString}`}
-               disabled={props.disabled}
-               dangerouslySetInnerHTML={{
-                   __html: DOMPurify.sanitize(props.children+" "+externalLinkIcon)
-               }}>
+               className={`${classesString}${(props.disabled ? ' disabled': '')}`}
+               target={"_blank"}>
+                {props.children}
             </a>
         );
     }
@@ -140,11 +132,8 @@ const Button = ({ rippleEffect, ...props }) => {
             <Link href={props.href} >
                 <button 
                     className={`${classesString}`}
-                    disabled={props.disabled}
-                >
-
+                    disabled={props.disabled}>
                     {props.children}
-
                 </button>
             </Link>
         );

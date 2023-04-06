@@ -1,10 +1,11 @@
-import {useState, useEffect} from 'react';
+import {useState, useEffect, useRef} from 'react';
 import {clientSideExternalApiRequest} from '@/src/hooks/http-hook';
 import {useFormUtils} from '@/src/hooks/useFormUtils/useFormUtils';
 import useDebounce from '@/src/hooks/useDebounce';
 import Router, {useRouter} from 'next/router';
-import InputBasic from "@/FormElements/InputBasic/InputBasic";
 import Icon from "@/common/widgets/Icon/Icon";
+import Select from 'react-select';
+
 //Component
 //import Input from "../FormElements/Input/Input";
 
@@ -17,6 +18,14 @@ Props :
 */
 const SearchBar = ({small, ...props}) => {
 
+    //List of options fetched by the api and suggested to the user
+    const [selectResponse, setSelectResponse] = useState([]);
+    const [optionList, setOptionList] = useState([]);
+
+    const selectRef = useRef();
+    const [inputValue, setInputValue] = useState("");
+    const [value, setValue] = useState(null)
+
     const router = useRouter();
     //Main form functionalities
     const {FormUI, submitRequest, formState, formTools, clearFormData} = useFormUtils(
@@ -28,18 +37,25 @@ const SearchBar = ({small, ...props}) => {
         },
     );
 
-    //SearchSuggestion data list state
-    const [searchSuggestion, setSearchSuggestion] = useState([]);
+    const inputHandler = formTools.inputHandler;
+
+    useEffect( () => {
+        let newOptionList = [];
+        if (selectResponse?.data?.length > 0)
+            newOptionList = selectResponse.data.map( (elem) => {
+            return { value: elem._id, label: elem.name ?? elem.firstName + ' ' + elem.lastName, type: elem.type, slug: elem.slug, category:elem.category }
+        })
+        setOptionList(newOptionList)
+
+    },[selectResponse])
 
     //Search suggestion
     const getSearchSuggestion = async () => {
         const suggestions = await clientSideExternalApiRequest(
             '/search' + '?searchIndex=' + formState.inputs.searchIndex.value,
-            {
-                method: 'GET'
-            }
+            { method: 'GET' }
         );
-        setSearchSuggestion(suggestions.data);
+        setSelectResponse(suggestions);
     }
 
     //Request Debounce
@@ -49,44 +65,77 @@ const SearchBar = ({small, ...props}) => {
         getSearchSuggestion();
     }, [debouncedRequest]);
 
+    //Called whenever the user enter or modify a value into the field
+    const formRequestData = (val) => {
+        setInputValue(val);
+        inputHandler(
+            "searchIndex",
+            val,
+            props.validators ? validate(event.target.value, props.validators) : true
+        )
+    }
+
+    const submitSelectedItem = (selected, action) => {
+        const typeToUrl = {
+            Person : "persons",
+            Organisation : "organisations",
+            Taxonomy : "categories",
+        }
+        if(selected.type === "Taxonomy"){
+            Router.push({
+                pathname: "/"+typeToUrl[selected.type]+"/"+selected.category+"/"+selected.slug,
+            });
+        }
+        else{
+            Router.push({
+                pathname: "/"+typeToUrl[selected.type]+"/"+selected.slug,
+            });
+        }
+        setValue(null)
+        setInputValue('');
+    }
 
     const submitHandler = async event => {
         event.preventDefault();
         Router.push({
             pathname: "/searchResults",
-            query: {searchIndex: formState.inputs.searchIndex.value},
+            query: {searchIndex: inputValue},
         });
-        if (props.clearAfterSearch)
-            clearFormData();
+        setValue(null)
+        setInputValue('');
     }
 
-    //datalist name={"Datalist-"+ props.id }
     return (
         <form onSubmit={submitHandler} className={`search-bar ${small && "small-searchBar w-100"}`}>
             <div className="input-group my-2 ">
                 <button type="submit" className="btn btn-outline-light">
                     <Icon iconName="search" />
                 </button>
-                <InputBasic
+            
+                <Select
                     className={"form-control px-3 py-2"}
-                    type={"text"}
-                    name={"searchIndex"}
-                    formTools={formTools}
+                    key={"SearchBar-layout"}
+                    ref={selectRef}
+                    instanceId={"SearchBar-layout"}
                     placeholder={"Rechercher"}
-                    list={props.id}
+                    value={value}
+                    options={optionList}
+                    inputValue={inputValue}
+                    onInputChange={(val, action) => {if (action.action === "input-change") formRequestData(val)}}
+                    onChange={(val, action) => {
+                        if(action.action === "select-option") { submitSelectedItem(val, action) }
+                    }}
+                    theme={(theme) => ({
+                        ...theme,
+                        borderRadius: 5,
+                        colors: {
+                            ...theme.colors,
+                            primary25: 'hotpink',
+                            primary: 'black',
+                        },
+                        })}
                 />
             </div>
-            <datalist id={props.id}>
-                {
-                    searchSuggestion && searchSuggestion.length !== 0 && searchSuggestion.map((sugg) => {
-                        let suggestionLabel = sugg.name ?? (sugg.firstName + ' ' + sugg.lastName);
-                        //suggestionLabel = sugg.type ? suggestionLabel + ` (${sugg.type.capitalize()})` : suggestionLabel;
-                        return (
-                            <option key={sugg._id} value={suggestionLabel}/>
-                        )
-                    })
-                }
-            </datalist>
         </form>
     )
 }

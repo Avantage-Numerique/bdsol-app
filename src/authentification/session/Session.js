@@ -3,5 +3,6 @@ export const appDefaultSessionOptions = {
     password: process.env.COOKIE_PRIVATE_KEY,
     cookieOptions: {
         secure: process.env.IS_PRODUCTION,//force HTTPS only in prod.
+        maxAge: process.env.COOKIE_MAX_AGE,
     },
 };

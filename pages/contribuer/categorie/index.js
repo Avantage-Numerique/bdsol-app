@@ -3,8 +3,7 @@
 import CreateTaxonomyForm from '@/DataTypes/Taxonomy/Components/Forms/CreateTaxonomy/CreateTaxonomyForm'
 
 
-//Styling 
-import styles from './createTaxonomy.module.scss'
+//Styling
 import {withSessionSsr} from "@/auth/session/handlers/withSession";
 import {ssrCanAccess} from "@/auth/permissions/ssrCanAccess";
 import React from "react";
@@ -25,7 +24,7 @@ const CreateTaxonomyPage = () => {
                 label: lang.historyBack
             }
         }}>
-            <CreateTaxonomyForm />
+            <CreateTaxonomyForm initValues={{}} />
         </SingleViewEntityFormLayout>
     )
 }

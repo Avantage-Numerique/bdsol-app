@@ -18,7 +18,8 @@ const DateWidget = (props) => {
         className,
         lang,
         timezone,
-        Tag
+        Tag,
+        noTag
     } = props;
 
     Tag = Tag ?? 'span';
@@ -28,6 +29,12 @@ const DateWidget = (props) => {
 
     const date_FromString = new Date(getDateFromIsoString(stringDate));
     const formater = Intl.DateTimeFormat(lang, { timeZone: timezone });//date in db are store in UTC-0 so no need to adjust it there.
+
+    if (noTag) {
+        return <>
+            {formater.format(date_FromString)}
+        </>
+    }
 
     if (stringDate !== "" && date_FromString) {
         return (

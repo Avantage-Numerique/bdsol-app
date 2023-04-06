@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect } from 'react'
+import React, {useState, useContext, useEffect, useCallback} from 'react'
 
 //Components 
 import PageHeader from "@/src/layouts/Header/PageHeader";
@@ -16,6 +16,8 @@ import {useAuth} from '@/src/authentification/context/auth-context';
 
 //Utils
 import {lang} from "@/src/common/Data/GlobalConstants";
+import {Breadcrumbs} from "@/common/Breadcrumbs/Breadcrumbs";
+import AppRoutes from "@/src/Routing/AppRoutes";
 
 
 const OrganisationsPage = () => {
@@ -32,8 +34,7 @@ const OrganisationsPage = () => {
     const msg = useContext(MessageContext);
 
     /* 
-        Fetch data  
-        
+        Fetch data
     */
     const fetchData = async () => {
 
@@ -58,24 +59,30 @@ const OrganisationsPage = () => {
 
     useEffect(() => { fetchData() }, [])
 
-    return (
 
+    const getLabelGenerator = useCallback((param, query) => {
+        return {
+            "organisations": "Organisations",
+        }[param];
+    }, []);
+
+    return (
         <div>
             <PageHeader
-                bg={"bg-purplelight"}
+                bg={"bg-purplelighter"}
                 textColor={"text-white"}
-                title={"Consulter les organisations"}
+                htmlTitle={"Consulter les organisations"}
                 subTitle={"Que ce soit de près ou de loin, les organisations présentées ici travaillent avec les technologies numériques."}
-                image={"/general_images/Croissant-Boreal@3x-1440x1440.png"}
-                imgAlt={"Carte du croissant boréal"} />
+            >
+                <Breadcrumbs className={"pt-2"} route={AppRoutes.organisations} getLabelGenerator={getLabelGenerator} />
+            </PageHeader>
 
             <div className="container">
                 <div className="row my-4 py-4">
 
                     {/* Feed section */}
                     <section className="col col-12 col-md-9">
-                        <h2>{lang.actualities}</h2>
-                        <hr />
+
                         <div className="position-relative row row-cols-1 row-cols-sm-2 row-cols-xl-3">
 
                             {/* Loading state : If loading is on and there is no feed */}
@@ -96,9 +103,7 @@ const OrganisationsPage = () => {
                                     <h5>{lang.noResult}</h5>
                                 </div>
                             }
-                            {
 
-                            }
                             { !isLoading && orgList.length > 0 &&
                                 orgList.map( (org, index) => (
                                     <div className="col g-3" key={`indexOrgContainer${index}`}>
@@ -106,15 +111,12 @@ const OrganisationsPage = () => {
                                     </div>
                                 ))
                             }
-
                         </div>
 
                     </section>
 
                     {/* Aside section */}
                     <aside className="col col-12 col-md-3">
-                        <h2>{lang.menu}</h2>
-                        <hr />
                         <div className="my-4">
                             <Button
                                 disabled={!auth.user.isLoggedIn}

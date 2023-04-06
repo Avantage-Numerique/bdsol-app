@@ -47,7 +47,7 @@ const CreateMediaForm = (props) => {
 
     //Define if the form is creating a new file or if it is updating the values of an existing one.
     //Starting state is false since no new file has been passed
-    const [isNewFile, setIsNewFile] = useState((initValues && url) ? false : true);
+    const [isNewFile, setIsNewFile] = useState((initValues && url));
     //Authentication ref
     const auth = useAuth();
 
@@ -201,7 +201,7 @@ const CreateMediaForm = (props) => {
 
         //Execute the request
         //Send the request
-        const path = `/medias/delete/${entity.type}/${entity._id}/${initValues.fileName}`;
+        const path = `/medias/delete/${entity.type.toLowerCase()}/${entity._id}/${initValues.fileName}`;
         await submitRequest(
             path,
             'GET',
@@ -281,8 +281,8 @@ const CreateMediaForm = (props) => {
                                 <div className={`d-flex flex-column ms-2 py-1 ${styles["temporary-entity-tag__texts"]}`}>
                                     {entity.fullName && <p className="m-0 fs-6">{entity.fullName}</p>}
                                     {entity.name && <p className="m-0 fs-6">{entity.name}</p>}
-                                    {entity.type === "person" && <p className="m-0 fs-6">Personne</p>}
-                                    {entity.type === "organisation" && <p className="m-0 fs-6">Organisation</p>}
+                                    {entity.type === "Person" && <p className="m-0 fs-6">Personne</p>}
+                                    {entity.type === "Organisation" && <p className="m-0 fs-6">Organisation</p>}
                                 </div>
 
                             </article>

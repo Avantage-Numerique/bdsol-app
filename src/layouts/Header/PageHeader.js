@@ -6,6 +6,7 @@ import SanitizedInnerHtml from "@/src/utils/SanitizedInnerHtml";
 import Button from "@/src/common/FormElements/Button/Button"
 
 import styles from './PageHeader.module.scss';
+import SearchTag from "@/common/Components/SearchTag";
 
 const PageHeader = (props) => {
 
@@ -41,14 +42,27 @@ const PageHeader = (props) => {
                             <h1 className={titleColor} dangerouslySetInnerHTML={{ __html: props.htmlTitle }}></h1>
                         }
                         
-                        <div className={`${styles.subtitleLine}`}>
-                            <div className={subtitleLineColor}></div>
-                            <div className={subtitleLineColor}></div>
+                        <div className={`${styles.subtitleLine} mb-2`}>
+                            <span className={subtitleLineColor}></span>
+                            <span className={subtitleLineColor}></span>
                         </div>
                         
                         {props.subTitle &&
-                            <h3 className={subtitleColor} dangerouslySetInnerHTML={{ __html: props.subTitle}}></h3>
+                            <h3 className={`${subtitleColor} mb-2`} dangerouslySetInnerHTML={{ __html: props.subTitle}}></h3>
                         }
+
+                        {props.tags &&
+                            <h3 className={`${subtitleColor} mb-2`}>
+                                <SearchTag
+                                    className="row"
+                                    list={props.tags.list}
+                                    listProperty={props.tags.listProperty}
+                                    tagBgColor={"secondary"}
+                                />
+                            </h3>
+                        }
+
+
                         
                         {props.description &&
                             <SanitizedInnerHtml tag={"p"} className={descriptionColor}>

@@ -16,7 +16,7 @@ $pink-100: lighten($pink, 80%);
 $red: #dd5c5c;  // Avantage numérique's red
 $red-light: #ff9e9e;  // Avantage numérique's red
 $purple-light: #b2b2eb;
-$purple-lighter: lighten($purple-light, 12%);
+$purple-lighter: lighten($purple-light, 10%);
 
 //Taxonomies colors
 $green-accepted: green;
@@ -43,11 +43,14 @@ $selected-input: $blue;
 // scss-docs-start theme-color-variables
 $primary:       $blue;
 $primarylight:  $purple-light;
+$secondary:  $grey;
+$secondarylight:  lighten($secondary,10%);
 
 $theme-colors:(
     "primary": $blue,
     "primarylight": $purple-light,
-    "secondary": $grey,
+    "secondary": $secondary,
+    "secondarylight": $secondarylight,
     "purplelight": $purple-light,
     "purplelighter": $purple-lighter,
     "pink": $pink,
@@ -181,3 +184,19 @@ $transition-fade:             opacity .15s linear;
 // scss-docs-start collapse-transition
 $transition-collapse:         height .35s ease;
 $transition-collapse-width:   width .35s ease;
+
+
+/*
+    BREADCRUMBS
+ */
+$breadcrumb-font-size:              null;
+$breadcrumb-padding-y:              0;
+$breadcrumb-padding-x:              0;
+$breadcrumb-item-padding-x:         .5rem;
+$breadcrumb-margin-bottom:          1rem;
+$breadcrumb-bg:                     null;
+$breadcrumb-divider-color:          $secondary;
+$breadcrumb-active-color:           $secondary;
+$breadcrumb-divider:                quote("/");
+$breadcrumb-divider-flipped:        quote("/");
+$breadcrumb-border-radius:          $border-radius;

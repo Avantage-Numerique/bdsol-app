@@ -11,6 +11,7 @@ import CreatableSelect from 'react-select/creatable';
 //Styling
 import styles from './Select2Tag.module.scss'
 import makeAnimated from 'react-select/animated';
+import { selectStyle } from '@/src/styles/datatypeStyle';
 
 /*
 Props :
@@ -36,7 +37,7 @@ const Select2Tag = ({name, formTools, ...props}) => {
     //Import message context
     const {sendRequest} = useHttpClient();
 
-    //List of options fetched by the api and proposed to the user in the datalist in grey
+    //List of options fetched by the api and proposed to the user
     const [selectResponse, setSelectResponse] = useState([]);
     const [optionList, setOptionList] = useState([]);
 
@@ -73,7 +74,6 @@ const Select2Tag = ({name, formTools, ...props}) => {
     }, [])
 
     const fetchSingleTaxonomy = async (id) => {
-
         return await sendRequest(
             "/taxonomies/search",
             'POST',
@@ -83,7 +83,6 @@ const Select2Tag = ({name, formTools, ...props}) => {
     
 
     const updateValue = (selectedValue) => {
-
         //Create formState object to update it with
         const updatedList = selectedValue.map( (selected) => {
             //if is in entitiesList
@@ -145,7 +144,7 @@ const Select2Tag = ({name, formTools, ...props}) => {
         let newOptionList = [];
         if (selectResponse?.data?.length > 0)
             newOptionList = selectResponse.data.map( (elem) => {
-            return { value: elem._id, label: elem[props.searchField], category: elem.category }
+            return { value: elem._id, label: elem[props.searchField], category: elem.category, type: elem.type }
         })
         setOptionList(newOptionList)
     },[selectResponse])
@@ -173,6 +172,7 @@ const Select2Tag = ({name, formTools, ...props}) => {
     }
 
     const animatedComponents = makeAnimated();
+    const colourStyles = selectStyle(); //From our styling factory
 
     return (
         <div className={`${styles["select"]}`}> 
@@ -209,7 +209,7 @@ const Select2Tag = ({name, formTools, ...props}) => {
                         onChange={(val) => updateValue(val)}
                         formatCreateLabel={(val)=> "Créer : "+val}
                         onCreateOption={(val) => handleCreateOption(val)}
-                        theme={(theme) => ({
+                        /*theme={(theme) => ({
                             ...theme,
                             borderRadius: 5,
                             colors: {
@@ -217,7 +217,8 @@ const Select2Tag = ({name, formTools, ...props}) => {
                               primary25: 'hotpink',
                               primary: 'black',
                             },
-                          })}
+                          })}*/
+                        styles={colourStyles}
                     />
 
                     <div className="w-100 d-flex">

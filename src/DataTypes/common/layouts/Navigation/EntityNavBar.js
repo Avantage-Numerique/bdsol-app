@@ -26,7 +26,7 @@ const EntityNavBar = (props) => {
     } = props;
 
     const backUrl = "/";
-    const type = entity.type ?? "person";
+    const type = entity.type ?? "Person";
     const closingModalBaseURI = `/${type.toLowerCase()}s/`;
 
     const modalParameters = modalParams ?? {};
@@ -38,6 +38,7 @@ const EntityNavBar = (props) => {
     const mainImageModalControl = modalMainImageControl ?? undefined;// ?? useModal()
 
     const showMenu = showUpdateMenu !== undefined ? showUpdateMenu : true;
+    const showBackButton = false;
 
     const auth = useAuth();
 
@@ -71,10 +72,12 @@ const EntityNavBar = (props) => {
             <div className={`container ${containerClass}`}>
                 <div className="row justify-content-between mb-4">
                     <div className="col-6 col-lg-6 justify-content-end">
-                        <div>
-                            <button type="button" className="btn btn-outline-light" title={lang.back} onClick={() => router.back()}>
-                                <Icon iconName="chevron-circle-left" /> {lang.back}</button>
-                        </div>
+                        {showBackButton &&
+                            <div>
+                                <button type="button" className="btn btn-outline-light" title={lang.back} onClick={() => router.back()}>
+                                    <Icon iconName="chevron-circle-left" /> {lang.back}</button>
+                            </div>
+                        }
                     </div>
                     {auth.user.isLoggedIn && showMenu &&
                         <div className={"col-auto col-lg-6 d-flex justify-content-end"}>
