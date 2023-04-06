@@ -84,6 +84,45 @@ const PersonSingle = ({ data }) => {
         )
     }
 
+    const SkillsList = ({occupations}) => {
+
+        //Extract every skill objects from the occupations
+        const arrayOfSkillObjects = occupations.map(occ => occ.skills);
+        console.log("arrayOfSkillObjects", arrayOfSkillObjects)
+        //Extract the values of those objects
+        const arrayOfSkills = arrayOfSkillObjects ? arrayOfSkillObjects.flat(1) : [];
+        console.log("arrayOfSkills", arrayOfSkills)
+
+        //Only keep single instances
+        let arrayUniqueBy_id = [...new Map(arrayOfSkills.map(item => [item["_id"], item])).values()];
+        //Sort the array before returning the value
+        arrayUniqueBy_id.sort((a, b) => {
+            const nameA = a.name.toUpperCase(); // ignore upper and lowercase
+            const nameB = b.name.toUpperCase(); // ignore upper and lowercase
+            if (nameA < nameB) {
+              return -1;
+            }
+            if (nameA > nameB) {
+              return 1;
+            }
+            // names must be equal
+            return 0;
+          });
+
+        return (
+            <>
+                <ul>
+                    {
+                        arrayUniqueBy_id && arrayUniqueBy_id.map(skill => (
+                            <li key={skill._id} className="fs-6">{skill.name}</li>
+                        ))
+                    }
+                </ul>
+            </>
+        );
+        
+    }
+
     const aside = (
         <>
             {/*
@@ -129,7 +168,10 @@ const PersonSingle = ({ data }) => {
             </SingleInfo>
 
             <SingleInfo title={"Compétences"}
-                NAMessage={<p>Aucune occupation spécifiée</p>} />
+                NAMessage={<p>Vous n'avez aucune compétence d'entrée pour le moment</p>}
+            >
+                <SkillsList occupations={occupations}/>
+            </SingleInfo>
             
         </>
     );
