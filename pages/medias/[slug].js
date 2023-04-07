@@ -7,7 +7,7 @@ import {getUserHeadersFromUserSession} from "@/auth/context/auth-context";
 import AppRoutes from "@/src/Routing/AppRoutes";
 
 const SingleMediaPage = (props) => {
-    console.log(props);
+
     return (
         <div className={`single-container ${styles["single-media"]}`}>
             <div className="maxWidthPageContainer">

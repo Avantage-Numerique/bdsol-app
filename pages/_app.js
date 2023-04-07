@@ -58,7 +58,7 @@ MyApp.getInitialProps = async (context) => {
                 const serverVerificationResponse = await verifyToken(session.user.token);
                 session.user.tokenVerified = session.user.isLoggedIn = !serverVerificationResponse.error && serverVerificationResponse.data.tokenVerified;
             } catch (error) {
-                console.log("verify token failed");
+                console.error("ERROR : Token verification failed");
             }
         }
 

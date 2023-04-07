@@ -61,10 +61,6 @@ const CreatePersonForm = ({initValues, positiveRequestActions, ...props}) => {
                 value: initValues?.catchphrase ?? "",
                 isValid: true
             },
-            occupations: {
-                value: initValues?.occupations ?? [],
-                isValid: true
-            },
             domains: {
                 value: initValues?.domains ?? [],
                 isValid: true
@@ -152,18 +148,6 @@ const CreatePersonForm = ({initValues, positiveRequestActions, ...props}) => {
                     label={lang.catchphrase}
                     formTools={formTools}
                 />
-
-                <Select2Tag
-                    label={lang.Occupations}
-                    searchField="name"
-                    fetch="/taxonomies/list"
-                    requestData={{name:""}}
-                    name="occupations"
-                    idField="occupation"
-                    placeholder={lang.occupationsPlaceholder}
-                    formTools={formTools}
-                    creatableModal={modal}
-                    />
 
                 <Select2Tag
                     label={lang.Domains}

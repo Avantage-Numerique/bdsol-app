@@ -72,8 +72,8 @@ const Repeater = ({children, name, ...props}) => {
     const addRepeated = () => {
         const tempRepeated = [...repeatedComponent];
         if( props.maxRepeat ? tempRepeated.length < props.maxRepeat : true){
+
             const newChildIndex = setNextChildInUse();
-            console.log("tempRepeat", tempRepeated)
             const newChild = React.cloneElement(children, {
                 key: newChildIndex.toString() + "-repeatedComponent-"+name,
                 name: "children"+newChildIndex,
@@ -95,7 +95,7 @@ const Repeater = ({children, name, ...props}) => {
             }
         }
         if (notUsed){
-            const indexNotUsed = tempInUse.findIndex( x => x.name == notUsed.name);
+            const indexNotUsed = tempInUse.findIndex( x => x.name === notUsed.name);
             
             notUsed.inUse = true;
             tempInUse[indexNotUsed] = notUsed;
@@ -112,14 +112,14 @@ const Repeater = ({children, name, ...props}) => {
         
         //Remove repeatedChildren
         const childIndexRepeated = tempRepeated.findIndex( (elem) => {
-            return elem.props.name == name;
+            return elem.props.name === name;
         });
         tempRepeated.splice(childIndexRepeated, 1);
         setRepeatedComponent(tempRepeated);
 
         //Remove childrenInUse
         const tempInUse = [...childrenInUse];
-        const childIndexInUse = tempInUse.findIndex( elem => elem.name == name);
+        const childIndexInUse = tempInUse.findIndex( elem => elem.name === name);
         tempInUse[childIndexInUse] = { name : "children"+childIndexInUse, inUse:false}
         setChildrenInUse(tempInUse);
 
@@ -148,19 +148,19 @@ const Repeater = ({children, name, ...props}) => {
     }
 
     useEffect( () => { refreshRepeatedComponent() }, [formState])
-
+/*
     useEffect( () => { console.log("childrenformState", formState) }, [formState])
     useEffect( () => { console.log("repeated", repeatedComponent) }, [repeatedComponent])
     useEffect( () => { console.log("repeaterFormState value", repeaterFormState.inputs[name].value) }, [repeaterFormState])
     useEffect( () => { console.log("childrenInUse", childrenInUse) }, [childrenInUse])
-
+*/
     return (
         <div>
             {props.label && <label>{props.label}</label>}
             <div>
                 <Button type="button" slim="true" key={"addChild-"+props.name} onClick={ () => addRepeated()}>{props.addButtonLabel || "+"}</Button>
             </div>
-            { repeatedComponent.length == 0 ? <div>{props.noComponentLabel}</div>
+            { repeatedComponent.length === 0 ? <div>{props.noComponentLabel}</div>
             :
             React.Children.map(repeatedComponent, ( (child) => {
                     return (

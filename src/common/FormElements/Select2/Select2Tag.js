@@ -27,6 +27,9 @@ import Icon from "@/common/widgets/Icon/Icon";
  * @param props.requestData {object} the objet to send for the first request
  * @param props.placeholder {string} the objet to send for the first request
  * @return {JSX.Element}
+ *
+ * @description `search field` is set for, `idField` is set for
+ *
  * @constructor
  */
 const Select2Tag = ({name, formTools, ...props}) => {
@@ -37,7 +40,6 @@ const Select2Tag = ({name, formTools, ...props}) => {
         //inputTouched
     } = formTools;
 
-    //Import message context
     const {sendRequest} = useHttpClient();
 
     //List of options fetched by the api and proposed to the user
@@ -52,26 +54,29 @@ const Select2Tag = ({name, formTools, ...props}) => {
 
     //Set default selectValue
     useEffect(() => {
-
         if(formState.inputs[name]?.value?.length > 0)
         {
             const state = formState.inputs[name].value.map((elem) => {
-                //FIX. If the field recieve an array of direct data instead if the structure : { idField: { data} }
-                if(elem._id){
-                    //If yes, we need to ajust the shape of the data
+
+                const isDirectElement = elem[props.searchField] !== undefined;//FIX. If the field recieve an array of direct data instead if the structure : { idField: { data} }
+                const useIdFieldToAccessElement = elem[props.idField] !== undefined && elem[props.idField][props.searchField] !== undefined;
+
+                if(isDirectElement){    //this is a warning.
+                    //If yes, we need to adjust the shape of the data
                     const formatedObj = formState.inputs[name].value.map(obj => ({[props.idField] : obj}));
-                    entitiesList.current.push(...formatedObj)
-                } else {
-                    //Normal behavior
-                    entitiesList.current.push(...formState.inputs[name].value)
+                    entitiesList.current.push(...formatedObj);
+
+                    console.warning("WARNING : Select 2 tags transmuted the data. It received the formstate as { searchField: {data} }, instead of { idField: { searchField : {data} } }.");
+                    return {value: elem._id, label: elem[props.searchField]}
                 }
 
-                //If the data is directly inside
-                if(elem._id)
-                    return { value: elem._id, label: elem[props.searchField]}
-                //Else
-                return { value: elem[props.idField]._id, label: elem[props.idField][props.searchField]
-            }})
+                //Normal behavior
+                if(useIdFieldToAccessElement) {
+                    entitiesList.current.push(...formState.inputs[name].value);
+                    return { value: elem[props.idField]._id, label: elem[props.idField][props.searchField] }
+                }
+
+            })
             selectRef.current.setValue(state, "set-value");
         }
     }, [])
@@ -99,6 +104,7 @@ const Select2Tag = ({name, formTools, ...props}) => {
             const inSelectResponse = selectResponse?.data.find( elem => {
                 return selected.value === elem._id
             })
+
             if(inSelectResponse){
                 entitiesList.current.push({[props.idField]: inSelectResponse});
                 return {[props.idField]: inSelectResponse};

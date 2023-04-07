@@ -28,9 +28,6 @@ const CreateMediaForm = (props) => {
         entity
     } = props;
 
-    console.log("entitu", entity);
-    console.log(initValues);
-
     //For now, we assume the it is always going to be mainImage
     const {
         alt,

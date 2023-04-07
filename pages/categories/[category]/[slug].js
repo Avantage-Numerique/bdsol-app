@@ -83,6 +83,8 @@ const TaxonomiesSinglePage = (props) => {
     }
     // < NEEDED FOR EDIT THE TAXONOMY
 
+
+    // > NEEDED for BREADCRUMBS
     const currentTaxonomy = category.find( el => taxonomy.category === el.value );
     const currentTitle = currentTaxonomy.label + " &mdash; " + taxonomy.name;
 
@@ -98,6 +100,8 @@ const TaxonomiesSinglePage = (props) => {
             "categories": "categories"
         };
     }, []);
+    //  < NEEDED for BREADCRUMBS
+
 
     const gridComponents = new Map();
     gridComponents.set("person", PersonSimple);
@@ -119,7 +123,7 @@ const TaxonomiesSinglePage = (props) => {
 
                 <p className={"pt-2"}>
                     {auth.user.isLoggedIn &&
-                        <Button outline color="primary" onClick={displayUpdateForm}>
+                        <Button outline={"light"} color="light" onClick={displayUpdateForm}>
                             <Icon iconName={"edit"} /> {lang.proposeContentChangeLabel}
                         </Button>
                     }

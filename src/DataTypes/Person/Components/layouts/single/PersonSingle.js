@@ -41,8 +41,6 @@ const PersonSingle = ({ data, route }) => {
         mainImage
     } = data;
 
-    console.log("Data", data)
-
     //const {sendRequest} = useHttpClient();
     
     //State that contains the organisations that the person is part of
@@ -88,13 +86,13 @@ const PersonSingle = ({ data, route }) => {
 
         //Extract every skill objects from the occupations
         const arrayOfSkillObjects = occupations.map(occ => occ.skills);
-        console.log("arrayOfSkillObjects", arrayOfSkillObjects)
+
         //Extract the values of those objects
         const arrayOfSkills = arrayOfSkillObjects ? arrayOfSkillObjects.flat(1) : [];
-        console.log("arrayOfSkills", arrayOfSkills)
 
         //Only keep single instances
         let arrayUniqueBy_id = [...new Map(arrayOfSkills.map(item => [item["_id"], item])).values()];
+
         //Sort the array before returning the value
         arrayUniqueBy_id.sort((a, b) => {
             const nameA = a.name.toUpperCase(); // ignore upper and lowercase

@@ -15,7 +15,7 @@ import AppRoutes from "@/src/Routing/AppRoutes";
 
 
 const SinglePersonPage = props => {
-    console.log("person single route: ", AppRoutes.singlePerson);
+
     return (
         <div className={`single-container ${styles["single-person"]}`}>
 
