@@ -194,6 +194,9 @@ const HomePage = ({}) => {
                                             {
                                                 feedList.length > 0 && !isLoading &&
                                                 feedList.map((elem, index) => {
+                                                    //let targetModel =
+                                                    // On créé un nouveau model selon le type (Person|Organisation|Projet|taxonomy)
+                                                    // On loop
                                                     let TargetSimpleComponent = gridComponenents.get(elem.type);
                                                     TargetSimpleComponent = TargetSimpleComponent ?? OrganisationSimple;
                                                     return (
