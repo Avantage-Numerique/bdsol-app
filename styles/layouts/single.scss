@@ -2,6 +2,16 @@
     padding: clamp(4rem, 4%, 10rem) 0;
 }
 
-.single {
+.skill-group {
+    background-color:#dce0e4;
+    border-radius: $border-radius;
+   
+    .group-name { font-size: 0.9rem; }
 
+    .skill {
+        background-color: $bluelight;
+        font-size: $badge-font-size;
+        padding: $badge-padding-y $badge-padding-x;
+        border-radius: $badge-border-radius;
+    }
 }

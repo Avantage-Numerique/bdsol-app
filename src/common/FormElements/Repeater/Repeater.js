@@ -1,5 +1,4 @@
-import {useState, useEffect} from 'react';
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 
 //Hooks
 import { useFormUtils } from '@/src/hooks/useFormUtils/useFormUtils';
@@ -42,41 +41,50 @@ const RepeaterSingleIteration = ({children, formInitSubStructure, iterationKey, 
         return iterateOverChildren(children, formInitSubStructure, formTools, deleteIterationByKey);
 }
 
+
+
+/*******************
+ * 
+ *   MAIN COMPONENT 
+ * 
+ *****/
 const Repeater = props => {
+
+    /* List of props */
+    const {
+        children,               // - Elements to repeat
+                                //             (can be on multiple level. EX : <div><Input /></div>)
+                                //              List of key words in the children (props name that the repeater is going to be looking for) : 
+                                //                  - repeaterDeleteElem : if true, an onClick event is going to be added to delete this iteration
+                                //                  - name : if defined and if it fits the values passed in the form init structure, it is going to receive the sub formTools for this specific iteration
+        formInitStructure,      // - [object] :Structure of the form for every instance of the repeated element
+                                // -           CAREFUL => the names in the formInitstructure must reflect the names of the fields entered has children
+        formTools,              // - [formTools obj] : FormTools of the main form. Give us acces to the hole form data
+        name,                   // - [string] : Name to refer to the repeater in the main form State
+        initValues,             // - [array] : Expected to be an array of object where each object contains the values for one iteration of this repeater 
+        //formReturnStructure   //
+    } = props;
 
     //Import the authentication context to make sure the user is well connected
     const auth = useAuth();
 
-    /* List of props */
+    //Extract the needed elements from the formtools
     const {
-        children,               //Elements to repeat
-        formInitStructure,
-        mainFormTools,
-        name,
-        initValues,             //Expected to be an array
-        //formReturnStructure
-    } = props;
-
-    const {
-        formState,
+        //formState,
         inputHandler
-    } = mainFormTools;
+    } = formTools;
     
-    //Value of the current state : {value: Array(0), isValid: true}
-    //The main form is going to look out for the isValid property to let the user know if the state can be submited or not.
-
     //State to manage the values of every iterations of the repeater
     const [iterations, setIterations] = useState(addInitValuesToState(initValues));
+
     //Gives us access to the values of the main state in the shape of an array. And since it is sorted, we use it to display the elements
     const sortedIterationsArray = iterations ? Object.values(iterations).sort((a, b) => (a.order > b.order) ? 1 : -1) : [];
 
     //Whenever the iteration state change, apply the changes on the main state
     useEffect(() => {
-
         //Data to return in the main form state
         let isValid = true
         let value = [];
-
         //Convert the iterations elements into an array 
         const arrayOfIterationsValues = iterations ? Object.values(iterations) : [];
         //Loop through it to look at every children
@@ -104,8 +112,9 @@ const Repeater = props => {
             */
         })
 
+        //Get an array with every values
         value = Object.values(iterations);
-
+        //Update the main form state
         inputHandler(name, value, isValid)
 
     }, [iterations])
@@ -113,7 +122,7 @@ const Repeater = props => {
 
     /*************
      * 
-     * Functions
+     *  List of functions needed for this component
      * 
      ****/
     function addInitValuesToState( initValues ){
@@ -156,6 +165,7 @@ const Repeater = props => {
             
     };
 
+    //Update the content of a single iteration in the state
     function updateIterationValue(key, value, isValid) {
         //Previous is important! Otherwise, it doesn't update properly
         setIterations(prev => ({
@@ -167,7 +177,7 @@ const Repeater = props => {
             }
         }))
     }
-
+    //Add a new iteration to the state
     function addNewIteration(){
         const newValue = createIteration();
         setIterations({
@@ -175,7 +185,7 @@ const Repeater = props => {
             ...newValue
         })
     }
-
+    //Delete an iteration from the state
     const deleteIterationByKey = ( key ) => {
         let updatedIterations = {...iterations};
         delete updatedIterations[ key ];
@@ -230,6 +240,7 @@ const Repeater = props => {
                     </RepeaterSingleIteration>
                ))}                   
             </section>
+            {/* By default, there is an add button */}
             <div className="d-flex justify-content-end">
                 <Button type="button" onClick={addNewIteration} className="m-0">Ajouter</Button>
             </div>

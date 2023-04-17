@@ -66,7 +66,7 @@ const Select2Tag = ({name, formTools, ...props}) => {
                     const formatedObj = formState.inputs[name].value.map(obj => ({[props.idField] : obj}));
                     entitiesList.current.push(...formatedObj);
 
-                    console.warning("WARNING : Select 2 tags transmuted the data. It received the formstate as { searchField: {data} }, instead of { idField: { searchField : {data} } }.");
+                    console.warn("WARNING : Select 2 tags transmuted the data. It received the formstate as { searchField: {data} }, instead of { idField: { searchField : {data} } }.");
                     return {value: elem._id, label: elem[props.searchField]}
                 }
 

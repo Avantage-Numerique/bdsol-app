@@ -1,11 +1,18 @@
 import React from 'react' 
+import Router from "next/router";
+
 
 //Components
 import SanitizedInnerHtml from '@/src/utils/SanitizedInnerHtml';
 import SearchTag from '@/src/common/Components/SearchTag';
+import Button from "@/FormElements/Button/Button";
+
 
 //Styling 
 import styles from './OrganisationSimple.module.scss';
+
+
+
 import Single from "@/DataTypes/common/layouts/single/Single";
 import CreateOrganisationForm from "@/DataTypes/Organisation/components/forms/CreateOrganisationForm/CreateOrganisationForm";
 import {lang} from "@/common/Data/GlobalConstants";
@@ -14,11 +21,16 @@ import {useModal} from "@/src/hooks/useModal/useModal";
 import {SingleEntityStatus} from "@/DataTypes/Status/Components/SingleEntityStatus";
 import DateWidget from "@/common/widgets/DateWidget/DateWidget";
 import AppRoutes from "@/src/Routing/AppRoutes";
+import UpdateOffers from '@/src/DataTypes/Organisation/components/forms/UpdateOffers/UpdateOffers';
+
 
 
 const OrganisationSingle = ({ data }) => {
 
     const defaultOrgAvatar = '/general_images/Jurassic_Park_Main_Gate.jpg';
+
+    const { modal, Modal, displayModal, closeModal } = useModal();
+
 
     //Destructuring of data's prop
     const {
@@ -41,12 +53,15 @@ const OrganisationSingle = ({ data }) => {
         //_id
     } = data;
 
+    console.log("data", data)
+ 
     const ModalComponent = CreateOrganisationForm;
     const modalComponentParams = {
         uri:"update"
     };
 
     const imgModalControl = useModal();
+
 
     const headerMainContent = (
         <div className={`${styles["quick-section"]}`}>
@@ -94,23 +109,48 @@ const OrganisationSingle = ({ data }) => {
                     <p className="small">{lang.noTeamMemberSetMessage}</p>
                 }
             </section>
+            <section>
+
+            </section>
 
             {/******** Display of the offer's list **********/}
-            { offers?.length > 0 &&
-                <section className="mt-4">
-                    <h4 className="h5 my-3">Services offerts</h4>
-                        <SearchTag
-                        className="row"
-                        list={offers}
-                        />
-                </section>
-            }
+            <section className="mt-4">
+                <h4 className="h5 my-3">Services offerts</h4>
+                    <SearchTag
+                    className="row"
+                    list={offers}
+                />
+                { offers?.length > 0 && offers.map(offer => (
+                    <article className={`d-flex flex-column p-2 mb-2 skill-group`}>
+                        <h5 className="text-dark mb-0 group-name">{offer.offer}</h5>
+                        {
+                            offer.skills && offer.skills.length > 0 &&
+                            <ul className="d-flex flex-wrap gap-1 mb-0 mt-2">
+                                {
+                                    offer.skills.map(skill => (
+                                    <li 
+                                        key={skill._id}
+                                        className={`skill`}
+                                    >{skill.name}</li>
+                                    ))
+                                }
+                            </ul>
+                        }
+                    </article>
+                ))}
+                { (!offers || offers?.length == 0) &&
+                    <p>Ajoutez une offre de services à votre organisation.</p>
+                }
+                <Button size="slim" onClick={() => displayModal()}>Modifier les groupes</Button>
+            </section>
+            
         </>
     );
 
     const singleInfoCommonClass = "border-bottom py-4";
 
     return (
+        <>
         <Single
             className={`single ${styles["organisation-view"]}`}
             aside={aside}
@@ -136,11 +176,34 @@ const OrganisationSingle = ({ data }) => {
                     </SanitizedInnerHtml>
                 </SingleInfo>
             }
+
             {
                 (createdAt || updatedAt || status) &&
                 <SingleEntityStatus className={singleInfoCommonClass} createdAt={createdAt} updatedAt={updatedAt} status={status} />
             }
         </Single>
+
+        {
+            modal.display &&
+            <Modal>
+                <div className="d-flex mb-3">
+                    <h3 className="text-blue4">Éditez vos groupes de compétences</h3>
+                    <Button type="button" onClick={closeModal}>Fermer</Button>
+                </div>
+                
+                <UpdateOffers 
+                    parentEntity={data}  
+                    positiveRequestActions={{
+                        callbackFunction: (requestResponse) => {
+                            closeModal();
+                            Router.push(window.location.href);
+                        },
+                        displayResMessage: true     //Display a message to the user to confirm the succes
+                    }}
+                />
+            </Modal>
+        }
+        </>
     )
 }
 

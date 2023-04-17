@@ -11,17 +11,14 @@ import {useAuth} from '@/auth/context/auth-context';
 import Button from "@/FormElements/Button/Button"
 import Input from '@/src/common/FormElements/Input/Input';
 import Select2Tag from '@/src/common/FormElements/Select2/Select2Tag';
-import Icon from '@/src/common/widgets/Icon/Icon';
+//import Icon from '@/src/common/widgets/Icon/Icon';
 import Repeater from '@/src/common/FormElements/Repeater/Repeater';
 
 //styling
-import styles from './UpdateSkillGroup.module.scss';
+import styles from './UpdateOffers.module.scss';
 
 
-const UpdateSkillGroup = ({parentEntity, positiveRequestActions}) => {
-
-    //Import the authentication context to make sure the user is well connected
-    const auth = useAuth();
+const UpdateOffers = ({parentEntity, positiveRequestActions}) => {
     
     const {FormUI, submitRequest, formState, formTools} = useFormUtils({
         skillGoups: {
@@ -41,7 +38,7 @@ const UpdateSkillGroup = ({parentEntity, positiveRequestActions}) => {
         const formattedOccupations = formState.inputs.skillGoups.value.map(function(occ){
             return {
                 status: occ.status,
-                occupation: occ.value.occupation.value,
+                offer: occ.value.offer.value,
                 skills: occ.value.skills.value.map(skill => skill.skill._id)
             }
         })
@@ -49,14 +46,14 @@ const UpdateSkillGroup = ({parentEntity, positiveRequestActions}) => {
         const formData = {
             "data": {
                 id: parentEntity._id,
-                occupations: formattedOccupations,
+                offers: formattedOccupations,
                 status: parentEntity.status
             }
         }
         
         //Add data to the formData
         await submitRequest(
-            "/persons/update",
+            "/organisations/update",
             'POST',
             formData
         );
@@ -66,11 +63,13 @@ const UpdateSkillGroup = ({parentEntity, positiveRequestActions}) => {
     return (
         <form className="w-100">
 
+                <FormUI />
+
                 <Repeater
                     formTools={formTools}
                     name="skillGoups"
                     formInitStructure={{
-                        occupation: {
+                        offer: {
                             value: "",
                             isValid: false
                         },
@@ -79,7 +78,7 @@ const UpdateSkillGroup = ({parentEntity, positiveRequestActions}) => {
                             isValid: true
                         }
                     }}
-                    initValues={parentEntity.occupations}
+                    initValues={parentEntity.offers}
                 >
                     <article className={`
                         row border border-1 rounded p-2 my-2 bg-white
@@ -91,8 +90,8 @@ const UpdateSkillGroup = ({parentEntity, positiveRequestActions}) => {
                             ${styles["skill-group-inputs-container"]}
                         `}>
                             <Input 
-                                label="Nom de groupe"
-                                name="occupation"
+                                label="Nom de l'offre"
+                                name="offer"
                                 validationRules={[
                                     {name: "REQUIRED"}
                                 ]}
@@ -130,4 +129,4 @@ const UpdateSkillGroup = ({parentEntity, positiveRequestActions}) => {
 };
 
 
-export default UpdateSkillGroup;
+export default UpdateOffers;
