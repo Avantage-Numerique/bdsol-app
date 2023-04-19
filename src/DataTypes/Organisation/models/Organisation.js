@@ -1,6 +1,6 @@
 import EntityModel, {TYPE_DEFAULT} from "@/DataTypes/Entity/models/EntityModel";
-import organisationSimple from "@/DataTypes/Organisation/components/layouts/simple/OrganisationSimple";
-import organisationSingle from "@/DataTypes/Organisation/components/layouts/single/OrganisationSingle";
+import OrganisationSimple from "@/DataTypes/Organisation/components/layouts/simple/OrganisationSimple";
+import OrganisationSingle from "@/DataTypes/Organisation/components/layouts/single/OrganisationSingle";
 
 export const TYPE_ORGANISATION = "Organisation";
 
@@ -19,8 +19,8 @@ class Organisation extends EntityModel {
         params.showMeta = params.showMeta ?? true;
         params.showStatus = params.showStatus ?? true;
 
-        this.simpleComponent = organisationSimple;
-        this.singleComponent = organisationSingle;
+        this.simpleComponent = OrganisationSimple;
+        this.singleComponent = OrganisationSingle;
 
         //sets all the rest as a this[key] = raw[key] value.
         this.setProperties(raw);

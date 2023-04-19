@@ -15,8 +15,8 @@ class EntityModel {
 
         this._type = raw.type ?? TYPE_DEFAULT;
 
-        this._simpleComponent = raw.simpleComponent ?? undefined;
-        this._singleComponent = raw.singleComponent ?? undefined;
+        this.simpleComponent = raw.simpleComponent ?? undefined;
+        this.singleComponent = raw.singleComponent ?? undefined;
     }
 
 

@@ -1,7 +1,7 @@
 import React from 'react'
 import styles from './singleMedia.module.scss';
 import {withSessionSsr} from "@/auth/session/handlers/withSession";
-import SingleMedia from "@/DataTypes/Media/layouts/SingleMedia";
+import MediaSingle from "@/DataTypes/Media/layouts/MediaSingle";
 import {externalApiRequest} from "@/src/hooks/http-hook";
 import {getUserHeadersFromUserSession} from "@/auth/context/auth-context";
 import AppRoutes from "@/src/Routing/AppRoutes";
@@ -12,7 +12,7 @@ const SingleMediaPage = (props) => {
         <div className={`single-container ${styles["single-media"]}`}>
             <div className="maxWidthPageContainer">
 
-                <SingleMedia data={props} />
+                <MediaSingle data={props} />
 
             </div>
         </div>
@@ -38,7 +38,7 @@ export async function mediaSlugSSProps(context) {
         response.data.url = process.env.NEXT_PUBLIC_API_URL + response.data.url;
         return { props: response.data };
     }
-
+    // temp data to push somehting, if an arror occur.
     return {
         props: {
             slug: slug,

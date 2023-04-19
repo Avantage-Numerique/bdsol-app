@@ -1,6 +1,7 @@
 import React from "react";
 import Person, {TYPE_PERSON} from "@/DataTypes/Person/Models/Person";
 import Organisation, {TYPE_ORGANISATION} from "@/DataTypes/Organisation/models/Organisation";
+import Project, {TYPE_PROJECT} from "@/DataTypes/Project/models/Project";
 
 /**
  * It's the grid to use in the repertory view.
@@ -15,6 +16,7 @@ const EntitiesGrid = ({feed, className, columnClass}) => {
     const entities = new Map();
     entities.set(TYPE_PERSON, Person);
     entities.set(TYPE_ORGANISATION, Organisation);
+    entities.set(TYPE_PROJECT, Project);
 
     const colContainerClass = columnClass ?? "col g-3";
 
@@ -27,9 +29,10 @@ const EntitiesGrid = ({feed, className, columnClass}) => {
                     const modelClass = entities.get(entity.type);
                     const model = new modelClass(entity);
                     const SimpleComponent = model.simpleComponent;
+
                     return (
                         <div className={`${colContainerClass}`} key={"container"+model.type+model._id + "-" + model.slug+index}>
-                            <SimpleComponent data={model} key={"simple"+model.type+model._id + "-" + model.slug+index} />
+                            <SimpleComponent data={entity} key={"simple"+model.type+model._id + "-" + model.slug+index} />
                         </div>
                     )
                 })

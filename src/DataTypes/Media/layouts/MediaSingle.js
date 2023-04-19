@@ -1,9 +1,11 @@
-import React from "react";
+import React, {useCallback} from "react";
 import LicenceDisplay from '@/src/common/FormElements/SelectLicence/LicenceDisplay';
 
 //Components
 import Single from "@/DataTypes/common/layouts/single/Single";
 import Button from "@/FormElements/Button/Button"
+import {SingleEntityStatus} from "@/DataTypes/Status/Components/SingleEntityStatus";
+import {getEntityBaseRouteName, getEntityURI} from "@/src/utils/EntityURI";
 
 //hooks
 //import { useModal } from '@/src/hooks/useModal/useModal';
@@ -12,7 +14,8 @@ import Button from "@/FormElements/Button/Button"
 import SanitizedInnerHtml from "@/src/utils/SanitizedInnerHtml";
 
 //Styling
-import styles from './singleMediaView.module.scss';
+import styles from './MediaSingle.module.scss';
+import AppRoutes from "@/src/Routing/AppRoutes";
 
 
 const SingleInfoLayout = ({ title, NAMessage="-", children }) => {
@@ -28,10 +31,9 @@ const SingleInfoLayout = ({ title, NAMessage="-", children }) => {
     )
 }
 
-const SingleMediaView = ({ data }) => {
+const MediaSingle = ({ data, route }) => {
 
     //const { Modal, closeModal } = useModal();
-
     const aside = (
         <>
             <SingleInfoLayout
@@ -43,7 +45,11 @@ const SingleMediaView = ({ data }) => {
 
             <SingleInfoLayout
                 title={"Associé à l'entité"}>
-                <SanitizedInnerHtml tag={"span"}>{data.entityId}</SanitizedInnerHtml>
+                <a href={getEntityURI(data.entityId.type, data.entityId.slug)} title={data.entityId.name}>
+                    <SanitizedInnerHtml tag={"span"}>
+                        {data.entityId.name}
+                    </SanitizedInnerHtml>
+                </a>
             </SingleInfoLayout>
             <div className="d-flex flex-wrap gap-2">
                 <Button size="slim-100">Modifier le contenu</Button>
@@ -52,6 +58,7 @@ const SingleMediaView = ({ data }) => {
             </div>
         </>
     )
+
     const headerMainContent = (
         <div className={`${styles["quick-section"]}`}>
             <h1>{data.title}</h1>
@@ -65,7 +72,29 @@ const SingleMediaView = ({ data }) => {
         </div>
     )
 
-    //const modalComponent = undefined;
+    const singleInfoCommonClass = "border-bottom py-4";
+
+    const getHrefGenerator = useCallback(() => {
+        return {
+            "[slug]": data?.slug ?? "no-set",
+            "[person.slug]": data?.entityId?.slug ?? "no-set",
+            "[organisation.slug]": data?.entityId?.slug ?? "no-set",
+            "persons": "persons",
+            "organisations": "organisations",
+        };
+    }, []);
+
+    const getLabelGenerator = useCallback((param, query) => {
+        return {
+            "slug": () => data?.title ?? "title must be set",
+            "person.slug": () => data.entityId?.name ?? "Personne",
+            "organisation.slug": () => data.entityId?.name ?? "Organisation",
+            "persons": () => "Personnes",
+            "organisations": () => "Organisations",
+        }[param];
+    }, []);
+
+    const mediaRoute = route ?? AppRoutes[`${data.entityType.toLowerCase()}SingleMedia`];//AppRoutes.personneSingleMedia;//
 
     return (
         <Single
@@ -73,13 +102,17 @@ const SingleMediaView = ({ data }) => {
             aside={aside}
             headerMainContent={headerMainContent}
             entity={data}
-            modalComponent={""}
             showCTA={false}
             showMainImageInHeader={false}
             showUpdateMenu={false}
             mainImageClass={"header-content__media-preview"}
+            title={`${data.title}`}
+            route={mediaRoute}
+            breadcrumbParams={{
+                labelGenerator: getLabelGenerator,
+                hrefGenerator: getHrefGenerator
+            }}
         >
-
             <div className={`single-media-main-image`}>
                 <figure className={`position-relative d-flex justify-content-center ${styles["single-media-container"]}`}>
                     <div className={`position-absolute top-0 start-0 w-100 h-100 ${styles["single-media-container__behind-img"]}`}>
@@ -98,33 +131,14 @@ const SingleMediaView = ({ data }) => {
                 title={"Description"}>
                 <SanitizedInnerHtml tag={"span"}>{data.description}</SanitizedInnerHtml>
             </SingleInfoLayout>
-
-
             {
-                data.status && data.status.state &&
-                <SingleInfoLayout
-                    title="Statut de l'entité"
-                    NAMessage={ data.status.state === 'accepted' ? "Acceptée" : "En attente d'approbation"}>
-                </SingleInfoLayout>
+                (data.createdAt || data.updatedAt || data.status) &&
+                <SingleEntityStatus className={singleInfoCommonClass} createdAt={data.createdAt} updatedAt={data.updatedAt} status={data.status} />
             }
 
-            {
-                data.status && data.status.requestedBy &&
-                <SingleInfoLayout
-                    title={"Créer par"}
-                    NAMessage={ <p>{ "Numéro d'identification de l'utilisateur : " + data.status.requestedBy}</p>}>
-                </SingleInfoLayout>
-            }
-            {
-                data.status && data.status.lastModifiedBy &&
-                <SingleInfoLayout
-                    title={"Dernière modifications par"}
-                    NAMessage={ <p>{"Numéro d'identification de l'utilisateur : " + data.status.lastModifiedBy}</p>}>
-                </SingleInfoLayout>
-            }
         </Single>
     )
 }
 
 
-export default SingleMediaView
+export default MediaSingle
