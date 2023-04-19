@@ -2,7 +2,7 @@ import EntityModel, {TYPE_DEFAULT} from "@/DataTypes/Entity/models/EntityModel";
 import organisationSimple from "@/DataTypes/Organisation/components/layouts/simple/OrganisationSimple";
 import organisationSingle from "@/DataTypes/Organisation/components/layouts/single/OrganisationSingle";
 
-const TYPE_ORGANISATION = "Organisation";
+export const TYPE_ORGANISATION = "Organisation";
 
 class Organisation extends EntityModel {
 

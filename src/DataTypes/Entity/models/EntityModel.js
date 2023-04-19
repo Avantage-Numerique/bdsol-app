@@ -29,6 +29,9 @@ class EntityModel {
     get type () {
         return this._type;
     }
+    set type(value) {
+        this._type = value;
+    }
 
     /**
      * Get the simple component
@@ -37,6 +40,9 @@ class EntityModel {
     get simpleComponent() {
         return this._simpleComponent;
     }
+    set simpleComponent(component) {
+        this._simpleComponent = component;
+    }
 
     /**
      * Get the single component
@@ -44,6 +50,9 @@ class EntityModel {
      */
     get singleComponent() {
         return this._singleComponent;
+    }
+    set singleComponent(component) {
+        this._singleComponent = component;
     }
 
 

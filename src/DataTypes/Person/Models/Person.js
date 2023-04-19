@@ -2,7 +2,7 @@ import personSimple from "@/DataTypes/Person/Components/layouts/simple/PersonSim
 import personSingle from "@/DataTypes/Person/Components/layouts/single/PersonSingle";
 import EntityModel, {TYPE_DEFAULT} from "@/DataTypes/Entity/models/EntityModel";
 
-const TYPE_PERSON = "Person";
+export const TYPE_PERSON = "Person";
 
 class Person extends EntityModel {
 
