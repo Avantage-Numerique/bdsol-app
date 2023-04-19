@@ -55,7 +55,7 @@ class EntityModel {
      */
     setProperties(raw) {
         for (const key in raw) {
-            this.defineModelProperty(key, raw[key]);
+            this.definePropertyIfNotOwned(key, raw[key]);
         }
     }
 
@@ -66,8 +66,8 @@ class EntityModel {
      * @param value {any}
      * @return none
      */
-    defineModelProperty(property, value) {
-        if (!this.hasOwnProperty(key)) {
+    definePropertyIfNotOwned(property, value) {
+        if (!this.hasOwnProperty(property)) {
             Object.defineProperty(this, property, {
                 value: value,
                 enumerable: true,
