@@ -4,7 +4,7 @@ import React from 'react';
 import KebabButton from '@/common/FormElements/KebabButton/KebabButton'
 
 //Styling
-import styles from './AbstractSimple.module.scss';
+import styles from './EntitySimple.module.scss';
 
 /********* 
  * 
@@ -15,7 +15,7 @@ import styles from './AbstractSimple.module.scss';
 */
 
 
-const AbstractSimple = props => {
+const EntitySimple = props => {
 
     /**** Deconstructiong props ******/
     const {
@@ -46,9 +46,7 @@ const AbstractSimple = props => {
                                 <figure>
 
                                 </figure>
-                                <div>
-                                    
-                                </div>
+                                <div className={`position-absolute w-100 h-100 no-pointer-events ${styles["radient-cover"]}`}></div>
                             </div>
                         }
                     </>
@@ -63,4 +61,4 @@ const AbstractSimple = props => {
     )
 }
 
-export default AbstractSimpl
+export default EntitySimple
