@@ -22,6 +22,7 @@ import Icon from "@/common/widgets/Icon/Icon";
  * @param props.idField {string} field the id should go in ==> select tag set formState value to [ { idField : value, status: {statusObject} }.
  * @param props.searchField {any} The name of the field to make the search on
  * @param props.validators
+ * @param props.className {string} Allow us to add element to the class names from outside
  * @param props.fetch {string} the url to fetch from
  * @param props.label {string} When mentionned, add a label on top of the select field
  * @param props.requestData {object} the objet to send for the first request
@@ -184,7 +185,7 @@ const Select2Tag = ({name, formTools, ...props}) => {
     const colourStyles = selectStyle(); //From our styling factory
 
     return (
-        <div className={`${styles["select"]}`}> 
+        <div className={`${props.className && props.className} ${styles["select"]}`}> 
 
             {/************ field label ************/}
             { props.label && 

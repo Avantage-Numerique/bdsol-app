@@ -22,7 +22,7 @@ import {SingleEntityStatus} from "@/DataTypes/Status/Components/SingleEntityStat
 import DateWidget from "@/common/widgets/DateWidget/DateWidget";
 import AppRoutes from "@/src/Routing/AppRoutes";
 import UpdateOffers from '@/src/DataTypes/Organisation/components/forms/UpdateOffers/UpdateOffers';
-
+import UpdateTeams from '@/src/DataTypes/Organisation/components/forms/UpdateTeams/UpdateTeams';
 
 
 const OrganisationSingle = ({ data }) => {
@@ -116,9 +116,6 @@ const OrganisationSingle = ({ data }) => {
                     <p className="small">{lang.noTeamMemberSetMessage}</p>
                 }
             </section>
-            <section>
-
-            </section>
 
             {/******** Display of the offer's list **********/}
             <section className="mt-4">
@@ -197,7 +194,7 @@ const OrganisationSingle = ({ data }) => {
                 { !team &&
                     <p>Vous pouvez ajouter des équipes à votre organisation.</p>
                 }
-
+                <Button onClick={teamsModal.displayModal}>Ajouter des membres à l'équipe</Button>
             </SingleInfo>
 
 
@@ -226,6 +223,27 @@ const OrganisationSingle = ({ data }) => {
                     }}
                 />
             </offersModal.Modal>
+        }
+
+        {
+            teamsModal.modal.display &&
+            <teamsModal.Modal>
+                <div className="d-flex mb-3">
+                    <h3 className="text-blue4">Éditez les membres de votre équipe</h3>
+                    <Button type="button" onClick={teamsModal.closeModal}>Fermer</Button>
+                </div>
+                
+                <UpdateTeams 
+                    parentEntity={data}  
+                    positiveRequestActions={{
+                        callbackFunction: (requestResponse) => {
+                            teamsModal.closeModal();
+                            Router.push(window.location.href);
+                        },
+                        displayResMessage: true     //Display a message to the user to confirm the succes
+                    }}
+                />
+            </teamsModal.Modal>
         }
         </>
     )

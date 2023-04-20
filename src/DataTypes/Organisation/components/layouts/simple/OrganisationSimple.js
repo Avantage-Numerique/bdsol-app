@@ -1,13 +1,11 @@
 import React from "react"
 import getConfig from 'next/config';
 
-
 /***  Components  ****/
 import Simple from '@/DataTypes/common/layouts/simple/Simple'
 import SanitizedInnerHtml from '@/src/utils/SanitizedInnerHtml';
 import KebabButton from '@/common/FormElements/KebabButton/KebabButton'
 import SearchTag from "@/src/common/Components/SearchTag";
-
 
 /***  Local styling ***/
 import styles from './OrganisationSimple.module.scss'
@@ -34,8 +32,7 @@ const OrganisationSimple = ({ data }) => {
     } = data;
 
     const link = `/organisations/${slug}`;
-    const type = lang.Organisation;//"Organisation";
-
+    const type = lang.Organisation; //"Organisation";
     const defaultOrgAvatar = '/general_images/Jurassic_Park_Main_Gate.jpg';
     const mainImageAbsoluteUrl = mainImage?.url ? process.env.NEXT_PUBLIC_API_URL + mainImage.url : defaultOrgAvatar;
 
@@ -93,7 +90,6 @@ const OrganisationSimple = ({ data }) => {
                         max={3}
                         list={offers}
                     />
-                
                 </section>
                 }
 
@@ -112,7 +108,6 @@ const OrganisationSimple = ({ data }) => {
                     </div>
                 </footer>
             </div>
-
         </Simple>
     )
 }

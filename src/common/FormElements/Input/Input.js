@@ -9,6 +9,16 @@ import Tip from '@/common/FormElements/Tip/Tip';
 //Styling
 import styles from './Input.module.scss';
 
+/**
+*
+ * @param props.validators
+ * @param props.className {string} Allow us to add element to the class names from outside
+
+ *
+ * @description `search field` is set for, `idField` is set for
+ *
+ * @constructor
+ */
 
 
 const Input = ({name, formTools, ...props}) => {
@@ -54,7 +64,7 @@ const Input = ({name, formTools, ...props}) => {
 
  
     return (
-        <div className={`${styles["input-component"]}`}>  
+        <div className={`${props.className && props.className} ${styles["input-component"]}`}>  
             <div className={`${styles["input-component__label-container"]}`} >
                 <label 
                     htmlFor={name}

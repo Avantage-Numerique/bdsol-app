@@ -17,7 +17,7 @@ const UpdateTeams = ({parentEntity, positiveRequestActions}) => {
 
     const {FormUI, submitRequest, formState, formTools} = useFormUtils(
         {
-            teams: {
+            team: {
                 value: [],
                 isValid: true
             },
@@ -32,11 +32,11 @@ const UpdateTeams = ({parentEntity, positiveRequestActions}) => {
         
         event.preventDefault();
 
-        const formattedTeams = formState.inputs.teams.value.map(function(team){
+        const formattedTeams = formState.inputs.team.value.map(function(singleTeam){
             return {
-                status: team.status,
-                offer: team.value.offer.value,
-                skills: team.value.skills.value.map(skill => skill.skill._id)
+                status: singleTeam.status,
+                member: singleTeam.value.member.value,
+                role: singleTeam.value.role.value
             }
         })
 
@@ -58,26 +58,53 @@ const UpdateTeams = ({parentEntity, positiveRequestActions}) => {
     }
 
     return (
-        <form className="w-100">
+        <form className={`${styles["update-teams"]} w-100 container p-0`}>
             <FormUI />
             <Repeater
-                    formTools={formTools}
-                    name="teams"
-                    formInitStructure={{
-                        offer: {
-                            value: "",
-                            isValid: false
-                        },
-                        skills: {
-                            value: [],
-                            isValid: true
-                        }
-                    }}
-                    initValues={parentEntity.offers}
-                >
+                formTools={formTools}
+                name="team"
+                formInitStructure={{
+                    member: {
+                        value: "",
+                        isValid: false
+                    },
+                    role: {
+                        value: "",
+                        isValid: true
+                    }
+                }}
+                initValues={parentEntity.team}
+            >
+                <div className={`${styles["team-member-row"]} d-flex align-items-center mb-2 border-b row py-2`}>
 
-
-                
+                    <Select2Tag
+                            className="col col-lg-2"
+                            label="Personne"
+                            searchField="name"
+                            fetch="/persons/list"
+                            requestData={{name:""}}
+                            validationRules={[
+                                {name: "REQUIRED"}
+                            ]}
+                            name="member"
+                            idField="member"
+                        />
+                    <Input 
+                        className="col col-lg-2"
+                        label="Rôle dans l'équipe"
+                        name="role"
+                    />
+                    <div className="col col-auto">
+                        <Button 
+                            repeaterDeleteElem={true}
+                            type="button" 
+                            color="danger" 
+                            size="slim"
+                        >
+                            &#x2716;
+                        </Button>
+                    </div>
+                </div>
             </Repeater>
         </form>
     )
