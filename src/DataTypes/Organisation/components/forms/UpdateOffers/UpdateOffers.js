@@ -100,7 +100,7 @@ const UpdateOffers = ({parentEntity, positiveRequestActions}) => {
                                 label="Attribuer des compétences"
                                 searchField="name"
                                 fetch="/taxonomies/list"
-                                requestData={{category:"occupations", name:""}}
+                                requestData={{name:""}}
                                 name="skills"
                                 idField="skill"
                             />

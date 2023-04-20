@@ -10,6 +10,9 @@ import Button from "@/FormElements/Button/Button"
 import {useAuth} from '@/auth/context/auth-context';
 import {getDefaultCreateEntityStatus} from "@/DataTypes/Status/EntityStatus";
 
+//styles
+import styles from './Repeater.module.scss'
+
 //Recursive function to create the children with the proper values
 const iterateOverChildren = (children, formInitSubStructure, formTools, deleteIteration) => {
     return React.Children.map((children), (child) => {
@@ -227,7 +230,7 @@ const Repeater = props => {
 
     return (
         <>  
-            <section>
+            <section className={`${styles["repeater"]}`}>
                {sortedIterationsArray.map(iteration => (
                     <RepeaterSingleIteration 
                         key={iteration.key} 

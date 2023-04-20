@@ -1,0 +1,7 @@
+.repeater {
+    //Styling to make sure that the dropdown of any Select2 component is displayed in front of the siblings
+    > *:focus-within {
+        position:relative; 
+        z-index: 10;
+    }
+}

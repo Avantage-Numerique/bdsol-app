@@ -29,7 +29,20 @@ const OrganisationSingle = ({ data }) => {
 
     const defaultOrgAvatar = '/general_images/Jurassic_Park_Main_Gate.jpg';
 
-    const { modal, Modal, displayModal, closeModal } = useModal();
+    /**********
+     * 
+     *  Modals declarations 
+     * 
+     *  EX : { modal, Modal, displayModal, closeModal } = useModal();
+     * 
+     */ 
+    const ModalComponent = CreateOrganisationForm;
+    const modalComponentParams = {
+        uri:"update"
+    };
+    const imgModalControl = useModal();
+    const offersModal = useModal();
+    const teamsModal = useModal();
 
 
     //Destructuring of data's prop
@@ -54,13 +67,7 @@ const OrganisationSingle = ({ data }) => {
     } = data;
 
     console.log("data", data)
- 
-    const ModalComponent = CreateOrganisationForm;
-    const modalComponentParams = {
-        uri:"update"
-    };
 
-    const imgModalControl = useModal();
 
 
     const headerMainContent = (
@@ -141,7 +148,7 @@ const OrganisationSingle = ({ data }) => {
                 { (!offers || offers?.length == 0) &&
                     <p>Ajoutez une offre de services à votre organisation.</p>
                 }
-                <Button size="slim" onClick={() => displayModal()}>Modifier les groupes</Button>
+                <Button size="slim" onClick={() => offersModal.displayModal()}>Modifier les groupes</Button>
             </section>
             
         </>
@@ -168,6 +175,7 @@ const OrganisationSingle = ({ data }) => {
                     title: `${name}`
                 }}
         >
+
             {
                 description &&
                 <SingleInfo className={singleInfoCommonClass} title={lang.singleDescriptionLabel}>
@@ -177,6 +185,22 @@ const OrganisationSingle = ({ data }) => {
                 </SingleInfo>
             }
 
+            {/* Team display */}
+            <SingleInfo title={"Équipe"}> 
+                { team && team.length > 0 &&
+                    team.map(t => (
+                        <ul>
+                            <li>Team</li>
+                        </ul>
+                    ))
+                }
+                { !team &&
+                    <p>Vous pouvez ajouter des équipes à votre organisation.</p>
+                }
+
+            </SingleInfo>
+
+
             {
                 (createdAt || updatedAt || status) &&
                 <SingleEntityStatus className={singleInfoCommonClass} createdAt={createdAt} updatedAt={updatedAt} status={status} />
@@ -184,24 +208,24 @@ const OrganisationSingle = ({ data }) => {
         </Single>
 
         {
-            modal.display &&
-            <Modal>
+            offersModal.modal.display &&
+            <offersModal.Modal>
                 <div className="d-flex mb-3">
                     <h3 className="text-blue4">Éditez vos groupes de compétences</h3>
-                    <Button type="button" onClick={closeModal}>Fermer</Button>
+                    <Button type="button" onClick={offersModal.closeModal}>Fermer</Button>
                 </div>
                 
                 <UpdateOffers 
                     parentEntity={data}  
                     positiveRequestActions={{
                         callbackFunction: (requestResponse) => {
-                            closeModal();
+                            offersModal.closeModal();
                             Router.push(window.location.href);
                         },
                         displayResMessage: true     //Display a message to the user to confirm the succes
                     }}
                 />
-            </Modal>
+            </offersModal.Modal>
         }
         </>
     )
