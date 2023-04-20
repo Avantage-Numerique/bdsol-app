@@ -1,17 +1,16 @@
-import PersonSimple from "@/DataTypes/Person/Components/layouts/simple/PersonSimple";
-import PersonSingle from "@/DataTypes/Person/Components/layouts/single/PersonSingle";
 import EntityModel, {TYPE_DEFAULT} from "@/DataTypes/Entity/models/EntityModel";
+import MediaSingle from "@/DataTypes/Media/layouts/MediaSingle";
 
-export const TYPE_PERSON = "Person";
+export const TYPE_MEDIA = "Media";
 
-class Person extends EntityModel {
+class Media extends EntityModel {
 
     constructor(raw, params={}) {
         super(raw);
-        this.title = raw.fullname ?? "";
+        this.title = raw.name ?? "";
         this.description = raw.description ?? "";
         this.mainImage = raw.mainImage;
-        this.type = raw.type === TYPE_PERSON ? TYPE_PERSON : TYPE_DEFAULT;//Wrong data sent here.
+        this.type = raw.type === TYPE_PROJECT ? TYPE_PROJECT : TYPE_DEFAULT;//Wrong data sent here.
         //this.taxonomies = new Map();
         //this.taxonomies.set("domains", raw.domains);
         //this.taxonomies.set("skills", raw.skills);
@@ -19,8 +18,8 @@ class Person extends EntityModel {
         params.showMeta = params.showMeta ?? true;
         params.showStatus = params.showStatus ?? true;
 
-        this.simpleComponent = PersonSimple;
-        this.singleComponent = PersonSingle;
+        //this.simpleComponent = MediaSimple;//this is not planned yet. Could be when we do a grid of media in project.
+        this.singleComponent = MediaSingle;
 
         //sets all the rest as a this[key] = raw[key] value.
         this.setProperties(raw);
@@ -28,4 +27,4 @@ class Person extends EntityModel {
 
 }
 
-export default Person;
+export default Media;

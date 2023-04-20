@@ -2,15 +2,14 @@ import React, {useContext, useEffect, useState} from 'react';
 
 import DOMPurify from 'isomorphic-dompurify';
 import Head from 'next/head';
+import {lang} from "@/src/common/Data/GlobalConstants";
 
 //Components
 import Button from '@/src/common/FormElements/Button/Button'
-//import PresentationCard from '@/src/common/Containers/cards/presentationCard'
 import Spinner from '@/src/common/widgets/spinner/Spinner'
-import PersonSimple from '@/DataTypes/Person/Components/layouts/simple/PersonSimple'
-import OrganisationSimple from '@/DataTypes/Organisation/components/layouts/simple/OrganisationSimple'
-
 import {sortDescBy} from "@/src/common/Data/Sorting/Sort";
+import PageHeader from "@/src/layouts/Header/PageHeader";
+import EntitiesGrid from "@/DataTypes/Entity/layouts/EntitiesGrid";
 
 //Costum hooks 
 import {useHttpClient} from '@/src/hooks/http-hook';
@@ -21,8 +20,6 @@ import {useAuth} from '@/src/authentification/context/auth-context';
 
 //Styling
 //import styles from './home-page.module.scss'
-import {lang} from "@/src/common/Data/GlobalConstants";
-import PageHeader from "@/src/layouts/Header/PageHeader";
 
 
 const HomePage = ({}) => {
@@ -97,10 +94,6 @@ const HomePage = ({}) => {
         fetchHomeFeed();
     }, [])
 
-
-    const gridComponenents = new Map();
-    gridComponenents.set("Person", PersonSimple);
-    gridComponenents.set("Organisation", OrganisationSimple);
 
     /****************************
      LD+Json data
@@ -188,22 +181,11 @@ const HomePage = ({}) => {
                                             <h5>{lang.noResult}</h5>
                                         </div>
                                     }
-                                    <div className="row home-page__feed-section--container row-cols-1 row-cols-sm-2 row-cols-xl-3">
-
-                                            {/* Display feed if there is one */}
-                                            {
-                                                feedList.length > 0 && !isLoading &&
-                                                feedList.map((elem, index) => {
-                                                    let TargetSimpleComponent = gridComponenents.get(elem.type);
-                                                    TargetSimpleComponent = TargetSimpleComponent ?? OrganisationSimple;
-                                                    return (
-                                                        <div className="col g-3" key={"container"+elem.type+elem._id + "-" + elem.slug+index}>
-                                                            <TargetSimpleComponent data={elem} key={"simple"+elem.type+elem._id + "-" + elem.slug+index} />
-                                                        </div>
-                                                    )
-                                                })
-                                            }
-                                    </div>
+                                    {/*  Show the feed in the EntitiesGrid component. It manages an empty list in it, but it make it more readable to show it here too */}
+                                    {
+                                        feedList.length > 0 && !isLoading &&
+                                        <EntitiesGrid className={"row home-page__feed-section--container row-cols-1 row-cols-sm-2 row-cols-xl-3"} columnClass={"col g-3"} feed={feedList}/>
+                                    }
                                 </>
                             }
                         </section>
