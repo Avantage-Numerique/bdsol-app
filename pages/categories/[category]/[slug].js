@@ -1,6 +1,4 @@
 import { externalApiRequest } from '@/src/hooks/http-hook';
-import PersonSimple from '@/DataTypes/Person/Components/layouts/simple/PersonSimple'
-import OrganisationSimple from '@/DataTypes/Organisation/components/layouts/simple/OrganisationSimple'
 import PageHeader from "@/layouts/Header/PageHeader";
 import React, {useCallback} from "react";
 import {lang} from "@/common/Data/GlobalConstants";
@@ -12,6 +10,7 @@ import {useAuth} from "@/auth/context/auth-context";
 import Icon from "@/common/widgets/Icon/Icon";
 import AppRoutes from "@/src/Routing/AppRoutes";
 import {Breadcrumbs} from "@/common/Breadcrumbs/Breadcrumbs";
+import EntitiesGrid from "@/DataTypes/Entity/layouts/EntitiesGrid";
 
 
 export async function getServerSideProps(context) {
@@ -22,7 +21,6 @@ export async function getServerSideProps(context) {
         {
             method: 'GET',
         });
-
     const taxonomy = await externalApiRequest(
         `/taxonomies/${category}/${slug}`,
         {
@@ -103,10 +101,6 @@ const TaxonomiesSinglePage = (props) => {
     //  < NEEDED for BREADCRUMBS
 
 
-    const gridComponents = new Map();
-    gridComponents.set("person", PersonSimple);
-    gridComponents.set("organisation", OrganisationSimple);
-
     return (
         <div>
             <PageHeader
@@ -129,22 +123,10 @@ const TaxonomiesSinglePage = (props) => {
                     }
                 </p>
             </PageHeader>
-            <div className="row home-page__feed-section--container row-cols-1 row-cols-sm-2 row-cols-xl-3">
-                {
-                    data?.length > 0 ?
-                    data.map((elem, index) => {
-                        let TargetSimpleComponent = gridComponents.get(elem.type);
-                        TargetSimpleComponent = TargetSimpleComponent ?? OrganisationSimple;
-                        return (
-                            <div className="col g-3" key={"container"+elem.type+elem._id + "-" + elem.slug+index}>
-                                <TargetSimpleComponent data={elem} key={"simple"+elem.type+elem._id + "-" + elem.slug+index} />
-                            </div>
-                        )
-                    })
-                    :
-                    <h5 className={"py-4"}>{lang.noResult}</h5>
-                }
-            </div>
+
+            {/*  Show the feed in the EntitiesGrid component. It manages an empty list in it, but it make it more readable to show it here too */}
+            <EntitiesGrid className="row row-cols-1 row-cols-sm-2 row-cols-xl-3" columnClass={"col g-3"} feed={data}/>
+
             {
                 modal.display &&
                 <Modal

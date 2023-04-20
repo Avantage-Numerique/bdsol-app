@@ -2,6 +2,7 @@ import React from "react";
 import Person, {TYPE_PERSON} from "@/DataTypes/Person/Models/Person";
 import Organisation, {TYPE_ORGANISATION} from "@/DataTypes/Organisation/models/Organisation";
 import Project, {TYPE_PROJECT} from "@/DataTypes/Project/models/Project";
+import {lang} from "@/common/Data/GlobalConstants";
 
 /**
  * It's the grid to use in the repertory view.
@@ -13,6 +14,8 @@ import Project, {TYPE_PROJECT} from "@/DataTypes/Project/models/Project";
  */
 const EntitiesGrid = ({feed, className, columnClass}) => {
 
+    const ContainerTag = "div";
+
     const entities = new Map();
     entities.set(TYPE_PERSON, Person);
     entities.set(TYPE_ORGANISATION, Organisation);
@@ -21,9 +24,9 @@ const EntitiesGrid = ({feed, className, columnClass}) => {
     const colContainerClass = columnClass ?? "col g-3";
 
     return (
-        <div className={className}>
+        <ContainerTag className={className}>
             {
-                feed.length > 0 &&
+                feed.length > 0 ?
                 feed.map((entity, index) => {
 
                     const modelClass = entities.get(entity.type);
@@ -36,9 +39,10 @@ const EntitiesGrid = ({feed, className, columnClass}) => {
                         </div>
                     )
                 })
+                :
+                <h5 className={"py-4"}>{lang.noResult}</h5>
             }
-        </div>
-
+        </ContainerTag>
     )
 }
 
