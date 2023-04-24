@@ -120,26 +120,14 @@ const OrganisationSingle = ({ data }) => {
             {/******** Display of the offer's list **********/}
             <section className="mt-4">
                 <h4 className="h5 my-3">Services offerts</h4>
-                    <SearchTag
-                    className="row"
-                    list={offers}
-                />
+                    
                 { offers?.length > 0 && offers.map(offer => (
                     <article className={`d-flex flex-column p-2 mb-2 skill-group`}>
                         <h5 className="text-dark mb-0 group-name">{offer.offer}</h5>
-                        {
-                            offer.skills && offer.skills.length > 0 &&
-                            <ul className="d-flex flex-wrap gap-1 mb-0 mt-2">
-                                {
-                                    offer.skills.map(skill => (
-                                    <li 
-                                        key={skill._id}
-                                        className={`skill`}
-                                    >{skill.name}</li>
-                                    ))
-                                }
-                            </ul>
-                        }
+                            <SearchTag
+                                className="row"
+                                list={offer.skills}
+                            />
                     </article>
                 ))}
                 { (!offers || offers?.length == 0) &&
