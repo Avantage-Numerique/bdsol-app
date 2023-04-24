@@ -34,6 +34,18 @@ class EntityModel {
         this.description = raw.description ?? "no description set";
         this.mainImage = raw.mainImage ?? "no mainImage set";
 
+        //  URI to build URL : repertory, single base, single and contribute uri.
+        this.repertoryURI = raw.repertoryURI ?? "";
+        this.singleBaseURI = raw.singleBaseURI ?? "";
+        this.singleURI = raw.singleBaseURI ?? "";
+        this.contributeURI = raw.contributeBaseURI ?? "";
+
+        //  Routes associated with single base, single and contribute uri.
+        this.repertoryRoute = raw.repertoryRoute ?? "";
+        this.singleBaseRoute = raw.singleBaseRoute ?? "";
+        this.singleRoute = raw.singleRoute ?? "";
+        this.contributeRoute = raw.contributeRoute ?? "";
+
         this.defaultSimpleParams = {};
         this.defaultSingleParams = {};
 
@@ -47,7 +59,7 @@ class EntityModel {
     }
 
 
-    //  GETTER / SETTER
+    //  --- GETTER / SETTER ---
 
     /**
      * Get the type of the current model
@@ -164,7 +176,7 @@ class EntityModel {
     }
 
 
-    //  UTILS
+    //  --- UTILS ---
 
     /**
      * Declare all the model property to be accessible to it.

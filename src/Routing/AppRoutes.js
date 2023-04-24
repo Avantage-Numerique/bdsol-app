@@ -70,6 +70,28 @@ const AppRoutesRaw = {
         }
     },
 
+    projects : {
+        label: "Toutes les projets",
+        pathname: "/projets",
+        asPath: "/projets",
+    },
+    projectSingle : {
+        label: "Un projet",
+        pathname: "/projets/[slug]",
+        asPath: "/projets/[slug]"
+    },
+    projectSingleMedia : {
+        label: "Média d'un projet",
+        pathname: "/medias/[slug]",
+        asPath: "/medias/[slug]",
+        breadcrumbPathName: "/projets/[projet.slug]/[slug]",
+        breadcrumbAsPath: "/projets/[projet.slug]/[slug]",
+        breadcrumbQuery: {
+            slug: "slug",
+            mediaType: "main-image"
+        }
+    },
+
     apropos: {
         label: "À propos",
         pathname: "/a-propos",
