@@ -46,6 +46,8 @@ const Select2Tag = ({name, formTools, ...props}) => {
     //List of options fetched by the api and proposed to the user
     const [selectResponse, setSelectResponse] = useState([]);
     const [optionList, setOptionList] = useState([]);
+    console.log(optionList)
+    console.log(selectResponse)
 
     const selectRef = useRef();
     const [inputValue, setInputValue] = useState("");

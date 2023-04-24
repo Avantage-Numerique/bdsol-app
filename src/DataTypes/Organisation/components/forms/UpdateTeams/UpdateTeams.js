@@ -75,25 +75,26 @@ const UpdateTeams = ({parentEntity, positiveRequestActions}) => {
                 }}
                 initValues={parentEntity.team}
             >
-                <div className={`${styles["team-member-row"]} d-flex align-items-center mb-2 border-b row py-2`}>
-
-                    <Select2Tag
-                            className="col col-lg-2"
-                            label="Personne"
-                            searchField="name"
-                            fetch="/persons/list"
-                            requestData={{name:""}}
-                            validationRules={[
-                                {name: "REQUIRED"}
-                            ]}
-                            name="member"
-                            idField="member"
+                <div className={`${styles["team-member-row"]} d-flex  mb-2 border-b row py-2`}>
+                    <div class="col row">
+                        <Select2Tag
+                                className="col col-sm-12 col-md-6"
+                                searchField="fullName"
+                                fetch="/persons/list"
+                                requestData={{name:""}}
+                                placeholder="Personne"
+                                validationRules={[
+                                    {name: "REQUIRED"}
+                                ]}
+                                name="member"
+                                idField="member"
+                            />
+                        <Input 
+                            className="col col-sm-12 col-md-6"
+                            name="role"
+                            placeholder="Rôle dans l'équipe"
                         />
-                    <Input 
-                        className="col col-lg-2"
-                        label="Rôle dans l'équipe"
-                        name="role"
-                    />
+                    </div>
                     <div className="col col-auto">
                         <Button 
                             repeaterDeleteElem={true}
@@ -106,6 +107,9 @@ const UpdateTeams = ({parentEntity, positiveRequestActions}) => {
                     </div>
                 </div>
             </Repeater>
+            <Button type="button" onClick={submitHandler} disabled={!formState.isValid}>
+                Soumettre
+            </Button>
         </form>
     )
 }
