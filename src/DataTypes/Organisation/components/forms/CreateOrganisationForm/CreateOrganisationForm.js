@@ -90,10 +90,6 @@ const CreateOrganisationForm = (props) => {
             value: initialValues.catchphrase,
             isValid: true
         },
-        offers: {
-            value: initialValues.offers,
-            isValid: true
-        },
         domains: {
             value: initialValues.domains,
             isValid: true
@@ -121,7 +117,6 @@ const CreateOrganisationForm = (props) => {
                 contactPoint: formState.inputs.contactPoint.value,
                 fondationDate: formState.inputs.fondationDate.value,
                 catchphrase: formState.inputs.catchphrase.value,
-                offers: getSelectedToFormData(formState.inputs.offers.value, "offer", auth.user),
                 domains: getSelectedToFormData(formState.inputs.domains.value, "domain", auth.user),
                 team: formState.inputs.team.value,
                 "status": submitUri === "create" ? getDefaultCreateEntityStatus(auth.user) : getDefaultUpdateEntityStatus(auth.user)
@@ -190,18 +185,6 @@ const CreateOrganisationForm = (props) => {
                     name="catchphrase"
                     label={lang.catchphrase}
                     formTools={formTools}
-                />
-
-                <Select2Tag
-                    label="Services offerts"
-                    searchField="name"
-                    fetch="/taxonomies/list"
-                    requestData={{name:""}}
-                    name="offers"
-                    idField="offer"
-                    placeholder={lang.occupationsPlaceholder}
-                    formTools={formTools}
-                    creatableModal={modal}
                 />
 
                 <Select2Tag
