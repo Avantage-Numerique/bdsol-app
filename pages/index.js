@@ -10,6 +10,7 @@ import Spinner from '@/src/common/widgets/spinner/Spinner'
 import {sortDescBy} from "@/src/common/Data/Sorting/Sort";
 import PageHeader from "@/src/layouts/Header/PageHeader";
 import EntitiesGrid from "@/DataTypes/Entity/layouts/EntitiesGrid";
+import EntitySimple from "@/DataTypes/common/layouts/EntitySimple/EntitySimple";
 
 //Costum hooks 
 import {useHttpClient} from '@/src/hooks/http-hook';
@@ -71,7 +72,7 @@ const HomePage = ({}) => {
 
             //Finaly, update the state to display the result
             setFeedList(feed);
-
+            console.log(feed)
             //If negative
         } else {
 
@@ -186,6 +187,17 @@ const HomePage = ({}) => {
                                         feedList.length > 0 && !isLoading &&
                                         <EntitiesGrid className={"row home-page__feed-section--container row-cols-1 row-cols-sm-2 row-cols-xl-3"} columnClass={"col g-3"} feed={feedList}/>
                                     }
+                                   <EntitySimple 
+                                        entityType="organisation"
+                                        title="Ceci est un titre"
+                                        description="Bla  dmv kds ds d oidnvodsvdsov o do ndsvn dsvsdovnds vdso nvdsi nvd sonvon id d "
+                                        tagListTitle="tag list"
+                                        tagList={[{name: "Blabla"}, {name: "vdvdsv"}, {name: "vds"}]}
+                                        tagKeyName="name"
+                                        imgSrc="/general_images/Jurassic_Park_Main_Gate.jpg"
+                                        imgAlt="Blalba"
+                                        redirectionLink="http://localhost:3000/organisations/librairie-pommerleau"
+                                   />
                                 </>
                             }
                         </section>
