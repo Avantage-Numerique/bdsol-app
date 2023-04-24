@@ -1,12 +1,19 @@
 import PersonSimple from "@/DataTypes/Person/Components/layouts/simple/PersonSimple";
 import PersonSingle from "@/DataTypes/Person/Components/layouts/single/PersonSingle";
 import EntityModel, {TYPE_DEFAULT} from "@/DataTypes/Entity/models/EntityModel";
+import AppRoutes from "@/src/Routing/AppRoutes";
 
 export const TYPE_PERSON = "Person";
 
 class Person extends EntityModel {
 
     constructor(raw, params={}) {
+
+        //  Routes associated with single base, single and contribute uri.
+        raw.repertoryRoute = AppRoutes.persons;
+        raw.singleRoute = AppRoutes.personSingle;
+        raw.contributeRoute = AppRoutes.persons;
+
         super(raw);
         this.title = raw.fullname ?? "";
         this.description = raw.description ?? "";
@@ -21,6 +28,8 @@ class Person extends EntityModel {
 
         this.simpleComponent = PersonSimple;
         this.singleComponent = PersonSingle;
+
+
 
         //sets all the rest as a this[key] = raw[key] value.
         this.setProperties(raw);

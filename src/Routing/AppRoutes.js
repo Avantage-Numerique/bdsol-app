@@ -1,6 +1,5 @@
 import Routes from "@/src/Routing/Routes";
 
-
 const AppRoutesRaw = {
 
     accueil : {
@@ -92,20 +91,20 @@ const AppRoutesRaw = {
         }
     },
 
-    apropos: {
+    about: {
         label: "À propos",
         pathname: "/a-propos",
         asPath: "/a-propos"
     },
 
-    compte: {
+    account: {
         label: "Votre compte",
         pathname: "/compte",
         asPath: "/compte",
         needAuth: true
     },
 
-    contribuer: {
+    contribute: {
         label: "Contribuer",
         pathname: "/contribuer",
         asPath: "/contribuer",
@@ -120,4 +119,24 @@ const AppRoutesRaw = {
 }
 
 const AppRoutes = new Routes(AppRoutesRaw);
+
+/**
+ * @property accueil {Route}
+ * @property persons {Route}
+ * @property personSingle {Route}
+ * @property personSingleMedia {Route}
+ * @property categories {Route}
+ * @property categorySingle {Route}
+ * @property organisations {Route}
+ * @property organisationSingle {Route}
+ * @property organisationSingleMedia {Route}
+ * @property projects {Route}
+ * @property projectSingle {Route}
+ * @property projectSingleMedia {Route}
+ * @property apropos {Route}
+ * @property compte {Route}
+ * @property contribuer {Route}
+ * @property error404 {Route}
+ * @type {Routes}
+ */
 export default AppRoutes;

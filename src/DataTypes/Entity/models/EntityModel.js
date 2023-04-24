@@ -34,17 +34,12 @@ class EntityModel {
         this.description = raw.description ?? "no description set";
         this.mainImage = raw.mainImage ?? "no mainImage set";
 
-        //  URI to build URL : repertory, single base, single and contribute uri.
-        this.repertoryURI = raw.repertoryURI ?? "";
-        this.singleBaseURI = raw.singleBaseURI ?? "";
-        this.singleURI = raw.singleBaseURI ?? "";
-        this.contributeURI = raw.contributeBaseURI ?? "";
 
         //  Routes associated with single base, single and contribute uri.
         this.repertoryRoute = raw.repertoryRoute ?? "";
-        this.singleBaseRoute = raw.singleBaseRoute ?? "";
         this.singleRoute = raw.singleRoute ?? "";
         this.contributeRoute = raw.contributeRoute ?? "";
+
 
         this.defaultSimpleParams = {};
         this.defaultSingleParams = {};
@@ -173,6 +168,54 @@ class EntityModel {
      */
     set singleParams(value) {
         return this.params.set("single", value);
+    }
+
+    /**
+     * Repertory Route
+     * @return {Route}
+     */
+    get repertoryRoute() {
+        return this._repertoryRoute;
+    }
+    /**
+     * Set the property repertoryURI from repertoryRoute
+     * @param value {Route}
+     */
+    set repertoryRoute(value) {
+        this.repertoryURI = value.pathname
+        return this._repertoryRoute = value;
+    }
+
+    /**
+     * The base Route for the single page.
+     * @return {Route}
+     */
+    get singleRoute() {
+        return this._singleRoute;
+    }
+    /**
+     * Set the property singleURI from singleRoute
+     * @param value {Route}
+     */
+    set singleRoute(value) {
+        this.singleURI = value.pathname;
+        return this._singleRoute = value;
+    }
+
+    /**
+     * Contribute Route
+     * @return {Route}
+     */
+    get contributeRoute() {
+        return this._contributeRoute;
+    }
+    /**
+     * Set the property contributeURI from contributeRoute
+     * @param value {Route}
+     */
+    set contributeRoute(value) {
+        this.contributeURI = value.pathname;
+        return this._contributeRoute = value;
     }
 
 
