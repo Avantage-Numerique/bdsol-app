@@ -20,6 +20,7 @@ import {useModal} from "@/src/hooks/useModal/useModal";
 import SanitizedInnerHtml from '@/src/utils/SanitizedInnerHtml';
 import {SingleEntityStatus} from "@/DataTypes/Status/Components/SingleEntityStatus";
 import {lang} from "@/common/Data/GlobalConstants";
+import {useAuth} from "@/auth/context/auth-context";
 
 const PersonSingle = ({ data, route }) => {
 
@@ -47,6 +48,7 @@ const PersonSingle = ({ data, route }) => {
     //const [memberOfOrganisationList, setMemberOfOrganisationList] = useState([]);
 
     const imgModalControl = useModal();
+    const auth = useAuth();
 /*
     useEffect( () => {
         async function fetchMemberOf() {
@@ -162,7 +164,9 @@ const PersonSingle = ({ data, route }) => {
                         />
                     ))
                 }
-                <Button size="slim" onClick={() => displayModal()}>Modifier les groupes</Button>
+                {auth.user.isLoggedIn &&
+                    <Button size="slim" onClick={() => displayModal()}>Modifier les groupes</Button>
+                }
             </SingleInfo>
 
             <SingleInfo title={"Compétences"}
