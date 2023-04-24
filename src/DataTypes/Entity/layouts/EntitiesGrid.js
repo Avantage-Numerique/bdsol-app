@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useCallback} from "react";
 import Person, {TYPE_PERSON} from "@/DataTypes/Person/Models/Person";
 import Organisation, {TYPE_ORGANISATION} from "@/DataTypes/Organisation/models/Organisation";
 import Project, {TYPE_PROJECT} from "@/DataTypes/Project/models/Project";
@@ -23,6 +23,11 @@ const EntitiesGrid = ({feed, className, columnClass}) => {
 
     const colContainerClass = columnClass ?? "col g-3";
 
+    const getKeyString = useCallback((prefix, model, index) => {
+        const sep = "-";
+        return prefix + model.type + sep + (model._id ?? "") + sep + model.slug + index;
+    });
+
     return (
         <ContainerTag className={className}>
             {
@@ -34,8 +39,8 @@ const EntitiesGrid = ({feed, className, columnClass}) => {
                     const SimpleComponent = model.simpleComponent;
 
                     return (
-                        <div className={`${colContainerClass}`} key={"container"+model.type+model._id + "-" + model.slug+index}>
-                            <SimpleComponent data={entity} key={"simple"+model.type+model._id + "-" + model.slug+index} />
+                        <div className={`${colContainerClass}`} key={getKeyString("container", model, index)}>
+                            <SimpleComponent data={entity} model={model} key={getKeyString("simple", model, index)} />
                         </div>
                     )
                 })

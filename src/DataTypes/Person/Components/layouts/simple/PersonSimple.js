@@ -10,7 +10,7 @@ import styles from './PersonSimple.module.scss'
 import {lang} from "@/common/Data/GlobalConstants";
 import SearchTag from "@/src/common/Components/SearchTag";
 
-const PersonSimple = ({ data }) => {
+const PersonSimple = ({ data, model }) => {
 
     const { publicRuntimeConfig } = getConfig();
 

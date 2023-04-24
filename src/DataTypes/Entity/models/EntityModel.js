@@ -34,12 +34,12 @@ class EntityModel {
         this.description = raw.description ?? "no description set";
         this.mainImage = raw.mainImage ?? "no mainImage set";
 
-
         //  Routes associated with single base, single and contribute uri.
         this.repertoryRoute = raw.repertoryRoute ?? "";
         this.singleRoute = raw.singleRoute ?? "";
         this.contributeRoute = raw.contributeRoute ?? "";
 
+        //Ajouter _id et id ??
 
         this.defaultSimpleParams = {};
         this.defaultSingleParams = {};
