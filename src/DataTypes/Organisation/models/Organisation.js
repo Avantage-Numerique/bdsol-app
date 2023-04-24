@@ -12,6 +12,7 @@ class Organisation extends EntityModel {
         this.description = raw.description ?? "";
         this.mainImage = raw.mainImage;
         this.type = raw.type === TYPE_ORGANISATION ? TYPE_ORGANISATION : TYPE_DEFAULT;//Wrong data sent here.
+
         //this.taxonomies = new Map();
         //this.taxonomies.set("domains", raw.domains);
         //this.taxonomies.set("skills", raw.skills);

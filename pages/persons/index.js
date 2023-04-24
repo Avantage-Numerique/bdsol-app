@@ -2,7 +2,6 @@ import React, {useState, useContext, useEffect, useCallback} from 'react'
 
 //Components 
 import PageHeader from "@/src/layouts/Header/PageHeader";
-import PersonSimple from '@/DataTypes/Person/Components/layouts/simple/PersonSimple'
 import Button from '@/src/common/FormElements/Button/Button'
 import Spinner from '@/src/common/widgets/spinner/Spinner'
 
@@ -18,6 +17,7 @@ import {useAuth} from '@/src/authentification/context/auth-context';
 import {lang} from "@/src/common/Data/GlobalConstants";
 import {Breadcrumbs} from "@/common/Breadcrumbs/Breadcrumbs";
 import AppRoutes from "@/src/Routing/AppRoutes";
+import EntitiesGrid from "@/DataTypes/Entity/layouts/EntitiesGrid";
 
 
 const PersonsPage = () => {
@@ -107,19 +107,13 @@ const PersonsPage = () => {
                                         <h5>{lang.noResult}</h5>
                                     </div>
                                 }
-                                {
-
-                                }
-                                { !isLoading && personList.length > 0 && 
-                                    personList.map((person, index) => (
-                                        <div className="col g-3" key={`indexPersonContainer${index}`} >
-                                            <PersonSimple data={person} key={`indexPerson${index}`} />
-                                        </div>
-                                    ))
-                                }
-
                             </div>
-                        
+
+                            {/*  Show the feed in the EntitiesGrid component. It manages an empty list in it, but it make it more readable to show it here too */}
+                            {
+                                personList.length > 0 && !isLoading &&
+                                <EntitiesGrid className="position-relative row row-cols-1 row-cols-sm-2 row-cols-xl-3" columnClass={"col g-3"} feed={personList}/>
+                            }
                         </section>
 
                         {/* Aside section */}

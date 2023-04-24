@@ -2,7 +2,6 @@ import React, {useState, useContext, useEffect, useCallback} from 'react'
 
 //Components 
 import PageHeader from "@/src/layouts/Header/PageHeader";
-import OrganisationSimple from '@/DataTypes/Organisation/components/layouts/simple/OrganisationSimple'
 import Button from '@/src/common/FormElements/Button/Button'
 import Spinner from '@/src/common/widgets/spinner/Spinner'
 
@@ -18,6 +17,7 @@ import {useAuth} from '@/src/authentification/context/auth-context';
 import {lang} from "@/src/common/Data/GlobalConstants";
 import {Breadcrumbs} from "@/common/Breadcrumbs/Breadcrumbs";
 import AppRoutes from "@/src/Routing/AppRoutes";
+import EntitiesGrid from "@/DataTypes/Entity/layouts/EntitiesGrid";
 
 
 const OrganisationsPage = () => {
@@ -103,16 +103,13 @@ const OrganisationsPage = () => {
                                     <h5>{lang.noResult}</h5>
                                 </div>
                             }
-
-                            { !isLoading && orgList.length > 0 &&
-                                orgList.map( (org, index) => (
-                                    <div className="col g-3" key={`indexOrgContainer${index}`}>
-                                        <OrganisationSimple data={org} key={`indexOrg${index}`} />
-                                    </div>
-                                ))
-                            }
                         </div>
 
+                        {/*  Show the feed in the EntitiesGrid component. It manages an empty list in it, but it make it more readable to show it here too */}
+                        {
+                            orgList.length > 0 && !isLoading &&
+                            <EntitiesGrid className="position-relative row row-cols-1 row-cols-sm-2 row-cols-xl-3" columnClass={"col g-3"} feed={orgList}/>
+                        }
                     </section>
 
                     {/* Aside section */}
