@@ -7,6 +7,8 @@
  * @param props.Tag {Component||string de tag} Tag to use for the icon, default <i>
  * @return {JSX.Element}
  * @constructor
+ * 
+ * LIST OF ICONS AVAILABLE HERE : https://icons8.com/line-awesome
  */
 const Icon = (props) => {
 

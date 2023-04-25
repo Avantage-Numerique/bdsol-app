@@ -7,20 +7,24 @@ import SanitizedInnerHtml from '@/src/utils/SanitizedInnerHtml';
 import SearchTag from '@/src/common/Components/SearchTag';
 import Button from "@/FormElements/Button/Button";
 
+//Custom hooks
+import {useModal} from "@/src/hooks/useModal/useModal";
 
 //Styling 
 import styles from './OrganisationSimple.module.scss';
+
+//Utils
+import {lang} from "@/common/Data/GlobalConstants";
+import AppRoutes from "@/src/Routing/AppRoutes";
+import DateWidget from "@/common/widgets/DateWidget/DateWidget";
+import Icon from "@/common/widgets/Icon/Icon";
 
 
 
 import Single from "@/DataTypes/common/layouts/single/Single";
 import CreateOrganisationForm from "@/DataTypes/Organisation/components/forms/CreateOrganisationForm/CreateOrganisationForm";
-import {lang} from "@/common/Data/GlobalConstants";
 import SingleInfo from "@/DataTypes/common/layouts/SingleInfo/SingleInfo";
-import {useModal} from "@/src/hooks/useModal/useModal";
 import {SingleEntityStatus} from "@/DataTypes/Status/Components/SingleEntityStatus";
-import DateWidget from "@/common/widgets/DateWidget/DateWidget";
-import AppRoutes from "@/src/Routing/AppRoutes";
 import UpdateOffers from '@/src/DataTypes/Organisation/components/forms/UpdateOffers/UpdateOffers';
 import UpdateTeams from '@/src/DataTypes/Organisation/components/forms/UpdateTeams/UpdateTeams';
 
@@ -68,8 +72,6 @@ const OrganisationSingle = ({ data }) => {
 
     console.log("data", data)
 
-
-
     const headerMainContent = (
         <div className={`${styles["quick-section"]}`}>
             <h2 className="mb-2">{name}</h2>
@@ -100,14 +102,28 @@ const OrganisationSingle = ({ data }) => {
                     <SanitizedInnerHtml tag={"p"}>{contactPoint}</SanitizedInnerHtml>
                 </section>
             }
+
+            {/***************************************
+             *  
+             *   TEAM MEMBERS SECTION 
+             * 
+             * ********/}
             <section className={"border-bottom"}>
-                <h4 className="h5 my-3">{lang.teamMembers}</h4>
+                {/* Header */}
+                <div className="d-flex justify-content-between align-items-center">
+                    <h4 className="h5 my-3">{lang.teamMembers}</h4>
+                    <button className="rounded bg-purplelight py-1 px-2" onClick={teamsModal.displayModal}>
+                        <Icon iconName="ar la-edit" />
+                    </button>
+                </div>
+                {/* Rows of members */}
                 { team?.length > 0 ?
                     <ul className="d-flex flex-wrap gap-2">
                         {
                             team.map(elem => (
-                                <li key={elem.member._id} className="border p-1 rounded-1 small">
-                                    {elem.member.firstName} {elem.member.lastName}
+                                <li key={elem.member._id} className="bg-light w-100 px-2 py-1 rounded-1 small mb-1">
+                                    <div className="text-dark"><strong>{elem.member.firstName} {elem.member.lastName}</strong></div>
+                                    <div>{elem.role}</div>
                                 </li>
                             ))
                         }
@@ -117,7 +133,11 @@ const OrganisationSingle = ({ data }) => {
                 }
             </section>
 
-            {/******** Display of the offer's list **********/}
+            {/***************************************
+             *  
+             *   OFFERS SECTION 
+             * 
+             * ********/}
             <section className="mt-4">
                 <h4 className="h5 my-3">Services offerts</h4>
                     <SearchTag
@@ -147,7 +167,6 @@ const OrganisationSingle = ({ data }) => {
                 }
                 <Button size="slim" onClick={() => offersModal.displayModal()}>Modifier les groupes</Button>
             </section>
-            
         </>
     );
 
@@ -181,21 +200,6 @@ const OrganisationSingle = ({ data }) => {
                     </SanitizedInnerHtml>
                 </SingleInfo>
             }
-
-            {/* Team display */}
-            <SingleInfo title={"Équipe"}> 
-                { team && team.length > 0 &&
-                    team.map(t => (
-                        <ul>
-                            <li>Team</li>
-                        </ul>
-                    ))
-                }
-                { !team &&
-                    <p>Vous pouvez ajouter des équipes à votre organisation.</p>
-                }
-                <Button onClick={teamsModal.displayModal}>Ajouter des membres à l'équipe</Button>
-            </SingleInfo>
 
 
             {

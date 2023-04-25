@@ -15,6 +15,8 @@ import styles from './UpdateTeams.module.scss'
 
 const UpdateTeams = ({parentEntity, positiveRequestActions}) => {
 
+    console.log("PARENT ENTITY ", parentEntity)
+
     const {FormUI, submitRequest, formState, formTools} = useFormUtils(
         {
             team: {
@@ -31,11 +33,11 @@ const UpdateTeams = ({parentEntity, positiveRequestActions}) => {
     const submitHandler = async event => {
         
         event.preventDefault();
-
+        
         const formattedTeams = formState.inputs.team.value.map(function(singleTeam){
             return {
                 status: singleTeam.status,
-                member: singleTeam.value.member.value,
+                member: singleTeam.value.member.value[0].member._id,
                 role: singleTeam.value.role.value
             }
         })
@@ -54,7 +56,6 @@ const UpdateTeams = ({parentEntity, positiveRequestActions}) => {
             'POST',
             formData
         );
-
     }
 
     return (
