@@ -15,12 +15,12 @@ export const getColor = (data, chromatise=false) => {
     if (data.type === "Taxonomy"){
         color = colorDict[data.category] ?? defaultColor;
     }
-    /*if (data.type === "Person"){
-        color defaultColor;
+    if (data.type === "Person"){
+        color = defaultColor;
     }
     if (data.type === "Organisation"){
-        return defaultColor;
-    }*/
+        color = defaultColor;
+    }
     return chromatise ? chroma(color) : color;
 }
 

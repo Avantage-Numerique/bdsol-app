@@ -22,7 +22,7 @@ const Index = () => {
         <div className={`${styles["contribution-page"]}`}>
 
             <PageHeader
-                title="Créer une donnée"
+                title="Contribuer en ajoutant une entité"
                 subtitleColor="primary"
                 description="Vous avez accès ici à tous les types de données qu'il est présentement possible d'intégrer à la base de données."
             />
@@ -39,13 +39,13 @@ const Index = () => {
                         </div>
                     }
 
-                    <div className='row pt-3'>
+                    <div className='row pt-5 pb-3'>
                         <div className="col">
-                            <h4 className="col-12">Sélectionnez le type d'entité que vous voulez ajouter</h4>
+                            <h2 className="col-12">Ajouter une : </h2>
                         </div>
                     </div>
 
-                    <div className='row pt-3 row-cols-1 row-cols-sm-3 gy-3'>
+                    <div className='row pb-5 row-cols-1 row-cols-md-4 gy-3'>
                         <div className="col">
                             <Button href="/contribuer/personne" size="large-100" disabled={!auth.user.isLoggedIn}>Personne</Button>
                         </div>
@@ -55,18 +55,18 @@ const Index = () => {
                         <div className="col">
                             <Button href="/contribuer/categorie" size="large-100" disabled={!auth.user.isLoggedIn}>Catégorie</Button>
                         </div>
-                    </div>
-
-                    <div className='row pt-3'>
                         <div className="col">
-                            <h4 className="col-12">Entités à venir</h4>
+                            <Button href="/contribuer/projet" size="large-100" disabled={!auth.user.isLoggedIn}>Projet</Button>
                         </div>
                     </div>
 
-                    <div className='row pt-3 row-cols-1 row-cols-sm-3 gy-3'>
+                    <div className='row pt-5 pb-3'>
                         <div className="col">
-                            <Button href="/" size="large-100" disabled>Projet</Button>
+                            <h2 className="col-12">Entités à venir</h2>
                         </div>
+                    </div>
+
+                    <div className='row pb-5 row-cols-1 row-cols-md-4 gy-3'>
                         <div className="col">
                             <Button href="/" size="large-100" disabled>Événement</Button>
                         </div>
