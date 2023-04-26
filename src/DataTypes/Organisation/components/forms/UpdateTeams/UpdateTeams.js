@@ -30,6 +30,18 @@ const UpdateTeams = ({parentEntity, positiveRequestActions}) => {
         }
     )
 
+    //Format to array  
+    console.log('Form state', formState)
+    
+   let formatParentEntity = {...parentEntity};
+
+    formatParentEntity.team.forEach(element => {
+        const temp = {...element.member};
+        element.member = [temp];
+    });
+    console.log(formatParentEntity) 
+    
+
     const submitHandler = async event => {
         
         event.preventDefault();
@@ -66,7 +78,7 @@ const UpdateTeams = ({parentEntity, positiveRequestActions}) => {
                 name="team"
                 formInitStructure={{
                     member: {
-                        value: "",
+                        value: [],
                         isValid: false
                     },
                     role: {
@@ -74,13 +86,13 @@ const UpdateTeams = ({parentEntity, positiveRequestActions}) => {
                         isValid: true
                     }
                 }}
-                initValues={parentEntity.team}
+                initValues={formatParentEntity.team}
             >
                 <div className={`${styles["team-member-row"]} d-flex  mb-2 border-b row py-2`}>
                     <div class="col row">
                         <Select2Tag
                                 className="col col-sm-12 col-md-6"
-                                searchField="fullName"
+                                searchField="firstName"
                                 fetch="/persons/list"
                                 requestData={{name:""}}
                                 placeholder="Personne"

@@ -139,11 +139,17 @@ const OrganisationSingle = ({ data }) => {
              * 
              * ********/}
             <section className="mt-4">
-                <h4 className="h5 my-3">Services offerts</h4>
+                {/* Header */}
+                <div className="d-flex justify-content-between align-items-center">
+                    <h4 className="h5 my-3">Services offerts</h4>
+                    <button className="rounded bg-purplelight py-1 px-2" onClick={offersModal.displayModal}>
+                        <Icon iconName="ar la-edit" />
+                    </button>
+                </div>
                     
                 { offers?.length > 0 && offers.map(offer => (
-                    <article className={`d-flex flex-column p-2 mb-2 skill-group`}>
-                        <h5 className="text-dark mb-0 group-name">{offer.offer}</h5>
+                    <article className={`d-flex flex-column p-2 mb-2 skill-group bg-light`}>
+                        <h5 className="text-dark mb-1 group-name">{offer.offer}</h5>
                             <SearchTag
                                 className="row"
                                 list={offer.skills}
@@ -153,7 +159,6 @@ const OrganisationSingle = ({ data }) => {
                 { (!offers || offers?.length == 0) &&
                     <p>Ajoutez une offre de services à votre organisation.</p>
                 }
-                <Button size="slim" onClick={() => offersModal.displayModal()}>Modifier les groupes</Button>
             </section>
         </>
     );

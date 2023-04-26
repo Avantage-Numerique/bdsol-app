@@ -76,7 +76,6 @@ const Select2Tag = ({name, formTools, ...props}) => {
                     entitiesList.current.push(...formState.inputs[name].value);
                     return { value: elem[props.idField]._id, label: elem[props.idField][props.searchField] }
                 }
-
             })
             selectRef.current.setValue(state, "set-value");
         }
@@ -102,7 +101,7 @@ const Select2Tag = ({name, formTools, ...props}) => {
                 return inEntityList;
 
             //If is in selectResponse
-            const inSelectResponse = selectResponse?.data.find( elem => {
+            const inSelectResponse = selectResponse?.data?.find( elem => {
                 return selected.value === elem._id
             })
 
