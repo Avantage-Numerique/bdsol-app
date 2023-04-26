@@ -5,6 +5,10 @@ import KebabButton from '@/common/FormElements/KebabButton/KebabButton'
 
 //Styling
 import styles from './EntitySimple.module.scss';
+import MediaFigure from "@/DataTypes/Media/layouts/MediaFigure";
+import {TYPES} from "@/DataTypes/Entity/Types";
+import SanitizedInnerHtml from "@/src/utils/SanitizedInnerHtml";
+import {replacePathname} from "@/src/helpers/url";
 
 /********* 
  * 
@@ -24,53 +28,69 @@ import styles from './EntitySimple.module.scss';
 */
 
 
-const EntitySimple = props => {
+/**
+ *
+ * @param props
+ * @param props.model {EntitySimple|object}
+ * @return {JSX.Element}
+ * @constructor
+ */
+const EntitySimple = (props) => {
+
+    const Tag = "article";
 
     /**** Deconstructiong props ******/
     const {
+        className,
         //Props for this component fonctionalities
-        redirectionLink,                                
+        //redirectionLink,
         overRidingHeader,
         overRidingContent,
-        entityType,
+        //showEntityType,
         //Props for informations to display
-        title,
+        //title,
         imgSrc,
         imgAlt,
-        description,
+        //description,
         tagListTitle,
         tagList,
         tagKeyName,
+        model
     } = props;
 
-    const entityType_to_display = {
-        organisation: "Organisation",
-        project: "Projet",
-        person: "Personne"
-    }
+    //content
+    const title = model.title;
+    const description = model.description;
+    const type = model.type;
+    const link = "/"+replacePathname(model.singleRoute.pathname, {slug: model.slug});
 
-    
+    //params
+    const showEntityType = props.showEntityType ?? true;
+    const appType = TYPES.get(model.type);
+
+
     return (
-        <article className={`rounded ${styles["simple-abstract"]}`}>
+        <Tag className={`${className} rounded ${styles["simple-abstract"]}`}>
             {/* SECTION 1/2 : Header */}
             <header className={`${styles["simple-abstract__header"]}`}>
                 {/* Override the display of the normal visual if there is the overRidingHeader is defined */}
                 { overRidingHeader ? {overRidingHeader} :
                     <> 
                         {/* Image representing the entity */}
-                        { imgSrc && imgAlt &&
+                        { model.mainImage &&
                             <div>
-                                <a href={redirectionLink} title={title}>
-                                    <figure className="position-absolute top-0 start-0 w-100 h-100 t-0 ">
-                                        <img src={imgSrc} alt={imgAlt} className={`${styles["simple-abstract__header__img"]}`} />
-                                        <div className={`position-absolute w-100 h-100 no-pointer-events ${styles["radient-cover"]}`}></div>
-                                    </figure>
+                                <a href={link} title={title}>
+                                    <MediaFigure
+                                        model={model.mainImage}
+                                        className={"position-absolute top-0 start-0 w-100 h-100 t-0"}
+                                        imgClassName={`${styles["simple-abstract__header__img"]}`}
+                                        addGradientOver={true} />
                                 </a>
                             </div>
                         }
                         {/* Display over the entity the type of image */}
-                        {entityType && entityType_to_display[entityType] &&
-                            <h4 className={`position-relative text-white fw-normal ${styles["entity-type"]}`}>{entityType_to_display[entityType]}</h4>
+                        {showEntityType && appType &&
+                            <h4 className={`position-relative text-white fw-normal ${styles["entity-type"]}`}>{appType.label}</h4>
                         }
                     </>
                 }
@@ -81,13 +101,13 @@ const EntitySimple = props => {
                     <>
                         <header className="d-flex justify-content-between">
                             {/* Main name of the entity */}
-                            <h3 className={`${styles["simple-abstract__content__title"]}`}>{title}</h3>
+                            <SanitizedInnerHtml tag={"h3"} className={`${styles["simple-abstract__content__title"]}`}>{model.title}</SanitizedInnerHtml>
                             {/* Redirection button */}
-                            { redirectionLink && <KebabButton href={redirectionLink} /> }
+                            { link && <KebabButton href={link} /> }
                         </header>
                         <section>
                             {/* Description */}
-                            {description && <p className={`${styles["simple-abstract__content__description"]}`}>{description}</p>}
+                            {description && <SanitizedInnerHtml className={`${styles["simple-abstract__content__description"]}`}>{description}</SanitizedInnerHtml>}
                             {/* List of tags */}
                             {tagList && tagListTitle &&
                                 <h4>{tagListTitle}</h4>
@@ -103,7 +123,7 @@ const EntitySimple = props => {
                     </>
                 }
             </section>
-        </article>
+        </Tag>
     )
 }
 

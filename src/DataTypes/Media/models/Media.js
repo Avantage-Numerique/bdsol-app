@@ -1,16 +1,35 @@
 import EntityModel, {TYPE_DEFAULT} from "@/DataTypes/Entity/models/EntityModel";
 import MediaSingle from "@/DataTypes/Media/layouts/MediaSingle";
+import {TYPE_MEDIA} from "@/DataTypes/Entity/Types";
 
-export const TYPE_MEDIA = "Media";
 
 class Media extends EntityModel {
 
+    /**
+     * Media model for the entity in the app.
+     * @param raw {object} All the params to setup this.
+     * @param raw.type {String} the entity type.
+     * @param raw.description {String} Big string.
+     * @param raw.mainImage {Object} Main image (Media) of the entity.
+     * @param raw.src {string} Media direct src
+     * @param raw.alt {string} Media alternate string
+     * @param raw.licence {object} Media licence
+     * @param raw.simpleComponent {Component} the component for the simple view.
+     * @param raw.singleComponent {Component} the component for the single view.
+     * @param params {object} pass some params.
+     * @param params.single {object} Parameters for the single component
+     * @param params.simple {object} Parameters for the simple component
+     */
     constructor(raw, params={}) {
         super(raw);
         this.title = raw.name ?? "";
         this.description = raw.description ?? "";
         this.mainImage = raw.mainImage;
-        this.type = raw.type === TYPE_PROJECT ? TYPE_PROJECT : TYPE_DEFAULT;//Wrong data sent here.
+        this.src = raw.src ?? "";
+        this.baseSrc = `${process.env.NEXT_PUBLIC_API_URL}/`;
+        this.alt = raw.alt ?? "";
+        this.licence = raw.licence ?? "";
+        this.type = raw.type === TYPE_MEDIA ? TYPE_MEDIA : TYPE_DEFAULT;//Wrong data sent here.
         //this.taxonomies = new Map();
         //this.taxonomies.set("domains", raw.domains);
         //this.taxonomies.set("skills", raw.skills);
@@ -23,6 +42,13 @@ class Media extends EntityModel {
 
         //sets all the rest as a this[key] = raw[key] value.
         this.setProperties(raw);
+    }
+
+    get src() {
+        return this.baseSrc + this._src;
+    }
+    set src(value) {
+        this._src = value;
     }
 
 }

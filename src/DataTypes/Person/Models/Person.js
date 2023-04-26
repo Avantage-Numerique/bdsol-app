@@ -2,8 +2,8 @@ import PersonSimple from "@/DataTypes/Person/Components/layouts/simple/PersonSim
 import PersonSingle from "@/DataTypes/Person/Components/layouts/single/PersonSingle";
 import EntityModel, {TYPE_DEFAULT} from "@/DataTypes/Entity/models/EntityModel";
 import AppRoutes from "@/src/Routing/AppRoutes";
+import {TYPE_PERSON} from "@/DataTypes/Entity/Types";
 
-export const TYPE_PERSON = "Person";
 
 class Person extends EntityModel {
 

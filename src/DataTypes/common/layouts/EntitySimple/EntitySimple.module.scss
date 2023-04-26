@@ -31,7 +31,7 @@
 
     /* Content's styling */
     .simple-abstract__content {
-        padding: var(--simple-abstract--padding); 
+        padding: var(--simple-abstract--padding);
 
         .simple-abstract__content__title{ font-size: 1.25rem; }
         .simple-abstract__content__description { font-size: 0.9rem; }
@@ -48,7 +48,7 @@
 
 
 
-.radient-cover {
+.gradient-cover {
     background: rgba(0, 0, 0, 0);
     background: linear-gradient(0deg, rgba(0,0,0,0.5919410000328256) 0%, rgba(0,0,0,0.051324753534226164) 70%);
     opacity: 1;
