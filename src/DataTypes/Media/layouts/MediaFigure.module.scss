@@ -1,0 +1,9 @@
+.mediaFigure {
+    @include transition();
+
+    &:hover {
+        .dark-transparent-gradient {
+            opacity: 0.3;
+        }
+    }
+}

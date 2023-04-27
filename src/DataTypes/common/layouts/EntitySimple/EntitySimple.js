@@ -82,15 +82,17 @@ const EntitySimple = (props) => {
                                 <a href={link} title={title}>
                                     <MediaFigure
                                         model={model.mainImage}
-                                        className={"position-absolute top-0 start-0 w-100 h-100 t-0"}
-                                        imgClassName={`${styles["simple-abstract__header__img"]}`}
-                                        addGradientOver={true} />
+                                        className={`${styles["simple-abstract__header__figure"]} position-absolute top-0 start-0 w-100 h-100 t-0`}
+                                        imgClassName={`${styles["simple-abstract__header__figure__img"]}`}
+                                        addGradientOver={true}>
+                                        <div className={`${styles["figure-overlay"]} position-absolute w-100 h-100 no-pointer-events dark-transparent-gradient`}></div>
+                                    </MediaFigure>
                                 </a>
                             </div>
                         }
                         {/* Display over the entity the type of image */}
                         {showEntityType && appType &&
-                            <h4 className={`position-relative text-white fw-normal ${styles["entity-type"]}`}>{appType.label}</h4>
+                            <h4 className={`position-relative text-white fw-normal m-0 ${styles["entity-type"]}`}>{appType.label}</h4>
                         }
                     </>
                 }

@@ -9,27 +9,16 @@ $blue2: #4d64ff; // Avantage numérique's mainBlue (and blue2)
 $blue3: #4dc4ff; // Avantage numérique's mainBlue (and blue3)
 $blue4: #5f71ea; // Avantage numérique's mainBlue (and blue4)
 $bluelight: #8dc6e2;
-$green1:  #adc9b0; //Light green
-$green2:  #7ba076; 
-$green3:  #364637; //Darkgreen
+$green-light:  #adc9b0; //Light green
+$green:  #7ba076;
+$green-dark:  #364637; //Darkgreen
 $pink: #c881ca;
 $pink-100: lighten($pink, 80%);
 $red: #dd5c5c;  // Avantage numérique's red
+$yellow: #FAFA10;
 $red-light: #ff9e9e;  // Avantage numérique's red
 $purple-light: #b2b2eb;
 $purple-lighter: lighten($purple-light, 10%);
-
-//Taxonomies colors
-$green-accepted: green;
-$yellow-pending: yellow;
-$red-rejected: red;
-$grey-deprecated: grey;
-$occupations:rgba(56, 208, 235, 0.647);
-$skills:rgba(56, 235, 137, 0.647);
-$domains:rgba(235, 56, 137, 0.647);
-$abilities:rgba(233, 165, 17, 0.647);
-$general-tag:rgba(148, 148, 148, 0.392);
-
 
 $grey: #bbbfd7;
 $mild-dark: #606060; // Avantage numérique's input labels
@@ -37,6 +26,19 @@ $dark: #292929;
 $light: lighten($grey, 30%);
 $white: #FEFEFE;
 $black: #010101;
+
+//Taxonomies colors
+$green-accepted: green;
+$yellow-pending: $yellow;
+$red-rejected: $red;
+$grey-deprecated: $mild-dark;
+$occupations:#38D0EB;//0.647
+$skills: #38EB89;//0.647
+$domains:#EB3889;//0.647
+$abilities:#E9A511;//0.647
+$general-tag: $grey;
+$bg-general-tag: rgba($grey, 30%);
+
 
 //Inputs variables
 $selected-input: $blue;
@@ -65,9 +67,9 @@ $theme-colors:(
     "white":$white,
     "black":$black,
 
-    "success": $green2,
-    "successlighter": $green1,
-    "successDarker": $green3,
+    "success": $green,
+    "successlighter": $green-light,
+    "successDarker": $green-dark,
     
     //Taxonomies
     "accepted":$green-accepted,
@@ -148,7 +150,7 @@ $border-light: $image-border-width solid $image-border-color;
         SHADOW
  */
 
-$default-box-shadow: 1px 1px 3px 1px rgba(60,60,60,0.78);
+$default-box-shadow: 1px 1px 4px 2px rgba(0,0,0,0.15);
 
 
 /*
@@ -180,11 +182,33 @@ $input-border-radius: $border-radius;
 /*
     TRANSITION
  */
-$transition-base:             all .2s ease-in-out;
-$transition-fade:             opacity .15s linear;
-// scss-docs-start collapse-transition
-$transition-collapse:         height .35s ease;
-$transition-collapse-width:   width .35s ease;
+
+$transition-default-time: 550ms;
+$transition-default-property: all;
+
+$bezier-default: cubic-bezier(0.19, 1, 0.22, 1);
+$bezier-ease-out: cubic-bezier(0, 0, 0.58, 1);
+$bezier-ease-in: cubic-bezier(0.42, 0, 1, 1);
+$bezier-ease-in-out: cubic-bezier(0.42, 0, 0.58, 1);
+$bezier-ease: cubic-bezier(0.25, 0.1, 0.25, 1);
+$bezier-linear: cubic-bezier(0, 0, 1, 1);
+$bezier-translation: cubic-bezier(.54, -0.09,.5, 1.13);
+
+$transition-ease-out: $transition-default-property $transition-default-time $bezier-ease-out;
+$transition-ease-in: $transition-default-property $transition-default-time $bezier-ease-in;
+$transition-ease-in-out: $transition-default-property $transition-default-time $bezier-ease-in-out;
+$transition-ease: $transition-default-property $transition-default-time $bezier-ease;
+$transition-linear: $transition-default-property $transition-default-time $bezier-linear;
+$transition-translation: $transition-default-property $transition-default-time $bezier-translation;
+
+$transition-default: $transition-default-property $transition-default-time $bezier-default;
+$transition-base:        $transition-ease;
+$transition-base-slow:        $transition-default-property $transition-default-time*2 $bezier-ease-in-out;
+$transition-base-quick:        $transition-default-property $transition-default-time/2 $bezier-ease-in-out;
+
+$transition-fade: opacity 0.15s $bezier-default;
+$transition-collapse: height 0.35s $bezier-ease-in-out;
+$transition-collapse-hori: width 0.35s $bezier-ease-in-out;
 
 
 /*
@@ -201,3 +225,10 @@ $breadcrumb-active-color:           $secondary;
 $breadcrumb-divider:                quote("/");
 $breadcrumb-divider-flipped:        quote("/");
 $breadcrumb-border-radius:          $border-radius;
+
+
+
+/*
+    SIMPLE TEMPLATE
+ */
+$simple-default-padding: 0.75rem;

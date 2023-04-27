@@ -2,13 +2,13 @@
 
 .simple-abstract {
 
-    --simple-abstract--padding: 0.75rem;
+    --simple-abstract--padding: #{$simple-default-padding};
 
-    box-shadow: 1px 1px 4px 2px rgba(0,0,0,0.15);
-    background-color: white;
+    box-shadow: $default-box-shadow;//1px 1px 4px 2px rgba(0,0,0,0.15);
+    background-color: $light;
     overflow: hidden;
 
-    max-width: 17rem;
+    //max-width: 17rem;//parent scope of responsability
 
     /* Header's styling */
     .simple-abstract__header {
@@ -16,16 +16,40 @@
         height: 8rem;
         display: flex;
         align-items: flex-end;
+        overflow: hidden;
+        @include transition();
 
-        .entity-type { 
-            margin: var(--simple-abstract--padding); 
+        .entity-type {
+            @include transition();
+            padding: var(--simple-abstract--padding);
+        }
+        .simple-abstract__header__figure {
+            position: relative;
+            @include transition();
+
+            .figure-overlay {
+                @include transition();
+                opacity: 1;
+            }
+            .simple-abstract__header__figure__img {
+
+                @include transition();
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
         }
 
-        .simple-abstract__header__img {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+        &:hover {
+            .simple-abstract__header__figure {
+                .figure-overlay {
+                    opacity: 0.4;
+                }
+                .simple-abstract__header__figure__img {
+                    transform: scale(110%);
+                }
+            }
         }
     }
 
@@ -39,7 +63,7 @@
             gap: calc(var(--simple-abstract--padding) * 0.5);
             li {
                 padding: 0.1rem 0.4rem;
-                background-color: rgb(221, 221, 221);
+                background-color: $gray-200;
             }
         }
     }
