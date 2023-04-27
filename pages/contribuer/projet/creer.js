@@ -1,22 +1,29 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 
-//Component
 import Single from "@/DataTypes/common/layouts/single/Single";
-import CreateProject from '@/DataTypes/Project/forms/CreateProject';
+import CreateProjectForm from '@/DataTypes/Project/forms/CreateProjectForm';
 
 //Custom hooks
 import {useModal} from "@/src/hooks/useModal/useModal";
+
 
 const CreateProject = () => {
 
     const { modal, Modal, displayModal, closeModal } = useModal();
 
+    const formModal = useModal();
+
+    useEffect(() => {
+        formModal.displayModal();
+    }, [])
+
+    const modalForm = useModal();
+
     const modalComponentParams = {
         uri:"update"
     };
-    
-    const imgModalControl = useModal();
 
+    const imgModalControl = useModal();
 
     return (
         <>
@@ -36,14 +43,13 @@ const CreateProject = () => {
                         title: `banane`
                     }}
             >
-
             </Single>
 
-            <Modal>
-
-
-
-            </Modal>
+            {formModal.modal.display &&
+                <formModal.Modal>
+                        <CreateProjectForm />
+                </formModal.Modal>
+            }
         </>
     )
 }
