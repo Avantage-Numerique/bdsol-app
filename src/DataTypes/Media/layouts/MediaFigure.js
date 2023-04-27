@@ -1,4 +1,5 @@
 import React from "react";
+import styles from "./MediaFigure.module.scss";
 
 /**
  *
@@ -16,22 +17,18 @@ const MediaFigure = (props) => {
         className,
         imgClassName,
         model,
-        addGradientOver
+        children
     } = props;
 
     // defaults
     className = className ?? "w-100 h-100";
-    addGradientOver = addGradientOver ?? false;
 
     const baseSrc = `${process.env.NEXT_PUBLIC_API_URL}`;
 
     return (
-        <figure className={className}>
+        <figure className={`${styles["mediaFigure"]} ${className}`}>
             <img src={`${baseSrc}${model.url}`} alt={model.alt} className={imgClassName} />
-            {
-                addGradientOver &&
-                <div className={`position-absolute w-100 h-100 no-pointer-events dark-transparent-gradient`}></div>
-            }
+            {children && children}
         </figure>
     )
 }
