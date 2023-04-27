@@ -17,13 +17,15 @@ const MediaFigure = (props) => {
         className,
         imgClassName,
         model,
-        children
+        children,
+        baseSrc,
     } = props;
 
     // defaults
     className = className ?? "w-100 h-100";
 
-    const baseSrc = `${process.env.NEXT_PUBLIC_API_URL}`;
+    baseSrc = baseSrc ?? model.baseSrc;
+    baseSrc = baseSrc ?? `${process.env.NEXT_PUBLIC_API_URL}`;
 
     return (
         <figure className={`${styles["mediaFigure"]} ${className}`}>

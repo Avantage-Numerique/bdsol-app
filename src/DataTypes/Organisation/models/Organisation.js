@@ -12,7 +12,11 @@ class Organisation extends EntityModel {
         super(raw);
         this.title = raw.name ?? "";
         this.description = raw.description ?? "";
-        this.mainImage = raw.mainImage;
+        this.mainImage = raw.mainImage === "" ? {
+            url: "/general_images/organisation-default.jpg",
+            alt: raw.name,
+            baseSrc: `${process.env.NEXT_PUBLIC_APP_URL}`
+        } : raw.mainImage;
         this.mainImageModel = new Media(this.mainImage);
         this.type = raw.type === TYPE_ORGANISATION ? TYPE_ORGANISATION : TYPE_DEFAULT;//Wrong data sent here.
 

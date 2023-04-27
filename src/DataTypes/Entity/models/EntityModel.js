@@ -30,8 +30,7 @@ class EntityModel {
         this.type = raw.type ?? TYPE_DEFAULT;
         this.title = raw.title ?? "no title set";
         this.description = raw.description ?? "no description set";
-        this.mainImage = this.mainImage;
-        this.mainImageModel = this.mainImageRaw;
+        this.mainImage = raw.mainImage ?? {url:"", alt:""};
 
         //  Routes associated with single base, single and contribute uri.
         this.repertoryRoute = raw.repertoryRoute ?? "";
@@ -242,7 +241,7 @@ class EntityModel {
      * @return none
      */
     definePropertyIfNotOwned(property, value) {
-        if (!this.hasOwnProperty(property)) {
+        if (!this[property]) {
             Object.defineProperty(this, property, {
                 value: value,
                 enumerable: true,
