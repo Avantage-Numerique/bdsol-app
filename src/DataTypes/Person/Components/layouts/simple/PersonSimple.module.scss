@@ -1,12 +1,12 @@
 .person-simple {
 
-    padding: 0.75rem;
-
     .person-simple__header {
 
+        width: 100%;
         /* Top section of the header containing the picture and button */
-       .person-simple__header__top-section { 
+        .person-simple__header__top-section {
             position: relative;
+            @include transition();
             .person-simple__header__picture {
                 position: relative;
                 width: 8rem;
@@ -14,14 +14,17 @@
                 aspect-ratio: 1 / 1;
                 border-radius: 100%;
                 overflow: hidden;
+                box-shadow: $top-box-shadow;
+                @include transition();
 
                 img, a {
                     position: absolute;
-                    top:0;
+                    top: 0;
                     left: 0;
                     width: 100%;
                     height: 100%;
                     object-fit: cover;
+                    @include transition();
                 }
             }
         }
@@ -37,7 +40,16 @@
                 .occupation {
                     max-width: 50%;
                     padding: 0.15rem 0.3rem;
-                    background-color: rgb(250,250,255);
+                    background-color: rgb(250, 250, 255);
+                }
+            }
+        }
+        &:hover {
+            .person-simple__header__top-section {
+                .person-simple__header__picture {
+                    img {
+                        transform: scale(110%);
+                    }
                 }
             }
         }

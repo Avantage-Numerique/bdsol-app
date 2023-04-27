@@ -36,7 +36,7 @@ const Single = (props) => {
         route
     } = props;
 
-    const defaultMainImage = props.defaultMainImage ?? "/general_images/Dennis_Nedry.webp";
+    const defaultMainImage = props.defaultMainImage ?? "/general_images/person-default.webp";
     const defaultHeaderBg = props.defaultHeaderBg ?? "/general_images/forestBG.jpg";
 
     const entity = props?.entity ?? {};

@@ -15,13 +15,18 @@ class Person extends EntityModel {
         raw.contributeRoute = AppRoutes.persons;
 
         super(raw);
-        this.title = raw.fullname ?? "";
+
+        this.title = raw.firstName + " " + raw.lastName ?? "";
         this.description = raw.description ?? "";
-        this.mainImage = raw.mainImage;
+        this.mainImage = raw.mainImage === "" || !raw.mainImage ? {
+            url: "/general_images/person-default.webp",
+            alt: this.title,
+            baseSrc: `${process.env.NEXT_PUBLIC_APP_URL}`
+        } : raw.mainImage;
+
+        //this.mainImageModel = new Media(this.mainImage);
+
         this.type = raw.type === TYPE_PERSON ? TYPE_PERSON : TYPE_DEFAULT;//Wrong data sent here.
-        //this.taxonomies = new Map();
-        //this.taxonomies.set("domains", raw.domains);
-        //this.taxonomies.set("skills", raw.skills);
 
         params.showMeta = params.showMeta ?? true;
         params.showStatus = params.showStatus ?? true;
@@ -29,9 +34,7 @@ class Person extends EntityModel {
         this.simpleComponent = PersonSimple;
         this.singleComponent = PersonSingle;
 
-
-
-        //sets all the rest as a this[key] = raw[key] value.
+        //sets all the rest as this[key] = raw[key] value.
         this.setProperties(raw);
     }
 

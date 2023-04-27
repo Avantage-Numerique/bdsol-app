@@ -16,7 +16,6 @@
         height: 8rem;
         display: flex;
         align-items: flex-end;
-        overflow: hidden;
         @include transition();
 
         .entity-type {
@@ -27,6 +26,7 @@
             position: relative;
             @include transition();
 
+            overflow: hidden;
             .figure-overlay {
                 @include transition();
                 opacity: 1;
