@@ -11,7 +11,6 @@ const SelectFetch = (props) => {
 
     //Search suggestion
     useEffect( () => {
-        console.log("allo")
         const getSelectOptions = async () => {
             const optionList = await clientSideExternalApiRequest(
                 '/info/' + props.fetchOption,
