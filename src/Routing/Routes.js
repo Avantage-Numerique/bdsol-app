@@ -61,7 +61,6 @@ class Routes {
     /**
      * Set all the properties into this scope
      * @param property
-     * @param routeName
      * @param route
      * @return {*}
      */
@@ -103,6 +102,11 @@ class Route {
         this.breadcrumbPathName = params.breadCrumbPathName ?? params.pathname;
         this.breadcrumbAsPath = params.breadcrumbAsPath ?? params.asPath;
         this.breadcrumbQuery = params.breadcrumbQuery ?? params.query;
+    }
+
+    //Add a getter for the URL params and replace to use the pathname as direct.
+    applyParams(params, property="pathname") {
+
     }
 }
 

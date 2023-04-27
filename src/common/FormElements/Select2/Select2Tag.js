@@ -64,17 +64,17 @@ const Select2Tag = ({name, formTools, ...props}) => {
 
                 if(isDirectElement){    //this is a warning.
                     //If yes, we need to adjust the shape of the data
-                    const formatedObj = formState.inputs[name].value.map(obj => ({[props.idField] : obj}));
-                    entitiesList.current.push(...formatedObj);
-
+                    console.log("elem", elem)
+                    entitiesList.current.push({[props.idField] : elem});
+                    console.log("current entity list",entitiesList.current)
                     console.warn("WARNING : Select 2 tags transmuted the data. It received the formstate as { searchField: {data} }, instead of { idField: { searchField : {data} } }.");
-                    return {value: elem._id, label: elem[props.searchField]}
+                    return {value: elem._id, label: elem[props.searchField], color: getColor(elem)}
                 }
 
                 //Normal behavior
                 if(useIdFieldToAccessElement) {
                     entitiesList.current.push(...formState.inputs[name].value);
-                    return { value: elem[props.idField]._id, label: elem[props.idField][props.searchField] }
+                    return { value: elem[props.idField]._id, label: elem[props.idField][props.searchField], color: getColor(elem[props.idField]) }
                 }
             })
             selectRef.current.setValue(state, "set-value");

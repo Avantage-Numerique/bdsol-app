@@ -42,11 +42,12 @@
     "sass": "^1.49.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.21.4",
+    "@babel/eslint-parser": "^7.21.3",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.2.0",
-    "babel-eslint": "^10.1.0",
     "concurrently": "^7.0.0",
-    "eslint": "^8.35.0",
+    "eslint": "^8.39.0",
     "jest": "^28.1.0",
     "nodemon": "^2.0.15",
     "purgecss": "^5.0.0"

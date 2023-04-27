@@ -1,6 +1,4 @@
-
-export const TYPE_ABSTRACT = "Entity";
-export const TYPE_DEFAULT = TYPE_ABSTRACT;
+import {TYPE_DEFAULT} from "@/DataTypes/Entity/Types";
 
 /**
  * The abstract model for all the entities.
@@ -20,7 +18,7 @@ class EntityModel {
      * @param raw {object} All the params to setup this.
      * @param raw.type {String} the entity type.
      * @param raw.description {String} Big string.
-     * @param raw.mainImage {Object} Main image (Media) of the entity.
+     * @param raw.mainImage {Object|Media} Main image (Media) of the entity.
      * @param raw.simpleComponent {Component} the component for the simple view.
      * @param raw.singleComponent {Component} the component for the single view.
      * @param params {object} pass some params.
@@ -32,7 +30,15 @@ class EntityModel {
         this.type = raw.type ?? TYPE_DEFAULT;
         this.title = raw.title ?? "no title set";
         this.description = raw.description ?? "no description set";
-        this.mainImage = raw.mainImage ?? "no mainImage set";
+        this.mainImage = this.mainImage;
+        this.mainImageModel = this.mainImageRaw;
+
+        //  Routes associated with single base, single and contribute uri.
+        this.repertoryRoute = raw.repertoryRoute ?? "";
+        this.singleRoute = raw.singleRoute ?? "";
+        this.contributeRoute = raw.contributeRoute ?? "";
+
+        //Ajouter _id et id ??
 
         this.defaultSimpleParams = {};
         this.defaultSingleParams = {};
@@ -47,7 +53,7 @@ class EntityModel {
     }
 
 
-    //  GETTER / SETTER
+    //  --- GETTER / SETTER ---
 
     /**
      * Get the type of the current model
@@ -100,6 +106,10 @@ class EntityModel {
      */
     get mainImage() {
         return this._mainImage;
+        /*if (this._mainImageModel) {
+            this._mainImageModel = new Media(this.mainImage)
+        }
+        return this._mainImageModel;*/
     }
     /**
      * Set the entity title
@@ -163,8 +173,56 @@ class EntityModel {
         return this.params.set("single", value);
     }
 
+    /**
+     * Repertory Route
+     * @return {Route}
+     */
+    get repertoryRoute() {
+        return this._repertoryRoute;
+    }
+    /**
+     * Set the property repertoryURI from repertoryRoute
+     * @param value {Route}
+     */
+    set repertoryRoute(value) {
+        this.repertoryURI = value.pathname
+        return this._repertoryRoute = value;
+    }
 
-    //  UTILS
+    /**
+     * The base Route for the single page.
+     * @return {Route}
+     */
+    get singleRoute() {
+        return this._singleRoute;
+    }
+    /**
+     * Set the property singleURI from singleRoute
+     * @param value {Route}
+     */
+    set singleRoute(value) {
+        this.singleURI = value.pathname;
+        return this._singleRoute = value;
+    }
+
+    /**
+     * Contribute Route
+     * @return {Route}
+     */
+    get contributeRoute() {
+        return this._contributeRoute;
+    }
+    /**
+     * Set the property contributeURI from contributeRoute
+     * @param value {Route}
+     */
+    set contributeRoute(value) {
+        this.contributeURI = value.pathname;
+        return this._contributeRoute = value;
+    }
+
+
+    //  --- UTILS ---
 
     /**
      * Declare all the model property to be accessible to it.

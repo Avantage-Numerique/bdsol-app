@@ -1,8 +1,8 @@
 import EntityModel, {TYPE_DEFAULT} from "@/DataTypes/Entity/models/EntityModel";
 import ProjectSimple from "@/DataTypes/Project/layouts/simple/ProjectSimple";
 import ProjectSingle from "@/DataTypes/Project/layouts/single/ProjectSingle";
+import {TYPE_PROJECT} from "@/DataTypes/Entity/Types";
 
-export const TYPE_PROJECT = "Project";
 
 class Project extends EntityModel {
 
