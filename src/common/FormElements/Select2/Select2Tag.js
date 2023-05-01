@@ -12,7 +12,6 @@ import CreatableSelect from 'react-select/creatable';
 import styles from './Select2Tag.module.scss'
 import makeAnimated from 'react-select/animated';
 import {getColor, selectStyle} from '@/src/styles/datatypeStyle';
-import Icon from "@/common/widgets/Icon/Icon";
 
 /**
  * Input to fetch taxonomy and add X elements to the form as an array.

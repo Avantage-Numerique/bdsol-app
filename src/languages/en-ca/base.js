@@ -199,5 +199,9 @@ export const base = {
     "noLicenceData": "Data about licences couldn't be found in the l'API.",
 
     // Single
-    "ctaLabel": "Call to action"
+    "ctaLabel": "Call to action",
+
+    //Select2
+    "createOptionLabel" : "Create : "
+
 }

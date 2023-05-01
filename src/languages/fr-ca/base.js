@@ -201,6 +201,9 @@ const base = {
     "noLicenceData": "Les données sur les licences dans l'API n'ont pas été trouvées.",
 
     // Single
-    "ctaLabel": "Appel à l'action"
+    "ctaLabel": "Appel à l'action",
+
+    //Select2
+    "createOptionLabel" : "Créer : "
 }
 exports.base = base;
