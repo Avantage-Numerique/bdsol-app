@@ -9,22 +9,17 @@ import {lang} from "@/src/common/Data/GlobalConstants";
 
 /** 
  * @param name : used for id and formState
- * @param formTools : FormTools
  * @param creatable : if undefined or false, no create option will be available
  * @param options : Will show, search and allow selection of these options
+ * @param inputValue : State of the input text
+ * @param inputValueSetter : Setter for the state of inputValue, used for dynamic option list search
+ * @param value : State of the current value of the selected item
+ * @param valueSetter : setter of value to update the selected item
  * */
 
-const Select2BaseSingle = ({formTools, ...props}) => {
-
-    const {
-        formState,
-        inputHandler,
-        //inputTouched
-    } = formTools;
+const Select2BaseSingle = ({name, ...props}) => {
 
     const selectRef = useRef();
-    const [inputValue, setInputValue] = useState("");
-    //const [value, setValue] = useState(null);
 
     //Creatable Section
     const filterCreate = (option, searchText) => {
@@ -57,23 +52,29 @@ const Select2BaseSingle = ({formTools, ...props}) => {
 
     //Reset component
     const resetSelectComponent = () => {
-        selectRef.current.setValue(null);
-        setInputValue('');
+        //selectRef.current.setValue(null, "set-value");;
+        //props.inputValueSetter('');
     }
 
     return (
         <CreatableSelect
             ref={selectRef}
-            instanceId={"Select2Single-"+props.name}
-            //value={value}
-            inputValue={inputValue}
+            instanceId={"Select2Single-"+name}
+
+            //Behaviours and default
+            isClearable={true}
+
+            //value, input, options
+            value={props.value}
+            inputValue={props.inputValue}
             options={props.options}
-            //onChange={(val) => updateValue(val)}
+
+            onChange={(val) => props.valueSetter(val)}
             onInputChange={(val) => {
                 val.slice(-1) === ',' ?
                 setValueWithComma()
                 :
-                setInputValue(val)
+                props.inputValueSetter(val)
             }}
 
 

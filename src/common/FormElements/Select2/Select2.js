@@ -12,12 +12,14 @@ import Select2BaseMulti from "./Select2BaseMulti";
  * @param creatable : true if allowed to create, false or undefined means not allowed to create new option
  * @param isMulti : true if multiple selection allowed, false if single option selectable
  * @param optionsList : (optionnal) Can specify directly a list of option in format [ { label, value, color? }, ... ]
- * @param fetch : url to fetch options from api
- * @param requestData : ?
  */
 const Select2 = ({...props}) => {
 
     const [optionsList, setOptionList] = useState(props.optionsList ?? []);
+    const [inputValue, setInputValue] = useState("");
+    const [value, setValue] = useState(null);
+
+    useEffect( () => { console.log(value) }, [value])
 
     //If props.isMulti return Select Multi
     if (props.isMulti){
@@ -26,19 +28,31 @@ const Select2 = ({...props}) => {
             <Select2BaseMulti
                 name={props.name}
                 creatable={props.creatable}
+                
                 options={optionsList}
+                inputValue={inputValue}
+                inputValueSetter={setInputValue}
+                value={value}
+                valueSetter={setValue}
+
             />
-            
-        )
-    }
+                
+                )
+            }
     //else return Select Single
     else {
         return (
-
+            
             <Select2BaseSingle
                 name={props.name}
                 creatable={props.creatable}
+                
                 options={optionsList}
+                inputValue={inputValue}
+                inputValueSetter={setInputValue}
+                value={value}
+                valueSetter={setValue}
+                
             />
 
         )

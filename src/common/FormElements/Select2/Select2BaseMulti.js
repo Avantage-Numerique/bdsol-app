@@ -11,22 +11,18 @@ import {lang} from "@/src/common/Data/GlobalConstants";
 
 /** 
  * @param name : used for id and formState
- * @param formTools : FormTools
  * @param creatable : if undefined or false, no create option will be available
  * @param options : Will show, search and allow selection of these options
+ * @param inputValue : State of the input text
+ * @param inputValueSetter : Setter for the state of inputValue, used for dynamic option list search
+ * @param value : State of the current value of the selected item
+ * @param valueSetter : setter of value to update the selected item
  * */
 
-const Select2BaseMulti = ({formTools, ...props}) => {
+const Select2BaseMulti = ({name, ...props}) => {
 
-    const {
-        formState,
-        inputHandler,
-        //inputTouched
-    } = formTools;
 
     const selectRef = useRef();
-    const [inputValue, setInputValue] = useState("");
-    //const [value, setValue] = useState(null);
     
     //Creatable Section
     const filterCreate = (option, searchText) => {
@@ -62,23 +58,26 @@ const Select2BaseMulti = ({formTools, ...props}) => {
     //Reset component
     const resetSelectComponent = () => {
         selectRef.current.setValue([], "set-value");
-        setInputValue('');
+        props.inputValueSetter('');
     }
 
     return (
         <CreatableSelect
             ref={selectRef}
-            instanceId={"Select2Multi-"+props.name}
+            instanceId={"Select2Multi-"+name}
             isMulti
-            //value={value}
-            inputValue={inputValue}
+            
+            //value, input, options
+            value={props.value}
+            inputValue={props.inputValue}
             options={props.options}
 
+            onChange={ (val) => { props.valueSetter(val)}}
             onInputChange={(val) => {
                 val.slice(-1) === ',' ?
                 setValueWithComma()
                 :
-                setInputValue(val)
+                props.inputValueSetter(val)
             }}
 
             //Style, utils
