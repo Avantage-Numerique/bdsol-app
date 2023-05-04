@@ -76,7 +76,7 @@ const UpdateTeams = ({parentEntity, positiveRequestActions}) => {
                 initValues={parentEntity.team}
             >
                 <div className={`${styles["team-member-row"]} d-flex  mb-2 border-b row py-2`}>
-                    <div class="col row">
+                    <div className="col row">
                         <Select2Tag
                                 className="col col-sm-12 col-md-6"
                                 searchField="fullName"

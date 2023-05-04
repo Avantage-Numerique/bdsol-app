@@ -9,6 +9,7 @@ import MediaFigure from "@/DataTypes/Media/layouts/MediaFigure";
 import {TYPES} from "@/DataTypes/Entity/Types";
 import SanitizedInnerHtml from "@/src/utils/SanitizedInnerHtml";
 import {replacePathname} from "@/src/helpers/url";
+import Link from "next/link";
 
 /********* 
  * 
@@ -73,7 +74,7 @@ const EntitySimple = (props) => {
             {/* Image representing the entity */}
             { model.mainImage &&
                 <div>
-                    <a href={link} title={title}>
+                    <Link href={link} title={title}>
                         <MediaFigure
                             model={model.mainImage}
                             className={`${styles["simple-abstract__header__figure"]} position-absolute top-0 start-0 w-100 h-100 t-0`}
@@ -81,7 +82,7 @@ const EntitySimple = (props) => {
                             addGradientOver={true}>
                             <div className={`${styles["figure-overlay"]} position-absolute w-100 h-100 no-pointer-events dark-transparent-gradient`}></div>
                         </MediaFigure>
-                    </a>
+                    </Link>
                 </div>
             }
             {/* Display over the entity the type of image */}
