@@ -68,6 +68,8 @@ const Repeater = props => {
         //formReturnStructure   //
     } = props;
 
+    console.log("FORM INIT STRUCTURE IN REPEATER", formInitStructure, initValues)
+
     //Import the authentication context to make sure the user is well connected
     const auth = useAuth();
 

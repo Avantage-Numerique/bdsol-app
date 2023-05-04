@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef } from 'react'
 
 //hooks
 import { useFormUtils } from '@/src/hooks/useFormUtils/useFormUtils';
@@ -13,7 +13,10 @@ import Repeater from '@/src/common/FormElements/Repeater/Repeater';
 import styles from './UpdateTeams.module.scss'
 
 
+
 const UpdateTeams = ({parentEntity, positiveRequestActions}) => {
+
+    console.log("PARENT ENTITY ", parentEntity)
 
     const {FormUI, submitRequest, formState, formTools} = useFormUtils(
         {
@@ -28,6 +31,16 @@ const UpdateTeams = ({parentEntity, positiveRequestActions}) => {
         }
     )
 
+    //Format to array      
+   let formatParentEntity = {...parentEntity};
+
+    formatParentEntity.team.forEach(element => {
+        const temp = {...element.member};
+        element.member = [temp];
+    });
+    console.log(formatParentEntity) 
+    
+
     const submitHandler = async event => {
         
         event.preventDefault();
@@ -35,7 +48,7 @@ const UpdateTeams = ({parentEntity, positiveRequestActions}) => {
         const formattedTeams = formState.inputs.team.value.map(function(singleTeam){
             return {
                 status: singleTeam.status,
-                member: singleTeam.value.member.value,
+                member: singleTeam.value.member.value[0].member._id,
                 role: singleTeam.value.role.value
             }
         })
@@ -54,7 +67,6 @@ const UpdateTeams = ({parentEntity, positiveRequestActions}) => {
             'POST',
             formData
         );
-
     }
 
     return (
@@ -65,7 +77,7 @@ const UpdateTeams = ({parentEntity, positiveRequestActions}) => {
                 name="team"
                 formInitStructure={{
                     member: {
-                        value: "",
+                        value: [],
                         isValid: false
                     },
                     role: {
@@ -73,13 +85,13 @@ const UpdateTeams = ({parentEntity, positiveRequestActions}) => {
                         isValid: true
                     }
                 }}
-                initValues={parentEntity.team}
+                initValues={formatParentEntity.team}
             >
-                <div className={`${styles["team-member-row"]} d-flex  mb-2 border-b row py-2`}>
-                    <div className="col row">
+                <div className={`${styles["team-member-row"]} d-flex align-items-center mb-2 border-b row py-2`}>
+                    <div class="col row align-items-center">
                         <Select2Tag
                                 className="col col-sm-12 col-md-6"
-                                searchField="fullName"
+                                searchField="firstName"
                                 fetch="/persons/list"
                                 requestData={{name:""}}
                                 placeholder="Personne"
