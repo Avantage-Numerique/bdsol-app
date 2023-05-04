@@ -63,10 +63,10 @@ const Select2Tag = ({name, formTools, ...props}) => {
 
                 if(isDirectElement){    //this is a warning.
                     //If yes, we need to adjust the shape of the data
-                    console.log("elem", elem)
+                    console.log("Select2tag : elem", elem)
                     entitiesList.current.push({[props.idField] : elem});
-                    console.log("current entity list",entitiesList.current)
-                    console.warn("WARNING : Select 2 tags transmuted the data. It received the formstate as { searchField: {data} }, instead of { idField: { searchField : {data} } }.");
+                    console.log("Select2tag : current entity list",entitiesList.current)
+                    console.warn("Select2tag : WARNING : Select 2 tags transmuted the data. It received the formstate as { searchField: {data} }, instead of { idField: { searchField : {data} } }.");
                     return {value: elem._id, label: elem[props.searchField], color: getColor(elem)}
                 }
 

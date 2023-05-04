@@ -23,7 +23,7 @@ const PersonSimple = ({ model }) => {
     );
 
     return (
-        <EntitySimple model={model} className={`${styles["person-simple"]}`} OverRidingHeader={Header} />
+        <EntitySimple model={model} className={`${styles["person-simple"]}`} Header={Header} />
     )
 }
 

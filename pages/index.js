@@ -10,7 +10,6 @@ import Spinner from '@/src/common/widgets/spinner/Spinner'
 import {sortDescBy} from "@/src/common/Data/Sorting/Sort";
 import PageHeader from "@/src/layouts/Header/PageHeader";
 import EntitiesGrid from "@/DataTypes/Entity/layouts/EntitiesGrid";
-import EntitySimple from "@/DataTypes/common/layouts/EntitySimple/EntitySimple";
 
 //Costum hooks 
 import {useHttpClient} from '@/src/hooks/http-hook';
@@ -72,7 +71,6 @@ const HomePage = ({}) => {
 
             //Finaly, update the state to display the result
             setFeedList(feed);
-            console.log(feed)
             //If negative
         } else {
 

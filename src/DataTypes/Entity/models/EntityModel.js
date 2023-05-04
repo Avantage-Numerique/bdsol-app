@@ -31,7 +31,7 @@ class EntityModel {
         this.type = raw.type ?? TYPE_DEFAULT;
         this.title = raw.title ?? "no title set";
         this.description = raw.description ?? "no description set";
-        console.log(this.description);
+
         this.shortDescription = removeHtml(this.description);
         this.shortDescription = this.shortDescription.substring(0,this.shortLenght) + (this.shortDescription.length > this.shortLenght ? "..." : "");
         this.mainImage = raw.mainImage ?? {url:"", alt:""};
