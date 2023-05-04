@@ -31,7 +31,7 @@ import UpdateTeams from '@/src/DataTypes/Organisation/components/forms/UpdateTea
 
 const OrganisationSingle = ({ data }) => {
 
-    const defaultOrgAvatar = '/general_images/Jurassic_Park_Main_Gate.jpg';
+    const defaultOrgAvatar = '/general_images/organisation-default.jpg';
 
     /**********
      * 
@@ -156,7 +156,7 @@ const OrganisationSingle = ({ data }) => {
                             />
                     </article>
                 ))}
-                { (!offers || offers?.length == 0) &&
+                { (!offers || offers?.length === 0) &&
                     <p>Ajoutez une offre de services à votre organisation.</p>
                 }
             </section>

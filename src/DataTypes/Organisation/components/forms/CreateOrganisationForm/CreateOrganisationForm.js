@@ -9,7 +9,6 @@ import {useFormUtils} from '@/src/hooks/useFormUtils/useFormUtils';
 import { useModal } from '@/src/hooks/useModal/useModal';
 
 //Component
-import Repeater from '@/src/common/Containers/Repeater/Repeater';
 import Select2Tag from '@/src/common/FormElements/Select2/Select2Tag';
 import Button from '@/src/common/FormElements/Button/Button';
 import Input from '@/src/common/FormElements/Input/Input';
@@ -64,7 +63,7 @@ const CreateOrganisationForm = (props) => {
     }, [auth.user.isLoggedIn]);
 
     //Main form functionalities
-    const { FormUI, submitRequest, formState, formTools, transmuteTaxonomyTargetInput } = useFormUtils(
+    const { FormUI, submitRequest, formState, formTools } = useFormUtils(
     {
         name: {
             value: initialValues.name,
@@ -93,11 +92,7 @@ const CreateOrganisationForm = (props) => {
         domains: {
             value: initialValues.domains,
             isValid: true
-        },
-        team: {
-            value: initialValues.team,
-            isValid: true
-        },
+        }
     },
         positiveRequestActions || {
             clearForm: true,            //Clear the form
@@ -118,7 +113,6 @@ const CreateOrganisationForm = (props) => {
                 fondationDate: formState.inputs.fondationDate.value,
                 catchphrase: formState.inputs.catchphrase.value,
                 domains: getSelectedToFormData(formState.inputs.domains.value, "domain", auth.user),
-                team: formState.inputs.team.value,
                 "status": submitUri === "create" ? getDefaultCreateEntityStatus(auth.user) : getDefaultUpdateEntityStatus(auth.user)
             }
         };
@@ -198,18 +192,6 @@ const CreateOrganisationForm = (props) => {
                     formTools={formTools}
                     creatableModal={modal}
                 />
-
-                <Repeater
-                    name="team"
-                    label="Membres de l'organisation"
-                    addButtonLabel="Ajouter un membre"
-                    noComponentLabel="Aucun membre ajouté"
-                    formTools={formTools}
-                    maxRepeat="6"
-                    >
-                    
-                    <Input/>
-                </Repeater>
 
 
                 <blockquote>

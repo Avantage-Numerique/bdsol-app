@@ -9,6 +9,7 @@ import MediaFigure from "@/DataTypes/Media/layouts/MediaFigure";
 import {TYPES} from "@/DataTypes/Entity/Types";
 import SanitizedInnerHtml from "@/src/utils/SanitizedInnerHtml";
 import {replacePathname} from "@/src/helpers/url";
+import Link from "next/link";
 
 /********* 
  * 
@@ -44,8 +45,8 @@ const EntitySimple = (props) => {
         className,
         //Props for this component fonctionalities
         //redirectionLink,
-        overRidingHeader,
-        overRidingContent,
+        OverRidingHeader,
+        OverRidingContent,
         //showEntityType,
         //Props for informations to display
         //title,
@@ -60,7 +61,7 @@ const EntitySimple = (props) => {
 
     //content
     const title = model.title;
-    const description = model.description;
+    const description = model.shortDescription;
     const type = model.type;
     const link = "/"+replacePathname(model.singleRoute.pathname, {slug: model.slug});
 
@@ -68,38 +69,39 @@ const EntitySimple = (props) => {
     const showEntityType = props.showEntityType ?? true;
     const appType = TYPES.get(model.type);
 
+    const Header = (
+        <>
+            {/* Image representing the entity */}
+            { model.mainImage &&
+                <div>
+                    <Link href={link} title={title}>
+                        <MediaFigure
+                            model={model.mainImage}
+                            className={`${styles["simple-abstract__header__figure"]} position-absolute top-0 start-0 w-100 h-100 t-0`}
+                            imgClassName={`${styles["simple-abstract__header__figure__img"]}`}
+                            addGradientOver={true}>
+                            <div className={`${styles["figure-overlay"]} position-absolute w-100 h-100 no-pointer-events dark-transparent-gradient`}></div>
+                        </MediaFigure>
+                    </Link>
+                </div>
+            }
+            {/* Display over the entity the type of image */}
+            {showEntityType && appType &&
+                <h4 className={`position-relative text-white fw-normal m-0 ${styles["entity-type"]}`}>{appType.label}</h4>
+            }
+        </>
+    )
 
     return (
         <Tag className={`${className} rounded ${styles["simple-abstract"]}`}>
             {/* SECTION 1/2 : Header */}
             <header className={`${styles["simple-abstract__header"]}`}>
                 {/* Override the display of the normal visual if there is the overRidingHeader is defined */}
-                { overRidingHeader ? {overRidingHeader} :
-                    <> 
-                        {/* Image representing the entity */}
-                        { model.mainImage &&
-                            <div>
-                                <a href={link} title={title}>
-                                    <MediaFigure
-                                        model={model.mainImage}
-                                        className={`${styles["simple-abstract__header__figure"]} position-absolute top-0 start-0 w-100 h-100 t-0`}
-                                        imgClassName={`${styles["simple-abstract__header__figure__img"]}`}
-                                        addGradientOver={true}>
-                                        <div className={`${styles["figure-overlay"]} position-absolute w-100 h-100 no-pointer-events dark-transparent-gradient`}></div>
-                                    </MediaFigure>
-                                </a>
-                            </div>
-                        }
-                        {/* Display over the entity the type of image */}
-                        {showEntityType && appType &&
-                            <h4 className={`position-relative text-white fw-normal m-0 ${styles["entity-type"]}`}>{appType.label}</h4>
-                        }
-                    </>
-                }
+                { OverRidingHeader ? OverRidingHeader : Header }
             </header>
             {/* SECTION 2/2 : Main content */}
             <section className={`${styles["simple-abstract__content"]}`}>
-                { overRidingContent ? {overRidingContent} : 
+                { OverRidingContent ? OverRidingContent :
                     <>
                         <header className="d-flex justify-content-between">
                             {/* Main name of the entity */}

@@ -17,7 +17,6 @@ import styles from './UpdateTeams.module.scss'
 const UpdateTeams = ({parentEntity, positiveRequestActions}) => {
 
     console.log("PARENT ENTITY ", parentEntity)
-    
 
     const {FormUI, submitRequest, formState, formTools} = useFormUtils(
         {
@@ -32,9 +31,7 @@ const UpdateTeams = ({parentEntity, positiveRequestActions}) => {
         }
     )
 
-    //Format to array  
-    console.log('Form state', formState)
-    
+    //Format to array      
    let formatParentEntity = {...parentEntity};
 
     formatParentEntity.team.forEach(element => {

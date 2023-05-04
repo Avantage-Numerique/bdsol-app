@@ -1,4 +1,5 @@
 import {TYPE_DEFAULT} from "@/DataTypes/Entity/Types";
+import {removeHtml} from "@/src/helpers/str";
 
 /**
  * The abstract model for all the entities.
@@ -26,12 +27,14 @@ class EntityModel {
      * @param params.simple {object} Parameters for the simple component
      */
     constructor(raw, params={}) {
-
+        this.shortLenght = 87;
         this.type = raw.type ?? TYPE_DEFAULT;
         this.title = raw.title ?? "no title set";
         this.description = raw.description ?? "no description set";
-        this.mainImage = this.mainImage;
-        this.mainImageModel = this.mainImageRaw;
+        console.log(this.description);
+        this.shortDescription = removeHtml(this.description);
+        this.shortDescription = this.shortDescription.substring(0,this.shortLenght) + (this.shortDescription.length > this.shortLenght ? "..." : "");
+        this.mainImage = raw.mainImage ?? {url:"", alt:""};
 
         //  Routes associated with single base, single and contribute uri.
         this.repertoryRoute = raw.repertoryRoute ?? "";
@@ -115,6 +118,9 @@ class EntityModel {
      * Set the entity title
      */
     set mainImage(value) {
+        if (typeof value === "object") {
+            value.baseSrc = value.baseSrc ?? `${process.env.NEXT_PUBLIC_API_URL}`
+        }
         this._mainImage = value;
     }
 
@@ -242,7 +248,7 @@ class EntityModel {
      * @return none
      */
     definePropertyIfNotOwned(property, value) {
-        if (!this.hasOwnProperty(property)) {
+        if (!this[property]) {
             Object.defineProperty(this, property, {
                 value: value,
                 enumerable: true,
