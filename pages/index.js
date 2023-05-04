@@ -17,6 +17,7 @@ import {useHttpClient} from '@/src/hooks/http-hook';
 //Context
 import {MessageContext} from '@/src/common/UserNotifications/Message/Context/Message-Context';
 import {useAuth} from '@/src/authentification/context/auth-context';
+import SanitizedInnerHtml from "@/src/utils/SanitizedInnerHtml";
 
 //Styling
 //import styles from './home-page.module.scss'
@@ -211,7 +212,7 @@ const HomePage = ({}) => {
                                     <Button 
                                         disabled 
                                         size="slim" 
-                                    >Événement</Button>
+                                    >{lang.Events}</Button>
                                     <Button 
                                         disabled     
                                         size="slim" 
@@ -248,7 +249,17 @@ const HomePage = ({}) => {
                                 </div>
 
                                 <div className={"db-edit-options__button-set"}>
-                                    <Button href="/categories" color="primary" size="slim">Catégories</Button>
+                                    <Button href="/projets" color="primary" size="slim">{lang.Projects}</Button>
+                                    <Button
+                                        color="primary"
+                                        size="slim"
+                                        disabled={!auth.user.isLoggedIn}
+                                        href="/contribuer/projet"
+                                    >+</Button>
+                                </div>
+
+                                <div className={"db-edit-options__button-set"}>
+                                    <Button href="/categories" color="primary" size="slim">{lang.Taxonomies}</Button>
                                     <Button
                                         color="primary"
                                         size="slim"
@@ -263,10 +274,9 @@ const HomePage = ({}) => {
                                 }
 
                                 <hr/>
-                                <p>
-                                    <strong className="text-danger">DÉVELOPPEMENT EN COURS.</strong> Vous pourrez
-                                    bientôt lancer des recherches et consulter toutes les données.
-                                </p>
+                                <SanitizedInnerHtml tag={"p"}>
+                                    {lang.projectInDev}
+                                </SanitizedInnerHtml>
                             </section>
                             <hr />
 

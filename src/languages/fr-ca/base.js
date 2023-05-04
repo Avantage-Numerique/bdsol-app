@@ -68,104 +68,11 @@ const base = {
     "submit": "Soumettre",
 
 
-    // CreatePersonForm.js
-
-    "formPersonSubtitle": "Ajoutez ici une entité <code>Personne</code>, afin de représenter un artiste, artisan ou professionnel de tout domaine que vous jugez pertinent à cette base de données.",
-    "formPersonInstructions": "",
-    "personUploadMediaMainImage": "Vous pourrez téléverser une image à partir de la page de cette personne. Cette image représentera cette personne et sera affiché dans sa fiche et dans les pages qui la liste.",
-
-
-    //  CreateOrganisationForm.js
-
-    "formOrganisationSubtitle": "Vous pouvez ajouter ici une nouvelle organisation à la base de données.",
-    "formOrganisationInstructions": "Super formulaire",
-    "organisationUploadMediaMainImage": "Vous pourrez téléverser une image à partir de la page de cette organisation. Cette image représentera cette organisation et sera affiché dans sa fiche et dans les pages qui la liste.",
 
     // SINGLE
 
     "proposeContentChangeLabel": "Proposer une modification",
 
-
-    //  Personnes
-
-    "Person": "Personne",
-    "Persons": "Personnes",
-    "person": "personne",
-    "persons": "personnes",
-    "url": "url",
-    "urlLabel": "Url&nbsp;:&nbsp;",
-    "contact": "contact",
-    "contactLabel": "Contact&nbsp;:&nbsp;",
-    "nickname": "surnom",
-    "nicknameLabel": "Surnom&nbsp;:&nbsp;",
-    "catchphrase": "Phrase d'accroche",
-    "addPersonButtonLabel": "Ajouter une personne",
-
-
-    //  Organisations
-
-    "Organisation": "Organisation",
-    "Organisations": "Organisations",
-    "organisation": "organisation",
-    "organisations": "organisations",
-    "teamMembers": "Membres de l'organisation",
-    "fondationDate": "Date de fondation",
-
-    "singleDescriptionLabel": "Présentation",
-    "bestContactPointLabel": "Meilleur moyen pour les contacter : ",
-
-
-
-    //  Taxonomy
-
-    "Taxonomy": "Catégorie",
-    "Taxonomies": "Catégories",
-    "taxonomy": "catégorie",
-    "taxonomies": "catégories",
-    "taxonomyExplications": "Une catégorie sert à classifier dans un système ordonné les relations entre les entités. Ajoutez ici une catégorie pour permettre à une entité d'être reliée à cette catégorie. Par exemple, lier une <strong>personne</strong> à une <strong>occupation</strong> ou une <strong>compétence</strong> et lier une <strong>organisation</strong> à un <strong>service offert</strong> et bien d'autre.",
-
-    "taxonomyCreateWhenDoNotExistDirective": "Le nouvel élément de catégorie que vous ajoutez ici pourra ensuite être directement intégrée au formulaire.",
-
-    "backToTaxonomyIndexBtnLabel": "Retour à toutes les catégories",
-
-    //Specific taxonomy
-
-    "Technology": "Technologie",
-    "Technologies": "Technologies",
-    "technology": "technologie",
-    "technologies": "technologies",
-
-    "Skills": "Compétences",
-    "Skill": "Compétence",
-    "skills": "compétences",
-    "skill": "compétence",
-
-    //  Occupations
-
-    "occupations": "occupations",
-    "Occupations": "Occupations",
-    "occupation": "occupation",
-    "Occupation": "Occupation",
-
-    "occupationsPlaceholder": "Enseignant, Architecte logiciel, [...]",
-
-
-    //  Services
-
-    "Services": "Services offerts",
-    "Service": "Service",
-    "services": "services offerts",
-    "service": "service",
-
-    //  Domains
-
-    "Domains": "Domaines",
-    "Domain": "Domaine",
-    "domains": "domaines",
-    "domain": "domaine",
-
-    "domainsInputPlaceholder": "Art, informatique, communication, [...]",
-    "domainsSingleLabel": "Les domaines",
 
     //  TEAMS
 

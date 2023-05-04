@@ -8,7 +8,11 @@ export const lang = StringDictionary.getInstance([
     "base",
     "organisations",
     "persons",
+    "projects",
+    "taxonomies",
+    "events",
     "errors",
+    "messages",
 ]);
 
 export const now = new Date();
