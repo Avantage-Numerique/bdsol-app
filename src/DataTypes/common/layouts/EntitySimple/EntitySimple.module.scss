@@ -8,6 +8,7 @@
     background-color: $light;
     overflow: hidden;
 
+    @include transition($transition-ease-out);
     //max-width: 17rem;//parent scope of responsability
 
     /* Header's styling */
@@ -16,7 +17,7 @@
         height: 8rem;
         display: flex;
         align-items: flex-end;
-        @include transition();
+        @include transition($transition-ease-out);
 
         .entity-type {
             @include transition();
@@ -33,26 +34,32 @@
             }
             .simple-abstract__header__figure__img {
 
-                @include transition();
+                @include transition($transition-ease-out);
                 position: absolute;
                 width: 100%;
                 height: 100%;
                 object-fit: cover;
             }
         }
+    }
 
-        &:hover {
+
+    &:hover {
+
+        box-shadow: $default-box-shadow-over;
+        transform: scale(99%);
+        .simple-abstract__header {
             .simple-abstract__header__figure {
                 .figure-overlay {
                     opacity: 0.4;
                 }
+
                 .simple-abstract__header__figure__img {
                     transform: scale(110%);
                 }
             }
         }
     }
-
     /* Content's styling */
     .simple-abstract__content {
         padding: var(--simple-abstract--padding);
