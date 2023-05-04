@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef } from 'react'
 
 //hooks
 import { useFormUtils } from '@/src/hooks/useFormUtils/useFormUtils';
@@ -13,9 +13,11 @@ import Repeater from '@/src/common/FormElements/Repeater/Repeater';
 import styles from './UpdateTeams.module.scss'
 
 
+
 const UpdateTeams = ({parentEntity, positiveRequestActions}) => {
 
     console.log("PARENT ENTITY ", parentEntity)
+    
 
     const {FormUI, submitRequest, formState, formTools} = useFormUtils(
         {
@@ -45,7 +47,7 @@ const UpdateTeams = ({parentEntity, positiveRequestActions}) => {
     const submitHandler = async event => {
         
         event.preventDefault();
-        
+
         const formattedTeams = formState.inputs.team.value.map(function(singleTeam){
             return {
                 status: singleTeam.status,
@@ -88,8 +90,8 @@ const UpdateTeams = ({parentEntity, positiveRequestActions}) => {
                 }}
                 initValues={formatParentEntity.team}
             >
-                <div className={`${styles["team-member-row"]} d-flex  mb-2 border-b row py-2`}>
-                    <div class="col row">
+                <div className={`${styles["team-member-row"]} d-flex align-items-center mb-2 border-b row py-2`}>
+                    <div class="col row align-items-center">
                         <Select2Tag
                                 className="col col-sm-12 col-md-6"
                                 searchField="firstName"

@@ -2,7 +2,7 @@ import React from 'react';
 
 //Component
 import Single from "@/DataTypes/common/layouts/single/Single";
-import CreateProject from '@/DataTypes/Project/forms/CreateProject';
+import CreateProject from '@/src/DataTypes/Project/forms/CreateProjectForm';
 
 //Custom hooks
 import {useModal} from "@/src/hooks/useModal/useModal";
@@ -14,7 +14,7 @@ const CreateProject = () => {
     const modalComponentParams = {
         uri:"update"
     };
-    
+
     const imgModalControl = useModal();
 
 

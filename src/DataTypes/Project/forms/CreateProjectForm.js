@@ -89,7 +89,7 @@ const CreateProjectForm = () => {
                 ]}
                 //idField=""
             />
-
+{/* 
             <SelectFetch 
                 name="context"
                 label="Choisissez un context"
@@ -97,7 +97,7 @@ const CreateProjectForm = () => {
                 //noValueText="Contextes"
                 fetchOptions="context-enum"
             />
-
+ */}
             <Button onClick={submitHandler}>
                 Soumettre
             </Button>
