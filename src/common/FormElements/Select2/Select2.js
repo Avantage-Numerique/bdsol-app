@@ -21,12 +21,25 @@ import useDebounce from '@/src/hooks/useDebounce'
  * @param {string} searchField : for the moment => a string added to requestData that's dynamically searching with the select
  * 
  */
-const Select2 = ({...props}) => {
+const Select2 = ({ name, formTools, ...props }) => {
     const {sendRequest} = useHttpClient();
     const [optionsList, setOptionList] = useState(props.optionsList ?? []);
     const [inputValue, setInputValue] = useState("");
     const [value, setValue] = useState(null);
+    
+    
+    //Formstate
+    const { formState, inputHandler, inputTouched } = formTools;
 
+    useEffect( () => { console.log(value) }, [value])
+    useEffect( () => {
+        inputHandler(
+            name,
+            value,
+            //props.validationRules ? validate(event.target.value) : true
+        )
+    }, [value])
+    useEffect( () => { console.log("formState",formState)}, [formState])
 
     //Fetch
     const fetchOptions = async () => {
@@ -43,7 +56,6 @@ const Select2 = ({...props}) => {
                 }),
                 { 'Content-Type': 'application/json' }
             )
-            console.log(apiResponse);
             const optionList = apiResponse.data.map( (elem) => {
                 return { value : elem._id, label: elem.firstName +' '+ elem.lastName}
             })
@@ -56,13 +68,6 @@ const Select2 = ({...props}) => {
     useEffect(() => { fetchOptions() }, [debouncedRequest] );
 
 
-    //Formstate
-    useEffect( () => {
-        
-        setValue(null)
-    }, [])
-
-    useEffect( () => { console.log(value) }, [value])
 
     //If props.isMulti return Select Multi
     if (props.isMulti){
