@@ -8,13 +8,13 @@ import {lang} from "@/src/common/Data/GlobalConstants";
 
 
 /** 
- * @param name : used for id and formState
- * @param creatable : if undefined or false, no create option will be available
- * @param options : Will show, search and allow selection of these options
- * @param inputValue : State of the input text
- * @param inputValueSetter : Setter for the state of inputValue, used for dynamic option list search
- * @param value : State of the current value of the selected item
- * @param valueSetter : setter of value to update the selected item
+ * @param {string} name : used for id and formState
+ * @param {boolean} creatable : if undefined or false, no create option will be available
+ * @param {Array useState} options : Will show, search and allow selection of these options
+ * @param {string useState} inputValue : State of the input text
+ * @param {useState setter} inputValueSetter : Setter for the state of inputValue, used for dynamic option list search
+ * @param {object useState} value : State of the current value of the selected item
+ * @param {useState setter} valueSetter : setter of value to update the selected item
  * */
 
 const Select2BaseSingle = ({name, ...props}) => {
