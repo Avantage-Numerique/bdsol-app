@@ -7,7 +7,7 @@
     box-shadow: $default-box-shadow;//1px 1px 4px 2px rgba(0,0,0,0.15);
     background-color: $light;
     overflow: hidden;
-    $transition-simple-base: $transition-default-property $transition-default-time $bezier-ease-in-out;
+    $transition-simple-base: $transition-default-property $transition-default-time $bezier-ease-in;
     @include transition($transition-simple-base);
     //max-width: 17rem;//parent scope of responsability
 

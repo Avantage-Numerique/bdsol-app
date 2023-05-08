@@ -1,12 +1,14 @@
 .person-simple {
 
+    $transition-simple-base: $transition-default-property $transition-default-time $bezier-ease-in;
     .person-simple__header {
 
         width: 100%;
         /* Top section of the header containing the picture and button */
         .person-simple__header__top-section {
             position: relative;
-            @include transition();
+            @include transition($transition-simple-base);
+
             .person-simple__header__picture {
                 position: relative;
                 width: 8rem;
@@ -15,7 +17,7 @@
                 border-radius: 100%;
                 overflow: hidden;
                 box-shadow: $top-box-shadow;
-                @include transition();
+                @include transition($transition-simple-base);
 
                 img, a {
                     position: absolute;
@@ -24,7 +26,7 @@
                     width: 100%;
                     height: 100%;
                     object-fit: cover;
-                    @include transition();
+                    @include transition($transition-simple-base);
                 }
             }
         }
@@ -48,7 +50,7 @@
             .person-simple__header__top-section {
                 .person-simple__header__picture {
                     img {
-                        transform: scale(110%);
+                        transform: scale(102%);
                     }
                 }
             }
