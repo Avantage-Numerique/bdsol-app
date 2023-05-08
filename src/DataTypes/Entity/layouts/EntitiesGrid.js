@@ -3,7 +3,8 @@ import Person from "@/DataTypes/Person/Models/Person";
 import Organisation from "@/DataTypes/Organisation/models/Organisation";
 import Project from "@/DataTypes/Project/models/Project";
 import {lang} from "@/common/Data/GlobalConstants";
-import {TYPE_ORGANISATION, TYPE_PERSON, TYPE_PROJECT} from "@/DataTypes/Entity/Types";
+import {TYPE_DEFAULT, TYPE_ORGANISATION, TYPE_PERSON, TYPE_PROJECT} from "@/DataTypes/Entity/Types";
+import EntityModel from "@/DataTypes/Entity/models/EntityModel";
 
 /**
  * It's the grid to use in the repertory view.
@@ -21,6 +22,7 @@ const EntitiesGrid = ({feed, className, columnClass}) => {
     entities.set(TYPE_PERSON, Person);
     entities.set(TYPE_ORGANISATION, Organisation);
     entities.set(TYPE_PROJECT, Project);
+    entities.set(TYPE_DEFAULT, EntityModel);
 
     const colContainerClass = columnClass ?? "col g-3";
 
@@ -34,14 +36,18 @@ const EntitiesGrid = ({feed, className, columnClass}) => {
             {
                 feed.length > 0 ?
                 feed.map((entity, index) => {
-
-                    const modelClass = entities.get(entity.type);
-                    const model = new modelClass(entity);
-                    const SimpleComponent = model.simpleComponent;
+                    const modelClass = entity.type ? entities.get(entity.type) : entities.get(TYPE_DEFAULT);
+                    if (modelClass) {
+                        const model = new modelClass(entity);
+                        const SimpleComponent = model.simpleComponent;
+                        return (
+                            <div className={`${colContainerClass}`} key={getKeyString("container", model, index)}>
+                                <SimpleComponent data={entity} model={model} key={getKeyString("simple", model, index)} />
+                            </div>
+                        )
+                    }
                     return (
-                        <div className={`${colContainerClass}`} key={getKeyString("container", model, index)}>
-                            <SimpleComponent data={entity} model={model} key={getKeyString("simple", model, index)} />
-                        </div>
+                        <div key={`container${index}`}>empty</div>
                     )
                 })
                 :

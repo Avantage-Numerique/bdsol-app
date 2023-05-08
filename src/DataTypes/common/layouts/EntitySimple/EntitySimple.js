@@ -60,7 +60,7 @@ const EntitySimple = (props) => {
      * @type {JSX.Element}
      */
     const HeaderDefault = (
-        <>
+        <div className={"d-flex h-100 justify-content-start align-items-end"}>
             {/* Image representing the entity */}
             { model.mainImage &&
                 <div>
@@ -81,7 +81,7 @@ const EntitySimple = (props) => {
             {showEntityType && appType &&
                 <h4 className={`position-relative text-white fw-normal m-0 ${styles["entity-type"]}`}>{appType.label}</h4>
             }
-        </>
+        </div>
     );
 
     /**

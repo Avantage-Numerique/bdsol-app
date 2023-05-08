@@ -70,8 +70,6 @@ const OrganisationSingle = ({ data }) => {
         //_id
     } = data;
 
-    console.log("data", data)
-
     const headerMainContent = (
         <div className={`${styles["quick-section"]}`}>
             <h2 className="mb-2">{name}</h2>

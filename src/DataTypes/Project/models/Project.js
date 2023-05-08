@@ -12,7 +12,7 @@ class Project extends EntityModel {
         this.title = raw.name ?? "";
         this.description = raw.description ?? "";
         this.mainImage = raw.mainImage === "" ? {
-            url: "/general_images/project-default.jpg",
+            url: "/general_images/project-default.webp",
             alt: raw.name,
             baseSrc: `${process.env.NEXT_PUBLIC_APP_URL}`
         } : raw.mainImage;

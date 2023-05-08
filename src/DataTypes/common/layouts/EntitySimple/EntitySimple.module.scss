@@ -7,17 +7,15 @@
     box-shadow: $default-box-shadow;//1px 1px 4px 2px rgba(0,0,0,0.15);
     background-color: $light;
     overflow: hidden;
-
-    @include transition($transition-ease-out);
+    $transition-simple-base: $transition-default-property $transition-default-time $bezier-ease-in-out;
+    @include transition($transition-simple-base);
     //max-width: 17rem;//parent scope of responsability
 
     /* Header's styling */
     .simple-abstract__header {
         position: relative;
-        height: 8rem;
-        display: flex;
-        align-items: flex-end;
-        @include transition($transition-ease-out);
+        height: 10rem;
+        @include transition($transition-simple-base);
 
         .entity-type {
             @include transition();
@@ -34,7 +32,7 @@
             }
             .simple-abstract__header__figure__img {
 
-                @include transition($transition-ease-out);
+                @include transition($transition-simple-base);
                 position: absolute;
                 width: 100%;
                 height: 100%;
@@ -55,7 +53,7 @@
                 }
 
                 .simple-abstract__header__figure__img {
-                    transform: scale(110%);
+                    transform: scale(101%);
                 }
             }
         }

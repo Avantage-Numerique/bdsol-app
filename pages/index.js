@@ -39,54 +39,69 @@ const HomePage = ({}) => {
 
     const fetchHomeFeed = async () => {
 
+
         const listQuery = {"sort": "desc"};//{"sort": {"updatedAt": -1}}; //{};//
+        const defaultHeader = {'Content-Type': 'application/json'};
+        const entities = [
+            {
+                path:"/organisations/list",
+                queryParams: listQuery,
+                result: {}
+            },
+            {
+                path:"/persons/list",
+                queryParams: listQuery,
+                result: {}
+            },
+            {
+                path:"/projects/list",
+                queryParams: listQuery,
+                result: {}
+            }
+        ];
 
-        //Send the request with the specialized hook
-        const orgResponse = await sendRequest(
-            "/organisations/list",
-            'POST',
-            JSON.stringify({"data": listQuery}),
-            {'Content-Type': 'application/json'}
-        )
+        let haveError = false;
+        let feed = [];
 
-        //Send the request with the specialized hook
-        const persResponse = await sendRequest(
-            "/persons/list",
-            'POST',
-            JSON.stringify({"data": listQuery}),
-            {'Content-Type': 'application/json'}
-        )
+        const feedPromises = entities.map(async (query) => {
 
-        /*
-            Display the proper message relative to the api response
-        */
+            const currentResult = sendRequest(
+                query.path,
+                'POST',
+                JSON.stringify({"data": query.queryParams}),
+                defaultHeader
+            );
+            query.result = currentResult;
 
-        //If positive
-        if (!orgResponse.error && !persResponse.error) {
+            haveError = !haveError && !currentResult.error;
+            return currentResult;
 
-            //Merge the two lists to create one single feed
-            const feed = [...orgResponse.data, ...persResponse.data];
+        });
 
-            //Sort and mixed both collection the data to display the new elements before
-            feed.sort(sortDescBy('createdAt'));
+        Promise.all(feedPromises).then((entitiesResults) => {
 
-            //Finaly, update the state to display the result
-            setFeedList(feed);
-            //If negative
-        } else {
+            entitiesResults.map(async (result) => {
 
-            if (orgResponse.error)
-                msg.addMessage({
-                    text: orgResponse.message,
-                    positive: false
-                })
+                //populate the feed if the current request return a success (!error)
+                if (!result.error && result?.data?.length > 0) {
+                    feed = [...feed, ...result.data];
+                }
 
-            if (persResponse.error)
-                msg.addMessage({
-                    text: persResponse.message,
-                    positive: false
-                })
-        }
+                //Show a message if the query return and error.
+                if (result.error) {
+                    msg.addMessage({
+                        text: result.message,
+                        positive: false
+                    });
+                }
+
+                if (feed.length > 0 && haveError) {
+                    feed.sort(sortDescBy('createdAt'));//   Sort and mixed both collection the data to display the new elements before
+                    setFeedList(feed); //   Finaly, update the state to display the result
+                }
+
+            });
+        });
     }
 
     //Fetch the data 
