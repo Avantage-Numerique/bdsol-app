@@ -70,7 +70,7 @@ const AppRoutesRaw = {
     },
 
     projects : {
-        label: "Toutes les projets",
+        label: "Tous les projets",
         pathname: "/projets",
         asPath: "/projets",
     },

@@ -85,8 +85,6 @@ const PersonsPage = () => {
                         {/* Feed section */}
                         <section className="col col-12 col-md-9">
 
-
-
                             <div className="position-relative row row-cols-1 row-cols-sm-2 row-cols-xl-3">
 
                                 {/* Loading state : If loading is on and there is no feed */}
