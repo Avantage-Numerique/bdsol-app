@@ -87,7 +87,7 @@ const CreatePersonForm = ({initValues, positiveRequestActions, ...props}) => {
                 nickname: formState.inputs.nickName.value,
                 description: formState.inputs.description.value,
                 catchphrase: formState.inputs.catchphrase.value,
-                occupations: [],//the state of this is unstable, it get always the form to crash.//getSelectedToFormData(formState.inputs.occupations.value, "occupation", auth.user),
+                //occupations: [],//the state of this is unstable, it get always the form to crash.//getSelectedToFormData(formState.inputs.occupations.value, "occupation", auth.user),
                 domains: getSelectedToFormData(formState.inputs.domains.value, "domain", auth.user),
                 status: getDefaultCreateEntityStatus(auth.user),
             }
