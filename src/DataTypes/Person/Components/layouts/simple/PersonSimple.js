@@ -10,8 +10,8 @@ const PersonSimple = ({ model }) => {
     const link = "/"+replacePathname(model.singleRoute.pathname, {slug: model.slug});
 
     const Header = (
-        <header className={`d-flex flex-column ${styles["person-simple__header"]}`}>
-            <section className={`d-flex justify-content-center ${styles["person-simple__header__top-section"]}`}>
+        <div className={`d-flex flex-column justify-content-center align-items-center h-100 ${styles["person-simple__header"]}`}>
+            <section className={`${styles["person-simple__header__top-section"]}`}>
                 {/* Profil picture */}
                 <figure className={`${styles["person-simple__header__picture"]}`}>
                     <a href={link} title={`${model.title}`} className={"position-absolute w-100 h-100"} target={"_self"} rel={"follow"}>
@@ -19,7 +19,7 @@ const PersonSimple = ({ model }) => {
                     </a>
                 </figure>
             </section>
-        </header>
+        </div>
     );
 
     return (

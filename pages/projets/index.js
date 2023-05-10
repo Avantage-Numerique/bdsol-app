@@ -62,7 +62,7 @@ const ProjectsPage = () => {
 
     const getLabelGenerator = useCallback((param, query) => {
         return {
-            "projects": "Projets",
+            "projets": "Tous les Projets",
         }[param];
     }, []);
 
@@ -72,7 +72,7 @@ const ProjectsPage = () => {
                 bg={"bg-purplelighter"}
                 textColor={"text-white"}
                 htmlTitle={"Consulter les projets"}
-                subTitle={"Vous trouverez ici une list des projets produits par les organisations et indivus membres d'Avantage Numérique. "}
+                subTitle={"Vous trouverez ici une list des projets produits par les membres d'Avantage Numérique. "}
             >
                 <Breadcrumbs className={"pt-2"} route={AppRoutes.projects} getLabelGenerator={getLabelGenerator} />
             </PageHeader>
@@ -108,21 +108,20 @@ const ProjectsPage = () => {
                         {/*  Show the feed in the EntitiesGrid component. It manages an empty list in it, but it make it more readable to show it here too */}
                         {
                             projectList.length > 0 && !isLoading &&
-                            <EntitiesGrid className="position-relative row row-cols-1 row-cols-sm-2 row-cols-xl-3" columnClass={"col g-3"} feed={orgList}/>
+                            <EntitiesGrid className="position-relative row row-cols-1 row-cols-sm-2 row-cols-xl-3" columnClass={"col g-3"} feed={projectList}/>
                         }
                     </section>
 
                     {/* Aside section */}
                     <aside className="col col-12 col-md-3">
                         <div className="my-4">
-                            {/*  
+
                             <Button
                                 disabled={!auth.user.isLoggedIn}
-                                href="/contribuer/organisation"
+                                href="/contribuer/project"
                                 size="reg-100">
                                     Ajouter un projet
                             </Button>
-                            */}
 
                             {
                                 !auth.user.isLoggedIn &&

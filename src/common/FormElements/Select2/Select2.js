@@ -1,6 +1,9 @@
 //React
 import { useState, useEffect } from "react";
 
+//Helper
+import ApiEntityModel from "@/src/DataTypes/Entity/models/ApiEntityModel";
+
 //Component
 import Select2BaseSingle from "./Select2BaseSingle";
 import Select2BaseMulti from "./Select2BaseMulti";
@@ -19,14 +22,48 @@ import useDebounce from '@/src/hooks/useDebounce'
  * @param {string} fetch : Url to fetch data from and create options
  * @param {object} requestData : param to always pass during request (e.g. category : "skills" to only access skills taxonomy)
  * @param {string} searchField : for the moment => a string added to requestData that's dynamically searching with the select
+ * @param {string} selectField : for the moment => string that represent the transmuted field to show in the options ("occupations", "fullname" ...)
  * 
  */
-const Select2 = ({...props}) => {
+const Select2 = ({ name, formTools, ...props }) => {
     const {sendRequest} = useHttpClient();
     const [optionsList, setOptionList] = useState(props.optionsList ?? []);
     const [inputValue, setInputValue] = useState("");
     const [value, setValue] = useState(null);
+    
+    //Formstate
+    const {
+        formState,
+        inputHandler,
+        inputTouched
+    } = formTools;
 
+    useEffect( () => {
+        inputHandler(
+            name,
+            value,
+            //props.validationRules ? validate(event.target.value) : true
+        )
+
+    }, [value])
+
+    useEffect( () => {
+        const valueList = ApiEntityModel.getSelectOption(formState.inputs[name].value, props.selectField);
+        //if formState contains no value
+        if(valueList.length == 0){
+            setValue(null);
+        }
+        else {
+            //isMulti
+            if (props.isMulti){
+                setValue(valueList)
+            }
+            //is not multi (single)
+            else {
+                setValue(valueList[0])
+            }
+        }
+    }, [])
 
     //Fetch
     const fetchOptions = async () => {
@@ -43,10 +80,8 @@ const Select2 = ({...props}) => {
                 }),
                 { 'Content-Type': 'application/json' }
             )
-            console.log(apiResponse);
-            const optionList = apiResponse.data.map( (elem) => {
-                return { value : elem._id, label: elem.firstName +' '+ elem.lastName}
-            })
+            const optionList = ApiEntityModel.getSelectOption(apiResponse.data, props.selectField);
+            console.log("optionList",optionList);
             setOptionList(optionList);
         }
     }
@@ -55,14 +90,6 @@ const Select2 = ({...props}) => {
     //Update the list of options to display
     useEffect(() => { fetchOptions() }, [debouncedRequest] );
 
-
-    //Formstate
-    useEffect( () => {
-        
-        setValue(null)
-    }, [])
-
-    useEffect( () => { console.log(value) }, [value])
 
     //If props.isMulti return Select Multi
     if (props.isMulti){
