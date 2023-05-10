@@ -110,7 +110,10 @@ const base = {
     // Single
     "ctaLabel": "Appel à l'action",
 
+    //Select
+    "noSelectedOption": "Aucune sélection",
+
     //Select2
-    "createOptionLabel" : "Créer : "
+    "createOptionLabel" : "Créer : ",
 }
 exports.base = base;

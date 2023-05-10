@@ -201,6 +201,9 @@ export const base = {
     // Single
     "ctaLabel": "Call to action",
 
+    //Select
+    "noSelectedOption": "No selection",
+
     //Select2
     "createOptionLabel" : "Create : "
 

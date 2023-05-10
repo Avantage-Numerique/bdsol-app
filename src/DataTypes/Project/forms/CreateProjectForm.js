@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 
 //Custom hooks
 import { useFormUtils } from '@/src/hooks/useFormUtils/useFormUtils'
@@ -7,7 +7,7 @@ import { useFormUtils } from '@/src/hooks/useFormUtils/useFormUtils'
 import Button from '@/FormElements/Button/Button'
 import Input from '@/FormElements/Input/Input'
 import SelectFetch from '@/FormElements/Select/SelectFetch'
-import Select2Tag from '@/src/common/FormElements/Select2/Select2Tag'
+import Select2 from '@/FormElements/Select2/Select2'
 
 //Utils 
 import {lang} from "@/src/common/Data/GlobalConstants";
@@ -30,7 +30,7 @@ const CreateProjectForm = () => {
             },
             entityInCharge: {
                 value: "",
-                isValid: false
+                isValid: true
             },
             context: {
                 value: "",
@@ -44,22 +44,24 @@ const CreateProjectForm = () => {
         } */
     );
 
+    useEffect(() => console.log("formState", formState), [formState])
+
     const submitHandler = async event => {
         
         event.preventDefault();
         
         const formData = {
             "data": {
-                name: formState.input.name.value,
-                entityInCharge: formState.input.entityInCharge.value,
-                context: formState.input.context.value,
+                name: formState.inputs.name.value,
+                entityInCharge: formState.inputs.entityInCharge.value.value,
+                context: formState.inputs.context.value,
                 status: getDefaultCreateEntityStatus(auth.user),
             }
         }
         
         //Add data to the formData
         await submitRequest(
-            "/project/create",
+            "/projects/create",
             'POST',
             formData
         );
@@ -76,28 +78,35 @@ const CreateProjectForm = () => {
                 validationRules={[
                     {name: "REQUIRED"}
                 ]}
-            />
+            />    
 
-            <Select2Tag 
+            <Select2
                 name="entityInCharge"
-                fetch="/organisations/list"
-                requestData={{name:""}}
                 label="Organisation en charge"
                 formTools={formTools}
-                validationRules={[
-                    {name: "REQUIRED"}
-                ]}
-                //idField=""
+                creatable={false}
+                isMulti={false}
+
+
+                fetch={"/organisations/list"}
+                //requestData={{}}
+                searchField={"name"}
+                selectField={"name"}
+
+                /* optionsList={[
+                    { value: "Potater", label: "Patates" },
+                    { value: "certaa", label: "Sierra" },
+                    { value: "Plier", label: "Pliers" }
+                ]} */
             />
-{/* 
             <SelectFetch 
                 name="context"
-                label="Choisissez un context"
+                label="Choisissez un contexte"
                 formTools={formTools}
-                //noValueText="Contextes"
-                fetchOptions="context-enum"
+                noValueText={lang.noSelectedOption}
+                fetchOption="context-enum"
             />
- */}
+ 
             <Button onClick={submitHandler}>
                 Soumettre
             </Button>

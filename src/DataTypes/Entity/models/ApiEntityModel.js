@@ -17,6 +17,10 @@ class ApiEntityModel {
 
     /** @param {object} requestData Response object data. And array of entities */
     static getSelectOption(requestData, field){
+        console.log("request data", requestData)
+        //If requestData is a string
+        if(typeof requestData == "string")
+            return requestData == "" ? null : [{label: requestData, value: requestData}];
         //If requestData is not an array
         if(requestData.length == undefined)
             return ApiEntityModel.entityTypeHandler(requestData, field)
@@ -43,11 +47,13 @@ class ApiEntityModel {
             case "Organisation" :
                 if(field == "offers")
                     return ApiEntityModel.occupationsToSelectOptions( entity.offers ?? entity );
+                if(field == "name")
+                    return ApiEntityModel.nameToSelectOptions( entity );
                 break;
             case "Project" :
                 break;
             case "Taxonomy" :
-                    return ApiEntityModel.taxonomyToSelectOptions( entity );
+                    return ApiEntityModel.nameToSelectOptions( entity );
                 break;
             default : return [];
         }
@@ -82,8 +88,8 @@ class ApiEntityModel {
         })
     }
 
-    static taxonomyToSelectOptions(taxonomy){
-        return { value : taxonomy._id, label : taxonomy.name }
+    static nameToSelectOptions(entity){
+        return { value : entity._id, label : entity.name }
     }
 }
 

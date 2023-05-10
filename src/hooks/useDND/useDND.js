@@ -95,15 +95,12 @@ export const useDND = ( containerRef, domElemFormating ) => {
         const parent = e.srcElement.parentNode;
         const parentBox = parent.getBoundingClientRect();
 
-        
-
         console.log(parentBox)
 
         parent.style.width = parentBox.width + "px";
         parent.style.height = parentBox.height + "px";
         parent.style.top = parentBox.top + "px";
         parent.style.left = parentBox.left + "px";
-
 
         cursorData.current.diffX = e.clientX - parentBox.left;
         cursorData.current.diffY = e.clientY - parentBox.top;

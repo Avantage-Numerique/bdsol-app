@@ -16,6 +16,7 @@ import useDebounce from '@/src/hooks/useDebounce'
 /**
  * @param {string} name : used for id and formState
  * @param {formTools} formTools : FormTools
+ * @param {string} label : Title of the field displayed over it
  * @param {boolean} creatable : true if allowed to create, false or undefined means not allowed to create new option
  * @param {boolean} isMulti : true if multiple selection allowed, false if single option selectable
  * @param {Array} optionsList : (optionnal) Can specify directly a list of option in format [ { label, value, color? }, ... ]
@@ -42,7 +43,7 @@ const Select2 = ({ name, formTools, ...props }) => {
         inputHandler(
             name,
             value,
-            //props.validationRules ? validate(event.target.value) : true
+            props.validationRules ? validate(event.target.value) : true
         )
 
     }, [value])
@@ -50,7 +51,7 @@ const Select2 = ({ name, formTools, ...props }) => {
     useEffect( () => {
         const valueList = ApiEntityModel.getSelectOption(formState.inputs[name].value, props.selectField);
         //if formState contains no value
-        if(valueList.length == 0){
+        if(valueList === null || valueList?.length == 0){
             setValue(null);
         }
         else {
@@ -90,43 +91,35 @@ const Select2 = ({ name, formTools, ...props }) => {
     //Update the list of options to display
     useEffect(() => { fetchOptions() }, [debouncedRequest] );
 
+    const label = props.label ? 
+        (<label htmlFor={name} >{props.label}</label>) :
+        (<></>);
 
-    //If props.isMulti return Select Multi
-    if (props.isMulti){
-        return (
+    const select = props.isMulti ? 
+        (<Select2BaseMulti
+            name={name}
+            creatable={props.creatable}
             
-            <Select2BaseMulti
-                name={props.name}
-                creatable={props.creatable}
-                
-                options={optionsList}
-                inputValue={inputValue}
-                inputValueSetter={setInputValue}
-                value={value}
-                valueSetter={setValue}
-
-            />
-                
-                )
-            }
-    //else return Select Single
-    else {
-        return (
+            options={optionsList}
+            inputValue={inputValue}
+            inputValueSetter={setInputValue}
+            value={value}
+            valueSetter={setValue}
+        />):
+        (<Select2BaseSingle
+            name={name}
+            creatable={props.creatable}
             
-            <Select2BaseSingle
-                name={props.name}
-                creatable={props.creatable}
-                
-                options={optionsList}
-                inputValue={inputValue}
-                inputValueSetter={setInputValue}
-                value={value}
-                valueSetter={setValue}
-                
-            />
+            options={optionsList}
+            inputValue={inputValue}
+            inputValueSetter={setInputValue}
+            value={value}
+            valueSetter={setValue}
+        />);
 
-        )
-    }
+    return (<>{label} {select}</>);
+
+    
 }
 
 export default Select2;

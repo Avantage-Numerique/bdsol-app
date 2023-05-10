@@ -72,7 +72,7 @@ const Login = () => {
                     username:  formState.inputs.username.value,
                     password: formState.inputs.password.value //@todo encrypt with app key before sending? or https is enought ?
                 };
-
+                
                 //Call the login hook responsible for the connection
                 await login(formData);
 

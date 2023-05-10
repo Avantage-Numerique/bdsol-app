@@ -40,8 +40,9 @@ const CreateProject = () => {
             </Single>
 
             <Modal>
-
-
+                
+                    <h3 className="text-blue3 mb-4">Nouveau projet</h3>
+                    <CreateProjectForm />
 
             </Modal>
         </>

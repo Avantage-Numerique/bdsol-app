@@ -47,6 +47,7 @@ const CreateProject = () => {
 
             {formModal.modal.display &&
                 <formModal.Modal>
+                        <h3>Nouveau projet</h3>
                         <CreateProjectForm />
                 </formModal.Modal>
             }

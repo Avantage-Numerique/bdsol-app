@@ -9,7 +9,7 @@ const SelectFetch = (props) => {
 
     const [options, setOptions] = useState([])
 
-    console.log(options)
+    console.log("Options", options)
     //Search suggestion
     useEffect( () => {
         const getSelectOptions = async () => {
@@ -17,7 +17,7 @@ const SelectFetch = (props) => {
                 '/info/' + props.fetchOption,
                 { method: 'GET' }
             );
-            setOptions("cdscds", optionList);
+            setOptions(optionList);
         }
         getSelectOptions();
     }, [])
