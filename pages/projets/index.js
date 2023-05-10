@@ -60,7 +60,6 @@ const ProjectsPage = () => {
 
     useEffect(() => { fetchData() }, [])
 
-
     const getLabelGenerator = useCallback((param, query) => {
         return {
             "projects": "Projets",

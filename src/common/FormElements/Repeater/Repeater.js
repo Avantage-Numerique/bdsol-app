@@ -1,10 +1,12 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 
 //Hooks
 import { useFormUtils } from '@/src/hooks/useFormUtils/useFormUtils';
+import { useDND } from '@/src/hooks/useDND/useDND';
 
 //Components
-import Button from "@/FormElements/Button/Button"
+import Button from "@/FormElements/Button/Button";
+import Icon from '@/src/common/widgets/Icon/Icon';
 
 //Context
 import {useAuth} from '@/auth/context/auth-context';
@@ -66,10 +68,10 @@ const Repeater = props => {
         name,                   // - [string] : Name to refer to the repeater in the main form State
         initValues,             // - [array] : Expected to be an array of object where each object contains the values for one iteration of this repeater 
         //formReturnStructure   //
+        isSortable,             // - [bool] : If true, the repeater add an order value, display the drag and drop UI and activate that function
+        className               // - [String] : Represent the class names of the generated containers to repeat
     } = props;
-
-    console.log("FORM INIT STRUCTURE IN REPEATER", formInitStructure, initValues)
-
+    
     //Import the authentication context to make sure the user is well connected
     const auth = useAuth();
 
@@ -81,6 +83,20 @@ const Repeater = props => {
     
     //State to manage the values of every iterations of the repeater
     const [iterations, setIterations] = useState(addInitValuesToState(initValues));
+
+    //Reference to the dom elements
+    const containerRef = useRef();
+    useEffect(() => {
+        console.log(containerRef)
+
+        let returnValue = Array.from(containerRef.current.children);
+        const newValue = returnValue.map(child => child);
+    }, [])
+
+    //Custom hook used for moving the elements
+    const {updateValues} = useDND(containerRef, {
+        dragButton: elem => elem.querySelector(`.${styles["dragging-button"]}`), movingElem: null
+    });
 
     //Gives us access to the values of the main state in the shape of an array. And since it is sorted, we use it to display the elements
     const sortedIterationsArray = iterations ? Object.values(iterations).sort((a, b) => (a.order > b.order) ? 1 : -1) : [];
@@ -232,17 +248,31 @@ const Repeater = props => {
 
     return (
         <>  
-            <section className={`${styles["repeater"]}`}>
+            <section ref={containerRef} className={`${styles["repeater"]}`}>
                {sortedIterationsArray.map(iteration => (
-                    <RepeaterSingleIteration 
+                    <article 
                         key={iteration.key} 
-                        iterationKey={iteration.key}
-                        deleteIterationByKey={() => deleteIterationByKey(iteration.key)}
-                        formInitSubStructure={iteration.initFormStructureWithValues ? iteration.initFormStructureWithValues : formInitStructure}
-                        updateIterationValue={updateIterationValue}
+                        className={`row ${className}`}
+                        draggable={true}
+                        data-order={iteration.order}
                     >
-                        {children}
-                    </RepeaterSingleIteration>
+                        { isSortable && 
+                            <div 
+                                draggable={true}
+                                type="button" 
+                                className={`rounded ${styles["dragging-button"]} col flex-grow-0 d-flex align-items-center`}>
+                                <Icon className="d-flex align-items-center" iconName='las la-grip-vertical'/>
+                            </div>
+                        }
+                        <RepeaterSingleIteration 
+                            iterationKey={iteration.key}
+                            deleteIterationByKey={() => deleteIterationByKey(iteration.key)}
+                            formInitSubStructure={iteration.initFormStructureWithValues ? iteration.initFormStructureWithValues : formInitStructure}
+                            updateIterationValue={updateIterationValue}
+                        >
+                            {children}
+                        </RepeaterSingleIteration>
+                    </article>
                ))}                   
             </section>
             {/* By default, there is an add button */}

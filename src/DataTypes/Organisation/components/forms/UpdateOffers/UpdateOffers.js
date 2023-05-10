@@ -11,7 +11,6 @@ import {useAuth} from '@/auth/context/auth-context';
 import Button from "@/FormElements/Button/Button"
 import Input from '@/src/common/FormElements/Input/Input';
 import Select2Tag from '@/src/common/FormElements/Select2/Select2Tag';
-//import Icon from '@/src/common/widgets/Icon/Icon';
 import Repeater from '@/src/common/FormElements/Repeater/Repeater';
 
 //styling
@@ -78,12 +77,11 @@ const UpdateOffers = ({parentEntity, positiveRequestActions}) => {
                             isValid: true
                         }
                     }}
+                    isSortable={true}
                     initValues={parentEntity.offers}
+                    className={`rounded p-2 my-2 bg-white ${styles["update-skill-group"]}`}
                 >
-                    <article className={`
-                        row border border-1 rounded p-2 my-2 bg-white
-                        ${styles["update-skill-group"]}
-                    `}>
+                    <>
                         {/* Content of the elements */}
                         <section className={`
                             col
@@ -106,7 +104,7 @@ const UpdateOffers = ({parentEntity, positiveRequestActions}) => {
                             />
                         </section>
                         {/* Icone to move the element */}
-                        <div className="col pr-0 flex-grow-0 text-secondary">
+                        <div className="col pe-0 flex-grow-0 text-secondary">
                             <Button 
                                     repeaterDeleteElem={true}
                                     type="button" 
@@ -116,7 +114,7 @@ const UpdateOffers = ({parentEntity, positiveRequestActions}) => {
                                     &#x2716;
                                 </Button>
                         </div>
-                    </article>
+                    </>
 
                 </Repeater>
 

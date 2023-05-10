@@ -1,0 +1,10 @@
+.grabbed-element {
+    position: fixed;
+    z-index: 20;
+}
+
+.replacing-block {
+    filter: drop-shadow(0 0 0.35rem lighten($blue, 20%));
+    background-color: white;
+    height: 5rem;
+}
