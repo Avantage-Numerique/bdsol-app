@@ -9,6 +9,7 @@ import {
 import OrganisationSingle from '@/src/DataTypes/Organisation/components/layouts/single/OrganisationSingle'
 import {getUserHeadersFromUserSession} from "@/auth/context/auth-context";
 import {withSessionSsr} from "@/auth/session/handlers/withSession";
+import AppRoutes from "@/src/Routing/AppRoutes";
 
 
 const SingleOrganisationPage = props => {
@@ -18,7 +19,7 @@ const SingleOrganisationPage = props => {
 
             <div className="maxWidthPageContainer">
             
-                <OrganisationSingle data={props} />
+                <OrganisationSingle data={props}  route={AppRoutes.organisationSingle} />
 
             </div>
             

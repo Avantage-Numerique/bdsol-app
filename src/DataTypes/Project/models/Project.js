@@ -3,15 +3,23 @@ import ProjectSimple from "@/DataTypes/Project/layouts/simple/ProjectSimple";
 import ProjectSingle from "@/DataTypes/Project/layouts/single/ProjectSingle";
 import {TYPE_PROJECT} from "@/DataTypes/Entity/Types";
 import Media from "@/DataTypes/Media/models/Media";
+import AppRoutes from "@/src/Routing/AppRoutes";
 
 
 class Project extends EntityModel {
 
     constructor(raw, params={}) {
+
+        //  Routes associated with single base, single and contribute uri.
+        raw.repertoryRoute = AppRoutes.projects;
+        raw.singleRoute = AppRoutes.projectSingle;
+        raw.contributeRoute = AppRoutes.projects;
+
         super(raw);
+
         this.title = raw.name ?? "";
         this.description = raw.description ?? "";
-        this.mainImage = raw.mainImage === "" ? {
+        this.mainImage = raw.mainImage?.url !== "" ? {
             url: "/general_images/project-default.webp",
             alt: raw.name,
             baseSrc: `${process.env.NEXT_PUBLIC_APP_URL}`

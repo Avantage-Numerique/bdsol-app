@@ -6,10 +6,10 @@ import {
 
 
 //components
-//mport OrganisationSingle from '@/src/DataTypes/Organisation/components/layouts/single/OrganisationSingle'
 import ProjectSingle from "@/src/DataTypes/Project/layouts/single/ProjectSingle"
 import {getUserHeadersFromUserSession} from "@/auth/context/auth-context";
 import {withSessionSsr} from "@/auth/session/handlers/withSession";
+import AppRoutes from "@/src/Routing/AppRoutes";
 
 
 const SingleProjectPage = props => {
@@ -19,7 +19,7 @@ const SingleProjectPage = props => {
 
             <div className="maxWidthPageContainer">
             
-                <ProjectSingle data={props} />
+                <ProjectSingle data={props} route={AppRoutes.projectSingle} />
 
             </div>
             

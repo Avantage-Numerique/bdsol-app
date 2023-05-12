@@ -116,7 +116,7 @@ const Single = (props) => {
                                 {showCTA &&
                                     <aside className={"col-auto col-lg-4"}>
                                         <div className={"d-flex flex-column"}>
-                                            <p>{cta}</p>
+                                            { cta && cta !== "" && <p>{cta}</p> }
                                             <Button href={ctaUrl} className={"btn-block"} external>{ctaLabel}&nbsp;<Icon
                                                 iconName={"external-link-alt"}/></Button>
                                         </div>

@@ -1,6 +1,7 @@
 import {useRouter} from "next/router";
 import {useMemo, useState, useEffect} from "react";
 import {lang} from "@/common/Data/GlobalConstants";
+import Link from "next/link";
 
 const _defaultGetHrefGenerator = (pathParts, replaceWith) => pathParts;
 const _defaultGetLabelGenerator = path => path;
@@ -143,7 +144,9 @@ const Crumb = ({text: defaultText, textGenerator, href, last = false}) => {
 
     return (
         <li className="breadcrumb-item">
-            <a href={href} dangerouslySetInnerHTML={{ __html: text }}></a>
+            <Link href={href}>
+                <a dangerouslySetInnerHTML={{ __html: text }}></a>
+            </Link>
         </li>
     );
 }
