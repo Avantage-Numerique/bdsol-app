@@ -21,11 +21,11 @@ import SanitizedInnerHtml from '@/src/utils/SanitizedInnerHtml';
 import {SingleEntityStatus} from "@/DataTypes/Status/Components/SingleEntityStatus";
 import {lang} from "@/common/Data/GlobalConstants";
 
-const ProjectSingle = ({ data, route }) => {
+const ProjectSingle = ({data, route}) => {
 
-   const { modal, Modal, displayModal, closeModal } = useModal();
+    const {modal, Modal, displayModal, closeModal} = useModal();
 
-   const {
+    const {
         _id,
         name,
         alternateName,
@@ -50,12 +50,9 @@ const ProjectSingle = ({ data, route }) => {
     const imgModalControl = useModal();
 
 
-
-
-
     const aside = (
         <>
-            { skills && skills.length > 0 &&
+            {skills && skills.length > 0 &&
                 <>
                     <h4>{lang.domainsSingleLabel}</h4>
                     <SearchTag
@@ -65,7 +62,7 @@ const ProjectSingle = ({ data, route }) => {
                     />
                 </>
             }
-            
+
         </>
     );
 
@@ -73,6 +70,7 @@ const ProjectSingle = ({ data, route }) => {
         <div className={`${styles["quick-section"]}`}>
             <h2 className="mb-2">{name}</h2>
             {alternateName && <p> {alternateName} </p>}
+            {entityInCharge && <p><code>{entityInCharge}</code></p>}
         </div>
     );
 
@@ -80,7 +78,7 @@ const ProjectSingle = ({ data, route }) => {
 
     const ModalComponent = CreatePersonForm;
     const modalComponentParams = {
-        uri:"update"
+        uri: "update"
     };
 
 
@@ -104,43 +102,55 @@ const ProjectSingle = ({ data, route }) => {
     //Remove because this isn't planned in the ontologie yet  :<SingleInfo title={"Intérêts"} />
     return (
         <>
-        <Single
-            className={``}
-            aside={aside}
-            headerMainContent={headerMainContent}
-            entity={data}
-            ModalForm={ModalComponent}
-            modalParams={modalComponentParams}
-            showCTA={true}
-            cta={"Ceci est une proposition d'appel à l'action. Il reste donc à déterminer s'il est pertinent et quoi mettre à l'intérieur."}
-            modalMainImageControl={imgModalControl}
-            route={route}
-            breadcrumbParams={{
-                labelGenerator: getLabelGenerator,
-                hrefGenerator: getHrefGenerator
-            }}
-        >
-            <SingleInfo title={"Présentation"}>
-                <SanitizedInnerHtml>
-                    {description}
-                </SanitizedInnerHtml>
-            </SingleInfo>
+            <Single
+                className={``}
+                aside={aside}
+                headerMainContent={headerMainContent}
+                entity={data}
+                ModalForm={ModalComponent}
+                modalParams={modalComponentParams}
+                showCTA={true}
+                cta={""}
+                ctaUrl={url}
+                modalMainImageControl={imgModalControl}
+                route={route}
+                breadcrumbParams={{
+                    labelGenerator: getLabelGenerator,
+                    hrefGenerator: getHrefGenerator
+                }}
+            >
+                <SingleInfo title={"Présentation"} className={"mb-3"}>
+                    <SanitizedInnerHtml>
+                        {description}
+                    </SanitizedInnerHtml>
+                </SingleInfo>
 
-            {
-                status?.state &&
-                    <SingleInfo className={singleInfoCommonClass}
-                        title="Statut de l'entité">
-                        <p>{status.state === 'accepted' ? "Acceptée" : "En attente d'approbation"}</p>
-                    </SingleInfo>
-            }
+                <SingleInfo title={"Contact"} className={"mb-3"}>
+                    <SanitizedInnerHtml>
+                        {contactPoint}
+                    </SanitizedInnerHtml>
+                </SingleInfo>
 
-            {
-                (createdAt || updatedAt || status) &&
-                <SingleEntityStatus className={singleInfoCommonClass} createdAt={createdAt} updatedAt={updatedAt} status={status} />
-            }
-        </Single>
+                <SingleInfo title={"Adresse"} className={"mb-3"}>
+                </SingleInfo>
 
-        {/*
+                <SingleInfo title={"Équipe"} className={"mb-3"}>
+                </SingleInfo>
+
+                <SingleInfo title={"Financement"} className={"mb-3"}>
+                </SingleInfo>
+
+                <SingleInfo title={"Budget"} className={"mb-3"}>
+                </SingleInfo>
+
+                {
+                    (createdAt || updatedAt || status) &&
+                    <SingleEntityStatus className={singleInfoCommonClass} createdAt={createdAt} updatedAt={updatedAt}
+                                        status={status}/>
+                }
+            </Single>
+
+            {/*
             modal.display &&
             <Modal>
                 <div className="d-flex mb-3">
