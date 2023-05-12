@@ -1,0 +1,19 @@
+
+
+.main-image-container {
+    --picture-size: clamp(8rem, 20vw, 12rem);
+    position:relative;
+    width: var(--picture-size);
+    height: var(--picture-size);
+    img {
+        margin-bottom: calc(-0.25*var(--picture-size));
+        border: 0.2rem solid white;
+        background-color: white;
+        border-radius: 50%;
+        left:5vw;
+        bottom: 0px;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+    }
+}
