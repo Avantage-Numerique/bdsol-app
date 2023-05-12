@@ -1,14 +1,11 @@
-import React, {useCallback, useState} from 'react'
-import Router, {useRouter} from "next/router";
+import React, {useCallback} from 'react'
 
 
 //Components
-import Button from "@/FormElements/Button/Button";
 import CreatePersonForm from "@/DataTypes/Person/Components/Forms/CreatePerson/CreatePersonForm";
 import SearchTag from '@/src/common/Components/SearchTag';
 import Single from "@/DataTypes/common/layouts/single/Single";
 import SingleInfo from "@/DataTypes/common/layouts/SingleInfo/SingleInfo";
-import UpdateSkillGroup from '@/src/DataTypes/common/Forms/UpdateSkillGroup/UpdateSkillGroup';
 
 //Styling
 import styles from './ProjectSingle.module.scss'
@@ -22,8 +19,6 @@ import {SingleEntityStatus} from "@/DataTypes/Status/Components/SingleEntityStat
 import {lang} from "@/common/Data/GlobalConstants";
 
 const ProjectSingle = ({data, route}) => {
-
-    const {modal, Modal, displayModal, closeModal} = useModal();
 
     const {
         _id,
@@ -86,15 +81,15 @@ const ProjectSingle = ({data, route}) => {
         return {
             "[slug]": data?.slug ?? "no-set",
             "[project.slug]": data.slug ?? "no-set",
-            "projects": "projects",
+            "projets": "projects",
         };
     }, []);
 
-    const getLabelGenerator = useCallback((param, query) => {
+    const getLabelGenerator = useCallback((param) => {
         return {
-            "slug": () => data?.fullName ?? "title must be set",
-            "project.slug": () => data.fullName ?? "Projet",
-            "projects": () => "Projets",
+            "slug": () => data?.name ?? "title must be set",
+            "project.slug": () => data.name ?? "Projet",
+            "projets": () => "Projets",
         }[param];
     }, []);
 
