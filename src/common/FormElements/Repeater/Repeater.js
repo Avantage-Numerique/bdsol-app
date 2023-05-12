@@ -91,15 +91,14 @@ const Repeater = props => {
 
         let returnValue = Array.from(containerRef.current.children);
         const newValue = returnValue.map(child => child);
-        
+
     }, [])
 
     //Custom hook used for moving the elements
-    /*
     const {updateValues} = useDND(containerRef, {
         dragButton: elem => elem.querySelector(`.${styles["dragging-button"]}`), movingElem: null
     });
-    */
+    
 
     //Gives us access to the values of the main state in the shape of an array. And since it is sorted, we use it to display the elements
     const sortedIterationsArray = iterations ? Object.values(iterations).sort((a, b) => (a.order > b.order) ? 1 : -1) : [];

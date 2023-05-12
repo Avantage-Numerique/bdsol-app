@@ -6,19 +6,20 @@ import {
 
 
 //components
-import OrganisationSingle from '@/src/DataTypes/Organisation/components/layouts/single/OrganisationSingle'
+//mport OrganisationSingle from '@/src/DataTypes/Organisation/components/layouts/single/OrganisationSingle'
+import ProjectSingle from "@/src/DataTypes/Project/layouts/single/ProjectSingle"
 import {getUserHeadersFromUserSession} from "@/auth/context/auth-context";
 import {withSessionSsr} from "@/auth/session/handlers/withSession";
 
 
-const SingleOrganisationPage = props => {
+const SingleProjectPage = props => {
 
     return (
         <div className={`single-container single-organisation`}>
 
             <div className="maxWidthPageContainer">
             
-                <OrganisationSingle data={props} />
+                <ProjectSingle data={props} />
 
             </div>
             
@@ -26,15 +27,15 @@ const SingleOrganisationPage = props => {
     )
 }
     
-export default SingleOrganisationPage;
+export default SingleProjectPage;
 
-export const getServerSideProps = withSessionSsr(personSlugSSProps);
+export const getServerSideProps = withSessionSsr(projectSlugSSProps);
 
-export async function personSlugSSProps(context) {
+export async function projectSlugSSProps(context) {
     const { slug } = context.query;
 
     const response = await externalApiRequest(
-        `/organisations/${slug}`,
+        `/projects/${slug}`,
         {
             method: 'GET',
             headers: getUserHeadersFromUserSession(context.req.session.user)
