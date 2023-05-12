@@ -57,6 +57,7 @@ export const useDND = ( containerRef, domElemFormating ) => {
 
         //Convert the dom collection into an array
         const arrayOfOrderedElems = Array.from(containerRef.current.children);
+        console.log("Array of elems", arrayOfOrderedElems)
 
         //Update the state
         setDraggables(arrayOfOrderedElems.map(elem => (
@@ -111,7 +112,6 @@ export const useDND = ( containerRef, domElemFormating ) => {
 
         containerRef.current.insertBefore(replacingBlock,  parent);
 
-
         parent.classList.add(styles["grabbed-element"]);
 
         window.addEventListener("pointermove", onPointerMove);
@@ -123,8 +123,12 @@ export const useDND = ( containerRef, domElemFormating ) => {
 
         console.log("Mouse move")
 
-        cursorData.current.movingElem.style.left = e.clientX + cursorData.current.diffX;
+        cursorData.current.movingElem.style.left = e.clientX + movingElemr.getBoundingClientRect().left;
         cursorData.current.movingElem.style.top = e.clientY + cursorData.current.diffY;
+
+        // moving the slider: listen on the thumb, as all pointer events are retargeted to it
+   // let newLeft = e.clientX - slider.getBoundingClientRect().left;
+    //thumb.style.left = newLeft + 'px';
 
     }
 

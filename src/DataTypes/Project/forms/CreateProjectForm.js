@@ -87,18 +87,11 @@ const CreateProjectForm = () => {
                 creatable={false}
                 isMulti={false}
 
-
                 fetch={"/organisations/list"}
-                //requestData={{}}
                 searchField={"name"}
                 selectField={"name"}
-
-                /* optionsList={[
-                    { value: "Potater", label: "Patates" },
-                    { value: "certaa", label: "Sierra" },
-                    { value: "Plier", label: "Pliers" }
-                ]} */
             />
+            
             <SelectFetch 
                 name="context"
                 label="Choisissez un contexte"
