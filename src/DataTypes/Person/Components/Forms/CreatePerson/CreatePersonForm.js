@@ -22,6 +22,8 @@ import styles from './CreatePersonForm.module.scss'
 //FormData
 import {getDefaultCreateEntityStatus} from "@/DataTypes/Status/EntityStatus";
 import { getSelectedToFormData } from '@/src/common/FormElements/Select2/Select2Tag'
+import SingleBaseHeader from '@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseHeader'
+import SingleBase from '@/src/DataTypes/common/layouts/single/SingleBase'
 
 const CreatePersonForm = ({initValues, positiveRequestActions, ...props}) => {
 
@@ -104,62 +106,86 @@ const CreatePersonForm = ({initValues, positiveRequestActions, ...props}) => {
         );
     }
 
+
+
+    const title = (
+        <>
+            <Input 
+                name="firstName"
+                label="Prénom"
+                validationRules={[
+                    {name: "REQUIRED"}
+                ]}
+                errorText="Cette information est requise"
+                formTools={formTools}
+            />
+
+            <Input 
+                name="lastName"
+                label="Nom"
+                validationRules={[
+                    {name: "REQUIRED"}
+                ]}
+                errorText="Cette information est requise"
+                formTools={formTools}
+            />
+
+            <Input  
+                name="nickName"
+                label="Surnom"
+                formTools={formTools}
+            />
+
+            <Input
+                name="catchphrase"
+                label={lang.catchphrase}
+                formTools={formTools}
+            />
+        </>
+    );
+    //const subtitle = ();
+    const type = "Person";
+    const header = ( <SingleBaseHeader title={title} type={type}/> );
+
+    const contentColumnLeft = (
+        <>
+            <RichTextarea 
+                name="description"
+                label="Biographie / description"
+                formTools={formTools}
+            />
+
+        </>
+    )
+
+    const contentColumnRight = (
+        <>
+            <Select2Tag
+                label={lang.Domains}
+                searchField="name"
+                fetch="/taxonomies/list"
+                requestData={{category:"domains", name:""}}
+                name="domains"
+                idField="domain"
+                placeholder={lang.domainsInputPlaceholder}
+                formTools={formTools}
+                creatableModal={modal}
+            />
+        </>
+    )
+
     return (
         <>
+        
             <form 
                 onSubmit={submitHandler} 
                 className={`${styles["create-person-form"]}`}
             >
-
                 <FormUI />
-                <Input 
-                    name="firstName"
-                    label="Prénom"
-                    validationRules={[
-                        {name: "REQUIRED"}
-                    ]}
-                    errorText="Cette information est requise"
-                    formTools={formTools}
-                />
-
-                <Input 
-                    name="lastName"
-                    label="Nom"
-                    validationRules={[
-                        {name: "REQUIRED"}
-                    ]}
-                    errorText="Cette information est requise"
-                    formTools={formTools}
-                />
-
-                <Input  
-                    name="nickName"
-                    label="Surnom"
-                    formTools={formTools}
-                />
-                
-                <RichTextarea 
-                    name="description"
-                    label="Biographie / description"
-                    formTools={formTools}
-                />
-
-                <Input
-                    name="catchphrase"
-                    label={lang.catchphrase}
-                    formTools={formTools}
-                />
-
-                <Select2Tag
-                    label={lang.Domains}
-                    searchField="name"
-                    fetch="/taxonomies/list"
-                    requestData={{category:"domains", name:""}}
-                    name="domains"
-                    idField="domain"
-                    placeholder={lang.domainsInputPlaceholder}
-                    formTools={formTools}
-                    creatableModal={modal}
+                <SingleBase
+                    header={header}
+                    contentColumnLeft={contentColumnLeft}
+                    contentColumnRight={contentColumnRight}
                 />
 
                 <blockquote>
