@@ -15,47 +15,7 @@ import Button from "@/FormElements/Button/Button";
 
 
 //{ mainImage, entity }
-const MainImageDisplay = () => {
-
-    const entity = {
-        catchphrase: "",
-        contactPoint: "info@meilleurelibrairie.meilleurfois2",
-        createdAt: "2023-04-11T20:53:17.554Z",
-        description: "Librairie de petits marchandeurs",
-        domains: [],
-        fondationDate: "2000-01-02T00:00:00.000Z",
-        mainImage: {
-            alt: "",
-            createdAt: "2023-05-04T15:04:27.302Z",
-            dbStatus: "in use",
-            description: "",
-            entityId: "6435c8be0845c9f656762540",
-            entityType: "Organisation",
-            extension: "jpeg",
-            fileName: "mainImage--898307-316831998_537195091597787_4660118437189654487_n",
-            fileType: "image",
-            licence: "zero",
-            path: "./localStorage/public/Organisation/6435c8be0845c9f656762540",
-            slug: "6435c8be0845c9f656762540",
-            status: {state: 'pending', _id: '6453c97b44dce4599114c501'},
-            title: "Merette cookie monster",
-            updatedAt: "2023-05-04T15:04:27.302Z",
-            url: "/medias/Organisation/6435c8be0845c9f656762540/mainImage--898307-316831998_537195091597787_4660118437189654487_n.jpeg",
-            __v: 0,
-            _id: "6453c97b44dce4599114c500"
-        },
-        name: "Librairie Pommerleau",
-        offers: [],
-        slug: "librairie-pommerleau",
-        status: {state: 'accepted', lastModifiedBy: null, _id: '6435c8be81475042e104c957'},
-        team: [],
-        type: "Organisation",
-        updatedAt: "2023-05-10T16:09:53.725Z",
-        url: "https://lalibrairiepommerleau.meilleur",
-        _id: "6435c8be0845c9f656762540",
-    }
-
-    const mainImage = entity.mainImage;
+const MainImageDisplay = ({ mainImage, entity }) => {
 
     const {displayModal, modal, closeModal, Modal} = useModal();
 

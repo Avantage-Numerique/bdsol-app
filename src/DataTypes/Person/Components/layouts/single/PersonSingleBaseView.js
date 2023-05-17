@@ -2,6 +2,7 @@ import React from 'react';
 
 //Components
 import SingleBase from "@/src/DataTypes/common/layouts/single/SingleBase"
+import SingleBaseHeader from "@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseHeader"
 import Button from "@/FormElements/Button/Button";
 import PersonSingleEdit from "@/src/DataTypes/Person/Components/Forms/CreatePerson/PersonSingleEdit";
 import SearchTag from '@/src/common/Components/SearchTag';
@@ -11,10 +12,6 @@ import UpdateSkillGroup from '@/src/DataTypes/common/Forms/UpdateSkillGroup/Upda
 
 //Styling
 import styles from './PersonSingle.module.scss'
-
-//Hooks
-import {useModal} from "@/src/hooks/useModal/useModal";
-
 //Utils
 import SanitizedInnerHtml from '@/src/utils/SanitizedInnerHtml';
 import {SingleEntityStatus} from "@/DataTypes/Status/Components/SingleEntityStatus";
@@ -73,7 +70,6 @@ const PersonSingleBaseView = ({ data }) => {
         return (
             <article className={`d-flex flex-column p-2 mb-2 ${styles["occupation-group"]}`}>
                 <h5 className="text-dark mb-0">{occupationName}</h5>
-
                     <SearchTag
                         list={skillList}
                     />                    
@@ -84,21 +80,38 @@ const PersonSingleBaseView = ({ data }) => {
     /****************************
      *  Sections
      ***************************/
-    const FullWidthContent = () => (
-        <SingleInfo title={"Présentation"} className={"mb-3"}>
-            <SanitizedInnerHtml>
-                {description}
-            </SanitizedInnerHtml>
+    const Header = (
+        <SingleBaseHeader 
+            title={(<h2 className="text-white">{`${firstName} ${lastName}`}</h2>)}
+            subtitle={(<h4 className="text-white">{`${nickname}`}</h4>)}
+            mainImage={mainImage}
+            entity={data}
+            type="Personne"
+        />
+    )
+
+    const FullWidthContent = (
+        <SingleInfo 
+            title={"Présentation"} 
+            NAMessage="Aucune description n'est disponible pour le moment"
+            className={"mb-3 mt-3"}>
+                {description &&
+                    <SanitizedInnerHtml>
+                        {description}
+                    </SanitizedInnerHtml>
+                }
         </SingleInfo>
     )
 
-    const ContentColumnLeft = () => (
+    const ContentColumnLeft = (
         <>
-            <SingleInfo title={"Occupations"}
-                NAMessage={<p></p>}
+            <SingleInfo 
+                title={"Occupations"}
+                NAMessage="Aucune ocupation n'est disponible pour le moment"
+                className={"mb-3 mt-3"}
             >    
                 {/* Display the different groups of occupations */}
-                { occupations &&
+                { occupations && occupations.length > 0 &&
                     occupations.map(occ => (
                         <OccupationGroup 
                             occupationName={occ.occupation} 
@@ -111,7 +124,7 @@ const PersonSingleBaseView = ({ data }) => {
         </>
     )
 
-    const ContentColumnRight = () => (
+    const ContentColumnRight = (
         <> 
             
             {/************ Skills *************/}
@@ -128,18 +141,15 @@ const PersonSingleBaseView = ({ data }) => {
                     listProperty={"domain"}
                 />
             </SingleInfo>
-            {/*********** Contact ***********/}
-            <SingleInfo title={"Contact"} className={"mb-3"}>
-                {contactPoint && contactPoint}
-            </SingleInfo>
+         
         </>
     )
 
-    const Footer = () => (
+    const Footer = (
         <>
             {
                 status?.state &&
-                    <SingleInfo className={singleInfoCommonClass}
+                    <SingleInfo className="border-bottom py-4"
                         title="Statut de l'entité">
                         <p>{status.state === 'accepted' ? "Acceptée" : "En attente d'approbation"}</p>
                     </SingleInfo>
@@ -147,7 +157,7 @@ const PersonSingleBaseView = ({ data }) => {
 
             {
                 (createdAt || updatedAt || status) &&
-                <SingleEntityStatus className={singleInfoCommonClass} createdAt={createdAt} updatedAt={updatedAt} status={status} />
+                <SingleEntityStatus className="border-bottom py-4" createdAt={createdAt} updatedAt={updatedAt} status={status} />
             }
         </>
     )
@@ -158,7 +168,7 @@ const PersonSingleBaseView = ({ data }) => {
     return (
         <>
             <SingleBase 
-                header={null}              
+                header={Header}              
                 fullWidthContent={FullWidthContent}
                 contentColumnLeft={ContentColumnLeft}
                 contentColumnRight={ContentColumnRight}
