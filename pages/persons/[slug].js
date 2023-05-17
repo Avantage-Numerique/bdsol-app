@@ -17,7 +17,6 @@ const SinglePersonPage = props => {
     return (
         <div className={`single-container single-person`}>
             <div className="maxWidthPageContainer">
-                <h1>Blablabla</h1>
                 <PersonSingleBaseView data={props} route={AppRoutes.personSingle} />
             </div>
         </div>

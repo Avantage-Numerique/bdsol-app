@@ -84,6 +84,9 @@ const PersonSingleBaseView = ({ data }) => {
     /****************************
      *  Sections
      ***************************/
+    const header = (
+        <></>
+    );
     const FullWidthContent = () => (
         <SingleInfo title={"Présentation"} className={"mb-3"}>
             <SanitizedInnerHtml>
@@ -113,7 +116,6 @@ const PersonSingleBaseView = ({ data }) => {
 
     const ContentColumnRight = () => (
         <> 
-            
             {/************ Skills *************/}
             <SingleInfo title={"Compétences"}
                 NAMessage={<p>Vous n'avez aucune compétence d'entrée pour le moment</p>}
