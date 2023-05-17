@@ -3,7 +3,7 @@ import React from 'react';
 //Components
 import SingleBase from "@/src/DataTypes/common/layouts/single/SingleBase"
 import Button from "@/FormElements/Button/Button";
-import CreatePersonForm from "@/DataTypes/Person/Components/Forms/CreatePerson/CreatePersonForm";
+import PersonSingleEdit from "@/src/DataTypes/Person/Components/Forms/CreatePerson/PersonSingleEdit";
 import SearchTag from '@/src/common/Components/SearchTag';
 import Single from "@/DataTypes/common/layouts/single/Single";
 import SingleInfo from "@/DataTypes/common/layouts/SingleInfo/SingleInfo";
@@ -97,7 +97,7 @@ const PersonSingleBaseView = ({ data }) => {
             <SingleInfo title={"Occupations"}
                 NAMessage={<p></p>}
             >    
-                {/* Display the different groupes of occupations */}
+                {/* Display the different groups of occupations */}
                 { occupations &&
                     occupations.map(occ => (
                         <OccupationGroup 

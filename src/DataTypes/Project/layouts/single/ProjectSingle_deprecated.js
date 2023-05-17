@@ -2,7 +2,7 @@ import React, {useCallback} from 'react'
 
 
 //Components
-import CreatePersonForm from "@/DataTypes/Person/Components/Forms/CreatePerson/CreatePersonForm";
+import PersonSingleEdit from "@/src/DataTypes/Person/Components/Forms/CreatePerson/PersonSingleEdit";
 import SearchTag from '@/src/common/Components/SearchTag';
 import Single from "@/DataTypes/common/layouts/single/Single";
 import SingleInfo from "@/DataTypes/common/layouts/SingleInfo/SingleInfo";
@@ -71,7 +71,7 @@ const ProjectSingle = ({data, route}) => {
 
     const singleInfoCommonClass = "border-bottom py-4";
 
-    const ModalComponent = CreatePersonForm;
+    const ModalComponent = PersonSingleEdit;
     const modalComponentParams = {
         uri: "update"
     };

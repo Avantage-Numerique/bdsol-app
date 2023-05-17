@@ -1,6 +1,6 @@
 
 //Component 
-import CreatePersonForm from '@/DataTypes/Person/Components/Forms/CreatePerson/CreatePersonForm'
+import PersonSingleEdit from '@/src/DataTypes/Person/Components/Forms/CreatePerson/PersonSingleEdit'
 
 //Styling
 import {lang} from "@/src/common/Data/GlobalConstants";
@@ -9,28 +9,14 @@ import {ssrCanAccess} from "@/auth/permissions/ssrCanAccess";
 import SingleViewEntityFormLayout from "@/DataTypes/common/layouts/SingleViewEntityFormLayout/SingleViewEntityFormLayout";
 import React from "react";
 
-const CreatePersonPage = () => {
+const PersonSingleEditPage = () => {
 
     return (
-        <SingleViewEntityFormLayout
-            formName={"person"}
-            headerProps={{
-                title: lang.Persons,
-                subtitleColor: "primary",
-                subTitle: lang.formPersonSubtitle,
-                description: lang.formPersonInstructions,
-                historyBack: {
-                    uri: "/contribuer",
-                    label: lang.historyBack
-                }
-            }}
-        >
-            <CreatePersonForm />
-        </SingleViewEntityFormLayout>
+            <PersonSingleEdit />
     )
 
 }
 
 export const getServerSideProps = withSessionSsr(ssrCanAccess);
 
-export default CreatePersonPage
+export default PersonSingleEditPage
