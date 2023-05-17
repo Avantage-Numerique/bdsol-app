@@ -103,7 +103,7 @@ const MainImageDisplay = () => {
 
             {/******** Img Modal Display *********/}
             {
-                //modal.display &&
+                modal.display &&
                 <Modal
                     coloredBackground
                     darkColorButton
