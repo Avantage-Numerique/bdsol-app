@@ -61,10 +61,6 @@ const PersonSingleEdit = ({initValues, positiveRequestActions, ...props}) => {
     //not used : transmuteTaxonomyTargetInput
     const { FormUI, submitRequest, formState, formTools } = useFormUtils(
         {
-            _id: {
-                value: _id ?? "",
-                isValid: true
-            },
             firstName: {
                 value: firstName ?? "",
                 isValid: false
