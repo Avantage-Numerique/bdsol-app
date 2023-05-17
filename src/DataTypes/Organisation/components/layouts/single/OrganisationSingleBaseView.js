@@ -18,7 +18,7 @@ import DateWidget from "@/common/widgets/DateWidget/DateWidget";
 import Icon from "@/common/widgets/Icon/Icon";
 
 import Single from "@/DataTypes/common/layouts/single/Single";
-import CreateOrganisationForm from "@/DataTypes/Organisation/components/forms/CreateOrganisationForm/CreateOrganisationForm";
+import OrganisationSingleEdit from "@/src/DataTypes/Organisation/components/forms/CreateOrganisationForm/OrganisationSingleEdit";
 import SingleInfo from "@/DataTypes/common/layouts/SingleInfo/SingleInfo";
 import {SingleEntityStatus} from "@/DataTypes/Status/Components/SingleEntityStatus";
 import UpdateOffers from '@/src/DataTypes/Organisation/components/forms/UpdateOffers/UpdateOffers';
@@ -140,14 +140,23 @@ const OrganisationSingleBaseView = ({ data }) => {
 
     const Footer = () => (
         <>
+            <SingleInfo title={"Url"} className={"mb-3"}>
+                {url && url}
+            </SingleInfo>
+            <SingleInfo title={"Date de fondation"} className={"mb-3"}>
+                {fondationDate && fondationDate}
+            </SingleInfo>
+            
+            {
+                status?.state &&
+                    <SingleInfo
+                        title="Statut de l'entité">
+                        <p>{status.state === 'accepted' ? "Acceptée" : "En attente d'approbation"}</p>
+                    </SingleInfo>
+            }
             {
                 (createdAt || updatedAt || status) &&
-                <SingleEntityStatus 
-                    className={singleInfoCommonClass} 
-                    createdAt={createdAt} 
-                    updatedAt={updatedAt}         
-                    status={status}
-                />
+                <SingleEntityStatus createdAt={createdAt} updatedAt={updatedAt} status={status} />
             }
         </>
     )

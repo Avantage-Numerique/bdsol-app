@@ -6,24 +6,24 @@ import {
 
 
 //components
-import OrganisationSingleBaseView from '@/src/DataTypes/Organisation/components/layouts/single/OrganisationSingleBaseView'
 import {getUserHeadersFromUserSession} from "@/auth/context/auth-context";
 import {withSessionSsr} from "@/auth/session/handlers/withSession";
 import AppRoutes from "@/src/Routing/AppRoutes";
+import OrganisationSingleEdit from '@/src/DataTypes/Organisation/components/forms/CreateOrganisationForm/OrganisationSingleEdit';
 
 
-const SingleOrganisationPage = props => {
+const OrganisationSingleEditPage = props => {
 
     return (
         <div className={`single-container single-organisation`}>
             <div className="maxWidthPageContainer">
-                <OrganisationSingleBaseView data={props} route={AppRoutes.organisationSingle} />
+                <OrganisationSingleEdit data={props} route={AppRoutes.organisationSingle} />
             </div>
         </div>
     )
 }
     
-export default SingleOrganisationPage;
+export default OrganisationSingleEditPage;
 
 export const getServerSideProps = withSessionSsr(organisationSlugProps);
 
