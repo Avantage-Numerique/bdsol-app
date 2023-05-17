@@ -1,12 +1,12 @@
 const { default: PageHeader } = require("@/src/layouts/Header/PageHeader");
-import CreatePersonForm from "@/src/DataTypes/Person/Components/Forms/CreatePerson/CreatePersonForm";
+import PersonSingleEdit from "@/src/DataTypes/Person/Components/Forms/CreatePerson/PersonSingleEdit";
 import SingleBase from "@/src/DataTypes/common/layouts/single/SingleBase";
 
 
 const FAQ = () => {
 
     return (
-            <CreatePersonForm/>
+            <PersonSingleEdit/>
     );
 }
 

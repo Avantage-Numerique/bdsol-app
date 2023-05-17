@@ -12,6 +12,8 @@ import CreateTaxonomyForm from '@/src/DataTypes/Taxonomy/Components/Forms/Create
 import {lang} from "@/src/common/Data/GlobalConstants";
 import Select2Tag from '@/src/common/FormElements/Select2/Select2Tag'
 import Modal from '@/src/hooks/useModal/Modal/Modal'
+import SingleInfo from '@/src/DataTypes/common/layouts/SingleInfo/SingleInfo'
+import { SingleEntityStatus } from '@/src/DataTypes/Status/Components/SingleEntityStatus'
 
 //Context
 import { useAuth } from "@/src/authentification/context/auth-context";
@@ -24,9 +26,28 @@ import {getDefaultCreateEntityStatus} from "@/DataTypes/Status/EntityStatus";
 import { getSelectedToFormData } from '@/src/common/FormElements/Select2/Select2Tag'
 import SingleBaseHeader from '@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseHeader'
 import SingleBase from '@/src/DataTypes/common/layouts/single/SingleBase'
+import UpdateSkillGroup from '@/src/DataTypes/common/Forms/UpdateSkillGroup/UpdateSkillGroup'
 
-const CreatePersonForm = ({initValues, positiveRequestActions, ...props}) => {
+const PersonSingleEdit = ({initValues, positiveRequestActions, ...props}) => {
 
+    //Person data extract
+    const {
+        _id,
+        lastName,
+        firstName,
+        nickname,
+        description,
+        occupations,
+        domains,
+        mainImage,
+        slug,
+        catchphrase,
+        status,
+        type,
+        fullName,
+        createdAt,
+        updatedAt
+    } = props.data;
 
     const submitUri = props.uri ?? "create";
 
@@ -41,31 +62,35 @@ const CreatePersonForm = ({initValues, positiveRequestActions, ...props}) => {
     const { FormUI, submitRequest, formState, formTools } = useFormUtils(
         {
             _id: {
-                value: initValues?._id ?? "",
+                value: _id ?? "",
                 isValid: true
             },
             firstName: {
-                value: initValues?.firstName ?? "",
+                value: firstName ?? "",
                 isValid: false
             },
             lastName: {
-                value: initValues?.lastName ?? "",
+                value: lastName ?? "",
                 isValid: false
             },
             nickName: {
-                value: initValues?.nickname ?? "",
+                value: nickname ?? "",
                 isValid: true
             },
             description: {
-                value: initValues?.description ?? "",
+                value: description ?? "",
                 isValid: true
             },
             catchphrase: {
-                value: initValues?.catchphrase ?? "",
+                value: catchphrase ?? "",
+                isValid: true
+            },
+            occupations: {
+                value: occupations ?? [],
                 isValid: true
             },
             domains: {
-                value: initValues?.domains ?? [],
+                value: domains ?? [],
                 isValid: true
             }
         },
@@ -129,7 +154,10 @@ const CreatePersonForm = ({initValues, positiveRequestActions, ...props}) => {
                 errorText="Cette information est requise"
                 formTools={formTools}
             />
-
+        </>
+    );
+    const subtitle = (
+        <>
             <Input  
                 name="nickName"
                 label="Surnom"
@@ -141,13 +169,11 @@ const CreatePersonForm = ({initValues, positiveRequestActions, ...props}) => {
                 label={lang.catchphrase}
                 formTools={formTools}
             />
-        </>
-    );
-    //const subtitle = ();
-    const type = "Person";
-    const header = ( <SingleBaseHeader title={title} type={type}/> );
+        </>);
 
-    const contentColumnLeft = (
+    const header = ( <SingleBaseHeader title={title} type={type} subtitle={subtitle} mainImage={mainImage}/> );
+
+    const fullWidthContent = (
         <>
             <RichTextarea 
                 name="description"
@@ -155,6 +181,16 @@ const CreatePersonForm = ({initValues, positiveRequestActions, ...props}) => {
                 formTools={formTools}
             />
 
+        </>)
+
+    const contentColumnLeft = (
+        <>
+            <UpdateSkillGroup
+                parentEntity={props.data}
+                formTools={formTools}
+                name="occupations"
+                label="Éditez vos groupes de compétences"
+            />
         </>
     )
 
@@ -174,6 +210,23 @@ const CreatePersonForm = ({initValues, positiveRequestActions, ...props}) => {
         </>
     )
 
+    const footer = (
+        <>
+            {
+                status?.state &&
+                    <SingleInfo
+                        title="Statut de l'entité">
+                        <p>{status.state === 'accepted' ? "Acceptée" : "En attente d'approbation"}</p>
+                    </SingleInfo>
+            }
+
+            {
+                (createdAt || updatedAt || status) &&
+                <SingleEntityStatus createdAt={createdAt} updatedAt={updatedAt} status={status} />
+            }
+        </>
+    )
+
     return (
         <>
         
@@ -184,13 +237,11 @@ const CreatePersonForm = ({initValues, positiveRequestActions, ...props}) => {
             */}
                 <SingleBase
                     header={header}
+                    fullWidthContent={fullWidthContent}
                     contentColumnLeft={contentColumnLeft}
                     contentColumnRight={contentColumnRight}
+                    footer={footer}
                 />
-
-                <blockquote>
-                    * Note : {lang.personUploadMediaMainImage}
-                </blockquote>
 
                 <Button type="submit" disabled={!formState.isValid}>{lang.submit}</Button>
 
@@ -232,4 +283,4 @@ const CreatePersonForm = ({initValues, positiveRequestActions, ...props}) => {
     );
 }
 
-export default CreatePersonForm
+export default PersonSingleEdit

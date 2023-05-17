@@ -6,24 +6,24 @@ import {
 
 
 //components
-import PersonSingleBaseView from '@/src/DataTypes/Person/Components/layouts/single/PersonSingleBaseView'
 import {getUserHeadersFromUserSession} from "@/auth/context/auth-context";
 import {withSessionSsr} from "@/auth/session/handlers/withSession";
 import AppRoutes from "@/src/Routing/AppRoutes";
+import PersonSingleEdit from '@/src/DataTypes/Person/Components/Forms/CreatePerson/PersonSingleEdit';
 
 
-const SinglePersonPage = props => {
+const SinglePersonEditPage = props => {
 
     return (
         <div className={`single-container single-person`}>
             <div className="maxWidthPageContainer">
-                <PersonSingleBaseView data={props} route={AppRoutes.projectSingle} />
+                <PersonSingleEdit data={props} route={AppRoutes.projectSingle} />
             </div>
         </div>
     )
 }
     
-export default SinglePersonPage;
+export default SinglePersonEditPage;
 
 export const getServerSideProps = withSessionSsr(personSlugSSProps);
 

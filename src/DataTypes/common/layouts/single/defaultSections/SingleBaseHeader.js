@@ -35,9 +35,7 @@ const SingleBaseHeader = (props) => {
                 {title ?? <h2 className='mt-4 ms-4'>Titre</h2>}
 
                 { /* subtitle */ }
-                <h3 className='ms-4'>
-                    { subtitle ?? "Sous-titre" }
-                </h3>
+                { subtitle ?? <h3 className='ms-4'>Sous-titre</h3> }
 
                 { /* mainImage */ }
                 <MainImageDisplay mainImage={mainImage} />

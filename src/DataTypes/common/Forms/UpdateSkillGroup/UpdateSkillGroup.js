@@ -18,27 +18,16 @@ import Repeater from '@/src/common/FormElements/Repeater/Repeater';
 import styles from './UpdateSkillGroup.module.scss';
 
 
-const UpdateSkillGroup = ({parentEntity, positiveRequestActions}) => {
+const UpdateSkillGroup = ({formTools, name, parentEntity, positiveRequestActions, ...props}) => {
 
     //Import the authentication context to make sure the user is well connected
     const auth = useAuth();
-    
-    const {FormUI, submitRequest, formState, formTools} = useFormUtils({
-        skillGoups: {
-            value: [],
-            isValid: true
-        },
-    },
-    //Pass a set of rules to execute a valid response of an api request
-    positiveRequestActions || {
-        displayResMessage: true     //Display a message to the user to confirm the succes
-    })
 
     const submitHandler = async event => {
         
         event.preventDefault();
 
-        const formattedOccupations = formState.inputs.skillGoups.value.map(function(occ){
+        const formattedOccupations = formState.inputs.skillGroups.value.map(function(occ){
             return {
                 status: occ.status,
                 occupation: occ.value.occupation.value,
@@ -65,10 +54,10 @@ const UpdateSkillGroup = ({parentEntity, positiveRequestActions}) => {
 
     return (
         <form className="w-100">
-
+                <label>{props.label}</label>
                 <Repeater
                     formTools={formTools}
-                    name="skillGoups"
+                    name={name}
                     formInitStructure={{
                         occupation: {
                             value: "",
@@ -79,10 +68,10 @@ const UpdateSkillGroup = ({parentEntity, positiveRequestActions}) => {
                             isValid: true
                         }
                     }}
-                    initValues={parentEntity.occupations}
+                    //initValues={parentEntity.occupations}
                 >
                     <article className={`
-                        row border border-1 rounded p-2 my-2 bg-white
+                        row my-2 bg-white
                         ${styles["update-skill-group"]}
                     `}>
                         {/* Content of the elements */}
@@ -120,11 +109,6 @@ const UpdateSkillGroup = ({parentEntity, positiveRequestActions}) => {
                     </article>
 
                 </Repeater>
-
-                <Button type="button" onClick={submitHandler} disabled={!formState.isValid}>
-                    Soumettre
-                </Button>
-
         </form>  
     )
 };
