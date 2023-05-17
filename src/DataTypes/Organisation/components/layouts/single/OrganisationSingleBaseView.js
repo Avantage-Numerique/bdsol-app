@@ -27,7 +27,7 @@ import UpdateTeams from '@/src/DataTypes/Organisation/components/forms/UpdateTea
 
 
 
-const OrganisationSingleBase = ({ data }) => {
+const OrganisationSingleBaseView = ({ data }) => {
 
     //Destructuring of data's prop
     const {
@@ -168,4 +168,4 @@ const OrganisationSingleBase = ({ data }) => {
     )
 }
 
-export default OrganisationSingleBase
+export default OrganisationSingleBaseView

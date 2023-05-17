@@ -9,7 +9,7 @@ import SanitizedInnerHtml from '@/src/utils/SanitizedInnerHtml';
 import {SingleEntityStatus} from "@/DataTypes/Status/Components/SingleEntityStatus";
 import {lang} from "@/common/Data/GlobalConstants";
 
-const ProjectSingle = ({ data }) => {
+const ProjectSingleBaseView = ({ data }) => {
 
     const {
         _id,
@@ -97,4 +97,4 @@ const ProjectSingle = ({ data }) => {
     )
 }
 
-export default ProjectSingle
+export default ProjectSingleBaseView

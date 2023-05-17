@@ -6,7 +6,7 @@ import {
 
 
 //components
-import OrganisationSingleBase from '@/src/DataTypes/Organisation/components/layouts/single/OrganisationSingleBase'
+import OrganisationSingleBaseView from '@/src/DataTypes/Organisation/components/layouts/single/OrganisationSingleBaseView'
 import {getUserHeadersFromUserSession} from "@/auth/context/auth-context";
 import {withSessionSsr} from "@/auth/session/handlers/withSession";
 import AppRoutes from "@/src/Routing/AppRoutes";
@@ -17,7 +17,7 @@ const SingleOrganisationPage = props => {
     return (
         <div className={`single-container single-organisation`}>
             <div className="maxWidthPageContainer">
-                <OrganisationSingleBase data={props} route={AppRoutes.projectSingle} />
+                <OrganisationSingleBaseView data={props} route={AppRoutes.organisationSingle} />
             </div>
         </div>
     )

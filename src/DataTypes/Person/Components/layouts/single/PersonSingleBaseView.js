@@ -22,7 +22,7 @@ import {lang} from "@/common/Data/GlobalConstants";
 import {useAuth} from "@/auth/context/auth-context";
 
 
-const PersonSingleBase = ({ data }) => {
+const PersonSingleBaseView = ({ data }) => {
 
     //Destructuring of data's prop
     const { 
@@ -158,7 +158,7 @@ const PersonSingleBase = ({ data }) => {
     return (
         <>
             <SingleBase 
-                header={null}
+                header={null}              
                 fullWidthContent={FullWidthContent}
                 contentColumnLeft={ContentColumnLeft}
                 contentColumnRight={ContentColumnRight}
@@ -168,4 +168,4 @@ const PersonSingleBase = ({ data }) => {
     )
 }
 
-export default PersonSingleBase
+export default PersonSingleBaseView
