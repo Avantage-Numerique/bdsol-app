@@ -21,7 +21,7 @@ import Icon from "@/common/widgets/Icon/Icon";
 
 
 import Single from "@/DataTypes/common/layouts/single/Single";
-import CreateOrganisationForm from "@/DataTypes/Organisation/components/forms/CreateOrganisationForm/CreateOrganisationForm";
+import OrganisationSingleEdit from "@/src/DataTypes/Organisation/components/forms/CreateOrganisationForm/OrganisationSingleEdit";
 import SingleInfo from "@/DataTypes/common/layouts/SingleInfo/SingleInfo";
 import {SingleEntityStatus} from "@/DataTypes/Status/Components/SingleEntityStatus";
 import UpdateOffers from '@/src/DataTypes/Organisation/components/forms/UpdateOffers/UpdateOffers';
@@ -39,7 +39,7 @@ const OrganisationSingle = ({ data }) => {
      *  EX : { modal, Modal, displayModal, closeModal } = useModal();
      * 
      */ 
-    const ModalComponent = CreateOrganisationForm;
+    const ModalComponent = OrganisationSingleEdit;
     const modalComponentParams = {
         uri:"update"
     };

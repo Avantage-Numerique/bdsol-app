@@ -1,6 +1,6 @@
 
 //Component 
-import CreateOrganisationForm from '@/DataTypes/Organisation/components/forms/CreateOrganisationForm/CreateOrganisationForm'
+import OrganisationSingleEdit from '@/src/DataTypes/Organisation/components/forms/CreateOrganisationForm/OrganisationSingleEdit'
 
 //styling
 import {withSessionSsr} from "@/auth/session/handlers/withSession";
@@ -23,7 +23,7 @@ const CreateOrganisationPage = () => {
                 label: lang.historyBack
             }
         }}>
-            <CreateOrganisationForm />
+            <OrganisationSingleEdit />
         </SingleViewEntityFormLayout>
     )
 }

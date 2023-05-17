@@ -20,9 +20,34 @@ import {getDefaultCreateEntityStatus, getDefaultUpdateEntityStatus} from "@/Data
 import { getSelectedToFormData } from '@/src/common/FormElements/Select2/Select2Tag';
 import styles from './CreateOrganisationForm.module.scss'
 import {getDateFromIsoString} from "@/src/utils/DateHelper";
+import SingleBase from '@/src/DataTypes/common/layouts/single/SingleBase';
+import SingleBaseHeader from '@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseHeader';
+import SingleInfo from '@/src/DataTypes/common/layouts/SingleInfo/SingleInfo';
+import { SingleEntityStatus } from '@/src/DataTypes/Status/Components/SingleEntityStatus';
 
 
-const CreateOrganisationForm = (props) => {
+const OrganisationSingleEdit = (props) => {
+
+
+    //Organisation data extract
+    const {
+        _id,
+        name,
+        description,
+        url,
+        contactPoint,
+        fondationDate,
+        offers,
+        domains,
+        team,
+        mainImage,
+        slug,
+        catchphrase,
+        status,
+        type,
+        createdAt,
+        updatedAt,
+    } = props.data;
 
     //Modal hook
     const modal = useModal()
@@ -30,17 +55,6 @@ const CreateOrganisationForm = (props) => {
     const submitUri = props.uri ?? "create";
 
     const positiveRequestActions= props.positiveRequestActions;
-
-    const initialValues = props.initValues ? {...props.initValues} : {
-        name: '',
-        description: '',
-        url: '',
-        contactPoint: '',
-        fondationDate: '',
-        catchphrase: '',
-        offers: [],
-        team: [],
-    }
 
     //Import the authentication context to make sure the user is well connected
     const auth = useAuth();
@@ -66,31 +80,35 @@ const CreateOrganisationForm = (props) => {
     const { FormUI, submitRequest, formState, formTools } = useFormUtils(
     {
         name: {
-            value: initialValues.name,
+            value: name ?? '',
             isValid: false
         },
         description: {
-            value: initialValues.description,
+            value: description ?? '',
             isValid: true
         },
         url: {
-            value: initialValues.url,
+            value: url ?? '',
             isValid: true
         },
         contactPoint: {
-            value: initialValues.contactPoint,
+            value: contactPoint ?? '',
             isValid: true
         },
         fondationDate: {
-            value: getDateFromIsoString(initialValues.fondationDate),
+            value: getDateFromIsoString(fondationDate),
             isValid: true
         },
         catchphrase: {
-            value: initialValues.catchphrase,
+            value: catchphrase ?? '',
+            isValid: true
+        },
+        offers: {
+            value: offers ?? [],
             isValid: true
         },
         domains: {
-            value: initialValues.domains,
+            value: domains ?? [],
             isValid: true
         }
     },
@@ -128,80 +146,106 @@ const CreateOrganisationForm = (props) => {
             formData
         );
     }
-    
-    return (
+
+    const title = (
+        <Input 
+            name="name"
+            label="Nom de l'organisation"
+            validationRules={[
+                {name: "REQUIRED"}
+            ]}
+            formTools={formTools}
+        />);
+    const subtitle = (
+        <Input
+        name="catchphrase"
+        label={lang.catchphrase}
+        formTools={formTools}
+        />);
+    const header = ( <SingleBaseHeader title={title} subtitle={subtitle} type={type} mainImage={mainImage} /> );
+    const fullWidthContent = (
+        <RichTextarea
+            name="description"
+            label="Description"
+            formTools={formTools}
+        />
+    );
+    const contentColumnLeft = (
         <>
-            <form onSubmit={submitHandler} className={`col-12 ${styles["create-organisation-form"]}`}>
-                <FormUI />
-                <Input 
-                    name="name"
-                    label="Nom de l'organisation"
-                    validationRules={[
-                        {name: "REQUIRED"}
-                    ]}
-                    formTools={formTools}
-                />
-
-                <RichTextarea
-                    name="description"
-                    label="Description"
-                    formTools={formTools}
-                />
-
-                <Input
+            {/*<UpdateSkillGroup
+                parentEntity={props.data}
+                formTools={formTools}
+                name="offers"
+                label="Éditez vos groupes d'offres de services"
+                />*/}
+            {/* team */}
+        </>
+    );
+    const contentColumnRight = (
+        <>
+            <Select2Tag
+                label={lang.Domains}
+                searchField="name"
+                fetch="/taxonomies/list"
+                requestData={{category:"domains", name:""}}
+                name="domains"
+                idField="domain"
+                placeholder={lang.domainsInputPlaceholder}
+                formTools={formTools}
+                creatableModal={modal}
+            />
+            <Input
+                name="contactPoint"
+                label="Information de contact"
+                tip={{
+                    header: "À noter",
+                    body: "Cette information vise à offrir une option pour rejoindre un représentant de l'organisation."
+                }}
+                placeholder="Adresse courriel, numéro de téléphone, etc..."
+                formTools={formTools}
+            />
+        </>
+    );
+    const footer = (
+        <>
+            <Input
                     name="url"
                     label="Hyperlien"
                     type="url"
                     pattern="^https?:\/\/[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$"
                     placeholder="Une url avec le https, exemple : https://siteWeb.com"
                     formTools={formTools}
-                />
-
-                <Input
-                    name="contactPoint"
-                    label="Information de contact"
-                    tip={{
-                        header: "À noter",
-                        body: "Cette information vise à offrir une option pour rejoindre un représentant de l'organisation."
-                    }}
-                    placeholder="Adresse courriel, numéro de téléphone, etc..."
-                    formTools={formTools}
-                />
-
-                <Input
+            />
+            <Input
                     name="fondationDate"
                     label="Date de fondation"
                     type="date"
                     formTools={formTools}
-                />
+            />
+            {
+                status?.state &&
+                    <SingleInfo
+                        title="Statut de l'entité">
+                        <p>{status.state === 'accepted' ? "Acceptée" : "En attente d'approbation"}</p>
+                    </SingleInfo>
+            }
+            {
+                (createdAt || updatedAt || status) &&
+                <SingleEntityStatus createdAt={createdAt} updatedAt={updatedAt} status={status} />
+            }
+        </>);
+    
+    return (
+        <>
+            <SingleBase
+                header={header}
+                fullWidthContent={fullWidthContent}
+                contentColumnLeft={contentColumnLeft}
+                contentColumnRight={contentColumnRight}
+                footer={footer}
+            />
 
-                <Input
-                    name="catchphrase"
-                    label={lang.catchphrase}
-                    formTools={formTools}
-                />
-
-                <Select2Tag
-                    label={lang.Domains}
-                    searchField="name"
-                    fetch="/taxonomies/list"
-                    requestData={{category:"domains", name:""}}
-                    name="domains"
-                    idField="domain"
-                    placeholder={lang.domainsInputPlaceholder}
-                    formTools={formTools}
-                    creatableModal={modal}
-                />
-
-
-                <blockquote>
-                    * Note : {lang.organisationUploadMediaMainImage}
-                </blockquote>
-
-                <div className="col-12">
-                    <Button type="submit" disabled={!formState.isValid}>Soumettre</Button>
-                </div>
-            </form>
+            <Button type="submit" disabled={!formState.isValid}>{lang.submit}</Button>
 
             { modal.modal.display &&
                 <Modal 
@@ -241,4 +285,4 @@ const CreateOrganisationForm = (props) => {
     )
 
 }
-export default CreateOrganisationForm 
+export default OrganisationSingleEdit 
