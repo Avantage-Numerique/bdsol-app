@@ -83,7 +83,12 @@ const PersonSingleBaseView = ({ data }) => {
     const Header = (
         <SingleBaseHeader 
             title={(<h2 className="text-white">{`${firstName} ${lastName}`}</h2>)}
-            subtitle={(<h4 className="text-white">{`${nickname}`}</h4>)}
+            subtitle={(
+                <div className="d-text">
+                    <h4 className="text-white">{nickname}</h4>
+                    <p className="text-white">{catchphrase}</p>
+                </div>
+            )}
             mainImage={mainImage}
             entity={data}
             type="Personne"
@@ -107,7 +112,7 @@ const PersonSingleBaseView = ({ data }) => {
         <>
             <SingleInfo 
                 title={"Occupations"}
-                NAMessage="Aucune ocupation n'est disponible pour le moment"
+                NAMessage="Aucune occupation n'est disponible pour le moment"
                 className={"mb-3 mt-3"}
             >    
                 {/* Display the different groups of occupations */}
@@ -126,13 +131,6 @@ const PersonSingleBaseView = ({ data }) => {
 
     const ContentColumnRight = (
         <> 
-            
-            {/************ Skills *************/}
-            <SingleInfo title={"Compétences"}
-                NAMessage={<p>Vous n'avez aucune compétence d'entrée pour le moment</p>}
-            >
-                <SkillsList occupations={occupations}/>
-            </SingleInfo>
             {/*********** Domains ***********/}
             <SingleInfo title={lang.domainsSingleLabel} className={"mb-3"}>
                 <SearchTag
@@ -149,7 +147,7 @@ const PersonSingleBaseView = ({ data }) => {
         <>
             {
                 status?.state &&
-                    <SingleInfo className="border-bottom py-4"
+                    <SingleInfo className="border-top pt-3"
                         title="Statut de l'entité">
                         <p>{status.state === 'accepted' ? "Acceptée" : "En attente d'approbation"}</p>
                     </SingleInfo>
@@ -157,7 +155,7 @@ const PersonSingleBaseView = ({ data }) => {
 
             {
                 (createdAt || updatedAt || status) &&
-                <SingleEntityStatus className="border-bottom py-4" createdAt={createdAt} updatedAt={updatedAt} status={status} />
+                <SingleEntityStatus className="border-bottom pb-2" createdAt={createdAt} updatedAt={updatedAt} status={status} />
             }
         </>
     )

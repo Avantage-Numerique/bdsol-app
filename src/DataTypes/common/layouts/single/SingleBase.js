@@ -52,12 +52,12 @@ const SingleBase = (props) => {
             
             
             { /* FullWidthContent */ }
-            <section className="row">
+            <section className="row p-2">
                 { fullWidthContent && fullWidthContent }
             </section>
 
             { /* ContentColumn */ }
-            <div className="row">
+            <div className="row p-2">
 
                 { /* ContentColumnLeft */ }
                 <section className="col-md-6">
@@ -73,7 +73,7 @@ const SingleBase = (props) => {
             </div>
 
             { /* Footer */ }
-            <footer className="row">
+            <footer className="row p-2">
                 { footer && footer }
             </footer>
 
