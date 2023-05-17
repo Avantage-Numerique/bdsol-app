@@ -178,7 +178,7 @@ const OrganisationSingleEdit = (props) => {
                 name="offers"
                 label="Éditez vos groupes d'offres de services"
                 />*/}
-            {/* team */}
+            {/* team UpdateTeams */}
         </>
     );
     const contentColumnRight = (
@@ -209,18 +209,18 @@ const OrganisationSingleEdit = (props) => {
     const footer = (
         <>
             <Input
-                    name="url"
-                    label="Hyperlien"
-                    type="url"
-                    pattern="^https?:\/\/[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$"
-                    placeholder="Une url avec le https, exemple : https://siteWeb.com"
-                    formTools={formTools}
+                name="url"
+                label="Hyperlien"
+                type="url"
+                pattern="^https?:\/\/[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$"
+                placeholder="Une url avec le https, exemple : https://siteWeb.com"
+                formTools={formTools}
             />
             <Input
-                    name="fondationDate"
-                    label="Date de fondation"
-                    type="date"
-                    formTools={formTools}
+                name="fondationDate"
+                label="Date de fondation"
+                type="date"
+                formTools={formTools}
             />
             {
                 status?.state &&
