@@ -6,7 +6,7 @@ import {
 
 
 //components
-import ProjectSingle from "@/src/DataTypes/Project/layouts/single/ProjectSingle"
+import ProjectSingle from "@/src/DataTypes/Project/layouts/single/ProjectSingle_deprecated"
 import {getUserHeadersFromUserSession} from "@/auth/context/auth-context";
 import {withSessionSsr} from "@/auth/session/handlers/withSession";
 import AppRoutes from "@/src/Routing/AppRoutes";

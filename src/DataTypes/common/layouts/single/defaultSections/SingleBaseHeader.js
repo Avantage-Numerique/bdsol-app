@@ -6,6 +6,7 @@ import { lang } from '@/src/common/Data/GlobalConstants';
 
 //Component
 import Button from '@/src/common/FormElements/Button/Button';
+import MainImageDisplay from '@/DataTypes/common/layouts/single/defaultSections/MainImageDisplay/MainImageDisplay';
 
 
 /**
@@ -25,10 +26,6 @@ const SingleBaseHeader = (props) => {
         type
     } = props;
 
-    const haveMainImage = mainImage !== undefined && mainImage !== "";
-    const mainImageRootUrl = haveMainImage ? process.env.NEXT_PUBLIC_API_URL : "";//we dont add api path if it's local.
-    const mainImageUrl = mainImage?.url ?? "/general_images/person-default.webp";
-    const mainImageAlt = mainImage?.alt ?? "main image alt";
 
 
     return (
@@ -43,24 +40,7 @@ const SingleBaseHeader = (props) => {
                 </h3>
 
                 { /* mainImage */ }
-                <div
-                    className='d-flex flex-row justify-content-start'>
-                    <figure className={`${styles["main-image-container"]}`}>
-                        {haveMainImage &&
-                            <a href={`/medias/${mainImage._id}`}
-                                className={`fs-4 w-100 h-100 position-absolute d-flex align-items-center justify-content-center p-1 ${styles["profile-picture--modification-opt"]}`}>
-                                Afficher
-                            </a>
-                        }
-                        <img src={mainImageRootUrl + mainImageUrl} alt={mainImageAlt}/>
-                    </figure>
-                    <div>
-                        <a href={"#"}>
-                            <img src={"/icones/edit-icon.svg"} alt={"Changer l'image"}/>
-                                {haveMainImage ? lang.updateImage : lang.addImage}
-                        </a>
-                    </div>
-                </div>
+                <MainImageDisplay mainImage={mainImage} />
 
             </div>
             <div className="col-md-6 order-1 order-md-2 d-flex flex-md-column align-items-end justify-content-between">

@@ -1,7 +1,6 @@
 import React from 'react' 
 import Router from "next/router";
 
-
 //Components
 import SanitizedInnerHtml from '@/src/utils/SanitizedInnerHtml';
 import SearchTag from '@/src/common/Components/SearchTag';

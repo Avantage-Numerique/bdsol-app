@@ -177,11 +177,11 @@ const CreatePersonForm = ({initValues, positiveRequestActions, ...props}) => {
     return (
         <>
         
-            <form 
+          {/*   <form 
                 onSubmit={submitHandler} 
                 className={`${styles["create-person-form"]}`}
             >
-                <FormUI />
+            */}
                 <SingleBase
                     header={header}
                     contentColumnLeft={contentColumnLeft}
@@ -194,7 +194,7 @@ const CreatePersonForm = ({initValues, positiveRequestActions, ...props}) => {
 
                 <Button type="submit" disabled={!formState.isValid}>{lang.submit}</Button>
 
-            </form>
+             {/* </form> */}
 
             { modal.modal.display &&
                 <Modal 

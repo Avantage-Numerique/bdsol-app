@@ -148,10 +148,8 @@ const HomePage = ({}) => {
                 <meta name="twitter:title" content={lang.appDefaultName}/>
                 <meta name="twitter:description" content={lang.appDefaultDescription}/>
 
-                {/*
-                To add when the domain will be selected ....
-                <link rel="canonical" href="https://avantagenumerique.org/">
-                */}
+                {/* To add when the domain will be selected ....
+                    <link rel="canonical" href="https://avantagenumerique.org/">  */}
 
                 {/* Structured data */}
                 <script
