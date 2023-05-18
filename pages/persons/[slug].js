@@ -6,7 +6,7 @@ import {
 
 
 //components
-import PersonSingleBaseView from '@/src/DataTypes/Person/Components/layouts/single/PersonSingleBaseView'
+import PersonSingleView from '@/src/DataTypes/Person/Components/layouts/single/PersonSingleView'
 import {getUserHeadersFromUserSession} from "@/auth/context/auth-context";
 import {withSessionSsr} from "@/auth/session/handlers/withSession";
 import AppRoutes from "@/src/Routing/AppRoutes";
@@ -17,7 +17,7 @@ const SinglePersonPage = props => {
     return (
         <div className={`single-container single-person`}>
             <div className="maxWidthPageContainer">
-                <PersonSingleBaseView data={props} route={AppRoutes.personSingle} />
+                <PersonSingleView data={props} route={AppRoutes.personSingle} />
             </div>
         </div>
     )

@@ -6,7 +6,7 @@ import {
 
 
 //components
-import ProjectSingleBaseView from "@/src/DataTypes/Project/layouts/single/ProjectSingleBaseView"
+import ProjectSingleView from "@/src/DataTypes/Project/layouts/single/ProjectSingleView"
 import {getUserHeadersFromUserSession} from "@/auth/context/auth-context";
 import {withSessionSsr} from "@/auth/session/handlers/withSession";
 import AppRoutes from "@/src/Routing/AppRoutes";
@@ -17,7 +17,7 @@ const SingleProjectPage = props => {
     return (
         <div className={`single-container single-organisation`}>
             <div className="maxWidthPageContainer">
-                <ProjectSingleBaseView data={props} route={AppRoutes.projectSingle} />
+                <ProjectSingleView data={props} route={AppRoutes.projectSingle} />
             </div>
         </div>
     )
