@@ -1,6 +1,6 @@
 import EntityModel, {TYPE_DEFAULT} from "@/DataTypes/Entity/models/EntityModel";
 import ProjectSimple from "@/DataTypes/Project/layouts/simple/ProjectSimple";
-import ProjectSingleBaseView from "../layouts/single/ProjectSingleBaseView";
+import ProjectSingleView from "../layouts/single/ProjectSingleView";
 import {TYPE_PROJECT} from "@/DataTypes/Entity/Types";
 import Media from "@/DataTypes/Media/models/Media";
 import AppRoutes from "@/src/Routing/AppRoutes";
@@ -37,7 +37,7 @@ class Project extends EntityModel {
         params.showStatus = params.showStatus ?? true;
 
         this.simpleComponent = ProjectSimple;
-        this.singleComponent = ProjectSingleBaseView;
+        this.singleComponent = ProjectSingleView;
 
         //sets all the rest as a this[key] = raw[key] value.
         this.setProperties(raw);

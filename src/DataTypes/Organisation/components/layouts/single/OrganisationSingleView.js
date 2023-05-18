@@ -1,6 +1,7 @@
 import React from 'react';
 
 //Components
+import SingleBaseHeader from "@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseHeader"
 import SingleBase from "@/src/DataTypes/common/layouts/single/SingleBase"
 import SanitizedInnerHtml from '@/src/utils/SanitizedInnerHtml';
 import SearchTag from '@/src/common/Components/SearchTag';
@@ -27,7 +28,7 @@ import UpdateTeams from '@/src/DataTypes/Organisation/components/forms/UpdateTea
 
 
 
-const OrganisationSingleBaseView = ({ data }) => {
+const OrganisationSingleView = ({ data }) => {
 
     //Destructuring of data's prop
     const {
@@ -37,6 +38,7 @@ const OrganisationSingleBaseView = ({ data }) => {
         contactPoint,
         fondationDate,
         catchphrase,
+        mainImage,
         name,
         offers,
         domains,
@@ -53,25 +55,32 @@ const OrganisationSingleBaseView = ({ data }) => {
     /****************************
      *  Sections
      ***************************/
-    const FullWidthContent = () => (
-        <SingleInfo title={"Présentation"} className={"mb-3"}>
+    const Header = (
+        <SingleBaseHeader 
+            title={(<h2 className="text-white">{`${name}`}</h2>)}
+            subtitle={(
+                <div className="d-text">
+                    <h4 className="text-white">{catchphrase}</h4>
+                </div>
+            )}
+            mainImage={mainImage}
+            entity={data}
+            type="Organisation"
+        />
+    )
+
+    const FullWidthContent = (
+        <SingleInfo title={"Présentation"} className={"mb-3 mt-4"}>
             <SanitizedInnerHtml>
                 {description}
             </SanitizedInnerHtml>
         </SingleInfo>
     )
 
-    const ContentColumnLeft = () => (
+    const ContentColumnLeft = (
         <>
-            <SingleInfo title={"Équipe"} className={"mb-3"}>
-                <section className={"border-bottom"}>
-                    {/* Header */}
-                    <div className="d-flex justify-content-between align-items-center">
-                        <h4 className="h5 my-3">{lang.teamMembers}</h4>
-                        <button className="rounded bg-purplelight py-1 px-2" onClick={teamsModal.displayModal}>
-                            <Icon iconName="ar la-edit" />
-                        </button>
-                    </div>
+            <SingleInfo title={lang.teamMembers} className={"mb-3"}>
+                <>
                     {/* Rows of members */}
                     { team?.length > 0 ?
                         <ul className="d-flex flex-wrap gap-2">
@@ -87,7 +96,7 @@ const OrganisationSingleBaseView = ({ data }) => {
                         :
                         <p className="small">{lang.noTeamMemberSetMessage}</p>
                     }
-                </section>
+                </>
             </SingleInfo>
 
             <SingleInfo title={"Financement"} className={"mb-3"}>
@@ -98,18 +107,11 @@ const OrganisationSingleBaseView = ({ data }) => {
         </>
     )
 
-    const ContentColumnRight = () => (
+    const ContentColumnRight = (
         <> 
             {/*************** Offers *****************/}
             <section className="mt-4">
-                {/* Header */}
-                <div className="d-flex justify-content-between align-items-center">
-                    <h4 className="h5 my-3">Services offerts</h4>
-                    <button className="rounded bg-purplelight py-1 px-2" onClick={offersModal.displayModal}>
-                        <Icon iconName="ar la-edit" />
-                    </button>
-                </div>
-                    
+                <h4 className="h5 my-3">Services offerts</h4>
                 { offers?.length > 0 && offers.map(offer => (
                     <article className={`d-flex flex-column p-2 mb-2 skill-group bg-light`}>
                         <h5 className="text-dark mb-1 group-name">{offer.offer}</h5>
@@ -138,15 +140,11 @@ const OrganisationSingleBaseView = ({ data }) => {
         </>
     )
 
-    const Footer = () => (
-        <>
-            <SingleInfo title={"Url"} className={"mb-3"}>
-                {url && url}
-            </SingleInfo>
-            <SingleInfo title={"Date de fondation"} className={"mb-3"}>
-                {fondationDate && fondationDate}
-            </SingleInfo>
-            
+    const Footer = (
+        <div className="border-top border-bottom pt-2">  
+            { url &&
+                <p><a href={url}>{url}</a></p>
+            }
             {
                 status?.state &&
                     <SingleInfo
@@ -154,11 +152,15 @@ const OrganisationSingleBaseView = ({ data }) => {
                         <p>{status.state === 'accepted' ? "Acceptée" : "En attente d'approbation"}</p>
                     </SingleInfo>
             }
+
             {
                 (createdAt || updatedAt || status) &&
-                <SingleEntityStatus createdAt={createdAt} updatedAt={updatedAt} status={status} />
+                <SingleEntityStatus  
+                    createdAt={createdAt} 
+                    updatedAt={updatedAt} 
+                    status={status} />
             }
-        </>
+        </div>
     )
 
     {/**************************
@@ -167,7 +169,7 @@ const OrganisationSingleBaseView = ({ data }) => {
     return (
         <>
             <SingleBase 
-                header={null}
+                header={Header}
                 fullWidthContent={FullWidthContent}
                 contentColumnLeft={ContentColumnLeft}
                 contentColumnRight={ContentColumnRight}
@@ -177,4 +179,4 @@ const OrganisationSingleBaseView = ({ data }) => {
     )
 }
 
-export default OrganisationSingleBaseView
+export default OrganisationSingleView

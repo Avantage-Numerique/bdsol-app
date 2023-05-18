@@ -50,7 +50,7 @@ const ProjectSingleView = ({ data }) => {
             )}
             mainImage={mainImage}
             entity={data}
-            type="Personne"
+            type="Projet"
         />
     )
 

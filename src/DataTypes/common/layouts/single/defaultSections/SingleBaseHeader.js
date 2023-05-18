@@ -37,7 +37,7 @@ const SingleBaseHeader = (props) => {
                 { subtitle ?? <h3 className='ms-4'>Sous-titre</h3> }
 
                 { /* mainImage */ }
-                <MainImageDisplay mainImage={mainImage} entity={entity} />
+                <MainImageDisplay mainImage={mainImage ?? undefined} entity={entity} />
 
             </div>
             <div className="col-md-6 order-1 order-md-2 d-flex flex-md-column align-items-end justify-content-between">
