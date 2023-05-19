@@ -6,7 +6,7 @@ import { useFormUtils } from '@/src/hooks/useFormUtils/useFormUtils';
 //components
 import Button from "@/FormElements/Button/Button";
 import Input from '@/src/common/FormElements/Input/Input';
-import Select2Tag from '@/src/common/FormElements/Select2/Select2Tag';
+import Select2 from '@/src/common/FormElements/Select2/Select2';
 import Repeater from '@/src/common/FormElements/Repeater/Repeater';
 
 //Styling
@@ -14,67 +14,14 @@ import styles from './UpdateTeams.module.scss'
 
 
 
-const UpdateTeams = ({parentEntity, positiveRequestActions}) => {
-
-    console.log("PARENT ENTITY ", parentEntity)
-
-    const {FormUI, submitRequest, formState, formTools} = useFormUtils(
-        {
-            team: {
-                value: [],
-                isValid: true
-            },
-        },
-        //Pass a set of rules to execute a valid response of an api request
-        positiveRequestActions || {
-            displayResMessage: true     //Display a message to the user to confirm the succes
-        }
-    )
-
-    //Format to array      
-   let formatParentEntity = {...parentEntity};
-
-    formatParentEntity.team.forEach(element => {
-        const temp = {...element.member};
-        element.member = [temp];
-    });
-    console.log(formatParentEntity) 
-    
-
-    const submitHandler = async event => {
-        
-        event.preventDefault();
-
-        const formattedTeams = formState.inputs.team.value.map(function(singleTeam){
-            return {
-                status: singleTeam.status,
-                member: singleTeam.value.member.value[0].member._id,
-                role: singleTeam.value.role.value
-            }
-        })
-
-        const formData = {
-            "data": {
-                id: parentEntity._id,
-                team: formattedTeams,
-                status: parentEntity.status
-            }
-        }
-        
-        //Add data to the formData
-        await submitRequest(
-            "/organisations/update",
-            'POST',
-            formData
-        );
-    }
+const UpdateTeams = ({name, formTools, parentEntity, ...props}) => {
 
     return (
-        <form className={`${styles["update-teams"]} w-100 container p-0`}>
-            <FormUI />
+        <>
+            <label>{props.label}</label>
             <Repeater
                 formTools={formTools}
-                name="team"
+                name={name}
                 formInitStructure={{
                     member: {
                         value: [],
@@ -85,22 +32,21 @@ const UpdateTeams = ({parentEntity, positiveRequestActions}) => {
                         isValid: true
                     }
                 }}
-                initValues={formatParentEntity.team}
+                initValues={parentEntity.team}
             >
                 <div className={`${styles["team-member-row"]} d-flex align-items-center mb-2 border-b row py-2`}>
-                    <div class="col row align-items-center">
-                        <Select2Tag
-                                className="col col-sm-12 col-md-6"
-                                searchField="firstName"
-                                fetch="/persons/list"
-                                requestData={{name:""}}
-                                placeholder="Personne"
-                                validationRules={[
-                                    {name: "REQUIRED"}
-                                ]}
-                                name="member"
-                                idField="member"
-                            />
+                    <div className="col row align-items-center">
+                        <Select2
+                            name="member"
+                            label="Membre de l'équipe de l'organisation"
+                            formTools={formTools}
+                            creatable={false}
+                            isMulti={false}
+
+                            fetch={"/persons/list"}
+                            searchField={"firstName"}
+                            selectField={"fullname"}
+                        />
                         <Input 
                             className="col col-sm-12 col-md-6"
                             name="role"
@@ -119,10 +65,7 @@ const UpdateTeams = ({parentEntity, positiveRequestActions}) => {
                     </div>
                 </div>
             </Repeater>
-            <Button type="button" onClick={submitHandler} disabled={!formState.isValid}>
-                Soumettre
-            </Button>
-        </form>
+        </>
     )
 }
 

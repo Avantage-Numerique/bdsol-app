@@ -34,8 +34,6 @@ const ProjectSingleView = ({ data }) => {
         updatedAt
     } = data;
 
-    console.log(location)
-
     /****************************
      *  Sections
      ***************************/
@@ -45,7 +43,7 @@ const ProjectSingleView = ({ data }) => {
             subtitle={(
                 <div className="d-text">
                     <h4 className="text-white">{alternateName}</h4>
-                    <p className="text-white">{entityInCharge}</p>
+                    <p className="text-white">Entité en charge du projet : {entityInCharge ? entityInCharge.name : "Aucune"}</p>
                 </div>
             )}
             mainImage={mainImage}
@@ -64,8 +62,7 @@ const ProjectSingleView = ({ data }) => {
 
     const ContentColumnLeft = (
         <>
-            <SingleInfo title={"Groupes de compétences"} className={"mb-3"}>
-            </SingleInfo>
+            <SingleInfo title={"Groupes de compétences"} className={"mb-3"}></SingleInfo>
         </>
     )
 

@@ -45,7 +45,6 @@ const Select2 = ({ name, formTools, ...props }) => {
             value,
             props.validationRules ? validate(event.target.value) : true
         )
-
     }, [value])
 
     useEffect( () => {
@@ -82,7 +81,6 @@ const Select2 = ({ name, formTools, ...props }) => {
                 { 'Content-Type': 'application/json' }
             )
             const optionList = ApiEntityModel.getSelectOption(apiResponse.data, props.selectField);
-            console.log("optionList",optionList);
             setOptionList(optionList);
         }
     }

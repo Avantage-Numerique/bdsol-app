@@ -12,7 +12,7 @@ import {withSessionSsr} from "@/auth/session/handlers/withSession";
 import AppRoutes from "@/src/Routing/AppRoutes";
 
 
-const SinglePersonPage = props => {
+const SinglePersonViewPage = props => {
 
     return (
         <div className={`single-container single-person`}>
@@ -23,7 +23,7 @@ const SinglePersonPage = props => {
     )
 }
     
-export default SinglePersonPage;
+export default SinglePersonViewPage;
 
 export const getServerSideProps = withSessionSsr(personSlugSSProps);
 

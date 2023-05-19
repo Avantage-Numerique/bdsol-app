@@ -24,6 +24,8 @@ import SingleBase from '@/src/DataTypes/common/layouts/single/SingleBase';
 import SingleBaseHeader from '@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseHeader';
 import SingleInfo from '@/src/DataTypes/common/layouts/SingleInfo/SingleInfo';
 import { SingleEntityStatus } from '@/src/DataTypes/Status/Components/SingleEntityStatus';
+import UpdateSkillGroup from '@/src/DataTypes/common/Forms/UpdateSkillGroup/UpdateSkillGroup';
+import UpdateTeams from '../UpdateTeams/UpdateTeams';
 
 
 const OrganisationSingleEdit = (props) => {
@@ -51,8 +53,6 @@ const OrganisationSingleEdit = (props) => {
 
     //Modal hook
     const modal = useModal()
-
-    const submitUri = props.uri ?? "create";
 
     const positiveRequestActions= props.positiveRequestActions;
 
@@ -110,6 +110,10 @@ const OrganisationSingleEdit = (props) => {
         domains: {
             value: domains ?? [],
             isValid: true
+        },
+        team: {
+            value: team ?? [],
+            isValid: true
         }
     },
         positiveRequestActions || {
@@ -124,24 +128,35 @@ const OrganisationSingleEdit = (props) => {
 
         const formData = {
             "data": {
+                id: _id,
                 name: formState.inputs.name.value,
                 description:  formState.inputs.description.value,
                 url: formState.inputs.url.value,
                 contactPoint: formState.inputs.contactPoint.value,
                 fondationDate: formState.inputs.fondationDate.value,
+                offers: formState.inputs.offers.value.map(function(off){
+                    return {
+                        status: off.status,
+                        offer: off.value.offer.value,
+                        skills: off.value.skills.value.map(skill => skill.skill._id)
+                    }
+                }),
                 catchphrase: formState.inputs.catchphrase.value,
                 domains: getSelectedToFormData(formState.inputs.domains.value, "domain", auth.user),
-                "status": submitUri === "create" ? getDefaultCreateEntityStatus(auth.user) : getDefaultUpdateEntityStatus(auth.user)
+                team:formState.inputs.team.value.map(function(singleTeam){
+                    return {
+                        status: singleTeam.status,
+                        member: singleTeam.value.member.value.value,
+                        role: singleTeam.value.role.value
+                    }
+                }),
+                status: getDefaultUpdateEntityStatus(auth.user)
             }
         };
 
-        if (submitUri === "update") {
-            formData.data.id = initialValues._id
-        }
-
         //Send the request with the specialized hook
         submitRequest(
-            `/organisations/${submitUri}`,
+            `/organisations/update`,
             'POST',
             formData
         );
@@ -172,13 +187,19 @@ const OrganisationSingleEdit = (props) => {
     );
     const contentColumnLeft = (
         <>
-            {/*<UpdateSkillGroup
+            <UpdateSkillGroup
                 parentEntity={props.data}
                 formTools={formTools}
                 name="offers"
                 label="Éditez vos groupes d'offres de services"
-                />*/}
-            {/* team UpdateTeams */}
+            />
+            { /* team */ }
+            <UpdateTeams
+                name="team"
+                formTools={formTools}
+                parentEntity={props.data}
+                label="Éditez vos membre d'équipe"
+            />
         </>
     );
     const contentColumnRight = (
@@ -245,7 +266,7 @@ const OrganisationSingleEdit = (props) => {
                 footer={footer}
             />
 
-            <Button type="submit" disabled={!formState.isValid}>{lang.submit}</Button>
+            <Button type="submit" onClick={submitHandler} disabled={!formState.isValid}>{lang.submit}</Button>
 
             { modal.modal.display &&
                 <Modal 

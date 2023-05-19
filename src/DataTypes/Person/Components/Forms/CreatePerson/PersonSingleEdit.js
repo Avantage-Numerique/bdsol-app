@@ -110,7 +110,13 @@ const PersonSingleEdit = ({initValues, positiveRequestActions, ...props}) => {
                 nickname: formState.inputs.nickName.value,
                 description: formState.inputs.description.value,
                 catchphrase: formState.inputs.catchphrase.value,
-                //occupations: [],//the state of this is unstable, it get always the form to crash.//getSelectedToFormData(formState.inputs.occupations.value, "occupation", auth.user),
+                occupations: formState.inputs.occupations.value.map(function(occ){
+                    return {
+                        status: occ.status,
+                        occupation: occ.value.occupation.value,
+                        skills: occ.value.skills.value.map(skill => skill.skill._id)
+                    }
+                }),
                 domains: getSelectedToFormData(formState.inputs.domains.value, "domain", auth.user),
                 status: getDefaultCreateEntityStatus(auth.user),
             }
@@ -176,7 +182,6 @@ const PersonSingleEdit = ({initValues, positiveRequestActions, ...props}) => {
                 label="Biographie / description"
                 formTools={formTools}
             />
-
         </>)
 
     const contentColumnLeft = (
@@ -239,7 +244,7 @@ const PersonSingleEdit = ({initValues, positiveRequestActions, ...props}) => {
                     footer={footer}
                 />
 
-                <Button type="submit" disabled={!formState.isValid}>{lang.submit}</Button>
+                <Button type="submit" onClick={submitHandler} disabled={!formState.isValid}>{lang.submit}</Button>
 
              {/* </form> */}
 

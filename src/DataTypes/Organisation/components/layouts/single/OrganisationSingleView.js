@@ -22,7 +22,6 @@ import Single from "@/DataTypes/common/layouts/single/Single";
 import OrganisationSingleEdit from "@/src/DataTypes/Organisation/components/forms/CreateOrganisationForm/OrganisationSingleEdit";
 import SingleInfo from "@/DataTypes/common/layouts/SingleInfo/SingleInfo";
 import {SingleEntityStatus} from "@/DataTypes/Status/Components/SingleEntityStatus";
-import UpdateOffers from '@/src/DataTypes/Organisation/components/forms/UpdateOffers/UpdateOffers';
 import UpdateTeams from '@/src/DataTypes/Organisation/components/forms/UpdateTeams/UpdateTeams';
 
 

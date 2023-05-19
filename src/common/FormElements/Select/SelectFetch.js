@@ -9,7 +9,6 @@ const SelectFetch = (props) => {
 
     const [options, setOptions] = useState([])
 
-    console.log("Options", options)
     //Search suggestion
     useEffect( () => {
         const getSelectOptions = async () => {

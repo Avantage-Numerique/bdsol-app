@@ -8,6 +8,13 @@ import Button from '@/FormElements/Button/Button'
 import Input from '@/FormElements/Input/Input'
 import SelectFetch from '@/FormElements/Select/SelectFetch'
 import Select2 from '@/FormElements/Select2/Select2'
+import SingleBaseHeader from '@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseHeader';
+import RichTextarea from '@/src/common/FormElements/RichTextArea/RichTextarea';
+import SingleInfo from '@/src/DataTypes/common/layouts/SingleInfo/SingleInfo';
+import { SingleEntityStatus } from '@/src/DataTypes/Status/Components/SingleEntityStatus';
+import SingleBase from '@/src/DataTypes/common/layouts/single/SingleBase';
+import UpdateSkillGroup from '@/src/DataTypes/common/Forms/UpdateSkillGroup/UpdateSkillGroup';
+import UpdateTeams from '@/src/DataTypes/Organisation/components/forms/UpdateTeams/UpdateTeams';
 
 //Utils 
 import {lang} from "@/src/common/Data/GlobalConstants";
@@ -15,11 +22,7 @@ import {getDefaultCreateEntityStatus} from "@/DataTypes/Status/EntityStatus";
 
 //Context
 import { useAuth } from "@/src/authentification/context/auth-context";
-import SingleBaseHeader from '@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseHeader';
-import RichTextarea from '@/src/common/FormElements/RichTextArea/RichTextarea';
-import SingleInfo from '@/src/DataTypes/common/layouts/SingleInfo/SingleInfo';
-import { SingleEntityStatus } from '@/src/DataTypes/Status/Components/SingleEntityStatus';
-import SingleBase from '@/src/DataTypes/common/layouts/single/SingleBase';
+
 
 const ProjectSingleEdit = (props) => {
 
@@ -118,15 +121,29 @@ const ProjectSingleEdit = (props) => {
             "data": {
                 id: _id,
                 name: formState.inputs.name.value,
+                alternateName: formState.inputs.alternateName.value,
                 entityInCharge: formState.inputs.entityInCharge.value.value,
+                producer: formState.inputs.producer.value.value,
+                description: formState.inputs.description.value,
                 context: formState.inputs.context.value,
+                //sponsor: formState.inputs.sponsor.value,
+                offers: formState.inputs.offers.value,
+                team:formState.inputs.team.value.map(function(singleTeam){
+                    return {
+                        status: singleTeam.status,
+                        member: singleTeam.value.member.value.value,
+                        role: singleTeam.value.role.value
+                    }
+                }),
+                contactPoint: formState.inputs.contactPoint.value,
+                url: formState.inputs.url.value,
                 status: getDefaultCreateEntityStatus(auth.user),
             }
         }
         
         //Add data to the formData
         await submitRequest(
-            "/projects/update",
+            "/projects/create",
             'POST',
             formData
         );
@@ -160,29 +177,56 @@ const ProjectSingleEdit = (props) => {
                 selectField={"name"}
             />
             {/* Producer */}
+            <Select2
+                name="producer"
+                label="Producteur"
+                formTools={formTools}
+                creatable={false}
+                isMulti={false}
+
+                fetch={"/organisations/list"}
+                searchField={"name"}
+                selectField={"name"}
+            />
 
         </>);
     const header = ( <SingleBaseHeader title={title} subtitle={subtitle} type={type} mainImage={mainImage} /> );
     const fullWidthContent = (
         <>
+
+            {/* Description */}
             <RichTextarea
                 name="description"
                 label="Description"
                 formTools={formTools}
             />
-            {/* Context */}
             {/* Sponsor */}
+            
         </>
     );
     const contentColumnLeft = (
         <>
-            {/*<UpdateSkillGroup
+            {/* Context */}
+            <SelectFetch 
+                name="context"
+                label="Choisissez un contexte"
+                formTools={formTools}
+                noValueText={lang.noSelectedOption}
+                fetchOption="context-enum"
+            />
+            <UpdateSkillGroup
                 parentEntity={props.data}
                 formTools={formTools}
                 name="offers"
                 label="Éditez vos groupes d'offres de services"
-                />*/}
-            {/* team UpdateTeams */}
+            />
+            { /* team */ }
+            <UpdateTeams
+                name="team"
+                formTools={formTools}
+                parentEntity={props.data}
+                label="Éditez vos membre d'équipe"
+            />
         </>
     );
     const contentColumnRight = (
@@ -203,6 +247,7 @@ const ProjectSingleEdit = (props) => {
     const footer = (
         <>
             { /* location */}
+            { /* Url */}
             <Input
                 name="url"
                 label="Hyperlien"

@@ -139,7 +139,6 @@ const PersonSingleView = ({ data }) => {
                     listProperty={"domain"}
                 />
             </SingleInfo>
-         
         </>
     )
 
