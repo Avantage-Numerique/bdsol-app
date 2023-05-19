@@ -9,10 +9,12 @@ import AppRoutes from "@/src/Routing/AppRoutes";
 class Organisation extends EntityModel {
 
     constructor(raw, params={}) {
+
         super(raw);
+
         this.title = raw.name ?? "";
         this.description = raw.description ?? "";
-        this.mainImage = raw.mainImage === "" ? {
+        this.mainImage = !raw.mainImage || raw.mainImage === "" ? {
             url: "/general_images/organisation-default.jpg",
             alt: raw.name,
             baseSrc: `${process.env.NEXT_PUBLIC_APP_URL}`
