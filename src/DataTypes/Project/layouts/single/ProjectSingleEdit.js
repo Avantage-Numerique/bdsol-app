@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 
 //Custom hooks
 import { useFormUtils } from '@/src/hooks/useFormUtils/useFormUtils'
@@ -13,7 +13,6 @@ import RichTextarea from '@/src/common/FormElements/RichTextArea/RichTextarea';
 import SingleInfo from '@/src/DataTypes/common/layouts/SingleInfo/SingleInfo';
 import { SingleEntityStatus } from '@/src/DataTypes/Status/Components/SingleEntityStatus';
 import SingleBase from '@/src/DataTypes/common/layouts/single/SingleBase';
-import UpdateSkillGroup from '@/src/DataTypes/common/Forms/UpdateSkillGroup/UpdateSkillGroup';
 import UpdateTeams from '@/src/DataTypes/Organisation/components/forms/UpdateTeams/UpdateTeams';
 
 //Utils 
@@ -22,7 +21,8 @@ import {getDefaultCreateEntityStatus} from "@/DataTypes/Status/EntityStatus";
 
 //Context
 import { useAuth } from "@/src/authentification/context/auth-context";
-
+import UpdateScheduleBudget from '../../component/UpdateScheduleBudget';
+import UpdateSponsor from '../../component/UpdateSponsor';
 
 const ProjectSingleEdit = (props) => {
 
@@ -96,8 +96,28 @@ const ProjectSingleEdit = (props) => {
                 value: sponsor ?? [],
                 isValid: true
             },
-            scheduleBudget: {
-                value: scheduleBudget ?? "",
+            startDate: {
+                value: scheduleBudget?.startDate ?? "",
+                isValid: true
+            },
+            endDateEstimate: {
+                value: scheduleBudget?.endDateEstimate ?? "",
+                isValid: true
+            },
+            completionDate: {
+                value: scheduleBudget?.completionDate ?? "",
+                isValid: true
+            },
+            estimatedTotalBudget: {
+                value: scheduleBudget?.estimatedTotalBudget ?? "",
+                isValid: true
+            },
+            eta: {
+                value: scheduleBudget?.eta ?? "",
+                isValid: true
+            },
+            timeframe: {
+                value: scheduleBudget?.timeframe ?? [],
                 isValid: true
             },
             skills: {
@@ -122,12 +142,31 @@ const ProjectSingleEdit = (props) => {
                 id: _id,
                 name: formState.inputs.name.value,
                 alternateName: formState.inputs.alternateName.value,
-                entityInCharge: formState.inputs.entityInCharge.value.value,
-                producer: formState.inputs.producer.value.value,
+                entityInCharge: formState.inputs.entityInCharge?.value?.value ?? undefined,
+                producer: formState.inputs.producer.value?.value ?? undefined,
                 description: formState.inputs.description.value,
                 context: formState.inputs.context.value,
-                //sponsor: formState.inputs.sponsor.value,
-                offers: formState.inputs.offers.value,
+                sponsor: formState.inputs.sponsor.value.map( (singleSponsor) => {
+                    return {
+                        name: singleSponsor.value.name.value,
+                        entity: singleSponsor.value.entity.value.value,
+                        entityType: "Organisation"
+                    }
+                }),
+                scheduleBudget: {
+                    startDate: formState.inputs.startDate.value,
+                    endDateEstimate: formState.inputs.endDateEstimate.value,
+                    completionDate: formState.inputs.completionDate.value,
+                    estimatedTotalBudget: formState.inputs.estimatedTotalBudget.value,
+                    eta: formState.inputs.eta.value,
+                    timeframe: formState.inputs.timeframe.value.map( (singleTimeframe) => {
+                        return {
+                            step: singleTimeframe.value.step.value,
+                            eta: singleTimeframe.value.eta.value,
+                            budgetRange: singleTimeframe.value.budgetRange.value,
+                        }
+                    }),
+                },
                 team:formState.inputs.team.value.map(function(singleTeam){
                     return {
                         status: singleTeam.status,
@@ -135,6 +174,9 @@ const ProjectSingleEdit = (props) => {
                         role: singleTeam.value.role.value
                     }
                 }),
+                skills: formState.inputs.skills?.value?.length > 0 ? formState.inputs.skills.value.map( (selectOptionSkill) => {
+                    return selectOptionSkill.value
+                }) : [],
                 contactPoint: formState.inputs.contactPoint.value,
                 url: formState.inputs.url.value,
                 status: getDefaultCreateEntityStatus(auth.user),
@@ -143,7 +185,7 @@ const ProjectSingleEdit = (props) => {
         
         //Add data to the formData
         await submitRequest(
-            "/projects/create",
+            "/projects/update",
             'POST',
             formData
         );
@@ -201,6 +243,12 @@ const ProjectSingleEdit = (props) => {
                 formTools={formTools}
             />
             {/* Sponsor */}
+            <UpdateSponsor
+                name="sponsor"
+                label="Partenaires"
+                formTools={formTools}
+                parentEntity={props.data}
+            />
             
         </>
     );
@@ -214,11 +262,16 @@ const ProjectSingleEdit = (props) => {
                 noValueText={lang.noSelectedOption}
                 fetchOption="context-enum"
             />
-            <UpdateSkillGroup
-                parentEntity={props.data}
+            <Select2
+                name="skills"
+                label="Compétences liées au projet"
                 formTools={formTools}
-                name="offers"
-                label="Éditez vos groupes d'offres de services"
+                creatable={false}
+                isMulti={true}
+
+                fetch={"/taxonomies/list"}
+                searchField={"name"}
+                selectField={"name"}
             />
             { /* team */ }
             <UpdateTeams
@@ -242,6 +295,12 @@ const ProjectSingleEdit = (props) => {
                 formTools={formTools}
             />
             { /* scheduleBudget */}
+            <UpdateScheduleBudget
+                name="scheduleBudget"
+                formTools={formTools}
+                label="Échéancier et budget"
+                parentEntity={props.data}
+            />
         </>
     );
     const footer = (

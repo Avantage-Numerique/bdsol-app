@@ -16,7 +16,7 @@ import RichTextarea from '@/src/common/FormElements/RichTextArea/RichTextarea';
 import CreateTaxonomyForm from '@/src/DataTypes/Taxonomy/Components/Forms/CreateTaxonomy/CreateTaxonomyForm';
 import Modal from '@/src/hooks/useModal/Modal/Modal';
 
-import {getDefaultCreateEntityStatus, getDefaultUpdateEntityStatus} from "@/DataTypes/Status/EntityStatus";
+import {getDefaultUpdateEntityStatus} from "@/DataTypes/Status/EntityStatus";
 import { getSelectedToFormData } from '@/src/common/FormElements/Select2/Select2Tag';
 import styles from './CreateOrganisationForm.module.scss'
 import {getDateFromIsoString} from "@/src/utils/DateHelper";

@@ -1,3 +1,4 @@
+import { getColor } from "@/src/styles/datatypeStyle";
 
 
 
@@ -67,7 +68,7 @@ class ApiEntityModel {
             let options = [];
             elemArray.forEach( (elem) =>
                 elem.skills.forEach( (skill) => {
-                    options.push( { value : skill._id, label : skill.name } )
+                    options.push( { value : skill._id, label : skill.name, color : getColor(skill) } )
                 })
             )
             return options;
@@ -77,17 +78,17 @@ class ApiEntityModel {
     }
 
     static fullnameToSelectOptions(entity){
-        return [{ value : entity._id, label : entity.firstName + ' ' + entity.lastName }]
+        return [{ value : entity._id, label : entity.firstName + ' ' + entity.lastName, color : getColor(entity) }]
     }
 
     static domainsToSelectOptions(domains){
         return domains.map( (domain) => {
-            return [{ value : domain._id, label : domain.name }]
+            return [{ value : domain._id, label : domain.name, color : getColor(domain) }]
         })
     }
 
     static nameToSelectOptions(entity){
-        return [{ value : entity._id, label : entity.name }]
+        return [{ value : entity._id, label : entity.name, color : getColor(entity) }]
     }
 }
 

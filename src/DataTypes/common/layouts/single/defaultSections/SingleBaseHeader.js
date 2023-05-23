@@ -1,20 +1,17 @@
 //Styles
 import styles from './SingleBaseHeader.module.scss';
 
-//Utils
-import { lang } from '@/src/common/Data/GlobalConstants';
-
 //Component
 import Button from '@/src/common/FormElements/Button/Button';
 import MainImageDisplay from '@/DataTypes/common/layouts/single/defaultSections/MainImageDisplay/MainImageDisplay';
 
 
 /**
- * 
- * @param {string} mainImage
- * @param {string} title
- * @param {string} subtitle
- * @param {string} entityType
+ * @param {object} mainImage mainImage data object
+ * @param {object} entity used for mainImageForm
+ * @param {JSX} title JSX element containing title (top left)
+ * @param {JSX} subtitle JSX element containing subtitle (top left)
+ * @param {string} entityType type that shows bottom right
  */
 
 const SingleBaseHeader = (props) => {
