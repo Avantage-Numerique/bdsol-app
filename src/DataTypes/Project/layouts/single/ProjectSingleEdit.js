@@ -223,6 +223,7 @@ const ProjectSingleEdit = (props) => {
                 name="producer"
                 label="Producteur"
                 formTools={formTools}
+                tooltip={{header:"Producteur", body:"Un producteur a une forme d'autorité sur le projet et participe à son financement."}}
                 creatable={false}
                 isMulti={false}
 

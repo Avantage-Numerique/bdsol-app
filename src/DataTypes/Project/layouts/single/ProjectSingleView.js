@@ -45,6 +45,7 @@ const ProjectSingleView = ({ data }) => {
                 <div className="d-text">
                     <h4 className="text-white">{alternateName}</h4>
                     <p className="text-white">Entité en charge du projet : {entityInCharge ? entityInCharge.name : "Aucune"}</p>
+                    <p className="text-white">Producteur : {producer ? producer.name : "Aucun"}</p>
                 </div>
             )}
             mainImage={mainImage}

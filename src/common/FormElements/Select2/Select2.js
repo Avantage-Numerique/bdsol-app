@@ -7,6 +7,7 @@ import ApiEntityModel from "@/src/DataTypes/Entity/models/ApiEntityModel";
 //Component
 import Select2BaseSingle from "./Select2BaseSingle";
 import Select2BaseMulti from "./Select2BaseMulti";
+import Tip from '@/common/FormElements/Tip/Tip';
 
 //Hook
 import { useHttpClient } from "@/src/hooks/http-hook";
@@ -90,7 +91,12 @@ const Select2 = ({ name, formTools, ...props }) => {
     useEffect(() => { fetchOptions() }, [debouncedRequest] );
 
     const label = props.label ? 
-        (<label htmlFor={name} >{props.label}</label>) :
+        (
+            <div className="d-flex justify-content-between">
+                <label htmlFor={name} >{props.label}</label>
+                {props.tooltip && <Tip header={props.tooltip?.header} body={props.tooltip?.body}/>}
+            </div>
+        ) :
         (<></>);
 
     const select = props.isMulti ? 
