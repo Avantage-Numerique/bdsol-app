@@ -3,12 +3,8 @@ import React from 'react';
 //Components
 import SingleBase from "@/src/DataTypes/common/layouts/single/SingleBase"
 import SingleBaseHeader from "@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseHeader"
-import Button from "@/FormElements/Button/Button";
-import PersonSingleEdit from "@/src/DataTypes/Person/Components/Forms/CreatePerson/PersonSingleEdit";
 import SearchTag from '@/src/common/Components/SearchTag';
-import Single from "@/DataTypes/common/layouts/single/Single";
 import SingleInfo from "@/DataTypes/common/layouts/SingleInfo/SingleInfo";
-import UpdateSkillGroup from '@/src/DataTypes/common/Forms/UpdateSkillGroup/UpdateSkillGroup';
 
 //Styling
 import styles from './PersonSingle.module.scss'
@@ -16,7 +12,6 @@ import styles from './PersonSingle.module.scss'
 import SanitizedInnerHtml from '@/src/utils/SanitizedInnerHtml';
 import {SingleEntityStatus} from "@/DataTypes/Status/Components/SingleEntityStatus";
 import {lang} from "@/common/Data/GlobalConstants";
-import {useAuth} from "@/auth/context/auth-context";
 
 
 const PersonSingleView = ({ data }) => {
@@ -139,7 +134,6 @@ const PersonSingleView = ({ data }) => {
                     listProperty={"domain"}
                 />
             </SingleInfo>
-         
         </>
     )
 

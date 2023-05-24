@@ -14,52 +14,23 @@ import Select2Tag from '@/src/common/FormElements/Select2/Select2Tag';
 import Icon from '@/src/common/widgets/Icon/Icon';
 import Repeater from '@/src/common/FormElements/Repeater/Repeater';
 
-//styling
-import styles from './UpdateSkillGroup.module.scss';
 
-
-const UpdateSkillGroup = ({formTools, name, parentEntity, positiveRequestActions, ...props}) => {
-
-    //Import the authentication context to make sure the user is well connected
-    const auth = useAuth();
-
-    const submitHandler = async event => {
-        
-        event.preventDefault();
-
-        const formattedOccupations = formState.inputs.skillGroups.value.map(function(occ){
-            return {
-                status: occ.status,
-                occupation: occ.value.occupation.value,
-                skills: occ.value.skills.value.map(skill => skill.skill._id)
-            }
-        })
-
-        const formData = {
-            "data": {
-                id: parentEntity._id,
-                occupations: formattedOccupations,
-                status: parentEntity.status
-            }
-        }
-        
-        //Add data to the formData
-        await submitRequest(
-            "/persons/update",
-            'POST',
-            formData
-        );
-
-    }
+/**
+ * @param {string} name Name of formState value
+ * @param {formTools} formTools
+ * @param {object} parentEntity object data of entity that uses the structure of occupations skills
+ */
+const UpdateSkillGroup = ({formTools, name, parentEntity, ...props}) => {
 
     return (
-        <form className="w-100">
-                <label>{props.label}</label>
+        <>
+            <label>{props.label}</label>
+            <div className='px-4'>
                 <Repeater
                     formTools={formTools}
                     name={name}
                     formInitStructure={{
-                        occupation: {
+                        [name.split("s")[0]]: {
                             value: "",
                             isValid: false
                         },
@@ -68,20 +39,14 @@ const UpdateSkillGroup = ({formTools, name, parentEntity, positiveRequestActions
                             isValid: true
                         }
                     }}
-                    //initValues={parentEntity.occupations}
+                    initValues={parentEntity[name]}
                 >
-                    <article className={`
-                        row my-2 bg-white
-                        ${styles["update-skill-group"]}
-                    `}>
+                    <article className="row my-2 bg-white border-top">
                         {/* Content of the elements */}
-                        <section className={`
-                            col
-                            ${styles["skill-group-inputs-container"]}
-                        `}>
-                            <Input 
+                        <section className="col my-2">
+                            <Input
                                 label="Nom de groupe"
-                                name="occupation"
+                                name={name.split("s")[0]}
                                 validationRules={[
                                     {name: "REQUIRED"}
                                 ]}
@@ -95,21 +60,15 @@ const UpdateSkillGroup = ({formTools, name, parentEntity, positiveRequestActions
                                 idField="skill"
                             />
                         </section>
-                        {/* Icone to move the element */}
-                        <div className="col pr-0 flex-grow-0 text-secondary">
-                            <Button 
-                                    repeaterDeleteElem={true}
-                                    type="button" 
-                                    color="danger" 
-                                    size="slim"
-                                >
-                                    &#x2716;
-                                </Button>
+                        {/* Delete element */}
+                        <div className="col pr-0 flex-grow-0 text-secondary pt-3">
+                            <Button repeaterDeleteElem={true} type="button" color="danger" size="slim">&#x2716;</Button>
                         </div>
                     </article>
 
                 </Repeater>
-        </form>  
+            </div>
+        </>  
     )
 };
 

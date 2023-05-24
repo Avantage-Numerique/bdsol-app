@@ -24,7 +24,6 @@ import Single from "@/DataTypes/common/layouts/single/Single";
 import OrganisationSingleEdit from "@/src/DataTypes/Organisation/components/forms/CreateOrganisationForm/OrganisationSingleEdit";
 import SingleInfo from "@/DataTypes/common/layouts/SingleInfo/SingleInfo";
 import {SingleEntityStatus} from "@/DataTypes/Status/Components/SingleEntityStatus";
-import UpdateOffers from '@/src/DataTypes/Organisation/components/forms/UpdateOffers/UpdateOffers';
 import UpdateTeams from '@/src/DataTypes/Organisation/components/forms/UpdateTeams/UpdateTeams';
 
 
@@ -206,7 +205,7 @@ const OrganisationSingle = ({ data }) => {
                     <Button type="button" onClick={offersModal.closeModal}>Fermer</Button>
                 </div>
                 
-                <UpdateOffers 
+                {/*<UpdateOffers 
                     parentEntity={data}  
                     positiveRequestActions={{
                         callbackFunction: (requestResponse) => {
@@ -215,7 +214,7 @@ const OrganisationSingle = ({ data }) => {
                         },
                         displayResMessage: true     //Display a message to the user to confirm the succes
                     }}
-                />
+                />*/}
             </offersModal.Modal>
         }
 

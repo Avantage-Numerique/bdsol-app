@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 
 //Custom hooks
 import { useFormUtils } from '@/src/hooks/useFormUtils/useFormUtils'
@@ -8,6 +8,12 @@ import Button from '@/FormElements/Button/Button'
 import Input from '@/FormElements/Input/Input'
 import SelectFetch from '@/FormElements/Select/SelectFetch'
 import Select2 from '@/FormElements/Select2/Select2'
+import SingleBaseHeader from '@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseHeader';
+import RichTextarea from '@/src/common/FormElements/RichTextArea/RichTextarea';
+import SingleInfo from '@/src/DataTypes/common/layouts/SingleInfo/SingleInfo';
+import { SingleEntityStatus } from '@/src/DataTypes/Status/Components/SingleEntityStatus';
+import SingleBase from '@/src/DataTypes/common/layouts/single/SingleBase';
+import UpdateTeams from '@/src/DataTypes/Organisation/components/forms/UpdateTeams/UpdateTeams';
 
 //Utils 
 import {lang} from "@/src/common/Data/GlobalConstants";
@@ -15,11 +21,8 @@ import {getDefaultCreateEntityStatus} from "@/DataTypes/Status/EntityStatus";
 
 //Context
 import { useAuth } from "@/src/authentification/context/auth-context";
-import SingleBaseHeader from '@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseHeader';
-import RichTextarea from '@/src/common/FormElements/RichTextArea/RichTextarea';
-import SingleInfo from '@/src/DataTypes/common/layouts/SingleInfo/SingleInfo';
-import { SingleEntityStatus } from '@/src/DataTypes/Status/Components/SingleEntityStatus';
-import SingleBase from '@/src/DataTypes/common/layouts/single/SingleBase';
+import UpdateScheduleBudget from '../../component/UpdateScheduleBudget';
+import UpdateSponsor from '../../component/UpdateSponsor';
 
 const ProjectSingleEdit = (props) => {
 
@@ -93,8 +96,28 @@ const ProjectSingleEdit = (props) => {
                 value: sponsor ?? [],
                 isValid: true
             },
-            scheduleBudget: {
-                value: scheduleBudget ?? "",
+            startDate: {
+                value: scheduleBudget?.startDate ?? "",
+                isValid: true
+            },
+            endDateEstimate: {
+                value: scheduleBudget?.endDateEstimate ?? "",
+                isValid: true
+            },
+            completionDate: {
+                value: scheduleBudget?.completionDate ?? "",
+                isValid: true
+            },
+            estimatedTotalBudget: {
+                value: scheduleBudget?.estimatedTotalBudget ?? "",
+                isValid: true
+            },
+            eta: {
+                value: scheduleBudget?.eta ?? "",
+                isValid: true
+            },
+            timeframe: {
+                value: scheduleBudget?.timeframe ?? [],
                 isValid: true
             },
             skills: {
@@ -118,8 +141,44 @@ const ProjectSingleEdit = (props) => {
             "data": {
                 id: _id,
                 name: formState.inputs.name.value,
-                entityInCharge: formState.inputs.entityInCharge.value.value,
+                alternateName: formState.inputs.alternateName.value,
+                entityInCharge: formState.inputs.entityInCharge?.value?.value ?? undefined,
+                producer: formState.inputs.producer.value?.value ?? undefined,
+                description: formState.inputs.description.value,
                 context: formState.inputs.context.value,
+                sponsor: formState.inputs.sponsor.value.map( (singleSponsor) => {
+                    return {
+                        name: singleSponsor.value.name.value,
+                        entity: singleSponsor.value.entity.value.value,
+                        entityType: "Organisation"
+                    }
+                }),
+                scheduleBudget: {
+                    startDate: formState.inputs.startDate.value,
+                    endDateEstimate: formState.inputs.endDateEstimate.value,
+                    completionDate: formState.inputs.completionDate.value,
+                    estimatedTotalBudget: formState.inputs.estimatedTotalBudget.value,
+                    eta: formState.inputs.eta.value,
+                    timeframe: formState.inputs.timeframe.value.map( (singleTimeframe) => {
+                        return {
+                            step: singleTimeframe.value.step.value,
+                            eta: singleTimeframe.value.eta.value,
+                            budgetRange: singleTimeframe.value.budgetRange.value,
+                        }
+                    }),
+                },
+                team:formState.inputs.team.value.map(function(singleTeam){
+                    return {
+                        status: singleTeam.status,
+                        member: singleTeam.value.member.value.value,
+                        role: singleTeam.value.role.value
+                    }
+                }),
+                skills: formState.inputs.skills?.value?.length > 0 ? formState.inputs.skills.value.map( (selectOptionSkill) => {
+                    return selectOptionSkill.value
+                }) : [],
+                contactPoint: formState.inputs.contactPoint.value,
+                url: formState.inputs.url.value,
                 status: getDefaultCreateEntityStatus(auth.user),
             }
         }
@@ -160,29 +219,68 @@ const ProjectSingleEdit = (props) => {
                 selectField={"name"}
             />
             {/* Producer */}
+            <Select2
+                name="producer"
+                label="Producteur"
+                formTools={formTools}
+                tooltip={{header:"Producteur", body:"Un producteur a une forme d'autorité sur le projet et participe à son financement."}}
+                creatable={false}
+                isMulti={false}
+
+                fetch={"/organisations/list"}
+                searchField={"name"}
+                selectField={"name"}
+            />
 
         </>);
     const header = ( <SingleBaseHeader title={title} subtitle={subtitle} type={type} mainImage={mainImage} /> );
     const fullWidthContent = (
         <>
+
+            {/* Description */}
             <RichTextarea
                 name="description"
                 label="Description"
                 formTools={formTools}
             />
-            {/* Context */}
             {/* Sponsor */}
+            <UpdateSponsor
+                name="sponsor"
+                label="Partenaires"
+                formTools={formTools}
+                parentEntity={props.data}
+            />
+            
         </>
     );
     const contentColumnLeft = (
         <>
-            {/*<UpdateSkillGroup
-                parentEntity={props.data}
+            {/* Context */}
+            <SelectFetch 
+                name="context"
+                label="Choisissez un contexte"
                 formTools={formTools}
-                name="offers"
-                label="Éditez vos groupes d'offres de services"
-                />*/}
-            {/* team UpdateTeams */}
+                noValueText={lang.noSelectedOption}
+                fetchOption="context-enum"
+            />
+            <Select2
+                name="skills"
+                label="Compétences liées au projet"
+                formTools={formTools}
+                creatable={false}
+                isMulti={true}
+
+                fetch={"/taxonomies/list"}
+                searchField={"name"}
+                selectField={"name"}
+            />
+            { /* team */ }
+            <UpdateTeams
+                name="team"
+                formTools={formTools}
+                parentEntity={props.data}
+                label="Éditez vos membre d'équipe"
+            />
         </>
     );
     const contentColumnRight = (
@@ -198,11 +296,18 @@ const ProjectSingleEdit = (props) => {
                 formTools={formTools}
             />
             { /* scheduleBudget */}
+            <UpdateScheduleBudget
+                name="scheduleBudget"
+                formTools={formTools}
+                label="Échéancier et budget"
+                parentEntity={props.data}
+            />
         </>
     );
     const footer = (
         <>
             { /* location */}
+            { /* Url */}
             <Input
                 name="url"
                 label="Hyperlien"

@@ -12,7 +12,7 @@ import {withSessionSsr} from "@/auth/session/handlers/withSession";
 import AppRoutes from "@/src/Routing/AppRoutes";
 
 
-const SingleProjectPage = props => {
+const SingleProjectViewPage = props => {
 
     return (
         <div className={`single-container single-organisation`}>
@@ -23,7 +23,7 @@ const SingleProjectPage = props => {
     )
 }
     
-export default SingleProjectPage;
+export default SingleProjectViewPage;
 
 export const getServerSideProps = withSessionSsr(projectSlugSSProps);
 

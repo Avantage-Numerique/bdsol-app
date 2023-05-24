@@ -5,28 +5,11 @@ import SingleBaseHeader from "@/src/DataTypes/common/layouts/single/defaultSecti
 import SingleBase from "@/src/DataTypes/common/layouts/single/SingleBase"
 import SanitizedInnerHtml from '@/src/utils/SanitizedInnerHtml';
 import SearchTag from '@/src/common/Components/SearchTag';
-import Button from "@/FormElements/Button/Button";
-
-//Custom hooks
-import {useModal} from "@/src/hooks/useModal/useModal";
-
-//Styling 
 
 //Utils
 import {lang} from "@/common/Data/GlobalConstants";
-import AppRoutes from "@/src/Routing/AppRoutes";
-import DateWidget from "@/common/widgets/DateWidget/DateWidget";
-import Icon from "@/common/widgets/Icon/Icon";
-
-import Single from "@/DataTypes/common/layouts/single/Single";
-import OrganisationSingleEdit from "@/src/DataTypes/Organisation/components/forms/CreateOrganisationForm/OrganisationSingleEdit";
 import SingleInfo from "@/DataTypes/common/layouts/SingleInfo/SingleInfo";
 import {SingleEntityStatus} from "@/DataTypes/Status/Components/SingleEntityStatus";
-import UpdateOffers from '@/src/DataTypes/Organisation/components/forms/UpdateOffers/UpdateOffers';
-import UpdateTeams from '@/src/DataTypes/Organisation/components/forms/UpdateTeams/UpdateTeams';
-
-
-
 
 const OrganisationSingleView = ({ data }) => {
 
