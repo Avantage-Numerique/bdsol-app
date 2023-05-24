@@ -65,7 +65,7 @@ const ProjectSingle = ({data, route}) => {
         <div className={`${styles["quick-section"]}`}>
             <h2 className="mb-2">{name}</h2>
             {alternateName && <p> {alternateName} </p>}
-            {entityInCharge && <p><code>{entityInCharge}</code></p>}
+            {/*entityInCharge && <p><code>{entityInCharge}</code></p>*/}
         </div>
     );
 
