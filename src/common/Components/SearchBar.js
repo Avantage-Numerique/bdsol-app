@@ -96,7 +96,7 @@ const SearchBar = ({small, ...props}) => {
     }
 
     const submitHandler = async event => {
-        event.preventDefault();
+        event?.preventDefault();
         Router.push({
             pathname: "/searchResults",
             query: {searchIndex: inputValue},
@@ -125,21 +125,14 @@ const SearchBar = ({small, ...props}) => {
                     onChange={(val, action) => {
                         if(action.action === "select-option") { submitSelectedItem(val, action) }
                     }}
+                    //Handle on Enter key to submit instead of select
+                    onKeyDown={ (event) => { if(event.key == "Enter") submitHandler() } }
                     noOptionsMessage={(val)=> (
                         <p className={"m-0 p-0"}>
                             Aucune suggestion trouvé avec la recherche <strong>{val.inputValue}</strong>.<br />
                             Appuyez sur la touche <Icon iconName={"keyboard"} /> <code>Entrer</code> pour rechercher avec cette valeur quand même.
                         </p>
                     )}
-                    theme={(theme) => ({
-                        ...theme,
-                        borderRadius: 5,
-                        colors: {
-                            ...theme.colors,
-                            primary25: 'hotpink',
-                            primary: 'black',
-                        },
-                        })}
                 />
             </div>
         </form>
