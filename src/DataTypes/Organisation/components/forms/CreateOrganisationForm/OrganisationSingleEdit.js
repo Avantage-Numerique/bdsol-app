@@ -150,7 +150,9 @@ const OrganisationSingleEdit = (props) => {
     const title = (
         <Input 
             name="name"
+            placeholder="Nom de l'organisation"
             label="Nom de l'organisation"
+            formClassName="discrete-without-focus form-text-white h2"
             validationRules={[
                 {name: "REQUIRED"}
             ]}
@@ -159,6 +161,8 @@ const OrganisationSingleEdit = (props) => {
     const subtitle = (
         <Input
         name="catchphrase"
+        placeholder={lang.catchphrase}
+        formClassName="discrete-without-focus form-text-white h4"
         label={lang.catchphrase}
         formTools={formTools}
         />);
