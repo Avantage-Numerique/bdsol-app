@@ -25,6 +25,7 @@ const SearchBar = ({small, ...props}) => {
     const selectRef = useRef();
     const [inputValue, setInputValue] = useState("");
     const [value, setValue] = useState(null)
+    const blockSubmitSlug = useRef(false);
 
     const router = useRouter();
     //Main form functionalities
@@ -103,6 +104,9 @@ const SearchBar = ({small, ...props}) => {
         });
         setValue(null)
         setInputValue('');
+
+        //Re-init the var to allow search on click and on tab
+        setTimeout( () => blockSubmitSlug.current = false, 500 )
     }
 
     return (
@@ -121,12 +125,14 @@ const SearchBar = ({small, ...props}) => {
                     value={value}
                     options={optionList}
                     inputValue={inputValue}
-                    onInputChange={(val, action) => {if (action.action === "input-change") formRequestData(val)}}
+                    onInputChange={(val, action) => {
+                        if (action.action === "input-change") formRequestData(val);
+                    }}
                     onChange={(val, action) => {
-                        if(action.action === "select-option") { submitSelectedItem(val, action) }
+                        if(action.action === "select-option" && !blockSubmitSlug.current) { submitSelectedItem(val, action) }
                     }}
                     //Handle on Enter key to submit instead of select
-                    onKeyDown={ (event) => { if(event.key == "Enter") submitHandler() } }
+                    onKeyDown={ (event) => { if(event.key == "Enter") { blockSubmitSlug.current = true; submitHandler() } }}
                     noOptionsMessage={(val)=> (
                         <p className={"m-0 p-0"}>
                             Aucune suggestion trouvé avec la recherche <strong>{val.inputValue}</strong>.<br />
