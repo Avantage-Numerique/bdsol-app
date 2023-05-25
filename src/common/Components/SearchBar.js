@@ -139,6 +139,7 @@ const SearchBar = ({small, ...props}) => {
                             Appuyez sur la touche <Icon iconName={"keyboard"} /> <code>Entrer</code> pour rechercher avec cette valeur quand même.
                         </p>
                     )}
+                    filterOption={(option, searchText) => {return true}}
                 />
             </div>
         </form>
