@@ -37,7 +37,7 @@ const UpdateOffers = ({parentEntity, positiveRequestActions}) => {
         const formattedOccupations = formState.inputs.skillGoups.value.map(function(occ){
             return {
                 status: occ.status,
-                offer: occ.value.offer.value,
+                groupName: occ.value.groupName.value,
                 skills: occ.value.skills.value.map(skill => skill.skill._id)
             }
         })
@@ -66,7 +66,7 @@ const UpdateOffers = ({parentEntity, positiveRequestActions}) => {
 
                 <Repeater
                     formTools={formTools}
-                    name="skillGoups"
+                    name="skillGroups"
                     formInitStructure={{
                         offer: {
                             value: "",
@@ -89,7 +89,7 @@ const UpdateOffers = ({parentEntity, positiveRequestActions}) => {
                         `}>
                             <Input 
                                 label="Nom de l'offre"
-                                name="offer"
+                                name="groupName"
                                 validationRules={[
                                     {name: "REQUIRED"}
                                 ]}

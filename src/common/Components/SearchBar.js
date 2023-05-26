@@ -60,7 +60,7 @@ const SearchBar = ({small, ...props}) => {
     }
 
     //Request Debounce
-    const debouncedRequest = useDebounce(formState.inputs.searchIndex.value, 400);
+    const debouncedRequest = useDebounce(formState.inputs.searchIndex.value, 200);
     //Update the list of options to display
     useEffect(() => {
         getSearchSuggestion();
