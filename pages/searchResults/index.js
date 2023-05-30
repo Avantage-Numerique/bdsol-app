@@ -1,18 +1,12 @@
 //React
 import React, {useEffect, useState} from "react"
 import {useRouter} from "next/router";
-import SearchBar from "@/src/common/Components/SearchBar"
 import {clientSideExternalApiRequest, externalApiRequest} from "@/src/hooks/http-hook";
-import PersonSimple from '@/DataTypes/Person/Components/layouts/simple/PersonSimple'
-import OrganisationSimple from '@/DataTypes/Organisation/components/layouts/simple/OrganisationSimple'
 import PageHeader from "@/layouts/Header/PageHeader";
+import EntitiesGrid from "@/src/DataTypes/Entity/layouts/EntitiesGrid";
 
 
 const SearchResults = () => {
-
-    const gridComponents = new Map();
-    gridComponents.set("person", PersonSimple);
-    gridComponents.set("organisation", OrganisationSimple);
 
     const [searchList, setSearchList] = useState([]);
     const router = useRouter();
@@ -85,18 +79,17 @@ const SearchResults = () => {
             >
             </PageHeader>
 
-            <div className="row home-page__feed-section--container row-cols-1 row-cols-sm-2 row-cols-xl-3">
+            <div className="row row-cols-1 row-cols-sm-2 row-cols-xl-3">
                 {
                     searchList?.length > 0 ?
-                    searchList.map((elem, index) => {
-                        let TargetSimpleComponent = gridComponents.get(elem.type);
-                        TargetSimpleComponent = TargetSimpleComponent ?? OrganisationSimple;
-                        return (
-                            <div className="col g-3" key={"container"+elem.type+elem._id + "-" + elem.slug+index}>
-                                <TargetSimpleComponent data={elem} key={"simple"+elem.type+elem._id + "-" + elem.slug+index} />
-                            </div>
-                        )
-                    })
+                    <div>
+                        <h3>Personne</h3>
+                        <EntitiesGrid className={"row"} columnClass={"col g-3"} feed={searchList.filter( (elem) => elem.type == "Person")}/>
+                        <h3>Organisation</h3>
+                        <EntitiesGrid className={"row"} columnClass={"col g-3"} feed={searchList.filter( (elem) => { return elem.type == "Organisation" })}/>
+                        <h3>Projet</h3>
+                        <EntitiesGrid className={"row"} columnClass={"col g-3"} feed={searchList.filter( (elem) => { return elem.type == "Project" })}/>
+                    </div>
                     :
                     <div>Aucune entité trouvée, réessayer avec d'autre critère de recherche</div>
                 }
