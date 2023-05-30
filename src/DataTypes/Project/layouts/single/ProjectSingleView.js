@@ -10,6 +10,10 @@ import SearchTag from '@/src/common/Components/SearchTag';
 import SanitizedInnerHtml from '@/src/utils/SanitizedInnerHtml';
 import {SingleEntityStatus} from "@/DataTypes/Status/Components/SingleEntityStatus";
 import {getDateFromIsoString} from "@/src/utils/DateHelper";
+import {replacePathname} from "@/src/helpers/url";
+import Project from "@/DataTypes/Project/models/Project";
+
+
 
 const ProjectSingleView = ({ data }) => {
 
@@ -35,6 +39,10 @@ const ProjectSingleView = ({ data }) => {
         updatedAt
     } = data;
 
+    const model = new Project(data);
+
+    const link = "/"+replacePathname(model.singleEditRoute.pathname, {slug: model.slug});
+
     /****************************
      *  Sections
      ***************************/
@@ -51,6 +59,8 @@ const ProjectSingleView = ({ data }) => {
             mainImage={mainImage}
             entity={data}
             type="Projet"
+            buttonText="Proposer des modifications"
+            buttonLink={link}
         />
     )
 

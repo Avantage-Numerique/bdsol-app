@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link'
 
 //Custom hooks
 import { useFormUtils } from '@/src/hooks/useFormUtils/useFormUtils'
@@ -18,11 +19,14 @@ import UpdateTeams from '@/src/DataTypes/Organisation/components/forms/UpdateTea
 //Utils 
 import {lang} from "@/src/common/Data/GlobalConstants";
 import {getDefaultCreateEntityStatus} from "@/DataTypes/Status/EntityStatus";
+import Project from "@/DataTypes/Project/models/Project";
+import {replacePathname} from "@/src/helpers/url";
+
 
 //Context
 import { useAuth } from "@/src/authentification/context/auth-context";
-import UpdateScheduleBudget from '../../component/UpdateScheduleBudget';
-import UpdateSponsor from '../../component/UpdateSponsor';
+import UpdateScheduleBudget from '@/src/DataTypes/Project/component/forms/UpdateScheduleBudget';
+import UpdateSponsor from '@/src/DataTypes/Project/component/forms/UpdateSponsor';
 
 const ProjectSingleEdit = (props) => {
 
@@ -48,6 +52,9 @@ const ProjectSingleEdit = (props) => {
         createdAt,
         updatedAt,
     } = props.data;
+
+    const model = new Project(props.data);
+
 
        //Main form functionalities
        const { FormUI, submitRequest, formState, formTools } = useFormUtils(
@@ -233,7 +240,29 @@ const ProjectSingleEdit = (props) => {
             />
 
         </>);
-    const header = ( <SingleBaseHeader title={title} subtitle={subtitle} type={type} mainImage={mainImage} /> );
+
+    //Redirection link to the view page
+    const link = "/"+replacePathname(model.singleRoute.pathname, {slug: model.slug});
+
+    const ctaHeaderSection = (
+        <div className="d-flex flex-column align-items-end">
+            <Button onClick={submitHandler}>Soumettre les modifications</Button>
+            <Link href={link} >
+                <button type="button" className="btn underlined-button text-white">Retour en visualisation</button>
+            </Link>
+        </div>
+    )
+
+    const header = ( 
+        <SingleBaseHeader 
+            title={title} 
+            subtitle={subtitle} 
+            type={type} 
+            mainImage={mainImage} 
+            buttonSection={ctaHeaderSection}
+        /> 
+    );
+
     const fullWidthContent = (
         <>
 
@@ -256,24 +285,28 @@ const ProjectSingleEdit = (props) => {
     const contentColumnLeft = (
         <>
             {/* Context */}
-            <SelectFetch 
-                name="context"
-                label="Choisissez un contexte"
-                formTools={formTools}
-                noValueText={lang.noSelectedOption}
-                fetchOption="context-enum"
-            />
-            <Select2
-                name="skills"
-                label="Compétences liées au projet"
-                formTools={formTools}
-                creatable={false}
-                isMulti={true}
+            <div className="mb-3">
+                <SelectFetch 
+                    name="context"
+                    label="Choisissez un contexte"
+                    formTools={formTools}
+                    noValueText={lang.noSelectedOption}
+                    fetchOption="context-enum"
+                />
+            </div>
+            <div className="mb-3">
+                <Select2
+                    name="skills"
+                    label="Compétences liées au projet"
+                    formTools={formTools}
+                    creatable={false}
+                    isMulti={true}
 
-                fetch={"/taxonomies/list"}
-                searchField={"name"}
-                selectField={"name"}
-            />
+                    fetch={"/taxonomies/list"}
+                    searchField={"name"}
+                    selectField={"name"}
+                />
+            </div>
             { /* team */ }
             <UpdateTeams
                 name="team"
@@ -281,11 +314,13 @@ const ProjectSingleEdit = (props) => {
                 parentEntity={props.data}
                 label="Éditez vos membre d'équipe"
             />
+            
         </>
     );
     const contentColumnRight = (
         <>
             <Input
+                className="mb-3"
                 name="contactPoint"
                 label="Information de contact"
                 tip={{

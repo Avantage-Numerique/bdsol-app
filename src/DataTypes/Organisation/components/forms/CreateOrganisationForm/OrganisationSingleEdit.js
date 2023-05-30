@@ -33,12 +33,12 @@ const OrganisationSingleEdit = (props) => {
 
     //Organisation data extract
     const {
-        _id,
+        _id = "default",
         name,
         description,
         url,
         contactPoint,
-        fondationDate,
+        fondationDate = null,
         offers,
         domains,
         team,
@@ -49,7 +49,7 @@ const OrganisationSingleEdit = (props) => {
         type,
         createdAt,
         updatedAt,
-    } = props.data;
+    } = Object(props.data);
 
     //Modal hook
     const modal = useModal()
@@ -173,6 +173,7 @@ const OrganisationSingleEdit = (props) => {
             ]}
             formTools={formTools}
         />);
+
     const subtitle = (
         <Input
         name="catchphrase"
@@ -181,7 +182,9 @@ const OrganisationSingleEdit = (props) => {
         label={lang.catchphrase}
         formTools={formTools}
         />);
-    const header = ( <SingleBaseHeader title={title} subtitle={subtitle} type={type} mainImage={mainImage} /> );
+
+    const header = ( <SingleBaseHeader title={title} subtitle={subtitle} type={type} mainImage={mainImage}/> );
+    
     const fullWidthContent = (
         <RichTextarea
             name="description"
@@ -189,6 +192,7 @@ const OrganisationSingleEdit = (props) => {
             formTools={formTools}
         />
     );
+
     const contentColumnLeft = (
         <>
             <UpdateSkillGroup

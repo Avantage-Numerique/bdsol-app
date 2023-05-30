@@ -43,7 +43,7 @@ const MainImageDisplay = ({ mainImage, entity }) => {
     return (
         <>
             <div>
-                <figure className={`${styles["main-image-container"]}`}>
+                <figure className={`${styles["main-image-container"]} mt-4`}>
                     {haveMainImage &&
                         <a href={`/medias/${mainImage._id}`}
                             className={`fs-4 w-100 h-100 position-absolute d-flex align-items-center justify-content-center p-1 ${styles["profile-picture--modification-opt"]}`}>

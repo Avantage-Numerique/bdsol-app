@@ -1,7 +1,7 @@
 //Component
 import Input from "@/src/common/FormElements/Input/Input";
 import Repeater from "@/src/common/FormElements/Repeater/Repeater";
-import SingleInfo from "../../common/layouts/SingleInfo/SingleInfo";
+import SingleInfo from "@/src/Datatypes/common/layouts/SingleInfo/SingleInfo";
 import Select2 from "@/src/common/FormElements/Select2/Select2";
 import Button from "@/src/common/FormElements/Button/Button";
 
@@ -44,27 +44,32 @@ const UpdateSponsor = ({name, formTools, ...props}) => {
                             }}
                             initValues={props.parentEntity?.sponsor ?? []}
                         >
-                            <article className="row my-2 bg-white border-top">
-                                <section className="col my-2">
-                                    <Select2
-                                        name="entity"
-                                        label="Partenaire"
-                                        formTools={formTools}
-                                        creatable={false}
-                                        isMulti={false}
+                            <article className="mb-2 py-2 rounded-1 d-flex gap-4 bg-greyBg">
+                                <section className="col mb-1 row">
+                                    <div className="col-12 col-md-6">
+                                        <Select2
+                                            name="entity"
+                                            label="Partenaire"
+                                            formTools={formTools}
+                                            creatable={false}
+                                            isMulti={false}
 
-                                        fetch={"/organisations/list"}
-                                        searchField={"name"}
-                                        selectField={"name"}
-                                    />
-                                    <Input
-                                        name="name"
-                                        label="Nom"
-                                        formTools={formTools}
-                                    />
+                                            fetch={"/organisations/list"}
+                                            searchField={"name"}
+                                            selectField={"name"}
+                                        />
+                                    </div>
+                                    <div className="col-12 col-md-6">
+                                        <Input
+                                            name="name"
+                                            label="Nom"
+                                            formTools={formTools}
+                                        />
+                                    </div>
+                                    
                                 </section>
 
-                                <div className="col pr-0 flex-grow-0 text-secondary pt-3">
+                                <div className="col pr-0 flex-grow-0 text-secondary pt-1">
                                     <Button repeaterDeleteElem={true} type="button" color="danger" size="slim">&#x2716;</Button>
                                 </div>
                             </article>

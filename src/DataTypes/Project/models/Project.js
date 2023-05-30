@@ -10,11 +10,6 @@ class Project extends EntityModel {
 
     constructor(raw, params={}) {
 
-        //  Routes associated with single base, single and contribute uri.
-        raw.repertoryRoute = AppRoutes.projects;
-        raw.singleRoute = AppRoutes.projectSingle;
-        raw.contributeRoute = AppRoutes.projects;
-
         super(raw);
 
         this.title = raw.name ?? "";
@@ -38,6 +33,11 @@ class Project extends EntityModel {
 
         this.simpleComponent = ProjectSimple;
         this.singleComponent = ProjectSingleView;
+
+        //  Routes associated with single base, single and contribute uri.
+        this.repertoryRoute = AppRoutes.projects;
+        this.singleRoute = AppRoutes.projectSingle;
+        this.singleEditRoute = AppRoutes.projectSingleEdit;
 
         //sets all the rest as a this[key] = raw[key] value.
         this.setProperties(raw);

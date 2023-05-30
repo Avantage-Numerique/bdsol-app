@@ -2,7 +2,7 @@ import React from 'react';
 
 //Component
 import Single from "@/DataTypes/common/layouts/single/Single";
-import CreateProjectForm from '@/src/DataTypes/Project/forms/CreateProjectForm';
+import CreateProjectForm from '@/src/DataTypes/Project/component/forms/CreateProjectForm';
 
 //Custom hooks
 import {useModal} from "@/src/hooks/useModal/useModal";

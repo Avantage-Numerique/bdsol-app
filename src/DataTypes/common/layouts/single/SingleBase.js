@@ -30,7 +30,7 @@ const SingleBase = (props) => {
     const defaultHeaderBg = props.defaultHeaderBg ?? "/general_images/forestBG.jpg"
 
     return (
-        <>
+        <div className="container">
             { /* BreadCrumbs */ }
             <div className="row">
                 {//<BreadCrumbs
@@ -47,26 +47,26 @@ const SingleBase = (props) => {
 
                 {/* Header's content */}
                 { header ?? <SingleBaseHeader/> }
-
             </header>
             
+    
             
             { /* FullWidthContent */ }
-            <section className="row p-2">
+            <section className="row p-2 my-4">
                 { fullWidthContent && fullWidthContent }
             </section>
 
             { /* ContentColumn */ }
-            <div className="row p-2">
+            <div className="row p-2 my-4">
 
                 { /* ContentColumnLeft */ }
-                <section className="col-md-6">
+                <section className="col-md-8">
                     { contentColumnLeft && contentColumnLeft }
                 </section>
 
                     
                 { /* ContentColumnRight */ }
-                <section className="col-md-6">
+                <section className="col-md-4">
                     { contentColumnRight && contentColumnRight }
                 </section>
 
@@ -77,7 +77,7 @@ const SingleBase = (props) => {
                 { footer && footer }
             </footer>
 
-        </>
+        </div>
     )
 
 }

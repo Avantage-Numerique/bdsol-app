@@ -273,8 +273,10 @@ const Repeater = props => {
                ))}                   
             </section>
             {/* By default, there is an add button */}
-            <div className="d-flex justify-content-end">
-                <Button type="button" onClick={addNewIteration} className="m-0">Ajouter</Button>
+            <div className="row">
+                <div className="d-flex justify-content-end p-0">
+                    <Button type="button" size="slim" onClick={addNewIteration} className="m-0">Ajouter</Button>
+                </div>
             </div>
         </>
     )

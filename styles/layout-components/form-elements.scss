@@ -31,20 +31,7 @@
                 background-color: unset;
                 border: 0.1rem solid rgba(0, 0, 0, 0);
 
-                &.form-text-white { 
-                        color: white; 
-                        ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
-                                color: white;
-                                opacity: 1; /* Firefox */
-                        }
-                        :-ms-input-placeholder { /* Internet Explorer 10-11 */
-                        color: white;
-                        }
-                        
-                        ::-ms-input-placeholder { /* Microsoft Edge */
-                        color: white;
-                        }
-                }
+                &.form-text-white { color: white; }
 
                 &:hover{ 
                         background-color:  $light; 
@@ -109,8 +96,20 @@
                 .badge-container { display: inline-flex }
         }
 
-
-    
+        /****
+        *       Placeholder color
+        */
+        ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+                color: var(--placeholder-color);
+                opacity: 1; /* Firefox */
+        }
+        :-ms-input-placeholder { /* Internet Explorer 10-11 */
+                color: var(--placeholder-color);;
+        }
+        
+        ::-ms-input-placeholder { /* Microsoft Edge */
+                color: var(--placeholder-color);;
+        }
 
 }
 

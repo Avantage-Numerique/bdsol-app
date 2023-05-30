@@ -8,6 +8,8 @@ import SingleInfo from "@/DataTypes/common/layouts/SingleInfo/SingleInfo";
 
 //Styling
 import styles from './PersonSingle.module.scss'
+import Person from "@/DataTypes/Person/Models/Person";
+
 //Utils
 import SanitizedInnerHtml from '@/src/utils/SanitizedInnerHtml';
 import {SingleEntityStatus} from "@/DataTypes/Status/Components/SingleEntityStatus";

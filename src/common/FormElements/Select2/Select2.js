@@ -22,6 +22,7 @@ import useDebounce from '@/src/hooks/useDebounce'
  * @param {boolean} isMulti : true if multiple selection allowed, false if single option selectable
  * @param {Array} optionsList : (optionnal) Can specify directly a list of option in format [ { label, value, color? }, ... ]
  * @param {string} fetch : Url to fetch data from and create options
+ * @param {string} className : className added from outside the component 
  * @param {object} requestData : param to always pass during request (e.g. category : "skills" to only access skills taxonomy)
  * @param {string} searchField : for the moment => a string added to requestData that's dynamically searching with the select
  * @param {string} selectField : for the moment => string that represent the transmuted field to show in the options ("occupations", "fullname" ...)
