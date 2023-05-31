@@ -52,8 +52,10 @@ const ProjectSingleView = ({ data }) => {
             subtitle={(
                 <div className="d-text">
                     <h4 className="text-white">{alternateName}</h4>
-                    <p className="text-white">Entité en charge du projet : {entityInCharge ? entityInCharge.name : "Aucune"}</p>
-                    <p className="text-white">Producteur : {producer ? producer.name : "Aucun"}</p>
+                    <div className="mt-4">
+                        <p className="text-white m-0">Entité en charge : {entityInCharge ? entityInCharge.name : "Aucune"}</p>
+                        <p className="text-white">Producteur : {producer ? producer.name : "Aucun"}</p>
+                    </div>
                 </div>
             )}
             mainImage={mainImage}
@@ -73,12 +75,12 @@ const ProjectSingleView = ({ data }) => {
             </SingleInfo>
             {/* Sponsor */}
             <SingleInfo title="Partenaires">
-                <ul>
+                <ul className="d-flex flex-wrap gap-3">
                     {sponsor?.length > 0 && sponsor.map( (singleSponsor) => {
                         return (
-                            <li>
-                                {singleSponsor.name && <div>{singleSponsor?.name}</div>}
-                                {singleSponsor.entity && <div>{singleSponsor?.entity?.name ?? singleSponsor?.entity?.fullname}</div>}
+                            <li className="d-flex flex-column border border-successlighter rounded-1">
+                                {singleSponsor.name && <div className="p-1">{singleSponsor?.name}</div>}
+                                {singleSponsor.entity && <div className="p-1 bg-successlighter text-white">{singleSponsor?.entity?.name ?? singleSponsor?.entity?.fullname}</div>}
                             </li>
                         )
                     }) }
@@ -89,10 +91,71 @@ const ProjectSingleView = ({ data }) => {
 
     const ContentColumnLeft = (
         <>
+            {/* Team */}
+            <SingleInfo 
+                title="Membre de l'équipe"
+                className="mb-3"
+            >
+                {
+                    team?.length > 0 &&
+                    <ul className="d-flex flex-wrap gap-3">
+                        {team.map( (singleMember) => {
+                            return (
+                                <li className="d-flex flex-column border border-purplelight rounded-1">
+                                    <div className="p-1">{singleMember?.member?.fullName ?? "Aucun nom"}</div>
+                                    <b className="p-1 fs-6 bg-purplelight text-white">{singleMember?.role ?? "Aucun rôle"}</b>
+                                </li>
+                            )
+                        })}
+                    </ul>
+                }
+            </SingleInfo>
+            {/* scheduleBudget */}
+            <SingleInfo 
+                title="Échéancier et budget"
+                className="mb-3"
+            >
+                <section className='ps-4 border-start'>
+                    {scheduleBudget?.startDate && <div key="startDate">Date de début : {getDateFromIsoString(scheduleBudget.startDate)}</div>}
+                    {scheduleBudget?.endDateEstimate && <div key="endDateEstimate">Date estimée de fin : {getDateFromIsoString(scheduleBudget.endDateEstimate)}</div>}
+                    {scheduleBudget?.completionDate && <div key="completionDate">Date de fin : {getDateFromIsoString(scheduleBudget.completionDate)}</div>}
+                    {scheduleBudget?.estimatedTotalBudget && <div key="estimatedTotalBudget">Budget total : {scheduleBudget.estimatedTotalBudget}</div>}
+                    {scheduleBudget?.eta && <div key="eta">Lapse de temps avant la complétion : {scheduleBudget.eta}</div>}
+                    {scheduleBudget?.timeframe?.length > 0 && 
+                        <ul key="timeframe-container">
+                                Échéancier : {
+                                scheduleBudget.timeframe.map( (singleTimeframe, index) => {
+                                    return (
+                                        <li key={`timeframe-${singleTimeframe._id}`} className={`border-start p-2 ${(index % 2 == 0) && "bg-greyBg"}`}>
+                                            {singleTimeframe?.step ? <h5 className="text-successDarker m-0">{singleTimeframe.step}</h5> : <></> }
+                                            <div className="d-flex flex-wrap gap-4">     
+                                                {singleTimeframe?.eta ? <div key={"timeframe-eta-"+index}>Durée : {singleTimeframe.eta}</div> : <></> }
+                                                {singleTimeframe?.budgetRange ? <div key={"timeframe-budgetRange-"+index}>Budget : {singleTimeframe.budgetRange}</div> : <></> }
+                                            </div>
+                                        </li>
+                                    )
+                                }
+                        )}</ul>
+                    }
+                </section>
+            </SingleInfo>
+        </>
+    )
+
+    const ContentColumnRight = (
+        <>  
             {/* Context */}
-            <SingleInfo title="Contexte du projet">{context}</SingleInfo>
+            <SingleInfo 
+                title="Contexte du projet"
+                className="mb-3"
+            >
+                {context}
+            </SingleInfo>
             {/* Skills */}
-            <SingleInfo title="Compétences liées au projet">
+            <SingleInfo 
+                title="Compétences liées au projet"
+                className="mb-3"
+            >
             {
                 skills?.length > 0 &&
                 <>
@@ -103,59 +166,15 @@ const ProjectSingleView = ({ data }) => {
                 </>
             }
             </SingleInfo>
-            {/* Team */}
-            <SingleInfo title="Membre de l'équipe">
-                {
-                    team?.length > 0 &&
-                    <ul>
-                        {team.map( (singleMember) => {
-                            console.log(singleMember)
-                            return (
-                                <li>
-                                    <b>{singleMember?.member?.fullName ?? "Aucun nom"}</b>
-                                    <div>{singleMember?.role ?? "Aucun rôle"}</div>
-                                </li>
-                            )
-                        })}
-                    </ul>
-                }
-            </SingleInfo>
-        </>
-    )
-
-    const ContentColumnRight = (
-        <>  
-            <SingleInfo title={"Contact"} className={"mb-3"}>
+            <SingleInfo 
+                title={"Contact"} 
+                className={"mb-3"}
+            >
                 {contactPoint && 
                     <SanitizedInnerHtml>
                         {contactPoint}
                     </SanitizedInnerHtml>
                 }
-            </SingleInfo>
-            
-            {/* scheduleBudget */}
-            <SingleInfo title="Échéancier et budget">
-                <ul className='ps-4 border-start'>
-                    {scheduleBudget?.startDate && <li key="startDate">Date de début : {getDateFromIsoString(scheduleBudget.startDate)}</li>}
-                    {scheduleBudget?.endDateEstimate && <li key="endDateEstimate">Date estimée de fin : {getDateFromIsoString(scheduleBudget.endDateEstimate)}</li>}
-                    {scheduleBudget?.completionDate && <li key="completionDate">Date de fin : {getDateFromIsoString(scheduleBudget.completionDate)}</li>}
-                    {scheduleBudget?.estimatedTotalBudget && <li key="estimatedTotalBudget">Budget total : {scheduleBudget.estimatedTotalBudget}</li>}
-                    {scheduleBudget?.eta && <li key="eta">Lapse de temps avant la complétion : {scheduleBudget.eta}</li>}
-                    {scheduleBudget?.timeframe?.length > 0 && 
-                        <li key="timeframe-container">
-                                Échéancier : {
-                                scheduleBudget.timeframe.map( (singleTimeframe, index) => {
-                                    return (
-                                        <div key="timeframe" className='border-start ps-4'>
-                                            {singleTimeframe?.step ? <div key={"timeframe-step-"+index}>Étape : {singleTimeframe.step}</div> : <></> }
-                                            {singleTimeframe?.eta ? <div key={"timeframe-eta-"+index}>Durée : {singleTimeframe.eta}</div> : <></> }
-                                            {singleTimeframe?.budgetRange ? <div key={"timeframe-budgetRange-"+index}>Budget : {singleTimeframe.budgetRange}</div> : <></> }
-                                        </div>
-                                    )
-                                }
-                        )}</li>
-                    }
-                </ul>
             </SingleInfo>
         </>
     )

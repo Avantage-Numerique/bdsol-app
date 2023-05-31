@@ -53,7 +53,11 @@ const ProjectSingleEdit = (props) => {
         updatedAt,
     } = props.data;
 
+    //Model de project
     const model = new Project(props.data);
+    //Redirection link to the view page
+    const link = "/"+replacePathname(model.singleRoute.pathname, {slug: model.slug});
+
 
 
        //Main form functionalities
@@ -135,7 +139,13 @@ const ProjectSingleEdit = (props) => {
                 value: context ?? "",
                 isValid: true
             }
-        })
+        },
+        //Actions if the form turns out to be positive
+        {
+            displayResMessage: true,
+            redirect: link
+        }
+    )
 
     //Authentication ref
     const auth = useAuth();
@@ -241,12 +251,10 @@ const ProjectSingleEdit = (props) => {
 
         </>);
 
-    //Redirection link to the view page
-    const link = "/"+replacePathname(model.singleRoute.pathname, {slug: model.slug});
 
     const ctaHeaderSection = (
         <div className="d-flex flex-column align-items-end">
-            <Button onClick={submitHandler}>Soumettre les modifications</Button>
+            <Button disabled={!formState.isValid} onClick={submitHandler}>Soumettre les modifications</Button>
             <Link href={link} >
                 <button type="button" className="btn underlined-button text-white">Retour en visualisation</button>
             </Link>
@@ -265,9 +273,9 @@ const ProjectSingleEdit = (props) => {
 
     const fullWidthContent = (
         <>
-
             {/* Description */}
             <RichTextarea
+                className="mb-3"
                 name="description"
                 label="Description"
                 formTools={formTools}
@@ -279,10 +287,28 @@ const ProjectSingleEdit = (props) => {
                 formTools={formTools}
                 parentEntity={props.data}
             />
-            
         </>
     );
     const contentColumnLeft = (
+        <>
+            { /* team */ }
+            <UpdateTeams
+                name="team"
+                formTools={formTools}
+                parentEntity={props.data}
+                label="Éditez vos membre d'équipe"
+            />
+            { /* scheduleBudget */}
+            <UpdateScheduleBudget
+                name="scheduleBudget"
+                formTools={formTools}
+                label="Échéancier et budget"
+                parentEntity={props.data}
+            />
+            
+        </>
+    );
+    const contentColumnRight = (
         <>
             {/* Context */}
             <div className="mb-3">
@@ -307,18 +333,6 @@ const ProjectSingleEdit = (props) => {
                     selectField={"name"}
                 />
             </div>
-            { /* team */ }
-            <UpdateTeams
-                name="team"
-                formTools={formTools}
-                parentEntity={props.data}
-                label="Éditez vos membre d'équipe"
-            />
-            
-        </>
-    );
-    const contentColumnRight = (
-        <>
             <Input
                 className="mb-3"
                 name="contactPoint"
@@ -330,13 +344,6 @@ const ProjectSingleEdit = (props) => {
                 placeholder="Adresse courriel, numéro de téléphone, etc..."
                 formTools={formTools}
             />
-            { /* scheduleBudget */}
-            <UpdateScheduleBudget
-                name="scheduleBudget"
-                formTools={formTools}
-                label="Échéancier et budget"
-                parentEntity={props.data}
-            />
         </>
     );
     const footer = (
@@ -347,21 +354,24 @@ const ProjectSingleEdit = (props) => {
                 name="url"
                 label="Hyperlien"
                 type="url"
+                className="mb-3"
                 pattern="^https?:\/\/[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$"
                 placeholder="Une url avec le https, exemple : https://siteWeb.com"
                 formTools={formTools}
             />
-            {
-                status?.state &&
-                    <SingleInfo
-                        title="Statut de l'entité">
-                        <p>{status.state === 'accepted' ? "Acceptée" : "En attente d'approbation"}</p>
-                    </SingleInfo>
-            }
-            {
-                (createdAt || updatedAt || status) &&
-                <SingleEntityStatus createdAt={createdAt} updatedAt={updatedAt} status={status} />
-            }
+            <div className="border-top border-bottom pt-2">
+                {
+                    status?.state &&
+                        <SingleInfo
+                            title="Statut de l'entité">
+                            <p>{status.state === 'accepted' ? "Acceptée" : "En attente d'approbation"}</p>
+                        </SingleInfo>
+                }
+                {
+                    (createdAt || updatedAt || status) &&
+                    <SingleEntityStatus createdAt={createdAt} updatedAt={updatedAt} status={status} />
+                }
+            </div>
         </>
     );
 
@@ -373,10 +383,18 @@ const ProjectSingleEdit = (props) => {
                 contentColumnLeft={contentColumnLeft}
                 contentColumnRight={contentColumnRight}
                 footer={footer}
-                />
-            <Button onClick={submitHandler}>
-                Soumettre
-            </Button>
+            />
+            <div className="d-flex pt-4 align-items-end flex-column">
+                <Button disabled={!formState.isValid} onClick={submitHandler}>
+                    Soumettre
+                </Button>
+                {
+                    !formState.isValid &&
+                    <p className="p-2 mt-2 col-md-4 border border-danger rounded"><small>Attention, l'un des champs dans cette page n'est pas entré correctement et vous empêche de sauvegarder vos modifications.</small></p>
+                }
+
+            </div>
+           
         </>
     )
 }

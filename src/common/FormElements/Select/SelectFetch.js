@@ -29,6 +29,7 @@ const SelectFetch = (props) => {
             label={props.label}
             noValueText={props.noValueText}
             options={options}
+            className={props.className}
             //defaultValue={}
             validationRules={props.validationRules}
         />

@@ -49,7 +49,10 @@ const RichTextarea = ({name, formTools, ...props}) => {
 
     return (
 
-        <div className={`${styles["rich-textarea"]}`}  >
+        <div className={`
+            ${props.className}
+            ${styles["rich-textarea"]}
+        `} >
 
             {props.label &&
 

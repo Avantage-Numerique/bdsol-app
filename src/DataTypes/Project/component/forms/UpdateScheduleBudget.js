@@ -34,39 +34,46 @@ const UpdateScheduleBudget = ({name, formTools, ...props}) => {
             >
                 <div className="d-flex">
                     <div className="ps-4 border-start"></div>
-                    <div className="w-100">
+                    <div className="w-100 row">
                         <Input
+                            className="col-12 col-md-6"
                             name="startDate"
                             label="Date de début"
                             type="date"
                             formTools={formTools}
                         />
                         <Input
+                            className="col-12 col-md-6"
                             name="endDateEstimate"
                             label="Date estimée de fin"
                             type="date"
                             formTools={formTools}
                         />
                         <Input
+                            className="col-12 col-md-6"
                             name="completionDate"
                             label="Date de fin"
                             type="date"
                             formTools={formTools}
                         />
                         <Input
+                            className="col-12 col-md-6"
                             name="estimatedTotalBudget"
                             label="Budget total"
                             type="number"
                             formTools={formTools}
                         />
                         <Input
+                            className="col-12 col-md-6"
                             name="eta"
                             label="Lapse de temps avant la complétion"
                             formTools={formTools}
                         />
                         
-                        <label className="pt-3">Échéancier</label>
-                        <div className="p-3">
+                        <SingleInfo
+                            title="Les étapes du projet"
+                            className="py-3"
+                        >
                             <Repeater
                                 formTools={formTools}
                                 name="timeframe"
@@ -86,37 +93,44 @@ const UpdateScheduleBudget = ({name, formTools, ...props}) => {
                                 }}
                                 initValues={props.parentEntity?.scheduleBudget?.timeframe ?? []}
                             >
-                                <article className="row my-2 bg-white border-top">
-                                    <section className="col my-2">
+                                <div className="my-2 bg-greyBg rounded-1">
+                                    <section className="row my-2 align-items-end">
                                         <Input
+                                            className="col-12 col-lg-4"
                                             name="step"
-                                            label="Étape"
+                                            label="Nom de l'étape"
                                             formTools={formTools}
                                         />
                                         <SelectFetch 
+                                            className="col-12 col-md-6 col-lg-4"
                                             name="eta"
-                                            label="Temps de complétion de l'étape"
+                                            label="Temps de complétion"
                                             formTools={formTools}
                                             noValueText={lang.noSelectedOption}
                                             fetchOption="timeframeeta-enum"
                                         />
                                         <SelectFetch 
+                                            className="col-12 col-md-6 col-lg-4"
                                             name="budgetRange"
-                                            label="Choisissez une intervalle de budget"
+                                            label="Budget approximatif"
                                             formTools={formTools}
                                             noValueText={lang.noSelectedOption}
                                             fetchOption="budgetrange-enum"
                                         />
+                                    
                                     </section>
 
-                                    <div className="col pr-0 flex-grow-0 text-secondary pt-3">
-                                        <Button repeaterDeleteElem={true} type="button" color="danger" size="slim">&#x2716;</Button>
+                                    <div className="cold mb-2 d-flex justify-content-end">
+                                        <button 
+                                            repeaterDeleteElem={true}
+                                            type="button" 
+                                            className="btn underlined-button text-danger py-1">
+                                                Supprimer l'étape
+                                        </button>
                                     </div>
-                                </article>
+                                </div>
                             </Repeater>
-                        </div>
-                        
-                        
+                        </SingleInfo>
                     </div>
                     <div className="ps-4"></div>
                 </div>
