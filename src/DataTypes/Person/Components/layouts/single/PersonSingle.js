@@ -143,7 +143,7 @@ const PersonSingle = ({ data, route }) => {
                 { occupations &&
                     occupations.map(occ => (
                         <OccupationGroup 
-                            occupationName={occ.occupation} 
+                            occupationName={occ.groupName} 
                             skillList={occ.skills}
                             key={occ._id}
                         />

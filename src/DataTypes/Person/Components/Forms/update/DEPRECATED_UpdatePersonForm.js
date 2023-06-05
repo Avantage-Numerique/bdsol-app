@@ -147,7 +147,7 @@ const DEPRECATED_UpdatePersonForm = ({initValues, positiveRequestActions}) => {
                     label={lang.Occupations}
                     searchField="name"
                     fetch="/taxonomies/list"
-                    requestData={{category:"occupations", name:""}}
+                    requestData={{category:"", name:""}}
                     name="occupations"
                     idField="occupation"
                     placeholder={lang.occupationsPlaceholder}

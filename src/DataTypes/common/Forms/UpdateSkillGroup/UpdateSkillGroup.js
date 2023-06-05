@@ -41,7 +41,7 @@ const UpdateSkillGroup = ({parentEntity, positiveRequestActions}) => {
         const formattedOccupations = formState.inputs.skillGoups.value.map(function(occ){
             return {
                 status: occ.status,
-                occupation: occ.value.occupation.value,
+                groupName: occ.value.occupation.value,
                 skills: occ.value.skills.value.map(skill => skill.skill._id)
             }
         })
@@ -68,7 +68,7 @@ const UpdateSkillGroup = ({parentEntity, positiveRequestActions}) => {
 
                 <Repeater
                     formTools={formTools}
-                    name="skillGoups"
+                    name="skillGroups"
                     formInitStructure={{
                         occupation: {
                             value: "",

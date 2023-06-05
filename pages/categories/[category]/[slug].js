@@ -39,7 +39,6 @@ const TaxonomiesSinglePage = (props) => {
         {label: "Compétence", value: "skills"},
         {label: "Domaine", value: "domains"},
         {label: "Aptitude", value: "abilities", disabled: true},
-        {label: "Occupation", value: "occupations", disabled: true},
         {label: "Technologie", value: "technologies"}
     ]
 
