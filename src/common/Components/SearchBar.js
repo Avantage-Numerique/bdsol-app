@@ -20,6 +20,7 @@ const SearchBar = ({small, ...props}) => {
 
     //List of options fetched by the api and suggested to the user
     const [selectResponse, setSelectResponse] = useState([]);
+    const [nearestTaxonomyObject, setNearestTaxonomyObject] = useState({})
     const [optionList, setOptionList] = useState([]);
 
     const selectRef = useRef();
@@ -41,14 +42,21 @@ const SearchBar = ({small, ...props}) => {
     const inputHandler = formTools.inputHandler;
 
     useEffect( () => {
-        let newOptionList = [];
+        let resultsOptions = [];
         if (selectResponse?.data?.length > 0)
-            newOptionList = selectResponse.data.map( (elem) => {
-            return { value: elem._id, label: elem.name ?? elem.firstName + ' ' + elem.lastName, type: elem.type, slug: elem.slug, category:elem.category }
+            resultsOptions = selectResponse.data.map( (elem) => {
+                return { value: elem._id, label: elem.name ?? elem.firstName + ' ' + elem.lastName, type: elem.type, slug: elem.slug, category:elem.category }
         })
-        setOptionList(newOptionList)
+        let nearTaxoOptions = [];
+        if (nearestTaxonomyObject?.length > 0)
+            nearTaxoOptions = nearestTaxonomyObject.map( (elem) => {
+                return { value: elem._id, label: elem.name ?? elem.firstName + ' ' + elem.lastName, type: elem.type, slug: elem.slug, category:elem.category }
+        });
+        //remove duplicate
+        const uniqueOptions = [...resultsOptions, ...nearTaxoOptions].filter((v,i,a)=>a.findIndex(v2=>(v2.value===v.value))===i)
 
-    },[selectResponse])
+        setOptionList(uniqueOptions);
+    },[selectResponse, nearestTaxonomyObject])
 
     //Search suggestion
     const getSearchSuggestion = async () => {
@@ -59,11 +67,22 @@ const SearchBar = ({small, ...props}) => {
         setSelectResponse(suggestions);
     }
 
+    const getNearestTaxonomyToSearchIndex = async (searchIndex) => {
+        const nearestTaxonomyResponse = await clientSideExternalApiRequest("/search/nearestTaxonomy?searchIndex="+formState.inputs.searchIndex.value, { method: 'GET'});
+        let nearTaxoToEntityArray = [];
+        if(nearestTaxonomyResponse?.data?.nearestTaxonomy)
+            nearTaxoToEntityArray.push(nearestTaxonomyResponse.data.nearestTaxonomy)
+        if(nearestTaxonomyResponse?.data?.linkedEntityToNearestTaxonomy)
+            nearTaxoToEntityArray.push(...nearestTaxonomyResponse.data.linkedEntityToNearestTaxonomy)
+        setNearestTaxonomyObject(nearTaxoToEntityArray)
+    }
+
     //Request Debounce
     const debouncedRequest = useDebounce(formState.inputs.searchIndex.value, 200);
     //Update the list of options to display
     useEffect(() => {
         getSearchSuggestion();
+        getNearestTaxonomyToSearchIndex();
     }, [debouncedRequest]);
 
     //Called whenever the user enter or modify a value into the field

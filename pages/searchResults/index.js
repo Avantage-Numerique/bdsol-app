@@ -67,7 +67,7 @@ const SearchResults = () => {
         if(entityType) {
             filteredList = filteredList.filter( (el) => { return el.type == entityType })
         }
-        
+
         return (
             <>
                 <h3>{resultMessage}</h3>
@@ -112,7 +112,7 @@ const SearchResults = () => {
             <PageHeader
                 bg={"bg-purplelight"}
                 textColor={"text-white"}
-                htmlTitle={"Résultats de recherche" + " pour " + router.query.searchIndex}
+                htmlTitle={"Résultats de recherche pour : \"" + router.query.searchIndex + "\""}
                 description=""
             >
             </PageHeader>
@@ -139,27 +139,27 @@ const SearchResults = () => {
                     <div>
                         <h4>Filtres</h4>
                         <ul>
-                            <li className="row" onClick={() => setFilterType("all")}>
+                            <li className="row" key={"filterList-all"} onClick={() => setFilterType("all")}>
                                 <div className="col-1">{filterType === "all" ? "🗹" : "☐"}</div>
                                 <div className="col-8">Tout les résultats</div>
-                                <div className="col-1">{nearTaxonomyObject?.linkedEntityToNearestTaxonomy?.length + searchList.length ?? "0"}</div>
+                                <div className="col-1">{(nearTaxonomyObject?.linkedEntityToNearestTaxonomy?.length || 0) + (searchList?.length || 0)}</div>
                             </li>
-                            <li className="row" onClick={() => setFilterType("linkedTaxonomy")}>
+                            <li className="row" key={"filterList-linkedTaxonomy"} onClick={() => setFilterType("linkedTaxonomy")}>
                                 <div className="col-1">{filterType === "linkedTaxonomy" ? "🗹" : "☐"}</div>
                                 <div className="col-8">Entité liée suggérée</div>
                                 <div className="col-1">{nearTaxonomyObject?.linkedEntityToNearestTaxonomy?.length.toString() ?? "0"}</div>
                             </li>
-                            <li className="row" onClick={() => setFilterType("Person")}>
+                            <li className="row" key={"filterList-person"} onClick={() => setFilterType("Person")}>
                                 <div className="col-1">{filterType === "Person" ? "🗹" : "☐"}</div>
                                 <div className="col-8">Personnes</div>
                                 <div className="col-1">{searchList.filter( (el) => {return el.type == "Person"}).length.toString() ?? "0"}</div>
                             </li>
-                            <li className="row" onClick={() => setFilterType("Organisation")}>
+                            <li className="row" key={"filterList-organisation"} onClick={() => setFilterType("Organisation")}>
                                 <div className="col-1">{filterType === "Organisation" ? "🗹" : "☐"}</div>
                                 <div className="col-8">Organisations</div>
                                 <div className="col-1">{searchList.filter( (el) => {return el.type == "Organisation"}).length.toString() ?? "0"}</div>
                             </li>
-                            <li className="row" onClick={() => setFilterType("Project")}>
+                            <li className="row" key={"filterList-project"} onClick={() => setFilterType("Project")}>
                                 <div className="col-1">{filterType === "Project" ? "🗹" : "☐"}</div>
                                 <div className="col-8">Projets</div>
                                 <div className="col-1">{searchList.filter( (el) => {return el.type == "Project"}).length.toString() ?? "0"}</div>
