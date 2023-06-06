@@ -11,8 +11,14 @@ const SearchResults = () => {
     const [searchList, setSearchList] = useState([]);
     const router = useRouter();
     const [searchMessage, setSearchMessage] = useState("");
-    const [filterType, setFilterType] = useState("all")
+    const [filter, setFilter] = useState("all")
     const [nearTaxonomyObject, setNearestTaxonomyObject] = useState(undefined)
+
+
+    const updateFilterState = (filterType) => {
+        const filterState = {...filter}
+
+    } 
 
     useEffect(() => {
         async function searchRequest() {
@@ -69,20 +75,20 @@ const SearchResults = () => {
         }
 
         return (
-            <>
+            <div className="py-4">
                 <h3>{resultMessage}</h3>
                 {
                     filteredList?.length > 0 ?
-                    <EntitiesGrid className={"row"} columnClass={"col g-3"} feed={filteredList}></EntitiesGrid>
+                    <EntitiesGrid className={"row"} columnClass={"col g-3 col-md-4"} feed={filteredList}></EntitiesGrid>
                     :
                     <div>Aucune entité trouvée, réessayer avec d'autre critère de recherche</div>
                 }
-            </>
+            </div>
         )
     }
     const linkedEntityToTaxonomyComponent = () => {
         return (
-            <>
+            <div className="py-4">
                 <h3>Entité reliée à la catégorie :
                     { 
                         <a href={`/categories/${nearTaxonomyObject?.nearestTaxonomy.category}/${nearTaxonomyObject?.nearestTaxonomy.slug}`}>
@@ -95,7 +101,7 @@ const SearchResults = () => {
                         <div>
                             {
                                 nearTaxonomyObject?.linkedEntityToNearestTaxonomy.length > 0 ?
-                                <EntitiesGrid className={"row"} columnClass={"col g-3"} feed={nearTaxonomyObject.linkedEntityToNearestTaxonomy}></EntitiesGrid>
+                                <EntitiesGrid className={"row"} columnClass={"col g-3 col-md-4"} feed={nearTaxonomyObject.linkedEntityToNearestTaxonomy}></EntitiesGrid>
                                 :
                                 <div>Aucune entité est liée à cette catégorie</div>
                             }
@@ -103,7 +109,7 @@ const SearchResults = () => {
                         
                     )
                 }
-            </>
+            </div>
         )
     }
 
@@ -117,18 +123,18 @@ const SearchResults = () => {
             >
             </PageHeader>
 
-            <div className="row">
+            <div className="row py-4">
 
-                <div className="col-3">
+                <div className="col-3 py-4">
                     <div>
                         {
                             nearTaxonomyObject?.otherNearbyTaxonomy.length > 0 &&
                             <>
                                 <h4>Vous cherchiez peut-être :</h4>
                                 <ul>
-                                    { nearTaxonomyObject.otherNearbyTaxonomy.map( (nearTaxo) => {
+                                    { nearTaxonomyObject.otherNearbyTaxonomy.map( (nearTaxo, index) => {
                                         return (
-                                            <li>
+                                            <li key={"nearTaxoList-"+nearTaxo._id}>
                                                 <a href={`/categories/${nearTaxo?.category}/${nearTaxo?.slug}`}>{nearTaxo.name}</a>
                                             </li>)
                                     })}
@@ -139,53 +145,57 @@ const SearchResults = () => {
                     <div>
                         <h4>Filtres</h4>
                         <ul>
-                            <li className="row" key={"filterList-all"} onClick={() => setFilterType("all")}>
-                                <div className="col-1">{filterType === "all" ? "🗹" : "☐"}</div>
-                                <div className="col-8">Tout les résultats</div>
-                                <div className="col-1">{(nearTaxonomyObject?.linkedEntityToNearestTaxonomy?.length || 0) + (searchList?.length || 0)}</div>
+                            <li className="row py-2 form-check" role="button" key={"filter-CBL-all"} onClick={() => setFilter("all")}>
+                                <input className="form-check-input col-1" type="checkbox" checked={filter === "all"} id="filter-CB-all"/>
+                                <label className="form-check-label col-8" for="filter-CB-all">Tout les résultats</label>                                
+                                <span className="col-3">{(nearTaxonomyObject?.linkedEntityToNearestTaxonomy?.length || 0) + (searchList?.length || 0)}</span>
                             </li>
-                            <li className="row" key={"filterList-linkedTaxonomy"} onClick={() => setFilterType("linkedTaxonomy")}>
-                                <div className="col-1">{filterType === "linkedTaxonomy" ? "🗹" : "☐"}</div>
-                                <div className="col-8">Entité liée suggérée</div>
-                                <div className="col-1">{nearTaxonomyObject?.linkedEntityToNearestTaxonomy?.length.toString() ?? "0"}</div>
+
+                            <li className="row py-2 form-check" role="button" key={"filter-CBL-linkedTaxonomy"} onClick={() => setFilter("linkedTaxonomy")}>
+                                <input className="form-check-input col-1" type="checkbox" checked={filter === "linkedTaxonomy"} id="filter-CB-linkedTaxonomy"/>
+                                <label className="form-check-label col-8" for="filter-CB-linkedTaxonomy">Entité liée suggérée</label>
+                                <span className="col-3">{nearTaxonomyObject?.linkedEntityToNearestTaxonomy?.length.toString() ?? "0"}</span>
                             </li>
-                            <li className="row" key={"filterList-person"} onClick={() => setFilterType("Person")}>
-                                <div className="col-1">{filterType === "Person" ? "🗹" : "☐"}</div>
-                                <div className="col-8">Personnes</div>
-                                <div className="col-1">{searchList.filter( (el) => {return el.type == "Person"}).length.toString() ?? "0"}</div>
+
+                            <li className="row py-2 form-check" role="button" key={"filter-CBL-person"} onClick={() => setFilter("Person")}>
+                                <input className="form-check-input col-1" type="checkbox" checked={filter === "Person"} id="filter-CB-person"/>
+                                <label className="form-check-label col-8" for="filter-CB-person">Personnes</label>
+                                <span className="col-3">{searchList.filter( (el) => {return el.type == "Person"}).length.toString() ?? "0"}</span>
                             </li>
-                            <li className="row" key={"filterList-organisation"} onClick={() => setFilterType("Organisation")}>
-                                <div className="col-1">{filterType === "Organisation" ? "🗹" : "☐"}</div>
-                                <div className="col-8">Organisations</div>
-                                <div className="col-1">{searchList.filter( (el) => {return el.type == "Organisation"}).length.toString() ?? "0"}</div>
+
+                            <li className="row py-2 form-check" role="button" key={"filter-CBL-organisation"} onClick={() => setFilter("Organisation")}>
+                                <input className="form-check-input col-1" type="checkbox" checked={filter === "Organisation"} id="filter-CB-organisation"/>
+                                <label className="form-check-label col-8" for="filter-CB-organisation">Organisations</label>
+                                <span className="col-3">{searchList.filter( (el) => {return el.type == "Organisation"}).length.toString() ?? "0"}</span>
                             </li>
-                            <li className="row" key={"filterList-project"} onClick={() => setFilterType("Project")}>
-                                <div className="col-1">{filterType === "Project" ? "🗹" : "☐"}</div>
-                                <div className="col-8">Projets</div>
-                                <div className="col-1">{searchList.filter( (el) => {return el.type == "Project"}).length.toString() ?? "0"}</div>
+
+                            <li className="row py-2 form-check" role="button" key={"filter-CBL-project"} onClick={() => setFilter("Project")}>
+                                <input className="form-check-input col-1" type="checkbox" checked={filter === "Project"} id="filter-CB-project"/>
+                                <label className="form-check-label col-8" for="filter-CB-project">Projets</label>
+                                <span className="col-3">{searchList.filter( (el) => {return el.type == "Project"}).length.toString() ?? "0"}</span>
                             </li>
                         </ul>
                     </div>
                 </div>
 
-                <div className="col-9">
+                <div className="row col-9">
                     {/* If filter set to all results */}
                     {
-                        filterType === "all" ?
-                        <>
+                        filter === "all" ?
+                        <div>
                             {linkedEntityToTaxonomyComponent()}
                             {researchResult()}
-                        </>
+                        </div>
                         :
-                        <>
+                        <div>
                             {/* else show linked or result by type */}
                             {
-                                filterType === "linkedTaxonomy" ?
+                                filter === "linkedTaxonomy" ?
                                 <>{linkedEntityToTaxonomyComponent()}</>
                                 :
-                                <>{researchResult(filterType)}</>
+                                <>{researchResult(filter)}</>
                             }                            
-                        </>
+                        </div>
                     }
 
                 </div>
