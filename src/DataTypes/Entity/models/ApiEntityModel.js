@@ -4,18 +4,6 @@ import { getColor } from "@/src/styles/datatypeStyle";
 
 class ApiEntityModel {
 
-    typeDict = {
-        "Person" : [
-            { "occupations" : "skills" },
-            { "domains" : "domain" }],
-
-        "Organisation" : [],
-        "Project" : [],
-        "Taxonomy" : [],
-    }
-
-    constructor(){}
-
     /** @param {object} requestData Response object data. And array of entities */
     static getSelectOption(requestData, field){
         //If requestData is a string

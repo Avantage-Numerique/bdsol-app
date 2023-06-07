@@ -118,7 +118,7 @@ const Select2Tag = ({name, formTools, ...props}) => {
     const { validate, RequirementsBadges, ValidationErrorMessages } = useValidation( props.validationRules )
 
     //Research terms send to the api to refine the search
-    //shape : data: {category: 'occupations', name: 'ingenieur'}
+    //shape : data: {category: 'skills', name: 'ingenieur'}
     const [requestData, setRequestData] = useState({...props.requestData});
 
     //Allow only one request per 400ms, after the user stop typing

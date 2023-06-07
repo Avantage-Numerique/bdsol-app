@@ -14,7 +14,7 @@ class Project extends EntityModel {
 
         this.title = raw.name ?? "";
         this.description = raw.description ?? "";
-        this.mainImage = raw.mainImage?.url !== "" ? {
+        this.mainImage = !raw.mainImage || raw.mainImage?.url !== "" ? {
             url: "/general_images/project-default.webp",
             alt: raw.name,
             baseSrc: `${process.env.NEXT_PUBLIC_APP_URL}`

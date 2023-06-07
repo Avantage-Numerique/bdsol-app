@@ -16,35 +16,39 @@ const TaxonomiesCategoryPage = () => {
         {value:"technologies", label: lang.Technologies},
         {value:"skills", label: lang.Skills},
     ];
-
-
-    const fetchTaxonomyByCategory = async (category) => {
-        if(!category){return}
-
-        const response = await sendRequest(
-            "/taxonomies/list",
-            'POST',
-            JSON.stringify({
-                "data": {
-                    "category": category
-                }}),
-            { 'Content-Type': 'application/json' }
-        );
-        
-        return response.data
-    }
     
     useEffect( () => {
 
-        let taxonomiesFiltered = {};
-        //Fetch taxonomy list and construct filtered list
-        categoryList.forEach( async (category) => {
-            const response = await fetchTaxonomyByCategory(category.value);
-            if(response)
-                taxonomiesFiltered[category.value] = response;
-        })
+        const fetchTaxonomyByCategory = async (category) => {
+            if(!category){return}
 
-        setTaxonomiesList(taxonomiesFiltered);
+            const response = await sendRequest(
+                "/taxonomies/list",
+                'POST',
+                JSON.stringify({
+                    "data": {
+                        "category": category
+                    }}),
+                { 'Content-Type': 'application/json' }
+            );
+            return response.data
+        }
+
+        let categoriesPromises = [];
+        let taxonomiesFiltered = {};
+
+        for (let category of categoryList) {
+            categoriesPromises.push(fetchTaxonomyByCategory(category.value));
+        }
+
+        Promise.all(categoriesPromises)
+            .then(fetchedCategory => {
+                fetchedCategory.map( (category, index) => {
+                    taxonomiesFiltered[categoryList[index].value] = category;
+                });
+                setTaxonomiesList(taxonomiesFiltered)
+            });
+
     }, []);
 
     const mapArrayToListComponent = (list) => {

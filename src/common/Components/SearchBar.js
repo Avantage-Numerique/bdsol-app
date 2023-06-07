@@ -20,11 +20,13 @@ const SearchBar = ({small, ...props}) => {
 
     //List of options fetched by the api and suggested to the user
     const [selectResponse, setSelectResponse] = useState([]);
+    const [nearestTaxonomyObject, setNearestTaxonomyObject] = useState({})
     const [optionList, setOptionList] = useState([]);
 
     const selectRef = useRef();
     const [inputValue, setInputValue] = useState("");
     const [value, setValue] = useState(null)
+    const blockSubmitSlug = useRef(false);
 
     const router = useRouter();
     //Main form functionalities
@@ -40,14 +42,21 @@ const SearchBar = ({small, ...props}) => {
     const inputHandler = formTools.inputHandler;
 
     useEffect( () => {
-        let newOptionList = [];
+        let resultsOptions = [];
         if (selectResponse?.data?.length > 0)
-            newOptionList = selectResponse.data.map( (elem) => {
-            return { value: elem._id, label: elem.name ?? elem.firstName + ' ' + elem.lastName, type: elem.type, slug: elem.slug, category:elem.category }
+            resultsOptions = selectResponse.data.map( (elem) => {
+                return { value: elem._id, label: elem.name ?? elem.firstName + ' ' + elem.lastName, type: elem.type, slug: elem.slug, category:elem.category }
         })
-        setOptionList(newOptionList)
+        let nearTaxoOptions = [];
+        if (nearestTaxonomyObject?.length > 0)
+            nearTaxoOptions = nearestTaxonomyObject.map( (elem) => {
+                return { value: elem._id, label: elem.name ?? elem.firstName + ' ' + elem.lastName, type: elem.type, slug: elem.slug, category:elem.category }
+        });
+        //remove duplicate
+        const uniqueOptions = [...resultsOptions, ...nearTaxoOptions].filter((v,i,a)=>a.findIndex(v2=>(v2.value===v.value))===i)
 
-    },[selectResponse])
+        setOptionList(uniqueOptions);
+    },[selectResponse, nearestTaxonomyObject])
 
     //Search suggestion
     const getSearchSuggestion = async () => {
@@ -58,11 +67,22 @@ const SearchBar = ({small, ...props}) => {
         setSelectResponse(suggestions);
     }
 
+    const getNearestTaxonomyToSearchIndex = async (searchIndex) => {
+        const nearestTaxonomyResponse = await clientSideExternalApiRequest("/search/nearestTaxonomy?searchIndex="+formState.inputs.searchIndex.value, { method: 'GET'});
+        let nearTaxoToEntityArray = [];
+        if(nearestTaxonomyResponse?.data?.nearestTaxonomy)
+            nearTaxoToEntityArray.push(nearestTaxonomyResponse.data.nearestTaxonomy)
+        if(nearestTaxonomyResponse?.data?.linkedEntityToNearestTaxonomy)
+            nearTaxoToEntityArray.push(...nearestTaxonomyResponse.data.linkedEntityToNearestTaxonomy)
+        setNearestTaxonomyObject(nearTaxoToEntityArray)
+    }
+
     //Request Debounce
-    const debouncedRequest = useDebounce(formState.inputs.searchIndex.value, 400);
+    const debouncedRequest = useDebounce(formState.inputs.searchIndex.value, 200);
     //Update the list of options to display
     useEffect(() => {
         getSearchSuggestion();
+        getNearestTaxonomyToSearchIndex();
     }, [debouncedRequest]);
 
     //Called whenever the user enter or modify a value into the field
@@ -96,13 +116,16 @@ const SearchBar = ({small, ...props}) => {
     }
 
     const submitHandler = async event => {
-        event.preventDefault();
+        event?.preventDefault();
         Router.push({
             pathname: "/searchResults",
             query: {searchIndex: inputValue},
         });
         setValue(null)
         setInputValue('');
+
+        //Re-init the var to allow search on click and on tab
+        setTimeout( () => blockSubmitSlug.current = false, 500 )
     }
 
     return (
@@ -121,25 +144,21 @@ const SearchBar = ({small, ...props}) => {
                     value={value}
                     options={optionList}
                     inputValue={inputValue}
-                    onInputChange={(val, action) => {if (action.action === "input-change") formRequestData(val)}}
-                    onChange={(val, action) => {
-                        if(action.action === "select-option") { submitSelectedItem(val, action) }
+                    onInputChange={(val, action) => {
+                        if (action.action === "input-change") formRequestData(val);
                     }}
+                    onChange={(val, action) => {
+                        if(action.action === "select-option" && !blockSubmitSlug.current) { submitSelectedItem(val, action) }
+                    }}
+                    //Handle on Enter key to submit instead of select
+                    onKeyDown={ (event) => { if(event.key == "Enter") { blockSubmitSlug.current = true; submitHandler() } }}
                     noOptionsMessage={(val)=> (
                         <p className={"m-0 p-0"}>
                             Aucune suggestion trouvé avec la recherche <strong>{val.inputValue}</strong>.<br />
                             Appuyez sur la touche <Icon iconName={"keyboard"} /> <code>Entrer</code> pour rechercher avec cette valeur quand même.
                         </p>
                     )}
-                    theme={(theme) => ({
-                        ...theme,
-                        borderRadius: 5,
-                        colors: {
-                            ...theme.colors,
-                            primary25: 'hotpink',
-                            primary: 'black',
-                        },
-                        })}
+                    filterOption={(option, searchText) => {return true}}
                 />
             </div>
         </form>
