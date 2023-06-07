@@ -17,7 +17,7 @@ import SingleInfo from "@/DataTypes/common/layouts/SingleInfo/SingleInfo";
 
 
 
-const UpdateSkillGroup = ({parentEntity, positiveRequestActions, ...props}) => {
+const UpdateSkillGroup = ({parentEntity, positiveRequestActions, name, ...props}) => {
 
     //Import the authentication context to make sure the user is well connected
     const auth = useAuth();
