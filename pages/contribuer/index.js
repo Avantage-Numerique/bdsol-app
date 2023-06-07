@@ -1,3 +1,4 @@
+import React from "react";
 
 //Components
 import Button from "@/src/common/FormElements/Button/Button"
@@ -11,12 +12,28 @@ import {withSessionSsr} from "@/auth/session/handlers/withSession";
 import {ssrCanAccess} from "@/auth/permissions/ssrCanAccess";
 
 import PageHeader from "@/layouts/Header/PageHeader";
-import React from "react";
+
+//Entities
+import Person from "@/DataTypes/Person/Models/Person";
+import Organisation from "@/DataTypes/Organisation/models/Organisation";
+import Project from "@/DataTypes/Project/models/Project";
 
  
 const Index = () => {
 
     const auth = useAuth();
+
+    //Function to return the path to the page of creation of an entity, depending on location
+    const getCreateEntityPath = (type) => {
+        let model;
+        if(type == "TYPE_PERSON")
+            model = new Person({})
+        if(type == "TYPE_ORGANISATION")
+            model = new Organisation({})
+        if(type == "TYPE_PROJECT")
+            model = new Project({})
+        return model.createRoute.asPath;
+    }
 
     return (
         <div className={`${styles["contribution-page"]}`}>
@@ -47,16 +64,16 @@ const Index = () => {
 
                     <div className='row pb-5 row-cols-1 row-cols-md-4 gy-3'>
                         <div className="col">
-                            <Button href="/contribuer/personne" size="large-100" disabled={!auth.user.isLoggedIn}>Personne</Button>
+                            <Button href={getCreateEntityPath("TYPE_PERSON")} size="large-100" disabled={!auth.user.isLoggedIn}>Personne</Button>
                         </div>
                         <div className="col">
-                            <Button href="/contribuer/organisation" size="large-100" disabled={!auth.user.isLoggedIn}>Organisation</Button>
+                            <Button href={getCreateEntityPath("TYPE_ORGANISATION")} size="large-100" disabled={!auth.user.isLoggedIn}>Organisation</Button>
                         </div>
                         <div className="col">
                             <Button href="/contribuer/categorie" size="large-100" disabled={!auth.user.isLoggedIn}>Catégorie</Button>
                         </div>
                         <div className="col">
-                            <Button href="/contribuer/projet" size="large-100" disabled={!auth.user.isLoggedIn}>Projet</Button>
+                            <Button href={getCreateEntityPath("TYPE_PROJECT")} size="large-100" disabled={!auth.user.isLoggedIn}>Projet</Button>
                         </div>
                     </div>
 
