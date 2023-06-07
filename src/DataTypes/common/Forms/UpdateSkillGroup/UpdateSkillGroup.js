@@ -13,6 +13,7 @@ import Input from '@/src/common/FormElements/Input/Input';
 import Select2Tag from '@/src/common/FormElements/Select2/Select2Tag';
 import Icon from '@/src/common/widgets/Icon/Icon';
 import Repeater from '@/src/common/FormElements/Repeater/Repeater';
+import SingleInfo from "@/DataTypes/common/layouts/SingleInfo/SingleInfo";
 
 
 /**
@@ -23,9 +24,11 @@ import Repeater from '@/src/common/FormElements/Repeater/Repeater';
 const UpdateSkillGroup = ({formTools, name, parentEntity, ...props}) => {
 
     return (
-        <>
-            <label>{props.label}</label>
-            <div className='px-4'>
+        <SingleInfo
+            title={props.label}
+            className="py-3"
+        >
+            <div className='px-4 border-start'>
                 <Repeater
                     formTools={formTools}
                     name={name}
@@ -41,34 +44,42 @@ const UpdateSkillGroup = ({formTools, name, parentEntity, ...props}) => {
                     }}
                     initValues={parentEntity[name]}
                 >
-                    <article className="row my-2 bg-white border-top">
+                    <div className="d-flex gap-3 mb-2 border-b py-2 bg-greyBg rounded-1">
                         {/* Content of the elements */}
-                        <section className="col my-2">
+                        <section className="row col">
                             <Input
+                                className="col-12 col-md-6"
                                 label="Nom de groupe"
                                 name={name.split("s")[0]}
                                 validationRules={[
                                     {name: "REQUIRED"}
                                 ]}
                             />
-                            <Select2Tag
-                                label="Attribuer des compétences"
-                                searchField="name"
-                                fetch="/taxonomies/list"
-                                requestData={{name:""}}
-                                name="skills"
-                                idField="skill"
-                            />
+                            <div className="col-12 col-md-6">
+                                <Select2Tag
+                                    label="Attribuer des compétences"
+                                    searchField="name"
+                                    fetch="/taxonomies/list"
+                                    requestData={{name:""}}
+                                    name="skills"
+                                    idField="skill"
+                                />
+                            </div>
                         </section>
                         {/* Delete element */}
-                        <div className="col pr-0 flex-grow-0 text-secondary pt-3">
-                            <Button repeaterDeleteElem={true} type="button" color="danger" size="slim">&#x2716;</Button>
+                        <div className="col pr-0 flex-grow-0 text-secondary pt-1">
+                            <Button 
+                                repeaterDeleteElem={true} 
+                                type="button" 
+                                color="danger" 
+                                size="slim"
+                            >&#x2716;</Button>
                         </div>
-                    </article>
+                    </div>
 
                 </Repeater>
             </div>
-        </>  
+        </SingleInfo>  
     )
 };
 

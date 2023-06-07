@@ -1,6 +1,8 @@
 import React, { useContext, useEffect } from 'react';
+import Link from 'next/link'
 import Router from 'next/router';
-import {lang} from "@/src/common/Data/GlobalConstants";
+
+//Context
 import { MessageContext } from '@/src/common/UserNotifications/Message/Context/Message-Context';
 
 //Hooks
@@ -27,13 +29,17 @@ import { SingleEntityStatus } from '@/src/DataTypes/Status/Components/SingleEnti
 import UpdateSkillGroup from '@/src/DataTypes/common/Forms/UpdateSkillGroup/UpdateSkillGroup';
 import UpdateTeams from '../UpdateTeams/UpdateTeams';
 
+//Utils 
+import Organisation from '@/src/DataTypes/Organisation/models/Organisation';
+import {replacePathname} from "@/src/helpers/url";
+import {lang} from "@/src/common/Data/GlobalConstants";
+
 
 const OrganisationSingleEdit = (props) => {
 
-
     //Organisation data extract
     const {
-        _id = "default",
+        _id,
         name,
         description,
         url,
@@ -51,10 +57,13 @@ const OrganisationSingleEdit = (props) => {
         updatedAt,
     } = Object(props.data);
 
+    //Model de project
+    const model = new Organisation(props.data);
+    //Redirection link to the view page
+    const link = "/"+replacePathname(model.singleRoute.pathname, {slug: model.slug});
+
     //Modal hook
     const modal = useModal()
-
-    const positiveRequestActions= props.positiveRequestActions;
 
     //Import the authentication context to make sure the user is well connected
     const auth = useAuth();
@@ -96,7 +105,7 @@ const OrganisationSingleEdit = (props) => {
             isValid: true
         },
         fondationDate: {
-            value: getDateFromIsoString(fondationDate),
+            value: fondationDate ? getDateFromIsoString(fondationDate) : "",
             isValid: true
         },
         catchphrase: {
@@ -115,16 +124,18 @@ const OrganisationSingleEdit = (props) => {
             value: team ?? [],
             isValid: true
         }
-    },
-        positiveRequestActions || {
-            clearForm: true,            //Clear the form
-            displayResMessage: true     //Display a message to the user to confirm the succes
+    }, {
+            displayResMessage: true,     //Display a message to the user to confirm the succes
+            redirect: link
+
         })
 
     //Function to submit the form
     const submitHandler = async event => {
 
         event.preventDefault();
+
+        console.log(formState)
 
         const formData = {
             "data": {
@@ -182,11 +193,30 @@ const OrganisationSingleEdit = (props) => {
         label={lang.catchphrase}
         formTools={formTools}
         />);
+    
+    const ctaHeaderSection = (
+        <div className="d-flex flex-column align-items-end">
+            <Button disabled={!formState.isValid} onClick={submitHandler}>Soumettre les modifications</Button>
+            <Link href={link} >
+                <button type="button" className="btn underlined-button text-white">Retour en visualisation</button>
+            </Link>
+        </div>
+    )
 
-    const header = ( <SingleBaseHeader title={title} subtitle={subtitle} type={type} mainImage={mainImage}/> );
+    const header = ( 
+        <SingleBaseHeader 
+            title={title} 
+            subtitle={subtitle} 
+            type={type} 
+            mainImage={mainImage}
+            buttonSection={ctaHeaderSection}
+
+        /> 
+    );
     
     const fullWidthContent = (
         <RichTextarea
+            className="py-3"
             name="description"
             label="Description"
             formTools={formTools}
@@ -212,18 +242,21 @@ const OrganisationSingleEdit = (props) => {
     );
     const contentColumnRight = (
         <>
-            <Select2Tag
-                label={lang.Domains}
-                searchField="name"
-                fetch="/taxonomies/list"
-                requestData={{category:"domains", name:""}}
-                name="domains"
-                idField="domain"
-                placeholder={lang.domainsInputPlaceholder}
-                formTools={formTools}
-                creatableModal={modal}
-            />
+            <div className="mb-3 mt-3">
+                <Select2Tag
+                    label={lang.Domains}
+                    searchField="name"
+                    fetch="/taxonomies/list"
+                    requestData={{category:"domains", name:""}}
+                    name="domains"
+                    idField="domain"
+                    placeholder={lang.domainsInputPlaceholder}
+                    formTools={formTools}
+                    creatableModal={modal}
+                />
+            </div>
             <Input
+                className="mb-3"
                 name="contactPoint"
                 label="Information de contact"
                 tip={{
@@ -239,6 +272,7 @@ const OrganisationSingleEdit = (props) => {
         <>
             <Input
                 name="url"
+                className="mb-3"
                 label="Hyperlien"
                 type="url"
                 pattern="^https?:\/\/[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$"
@@ -246,22 +280,25 @@ const OrganisationSingleEdit = (props) => {
                 formTools={formTools}
             />
             <Input
+                className="mb-3"
                 name="fondationDate"
                 label="Date de fondation"
                 type="date"
                 formTools={formTools}
             />
-            {
-                status?.state &&
-                    <SingleInfo
-                        title="Statut de l'entité">
-                        <p>{status.state === 'accepted' ? "Acceptée" : "En attente d'approbation"}</p>
-                    </SingleInfo>
-            }
-            {
-                (createdAt || updatedAt || status) &&
-                <SingleEntityStatus createdAt={createdAt} updatedAt={updatedAt} status={status} />
-            }
+            <div className="border-top border-bottom pt-3">
+                {
+                    status?.state &&
+                        <SingleInfo
+                            title="Statut de l'entité">
+                            <p>{status.state === 'accepted' ? "Acceptée" : "En attente d'approbation"}</p>
+                        </SingleInfo>
+                }
+                {
+                    (createdAt || updatedAt || status) &&
+                    <SingleEntityStatus createdAt={createdAt} updatedAt={updatedAt} status={status} />
+                }
+            </div>
         </>);
     
     return (
@@ -274,7 +311,15 @@ const OrganisationSingleEdit = (props) => {
                 footer={footer}
             />
 
-            <Button type="submit" onClick={submitHandler} disabled={!formState.isValid}>{lang.submit}</Button>
+            <div className="d-flex pt-4 align-items-end flex-column">
+                <Button disabled={!formState.isValid} onClick={submitHandler}>
+                    Soumettre
+                </Button>
+                {
+                    !formState.isValid &&
+                    <p className="p-2 mt-2 col-md-4 border border-danger rounded"><small>Attention, l'un des champs dans cette page n'est pas entré correctement et vous empêche de sauvegarder vos modifications.</small></p>
+                }
+            </div>
 
             { modal.modal.display &&
                 <Modal 

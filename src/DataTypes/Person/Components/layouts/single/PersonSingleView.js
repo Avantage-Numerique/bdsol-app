@@ -8,12 +8,14 @@ import SingleInfo from "@/DataTypes/common/layouts/SingleInfo/SingleInfo";
 
 //Styling
 import styles from './PersonSingle.module.scss'
-import Person from "@/DataTypes/Person/Models/Person";
 
 //Utils
 import SanitizedInnerHtml from '@/src/utils/SanitizedInnerHtml';
 import {SingleEntityStatus} from "@/DataTypes/Status/Components/SingleEntityStatus";
 import {lang} from "@/common/Data/GlobalConstants";
+import {replacePathname} from "@/src/helpers/url";
+import Person from "@/DataTypes/Person/Models/Person";
+
 
 
 const PersonSingleView = ({ data }) => {
@@ -34,6 +36,10 @@ const PersonSingleView = ({ data }) => {
         status,
         mainImage
     } = data;
+
+    
+    const model = new Person(data);
+    const link = "/"+replacePathname(model.singleEditRoute.pathname, {slug: model.slug});
 
     //Edit the skills list
     const SkillsList = ({occupations}) => {
@@ -83,12 +89,14 @@ const PersonSingleView = ({ data }) => {
             subtitle={(
                 <div className="d-text">
                     <h4 className="text-white">{nickname}</h4>
-                    <p className="text-white">{catchphrase}</p>
+                    <i><blockquote className="text-white">{catchphrase}</blockquote></i>
                 </div>
             )}
             mainImage={mainImage}
             entity={data}
             type="Personne"
+            buttonText="Proposer des modifications"
+            buttonLink={link}
         />
     )
 

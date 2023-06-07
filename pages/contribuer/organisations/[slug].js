@@ -9,7 +9,7 @@ import {
 import {getUserHeadersFromUserSession} from "@/auth/context/auth-context";
 import {withSessionSsr} from "@/auth/session/handlers/withSession";
 import AppRoutes from "@/src/Routing/AppRoutes";
-import OrganisationSingleEdit from '@/src/DataTypes/Organisation/components/forms/CreateOrganisationForm/OrganisationSingleEdit';
+import OrganisationSingleEdit from '@/src/DataTypes/Organisation/components/forms/OrganisationSingleEdit/OrganisationSingleEdit';
 
 
 const OrganisationSingleEditPage = props => {

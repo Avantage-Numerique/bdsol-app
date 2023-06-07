@@ -1,4 +1,5 @@
 import React, {useEffect} from 'react';
+import Router from 'next/router'
 
 //Custom hooks
 import { useFormUtils } from '@/src/hooks/useFormUtils/useFormUtils'
@@ -12,15 +13,18 @@ import Select2 from '@/FormElements/Select2/Select2'
 //Utils 
 import {lang} from "@/src/common/Data/GlobalConstants";
 import {getDefaultCreateEntityStatus} from "@/DataTypes/Status/EntityStatus";
+import {replacePathname} from "@/src/helpers/url";
 
 //Context
 import { useAuth } from "@/src/authentification/context/auth-context";
+
+//Model
+import Project from "@/src/DataTypes/Project/models/Project"
 
 const CreateProjectForm = () => {
 
     //Authentication ref
     const auth = useAuth();
-
 
     const { FormUI, submitRequest, formState, formTools } = useFormUtils(
         {
@@ -36,15 +40,19 @@ const CreateProjectForm = () => {
                 value: "",
                 isValid: true
             }
-        },/* 
-        //Pass a set of rules to execute a valid response of an api request
-        positiveRequestActions || {
-            clearForm: true,            //Clear the form
-            displayResMessage: true     //Display a message to the user to confirm the succes
-        } */
+        },//Pass a set of rules to execute a valid response of an api request
+        {
+            displayResMessage: true,     //Display a message to the user to confirm the succes
+            callbackFunction: (response) => {
+                //Create a model for the response
+                const model = new Project(response.data);
+                //Redirection link to the edit page
+                const link = "/"+replacePathname(model.singleEditRoute.pathname, {slug: model.slug});
+                //Execute the redirection
+                Router.push( link )
+            }
+        }
     );
-
-    useEffect(() => console.log("formState", formState), [formState])
 
     const submitHandler = async event => {
         
@@ -70,39 +78,37 @@ const CreateProjectForm = () => {
     return (
         <form>
             <FormUI />
-
             <Input 
                 name="name"
+                className="my-1"
                 label="Nom du projet"
                 formTools={formTools}
                 validationRules={[
                     {name: "REQUIRED"}
                 ]}
             />    
-
             <Select2
                 name="entityInCharge"
+                className="my-1"
                 label="Organisation en charge"
                 formTools={formTools}
                 creatable={false}
                 isMulti={false}
-
                 fetch={"/organisations/list"}
                 searchField={"name"}
                 selectField={"name"}
             />
-            
             <SelectFetch 
                 name="context"
                 label="Choisissez un contexte"
+                className="my-1"
                 formTools={formTools}
                 noValueText={lang.noSelectedOption}
                 fetchOption="context-enum"
             />
- 
-            <Button onClick={submitHandler}>
-                Soumettre
-            </Button>
+            <div className="d-flex justify-content-end">
+                <Button disabled={!formState.isValid} type="button" onClick={submitHandler}>Créer</Button>
+            </div>
         </form>
     )
 }

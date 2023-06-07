@@ -7,9 +7,11 @@ import SanitizedInnerHtml from '@/src/utils/SanitizedInnerHtml';
 import SearchTag from '@/src/common/Components/SearchTag';
 
 //Utils
+import Organisation from '@/src/DataTypes/Organisation/models/Organisation';
 import {lang} from "@/common/Data/GlobalConstants";
 import SingleInfo from "@/DataTypes/common/layouts/SingleInfo/SingleInfo";
 import {SingleEntityStatus} from "@/DataTypes/Status/Components/SingleEntityStatus";
+import {replacePathname} from "@/src/helpers/url";
 
 const OrganisationSingleView = ({ data }) => {
 
@@ -35,6 +37,9 @@ const OrganisationSingleView = ({ data }) => {
         //_id
     } = data;
 
+    const model = new Organisation(data);
+    const link = "/"+replacePathname(model.singleEditRoute.pathname, {slug: model.slug});
+
     /****************************
      *  Sections
      ***************************/
@@ -49,6 +54,8 @@ const OrganisationSingleView = ({ data }) => {
             mainImage={mainImage}
             entity={data}
             type="Organisation"
+            buttonText="Proposer des modifications"
+            buttonLink={link}
         />
     )
 
@@ -62,6 +69,22 @@ const OrganisationSingleView = ({ data }) => {
 
     const ContentColumnLeft = (
         <>
+            {/*************** Offers *****************/}
+            <section className="mt-4">
+                <h4 className="h5 my-3">Services offerts</h4>
+                { offers?.length > 0 && offers.map(offer => (
+                    <article className={`d-flex flex-column p-2 mb-2 skill-group bg-light`}>
+                        <h5 className="text-dark mb-1 group-name">{offer.offer}</h5>
+                            <SearchTag
+                                className="row"
+                                list={offer.skills}
+                            />
+                    </article>
+                ))}
+                { (!offers || offers?.length === 0) &&
+                    <p>Ajoutez une offre de services à votre organisation.</p>
+                }
+            </section>
             <SingleInfo title={lang.teamMembers} className={"mb-3"}>
                 <>
                     {/* Rows of members */}
@@ -81,40 +104,25 @@ const OrganisationSingleView = ({ data }) => {
                     }
                 </>
             </SingleInfo>
-
-            <SingleInfo title={"Financement"} className={"mb-3"}>
-            </SingleInfo>
-
-            <SingleInfo title={"Budget"} className={"mb-3"}>
-            </SingleInfo>
         </>
     )
 
     const ContentColumnRight = (
         <> 
-            {/*************** Offers *****************/}
-            <section className="mt-4">
-                <h4 className="h5 my-3">Services offerts</h4>
-                { offers?.length > 0 && offers.map(offer => (
-                    <article className={`d-flex flex-column p-2 mb-2 skill-group bg-light`}>
-                        <h5 className="text-dark mb-1 group-name">{offer.offer}</h5>
-                            <SearchTag
-                                className="row"
-                                list={offer.skills}
-                            />
-                    </article>
-                ))}
-                { (!offers || offers?.length === 0) &&
-                    <p>Ajoutez une offre de services à votre organisation.</p>
-                }
-            </section>
             {/*********** Domains ***********/}
-            <SingleInfo title={lang.domainsSingleLabel} className={"mb-3"}>
-                <SearchTag
-                    className="row"
-                    list={domains}
-                    listProperty={"domain"}
-                />
+            <SingleInfo 
+                title={lang.domainsSingleLabel} 
+                className={"mb-3"}
+                NAMessage="Aucun domaine d'activité n'est précisé pour le moment."
+            >   
+                {domains &&
+                    <SearchTag
+                        className="row"
+                        list={domains}
+                        listProperty={"domain"}
+                    />
+                }
+                
             </SingleInfo>
             {/*********** Contact ***********/}
             <SingleInfo title={"Contact"} className={"mb-3"}>

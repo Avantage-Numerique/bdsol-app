@@ -32,6 +32,8 @@ class Organisation extends EntityModel {
 
         this.singleRoute = AppRoutes.organisationSingle;
         this.singleEditRoute = AppRoutes.organisationsSingleEdit;
+        this.createRoute = AppRoutes.organisationsCreate;
+
 
         //sets all the rest as a this[key] = raw[key] value.
         this.setProperties(raw);

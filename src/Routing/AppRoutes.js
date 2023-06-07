@@ -38,7 +38,22 @@ const AppRoutesRaw = {
             mediaType: "main-image"
         }
     },
+    personSingleEdit : {
+        label: "Modifier une personne",
+        pathname: "/contribuer/personnes/[slug]",
+        asPath: "/contribuer/personnes/[slug]",
+    },
+    personCreate : {
+        label: "Ajouter une personne",
+        pathname: "/contribuer/personnes",
+        asPath: "/contribuer/personnes",
+    },
 
+    /**************
+     * 
+     *  Categorie
+     * 
+     */
     categories : {
         label: "Toutes les catégories",
         pathname: "/categories",
@@ -90,6 +105,11 @@ const AppRoutesRaw = {
         pathname: "/contribuer/organisations/[slug]",
         asPath: "/contribuer/organisations/[slug]",
     },
+    organisationsCreate : {
+        label: "Ajouter une organisation",
+        pathname: "/contribuer/organisations",
+        asPath: "/contribuer/organisations",
+    },
 
     /*************
      *  Project
@@ -109,7 +129,7 @@ const AppRoutesRaw = {
         pathname: "/contribuer/projets/[slug]",
         asPath: "/contribuer/projets/[slug]"
     },
-    projectSingleCreate : {
+    projectCreate : {
         label: "Ajouter un projet",
         pathname: "/contribuer/projets",
         asPath: "/contribuer/projets"

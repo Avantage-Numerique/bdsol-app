@@ -38,6 +38,7 @@ class Project extends EntityModel {
         this.repertoryRoute = AppRoutes.projects;
         this.singleRoute = AppRoutes.projectSingle;
         this.singleEditRoute = AppRoutes.projectSingleEdit;
+        this.createRoute = AppRoutes.projectCreate;
 
         //sets all the rest as a this[key] = raw[key] value.
         this.setProperties(raw);

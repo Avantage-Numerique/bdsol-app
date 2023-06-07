@@ -1,4 +1,5 @@
 import React from 'react'
+import Link from 'next/link'
 
 //Custom hooks
 import { useFormUtils } from '@/src/hooks/useFormUtils/useFormUtils'
@@ -27,6 +28,8 @@ import { getSelectedToFormData } from '@/src/common/FormElements/Select2/Select2
 import SingleBaseHeader from '@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseHeader'
 import SingleBase from '@/src/DataTypes/common/layouts/single/SingleBase'
 import UpdateSkillGroup from '@/src/DataTypes/common/Forms/UpdateSkillGroup/UpdateSkillGroup'
+import Person from "@/DataTypes/Person/Models/Person";
+import {replacePathname} from "@/src/helpers/url";
 
 const PersonSingleEdit = ({initValues, positiveRequestActions, ...props}) => {
 
@@ -47,7 +50,13 @@ const PersonSingleEdit = ({initValues, positiveRequestActions, ...props}) => {
         fullName,
         createdAt,
         updatedAt
-    } = props.data;
+    } = props?.data;
+
+    //Model de project
+    const model = new Person(props.data);
+    //Redirection link to the view page
+    const link = "/"+replacePathname(model.singleRoute.pathname, {slug: model.slug});
+    
 
     const submitUri = props.uri ?? "create";
 
@@ -136,10 +145,12 @@ const PersonSingleEdit = ({initValues, positiveRequestActions, ...props}) => {
 
 
     const title = (
-        <>
+        <div className="row">
             <Input 
                 name="firstName"
                 label="Prénom"
+                className="col-12 col-md-6"
+                formClassName="discrete-without-focus form-text-white h2"
                 validationRules={[
                     {name: "REQUIRED"}
                 ]}
@@ -150,34 +161,55 @@ const PersonSingleEdit = ({initValues, positiveRequestActions, ...props}) => {
             <Input 
                 name="lastName"
                 label="Nom"
+                className="col-12 col-md-6"
+                formClassName="discrete-without-focus form-text-white h2"
                 validationRules={[
                     {name: "REQUIRED"}
                 ]}
                 errorText="Cette information est requise"
                 formTools={formTools}
             />
-        </>
+        </div>
     );
     const subtitle = (
         <>
             <Input  
                 name="nickName"
                 label="Surnom"
+                formClassName="discrete-without-focus form-text-white"
                 formTools={formTools}
             />
 
             <Input
                 name="catchphrase"
+                formClassName="discrete-without-focus form-text-white"
                 label={lang.catchphrase}
                 formTools={formTools}
             />
         </>);
-
-    const header = ( <SingleBaseHeader title={title} type={type} subtitle={subtitle} mainImage={mainImage}/> );
+    
+    const ctaHeaderSection = (
+        <div className="d-flex flex-column align-items-end">
+            <Button disabled={!formState.isValid} onClick={submitHandler}>Soumettre les modifications</Button>
+            <Link href={link} >
+                <button type="button" className="btn underlined-button text-white">Retour en visualisation</button>
+            </Link>
+        </div>
+    )
+    const header = ( 
+        <SingleBaseHeader 
+            title={title} 
+            type={type} 
+            subtitle={subtitle} 
+            mainImage={mainImage}
+            buttonSection={ctaHeaderSection}
+        /> 
+    );
 
     const fullWidthContent = (
         <>
             <RichTextarea 
+                className="my-3"
                 name="description"
                 label="Biographie / description"
                 formTools={formTools}
@@ -212,7 +244,7 @@ const PersonSingleEdit = ({initValues, positiveRequestActions, ...props}) => {
     )
 
     const footer = (
-        <>
+        <div className="border-top border-bottom pt-3">
             {
                 status?.state &&
                     <SingleInfo
@@ -220,12 +252,11 @@ const PersonSingleEdit = ({initValues, positiveRequestActions, ...props}) => {
                         <p>{status.state === 'accepted' ? "Acceptée" : "En attente d'approbation"}</p>
                     </SingleInfo>
             }
-
             {
                 (createdAt || updatedAt || status) &&
                 <SingleEntityStatus createdAt={createdAt} updatedAt={updatedAt} status={status} />
             }
-        </>
+        </div>
     )
 
     return (
@@ -244,8 +275,15 @@ const PersonSingleEdit = ({initValues, positiveRequestActions, ...props}) => {
                     footer={footer}
                 />
 
-                <Button type="submit" onClick={submitHandler} disabled={!formState.isValid}>{lang.submit}</Button>
-
+                <div className="d-flex pt-4 align-items-end flex-column">
+                    <Button disabled={!formState.isValid} onClick={submitHandler}>
+                        Soumettre
+                    </Button>
+                    {
+                        !formState.isValid &&
+                        <p className="p-2 mt-2 col-md-4 border border-danger rounded"><small>Attention, l'un des champs dans cette page n'est pas entré correctement et vous empêche de sauvegarder vos modifications.</small></p>
+                    }
+                </div>
              {/* </form> */}
 
             { modal.modal.display &&

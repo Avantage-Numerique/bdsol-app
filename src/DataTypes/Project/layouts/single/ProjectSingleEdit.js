@@ -22,7 +22,6 @@ import {getDefaultCreateEntityStatus} from "@/DataTypes/Status/EntityStatus";
 import Project from "@/DataTypes/Project/models/Project";
 import {replacePathname} from "@/src/helpers/url";
 
-
 //Context
 import { useAuth } from "@/src/authentification/context/auth-context";
 import UpdateScheduleBudget from '@/src/DataTypes/Project/component/forms/UpdateScheduleBudget';
@@ -213,6 +212,7 @@ const ProjectSingleEdit = (props) => {
             name="name"
             label="Nom du projet"
             formTools={formTools}
+            formClassName="discrete-without-focus form-text-white h2"
             validationRules={[
                 {name: "REQUIRED"}
             ]}
@@ -221,7 +221,8 @@ const ProjectSingleEdit = (props) => {
         <>
             <Input 
                 name="alternateName"
-                label="Nom alternatif"
+                label="Nom alternatif"        
+                formClassName="discrete-without-focus form-text-white h4"
                 formTools={formTools}
             />
             <Select2

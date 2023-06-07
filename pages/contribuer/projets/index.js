@@ -1,10 +1,8 @@
 import React, { useEffect } from 'react'
 
 //Component 
-import PersonSingleEdit from '@/src/DataTypes/Person/Components/Forms/CreatePerson/PersonSingleEdit'
-import Button from '@/src/common/FormElements/Button/Button';
-import SingleViewEntityFormLayout from "@/DataTypes/common/layouts/SingleViewEntityFormLayout/SingleViewEntityFormLayout";
-import CreatePersonForm from "@/DataTypes/Person/Components/Forms/CreatePerson/CreatePersonForm"
+import ProjectSingleEdit from '@/src/DataTypes/Project/layouts/single/ProjectSingleEdit'
+import CreateProjectForm from '@/DataTypes/Project/component/forms/CreateProjectForm'
 
 //Hooks 
 import { useModal } from '@/src/hooks/useModal/useModal';
@@ -18,14 +16,14 @@ import {ssrCanAccess} from "@/auth/permissions/ssrCanAccess";
 const PersonSingleEditPage = () => {
 
     //Modal hook
-    const { modal, Modal, displayModal, closeModal } = useModal()
+    const { modal, Modal, displayModal } = useModal()
 
     //Display the modal once the component has rendered
     useEffect(() => displayModal(), [])
 
     return (
         <div className="container py-4">
-                <PersonSingleEdit data={{}} />
+                <ProjectSingleEdit data={{}} />
 
                 { modal.display &&
                     <Modal 
@@ -33,10 +31,10 @@ const PersonSingleEditPage = () => {
                         darkColorButton
                     >
                         <header className={`d-flex flex-column`}>
-                            <h3 className="text-primary">Ajouter une Personne</h3>
-                            <p>Entrez les informations de base d'une entité "Personne". Vous pourrez l'éditer de manière détaillée par la suite.</p>
+                            <h3 className="text-primary">Ajouter un Projet</h3>
+                            <p>Entrez les informations de base d'une entité "Projet". Vous pourrez l'éditer de manière détaillée par la suite.</p>
                         </header>   
-                        <CreatePersonForm />
+                        <CreateProjectForm />
                     </Modal>
                 }
         </div>

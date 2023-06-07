@@ -21,7 +21,7 @@ import Icon from "@/common/widgets/Icon/Icon";
 
 
 import Single from "@/DataTypes/common/layouts/single/Single";
-import OrganisationSingleEdit from "@/src/DataTypes/Organisation/components/forms/CreateOrganisationForm/OrganisationSingleEdit";
+import OrganisationSingleEdit from "@/src/DataTypes/Organisation/components/forms/OrganisationSingleEdit/OrganisationSingleEdit";
 import SingleInfo from "@/DataTypes/common/layouts/SingleInfo/SingleInfo";
 import {SingleEntityStatus} from "@/DataTypes/Status/Components/SingleEntityStatus";
 import UpdateTeams from '@/src/DataTypes/Organisation/components/forms/UpdateTeams/UpdateTeams';

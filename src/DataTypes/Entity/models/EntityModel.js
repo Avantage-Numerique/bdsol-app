@@ -28,18 +28,18 @@ class EntityModel {
      */
     constructor(raw, params={}) {
         this.shortLenght = 87;
-        this.type = raw.type ?? TYPE_DEFAULT;
-        this.title = raw.title ?? "no title set";
-        this.description = raw.description ?? "no description set";
+        this.type = raw?.type ?? TYPE_DEFAULT;
+        this.title = raw?.title ?? "no title set";
+        this.description = raw?.description ?? "no description set";
 
         this.shortDescription = removeHtml(this.description);
         this.shortDescription = this.shortDescription.substring(0,this.shortLenght) + (this.shortDescription.length > this.shortLenght ? "..." : "");
-        this.mainImage = raw.mainImage ?? {url:"", alt:""};
+        this.mainImage = raw?.mainImage ?? {url:"", alt:""};
 
         //  Routes associated with single base, single and contribute uri.
-        this.repertoryRoute = raw.repertoryRoute ?? "";
-        this.singleRoute = raw.singleRoute ?? "";
-        this.contributeRoute = raw.contributeRoute ?? "";
+        this.repertoryRoute = raw?.repertoryRoute ?? "";
+        this.singleRoute = raw?.singleRoute ?? "";
+        this.contributeRoute = raw?.contributeRoute ?? "";
 
         //Ajouter _id et id ??
 
@@ -51,8 +51,8 @@ class EntityModel {
         this.params.set("simple", (params?.simple ?? this.defaultSimpleParams));
         this.params.set("single", (params?.single ?? this.defaultSingleParams));
 
-        this.simpleComponent = raw.simpleComponent ?? undefined;
-        this.singleComponent = raw.singleComponent ?? undefined;
+        this.simpleComponent = raw?.simpleComponent ?? undefined;
+        this.singleComponent = raw?.singleComponent ?? undefined;
     }
 
 
