@@ -9,7 +9,6 @@ const SelectFetch = (props) => {
 
     const [options, setOptions] = useState([])
 
-    console.log("Options", options)
     //Search suggestion
     useEffect( () => {
         const getSelectOptions = async () => {
@@ -30,6 +29,7 @@ const SelectFetch = (props) => {
             label={props.label}
             noValueText={props.noValueText}
             options={options}
+            className={props.className}
             //defaultValue={}
             validationRules={props.validationRules}
         />

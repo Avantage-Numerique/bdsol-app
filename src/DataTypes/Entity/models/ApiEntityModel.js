@@ -1,3 +1,4 @@
+import { getColor } from "@/src/styles/datatypeStyle";
 
 
 
@@ -5,7 +6,6 @@ class ApiEntityModel {
 
     /** @param {object} requestData Response object data. And array of entities */
     static getSelectOption(requestData, field){
-        console.log("request data", requestData)
         //If requestData is a string
         if(typeof requestData == "string")
             return requestData == "" ? null : [{label: requestData, value: requestData}];
@@ -18,7 +18,6 @@ class ApiEntityModel {
         requestData.forEach(elem => {
             selectOptions.push( ApiEntityModel.entityTypeHandler(elem, field) )
         });
-        console.log("selectOptions", selectOptions.flat())
         return selectOptions.flat();
     }
 
@@ -57,7 +56,7 @@ class ApiEntityModel {
             let options = [];
             elemArray.forEach( (elem) =>
                 elem.skills.forEach( (skill) => {
-                    options.push( { value : skill._id, label : skill.name } )
+                    options.push( { value : skill._id, label : skill.name, color : getColor(skill) } )
                 })
             )
             return options;
@@ -67,17 +66,17 @@ class ApiEntityModel {
     }
 
     static fullnameToSelectOptions(entity){
-        return { value : entity._id, label : entity.firstName + ' ' + entity.lastName }
+        return [{ value : entity._id, label : entity.firstName + ' ' + entity.lastName, color : getColor(entity) }]
     }
 
     static domainsToSelectOptions(domains){
         return domains.map( (domain) => {
-            return { value : domain._id, label : domain.name }
+            return [{ value : domain._id, label : domain.name, color : getColor(domain) }]
         })
     }
 
     static nameToSelectOptions(entity){
-        return { value : entity._id, label : entity.name }
+        return [{ value : entity._id, label : entity.name, color : getColor(entity) }]
     }
 }
 

@@ -4,33 +4,26 @@ import {
     externalApiRequest
 } from '@/src/hooks/http-hook';
 
-//Styling
-import styles from './singlePerson.module.scss';
 
 //components
-import PersonSingle from '@/DataTypes/Person/Components/layouts/single/PersonSingle'
+import PersonSingleView from '@/src/DataTypes/Person/Components/layouts/single/PersonSingleView'
 import {getUserHeadersFromUserSession} from "@/auth/context/auth-context";
 import {withSessionSsr} from "@/auth/session/handlers/withSession";
 import AppRoutes from "@/src/Routing/AppRoutes";
 
 
-const SinglePersonPage = props => {
+const SinglePersonViewPage = props => {
 
     return (
-        <div className={`single-container ${styles["single-person"]}`}>
-
+        <div className={`single-container single-person`}>
             <div className="maxWidthPageContainer">
-            
-                <PersonSingle data={props} route={AppRoutes.personSingle} />
-
+                <PersonSingleView data={props} route={AppRoutes.personSingle} />
             </div>
-            
         </div>
     )
 }
     
-export default SinglePersonPage;
-
+export default SinglePersonViewPage;
 
 export const getServerSideProps = withSessionSsr(personSlugSSProps);
 

@@ -30,6 +30,7 @@ const Select = props => {
         noValueText,    //String - Annonce if there is an empty option or not. If the value is empty, than it is just a white line that is displayed
         options,        //Array  - Array of options with the format {label: " ", value: " ", disabled: false}. 
         defaultValue,   //String - starting value 
+        className,      //String - class names added from outside the component
         validationRules //Object - containing the rules that are going to be verify every time we submit
     } = props;
 
@@ -70,7 +71,10 @@ const Select = props => {
     }, [])  
  
     return (
-        <div className={`${styles["select-component"]}`}>  
+        <div className={`
+            ${className}
+            ${styles["select-component"]}
+        `}>  
             <div className={`${styles["select-component__label-container"]}`} >
                 <label 
                     htmlFor={name}

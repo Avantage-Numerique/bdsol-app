@@ -1,7 +1,6 @@
 import React from 'react' 
 import Router from "next/router";
 
-
 //Components
 import SanitizedInnerHtml from '@/src/utils/SanitizedInnerHtml';
 import SearchTag from '@/src/common/Components/SearchTag';
@@ -22,10 +21,9 @@ import Icon from "@/common/widgets/Icon/Icon";
 
 
 import Single from "@/DataTypes/common/layouts/single/Single";
-import CreateOrganisationForm from "@/DataTypes/Organisation/components/forms/CreateOrganisationForm/CreateOrganisationForm";
+import OrganisationSingleEdit from "@/src/DataTypes/Organisation/components/forms/OrganisationSingleEdit/OrganisationSingleEdit";
 import SingleInfo from "@/DataTypes/common/layouts/SingleInfo/SingleInfo";
 import {SingleEntityStatus} from "@/DataTypes/Status/Components/SingleEntityStatus";
-import UpdateOffers from '@/src/DataTypes/Organisation/components/forms/UpdateOffers/UpdateOffers';
 import UpdateTeams from '@/src/DataTypes/Organisation/components/forms/UpdateTeams/UpdateTeams';
 
 
@@ -40,7 +38,7 @@ const OrganisationSingle = ({ data }) => {
      *  EX : { modal, Modal, displayModal, closeModal } = useModal();
      * 
      */ 
-    const ModalComponent = CreateOrganisationForm;
+    const ModalComponent = OrganisationSingleEdit;
     const modalComponentParams = {
         uri:"update"
     };
@@ -207,7 +205,7 @@ const OrganisationSingle = ({ data }) => {
                     <Button type="button" onClick={offersModal.closeModal}>Fermer</Button>
                 </div>
                 
-                <UpdateOffers 
+                {/*<UpdateOffers 
                     parentEntity={data}  
                     positiveRequestActions={{
                         callbackFunction: (requestResponse) => {
@@ -216,7 +214,7 @@ const OrganisationSingle = ({ data }) => {
                         },
                         displayResMessage: true     //Display a message to the user to confirm the succes
                     }}
-                />
+                />*/}
             </offersModal.Modal>
         }
 

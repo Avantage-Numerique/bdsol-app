@@ -10,9 +10,9 @@ class Person extends EntityModel {
     constructor(raw, params={}) {
 
         //  Routes associated with single base, single and contribute uri.
-        raw.repertoryRoute = AppRoutes.persons;
-        raw.singleRoute = AppRoutes.personSingle;
-        raw.contributeRoute = AppRoutes.persons;
+        //raw.repertoryRoute = AppRoutes.persons;
+        //raw.singleRoute = AppRoutes.personSingle;
+        //raw.contributeRoute = AppRoutes.persons;
 
         super(raw);
 
@@ -33,6 +33,12 @@ class Person extends EntityModel {
 
         this.simpleComponent = PersonSimple;
         this.singleComponent = PersonSingle;
+
+        //Routing
+        this.singleRoute = AppRoutes.personSingle;
+        this.singleEditRoute = AppRoutes.personSingleEdit;
+        this.createRoute = AppRoutes.personCreate;
+
 
         //sets all the rest as this[key] = raw[key] value.
         this.setProperties(raw);

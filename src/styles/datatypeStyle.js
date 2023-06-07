@@ -30,7 +30,7 @@ export const selectStyle = () => {
 
     const option = { 
         option: (styles, { data, isDisabled, isFocused, isSelected }) => {
-            const color = getColor(data, true);
+            const color = chroma(data.color);
             return {
                 ...styles,
                 backgroundColor: isDisabled

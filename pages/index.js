@@ -11,6 +11,11 @@ import {sortDescBy} from "@/src/common/Data/Sorting/Sort";
 import PageHeader from "@/src/layouts/Header/PageHeader";
 import EntitiesGrid from "@/DataTypes/Entity/layouts/EntitiesGrid";
 
+//Entities
+import Person from "@/DataTypes/Person/Models/Person";
+import Organisation from "@/DataTypes/Organisation/models/Organisation";
+import Project from "@/DataTypes/Project/models/Project";
+
 //Costum hooks 
 import {useHttpClient} from '@/src/hooks/http-hook';
 
@@ -21,7 +26,6 @@ import SanitizedInnerHtml from "@/src/utils/SanitizedInnerHtml";
 
 //Styling
 //import styles from './home-page.module.scss'
-
 
 const HomePage = ({}) => {
 
@@ -109,6 +113,17 @@ const HomePage = ({}) => {
         fetchHomeFeed();
     }, [])
 
+    //Function to return the path to the page of creation of an entity, depending on location
+    const getCreateEntityPath = (type) => {
+        let model;
+        if(type == "TYPE_PERSON")
+            model = new Person({})
+        if(type == "TYPE_ORGANISATION")
+            model = new Organisation({})
+        if(type == "TYPE_PROJECT")
+            model = new Project({})
+        return model.createRoute.asPath;
+    }
 
     /****************************
      LD+Json data
@@ -148,10 +163,8 @@ const HomePage = ({}) => {
                 <meta name="twitter:title" content={lang.appDefaultName}/>
                 <meta name="twitter:description" content={lang.appDefaultDescription}/>
 
-                {/*
-                To add when the domain will be selected ....
-                <link rel="canonical" href="https://avantagenumerique.org/">
-                */}
+                {/* To add when the domain will be selected ....
+                    <link rel="canonical" href="https://avantagenumerique.org/">  */}
 
                 {/* Structured data */}
                 <script
@@ -245,7 +258,7 @@ const HomePage = ({}) => {
                                         color="primary"
                                         size="slim"
                                         disabled={!auth.user.isLoggedIn}
-                                        href="/contribuer/personne"
+                                        href={getCreateEntityPath("TYPE_PERSON")}
                                     >+</Button>
                                 </div>
 
@@ -259,7 +272,7 @@ const HomePage = ({}) => {
                                         color="primary"
                                         size="slim"
                                         disabled={!auth.user.isLoggedIn}
-                                        href="/contribuer/organisation"
+                                        href={getCreateEntityPath("TYPE_ORGANISATION")}
                                     >+</Button>
                                 </div>
 
@@ -269,7 +282,7 @@ const HomePage = ({}) => {
                                         color="primary"
                                         size="slim"
                                         disabled={!auth.user.isLoggedIn}
-                                        href="/contribuer/projet"
+                                        href={getCreateEntityPath("TYPE_PROJECT")}
                                     >+</Button>
                                 </div>
 

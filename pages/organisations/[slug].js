@@ -6,7 +6,7 @@ import {
 
 
 //components
-import OrganisationSingle from '@/src/DataTypes/Organisation/components/layouts/single/OrganisationSingle'
+import OrganisationSingleView from '@/src/DataTypes/Organisation/components/layouts/single/OrganisationSingleView'
 import {getUserHeadersFromUserSession} from "@/auth/context/auth-context";
 import {withSessionSsr} from "@/auth/session/handlers/withSession";
 import AppRoutes from "@/src/Routing/AppRoutes";
@@ -16,22 +16,18 @@ const SingleOrganisationPage = props => {
 
     return (
         <div className={`single-container single-organisation`}>
-
             <div className="maxWidthPageContainer">
-            
-                <OrganisationSingle data={props}  route={AppRoutes.organisationSingle} />
-
+                <OrganisationSingleView data={props} route={AppRoutes.organisationSingle} />
             </div>
-            
         </div>
     )
 }
     
 export default SingleOrganisationPage;
 
-export const getServerSideProps = withSessionSsr(personSlugSSProps);
+export const getServerSideProps = withSessionSsr(organisationSlugProps);
 
-export async function personSlugSSProps(context) {
+export async function organisationSlugProps(context) {
     const { slug } = context.query;
 
     const response = await externalApiRequest(

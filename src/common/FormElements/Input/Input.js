@@ -13,7 +13,7 @@ import styles from './Input.module.scss';
 *
  * @param props.validators
  * @param props.className {string} Allow us to add element to the class names from outside
-
+ * @param props.formClassName {string} Class name that affect specifically the form element inside the component
  *
  * @description `search field` is set for, `idField` is set for
  *
@@ -84,6 +84,7 @@ const Input = ({name, formTools, ...props}) => {
                 className={`
                 form-element
                 form-element--color-validation
+                ${props.formClassName && props.formClassName}
                 ${styles["input-component__field-container"]}
                 ${!currentState.isValid && currentState.isTouched && "control--invalid"}
             `}>

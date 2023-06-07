@@ -1,5 +1,11 @@
 import Routes from "@/src/Routing/Routes";
 
+/*
+
+    IDÉE : Implémenter les app route en format hiérarchique afin que chaque path hérite du parent jusqu'au basepath. 
+    Permet de tout changer en une seule modification
+
+*/
 const AppRoutesRaw = {
 
     accueil : {
@@ -8,6 +14,9 @@ const AppRoutesRaw = {
         asPath: "/",
     },
 
+    /*************
+     *  Person
+     */
     persons : {
         label: "Toutes les personnes",
         pathname: "/persons",
@@ -29,7 +38,22 @@ const AppRoutesRaw = {
             mediaType: "main-image"
         }
     },
+    personSingleEdit : {
+        label: "Modifier une personne",
+        pathname: "/contribuer/personnes/[slug]",
+        asPath: "/contribuer/personnes/[slug]",
+    },
+    personCreate : {
+        label: "Ajouter une personne",
+        pathname: "/contribuer/personnes",
+        asPath: "/contribuer/personnes",
+    },
 
+    /**************
+     * 
+     *  Categorie
+     * 
+     */
     categories : {
         label: "Toutes les catégories",
         pathname: "/categories",
@@ -47,6 +71,9 @@ const AppRoutesRaw = {
         }
     },
 
+    /******************
+     *  Organisation
+     ***/
     organisations : {
         label: "Toutes les organisations",
         pathname: "/organisations",
@@ -68,7 +95,25 @@ const AppRoutesRaw = {
             mediaType: "main-image"
         }
     },
+    organisationsCreate : {
+        label: "Ajouter une organisation",
+        pathname: "/contribuer/organisations",
+        asPath: "/contribuer/organisations",
+    },
+    organisationsSingleEdit : {
+        label: "Modifier une organisation",
+        pathname: "/contribuer/organisations/[slug]",
+        asPath: "/contribuer/organisations/[slug]",
+    },
+    organisationsCreate : {
+        label: "Ajouter une organisation",
+        pathname: "/contribuer/organisations",
+        asPath: "/contribuer/organisations",
+    },
 
+    /*************
+     *  Project
+     ***/
     projects : {
         label: "Tous les projets",
         pathname: "/projets",
@@ -78,6 +123,16 @@ const AppRoutesRaw = {
         label: "Un projet",
         pathname: "/projets/[slug]",
         asPath: "/projets/[slug]"
+    },
+    projectSingleEdit : {
+        label: "Modifier un projet",
+        pathname: "/contribuer/projets/[slug]",
+        asPath: "/contribuer/projets/[slug]"
+    },
+    projectCreate : {
+        label: "Ajouter un projet",
+        pathname: "/contribuer/projets",
+        asPath: "/contribuer/projets"
     },
     projectSingleMedia : {
         label: "Média d'un projet",
@@ -110,7 +165,7 @@ const AppRoutesRaw = {
         asPath: "/contribuer",
         needAuth: true
     },
-
+ 
     error404: {
         label: "Error 404",
         pathname: "/404",

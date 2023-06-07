@@ -1,6 +1,6 @@
 import EntityModel, {TYPE_DEFAULT} from "@/DataTypes/Entity/models/EntityModel";
 import ProjectSimple from "@/DataTypes/Project/layouts/simple/ProjectSimple";
-import ProjectSingle from "@/DataTypes/Project/layouts/single/ProjectSingle";
+import ProjectSingleView from "../layouts/single/ProjectSingleView";
 import {TYPE_PROJECT} from "@/DataTypes/Entity/Types";
 import Media from "@/DataTypes/Media/models/Media";
 import AppRoutes from "@/src/Routing/AppRoutes";
@@ -9,11 +9,6 @@ import AppRoutes from "@/src/Routing/AppRoutes";
 class Project extends EntityModel {
 
     constructor(raw, params={}) {
-
-        //  Routes associated with single base, single and contribute uri.
-        raw.repertoryRoute = AppRoutes.projects;
-        raw.singleRoute = AppRoutes.projectSingle;
-        raw.contributeRoute = AppRoutes.projects;
 
         super(raw);
 
@@ -37,7 +32,13 @@ class Project extends EntityModel {
         params.showStatus = params.showStatus ?? true;
 
         this.simpleComponent = ProjectSimple;
-        this.singleComponent = ProjectSingle;
+        this.singleComponent = ProjectSingleView;
+
+        //  Routes associated with single base, single and contribute uri.
+        this.repertoryRoute = AppRoutes.projects;
+        this.singleRoute = AppRoutes.projectSingle;
+        this.singleEditRoute = AppRoutes.projectSingleEdit;
+        this.createRoute = AppRoutes.projectCreate;
 
         //sets all the rest as a this[key] = raw[key] value.
         this.setProperties(raw);

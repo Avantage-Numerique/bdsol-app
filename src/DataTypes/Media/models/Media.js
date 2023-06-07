@@ -22,14 +22,14 @@ class Media extends EntityModel {
      */
     constructor(raw, params={}) {
         super(raw);
-        this.title = raw.name ?? "";
-        this.description = raw.description ?? "";
-        this.mainImage = raw.mainImage;
-        this.src = raw.src ?? "";
+        this.title = raw?.name ?? "";
+        this.description = raw?.description ?? "";
+        this.mainImage = raw?.mainImage;
+        this.src = raw?.src ?? "";
         this.baseSrc = `${process.env.NEXT_PUBLIC_API_URL}/`;
-        this.alt = raw.alt ?? "";
-        this.licence = raw.licence ?? "";
-        this.type = raw.type === TYPE_MEDIA ? TYPE_MEDIA : TYPE_DEFAULT;//Wrong data sent here.
+        this.alt = raw?.alt ?? "";
+        this.licence = raw?.licence ?? "";
+        this.type = raw?.type === TYPE_MEDIA ? TYPE_MEDIA : TYPE_DEFAULT;//Wrong data sent here.
         //this.taxonomies = new Map();
         //this.taxonomies.set("domains", raw.domains);
         //this.taxonomies.set("skills", raw.skills);

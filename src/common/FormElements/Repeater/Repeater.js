@@ -54,7 +54,7 @@ const RepeaterSingleIteration = ({children, formInitSubStructure, iterationKey, 
  * 
  *****/
 const Repeater = props => {
-
+    
     /* List of props */
     const {
         children,               // - Elements to repeat
@@ -82,24 +82,19 @@ const Repeater = props => {
     } = formTools;
     
     //State to manage the values of every iterations of the repeater
+    let initIteration = {};
     const [iterations, setIterations] = useState(addInitValuesToState(initValues));
-
+    initIteration = iterations;
+    //useEffect(() => { setIterations(addInitValuesToState(initValues))}, [])
+    
     //Reference to the dom elements
     const containerRef = useRef();
-    useEffect(() => {
-        console.log(containerRef)
-
-        let returnValue = Array.from(containerRef.current.children);
-        const newValue = returnValue.map(child => child);
-
-    }, [])
 
     //Custom hook used for moving the elements
-    const {updateValues} = useDND(containerRef, {
+    /* const {updateValues} = useDND(containerRef, {
         dragButton: elem => elem.querySelector(`.${styles["dragging-button"]}`), movingElem: null
-    });
+    }); */
     
-
     //Gives us access to the values of the main state in the shape of an array. And since it is sorted, we use it to display the elements
     const sortedIterationsArray = iterations ? Object.values(iterations).sort((a, b) => (a.order > b.order) ? 1 : -1) : [];
 
@@ -220,7 +215,7 @@ const Repeater = props => {
         //Create a new Id
         const newId = Math.floor((Math.random() * 1000000) + 1);
         //Make sure it doesn't exist already into the state. Also accept is iteration is not defined yet
-        if(!iterations || !Object.keys(iterations).some(key => key == newId))
+        if( !initIteration || !Object.keys(initIteration).some(key => key == newId))
             return newId;
         //If the id isn't unique, than call the function again
         generateUniqueId();
@@ -231,7 +226,7 @@ const Repeater = props => {
         //Create an ID
         const key = generateUniqueId();
         //Iterations array
-        const iterationsArray = iterations ? Object.values(iterations) : [];
+        const iterationsArray = initIteration ? Object.values(initIteration) : [];
         //Build the object
         const obj = {
             [key]: {
@@ -278,8 +273,10 @@ const Repeater = props => {
                ))}                   
             </section>
             {/* By default, there is an add button */}
-            <div className="d-flex justify-content-end">
-                <Button type="button" onClick={addNewIteration} className="m-0">Ajouter</Button>
+            <div className="row">
+                <div className="d-flex justify-content-end p-0">
+                    <Button type="button" size="slim" onClick={addNewIteration} className="m-0">Ajouter</Button>
+                </div>
             </div>
         </>
     )

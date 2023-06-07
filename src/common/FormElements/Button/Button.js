@@ -1,31 +1,7 @@
 import { useState, useEffect} from 'react'
 import Link from 'next/link'
 
-//scss styling
-import styles from './Button.module.scss'
 
-
-const getCurrentTime = () => {
-    const newTime = new Date();
-    return newTime.getTime()
-}
-
-const Ripple = ({ clear })  => {
-
-    useEffect(() => {
-        setTimeout(() => {
-            clear()
-
-        }, 2000)
-    }, [])
-
-    return (
-        <div className={styles.ripple}>
-
-        </div>
-    )
-
-}
 
 
 const Button = ({ rippleEffect, ...props }) => {
@@ -36,26 +12,6 @@ const Button = ({ rippleEffect, ...props }) => {
     // In case of using list-group-item Bootstrap feature
     //let bsPrefix = props.listItem ? "list-group-item-" : "btn-";
     let bsPrefix = "btn-";
-
-    const [rippleList, setRippleList] = useState([]);
-
-    /*const addRipple = () => {
-
-        setRippleList([
-            ...rippleList,
-            {id: "ripple_" + getCurrentTime()}
-        ])
-    
-    }*/
-
-    {/*
-
-        There are 2 types of buttons 
-            - links => href
-            - Other type of triggered action 
-    
-    */}
-
     {
         /*
             Convert design properties to bootstrap classes
@@ -99,15 +55,9 @@ const Button = ({ rippleEffect, ...props }) => {
                     break;
             }
         }
+
+      
     }
-    
-    // In case of using list-group-item Bootstrap feature
-    /*
-    if(props.listItem){
-        classList.push('list-group-item');
-        classList.push('list-group-item-action');
-    }
-    */
 
     if(props.classes){
         classList.push(props.classes);
@@ -147,21 +97,6 @@ const Button = ({ rippleEffect, ...props }) => {
             onClick={props.onClick}
             disabled={props.disabled}
         >
-
-            {/* Animated circle */}
-            
-            {rippleEffect && rippleList.map(ripple => (
-                <Ripple
-                    key={ripple.id}
-                    className={`
-                        ${rippleEffect && styles.ripple}
-                    `}
-                    clear={() => setRippleList(
-                        prevState => {prevState.filter(i => i.id !== ripple.id)}
-                        )}
-                />
-            ))}
-
             {/* Button text */}
             {props.children}
 

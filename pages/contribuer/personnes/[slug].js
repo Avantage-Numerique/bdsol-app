@@ -6,36 +6,32 @@ import {
 
 
 //components
-import ProjectSingle from "@/src/DataTypes/Project/layouts/single/ProjectSingle"
 import {getUserHeadersFromUserSession} from "@/auth/context/auth-context";
 import {withSessionSsr} from "@/auth/session/handlers/withSession";
 import AppRoutes from "@/src/Routing/AppRoutes";
+import PersonSingleEdit from '@/src/DataTypes/Person/Components/Forms/CreatePerson/PersonSingleEdit';
 
 
-const SingleProjectPage = props => {
+const SinglePersonEditPage = props => {
 
     return (
-        <div className={`single-container single-organisation`}>
-
+        <div className={`single-container single-person`}>
             <div className="maxWidthPageContainer">
-            
-                <ProjectSingle data={props} route={AppRoutes.projectSingle} />
-
+                <PersonSingleEdit data={props} route={AppRoutes.projectSingle} />
             </div>
-            
         </div>
     )
 }
     
-export default SingleProjectPage;
+export default SinglePersonEditPage;
 
-export const getServerSideProps = withSessionSsr(projectSlugSSProps);
+export const getServerSideProps = withSessionSsr(personSlugSSProps);
 
-export async function projectSlugSSProps(context) {
+export async function personSlugSSProps(context) {
     const { slug } = context.query;
 
     const response = await externalApiRequest(
-        `/projects/${slug}`,
+        `/persons/${slug}`,
         {
             method: 'GET',
             headers: getUserHeadersFromUserSession(context.req.session.user)

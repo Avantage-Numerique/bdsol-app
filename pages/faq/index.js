@@ -1,17 +1,12 @@
 const { default: PageHeader } = require("@/src/layouts/Header/PageHeader");
+import PersonSingleEdit from "@/src/DataTypes/Person/Components/Forms/CreatePerson/PersonSingleEdit";
+import SingleBase from "@/src/DataTypes/common/layouts/single/SingleBase";
 
 
 const FAQ = () => {
 
     return (
-        <div>
-            <PageHeader title={`FAQ`}/>
-            <div className="content">
-                <a href="/faq/licences">
-                    Tout sur les licences
-                </a>
-            </div>
-        </div>
+            <PersonSingleEdit/>
     );
 }
 
