@@ -1,7 +1,4 @@
-import React, { useRef } from 'react'
-
-//hooks
-import { useFormUtils } from '@/src/hooks/useFormUtils/useFormUtils';
+import React from 'react';
 
 //components
 import Button from "@/FormElements/Button/Button";
@@ -19,6 +16,7 @@ import styles from './UpdateTeams.module.scss'
  * @param {string} name Name of formState value
  * @param {formTools} formTools
  * @param {object} parentEntity object data of entity that uses the structure of team
+ * @param {object} props rest of the props.
  */
 const UpdateTeams = ({name, formTools, parentEntity, ...props}) => {
 

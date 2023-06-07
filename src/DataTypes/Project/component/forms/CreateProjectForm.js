@@ -1,8 +1,8 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import Router from 'next/router'
 
 //Custom hooks
-import { useFormUtils } from '@/src/hooks/useFormUtils/useFormUtils'
+import {useFormUtils} from '@/src/hooks/useFormUtils/useFormUtils'
 
 //components
 import Button from '@/FormElements/Button/Button'
@@ -10,13 +10,13 @@ import Input from '@/FormElements/Input/Input'
 import SelectFetch from '@/FormElements/Select/SelectFetch'
 import Select2 from '@/FormElements/Select2/Select2'
 
-//Utils 
+//Utils
 import {lang} from "@/src/common/Data/GlobalConstants";
 import {getDefaultCreateEntityStatus} from "@/DataTypes/Status/EntityStatus";
 import {replacePathname} from "@/src/helpers/url";
 
 //Context
-import { useAuth } from "@/src/authentification/context/auth-context";
+import {useAuth} from "@/src/authentification/context/auth-context";
 
 //Model
 import Project from "@/src/DataTypes/Project/models/Project"

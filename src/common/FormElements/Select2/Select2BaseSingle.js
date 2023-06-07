@@ -1,22 +1,21 @@
-
 //components
-import { useState, useRef } from 'react';
+import {useRef} from 'react';
 import CreatableSelect from 'react-select/creatable';
 
 //Style & utils
 import {lang} from "@/src/common/Data/GlobalConstants";
 
 
-/** 
+/**
  * @param {string} name : used for id and formState
- * @param {boolean} creatable : if undefined or false, no create option will be available
- * @param {Array useState} options : Will show, search and allow selection of these options
- * @param {string useState} inputValue : State of the input text
- * @param {useState setter} inputValueSetter : Setter for the state of inputValue, used for dynamic option list search
- * @param {object useState} value : State of the current value of the selected item
- * @param {useState setter} valueSetter : setter of value to update the selected item
+ * @param {object} props : used for id and formState
+ * @param {boolean} props.creatable : if undefined or false, no create option will be available
+ * @param {Array} props.options : Will show, search and allow selection of these options
+ * @param {string} props.inputValue : State of the input text
+ * @param {useState} props.inputValueSetter : Setter for the state of inputValue, used for dynamic option list search
+ * @param {object} props.value : State of the current value of the selected item
+ * @param {useState} props.valueSetter : setter of value to update the selected item
  * */
-
 const Select2BaseSingle = ({name, ...props}) => {
 
     const selectRef = useRef();
@@ -24,9 +23,9 @@ const Select2BaseSingle = ({name, ...props}) => {
     //Creatable Section
     const filterCreate = (option, searchText) => {
         //If we are in not creatable
-        if(props?.creatable == undefined || props?.creatable == false){
+        if(props?.creatable === undefined || props?.creatable === false){
             //If the option is the "new option to create" and we don't allow creatable
-            if (option?.data?.__isNew__ == true){
+            if (option?.data?.__isNew__ === true){
                 return undefined
             }
             //else return options that fit searchText
