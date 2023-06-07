@@ -11,14 +11,25 @@ const SearchResults = () => {
     const [searchList, setSearchList] = useState([]);
     const router = useRouter();
     const [searchMessage, setSearchMessage] = useState("");
-    const [filter, setFilter] = useState("all")
+    const [filter, setFilter] = useState([])
     const [nearTaxonomyObject, setNearestTaxonomyObject] = useState(undefined)
 
 
     const updateFilterState = (filterType) => {
-        const filterState = {...filter}
-
-    } 
+        
+        if(filterType == "all")
+            setFilter([]);
+        else {
+            const filterState = [...filter]
+            //If already in array remove it else push in front
+            if(filterState.includes(filterType))
+                setFilter(filterState.filter( (el) => { return el != filterType}));
+            else {
+                filterState.unshift(filterType);
+                setFilter(filterState)
+            }
+        }
+    }
 
     useEffect(() => {
         async function searchRequest() {
@@ -68,6 +79,9 @@ const SearchResults = () => {
     }
 
     const researchResult = (entityType) => {
+        if(entityType == "linkedTaxonomy")
+            return linkedEntityToTaxonomyComponent();
+
         const resultMessage = entityType ? "Résultats pour " + entityType + ":" : "Résultats de recherche :"
         let filteredList = [...searchList];
         if(entityType) {
@@ -145,32 +159,32 @@ const SearchResults = () => {
                     <div>
                         <h4>Filtres</h4>
                         <ul>
-                            <li className="row py-2 form-check" role="button" key={"filter-CBL-all"} onClick={() => setFilter("all")}>
-                                <input className="form-check-input col-1" type="checkbox" checked={filter === "all"} id="filter-CB-all"/>
+                            <li className="row py-2 form-check" role="button" key="filter-CBL-all" onClick={() => updateFilterState("all")}>
+                                <input className="form-check-input col-1" type="checkbox" checked={filter.length == 0} id="filter-CB-all"/>
                                 <label className="form-check-label col-8" for="filter-CB-all">Tout les résultats</label>                                
                                 <span className="col-3">{(nearTaxonomyObject?.linkedEntityToNearestTaxonomy?.length || 0) + (searchList?.length || 0)}</span>
                             </li>
 
-                            <li className="row py-2 form-check" role="button" key={"filter-CBL-linkedTaxonomy"} onClick={() => setFilter("linkedTaxonomy")}>
-                                <input className="form-check-input col-1" type="checkbox" checked={filter === "linkedTaxonomy"} id="filter-CB-linkedTaxonomy"/>
+                            <li className="row py-2 form-check" role="button" key="filter-CBL-linkedTaxonomy" onClick={() => updateFilterState("linkedTaxonomy")}>
+                                <input className="form-check-input col-1" type="checkbox" checked={filter.includes("linkedTaxonomy")} id="filter-CB-linkedTaxonomy"/>
                                 <label className="form-check-label col-8" for="filter-CB-linkedTaxonomy">Entité liée suggérée</label>
                                 <span className="col-3">{nearTaxonomyObject?.linkedEntityToNearestTaxonomy?.length.toString() ?? "0"}</span>
                             </li>
 
-                            <li className="row py-2 form-check" role="button" key={"filter-CBL-person"} onClick={() => setFilter("Person")}>
-                                <input className="form-check-input col-1" type="checkbox" checked={filter === "Person"} id="filter-CB-person"/>
+                            <li className="row py-2 form-check" role="button" key="filter-CBL-person" onClick={() => updateFilterState("Person")}>
+                                <input className="form-check-input col-1" type="checkbox" checked={filter.includes("Person")} id="filter-CB-person"/>
                                 <label className="form-check-label col-8" for="filter-CB-person">Personnes</label>
                                 <span className="col-3">{searchList.filter( (el) => {return el.type == "Person"}).length.toString() ?? "0"}</span>
                             </li>
 
-                            <li className="row py-2 form-check" role="button" key={"filter-CBL-organisation"} onClick={() => setFilter("Organisation")}>
-                                <input className="form-check-input col-1" type="checkbox" checked={filter === "Organisation"} id="filter-CB-organisation"/>
+                            <li className="row py-2 form-check" role="button" key="filter-CBL-organisation" onClick={() => updateFilterState("Organisation")}>
+                                <input className="form-check-input col-1" type="checkbox" checked={filter.includes("Organisation")} id="filter-CB-organisation"/>
                                 <label className="form-check-label col-8" for="filter-CB-organisation">Organisations</label>
                                 <span className="col-3">{searchList.filter( (el) => {return el.type == "Organisation"}).length.toString() ?? "0"}</span>
                             </li>
 
-                            <li className="row py-2 form-check" role="button" key={"filter-CBL-project"} onClick={() => setFilter("Project")}>
-                                <input className="form-check-input col-1" type="checkbox" checked={filter === "Project"} id="filter-CB-project"/>
+                            <li className="row py-2 form-check" role="button" key="filter-CBL-project" onClick={() => updateFilterState("Project")}>
+                                <input className="form-check-input col-1" type="checkbox" checked={filter.includes("Project")} id="filter-CB-project"/>
                                 <label className="form-check-label col-8" for="filter-CB-project">Projets</label>
                                 <span className="col-3">{searchList.filter( (el) => {return el.type == "Project"}).length.toString() ?? "0"}</span>
                             </li>
@@ -181,20 +195,15 @@ const SearchResults = () => {
                 <div className="row col-9">
                     {/* If filter set to all results */}
                     {
-                        filter === "all" ?
+                        filter.length == 0 ?
                         <div>
                             {linkedEntityToTaxonomyComponent()}
                             {researchResult()}
                         </div>
                         :
                         <div>
-                            {/* else show linked or result by type */}
-                            {
-                                filter === "linkedTaxonomy" ?
-                                <>{linkedEntityToTaxonomyComponent()}</>
-                                :
-                                <>{researchResult(filter)}</>
-                            }                            
+                            {/* else show linkedTaxonomy or result by type */}
+                            { filter.map( (el) => { return <>{researchResult(el)}</> }) }                         
                         </div>
                     }
 
