@@ -1,13 +1,12 @@
-import React, {useState, useContext, useEffect, useCallback} from 'react'
+import React, {useCallback, useContext, useEffect, useState} from 'react'
 
 //components
 import PageHeader from "@/src/layouts/Header/PageHeader";
 import Button from '@/src/common/FormElements/Button/Button'
 import Spinner from '@/src/common/widgets/spinner/Spinner'
-import EntitySimple from "@/DataTypes/common/layouts/EntitySimple/EntitySimple";
 
 
-//Costum hooks 
+//Costum hooks
 import {useHttpClient} from '@/src/hooks/http-hook';
 
 //Context

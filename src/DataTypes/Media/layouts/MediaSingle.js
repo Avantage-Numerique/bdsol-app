@@ -5,11 +5,10 @@ import LicenceDisplay from '@/src/common/FormElements/SelectLicence/LicenceDispl
 import Single from "@/DataTypes/common/layouts/single/Single";
 import Button from "@/FormElements/Button/Button"
 import {SingleEntityStatus} from "@/DataTypes/Status/Components/SingleEntityStatus";
-import {getEntityBaseRouteName, getEntityURI} from "@/src/utils/EntityURI";
+import {getEntityURI} from "@/src/utils/EntityURI";
 
 //hooks
 //import { useModal } from '@/src/hooks/useModal/useModal';
-
 //Utils
 import SanitizedInnerHtml from "@/src/utils/SanitizedInnerHtml";
 

@@ -33,10 +33,10 @@
 
     h3 { 
         color: var(--blue4); 
-        margin-top: 0px;
+        margin-top: 0;
     }
 
-    p { margin: 0px; }
+    p { margin: 0; }
 
 }
 
@@ -48,7 +48,6 @@
         */
         [for="lastName"], 
         [for="firstName"] {
-            width: 48%;
             width: calc(50% - 1rem);
         }
 

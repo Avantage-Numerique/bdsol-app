@@ -8,8 +8,6 @@ import Single from "@/DataTypes/common/layouts/single/Single";
 import SingleInfo from "@/DataTypes/common/layouts/SingleInfo/SingleInfo";
 
 //Styling
-import styles from './ProjectSingle.module.scss'
-
 //Hooks
 import {useModal} from "@/src/hooks/useModal/useModal";
 
@@ -62,7 +60,7 @@ const ProjectSingle = ({data, route}) => {
     );
 
     const headerMainContent = (
-        <div className={`${styles["quick-section"]}`}>
+        <div className={`quick-section`}>
             <h2 className="mb-2">{name}</h2>
             {alternateName && <p> {alternateName} </p>}
             {/*entityInCharge && <p><code>{entityInCharge}</code></p>*/}

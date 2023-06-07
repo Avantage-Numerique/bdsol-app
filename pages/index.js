@@ -16,7 +16,7 @@ import Person from "@/DataTypes/Person/Models/Person";
 import Organisation from "@/DataTypes/Organisation/models/Organisation";
 import Project from "@/DataTypes/Project/models/Project";
 
-//Costum hooks 
+//Costum hooks
 import {useHttpClient} from '@/src/hooks/http-hook';
 
 //Context
@@ -115,7 +115,8 @@ const HomePage = ({}) => {
 
     //Function to return the path to the page of creation of an entity, depending on location
     const getCreateEntityPath = (type) => {
-        let model;
+        //@todo need DRY and verification for using "TYPE_PERSON", TYPE_ is a constant with a string value of the type.
+        let model;// = getModelFromType(type, {});
         if(type == "TYPE_PERSON")
             model = new Person({})
         if(type == "TYPE_ORGANISATION")
