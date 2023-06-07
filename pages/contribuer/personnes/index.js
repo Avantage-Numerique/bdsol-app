@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 
 //Component 
-import PersonSingleEdit from '@/src/DataTypes/Person/Components/Forms/CreatePerson/PersonSingleEdit'
-import CreatePersonForm from "@/DataTypes/Person/Components/Forms/CreatePerson/CreatePersonForm"
+import PersonSingleEdit from '@/DataTypes/Person/components/Forms/CreatePerson/PersonSingleEdit'
+import CreatePersonForm from "@/DataTypes/Person/components/Forms/CreatePerson/CreatePersonForm"
 import Spinner from '@/src/common/widgets/spinner/Spinner';
-
 //Hooks 
 import { useModal } from '@/src/hooks/useModal/useModal';
 

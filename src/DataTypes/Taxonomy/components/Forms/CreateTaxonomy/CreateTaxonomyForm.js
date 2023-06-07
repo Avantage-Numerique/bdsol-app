@@ -4,7 +4,7 @@ import Router from 'next/router'
 //Custom hooks
 import { useFormUtils } from '@/src/hooks/useFormUtils/useFormUtils'
 
-//Components
+//components
 import Button from '@/src/common/FormElements/Button/Button'
 import Input from '@/src/common/FormElements/Input/Input'
 import RichTextarea from '@/src/common/FormElements/RichTextArea/RichTextarea'

@@ -4,7 +4,7 @@ import DOMPurify from 'isomorphic-dompurify';
 import Head from 'next/head';
 import {lang} from "@/src/common/Data/GlobalConstants";
 
-//Components
+//components
 import Button from '@/src/common/FormElements/Button/Button'
 import Spinner from '@/src/common/widgets/spinner/Spinner'
 import {sortDescBy} from "@/src/common/Data/Sorting/Sort";

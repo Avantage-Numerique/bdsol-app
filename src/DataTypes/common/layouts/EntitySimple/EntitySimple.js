@@ -1,6 +1,6 @@
 import React from 'react';
 
-//Components
+//components
 import KebabButton from '@/common/FormElements/KebabButton/KebabButton'
 
 //Styling

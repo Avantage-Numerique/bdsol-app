@@ -5,11 +5,11 @@ import Link from 'next/link'
 import { useFormUtils } from '@/src/hooks/useFormUtils/useFormUtils'
 import { useModal } from '@/src/hooks/useModal/useModal'
 
-//Components
+//components
 import Button from '@/FormElements/Button/Button'
 import Input from '@/FormElements/Input/Input'
 import RichTextarea from '@/FormElements/RichTextArea/RichTextarea'
-import CreateTaxonomyForm from '@/src/DataTypes/Taxonomy/Components/Forms/CreateTaxonomy/CreateTaxonomyForm'
+import CreateTaxonomyForm from '@/DataTypes/Taxonomy/components/Forms/CreateTaxonomy/CreateTaxonomyForm'
 import {lang} from "@/src/common/Data/GlobalConstants";
 import Select2Tag from '@/src/common/FormElements/Select2/Select2Tag'
 import Modal from '@/src/hooks/useModal/Modal/Modal'

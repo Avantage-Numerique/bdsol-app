@@ -13,7 +13,7 @@ import Select2Tag from '@/src/common/FormElements/Select2/Select2Tag';
 import Button from '@/src/common/FormElements/Button/Button';
 import Input from '@/src/common/FormElements/Input/Input';
 import RichTextarea from '@/src/common/FormElements/RichTextArea/RichTextarea';
-import CreateTaxonomyForm from '@/src/DataTypes/Taxonomy/Components/Forms/CreateTaxonomy/CreateTaxonomyForm';
+import CreateTaxonomyForm from '@/DataTypes/Taxonomy/components/Forms/CreateTaxonomy/CreateTaxonomyForm';
 
 //FormData
 import { getSelectedToFormData } from '@/src/common/FormElements/Select2/Select2Tag';

@@ -1,7 +1,7 @@
-import EntityModel, {TYPE_DEFAULT} from "@/DataTypes/Entity/models/EntityModel";
+import EntityModel from "@/DataTypes/Entity/models/EntityModel";
 import ProjectSimple from "@/DataTypes/Project/layouts/simple/ProjectSimple";
-import ProjectSingleView from "../layouts/single/ProjectSingleView";
-import {TYPE_PROJECT} from "@/DataTypes/Entity/Types";
+import ProjectSingleView from "@/DataTypes/Project/layouts/single/ProjectSingleView";
+import {TYPE_PROJECT, TYPE_DEFAULT} from "@/DataTypes/Entity/Types";
 import Media from "@/DataTypes/Media/models/Media";
 import AppRoutes from "@/src/Routing/AppRoutes";
 

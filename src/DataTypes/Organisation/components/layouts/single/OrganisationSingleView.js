@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 
-//Components
+//components
 import SingleBaseHeader from "@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseHeader"
 import SingleBase from "@/src/DataTypes/common/layouts/single/SingleBase"
 import SanitizedInnerHtml from '@/src/utils/SanitizedInnerHtml';

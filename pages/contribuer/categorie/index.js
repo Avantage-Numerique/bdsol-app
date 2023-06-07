@@ -1,6 +1,6 @@
 
 //Component 
-import CreateTaxonomyForm from '@/DataTypes/Taxonomy/Components/Forms/CreateTaxonomy/CreateTaxonomyForm'
+import CreateTaxonomyForm from '@/DataTypes/Taxonomy/components/Forms/CreateTaxonomy/CreateTaxonomyForm'
 
 
 //Styling

@@ -2,9 +2,9 @@ import React, {useCallback, useState} from 'react'
 import Router, {useRouter} from "next/router";
 
 
-//Components
+//components
 import Button from "@/FormElements/Button/Button";
-import PersonSingleEdit from "@/src/DataTypes/Person/Components/Forms/CreatePerson/PersonSingleEdit";
+import PersonSingleEdit from "@/DataTypes/Person/components/Forms/CreatePerson/PersonSingleEdit";
 import SearchTag from '@/src/common/Components/SearchTag';
 import Single from "@/DataTypes/common/layouts/single/Single";
 import SingleInfo from "@/DataTypes/common/layouts/SingleInfo/SingleInfo";

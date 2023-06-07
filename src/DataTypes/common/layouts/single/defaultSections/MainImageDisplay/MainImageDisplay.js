@@ -9,7 +9,7 @@ import styles from './MainImageDisplay.module.scss';
 //Hooks
 import {useModal} from "@/src/hooks/useModal/useModal";
 
-//Components
+//components
 import CreateMediaForm from "@/DataTypes/Media/components/forms/CreateMedia/CreateMediaForm";
 import Button from "@/FormElements/Button/Button";
 

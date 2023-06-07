@@ -1,5 +1,5 @@
 
-//Components
+//components
 import { useState, useRef } from 'react';
 import CreatableSelect from 'react-select/creatable';
 

@@ -4,7 +4,7 @@ import React, {useState, useEffect, useRef} from 'react';
 import { useFormUtils } from '@/src/hooks/useFormUtils/useFormUtils';
 import { useDND } from '@/src/hooks/useDND/useDND';
 
-//Components
+//components
 import Button from "@/FormElements/Button/Button";
 import Icon from '@/src/common/widgets/Icon/Icon';
 

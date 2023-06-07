@@ -4,7 +4,7 @@ import React, {useState, useContext, useEffect} from 'react'
 import { AuthContext } from '@/auth/context/auth-context'
 import { MessageContext } from '@/src/common/UserNotifications/Message/Context/Message-Context'
 
-//Components
+//components
 //import Spinner from '@/src/common/widgets/spinner/Spinner'
 
 //costum hooks 

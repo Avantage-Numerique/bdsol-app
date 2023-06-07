@@ -8,7 +8,7 @@ import Button from "@/FormElements/Button/Button";
 import Input from '@/src/common/FormElements/Input/Input';
 import Select2 from '@/src/common/FormElements/Select2/Select2';
 import Repeater from '@/src/common/FormElements/Repeater/Repeater';
-import SingleInfo from "@/src/Datatypes/common/layouts/SingleInfo/SingleInfo";
+import SingleInfo from "@/src/DataTypes/common/layouts/SingleInfo/SingleInfo";
 
 //Styling
 import styles from './UpdateTeams.module.scss'

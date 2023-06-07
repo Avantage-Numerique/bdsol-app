@@ -2,7 +2,7 @@ import { externalApiRequest } from '@/src/hooks/http-hook';
 import PageHeader from "@/layouts/Header/PageHeader";
 import React, {useCallback} from "react";
 import {lang} from "@/common/Data/GlobalConstants";
-import CreateTaxonomyForm from "@/DataTypes/Taxonomy/Components/Forms/CreateTaxonomy/CreateTaxonomyForm";
+import CreateTaxonomyForm from "@/DataTypes/Taxonomy/components/Forms/CreateTaxonomy/CreateTaxonomyForm";
 import {useModal} from "@/src/hooks/useModal/useModal";
 import Router, {useRouter} from "next/router";
 import Button from "@/FormElements/Button/Button";

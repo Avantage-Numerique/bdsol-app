@@ -1,7 +1,7 @@
 //Component
 import Input from "@/src/common/FormElements/Input/Input";
 import Repeater from "@/src/common/FormElements/Repeater/Repeater";
-import SingleInfo from "@/src/Datatypes/common/layouts/SingleInfo/SingleInfo";
+import SingleInfo from "@/src/DataTypes/common/layouts/SingleInfo/SingleInfo";
 import Select2 from "@/src/common/FormElements/Select2/Select2";
 import Button from "@/src/common/FormElements/Button/Button";
 

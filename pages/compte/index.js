@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 
-//Components
+//components
 import UserHistoryGrid from '@/src/DataTypes/UserHistory/UserHistoryGrid';
 import Button from '@/src/common/FormElements/Button/Button';
 

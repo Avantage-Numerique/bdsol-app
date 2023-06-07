@@ -4,7 +4,7 @@ import Link from 'next/link'
 //Custom hooks
 import { useFormUtils } from '@/src/hooks/useFormUtils/useFormUtils'
 
-//Components
+//components
 import Button from '@/FormElements/Button/Button'
 import Input from '@/FormElements/Input/Input'
 import SelectFetch from '@/FormElements/Select/SelectFetch'

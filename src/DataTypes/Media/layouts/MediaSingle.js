@@ -1,7 +1,7 @@
 import React, {useCallback} from "react";
 import LicenceDisplay from '@/src/common/FormElements/SelectLicence/LicenceDisplay';
 
-//Components
+//components
 import Single from "@/DataTypes/common/layouts/single/Single";
 import Button from "@/FormElements/Button/Button"
 import {SingleEntityStatus} from "@/DataTypes/Status/Components/SingleEntityStatus";

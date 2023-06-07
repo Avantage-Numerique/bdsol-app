@@ -1,5 +1,5 @@
 import {lang} from "@/common/Data/GlobalConstants";
-import Tip from "@/src/common/FormElements/Tip/Tip";
+import Tip from "@/common/FormElements/Tip/Tip";
 
 const SingleInfo = ({ title, NAMessage, className, children, tooltip }) => {
 
@@ -18,4 +18,4 @@ const SingleInfo = ({ title, NAMessage, className, children, tooltip }) => {
         </section>
     )
 }
-export default SingleInfo
+export default SingleInfo;

@@ -1,8 +1,8 @@
-import EntityModel, {TYPE_DEFAULT} from "@/DataTypes/Entity/models/EntityModel";
+import EntityModel from "@/DataTypes/Entity/models/EntityModel";
 import OrganisationSimple from "@/DataTypes/Organisation/components/layouts/simple/OrganisationSimple";
 import OrganisationSingle from "@/DataTypes/Organisation/components/layouts/single/OrganisationSingle";
 import Media from "@/DataTypes/Media/models/Media";
-import {TYPE_ORGANISATION} from "@/DataTypes/Entity/Types";
+import {TYPE_ORGANISATION, TYPE_DEFAULT} from "@/DataTypes/Entity/Types";
 import AppRoutes from "@/src/Routing/AppRoutes";
 
 

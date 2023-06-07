@@ -1,6 +1,6 @@
-import { useState } from 'react'
+import { useState } from 'react';
 
-//Components
+//components
 import PopOver from '@/src/common/UserNotifications/PopOver/PopOver'
 
 //Styling

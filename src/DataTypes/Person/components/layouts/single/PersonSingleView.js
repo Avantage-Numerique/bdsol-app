@@ -1,6 +1,6 @@
 import React, {useCallback} from 'react';
 
-//Components
+//components
 import SingleBase from "@/src/DataTypes/common/layouts/single/SingleBase"
 import SingleBaseHeader from "@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseHeader"
 import SearchTag from '@/src/common/Components/SearchTag';

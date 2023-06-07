@@ -1,8 +1,8 @@
 import React, {useCallback} from 'react'
 
 
-//Components
-import CreatePersonForm from "@/DataTypes/Person/Components/Forms/CreatePerson/CreatePersonForm";
+//components
+import CreatePersonForm from "@/DataTypes/Person/components/Forms/CreatePerson/CreatePersonForm";
 import SearchTag from '@/src/common/Components/SearchTag';
 import Single from "@/DataTypes/common/layouts/single/Single";
 import SingleInfo from "@/DataTypes/common/layouts/SingleInfo/SingleInfo";

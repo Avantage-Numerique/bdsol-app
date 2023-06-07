@@ -1,9 +1,8 @@
 //Component
 import Input from "@/src/common/FormElements/Input/Input";
 import Repeater from "@/src/common/FormElements/Repeater/Repeater";
-import SingleInfo from "../../../common/layouts/SingleInfo/SingleInfo";
+import SingleInfo from "@/src/DataTypes/common/layouts/SingleInfo/SingleInfo";
 import SelectFetch from "@/src/common/FormElements/Select/SelectFetch";
-import Button from "@/src/common/FormElements/Button/Button";
 
 //Utils
 import { lang } from "@/src/common/Data/GlobalConstants";

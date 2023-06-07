@@ -1,7 +1,7 @@
 import React from 'react' 
 import Router from "next/router";
 
-//Components
+//components
 import SanitizedInnerHtml from '@/src/utils/SanitizedInnerHtml';
 import SearchTag from '@/src/common/Components/SearchTag';
 import Button from "@/FormElements/Button/Button";

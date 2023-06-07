@@ -6,7 +6,7 @@ import {
 
 
 //components
-import PersonSingleView from '@/src/DataTypes/Person/Components/layouts/single/PersonSingleView'
+import PersonSingleView from '@/DataTypes/Person/components/layouts/single/PersonSingleView'
 import {getUserHeadersFromUserSession} from "@/auth/context/auth-context";
 import {withSessionSsr} from "@/auth/session/handlers/withSession";
 import AppRoutes from "@/src/Routing/AppRoutes";
