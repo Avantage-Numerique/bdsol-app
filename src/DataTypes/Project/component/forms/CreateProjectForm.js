@@ -21,7 +21,11 @@ import { useAuth } from "@/src/authentification/context/auth-context";
 //Model
 import Project from "@/src/DataTypes/Project/models/Project"
 
-const CreateProjectForm = () => {
+
+/**
+ * @param {function} onPositiveResponse : Additionnal function to be executed if the submit response is positive
+ */
+const CreateProjectForm = ({ onPositiveResponse }) => {
 
     //Authentication ref
     const auth = useAuth();
@@ -44,6 +48,8 @@ const CreateProjectForm = () => {
         {
             displayResMessage: true,     //Display a message to the user to confirm the succes
             callbackFunction: (response) => {
+                //Execute additionnal function from parent component
+                if(onPositiveResponse) onPositiveResponse()
                 //Create a model for the response
                 const model = new Project(response.data);
                 //Redirection link to the edit page
@@ -87,6 +93,15 @@ const CreateProjectForm = () => {
                     {name: "REQUIRED"}
                 ]}
             />    
+            <SelectFetch 
+                name="context"
+                label="Choisissez un contexte"
+                className="my-1"
+                formTools={formTools}
+                validationRules={[{name: "REQUIRED"}]}
+                noValueText={lang.noSelectedOption}
+                fetchOption="context-enum"
+            />
             <Select2
                 name="entityInCharge"
                 className="my-1"
@@ -97,14 +112,6 @@ const CreateProjectForm = () => {
                 fetch={"/organisations/list"}
                 searchField={"name"}
                 selectField={"name"}
-            />
-            <SelectFetch 
-                name="context"
-                label="Choisissez un contexte"
-                className="my-1"
-                formTools={formTools}
-                noValueText={lang.noSelectedOption}
-                fetchOption="context-enum"
             />
             <div className="d-flex justify-content-end">
                 <Button disabled={!formState.isValid} type="button" onClick={submitHandler}>Créer</Button>
