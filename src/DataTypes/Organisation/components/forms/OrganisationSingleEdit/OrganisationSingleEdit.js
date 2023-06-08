@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import { useContext, useEffect, useCallback } from 'react';
 import Link from 'next/link'
 import Router from 'next/router';
 
@@ -173,6 +173,27 @@ const OrganisationSingleEdit = (props) => {
         );
     }
 
+    /* Needed for breadCrumb generator */
+    const getLabelGenerator = useCallback((param, query) => {
+        return {
+            "contribuer": lang.menuContributeLabel,
+            "organisations": lang.Organisations,
+            "slug": name       
+        }[param];
+    }, []);
+
+    /*****************************
+     * 
+     * 
+     *  Sections
+     * 
+     * 
+     ***************************/
+    const breadCrumb = {
+        route: model.singleEditRoute,
+        getLabelGenerator: getLabelGenerator
+    }
+
     const title = (
         <Input 
             name="name"
@@ -304,6 +325,7 @@ const OrganisationSingleEdit = (props) => {
     return (
         <>
             <SingleBase
+                breadCrumb={breadCrumb}
                 header={header}
                 fullWidthContent={fullWidthContent}
                 contentColumnLeft={contentColumnLeft}
