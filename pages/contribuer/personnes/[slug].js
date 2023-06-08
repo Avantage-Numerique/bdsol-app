@@ -9,7 +9,7 @@ import {
 import {getUserHeadersFromUserSession} from "@/auth/context/auth-context";
 import {withSessionSsr} from "@/auth/session/handlers/withSession";
 import AppRoutes from "@/src/Routing/AppRoutes";
-import PersonSingleEdit from '@/src/DataTypes/Person/Components/Forms/CreatePerson/PersonSingleEdit';
+import PersonSingleEdit from '@/DataTypes/Person/components/Forms/CreatePerson/PersonSingleEdit';
 
 
 const SinglePersonEditPage = props => {

@@ -13,7 +13,7 @@
 
 import {useRef, useEffect} from 'react'
 
-//Components
+//components
 import Button from '@/src/common/FormElements/Button/Button'
 
 //Styling

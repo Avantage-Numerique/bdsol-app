@@ -1,14 +1,11 @@
-import React, { useRef } from 'react'
-
-//hooks
-import { useFormUtils } from '@/src/hooks/useFormUtils/useFormUtils';
+import React from 'react';
 
 //components
 import Button from "@/FormElements/Button/Button";
 import Input from '@/src/common/FormElements/Input/Input';
 import Select2 from '@/src/common/FormElements/Select2/Select2';
 import Repeater from '@/src/common/FormElements/Repeater/Repeater';
-import SingleInfo from "@/src/Datatypes/common/layouts/SingleInfo/SingleInfo";
+import SingleInfo from "@/src/DataTypes/common/layouts/SingleInfo/SingleInfo";
 
 //Styling
 import styles from './UpdateTeams.module.scss'
@@ -19,6 +16,7 @@ import styles from './UpdateTeams.module.scss'
  * @param {string} name Name of formState value
  * @param {formTools} formTools
  * @param {object} parentEntity object data of entity that uses the structure of team
+ * @param {object} props rest of the props.
  */
 const UpdateTeams = ({name, formTools, parentEntity, ...props}) => {
 

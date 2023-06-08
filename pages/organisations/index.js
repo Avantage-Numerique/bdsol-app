@@ -1,6 +1,6 @@
 import React, {useState, useContext, useEffect, useCallback} from 'react'
 
-//Components 
+//components
 import PageHeader from "@/src/layouts/Header/PageHeader";
 import Button from '@/src/common/FormElements/Button/Button'
 import Spinner from '@/src/common/widgets/spinner/Spinner'

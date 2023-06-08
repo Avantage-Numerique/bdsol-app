@@ -4,7 +4,7 @@ import {useEffect, useState, useContext, useRef} from 'react'
 import {useFormUtils} from '@/src/hooks/useFormUtils/useFormUtils';
 import {useHttpClient} from '@/src/hooks/http-hook'
 
-//Components
+//components
 import Button from '@/FormElements/Button/Button';
 import Textarea from '@/FormElements/Textarea/Textarea';
 import SelectLicence from '@/src/common/FormElements/SelectLicence/SelectLicence';

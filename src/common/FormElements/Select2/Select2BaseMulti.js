@@ -1,6 +1,5 @@
-
-//Components
-import { useState, useEffect, useRef } from 'react';
+//components
+import {useRef} from 'react';
 import CreatableSelect from 'react-select/creatable';
 
 //Style, utils

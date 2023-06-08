@@ -1,6 +1,6 @@
-import EntityModel, {TYPE_DEFAULT} from "@/DataTypes/Entity/models/EntityModel";
+import EntityModel from "@/DataTypes/Entity/models/EntityModel";
 import MediaSingle from "@/DataTypes/Media/layouts/MediaSingle";
-import {TYPE_MEDIA} from "@/DataTypes/Entity/Types";
+import {TYPE_MEDIA, TYPE_DEFAULT} from "@/DataTypes/Entity/Types";
 
 
 class Media extends EntityModel {

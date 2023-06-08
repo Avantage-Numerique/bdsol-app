@@ -2,15 +2,15 @@ import React from 'react'
 import Router from 'next/router'
 
 //Custom hooks
-import { useFormUtils } from '@/src/hooks/useFormUtils/useFormUtils'
+import {useFormUtils} from '@/src/hooks/useFormUtils/useFormUtils'
 
-//Components
+//components
 import Button from '@/FormElements/Button/Button'
 import Input from '@/FormElements/Input/Input'
 import RichTextarea from '@/FormElements/RichTextArea/RichTextarea'
 
 //Context
-import { useAuth } from "@/src/authentification/context/auth-context";
+import {useAuth} from "@/src/authentification/context/auth-context";
 
 //Styling
 import styles from './CreatePersonForm.module.scss'
@@ -18,7 +18,7 @@ import styles from './CreatePersonForm.module.scss'
 //FormData
 import {getDefaultCreateEntityStatus} from "@/DataTypes/Status/EntityStatus";
 
-import Person from "@/DataTypes/Person/Models/Person";
+import Person from "@/DataTypes/Person/models/Person";
 import {replacePathname} from "@/src/helpers/url";
 
 const CreatePersonForm = ({ onPositiveResponse }) => {

@@ -1,8 +1,8 @@
-import PersonSimple from "@/DataTypes/Person/Components/layouts/simple/PersonSimple";
-import PersonSingle from "@/DataTypes/Person/Components/layouts/single/PersonSingle";
-import EntityModel, {TYPE_DEFAULT} from "@/DataTypes/Entity/models/EntityModel";
+import PersonSimple from "@/DataTypes/Person/components/layouts/simple/PersonSimple";
+import PersonSingle from "@/DataTypes/Person/components/layouts/single/PersonSingle";
+import EntityModel from "@/DataTypes/Entity/models/EntityModel";
 import AppRoutes from "@/src/Routing/AppRoutes";
-import {TYPE_PERSON} from "@/DataTypes/Entity/Types";
+import {TYPE_DEFAULT, TYPE_PERSON} from "@/DataTypes/Entity/Types";
 
 
 class Person extends EntityModel {

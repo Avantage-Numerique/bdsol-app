@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 
-//Components
+//components
 import UserHistoryGrid from '@/src/DataTypes/UserHistory/UserHistoryGrid';
 import Button from '@/src/common/FormElements/Button/Button';
 
@@ -10,7 +10,6 @@ import {useSessionHook} from '@/auth/hooks/useSessionHook';
 //Styling
 import styles from './accountPage.module.scss'
 import Profile from '@/src/common/Containers/UserAccount/Profile/profile';
-import Preferences from '@/src/common/Containers/UserAccount/Preferences/preferences';
 import Help from '@/src/common/Containers/UserAccount/Help/help';
 import {withSessionSsr} from "@/auth/session/handlers/withSession";
 import {ssrCanAccess} from "@/auth/permissions/ssrCanAccess";

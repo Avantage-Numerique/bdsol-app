@@ -11,7 +11,7 @@ import Head from 'next/head'
 //Context
 import { MessageContext } from '@/src/common/UserNotifications/Message/Context/Message-Context'
 
-//Components
+//components
 import Footer from '@/layouts/Footer/Footer'
 import Header from '@/layouts/Header/Header'
 import Nav from '@/layouts/Navigation/MainNav/Nav'

@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 
-//Components
+//components
 import SingleBaseHeader from "@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseHeader"
 import SingleBase from "@/src/DataTypes/common/layouts/single/SingleBase"
 import SingleInfo from "@/DataTypes/common/layouts/SingleInfo/SingleInfo";
@@ -8,12 +8,11 @@ import SearchTag from '@/src/common/Components/SearchTag';
 
 //Utils
 import SanitizedInnerHtml from '@/src/utils/SanitizedInnerHtml';
-import {SingleEntityStatus} from "@/DataTypes/Status/Components/SingleEntityStatus";
+import {SingleEntityStatus} from "@/DataTypes/Status/components/SingleEntityStatus";
 import {getDateFromIsoString} from "@/src/utils/DateHelper";
 import {replacePathname} from "@/src/helpers/url";
 import Project from "@/DataTypes/Project/models/Project";
 import {lang} from "@/common/Data/GlobalConstants";
-
 
 
 const ProjectSingleView = ({ data }) => {
@@ -139,7 +138,7 @@ const ProjectSingleView = ({ data }) => {
                                 Échéancier : {
                                 scheduleBudget.timeframe.map( (singleTimeframe, index) => {
                                     return (
-                                        <li key={`timeframe-${singleTimeframe._id}`} className={`border-start p-2 ${(index % 2 == 0) && "bg-greyBg"}`}>
+                                        <li key={`timeframe-${singleTimeframe._id}`} className={`border-start p-2 ${(index % 2 === 0) && "bg-greyBg"}`}>
                                             {singleTimeframe?.step ? <h5 className="text-successDarker m-0">{singleTimeframe.step}</h5> : <></> }
                                             <div className="d-flex flex-wrap gap-4">     
                                                 {singleTimeframe?.eta ? <div key={"timeframe-eta-"+index}>Durée : {singleTimeframe.eta}</div> : <></> }

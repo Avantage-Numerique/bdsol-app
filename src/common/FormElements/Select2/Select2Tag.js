@@ -5,7 +5,7 @@ import { useHttpClient } from '@/src/hooks/http-hook'
 import { useValidation } from '@/src/hooks/useValidation/useValidation';
 import useDebounce from '@/src/hooks/useDebounce'
 
-//Components
+//components
 import CreatableSelect from 'react-select/creatable';
 
 //Styling

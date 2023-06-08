@@ -1,10 +1,10 @@
-import React, {useCallback, useState} from 'react'
-import Router, {useRouter} from "next/router";
+import React, {useCallback} from 'react'
+import Router from "next/router";
 
 
-//Components
+//components
 import Button from "@/FormElements/Button/Button";
-import PersonSingleEdit from "@/src/DataTypes/Person/Components/Forms/CreatePerson/PersonSingleEdit";
+import PersonSingleEdit from "@/DataTypes/Person/components/Forms/CreatePerson/PersonSingleEdit";
 import SearchTag from '@/src/common/Components/SearchTag';
 import Single from "@/DataTypes/common/layouts/single/Single";
 import SingleInfo from "@/DataTypes/common/layouts/SingleInfo/SingleInfo";
@@ -18,7 +18,7 @@ import {useModal} from "@/src/hooks/useModal/useModal";
 
 //Utils
 import SanitizedInnerHtml from '@/src/utils/SanitizedInnerHtml';
-import {SingleEntityStatus} from "@/DataTypes/Status/Components/SingleEntityStatus";
+import {SingleEntityStatus} from "@/DataTypes/Status/components/SingleEntityStatus";
 import {lang} from "@/common/Data/GlobalConstants";
 import {useAuth} from "@/auth/context/auth-context";
 

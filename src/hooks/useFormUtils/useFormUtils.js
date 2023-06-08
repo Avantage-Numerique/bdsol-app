@@ -8,7 +8,7 @@ import React, { useState, useContext, useEffect, useCallback } from 'react'
 import { scroller } from 'react-scroll'
 import Router from 'next/router'
 
-//Components 
+//components
 import Spinner from '@/src/common/widgets/spinner/Spinner'
 
 //Custom hooks

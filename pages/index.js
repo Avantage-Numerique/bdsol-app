@@ -4,7 +4,7 @@ import DOMPurify from 'isomorphic-dompurify';
 import Head from 'next/head';
 import {lang} from "@/src/common/Data/GlobalConstants";
 
-//Components
+//components
 import Button from '@/src/common/FormElements/Button/Button'
 import Spinner from '@/src/common/widgets/spinner/Spinner'
 import {sortDescBy} from "@/src/common/Data/Sorting/Sort";
@@ -12,11 +12,11 @@ import PageHeader from "@/src/layouts/Header/PageHeader";
 import EntitiesGrid from "@/DataTypes/Entity/layouts/EntitiesGrid";
 
 //Entities
-import Person from "@/DataTypes/Person/Models/Person";
+import Person from "@/DataTypes/Person/models/Person";
 import Organisation from "@/DataTypes/Organisation/models/Organisation";
 import Project from "@/DataTypes/Project/models/Project";
 
-//Costum hooks 
+//Costum hooks
 import {useHttpClient} from '@/src/hooks/http-hook';
 
 //Context
@@ -115,7 +115,8 @@ const HomePage = ({}) => {
 
     //Function to return the path to the page of creation of an entity, depending on location
     const getCreateEntityPath = (type) => {
-        let model;
+        //@todo need DRY and verification for using "TYPE_PERSON", TYPE_ is a constant with a string value of the type.
+        let model;// = getModelFromType(type, {});
         if(type == "TYPE_PERSON")
             model = new Person({})
         if(type == "TYPE_ORGANISATION")

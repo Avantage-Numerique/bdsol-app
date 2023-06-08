@@ -1,21 +1,19 @@
 import React, {useCallback} from 'react'
 
 
-//Components
-import CreatePersonForm from "@/DataTypes/Person/Components/Forms/CreatePerson/CreatePersonForm";
+//components
+import CreatePersonForm from "@/DataTypes/Person/components/Forms/CreatePerson/CreatePersonForm";
 import SearchTag from '@/src/common/Components/SearchTag';
 import Single from "@/DataTypes/common/layouts/single/Single";
 import SingleInfo from "@/DataTypes/common/layouts/SingleInfo/SingleInfo";
 
 //Styling
-import styles from './ProjectSingle.module.scss'
-
 //Hooks
 import {useModal} from "@/src/hooks/useModal/useModal";
 
 //Utils
 import SanitizedInnerHtml from '@/src/utils/SanitizedInnerHtml';
-import {SingleEntityStatus} from "@/DataTypes/Status/Components/SingleEntityStatus";
+import {SingleEntityStatus} from "@/DataTypes/Status/components/SingleEntityStatus";
 import {lang} from "@/common/Data/GlobalConstants";
 
 const ProjectSingle = ({data, route}) => {
@@ -62,7 +60,7 @@ const ProjectSingle = ({data, route}) => {
     );
 
     const headerMainContent = (
-        <div className={`${styles["quick-section"]}`}>
+        <div className={`quick-section`}>
             <h2 className="mb-2">{name}</h2>
             {alternateName && <p> {alternateName} </p>}
             {/*entityInCharge && <p><code>{entityInCharge}</code></p>*/}

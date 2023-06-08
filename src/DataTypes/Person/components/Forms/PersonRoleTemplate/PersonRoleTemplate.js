@@ -1,9 +1,8 @@
 //React hook
-import { useState } from "react";
-import { useEffect } from "react";
+import {useEffect, useState} from "react";
 
 //Context
-import { useAuth } from "@/src/authentification/context/auth-context";
+import {useAuth} from "@/src/authentification/context/auth-context";
 
 //Component
 import Select2Tag from "@/src/common/FormElements/Select2/Select2Tag";
@@ -89,7 +88,7 @@ const PersonRoleTemplate = (props) => {
                 single="true" //For the moment, this template works only with the Select2 on single mode
             />
             <div>
-                { personList.length != 0 &&
+                { personList.length !== 0 &&
                     <>
                         {//<Button slim="true" type="button" onClick={ () => removeEntity()}>✖</Button><br/>
                         //Commented because repeater already allows remove of the entity (by deleting the child)

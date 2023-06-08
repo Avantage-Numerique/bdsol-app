@@ -5,9 +5,9 @@ import Router from 'next/router';
 import { useModal } from '@/src/hooks/useModal/useModal'
 import {useHttpClient} from '@/src/hooks/http-hook';
 
-//Components
+//components
 import Button from '@/src/common/FormElements/Button/Button'
-import DEPRECATED_UpdatePersonForm from '@/DataTypes/Person/Components/Forms/update/DEPRECATED_UpdatePersonForm'
+import DEPRECATED_UpdatePersonForm from '@/DataTypes/Person/components/Forms/update/DEPRECATED_UpdatePersonForm'
 import CreateMediaForm from '@/DataTypes/Media/components/forms/CreateMedia/CreateMediaForm'
 
 //Styling

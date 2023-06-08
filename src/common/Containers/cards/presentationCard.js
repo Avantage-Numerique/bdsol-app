@@ -1,6 +1,6 @@
 import React from 'react';
 
-//Components
+//components
 import SanitizedInnerHtml from '@/src/utils/SanitizedInnerHtml';
 import Button from '@/common/FormElements/Button/Button'
 
