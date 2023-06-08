@@ -1,4 +1,4 @@
-import React from 'react';
+import { useCallback } from 'react';
 
 //Components
 import SingleBaseHeader from "@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseHeader"
@@ -40,9 +40,22 @@ const OrganisationSingleView = ({ data }) => {
     const model = new Organisation(data);
     const link = "/"+replacePathname(model.singleEditRoute.pathname, {slug: model.slug});
 
+    /* Needed for breadCrumb generator */
+    const getLabelGenerator = useCallback((param, query) => {
+        return {
+            "organisations": lang.Organisations,
+            "slug": name        
+        }[param];
+    }, []);
+
     /****************************
      *  Sections
      ***************************/
+    const breadCrumb = {
+        route: model.singleRoute,
+        getLabelGenerator: getLabelGenerator
+    }
+
     const Header = (
         <SingleBaseHeader 
             title={(<h2 className="text-white">{`${name}`}</h2>)}
@@ -160,6 +173,7 @@ const OrganisationSingleView = ({ data }) => {
     return (
         <>
             <SingleBase 
+                breadCrumb={breadCrumb}
                 header={Header}
                 fullWidthContent={FullWidthContent}
                 contentColumnLeft={ContentColumnLeft}

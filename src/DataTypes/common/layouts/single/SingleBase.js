@@ -3,6 +3,7 @@ import styles from './SingleBase.module.scss';
 
 //Component
 import SingleBaseHeader from './defaultSections/SingleBaseHeader';
+import {Breadcrumbs} from "@/common/Breadcrumbs/Breadcrumbs";
 
 
 /**
@@ -20,6 +21,7 @@ const SingleBase = (props) => {
 
     //Main props destructuring
     const {
+        breadCrumb,
         header,
         fullWidthContent,
         contentColumnLeft,
@@ -32,10 +34,11 @@ const SingleBase = (props) => {
     return (
         <div className="container">
             { /* BreadCrumbs */ }
+            {  breadCrumb &&
             <div className="row">
-                {//<BreadCrumbs
-                }
+                <Breadcrumbs className={"pt-2"} route={breadCrumb.route} getLabelGenerator={breadCrumb.getLabelGenerator || undefined} />
             </div>
+            }
             
             { /* Header */ }
                 {/* Background image */}

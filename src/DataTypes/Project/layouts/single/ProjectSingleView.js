@@ -1,4 +1,4 @@
-import React from 'react';
+import { useCallback } from 'react';
 
 //Components
 import SingleBaseHeader from "@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseHeader"
@@ -12,6 +12,7 @@ import {SingleEntityStatus} from "@/DataTypes/Status/Components/SingleEntityStat
 import {getDateFromIsoString} from "@/src/utils/DateHelper";
 import {replacePathname} from "@/src/helpers/url";
 import Project from "@/DataTypes/Project/models/Project";
+import {lang} from "@/common/Data/GlobalConstants";
 
 
 
@@ -40,12 +41,24 @@ const ProjectSingleView = ({ data }) => {
     } = data;
 
     const model = new Project(data);
-
     const link = "/"+replacePathname(model.singleEditRoute.pathname, {slug: model.slug});
+
+    /* Needed for breadCrumb generator */
+    const getLabelGenerator = useCallback((param, query) => {
+        return {
+            "projets": lang.Projects,
+            "slug": name       
+        }[param];
+    }, []);
 
     /****************************
      *  Sections
      ***************************/
+    const breadCrumb = {
+        route: model.singleRoute,
+        getLabelGenerator: getLabelGenerator
+    }
+
     const Header = (
         <SingleBaseHeader 
             title={(<h2 className="text-white">{`${name}`}</h2>)}
@@ -204,6 +217,7 @@ const ProjectSingleView = ({ data }) => {
 
     return (  
         <SingleBase 
+            breadCrumb={breadCrumb}
             header={Header}
             fullWidthContent={FullWidthContent}
             contentColumnLeft={ContentColumnLeft}
