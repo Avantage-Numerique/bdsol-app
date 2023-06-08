@@ -1,4 +1,4 @@
-import React from 'react'
+import { useCallback } from 'react'
 import Link from 'next/link'
 
 //Custom hooks
@@ -141,7 +141,26 @@ const PersonSingleEdit = ({initValues, positiveRequestActions, ...props}) => {
         );
     }
 
+    /* Needed for breadCrumb generator */
+    const getLabelGenerator = useCallback((param, query) => {
+        return {
+            "contribuer": lang.menuContributeLabel,
+            "personnes": lang.Persons,
+            "slug": `${firstName} ${lastName}`       
+        }[param];
+    }, []);
 
+    /*****************************
+     * 
+     * 
+     *  Sections
+     * 
+     * 
+     ***************************/
+    const breadCrumb = {
+        route: model.singleEditRoute,
+        getLabelGenerator: getLabelGenerator
+    }
 
     const title = (
         <div className="row">
@@ -267,6 +286,7 @@ const PersonSingleEdit = ({initValues, positiveRequestActions, ...props}) => {
             >
             */}
                 <SingleBase
+                    breadCrumb={breadCrumb}
                     header={header}
                     fullWidthContent={fullWidthContent}
                     contentColumnLeft={contentColumnLeft}
