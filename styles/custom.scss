@@ -3,6 +3,8 @@
     01Hub - 08/08/2022
 */
 
+$primary-text-emphasis-dark:#0f0f0f;
+
 //colors
 $blue: #455ae6; // Avantage numérique's mainBlue (and blue1)
 $blue2: #4d64ff; // Avantage numérique's mainBlue (and blue2)
@@ -48,9 +50,8 @@ $selected-input: $blue;
 $primary:       $blue;
 $primarylight:  $purple-light;
 $primarydark:  darken($blue, 10%);
-$secondary:  $grey;
+$secondary: $grey;
 $secondarylight:  lighten($secondary,10%);
-$primary-text-emphasis-dark:$primarydark;
 
 $theme-colors:(
     "primary": $blue,
