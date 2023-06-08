@@ -85,7 +85,10 @@ const nextConfig = {
         appUrl: process.env.APP_PROTOCOLE + "" + process.env.APP_BASE_URL + ":" + process.env.APP_PORT
     },
     sassOptions: {
-        includePaths: ['./styles', './node_modules'],
+        includePaths: [
+            path.join(__dirname, 'styles'),
+            path.join(__dirname, 'node_modules')
+        ],
         prependData: `@import "./component-base-imports.scss";`
     },
     eslint: {

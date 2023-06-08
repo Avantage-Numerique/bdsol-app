@@ -44,8 +44,7 @@
     "react-quill": "^2.0.0",
     "react-redux": "^8.0.1",
     "react-scroll": "^1.8.7",
-    "react-select": "^5.7.0",
-    "sass": "^1.49.0"
+    "react-select": "^5.7.0"
   },
   "devDependencies": {
     "@babel/core": "^7.21.4",
@@ -56,6 +55,7 @@
     "eslint": "^8.39.0",
     "jest": "^28.1.0",
     "nodemon": "^2.0.15",
-    "purgecss": "^5.0.0"
+    "purgecss": "^5.0.0",
+    "sass": "^1.63.2"
   }
 }
