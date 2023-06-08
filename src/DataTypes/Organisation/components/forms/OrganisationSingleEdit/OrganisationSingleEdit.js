@@ -1,17 +1,17 @@
-import React, { useContext, useEffect } from 'react';
+import React, {useContext, useEffect} from 'react';
 import Link from 'next/link'
 import Router from 'next/router';
 
 //Context
-import { MessageContext } from '@/src/common/UserNotifications/Message/Context/Message-Context';
+import {MessageContext} from '@/src/common/UserNotifications/Message/Context/Message-Context';
 
 //Hooks
 import {useAuth} from '@/auth/context/auth-context';
 import {useFormUtils} from '@/src/hooks/useFormUtils/useFormUtils';
-import { useModal } from '@/src/hooks/useModal/useModal';
+import {useModal} from '@/src/hooks/useModal/useModal';
 
 //Component
-import Select2Tag from '@/src/common/FormElements/Select2/Select2Tag';
+import Select2Tag, {getSelectedToFormData} from '@/src/common/FormElements/Select2/Select2Tag';
 import Button from '@/src/common/FormElements/Button/Button';
 import Input from '@/src/common/FormElements/Input/Input';
 import RichTextarea from '@/src/common/FormElements/RichTextArea/RichTextarea';
@@ -19,17 +19,16 @@ import CreateTaxonomyForm from '@/DataTypes/Taxonomy/components/Forms/CreateTaxo
 import Modal from '@/src/hooks/useModal/Modal/Modal';
 
 import {getDefaultUpdateEntityStatus} from "@/DataTypes/Status/EntityStatus";
-import { getSelectedToFormData } from '@/src/common/FormElements/Select2/Select2Tag';
 import styles from './CreateOrganisationForm.module.scss'
 import {getDateFromIsoString} from "@/src/utils/DateHelper";
 import SingleBase from '@/src/DataTypes/common/layouts/single/SingleBase';
 import SingleBaseHeader from '@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseHeader';
 import SingleInfo from '@/src/DataTypes/common/layouts/SingleInfo/SingleInfo';
-import { SingleEntityStatus } from '@/src/DataTypes/Status/Components/SingleEntityStatus';
+import {SingleEntityStatus} from '@/DataTypes/Status/components/SingleEntityStatus';
 import UpdateSkillGroup from '@/src/DataTypes/common/Forms/UpdateSkillGroup/UpdateSkillGroup';
 import UpdateTeams from '../UpdateTeams/UpdateTeams';
 
-//Utils 
+//Utils
 import Organisation from '@/src/DataTypes/Organisation/models/Organisation';
 import {replacePathname} from "@/src/helpers/url";
 import {lang} from "@/src/common/Data/GlobalConstants";

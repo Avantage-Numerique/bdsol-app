@@ -4,7 +4,7 @@ import LicenceDisplay from '@/src/common/FormElements/SelectLicence/LicenceDispl
 //components
 import Single from "@/DataTypes/common/layouts/single/Single";
 import Button from "@/FormElements/Button/Button"
-import {SingleEntityStatus} from "@/DataTypes/Status/Components/SingleEntityStatus";
+import {SingleEntityStatus} from "@/DataTypes/Status/components/SingleEntityStatus";
 import {getEntityURI} from "@/src/utils/EntityURI";
 
 //hooks

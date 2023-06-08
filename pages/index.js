@@ -12,7 +12,7 @@ import PageHeader from "@/src/layouts/Header/PageHeader";
 import EntitiesGrid from "@/DataTypes/Entity/layouts/EntitiesGrid";
 
 //Entities
-import Person from "@/DataTypes/Person/Models/Person";
+import Person from "@/DataTypes/Person/models/Person";
 import Organisation from "@/DataTypes/Organisation/models/Organisation";
 import Project from "@/DataTypes/Project/models/Project";
 

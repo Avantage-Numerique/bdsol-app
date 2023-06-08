@@ -11,11 +11,10 @@ import styles from './PersonSingle.module.scss'
 
 //Utils
 import SanitizedInnerHtml from '@/src/utils/SanitizedInnerHtml';
-import {SingleEntityStatus} from "@/DataTypes/Status/Components/SingleEntityStatus";
+import {SingleEntityStatus} from "@/DataTypes/Status/components/SingleEntityStatus";
 import {lang} from "@/common/Data/GlobalConstants";
 import {replacePathname} from "@/src/helpers/url";
-import Person from "@/DataTypes/Person/Models/Person";
-
+import Person from "@/DataTypes/Person/models/Person";
 
 
 const PersonSingleView = ({ data }) => {

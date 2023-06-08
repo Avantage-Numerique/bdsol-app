@@ -2,7 +2,7 @@ import React from 'react';
 import Link from 'next/link'
 
 //Custom hooks
-import { useFormUtils } from '@/src/hooks/useFormUtils/useFormUtils'
+import {useFormUtils} from '@/src/hooks/useFormUtils/useFormUtils'
 
 //components
 import Button from '@/FormElements/Button/Button'
@@ -12,18 +12,18 @@ import Select2 from '@/FormElements/Select2/Select2'
 import SingleBaseHeader from '@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseHeader';
 import RichTextarea from '@/src/common/FormElements/RichTextArea/RichTextarea';
 import SingleInfo from '@/src/DataTypes/common/layouts/SingleInfo/SingleInfo';
-import { SingleEntityStatus } from '@/src/DataTypes/Status/Components/SingleEntityStatus';
+import {SingleEntityStatus} from '@/DataTypes/Status/components/SingleEntityStatus';
 import SingleBase from '@/src/DataTypes/common/layouts/single/SingleBase';
 import UpdateTeams from '@/src/DataTypes/Organisation/components/forms/UpdateTeams/UpdateTeams';
 
-//Utils 
+//Utils
 import {lang} from "@/src/common/Data/GlobalConstants";
 import {getDefaultCreateEntityStatus} from "@/DataTypes/Status/EntityStatus";
 import Project from "@/DataTypes/Project/models/Project";
 import {replacePathname} from "@/src/helpers/url";
 
 //Context
-import { useAuth } from "@/src/authentification/context/auth-context";
+import {useAuth} from "@/src/authentification/context/auth-context";
 import UpdateScheduleBudget from '@/src/DataTypes/Project/component/forms/UpdateScheduleBudget';
 import UpdateSponsor from '@/src/DataTypes/Project/component/forms/UpdateSponsor';
 

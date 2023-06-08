@@ -18,7 +18,7 @@ import {useModal} from "@/src/hooks/useModal/useModal";
 
 //Utils
 import SanitizedInnerHtml from '@/src/utils/SanitizedInnerHtml';
-import {SingleEntityStatus} from "@/DataTypes/Status/Components/SingleEntityStatus";
+import {SingleEntityStatus} from "@/DataTypes/Status/components/SingleEntityStatus";
 import {lang} from "@/common/Data/GlobalConstants";
 import {useAuth} from "@/auth/context/auth-context";
 

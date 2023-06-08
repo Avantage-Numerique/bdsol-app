@@ -8,7 +8,7 @@ import SearchTag from '@/src/common/Components/SearchTag';
 
 //Utils
 import SanitizedInnerHtml from '@/src/utils/SanitizedInnerHtml';
-import {SingleEntityStatus} from "@/DataTypes/Status/Components/SingleEntityStatus";
+import {SingleEntityStatus} from "@/DataTypes/Status/components/SingleEntityStatus";
 import {getDateFromIsoString} from "@/src/utils/DateHelper";
 import {replacePathname} from "@/src/helpers/url";
 import Project from "@/DataTypes/Project/models/Project";

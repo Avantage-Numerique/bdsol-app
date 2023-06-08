@@ -2,8 +2,8 @@ import React from 'react'
 import Link from 'next/link'
 
 //Custom hooks
-import { useFormUtils } from '@/src/hooks/useFormUtils/useFormUtils'
-import { useModal } from '@/src/hooks/useModal/useModal'
+import {useFormUtils} from '@/src/hooks/useFormUtils/useFormUtils'
+import {useModal} from '@/src/hooks/useModal/useModal'
 
 //components
 import Button from '@/FormElements/Button/Button'
@@ -11,24 +11,23 @@ import Input from '@/FormElements/Input/Input'
 import RichTextarea from '@/FormElements/RichTextArea/RichTextarea'
 import CreateTaxonomyForm from '@/DataTypes/Taxonomy/components/Forms/CreateTaxonomy/CreateTaxonomyForm'
 import {lang} from "@/src/common/Data/GlobalConstants";
-import Select2Tag from '@/src/common/FormElements/Select2/Select2Tag'
+import Select2Tag, {getSelectedToFormData} from '@/src/common/FormElements/Select2/Select2Tag'
 import Modal from '@/src/hooks/useModal/Modal/Modal'
 import SingleInfo from '@/src/DataTypes/common/layouts/SingleInfo/SingleInfo'
-import { SingleEntityStatus } from '@/src/DataTypes/Status/Components/SingleEntityStatus'
+import {SingleEntityStatus} from '@/DataTypes/Status/components/SingleEntityStatus'
 
 //Context
-import { useAuth } from "@/src/authentification/context/auth-context";
+import {useAuth} from "@/src/authentification/context/auth-context";
 
 //Styling
 import styles from './CreatePersonForm.module.scss'
 
 //FormData
 import {getDefaultCreateEntityStatus} from "@/DataTypes/Status/EntityStatus";
-import { getSelectedToFormData } from '@/src/common/FormElements/Select2/Select2Tag'
 import SingleBaseHeader from '@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseHeader'
 import SingleBase from '@/src/DataTypes/common/layouts/single/SingleBase'
 import UpdateSkillGroup from '@/src/DataTypes/common/Forms/UpdateSkillGroup/UpdateSkillGroup'
-import Person from "@/DataTypes/Person/Models/Person";
+import Person from "@/DataTypes/Person/models/Person";
 import {replacePathname} from "@/src/helpers/url";
 
 const PersonSingleEdit = ({initValues, positiveRequestActions, ...props}) => {

@@ -10,7 +10,7 @@ import SearchTag from '@/src/common/Components/SearchTag';
 import Organisation from '@/src/DataTypes/Organisation/models/Organisation';
 import {lang} from "@/common/Data/GlobalConstants";
 import SingleInfo from "@/DataTypes/common/layouts/SingleInfo/SingleInfo";
-import {SingleEntityStatus} from "@/DataTypes/Status/Components/SingleEntityStatus";
+import {SingleEntityStatus} from "@/DataTypes/Status/components/SingleEntityStatus";
 import {replacePathname} from "@/src/helpers/url";
 
 const OrganisationSingleView = ({ data }) => {

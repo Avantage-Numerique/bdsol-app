@@ -14,7 +14,7 @@ import {ssrCanAccess} from "@/auth/permissions/ssrCanAccess";
 import PageHeader from "@/layouts/Header/PageHeader";
 
 //Entities
-import Person from "@/DataTypes/Person/Models/Person";
+import Person from "@/DataTypes/Person/models/Person";
 import Organisation from "@/DataTypes/Organisation/models/Organisation";
 import Project from "@/DataTypes/Project/models/Project";
 

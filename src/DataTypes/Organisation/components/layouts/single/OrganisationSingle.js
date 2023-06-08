@@ -1,4 +1,4 @@
-import React from 'react' 
+import React from 'react'
 import Router from "next/router";
 
 //components
@@ -9,7 +9,7 @@ import Button from "@/FormElements/Button/Button";
 //Custom hooks
 import {useModal} from "@/src/hooks/useModal/useModal";
 
-//Styling 
+//Styling
 import styles from './OrganisationSimple.module.scss';
 
 //Utils
@@ -19,11 +19,11 @@ import DateWidget from "@/common/widgets/DateWidget/DateWidget";
 import Icon from "@/common/widgets/Icon/Icon";
 
 
-
 import Single from "@/DataTypes/common/layouts/single/Single";
-import OrganisationSingleEdit from "@/src/DataTypes/Organisation/components/forms/OrganisationSingleEdit/OrganisationSingleEdit";
+import OrganisationSingleEdit
+    from "@/src/DataTypes/Organisation/components/forms/OrganisationSingleEdit/OrganisationSingleEdit";
 import SingleInfo from "@/DataTypes/common/layouts/SingleInfo/SingleInfo";
-import {SingleEntityStatus} from "@/DataTypes/Status/Components/SingleEntityStatus";
+import {SingleEntityStatus} from "@/DataTypes/Status/components/SingleEntityStatus";
 import UpdateTeams from '@/src/DataTypes/Organisation/components/forms/UpdateTeams/UpdateTeams';
 
 

@@ -2,6 +2,11 @@
   "name": "bdsol-frontend",
   "version": "0.0.1",
   "description": "BDSOL fronted en nextjs",
+  "authors": [
+    "Frédéric Rivard",
+    "Marc-André Martin",
+    "Vincent P. Ruel"
+  ],
   "private": true,
   "scripts": {
     "dev": "next dev",

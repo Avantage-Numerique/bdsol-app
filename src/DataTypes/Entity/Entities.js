@@ -1,5 +1,5 @@
 import {TYPE_DEFAULT, TYPE_ORGANISATION, TYPE_PERSON, TYPE_PROJECT} from "@/DataTypes/Entity/Types";
-import Person from "@/DataTypes/Person/Models/Person";
+import Person from "@/DataTypes/Person/models/Person";
 import Organisation from "@/DataTypes/Organisation/models/Organisation";
 import Project from "@/DataTypes/Project/models/Project";
 import EntityModel from "@/DataTypes/Entity/models/EntityModel";
