@@ -1,10 +1,9 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 
 //Component 
 import PersonSingleEdit from '@/src/DataTypes/Person/Components/Forms/CreatePerson/PersonSingleEdit'
-import Button from '@/src/common/FormElements/Button/Button';
-import SingleViewEntityFormLayout from "@/DataTypes/common/layouts/SingleViewEntityFormLayout/SingleViewEntityFormLayout";
 import CreatePersonForm from "@/DataTypes/Person/Components/Forms/CreatePerson/CreatePersonForm"
+import Spinner from '@/src/common/widgets/spinner/Spinner';
 
 //Hooks 
 import { useModal } from '@/src/hooks/useModal/useModal';
@@ -19,13 +18,18 @@ const PersonSingleEditPage = () => {
 
     //Modal hook
     const { modal, Modal, displayModal, closeModal } = useModal()
+    //Loading state
+    const [isLoading, setIsLoading] = useState(false);
 
     //Display the modal once the component has rendered
     useEffect(() => displayModal(), [])
 
     return (
         <div className="container py-4">
+                {/* Empty single edit in the background */}
                 <PersonSingleEdit data={{}} />
+                {/* Loading state while waiting for rederection */}
+                {isLoading && <Spinner fixed />}
 
                 { modal.display &&
                     <Modal 
@@ -36,7 +40,10 @@ const PersonSingleEditPage = () => {
                             <h3 className="text-primary">Ajouter une Personne</h3>
                             <p>Entrez les informations de base d'une entité "Personne". Vous pourrez l'éditer de manière détaillée par la suite.</p>
                         </header>   
-                        <CreatePersonForm />
+                        <CreatePersonForm onPositiveResponse={() => {
+                            closeModal()
+                            setIsLoading(true)
+                        }}/>
                     </Modal>
                 }
         </div>

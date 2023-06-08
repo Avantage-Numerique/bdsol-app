@@ -21,7 +21,7 @@ import {getDefaultCreateEntityStatus} from "@/DataTypes/Status/EntityStatus";
 import Person from "@/DataTypes/Person/Models/Person";
 import {replacePathname} from "@/src/helpers/url";
 
-const CreatePersonForm = () => {
+const CreatePersonForm = ({ onPositiveResponse }) => {
     
     //Authentication ref
     const auth = useAuth();
@@ -51,6 +51,8 @@ const CreatePersonForm = () => {
         {
             displayResMessage: true,     //Display a message to the user to confirm the succes
             callbackFunction: (response) => {
+                //Execute additionnal function from parent component
+                if(onPositiveResponse) onPositiveResponse()
                 //Create a model for the response
                 const model = new Person(response.data);
                 //Redirection link to the edit page
