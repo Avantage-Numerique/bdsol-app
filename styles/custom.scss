@@ -47,8 +47,10 @@ $selected-input: $blue;
 // scss-docs-start theme-color-variables
 $primary:       $blue;
 $primarylight:  $purple-light;
+$primarydark:  darken($blue, 10%);
 $secondary:  $grey;
 $secondarylight:  lighten($secondary,10%);
+$primary-text-emphasis-dark:$primarydark;
 
 $theme-colors:(
     "primary": $blue,
