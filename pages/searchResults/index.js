@@ -16,7 +16,6 @@ const SearchResults = () => {
 
 
     const updateFilterState = (filterType) => {
-        
         if(filterType == "all")
             setFilter([]);
         else {
@@ -157,34 +156,44 @@ const SearchResults = () => {
                         <h4>Filtres</h4>
                         { searchList &&
                             <ul>
-                                <li className="row py-2 form-check" role="button" key="filter-CBL-all" onClick={() => updateFilterState("all")}>
-                                    <input className="form-check-input col-1" type="checkbox" checked={filter.length == 0} id="filter-CB-all"/>
-                                    <label className="form-check-label col-8" for="filter-CB-all">Tout les résultats</label>
-                                    <span className="col-3">{(nearTaxonomyObject?.linkedEntityToNearestTaxonomy?.length || 0) + (searchList?.length || 0)}</span>
+                                <li className="row py-2 form-check flex-nowrap d-flex" role="button" key="filter-CBL-all" onClick={() => updateFilterState("all")}>
+                                    <input readOnly className="form-check-input col-1" type="checkbox" checked={filter.length == 0} id="filter-CB-all"/>
+                                    <span className="d-flex align-items-center justify-content-between">
+                                        <span className="form-check-label col-8">Tout les résultats</span>                                
+                                        <span className="col-3">{(nearTaxonomyObject?.linkedEntityToNearestTaxonomy?.length || 0) + (searchList?.length || 0)}</span>
+                                    </span>
                                 </li>
 
-                                <li className="row py-2 form-check" role="button" key="filter-CBL-linkedTaxonomy" onClick={() => updateFilterState("linkedTaxonomy")}>
-                                    <input className="form-check-input col-1" type="checkbox" checked={filter.includes("linkedTaxonomy")} id="filter-CB-linkedTaxonomy"/>
-                                    <label className="form-check-label col-8" for="filter-CB-linkedTaxonomy">Entité liée suggérée</label>
-                                    <span className="col-3">{nearTaxonomyObject?.linkedEntityToNearestTaxonomy?.length.toString() ?? "0"}</span>
+                                <li className="row py-2 form-check flex-nowrap d-flex" role="button" key="filter-CBL-linkedTaxonomy" onClick={() => updateFilterState("linkedTaxonomy")}>
+                                    <input readOnly className="form-check-input col-1" type="checkbox" checked={filter.includes("linkedTaxonomy")} id="filter-CB-linkedTaxonomy"/>
+                                    <span className="d-flex align-items-center justify-content-between">
+                                        <span className="form-check-label col-8">Entité liée suggérée</span>
+                                        <span className="col-3">{nearTaxonomyObject?.linkedEntityToNearestTaxonomy?.length.toString() ?? "0"}</span>
+                                    </span>
                                 </li>
 
-                                <li className="row py-2 form-check" role="button" key="filter-CBL-person" onClick={() => updateFilterState("Person")}>
-                                    <input className="form-check-input col-1" type="checkbox" checked={filter.includes("Person")} id="filter-CB-person"/>
-                                    <label className="form-check-label col-8" for="filter-CB-person">Personnes</label>
-                                    <span className="col-3">{searchList.filter( (el) => {return el.type == "Person"}).length.toString() ?? "0"}</span>
+                                <li className="row py-2 form-check flex-nowrap d-flex" role="button" key="filter-CBL-person" onClick={() => {updateFilterState("Person")}}>
+                                    <input readOnly className="form-check-input col-1" type="checkbox" checked={filter.includes("Person")} id="filter-CB-person"/>
+                                    <span className="d-flex align-items-center justify-content-between">
+                                        <span className="form-check-label col-8">Personnes</span>
+                                        <span className="col-3">{searchList.filter( (el) => {return el.type == "Person"}).length.toString() ?? "0"}</span>
+                                    </span>
                                 </li>
 
-                                <li className="row py-2 form-check" role="button" key="filter-CBL-organisation" onClick={() => updateFilterState("Organisation")}>
-                                    <input className="form-check-input col-1" type="checkbox" checked={filter.includes("Organisation")} id="filter-CB-organisation"/>
-                                    <label className="form-check-label col-8" for="filter-CB-organisation">Organisations</label>
-                                    <span className="col-3">{searchList.filter( (el) => {return el.type == "Organisation"}).length.toString() ?? "0"}</span>
+                                <li className="row py-2 form-check flex-nowrap d-flex" role="button" key="filter-CBL-organisation" onClick={() => updateFilterState("Organisation")}>
+                                    <input readOnly className="form-check-input col-1" type="checkbox" checked={filter.includes("Organisation")} id="filter-CB-organisation"/>
+                                    <span className="d-flex align-items-center justify-content-between">
+                                        <span className="form-check-label col-8">Organisations</span>
+                                        <span className="col-3">{searchList.filter( (el) => {return el.type == "Organisation"}).length.toString() ?? "0"}</span>
+                                    </span>
                                 </li>
 
-                                <li className="row py-2 form-check" role="button" key="filter-CBL-project" onClick={() => updateFilterState("Project")}>
-                                    <input className="form-check-input col-1" type="checkbox" checked={filter.includes("Project")} id="filter-CB-project"/>
-                                    <label className="form-check-label col-8" for="filter-CB-project">Projets</label>
-                                    <span className="col-3">{searchList.filter( (el) => {return el.type == "Project"}).length.toString() ?? "0"}</span>
+                                <li className="row py-2 form-check flex-nowrap d-flex" role="button" key="filter-CBL-project" onClick={() => updateFilterState("Project")}>
+                                    <input readOnly className="form-check-input col-1" type="checkbox" checked={filter.includes("Project")} id="filter-CB-project"/>
+                                    <span className="d-flex align-items-center justify-content-between">
+                                        <span className="form-check-label col-8">Projets</span>
+                                        <span className="col-3">{searchList.filter( (el) => {return el.type == "Project"}).length.toString() ?? "0"}</span>
+                                    </span>
                                 </li>
                             </ul>
                         }
@@ -202,7 +211,7 @@ const SearchResults = () => {
                         :
                         <div>
                             {/* else show linkedTaxonomy or result by type */}
-                            { filter.map( (el) => { return <>{researchResult(el)}</> }) }                         
+                            { filter.map( (el) => { return <div key={el}>{researchResult(el)}</div> }) }                         
                         </div>
                     }
 
