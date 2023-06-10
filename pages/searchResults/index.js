@@ -99,25 +99,26 @@ const SearchResults = () => {
             </div>
         )
     }
+    
     const linkedEntityToTaxonomyComponent = () => {
         return (
             <div className="py-4">
                 {
-                    nearTaxonomyObject?.nearestTaxonomy &&
-                    <>
+                    nearTaxonomyObject?.nearestTaxonomy ?
                         <h3>Entité reliée à la catégorie :
                             {
                                 <a href={`/categories/${nearTaxonomyObject?.nearestTaxonomy?.category}/${nearTaxonomyObject?.nearestTaxonomy?.slug}`}>
                                     &nbsp;{nearTaxonomyObject?.nearestTaxonomy?.name}
                                 </a>}
                         </h3>
-                        {
-                            nearTaxonomyObject?.linkedEntityToNearestTaxonomy.length > 0 ?
-                                <EntitiesGrid className={"row"} columnClass={"col g-3 col-md-4"} feed={nearTaxonomyObject.linkedEntityToNearestTaxonomy}></EntitiesGrid>
-                                :
-                                <p>Aucune entité est liée à cette catégorie</p>
-                        }
-                    </>
+                    :
+                    <h3>Aucune suggestion de catégorie pour la recherche "{router.query.searchIndex}"</h3>
+                }
+                {
+                    nearTaxonomyObject?.linkedEntityToNearestTaxonomy.length > 0 ?
+                        <EntitiesGrid className={"row"} columnClass={"col g-3 col-md-4"} feed={nearTaxonomyObject.linkedEntityToNearestTaxonomy}></EntitiesGrid>
+                        :
+                        <p>Aucune entité est liée à cette catégorie</p>
                 }
             </div>
         )

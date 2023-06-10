@@ -117,7 +117,7 @@ const SearchBar = ({small, ...props}) => {
 
     const submitHandler = async event => {
         event?.preventDefault();
-        Router.push({
+        await Router.push({
             pathname: "/searchResults",
             query: {searchIndex: inputValue},
         });
