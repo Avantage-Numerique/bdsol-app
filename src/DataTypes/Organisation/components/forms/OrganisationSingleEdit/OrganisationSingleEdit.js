@@ -150,12 +150,14 @@ const OrganisationSingleEdit = (props) => {
                     }
                 }),
                 catchphrase: formState.inputs.catchphrase.value,
-                domains: formState.inputs.domains.value.map( (elem) => {
-                    return {
-                        domain: elem.value,
-                        status: getDefaultUpdateEntityStatus(auth.user)
-                    }
-                }),
+                domains: formState.inputs.domains?.value?.length > 0 ?
+                    formState.inputs.domains.value.map( (elem) => {
+                        return {
+                            domain: elem.value,
+                            status: getDefaultUpdateEntityStatus(auth.user)
+                        }
+                    })
+                    : [],
                 team:formState.inputs.team.value.map(function(singleTeam){
                     return {
                         status: singleTeam.status,

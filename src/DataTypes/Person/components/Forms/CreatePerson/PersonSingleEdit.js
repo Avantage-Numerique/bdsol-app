@@ -123,12 +123,14 @@ const PersonSingleEdit = ({initValues, positiveRequestActions, ...props}) => {
                         skills: singleOccupation.value.skills.value.map( (skill) => { return skill.value })
                     }
                 }),
-                domains: formState.inputs.domains.value.map( (elem) => {
-                    return {
-                        domain: elem.value,
-                        status: getDefaultCreateEntityStatus(auth.user)
-                    }
-                }),
+                domains: formState.inputs.domains?.value?.length > 0 ?
+                    formState.inputs.domains.value.map( (elem) => {
+                        return {
+                            domain: elem.value,
+                            status: getDefaultCreateEntityStatus(auth.user)
+                        }
+                    })
+                    : [],
                 status: getDefaultCreateEntityStatus(auth.user),
             }
         };
