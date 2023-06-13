@@ -158,8 +158,8 @@ const ProjectSingleEdit = (props) => {
                 id: _id,
                 name: formState.inputs.name.value,
                 alternateName: formState.inputs.alternateName.value,
-                entityInCharge: formState.inputs.entityInCharge?.value?.value ?? undefined,
-                producer: formState.inputs.producer.value?.value ?? undefined,
+                entityInCharge: formState.inputs.entityInCharge?.value?.value ?? null,
+                producer: formState.inputs.producer.value?.value ?? null,
                 description: formState.inputs.description.value,
                 context: formState.inputs.context.value,
                 sponsor: formState.inputs.sponsor.value.map( (singleSponsor) => {
