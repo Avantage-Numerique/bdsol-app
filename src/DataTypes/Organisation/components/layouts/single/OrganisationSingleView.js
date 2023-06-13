@@ -86,7 +86,7 @@ const OrganisationSingleView = ({ data }) => {
             <section className="mt-4">
                 <h4 className="h5 my-3">Services offerts</h4>
                 { offers?.length > 0 && offers.map(offer => (
-                    <article className={`d-flex flex-column p-2 mb-2 skill-group bg-light`}>
+                    <article key={offer.groupName} className={`d-flex flex-column p-2 mb-2 skill-group bg-light`}>
                         <h5 className="text-dark mb-1 group-name">{offer.groupName}</h5>
                             <SearchTag
                                 className="row"

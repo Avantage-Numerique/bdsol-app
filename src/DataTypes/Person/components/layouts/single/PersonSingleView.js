@@ -138,7 +138,7 @@ const PersonSingleView = ({ data }) => {
                         <OccupationGroup 
                             occupationName={occ.groupName} 
                             skillList={occ.skills}
-                            key={occ._id}
+                            key={occ.groupName}
                         />
                     ))
                 }
