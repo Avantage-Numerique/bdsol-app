@@ -8,59 +8,20 @@ import {getDefaultCreateEntityStatus} from "@/DataTypes/Status/EntityStatus";
 import {useAuth} from '@/auth/context/auth-context';
 
 //components
+import Select2 from '@/src/common/FormElements/Select2/Select2';
 import Button from "@/FormElements/Button/Button"
 import Input from '@/src/common/FormElements/Input/Input';
-import Select2Tag from '@/src/common/FormElements/Select2/Select2Tag';
 import Icon from '@/src/common/widgets/Icon/Icon';
 import Repeater from '@/src/common/FormElements/Repeater/Repeater';
 import SingleInfo from "@/DataTypes/common/layouts/SingleInfo/SingleInfo";
+import { useEffect } from 'react';
 
 
 
-const UpdateSkillGroup = ({parentEntity, positiveRequestActions, name, ...props}) => {
+const UpdateSkillGroup = ({parentEntity, positiveRequestActions, name, formTools, ...props}) => {
 
     //Import the authentication context to make sure the user is well connected
     const auth = useAuth();
-    
-    const {FormUI, submitRequest, formState, formTools} = useFormUtils({
-        skillGoups: {
-            value: [],
-            isValid: true
-        },
-    },
-    //Pass a set of rules to execute a valid response of an api request
-    positiveRequestActions || {
-        displayResMessage: true     //Display a message to the user to confirm the succes
-    })
-
-    const submitHandler = async event => {
-        
-        event.preventDefault();
-
-        const formattedOccupations = formState.inputs.skillGoups.value.map(function(occ){
-            return {
-                status: occ.status,
-                groupName: occ.value.occupation.value,
-                skills: occ.value.skills.value.map(skill => skill.skill._id)
-            }
-        })
-
-        const formData = {
-            "data": {
-                id: parentEntity._id,
-                occupations: formattedOccupations,
-                status: parentEntity.status
-            }
-        }
-        
-        //Add data to the formData
-        await submitRequest(
-            "/persons/update",
-            'POST',
-            formData
-        );
-
-    }
 
     return (
         <SingleInfo
@@ -70,9 +31,9 @@ const UpdateSkillGroup = ({parentEntity, positiveRequestActions, name, ...props}
             <div className='px-4 border-start'>
                 <Repeater
                     formTools={formTools}
-                    name="skillGroups"
+                    name={name}
                     formInitStructure={{
-                        [name.split("s")[0]]: {
+                        groupName: {
                             value: "",
                             isValid: false
                         },
@@ -89,19 +50,22 @@ const UpdateSkillGroup = ({parentEntity, positiveRequestActions, name, ...props}
                             <Input
                                 className="col-12 col-md-6"
                                 label="Nom de groupe"
-                                name={name.split("s")[0]}
+                                name="groupName"
                                 validationRules={[
                                     {name: "REQUIRED"}
                                 ]}
                             />
                             <div className="col-12 col-md-6">
-                                <Select2Tag
-                                    label="Attribuer des compétences"
-                                    searchField="name"
-                                    fetch="/taxonomies/list"
-                                    requestData={{name:""}}
+                                <Select2
                                     name="skills"
-                                    idField="skill"
+                                    label="Attribuer des compétences"
+                                    formTools={formTools}
+                                    creatable={false}
+                                    isMulti={true}
+
+                                    fetch={"/taxonomies/list"}
+                                    searchField={"name"}
+                                    selectField={"name"}
                                 />
                             </div>
                         </section>

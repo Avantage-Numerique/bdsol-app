@@ -11,7 +11,7 @@ import Input from '@/FormElements/Input/Input'
 import RichTextarea from '@/FormElements/RichTextArea/RichTextarea'
 import CreateTaxonomyForm from '@/DataTypes/Taxonomy/components/Forms/CreateTaxonomy/CreateTaxonomyForm'
 import {lang} from "@/src/common/Data/GlobalConstants";
-import Select2Tag, {getSelectedToFormData} from '@/src/common/FormElements/Select2/Select2Tag'
+import Select2 from '@/src/common/FormElements/Select2/Select2'
 import Modal from '@/src/hooks/useModal/Modal/Modal'
 import SingleInfo from '@/src/DataTypes/common/layouts/SingleInfo/SingleInfo'
 import {SingleEntityStatus} from '@/DataTypes/Status/components/SingleEntityStatus'
@@ -55,9 +55,6 @@ const PersonSingleEdit = ({initValues, positiveRequestActions, ...props}) => {
     const model = new Person(props.data);
     //Redirection link to the view page
     const link = "/"+replacePathname(model.singleRoute.pathname, {slug: model.slug});
-    
-
-    const submitUri = props.uri ?? "create";
 
     //Authentication ref
     const auth = useAuth();
@@ -110,32 +107,34 @@ const PersonSingleEdit = ({initValues, positiveRequestActions, ...props}) => {
     const submitHandler = async event => { 
 
         event.preventDefault();
-
+        console.log("formData", formState.inputs.domains)
         const formData = {
             data: {
+                id: _id,
                 lastName: formState.inputs.lastName.value,
                 firstName:  formState.inputs.firstName.value,
                 nickname: formState.inputs.nickName.value,
                 description: formState.inputs.description.value,
                 catchphrase: formState.inputs.catchphrase.value,
-                occupations: formState.inputs.occupations.value.map(function(occ){
+                occupations: formState.inputs.occupations.value.map(function(singleOccupation){
                     return {
-                        status: occ.status,
-                        occupation: occ.value.occupation.value,
-                        skills: occ.value.skills.value.map(skill => skill.skill._id)
+                        status: singleOccupation.status,
+                        groupName: singleOccupation.value.groupName.value,
+                        skills: singleOccupation.value.skills.value.map( (skill) => { return skill.value })
                     }
                 }),
-                domains: getSelectedToFormData(formState.inputs.domains.value, "domain", auth.user),
+                domains: formState.inputs.domains.value.map( (elem) => {
+                    return {
+                        domain: elem.value,
+                        status: getDefaultCreateEntityStatus(auth.user)
+                    }
+                }),
                 status: getDefaultCreateEntityStatus(auth.user),
             }
         };
 
-        if (submitUri === "update") {
-            formData.data.id = initValues._id
-        }
-
        await submitRequest(
-            `/persons/${submitUri}`,
+            `/persons/update`,
             'POST',
             JSON.stringify(formData)
         );
@@ -247,16 +246,17 @@ const PersonSingleEdit = ({initValues, positiveRequestActions, ...props}) => {
 
     const contentColumnRight = (
         <>
-            <Select2Tag
-                label={lang.Domains}
-                searchField="name"
-                fetch="/taxonomies/list"
-                requestData={{category:"domains", name:""}}
+            <Select2
                 name="domains"
-                idField="domain"
-                placeholder={lang.domainsInputPlaceholder}
+                label={lang.Domains}
                 formTools={formTools}
-                creatableModal={modal}
+                creatable={false}
+                isMulti={true}
+
+                fetch={"/taxonomies/list"}
+                requestData={{category:"domains", name:""}}
+                searchField={"name"}
+                selectField={"name"}
             />
         </>
     )
