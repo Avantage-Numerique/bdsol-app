@@ -67,7 +67,7 @@ const CreateProjectForm = ({ onPositiveResponse }) => {
         const formData = {
             "data": {
                 name: formState.inputs.name.value,
-                entityInCharge: formState.inputs.entityInCharge.value.value,
+                entityInCharge: formState.inputs.entityInCharge?.value?.value,
                 context: formState.inputs.context.value,
                 status: getDefaultCreateEntityStatus(auth.user),
             }
