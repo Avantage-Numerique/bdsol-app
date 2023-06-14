@@ -258,7 +258,7 @@ const PersonSingleEdit = ({initValues, positiveRequestActions, ...props}) => {
                 fetch={"/taxonomies/list"}
                 requestData={{category:"domains", name:""}}
                 searchField={"name"}
-                selectField={"name"}
+                selectField={"domains"}
             />
         </>
     )

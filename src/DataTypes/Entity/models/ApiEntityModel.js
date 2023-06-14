@@ -27,7 +27,7 @@ class ApiEntityModel {
                 if(field == "occupations")
                     return ApiEntityModel.occupationsToSelectOptions( entity.occupations ?? entity );
                 if(field == "domains")
-                    return ApiEntityModel.domainsToSelectOptions( entity.domains );
+                    return ApiEntityModel.domainsToSelectOptions( entity.domain );
                 if(field == "fullname")
                     return ApiEntityModel.fullnameToSelectOptions( entity );
                 break;
@@ -38,11 +38,16 @@ class ApiEntityModel {
                     return ApiEntityModel.nameToSelectOptions( entity );
                 break;
             case "Project" :
+                if(field == "domains")
+                    return ApiEntityModel.domainsToSelectOptions( entity.domain );
                 break;
             case "Taxonomy" :
                     return ApiEntityModel.nameToSelectOptions( entity );
                 break;
-            default : return [];
+            default : 
+                if(field == "domains")
+                    return ApiEntityModel.domainsToSelectOptions( entity );
+                return [];
         }
     }
 
@@ -70,6 +75,11 @@ class ApiEntityModel {
     }
 
     static domainsToSelectOptions(domains){
+        //If domains is from entity formState
+        if(domains.length == undefined)
+            return [{ value : domains.domain._id, label : domains.domain.name, color : getColor(domains.domain) }]
+        
+        //Else if domains are from request db taxonomies
         return domains.map( (domain) => {
             return [{ value : domain._id, label : domain.name, color : getColor(domain) }]
         })
