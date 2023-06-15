@@ -45,6 +45,7 @@ const ProjectSingleEdit = (props) => {
         sponsor,
         scheduleBudget,
         skills,
+        domains,
         context,
         status,
         type,
@@ -134,6 +135,10 @@ const ProjectSingleEdit = (props) => {
                 value: skills ?? [],
                 isValid: true
             },
+            domains: {
+                value: domains ?? [],
+                isValid: true
+            },
             context: {
                 value: context ?? "",
                 isValid: true
@@ -158,8 +163,8 @@ const ProjectSingleEdit = (props) => {
                 id: _id,
                 name: formState.inputs.name.value,
                 alternateName: formState.inputs.alternateName.value,
-                entityInCharge: formState.inputs.entityInCharge?.value?.value ?? undefined,
-                producer: formState.inputs.producer.value?.value ?? undefined,
+                entityInCharge: formState.inputs.entityInCharge?.value?.value ?? null,
+                producer: formState.inputs.producer.value?.value ?? null,
                 description: formState.inputs.description.value,
                 context: formState.inputs.context.value,
                 sponsor: formState.inputs.sponsor.value.map( (singleSponsor) => {
@@ -193,6 +198,14 @@ const ProjectSingleEdit = (props) => {
                 skills: formState.inputs.skills?.value?.length > 0 ? formState.inputs.skills.value.map( (selectOptionSkill) => {
                     return selectOptionSkill.value
                 }) : [],
+                domains: formState.inputs.domains?.value?.length > 0 ?
+                    formState.inputs.domains.value.map( (elem) => {
+                        return {
+                            domain: elem.value,
+                            status: getDefaultCreateEntityStatus(auth.user)
+                        }
+                    })
+                    : [],
                 contactPoint: formState.inputs.contactPoint.value,
                 url: formState.inputs.url.value,
                 status: getDefaultCreateEntityStatus(auth.user),
@@ -355,6 +368,18 @@ const ProjectSingleEdit = (props) => {
                     selectField={"name"}
                 />
             </div>
+            <Select2
+                name="domains"
+                label={lang.Domains}
+                formTools={formTools}
+                creatable={false}
+                isMulti={true}
+
+                fetch={"/taxonomies/list"}
+                requestData={{category:"domains", name:""}}
+                searchField={"name"}
+                selectField={"name"}
+            />
             <Input
                 className="mb-3"
                 name="contactPoint"

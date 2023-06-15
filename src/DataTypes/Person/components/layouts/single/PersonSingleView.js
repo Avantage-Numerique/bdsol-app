@@ -136,9 +136,9 @@ const PersonSingleView = ({ data }) => {
                 { occupations && occupations.length > 0 &&
                     occupations.map(occ => (
                         <OccupationGroup 
-                            occupationName={occ.occupation} 
+                            occupationName={occ.groupName} 
                             skillList={occ.skills}
-                            key={occ._id}
+                            key={occ.groupName}
                         />
                     ))
                 }

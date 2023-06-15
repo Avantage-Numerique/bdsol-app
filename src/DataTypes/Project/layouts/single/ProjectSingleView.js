@@ -33,6 +33,7 @@ const ProjectSingleView = ({ data }) => {
         sponsor,
         scheduleBudget,
         skills,
+        domains,
         context,
         status,
         createdAt,
@@ -178,6 +179,18 @@ const ProjectSingleView = ({ data }) => {
                 </>
             }
             </SingleInfo>
+
+            <SingleInfo title={lang.domainsSingleLabel} className={"mb-3"}>
+                {
+                    domains?.length > 0 && 
+                    <SearchTag
+                        className="row"
+                        list={domains}
+                        listProperty={"domain"}
+                    />
+                }
+            </SingleInfo>
+            
             <SingleInfo 
                 title={"Contact"} 
                 className={"mb-3"}

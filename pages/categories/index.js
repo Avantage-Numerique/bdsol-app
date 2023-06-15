@@ -9,9 +9,8 @@ const TaxonomiesCategoryPage = () => {
 
     const {sendRequest} = useHttpClient();
     const [taxonomiesList, setTaxonomiesList] = useState([]);
-    const [taxonomyMenu, setTaxonomyMenu] = useState("occupations")
+    const [taxonomyMenu, setTaxonomyMenu] = useState("skills")
     const categoryList = [
-        {value:"occupations", label:lang.Occupations},
         {value:"domains", label: lang.Domains},
         {value:"technologies", label: lang.Technologies},
         {value:"skills", label: lang.Skills},

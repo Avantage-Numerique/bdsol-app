@@ -11,7 +11,7 @@ import {useFormUtils} from '@/src/hooks/useFormUtils/useFormUtils';
 import {useModal} from '@/src/hooks/useModal/useModal';
 
 //Component
-import Select2Tag, {getSelectedToFormData} from '@/src/common/FormElements/Select2/Select2Tag';
+import Select2 from '@/src/common/FormElements/Select2/Select2';
 import Button from '@/src/common/FormElements/Button/Button';
 import Input from '@/src/common/FormElements/Input/Input';
 import RichTextarea from '@/src/common/FormElements/RichTextArea/RichTextarea';
@@ -134,8 +134,6 @@ const OrganisationSingleEdit = (props) => {
 
         event.preventDefault();
 
-        console.log(formState)
-
         const formData = {
             "data": {
                 id: _id,
@@ -144,15 +142,22 @@ const OrganisationSingleEdit = (props) => {
                 url: formState.inputs.url.value,
                 contactPoint: formState.inputs.contactPoint.value,
                 fondationDate: formState.inputs.fondationDate.value,
-                offers: formState.inputs.offers.value.map(function(off){
+                offers: formState.inputs.offers.value.map(function(singleOffer){
                     return {
-                        status: off.status,
-                        offer: off.value.offer.value,
-                        skills: off.value.skills.value.map(skill => skill.skill._id)
+                        status: singleOffer.status,
+                        groupName: singleOffer.value.groupName.value,
+                        skills: singleOffer.value.skills.value.map( (skill) => { return skill.value })
                     }
                 }),
                 catchphrase: formState.inputs.catchphrase.value,
-                domains: getSelectedToFormData(formState.inputs.domains.value, "domain", auth.user),
+                domains: formState.inputs.domains?.value?.length > 0 ?
+                    formState.inputs.domains.value.map( (elem) => {
+                        return {
+                            domain: elem.value,
+                            status: getDefaultUpdateEntityStatus(auth.user)
+                        }
+                    })
+                    : [],
                 team:formState.inputs.team.value.map(function(singleTeam){
                     return {
                         status: singleTeam.status,
@@ -263,16 +268,18 @@ const OrganisationSingleEdit = (props) => {
     const contentColumnRight = (
         <>
             <div className="mb-3 mt-3">
-                <Select2Tag
-                    label={lang.Domains}
-                    searchField="name"
-                    fetch="/taxonomies/list"
-                    requestData={{category:"domains", name:""}}
+                <Select2
                     name="domains"
-                    idField="domain"
-                    placeholder={lang.domainsInputPlaceholder}
+                    label={lang.Domains}
                     formTools={formTools}
-                    creatableModal={modal}
+                    creatable={false}
+                    isMulti={true}
+
+                    placeholder={lang.domainsInputPlaceholder}
+                    fetch={"/taxonomies/list"}
+                    requestData={{category:"domains", name:""}}
+                    searchField={"name"}
+                    selectField={"name"}
                 />
             </div>
             <Input

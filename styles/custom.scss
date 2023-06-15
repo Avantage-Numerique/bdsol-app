@@ -3,6 +3,8 @@
     01Hub - 08/08/2022
 */
 
+$primary-text-emphasis-dark:#0f0f0f;
+
 //colors
 $blue: #455ae6; // Avantage numérique's mainBlue (and blue1)
 $blue2: #4d64ff; // Avantage numérique's mainBlue (and blue2)
@@ -47,7 +49,8 @@ $selected-input: $blue;
 // scss-docs-start theme-color-variables
 $primary:       $blue;
 $primarylight:  $purple-light;
-$secondary:  $grey;
+$primarydark:  darken($blue, 10%);
+$secondary: $grey;
 $secondarylight:  lighten($secondary,10%);
 
 $theme-colors:(
