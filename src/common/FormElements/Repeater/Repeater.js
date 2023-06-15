@@ -2,6 +2,7 @@ import React, {useEffect, useRef, useState} from 'react';
 
 //Hooks
 import {useFormUtils} from '@/src/hooks/useFormUtils/useFormUtils';
+import { useDND } from '@/src/hooks/useDND/useDND';
 
 //components
 import Button from "@/FormElements/Button/Button";
@@ -67,7 +68,7 @@ const Repeater = props => {
         name,                   // - [string] : Name to refer to the repeater in the main form State
         initValues,             // - [array] : Expected to be an array of object where each object contains the values for one iteration of this repeater 
         //formReturnStructure   //
-        isSortable,             // - [bool] : If true, the repeater add an order value, display the drag and drop UI and activate that function
+        sortable,             // - [bool] : If true, the repeater add an order value, display the drag and drop UI and activate that function
         className               // - [String] : Represent the class names of the generated containers to repeat
     } = props;
     
@@ -84,15 +85,19 @@ const Repeater = props => {
     let initIteration = {};
     const [iterations, setIterations] = useState(addInitValuesToState(initValues));
     initIteration = iterations;
+    console.log("Iterations", iterations)
     //useEffect(() => { setIterations(addInitValuesToState(initValues))}, [])
     
     //Reference to the dom elements
     const containerRef = useRef();
 
     //Custom hook used for moving the elements
-    /* const {updateValues} = useDND(containerRef, {
-        dragButton: elem => elem.querySelector(`.${styles["dragging-button"]}`), movingElem: null
-    }); */
+     const { DNDUI } = useDND(containerRef, iterations, {
+        dragButton: elem => elem.querySelector(`.${styles["dragging-button"]}`), 
+        movingElem: null,
+        order: null,
+        updateOrder: () => {}
+    });
     
     //Gives us access to the values of the main state in the shape of an array. And since it is sorted, we use it to display the elements
     const sortedIterationsArray = iterations ? Object.values(iterations).sort((a, b) => (a.order > b.order) ? 1 : -1) : [];
@@ -121,7 +126,7 @@ const Repeater = props => {
                 arrayOfNames.forEach(fieldName => {
                     //replace the name by the value to return
                     returnShape[getKeyByValue(returnShape, fieldName)] = ite.value[fieldName] ? ite.value[fieldName].value : {};
-                })
+                }) 
                 //Add the proper status
                 returnShape.status = ite.status;
                 //Add the result to the return array
@@ -226,11 +231,12 @@ const Repeater = props => {
         const key = generateUniqueId();
         //Iterations array
         const iterationsArray = initIteration ? Object.values(initIteration) : [];
+        console.log("Iteration array", iterationsArray)
         //Build the object
         const obj = {
             [key]: {
                 key: key,
-                order: orderNumber || (Math.max(...iterationsArray.map(o => o.order)) + 1),  //Prioriser le order number. S'il n'y en a aucun, on prend la plus haute valeur dans iterations
+                order: orderNumber || ( iterationsArray.length > 0 ? (Math.max(...iterationsArray.map(o => o.order)) + 1) : 1),  //Prioriser le order number. S'il n'y en a aucun, on prend la plus haute valeur dans iterations
                 value: {},
                 status: status ? status : getDefaultCreateEntityStatus(auth.user),
                 initFormStructureWithValues: initFormStructureWithValues ? initFormStructureWithValues : null,
@@ -248,34 +254,37 @@ const Repeater = props => {
                {sortedIterationsArray.map(iteration => (
                     <article 
                         key={iteration.key} 
-                        className={`row ${className}`}
+                        className={`d-flex flex-nowrap overflow-hidden rounded my-2 ${className}`}
                         draggable={true}
                         data-order={iteration.order}
                     >
-                        { isSortable && 
+                        { sortable && sortedIterationsArray.length > 1 &&
                             <div 
                                 draggable={true}
                                 type="button" 
-                                className={`rounded ${styles["dragging-button"]} col flex-grow-0 d-flex align-items-center`}>
+                                className={`${styles["dragging-button"]} flex-grow-0 d-flex align-items-center p-2`}>
                                 <Icon className="d-flex align-items-center" iconName='las la-grip-vertical'/>
                             </div>
                         }
-                        <RepeaterSingleIteration 
-                            iterationKey={iteration.key}
-                            deleteIterationByKey={() => deleteIterationByKey(iteration.key)}
-                            formInitSubStructure={iteration.initFormStructureWithValues ? iteration.initFormStructureWithValues : formInitStructure}
-                            updateIterationValue={updateIterationValue}
-                        >
-                            {children}
-                        </RepeaterSingleIteration>
+                        <div className="container">
+                            <div className="row">
+                                <RepeaterSingleIteration 
+                                    iterationKey={iteration.key}
+                                    deleteIterationByKey={() => deleteIterationByKey(iteration.key)}
+                                    formInitSubStructure={iteration.initFormStructureWithValues ? iteration.initFormStructureWithValues : formInitStructure}
+                                    updateIterationValue={updateIterationValue}
+                                >
+                                    {children}
+                                </RepeaterSingleIteration>
+                            </div>
+                        </div>
                     </article>
                ))}                   
             </section>
+            <DNDUI />
             {/* By default, there is an add button */}
-            <div className="row">
-                <div className="d-flex justify-content-end p-0">
-                    <Button type="button" size="slim" onClick={addNewIteration} className="m-0">Ajouter</Button>
-                </div>
+            <div className="my-2 d-flex justify-content-end p-0">
+                <Button type="button" size="slim" onClick={addNewIteration} className="m-0">Ajouter</Button>
             </div>
         </>
     )

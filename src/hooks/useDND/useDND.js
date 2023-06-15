@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef, cloneElement, useImperativeHandle  } from 'react'
 
 //Styling
 import styles from './useDND.module.scss';
 
-export const useDND = ( containerRef, domElemFormating ) => {
+export const useDND = ( containerRef, stateDependency, domElemFormating ) => {
 
     /* 
                              ___====-_  _-====___
@@ -28,6 +28,11 @@ export const useDND = ( containerRef, domElemFormating ) => {
         Array of objects ¬ [{dragButton: node, movingElem: node}]
     */
     const [draggables, setDraggables] = useState([]);
+    //State for the component to be displayed has the draggable element of the component
+    const [dragComponent, setDragComponent] = useState({
+        display: false,
+        orderToDisplay: null
+    })
 
     const cursorData = useRef({
         cursorX: null,
@@ -39,13 +44,24 @@ export const useDND = ( containerRef, domElemFormating ) => {
         movingElem: null
     })
 
+
+
+    /* Ui for the dragable element */
+    const DNDUI = () => {
+        return (
+            <div className={`${styles["dnd-ui"]}`}>
+               {/*  {dragComponent.orderToDisplay && 
+                    draggables.find(elem => parseInt(elem.movingElem.getAttribute("data-order")) == parseInt(dragComponent.orderToDisplay)).movingElem                
+                } */}
+            </div>
+        )
+    }
+
     //**** Don't forget to pass the attribute "data-order" to the elements that are going to change order ****
 
     console.log("Draggables", draggables);
 
-    const replacingBlock = document.createElement("div");
-    replacingBlock.classList.add(styles["replacing-block"]);
-    replacingBlock.classList.add("row");
+    const replacingBlock = (<div className={`row ${styles["replacing-block"]}`}></div>);
 
 
     /*  
@@ -68,26 +84,23 @@ export const useDND = ( containerRef, domElemFormating ) => {
                 movingElem: domElemFormating.movingElem ? domElemFormating.movingElem(elem) : elem,
             }
         )))
+        
+    }, [stateDependency]);
 
-        const temporaryArray = arrayOfOrderedElems.map(elem => (
-            {
-                //If the value is negative (null, undefined or else), than it is assumed the value is the element itself
-                //If something is defined, than it must be a function that use the elem has parameter
-                dragButton: domElemFormating.dragButton ? domElemFormating.dragButton(elem) : elem,  
-                movingElem: domElemFormating.movingElem ? domElemFormating.movingElem(elem) : elem,
-            }
-        ))
-        
-        temporaryArray.forEach(draggable => {
-            draggable.dragButton.addEventListener('pointerdown', startDragging);
-        });
-        
-        return () => { 
-            temporaryArray.forEach(draggable => {
-                draggable.dragButton.removeEventListener('pointerdown', startDragging);
+    useEffect(() => {
+        if(draggables && draggables.length > 1){
+            draggables.forEach(draggable => {
+                draggable.dragButton.addEventListener('pointerdown', startDragging);
             });
-         };
-    }, [containerRef]);
+
+            return () => { 
+                draggables.forEach(draggable => {
+                    draggable.dragButton.removeEventListener('pointerdown', startDragging);
+                });
+             };
+        }
+
+    }, [draggables])
 
     function startDragging(e){
         console.log("Event", e);
@@ -108,13 +121,39 @@ export const useDND = ( containerRef, domElemFormating ) => {
 
         cursorData.current.movingElem = parent;
 
-        replacingBlock.style.height = parent.offsetHeight ? parent.offsetHeight + "px" : "5rem";
 
-        containerRef.current.insertBefore(replacingBlock,  parent);
+        const elementRef = e.target
+        const selectedParentData = elementRef.closest("[data-order]")
+        if(!selectedParentData)
+            throw "Le bouton sélectionné ne permet pas de référencer son parent. Assurez-vous que le parent détient bien l'attribue 'data-order'."
 
-        parent.classList.add(styles["grabbed-element"]);
+        const selectedParentOrder = selectedParentData.getAttribute("data-order")
 
-        window.addEventListener("pointermove", onPointerMove);
+        setDragComponent({
+            ...dragComponent,
+            orderToDisplay: selectedParentOrder
+        })  
+
+  //      const draggableToClone = draggables.find(elem => parseInt(elem.movingElem.getAttribute("data-order")) == parseInt(selectedParentOrder)).movingElem
+  //      console.log("Draggabletoclone", draggableToClone)
+
+
+
+        //const selectedParent = containerRef.current.querySelector(`[data-order="${selectedParentOrder}"]`);
+
+   //     const clonedParent = cloneElement(draggableToClone.movingElem)
+   //     console.log("clonedParent", clonedParent)
+
+      //  const clonedElement = cloneElement(e.target)
+         
+
+        //replacingBlock.style.height = parent.offsetHeight ? parent.offsetHeight + "px" : "5rem";
+
+        //containerRef.current.insertBefore(replacingBlock,  parent);
+
+        //parent.classList.add(styles["grabbed-element"]);
+
+        //window.addEventListener("pointermove", onPointerMove);
 
 
     }
@@ -134,7 +173,8 @@ export const useDND = ( containerRef, domElemFormating ) => {
 
     return {
         updateValues: null,
-        containerRef: containerRef.current
+        containerRef: containerRef.current,
+        DNDUI: DNDUI
     }
 }
 

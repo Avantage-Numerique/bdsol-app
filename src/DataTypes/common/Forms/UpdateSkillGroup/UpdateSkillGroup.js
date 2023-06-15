@@ -69,8 +69,10 @@ const UpdateSkillGroup = ({parentEntity, positiveRequestActions, name, ...props}
         >
             <div className='px-4 border-start'>
                 <Repeater
+                    className="bg-greyBg"
                     formTools={formTools}
                     name="skillGroups"
+                    sortable
                     formInitStructure={{
                         [name.split("s")[0]]: {
                             value: "",
@@ -83,7 +85,7 @@ const UpdateSkillGroup = ({parentEntity, positiveRequestActions, name, ...props}
                     }}
                     initValues={parentEntity[name]}
                 >
-                    <div className="d-flex gap-3 mb-2 border-b py-2 bg-greyBg rounded-1">
+                    <div className="d-flex gap-3 mb-2 border-b py-2 rounded-1">
                         {/* Content of the elements */}
                         <section className="row col">
                             <Input
