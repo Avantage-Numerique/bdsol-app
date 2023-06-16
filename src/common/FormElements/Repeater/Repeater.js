@@ -85,7 +85,7 @@ const Repeater = props => {
     let initIteration = {};
     const [iterations, setIterations] = useState(addInitValuesToState(initValues));
     initIteration = iterations;
-    console.log("Iterations", iterations)
+
     //useEffect(() => { setIterations(addInitValuesToState(initValues))}, [])
     
     //Reference to the dom elements
@@ -231,7 +231,8 @@ const Repeater = props => {
         const key = generateUniqueId();
         //Iterations array
         const iterationsArray = initIteration ? Object.values(initIteration) : [];
-        console.log("Iteration array", iterationsArray)
+
+        
         //Build the object
         const obj = {
             [key]: {

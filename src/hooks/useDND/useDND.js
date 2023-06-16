@@ -59,8 +59,6 @@ export const useDND = ( containerRef, stateDependency, domElemFormating ) => {
 
     //**** Don't forget to pass the attribute "data-order" to the elements that are going to change order ****
 
-    console.log("Draggables", draggables);
-
     const replacingBlock = (<div className={`row ${styles["replacing-block"]}`}></div>);
 
 
@@ -73,7 +71,6 @@ export const useDND = ( containerRef, stateDependency, domElemFormating ) => {
 
         //Convert the dom collection into an array
         const arrayOfOrderedElems = Array.from(containerRef.current.children);
-        console.log("Array of elems", arrayOfOrderedElems)
 
         //Update the state
         setDraggables(arrayOfOrderedElems.map(elem => (
@@ -103,13 +100,10 @@ export const useDND = ( containerRef, stateDependency, domElemFormating ) => {
     }, [draggables])
 
     function startDragging(e){
-        console.log("Event", e);
-        console.log("Ensuite", e.srcElement.parentNode)
 
         const parent = e.srcElement.parentNode;
         const parentBox = parent.getBoundingClientRect();
 
-        console.log(parentBox)
 
         parent.style.width = parentBox.width + "px";
         parent.style.height = parentBox.height + "px";

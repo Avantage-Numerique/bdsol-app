@@ -20,7 +20,10 @@ const generatePathParts = (path) => {
  * @return {*}
  */
 export const replacePathname = (pathname, replaceWith) => {
+
+    //ReplaceWith : {slug: value}
     const pathParts = generatePathParts(pathname);
+
     for (const position in pathParts) {
         const pathValueRaw = pathParts[position];
         const pathValue = pathValueRaw.replace("[", "").replace("]", "");
