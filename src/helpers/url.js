@@ -6,7 +6,8 @@
  */
 const generatePathParts = (path) => {
     if (path !== undefined) {
-        const fullPathWIthNoQuery = path.split("?")[0];
+        const copyPath = `${path}`;
+        const fullPathWIthNoQuery = copyPath.split("?")[0];
         return fullPathWIthNoQuery.split("/")
             .filter(v => v.length > 0);
     }

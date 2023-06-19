@@ -1,7 +1,7 @@
 import EntityModel from "@/DataTypes/Entity/models/EntityModel";
 import ProjectSimple from "@/DataTypes/Project/layouts/simple/ProjectSimple";
 import ProjectSingleView from "@/DataTypes/Project/layouts/single/ProjectSingleView";
-import {TYPE_PROJECT, TYPE_DEFAULT} from "@/DataTypes/Entity/Types";
+import {TYPE_DEFAULT, TYPE_PROJECT} from "@/DataTypes/Entity/Types";
 import Media from "@/DataTypes/Media/models/Media";
 import AppRoutes from "@/src/Routing/AppRoutes";
 
@@ -21,7 +21,6 @@ class Project extends EntityModel {
         } : raw.mainImage;
 
         this.mainImageModel = new Media(this.mainImage);
-
         this.type = raw.type === TYPE_PROJECT ? TYPE_PROJECT : TYPE_DEFAULT;//Wrong data sent here.
 
         //this.taxonomies = new Map();
@@ -35,10 +34,10 @@ class Project extends EntityModel {
         this.singleComponent = ProjectSingleView;
 
         //  Routes associated with single base, single and contribute uri.
-        this.repertoryRoute = AppRoutes.projects;
-        this.singleRoute = AppRoutes.projectSingle;
-        this.singleEditRoute = AppRoutes.projectSingleEdit;
-        this.createRoute = AppRoutes.projectCreate;
+        this.repertoryRoute = {...AppRoutes.projects};
+        this.singleRoute = {...AppRoutes.projectSingle};
+        this.singleEditRoute = {...AppRoutes.projectSingleEdit};
+        this.createRoute = {...AppRoutes.projectCreate};
 
         //sets all the rest as a this[key] = raw[key] value.
         this.setProperties(raw);
