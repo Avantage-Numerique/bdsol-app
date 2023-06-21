@@ -16,6 +16,7 @@ import {lang} from "@/src/common/Data/GlobalConstants";
  * @param {useState setter} inputValueSetter : Setter for the state of inputValue, used for dynamic option list search
  * @param {Array useState} value : State of the current value of the selected item
  * @param {useState setter} valueSetter : setter of value to update the selected item
+ * @param {function} createOptionFunction : function that handles the create (modal pop-up ...)
  * */
 
 const Select2BaseMulti = ({name, ...props}) => {
@@ -86,7 +87,7 @@ const Select2BaseMulti = ({name, ...props}) => {
 
             //Creatable Section
             formatCreateLabel={(val)=> lang.createOptionLabel + val}
-            onCreateOption={(elem) => defaultCreateOption(elem)}
+            onCreateOption={(elem) => { props.createOptionFunction ? props.createOptionFunction(elem) : defaultCreateOption(elem) }}
             //Check every option and filter. If filterOption return undefined, it doesn't show the option (allow to show or not "__isNew__" option which is creatable or not)
             filterOption={(option, searchText) => filterCreate(option, searchText)}
         />

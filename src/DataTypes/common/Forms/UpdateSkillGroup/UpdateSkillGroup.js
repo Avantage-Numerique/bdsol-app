@@ -62,8 +62,9 @@ const UpdateSkillGroup = ({parentEntity, positiveRequestActions, name, formTools
                                     name="skills"
                                     label="Attribuer des compétences"
                                     formTools={formTools}
-                                    creatable={false}
+                                    creatable={true}
                                     isMulti={true}
+                                    createOptionFunction={props.createOptionFunction}
 
                                     fetch={"/taxonomies/list"}
                                     searchField={"name"}

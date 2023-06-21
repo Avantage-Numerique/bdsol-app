@@ -27,7 +27,7 @@ import useDebounce from '@/src/hooks/useDebounce'
  * @param {object} requestData : param to always pass during request (e.g. category : "skills" to only access skills taxonomy)
  * @param {string} searchField : for the moment => a string added to requestData that's dynamically searching with the select
  * @param {string} selectField : for the moment => string that represent the transmuted field to show in the options ("occupations", "fullname" ...)
- * 
+ * @param {function} createOptionFunction : function that handles the create (modal pop-up ...) if undefined, create default 
  */
 const Select2 = ({ name, formTools, ...props }) => {
     const {sendRequest} = useHttpClient();
@@ -92,6 +92,16 @@ const Select2 = ({ name, formTools, ...props }) => {
     //Update the list of options to display
     useEffect(() => { fetchOptions() }, [debouncedRequest] );
 
+    const addSelectedValue = (val) => {
+        if(val.label != undefined && val.value != undefined)
+        {
+            if(props.isMulti)
+                setValue([...value, val]);
+            else
+                setValue(val)
+        }
+    }
+
     const label = props.label ? 
         (
             <div className="d-flex justify-content-between">
@@ -105,6 +115,7 @@ const Select2 = ({ name, formTools, ...props }) => {
         (<Select2BaseMulti
             name={name}
             creatable={props.creatable}
+            createOptionFunction={props.createOptionFunction}
             
             options={optionsList}
             inputValue={inputValue}
@@ -115,6 +126,7 @@ const Select2 = ({ name, formTools, ...props }) => {
         (<Select2BaseSingle
             name={name}
             creatable={props.creatable}
+            createOptionFunction={props.createOptionFunction}
             
             options={optionsList}
             inputValue={inputValue}
