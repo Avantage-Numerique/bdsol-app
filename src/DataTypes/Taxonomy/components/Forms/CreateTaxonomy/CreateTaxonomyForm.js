@@ -17,7 +17,7 @@ import { MessageContext } from '@/src/common/UserNotifications/Message/Context/M
 //Styling
 import styles from './CreateTaxonomyForm.module.scss'
 import { lang } from '@/src/common/Data/GlobalConstants'
-import Select2Tag, {getSelectedToFormData} from "@/FormElements/Select2/Select2Tag";
+import Select2 from '@/src/common/FormElements/Select2/Select2'
 import {getDefaultCreateEntityStatus} from "@/DataTypes/Status/EntityStatus";
 import {useModal} from "@/src/hooks/useModal/useModal";
 
@@ -108,7 +108,7 @@ const CreateTaxonomyForm = ({name, category, initValues, positiveRequestActions,
                 "category": formState.inputs.category.value,
                 "name":  formState.inputs.name.value, 
                 "description": formState.inputs.description.value,
-                "domains": getSelectedToFormData(formState.inputs.domains.value, "domain", auth.user),
+                "domains": formState.inputs.domains.value,
                 /*"source": formState.inputs.source.value,*/
                 "status": getDefaultCreateEntityStatus(auth.user)
             }
@@ -156,7 +156,7 @@ const CreateTaxonomyForm = ({name, category, initValues, positiveRequestActions,
                     validationRules={[
                         {name: "REQUIRED"}
                     ]}
-                    defaultValue="skills"
+                    defaultValue={category}
                 />
 
                 <Input
@@ -182,16 +182,17 @@ const CreateTaxonomyForm = ({name, category, initValues, positiveRequestActions,
                     formTools={formTools}
                 />
 
-                <Select2Tag
-                    label={lang.Domains}
-                    searchField="name"
-                    fetch="/taxonomies/list"
-                    requestData={domainQuery}
+                <Select2
                     name="domains"
-                    idField="domain"
-                    placeholder={lang.domainsInputPlaceholder}
+                    label={lang.Domains}
                     formTools={formTools}
-                    creatableModal={modal}
+                    creatable={true}
+                    isMulti={true}
+
+                    fetch={"/taxonomies/list"}
+                    requestData={{category:"domains", name:""}}
+                    searchField={"name"}
+                    selectField={"domains"}
                 />
 
                 <div className="col-12">

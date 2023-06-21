@@ -53,7 +53,7 @@ const EntitySimple = (props) => {
     //params
     const showEntityType = props.showEntityType ?? true;
     const appType = TYPES.get(model.type);
-    console.log(appType, " vdsvsd ", link)
+
 
     /**
      * Defininf the default header fo the EntitySimple to be overwrite with Header

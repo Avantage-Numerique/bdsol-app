@@ -1,6 +1,10 @@
+import { useCallback } from "react";
 import PageHeader from "@/src/layouts/Header/PageHeader";
+import { Breadcrumbs } from "@/src/common/Breadcrumbs/Breadcrumbs";
 import {getLicencesData} from "@/src/api/external/callbacks/getLicencesData";
 import {lang} from "@/common/Data/GlobalConstants";
+import AppRoutes from "@/src/Routing/AppRoutes";
+
 
 export async function getServerSideProps() {
 
@@ -16,13 +20,21 @@ export async function getServerSideProps() {
 
 const Licences = (props) => {
 
+    const getLabelGenerator = useCallback((param, query) => {
+        return {
+            "faq": "FAQ",
+            "licences": "Licences",
+        }[param];
+    }, []);
+
     return (
         <div className="content">
-            <PageHeader title="Précision sur les licences"/>
+            <PageHeader title="Précision sur les licences et droits d'auteurs">
+                <Breadcrumbs className={"pt-2"} route={AppRoutes.licences} getLabelGenerator={getLabelGenerator} />
+            </PageHeader>
             <div className={"row"}>
                 <div className={"col"}>
                     <h3>Qu'est-ce qu'une licence?</h3>
-                    <h4>En une phrase : </h4>
                     <p>
                         Une licence est l'ensemble des permissions et restrictions d'utilisation d'une oeuvre, création ou idée accordée par l'auteur-trice de celle-ci.
                     </p>

@@ -1,4 +1,4 @@
-import { useContext, useEffect, useCallback } from 'react';
+import { useContext, useEffect, useCallback, useRef } from 'react';
 import Link from 'next/link'
 import Router from 'next/router';
 
@@ -62,7 +62,7 @@ const OrganisationSingleEdit = (props) => {
     const link = "/"+replacePathname(model.singleRoute.pathname, {slug: model.slug});
 
     //Modal hook
-    const modal = useModal()
+    const {displayModal, modal, closeModal, Modal} = useModal();
 
     //Import the authentication context to make sure the user is well connected
     const auth = useAuth();
@@ -255,6 +255,7 @@ const OrganisationSingleEdit = (props) => {
                 formTools={formTools}
                 name="offers"
                 label="Éditez vos groupes d'offres de services"
+                createOptionFunction={displayModalForSkills}
             />
             { /* team */ }
             <UpdateTeams
@@ -272,8 +273,9 @@ const OrganisationSingleEdit = (props) => {
                     name="domains"
                     label={lang.Domains}
                     formTools={formTools}
-                    creatable={false}
+                    creatable={true}
                     isMulti={true}
+                    createOptionFunction={displayModalForDomains}
 
                     placeholder={lang.domainsInputPlaceholder}
                     fetch={"/taxonomies/list"}
@@ -327,6 +329,18 @@ const OrganisationSingleEdit = (props) => {
                 }
             </div>
         </>);
+
+    const modalCategoryMode = useRef("skills")
+    function displayModalForSkills(elem) {
+        modalCategoryMode.current = "skills";
+        modal.enteredValues.name = elem;
+        displayModal();
+    }
+    function displayModalForDomains(elem) {
+        modalCategoryMode.current = "domains";
+        modal.enteredValues.name = elem;
+        displayModal();
+    }
     
     return (
         <>
@@ -349,32 +363,32 @@ const OrganisationSingleEdit = (props) => {
                 }
             </div>
 
-            { modal.modal.display &&
+            { modal.display &&
                 <Modal 
-                    className={`${styles["taxonomy-modal"]}`}
                     coloredBackground
                     darkColorButton
                 >
                     <header className={`d-flex`}>
                         <p>Le nouvel élément de taxonomie que vous ajoutez ici pourra ensuite être directement intégrée à votre formulaire.</p>
-                        <Button onClick={modal.closeModal}>Fermer</Button>
+                        <Button onClick={closeModal}>Fermer</Button>
                     </header>               
                       
                     {/* Separation line */}
                     <div className={`my-4 border-bottom`}></div>
 
                     <CreateTaxonomyForm 
-                        name={modal.modal.enteredValues.name ? modal.modal.enteredValues.name : ''}   //Prefilled value
-                        category="skills"
+                        name={modal.enteredValues.name ?? ''}   //Prefilled value
+                        initValues={ {name:modal.enteredValues.name} }
+                        category={modalCategoryMode.current}
                         positiveRequestActions={{
                             //CallbackFunction is one of the four behaviors the useFormUtils hook can apply when a request return a positive answer
                             callbackFunction: requestResponse => {
 
                                 //In this case, the modal callback receives the object to be passed which is the taxonomy item in the response of the request
-                                modal.modal.callback(requestResponse.data)
+                                //modal.modal.callback(requestResponse.data)
                                 
                                 //Close the modal 
-                                modal.closeModal()
+                                closeModal()
                             }
                         }}
                     />

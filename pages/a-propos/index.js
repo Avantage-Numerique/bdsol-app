@@ -120,12 +120,11 @@ const Index = () => {
                             <p className={pClass}>L’équipe travaille actuellement sur l’établissement d’une
                                 gouvernance des données. Toute information entrée dans le formulaire sera sous la
                                 licence CC0
-                                &nbsp;
+                                
                                     (<a href="https://creativecommons.org/share-your-work/public-domain/cc0/"
                                        target="_blank">
                                         Creative Commons 0
                                     </a>)
-                                &nbsp;
                                 de manière temporaire. Cette licence affirme que les informations sont entièrement
                                 libres de droit et appartiennent au domaine public. Éventuellement, lorsqu’une
                                 politique de gouvernance sera établie, une licence plus restrictive sera choisie.

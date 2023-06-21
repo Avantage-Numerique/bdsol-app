@@ -1,8 +1,9 @@
-import { useCallback } from 'react';
+import { useCallback, useRef } from 'react';
 import Link from 'next/link'
 
 //Custom hooks
 import {useFormUtils} from '@/src/hooks/useFormUtils/useFormUtils'
+import { useModal } from '@/src/hooks/useModal/useModal';
 
 //components
 import Button from '@/FormElements/Button/Button'
@@ -15,6 +16,7 @@ import SingleInfo from '@/src/DataTypes/common/layouts/SingleInfo/SingleInfo';
 import {SingleEntityStatus} from '@/DataTypes/Status/components/SingleEntityStatus';
 import SingleBase from '@/src/DataTypes/common/layouts/single/SingleBase';
 import UpdateTeams from '@/src/DataTypes/Organisation/components/forms/UpdateTeams/UpdateTeams';
+import CreateTaxonomyForm from '@/src/DataTypes/Taxonomy/components/Forms/CreateTaxonomy/CreateTaxonomyForm';
 
 //Utils
 import {lang} from "@/src/common/Data/GlobalConstants";
@@ -58,7 +60,8 @@ const ProjectSingleEdit = (props) => {
     //Redirection link to the view page
     const link = "/"+replacePathname(model.singleRoute.pathname, {slug: model.slug});
 
-
+    //Modal hook
+    const {displayModal, modal, closeModal, Modal} = useModal();
 
        //Main form functionalities
        const { FormUI, submitRequest, formState, formTools } = useFormUtils(
@@ -360,8 +363,9 @@ const ProjectSingleEdit = (props) => {
                     name="skills"
                     label="Compétences liées au projet"
                     formTools={formTools}
-                    creatable={false}
+                    creatable={true}
                     isMulti={true}
+                    createOptionFunction={displayModalForSkills}
 
                     fetch={"/taxonomies/list"}
                     searchField={"name"}
@@ -372,8 +376,9 @@ const ProjectSingleEdit = (props) => {
                 name="domains"
                 label={lang.Domains}
                 formTools={formTools}
-                creatable={false}
+                creatable={true}
                 isMulti={true}
+                createOptionFunction={displayModalForDomains}
 
                 fetch={"/taxonomies/list"}
                 requestData={{category:"domains", name:""}}
@@ -422,6 +427,18 @@ const ProjectSingleEdit = (props) => {
         </>
     );
 
+    const modalCategoryMode = useRef("skills")
+    function displayModalForSkills(elem) {
+        modalCategoryMode.current = "skills";
+        modal.enteredValues.name = elem;
+        displayModal();
+    }
+    function displayModalForDomains(elem) {
+        modalCategoryMode.current = "domains";
+        modal.enteredValues.name = elem;
+        displayModal();
+    }
+
     return (
         <>
             <SingleBase
@@ -442,7 +459,38 @@ const ProjectSingleEdit = (props) => {
                 }
 
             </div>
-           
+            { modal.display &&
+                <Modal 
+                    coloredBackground
+                    darkColorButton
+                >
+                    <header className={`d-flex`}>
+                        <p>Le nouvel élément de taxonomie que vous ajoutez ici pourra ensuite être directement intégrée à votre formulaire.</p>
+                        <Button onClick={closeModal}>Fermer</Button>
+                    </header>               
+                      
+                    {/* Separation line */}
+                    <div className={`my-4 border-bottom`}></div>
+
+                    <CreateTaxonomyForm 
+                        name={modal.enteredValues.name ?? ''}   //Prefilled value
+                        initValues={ {name:modal.enteredValues.name} }
+                        category={modalCategoryMode.current}
+                        positiveRequestActions={{
+                            //CallbackFunction is one of the four behaviors the useFormUtils hook can apply when a request return a positive answer
+                            callbackFunction: requestResponse => {
+
+                                //In this case, the modal callback receives the object to be passed which is the taxonomy item in the response of the request
+                                //modal.modal.callback(requestResponse.data)
+                                
+                                //Close the modal 
+                                closeModal()
+                            }
+                        }}
+                    />
+
+                </Modal>
+            }
         </>
     )
 }

@@ -105,11 +105,6 @@ const AppRoutesRaw = {
         pathname: "/contribuer/organisations/[slug]",
         asPath: "/contribuer/organisations/[slug]",
     },
-    organisationsCreate : {
-        label: "Ajouter une organisation",
-        pathname: "/contribuer/organisations",
-        asPath: "/contribuer/organisations",
-    },
 
     /*************
      *  Project
@@ -170,6 +165,20 @@ const AppRoutesRaw = {
         label: "Error 404",
         pathname: "/404",
         asPath: "/404"
+    },
+
+    faq: {
+        label: "FAQ",
+        pathname: "/faq",
+        asPath: "/faq",
+        needAuth: false,
+    },
+
+    licences: {
+        label: "Licences",
+        pathname: "/faq/licences",
+        asPath: "/faq/licences",
+        needAuth: false,
     }
 }
 
@@ -188,6 +197,8 @@ const AppRoutes = new Routes(AppRoutesRaw);
  * @property projects {Route}
  * @property projectSingle {Route}
  * @property projectSingleMedia {Route}
+ * @property projectSingleEdit {Route}
+ * @property projectCreate {Route}
  * @property apropos {Route}
  * @property compte {Route}
  * @property contribuer {Route}

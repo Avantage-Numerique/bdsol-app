@@ -35,9 +35,9 @@ class Person extends EntityModel {
         this.singleComponent = PersonSingle;
 
         //Routing
-        this.singleRoute = AppRoutes.personSingle;
-        this.singleEditRoute = AppRoutes.personSingleEdit;
-        this.createRoute = AppRoutes.personCreate;
+        this.singleRoute = {...AppRoutes.personSingle};
+        this.singleEditRoute = {...AppRoutes.personSingleEdit};
+        this.createRoute = {...AppRoutes.personCreate};
 
 
         //sets all the rest as this[key] = raw[key] value.

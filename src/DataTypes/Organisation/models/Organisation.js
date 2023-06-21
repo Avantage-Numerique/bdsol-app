@@ -1,8 +1,7 @@
 import EntityModel from "@/DataTypes/Entity/models/EntityModel";
 import OrganisationSimple from "@/DataTypes/Organisation/components/layouts/simple/OrganisationSimple";
-import OrganisationSingle from "@/DataTypes/Organisation/components/layouts/single/OrganisationSingle";
 import Media from "@/DataTypes/Media/models/Media";
-import {TYPE_ORGANISATION, TYPE_DEFAULT} from "@/DataTypes/Entity/Types";
+import {TYPE_DEFAULT, TYPE_ORGANISATION} from "@/DataTypes/Entity/Types";
 import AppRoutes from "@/src/Routing/AppRoutes";
 
 
@@ -32,9 +31,9 @@ class Organisation extends EntityModel {
 
         this.simpleComponent = OrganisationSimple;
 
-        this.singleRoute = AppRoutes.organisationSingle;
-        this.singleEditRoute = AppRoutes.organisationsSingleEdit;
-        this.createRoute = AppRoutes.organisationsCreate;
+        this.singleRoute = {...AppRoutes.organisationSingle};
+        this.singleEditRoute = {...AppRoutes.organisationsSingleEdit};
+        this.createRoute = {...AppRoutes.organisationsCreate};
 
 
         //sets all the rest as a this[key] = raw[key] value.
