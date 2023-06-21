@@ -42,7 +42,7 @@ const Index = () => {
             <PageHeader
                 title="Contribuer en ajoutant une entité"
                 subtitleColor="primary"
-                description="Vous avez accès ici à tous les types de données qu'il est présentement possible d'intégrer à la base de données."
+                description="Vous pouvez créer ces différents types de données."
             />
 
             <div className={`${styles["contribution-page__menu"]}`}>

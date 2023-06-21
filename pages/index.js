@@ -226,13 +226,22 @@ const HomePage = ({}) => {
                             <hr />
                             {/* If user is not connected, offer the option to connect itself*/}
                             {!auth.user.isLoggedIn &&
-                            <section className="d-grid">
-                                <Button color="primary" href="/compte/connexion">Se connecter</Button>
-                            </section>
+                            <>
+                                <section className="d-grid">
+                                    <Button color="primary" href="/compte/connexion">Se connecter</Button>
+                                </section>
+
+                                <section className={"aside__register-option py-2"}>
+                                    <div className="bg-primary text-white d-flex flex-column">
+                                        <h4>Pas encore de compte ?</h4>
+                                        <p>Vous en aurez besoin afin de vous aussi contribuer aux données</p>
+                                        <Button color="light" outline="light" href="/compte/inscription">C'est par ici !</Button>
+                                    </div>
+                                    <hr />
+                                </section>
+                            </>
                             }
-                            {!auth.user.isLoggedIn &&
-                            <hr />
-                            }
+                            
 
                             {/*Rapid options to access of edit the database*/}
                             <section className={"aside__db-edit-options"}>
@@ -308,18 +317,6 @@ const HomePage = ({}) => {
                                 </SanitizedInnerHtml>
                             </section>
                             <hr />
-
-                            {/* Section : If user is not connected, propose to create an account if he doesn't have one */}
-                            {!auth.user.isLoggedIn &&
-                            <section className={"aside__register-option"}>
-                                <div className="bg-primary text-white d-flex flex-column">
-                                    <h4>Pas encore de compte ?</h4>
-                                    <p>Vous en aurez besoin afin de vous aussi contribuer aux données</p>
-                                    <Button color="light" outline="light" href="/compte/inscription">C'est par ici !</Button>
-                                </div>
-                                <hr />
-                            </section>
-                            }
 
                             {/*
                                 Section : More informations about the project

@@ -165,6 +165,20 @@ const AppRoutesRaw = {
         label: "Error 404",
         pathname: "/404",
         asPath: "/404"
+    },
+
+    faq: {
+        label: "FAQ",
+        pathname: "/faq",
+        asPath: "/faq",
+        needAuth: false,
+    },
+
+    licences: {
+        label: "Licences",
+        pathname: "/faq/licences",
+        asPath: "/faq/licences",
+        needAuth: false,
     }
 }
 

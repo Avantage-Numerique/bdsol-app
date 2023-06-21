@@ -19,8 +19,6 @@ const profileMenu = (
     <>
         <h3>Modification du profil</h3>
         <Button onClick={() => setSubMenu("modifPassword")}>Modifier mon mot de passe</Button>
-        <div>2e chose à modifier</div>
-        <div>3e chose à modifier</div>
     </>
 )
 

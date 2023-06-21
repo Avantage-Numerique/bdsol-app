@@ -23,7 +23,10 @@ const UserHistoryGrid = () => {
     //Data history query
     const formData = {
         "data": {
-            "user": auth.user.id
+            "user": auth.user.id,
+            "sort": {
+                "updatedAt": "desc"
+            }
         }
     };
     
