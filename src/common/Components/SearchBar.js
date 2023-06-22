@@ -27,6 +27,7 @@ const SearchBar = ({small, ...props}) => {
     const [inputValue, setInputValue] = useState("");
     const [value, setValue] = useState(null)
     const blockSubmitSlug = useRef(false);
+    const firstRender = useRef(true);
 
     const router = useRouter();
     //Main form functionalities
@@ -60,11 +61,19 @@ const SearchBar = ({small, ...props}) => {
 
     //Search suggestion
     const getSearchSuggestion = async () => {
-        const suggestions = await clientSideExternalApiRequest(
-            '/search' + '?searchIndex=' + formState.inputs.searchIndex.value,
-            { method: 'GET' }
-        );
-        setSelectResponse(suggestions);
+        //If not the first render, fetch
+        if(!firstRender.current)
+        {
+            const suggestions = await clientSideExternalApiRequest(
+                '/search' + '?searchIndex=' + formState.inputs.searchIndex.value,
+                { method: 'GET' }
+            );
+            setSelectResponse(suggestions);
+        }
+        //If firstRender, allow next fetch
+        else {
+            firstRender.current = false;
+        }
     }
 
     const getNearestTaxonomyToSearchIndex = async (searchIndex) => {
