@@ -32,7 +32,7 @@ const Licences = (props) => {
             <PageHeader title="Précision sur les licences et droits d'auteurs">
                 <Breadcrumbs className={"pt-2"} route={AppRoutes.licences} getLabelGenerator={getLabelGenerator} />
             </PageHeader>
-            <div className={"row"}>
+            <section id="faq-licence-definition" className={"row"}>
                 <div className={"col"}>
                     <h3>Qu'est-ce qu'une licence?</h3>
                     <p>
@@ -48,8 +48,8 @@ const Licences = (props) => {
                     </p>
                     <hr />
                 </div>
-            </div>
-            <div className={"row"}>
+            </section>
+            <section id="faq-licences-supportees" className={"row"}>
                 <div className={"col"}>
                     <h3>Licences supportées par la BDSOL</h3>
                     <h4>Les définitions suivantes sont des résumés.</h4>
@@ -163,8 +163,8 @@ const Licences = (props) => {
                     }
                     <hr />
                 </div>
-            </div>
-            <div className={"row pb-3"}>
+            </section>
+            <section id="faq-licence-accronymes" className={"row pb-3"}>
                 <div className={"col"}>
                     <h3>Définition des accronymes utilisés</h3>
                     <h4>Basé d'après les licences de :
@@ -215,7 +215,7 @@ const Licences = (props) => {
                         </li>
                     </ul>
                 </div>
-            </div>
+            </section>
         </div>
     );
 }

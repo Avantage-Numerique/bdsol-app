@@ -1,11 +1,63 @@
-import {useCallback} from "react";
+import {useCallback, useState} from "react";
+import Link from 'next/link';
 
+//Components
 import PageHeader from "@/src/layouts/Header/PageHeader";
+import Button from "@/src/common/FormElements/Button/Button";
+import Icon from "@/src/common/widgets/Icon/Icon"
+
+//Utils
 import { Breadcrumbs } from "@/src/common/Breadcrumbs/Breadcrumbs";
 import AppRoutes from "@/src/Routing/AppRoutes";
-import Button from "@/src/common/FormElements/Button/Button";
+
+//styling
+import styles from "./faq.module.scss"
+
+const SubjectRow = props => {
+
+    const {
+        index,                  //Index representing this element
+        subject,                //Title of the section
+        activeSubjectIndex,     //Currently active index in the page
+        setActiveSubject,       //function to set this element has the active one
+        close,                  //Function to close by setting the state at false
+        rows                    //Rows of options with redirection links
+    } = props;
+
+    //Variable reloaded for every state change and saying if the current is active of not
+    const isActive = index == activeSubjectIndex;
+
+    return (
+        <li className={`list-group-item ${styles["pointer"]} ${!isActive && styles["background-hover"]}`}>
+            <header 
+                onClick={isActive ? close : setActiveSubject} 
+                className={`d-flex align-items-center cursor-pointer ${isActive && styles["background-hover"]}`}
+            >
+                <h5 className="my-2 flex-fill">{subject}</h5>
+                <Icon className="fs-3 font-weight-bold mx-2" iconName={`las la-${isActive ? "minus" : "plus"}`}/>
+            </header>
+            {activeSubjectIndex && isActive &&
+                <ul className={`${styles["list-background-odd"]} list-group list-group-flush my-2`}>
+                    {
+                        rows && rows.map((row, i) => (
+                            <Link className={`${styles["pointer"]}`} href={row.tag ? row.link + "#" + row.tag : row.link} key={row.name}>
+                                <li className={`${styles["background-hover"]} list-group-item d-flex align-items-center`}>
+                                    <p className="flex-fill m-0">{row.name}</p>
+                                    <Icon className="fs-3 font-weight-bold" iconName="las la-arrow-right"/>
+                                </li>
+                            </Link>
+                        ))
+                    }
+                </ul>
+            }
+        </li>
+    )
+}
 
 const FAQ = () => {
+
+    //A number for the corresponding subject, or false for every subject closed
+    const [activeSubjectIndex, setActiveSubjectIndex] = useState(false);
 
     const getLabelGenerator = useCallback((param, query) => {
         return {
@@ -22,7 +74,36 @@ const FAQ = () => {
             >
                 <Breadcrumbs className={"pt-2"} route={AppRoutes.faq} getLabelGenerator={getLabelGenerator} />
             </PageHeader>
-            <Button href="/faq/licences">Précisions sur les licences et droits d'auteurs</Button>
+            <section className="my-4">
+                <h2 className="my-4">Besoin de plus de précisions sur un sujet ?</h2>
+                <ul className="border-top border-bottom m-0 list-group list-group-flush">
+                    <SubjectRow 
+                        index={1}
+                        subject="Les licences"
+                        activeSubjectIndex={activeSubjectIndex}
+                        setActiveSubject={() => setActiveSubjectIndex(1)}
+                        close={() => setActiveSubjectIndex(false)}
+                        rows={[
+                            {
+                                name: "Qu'est-ce qu'une licence?",
+                                link: "/faq/licences",
+                                tag: "faq-licence-definition"
+                            },
+                            {
+                                name: "Licences supportées par la BDSOL",
+                                link: "/faq/licences",
+                                tag: "faq-licences-supportees"                                
+                            },
+                            {
+                                name: "Définition des accronymes utilisés",
+                                link: "/faq/licences",
+                                tag: "faq-licence-accronymes"                                
+                            }
+                        ]}
+                    />
+
+                </ul>
+            </section>
         </>
     );
 }
