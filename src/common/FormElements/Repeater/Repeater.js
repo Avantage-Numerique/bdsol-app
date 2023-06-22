@@ -68,12 +68,14 @@ const Repeater = props => {
         name,                   // - [string] : Name to refer to the repeater in the main form State
         initValues,             // - [array] : Expected to be an array of object where each object contains the values for one iteration of this repeater 
         //formReturnStructure   //
-        sortable,             // - [bool] : If true, the repeater add an order value, display the drag and drop UI and activate that function
+        //sortable,             // - [bool] : If true, the repeater add an order value, display the drag and drop UI and activate that function
         className               // - [String] : Represent the class names of the generated containers to repeat
     } = props;
     
     //Import the authentication context to make sure the user is well connected
     const auth = useAuth();
+
+    const sortable = false;
 
     //Extract the needed elements from the formtools
     const {
@@ -92,12 +94,12 @@ const Repeater = props => {
     const containerRef = useRef();
 
     //Custom hook used for moving the elements
-     const { DNDUI } = useDND(containerRef, iterations, {
+     /* const { DNDUI } = useDND(containerRef, iterations, {
         dragButton: elem => elem.querySelector(`.${styles["dragging-button"]}`), 
         movingElem: null,
         order: null,
         updateOrder: () => {}
-    });
+    }); */
     
     //Gives us access to the values of the main state in the shape of an array. And since it is sorted, we use it to display the elements
     const sortedIterationsArray = iterations ? Object.values(iterations).sort((a, b) => (a.order > b.order) ? 1 : -1) : [];
@@ -255,7 +257,7 @@ const Repeater = props => {
                {sortedIterationsArray.map(iteration => (
                     <article 
                         key={iteration.key} 
-                        className={`d-flex flex-nowrap overflow-hidden rounded my-2 ${className}`}
+                        className={`d-flex flex-nowrap rounded my-2 ${styles["repeatable"]} ${className}`}
                         draggable={true}
                         data-order={iteration.order}
                     >
@@ -282,7 +284,7 @@ const Repeater = props => {
                     </article>
                ))}                   
             </section>
-            <DNDUI />
+            {/* <DNDUI /> */}
             {/* By default, there is an add button */}
             <div className="my-2 d-flex justify-content-end p-0">
                 <Button type="button" size="slim" onClick={addNewIteration} className="m-0">Ajouter</Button>
