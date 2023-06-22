@@ -18,7 +18,6 @@ const SearchTag = ({list, max, ...props}) => {
     const tagBgColor = props.tagBgColor ?? "primarylight";
 
     useEffect( () => {
-        console.log(list)
         const setupList = list.map( (listElement) => {
             let targetElement = props.listProperty ? listElement[props.listProperty] : listElement;
             targetElement = targetElement ?? listElement;

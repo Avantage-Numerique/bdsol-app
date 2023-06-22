@@ -18,8 +18,6 @@ const UpdateScheduleBudget = ({name, formTools, ...props}) => {
 
     useEffect( () => {
         const { startDate, endDateEstimate, completionDate } = formTools.formState.inputs;
-        console.log(startDate, endDateEstimate, completionDate)
-        console.log(getDateFromIsoString(startDate.value))
         startDate.value = getDateFromIsoString(startDate.value);
         endDateEstimate.value = getDateFromIsoString(endDateEstimate.value);
         completionDate.value = getDateFromIsoString(completionDate.value);

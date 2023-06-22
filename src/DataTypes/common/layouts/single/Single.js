@@ -41,8 +41,6 @@ const Single = (props) => {
 
     const entity = props?.entity ?? {};
 
-    console.log(entity)
-
     const headerBgImage = entity.headerBG ?? defaultHeaderBg;
 
     const haveMainImage = entity.mainImage !== undefined && entity.mainImage !== "";
