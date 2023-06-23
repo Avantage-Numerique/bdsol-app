@@ -1,4 +1,5 @@
-import { useCallback, useRef } from 'react';
+import { useCallback, useRef, useEffect, useContext } from 'react';
+import Router from 'next/router';
 import Link from 'next/link'
 
 //Custom hooks
@@ -26,6 +27,7 @@ import {replacePathname} from "@/src/helpers/url";
 
 //Context
 import {useAuth} from "@/src/authentification/context/auth-context";
+import { MessageContext } from '@/src/common/UserNotifications/Message/Context/Message-Context';
 import UpdateScheduleBudget from '@/src/DataTypes/Project/component/forms/UpdateScheduleBudget';
 import UpdateSponsor from '@/src/DataTypes/Project/component/forms/UpdateSponsor';
 
@@ -59,6 +61,26 @@ const ProjectSingleEdit = (props) => {
     const model = new Project(props.data);
     //Redirection link to the view page
     const link = "/"+replacePathname(model.singleRoute.pathname, {slug: model.slug});
+
+    //Import the authentication context to make sure the user is well connected
+    const auth = useAuth();
+
+    //Import message context 
+    const msg = useContext(MessageContext);
+
+    /*
+    First of all, verify if the user is logged in.
+    If he isn't, then redirect him in the connexion page
+    */
+    useEffect(() => {
+        if(!auth.user.isLoggedIn) {
+            msg.addMessage({ 
+                text: lang.needToBeConnectedToAccess,
+                positive: false 
+            })
+            Router.push('/compte/connexion')
+        }
+    }, [auth.user.isLoggedIn]);
 
     //Modal hook
     const {displayModal, modal, closeModal, Modal} = useModal();
@@ -153,9 +175,6 @@ const ProjectSingleEdit = (props) => {
             redirect: link
         }
     )
-
-    //Authentication ref
-    const auth = useAuth();
 
     const submitHandler = async event => {
         
@@ -451,7 +470,7 @@ const ProjectSingleEdit = (props) => {
             />
             <div className="d-flex pt-4 align-items-end flex-column">
                 <Button disabled={!formState.isValid} onClick={submitHandler}>
-                    Soumettre
+                    Soumettre les modifications
                 </Button>
                 {
                     !formState.isValid &&

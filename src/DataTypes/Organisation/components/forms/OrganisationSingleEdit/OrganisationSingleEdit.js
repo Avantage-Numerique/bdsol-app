@@ -187,11 +187,7 @@ const OrganisationSingleEdit = (props) => {
     }, []);
 
     /*****************************
-     * 
-     * 
      *  Sections
-     * 
-     * 
      ***************************/
     const breadCrumb = {
         route: model.singleEditRoute,
@@ -212,11 +208,11 @@ const OrganisationSingleEdit = (props) => {
 
     const subtitle = (
         <Input
-        name="catchphrase"
-        placeholder={lang.catchphrase}
-        formClassName="discrete-without-focus form-text-white h4"
-        label={lang.catchphrase}
-        formTools={formTools}
+            name="catchphrase"
+            placeholder={lang.catchphrase}
+            formClassName="discrete-without-focus form-text-white h4"
+            label={lang.catchphrase}
+            formTools={formTools}
         />);
     
     const ctaHeaderSection = (
@@ -355,7 +351,7 @@ const OrganisationSingleEdit = (props) => {
 
             <div className="d-flex pt-4 align-items-end flex-column">
                 <Button disabled={!formState.isValid} onClick={submitHandler}>
-                    Soumettre
+                    Soumettre les modifications
                 </Button>
                 {
                     !formState.isValid &&

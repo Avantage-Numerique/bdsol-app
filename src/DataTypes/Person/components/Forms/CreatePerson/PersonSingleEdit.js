@@ -1,4 +1,5 @@
-import { useCallback, useRef } from 'react'
+import { useCallback, useRef, useContext, useEffect } from 'react'
+import Router from 'next/router'
 import Link from 'next/link'
 
 //Custom hooks
@@ -18,6 +19,8 @@ import {SingleEntityStatus} from '@/DataTypes/Status/components/SingleEntityStat
 
 //Context
 import {useAuth} from "@/src/authentification/context/auth-context";
+import {MessageContext} from '@/src/common/UserNotifications/Message/Context/Message-Context';
+
 
 //Styling
 import styles from './CreatePersonForm.module.scss'
@@ -56,11 +59,29 @@ const PersonSingleEdit = ({initValues, positiveRequestActions, ...props}) => {
     //Redirection link to the view page
     const link = "/"+replacePathname(model.singleRoute.pathname, {slug: model.slug});
 
-    //Authentication ref
-    const auth = useAuth();
 
     //Modal hook
     const {displayModal, modal, closeModal, Modal} = useModal();
+
+    //Import the authentication context to make sure the user is well connected
+    const auth = useAuth();
+
+    //Import message context 
+    const msg = useContext(MessageContext);
+
+    /*
+    First of all, verify if the user is logged in.
+    If he isn't, then redirect him in the connexion page
+    */
+    useEffect(() => {
+        if(!auth.user.isLoggedIn) {
+            msg.addMessage({ 
+                text: lang.needToBeConnectedToAccess,
+                positive: false 
+            })
+            Router.push('/compte/connexion')
+        }
+    }, [auth.user.isLoggedIn]);
 
     //Main form functionalities
     //not used : transmuteTaxonomyTargetInput
@@ -311,7 +332,7 @@ const PersonSingleEdit = ({initValues, positiveRequestActions, ...props}) => {
 
                 <div className="d-flex pt-4 align-items-end flex-column">
                     <Button disabled={!formState.isValid} onClick={submitHandler}>
-                        Soumettre
+                        Soumettre les modifications
                     </Button>
                     {
                         !formState.isValid &&

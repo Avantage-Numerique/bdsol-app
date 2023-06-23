@@ -5,6 +5,9 @@ import styles from './SingleBaseHeader.module.scss';
 import Button from '@/src/common/FormElements/Button/Button';
 import MainImageDisplay from '@/DataTypes/common/layouts/single/defaultSections/MainImageDisplay/MainImageDisplay';
 
+//Auth
+import { useAuth } from '@/src/authentification/context/auth-context';
+
 
 /**
  * @param {object} mainImage mainImage data object
@@ -32,6 +35,8 @@ const SingleBaseHeader = (props) => {
         buttonLink
     } = props;
 
+    const auth = useAuth();
+
     return (
         <section className={`row position-relative p-4 ms-0 ${className}`}>
             <div className="col-md-6 order-2 order-md-1">
@@ -49,7 +54,13 @@ const SingleBaseHeader = (props) => {
                 {/* If a button section is declared, use it */}
                 {buttonSection && buttonSection}
                 {/* If the is no button section and there is a single button declared, display it */}
-                {buttonText && buttonLink && <Button href={buttonLink}>{buttonText}</Button>}
+                {
+                    (buttonText && buttonLink) &&
+                    auth.user.isLoggedIn ?
+                        <Button href={buttonLink}>{buttonText}</Button>
+                        :
+                        <Button href="/compte/connexion">{buttonText}</Button>
+                }
                 { /* entityType */ }
                 <p className='text-white mb-0'>{type ?? "Type de l'entité"}</p>
             </div>
