@@ -228,7 +228,7 @@ const OrganisationSingleEdit = (props) => {
         <SingleBaseHeader 
             title={title} 
             subtitle={subtitle} 
-            type={type} 
+            type={"Organisation"} 
             mainImage={mainImage}
             buttonSection={ctaHeaderSection}
 

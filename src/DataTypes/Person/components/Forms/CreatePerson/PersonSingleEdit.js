@@ -238,7 +238,7 @@ const PersonSingleEdit = ({initValues, positiveRequestActions, ...props}) => {
     const header = ( 
         <SingleBaseHeader 
             title={title} 
-            type={type} 
+            type={"Personne"} 
             subtitle={subtitle} 
             mainImage={mainImage}
             buttonSection={ctaHeaderSection}

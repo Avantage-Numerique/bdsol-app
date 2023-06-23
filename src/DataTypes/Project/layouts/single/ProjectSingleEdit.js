@@ -322,7 +322,7 @@ const ProjectSingleEdit = (props) => {
         <SingleBaseHeader 
             title={title} 
             subtitle={subtitle} 
-            type={type} 
+            type={"Projet"} 
             mainImage={mainImage} 
             buttonSection={ctaHeaderSection}
         /> 
