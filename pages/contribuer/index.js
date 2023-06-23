@@ -77,21 +77,24 @@ const Index = () => {
                             <Button href={getCreateEntityPath("TYPE_PROJECT")} size="large-100" disabled={!auth.user.isLoggedIn}>Projet</Button>
                         </div>
                     </div>
+                    {
+                        /* Retrait de "entité à venir" pour faire clean avec les tests user
+                        <div className='row pt-5 pb-3'>
+                            <div className="col">
+                                <h2 className="col-12">Entités à venir</h2>
+                            </div>
+                        </div>
 
-                    <div className='row pt-5 pb-3'>
-                        <div className="col">
-                            <h2 className="col-12">Entités à venir</h2>
+                        <div className='row pb-5 row-cols-1 row-cols-md-4 gy-3'>
+                            <div className="col">
+                                <Button href="/" size="large-100" disabled>Événement</Button>
+                            </div>
+                            <div className="col">
+                                <Button href="/" size="large-100" disabled>Matériel</Button>
+                            </div>
                         </div>
-                    </div>
-
-                    <div className='row pb-5 row-cols-1 row-cols-md-4 gy-3'>
-                        <div className="col">
-                            <Button href="/" size="large-100" disabled>Événement</Button>
-                        </div>
-                        <div className="col">
-                            <Button href="/" size="large-100" disabled>Matériel</Button>
-                        </div>
-                    </div>
+                        */
+                    }
                 </div>
             </div>
         </div>
