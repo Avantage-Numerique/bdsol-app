@@ -62,18 +62,11 @@ const SearchBar = ({small, ...props}) => {
     //Search suggestion
     const getSearchSuggestion = async () => {
         //If not the first render, fetch
-        if(!firstRender.current)
-        {
             const suggestions = await clientSideExternalApiRequest(
                 '/search' + '?searchIndex=' + formState.inputs.searchIndex.value,
                 { method: 'GET' }
             );
             setSelectResponse(suggestions);
-        }
-        //If firstRender, allow next fetch
-        else {
-            firstRender.current = false;
-        }
     }
 
     const getNearestTaxonomyToSearchIndex = async (searchIndex) => {
@@ -90,8 +83,13 @@ const SearchBar = ({small, ...props}) => {
     const debouncedRequest = useDebounce(formState.inputs.searchIndex.value, 200);
     //Update the list of options to display
     useEffect(() => {
-        getSearchSuggestion();
-        getNearestTaxonomyToSearchIndex();
+        //If not the first render, fetch
+        if(!firstRender.current) {
+            getSearchSuggestion();
+            getNearestTaxonomyToSearchIndex();
+        }
+        else
+            firstRender.current = false;
     }, [debouncedRequest]);
 
     //Called whenever the user enter or modify a value into the field
