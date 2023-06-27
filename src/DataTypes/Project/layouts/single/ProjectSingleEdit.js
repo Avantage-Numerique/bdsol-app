@@ -172,7 +172,9 @@ const ProjectSingleEdit = (props) => {
         //Actions if the form turns out to be positive
         {
             displayResMessage: true,
-            redirect: link
+            callbackFunction: (response) => {
+                Router.push("/"+replacePathname(model.singleRoute.pathname, {slug: response.data.slug}))
+            }
         }
     )
 
@@ -235,7 +237,7 @@ const ProjectSingleEdit = (props) => {
         }
         
         //Add data to the formData
-        await submitRequest(
+        submitRequest(
             "/projects/update",
             'POST',
             formData

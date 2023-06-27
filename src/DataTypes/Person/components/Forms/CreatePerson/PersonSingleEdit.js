@@ -117,9 +117,11 @@ const PersonSingleEdit = ({initValues, positiveRequestActions, ...props}) => {
             }
         },
         //Pass a set of rules to execute a valid response of an api request
-        positiveRequestActions || {
-            clearForm: true,            //Clear the form
-            displayResMessage: true     //Display a message to the user to confirm the succes
+        {
+            displayResMessage: true,
+            callbackFunction: (response) => {
+                Router.push("/"+replacePathname(model.singleRoute.pathname, {slug: response.data.slug}))
+            }
         }
     );
     
@@ -155,7 +157,7 @@ const PersonSingleEdit = ({initValues, positiveRequestActions, ...props}) => {
             }
         };
 
-       await submitRequest(
+        submitRequest(
             `/persons/update`,
             'POST',
             JSON.stringify(formData)

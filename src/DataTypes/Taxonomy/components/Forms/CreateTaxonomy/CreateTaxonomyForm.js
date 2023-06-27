@@ -134,7 +134,6 @@ const CreateTaxonomyForm = ({name, category, initValues, positiveRequestActions,
         domainQuery._id = `ne:${initValues._id}`;
     }
 
-
     //Prevent from displaying is the user is not logged in or if the app doesn't know the authentication state yet
     if(auth.user.isLoggedIn)
     return (
@@ -190,7 +189,7 @@ const CreateTaxonomyForm = ({name, category, initValues, positiveRequestActions,
                     isMulti={true}
 
                     fetch={"/taxonomies/list"}
-                    requestData={{category:"domains", name:""}}
+                    requestData={domainQuery}
                     searchField={"name"}
                     selectField={"domains"}
                 />

@@ -125,7 +125,9 @@ const OrganisationSingleEdit = (props) => {
         }
     }, {
             displayResMessage: true,     //Display a message to the user to confirm the succes
-            redirect: link
+            callbackFunction: (response) => {
+                Router.push("/"+replacePathname(model.singleRoute.pathname, {slug: response.data.slug}))
+            }
 
         })
 
