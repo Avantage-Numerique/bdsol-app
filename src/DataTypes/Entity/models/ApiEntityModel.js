@@ -1,4 +1,5 @@
 import { getColor } from "@/src/styles/datatypeStyle";
+import { TYPE_ORGANISATION, TYPE_PERSON, TYPE_PROJECT, TYPE_TAXONOMY } from "../Types";
 
 
 
@@ -23,7 +24,7 @@ class ApiEntityModel {
 
     static entityTypeHandler( entity, field ) {
         switch (entity.type) {
-            case "Person" :
+            case TYPE_PERSON :
                 if(field == "occupations")
                     return ApiEntityModel.occupationsToSelectOptions( entity.occupations ?? entity );
                 if(field == "domains")
@@ -31,17 +32,17 @@ class ApiEntityModel {
                 if(field == "fullname")
                     return ApiEntityModel.fullnameToSelectOptions( entity );
                 break;
-            case "Organisation" :
+            case TYPE_ORGANISATION :
                 if(field == "offers")
                     return ApiEntityModel.occupationsToSelectOptions( entity.offers ?? entity );
                 if(field == "name")
                     return ApiEntityModel.nameToSelectOptions( entity );
                 break;
-            case "Project" :
+            case TYPE_PROJECT :
                 if(field == "domains")
                     return ApiEntityModel.domainsToSelectOptions( entity.domain );
                 break;
-            case "Taxonomy" :
+            case TYPE_TAXONOMY :
                     return ApiEntityModel.nameToSelectOptions( entity );
                 break;
             default : 
