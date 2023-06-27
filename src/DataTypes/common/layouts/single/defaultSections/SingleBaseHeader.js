@@ -55,11 +55,13 @@ const SingleBaseHeader = (props) => {
                 {buttonSection && buttonSection}
                 {/* If the is no button section and there is a single button declared, display it */}
                 {
-                    (buttonText && buttonLink) &&
-                    auth.user.isLoggedIn ?
+                    buttonText && buttonLink ?
+                    (auth.user.isLoggedIn ?
                         <Button href={buttonLink}>{buttonText}</Button>
                         :
-                        <Button href="/compte/connexion">{buttonText}</Button>
+                        <Button href="/compte/connexion">{buttonText}</Button>)
+                    :
+                    <></>
                 }
                 { /* entityType */ }
                 <p className='text-white mb-0'>{type ?? "Type de l'entité"}</p>
