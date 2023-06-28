@@ -26,6 +26,10 @@ export async function getServerSideProps(context) {
         {
             method: 'GET',
         });
+
+    if(taxonomy.data._id == undefined || entities.data._id)
+        return { notFound: true };
+
     return { props: {
             taxonomy: taxonomy.data,
             data: entities.data

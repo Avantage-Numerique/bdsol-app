@@ -37,6 +37,9 @@ export async function projectSlugSSProps(context) {
             headers: getUserHeadersFromUserSession(context.req.session.user)
         });
 
+    if(response.data._id == undefined)
+        return { notFound: true };
+        
     return { props: response.data };
 }
 

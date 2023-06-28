@@ -1,5 +1,4 @@
 import React from 'react'
-
 import {
     externalApiRequest
 } from '@/src/hooks/http-hook';
@@ -37,6 +36,9 @@ export async function personSlugSSProps(context) {
             headers: getUserHeadersFromUserSession(context.req.session.user)
         });
 
+    if(response.data._id == undefined)
+        return { notFound: true };
+        
     return { props: response.data };
 }
 

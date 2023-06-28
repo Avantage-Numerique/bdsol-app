@@ -18,13 +18,13 @@ const SearchTag = ({list, max, ...props}) => {
     const tagBgColor = props.tagBgColor ?? "primarylight";
 
     useEffect( () => {
-        const setupList = list.map( (listElement) => {
+        const setupList = list?.map( (listElement) => {
             let targetElement = props.listProperty ? listElement[props.listProperty] : listElement;
             targetElement = targetElement ?? listElement;
             return { ...targetElement, url:"/"+targetElement.category + "/" + targetElement.slug }
         }).flat();
 
-        if(setupList.length > max && max !== "-1"){
+        if(setupList?.length > max && max !== "-1"){
             setupList.slice(0, max);
             setMoreThanMax(true);
         }
@@ -35,7 +35,7 @@ const SearchTag = ({list, max, ...props}) => {
 
     return (
         <>
-            { searchTagList.length > 0 &&
+            { searchTagList?.length > 0 &&
                 <p>
                 {
                     searchTagList.map( (tag, index) => {
