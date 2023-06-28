@@ -108,7 +108,12 @@ const CreateTaxonomyForm = ({name, category, initValues, positiveRequestActions,
                 "category": formState.inputs.category.value,
                 "name":  formState.inputs.name.value, 
                 "description": formState.inputs.description.value,
-                "domains": formState.inputs.domains.value,
+                "domains": formState.inputs.domains.value ? formState.inputs.domains.value.map( (singleDomain) => {
+                    return {
+                        domain: singleDomain.value,
+                        status: getDefaultCreateEntityStatus(auth.user)
+                    }
+                }): [],
                 /*"source": formState.inputs.source.value,*/
                 "status": getDefaultCreateEntityStatus(auth.user)
             }
@@ -185,7 +190,7 @@ const CreateTaxonomyForm = ({name, category, initValues, positiveRequestActions,
                     name="domains"
                     label={lang.Domains}
                     formTools={formTools}
-                    creatable={true}
+                    creatable={false}
                     isMulti={true}
 
                     fetch={"/taxonomies/list"}
