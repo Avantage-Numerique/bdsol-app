@@ -73,14 +73,13 @@ const Input = ({name, formTools, ...props}) => {
                 </label>
                 {
                     props.tip &&
-                    <Tip 
-                        {...props.tip}
-                    />
+                    <Tip {...props.tip}/>
                 }
             </div>
 
             <div 
                 //tabIndex="0"  Would allow the complete field to be focused, not only the input. But that would alos make two focusable elements by field
+                data-testid="field-container"
                 className={`
                 form-element
                 form-element--color-validation
