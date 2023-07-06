@@ -34,14 +34,13 @@ const SingleBaseHeader = (props) => {
         buttonText,
         buttonLink
     } = props;
-
     const auth = useAuth();
 
     return (
         <section className={`row position-relative p-4 ms-0 ${className}`}>
             <div className="col-md-6 order-2 order-md-1">
                 { /* title */ }
-                { title ?? <h2 className='mt-4 ms-4'>Titre</h2>}
+                { title ?? <h2 className='mt-4 ms-4'>Titre</h2> }
 
                 { /* subtitle */ }
                 { subtitle ?? <h3 className='ms-4'>Sous-titre</h3> }

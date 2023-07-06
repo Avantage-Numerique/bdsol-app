@@ -44,7 +44,7 @@ const CreateMediaForm = (props) => {
 
     //Define if the form is creating a new file or if it is updating the values of an existing one.
     //Starting state is false since no new file has been passed
-    const [isNewFile, setIsNewFile] = useState((initValues && url));
+    const [isNewFile, setIsNewFile] = useState(!(initValues && url));
     //Authentication ref
     const auth = useAuth();
 
@@ -141,7 +141,7 @@ const CreateMediaForm = (props) => {
                 "title": formState.inputs.title.value,
                 "alt": formState.inputs.alt.value,
                 "description": formState.inputs.description.value,
-                "licence": formState.inputs.licence.value,
+                "licence": formState.inputs.licence.value != "-1" ? formState.inputs.licence.value : undefined,
                 "fileType": "image",
                 "mediaField": "mainImage",
                 "entityType": entity.type,
