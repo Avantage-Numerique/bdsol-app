@@ -1,4 +1,4 @@
-import { externalApiRequest } from '@/src/hooks/http-hook';
+import {externalApiRequest} from '@/src/hooks/http-hook';
 import PageHeader from "@/layouts/Header/PageHeader";
 import React, {useCallback} from "react";
 import {lang} from "@/common/Data/GlobalConstants";
@@ -27,7 +27,7 @@ export async function getServerSideProps(context) {
             method: 'GET',
         });
 
-    if(taxonomy.data._id == undefined || entities.data._id)
+    if(typeof taxonomy.data._id === 'undefined' || entities.data._id)
         return { notFound: true };
 
     return { props: {

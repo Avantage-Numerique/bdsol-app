@@ -1,5 +1,5 @@
-import { useHttpClient } from "@/src/hooks/http-hook";
-import React, {useState, useEffect, useCallback} from "react";
+import {useHttpClient} from "@/src/hooks/http-hook";
+import React, {useCallback, useEffect, useState} from "react";
 import PageHeader from "@/src/layouts/Header/PageHeader";
 import {lang} from "@/common/Data/GlobalConstants";
 import {Breadcrumbs} from "@/common/Breadcrumbs/Breadcrumbs";
@@ -59,7 +59,7 @@ const TaxonomiesCategoryPage = () => {
             list.map( (elem) => 
                 <div key={elem.slug} className="col-3 p-2">
                     <a href={`/categories/${elem.category}/${elem.slug}`} className="d-block p-2 border">
-                        {elem.name}
+                        {elem.name}{elem.meta?.count > 0 ? ` (${elem.meta?.count})` : ""}
                     </a>
                 </div>
             )
