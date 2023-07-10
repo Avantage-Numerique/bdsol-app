@@ -82,9 +82,7 @@ export const useFormUtils = ( initialState, actions ) => {
                 if(innerMessage)
                     setInnerMessage("")
 
-                /*
-                    Actions executed when the form is positive
-                */
+                /* Actions executed when the form is positive */
 
                 //1. Clear the form
                 if(positiveResponseActions.clearForm)
