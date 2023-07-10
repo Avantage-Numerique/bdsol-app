@@ -12,18 +12,41 @@ class Type {
     constructor(values) {
         this.slug = values.slug;
         this.label = values.label;
+        this.defaultMainImage = values.defaultMainImage
     }
 }
 export {Type};
 
 const TYPES = new Map();
-TYPES.set(TYPE_MEDIA, new Type({slug:"medias", label: "Média"}));
-TYPES.set(TYPE_ORGANISATION, new Type({slug:"organisations", label: "Organisation"}));
-TYPES.set(TYPE_PROJECT, new Type({slug:"projets", label: "Projet"}));
-TYPES.set(TYPE_PERSON, new Type({slug:"persons", label: "Personne"}));
-TYPES.set(TYPE_ABSTRACT, new Type({slug:"entites", label: "Entité"}));
-TYPES.set(TYPE_TAXONOMY, new Type({slug:"categories", label: "Taxonomies"}));
-
+TYPES.set(TYPE_MEDIA, new Type({
+    slug:"medias",
+    label: "Média",
+    defaultMainImage: ""
+}));
+TYPES.set(TYPE_ORGANISATION, new Type({
+    slug:"organisations",
+    label: "Organisation",
+    defaultMainImage: "/general_images/organisation-default.jpg"
+}));
+TYPES.set(TYPE_PROJECT, new Type({
+    slug:"projets",
+    label: "Projet",
+    defaultMainImage: "/general_images/project-default.webp"
+}));
+TYPES.set(TYPE_PERSON, new Type({
+    slug:"persons",
+    label: "Personne",
+    defaultMainImage: "/general_images/person-default.webp"
+}));
+TYPES.set(TYPE_ABSTRACT, new Type({
+    slug:"entites",
+    label: "Entité",
+    defaultMainImage: "/general_images/person-default.webp"
+}));
+TYPES.set(TYPE_TAXONOMY, new Type({
+    slug:"categories",
+    label: "Taxonomies",
+    defaultMainImage: "/general_images/project-default.webp"
+}));
 
 export {TYPES};
-

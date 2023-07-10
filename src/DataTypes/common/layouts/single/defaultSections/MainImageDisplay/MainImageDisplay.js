@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, {useState} from 'react';
 
 //Utils
-import { lang } from '@/src/common/Data/GlobalConstants';
+import {lang} from '@/src/common/Data/GlobalConstants';
 
 //Styling
 import styles from './MainImageDisplay.module.scss';
@@ -12,6 +12,7 @@ import {useModal} from "@/src/hooks/useModal/useModal";
 //components
 import CreateMediaForm from "@/DataTypes/Media/components/forms/CreateMedia/CreateMediaForm";
 import Button from "@/FormElements/Button/Button";
+import {getDefaultImageByEntityType} from "@/src/helpers/images";
 
 
 //{ mainImage, entity }
@@ -19,9 +20,9 @@ const MainImageDisplay = ({ mainImage, entity }) => {
 
     const {displayModal, modal, closeModal, Modal} = useModal();
 
-    const haveMainImage = mainImage !== undefined && mainImage != "";
+    const haveMainImage = mainImage !== undefined && mainImage !== "";
     const mainImageRootUrl = haveMainImage ? process.env.NEXT_PUBLIC_API_URL : "";//we dont add api path if it's local.
-    const mainImageUrl = mainImage?.url ?? "/general_images/person-default.webp";
+    const mainImageUrl = mainImage?.url ?? getDefaultImageByEntityType(entity.type);//"/general_images/person-default.webp";
     const mainImageAlt = mainImage?.alt ?? "main image alt";
     const [mainImageState, setMainImageState] = useState(
         {
