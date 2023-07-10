@@ -19,18 +19,7 @@ const Index = () => {
                     <div className={"col"}>
                         <h3>Un projet en développement</h3>
                         <p className={pClass}>
-                            Avantage Numérique travaille actuellement sur l’intégration d’une base de données à son hub
-                            virtuel. Elle a pour objectif de recenser et de géolocaliser les talents, les compétences,
-                            les équipements et les initiatives technocréatives dans le
-                            &nbsp;
-                                <a href="https://avantagenumerique.org/le-croissant-boreal/" target="_blank">
-                                    Croissant Boréal
-                                </a>
-                            &nbsp;
-                            (Abitibi-Témiscamingue, nord de l’Ontario francophone, Nord-du-Québec). La mise en ligne de
-                            cet outil augmentera la
-                            découvrabilité, la visibilité, ainsi que la transmission des savoirs relatifs aux
-                            technologies sur le territoire.
+                            Avantage Numérique travaille actuellement sur l’intégration d’une base de données à son hub virtuel. Elle a pour objectif de recenser et de géolocaliser les talents, les compétences, les équipements et les initiatives technocréatives dans le <a href="https://avantagenumerique.org/le-croissant-boreal/" target="_blank">Croissant Boréal</a> (Abitibi-Témiscamingue, nord de l’Ontario francophone, Nord-du-Québec). La mise en ligne de cet outil augmentera la découvrabilité, la visibilité, ainsi que la transmission des savoirs relatifs aux technologies sur le territoire.
                         </p>
                     </div>
                 </div>
