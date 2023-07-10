@@ -47,24 +47,22 @@ const MainImageDisplay = ({ mainImage, entity }) => {
 
     return (
         <>
-            <div>
-                <figure className={`${styles["main-image-container"]} mt-4`}>
-                    {mainImageState.haveMainImage &&
-                        <a href={`/medias/${mainImage._id}`}
-                            className={`fs-4 w-100 h-100 position-absolute d-flex align-items-center justify-content-center p-1 ${styles["profile-picture--modification-opt"]}`}>
-                            Afficher
-                        </a>
-                    }
-                    
-                    <img className={`${styles["main-image"]}`} src={mainImageState.mainImageRootUrl + mainImageState.mainImageUrl} alt={mainImageState.mainImageAlt}/>
-                    
-                    <div className={`${styles["edit-image-button"]}`}>
-                        <a onClick={() => displayModal()}>
-                            <img src={"/icones/edit-icon.svg"} title={mainImageState.haveMainImage ? lang.updateImage : lang.addImage} alt={"Changer l'image"}/>
-                        </a>
-                    </div>
-                </figure>
-            </div>
+            <figure className={`${styles["main-image-container"]} mt-4 flex-grow-1`}>
+                {mainImageState.haveMainImage &&
+                    <a href={`/medias/${mainImage._id}`}
+                        className={`fs-4 w-100 h-100 position-absolute d-flex align-items-center justify-content-center p-1 ${styles["profile-picture--modification-opt"]}`}>
+                        Afficher
+                    </a>
+                }
+                
+                <img className={`${styles["main-image"]}`} src={mainImageState.mainImageRootUrl + mainImageState.mainImageUrl} alt={mainImageState.mainImageAlt}/>
+                
+                <div className={`${styles["edit-image-button"]}`}>
+                    <a onClick={() => displayModal()}>
+                        <img src={"/icones/edit-icon.svg"} title={mainImageState.haveMainImage ? lang.updateImage : lang.addImage} alt={"Changer l'image"}/>
+                    </a>
+                </div>
+            </figure>
 
             {/******** Img Modal Display *********/}
             {
