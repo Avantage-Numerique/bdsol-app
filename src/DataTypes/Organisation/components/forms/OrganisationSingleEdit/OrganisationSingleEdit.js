@@ -238,12 +238,16 @@ const OrganisationSingleEdit = (props) => {
     );
     
     const fullWidthContent = (
-        <RichTextarea
-            className="py-3"
-            name="description"
-            label="Description"
-            formTools={formTools}
-        />
+        <SingleInfo
+            title="Description"
+            classNameH4="mb-0"
+        >
+            <RichTextarea
+                className="py-3"
+                name="description"
+                formTools={formTools}
+            />
+        </SingleInfo>
     );
 
     const contentColumnLeft = (
@@ -266,33 +270,46 @@ const OrganisationSingleEdit = (props) => {
     );
     const contentColumnRight = (
         <>
-            <div className="mb-3 mt-3">
-                <Select2
-                    name="domains"
-                    label={lang.Domains}
-                    formTools={formTools}
-                    creatable={true}
-                    isMulti={true}
-                    createOptionFunction={displayModalForDomains}
+            <SingleInfo
+                title="Informations supplémentaires"
+                classNameH4="mb-0"
+                className="mt-3"
+            >
+                <div className="mb-3 mt-3">
+                    <Select2
+                        name="domains"
+                        label={lang.Domains}
+                        formTools={formTools}
+                        creatable={true}
+                        isMulti={true}
+                        createOptionFunction={displayModalForDomains}
 
-                    placeholder={lang.domainsInputPlaceholder}
-                    fetch={"/taxonomies/list"}
-                    requestData={{category:"domains", name:""}}
-                    searchField={"name"}
-                    selectField={"name"}
+                        placeholder={lang.domainsInputPlaceholder}
+                        fetch={"/taxonomies/list"}
+                        requestData={{category:"domains", name:""}}
+                        searchField={"name"}
+                        selectField={"name"}
+                    />
+                </div>
+                <Input
+                    className="mb-3"
+                    name="contactPoint"
+                    label="Information de contact"
+                    tip={{
+                        header: "À noter",
+                        body: "Cette information vise à offrir une option pour rejoindre un représentant de l'organisation."
+                    }}
+                    placeholder="Adresse courriel, numéro de téléphone, etc..."
+                    formTools={formTools}
                 />
-            </div>
-            <Input
-                className="mb-3"
-                name="contactPoint"
-                label="Information de contact"
-                tip={{
-                    header: "À noter",
-                    body: "Cette information vise à offrir une option pour rejoindre un représentant de l'organisation."
-                }}
-                placeholder="Adresse courriel, numéro de téléphone, etc..."
-                formTools={formTools}
-            />
+                <Input
+                    className="mb-3"
+                    name="fondationDate"
+                    label="Date de fondation"
+                    type="date"
+                    formTools={formTools}
+                />
+            </SingleInfo>
         </>
     );
     const footer = (
@@ -304,13 +321,6 @@ const OrganisationSingleEdit = (props) => {
                 type="url"
                 pattern="^https?:\/\/[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$"
                 placeholder="Une url avec le https, exemple : https://siteWeb.com"
-                formTools={formTools}
-            />
-            <Input
-                className="mb-3"
-                name="fondationDate"
-                label="Date de fondation"
-                type="date"
                 formTools={formTools}
             />
             <div className="border-top border-bottom pt-3">

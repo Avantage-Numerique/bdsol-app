@@ -83,8 +83,12 @@ const OrganisationSingleView = ({ data }) => {
     const ContentColumnLeft = (
         <>
             {/*************** Offers *****************/}
-            <section className="mt-4">
-                <h4 className="h5 my-3">Services offerts</h4>
+            <SingleInfo 
+                title="Services offerts"
+                NAMessage="Aucun service n'est inscrit pour cette organisation."
+                className="mb-4"
+                classNameH4="my-3"
+            >
                 { offers?.length > 0 && offers.map(offer => (
                     <article key={offer.groupName} className={`d-flex flex-column p-2 mb-2 skill-group bg-light`}>
                         <h5 className="text-dark mb-1 group-name">{offer.groupName}</h5>
@@ -94,10 +98,7 @@ const OrganisationSingleView = ({ data }) => {
                             />
                     </article>
                 ))}
-                { (!offers || offers?.length === 0) &&
-                    <p>Ajoutez une offre de services à votre organisation.</p>
-                }
-            </section>
+            </SingleInfo>
             <SingleInfo title={lang.teamMembers} className={"mb-3"}>
                 <>
                     {/* Rows of members */}
@@ -117,6 +118,12 @@ const OrganisationSingleView = ({ data }) => {
                     }
                 </>
             </SingleInfo>
+            <SingleInfo title={"Lien URL"} className={"mb-3"}>
+                { url &&
+                    <p><a href={url}>{url}</a></p>
+                }
+            </SingleInfo>
+            
         </>
     )
 
@@ -146,9 +153,6 @@ const OrganisationSingleView = ({ data }) => {
 
     const Footer = (
         <div className="border-top border-bottom pt-2">  
-            { url &&
-                <p><a href={url}>{url}</a></p>
-            }
             {
                 status?.state &&
                     <SingleInfo
