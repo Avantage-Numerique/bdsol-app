@@ -73,7 +73,6 @@ const ProjectSingleView = ({ data }) => {
             )}
             mainImage={mainImage}
             entity={data}
-            type="Projet"
             buttonText="Proposer des modifications"
             buttonLink={link}
         />

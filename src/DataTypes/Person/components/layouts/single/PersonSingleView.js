@@ -106,7 +106,6 @@ const PersonSingleView = ({ data }) => {
             )}
             mainImage={mainImage}
             entity={data}
-            type="Personne"
             buttonText="Proposer des modifications"
             buttonLink={link}
         />

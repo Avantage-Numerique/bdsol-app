@@ -1,5 +1,6 @@
 //Styles
 import styles from './SingleBaseHeader.module.scss';
+import { TYPES } from '@/src/DataTypes/Entity/Types';
 
 //Component
 import Button from '@/src/common/FormElements/Button/Button';
@@ -28,7 +29,6 @@ const SingleBaseHeader = (props) => {
         entity,
         title,
         subtitle,
-        type,
         className,
         buttonSection,
         buttonText,
@@ -63,7 +63,7 @@ const SingleBaseHeader = (props) => {
                     <></>
                 }
                 { /* entityType */ }
-                <p className='text-white mb-0'>{type ?? "Type de l'entité"}</p>
+                <p className='text-white mb-0'>{TYPES.get(entity.type).label ?? "Type de l'entité"}</p>
             </div>
         </section>
     )

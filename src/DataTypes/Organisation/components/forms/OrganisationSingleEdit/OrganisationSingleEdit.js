@@ -230,10 +230,9 @@ const OrganisationSingleEdit = (props) => {
         <SingleBaseHeader 
             title={title} 
             subtitle={subtitle} 
-            type={"Organisation"} 
             mainImage={mainImage}
             buttonSection={ctaHeaderSection}
-
+            entity={model}
         /> 
     );
     

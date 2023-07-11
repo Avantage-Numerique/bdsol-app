@@ -240,10 +240,10 @@ const PersonSingleEdit = ({initValues, positiveRequestActions, ...props}) => {
     const header = ( 
         <SingleBaseHeader 
             title={title} 
-            type={"Personne"} 
             subtitle={subtitle} 
             mainImage={mainImage}
             buttonSection={ctaHeaderSection}
+            entity={model}
         /> 
     );
 
