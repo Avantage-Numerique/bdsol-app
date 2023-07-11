@@ -22,7 +22,7 @@ const MainImageDisplay = ({ mainImage, entity }) => {
 
     const haveMainImage = mainImage !== undefined && mainImage !== "";
     const mainImageRootUrl = haveMainImage ? process.env.NEXT_PUBLIC_API_URL : "";//we dont add api path if it's local.
-    const mainImageUrl = mainImage?.url ?? getDefaultImageByEntityType(entity.type);//"/general_images/person-default.webp";
+    const mainImageUrl = mainImage?.url ?? getDefaultImageByEntityType(entity?.type);//"/general_images/person-default.webp";
     const mainImageAlt = mainImage?.alt ?? "main image alt";
     const [mainImageState, setMainImageState] = useState(
         {
@@ -36,7 +36,7 @@ const MainImageDisplay = ({ mainImage, entity }) => {
     const refreshImage = (requestResponse) => {
         const haveMainImage = requestResponse.data.url !== undefined;
         const mainImageRootUrl = haveMainImage ? process.env.NEXT_PUBLIC_API_URL : "";//we dont add api path if it's local.
-        const mainImageUrl = requestResponse?.data?.url ?? "/general_images/person-default.webp";
+        const mainImageUrl = requestResponse?.data?.url ?? getDefaultImageByEntityType(entity?.type);
         const mainImageAlt = requestResponse?.data?.alt ?? "main image alt";
         setMainImageState({
             haveMainImage: haveMainImage,
