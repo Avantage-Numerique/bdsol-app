@@ -11,7 +11,7 @@ const Index = () => {
     const pClass = "";
 
     return (
-        <div className={"page-apropos"}>
+        <div id="a-propos" className={"page-apropos"}>
             <PageHeader title={`Qu'est-ce que la BDSOL ?`}/>
 
             <div className={"container home-page__main content"}>
@@ -23,7 +23,7 @@ const Index = () => {
                         </p>
                     </div>
                 </div>
-                <div className={"row"}>
+                <div id="caracteristique" className={"row"}>
                     <div className={"col"}>
                         <h3>Quelles sont les caractéristiques de cette base de données ?</h3>
                         <ul>
@@ -46,7 +46,7 @@ const Index = () => {
                     </div>
                 </div>
                 <div className={"row"}>
-                    <div className={"col"}>
+                    <div id="a-quoi-va-servir-la-base-de-donnees" className={"col"}>
                         <h3>À quoi va servir la base de données ?</h3>
                         <p className={pClass}>
                             Une fois mise en place, la base de données pourra être parcourue librement par les
@@ -87,7 +87,7 @@ const Index = () => {
                             </li>
                         </ul>
                     </div>
-                    <div className={"row"}>
+                    <div id="qui-pourra-utiliser-la-base-de-donnees" className={"row"}>
                         <div className={"col"}>
                             <h3>Qui pourra utiliser la base de données ?</h3>
                             <p className={pClass}>La base de données est destinée à un public large comprenant autant
@@ -105,7 +105,7 @@ const Index = () => {
                                 grâce à un formulaire. Les renseignements collectés seront ainsi ajoutés à la base
                                 de données et directement exploitables lorsque cette dernière sera mise en ligne. Il
                                 sera possible par la suite de les modifier et de les compléter.</p>
-                            <h3>Utilisation et gouvernance des données</h3>
+                            <h3 id="gouvernance-des-donnees">Utilisation et gouvernance des données</h3>
                             <p className={pClass}>L’équipe travaille actuellement sur l’établissement d’une
                                 gouvernance des données. Toute information entrée dans le formulaire sera sous la
                                 licence CC0

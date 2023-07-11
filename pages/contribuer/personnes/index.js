@@ -38,7 +38,7 @@ const PersonSingleEditPage = () => {
                         <header className={`d-flex flex-column`}>
                             <h3 className="text-primary">Ajouter une Personne</h3>
                             <p>Entrez les informations de base d'une entité "Personne". Vous pourrez l'éditer de manière détaillée par la suite.</p>
-                        </header>   
+                        </header>
                         <CreatePersonForm onPositiveResponse={() => {
                             closeModal()
                             setIsLoading(true)

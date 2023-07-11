@@ -321,7 +321,7 @@ const ProjectSingleEdit = (props) => {
     )
 
     const header = ( 
-        <SingleBaseHeader 
+        <SingleBaseHeader
             title={title} 
             subtitle={subtitle} 
             mainImage={mainImage} 
@@ -371,7 +371,7 @@ const ProjectSingleEdit = (props) => {
         <>
             {/* Context */}
             <div className="mb-3">
-                <SelectFetch 
+                <SelectFetch
                     name="context"
                     label="Choisissez un contexte"
                     formTools={formTools}
@@ -481,7 +481,7 @@ const ProjectSingleEdit = (props) => {
 
             </div>
             { modal.display &&
-                <Modal 
+                <Modal
                     coloredBackground
                     darkColorButton
                 >
@@ -493,7 +493,7 @@ const ProjectSingleEdit = (props) => {
                     {/* Separation line */}
                     <div className={`my-4 border-bottom`}></div>
 
-                    <CreateTaxonomyForm 
+                    <CreateTaxonomyForm
                         name={modal.enteredValues.name ?? ''}   //Prefilled value
                         initValues={ {name:modal.enteredValues.name} }
                         category={modalCategoryMode.current}

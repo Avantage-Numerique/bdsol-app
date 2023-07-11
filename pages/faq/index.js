@@ -101,6 +101,35 @@ const FAQ = () => {
                             }
                         ]}
                     />
+                    <SubjectRow 
+                        index={2}
+                        subject="À propos de la base de donnée"
+                        activeSubjectIndex={activeSubjectIndex}
+                        setActiveSubject={() => setActiveSubjectIndex(2)}
+                        close={() => setActiveSubjectIndex(false)}
+                        rows={[
+                            {
+                                name: "Qu'est-ce que la BDSOL?",
+                                link: "/faq/a-propos",
+                                tag: "a-propos"
+                            },
+                            {
+                                name: "À quoi va servir la base de données ?",
+                                link: "/faq/a-propos",
+                                tag: "a-quoi-va-servir-la-base-de-donnees"
+                            },
+                            {
+                                name: "Qui pourra utiliser la base de données ?",
+                                link: "/faq/a-propos",
+                                tag: "qui-pourra-utiliser-la-base-de-donnees"
+                            },
+                            {
+                                name: "Utilisation et gouvernance des données",
+                                link: "/faq/a-propos",
+                                tag: "gouvernance-des-donnees"
+                            },
+                        ]}
+                    />
 
                 </ul>
             </section>

@@ -238,7 +238,7 @@ const PersonSingleEdit = ({initValues, positiveRequestActions, ...props}) => {
         </div>
     )
     const header = ( 
-        <SingleBaseHeader 
+        <SingleBaseHeader
             title={title} 
             subtitle={subtitle} 
             mainImage={mainImage}
@@ -249,7 +249,7 @@ const PersonSingleEdit = ({initValues, positiveRequestActions, ...props}) => {
 
     const fullWidthContent = (
         <>
-            <RichTextarea 
+            <RichTextarea
                 className="my-3"
                 name="description"
                 label="Biographie / description"

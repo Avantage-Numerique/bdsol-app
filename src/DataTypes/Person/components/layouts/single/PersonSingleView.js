@@ -96,7 +96,7 @@ const PersonSingleView = ({ data }) => {
     }
 
     const Header = (
-        <SingleBaseHeader 
+        <SingleBaseHeader
             title={(<h2 className="text-white">{`${firstName} ${lastName}`}</h2>)}
             subtitle={(
                 <div className="d-text">
@@ -112,7 +112,7 @@ const PersonSingleView = ({ data }) => {
     )
 
     const FullWidthContent = (
-        <SingleInfo 
+        <SingleInfo
             title={"Présentation"} 
             NAMessage="Aucune description n'est disponible pour le moment"
             className={"mb-3 mt-3"}>
@@ -126,7 +126,7 @@ const PersonSingleView = ({ data }) => {
 
     const ContentColumnLeft = (
         <>
-            <SingleInfo 
+            <SingleInfo
                 title={"Occupations"}
                 NAMessage="Aucune occupation n'est disponible pour le moment"
                 className={"mb-3 mt-3"}
@@ -180,7 +180,7 @@ const PersonSingleView = ({ data }) => {
     */}
     return (
         <>
-            <SingleBase 
+            <SingleBase
                 breadCrumb={breadCrumb}
                 header={Header}              
                 fullWidthContent={FullWidthContent}
