@@ -66,7 +66,7 @@ const MediaSingle = ({ data, route }) => {
             </div>
             <div className={`${styles["quick-section__single-info"]}`}>
                 <span>Licence : </span>
-                <LicenceDisplay licenceKey={data.licence}/>
+                <LicenceDisplay licenceKey={data.licence ?? {} }/>
             </div>
         </div>
     )
