@@ -25,7 +25,7 @@ import {FeedbackWidget} from "@/src/common/Feedbacks/components/feedback-widget"
 //Hooks 
 import { useModalController } from '@/src/hooks/useModal/ModalsController/ModalsController'
 
-const ModalContext = createContext("defaultValue");
+export const ModalContext = createContext({});
 
 const Layout = ( {children} ) => {
 

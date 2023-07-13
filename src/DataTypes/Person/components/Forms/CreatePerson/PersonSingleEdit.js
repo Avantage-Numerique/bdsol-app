@@ -19,8 +19,8 @@ import {SingleEntityStatus} from '@/DataTypes/Status/components/SingleEntityStat
 
 //Context
 import {useAuth} from "@/src/authentification/context/auth-context";
-import {MessageContext} from '@/src/common/UserNotifications/Message/Context/Message-Context';
-
+import { MessageContext } from '@/src/common/UserNotifications/Message/Context/Message-Context';
+//import { ModalContext } from '@/src/layouts/Layout';
 
 //Styling
 import styles from './CreatePersonForm.module.scss'
@@ -68,6 +68,9 @@ const PersonSingleEdit = ({initValues, positiveRequestActions, ...props}) => {
 
     //Import message context 
     const msg = useContext(MessageContext);
+
+    //Import modal context 
+    //const modalCtx = useContext(ModalContext);
 
     /*
     First of all, verify if the user is logged in.
