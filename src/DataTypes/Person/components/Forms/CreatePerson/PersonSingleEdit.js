@@ -1,4 +1,4 @@
-import { useCallback, useRef, useContext, useEffect } from 'react'
+import {useCallback, useContext, useEffect, useRef} from 'react'
 import Router from 'next/router'
 import Link from 'next/link'
 
@@ -169,7 +169,7 @@ const PersonSingleEdit = ({initValues, positiveRequestActions, ...props}) => {
         return {
             "contribuer": lang.menuContributeLabel,
             "personnes": lang.Persons,
-            "slug": `${firstName} ${lastName}`       
+            "slug": `${firstName ?? "-"} ${lastName ?? "-"}`
         }[param];
     }, []);
 

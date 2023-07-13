@@ -1,10 +1,10 @@
-import { useCallback, useRef, useEffect, useContext } from 'react';
+import {useCallback, useContext, useEffect, useRef} from 'react';
 import Router from 'next/router';
 import Link from 'next/link'
 
 //Custom hooks
 import {useFormUtils} from '@/src/hooks/useFormUtils/useFormUtils'
-import { useModal } from '@/src/hooks/useModal/useModal';
+import {useModal} from '@/src/hooks/useModal/useModal';
 
 //components
 import Button from '@/FormElements/Button/Button'
@@ -27,7 +27,7 @@ import {replacePathname} from "@/src/helpers/url";
 
 //Context
 import {useAuth} from "@/src/authentification/context/auth-context";
-import { MessageContext } from '@/src/common/UserNotifications/Message/Context/Message-Context';
+import {MessageContext} from '@/src/common/UserNotifications/Message/Context/Message-Context';
 import UpdateScheduleBudget from '@/src/DataTypes/Project/component/forms/UpdateScheduleBudget';
 import UpdateSponsor from '@/src/DataTypes/Project/component/forms/UpdateSponsor';
 
@@ -249,7 +249,7 @@ const ProjectSingleEdit = (props) => {
         return {
             "contribuer": lang.menuContributeLabel,
             "projets": lang.Projects,
-            "slug": name       
+            "slug": name ?? "-"
         }[param];
     }, []);
 
@@ -387,7 +387,7 @@ const ProjectSingleEdit = (props) => {
                     creatable={true}
                     isMulti={true}
                     createOptionFunction={displayModalForSkills}
-
+                    requestData={{category:"ne:domains", name:""}}
                     fetch={"/taxonomies/list"}
                     searchField={"name"}
                     selectField={"name"}
