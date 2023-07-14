@@ -51,12 +51,6 @@ const CreateMediaForm = (props) => {
     //Extract the functions inside useHttpClient to send api request
     const {isLoading, sendRequest} = useHttpClient();
 
-    //Import message context 
-    const msg = useContext(MessageContext);
-
-    //Initial main image value 
-    const initImgValue =  useRef(initValues ? process.env.NEXT_PUBLIC_API_URL + url : '');
-
     //Main form functionalities
     const {FormUI, submitRequest, formState, formTools, clearFormData, updateManyFields} = useFormUtils(
         {
@@ -65,19 +59,19 @@ const CreateMediaForm = (props) => {
                 isValid:  true
             },
             licence: {
-                value: "-1",
+                value: licence ?? "copyright",
                 isValid: true
             },
             description: {
-                value: '',
+                value: description ?? '',
                 isValid:  true
             },
             alt: {
-                value: '',
+                value: alt ?? '',
                 isValid: true
             },
             title: {
-                value: '',
+                value: title ?? '',
                 isValid: true
             }
 
@@ -107,9 +101,6 @@ const CreateMediaForm = (props) => {
         }
     }, [isNewFile])
 
-    //State that holds the licence list
-    const [licences, setLicences] = useState([]);
-
     //State to display the differents form "pages"
     const [formPage, setFormPage] = useState(0);
 
@@ -125,7 +116,6 @@ const CreateMediaForm = (props) => {
 
     //Submit the form
     const submitHandler = async event => {
-
         event.preventDefault();
         /*
             CODE TO REPRODUCE INTO THE RIGHT UI
@@ -133,15 +123,15 @@ const CreateMediaForm = (props) => {
         */
 
         if(isNewFile){
-            
+
             let rawFromData = new FormData();
 
-            //Feilds values
+            //Fields values
             const formData = {
                 "title": formState.inputs.title.value,
                 "alt": formState.inputs.alt.value,
                 "description": formState.inputs.description.value,
-                "licence": formState.inputs.licence.value != "-1" ? formState.inputs.licence.value : undefined,
+                "licence": formState.inputs.licence.value ?? undefined,
                 "fileType": "image",
                 "mediaField": "mainImage",
                 "entityType": entity.type,
@@ -152,7 +142,7 @@ const CreateMediaForm = (props) => {
             rawFromData.append("mainImage", formState.inputs.mainImage.value);
             //Add the field values
             rawFromData.append("data", JSON.stringify(formData));
-            
+
             await submitRequest(
                 "/medias/upload",
                 'POST',
@@ -177,7 +167,7 @@ const CreateMediaForm = (props) => {
                     "licence": formState.inputs.licence.value
                 }
             }
-            
+
             //Add data to the formData
             await submitRequest(
                 "/medias/update",
@@ -213,16 +203,16 @@ const CreateMediaForm = (props) => {
                 <div className="row w-100 gx-3">
                     {/* Column one */}
                     <div className={`col-6 ${styles["image-column"]}`}>
-                        {isNewFile && 
+                        {isNewFile &&
                             <LargeFileInput 
                                 name="mainImage"
                                 label="Fichier"
                                 formTools={formTools}
                             />
                         }
-                        {!isNewFile && 
+                        {!isNewFile &&
                             <>
-                                {url && 
+                                {url &&
                                     <div className="position-relative">
                                         <img 
                                             className={`${styles["img-preview"]} position-absolute w-100 h-100`}
@@ -237,9 +227,9 @@ const CreateMediaForm = (props) => {
                                     </div>
                                 }
                             </>
-                            
+
                         }
-                    
+
                         {/* Offer the option of adding a new file if the user wants to */}
                         { !isNewFile &&
                             <button type="button" onClick={convertToNewImageMode} className="mb-0 mt-1 fs-6 text-primary">Ajouter une nouvelle image</button>
@@ -248,7 +238,7 @@ const CreateMediaForm = (props) => {
 
                     {/* Column two */}
                     <div className={`col-6 ${styles["fields-column"]}`}>
-                
+
                         <nav className={`container mb-2 ${styles["form-inner-nav"]}`}>
                             <p className="mb-0 ">Informations</p>
                             <div className="row">
@@ -266,7 +256,7 @@ const CreateMediaForm = (props) => {
                             Média associé à 
                             {/************  Waiting for the tag components ************/}
                             <article className={`rounded d-flex ${styles["temporary-entity-tag"]}`}>
-                                {entity.mainImage && 
+                                {url && 
                                 <figure className="m-0">
                                     <img 
                                         src={process.env.NEXT_PUBLIC_API_URL + entity.mainImage.url} 
@@ -304,11 +294,11 @@ const CreateMediaForm = (props) => {
                                 {!isNewFile &&
                                     <button onClick={submitDelete} type="button" className="text-danger fs-5"><u>Supprimer l'image</u></button>
                                 }
-          
+
                             </div>
                         </div>
                         }
-                        
+
                         {/* Section two of the form */}
                         {formPage === 1 &&
                         <div>

@@ -64,7 +64,7 @@ const LargeFileInput = ( props ) => {
                 name,
                 event.target.files[0],
                 validationRules ? validate(event.target.files[0]) : true
-            ) 
+            )
     }
 
     //Call the input handler once at the rendering 
@@ -80,7 +80,7 @@ const LargeFileInput = ( props ) => {
         <div className={`${styles["input-component"]} h-100`}>  
             <div className={`${styles["input-component__label-container"]}`} >
                 {/* Display the field label*/}
-                <label 
+                <label
                     htmlFor={name}
                 >
                     {label}
@@ -94,7 +94,7 @@ const LargeFileInput = ( props ) => {
                 }
             </div>
 
-            <div 
+            <div
                 className={`
                 form-element
                 h-100
@@ -103,7 +103,7 @@ const LargeFileInput = ( props ) => {
                 ${!currentState.isValid && currentState.isTouched && "control--invalid"}
             `}>
                 {/* Customization of the field */}
-                <div 
+                <div
                     className={`
                         w-100 
                         h-100
@@ -118,7 +118,7 @@ const LargeFileInput = ( props ) => {
                     tabIndex="0"
                 >
                     {/* New Ui button to replace the default one displayed by the browser */}
-                    <button 
+                    <button
                         type="button"
                         className="
                             position-relative
@@ -126,7 +126,7 @@ const LargeFileInput = ( props ) => {
                             h-100
                         "
                         //When the user click on the Ui button, this trigger a click on the real one to
-                        onClick={() => fieldRef.current.click()}   
+                        onClick={() => fieldRef.current.click()}
                     >
 
                         {/* Field that holds a current image or one to be uploaded */}
@@ -140,13 +140,13 @@ const LargeFileInput = ( props ) => {
                                 m-0
                                 ${styles["input-ui__img-container"]}
                             `}>
-                                <img 
+                                <img
                                     src={typeof currentState.value === 'object' ? URL.createObjectURL(currentState.value) : currentState.value} alt="Aperçu de la photo à téléverser" />
                             </figure>
                         }
 
                         {/* Field informations displayed over an image if there is */}
-                        <div 
+                        <div
                             className={`
                                 position-absolute
                                 w-100
@@ -166,7 +166,7 @@ const LargeFileInput = ( props ) => {
                             </svg>
 
                             {/* Display of the selected file */}
-                            <div 
+                            <div
                                 dir="rtl"
                                 className={`
                                     fs-6
@@ -178,19 +178,19 @@ const LargeFileInput = ( props ) => {
                             <div className={`px-1 ${styles["input-ui__RequirementsBadges-container"]}`}>
                                 <RequirementsBadges alwaysDisplay /> 
                             </div>
-                        </div>                    
+                        </div>
                     </button>
                 </div>
 
                 {/* Real input used for its fonctionalities */}
-                <input 
+                <input
                     hidden="hidden"      //Because this is the real input but it is not displayed
                     ref={fieldRef}
                     name={ name }
                     accept={accept ? accept : ""}
                     type="file"
                     onChange={updateValue}
-                /> 
+                />
             </div>
 
             <div className="validation-error-messages-container">

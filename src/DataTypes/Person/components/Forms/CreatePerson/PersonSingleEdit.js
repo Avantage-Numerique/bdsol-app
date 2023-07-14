@@ -244,6 +244,7 @@ const PersonSingleEdit = ({initValues, positiveRequestActions, ...props}) => {
             mainImage={mainImage}
             buttonSection={ctaHeaderSection}
             entity={model}
+            editableImg={true}
         /> 
     );
 

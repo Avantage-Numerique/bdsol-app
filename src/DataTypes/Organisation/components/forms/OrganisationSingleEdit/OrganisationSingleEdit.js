@@ -232,6 +232,7 @@ const OrganisationSingleEdit = (props) => {
             mainImage={mainImage}
             buttonSection={ctaHeaderSection}
             entity={model}
+            editableImg={true}
         /> 
     );
     

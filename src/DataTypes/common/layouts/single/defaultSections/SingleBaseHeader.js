@@ -20,6 +20,7 @@ import { useAuth } from '@/src/authentification/context/auth-context';
  * @param {JSX} buttonSection JSX element containing all the calls to action components in one place
  * @param {String} buttonText string : Text dispayed in the cta button in the header
  * @param {String} buttonLink string : link to redirect the user when the button is clicked
+ * @param {String} editableImg bool : Show the button to edit image or not
  */
 
 const SingleBaseHeader = (props) => {
@@ -32,7 +33,8 @@ const SingleBaseHeader = (props) => {
         className,
         buttonSection,
         buttonText,
-        buttonLink
+        buttonLink,
+        editableImg
     } = props;
     const auth = useAuth();
 
@@ -46,7 +48,7 @@ const SingleBaseHeader = (props) => {
                 { subtitle ?? <h3 className='ms-4'>Sous-titre</h3> }
 
                 { /* mainImage */ }
-                <MainImageDisplay mainImage={mainImage ?? undefined} entity={entity} />
+                <MainImageDisplay mainImage={mainImage ?? undefined} entity={entity} editableImg={editableImg}/>
             </div>
             <div className="col-md-6 order-1 order-md-2 d-flex flex-md-column align-items-end justify-content-between">
                 { /* btnToggleViewEdit */ }
