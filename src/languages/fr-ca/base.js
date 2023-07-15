@@ -12,6 +12,10 @@ const base = {
     "close": "Fermer",
     "noInfoAvailable": "Information bientôt disponible.",
     "colon": " : ",
+    "by": "par",
+    "on": "le",
+
+    // Status
 
     // App
 

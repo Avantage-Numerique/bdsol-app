@@ -12,6 +12,8 @@ export const base = {
     "close": "Close",
     "noInfoAvailable": "Data available soon.",
     "colon": " : ",
+    "by": "by",
+    "on": "on",
 
     // App
 
