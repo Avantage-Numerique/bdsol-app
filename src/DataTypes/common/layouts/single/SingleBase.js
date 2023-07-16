@@ -41,7 +41,7 @@ const SingleBase = (props) => {
             }
             
             { /* Header */ }
-                {/* Background image */}
+            {/* Background image */}
             <header className={`${styles["header-base"]} row position-relative`}>
                 <figure className={`${styles["background-image-figure"]} p-0`}>
                     <img className="w-100" src={defaultHeaderBg} alt="Forêt embrumée"/>
@@ -51,8 +51,6 @@ const SingleBase = (props) => {
                 {/* Header's content */}
                 { header ?? <SingleBaseHeader/> }
             </header>
-            
-    
             
             { /* FullWidthContent */ }
             <section className="row p-2 my-4">

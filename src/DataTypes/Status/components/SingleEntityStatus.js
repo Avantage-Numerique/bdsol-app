@@ -1,6 +1,7 @@
 import SingleInfo from "@/DataTypes/common/layouts/SingleInfo/SingleInfo";
 import {lang} from "@/common/Data/GlobalConstants";
 import DateWidget from "@/common/widgets/DateWidget/DateWidget";
+import React from "react";
 
 /**
  *

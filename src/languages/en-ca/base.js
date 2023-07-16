@@ -14,6 +14,8 @@ export const base = {
     "colon": " : ",
     "by": "by",
     "on": "on",
+    "title": "title",
+    "subTitle": "subtitle",
 
     // App
 

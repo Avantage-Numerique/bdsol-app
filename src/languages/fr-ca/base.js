@@ -14,6 +14,8 @@ const base = {
     "colon": " : ",
     "by": "par",
     "on": "le",
+    "title":"titre",
+    "subTitle": "sous-titre",
 
     // Status
 

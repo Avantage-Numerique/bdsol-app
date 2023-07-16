@@ -1,4 +1,4 @@
-import {useCallback, useContext, useEffect, useRef} from 'react';
+import React, {useCallback, useContext, useEffect, useRef, useState} from 'react';
 import Link from 'next/link'
 import Router from 'next/router';
 
@@ -31,6 +31,8 @@ import UpdateTeams from '../UpdateTeams/UpdateTeams';
 import Organisation from '@/src/DataTypes/Organisation/models/Organisation';
 import {replacePathname} from "@/src/helpers/url";
 import {lang} from "@/src/common/Data/GlobalConstants";
+import MainImageDisplay from "@/DataTypes/common/layouts/single/defaultSections/MainImageDisplay/MainImageDisplay";
+import Icon from "@/common/widgets/Icon/Icon";
 
 
 const OrganisationSingleEdit = (props) => {
@@ -217,23 +219,31 @@ const OrganisationSingleEdit = (props) => {
         />);
     
     const ctaHeaderSection = (
-        <div className="d-flex flex-column align-items-end">
-            <Button disabled={!formState.isValid} onClick={submitHandler}>Soumettre les modifications</Button>
+        <div className="d-flex align-items-end">
             <Link href={link} >
-                <button type="button" className="btn underlined-button text-white">Retour en visualisation</button>
+                <button type="button" className="btn underlined-button text-white"><Icon iconName={"eye"} />&nbsp;{lang.capitalize("visualize")}</button>
             </Link>
+            <Button disabled={!formState.isValid} onClick={submitHandler}><Icon iconName={"save"} />&nbsp;{lang.capitalize("save")}</Button>
         </div>
     )
+
+    const [currentMainImage, setCurrentMainImage] = useState(mainImage);
+
+    const displayCurrentMainImage = useCallback((media) => {
+        setCurrentMainImage(media);
+    }, [setCurrentMainImage]);
 
     const header = ( 
         <SingleBaseHeader 
             title={title} 
             subtitle={subtitle} 
-            mainImage={mainImage}
+            mainImage={currentMainImage}
             buttonSection={ctaHeaderSection}
             entity={model}
             editableImg={true}
-        /> 
+        >
+            <MainImageDisplay mainImage={currentMainImage} entity={model} editableImg={true} setter={displayCurrentMainImage} />
+        </SingleBaseHeader>
     );
     
     const fullWidthContent = (
@@ -362,7 +372,7 @@ const OrganisationSingleEdit = (props) => {
 
             <div className="d-flex pt-4 align-items-end flex-column">
                 <Button disabled={!formState.isValid} onClick={submitHandler}>
-                    Soumettre les modifications
+                    {lang.save}
                 </Button>
                 {
                     !formState.isValid &&
@@ -402,7 +412,6 @@ const OrganisationSingleEdit = (props) => {
 
                 </Modal>
             }
-      
         
         </>
     )

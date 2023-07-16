@@ -1,0 +1,32 @@
+
+.main-image-container {
+
+  --picture-size: clamp(8rem, 20vw, 12rem);
+  --margin-bottom: calc(-0.30*var(--picture-size));
+
+  position:relative;
+  margin-bottom: var(--margin-bottom);
+  margin-left: 3vw;
+  width: var(--picture-size);
+  min-height: var(--picture-size);
+
+  .main-image {
+    border: 0.2rem solid white;
+    background-color: white;
+    border-radius: 50%;
+    bottom: 0px;
+    position: absolute;
+    width: var(--picture-size);
+    height:  var(--picture-size);
+    object-fit: cover;
+  }
+
+  .edit-image-button {
+    opacity: 0.8;
+    position: absolute;
+    right: -1rem;
+    bottom : calc(0px - var(--margin-bottom) - 1rem);
+    &:hover { opacity: 1; }
+  }
+
+}

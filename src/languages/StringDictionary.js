@@ -100,6 +100,16 @@ export default class StringDictionary {
         }
     }
 
+    /**
+     * Get the target key but with the first letter capitalized.
+     * @param key {string} Target key sets in one of the files for strings.
+     * @returns {string}
+     */
+    capitalize(key) {
+        const str = this[key] ?? key;
+        return str.charAt(0).toUpperCase() + str.slice(1);
+    }
+
 
     /**
      * Set all the properties into this scope
