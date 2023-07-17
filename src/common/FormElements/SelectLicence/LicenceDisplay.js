@@ -1,6 +1,5 @@
-
-import { useHttpClient } from "@/src/hooks/http-hook";
-import { useEffect, useState } from "react";
+import {useHttpClient} from "@/src/hooks/http-hook";
+import {useEffect, useState} from "react";
 
 const LicenceDisplay = ({licenceKey, ...props}) => {
 
@@ -27,11 +26,11 @@ const LicenceDisplay = ({licenceKey, ...props}) => {
     return (
         <>
             {
-                licences &&
+                licences && licences[licenceKey] && licences[licenceKey].source &&
                 <div>
                     <div className="d-flex">
                         <a href={licences[licenceKey].source} target="_blank">
-                            <img src={licences[licenceKey].image}/>
+                            <img src={licences[licenceKey].image} alt={licences[licenceKey].label}/>
                             <>{licences[licenceKey].label}</>
                         </a>
                         <div>{licences[licenceKey].description}</div>

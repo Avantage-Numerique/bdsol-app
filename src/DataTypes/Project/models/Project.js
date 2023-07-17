@@ -21,7 +21,7 @@ class Project extends EntityModel {
         } : raw.mainImage;
 
         this.mainImageModel = new Media(this.mainImage);
-        this.type = raw.type === TYPE_PROJECT ? TYPE_PROJECT : TYPE_DEFAULT;//Wrong data sent here.
+        this.type = TYPE_PROJECT;
 
         //this.taxonomies = new Map();
         //this.taxonomies.set("domains", raw.domains);

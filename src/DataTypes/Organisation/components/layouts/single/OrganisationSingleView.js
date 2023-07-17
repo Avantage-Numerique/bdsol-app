@@ -66,7 +66,6 @@ const OrganisationSingleView = ({ data }) => {
             )}
             mainImage={mainImage}
             entity={data}
-            type="Organisation"
             buttonText="Proposer des modifications"
             buttonLink={link}
         />

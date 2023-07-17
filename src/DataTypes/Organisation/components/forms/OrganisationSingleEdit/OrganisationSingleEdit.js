@@ -1,4 +1,4 @@
-import { useContext, useEffect, useCallback, useRef } from 'react';
+import {useCallback, useContext, useEffect, useRef} from 'react';
 import Link from 'next/link'
 import Router from 'next/router';
 
@@ -19,7 +19,6 @@ import CreateTaxonomyForm from '@/DataTypes/Taxonomy/components/Forms/CreateTaxo
 import Modal from '@/src/hooks/useModal/Modal/Modal';
 
 import {getDefaultUpdateEntityStatus} from "@/DataTypes/Status/EntityStatus";
-import styles from './CreateOrganisationForm.module.scss'
 import {getDateFromIsoString} from "@/src/utils/DateHelper";
 import SingleBase from '@/src/DataTypes/common/layouts/single/SingleBase';
 import SingleBaseHeader from '@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseHeader';
@@ -184,7 +183,7 @@ const OrganisationSingleEdit = (props) => {
         return {
             "contribuer": lang.menuContributeLabel,
             "organisations": lang.Organisations,
-            "slug": name       
+            "slug": name ?? "-"
         }[param];
     }, []);
 
@@ -230,10 +229,10 @@ const OrganisationSingleEdit = (props) => {
         <SingleBaseHeader 
             title={title} 
             subtitle={subtitle} 
-            type={"Organisation"} 
             mainImage={mainImage}
             buttonSection={ctaHeaderSection}
-
+            entity={model}
+            editableImg={true}
         /> 
     );
     

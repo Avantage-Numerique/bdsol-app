@@ -1,4 +1,4 @@
-import { useCallback, useRef, useContext, useEffect } from 'react'
+import {useCallback, useContext, useEffect, useRef} from 'react'
 import Router from 'next/router'
 import Link from 'next/link'
 
@@ -172,7 +172,7 @@ const PersonSingleEdit = ({initValues, positiveRequestActions, ...props}) => {
         return {
             "contribuer": lang.menuContributeLabel,
             "personnes": lang.Persons,
-            "slug": `${firstName} ${lastName}`       
+            "slug": `${firstName ?? "-"} ${lastName ?? "-"}`
         }[param];
     }, []);
 
@@ -241,18 +241,19 @@ const PersonSingleEdit = ({initValues, positiveRequestActions, ...props}) => {
         </div>
     )
     const header = ( 
-        <SingleBaseHeader 
+        <SingleBaseHeader
             title={title} 
-            type={"Personne"} 
             subtitle={subtitle} 
             mainImage={mainImage}
             buttonSection={ctaHeaderSection}
+            entity={model}
+            editableImg={true}
         /> 
     );
 
     const fullWidthContent = (
         <>
-            <RichTextarea 
+            <RichTextarea
                 className="my-3"
                 name="description"
                 label="Biographie / description"

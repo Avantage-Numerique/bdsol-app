@@ -1,5 +1,6 @@
 //Styles
 import styles from './SingleBaseHeader.module.scss';
+import { TYPES } from '@/src/DataTypes/Entity/Types';
 
 //Component
 import Button from '@/src/common/FormElements/Button/Button';
@@ -19,6 +20,7 @@ import { useAuth } from '@/src/authentification/context/auth-context';
  * @param {JSX} buttonSection JSX element containing all the calls to action components in one place
  * @param {String} buttonText string : Text dispayed in the cta button in the header
  * @param {String} buttonLink string : link to redirect the user when the button is clicked
+ * @param {String} editableImg bool : Show the button to edit image or not
  */
 
 const SingleBaseHeader = (props) => {
@@ -28,11 +30,11 @@ const SingleBaseHeader = (props) => {
         entity,
         title,
         subtitle,
-        type,
         className,
         buttonSection,
         buttonText,
-        buttonLink
+        buttonLink,
+        editableImg
     } = props;
     const auth = useAuth();
 
@@ -46,7 +48,7 @@ const SingleBaseHeader = (props) => {
                 { subtitle ?? <h3 className='ms-4'>Sous-titre</h3> }
 
                 { /* mainImage */ }
-                <MainImageDisplay mainImage={mainImage ?? undefined} entity={entity} />
+                <MainImageDisplay mainImage={mainImage ?? undefined} entity={entity} editableImg={editableImg}/>
             </div>
             <div className="col-md-6 order-1 order-md-2 d-flex flex-md-column align-items-end justify-content-between">
                 { /* btnToggleViewEdit */ }
@@ -63,7 +65,7 @@ const SingleBaseHeader = (props) => {
                     <></>
                 }
                 { /* entityType */ }
-                <p className='text-white mb-0'>{type ?? "Type de l'entité"}</p>
+                <p className='text-white mb-0'>{TYPES.get(entity.type).label ?? "Type de l'entité"}</p>
             </div>
         </section>
     )

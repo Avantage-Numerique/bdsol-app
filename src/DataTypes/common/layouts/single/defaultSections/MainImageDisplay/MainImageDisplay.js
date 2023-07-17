@@ -15,17 +15,18 @@ import Button from "@/FormElements/Button/Button";
 import {getDefaultImageByEntityType} from "@/src/helpers/images";
 
 
-//{ mainImage, entity }
-const MainImageDisplay = ({ mainImage, entity }) => {
+//{ mainImage, entity, editable}
+const MainImageDisplay = ({ mainImage, entity, editableImg }) => {
 
     const {displayModal, modal, closeModal, Modal} = useModal();
 
     const haveMainImage = mainImage !== undefined && mainImage !== "";
     const mainImageRootUrl = haveMainImage ? process.env.NEXT_PUBLIC_API_URL : "";//we dont add api path if it's local.
-    const mainImageUrl = mainImage?.url ?? getDefaultImageByEntityType(entity.type);//"/general_images/person-default.webp";
+    const mainImageUrl = mainImage?.url ?? getDefaultImageByEntityType(entity?.type);//"/general_images/person-default.webp";
     const mainImageAlt = mainImage?.alt ?? "main image alt";
     const [mainImageState, setMainImageState] = useState(
         {
+            mainImage: mainImage,
             haveMainImage: haveMainImage,
             mainImageRootUrl:mainImageRootUrl,
             mainImageUrl:mainImageUrl,
@@ -36,33 +37,38 @@ const MainImageDisplay = ({ mainImage, entity }) => {
     const refreshImage = (requestResponse) => {
         const haveMainImage = requestResponse.data.url !== undefined;
         const mainImageRootUrl = haveMainImage ? process.env.NEXT_PUBLIC_API_URL : "";//we dont add api path if it's local.
-        const mainImageUrl = requestResponse?.data?.url ?? "/general_images/person-default.webp";
+        const mainImageUrl = requestResponse?.data?.url ?? getDefaultImageByEntityType(entity?.type);
         const mainImageAlt = requestResponse?.data?.alt ?? "main image alt";
         setMainImageState({
+            mainImage: requestResponse.data,
             haveMainImage: haveMainImage,
             mainImageRootUrl:mainImageRootUrl,
             mainImageUrl:mainImageUrl,
             mainImageAlt:mainImageAlt
-        })
+        });
+        //To correct modal to display properly
+        entity.mainImage = requestResponse.data
     }
 
     return (
         <>
             <figure className={`${styles["main-image-container"]} mt-4 flex-grow-1`}>
                 {mainImageState.haveMainImage &&
-                    <a href={`/medias/${mainImage._id}`}
+                    <a href={`/medias/${mainImageState?.mainImage?._id}`}
                         className={`fs-4 w-100 h-100 position-absolute d-flex align-items-center justify-content-center p-1 ${styles["profile-picture--modification-opt"]}`}>
                         Afficher
                     </a>
                 }
                 
                 <img className={`${styles["main-image"]}`} src={mainImageState.mainImageRootUrl + mainImageState.mainImageUrl} alt={mainImageState.mainImageAlt}/>
-                
-                <div className={`${styles["edit-image-button"]}`}>
-                    <a onClick={() => displayModal()}>
-                        <img src={"/icones/edit-icon.svg"} title={mainImageState.haveMainImage ? lang.updateImage : lang.addImage} alt={"Changer l'image"}/>
-                    </a>
-                </div>
+                {
+                    editableImg &&
+                    <div className={`${styles["edit-image-button"]}`}>
+                        <a onClick={() => displayModal()}>
+                            <img src={"/icones/edit-icon.svg"} title={mainImageState.haveMainImage ? lang.updateImage : lang.addImage} alt={"Changer l'image"}/>
+                        </a>
+                    </div>
+                }
             </figure>
 
             {/******** Img Modal Display *********/}
@@ -79,7 +85,7 @@ const MainImageDisplay = ({ mainImage, entity }) => {
                     {/* Separation line */}
                     <div className="border-bottom w-100 my-2"></div>
                     <CreateMediaForm
-                        initValues={mainImage}
+                        initValues={mainImageState.mainImage}
                         entity={entity}
                         positiveRequestActions={{//CallbackFunction is one of the four behaviors the useFormUtils hook can apply when a request return a positive answer
                             callbackFunction: (requestResponse) => {

@@ -26,7 +26,7 @@ class Person extends EntityModel {
 
         //this.mainImageModel = new Media(this.mainImage);
 
-        this.type = raw.type === TYPE_PERSON ? TYPE_PERSON : TYPE_DEFAULT;//Wrong data sent here.
+        this.type = TYPE_PERSON;
 
         params.showMeta = params.showMeta ?? true;
         params.showStatus = params.showStatus ?? true;

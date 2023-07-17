@@ -31,7 +31,7 @@ const SelectLicence = ({name, formTools, ...props}) => {
 
             //If response is positive, update the state and pass the result to the select input
             if (!response.error) {
-                let options = [
+                let options = []/* 
                     {
                         label: '-- Choisissez une licence --',
                         value: '-1',
@@ -39,7 +39,7 @@ const SelectLicence = ({name, formTools, ...props}) => {
                         guide: "",
                         image: ""
                     }
-                ];
+                ]; */
                 Object.keys(response.data).map((licenceKey) => {
                         options.push({
                             label: response.data[licenceKey].label,
@@ -53,7 +53,7 @@ const SelectLicence = ({name, formTools, ...props}) => {
                 setLicences(options);
             }
         }
-    fetchLicences();
+        fetchLicences();
     }, [])
 
 
