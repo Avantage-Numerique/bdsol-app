@@ -1,4 +1,4 @@
-import {useCallback, useContext, useEffect, useRef} from 'react';
+import React, {useCallback, useContext, useEffect, useRef, useState} from 'react';
 import Router from 'next/router';
 import Link from 'next/link'
 
@@ -30,6 +30,8 @@ import {useAuth} from "@/src/authentification/context/auth-context";
 import {MessageContext} from '@/src/common/UserNotifications/Message/Context/Message-Context';
 import UpdateScheduleBudget from '@/src/DataTypes/Project/component/forms/UpdateScheduleBudget';
 import UpdateSponsor from '@/src/DataTypes/Project/component/forms/UpdateSponsor';
+import Icon from "@/common/widgets/Icon/Icon";
+import MainImageDisplay from "@/DataTypes/common/layouts/single/defaultSections/MainImageDisplay/MainImageDisplay";
 
 const ProjectSingleEdit = (props) => {
 
@@ -58,9 +60,24 @@ const ProjectSingleEdit = (props) => {
     } = props.data;
 
     //Model de project
-    const model = new Project(props.data);
-    //Redirection link to the view page
-    const link = "/"+replacePathname(model.singleRoute.pathname, {slug: model.slug});
+    let model = new Project(props.data);
+
+    //  STATES change that to a context ?
+
+    const [currentMainImage, setCurrentMainImage] = useState(model.mainImage);
+    const [currentModel, setCurrentModel] = useState(model);
+
+    const updateEntityModel = useCallback((rawData) => {
+        model = new Projet(rawData);
+        setCurrentMainImage(model.mainImage);
+    }, [setCurrentModel]);
+
+    const updateModelMainImage = useCallback((mainImage) => {
+        setCurrentMainImage(mainImage);
+        model.mainImage = mainImage;
+        setCurrentModel(model);
+    }, [setCurrentModel]);
+
 
     //Import the authentication context to make sure the user is well connected
     const auth = useAuth();
@@ -124,10 +141,10 @@ const ProjectSingleEdit = (props) => {
                 value: team ?? [],
                 isValid: true
             },
-            mainImage: {
+            /*mainImage: {
                 value: mainImage ?? "",
                 isValid: true
-            },
+            },*/
             sponsor: {
                 value: sponsor ?? [],
                 isValid: true
@@ -275,6 +292,7 @@ const ProjectSingleEdit = (props) => {
                 {name: "REQUIRED"}
             ]}
         />);
+
     const subtitle = (
         <>
             <Input 
@@ -312,23 +330,25 @@ const ProjectSingleEdit = (props) => {
 
 
     const ctaHeaderSection = (
-        <div className="d-flex flex-column align-items-end">
-            <Button disabled={!formState.isValid} onClick={submitHandler}>Soumettre les modifications</Button>
-            <Link href={link} >
-                <button type="button" className="btn underlined-button text-white">Retour en visualisation</button>
+        <div className="d-flex align-items-end">
+            <Link href={model.singleLink} >
+                <button type="button" className="btn underlined-button text-white"><Icon iconName={"eye"} />&nbsp;{lang.capitalize("visualize")}</button>
             </Link>
+            <Button disabled={!formState.isValid} onClick={submitHandler}><Icon iconName={"save"} />&nbsp;{lang.capitalize("save")}</Button>
         </div>
     )
 
-    const header = ( 
+    const header = (
         <SingleBaseHeader
-            title={title} 
-            subtitle={subtitle} 
-            mainImage={mainImage} 
+            className={"mode-update"}
+            title={title}
+            subtitle={subtitle}
+            mainImage={currentMainImage}
             buttonSection={ctaHeaderSection}
             entity={model}
-            editableImg={true}
-        /> 
+        >
+            <MainImageDisplay mainImage={currentMainImage} entity={currentModel} setter={updateModelMainImage} />
+        </SingleBaseHeader>
     );
 
     const fullWidthContent = (
