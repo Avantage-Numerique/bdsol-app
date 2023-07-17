@@ -10,6 +10,7 @@ import MediaFigure from "@/DataTypes/Media/layouts/MediaFigure";
 import {useAuth} from '@/src/authentification/context/auth-context';
 import {lang} from "@/common/Data/GlobalConstants";
 import React from "react";
+import Icon from "@/common/widgets/Icon/Icon";
 
 
 /**
@@ -54,8 +55,8 @@ const SingleBaseHeader = (props) => {
                 <MediaFigure model={mainImage} className={"main-image-container"} imgClassName={"main-image"}>
                     { mainImage && mainImage.url !== "" && !mainImage.isDefault &&
                         <a href={`/medias/${mainImage._id}`}
-                           className={`fs-4 w-100 h-100 position-absolute d-flex align-items-center justify-content-center p-1 ${styles["profile-picture--modification-opt"]}`}>
-                            {lang.see}
+                           className={`fs-4 w-100 h-100 position-absolute d-flex align-items-center justify-content-center p-1 ${styles["profile-picture--modification-opt"]} main-image-link`}>
+                            <Icon iconName={"eye"} /> {lang.see}
                         </a>
                     }
                 </MediaFigure>

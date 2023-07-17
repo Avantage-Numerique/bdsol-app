@@ -9,12 +9,13 @@
   margin-left: 3vw;
   width: var(--picture-size);
   min-height: var(--picture-size);
+  border-radius: 50%;
+  border: 0.2rem solid white;
+  overflow: hidden;
 
   .main-image {
-    border: 0.2rem solid white;
-    background-color: white;
-    border-radius: 50%;
-    bottom: 0px;
+    background-color: $light;
+    bottom: 0;
     position: absolute;
     width: var(--picture-size);
     height:  var(--picture-size);
@@ -27,6 +28,16 @@
     right: -1rem;
     bottom : calc(0px - var(--margin-bottom) - 1rem);
     &:hover { opacity: 1; }
+  }
+
+  .main-image-link {
+    background-color: rgba($dark, 0%);
+    color: rgba($light, 45%);
+    @include transition();
+    &:hover {
+      background-color: rgba($dark, 15%);
+      color: rgba($light, 90%);
+    }
   }
 }
 
