@@ -84,14 +84,6 @@ const base = {
 
     "noTeamMemberSetMessage": "Personne n'est inscrit comme membre de l'équipe de cette organisation.",
 
-
-    //  Medias
-
-    "seeImage": "Voir l'image",
-    "updateImage": "Modifier l'image",
-    "addImage": "Définir une image principale",
-
-
     //  NAV
 
     "menuContributeLabel": "Contribuer",

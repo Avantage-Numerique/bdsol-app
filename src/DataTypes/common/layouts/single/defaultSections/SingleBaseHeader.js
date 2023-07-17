@@ -43,7 +43,7 @@ const SingleBaseHeader = (props) => {
     const type = getType(entity.type) ?? getType(TYPE_DEFAULT);
     //Removed from coloumn, it's more useful to use the justify or align from start or end.
     return (
-        <section className={`row position-relative p-4 ms-0 ${className}`}>
+        <section className={`row position-relative p-4 ms-0 ${props.className}`}>
             <div className="col-md-6 d-flex flex-column order-2 order-md-1">
                 { /* title */ }
                 { title ?? <h2 className='mt-4 ms-4'>{lang.title}</h2> }
@@ -78,7 +78,7 @@ const SingleBaseHeader = (props) => {
                 <p className='text-white mb-0'>{type.label}</p>
             </div>
             {children &&
-                <div className="col-12">
+                <div className="col-12 order-3 pt-2">
                     {children}
                 </div>
             }

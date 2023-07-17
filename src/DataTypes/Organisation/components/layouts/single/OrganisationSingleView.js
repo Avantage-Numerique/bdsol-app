@@ -57,7 +57,8 @@ const OrganisationSingleView = ({ data }) => {
     }
 
     const Header = (
-        <SingleBaseHeader 
+        <SingleBaseHeader
+            className={"mode-public"}
             title={(<h2 className="text-white">{`${name}`}</h2>)}
             subtitle={(
                 <div className="d-text">

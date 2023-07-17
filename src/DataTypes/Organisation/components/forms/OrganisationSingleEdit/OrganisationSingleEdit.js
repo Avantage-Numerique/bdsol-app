@@ -58,9 +58,9 @@ const OrganisationSingleEdit = (props) => {
     } = Object(props.data);
 
     //Model de project
-    const model = new Organisation(props.data);
+    let model = new Organisation(props.data);
     //Redirection link to the view page
-    const link = "/"+replacePathname(model.singleRoute.pathname, {slug: model.slug});
+    //let link = "/"+replacePathname(model.singleRoute.pathname, {slug: model.slug});
 
     //Modal hook
     const {displayModal, modal, closeModal, Modal} = useModal();
@@ -220,28 +220,38 @@ const OrganisationSingleEdit = (props) => {
     
     const ctaHeaderSection = (
         <div className="d-flex align-items-end">
-            <Link href={link} >
+            <Link href={model.singleLink} >
                 <button type="button" className="btn underlined-button text-white"><Icon iconName={"eye"} />&nbsp;{lang.capitalize("visualize")}</button>
             </Link>
             <Button disabled={!formState.isValid} onClick={submitHandler}><Icon iconName={"save"} />&nbsp;{lang.capitalize("save")}</Button>
         </div>
-    )
+    );
 
-    const [currentMainImage, setCurrentMainImage] = useState(mainImage);
+    const [currentMainImage, setCurrentMainImage] = useState(model.mainImage);
+    const [currentModel, setCurrentModel] = useState(model);
 
-    const displayCurrentMainImage = useCallback((media) => {
-        setCurrentMainImage(media);
-    }, [setCurrentMainImage]);
+    const updateEntityModel = useCallback((rawData) => {
+        model = new Organisation(rawData);
+        setCurrentMainImage(model.mainImage);
+    }, [setCurrentModel]);
+
+    const updateModelMainImage = useCallback((mainImage) => {
+        setCurrentMainImage(mainImage);
+        model.mainImage = mainImage;
+        setCurrentModel(model);
+    }, [setCurrentModel]);
+
 
     const header = ( 
-        <SingleBaseHeader 
+        <SingleBaseHeader
+            className={"mode-update"}
             title={title} 
             subtitle={subtitle} 
             mainImage={currentMainImage}
             buttonSection={ctaHeaderSection}
             entity={model}
         >
-            <MainImageDisplay mainImage={currentMainImage} entity={model} setter={displayCurrentMainImage} />
+            <MainImageDisplay mainImage={currentMainImage} entity={currentModel} setter={updateModelMainImage} />
         </SingleBaseHeader>
     );
     
@@ -276,6 +286,7 @@ const OrganisationSingleEdit = (props) => {
             />
         </>
     );
+
     const contentColumnRight = (
         <>
             <SingleInfo
@@ -320,6 +331,7 @@ const OrganisationSingleEdit = (props) => {
             </SingleInfo>
         </>
     );
+
     const footer = (
         <>
             <Input
@@ -345,6 +357,7 @@ const OrganisationSingleEdit = (props) => {
                 }
             </div>
         </>);
+
 
     const modalCategoryMode = useRef("skills")
     function displayModalForSkills(elem) {

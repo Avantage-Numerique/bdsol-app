@@ -1,7 +1,7 @@
 const contribute = {
     "save": "save",
     "visualize": "visualize",
-    "modify": "modify",
+    "modify": "modify"
 }
 
 exports.contribute = contribute;

@@ -28,5 +28,10 @@
     bottom : calc(0px - var(--margin-bottom) - 1rem);
     &:hover { opacity: 1; }
   }
+}
 
+.mode-update {
+  .main-image-container {
+    margin: 0;
+  }
 }

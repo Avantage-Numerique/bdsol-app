@@ -1,5 +1,6 @@
 import {TYPE_DEFAULT} from "@/DataTypes/Entity/Types";
 import {removeHtml} from "@/src/helpers/str";
+import {replacePathname} from "@/src/helpers/url";
 
 /**
  * The abstract model for all the entities.
@@ -229,6 +230,11 @@ class EntityModel {
 
 
     //  --- UTILS ---
+
+    get singleLink() {
+        console.log("singlePublicLink", this.singleRoute.pathname, this.slug);
+        return "/"+replacePathname(this.singleRoute.pathname, {slug: this.slug});
+    }
 
     /**
      * Declare all the model property to be accessible to it.

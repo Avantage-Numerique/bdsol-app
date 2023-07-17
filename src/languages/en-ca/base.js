@@ -176,9 +176,7 @@ export const base = {
 
     //  Medias
 
-    "seeImage": "See the image",
-    "updateImage": "Modify the image",
-    "addImage": "Define a main image",
+
 
 
     //  NAV

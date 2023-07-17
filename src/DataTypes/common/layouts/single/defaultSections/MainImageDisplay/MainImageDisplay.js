@@ -57,7 +57,9 @@ const MainImageDisplay = ({ mainImage, entity, setter }) => {
         <>
             <div className={`${styles["edit-image-button"]}`}>
                 <button className={"btn btn-primary"} onClick={() => displayModal()} title={haveMainImage ? lang.updateImage : lang.addImage}>
-                    <Icon iconName={"edit"} /> {lang.capitalize("modify")}
+                    <Icon iconName={"edit"} /> { mainImage.isDefault === true ?
+                    lang.capitalize("addImage") : lang.capitalize("updateImage")
+                }
                 </button>
             </div>
 
