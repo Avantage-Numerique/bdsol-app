@@ -17,7 +17,7 @@ import Icon from "@/common/widgets/Icon/Icon";
 
 
 //{ mainImage, entity, editable}
-const MainImageDisplay = ({ mainImage, entity, editableImg, setter }) => {
+const MainImageDisplay = ({ mainImage, entity, setter }) => {
 
     const {displayModal, modal, closeModal, Modal} = useModal();
 
@@ -38,6 +38,7 @@ const MainImageDisplay = ({ mainImage, entity, editableImg, setter }) => {
 
     const refreshImage = (requestResponse) => {
         setter(requestResponse.data);
+        entity.mainImage = requestResponse.data;
         /*const haveMainImage = requestResponse.data.url !== undefined;
         const mainImageRootUrl = haveMainImage ? process.env.NEXT_PUBLIC_API_URL : "";//we dont add api path if it's local.
         const mainImageUrl = requestResponse?.data?.url ?? getDefaultImageByEntityType(entity?.type);
@@ -52,17 +53,13 @@ const MainImageDisplay = ({ mainImage, entity, editableImg, setter }) => {
         //To correct modal to display properly
         entity.mainImage = requestResponse.data*/
     }
-    console.log(mainImage);
     return (
         <>
-            {
-                editableImg &&
-                <div className={`${styles["edit-image-button"]}`}>
-                    <button className={"btn btn-primary"} onClick={() => displayModal()} title={haveMainImage ? lang.updateImage : lang.addImage}>
-                        <Icon iconName={"edit"} /> {lang.capitalize("modify")}
-                    </button>
-                </div>
-            }
+            <div className={`${styles["edit-image-button"]}`}>
+                <button className={"btn btn-primary"} onClick={() => displayModal()} title={haveMainImage ? lang.updateImage : lang.addImage}>
+                    <Icon iconName={"edit"} /> {lang.capitalize("modify")}
+                </button>
+            </div>
 
             {/******** Img Modal Display *********/}
             {

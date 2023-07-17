@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import {useCallback} from 'react';
 
 //components
 import SingleBaseHeader from "@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseHeader"
@@ -71,8 +71,8 @@ const ProjectSingleView = ({ data }) => {
                     </div>
                 </div>
             )}
-            mainImage={mainImage}
-            entity={data}
+            mainImage={model.mainImage}
+            entity={model}
             buttonText="Proposer des modifications"
             buttonLink={link}
         />

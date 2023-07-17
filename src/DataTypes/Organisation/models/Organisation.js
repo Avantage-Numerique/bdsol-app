@@ -1,7 +1,7 @@
 import EntityModel from "@/DataTypes/Entity/models/EntityModel";
 import OrganisationSimple from "@/DataTypes/Organisation/components/layouts/simple/OrganisationSimple";
 import Media from "@/DataTypes/Media/models/Media";
-import {TYPE_DEFAULT, TYPE_ORGANISATION} from "@/DataTypes/Entity/Types";
+import {TYPE_ORGANISATION} from "@/DataTypes/Entity/Types";
 import AppRoutes from "@/src/Routing/AppRoutes";
 
 
@@ -16,7 +16,8 @@ class Organisation extends EntityModel {
         this.mainImage = !raw.mainImage || raw.mainImage === "" ? {
             url: "/general_images/organisation-default.jpg",
             alt: raw.name,
-            baseSrc: `${process.env.NEXT_PUBLIC_APP_URL}`
+            baseSrc: `${process.env.NEXT_PUBLIC_APP_URL}`,
+            isDefault: true
         } : raw.mainImage;
 
         this.mainImageModel = new Media(this.mainImage);

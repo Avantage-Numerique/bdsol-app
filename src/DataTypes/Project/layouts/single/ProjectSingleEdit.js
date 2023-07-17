@@ -388,7 +388,7 @@ const ProjectSingleEdit = (props) => {
                     creatable={true}
                     isMulti={true}
                     createOptionFunction={displayModalForSkills}
-                    requestData={{category:"ne:domains", name:""}}
+                    requestData={{name:""}}
                     fetch={"/taxonomies/list"}
                     searchField={"name"}
                     selectField={"name"}

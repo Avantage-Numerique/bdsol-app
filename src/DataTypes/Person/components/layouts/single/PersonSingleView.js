@@ -104,8 +104,8 @@ const PersonSingleView = ({ data }) => {
                     <i><blockquote className="text-white">{catchphrase}</blockquote></i>
                 </div>
             )}
-            mainImage={mainImage}
-            entity={data}
+            mainImage={model.mainImage}
+            entity={model}
             buttonText="Proposer des modifications"
             buttonLink={link}
         />

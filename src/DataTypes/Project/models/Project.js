@@ -1,7 +1,7 @@
 import EntityModel from "@/DataTypes/Entity/models/EntityModel";
 import ProjectSimple from "@/DataTypes/Project/layouts/simple/ProjectSimple";
 import ProjectSingleView from "@/DataTypes/Project/layouts/single/ProjectSingleView";
-import {TYPE_DEFAULT, TYPE_PROJECT} from "@/DataTypes/Entity/Types";
+import {TYPE_PROJECT} from "@/DataTypes/Entity/Types";
 import Media from "@/DataTypes/Media/models/Media";
 import AppRoutes from "@/src/Routing/AppRoutes";
 
@@ -17,7 +17,8 @@ class Project extends EntityModel {
         this.mainImage = !raw.mainImage || raw.mainImage?.url !== "" ? {
             url: "/general_images/project-default.webp",
             alt: raw.name,
-            baseSrc: `${process.env.NEXT_PUBLIC_APP_URL}`
+            baseSrc: `${process.env.NEXT_PUBLIC_APP_URL}`,
+            isDefault: true
         } : raw.mainImage;
 
         this.mainImageModel = new Media(this.mainImage);

@@ -64,8 +64,8 @@ const OrganisationSingleView = ({ data }) => {
                     <h4 className="text-white">{catchphrase}</h4>
                 </div>
             )}
-            mainImage={mainImage}
-            entity={data}
+            mainImage={model.mainImage}
+            entity={model}
             buttonText="Proposer des modifications"
             buttonLink={link}
         />

@@ -240,9 +240,8 @@ const OrganisationSingleEdit = (props) => {
             mainImage={currentMainImage}
             buttonSection={ctaHeaderSection}
             entity={model}
-            editableImg={true}
         >
-            <MainImageDisplay mainImage={currentMainImage} entity={model} editableImg={true} setter={displayCurrentMainImage} />
+            <MainImageDisplay mainImage={currentMainImage} entity={model} setter={displayCurrentMainImage} />
         </SingleBaseHeader>
     );
     

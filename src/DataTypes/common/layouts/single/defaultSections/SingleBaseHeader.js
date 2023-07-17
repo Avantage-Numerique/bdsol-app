@@ -42,11 +42,9 @@ const SingleBaseHeader = (props) => {
     const auth = useAuth();
     const type = getType(entity.type) ?? getType(TYPE_DEFAULT);
     //Removed from coloumn, it's more useful to use the justify or align from start or end.
-    //order-2 order-md-1
-    //order-1 order-md-2
     return (
         <section className={`row position-relative p-4 ms-0 ${className}`}>
-            <div className="col-md-6 d-flex flex-column">
+            <div className="col-md-6 d-flex flex-column order-2 order-md-1">
                 { /* title */ }
                 { title ?? <h2 className='mt-4 ms-4'>{lang.title}</h2> }
 
@@ -54,7 +52,7 @@ const SingleBaseHeader = (props) => {
                 { subtitle ?? <h3 className='ms-4'>{lang.subTitle}</h3> }
 
                 <MediaFigure model={mainImage} className={"main-image-container"} imgClassName={"main-image"}>
-                    { mainImage &&
+                    { mainImage && mainImage.url !== "" && !mainImage.isDefault &&
                         <a href={`/medias/${mainImage._id}`}
                            className={`fs-4 w-100 h-100 position-absolute d-flex align-items-center justify-content-center p-1 ${styles["profile-picture--modification-opt"]}`}>
                             {lang.see}
@@ -62,7 +60,7 @@ const SingleBaseHeader = (props) => {
                     }
                 </MediaFigure>
             </div>
-            <div className="col-md-6 d-flex flex-md-column align-items-end justify-content-between">
+            <div className="col-md-6 order-1 order-md-2 d-flex flex-md-column align-items-end justify-content-between">
                 { /* btnToggleViewEdit */ }
                 {/* If a button section is declared, use it */}
                 {buttonSection && buttonSection}
