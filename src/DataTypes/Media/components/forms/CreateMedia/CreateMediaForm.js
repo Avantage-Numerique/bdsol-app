@@ -1,4 +1,4 @@
-import {useEffect, useState, useContext, useRef} from 'react'
+import {useEffect, useState} from 'react'
 
 //Custom hooks
 import {useFormUtils} from '@/src/hooks/useFormUtils/useFormUtils';
@@ -13,7 +13,6 @@ import LargeFileInput from '@/FormElements/LargeFileInput/LargeFileInput'
 
 //Context
 import {useAuth} from "@/src/authentification/context/auth-context";
-import {MessageContext} from '@/src/common/UserNotifications/Message/Context/Message-Context'
 import {getDefaultCreateEntityStatus} from "@/DataTypes/Status/EntityStatus";
 
 //Styling
@@ -44,7 +43,7 @@ const CreateMediaForm = (props) => {
 
     //Define if the form is creating a new file or if it is updating the values of an existing one.
     //Starting state is false since no new file has been passed
-    const [isNewFile, setIsNewFile] = useState(!(initValues && url));
+    const [isNewFile, setIsNewFile] = useState(!(initValues && url) || initValues.isDefault);
     //Authentication ref
     const auth = useAuth();
 

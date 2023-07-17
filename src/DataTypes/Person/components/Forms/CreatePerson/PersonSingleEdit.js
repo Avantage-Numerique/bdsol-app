@@ -1,4 +1,4 @@
-import {useCallback, useContext, useEffect, useRef} from 'react'
+import React, {useCallback, useContext, useEffect, useRef, useState} from 'react'
 import Router from 'next/router'
 import Link from 'next/link'
 
@@ -32,6 +32,9 @@ import SingleBase from '@/src/DataTypes/common/layouts/single/SingleBase'
 import UpdateSkillGroup from '@/src/DataTypes/common/Forms/UpdateSkillGroup/UpdateSkillGroup'
 import Person from "@/DataTypes/Person/models/Person";
 import {replacePathname} from "@/src/helpers/url";
+import Icon from "@/common/widgets/Icon/Icon";
+import MainImageDisplay from "@/DataTypes/common/layouts/single/defaultSections/MainImageDisplay/MainImageDisplay";
+import Organisation from "@/DataTypes/Organisation/models/Organisation";
 
 const PersonSingleEdit = ({initValues, positiveRequestActions, ...props}) => {
 
@@ -55,9 +58,23 @@ const PersonSingleEdit = ({initValues, positiveRequestActions, ...props}) => {
     } = props?.data;
 
     //Model de project
-    const model = new Person(props.data);
-    //Redirection link to the view page
-    const link = "/"+replacePathname(model.singleRoute.pathname, {slug: model.slug});
+    let model = new Person(props.data);
+
+    //  STATES
+
+    const [currentMainImage, setCurrentMainImage] = useState(model.mainImage);
+    const [currentModel, setCurrentModel] = useState(model);
+
+    const updateEntityModel = useCallback((rawData) => {
+        model = new Organisation(rawData);
+        setCurrentMainImage(model.mainImage);
+    }, [setCurrentModel]);
+
+    const updateModelMainImage = useCallback((mainImage) => {
+        setCurrentMainImage(mainImage);
+        model.mainImage = mainImage;
+        setCurrentModel(model);
+    }, [setCurrentModel]);
 
 
     //Modal hook
@@ -230,22 +247,25 @@ const PersonSingleEdit = ({initValues, positiveRequestActions, ...props}) => {
         </>);
     
     const ctaHeaderSection = (
-        <div className="d-flex flex-column align-items-end">
-            <Button disabled={!formState.isValid} onClick={submitHandler}>Soumettre les modifications</Button>
-            <Link href={link} >
-                <button type="button" className="btn underlined-button text-white">Retour en visualisation</button>
+        <div className="d-flex align-items-end">
+            <Link href={model.singleLink} >
+                <button type="button" className="btn underlined-button text-white"><Icon iconName={"eye"} />&nbsp;{lang.capitalize("visualize")}</button>
             </Link>
+            <Button disabled={!formState.isValid} onClick={submitHandler}><Icon iconName={"save"} />&nbsp;{lang.capitalize("save")}</Button>
         </div>
     )
+
     const header = ( 
         <SingleBaseHeader
+            className={"mode-update"}
             title={title} 
             subtitle={subtitle} 
-            mainImage={mainImage}
+            mainImage={currentMainImage}
             buttonSection={ctaHeaderSection}
             entity={model}
-            editableImg={true}
-        /> 
+        >
+            <MainImageDisplay mainImage={currentMainImage} entity={currentModel} setter={updateModelMainImage} />
+        </SingleBaseHeader>
     );
 
     const fullWidthContent = (
@@ -335,11 +355,11 @@ const PersonSingleEdit = ({initValues, positiveRequestActions, ...props}) => {
 
                 <div className="d-flex pt-4 align-items-end flex-column">
                     <Button disabled={!formState.isValid} onClick={submitHandler}>
-                        Soumettre les modifications
+                        {lang.save}
                     </Button>
                     {
                         !formState.isValid &&
-                        <p className="p-2 mt-2 col-md-4 border border-danger rounded"><small>Attention, l'un des champs dans cette page n'est pas entré correctement et vous empêche de sauvegarder vos modifications.</small></p>
+                        <p className="p-2 mt-2 col-md-4 border border-danger rounded"><small>{lang.validationFailedCantSave}</small></p>
                     }
                 </div>
              {/* </form> */}

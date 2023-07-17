@@ -57,10 +57,35 @@ const OrganisationSingleEdit = (props) => {
         updatedAt,
     } = Object(props.data);
 
-    //Model de project
+    //  Model de project
     let model = new Organisation(props.data);
-    //Redirection link to the view page
-    //let link = "/"+replacePathname(model.singleRoute.pathname, {slug: model.slug});
+
+    /*
+     *  1. Change the link getter in ctaHeaderSection components.
+     *  1.1 Change the button save and visualize.
+     *  2. Add states setter
+     *  2.1 Change the const to let for model.
+     *  3. Pass new params to components.
+     *  4. Test
+     *  5. redo
+     */
+
+    //  STATES change that to a context ?
+
+    const [currentMainImage, setCurrentMainImage] = useState(model.mainImage);
+    const [currentModel, setCurrentModel] = useState(model);
+
+    const updateEntityModel = useCallback((rawData) => {
+        model = new Organisation(rawData);
+        setCurrentMainImage(model.mainImage);
+    }, [setCurrentModel]);
+
+    const updateModelMainImage = useCallback((mainImage) => {
+        setCurrentMainImage(mainImage);
+        model.mainImage = mainImage;
+        setCurrentModel(model);
+    }, [setCurrentModel]);
+
 
     //Modal hook
     const {displayModal, modal, closeModal, Modal} = useModal();
@@ -227,21 +252,6 @@ const OrganisationSingleEdit = (props) => {
         </div>
     );
 
-    const [currentMainImage, setCurrentMainImage] = useState(model.mainImage);
-    const [currentModel, setCurrentModel] = useState(model);
-
-    const updateEntityModel = useCallback((rawData) => {
-        model = new Organisation(rawData);
-        setCurrentMainImage(model.mainImage);
-    }, [setCurrentModel]);
-
-    const updateModelMainImage = useCallback((mainImage) => {
-        setCurrentMainImage(mainImage);
-        model.mainImage = mainImage;
-        setCurrentModel(model);
-    }, [setCurrentModel]);
-
-
     const header = ( 
         <SingleBaseHeader
             className={"mode-update"}
@@ -359,12 +369,14 @@ const OrganisationSingleEdit = (props) => {
         </>);
 
 
-    const modalCategoryMode = useRef("skills")
+    const modalCategoryMode = useRef("skills");
+
     function displayModalForSkills(elem) {
         modalCategoryMode.current = "skills";
         modal.enteredValues.name = elem;
         displayModal();
     }
+
     function displayModalForDomains(elem) {
         modalCategoryMode.current = "domains";
         modal.enteredValues.name = elem;
@@ -388,7 +400,7 @@ const OrganisationSingleEdit = (props) => {
                 </Button>
                 {
                     !formState.isValid &&
-                    <p className="p-2 mt-2 col-md-4 border border-danger rounded"><small>Attention, l'un des champs dans cette page n'est pas entré correctement et vous empêche de sauvegarder vos modifications.</small></p>
+                    <p className="p-2 mt-2 col-md-4 border border-danger rounded"><small>{lang.validationFailedCantSave}</small></p>
                 }
             </div>
 
