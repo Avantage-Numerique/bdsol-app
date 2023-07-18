@@ -6,7 +6,7 @@ import KebabButton from '@/common/FormElements/KebabButton/KebabButton'
 //Styling
 import styles from './EntitySimple.module.scss';
 import MediaFigure from "@/DataTypes/Media/layouts/MediaFigure";
-import {TYPES} from "@/DataTypes/Entity/Types";
+import {getType} from "@/DataTypes/Entity/Types";
 import SanitizedInnerHtml from "@/src/utils/SanitizedInnerHtml";
 import {replacePathname} from "@/src/helpers/url";
 import Link from "next/link";
@@ -52,7 +52,7 @@ const EntitySimple = (props) => {
     const link = "/"+replacePathname(model.singleRoute.pathname, {slug: model.slug});
     //params
     const showEntityType = props.showEntityType ?? true;
-    const appType = TYPES.get(model.type);
+    const appType = getType(model.type);
 
 
     /**

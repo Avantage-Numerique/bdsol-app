@@ -17,6 +17,7 @@ import {getDefaultCreateEntityStatus} from "@/DataTypes/Status/EntityStatus";
 
 //Styling
 import styles from "./CreateMediaForm.module.scss";
+import {getType} from "@/DataTypes/Entity/Types";
 
 
 const CreateMediaForm = (props) => {
@@ -226,7 +227,6 @@ const CreateMediaForm = (props) => {
                                     </div>
                                 }
                             </>
-
                         }
 
                         {/* Offer the option of adding a new file if the user wants to */}
@@ -267,8 +267,9 @@ const CreateMediaForm = (props) => {
                                 <div className={`d-flex flex-column ms-2 py-1 ${styles["temporary-entity-tag__texts"]}`}>
                                     {entity.fullName && <p className="m-0 fs-6">{entity.fullName}</p>}
                                     {entity.name && <p className="m-0 fs-6">{entity.name}</p>}
-                                    {entity.type === "Person" && <p className="m-0 fs-6">Personne</p>}
-                                    {entity.type === "Organisation" && <p className="m-0 fs-6">Organisation</p>}
+                                    {entity.type &&
+                                        <p className="m-0 fs-6">{getType(entity.type, true).label}</p>
+                                    }
                                 </div>
 
                             </article>
@@ -293,7 +294,6 @@ const CreateMediaForm = (props) => {
                                 {!isNewFile &&
                                     <button onClick={submitDelete} type="button" className="text-danger fs-5"><u>Supprimer l'image</u></button>
                                 }
-
                             </div>
                         </div>
                         }
@@ -314,8 +314,6 @@ const CreateMediaForm = (props) => {
                         </div>
                         }
                     </div>
-
-
                 </div>
             </div>
         </form>

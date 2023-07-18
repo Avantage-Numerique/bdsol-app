@@ -32,7 +32,7 @@
 
   .main-image-link {
     background-color: rgba($dark, 0%);
-    color: rgba($light, 45%);
+    color: rgba($light, 5%);
     @include transition();
     &:hover {
       background-color: rgba($dark, 15%);

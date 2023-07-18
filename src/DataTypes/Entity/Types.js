@@ -62,12 +62,13 @@ export {TYPES};
 /**
  * Get the object Type with slug, label and default image.
  * @param type {string}
+ * @param returnDefault {boolean}
  * @returns {undefined|Type}
  */
-const getType = (type) => {
+const getType = (type, returnDefault=false) => {
     if (type && TYPES.has(type)) {
         return TYPES.get(type);
     }
-    return undefined;
+    return returnDefault ? TYPES.get(TYPE_DEFAULT) : undefined;
 }
 export {getType};
