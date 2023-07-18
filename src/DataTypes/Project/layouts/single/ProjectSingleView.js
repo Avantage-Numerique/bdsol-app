@@ -208,13 +208,6 @@ const ProjectSingleView = ({ data }) => {
             {/* Url */}
             <SingleInfo title="Hyperlien"><p>{url}</p></SingleInfo>
             {
-                status?.state &&
-                    <SingleInfo className="border-top pt-3"
-                        title="Statut de l'entité">
-                        <p>{status.state === 'accepted' ? "Acceptée" : "En attente d'approbation"}</p>
-                    </SingleInfo>
-            }
-            {
                 (createdAt || updatedAt || status) &&
                 <SingleEntityStatus 
                     className="border-bottom pb-2" 

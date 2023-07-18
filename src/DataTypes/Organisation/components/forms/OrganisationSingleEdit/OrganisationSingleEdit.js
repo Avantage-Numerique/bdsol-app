@@ -355,13 +355,6 @@ const OrganisationSingleEdit = (props) => {
             />
             <div className="border-top border-bottom pt-3">
                 {
-                    status?.state &&
-                        <SingleInfo
-                            title="Statut de l'entité">
-                            <p>{status.state === 'accepted' ? "Acceptée" : "En attente d'approbation"}</p>
-                        </SingleInfo>
-                }
-                {
                     (createdAt || updatedAt || status) &&
                     <SingleEntityStatus createdAt={createdAt} updatedAt={updatedAt} status={status} />
                 }

@@ -37,11 +37,6 @@ const base = {
     "homePageBreadcrumbLabel": "Accueil",
 
 
-    //  History (user Histories, etc)
-
-    "modificationHistory": "Historique de modification",
-
-
     //  Auth
 
     "needToBeConnectedToAccess": "Vous devez être connecté pour pouvoir ajouter une entité à la base de données.",

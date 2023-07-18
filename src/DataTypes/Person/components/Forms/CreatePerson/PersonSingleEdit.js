@@ -14,7 +14,6 @@ import CreateTaxonomyForm from '@/DataTypes/Taxonomy/components/Forms/CreateTaxo
 import {lang} from "@/src/common/Data/GlobalConstants";
 import Select2 from '@/src/common/FormElements/Select2/Select2'
 import Modal from '@/src/hooks/useModal/Modal/Modal'
-import SingleInfo from '@/src/DataTypes/common/layouts/SingleInfo/SingleInfo'
 import {SingleEntityStatus} from '@/DataTypes/Status/components/SingleEntityStatus'
 
 //Context
@@ -310,13 +309,6 @@ const PersonSingleEdit = ({initValues, positiveRequestActions, ...props}) => {
 
     const footer = (
         <div className="border-top border-bottom pt-3">
-            {
-                status?.state &&
-                    <SingleInfo
-                        title="Statut de l'entité">
-                        <p>{status.state === 'accepted' ? "Acceptée" : "En attente d'approbation"}</p>
-                    </SingleInfo>
-            }
             {
                 (createdAt || updatedAt || status) &&
                 <SingleEntityStatus createdAt={createdAt} updatedAt={updatedAt} status={status} />
