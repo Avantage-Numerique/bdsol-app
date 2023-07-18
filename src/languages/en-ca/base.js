@@ -12,6 +12,10 @@ export const base = {
     "close": "Close",
     "noInfoAvailable": "Data available soon.",
     "colon": " : ",
+    "by": "by",
+    "on": "on",
+    "title": "title",
+    "subTitle": "subtitle",
 
     // App
 
@@ -172,9 +176,7 @@ export const base = {
 
     //  Medias
 
-    "seeImage": "See the image",
-    "updateImage": "Modify the image",
-    "addImage": "Define a main image",
+
 
 
     //  NAV

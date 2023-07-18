@@ -12,6 +12,12 @@ const base = {
     "close": "Fermer",
     "noInfoAvailable": "Information bientôt disponible.",
     "colon": " : ",
+    "by": "par",
+    "on": "le",
+    "title":"titre",
+    "subTitle": "sous-titre",
+
+    // Status
 
     // App
 
@@ -77,14 +83,6 @@ const base = {
     //  TEAMS
 
     "noTeamMemberSetMessage": "Personne n'est inscrit comme membre de l'équipe de cette organisation.",
-
-
-    //  Medias
-
-    "seeImage": "Voir l'image",
-    "updateImage": "Modifier l'image",
-    "addImage": "Définir une image principale",
-
 
     //  NAV
 

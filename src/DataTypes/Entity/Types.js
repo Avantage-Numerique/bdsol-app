@@ -4,8 +4,9 @@ export const TYPE_TAXONOMY = "Taxonomy"
 export const TYPE_PROJECT = "Project";
 export const TYPE_PERSON = "Person";
 export const TYPE_MEDIA = "Media";
-
 export const TYPE_DEFAULT = TYPE_ABSTRACT;
+export const TYPE_NOTSET = "undefined";
+
 
 
 class Type {
@@ -49,4 +50,25 @@ TYPES.set(TYPE_TAXONOMY, new Type({
     defaultMainImage: "/general_images/project-default.webp"
 }));
 
+TYPES.set(TYPE_NOTSET, new Type({
+    slug:"undefined",
+    label: "undefined",
+    defaultMainImage: "/general_images/person-default.webp"
+}));
+
 export {TYPES};
+
+
+/**
+ * Get the object Type with slug, label and default image.
+ * @param type {string}
+ * @param returnDefault {boolean}
+ * @returns {undefined|Type}
+ */
+const getType = (type, returnDefault=false) => {
+    if (type && TYPES.has(type)) {
+        return TYPES.get(type);
+    }
+    return returnDefault ? TYPES.get(TYPE_DEFAULT) : undefined;
+}
+export {getType};

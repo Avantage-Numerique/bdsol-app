@@ -24,14 +24,19 @@ const MediaFigure = (props) => {
     // defaults
     className = className ?? "w-100 h-100";
 
-    baseSrc = baseSrc ?? model.baseSrc;
+    baseSrc = baseSrc ?? model?.baseSrc;
     baseSrc = baseSrc ?? `${process.env.NEXT_PUBLIC_API_URL}`;
 
+    //get height and width dynamicaly ?
     return (
-        <figure className={`${styles["mediaFigure"]} ${className}`}>
-            <img src={`${baseSrc}${model.url}`} alt={model.alt} className={imgClassName} />
-            {children && children}
-        </figure>
+        <>
+            {model &&
+                <figure className={`${styles["mediaFigure"]} ${className}`}>
+                    <img src={`${baseSrc}${model.url}`} alt={model.alt} className={imgClassName} />
+                    {children && children}
+                </figure>
+            }
+        </>
     )
 }
 

@@ -1,13 +1,16 @@
 //Styles
 import styles from './SingleBaseHeader.module.scss';
-import { TYPES } from '@/src/DataTypes/Entity/Types';
+import {getType, TYPE_DEFAULT} from '@/src/DataTypes/Entity/Types';
 
 //Component
 import Button from '@/src/common/FormElements/Button/Button';
-import MainImageDisplay from '@/DataTypes/common/layouts/single/defaultSections/MainImageDisplay/MainImageDisplay';
+import MediaFigure from "@/DataTypes/Media/layouts/MediaFigure";
 
 //Auth
-import { useAuth } from '@/src/authentification/context/auth-context';
+import {useAuth} from '@/src/authentification/context/auth-context';
+import {lang} from "@/common/Data/GlobalConstants";
+import React from "react";
+import Icon from "@/common/widgets/Icon/Icon";
 
 
 /**
@@ -22,7 +25,6 @@ import { useAuth } from '@/src/authentification/context/auth-context';
  * @param {String} buttonLink string : link to redirect the user when the button is clicked
  * @param {String} editableImg bool : Show the button to edit image or not
  */
-
 const SingleBaseHeader = (props) => {
 
     const {
@@ -34,21 +36,30 @@ const SingleBaseHeader = (props) => {
         buttonSection,
         buttonText,
         buttonLink,
-        editableImg
+        editableImg,
+        children
     } = props;
-    const auth = useAuth();
 
+    const auth = useAuth();
+    const type = getType(entity.type) ?? getType(TYPE_DEFAULT);
+    //Removed from coloumn, it's more useful to use the justify or align from start or end.
     return (
-        <section className={`row position-relative p-4 ms-0 ${className}`}>
-            <div className="col-md-6 order-2 order-md-1 d-flex flex-column">
+        <section className={`row position-relative p-4 ms-0 ${props.className}`}>
+            <div className="col-md-6 d-flex flex-column order-2 order-md-1">
                 { /* title */ }
-                { title ?? <h2 className='mt-4 ms-4'>Titre</h2> }
+                { title ?? <h2 className='mt-4 ms-4'>{lang.title}</h2> }
 
                 { /* subtitle */ }
-                { subtitle ?? <h3 className='ms-4'>Sous-titre</h3> }
+                { subtitle ?? <h3 className='ms-4'>{lang.subTitle}</h3> }
 
-                { /* mainImage */ }
-                <MainImageDisplay mainImage={mainImage ?? undefined} entity={entity} editableImg={editableImg}/>
+                <MediaFigure model={mainImage} className={"main-image-container"} imgClassName={"main-image"}>
+                    { mainImage && mainImage.url !== "" && !mainImage.isDefault &&
+                        <a href={`/medias/${mainImage._id}`}
+                           className={`fs-4 w-100 h-100 position-absolute d-flex align-items-center justify-content-center p-1 ${styles["profile-picture--modification-opt"]} main-image-link`}>
+                            <Icon iconName={"eye"} /> {lang.see}
+                        </a>
+                    }
+                </MediaFigure>
             </div>
             <div className="col-md-6 order-1 order-md-2 d-flex flex-md-column align-items-end justify-content-between">
                 { /* btnToggleViewEdit */ }
@@ -65,8 +76,13 @@ const SingleBaseHeader = (props) => {
                     <></>
                 }
                 { /* entityType */ }
-                <p className='text-white mb-0'>{TYPES.get(entity.type).label ?? "Type de l'entité"}</p>
+                <p className='text-white mb-0'>{type.label}</p>
             </div>
+            {children &&
+                <div className="col-12 order-3 pt-2">
+                    {children}
+                </div>
+            }
         </section>
     )
 

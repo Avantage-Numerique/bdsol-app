@@ -1,11 +1,10 @@
 import {useEffect, useRef} from 'react';
 
 //Hooks
-import { useValidation } from '@/src/hooks/useValidation/useValidation';
+import {useValidation} from '@/src/hooks/useValidation/useValidation';
 
 //components
 import Tip from '@/common/FormElements/Tip/Tip';
-import Button from '@/FormElements/Button/Button';
 
 //Styling
 import styles from './LargeFileInput.module.scss';
@@ -59,6 +58,10 @@ const LargeFileInput = ( props ) => {
     const fieldRef = useRef("");    //Real input
 
     const updateValue = event => {
+
+        event.stopPropagation();
+        event.preventDefault();
+
         if(event.target.files)
             inputHandler(
                 name,

@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import {useCallback} from 'react';
 
 //components
 import SingleBaseHeader from "@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseHeader"
@@ -15,7 +15,7 @@ import {replacePathname} from "@/src/helpers/url";
 
 const OrganisationSingleView = ({ data }) => {
 
-    //Destructuring of data's prop
+    //Destructuring of data's prop // We should use model here.
     const {
         //contactPoint,
         createdAt,
@@ -57,15 +57,16 @@ const OrganisationSingleView = ({ data }) => {
     }
 
     const Header = (
-        <SingleBaseHeader 
+        <SingleBaseHeader
+            className={"mode-public"}
             title={(<h2 className="text-white">{`${name}`}</h2>)}
             subtitle={(
                 <div className="d-text">
                     <h4 className="text-white">{catchphrase}</h4>
                 </div>
             )}
-            mainImage={mainImage}
-            entity={data}
+            mainImage={model.mainImage}
+            entity={model}
             buttonText="Proposer des modifications"
             buttonLink={link}
         />
@@ -122,7 +123,6 @@ const OrganisationSingleView = ({ data }) => {
                     <p><a href={url}>{url}</a></p>
                 }
             </SingleInfo>
-            
         </>
     )
 
@@ -156,7 +156,7 @@ const OrganisationSingleView = ({ data }) => {
                 status?.state &&
                     <SingleInfo
                         title="Statut de l'entité">
-                        <p>{status.state === 'accepted' ? "Acceptée" : "En attente d'approbation"}</p>
+                        <p>{status.state === 'accepted' ? lang.accepted : lang.pending}</p>
                     </SingleInfo>
             }
 

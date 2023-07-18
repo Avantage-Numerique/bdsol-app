@@ -1,6 +1,7 @@
 import SingleInfo from "@/DataTypes/common/layouts/SingleInfo/SingleInfo";
 import {lang} from "@/common/Data/GlobalConstants";
 import DateWidget from "@/common/widgets/DateWidget/DateWidget";
+import React from "react";
 
 /**
  *
@@ -28,17 +29,17 @@ export const SingleEntityStatus = (props) => {
                 {
                     (status?.requestedBy?.username || createdAt) &&
                     <li>
-                        <span>Créer</span>
+                        <span>{lang.created}</span>
                         {
                             status?.requestedBy?.username &&
                             <span>
-                                &nbsp;par&nbsp;:&nbsp;
+                                &nbsp;{lang.by}&nbsp;:&nbsp;
                                 {status.requestedBy.username}
                             </span>
                         }
                         { createdAt &&
                             <span>
-                                &nbsp;le&nbsp;<DateWidget stringDate={createdAt} noTag={true} />
+                                &nbsp;{lang.on}&nbsp;<DateWidget stringDate={createdAt} noTag={true} />
                             </span>
                         }
                     </li>
@@ -46,16 +47,16 @@ export const SingleEntityStatus = (props) => {
                 {
                     (status?.lastModifiedBy?.username || updatedAt) &&
                     <li>
-                        <span>Dernière modifications</span>
+                        <span>{lang.lastModification}</span>
                         {
                             status?.lastModifiedBy?.username &&
                             <span>
-                                &nbsp;par&nbsp;:&nbsp;{status.lastModifiedBy.username}
+                                &nbsp;{lang.by}&nbsp;:&nbsp;{status.lastModifiedBy.username}
                             </span>
                         }
                         { createdAt !== updatedAt &&
                             <span>
-                                &nbsp;le&nbsp;<DateWidget stringDate={updatedAt} noTag={true} />
+                                &nbsp;{lang.on}&nbsp;<DateWidget stringDate={updatedAt} noTag={true} />
                             </span>
                         }
                     </li>

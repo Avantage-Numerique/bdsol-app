@@ -1,0 +1,48 @@
+
+.main-image-container {
+
+  --picture-size: clamp(8rem, 20vw, 12rem);
+  --margin-bottom: calc(-0.30*var(--picture-size));
+
+  position:relative;
+  margin-bottom: var(--margin-bottom);
+  margin-left: 3vw;
+  width: var(--picture-size);
+  min-height: var(--picture-size);
+  border-radius: 50%;
+  border: 0.2rem solid white;
+  overflow: hidden;
+
+  .main-image {
+    background-color: $light;
+    bottom: 0;
+    position: absolute;
+    width: var(--picture-size);
+    height:  var(--picture-size);
+    object-fit: cover;
+  }
+
+  .edit-image-button {
+    opacity: 0.8;
+    position: absolute;
+    right: -1rem;
+    bottom : calc(0px - var(--margin-bottom) - 1rem);
+    &:hover { opacity: 1; }
+  }
+
+  .main-image-link {
+    background-color: rgba($dark, 0%);
+    color: rgba($light, 5%);
+    @include transition();
+    &:hover {
+      background-color: rgba($dark, 15%);
+      color: rgba($light, 90%);
+    }
+  }
+}
+
+.mode-update {
+  .main-image-container {
+    margin: 0;
+  }
+}

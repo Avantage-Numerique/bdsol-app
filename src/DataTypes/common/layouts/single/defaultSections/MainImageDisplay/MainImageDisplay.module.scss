@@ -1,5 +1,5 @@
 
-
+// I Move that to global since we it on more then one components. //check main-image.scss in global / styles.
 .main-image-container {
 
     --picture-size: clamp(8rem, 20vw, 12rem);

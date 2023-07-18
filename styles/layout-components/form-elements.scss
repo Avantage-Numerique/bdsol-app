@@ -12,7 +12,7 @@
         --horizontal-spacing: 0.75rem;
         --vertical-spacing: 0.75rem;
         --default-border: 0.1rem solid rgba(94, 94, 94, 0.13);
-        --placeholder-color: $grey;
+        --placeholder-color: #{$grey};
 
         position: relative;
 
@@ -102,11 +102,11 @@
                 opacity: 1; /* Firefox */
         }
         :-ms-input-placeholder { /* Internet Explorer 10-11 */
-                color: var(--placeholder-color);;
+                color: var(--placeholder-color);
         }
         
         ::-ms-input-placeholder { /* Microsoft Edge */
-                color: var(--placeholder-color);;
+                color: var(--placeholder-color);
         }
 
 }
@@ -138,7 +138,7 @@
                         border-radius: 100%;
                         font-size: 0.6rem;
                         height: fit-content;
-                        padding: 0.075em 0.25em 0em 0.25em;
+                        padding: 0.075em 0.25em 0 0.25em;
                         margin-right: 0.25rem;
                 }
         }

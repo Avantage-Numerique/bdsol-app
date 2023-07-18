@@ -1,4 +1,4 @@
-import {useCallback, useContext, useEffect, useRef} from 'react';
+import React, {useCallback, useContext, useEffect, useRef, useState} from 'react';
 import Link from 'next/link'
 import Router from 'next/router';
 
@@ -31,6 +31,8 @@ import UpdateTeams from '../UpdateTeams/UpdateTeams';
 import Organisation from '@/src/DataTypes/Organisation/models/Organisation';
 import {replacePathname} from "@/src/helpers/url";
 import {lang} from "@/src/common/Data/GlobalConstants";
+import MainImageDisplay from "@/DataTypes/common/layouts/single/defaultSections/MainImageDisplay/MainImageDisplay";
+import Icon from "@/common/widgets/Icon/Icon";
 
 
 const OrganisationSingleEdit = (props) => {
@@ -55,10 +57,35 @@ const OrganisationSingleEdit = (props) => {
         updatedAt,
     } = Object(props.data);
 
-    //Model de project
-    const model = new Organisation(props.data);
-    //Redirection link to the view page
-    const link = "/"+replacePathname(model.singleRoute.pathname, {slug: model.slug});
+    //  Model de project
+    let model = new Organisation(props.data);
+
+    /*
+     *  1. Change the link getter in ctaHeaderSection components.
+     *  1.1 Change the button save and visualize.
+     *  2. Add states setter
+     *  2.1 Change the const to let for model.
+     *  3. Pass new params to components.
+     *  4. Test
+     *  5. redo
+     */
+
+    //  STATES change that to a context ?
+
+    const [currentMainImage, setCurrentMainImage] = useState(model.mainImage);
+    const [currentModel, setCurrentModel] = useState(model);
+
+    const updateEntityModel = useCallback((rawData) => {
+        model = new Organisation(rawData);
+        setCurrentMainImage(model.mainImage);
+    }, [setCurrentModel]);
+
+    const updateModelMainImage = useCallback((mainImage) => {
+        setCurrentMainImage(mainImage);
+        model.mainImage = mainImage;
+        setCurrentModel(model);
+    }, [setCurrentModel]);
+
 
     //Modal hook
     const {displayModal, modal, closeModal, Modal} = useModal();
@@ -217,23 +244,25 @@ const OrganisationSingleEdit = (props) => {
         />);
     
     const ctaHeaderSection = (
-        <div className="d-flex flex-column align-items-end">
-            <Button disabled={!formState.isValid} onClick={submitHandler}>Soumettre les modifications</Button>
-            <Link href={link} >
-                <button type="button" className="btn underlined-button text-white">Retour en visualisation</button>
+        <div className="d-flex align-items-end">
+            <Link href={model.singleLink} >
+                <button type="button" className="btn underlined-button text-white"><Icon iconName={"eye"} />&nbsp;{lang.capitalize("visualize")}</button>
             </Link>
+            <Button disabled={!formState.isValid} onClick={submitHandler}><Icon iconName={"save"} />&nbsp;{lang.capitalize("save")}</Button>
         </div>
-    )
+    );
 
     const header = ( 
-        <SingleBaseHeader 
+        <SingleBaseHeader
+            className={"mode-update"}
             title={title} 
             subtitle={subtitle} 
-            mainImage={mainImage}
+            mainImage={currentMainImage}
             buttonSection={ctaHeaderSection}
             entity={model}
-            editableImg={true}
-        /> 
+        >
+            <MainImageDisplay mainImage={currentMainImage} entity={currentModel} setter={updateModelMainImage} />
+        </SingleBaseHeader>
     );
     
     const fullWidthContent = (
@@ -267,6 +296,7 @@ const OrganisationSingleEdit = (props) => {
             />
         </>
     );
+
     const contentColumnRight = (
         <>
             <SingleInfo
@@ -311,6 +341,7 @@ const OrganisationSingleEdit = (props) => {
             </SingleInfo>
         </>
     );
+
     const footer = (
         <>
             <Input
@@ -337,12 +368,15 @@ const OrganisationSingleEdit = (props) => {
             </div>
         </>);
 
-    const modalCategoryMode = useRef("skills")
+
+    const modalCategoryMode = useRef("skills");
+
     function displayModalForSkills(elem) {
         modalCategoryMode.current = "skills";
         modal.enteredValues.name = elem;
         displayModal();
     }
+
     function displayModalForDomains(elem) {
         modalCategoryMode.current = "domains";
         modal.enteredValues.name = elem;
@@ -362,11 +396,11 @@ const OrganisationSingleEdit = (props) => {
 
             <div className="d-flex pt-4 align-items-end flex-column">
                 <Button disabled={!formState.isValid} onClick={submitHandler}>
-                    Soumettre les modifications
+                    {lang.save}
                 </Button>
                 {
                     !formState.isValid &&
-                    <p className="p-2 mt-2 col-md-4 border border-danger rounded"><small>Attention, l'un des champs dans cette page n'est pas entré correctement et vous empêche de sauvegarder vos modifications.</small></p>
+                    <p className="p-2 mt-2 col-md-4 border border-danger rounded"><small>{lang.validationFailedCantSave}</small></p>
                 }
             </div>
 
@@ -402,7 +436,6 @@ const OrganisationSingleEdit = (props) => {
 
                 </Modal>
             }
-      
         
         </>
     )
