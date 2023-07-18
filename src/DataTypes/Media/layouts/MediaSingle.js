@@ -3,7 +3,6 @@ import LicenceDisplay from '@/src/common/FormElements/SelectLicence/LicenceDispl
 
 //components
 import Single from "@/DataTypes/common/layouts/single/Single";
-import Button from "@/FormElements/Button/Button"
 import {SingleEntityStatus} from "@/DataTypes/Status/components/SingleEntityStatus";
 import {getEntityURI} from "@/src/utils/EntityURI";
 
@@ -15,6 +14,7 @@ import SanitizedInnerHtml from "@/src/utils/SanitizedInnerHtml";
 //Styling
 import styles from './MediaSingle.module.scss';
 import AppRoutes from "@/src/Routing/AppRoutes";
+import Icon from "@/src/common/widgets/Icon/Icon";
 
 
 const SingleInfoLayout = ({ title, NAMessage="-", children }) => {
@@ -44,17 +44,14 @@ const MediaSingle = ({ data, route }) => {
 
             <SingleInfoLayout
                 title={"Associé à l'entité"}>
-                <a href={getEntityURI(data.entityId.type, data.entityId.slug)} title={data.entityId.name}>
+                <a className="d-flex fs-3" href={getEntityURI(data.entityId.type, data.entityId.slug)} title={data.entityId.name}>
+                    <Icon iconName="reply" className="px-2"></Icon>
                     <SanitizedInnerHtml tag={"span"}>
                         {data.entityId.name}
                     </SanitizedInnerHtml>
                 </a>
             </SingleInfoLayout>
-            <div className="d-flex flex-wrap gap-2">
-                <Button size="slim-100">Modifier le contenu</Button>
-                <Button color="secondary" size="slim-100">Changer l'image</Button>
-                <button className="text-danger">Supprimer l'image</button>
-            </div>
+
         </>
     )
 
@@ -78,8 +75,10 @@ const MediaSingle = ({ data, route }) => {
             "[slug]": data?.slug ?? "no-set",
             "[person.slug]": data?.entityId?.slug ?? "no-set",
             "[organisation.slug]": data?.entityId?.slug ?? "no-set",
+            "[project.slug]": data?.entityID?.slug ?? "no-set",
             "persons": "persons",
             "organisations": "organisations",
+            "projects":"projects"
         };
     }, []);
 
@@ -88,8 +87,10 @@ const MediaSingle = ({ data, route }) => {
             "slug": () => data?.title ?? "title must be set",
             "person.slug": () => data.entityId?.name ?? "Personne",
             "organisation.slug": () => data.entityId?.name ?? "Organisation",
+            "project.slug": data?.entityID?.slug ?? "Projet",
             "persons": () => "Personnes",
             "organisations": () => "Organisations",
+            "projects":() => "Projets"
         }[param];
     }, []);
 
