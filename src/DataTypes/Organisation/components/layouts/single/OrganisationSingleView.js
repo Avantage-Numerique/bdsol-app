@@ -151,15 +151,7 @@ const OrganisationSingleView = ({ data }) => {
     )
 
     const Footer = (
-        <div className="border-top border-bottom pt-2">  
-            {
-                status?.state &&
-                    <SingleInfo
-                        title="Statut de l'entité">
-                        <p>{status.state === 'accepted' ? lang.accepted : lang.pending}</p>
-                    </SingleInfo>
-            }
-
+        <div className="border-top border-bottom pt-2">
             {
                 (createdAt || updatedAt || status) &&
                 <SingleEntityStatus  

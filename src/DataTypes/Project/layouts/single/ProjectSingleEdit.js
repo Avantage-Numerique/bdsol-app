@@ -13,7 +13,6 @@ import SelectFetch from '@/FormElements/Select/SelectFetch'
 import Select2 from '@/FormElements/Select2/Select2'
 import SingleBaseHeader from '@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseHeader';
 import RichTextarea from '@/src/common/FormElements/RichTextArea/RichTextarea';
-import SingleInfo from '@/src/DataTypes/common/layouts/SingleInfo/SingleInfo';
 import {SingleEntityStatus} from '@/DataTypes/Status/components/SingleEntityStatus';
 import SingleBase from '@/src/DataTypes/common/layouts/single/SingleBase';
 import UpdateTeams from '@/src/DataTypes/Organisation/components/forms/UpdateTeams/UpdateTeams';
@@ -454,13 +453,6 @@ const ProjectSingleEdit = (props) => {
                 formTools={formTools}
             />
             <div className="border-top border-bottom pt-2">
-                {
-                    status?.state &&
-                        <SingleInfo
-                            title="Statut de l'entité">
-                            <p>{status.state === 'accepted' ? "Acceptée" : "En attente d'approbation"}</p>
-                        </SingleInfo>
-                }
                 {
                     (createdAt || updatedAt || status) &&
                     <SingleEntityStatus createdAt={createdAt} updatedAt={updatedAt} status={status} />

@@ -224,14 +224,6 @@ const PersonSingle = ({ data, route }) => {
             <SingleInfo title={"Projets"} />
 
             {
-                status?.state &&
-                    <SingleInfo className={singleInfoCommonClass}
-                        title="Statut de l'entité">
-                        <p>{status.state === 'accepted' ? "Acceptée" : "En attente d'approbation"}</p>
-                    </SingleInfo>
-            }
-
-            {
                 (createdAt || updatedAt || status) &&
                 <SingleEntityStatus className={singleInfoCommonClass} createdAt={createdAt} updatedAt={updatedAt} status={status} />
             }

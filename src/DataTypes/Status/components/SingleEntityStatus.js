@@ -22,10 +22,16 @@ export const SingleEntityStatus = (props) => {
         className,
         children
     } = props;
-
     return (
-        <SingleInfo className={className} title={lang.modificationHistory}>
+        <SingleInfo className={className} title={lang.entityMetadata}>
             <ul className={"list-style-none"}>
+                {
+                    status.state &&
+                    <li>
+                        <span>{lang.entityStatus}{lang.colon}</span>
+                        <span>{lang.capitalize(status.state) ?? ""}</span>
+                    </li>
+                }
                 {
                     (status?.requestedBy?.username || createdAt) &&
                     <li>

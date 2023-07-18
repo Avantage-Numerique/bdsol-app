@@ -232,7 +232,6 @@ class EntityModel {
     //  --- UTILS ---
 
     get singleLink() {
-        console.log("singlePublicLink", this.singleRoute.pathname, this.slug);
         return "/"+replacePathname(this.singleRoute.pathname, {slug: this.slug});
     }
 
