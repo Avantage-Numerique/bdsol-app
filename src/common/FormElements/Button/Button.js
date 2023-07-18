@@ -1,7 +1,4 @@
-import { useState, useEffect} from 'react'
 import Link from 'next/link'
-
-
 
 
 const Button = ({ rippleEffect, ...props }) => {
@@ -55,8 +52,6 @@ const Button = ({ rippleEffect, ...props }) => {
                     break;
             }
         }
-
-      
     }
 
     if(props.classes){

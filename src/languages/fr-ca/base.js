@@ -16,6 +16,8 @@ const base = {
     "on": "le",
     "title":"titre",
     "subTitle": "sous-titre",
+    "infoNotAvailable": "Information non disponible",
+    "metadatas": "métadonnées",
 
     // Status
 

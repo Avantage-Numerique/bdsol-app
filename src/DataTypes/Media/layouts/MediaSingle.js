@@ -15,6 +15,8 @@ import SanitizedInnerHtml from "@/src/utils/SanitizedInnerHtml";
 import styles from './MediaSingle.module.scss';
 import AppRoutes from "@/src/Routing/AppRoutes";
 import Icon from "@/src/common/widgets/Icon/Icon";
+import {lang} from "@/common/Data/GlobalConstants";
+import Link from "next/link";
 
 
 const SingleInfoLayout = ({ title, NAMessage="-", children }) => {
@@ -22,7 +24,7 @@ const SingleInfoLayout = ({ title, NAMessage="-", children }) => {
     return (
         <section className={`my-2 ${styles["singleInfoLayout"]}`}>
             <h4>{title}</h4>
-            <div className={`px-3 ${styles["singleInfoLayout__main"]}`}>
+            <div className={`${styles["singleInfoLayout__main"]}`}>
                 {haveChildren && children}
                 {!haveChildren && NAMessage && (<>{NAMessage}</>)}
             </div>
@@ -36,22 +38,23 @@ const MediaSingle = ({ data, route }) => {
     const aside = (
         <>
             <SingleInfoLayout
-                title={"Métadonnées"}
-                NAMessage={<p>Information non disponible</p>}
+                title={lang.metadatas}
+                NAMessage={<p>{lang.infoNotAvailable}</p>}
             >
-                <p>Type de fichier: {data.fileType} ({data.extension})</p>
+                <p>{lang.filetype}{lang.colon}{data.fileType} ({data.extension})</p>
             </SingleInfoLayout>
 
             <SingleInfoLayout
-                title={"Associé à l'entité"}>
-                <a className="d-flex fs-3" href={getEntityURI(data.entityId.type, data.entityId.slug)} title={data.entityId.name}>
-                    <Icon iconName="reply" className="px-2"></Icon>
-                    <SanitizedInnerHtml tag={"span"}>
-                        {data.entityId.name}
-                    </SanitizedInnerHtml>
-                </a>
+                title={lang.associatedToEntity}>
+                <Link href={getEntityURI(data.entityId.type, data.entityId.slug)} title={data.entityId.name}>
+                    <button className="btn btn-outline-primary w-100">
+                        <Icon iconName="reply" className="px-2"></Icon>
+                        <SanitizedInnerHtml tag={"span"}>
+                            {data.entityId.name}
+                        </SanitizedInnerHtml>
+                    </button>
+                </Link>
             </SingleInfoLayout>
-
         </>
     )
 
@@ -59,10 +62,10 @@ const MediaSingle = ({ data, route }) => {
         <div className={`${styles["quick-section"]}`}>
             <h1>{data.title}</h1>
             <div className={`${styles["quick-section__single-info"]}`}>
-                <span>Nom de fichier : </span>{data.fileName}
+                <span>{lang.filename}{lang.colon}</span>{data.fileName}
             </div>
-            <div className={`${styles["quick-section__single-info"]}`}>
-                <span>Licence : </span>
+            <div className={`pt-2 ${styles["quick-section__single-info"]}`}>
+                <strong>{lang.licence}{lang.colon}</strong>
                 <LicenceDisplay licenceKey={data.licence ?? {} }/>
             </div>
         </div>
@@ -123,19 +126,18 @@ const MediaSingle = ({ data, route }) => {
             </div>
 
             <SingleInfoLayout
-                title={"Texte alternatif"}>
+                title={lang.altText}>
                 <SanitizedInnerHtml tag={"span"}>{data.alt}</SanitizedInnerHtml>
             </SingleInfoLayout>
 
             <SingleInfoLayout
-                title={"Description"}>
+                title={lang.description}>
                 <SanitizedInnerHtml tag={"span"}>{data.description}</SanitizedInnerHtml>
             </SingleInfoLayout>
             {
                 (data.createdAt || data.updatedAt || data.status) &&
                 <SingleEntityStatus className={singleInfoCommonClass} createdAt={data.createdAt} updatedAt={data.updatedAt} status={data.status} />
             }
-
         </Single>
     )
 }

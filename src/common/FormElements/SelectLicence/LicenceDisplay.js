@@ -1,5 +1,7 @@
 import {useHttpClient} from "@/src/hooks/http-hook";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
+import {lang} from "@/common/Data/GlobalConstants";
+import Link from "next/link";
 
 const LicenceDisplay = ({licenceKey, ...props}) => {
 
@@ -27,16 +29,26 @@ const LicenceDisplay = ({licenceKey, ...props}) => {
         <>
             {
                 licences && licences[licenceKey] && licences[licenceKey].source &&
-                <div>
+                <div className={"pt-2"}>
                     <div className="d-flex">
-                        <a href={licences[licenceKey].source} target="_blank">
-                            <img src={licences[licenceKey].image} alt={licences[licenceKey].label}/>
-                            <>{licences[licenceKey].label}</>
-                        </a>
-                        <div>{licences[licenceKey].description}</div>
+                        <div>
+                            <a href={licences[licenceKey].source} target="_blank">
+                                <img src={licences[licenceKey].image} alt={licences[licenceKey].label} />
+                                <span className={"ps-2"}>{licences[licenceKey].label}</span>
+                            </a>
+                        </div>
+                        <div>
+                            <p>
+                                {licences[licenceKey].description}
+                            </p>
+                        </div>
                     </div>
-                    <div>
-                        <a href="/faq/licences" target="_blank">Plus de détails sur les licences</a>
+                    <div className={"pt-2"}>
+                        <Link href={"/faq/licences"} title={lang.licenceDetails}>
+                            <button className="btn btn-sm btn-outline-light">
+                                {lang.licenceDetails}
+                            </button>
+                        </Link>
                     </div>
                 </div>
             }

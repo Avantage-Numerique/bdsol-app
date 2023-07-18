@@ -1,9 +1,19 @@
 const medias = {
-    "seeImage": "See the image",
-    "updateImage": "Modify the image",
-    "addImage": "Define a main image",
-    "addMainImage": "Add main image",
-    "modifyMainImage": "modify the main image"
+
+    "seeImage": "voir l'image",
+    "updateImage": "modifier l'image",
+    "addImage": "définir une image principale",
+
+    "addMainImage": "ajouter une image principale",
+    "modifyMainImage": "modifier une image principale",
+
+    "altText": "Texte alternatif",
+    "description": "Description",
+
+    "filename": "Nom de fichier",
+    "filetype": "Type de fichier",
+    "licence": "Licence",
+    "licenceDetails": "Plus de détails sur les licences",
 }
 
 exports.medias = medias;
