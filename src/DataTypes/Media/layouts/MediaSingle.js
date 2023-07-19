@@ -17,7 +17,8 @@ import AppRoutes from "@/src/Routing/AppRoutes";
 import Icon from "@/src/common/widgets/Icon/Icon";
 import {lang} from "@/common/Data/GlobalConstants";
 import Link from "next/link";
-import {getType} from "@/DataTypes/Entity/Types";
+import {getModelFromType, getType} from "@/DataTypes/Entity/Types";
+import EntityTag from "@/DataTypes/Entity/layouts/EntityTag";
 
 
 const SingleInfoLayout = ({ title, NAMessage="-", children }) => {
@@ -34,7 +35,10 @@ const SingleInfoLayout = ({ title, NAMessage="-", children }) => {
 }
 
 const MediaSingle = ({ data, route }) => {
-    const entityType = getType(data.entityId.type,true);
+
+    const associatedEntityType = getType(data.entityId.type,true);
+    const associatedEntityModel = getModelFromType(data.entityId.type, data);
+    console.log(data);
     //const { Modal, closeModal } = useModal();
     const aside = (
         <>
@@ -46,10 +50,11 @@ const MediaSingle = ({ data, route }) => {
             </SingleInfoLayout>
 
             <SingleInfoLayout
-                title={lang.associatedTo + entityType.inSentencePrefix + entityType.label}>
+                title={lang.associatedTo + associatedEntityType.inSentencePrefix + associatedEntityType.label}>
+                <EntityTag model={associatedEntityModel} />
                 <Link href={getEntityURI(data.entityId.type, data.entityId.slug)} title={data.entityId.name}>
                     <button className="btn btn-outline-primary w-100">
-                        <Icon iconName={entityType.icon} className="px-2"></Icon>
+                        <Icon iconName={associatedEntityType.icon} className="px-2"></Icon>
                         <SanitizedInnerHtml tag={"span"}>
                             {data.entityId.name}
                         </SanitizedInnerHtml>

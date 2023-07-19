@@ -1,6 +1,6 @@
 import React, {useCallback} from "react";
 import {lang} from "@/common/Data/GlobalConstants";
-import {getModelFromType} from "@/DataTypes/Entity/Entities";
+import {getModelFromType} from "@/DataTypes/Entity/Types";
 
 /**
  * It's the grid to use in the repertory view.
