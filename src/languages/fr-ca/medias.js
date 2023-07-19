@@ -16,6 +16,7 @@ const medias = {
     "licenceDetails": "Plus de détails sur les licences",
 
     "associatedToEntity": "Associé à l'entité",
+    "associatedTo": "Associé à",
 }
 
 exports.medias = medias;

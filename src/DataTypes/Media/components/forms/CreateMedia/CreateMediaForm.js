@@ -271,7 +271,6 @@ const CreateMediaForm = (props) => {
                                         <p className="m-0 fs-6">{getType(entity.type, true).label}</p>
                                     }
                                 </div>
-
                             </article>
 
                             <SelectLicence

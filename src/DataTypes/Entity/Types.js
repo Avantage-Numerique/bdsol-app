@@ -13,6 +13,8 @@ class Type {
     constructor(values) {
         this.slug = values.slug;
         this.label = values.label;
+        this.icon = values.icon;
+        this.inSentencePrefix = values.inSentencePrefix;
         this.defaultMainImage = values.defaultMainImage
     }
 }
@@ -22,38 +24,51 @@ const TYPES = new Map();
 TYPES.set(TYPE_MEDIA, new Type({
     slug:"medias",
     label: "Média",
-    defaultMainImage: ""
+    defaultMainImage: "",
+    icon:"file"
 }));
 TYPES.set(TYPE_ORGANISATION, new Type({
     slug:"organisations",
     label: "Organisation",
-    defaultMainImage: "/general_images/organisation-default.jpg"
+    inSentencePrefix: " une ",
+    defaultMainImage: "/general_images/organisation-default.jpg",
+    icon:"users"
 }));
 TYPES.set(TYPE_PROJECT, new Type({
     slug:"projets",
     label: "Projet",
-    defaultMainImage: "/general_images/project-default.webp"
+    inSentencePrefix: " un ",
+    defaultMainImage: "/general_images/project-default.webp",
+    icon:"project-diagram"
 }));
 TYPES.set(TYPE_PERSON, new Type({
     slug:"persons",
     label: "Personne",
-    defaultMainImage: "/general_images/person-default.webp"
+    inSentencePrefix: " une ",
+    defaultMainImage: "/general_images/person-default.webp",
+    icon:"user"
 }));
 TYPES.set(TYPE_ABSTRACT, new Type({
     slug:"entites",
     label: "Entité",
-    defaultMainImage: "/general_images/person-default.webp"
+    inSentencePrefix: " une ",
+    defaultMainImage: "/general_images/person-default.webp",
+    icon:"book"
 }));
 TYPES.set(TYPE_TAXONOMY, new Type({
     slug:"categories",
-    label: "Taxonomies",
-    defaultMainImage: "/general_images/project-default.webp"
+    label: "Catégorie",
+    inSentencePrefix: " une ",
+    defaultMainImage: "/general_images/project-default.webp",
+    icon:"tag"
 }));
 
 TYPES.set(TYPE_NOTSET, new Type({
     slug:"undefined",
     label: "undefined",
-    defaultMainImage: "/general_images/person-default.webp"
+    inSentencePrefix: "",
+    defaultMainImage: "/general_images/person-default.webp",
+    icon:"hourglass-end"
 }));
 
 export {TYPES};

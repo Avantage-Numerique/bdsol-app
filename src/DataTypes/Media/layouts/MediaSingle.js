@@ -17,6 +17,7 @@ import AppRoutes from "@/src/Routing/AppRoutes";
 import Icon from "@/src/common/widgets/Icon/Icon";
 import {lang} from "@/common/Data/GlobalConstants";
 import Link from "next/link";
+import {getType} from "@/DataTypes/Entity/Types";
 
 
 const SingleInfoLayout = ({ title, NAMessage="-", children }) => {
@@ -33,22 +34,22 @@ const SingleInfoLayout = ({ title, NAMessage="-", children }) => {
 }
 
 const MediaSingle = ({ data, route }) => {
-
+    const entityType = getType(data.entityId.type,true);
     //const { Modal, closeModal } = useModal();
     const aside = (
         <>
             <SingleInfoLayout
-                title={lang.metadatas}
+                title={lang.capitalize("metadatas")}
                 NAMessage={<p>{lang.infoNotAvailable}</p>}
             >
                 <p>{lang.filetype}{lang.colon}{data.fileType} ({data.extension})</p>
             </SingleInfoLayout>
 
             <SingleInfoLayout
-                title={lang.associatedToEntity}>
+                title={lang.associatedTo + entityType.inSentencePrefix + entityType.label}>
                 <Link href={getEntityURI(data.entityId.type, data.entityId.slug)} title={data.entityId.name}>
                     <button className="btn btn-outline-primary w-100">
-                        <Icon iconName="reply" className="px-2"></Icon>
+                        <Icon iconName={entityType.icon} className="px-2"></Icon>
                         <SanitizedInnerHtml tag={"span"}>
                             {data.entityId.name}
                         </SanitizedInnerHtml>
@@ -87,6 +88,7 @@ const MediaSingle = ({ data, route }) => {
 
     const getLabelGenerator = useCallback((param, query) => {
         return {
+            "id": () => data?.title ?? "title must be set",
             "slug": () => data?.title ?? "title must be set",
             "person.slug": () => data.entityId?.name ?? "Personne",
             "organisation.slug": () => data.entityId?.name ?? "Organisation",
