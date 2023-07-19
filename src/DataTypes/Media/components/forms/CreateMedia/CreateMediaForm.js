@@ -189,11 +189,7 @@ const CreateMediaForm = (props) => {
         //Execute the request
         //Send the request
         const path = `/medias/delete/${entity.type.toLowerCase()}/${entity._id}/${initValues.fileName}`;
-        await submitRequest(
-            path,
-            'GET',
-            {}
-        );
+        await sendRequest(path, 'GET');
     }
 
     return (
