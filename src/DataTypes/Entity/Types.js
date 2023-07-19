@@ -31,6 +31,7 @@ TYPES.set(TYPE_MEDIA, new Type({
     slug:"medias",
     label: "Média",
     modelClass: EntityModel,
+    inSentencePrefix: " un ",
     defaultMainImage: "",
     icon:"file"
 }));

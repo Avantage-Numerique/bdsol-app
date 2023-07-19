@@ -1,5 +1,5 @@
 import EntityModel from "@/DataTypes/Entity/models/EntityModel";
-import MediaSingle from "@/DataTypes/Media/layouts/MediaSingle";
+import MediaSingleView from "../components/forms/MediaSingleView/MediaSingleView";
 import {TYPE_MEDIA, TYPE_DEFAULT} from "@/DataTypes/Entity/Types";
 
 
@@ -38,7 +38,7 @@ class Media extends EntityModel {
         params.showStatus = params.showStatus ?? true;
 
         //this.simpleComponent = MediaSimple;//this is not planned yet. Could be when we do a grid of media in project.
-        this.singleComponent = MediaSingle;
+        this.singleComponent = MediaSingleView;
 
         //sets all the rest as a this[key] = raw[key] value.
         this.setProperties(raw);

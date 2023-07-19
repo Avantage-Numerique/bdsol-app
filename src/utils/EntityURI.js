@@ -18,6 +18,10 @@ const getEntityBaseRouteName = (entityType) => {
         case "taxonomy":
         case "categorie":
             return "categories";
+        
+        case "Project":
+        case "project":
+            return "projets"
     }
 }
 

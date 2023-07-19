@@ -89,7 +89,7 @@ const Input = ({name, formTools, ...props}) => {
             `}>
                 <input 
                     ref={fieldRef}
-                    className="w-100 border-0 form-element--field-padding"
+                    className="w-100 border-0 form-element--field-padding --place-holder-color-primary"
                     name={ name }
                     id={ name }
                     //If there is a state attached to the component, make it a controlled components where the value depends on the state

@@ -1,10 +1,10 @@
 import React from 'react'
 import styles from './singleMedia.module.scss';
 import {withSessionSsr} from "@/auth/session/handlers/withSession";
-import MediaSingle from "@/DataTypes/Media/layouts/MediaSingle";
 import {externalApiRequest} from "@/src/hooks/http-hook";
 import {getUserHeadersFromUserSession} from "@/auth/context/auth-context";
 import AppRoutes from "@/src/Routing/AppRoutes";
+import MediaSingleView from '@/src/DataTypes/Media/components/forms/MediaSingleView/MediaSingleView';
 
 const SingleMediaPage = (props) => {
 
@@ -12,7 +12,7 @@ const SingleMediaPage = (props) => {
         <div className={`single-container ${styles["single-media"]}`}>
             <div className="maxWidthPageContainer">
 
-                <MediaSingle data={props} />
+                <MediaSingleView data={props} />
 
             </div>
         </div>
