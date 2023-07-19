@@ -4,7 +4,6 @@ import LicenceDisplay from '@/src/common/FormElements/SelectLicence/LicenceDispl
 //components
 import Single from "@/DataTypes/common/layouts/single/Single";
 import {SingleEntityStatus} from "@/DataTypes/Status/components/SingleEntityStatus";
-import {getEntityURI} from "@/src/utils/EntityURI";
 
 //hooks
 //import { useModal } from '@/src/hooks/useModal/useModal';
@@ -14,9 +13,7 @@ import SanitizedInnerHtml from "@/src/utils/SanitizedInnerHtml";
 //Styling
 import styles from './MediaSingle.module.scss';
 import AppRoutes from "@/src/Routing/AppRoutes";
-import Icon from "@/src/common/widgets/Icon/Icon";
 import {lang} from "@/common/Data/GlobalConstants";
-import Link from "next/link";
 import {getModelFromType, getType} from "@/DataTypes/Entity/Types";
 import EntityTag from "@/DataTypes/Entity/layouts/EntityTag";
 
@@ -37,8 +34,8 @@ const SingleInfoLayout = ({ title, NAMessage="-", children }) => {
 const MediaSingle = ({ data, route }) => {
 
     const associatedEntityType = getType(data.entityId.type,true);
-    const associatedEntityModel = getModelFromType(data.entityId.type, data);
-    console.log(data);
+    const associatedEntityModel = getModelFromType(data.entityId.type, data.entityId);
+    console.log(associatedEntityModel);
     //const { Modal, closeModal } = useModal();
     const aside = (
         <>
@@ -52,14 +49,6 @@ const MediaSingle = ({ data, route }) => {
             <SingleInfoLayout
                 title={lang.associatedTo + associatedEntityType.inSentencePrefix + associatedEntityType.label}>
                 <EntityTag model={associatedEntityModel} />
-                <Link href={getEntityURI(data.entityId.type, data.entityId.slug)} title={data.entityId.name}>
-                    <button className="btn btn-outline-primary w-100">
-                        <Icon iconName={associatedEntityType.icon} className="px-2"></Icon>
-                        <SanitizedInnerHtml tag={"span"}>
-                            {data.entityId.name}
-                        </SanitizedInnerHtml>
-                    </button>
-                </Link>
             </SingleInfoLayout>
         </>
     )

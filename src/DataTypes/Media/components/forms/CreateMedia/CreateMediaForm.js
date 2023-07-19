@@ -17,7 +17,7 @@ import {getDefaultCreateEntityStatus} from "@/DataTypes/Status/EntityStatus";
 
 //Styling
 import styles from "./CreateMediaForm.module.scss";
-import {getType} from "@/DataTypes/Entity/Types";
+import EntityTag from "@/DataTypes/Entity/layouts/EntityTag";
 
 
 const CreateMediaForm = (props) => {
@@ -254,24 +254,7 @@ const CreateMediaForm = (props) => {
                         <div>
                             Média associé à 
                             {/************  Waiting for the tag components ************/}
-                            <article className={`rounded d-flex ${styles["temporary-entity-tag"]}`}>
-                                {url && 
-                                <figure className="m-0">
-                                    <img 
-                                        src={process.env.NEXT_PUBLIC_API_URL + entity.mainImage.url} 
-                                        alt={entity.mainImage.alt && entity.mainImage.alt} 
-                                    />
-                                </figure>
-                                }
-
-                                <div className={`d-flex flex-column ms-2 py-1 ${styles["temporary-entity-tag__texts"]}`}>
-                                    {entity.fullName && <p className="m-0 fs-6">{entity.fullName}</p>}
-                                    {entity.name && <p className="m-0 fs-6">{entity.name}</p>}
-                                    {entity.type &&
-                                        <p className="m-0 fs-6">{getType(entity.type, true).label}</p>
-                                    }
-                                </div>
-                            </article>
+                            <EntityTag model={entity} addButton={false} addType={false} />
 
                             <SelectLicence
                                 formTools={formTools}
