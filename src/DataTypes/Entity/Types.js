@@ -104,8 +104,8 @@ const getType = (type, returnDefault=false) => {
 export {getType};
 
 const getModelFromType = (type, data) => {
-    const targetType = TYPES.get(type);
-    if (targetType.modelClass) {
+    const targetType = getType(type);
+    if (targetType?.modelClass) {
         return new targetType.modelClass(data);
     }
     return undefined;
