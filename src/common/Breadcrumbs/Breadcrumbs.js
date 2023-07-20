@@ -141,11 +141,11 @@ const Crumb = ({text: defaultText, textGenerator, href, last = false}) => {
             <li className="breadcrumb-item text-primary" aria-current="page" dangerouslySetInnerHTML={{ __html: text }}></li>
         )
     }
-
+//link-underline link-underline-opacity-0 link-underline-opacity-75-hover
     return (
         <li className="breadcrumb-item">
             <Link href={href}>
-                <a dangerouslySetInnerHTML={{ __html: text }}></a>
+                <a className="text-decoration-underline link-underline-dark link-underline-opacity-0 link-underline-opacity-75-hover" dangerouslySetInnerHTML={{ __html: text }}></a>
             </Link>
         </li>
     );
