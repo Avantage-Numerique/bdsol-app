@@ -4,9 +4,7 @@ import Modal from '@/src/hooks/useModal/Modal/Modal'
 
 export const useModalController = () => {
 
-    const [ modalsData, setModalsData ] = useState({
-
-    }) 
+    const [ modalsData, setModalsData ] = useState({}) 
 
     /**************** Utils *****************/
 
@@ -20,11 +18,11 @@ export const useModalController = () => {
             //Not required informations
             displayOnCreation=false,
             className = "",
-            noDefaultWidth=false,
-            coloredBackground=false,
-            closingFunction= () => {}
+            noDefaultWidth=false,      
+            coloredBackground=false,   //If true, the background color become blue
+            closingButton=false        //If true, display the default closing button 
         } = params;
-
+        
         setModalsData({
             ...modalsData,
             key: {
@@ -35,13 +33,20 @@ export const useModalController = () => {
                         noDefaultWidth={noDefaultWidth}
                         coloredBackground={coloredBackground}
                         className={className}
-                        closingFunction={closingFunction}
+                        closingFunction={closingButton ? () => setModalsData(prev => ({
+                            ...prev,
+                            key: {
+                                ...prev.key,
+                                display: false
+                            }
+                        })) : null}
                     >
                         {UI}
                     </Modal>
                 )
             }
         })
+        
 
         //Functionnalities related to this specific modal
         return {
@@ -66,7 +71,7 @@ export const useModalController = () => {
         ModalsDisplay: () => displayModalUi(modalsData),
         //In case we need many functions for one single component. Its going to be cleaner
         modalTools: {
-            addNewModal: addNewModal
+            addNew: addNewModal
         }
     }
 }
