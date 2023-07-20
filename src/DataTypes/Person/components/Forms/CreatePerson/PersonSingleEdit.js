@@ -18,8 +18,8 @@ import {SingleEntityStatus} from '@/DataTypes/Status/components/SingleEntityStat
 
 //Context
 import {useAuth} from "@/src/authentification/context/auth-context";
-import {MessageContext} from '@/src/common/UserNotifications/Message/Context/Message-Context';
-
+import { MessageContext } from '@/src/common/UserNotifications/Message/Context/Message-Context';
+import { ModalContext } from '@/src/layouts/Layout';
 
 //Styling
 import styles from './CreatePersonForm.module.scss'
@@ -34,6 +34,7 @@ import {replacePathname} from "@/src/helpers/url";
 import Icon from "@/common/widgets/Icon/Icon";
 import MainImageDisplay from "@/DataTypes/common/layouts/single/defaultSections/MainImageDisplay/MainImageDisplay";
 import Organisation from "@/DataTypes/Organisation/models/Organisation";
+
 
 const PersonSingleEdit = ({initValues, positiveRequestActions, ...props}) => {
 
@@ -84,6 +85,21 @@ const PersonSingleEdit = ({initValues, positiveRequestActions, ...props}) => {
 
     //Import message context 
     const msg = useContext(MessageContext);
+
+    /*
+    //Import modal context 
+    const { modalTools } = useContext(ModalContext);
+    //Declare the variable holding
+    let newModal;    
+    //New Modal
+    useEffect(() => {
+        newModal = modalTools.addNew({
+            UI: taxoModal(),
+            key: "329v0csw"
+        })
+        newModal.display()
+    }, []) 
+    */
 
     /*
     First of all, verify if the user is logged in.
@@ -316,6 +332,7 @@ const PersonSingleEdit = ({initValues, positiveRequestActions, ...props}) => {
         </div>
     )
 
+
     const modalCategoryMode = useRef("skills")
     function displayModalForSkills(elem) {
         modalCategoryMode.current = "skills";
@@ -327,6 +344,36 @@ const PersonSingleEdit = ({initValues, positiveRequestActions, ...props}) => {
         modal.enteredValues.name = elem;
         displayModal();
     }
+/*
+    function taxoModal() {
+        return (
+            <>
+                <header className={`d-flex`}>
+                    <p>Le nouvel élément de taxonomie que vous ajoutez ici pourra ensuite être directement intégrée à votre formulaire.</p>
+                    <Button onClick={() => newModal.close()}>Fermer</Button>
+                </header>               
+                
+                <div className={`my-4 border-bottom`}></div>
+
+                <CreateTaxonomyForm
+                    name={modal.enteredValues.name ?? ''}   //Prefilled value
+                    initValues={ {name:modal.enteredValues.name} }
+                    category={modalCategoryMode.current}
+                    positiveRequestActions={{
+                        //CallbackFunction is one of the four behaviors the useFormUtils hook can apply when a request return a positive answer
+                        callbackFunction: requestResponse => {
+
+                            //Here could be a call back function to execute 
+                            
+                            //Close the modal 
+                            newModal.close()
+                        }
+                    }}
+                />
+            </>
+        )
+    }
+*/
 
     return (
         <>
@@ -356,7 +403,7 @@ const PersonSingleEdit = ({initValues, positiveRequestActions, ...props}) => {
                 </div>
              {/* </form> */}
 
-            { modal.display &&
+            { modal.display && false &&
                 <Modal 
                     className={`${styles["taxonomy-modal"]}`}
                     coloredBackground

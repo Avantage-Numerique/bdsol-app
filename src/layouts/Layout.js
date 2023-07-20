@@ -5,7 +5,7 @@
 
 */
 
-import { useState } from "react";
+import { useState, createContext } from "react";
 import Head from 'next/head'
 
 //Context
@@ -22,6 +22,10 @@ import Message from '@/src/common/UserNotifications/Message/Message'
 import styles from './Layout.module.scss'
 import {FeedbackWidget} from "@/src/common/Feedbacks/components/feedback-widget";
 
+//Hooks 
+import { useModalController } from '@/src/hooks/useModal/ModalsController/ModalsController'
+
+export const ModalContext = createContext({});
 
 const Layout = ( {children} ) => {
 
@@ -37,9 +41,8 @@ const Layout = ( {children} ) => {
 
     const [menuState, setMenuState] = useState(0);
 
-    /*
-        Messaging settings
-    */
+    //Initialize the modals controller hook
+    const {ModalsDisplay, modalTools} = useModalController();
 
     //message list
     const [messages, setMessages] = useState([])
@@ -57,8 +60,6 @@ const Layout = ( {children} ) => {
             creationTime: getCurrentTime()  
         }])
     }
-
-
 
     return (
         <>
@@ -89,29 +90,34 @@ const Layout = ( {children} ) => {
                 <meta name="twitter:image:alt"         content="Public assistant à une performance qui contient des nouvelles technologies."/>
 
                 {/* Fonts 
-                <link rel="preconnect" href="https://fonts.googleapis.com" />
-                <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
-                <link href="https://fonts.googleapis.com/css2?family=Yeseva+One&display=swap" rel="stylesheet" />
-                <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet" />*/}
+                    <link rel="preconnect" href="https://fonts.googleapis.com" />
+                    <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
+                    <link href="https://fonts.googleapis.com/css2?family=Yeseva+One&display=swap" rel="stylesheet" />
+                    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet" />
+                */}
             </Head>
 
             <div id={styles.layout}>
                 <Header menuState={menuState} setMenuState={setMenuState} />
                 <Nav menuState={menuState} setMenuState={setMenuState} />
                 <AccountNav menuState={menuState} setMenuState={setMenuState} />
-                <MessageContext.Provider value={{ addMessage: addMessage }}>
                 
-                <main className={`${styles["main-container-min-height"]} container`}>
-                    <div className="row">
-                        <div className="col">
+                {/* Defining contextes to be passed along children */}
+                <ModalContext.Provider value={{modalTools: modalTools}}>
+                    <MessageContext.Provider value={{ addMessage: addMessage }}>
+                    
+                    <main className={`${styles["main-container-min-height"]} container`}>
+                        <div className="row">
+                            <div className="col">
 
-                            { children }
+                                { children }
 
+                            </div>
                         </div>
-                    </div>
-                </main>
+                    </main>
 
-                </MessageContext.Provider>
+                    </MessageContext.Provider>
+                </ModalContext.Provider>
                 <Footer />
 
 
@@ -144,11 +150,9 @@ const Layout = ( {children} ) => {
 
                 {/* Afficher le modal */}
                 <div>
-                    {/* 
-                        state containing every 
-                    */}
+                    {/* state containing every  */}
+                    <ModalsDisplay />
                 </div>
-
             </div>
             <FeedbackWidget />
         </>
