@@ -8,6 +8,7 @@ import styles from './EntitySimple.module.scss';
 import MediaFigure from "@/DataTypes/Media/layouts/MediaFigure";
 import {getType} from "@/DataTypes/Entity/Types";
 import SanitizedInnerHtml from "@/src/utils/SanitizedInnerHtml";
+import HtmlTagsRemover from '@/src/utils/HtmlTagsRemover'
 import {replacePathname} from "@/src/helpers/url";
 import Link from "next/link";
 
@@ -92,24 +93,38 @@ const EntitySimple = (props) => {
         <>
             <header className="d-flex justify-content-between">
                 {/* Main name of the entity */}
-                <SanitizedInnerHtml tag={"h3"} className={`${styles["simple-abstract__content__title"]}`}>{model.title}</SanitizedInnerHtml>
+                <h3 className={` 
+                    ${styles["simple-abstract__content__title"]}
+                    ${styles["simple-abstract__content_ellipsis"]}
+                `}>
+                    {model.title}
+                </h3>
                 {/* Redirection button */}
                 { link && <KebabButton href={link} /> }
             </header>
             <section>
                 {/* Description */}
-                {description && <SanitizedInnerHtml className={`${styles["simple-abstract__content__description"]}`}>{description}</SanitizedInnerHtml>}
-                {/* List of tags */}
-                {tagList && tagListTitle &&
-                    <h4>{tagListTitle}</h4>
+                {description ? 
+                    <HtmlTagsRemover 
+                        tag="p"
+                        className={`
+                            ${styles["simple-abstract__content__description"]}
+                            ${styles["simple-abstract__content_ellipsis"]}
+                        `}>
+                        {description}
+                    </HtmlTagsRemover> :
+                    <p className={`${styles["simple-abstract__content__description"]}`}>Aucune description</p>
                 }
-                {tagList && tagList.length > 0 &&
-                    <ul className={`d-flex flex-wrap ${styles["simple-abstract__content__tagList"]}`}>
-                        {tagList.map(tag => (
+                {/* List of tags 
+                <ul className={`d-flex flex-wrap ${styles["simple-abstract__content__tagList"]}`}>
+                    {tagList && tagList.length > 0 &&
+                        tagList.map(tag => (
                             <li className="rounded">{tag[tagKeyName]}</li>
-                        ))}
-                    </ul>
-                }
+                        ))
+                    }
+                </ul>
+                */}
+
             </section>
         </>
     );

@@ -103,7 +103,6 @@ const HomePage = ({}) => {
                     feed.sort(sortDescBy('createdAt'));//   Sort and mixed both collection the data to display the new elements before
                     setFeedList(feed); //   Finaly, update the state to display the result
                 }
-
             });
         });
     }
@@ -175,7 +174,7 @@ const HomePage = ({}) => {
             </Head>
 
             <PageHeader
-                bg={"bg-purplelight"}
+                bg={"bg-blueExtralight"}
                 textColor={"text-white"}
                 title={lang.homePageTitle}
                 subTitle={lang.homePageDescription}
@@ -242,7 +241,6 @@ const HomePage = ({}) => {
                             </>
                             }
                             
-
                             {/*Rapid options to access of edit the database*/}
                             <section className={"aside__db-edit-options"}>
 
@@ -330,12 +328,10 @@ const HomePage = ({}) => {
                                 </p>
                                 <Button classes="mt-3" color="white" outline="primary" href="/a-propos">En savoir plus</Button>
                             </section>
-
                         </div>
                     </aside>
                 </div>
             </div>
-
         </div>
     )
 }
