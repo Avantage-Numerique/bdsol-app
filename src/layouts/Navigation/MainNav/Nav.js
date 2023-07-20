@@ -16,8 +16,9 @@ const Nav = ( {menuState, setMenuState} ) => {
     useEffect(() => {
         //Verify the the menu is open. If it is, then close it
         if (menuState === 1){ setMenuState(0) }
-        
     }, [router.asPath]);
+
+    const closeMenu = () => { setMenuState(0) }
 
     return (
 
@@ -26,22 +27,22 @@ const Nav = ( {menuState, setMenuState} ) => {
              
                 <ul className={`${navStyles.mainMenu}`}>
 
-                    <li>
+                    <li onClick={closeMenu}>
                         <Link href="/">Accueil</Link>
                     </li>
 
-                    <li>
+                    <li onClick={closeMenu}>
                         <Link href="/categories">Consulter les données</Link>
                     </li>
 
-                    <li>
+                    <li onClick={closeMenu}>
                         <Link href="/contribuer">Contribuer à la base de données</Link>
                     </li>
 
-                    <li>
+                    <li onClick={closeMenu}>
                         <Link href="/a-propos">À propos de nous</Link>
                     </li>
-                    <li>
+                    <li onClick={closeMenu}>
                         <Link href="/faq">FAQ</Link>
                     </li>
 

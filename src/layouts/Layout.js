@@ -39,6 +39,7 @@ const Layout = ( {children} ) => {
         2 : Account menu open
     */
 
+    //Navigation menus in the header
     const [menuState, setMenuState] = useState(0);
 
     //Initialize the modals controller hook
