@@ -19,6 +19,8 @@ import {getDefaultCreateEntityStatus} from "@/DataTypes/Status/EntityStatus";
 import styles from "./CreateMediaForm.module.scss";
 import EntityTag from "@/DataTypes/Entity/layouts/EntityTag";
 
+import {getDefaultImageByEntityType} from "@/src/helpers/images";
+
 
 const CreateMediaForm = (props) => {
 
@@ -186,10 +188,14 @@ const CreateMediaForm = (props) => {
             return;
         }
 
-        //Execute the request
         //Send the request
-        const path = `/medias/delete/${entity.type.toLowerCase()}/${entity._id}/${initValues.fileName}`;
+        const path = `/medias/delete/${entity.type.toLowerCase()}/${entity._id}/${initValues.fileName}.${initValues.extension}`;
         await sendRequest(path, 'GET');
+        if(props.setter) {
+            const defaultUrl = getDefaultImageByEntityType(entity.type)
+            props.setter({isDefault:true, url:defaultUrl});
+        }
+        setIsNewFile(true);
     }
 
     return (

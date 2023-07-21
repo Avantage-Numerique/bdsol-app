@@ -67,7 +67,7 @@ const ProjectSingleEdit = (props) => {
     const [currentModel, setCurrentModel] = useState(model);
 
     const updateEntityModel = useCallback((rawData) => {
-        model = new Projet(rawData);
+        model = new Project(rawData);
         setCurrentMainImage(model.mainImage);
     }, [setCurrentModel]);
 

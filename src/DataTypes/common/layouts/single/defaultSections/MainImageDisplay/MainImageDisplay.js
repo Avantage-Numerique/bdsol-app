@@ -12,7 +12,6 @@ import {useModal} from "@/src/hooks/useModal/useModal";
 //components
 import CreateMediaForm from "@/DataTypes/Media/components/forms/CreateMedia/CreateMediaForm";
 import Button from "@/FormElements/Button/Button";
-import {getDefaultImageByEntityType} from "@/src/helpers/images";
 import Icon from "@/common/widgets/Icon/Icon";
 
 
@@ -22,36 +21,10 @@ const MainImageDisplay = ({ mainImage, entity, setter }) => {
     const {displayModal, modal, closeModal, Modal} = useModal();
 
     const haveMainImage = mainImage !== undefined && mainImage !== "";
-    const mainImageRootUrl = haveMainImage ? process.env.NEXT_PUBLIC_API_URL : "";//we dont add api path if it's local.
-    const mainImageUrl = mainImage?.url ?? getDefaultImageByEntityType(entity?.type);//"/general_images/person-default.webp";
-    const mainImageAlt = mainImage?.alt ?? "main image alt";
-
-    const [mainImageState, setMainImageState] = useState(
-        {
-            mainImage: mainImage,
-            haveMainImage: haveMainImage,
-            mainImageRootUrl:mainImageRootUrl,
-            mainImageUrl:mainImageUrl,
-            mainImageAlt:mainImageAlt
-        }
-    )
 
     const refreshImage = (requestResponse) => {
         setter(requestResponse.data);
         entity.mainImage = requestResponse.data;
-        /*const haveMainImage = requestResponse.data.url !== undefined;
-        const mainImageRootUrl = haveMainImage ? process.env.NEXT_PUBLIC_API_URL : "";//we dont add api path if it's local.
-        const mainImageUrl = requestResponse?.data?.url ?? getDefaultImageByEntityType(entity?.type);
-        const mainImageAlt = requestResponse?.data?.alt ?? "main image alt";
-        setMainImageState({
-            mainImage: requestResponse.data,
-            haveMainImage: haveMainImage,
-            mainImageRootUrl:mainImageRootUrl,
-            mainImageUrl:mainImageUrl,
-            mainImageAlt:mainImageAlt
-        });
-        //To correct modal to display properly
-        entity.mainImage = requestResponse.data*/
     }
     return (
         <>
@@ -85,6 +58,7 @@ const MainImageDisplay = ({ mainImage, entity, setter }) => {
                                 closeModal();
                             }
                         }}
+                        setter={setter}
                     />
                 </Modal>
             }
