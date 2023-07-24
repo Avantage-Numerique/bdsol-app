@@ -5,6 +5,9 @@ import {lang} from "@/common/Data/GlobalConstants";
 import {Breadcrumbs} from "@/common/Breadcrumbs/Breadcrumbs";
 import AppRoutes from "@/src/Routing/AppRoutes";
 
+//Styling 
+import styles from './index_categories.module.scss';
+
 const TaxonomiesCategoryPage = () => {
 
     const {sendRequest} = useHttpClient();
@@ -57,8 +60,15 @@ const TaxonomiesCategoryPage = () => {
             )
         return (
             list.map( (elem) => 
-                <div key={elem.slug} className="col-3 p-2">
-                    <a href={`/categories/${elem.category}/${elem.slug}`} className="d-block p-2 border">
+                <div
+                    className="col-6 col-sm-4 col-md-3 p-sm-1 p-md-2 d-flex"
+                >
+                    <a 
+                        key={elem.slug} 
+                        className={`border w-100 p-sm-1 p-md-2 text-center rounded ${styles["list-tag"]}`}
+                        style={{"overflowWrap": "anywhere"}}
+                        href={`/categories/${elem.category}/${elem.slug}`}
+                    >
                         {elem.name}{elem.meta?.count > 0 ? ` (${elem.meta?.count})` : ""}
                     </a>
                 </div>
@@ -77,18 +87,19 @@ const TaxonomiesCategoryPage = () => {
             <PageHeader title={`Toutes les catégories`}>
                 <Breadcrumbs className={"pt-2"} route={AppRoutes.categories} getLabelGenerator={getLabelGenerator} />
             </PageHeader>
-                <ul className="nav nav-pills nav-fill gap-5">
+                {/* Page inner menu */}
+                <menu className="nav nav-pills nav-fill gap-5">
                     {
                         categoryList.map((elem) =>
-                            <li key={elem.label+"-categoryMenuBtn"} className="nav-item">
-                                <a key={elem.label+"-categoryMenuBtn"} onClick={() => setTaxonomyMenu(elem.value)}
+                            <div key={elem.label+"-categoryMenuBtn"} className="nav-item">
+                                <button key={elem.label+"-categoryMenuBtn"} onClick={() => setTaxonomyMenu(elem.value)}
                                     className={`btn btn-outline-primary border nav-link ${elem.value === taxonomyMenu ? "active" : ""}`}>
                                     {elem.label}
-                                </a>
-                            </li>
+                                </button>
+                            </div>
                         )
                     }
-                </ul>
+                </menu>
                 {
                     taxonomyMenu !== "" &&
                     <div>
@@ -96,7 +107,7 @@ const TaxonomiesCategoryPage = () => {
                             {categoryList.find( el => taxonomyMenu === el.value ).label}{lang.colon}
                         </h3>
                         <div className="container">
-                            <div className="row">
+                            <div className="row gx-2">
                                 {mapArrayToListComponent(taxonomiesList[taxonomyMenu])}
                             </div>
                         </div>
