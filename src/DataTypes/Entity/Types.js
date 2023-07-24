@@ -105,7 +105,7 @@ export {getType};
 
 const getModelFromType = (type, data) => {
     const targetType = getType(type);
-    if (targetType?.modelClass) {
+    if (targetType?.modelClass && targetType?.modelClass !== "undefined") {
         return new targetType.modelClass(data);
     }
     return undefined;
