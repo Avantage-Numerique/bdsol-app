@@ -80,10 +80,13 @@ export const useSessionHook = () => {
                 const response = await fetchInternalApi("/api/login", JSON.stringify(data));
                 auth.setUser(response.user);
 
-                msg.addMessage({
-                    text: response.text,
-                    positive: response.positive
-                });
+                //Display message only if not logged in
+                if(!response.positive) {
+                    msg.addMessage({
+                        text: response.text,
+                        positive: response.positive
+                    });
+                } 
 
                 if(response.positive) {
                     //auth.login(response.data.user);
