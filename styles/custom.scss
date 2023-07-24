@@ -21,6 +21,7 @@ $yellow: #FAFA10;
 $red-light: #ff9e9e;  // Avantage numérique's red
 $purple-light: #b2b2eb;
 $purple-lighter: lighten($purple-light, 10%);
+$blue-extralight: #ebeefd;
 
 $grey: #bbbfd7;
 $light-grey-bg: #f2f2f2;
@@ -71,6 +72,7 @@ $theme-colors:(
     "white":$white,
     "black":$black,
     "greyBg": $light-grey-bg,
+    "blueExtralight": $blue-extralight,
 
     "success": $green,
     "successlighter": $green-light,

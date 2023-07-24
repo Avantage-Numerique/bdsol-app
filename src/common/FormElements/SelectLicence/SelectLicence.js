@@ -61,7 +61,7 @@ const SelectLicence = ({name, formTools, ...props}) => {
         <>
             <Select 
                 name="licence"
-                label="licence"
+                label="Licence"
                 options={licences}
                 formTools={formTools}
             />

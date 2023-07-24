@@ -71,7 +71,7 @@ const ProjectsPage = () => {
                 bg={"bg-purplelighter"}
                 textColor={"text-white"}
                 htmlTitle={"Consulter les projets"}
-                subTitle={"Vous trouverez ici une list des projets produits par les membres d'Avantage Numérique. "}
+                subTitle={"Vous trouverez ici une liste des projets produits par les technocréatifs.ves du Croissant boréal."}
             >
                 <Breadcrumbs className={"pt-2"} route={AppRoutes.projects} getLabelGenerator={getLabelGenerator} />
             </PageHeader>
@@ -117,7 +117,7 @@ const ProjectsPage = () => {
 
                             <Button
                                 disabled={!auth.user.isLoggedIn}
-                                href="/contribuer/project"
+                                href="/contribuer/projets"
                                 size="reg-100">
                                     Ajouter un projet
                             </Button>

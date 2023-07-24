@@ -103,7 +103,6 @@ const HomePage = ({}) => {
                     feed.sort(sortDescBy('createdAt'));//   Sort and mixed both collection the data to display the new elements before
                     setFeedList(feed); //   Finaly, update the state to display the result
                 }
-
             });
         });
     }
@@ -175,7 +174,7 @@ const HomePage = ({}) => {
             </Head>
 
             <PageHeader
-                bg={"bg-purplelight"}
+                bg={"bg-blueExtralight"}
                 textColor={"text-white"}
                 title={lang.homePageTitle}
                 subTitle={lang.homePageDescription}
@@ -242,7 +241,6 @@ const HomePage = ({}) => {
                             </>
                             }
                             
-
                             {/*Rapid options to access of edit the database*/}
                             <section className={"aside__db-edit-options"}>
 
@@ -324,18 +322,15 @@ const HomePage = ({}) => {
                             <section className={"d-flex flex-column"}>
                                 <h4>À propos</h4>
                                 <p>
-                                    La Base de données structurées, ouvertes et liées (BDSOL) est le cœur du hub virtuel
-                                    d’Avantage numérique. Elle vise à recenser et géolocaliser les talents, les
-                                    compétences, les ressources, les initiatives techno-créatives à travers le territoire du Croissant Boréal.
+                                    La base de données structurées, ouvertes et liées (BDSOL) est le cœur du hub virtuel d’Avantage numérique.
+                                    Elle vise à recenser et géolocaliser les talents, les compétences, les ressources, les initiatives technocréatives à travers le territoire du Croissant Boréal.
                                 </p>
                                 <Button classes="mt-3" color="white" outline="primary" href="/a-propos">En savoir plus</Button>
                             </section>
-
                         </div>
                     </aside>
                 </div>
             </div>
-
         </div>
     )
 }

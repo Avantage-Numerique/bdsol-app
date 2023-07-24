@@ -46,9 +46,8 @@ const MediaSingleView = (data, ...props) => {
         status
     } = data.data;
 
-    const associatedEntityType = getType(data.data.entityId.type,true);
+    const associatedEntityType = getType(data.data.entityId.type, true);
     const associatedEntityModel = getModelFromType(data.data.entityId.type, data.data.entityId);
-
     /* Needed for breadCrumb generator */
     const getHrefGenerator = useCallback(() => {
         return {
@@ -58,23 +57,24 @@ const MediaSingleView = (data, ...props) => {
             "[project.slug]": data?.entityID?.slug ?? "no-set",
             "persons": "persons",
             "organisations": "organisations",
-            "projects":"projects"
+            "projects": "projects",
+            "medias": "medias"
         };
     }, []);
 
     const getLabelGenerator = useCallback((param, query) => {
         return {
-            "id": () => data?.title ?? "title must be set",
-            "slug": () => data?.title ?? "title must be set",
-            "person.slug": () => data.entityId?.name ?? "Personne",
-            "organisation.slug": () => data.entityId?.name ?? "Organisation",
-            "project.slug": data?.entityID?.slug ?? "Projet",
+            "id": () => data?.data?.title ?? "title must be set",
+            "slug": () => data?.data?.title ?? "title must be set",
+            "person.slug": () => data?.data?.entityId?.name ?? "Personne",
+            "organisation.slug": () => data?.data?.entityId?.name ?? "Organisation",
+            "projet.slug": data?.data?.entityID?.name ?? "Projet",
             "persons": () => "Personnes",
             "organisations": () => "Organisations",
-            "projects":() => "Projets"
+            "projets": () => "Projets",
+            "medias": () => "Média"
         }[param];
     }, []);
-
     const breadCrumb = {
         route: associatedEntityModel.singleRoute,
         getLabelGenerator: getLabelGenerator
@@ -87,7 +87,7 @@ const MediaSingleView = (data, ...props) => {
             subtitle={(
                 <div className="d-text text-white">
                     <div>
-                        <span className={`${styles["quick-section__single-info"]}`}>{lang.filename}{lang.colon}</span>{fileName}
+                        <span className={`${styles["quick-section__single-info"]}`}>{lang.filename}{lang.colon}</span>{fileName + '.' + extension}
                     </div>
                     <div>
                         <strong>{lang.licence}{lang.colon}</strong>
@@ -95,7 +95,6 @@ const MediaSingleView = (data, ...props) => {
                     </div>
                 </div>
             )}
-            //mainImage={}
             entity={data.data}
         />
     );

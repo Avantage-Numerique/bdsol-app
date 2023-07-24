@@ -39,6 +39,8 @@ const AccountNav = ( {menuState, setMenuState} ) => {
         
     }, [router.asPath]);
 
+    const closeMenu = () => { setMenuState(0) }
+
     return (
         <nav className={`${navStyles.navContainer} ${menuState === 2 && navStyles.displayed}`}>
             <div className={"maxWidthPageContainer"}>
@@ -50,10 +52,10 @@ const AccountNav = ( {menuState, setMenuState} ) => {
                     {/* Options if the user is NOT logged in */}
                     { !auth.user.isLoggedIn &&
                         <>
-                            <li className="col-12">
+                            <li onClick={closeMenu} className="col-12">
                                 <Link href="/compte/connexion">{lang.menuLabelConnect || "Connexion"}</Link>
                             </li>
-                            <li className="col-12">
+                            <li onClick={closeMenu} className="col-12">
                                 <Link href="/compte/inscription">{lang.menuLabelCreateAccount || "Créer votre compte"}</Link>
                             </li>
                         </>
@@ -62,11 +64,11 @@ const AccountNav = ( {menuState, setMenuState} ) => {
                     {/* Options if the user is logged in */}
                     { auth.user.isLoggedIn &&
                         <>
-                            <li className="col-12">
+                            <li onClick={closeMenu} className="col-12">
                                 <Link href="/compte">{lang.menuLabelToDashboard || "Tableau de bord"}</Link>
                             </li>
                             
-                            <li className="col-12">
+                            <li onClick={closeMenu} className="col-12">
                                 <button onClick={deconnection}>{lang.menuLabelToDisconnect || "Déconnecter"}</button>
                             </li>
                         </>

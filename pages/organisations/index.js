@@ -72,7 +72,7 @@ const OrganisationsPage = () => {
                 bg={"bg-purplelighter"}
                 textColor={"text-white"}
                 htmlTitle={"Consulter les organisations"}
-                subTitle={"Que ce soit de près ou de loin, les organisations présentées ici travaillent avec les technologies numériques."}
+                subTitle={"Les organisations présentées ici travaillent avec les technologies numériques et se trouvent sur le territoire du Croissant boréal."}
             >
                 <Breadcrumbs className={"pt-2"} route={AppRoutes.organisations} getLabelGenerator={getLabelGenerator} />
             </PageHeader>
@@ -117,7 +117,7 @@ const OrganisationsPage = () => {
                         <div className="my-4">
                             <Button
                                 disabled={!auth.user.isLoggedIn}
-                                href="/contribuer/organisation"
+                                href="/contribuer/organisations"
                                 size="reg-100">
                                     Ajouter une organisation
                             </Button>
