@@ -26,7 +26,7 @@ export const SingleEntityStatus = (props) => {
         <SingleInfo className={className} title={lang.entityMetadata}>
             <ul className={"list-style-none"}>
                 {
-                    status.state &&
+                    status?.state &&
                     <li>
                         <span>{lang.entityStatus}{lang.colon}</span>
                         <span>{lang.capitalize(status.state) ?? ""}</span>
