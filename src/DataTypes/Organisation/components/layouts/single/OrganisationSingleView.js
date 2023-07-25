@@ -11,7 +11,6 @@ import Organisation from '@/src/DataTypes/Organisation/models/Organisation';
 import {lang} from "@/common/Data/GlobalConstants";
 import SingleInfo from "@/DataTypes/common/layouts/SingleInfo/SingleInfo";
 import {SingleEntityStatus} from "@/DataTypes/Status/components/SingleEntityStatus";
-import {replacePathname} from "@/src/helpers/url";
 
 const OrganisationSingleView = ({ data }) => {
 
@@ -38,7 +37,6 @@ const OrganisationSingleView = ({ data }) => {
     } = data;
 
     const model = new Organisation(data);
-    const link = "/"+replacePathname(model.singleEditRoute.pathname, {slug: model.slug});
 
     /* Needed for breadCrumb generator */
     const getLabelGenerator = useCallback((param, query) => {
@@ -68,7 +66,7 @@ const OrganisationSingleView = ({ data }) => {
             mainImage={model.mainImage}
             entity={model}
             buttonText="Proposer des modifications"
-            buttonLink={link}
+            buttonLink={model.singleEditLink}
         />
     )
 

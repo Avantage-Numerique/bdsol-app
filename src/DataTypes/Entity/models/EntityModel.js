@@ -234,6 +234,9 @@ class EntityModel {
     get singleLink() {
         return "/"+replacePathname(this.singleRoute.pathname, {slug: this.slug});
     }
+    get singleEditLink() {
+        return "/"+replacePathname(this.singleEditRoute.pathname, {slug: this.slug});
+    }
 
     /**
      * Declare all the model property to be accessible to it.

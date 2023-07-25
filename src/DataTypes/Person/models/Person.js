@@ -19,7 +19,7 @@ class Person extends EntityModel {
         this.title = raw.firstName + " " + raw.lastName ?? "";
         this.description = raw.description ?? "";
         this.mainImage = !raw.mainImage || raw.mainImage === "" || !raw.mainImage ? {
-            url: "/general_images/person-default.webp",
+            url: "/general_images/default-person.png",
             alt: this.title,
             baseSrc: `${process.env.NEXT_PUBLIC_APP_URL}`,
             isDefault: true

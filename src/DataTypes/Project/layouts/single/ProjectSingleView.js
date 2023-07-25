@@ -10,7 +10,6 @@ import SearchTag from '@/src/common/Components/SearchTag';
 import SanitizedInnerHtml from '@/src/utils/SanitizedInnerHtml';
 import {SingleEntityStatus} from "@/DataTypes/Status/components/SingleEntityStatus";
 import {getDateFromIsoString} from "@/src/utils/DateHelper";
-import {replacePathname} from "@/src/helpers/url";
 import Project from "@/DataTypes/Project/models/Project";
 import {lang} from "@/common/Data/GlobalConstants";
 
@@ -41,7 +40,6 @@ const ProjectSingleView = ({ data }) => {
     } = data;
 
     const model = new Project(data);
-    const link = "/"+replacePathname(model.singleEditRoute.pathname, {slug: model.slug});
 
     /* Needed for breadCrumb generator */
     const getLabelGenerator = useCallback((param, query) => {
@@ -74,7 +72,7 @@ const ProjectSingleView = ({ data }) => {
             mainImage={model.mainImage}
             entity={model}
             buttonText="Proposer des modifications"
-            buttonLink={link}
+            buttonLink={model.singleEditLink}
         />
     )
 

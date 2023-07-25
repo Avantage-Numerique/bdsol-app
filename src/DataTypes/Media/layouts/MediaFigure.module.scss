@@ -1,4 +1,5 @@
 .mediaFigure {
+    background-color: $primarylight;
     @include transition();
 
     &:hover {
