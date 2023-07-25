@@ -241,7 +241,7 @@ const CreateMediaForm = (props) => {
                     <div className={`col-6 ${styles["fields-column"]}`}>
 
                         <nav className={`container mb-2 ${styles["form-inner-nav"]}`}>
-                            <p className="mb-0 ">Informations</p>
+                            <p className="mb-0 d-flex justify-content-center">Informations</p>
                             <div className="row">
                                 <button aria-current={ formPage === 0 ? "page" : ""} className={`${styles["form-inner-nav__button"]} col fs-6`} type="button" onClick={() => setFormPage(0)}>
                                     De base

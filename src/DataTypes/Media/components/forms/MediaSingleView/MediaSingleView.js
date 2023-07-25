@@ -46,6 +46,8 @@ const MediaSingleView = (data, ...props) => {
         status
     } = data.data;
 
+    const baseSrc = `${process.env.NEXT_PUBLIC_API_URL}`;
+
     const associatedEntityType = getType(data.data.entityId.type, true);
     const associatedEntityModel = getModelFromType(data.data.entityId.type, data.data.entityId);
     /* Needed for breadCrumb generator */
@@ -79,7 +81,7 @@ const MediaSingleView = (data, ...props) => {
         route: associatedEntityModel.singleRoute,
         getLabelGenerator: getLabelGenerator
     }
-
+    console.log("data.data", data.data)
     const header = (
         <SingleBaseHeader
             className={"mode-public"}
@@ -103,9 +105,9 @@ const MediaSingleView = (data, ...props) => {
         <div className={`single-media-main-image`}>
             <figure className={`position-relative d-flex justify-content-center ${styles["single-media-container"]}`}>
                 <div className={`position-absolute top-0 start-0 w-100 h-100 ${styles["single-media-container__behind-img"]}`}>
-                    <img className={`position-absolute top-0 start-0 w-100 h-100`} src={url} alt={alt} />
+                    <img className={`position-absolute top-0 start-0 w-100 h-100`} src={`${baseSrc}${url}`} alt={alt} />
                 </div>
-                <img className={`img-fluid ${styles["single-media-img"]}`} src={url} alt={alt} />
+                <img className={`img-fluid ${styles["single-media-img"]}`} src={`${baseSrc}${url}`} alt={alt} />
             </figure>
         </div>
     );

@@ -26,7 +26,7 @@ const MediaFigure = (props) => {
 
     baseSrc = baseSrc ?? model?.baseSrc;
     baseSrc = baseSrc ?? `${process.env.NEXT_PUBLIC_API_URL}`;
-
+    
     //get height and width dynamicaly ?
     return (
         <>
