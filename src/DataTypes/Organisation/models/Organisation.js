@@ -33,6 +33,7 @@ class Organisation extends EntityModel {
         this.simpleComponent = OrganisationSimple;
 
         this.singleRoute = {...AppRoutes.organisationSingle};
+        this.singleMediaRoute = {...AppRoutes.organisationSingleMedia};
         this.singleEditRoute = {...AppRoutes.organisationsSingleEdit};
         this.createRoute = {...AppRoutes.organisationsCreate};
 

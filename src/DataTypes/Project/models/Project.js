@@ -37,6 +37,7 @@ class Project extends EntityModel {
         //  Routes associated with single base, single and contribute uri.
         this.repertoryRoute = {...AppRoutes.projects};
         this.singleRoute = {...AppRoutes.projectSingle};
+        this.singleMediaRoute = {...AppRoutes.projectSingleMedia};
         this.singleEditRoute = {...AppRoutes.projectSingleEdit};
         this.createRoute = {...AppRoutes.projectCreate};
 

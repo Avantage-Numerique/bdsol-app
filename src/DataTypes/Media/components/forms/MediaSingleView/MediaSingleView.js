@@ -30,7 +30,7 @@ const SingleInfoLayout = ({ title, NAMessage="-", children }) => {
     )
 }
 
-const MediaSingleView = (data, ...props) => {
+const MediaSingleView = ({data}, ...props) => {
     const {
         _id,
         title,
@@ -44,19 +44,19 @@ const MediaSingleView = (data, ...props) => {
         createdAt,
         updatedAt,
         status
-    } = data.data;
+    } = data;
 
     const baseSrc = `${process.env.NEXT_PUBLIC_API_URL}`;
 
-    const associatedEntityType = getType(data.data.entityId.type, true);
-    const associatedEntityModel = getModelFromType(data.data.entityId.type, data.data.entityId);
+    const associatedEntityType = getType(data.entityId.type, true);
+    const associatedEntityModel = getModelFromType(data.entityId.type, data.entityId);
     /* Needed for breadCrumb generator */
     const getHrefGenerator = useCallback(() => {
         return {
             "[slug]": data?.slug ?? "no-set",
-            "[person.slug]": data?.entityId?.slug ?? "no-set",
-            "[organisation.slug]": data?.entityId?.slug ?? "no-set",
-            "[project.slug]": data?.entityID?.slug ?? "no-set",
+            "[person.slug]": associatedEntityModel.slug ?? "no-set",
+            "[organisation.slug]": associatedEntityModel.slug ?? "no-set",
+            "[project.slug]": associatedEntityModel.slug ?? "no-set",
             "persons": "persons",
             "organisations": "organisations",
             "projects": "projects",
@@ -66,22 +66,24 @@ const MediaSingleView = (data, ...props) => {
 
     const getLabelGenerator = useCallback((param, query) => {
         return {
-            "id": () => data?.data?.title ?? "title must be set",
-            "slug": () => data?.data?.title ?? "title must be set",
-            "person.slug": () => data?.data?.entityId?.name ?? "Personne",
-            "organisation.slug": () => data?.data?.entityId?.name ?? "Organisation",
-            "projet.slug": data?.data?.entityID?.name ?? "Projet",
+            "id": () => data?.title ?? "title must be set",
+            "slug": () => data?.title ?? "title must be set",
+            "person.slug": () => associatedEntityModel.title ?? "Personne",
+            "organisation.slug": () => associatedEntityModel.title ?? "Organisation",
+            "project.slug": associatedEntityModel.title ?? "Projet",
             "persons": () => "Personnes",
             "organisations": () => "Organisations",
             "projets": () => "Projets",
             "medias": () => "Média"
         }[param];
     }, []);
+
     const breadCrumb = {
-        route: associatedEntityModel.singleRoute,
-        getLabelGenerator: getLabelGenerator
+        route: associatedEntityModel.singleMediaRoute,
+        getLabelGenerator: getLabelGenerator,
+        getHrefGenerator: getHrefGenerator
     }
-    console.log("data.data", data.data)
+
     const header = (
         <SingleBaseHeader
             className={"mode-public"}
@@ -97,7 +99,7 @@ const MediaSingleView = (data, ...props) => {
                     </div>
                 </div>
             )}
-            entity={data.data}
+            entity={data}
         />
     );
     const fullWidthContent = (<></>);

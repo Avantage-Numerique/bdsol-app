@@ -37,6 +37,7 @@ class Person extends EntityModel {
 
         //Routing
         this.singleRoute = {...AppRoutes.personSingle};
+        this.singleMediaRoute = {...AppRoutes.personSingleMedia};
         this.singleEditRoute = {...AppRoutes.personSingleEdit};
         this.createRoute = {...AppRoutes.personCreate};
 

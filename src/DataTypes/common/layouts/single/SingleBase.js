@@ -36,7 +36,7 @@ const SingleBase = (props) => {
             { /* BreadCrumbs */ }
             {  breadCrumb &&
             <div className="row">
-                <Breadcrumbs className={"pt-2"} route={breadCrumb.route} getLabelGenerator={breadCrumb.getLabelGenerator || undefined} />
+                <Breadcrumbs className={"pt-2"} route={breadCrumb.route} getLabelGenerator={breadCrumb.getLabelGenerator || undefined} getHrefGenerator={breadCrumb.getHrefGenerator || undefined} />
             </div>
             }
             

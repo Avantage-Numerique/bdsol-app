@@ -25,7 +25,7 @@ class Media extends EntityModel {
         this.title = raw?.name ?? "";
         this.description = raw?.description ?? "";
         this.mainImage = raw?.mainImage;
-        this.src = raw?.src ?? "";
+        this.src = raw?.url ?? "";
         this.baseSrc = `${process.env.NEXT_PUBLIC_API_URL}`;
         this.alt = raw?.alt ?? "";
         this.licence = raw?.licence ?? "";

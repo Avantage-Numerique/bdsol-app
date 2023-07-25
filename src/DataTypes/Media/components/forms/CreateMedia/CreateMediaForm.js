@@ -23,7 +23,7 @@ import {getDefaultImageByEntityType} from "@/src/helpers/images";
 
 
 const CreateMediaForm = (props) => {
-
+    
     const {
         initValues,
         positiveRequestActions,
@@ -43,6 +43,7 @@ const CreateMediaForm = (props) => {
         licence,
         url,
     } = initValues;
+
 
     //Define if the form is creating a new file or if it is updating the values of an existing one.
     //Starting state is false since no new file has been passed
@@ -95,7 +96,7 @@ const CreateMediaForm = (props) => {
         if(!isNewFile){
             updateManyFields({
                 mainImage: "", 
-                licence: licence ?? "-1",
+                licence: licence ?? "copyright",
                 description: description ?? '',
                 alt: alt ?? '',
                 title: title ?? '',
@@ -271,6 +272,7 @@ const CreateMediaForm = (props) => {
 
                             <div className="mt-2 d-flex gap-2 flex-wrap">
                                 <Button
+                                    disabled={entity.mainImage?._id == undefined && formState.inputs.mainImage.value == ""}
                                     onClick={submitHandler}
                                     size="slim"
                                 > Soumettre
