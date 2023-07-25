@@ -1,4 +1,4 @@
-import {TYPE_DEFAULT} from "@/DataTypes/Entity/Types";
+import {getType, TYPE_DEFAULT} from "@/DataTypes/Entity/Types";
 import {removeHtml} from "@/src/helpers/str";
 import {replacePathname} from "@/src/helpers/url";
 
@@ -30,6 +30,7 @@ class EntityModel {
     constructor(raw, params={}) {
         this.shortLenght = 87;
         this.type = raw?.type ?? TYPE_DEFAULT;
+        this.Type = getType(this.type);
         this.title = raw?.title ?? "no title set";
         this.description = raw?.description ?? "no description set";
 
@@ -41,6 +42,10 @@ class EntityModel {
         this.repertoryRoute = raw?.repertoryRoute ?? "";
         this.singleRoute = raw?.singleRoute ?? "";
         this.contributeRoute = raw?.contributeRoute ?? "";
+
+        this.meta = {
+            seperator: " - "
+        };
 
         //Ajouter _id et id ??
 

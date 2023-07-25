@@ -1,4 +1,4 @@
-import {useCallback} from 'react';
+import React, {useCallback} from 'react';
 
 //components
 import SingleBaseHeader from "@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseHeader"
@@ -12,6 +12,8 @@ import {SingleEntityStatus} from "@/DataTypes/Status/components/SingleEntityStat
 import {getDateFromIsoString} from "@/src/utils/DateHelper";
 import Project from "@/DataTypes/Project/models/Project";
 import {lang} from "@/common/Data/GlobalConstants";
+import Head from "next/head";
+import nextConfig from "@/next.config";
 
 
 const ProjectSingleView = ({ data }) => {
@@ -217,15 +219,20 @@ const ProjectSingleView = ({ data }) => {
         </>
     )
 
-    return (  
-        <SingleBase 
-            breadCrumb={breadCrumb}
-            header={Header}
-            fullWidthContent={FullWidthContent}
-            contentColumnLeft={ContentColumnLeft}
-            contentColumnRight={ContentColumnRight}
-            footer={Footer}
-        />
+    return (
+        <>
+            <Head>
+                <title>{model.title}{model.meta.seperator}{model.Type.label}{model.meta.seperator}{nextConfig.app.name}</title>
+            </Head>
+            <SingleBase
+                breadCrumb={breadCrumb}
+                header={Header}
+                fullWidthContent={FullWidthContent}
+                contentColumnLeft={ContentColumnLeft}
+                contentColumnRight={ContentColumnRight}
+                footer={Footer}
+            />
+        </>
     )
 }
 

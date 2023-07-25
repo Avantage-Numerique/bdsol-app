@@ -1,5 +1,5 @@
 //React
-import { useCallback } from "react";
+import React, {useCallback} from "react";
 
 //Utils
 import {getModelFromType, getType} from "@/DataTypes/Entity/Types";
@@ -14,7 +14,9 @@ import SingleBaseHeader from "@/src/DataTypes/common/layouts/single/defaultSecti
 import EntityTag from "@/src/DataTypes/Entity/layouts/EntityTag";
 import LicenceDisplay from "@/src/common/FormElements/SelectLicence/LicenceDisplay";
 import SanitizedInnerHtml from "@/src/utils/SanitizedInnerHtml";
-import { SingleEntityStatus } from "@/src/DataTypes/Status/components/SingleEntityStatus";
+import {SingleEntityStatus} from "@/src/DataTypes/Status/components/SingleEntityStatus";
+import nextConfig from "@/next.config";
+import Head from "next/head";
 
 
 const SingleInfoLayout = ({ title, NAMessage="-", children }) => {
@@ -149,16 +151,20 @@ const MediaSingleView = ({data}, ...props) => {
     );
 
     return (
-        <SingleBase 
-            breadCrumb={breadCrumb}
-            header={header}
-            fullWidthContent={fullWidthContent}
-            contentColumnLeft={contentColumnLeft}
-            contentColumnRight={contentColumnRight}
-            footer={footer}
-        />
+        <>
+            <Head>
+                <title>{lang.mainImage} {lang.associatedTo} {associatedEntityModel.title}{associatedEntityModel.meta.seperator}{associatedEntityModel.Type.label}{associatedEntityModel.meta.seperator}{nextConfig.app.name}</title>
+            </Head>
+            <SingleBase
+                breadCrumb={breadCrumb}
+                header={header}
+                fullWidthContent={fullWidthContent}
+                contentColumnLeft={contentColumnLeft}
+                contentColumnRight={contentColumnRight}
+                footer={footer}
+            />
+        </>
     )
-
 }
 
 export default MediaSingleView;

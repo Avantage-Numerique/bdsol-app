@@ -1,4 +1,4 @@
-import {useCallback} from 'react';
+import React, {useCallback} from 'react';
 
 //components
 import SingleBaseHeader from "@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseHeader"
@@ -11,6 +11,8 @@ import Organisation from '@/src/DataTypes/Organisation/models/Organisation';
 import {lang} from "@/common/Data/GlobalConstants";
 import SingleInfo from "@/DataTypes/common/layouts/SingleInfo/SingleInfo";
 import {SingleEntityStatus} from "@/DataTypes/Status/components/SingleEntityStatus";
+import Head from "next/head";
+import nextConfig from "@/next.config";
 
 const OrganisationSingleView = ({ data }) => {
 
@@ -165,6 +167,9 @@ const OrganisationSingleView = ({ data }) => {
     */}
     return (
         <>
+            <Head>
+                <title>{model.title}{model.meta.seperator}{model.Type.label}{model.meta.seperator}{nextConfig.app.name}</title>
+            </Head>
             <SingleBase 
                 breadCrumb={breadCrumb}
                 header={Header}
