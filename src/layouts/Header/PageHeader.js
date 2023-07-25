@@ -1,4 +1,3 @@
-
 import React from "react";
 
 import SanitizedInnerHtml from "@/src/utils/SanitizedInnerHtml";
@@ -17,7 +16,7 @@ const PageHeader = (props) => {
     const descriptionColor = props.descriptionColor ?? "text-dark";
     const textClass = props.textColor ?? "text-primary";
     const colWidth = props.colWidth ?? 12;
-    const asideColNumberXs = 4;
+    const asideColNumberXs = 5;
     const colNumberXs = props.image ? colWidth - asideColNumberXs : colWidth;
     const historyBack = props.historyBack;
 
