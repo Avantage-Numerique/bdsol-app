@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
 
 import {useHttpClient} from '@/src/hooks/http-hook'
-import { useModal } from '@/src/hooks/useModal/useModal';
+import {useModal} from '@/src/hooks/useModal/useModal';
 import SanitizedInnerHtml from '@/src/utils/SanitizedInnerHtml';
 
 //Context
@@ -23,7 +23,7 @@ const UserHistoryGrid = () => {
     //Data history query
     const formData = {
         "data": {
-            "user": auth.user.id,
+            "user": `objId:${auth.user.id}`,
             "sort": {
                 "updatedAt": "desc"
             }
@@ -88,7 +88,7 @@ const UserHistoryGrid = () => {
         <div>
             <h3>Historique de modification</h3>
         {
-            usersHistory?.data?.length == 0 ?
+            usersHistory?.data?.length === 0 ?
             <div>Aucun historique de modification pour le moment</div>
             :
             (
@@ -102,7 +102,7 @@ const UserHistoryGrid = () => {
                         </tr>
                     </thead>
                     <tbody>
-                    {usersHistory.data.map( (modification, index) =>
+                    { usersHistory?.data && usersHistory.data.map( (modification, index) =>
                         <tr key={"userHistoryGridList-" + index}>
                             <td>{new Date(modification.modifDate).toLocaleDateString(dateLanguage)} <br></br> {new Date(modification.modifDate).toLocaleTimeString(timeLanguage)}</td>
                             <td>{modificationMsg(modification.action)}
