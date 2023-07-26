@@ -32,7 +32,7 @@ export async function mediaSlugSSProps(context) {
             method: 'GET',
             headers: getUserHeadersFromUserSession(context.req.session.user)
         });
-    if(response.data._id == undefined)
+    if(typeof response.data._id === "undefined")
         return { notFound: true };
     /*if (!response.error) {
         response.data.url = process.env.NEXT_PUBLIC_API_URL + response.data.url;
