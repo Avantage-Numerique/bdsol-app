@@ -63,11 +63,12 @@ const SearchBar = ({small, ...props}) => {
     //Search suggestion
     const getSearchSuggestion = async () => {
         //If not the first render, fetch
-            const suggestions = await clientSideExternalApiRequest(
-                '/search' + '?searchIndex=' + formState.inputs.searchIndex.value,
-                { method: 'GET' }
-            );
-            setSelectResponse(suggestions);
+        const suggestions = await clientSideExternalApiRequest(
+            '/search' + '?searchIndex=' + formState.inputs.searchIndex.value,
+            { method: 'GET' }
+        );
+            
+        setSelectResponse(suggestions);
     }
 
     const getNearestTaxonomyToSearchIndex = async (searchIndex) => {

@@ -56,7 +56,7 @@ const SearchResults = () => {
     }, [router.asPath])
     
     const getResultsRouteResponse = (searchIndex) => {
-        return clientSideExternalApiRequest("/search/results?searchIndex="+searchIndex, { method: 'GET'});
+        return clientSideExternalApiRequest("/search/?searchIndex="+searchIndex, { method: 'GET'});
     }
 
     const getIdRouteResponse = (linkId) => {
@@ -92,7 +92,7 @@ const SearchResults = () => {
                 <h3>{resultMessage}</h3>
                 {
                     filteredList?.length > 0 ?
-                    <EntitiesGrid className={"row"} columnClass={"col g-3 col-md-4"} feed={filteredList}></EntitiesGrid>
+                    <EntitiesGrid className={"row"} columnClass={"col g-3 col-md-4"} feed={filteredList.filter(el => el.type !== "Taxonomy")}></EntitiesGrid>
                     :
                     <div>Aucune entité trouvée, réessayer avec d'autre critère de recherche</div>
                 }
