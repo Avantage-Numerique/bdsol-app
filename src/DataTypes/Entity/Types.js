@@ -19,6 +19,7 @@ class Type {
     constructor(values) {
         this.slug = values.slug;
         this.label = values.label;
+        this.labelPlural = values.labelPlural;
         this.modelClass = values.modelClass;
         this.icon = values.icon;
         this.inSentencePrefix = values.inSentencePrefix;
@@ -31,6 +32,7 @@ const TYPES = new Map();
 TYPES.set(TYPE_MEDIA, new Type({
     slug:"medias",
     label: "Média",
+    labelPlural: "Médias",
     modelClass: Media,
     inSentencePrefix: " un ",
     defaultMainImage: "",
@@ -39,6 +41,7 @@ TYPES.set(TYPE_MEDIA, new Type({
 TYPES.set(TYPE_ORGANISATION, new Type({
     slug:"organisations",
     label: "Organisation",
+    labelPlural: "Organisations",
     modelClass: Organisation,
     inSentencePrefix: " une ",
     defaultMainImage: "/general_images/organisation-default.jpg",
@@ -47,6 +50,7 @@ TYPES.set(TYPE_ORGANISATION, new Type({
 TYPES.set(TYPE_PROJECT, new Type({
     slug:"projets",
     label: "Projet",
+    labelPlural: "Projets",
     modelClass: Project,
     inSentencePrefix: " un ",
     defaultMainImage: "/general_images/project-default.webp",
@@ -55,6 +59,7 @@ TYPES.set(TYPE_PROJECT, new Type({
 TYPES.set(TYPE_PERSON, new Type({
     slug:"persons",
     label: "Personne",
+    labelPlural: "Personnes",
     modelClass: Person,
     inSentencePrefix: " une ",
     defaultMainImage: "/general_images/person-default.webp",
@@ -63,6 +68,7 @@ TYPES.set(TYPE_PERSON, new Type({
 TYPES.set(TYPE_ABSTRACT, new Type({
     slug:"entites",
     label: "Entité",
+    labelPlural: "Entités",
     modelClass: EntityModel,
     inSentencePrefix: " une ",
     defaultMainImage: "/general_images/person-default.webp",
@@ -71,6 +77,7 @@ TYPES.set(TYPE_ABSTRACT, new Type({
 TYPES.set(TYPE_TAXONOMY, new Type({
     slug:"categories",
     label: "Catégorie",
+    labelPlural: "Catégories",
     modelClass: EntityModel,
     inSentencePrefix: " une ",
     defaultMainImage: "/general_images/project-default.webp",
@@ -80,6 +87,7 @@ TYPES.set(TYPE_TAXONOMY, new Type({
 TYPES.set(TYPE_NOTSET, new Type({
     slug:"undefined",
     label: "undefined",
+    labelPlural: "undefined",
     modelClass: "undefined",
     inSentencePrefix: "",
     defaultMainImage: "/general_images/person-default.webp",

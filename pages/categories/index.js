@@ -7,6 +7,10 @@ import AppRoutes from "@/src/Routing/AppRoutes";
 
 //Styling 
 import styles from './index_categories.module.scss';
+import Head from "next/head";
+import {getTitle} from "@/DataTypes/MetaData/MetaTitle";
+import {getType, TYPE_TAXONOMY} from "@/DataTypes/Entity/Types";
+import Link from "next/link";
 
 const TaxonomiesCategoryPage = () => {
 
@@ -18,6 +22,7 @@ const TaxonomiesCategoryPage = () => {
         {value:"technologies", label: lang.Technologies},
         {value:"skills", label: lang.Skills},
     ];
+    const type = getType(TYPE_TAXONOMY);
     
     useEffect( () => {
 
@@ -63,14 +68,16 @@ const TaxonomiesCategoryPage = () => {
                 <div
                     className="col-6 col-sm-4 col-md-3 p-sm-1 p-md-2 d-flex"
                 >
-                    <a 
-                        key={elem.slug} 
-                        className={`border w-100 p-sm-1 p-md-2 text-center rounded ${styles["list-tag"]}`}
-                        style={{"overflowWrap": "anywhere"}}
-                        href={`/categories/${elem.category}/${elem.slug}`}
-                    >
-                        {elem.name}{elem.meta?.count > 0 ? ` (${elem.meta?.count})` : ""}
-                    </a>
+                    <Link href={`/categories/${elem.category}/${elem.slug}`}>
+                        <a
+                            key={elem.slug}
+                            className={`border w-100 p-sm-1 p-md-2 text-center rounded ${styles["list-tag"]}`}
+                            style={{"overflowWrap": "anywhere"}}
+                            href={`/categories/${elem.category}/${elem.slug}`}
+                        >
+                            {elem.name}{elem.meta?.count > 0 ? ` (${elem.meta?.count})` : ""}
+                        </a>
+                    </Link>
                 </div>
             )
         )
@@ -84,6 +91,9 @@ const TaxonomiesCategoryPage = () => {
 
     return (
         <div>
+            <Head>
+                <title>{getTitle([type.labelPlural])}</title>
+            </Head>
             <PageHeader title={`Toutes les catégories`}>
                 <Breadcrumbs className={"pt-2"} route={AppRoutes.categories} getLabelGenerator={getLabelGenerator} />
             </PageHeader>
