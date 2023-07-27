@@ -5,6 +5,7 @@ import useDebounce from '@/src/hooks/useDebounce';
 import Router, {useRouter} from 'next/router';
 import Icon from "@/common/widgets/Icon/Icon";
 import Select from 'react-select';
+import { getType } from '@/src/DataTypes/Entity/Types';
 
 //Component
 //import Input from "../FormElements/Input/Input";
@@ -62,11 +63,12 @@ const SearchBar = ({small, ...props}) => {
     //Search suggestion
     const getSearchSuggestion = async () => {
         //If not the first render, fetch
-            const suggestions = await clientSideExternalApiRequest(
-                '/search' + '?searchIndex=' + formState.inputs.searchIndex.value,
-                { method: 'GET' }
-            );
-            setSelectResponse(suggestions);
+        const suggestions = await clientSideExternalApiRequest(
+            '/search' + '?searchIndex=' + formState.inputs.searchIndex.value,
+            { method: 'GET' }
+        );
+            
+        setSelectResponse(suggestions);
     }
 
     const getNearestTaxonomyToSearchIndex = async (searchIndex) => {
@@ -103,19 +105,15 @@ const SearchBar = ({small, ...props}) => {
     }
 
     const submitSelectedItem = (selected, action) => {
-        const typeToUrl = {
-            Person : "persons",
-            Organisation : "organisations",
-            Taxonomy : "categories",
-        }
+        const typeUrl = getType(selected.type).slug
         if(selected.type === "Taxonomy"){
             Router.push({
-                pathname: "/"+typeToUrl[selected.type]+"/"+selected.category+"/"+selected.slug,
+                pathname: "/"+typeUrl+"/"+selected.category+"/"+selected.slug,
             });
         }
         else{
             Router.push({
-                pathname: "/"+typeToUrl[selected.type]+"/"+selected.slug,
+                pathname: "/"+typeUrl+"/"+selected.slug,
             });
         }
         setValue(null)

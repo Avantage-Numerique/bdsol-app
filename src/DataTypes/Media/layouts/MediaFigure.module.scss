@@ -1,4 +1,5 @@
 .mediaFigure {
+    background-color: $main-image-bg-color;
     @include transition();
 
     &:hover {

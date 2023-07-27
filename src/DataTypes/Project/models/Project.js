@@ -15,7 +15,7 @@ class Project extends EntityModel {
         this.title = raw.name ?? "";
         this.description = raw.description ?? "";
         this.mainImage = !raw.mainImage || raw.mainImage === "" ? {
-            url: "/general_images/project-default.webp",
+            url: "/general_images/default-project.png",
             alt: raw.name,
             baseSrc: `${process.env.NEXT_PUBLIC_APP_URL}`,
             isDefault: true
@@ -37,6 +37,7 @@ class Project extends EntityModel {
         //  Routes associated with single base, single and contribute uri.
         this.repertoryRoute = {...AppRoutes.projects};
         this.singleRoute = {...AppRoutes.projectSingle};
+        this.singleMediaRoute = {...AppRoutes.projectSingleMedia};
         this.singleEditRoute = {...AppRoutes.projectSingleEdit};
         this.createRoute = {...AppRoutes.projectCreate};
 

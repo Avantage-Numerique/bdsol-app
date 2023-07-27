@@ -1,5 +1,5 @@
 //React
-import { useCallback } from "react";
+import React, {useCallback} from "react";
 
 //Utils
 import {getModelFromType, getType} from "@/DataTypes/Entity/Types";
@@ -14,7 +14,9 @@ import SingleBaseHeader from "@/src/DataTypes/common/layouts/single/defaultSecti
 import EntityTag from "@/src/DataTypes/Entity/layouts/EntityTag";
 import LicenceDisplay from "@/src/common/FormElements/SelectLicence/LicenceDisplay";
 import SanitizedInnerHtml from "@/src/utils/SanitizedInnerHtml";
-import { SingleEntityStatus } from "@/src/DataTypes/Status/components/SingleEntityStatus";
+import {SingleEntityStatus} from "@/src/DataTypes/Status/components/SingleEntityStatus";
+import nextConfig from "@/next.config";
+import Head from "next/head";
 
 
 const SingleInfoLayout = ({ title, NAMessage="-", children }) => {
@@ -30,7 +32,7 @@ const SingleInfoLayout = ({ title, NAMessage="-", children }) => {
     )
 }
 
-const MediaSingleView = (data, ...props) => {
+const MediaSingleView = ({data}, ...props) => {
     const {
         _id,
         title,
@@ -44,21 +46,23 @@ const MediaSingleView = (data, ...props) => {
         createdAt,
         updatedAt,
         status
-    } = data.data;
+    } = data;
 
-    const associatedEntityType = getType(data.data.entityId.type,true);
-    const associatedEntityModel = getModelFromType(data.data.entityId.type, data.data.entityId);
+    const baseSrc = `${process.env.NEXT_PUBLIC_API_URL}`;
 
+    const associatedEntityType = getType(data.entityId.type, true);
+    const associatedEntityModel = getModelFromType(data.entityId.type, data.entityId);
     /* Needed for breadCrumb generator */
     const getHrefGenerator = useCallback(() => {
         return {
             "[slug]": data?.slug ?? "no-set",
-            "[person.slug]": data?.entityId?.slug ?? "no-set",
-            "[organisation.slug]": data?.entityId?.slug ?? "no-set",
-            "[project.slug]": data?.entityID?.slug ?? "no-set",
+            "[person.slug]": associatedEntityModel.slug ?? "no-set",
+            "[organisation.slug]": associatedEntityModel.slug ?? "no-set",
+            "[project.slug]": associatedEntityModel.slug ?? "no-set",
             "persons": "persons",
             "organisations": "organisations",
-            "projects":"projects"
+            "projects": "projects",
+            "medias": "medias"
         };
     }, []);
 
@@ -66,18 +70,20 @@ const MediaSingleView = (data, ...props) => {
         return {
             "id": () => data?.title ?? "title must be set",
             "slug": () => data?.title ?? "title must be set",
-            "person.slug": () => data.entityId?.name ?? "Personne",
-            "organisation.slug": () => data.entityId?.name ?? "Organisation",
-            "project.slug": data?.entityID?.slug ?? "Projet",
+            "person.slug": () => associatedEntityModel.title ?? "Personne",
+            "organisation.slug": () => associatedEntityModel.title ?? "Organisation",
+            "project.slug": associatedEntityModel.title ?? "Projet",
             "persons": () => "Personnes",
             "organisations": () => "Organisations",
-            "projects":() => "Projets"
+            "projets": () => "Projets",
+            "medias": () => "Média"
         }[param];
     }, []);
 
     const breadCrumb = {
-        route: associatedEntityModel.singleRoute,
-        getLabelGenerator: getLabelGenerator
+        route: associatedEntityModel.singleMediaRoute,
+        getLabelGenerator: getLabelGenerator,
+        getHrefGenerator: getHrefGenerator
     }
 
     const header = (
@@ -87,7 +93,7 @@ const MediaSingleView = (data, ...props) => {
             subtitle={(
                 <div className="d-text text-white">
                     <div>
-                        <span className={`${styles["quick-section__single-info"]}`}>{lang.filename}{lang.colon}</span>{fileName}
+                        <span className={`${styles["quick-section__single-info"]}`}>{lang.filename}{lang.colon}</span>{fileName + '.' + extension}
                     </div>
                     <div>
                         <strong>{lang.licence}{lang.colon}</strong>
@@ -95,8 +101,7 @@ const MediaSingleView = (data, ...props) => {
                     </div>
                 </div>
             )}
-            //mainImage={}
-            entity={data.data}
+            entity={data}
         />
     );
     const fullWidthContent = (<></>);
@@ -104,9 +109,9 @@ const MediaSingleView = (data, ...props) => {
         <div className={`single-media-main-image`}>
             <figure className={`position-relative d-flex justify-content-center ${styles["single-media-container"]}`}>
                 <div className={`position-absolute top-0 start-0 w-100 h-100 ${styles["single-media-container__behind-img"]}`}>
-                    <img className={`position-absolute top-0 start-0 w-100 h-100`} src={url} alt={alt} />
+                    <img className={`position-absolute top-0 start-0 w-100 h-100`} src={`${baseSrc}${url}`} alt={alt} />
                 </div>
-                <img className={`img-fluid ${styles["single-media-img"]}`} src={url} alt={alt} />
+                <img className={`img-fluid ${styles["single-media-img"]}`} src={`${baseSrc}${url}`} alt={alt} />
             </figure>
         </div>
     );
@@ -146,16 +151,20 @@ const MediaSingleView = (data, ...props) => {
     );
 
     return (
-        <SingleBase 
-            breadCrumb={breadCrumb}
-            header={header}
-            fullWidthContent={fullWidthContent}
-            contentColumnLeft={contentColumnLeft}
-            contentColumnRight={contentColumnRight}
-            footer={footer}
-        />
+        <>
+            <Head>
+                <title>{lang.mainImage} {lang.associatedTo} {associatedEntityModel.title}{associatedEntityModel.meta.seperator}{associatedEntityModel.Type.label}{associatedEntityModel.meta.seperator}{nextConfig.app.name}</title>
+            </Head>
+            <SingleBase
+                breadCrumb={breadCrumb}
+                header={header}
+                fullWidthContent={fullWidthContent}
+                contentColumnLeft={contentColumnLeft}
+                contentColumnRight={contentColumnRight}
+                footer={footer}
+            />
+        </>
     )
-
 }
 
 export default MediaSingleView;

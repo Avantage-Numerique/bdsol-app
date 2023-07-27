@@ -109,7 +109,7 @@
         overflow: hidden;
 
         .account-menu-container__button {
-            height: 100%;
+            height: var(--headersHeight);
             width: 100%;
             fill: white;
 

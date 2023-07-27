@@ -13,8 +13,9 @@ import styles from './PersonSingle.module.scss'
 import SanitizedInnerHtml from '@/src/utils/SanitizedInnerHtml';
 import {SingleEntityStatus} from "@/DataTypes/Status/components/SingleEntityStatus";
 import {lang} from "@/common/Data/GlobalConstants";
-import {replacePathname} from "@/src/helpers/url";
 import Person from "@/DataTypes/Person/models/Person";
+import Head from "next/head";
+import nextConfig from "@/next.config";
 
 
 const PersonSingleView = ({ data }) => {
@@ -38,7 +39,6 @@ const PersonSingleView = ({ data }) => {
 
     
     const model = new Person(data);
-    const link = "/"+replacePathname(model.singleEditRoute.pathname, {slug: model.slug});
 
     //Edit the skills list
     const SkillsList = ({occupations}) => {
@@ -107,7 +107,7 @@ const PersonSingleView = ({ data }) => {
             mainImage={model.mainImage}
             entity={model}
             buttonText="Proposer des modifications"
-            buttonLink={link}
+            buttonLink={model.singleEditLink}
         />
     )
 
@@ -172,6 +172,9 @@ const PersonSingleView = ({ data }) => {
     */}
     return (
         <>
+            <Head>
+                <title>{model.title}{model.meta.seperator}{model.Type.label}{model.meta.seperator}{nextConfig.app.name}</title>
+            </Head>
             <SingleBase
                 breadCrumb={breadCrumb}
                 header={Header}              

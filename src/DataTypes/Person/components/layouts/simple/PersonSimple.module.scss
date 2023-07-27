@@ -18,7 +18,7 @@
                 overflow: hidden;
                 box-shadow: $top-box-shadow;
                 @include transition($transition-simple-base);
-
+                background-color: $main-image-bg-color;
                 img, a {
                     position: absolute;
                     top: 0;

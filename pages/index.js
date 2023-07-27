@@ -322,9 +322,8 @@ const HomePage = ({}) => {
                             <section className={"d-flex flex-column"}>
                                 <h4>À propos</h4>
                                 <p>
-                                    La Base de données structurées, ouvertes et liées (BDSOL) est le cœur du hub virtuel
-                                    d’Avantage numérique. Elle vise à recenser et géolocaliser les talents, les
-                                    compétences, les ressources, les initiatives techno-créatives à travers le territoire du Croissant Boréal.
+                                    La base de données structurées, ouvertes et liées (BDSOL) est le cœur du hub virtuel d’Avantage numérique.
+                                    Elle vise à recenser et géolocaliser les talents, les compétences, les ressources, les initiatives technocréatives à travers le territoire du Croissant Boréal.
                                 </p>
                                 <Button classes="mt-3" color="white" outline="primary" href="/a-propos">En savoir plus</Button>
                             </section>

@@ -32,7 +32,7 @@ const base = {
 
     //  HomePage
 
-    "homePageTitle": "Explorer les acteurs·trices techno-créatifs·ves dans le croissant boréal",
+    "homePageTitle": "Techno-créatifs·ves dans le croissant boréal",
     "homePageDescription": "Nom de code : Base de données structurée ouverte et liée d'Avantage Numérique.",
     "actualities": "Actualités",
     "menu": "Menu",

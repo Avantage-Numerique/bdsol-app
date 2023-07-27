@@ -2,6 +2,7 @@ import Person from "@/DataTypes/Person/models/Person";
 import Organisation from "@/DataTypes/Organisation/models/Organisation";
 import Project from "@/DataTypes/Project/models/Project";
 import EntityModel from "@/DataTypes/Entity/models/EntityModel";
+import Media from "../Media/models/Media";
 
 export const TYPE_ABSTRACT = "Entity";
 export const TYPE_ORGANISATION = "Organisation";
@@ -30,7 +31,7 @@ const TYPES = new Map();
 TYPES.set(TYPE_MEDIA, new Type({
     slug:"medias",
     label: "Média",
-    modelClass: EntityModel,
+    modelClass: Media,
     inSentencePrefix: " un ",
     defaultMainImage: "",
     icon:"file"
@@ -105,7 +106,7 @@ export {getType};
 
 const getModelFromType = (type, data) => {
     const targetType = getType(type);
-    if (targetType?.modelClass) {
+    if (targetType?.modelClass && targetType?.modelClass !== "undefined") {
         return new targetType.modelClass(data);
     }
     return undefined;

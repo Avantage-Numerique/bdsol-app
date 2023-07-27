@@ -19,9 +19,11 @@ import {getDefaultCreateEntityStatus} from "@/DataTypes/Status/EntityStatus";
 import styles from "./CreateMediaForm.module.scss";
 import EntityTag from "@/DataTypes/Entity/layouts/EntityTag";
 
+import {getDefaultImageByEntityType} from "@/src/helpers/images";
+
 
 const CreateMediaForm = (props) => {
-
+    
     const {
         initValues,
         positiveRequestActions,
@@ -41,6 +43,7 @@ const CreateMediaForm = (props) => {
         licence,
         url,
     } = initValues;
+
 
     //Define if the form is creating a new file or if it is updating the values of an existing one.
     //Starting state is false since no new file has been passed
@@ -93,7 +96,7 @@ const CreateMediaForm = (props) => {
         if(!isNewFile){
             updateManyFields({
                 mainImage: "", 
-                licence: licence ?? "-1",
+                licence: licence ?? "copyright",
                 description: description ?? '',
                 alt: alt ?? '',
                 title: title ?? '',
@@ -186,10 +189,14 @@ const CreateMediaForm = (props) => {
             return;
         }
 
-        //Execute the request
         //Send the request
-        const path = `/medias/delete/${entity.type.toLowerCase()}/${entity._id}/${initValues.fileName}`;
+        const path = `/medias/delete/${entity.type.toLowerCase()}/${entity._id}/${initValues.fileName}.${initValues.extension}`;
         await sendRequest(path, 'GET');
+        if(props.setter) {
+            const defaultUrl = getDefaultImageByEntityType(entity.type)
+            props.setter({isDefault:true, url:defaultUrl});
+        }
+        setIsNewFile(true);
     }
 
     return (
@@ -235,7 +242,7 @@ const CreateMediaForm = (props) => {
                     <div className={`col-6 ${styles["fields-column"]}`}>
 
                         <nav className={`container mb-2 ${styles["form-inner-nav"]}`}>
-                            <p className="mb-0 ">Informations</p>
+                            <p className="mb-0 d-flex justify-content-center">Informations</p>
                             <div className="row">
                                 <button aria-current={ formPage === 0 ? "page" : ""} className={`${styles["form-inner-nav__button"]} col fs-6`} type="button" onClick={() => setFormPage(0)}>
                                     De base
@@ -265,6 +272,7 @@ const CreateMediaForm = (props) => {
 
                             <div className="mt-2 d-flex gap-2 flex-wrap">
                                 <Button
+                                    disabled={entity.mainImage?._id == undefined && formState.inputs.mainImage.value == ""}
                                     onClick={submitHandler}
                                     size="slim"
                                 > Soumettre

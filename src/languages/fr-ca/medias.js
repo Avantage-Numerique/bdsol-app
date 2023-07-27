@@ -15,8 +15,10 @@ const medias = {
     "licence": "Licence",
     "licenceDetails": "Plus de détails sur les licences",
 
-    "associatedToEntity": "Associé à l'entité",
-    "associatedTo": "Associé à",
+    "associatedToEntity": "associé à l'entité",
+    "associatedTo": "associé à",
+
+    "mainImage" : "Image principale"
 }
 
 exports.medias = medias;

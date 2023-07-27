@@ -7,9 +7,7 @@ import KebabButton from '@/common/FormElements/KebabButton/KebabButton'
 import styles from './EntitySimple.module.scss';
 import MediaFigure from "@/DataTypes/Media/layouts/MediaFigure";
 import {getType} from "@/DataTypes/Entity/Types";
-import SanitizedInnerHtml from "@/src/utils/SanitizedInnerHtml";
 import HtmlTagsRemover from '@/src/utils/HtmlTagsRemover'
-import {replacePathname} from "@/src/helpers/url";
 import Link from "next/link";
 
 
@@ -50,7 +48,6 @@ const EntitySimple = (props) => {
     //content
     const title = model.title;
     const description = model.shortDescription;
-    const link = "/"+replacePathname(model.singleRoute.pathname, {slug: model.slug});
     //params
     const showEntityType = props.showEntityType ?? true;
     const appType = getType(model.type);
@@ -65,7 +62,7 @@ const EntitySimple = (props) => {
             {/* Image representing the entity */}
             { model.mainImage &&
                 <div>
-                    <Link href={link} title={title}>
+                    <Link href={model.singleLink} title={title}>
                         <a>
                             <MediaFigure
                                 model={model.mainImage}
@@ -100,7 +97,7 @@ const EntitySimple = (props) => {
                     {model.title}
                 </h3>
                 {/* Redirection button */}
-                { link && <KebabButton href={link} /> }
+                { model.singleLink && <KebabButton href={model.singleLink} /> }
             </header>
             <section>
                 {/* Description */}

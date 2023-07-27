@@ -133,8 +133,8 @@ const AppRoutesRaw = {
         label: "Média d'un projet",
         pathname: "/medias/[slug]",
         asPath: "/medias/[slug]",
-        breadcrumbPathName: "/projets/[projet.slug]/[slug]",
-        breadcrumbAsPath: "/projets/[projet.slug]/[slug]",
+        breadcrumbPathName: "/projets/[project.slug]/[slug]",
+        breadcrumbAsPath: "/projets/[project.slug]/[slug]",
         breadcrumbQuery: {
             slug: "slug",
             mediaType: "main-image"

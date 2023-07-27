@@ -73,8 +73,8 @@ const PersonsPage = () => {
                 bg={"bg-purplelighter"}
                 textColor={"text-white"}
                 title={"Consulter les personnes"}
-                subTitle={"Qu'elles proviennent du milieu de la culture, des affaires ou de l'éducation..."}
-                description="Les personnes listée ci-dessous peuvent être des créateurs.trices numériques, des individus possédant une exertise ou bien de l'équipement spécialisé, des promoteurs d'initiatives numériques, ou encore tout autres personnes intéressée à prendre part, d'une façon ou d'une autre, au développement des technologies numériques sur le territoire du Croissant Boréal."
+                subTitle={"Qu'elles proviennent du milieu du savoir, de la culture ou des affaires..."}
+                description="Les personnes listées ci-dessous peuvent être: des créateurs.trices numériques, des individus possédant une expertise ou de l'équipement spécialisé, des promoteurs d'initiatives numériques, ou toutes autres personnes intéressées à prendre part, d'une façon ou d'une autre, au développement des technologies numériques sur le territoire du Croissant Boréal."
             >
                 <Breadcrumbs className={"pt-2"} route={AppRoutes.persons} getLabelGenerator={getLabelGenerator} />
             </PageHeader>
@@ -119,7 +119,7 @@ const PersonsPage = () => {
                             <div className="my-4">
                                 <Button 
                                     disabled={!auth.user.isLoggedIn}
-                                    href="/contribuer/personne" 
+                                    href="/contribuer/personnes" 
                                     size="reg-100">
                                     {lang.addPersonButtonLabel}
                                 </Button>

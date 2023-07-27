@@ -3,7 +3,6 @@ import styles from './singleMedia.module.scss';
 import {withSessionSsr} from "@/auth/session/handlers/withSession";
 import {externalApiRequest} from "@/src/hooks/http-hook";
 import {getUserHeadersFromUserSession} from "@/auth/context/auth-context";
-import AppRoutes from "@/src/Routing/AppRoutes";
 import MediaSingleView from '@/src/DataTypes/Media/components/forms/MediaSingleView/MediaSingleView';
 
 const SingleMediaPage = (props) => {
@@ -33,31 +32,12 @@ export async function mediaSlugSSProps(context) {
             method: 'GET',
             headers: getUserHeadersFromUserSession(context.req.session.user)
         });
-
-    if (!response.error) {
+    if(typeof response.data._id === "undefined")
+        return { notFound: true };
+    /*if (!response.error) {
         response.data.url = process.env.NEXT_PUBLIC_API_URL + response.data.url;
-        return { props: response.data };
-    }
-    // temp data to push somehting, if an arror occur.
-    return {
-        props: {
-            slug: slug,
-            title: "title",
-            alt: "alt",
-            description: "description",
-            path: "path",
-            url: "/show_screen_shot.jpg",
-            licence: "copyright",
-            fileType: "Image/jpg",
-            fileName: "show_screen_shot.jpg",
-            extension: "jpg",
-            entityId: "targetEntity",
-            entityType: "type entité",
-            uploadedBy: "user qui a upload",
-            dbStatus: "status du média",
-            status: "status de la mod",
-        }
-    };
+    }*/
+    return { props: response.data };
 }
 
 
