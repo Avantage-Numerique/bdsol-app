@@ -285,7 +285,7 @@ console.log("Organisation single edit rendered")
                 formTools={formTools}
                 name="offers"
                 label="Éditez vos groupes d'offres de services"
-                createOptionFunction={displayModalForSkills}
+                //createOptionFunction={displayModalForSkills}
             />
             { /* team */ }
             <UpdateTeams
@@ -311,7 +311,7 @@ console.log("Organisation single edit rendered")
                         formTools={formTools}
                         creatable={true}
                         isMulti={true}
-                        createOptionFunction={displayModalForDomains}
+                        //createOptionFunction={displayModalForDomains}
 
                         placeholder={lang.domainsInputPlaceholder}
                         fetch={"/taxonomies/list"}

@@ -28,12 +28,9 @@ export const ModalElem = ({ children }) => {
 
 export const useModalController = () => {
 
-    console.log("Modal contexte called")
     const [ modalsData, setModalsData ] = useState({}) 
 
-
     /**************** Utils *****************/
-
     const initModalKey = params => {
         //Destructure parameters with default values
         const {

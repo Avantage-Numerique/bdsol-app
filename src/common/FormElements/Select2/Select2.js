@@ -169,7 +169,7 @@ const Select2 = ({ name, formTools, ...props }) => {
                     <CreateTaxonomyForm
                         name={name ?? ''}   //Prefilled value
                         initValues={ {name:""} }
-                        category={"domains"}
+                        category={props.requestData?.category}
                         positiveRequestActions={{
                             //CallbackFunction is one of the four behaviors the useFormUtils hook can apply when a request return a positive answer
                             callbackFunction: requestResponse => {

@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import OrganisationSingleEdit from '@/src/DataTypes/Organisation/components/forms/OrganisationSingleEdit/OrganisationSingleEdit'
 import CreateOrganisationForm from '@/src/DataTypes/Organisation/components/forms/CreateOrganisationForm/CreateOrganisationForm'
 import Spinner from '@/src/common/widgets/spinner/Spinner';
+import Button from '@/src/common/FormElements/Button/Button'
+
 
 //Hooks 
 import { useModal } from '@/src/hooks/useModal/useModal';
@@ -12,6 +14,8 @@ import { useModal } from '@/src/hooks/useModal/useModal';
 import {withSessionSsr} from "@/auth/session/handlers/withSession";
 import {ssrCanAccess} from "@/auth/permissions/ssrCanAccess";
 import {lang} from "@/src/common/Data/GlobalConstants";
+import Router from "next/router";
+
 
 
 
@@ -34,9 +38,18 @@ const CreateOrganisationPage = () => {
                         coloredBackground
                         darkColorButton
                     >
-                        <header className={`d-flex flex-column`}>
-                            <h3 className="text-primary">Ajouter une Organisation</h3>
-                            <p>Entrez les informations de base d'une entité "Organisation". Vous pourrez l'éditer de manière détaillée par la suite.</p>
+                        <header className={`d-flex justify-content-between align-items-start`}>
+                            <div className="d-flex flex-column">
+                                <h3 className="text-primary">Ajouter une Organisation</h3>
+                                <p>Entrez les informations de base d'une entité "Organisation". Vous pourrez l'éditer de manière détaillée par la suite.</p>
+                            </div>
+                            <Button 
+                                onClick={() => {
+                                    closeModal(
+                                    Router.push(`/contribuer/`)
+                                    )
+                                }}
+                            >Fermer</Button>
                         </header>   
                         <CreateOrganisationForm onPositiveResponse={() => {
                             closeModal()
