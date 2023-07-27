@@ -15,8 +15,8 @@ import EntityTag from "@/src/DataTypes/Entity/layouts/EntityTag";
 import LicenceDisplay from "@/src/common/FormElements/SelectLicence/LicenceDisplay";
 import SanitizedInnerHtml from "@/src/utils/SanitizedInnerHtml";
 import {SingleEntityStatus} from "@/src/DataTypes/Status/components/SingleEntityStatus";
-import nextConfig from "@/next.config";
 import Head from "next/head";
+import {getTitle} from "@/DataTypes/MetaData/MetaTitle";
 
 
 const SingleInfoLayout = ({ title, NAMessage="-", children }) => {
@@ -153,7 +153,7 @@ const MediaSingleView = ({data}, ...props) => {
     return (
         <>
             <Head>
-                <title>{lang.mainImage} {lang.associatedTo} {associatedEntityModel.title}{associatedEntityModel.meta.seperator}{associatedEntityModel.Type.label}{associatedEntityModel.meta.seperator}{nextConfig.app.name}</title>
+                <title>{getTitle([`${lang.mainImage} ${lang.associatedTo} ${associatedEntityModel.title}`, associatedEntityModel.Type.label])}</title>
             </Head>
             <SingleBase
                 breadCrumb={breadCrumb}
