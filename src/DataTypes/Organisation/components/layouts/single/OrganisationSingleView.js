@@ -12,7 +12,7 @@ import {lang} from "@/common/Data/GlobalConstants";
 import SingleInfo from "@/DataTypes/common/layouts/SingleInfo/SingleInfo";
 import {SingleEntityStatus} from "@/DataTypes/Status/components/SingleEntityStatus";
 import Head from "next/head";
-import nextConfig from "@/next.config";
+import {getTitle} from "@/DataTypes/MetaData/MetaTitle";
 
 const OrganisationSingleView = ({ data }) => {
 
@@ -168,7 +168,7 @@ const OrganisationSingleView = ({ data }) => {
     return (
         <>
             <Head>
-                <title>{model.title}{model.meta.seperator}{model.Type.label}{model.meta.seperator}{nextConfig.app.name}</title>
+                <title>{getTitle([model.title, model.Type.label])}</title>
             </Head>
             <SingleBase 
                 breadCrumb={breadCrumb}

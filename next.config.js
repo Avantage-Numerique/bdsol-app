@@ -6,10 +6,6 @@ const path = require('path');
  */
 const nextConfig = {
 
-    app: {
-        name : "BDSOL"
-    },
-
     //define default value for env variables that aren't declare in the .env file or add some there.
     env: {
         //APP

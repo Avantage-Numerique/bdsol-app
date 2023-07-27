@@ -13,7 +13,7 @@ import {getDateFromIsoString} from "@/src/utils/DateHelper";
 import Project from "@/DataTypes/Project/models/Project";
 import {lang} from "@/common/Data/GlobalConstants";
 import Head from "next/head";
-import nextConfig from "@/next.config";
+import {getTitle} from "@/DataTypes/MetaData/MetaTitle";
 
 
 const ProjectSingleView = ({ data }) => {
@@ -222,7 +222,7 @@ const ProjectSingleView = ({ data }) => {
     return (
         <>
             <Head>
-                <title>{model.title}{model.meta.seperator}{model.Type.label}{model.meta.seperator}{nextConfig.app.name}</title>
+                <title>{getTitle([model.title, model.Type.label])}</title>
             </Head>
             <SingleBase
                 breadCrumb={breadCrumb}
