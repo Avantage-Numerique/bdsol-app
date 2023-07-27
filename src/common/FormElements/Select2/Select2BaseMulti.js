@@ -84,7 +84,6 @@ const Select2BaseMulti = ({name, ...props}) => {
             components={animatedComponents}
             styles={colourStyles}
 
-
             //Creatable Section
             formatCreateLabel={(val)=> lang.createOptionLabel + val}
             onCreateOption={(elem) => { props.createOptionFunction ? props.createOptionFunction(elem) : defaultCreateOption(elem) }}

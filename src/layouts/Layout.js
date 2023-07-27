@@ -5,7 +5,7 @@
 
 */
 
-import { useState, createContext } from "react";
+import { useState, createContext, useRef } from "react";
 import Head from 'next/head'
 
 //Context
@@ -42,8 +42,11 @@ const Layout = ( {children} ) => {
     //Navigation menus in the header
     const [menuState, setMenuState] = useState(0);
 
+    //Modal container referenve
+    const modalContainer = useRef();
+
     //Initialize the modals controller hook
-    const {ModalsDisplay, modalTools} = useModalController();
+    const {ModalsDisplay, modalTools} = useModalController(modalContainer);
 
     //message list
     const [messages, setMessages] = useState([])
@@ -150,9 +153,9 @@ const Layout = ( {children} ) => {
                 </div>
 
                 {/* Afficher le modal */}
-                <div>
+                <div ref={modalContainer} id="modal-rot">
                     {/* state containing every  */}
-                    <ModalsDisplay />
+                
                 </div>
             </div>
             <FeedbackWidget />

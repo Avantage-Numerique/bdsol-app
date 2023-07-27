@@ -1,5 +1,5 @@
 //React
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext, useRef } from "react";
 
 //Helper
 import ApiEntityModel from "@/src/DataTypes/Entity/models/ApiEntityModel";
@@ -8,10 +8,13 @@ import ApiEntityModel from "@/src/DataTypes/Entity/models/ApiEntityModel";
 import Select2BaseSingle from "./Select2BaseSingle";
 import Select2BaseMulti from "./Select2BaseMulti";
 import Tip from '@/common/FormElements/Tip/Tip';
+import Button from '@/src/common/FormElements/Button/Button';
+import CreateTaxonomyForm from '@/DataTypes/Taxonomy/components/Forms/CreateTaxonomy/CreateTaxonomyForm';
 
 //Hook
 import { useHttpClient } from "@/src/hooks/http-hook";
 import useDebounce from '@/src/hooks/useDebounce'
+import { useRootModal } from '@/src/hooks/useModal/useRootModal'
 
 
 /**
@@ -29,12 +32,20 @@ import useDebounce from '@/src/hooks/useDebounce'
  * @param {string} selectField : for the moment => string that represent the transmuted field to show in the options ("occupations", "fullname" ...)
  * @param {function} createOptionFunction : function that handles the create (modal pop-up ...) if undefined, create default 
  */
+
+
+
 const Select2 = ({ name, formTools, ...props }) => {
+
     const {sendRequest} = useHttpClient();
     const [optionsList, setOptionList] = useState(props.optionsList ?? []);
     const [inputValue, setInputValue] = useState("");
     const [value, setValue] = useState(null);
-    
+
+
+    //Extract root modal 
+    const { Modal, displayModal, closeModal } = useRootModal();
+
     //Formstate
     const {
         formState,
@@ -42,13 +53,13 @@ const Select2 = ({ name, formTools, ...props }) => {
         inputTouched
     } = formTools;
 
-    useEffect( () => {
+    useEffect(() => {
         inputHandler(
             name,
             value,
             props.validationRules ? validate(event.target.value) : true
         )
-    }, [value])
+    },  [value])
 
     useEffect( () => {
         const valueList = ApiEntityModel.getSelectOption(formState.inputs[name].value, props.selectField);
@@ -86,7 +97,8 @@ const Select2 = ({ name, formTools, ...props }) => {
             const optionList = ApiEntityModel.getSelectOption(apiResponse.data, props.selectField);
             setOptionList(optionList);
         }
-    }
+    }   
+
     //Allow only one request per 400ms, after the user stop typing
     const debouncedRequest = useDebounce(inputValue, 400);
     //Update the list of options to display
@@ -111,12 +123,17 @@ const Select2 = ({ name, formTools, ...props }) => {
         ) :
         (<></>);
 
+    const buttonToDisplayModal = () => {
+        return
+    }
+
     const select = props.isMulti ? 
         (<Select2BaseMulti
             name={name}
             creatable={props.creatable}
-            createOptionFunction={props.createOptionFunction}
-            
+            //createOptionFunction={props.createOptionFunction}
+            createOptionFunction={displayModal}
+
             options={optionsList}
             inputValue={inputValue}
             inputValueSetter={setInputValue}
@@ -126,7 +143,8 @@ const Select2 = ({ name, formTools, ...props }) => {
         (<Select2BaseSingle
             name={name}
             creatable={props.creatable}
-            createOptionFunction={props.createOptionFunction}
+            //createOptionFunction={props.createOptionFunction}
+            createOptionFunction={displayModal}
             
             options={optionsList}
             inputValue={inputValue}
@@ -135,7 +153,36 @@ const Select2 = ({ name, formTools, ...props }) => {
             valueSetter={setValue}
         />);
 
-    return (<>{label} {select}</>);
+    return (
+        <>
+            {label} 
+            {select}
+            <Modal>
+                <>
+                    <header className={`d-flex`}>
+                        <p>Le nouvel élément de taxonomie que vous ajoutez ici pourra ensuite être directement intégrée à votre formulaire.</p>
+                        <Button onClick={() => closeModal()}>Fermer</Button>
+                    </header>               
+                    
+                    <div className={`my-4 border-bottom`}></div>
+
+                    <CreateTaxonomyForm
+                        name={name ?? ''}   //Prefilled value
+                        initValues={ {name:""} }
+                        category={"domains"}
+                        positiveRequestActions={{
+                            //CallbackFunction is one of the four behaviors the useFormUtils hook can apply when a request return a positive answer
+                            callbackFunction: requestResponse => {
+                                //Here could be a call back function to execute 
+                                
+                                //Close the modal 
+                                closeModal()                        }
+                        }}
+                    /> 
+                </>
+            </Modal>
+        </>
+    );
 
     
 }
