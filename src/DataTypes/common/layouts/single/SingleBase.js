@@ -29,7 +29,7 @@ const SingleBase = (props) => {
         footer
     } = props;
 
-    const defaultHeaderBg = props.defaultHeaderBg ?? "/general_images/forestBG.jpg"
+    const defaultHeaderBg = props.defaultHeaderBg ?? "/general_images/single-header-default-bg.png"
 
     return (
         <div className="container">
@@ -43,9 +43,9 @@ const SingleBase = (props) => {
             { /* Header */ }
             {/* Background image */}
             <header className={`${styles["header-base"]} row position-relative`}>
-                <figure className={`${styles["background-image-figure"]} p-0`}>
-                    <img className="w-100" src={defaultHeaderBg} alt="Forêt embrumée"/>
-                    <div className={`dark-transparent-gradient`}></div>
+                <figure className={`${styles["background-image-figure"]} p-0 rounded overflow-hidden bg-primaryextratlight`}>
+                    <img className="w-100 opacity-25" src={defaultHeaderBg} alt="Image d'arrière plan de l'entête"/>
+                    <div className={`dark-transparent-gradient doubled`}></div>
                 </figure>
 
                 {/* Header's content */}

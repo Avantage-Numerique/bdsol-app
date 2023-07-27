@@ -174,7 +174,7 @@ const HomePage = ({}) => {
             </Head>
 
             <PageHeader
-                bg={"bg-blueExtralight"}
+                bg={"bg-primaryextratlight"}
                 textColor={"text-white"}
                 title={lang.homePageTitle}
                 subTitle={lang.homePageDescription}
@@ -187,7 +187,9 @@ const HomePage = ({}) => {
                 <div className="row gx-5">
                     <div className="col col-12 col-md-9 position-relative">
                         <section className="home-page__feed-section">
-                            <h2>{lang.actualities}</h2>
+                            <div className={"d-flex justify-content-between content-header"}>
+                                <h2>{lang.allData}</h2>
+                            </div>
                             <hr />
                             {
                                 <>
@@ -220,31 +222,33 @@ const HomePage = ({}) => {
                     </div>
                     <aside className="col col-12 col-md-3">
                         <div>
-
-                            <h2>{lang.menu}</h2>
-                            <hr />
                             {/* If user is not connected, offer the option to connect itself*/}
-                            {!auth.user.isLoggedIn &&
-                            <>
-                                <section className="d-grid">
+
+                            {auth.user.isLoggedIn ?
+                                <div className={"d-flex flex-column content-header"}>
+                                    <Button color="white" outline="primary" href="/contribuer">Ajouter une donnée</Button>
+                                </div>
+                                :
+                                <section className="d-grid content-header">
                                     <Button color="primary" href="/compte/connexion">Se connecter</Button>
                                 </section>
-
-                                <section className={"aside__register-option py-2"}>
-                                    <div className="bg-primary text-white d-flex flex-column">
-                                        <h4>Pas encore de compte ?</h4>
-                                        <p>Vous en aurez besoin afin de vous aussi contribuer aux données</p>
-                                        <Button color="light" outline="light" href="/compte/inscription">C'est par ici !</Button>
-                                    </div>
-                                    <hr />
-                                </section>
-                            </>
+                            }
+                            <hr />
+                            {!auth.user.isLoggedIn &&
+                            <section className={"aside__register-option py-2"}>
+                                <div className="bg-primary text-white d-flex flex-column">
+                                    <h4>Pas encore de compte ?</h4>
+                                    <p>Vous en aurez besoin afin de vous aussi contribuer aux données</p>
+                                    <Button color="light" outline="light" href="/compte/inscription">C'est par ici !</Button>
+                                </div>
+                                <hr />
+                            </section>
                             }
                             
                             {/*Rapid options to access of edit the database*/}
                             <section className={"aside__db-edit-options"}>
 
-                                <div className={"db-edit-options__button-set"}>
+                                {/*<div className={"db-edit-options__button-set"}>
                                     <Button 
                                         disabled 
                                         size="slim" 
@@ -253,7 +257,7 @@ const HomePage = ({}) => {
                                         disabled     
                                         size="slim" 
                                     >+</Button>
-                                </div>
+                                </div>*/}
 
                                 <div className={"db-edit-options__button-set"}>
                                     <Button 
@@ -303,11 +307,6 @@ const HomePage = ({}) => {
                                         href="/contribuer/categorie"
                                     >+</Button>
                                 </div>
-                                {auth.user.isLoggedIn &&
-                                    <div className={"d-flex flex-column mt-3"}>
-                                        <Button color="white" outline="primary" href="/contribuer">Ajouter une donnée</Button>
-                                    </div>
-                                }
 
                                 <hr/>
                                 <SanitizedInnerHtml tag={"p"}>

@@ -35,7 +35,7 @@ const MediaSingle = ({ data, route }) => {
 
     const associatedEntityType = getType(data.entityId.type,true);
     const associatedEntityModel = getModelFromType(data.entityId.type, data.entityId);
-    console.log(associatedEntityModel);
+
     //const { Modal, closeModal } = useModal();
     const aside = (
         <>

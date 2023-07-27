@@ -36,7 +36,7 @@ import Icon from "@/common/widgets/Icon/Icon";
 
 
 const OrganisationSingleEdit = (props) => {
-console.log("Organisation single edit rendered")
+
     //Organisation data extract
     const {
         _id,
