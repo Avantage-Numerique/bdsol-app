@@ -29,7 +29,8 @@ import { useRootModal } from '@/src/hooks/useModal/useRootModal'
  * @param {string} formClassName : className for the form layer
  * @param {object} requestData : param to always pass during request (e.g. category : "skills" to only access skills taxonomy)
  * @param {string} searchField : for the moment => a string added to requestData that's dynamically searching with the select
- * @param {string} selectField : for the moment => string that represent the transmuted field to show in the options ("occupations", "fullname" ...)
+ * @param {string} selectField : String that allow ApiEntityModel to know what to return as a select option from the data of formState (domains, offers, fullName)
+ * Note : Works best if "type" is in the formState data, else it goes to switch case default and exceptions need to be handled
  * @param {function} createOptionFunction : function that handles the create (modal pop-up ...) if undefined, create default 
  */
 
