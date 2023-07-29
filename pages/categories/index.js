@@ -121,7 +121,7 @@ const TaxonomiesCategoryPage = () => {
                         <h3 className="py-4">
                             {categoryList.find( el => taxonomyMenu === el.value ).label}{lang.colon}
                         </h3>
-                        <div className="container">
+                        <div className="container pb-5">
                             <div className="row gx-2">
                                 {mapArrayToListComponent(taxonomiesList[taxonomyMenu])}
                             </div>
