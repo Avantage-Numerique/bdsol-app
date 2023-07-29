@@ -1,5 +1,4 @@
-import React, {useCallback, useEffect, useState} from 'react';
-import { clientSideExternalApiRequest } from '@/src/hooks/http-hook';
+import React, {useCallback} from 'react';
 
 //components
 import SingleBaseHeader from "@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseHeader"
@@ -15,6 +14,8 @@ import Project from "@/DataTypes/Project/models/Project";
 import {lang} from "@/common/Data/GlobalConstants";
 import Head from "next/head";
 import {getTitle} from "@/DataTypes/MetaData/MetaTitle";
+import EntityTag from "@/DataTypes/Entity/layouts/EntityTag";
+import {getModelFromType} from "@/DataTypes/Entity/Types";
 import { useRef } from 'react';
 
 
@@ -109,11 +110,23 @@ const ProjectSingleView = ({ data }) => {
             {/* Sponsor */}
             <SingleInfo title="Partenaires">
                 <ul className="d-flex flex-wrap gap-3">
-                    {sponsor?.length > 0 && sponsor.map( (singleSponsor) => {
+                    {sponsor?.length > 0 && sponsor.map( (singleSponsor, index) => {
+                        let sponsorModel;
+                        if (singleSponsor.entity) {
+                            sponsorModel = getModelFromType(singleSponsor.entity.type, singleSponsor.entity);//
+                        }
                         return (
-                            <li className="d-flex flex-column border border-successlighter rounded-1">
-                                {singleSponsor.name && <div className="p-1">{singleSponsor?.name}</div>}
-                                {singleSponsor.entity && <div className="p-1 bg-successlighter text-white">{singleSponsor?.entity?.name ?? singleSponsor?.entity?.fullname}</div>}
+                            <li className="d-flex flex-column w-50" key={`sponsor-${index}`}>
+                                {singleSponsor.name &&
+                                    <div className="p-1" key={`sponsor-sponsor-name${index}`}>
+                                        {singleSponsor?.name}
+                                    </div>
+                                }
+                                { !sponsorModel ?
+                                    <div className="p-1 bg-successlighter text-white">{singleSponsor?.entity?.name ?? singleSponsor?.entity?.fullname}</div>
+                                    :
+                                    <EntityTag model={sponsorModel} />
+                                }
                             </li>
                         )
                     }) }
@@ -132,11 +145,24 @@ const ProjectSingleView = ({ data }) => {
                 {
                     team?.length > 0 &&
                     <ul className="d-flex flex-wrap gap-3">
-                        {team.map( (singleMember) => {
+                        {team.map( (singleMember, index) => {
+                            let memberModel;
+                            if (singleMember.member) {
+                                memberModel = getModelFromType(singleMember.member.type, singleMember.member);//
+                            }
+
                             return (
-                                <li className="d-flex flex-column border border-purplelight rounded-1">
-                                    <div className="p-1">{singleMember?.member?.fullName ?? "Aucun nom"}</div>
-                                    <b className="p-1 fs-6 bg-purplelight text-white">{singleMember?.role ?? "Aucun rôle"}</b>
+                                <li className="d-flex flex-column w-50" key={`teammember-${index}`}>
+                                    {singleMember?.role &&
+                                        <div className="p-1" key={`teammember-role${index}`}>
+                                            {singleMember?.role}
+                                        </div>
+                                    }
+                                    { !memberModel ?
+                                        <div className="p-1 bg-successlighter text-white">{singleMember?.member?.fullName ?? "Aucun nom"}</div>
+                                        :
+                                        <EntityTag model={memberModel} />
+                                    }
                                 </li>
                             )
                         })}

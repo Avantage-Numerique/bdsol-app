@@ -23,7 +23,7 @@ const AppRoutesRaw = {
         asPath: "/persons"
     },
     personSingle : {
-        label: "Média d'une personne",
+        label: "Page d'une personne",
         pathname: "/persons/[slug]",
         asPath: "/persons/[slug]",
     },

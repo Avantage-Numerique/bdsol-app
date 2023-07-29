@@ -44,7 +44,7 @@ TYPES.set(TYPE_ORGANISATION, new Type({
     labelPlural: "Organisations",
     modelClass: Organisation,
     inSentencePrefix: " une ",
-    defaultMainImage: "/general_images/organisation-default.jpg",
+    defaultMainImage: "/general_images/organisation-default.png",
     icon:"users"
 }));
 TYPES.set(TYPE_PROJECT, new Type({
@@ -53,7 +53,7 @@ TYPES.set(TYPE_PROJECT, new Type({
     labelPlural: "Projets",
     modelClass: Project,
     inSentencePrefix: " un ",
-    defaultMainImage: "/general_images/project-default.webp",
+    defaultMainImage: "/general_images/project-default.png",
     icon:"project-diagram"
 }));
 TYPES.set(TYPE_PERSON, new Type({
@@ -62,7 +62,7 @@ TYPES.set(TYPE_PERSON, new Type({
     labelPlural: "Personnes",
     modelClass: Person,
     inSentencePrefix: " une ",
-    defaultMainImage: "/general_images/person-default.webp",
+    defaultMainImage: "/general_images/person-default.png",
     icon:"user"
 }));
 TYPES.set(TYPE_ABSTRACT, new Type({
@@ -71,7 +71,7 @@ TYPES.set(TYPE_ABSTRACT, new Type({
     labelPlural: "Entités",
     modelClass: EntityModel,
     inSentencePrefix: " une ",
-    defaultMainImage: "/general_images/person-default.webp",
+    defaultMainImage: "/general_images/person-default.png",
     icon:"book"
 }));
 TYPES.set(TYPE_TAXONOMY, new Type({
@@ -80,7 +80,7 @@ TYPES.set(TYPE_TAXONOMY, new Type({
     labelPlural: "Catégories",
     modelClass: EntityModel,
     inSentencePrefix: " une ",
-    defaultMainImage: "/general_images/project-default.webp",
+    defaultMainImage: "/general_images/project-default.png",
     icon:"tag"
 }));
 
@@ -90,7 +90,7 @@ TYPES.set(TYPE_NOTSET, new Type({
     labelPlural: "undefined",
     modelClass: "undefined",
     inSentencePrefix: "",
-    defaultMainImage: "/general_images/person-default.webp",
+    defaultMainImage: "/general_images/person-default.png",
     icon:"hourglass-end"
 }));
 

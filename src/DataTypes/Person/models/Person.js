@@ -3,6 +3,7 @@ import PersonSingle from "@/DataTypes/Person/components/layouts/single/PersonSin
 import EntityModel from "@/DataTypes/Entity/models/EntityModel";
 import AppRoutes from "@/src/Routing/AppRoutes";
 import {TYPE_PERSON} from "@/DataTypes/Entity/Types";
+import Media from "@/DataTypes/Media/models/Media";
 
 
 class Person extends EntityModel {
@@ -25,7 +26,7 @@ class Person extends EntityModel {
             isDefault: true
         } : raw.mainImage;
 
-        //this.mainImageModel = new Media(this.mainImage);
+        this.mainImageModel = new Media(this.mainImage);
 
         this.type = TYPE_PERSON;
 
