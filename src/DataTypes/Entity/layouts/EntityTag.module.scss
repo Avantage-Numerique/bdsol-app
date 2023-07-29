@@ -1,6 +1,8 @@
 .entity-tag {
   overflow: hidden;
   background-color: $light;
+  border: $border-width solid $border-color;
+  @include transition();
 
   figure {
     width: 3rem;
@@ -10,5 +12,9 @@
       height: 100%;
       object-fit: cover;
     }
+  }
+  &:hover {
+    background-color: darken($light, 5%);
+    border-color: $primarylight;
   }
 }

@@ -39,18 +39,17 @@ const EntityTag = (props) => {
     return (
         <>
             {model &&
-                <article className={`rounded d-flex justify-content-between align-content-stretch flex-wrap ${styles["entity-tag"]}`}>
-                    <div className={"d-flex"}>
+                <article className={`rounded position-relative d-flex justify-content-between align-content-stretch flex-wrap ${styles["entity-tag"]}`}>
+                    <div className={"d-flex w-100"}>
                         {model.mainImage.url &&
-                            <figure className="m-0">
+                            <figure className="m-0 w-25">
                                 <img className={imgClassName}
                                     src={process.env.NEXT_PUBLIC_API_URL + model.mainImage.url}
                                     alt={model.mainImage.alt && model.mainImage.alt}
                                 />
                             </figure>
                         }
-                        <div className={`d-flex flex-column ms-2 px-1 py-3 ${styles["entity-tag__texts"]}`}>
-
+                        <div className={`d-flex flex-column w-75 ms-2 px-1 py-3 ${styles["entity-tag__texts"]}`}>
                             {addType &&
                                 <p className="m-0 fs-6">
                                     {type.label}
@@ -61,19 +60,16 @@ const EntityTag = (props) => {
                                 </p>}
                         </div>
                     </div>
-                    {addButton &&
-                        <div className={"d-flex align-items-center"}>
-                            <Link href={getEntityURI(model.type, model.slug)} title={model.name}>
-                                <button className="btn btn-sm btn-outline-primary me-1">
-                                    <Icon iconName={"eye"} className="px-2"></Icon>
-                                </button>
-                            </Link>
-                        </div>
-                    }
                     {children &&
-                        <div>
+                        <div className={"w-100"}>
                             {children}
                         </div>
+                    }
+                    {addButton &&
+                    <Link href={getEntityURI(model.type, model.slug)} title={model.name}>
+                        <a href={getEntityURI(model.type, model.slug)} className={"full-link"}>
+                        </a>
+                    </Link>
                     }
                 </article>
             }
