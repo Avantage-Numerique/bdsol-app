@@ -40,7 +40,7 @@ const Nav = ( {menuState, setMenuState} ) => {
                     </li>
 
                     <li onClick={closeMenu}>
-                        <Link href="/a-propos">À propos de nous</Link>
+                        <Link href="/faq/a-propos">À propos de nous</Link>
                     </li>
                     <li onClick={closeMenu}>
                         <Link href="/faq">FAQ</Link>
@@ -52,19 +52,19 @@ const Nav = ( {menuState, setMenuState} ) => {
 
                 <ul className={`${navStyles.secondaryMenu} d-flex flex-column`}>
                     <li>
-                        <Link href="https://avantagenumerique.org/le-croissant-boreal/">Le Croissant boréal</Link>
+                        <a target="_blank" href="https://avantagenumerique.org/le-croissant-boreal/">Le Croissant boréal</a>
                     </li>
                     <li>
-                        <Link href="https://avantagenumerique.org/charte-des-valeurs/">Charte des valeurs</Link>
+                        <a target="_blank" href="https://avantagenumerique.org/charte-des-valeurs/">Charte des valeurs</a>
                     </li>
                     <li>
-                        <Link href="https://avantagenumerique.org/notre-equipe/">Notre équipe</Link>
+                        <a target="_blank" href="https://avantagenumerique.org/notre-equipe/">Notre équipe</a>
                     </li>
                     <li>
-                        <Link href="https://avantagenumerique.org/a-propos">À propos d'Avantage Numérique</Link>
+                        <a target="_blank" href="https://avantagenumerique.org/a-propos">À propos d'Avantage Numérique</a>
                     </li>
                     <li>
-                        <Link href="https://avantagenumerique.org/nous-joindre/">Nous joindre</Link>
+                        <a target="_blank" href="https://avantagenumerique.org/nous-joindre/">Nous joindre</a>
                     </li>
                 </ul>
 

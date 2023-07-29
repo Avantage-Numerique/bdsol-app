@@ -424,7 +424,7 @@ const ProjectSingleEdit = (props) => {
                 fetch={"/taxonomies/list"}
                 requestData={{category:"domains", name:""}}
                 searchField={"name"}
-                selectField={"name"}
+                selectField={"domains"}
             />
             <Input
                 className="mb-3"

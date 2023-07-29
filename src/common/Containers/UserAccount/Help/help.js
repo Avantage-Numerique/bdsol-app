@@ -23,7 +23,7 @@ const Help = () => {
             <h4>À gauche de ce texte, sous votre photo de profil, les boutons bleu représentent le Menu du compte :</h4>
             <ul>
                 <li>"<strong>Aide</strong>" : Affiche ce texte de présentation</li>
-                <li>"<strong>Modifier mon profil</strong>" : Vous permet de modifier les informations de votre compte</li>
+                {/*<li>"<strong>Modifier mon profil</strong>" : Vous permet de modifier les informations de votre compte</li>*/}
                 <li>"<strong>Historique de modification</strong>" : Affiche les modifications que vous avez apportées à la base de données (les ajouts, modifications ou suppressions).</li>
                 <li>"<strong>Se déconnecter</strong>" : Permet de vous déconnecter. Cependant, vous trouverez aussi la possibilité de vous déconnecter dans le bouton profil au haut de la page</li>
             </ul>

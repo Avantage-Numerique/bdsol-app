@@ -10,7 +10,7 @@ export const base = {
     "loadingData": "Loading data",
     "back": "Back",
     "close": "Close",
-    "noInfoAvailable": "Data available soon.",
+    "noInfoAvailable": "No data available.",
     "colon": " : ",
     "by": "by",
     "on": "on",

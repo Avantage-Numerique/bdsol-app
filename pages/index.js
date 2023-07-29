@@ -324,7 +324,7 @@ const HomePage = ({}) => {
                                     La base de données structurées, ouvertes et liées (BDSOL) est le cœur du hub virtuel d’Avantage numérique.
                                     Elle vise à recenser et géolocaliser les talents, les compétences, les ressources, les initiatives technocréatives à travers le territoire du Croissant Boréal.
                                 </p>
-                                <Button classes="mt-3" color="white" outline="primary" href="/a-propos">En savoir plus</Button>
+                                <Button classes="mt-3" color="white" outline="primary" href="/faq/a-propos">En savoir plus</Button>
                             </section>
                         </div>
                     </aside>

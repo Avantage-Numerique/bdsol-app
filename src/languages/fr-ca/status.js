@@ -3,7 +3,7 @@ const status = {
     "pending": "En attente d'approbation",
     "reported": "rapporté",
     "lastModification": "Dernière modifications",
-    "created": "créé",
+    "created": "Créé",
 
     "entityStatus": "Statut de l'entité",
 

@@ -10,7 +10,7 @@ const base = {
     "loadingData": "Chargement des données",
     "back": "Retour",
     "close": "Fermer",
-    "noInfoAvailable": "Information bientôt disponible.",
+    "noInfoAvailable": "Aucune information disponible.",
     "colon": " : ",
     "by": "par",
     "on": "le",
