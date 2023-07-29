@@ -97,7 +97,6 @@ const ProjectSingleEdit = (props) => {
             Router.push('/compte/connexion')
         }
     }, [auth.user.isLoggedIn]);
-
     //Modal hook
     const {displayModal, modal, closeModal, Modal} = useModal();
 
@@ -149,15 +148,15 @@ const ProjectSingleEdit = (props) => {
                 isValid: true
             },
             startDate: {
-                value: scheduleBudget?.startDate ?? "",
+                value: scheduleBudget?.startDate.split("T")[0] ?? "",
                 isValid: true
             },
             endDateEstimate: {
-                value: scheduleBudget?.endDateEstimate ?? "",
+                value: scheduleBudget?.endDateEstimate.split("T")[0] ?? "",
                 isValid: true
             },
             completionDate: {
-                value: scheduleBudget?.completionDate ?? "",
+                value: scheduleBudget?.completionDate.split("T")[0] ?? "",
                 isValid: true
             },
             estimatedTotalBudget: {

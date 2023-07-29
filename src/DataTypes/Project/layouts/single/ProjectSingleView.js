@@ -1,4 +1,5 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
+import { clientSideExternalApiRequest } from '@/src/hooks/http-hook';
 
 //components
 import SingleBaseHeader from "@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseHeader"
@@ -14,6 +15,7 @@ import Project from "@/DataTypes/Project/models/Project";
 import {lang} from "@/common/Data/GlobalConstants";
 import Head from "next/head";
 import {getTitle} from "@/DataTypes/MetaData/MetaTitle";
+import { useRef } from 'react';
 
 
 const ProjectSingleView = ({ data }) => {
@@ -50,6 +52,25 @@ const ProjectSingleView = ({ data }) => {
             "slug": name       
         }[param];
     }, []);
+
+    const [scheduleEnumState, setScheduleEnumState] = useState(undefined);
+    useEffect( () => {
+        const getScheduleEnum = async () => {
+            const scheduleEnum = await clientSideExternalApiRequest(
+                '/info/budgetrange-enum',
+                { method: 'GET' }
+            );
+            const timeFrameEnum = await clientSideExternalApiRequest(
+                '/info/timeframeeta-enum',
+                { method: 'GET' }
+            )
+            let keyValueScheduleEnum = {}
+            scheduleEnum.forEach( (elem) => { keyValueScheduleEnum[elem.value] = elem.label });
+            timeFrameEnum.forEach( (elem) => { keyValueScheduleEnum[elem.value] = elem.label });
+            setScheduleEnumState(keyValueScheduleEnum);
+        }
+        getScheduleEnum();
+    }, [])
 
     /****************************
      *  Sections
@@ -131,7 +152,7 @@ const ProjectSingleView = ({ data }) => {
                     {scheduleBudget?.startDate && <div key="startDate">Date de début : {getDateFromIsoString(scheduleBudget.startDate)}</div>}
                     {scheduleBudget?.endDateEstimate && <div key="endDateEstimate">Date estimée de fin : {getDateFromIsoString(scheduleBudget.endDateEstimate)}</div>}
                     {scheduleBudget?.completionDate && <div key="completionDate">Date de fin : {getDateFromIsoString(scheduleBudget.completionDate)}</div>}
-                    {scheduleBudget?.estimatedTotalBudget && <div key="estimatedTotalBudget">Budget total : {scheduleBudget.estimatedTotalBudget}</div>}
+                    {scheduleBudget?.estimatedTotalBudget && <div key="estimatedTotalBudget">Budget total : {scheduleBudget.estimatedTotalBudget}$</div>}
                     {scheduleBudget?.eta && <div key="eta">Lapse de temps avant la complétion : {scheduleBudget.eta}</div>}
                     {scheduleBudget?.timeframe?.length > 0 && 
                         <ul key="timeframe-container">
@@ -141,8 +162,8 @@ const ProjectSingleView = ({ data }) => {
                                         <li key={`timeframe-${singleTimeframe._id}`} className={`border-start p-2 ${(index % 2 === 0) && "bg-greyBg"}`}>
                                             {singleTimeframe?.step ? <h5 className="text-successDarker m-0">{singleTimeframe.step}</h5> : <></> }
                                             <div className="d-flex flex-wrap gap-4">     
-                                                {singleTimeframe?.eta ? <div key={"timeframe-eta-"+index}>Durée : {singleTimeframe.eta}</div> : <></> }
-                                                {singleTimeframe?.budgetRange ? <div key={"timeframe-budgetRange-"+index}>Budget : {singleTimeframe.budgetRange}</div> : <></> }
+                                                {singleTimeframe?.eta ? <div key={"timeframe-eta-"+index}>Durée : {scheduleEnumState?.[singleTimeframe.eta] ?? singleTimeframe.eta}</div> : <></> }
+                                                {singleTimeframe?.budgetRange ? <div key={"timeframe-budgetRange-"+index}>Budget : {scheduleEnumState?.[singleTimeframe.budgetRange] ?? singleTimeframe.budgetRange}</div> : <></> }
                                             </div>
                                         </li>
                                     )
