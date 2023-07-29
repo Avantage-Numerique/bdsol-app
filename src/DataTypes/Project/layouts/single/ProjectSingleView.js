@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 
 //components
 import SingleBaseHeader from "@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseHeader"
@@ -16,7 +16,7 @@ import Head from "next/head";
 import {getTitle} from "@/DataTypes/MetaData/MetaTitle";
 import EntityTag from "@/DataTypes/Entity/layouts/EntityTag";
 import {getModelFromType} from "@/DataTypes/Entity/Types";
-import { useRef } from 'react';
+import {clientSideExternalApiRequest} from "@/src/hooks/http-hook";
 
 
 const ProjectSingleView = ({ data }) => {

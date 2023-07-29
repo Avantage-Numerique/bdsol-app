@@ -148,15 +148,15 @@ const ProjectSingleEdit = (props) => {
                 isValid: true
             },
             startDate: {
-                value: scheduleBudget?.startDate.split("T")[0] ?? "",
+                value: scheduleBudget?.startDate?.split("T")[0] ?? "",
                 isValid: true
             },
             endDateEstimate: {
-                value: scheduleBudget?.endDateEstimate.split("T")[0] ?? "",
+                value: scheduleBudget?.endDateEstimate?.split("T")[0] ?? "",
                 isValid: true
             },
             completionDate: {
-                value: scheduleBudget?.completionDate.split("T")[0] ?? "",
+                value: scheduleBudget?.completionDate?.split("T")[0] ?? "",
                 isValid: true
             },
             estimatedTotalBudget: {
