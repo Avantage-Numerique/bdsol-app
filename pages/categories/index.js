@@ -71,11 +71,16 @@ const TaxonomiesCategoryPage = () => {
                     <Link href={`/categories/${elem.category}/${elem.slug}`}>
                         <a
                             key={elem.slug}
-                            className={`border w-100 p-sm-1 p-md-2 text-center rounded ${styles["list-tag"]}`}
+                            className={`border d-flex justify-content-between w-100 p-sm-1 p-md-2 text-center rounded ${styles["list-tag"]}`}
                             style={{"overflowWrap": "anywhere"}}
                             href={`/categories/${elem.category}/${elem.slug}`}
                         >
-                            {elem.name}{elem.meta?.count > 0 ? ` (${elem.meta?.count})` : ""}
+                            <span>{elem.name}</span>
+                            {
+                                elem.meta?.count > 0 ?
+                            <span className={"badge bg-primary"}>{elem.meta?.count}</span>
+                            :
+                            ""}
                         </a>
                     </Link>
                 </div>
