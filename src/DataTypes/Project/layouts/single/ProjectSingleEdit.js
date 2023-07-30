@@ -181,7 +181,7 @@ const ProjectSingleEdit = (props) => {
             },
             context: {
                 value: context ?? "",
-                isValid: true
+                isValid: context !== ""
             }
         },
         //Actions if the form turns out to be positive
@@ -396,6 +396,9 @@ const ProjectSingleEdit = (props) => {
                     formTools={formTools}
                     noValueText={lang.noSelectedOption}
                     fetchOption="context-enum"
+                    validationRules={[
+                        {name:"REQUIRED"}
+                    ]}
                 />
             </div>
             <div className="mb-3">
@@ -428,12 +431,12 @@ const ProjectSingleEdit = (props) => {
             <Input
                 className="mb-3"
                 name="contactPoint"
-                label="Information de contact"
+                label={lang.projectContactPointLabel}
                 tip={{
-                    header: "À noter",
-                    body: "Cette information vise à offrir une option pour rejoindre un représentant de l'organisation."
+                    header: lang.projectContactPointTipTitle,
+                    body: lang.projectContactPointTipContent
                 }}
-                placeholder="Adresse courriel, numéro de téléphone, etc..."
+                placeholder={lang.projectContactPointPlaceholder}
                 formTools={formTools}
             />
         </>
@@ -460,7 +463,7 @@ const ProjectSingleEdit = (props) => {
         </>
     );
 
-    const modalCategoryMode = useRef("skills")
+    const modalCategoryMode= useRef("skills");
     function displayModalForSkills(elem) {
         modalCategoryMode.current = "skills";
         modal.enteredValues.name = elem;
@@ -484,11 +487,11 @@ const ProjectSingleEdit = (props) => {
             />
             <div className="d-flex pt-4 align-items-end flex-column">
                 <Button disabled={!formState.isValid} onClick={submitHandler}>
-                    Soumettre les modifications
+                    {lang.submitModification}
                 </Button>
                 {
                     !formState.isValid &&
-                    <p className="p-2 mt-2 col-md-4 border border-danger rounded"><small>Attention, l'un des champs dans cette page n'est pas entré correctement et vous empêche de sauvegarder vos modifications.</small></p>
+                    <p className="p-2 mt-2 col-md-4 border border-danger rounded"><small>{lang.formHasError}</small></p>
                 }
 
             </div>
@@ -498,7 +501,7 @@ const ProjectSingleEdit = (props) => {
                     darkColorButton
                 >
                     <header className={`d-flex`}>
-                        <p>Le nouvel élément de taxonomie que vous ajoutez ici pourra ensuite être directement intégrée à votre formulaire.</p>
+                        <p>{lang.taxonomyCreateWhenDoNotExistDirective}</p>
                         <Button onClick={closeModal}>Fermer</Button>
                     </header>               
                       
