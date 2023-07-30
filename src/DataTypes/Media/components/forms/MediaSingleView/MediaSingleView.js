@@ -89,7 +89,7 @@ const MediaSingleView = ({data}, ...props) => {
     const header = (
         <SingleBaseHeader
             className={"mode-public"}
-            title={(<h2 className="text-white">{`${title}`}</h2>)}
+            title={(<SanitizedInnerHtml tag={"h1"} className="text-white">{`${title}`}</SanitizedInnerHtml>)}
             subtitle={(
                 <div className="d-text text-white">
                     <div>

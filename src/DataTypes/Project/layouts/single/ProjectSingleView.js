@@ -88,7 +88,7 @@ const ProjectSingleView = ({ data }) => {
 
     const Header = (
         <SingleBaseHeader 
-            title={(<h2 className="text-white">{`${name}`}</h2>)}
+            title={(<SanitizedInnerHtml tag={"h1"} className="text-white">{`${model.title}`}</SanitizedInnerHtml>)}
             subtitle={(
                 <div className="d-text">
                     <h4 className="text-white">{alternateName}</h4>
