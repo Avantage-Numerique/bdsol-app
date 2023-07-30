@@ -54,7 +54,7 @@ const ProjectSingleView = ({ data }) => {
         }[param];
     }, []);
 
-    const [scheduleEnumState, setScheduleEnumState] = useState(undefined);
+    const [allEnumState, setAllEnumState] = useState(undefined);
     useEffect( () => {
         const getScheduleEnum = async () => {
             const scheduleEnum = await clientSideExternalApiRequest(
@@ -65,10 +65,15 @@ const ProjectSingleView = ({ data }) => {
                 '/info/timeframeeta-enum',
                 { method: 'GET' }
             )
+            const contextEnum = await clientSideExternalApiRequest(
+                '/info/context-enum',
+                { method: 'GET' }
+            )
             let keyValueScheduleEnum = {}
             scheduleEnum.forEach( (elem) => { keyValueScheduleEnum[elem.value] = elem.label });
             timeFrameEnum.forEach( (elem) => { keyValueScheduleEnum[elem.value] = elem.label });
-            setScheduleEnumState(keyValueScheduleEnum);
+            contextEnum.forEach( (elem) => { keyValueScheduleEnum[elem.value] = elem.label })
+            setAllEnumState(keyValueScheduleEnum);
         }
         getScheduleEnum();
     }, [])
@@ -188,8 +193,8 @@ const ProjectSingleView = ({ data }) => {
                                         <li key={`timeframe-${singleTimeframe._id}`} className={`border-start p-2 ${(index % 2 === 0) && "bg-greyBg"}`}>
                                             {singleTimeframe?.step ? <h5 className="text-successDarker m-0">{singleTimeframe.step}</h5> : <></> }
                                             <div className="d-flex flex-wrap gap-4">     
-                                                {singleTimeframe?.eta ? <div key={"timeframe-eta-"+index}>Durée : {scheduleEnumState?.[singleTimeframe.eta] ?? singleTimeframe.eta}</div> : <></> }
-                                                {singleTimeframe?.budgetRange ? <div key={"timeframe-budgetRange-"+index}>Budget : {scheduleEnumState?.[singleTimeframe.budgetRange] ?? singleTimeframe.budgetRange}</div> : <></> }
+                                                {singleTimeframe?.eta ? <div key={"timeframe-eta-"+index}>Durée : {allEnumState?.[singleTimeframe.eta] ?? singleTimeframe.eta}</div> : <></> }
+                                                {singleTimeframe?.budgetRange ? <div key={"timeframe-budgetRange-"+index}>Budget : {allEnumState?.[singleTimeframe.budgetRange] ?? singleTimeframe.budgetRange}</div> : <></> }
                                             </div>
                                         </li>
                                     )
@@ -208,7 +213,7 @@ const ProjectSingleView = ({ data }) => {
                 title="Contexte du projet"
                 className="mb-3"
             >
-                {context}
+                {allEnumState?.[context] ?? context}
             </SingleInfo>
             {/* Skills */}
             <SingleInfo 
