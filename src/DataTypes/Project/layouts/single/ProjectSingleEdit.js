@@ -181,7 +181,7 @@ const ProjectSingleEdit = (props) => {
             },
             context: {
                 value: context ?? "",
-                isValid: context !== ""
+                isValid: true
             }
         },
         //Actions if the form turns out to be positive
@@ -205,7 +205,7 @@ const ProjectSingleEdit = (props) => {
                 entityInCharge: formState.inputs.entityInCharge?.value?.value ?? null,
                 producer: formState.inputs.producer.value?.value ?? null,
                 description: formState.inputs.description.value,
-                context: formState.inputs.context.value,
+                context: (formState.inputs.context.value !== "" && typeof formState.inputs.context.value !== 'undefined' ) ? formState.inputs.context.value : undefined,
                 sponsor: formState.inputs.sponsor.value.map( (singleSponsor) => {
                     return {
                         name: singleSponsor.value.name.value,
@@ -396,9 +396,6 @@ const ProjectSingleEdit = (props) => {
                     formTools={formTools}
                     noValueText={lang.noSelectedOption}
                     fetchOption="context-enum"
-                    validationRules={[
-                        {name:"REQUIRED"}
-                    ]}
                 />
             </div>
             <div className="mb-3">
