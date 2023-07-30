@@ -14,9 +14,9 @@ const rules_settings = {
             //Make sure there is actually a value passed
             if(!value) return false
             //If the value is an array 
-            if(Array.isArray(value)) return value.length > 0 ? true : false;
+            if(Array.isArray(value)) return value.length > 0;
             //Everything else (for now), we convert it to string, trim it and compare
-            return value.toString().trim().length > 0 ? true : false
+            return value.toString().trim().length > 0
         }),
         renderBadge: (() => lang.badgeRequired)
     },
