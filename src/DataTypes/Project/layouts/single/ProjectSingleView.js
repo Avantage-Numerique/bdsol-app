@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 
 //components
 import SingleBaseHeader from "@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseHeader"
@@ -13,7 +13,10 @@ import {getDateFromIsoString} from "@/src/utils/DateHelper";
 import Project from "@/DataTypes/Project/models/Project";
 import {lang} from "@/common/Data/GlobalConstants";
 import Head from "next/head";
-import nextConfig from "@/next.config";
+import {getTitle} from "@/DataTypes/MetaData/MetaTitle";
+import EntityTag from "@/DataTypes/Entity/layouts/EntityTag";
+import {getModelFromType} from "@/DataTypes/Entity/Types";
+import {clientSideExternalApiRequest} from "@/src/hooks/http-hook";
 
 
 const ProjectSingleView = ({ data }) => {
@@ -51,6 +54,30 @@ const ProjectSingleView = ({ data }) => {
         }[param];
     }, []);
 
+    const [allEnumState, setAllEnumState] = useState(undefined);
+    useEffect( () => {
+        const getScheduleEnum = async () => {
+            const scheduleEnum = await clientSideExternalApiRequest(
+                '/info/budgetrange-enum',
+                { method: 'GET' }
+            );
+            const timeFrameEnum = await clientSideExternalApiRequest(
+                '/info/timeframeeta-enum',
+                { method: 'GET' }
+            )
+            const contextEnum = await clientSideExternalApiRequest(
+                '/info/context-enum',
+                { method: 'GET' }
+            )
+            let keyValueScheduleEnum = {}
+            scheduleEnum.forEach( (elem) => { keyValueScheduleEnum[elem.value] = elem.label });
+            timeFrameEnum.forEach( (elem) => { keyValueScheduleEnum[elem.value] = elem.label });
+            contextEnum.forEach( (elem) => { keyValueScheduleEnum[elem.value] = elem.label })
+            setAllEnumState(keyValueScheduleEnum);
+        }
+        getScheduleEnum();
+    }, [])
+
     /****************************
      *  Sections
      ***************************/
@@ -61,7 +88,7 @@ const ProjectSingleView = ({ data }) => {
 
     const Header = (
         <SingleBaseHeader 
-            title={(<h2 className="text-white">{`${name}`}</h2>)}
+            title={(<SanitizedInnerHtml tag={"h1"} className="text-white">{`${model.title}`}</SanitizedInnerHtml>)}
             subtitle={(
                 <div className="d-text">
                     <h4 className="text-white">{alternateName}</h4>
@@ -88,11 +115,23 @@ const ProjectSingleView = ({ data }) => {
             {/* Sponsor */}
             <SingleInfo title="Partenaires">
                 <ul className="d-flex flex-wrap gap-3">
-                    {sponsor?.length > 0 && sponsor.map( (singleSponsor) => {
+                    {sponsor?.length > 0 && sponsor.map( (singleSponsor, index) => {
+                        let sponsorModel;
+                        if (singleSponsor.entity) {
+                            sponsorModel = getModelFromType(singleSponsor.entity.type, singleSponsor.entity);//
+                        }
                         return (
-                            <li className="d-flex flex-column border border-successlighter rounded-1">
-                                {singleSponsor.name && <div className="p-1">{singleSponsor?.name}</div>}
-                                {singleSponsor.entity && <div className="p-1 bg-successlighter text-white">{singleSponsor?.entity?.name ?? singleSponsor?.entity?.fullname}</div>}
+                            <li className="d-flex flex-column w-50" key={`sponsor-${index}`}>
+                                {singleSponsor.name &&
+                                    <div className="p-1" key={`sponsor-sponsor-name${index}`}>
+                                        {singleSponsor?.name}
+                                    </div>
+                                }
+                                { !sponsorModel ?
+                                    <div className="p-1 bg-successlighter text-white">{singleSponsor?.entity?.name ?? singleSponsor?.entity?.fullname}</div>
+                                    :
+                                    <EntityTag model={sponsorModel} />
+                                }
                             </li>
                         )
                     }) }
@@ -111,11 +150,24 @@ const ProjectSingleView = ({ data }) => {
                 {
                     team?.length > 0 &&
                     <ul className="d-flex flex-wrap gap-3">
-                        {team.map( (singleMember) => {
+                        {team.map( (singleMember, index) => {
+                            let memberModel;
+                            if (singleMember.member) {
+                                memberModel = getModelFromType(singleMember.member.type, singleMember.member);//
+                            }
+
                             return (
-                                <li className="d-flex flex-column border border-purplelight rounded-1">
-                                    <div className="p-1">{singleMember?.member?.fullName ?? "Aucun nom"}</div>
-                                    <b className="p-1 fs-6 bg-purplelight text-white">{singleMember?.role ?? "Aucun rôle"}</b>
+                                <li className="d-flex flex-column w-50" key={`teammember-${index}`}>
+                                    {singleMember?.role &&
+                                        <div className="p-1" key={`teammember-role${index}`}>
+                                            {singleMember?.role}
+                                        </div>
+                                    }
+                                    { !memberModel ?
+                                        <div className="p-1 bg-successlighter text-white">{singleMember?.member?.fullName ?? "Aucun nom"}</div>
+                                        :
+                                        <EntityTag model={memberModel} />
+                                    }
                                 </li>
                             )
                         })}
@@ -131,7 +183,7 @@ const ProjectSingleView = ({ data }) => {
                     {scheduleBudget?.startDate && <div key="startDate">Date de début : {getDateFromIsoString(scheduleBudget.startDate)}</div>}
                     {scheduleBudget?.endDateEstimate && <div key="endDateEstimate">Date estimée de fin : {getDateFromIsoString(scheduleBudget.endDateEstimate)}</div>}
                     {scheduleBudget?.completionDate && <div key="completionDate">Date de fin : {getDateFromIsoString(scheduleBudget.completionDate)}</div>}
-                    {scheduleBudget?.estimatedTotalBudget && <div key="estimatedTotalBudget">Budget total : {scheduleBudget.estimatedTotalBudget}</div>}
+                    {scheduleBudget?.estimatedTotalBudget && <div key="estimatedTotalBudget">Budget total : {scheduleBudget.estimatedTotalBudget}$</div>}
                     {scheduleBudget?.eta && <div key="eta">Lapse de temps avant la complétion : {scheduleBudget.eta}</div>}
                     {scheduleBudget?.timeframe?.length > 0 && 
                         <ul key="timeframe-container">
@@ -141,8 +193,8 @@ const ProjectSingleView = ({ data }) => {
                                         <li key={`timeframe-${singleTimeframe._id}`} className={`border-start p-2 ${(index % 2 === 0) && "bg-greyBg"}`}>
                                             {singleTimeframe?.step ? <h5 className="text-successDarker m-0">{singleTimeframe.step}</h5> : <></> }
                                             <div className="d-flex flex-wrap gap-4">     
-                                                {singleTimeframe?.eta ? <div key={"timeframe-eta-"+index}>Durée : {singleTimeframe.eta}</div> : <></> }
-                                                {singleTimeframe?.budgetRange ? <div key={"timeframe-budgetRange-"+index}>Budget : {singleTimeframe.budgetRange}</div> : <></> }
+                                                {singleTimeframe?.eta ? <div key={"timeframe-eta-"+index}>Durée : {allEnumState?.[singleTimeframe.eta] ?? singleTimeframe.eta}</div> : <></> }
+                                                {singleTimeframe?.budgetRange ? <div key={"timeframe-budgetRange-"+index}>Budget : {allEnumState?.[singleTimeframe.budgetRange] ?? singleTimeframe.budgetRange}</div> : <></> }
                                             </div>
                                         </li>
                                     )
@@ -161,7 +213,7 @@ const ProjectSingleView = ({ data }) => {
                 title="Contexte du projet"
                 className="mb-3"
             >
-                {context}
+                {allEnumState?.[context] ?? context}
             </SingleInfo>
             {/* Skills */}
             <SingleInfo 
@@ -222,7 +274,7 @@ const ProjectSingleView = ({ data }) => {
     return (
         <>
             <Head>
-                <title>{model.title}{model.meta.seperator}{model.Type.label}{model.meta.seperator}{nextConfig.app.name}</title>
+                <title>{getTitle([model.title, model.Type.label])}</title>
             </Head>
             <SingleBase
                 breadCrumb={breadCrumb}

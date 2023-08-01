@@ -97,7 +97,6 @@ const ProjectSingleEdit = (props) => {
             Router.push('/compte/connexion')
         }
     }, [auth.user.isLoggedIn]);
-
     //Modal hook
     const {displayModal, modal, closeModal, Modal} = useModal();
 
@@ -149,15 +148,15 @@ const ProjectSingleEdit = (props) => {
                 isValid: true
             },
             startDate: {
-                value: scheduleBudget?.startDate ?? "",
+                value: scheduleBudget?.startDate?.split("T")[0] ?? "",
                 isValid: true
             },
             endDateEstimate: {
-                value: scheduleBudget?.endDateEstimate ?? "",
+                value: scheduleBudget?.endDateEstimate?.split("T")[0] ?? "",
                 isValid: true
             },
             completionDate: {
-                value: scheduleBudget?.completionDate ?? "",
+                value: scheduleBudget?.completionDate?.split("T")[0] ?? "",
                 isValid: true
             },
             estimatedTotalBudget: {
@@ -206,7 +205,7 @@ const ProjectSingleEdit = (props) => {
                 entityInCharge: formState.inputs.entityInCharge?.value?.value ?? null,
                 producer: formState.inputs.producer.value?.value ?? null,
                 description: formState.inputs.description.value,
-                context: formState.inputs.context.value,
+                context: (formState.inputs.context.value !== "" && typeof formState.inputs.context.value !== 'undefined' ) ? formState.inputs.context.value : undefined,
                 sponsor: formState.inputs.sponsor.value.map( (singleSponsor) => {
                     return {
                         name: singleSponsor.value.name.value,
@@ -424,17 +423,17 @@ const ProjectSingleEdit = (props) => {
                 fetch={"/taxonomies/list"}
                 requestData={{category:"domains", name:""}}
                 searchField={"name"}
-                selectField={"name"}
+                selectField={"domains"}
             />
             <Input
                 className="mb-3"
                 name="contactPoint"
-                label="Information de contact"
+                label={lang.projectContactPointLabel}
                 tip={{
-                    header: "À noter",
-                    body: "Cette information vise à offrir une option pour rejoindre un représentant de l'organisation."
+                    header: lang.projectContactPointTipTitle,
+                    body: lang.projectContactPointTipContent
                 }}
-                placeholder="Adresse courriel, numéro de téléphone, etc..."
+                placeholder={lang.projectContactPointPlaceholder}
                 formTools={formTools}
             />
         </>
@@ -461,7 +460,7 @@ const ProjectSingleEdit = (props) => {
         </>
     );
 
-    const modalCategoryMode = useRef("skills")
+    const modalCategoryMode= useRef("skills");
     function displayModalForSkills(elem) {
         modalCategoryMode.current = "skills";
         modal.enteredValues.name = elem;
@@ -485,11 +484,11 @@ const ProjectSingleEdit = (props) => {
             />
             <div className="d-flex pt-4 align-items-end flex-column">
                 <Button disabled={!formState.isValid} onClick={submitHandler}>
-                    Soumettre les modifications
+                    {lang.submitModification}
                 </Button>
                 {
                     !formState.isValid &&
-                    <p className="p-2 mt-2 col-md-4 border border-danger rounded"><small>Attention, l'un des champs dans cette page n'est pas entré correctement et vous empêche de sauvegarder vos modifications.</small></p>
+                    <p className="p-2 mt-2 col-md-4 border border-danger rounded"><small>{lang.formHasError}</small></p>
                 }
 
             </div>
@@ -499,7 +498,7 @@ const ProjectSingleEdit = (props) => {
                     darkColorButton
                 >
                     <header className={`d-flex`}>
-                        <p>Le nouvel élément de taxonomie que vous ajoutez ici pourra ensuite être directement intégrée à votre formulaire.</p>
+                        <p>{lang.taxonomyCreateWhenDoNotExistDirective}</p>
                         <Button onClick={closeModal}>Fermer</Button>
                     </header>               
                       

@@ -14,7 +14,7 @@ const Footer = () => {
 
     return (
 
-        <footer id={styles.pageFooter} className="bg-dark">
+        <footer id={styles.pageFooter} className="bg-dark mt-5">
             <div className="container">
                 <div className={`row ${styles.separatorLine}`}>
                     <div className="col">

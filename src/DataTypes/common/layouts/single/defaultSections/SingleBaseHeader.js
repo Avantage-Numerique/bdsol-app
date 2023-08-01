@@ -47,7 +47,7 @@ const SingleBaseHeader = (props) => {
         <section className={`row position-relative p-4 ms-0 ${props.className}`}>
             <div className="col-md-6 d-flex flex-column order-2 order-md-1">
                 { /* title */ }
-                { title ?? <h2 className='mt-4 ms-4'>{lang.title}</h2> }
+                { title ?? <h1 className='mt-4 ms-4'>{lang.title}</h1> }
 
                 { /* subtitle */ }
                 { subtitle ?? <h3 className='ms-4'>{lang.subTitle}</h3> }

@@ -4,7 +4,8 @@
     V.P.R. - 18/10/2022
 
 */
-import { useState } from 'react'
+import {useState} from 'react'
+import {lang} from "@/common/Data/GlobalConstants";
 
 const rules_settings = {
     REQUIRED: { 
@@ -13,11 +14,11 @@ const rules_settings = {
             //Make sure there is actually a value passed
             if(!value) return false
             //If the value is an array 
-            if(Array.isArray(value)) return value.length > 0 ? true : false;
+            if(Array.isArray(value)) return value.length > 0;
             //Everything else (for now), we convert it to string, trim it and compare
-            return value.toString().trim().length > 0 ? true : false
+            return value.toString().trim().length > 0
         }),
-        renderBadge: (() => "Requis")
+        renderBadge: (() => lang.badgeRequired)
     },
     MIN_LENGTH: { 
         renderMessage: ((min = 5) => `Ce champ doit contenir au moins ${min} caractères`),

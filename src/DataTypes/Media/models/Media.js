@@ -1,6 +1,6 @@
 import EntityModel from "@/DataTypes/Entity/models/EntityModel";
 import MediaSingleView from "../components/forms/MediaSingleView/MediaSingleView";
-import {TYPE_MEDIA, TYPE_DEFAULT} from "@/DataTypes/Entity/Types";
+import {TYPE_DEFAULT, TYPE_MEDIA} from "@/DataTypes/Entity/Types";
 
 
 class Media extends EntityModel {
@@ -25,8 +25,8 @@ class Media extends EntityModel {
         this.title = raw?.name ?? "";
         this.description = raw?.description ?? "";
         this.mainImage = raw?.mainImage;
+        this.baseSrc = raw?.baseSrc ?? `${process.env.NEXT_PUBLIC_API_URL}`;
         this.src = raw?.url ?? "";
-        this.baseSrc = `${process.env.NEXT_PUBLIC_API_URL}`;
         this.alt = raw?.alt ?? "";
         this.licence = raw?.licence ?? "";
         this.type = raw?.type === TYPE_MEDIA ? TYPE_MEDIA : TYPE_DEFAULT;//Wrong data sent here.

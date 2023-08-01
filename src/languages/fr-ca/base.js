@@ -10,7 +10,7 @@ const base = {
     "loadingData": "Chargement des données",
     "back": "Retour",
     "close": "Fermer",
-    "noInfoAvailable": "Information bientôt disponible.",
+    "noInfoAvailable": "Aucune information disponible.",
     "colon": " : ",
     "by": "par",
     "on": "le",
@@ -35,6 +35,7 @@ const base = {
     "homePageTitle": "Techno-créatifs·ves dans le croissant boréal",
     "homePageDescription": "Nom de code : Base de données structurée ouverte et liée d'Avantage Numérique.",
     "actualities": "Actualités",
+    "allData": "Toutes les données",
     "menu": "Menu",
     "homePageBreadcrumbLabel": "Accueil",
 
@@ -69,6 +70,7 @@ const base = {
 
     "formNotValid": "Attention. Le formulaire envoyé est invalide. Assurez-vous que tous les champs requis sont bien remplis.",
     "submit": "Soumettre",
+    "submitModification": "Soumettre les modifications",
 
 
 

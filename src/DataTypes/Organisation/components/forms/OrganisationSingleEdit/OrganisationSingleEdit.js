@@ -36,7 +36,7 @@ import Icon from "@/common/widgets/Icon/Icon";
 
 
 const OrganisationSingleEdit = (props) => {
-console.log("Organisation single edit rendered")
+
     //Organisation data extract
     const {
         _id,
@@ -317,7 +317,7 @@ console.log("Organisation single edit rendered")
                         fetch={"/taxonomies/list"}
                         requestData={{category:"domains", name:""}}
                         searchField={"name"}
-                        selectField={"name"}
+                        selectField={"domains"}
                     />
                 </div>
                 <Input

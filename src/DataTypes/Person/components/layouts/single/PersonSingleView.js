@@ -15,7 +15,7 @@ import {SingleEntityStatus} from "@/DataTypes/Status/components/SingleEntityStat
 import {lang} from "@/common/Data/GlobalConstants";
 import Person from "@/DataTypes/Person/models/Person";
 import Head from "next/head";
-import nextConfig from "@/next.config";
+import {getTitle} from "@/DataTypes/MetaData/MetaTitle";
 
 
 const PersonSingleView = ({ data }) => {
@@ -97,7 +97,7 @@ const PersonSingleView = ({ data }) => {
 
     const Header = (
         <SingleBaseHeader
-            title={(<h2 className="text-white">{`${firstName} ${lastName}`}</h2>)}
+            title={(<SanitizedInnerHtml tag={"h1"} className="text-white">{`${model.title}`}</SanitizedInnerHtml>)}
             subtitle={(
                 <div className="d-text">
                     <h4 className="text-white">{nickname}</h4>
@@ -173,7 +173,7 @@ const PersonSingleView = ({ data }) => {
     return (
         <>
             <Head>
-                <title>{model.title}{model.meta.seperator}{model.Type.label}{model.meta.seperator}{nextConfig.app.name}</title>
+                <title>{getTitle([model.title, model.Type.label])}</title>
             </Head>
             <SingleBase
                 breadCrumb={breadCrumb}

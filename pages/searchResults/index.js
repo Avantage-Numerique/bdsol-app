@@ -77,13 +77,17 @@ const SearchResults = () => {
         return clientSideExternalApiRequest("/search/nearestTaxonomy?searchIndex="+searchIndex, { method: 'GET'});
     }
 
-    const researchResult = (entityType) => {
+    const researchResult = (entityType, includeEntitySuggestedByTaxonomy=false) => {
         if(entityType == "linkedTaxonomy")
             return linkedEntityToTaxonomyComponent();
 
         const resultMessage = entityType ? "Résultats pour " + entityType + ":" : "Résultats de recherche :";
         let filteredList = searchList ? [...searchList] : [];
         if(entityType) {
+            //If include entitySuggested add them to the list
+            if(includeEntitySuggestedByTaxonomy){
+                filteredList.push(...nearTaxonomyObject.linkedEntityToNearestTaxonomy);
+            }
             filteredList = filteredList.filter( (el) => { return el.type == entityType })
         }
 
@@ -212,7 +216,7 @@ const SearchResults = () => {
                         :
                         <div>
                             {/* else show linkedTaxonomy or result by type */}
-                            { filter.map( (el) => { return <div key={el}>{researchResult(el)}</div> }) }                         
+                            { filter.map( (el) => { return <div key={el}>{researchResult(el, true)}</div> }) }                         
                         </div>
                     }
 

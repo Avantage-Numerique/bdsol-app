@@ -1,5 +1,5 @@
-import { useRef, useState, useEffect, memo } from 'react';
-import { createPortal } from "react-dom";
+import {useEffect, useState} from 'react';
+import {createPortal} from "react-dom";
 
 import Modal from '@/src/hooks/useModal/Modal/Modal';
 
@@ -163,8 +163,6 @@ export const useModalController = () => {
 
 //Display all the modal Ui in the right order
 function displayModalUi(modalsData) {
-
-    console.log("Modals data", modalsData)
 
     const modalsDataObj = Object.values(modalsData);
     const modalsToDisplay = modalsDataObj.filter(e => e.display == true);

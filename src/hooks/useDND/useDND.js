@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, cloneElement, useImperativeHandle  } from 'react'
+import React, {useEffect, useRef, useState} from 'react'
 
 //Styling
 import styles from './useDND.module.scss';
@@ -153,8 +153,6 @@ export const useDND = ( containerRef, stateDependency, domElemFormating ) => {
     }
 
     function onPointerMove(e){
-
-        console.log("Mouse move")
 
         cursorData.current.movingElem.style.left = e.clientX + movingElemr.getBoundingClientRect().left;
         cursorData.current.movingElem.style.top = e.clientY + cursorData.current.diffY;

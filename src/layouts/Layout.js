@@ -5,11 +5,11 @@
 
 */
 
-import { useState, createContext, useRef } from "react";
+import {createContext, useRef, useState} from "react";
 import Head from 'next/head'
 
 //Context
-import { MessageContext } from '@/src/common/UserNotifications/Message/Context/Message-Context'
+import {MessageContext} from '@/src/common/UserNotifications/Message/Context/Message-Context'
 
 //components
 import Footer from '@/layouts/Footer/Footer'
@@ -22,8 +22,8 @@ import Message from '@/src/common/UserNotifications/Message/Message'
 import styles from './Layout.module.scss'
 import {FeedbackWidget} from "@/src/common/Feedbacks/components/feedback-widget";
 
-//Hooks 
-import { useModalController } from '@/src/hooks/useModal/ModalsController/ModalsController'
+//Hooks
+import {useModalController} from '@/src/hooks/useModal/ModalsController/ModalsController'
 
 export const ModalContext = createContext({});
 
@@ -68,6 +68,7 @@ const Layout = ( {children} ) => {
     return (
         <>
             <Head>
+                <meta charSet="UTF-8" />
                 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
                 <meta httpEquiv="X-UA-Compatible" content="ie=edge"/>
                 <meta name="robots" content="index, follow" />

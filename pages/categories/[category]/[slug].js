@@ -11,6 +11,9 @@ import Icon from "@/common/widgets/Icon/Icon";
 import AppRoutes from "@/src/Routing/AppRoutes";
 import {Breadcrumbs} from "@/common/Breadcrumbs/Breadcrumbs";
 import EntitiesGrid from "@/DataTypes/Entity/layouts/EntitiesGrid";
+import Head from "next/head";
+import {getTitle} from "@/DataTypes/MetaData/MetaTitle";
+import {getType, TYPE_TAXONOMY} from "@/DataTypes/Entity/Types";
 
 
 export async function getServerSideProps(context) {
@@ -42,7 +45,6 @@ const TaxonomiesSinglePage = (props) => {
     const category = [
         {label: "Compétence", value: "skills"},
         {label: "Domaine", value: "domains"},
-        {label: "Aptitude", value: "abilities", disabled: true},
         {label: "Technologie", value: "technologies"}
     ]
 
@@ -59,6 +61,8 @@ const TaxonomiesSinglePage = (props) => {
     const modalComponentParams = {
         uri:"update"
     };
+
+    const type = getType(TYPE_TAXONOMY);
 
     const redirectOnClosingHandler = (requestResponse, closingCallback, targetSlug) => {
         let redirectUrl = "";
@@ -87,7 +91,7 @@ const TaxonomiesSinglePage = (props) => {
 
     // > NEEDED for BREADCRUMBS
     const currentTaxonomy = category.find( el => taxonomy.category === el.value );
-    const currentTitle = currentTaxonomy.label + " &mdash; " + taxonomy.name;
+    const currentTitle = `${currentTaxonomy.label} ${'&mdash;'} ${taxonomy.name}`;
 
     const getLabelGenerator = useCallback((param, query) => {
         return {
@@ -106,6 +110,9 @@ const TaxonomiesSinglePage = (props) => {
 
     return (
         <div>
+            <Head>
+                <title>{getTitle([taxonomy.name, currentTaxonomy.label, type.labelPlural])}</title>
+            </Head>
             <PageHeader
                 bg={"bg-purplelighter"}
                 textColor={"text-white"}

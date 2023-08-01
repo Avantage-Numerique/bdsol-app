@@ -156,7 +156,6 @@ const CreateTaxonomyForm = ({name, category, initValues, positiveRequestActions,
                         {label: "Compétence", value: "skills"},
                         {label: "Technologie", value: "technologies"},
                         {label: "Domaine", value: "domains"},
-                        {label: "Aptitude", value: "abilities", disabled: true}
                     ]}
                     validationRules={[
                         {name: "REQUIRED"}

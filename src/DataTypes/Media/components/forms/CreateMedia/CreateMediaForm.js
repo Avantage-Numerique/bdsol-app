@@ -270,17 +270,6 @@ const CreateMediaForm = (props) => {
                                 formTools={formTools}
                             />
 
-                            <div className="mt-2 d-flex gap-2 flex-wrap">
-                                <Button
-                                    disabled={entity.mainImage?._id == undefined && formState.inputs.mainImage.value == ""}
-                                    onClick={submitHandler}
-                                    size="slim"
-                                > Soumettre
-                                </Button>
-                                {!isNewFile &&
-                                    <button onClick={submitDelete} type="button" className="text-danger fs-5"><u>Supprimer l'image</u></button>
-                                }
-                            </div>
                         </div>
                         }
 
@@ -299,6 +288,17 @@ const CreateMediaForm = (props) => {
                             />
                         </div>
                         }
+                        <div className="mt-2 d-flex gap-2 flex-wrap">
+                                <Button
+                                    disabled={entity.mainImage?._id == undefined && formState.inputs.mainImage.value == ""}
+                                    onClick={submitHandler}
+                                    size="slim"
+                                > Soumettre
+                                </Button>
+                                {!isNewFile &&
+                                    <button onClick={submitDelete} type="button" className="text-danger fs-5"><u>Supprimer l'image</u></button>
+                                }
+                        </div>
                     </div>
                 </div>
             </div>
