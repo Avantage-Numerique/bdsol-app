@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { createPortal } from "react-dom";
 
 
@@ -11,7 +11,7 @@ export const useRootModal = ( prefilledValues, modalProps = {} ) => {
     const [modal, setModal] = useState({
         display: false,
         //Values to be passed from the person form to the taxonomy form
-        enteredValues: prefilledValues || {},   
+        initValues: prefilledValues || {},   
         callback: () => {},
         modalProps: {
             className: modalProps?.className ?? "",
@@ -31,8 +31,11 @@ export const useRootModal = ( prefilledValues, modalProps = {} ) => {
                     coloredBackground={modal.modalProps.coloredBackground}
                     className={modal.modalProps.className}
                     closingFunction={modal.modalProps.closingButton}
+                    //initValues={modal.enteredValues ?? null}
+                    initValues={{ name: "pénis"}}
+
                 >
-                    {children}
+                    { children }
                 </Modal>,
                 document.getElementById("portal-root")
             )
@@ -51,8 +54,8 @@ export const useRootModal = ( prefilledValues, modalProps = {} ) => {
         setModal(prev => ({
             ...modal,
             display: true,
-            enteredValues: {
-                ...prev.enteredValues,
+            initValues: {
+                ...prev.initValues,
                 ...newEnteredValues
             },
             callback: callback
@@ -71,7 +74,9 @@ export const useRootModal = ( prefilledValues, modalProps = {} ) => {
         modal,
         Modal: ModalToExport,
         displayModal,
-        closeModal
+        closeModal,
+        modalInitValues: modal.initValues,
+        modalCallback: modal.callback
     }
 
 }

@@ -178,9 +178,11 @@ const LargeFileInput = ( props ) => {
                             >
                                 { !currentState.value && !currentState.value?.name && "Sélectionnez un fichier"}
                             </div>
-                            <div className={`px-1 ${styles["input-ui__RequirementsBadges-container"]}`}>
-                                <RequirementsBadges alwaysDisplay /> 
-                            </div>
+                            {validationRules && 
+                                <div className={`px-1 ${styles["input-ui__RequirementsBadges-container"]}`}>
+                                    <RequirementsBadges alwaysDisplay /> 
+                                </div>
+                            }
                         </div>
                     </button>
                 </div>

@@ -69,6 +69,9 @@ const UpdateSkillGroup = ({parentEntity, positiveRequestActions, name, formTools
                                     fetch={"/taxonomies/list"}
                                     searchField={"name"}
                                     selectField={"name"}
+                                    validationRules={[
+                                        {name: "REQUIRED"}
+                                    ]}
                                 />
                             </div>
                         </section>

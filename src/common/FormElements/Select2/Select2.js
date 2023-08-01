@@ -15,6 +15,7 @@ import CreateTaxonomyForm from '@/DataTypes/Taxonomy/components/Forms/CreateTaxo
 import { useHttpClient } from "@/src/hooks/http-hook";
 import useDebounce from '@/src/hooks/useDebounce'
 import { useRootModal } from '@/src/hooks/useModal/useRootModal'
+import { useValidation } from '@/src/hooks/useValidation/useValidation';
 
 
 /**
@@ -42,9 +43,11 @@ const Select2 = ({ name, formTools, ...props }) => {
     const [inputValue, setInputValue] = useState("");
     const [value, setValue] = useState(null);
 
+    //Extract validator message
+    const { validate } = useValidation( props.validationRules )
 
     //Extract root modal 
-    const { Modal, displayModal, closeModal } = useRootModal();
+    const { Modal, displayModal, closeModal, modalInitValues } = useRootModal();
 
     //Formstate
     const {
@@ -57,7 +60,7 @@ const Select2 = ({ name, formTools, ...props }) => {
         inputHandler(
             name,
             value,
-            props.validationRules ? validate(event.target.value) : true
+            props.validationRules ? validate(value) : true
         )
     },  [value])
 
@@ -132,8 +135,9 @@ const Select2 = ({ name, formTools, ...props }) => {
             name={name}
             creatable={props.creatable}
             //createOptionFunction={props.createOptionFunction}
-            createOptionFunction={displayModal}
-
+            createOptionFunction={elem => displayModal({
+                name: elem
+            })}
             options={optionsList}
             inputValue={inputValue}
             inputValueSetter={setInputValue}
@@ -144,7 +148,9 @@ const Select2 = ({ name, formTools, ...props }) => {
             name={name}
             creatable={props.creatable}
             //createOptionFunction={props.createOptionFunction}
-            createOptionFunction={displayModal}
+            createOptionFunction={elem => displayModal({
+                name: elem
+            })}
             
             options={optionsList}
             inputValue={inputValue}
@@ -157,29 +163,30 @@ const Select2 = ({ name, formTools, ...props }) => {
         <>
             {label} 
             {select}
-            <Modal>
-                <>
-                    <header className={`d-flex`}>
-                        <p>Le nouvel élément de taxonomie que vous ajoutez ici pourra ensuite être directement intégrée à votre formulaire.</p>
-                        <Button onClick={() => closeModal()}>Fermer</Button>
-                    </header>               
-                    
-                    <div className={`my-4 border-bottom`}></div>
+            <Modal {...props}>
+                
+                <header className={`d-flex`}>
+                    <p>Le nouvel élément de taxonomie que vous ajoutez ici pourra ensuite être directement intégrée à votre formulaire.</p>
+                    <Button onClick={() => closeModal()}>Fermer</Button>
+                </header>               
+                
+                <div className={`my-4 border-bottom`}></div>
 
-                    <CreateTaxonomyForm
-                        name={name ?? ''}   //Prefilled value
-                        initValues={ {name:""} }
-                        category={props.requestData?.category}
-                        positiveRequestActions={{
-                            //CallbackFunction is one of the four behaviors the useFormUtils hook can apply when a request return a positive answer
-                            callbackFunction: requestResponse => {
-                                //Here could be a call back function to execute 
-                                
-                                //Close the modal 
-                                closeModal()                        }
-                        }}
-                    /> 
-                </>
+                <CreateTaxonomyForm
+                    {...props}
+                    name={name ?? ''}   //Prefilled value
+                    initValues={ modalInitValues ?? {} }
+                    category={props.requestData?.category}
+                    positiveRequestActions={{
+                        //CallbackFunction is one of the four behaviors the useFormUtils hook can apply when a request return a positive answer
+                        callbackFunction: requestResponse => {
+                            //Here could be a call back function to execute 
+                            //addSelectedValue({})
+                            //Close the modal 
+                            closeModal()                        }
+                    }}
+                /> 
+                
             </Modal>
         </>
     );

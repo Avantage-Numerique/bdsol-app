@@ -5,7 +5,6 @@ import CreatableSelect from 'react-select/creatable';
 //Style & utils
 import {lang} from "@/src/common/Data/GlobalConstants";
 
-
 /**
  * @param {string} name : used for id and formState
  * @param {object} props : used for id and formState
@@ -17,6 +16,7 @@ import {lang} from "@/src/common/Data/GlobalConstants";
  * @param {useState} props.valueSetter : setter of value to update the selected item
  * @param {function} createOptionFunction : function that handles the create (modal pop-up ...)
  * */
+
 const Select2BaseSingle = ({name, ...props}) => {
 
     const selectRef = useRef();
@@ -76,7 +76,6 @@ const Select2BaseSingle = ({name, ...props}) => {
                 :
                 props.inputValueSetter(val)
             }}
-
 
             //Creatable Section
             formatCreateLabel={(val)=> lang.createOptionLabel + val}
