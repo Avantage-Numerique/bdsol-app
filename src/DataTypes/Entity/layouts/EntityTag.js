@@ -24,7 +24,8 @@ const EntityTag = (props) => {
         children,
         baseSrc,
         addButton,
-        addType
+        addType,
+        badge
     } = props;
 
     const type = getType(model.type);
@@ -34,11 +35,13 @@ const EntityTag = (props) => {
     // defaults
     className = className ?? "";
 
+    badge = badge ?? "";
+    console.log(badge);
     //get height and width dynamicaly ?
     return (
         <>
             {model &&
-                <article className={`rounded position-relative d-flex justify-content-between align-content-stretch flex-wrap ${styles["entity-tag"]}`}>
+                <article className={`rounded position-relative d-flex justify-content-between align-content-stretch flex-wrap ${styles["entity-tag"]} ${className}`}>
                     <div className={"d-flex w-100"}>
                         {model.mainImageModel &&
                             <figure className="m-0">
@@ -63,6 +66,9 @@ const EntityTag = (props) => {
                         <div className={"w-100"}>
                             {children}
                         </div>
+                    }
+                    { model?.badge &&
+                        <span className={"badge bg-secondary position-absolute top-0 start-50 translate-middle"} dangerouslySetInnerHTML={{__html:model?.badge}}></span>
                     }
                     {addButton &&
                     <Link href={model.singleLink} title={model.name}>

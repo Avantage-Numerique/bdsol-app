@@ -13,6 +13,7 @@ import SingleInfo from "@/DataTypes/common/layouts/SingleInfo/SingleInfo";
 import {SingleEntityStatus} from "@/DataTypes/Status/components/SingleEntityStatus";
 import Head from "next/head";
 import {getTitle} from "@/DataTypes/MetaData/MetaTitle";
+import EntitiesTagGrid from "@/DataTypes/Entity/layouts/EntitiesTagGrid";
 
 const OrganisationSingleView = ({ data }) => {
 
@@ -100,23 +101,7 @@ const OrganisationSingleView = ({ data }) => {
                 ))}
             </SingleInfo>
             <SingleInfo title={lang.teamMembers} className={"mb-3"}>
-                <>
-                    {/* Rows of members */}
-                    { team?.length > 0 ?
-                        <ul className="d-flex flex-wrap gap-2">
-                            {
-                                team.map(elem => (
-                                    <li key={elem.member._id} className="bg-light w-100 px-2 py-1 rounded-1 small mb-1">
-                                        <div className="text-dark"><strong>{elem.member.firstName} {elem.member.lastName}</strong></div>
-                                        <div>{elem.role}</div>
-                                    </li>
-                                ))
-                            }
-                        </ul>
-                        :
-                        <p className="small">{lang.noTeamMemberSetMessage}</p>
-                    }
-                </>
+                <EntitiesTagGrid feed={team} subEntityProperty={"member"} subBadgeProperty={"role"} noneMessage={lang.noTeamMemberSetMessage} />
             </SingleInfo>
             <SingleInfo title={"Lien URL"} className={"mb-3"}>
                 { url &&

@@ -14,9 +14,8 @@ import Project from "@/DataTypes/Project/models/Project";
 import {lang} from "@/common/Data/GlobalConstants";
 import Head from "next/head";
 import {getTitle} from "@/DataTypes/MetaData/MetaTitle";
-import EntityTag from "@/DataTypes/Entity/layouts/EntityTag";
-import {getModelFromType} from "@/DataTypes/Entity/Types";
 import {clientSideExternalApiRequest} from "@/src/hooks/http-hook";
+import EntitiesTagGrid from "@/DataTypes/Entity/layouts/EntitiesTagGrid";
 
 
 const ProjectSingleView = ({ data }) => {
@@ -114,28 +113,7 @@ const ProjectSingleView = ({ data }) => {
             </SingleInfo>
             {/* Sponsor */}
             <SingleInfo title="Partenaires">
-                <ul className="d-flex flex-wrap gap-3">
-                    {sponsor?.length > 0 && sponsor.map( (singleSponsor, index) => {
-                        let sponsorModel;
-                        if (singleSponsor.entity) {
-                            sponsorModel = getModelFromType(singleSponsor.entity.type, singleSponsor.entity);//
-                        }
-                        return (
-                            <li className="d-flex flex-column w-50" key={`sponsor-${index}`}>
-                                {singleSponsor.name &&
-                                    <div className="p-1" key={`sponsor-sponsor-name${index}`}>
-                                        {singleSponsor?.name}
-                                    </div>
-                                }
-                                { !sponsorModel ?
-                                    <div className="p-1 bg-successlighter text-white">{singleSponsor?.entity?.name ?? singleSponsor?.entity?.fullname}</div>
-                                    :
-                                    <EntityTag model={sponsorModel} />
-                                }
-                            </li>
-                        )
-                    }) }
-                </ul>
+                <EntitiesTagGrid feed={sponsor} />
             </SingleInfo>
         </>
     )
@@ -147,33 +125,9 @@ const ProjectSingleView = ({ data }) => {
                 title="Membre de l'équipe"
                 className="mb-3"
             >
-                {
-                    team?.length > 0 &&
-                    <ul className="d-flex flex-wrap gap-3">
-                        {team.map( (singleMember, index) => {
-                            let memberModel;
-                            if (singleMember.member) {
-                                memberModel = getModelFromType(singleMember.member.type, singleMember.member);//
-                            }
-
-                            return (
-                                <li className="d-flex flex-column w-50" key={`teammember-${index}`}>
-                                    {singleMember?.role &&
-                                        <div className="p-1" key={`teammember-role${index}`}>
-                                            {singleMember?.role}
-                                        </div>
-                                    }
-                                    { !memberModel ?
-                                        <div className="p-1 bg-successlighter text-white">{singleMember?.member?.fullName ?? "Aucun nom"}</div>
-                                        :
-                                        <EntityTag model={memberModel} />
-                                    }
-                                </li>
-                            )
-                        })}
-                    </ul>
-                }
+                <EntitiesTagGrid feed={team} subEntityProperty={"member"} subBadgeProperty={"role"} />
             </SingleInfo>
+
             {/* scheduleBudget */}
             <SingleInfo 
                 title="Échéancier et budget"

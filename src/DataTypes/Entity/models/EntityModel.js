@@ -1,6 +1,7 @@
 import {getType, TYPE_DEFAULT} from "@/DataTypes/Entity/Types";
 import {removeHtml} from "@/src/helpers/str";
 import {replacePathname} from "@/src/helpers/url";
+import EntityTag from "@/DataTypes/Entity/layouts/EntityTag";
 
 /**
  * The abstract model for all the entities.
@@ -33,6 +34,7 @@ class EntityModel {
         this.Type = getType(this.type);
         this.title = raw?.title ?? "no title set";
         this.description = raw?.description ?? "no description set";
+        this.badge = raw?.badge ?? "";//contextual description of the entity. Often define in a single view.
 
         this.shortDescription = removeHtml(this.description);
         this.shortDescription = this.shortDescription.substring(0,this.shortLenght) + (this.shortDescription.length > this.shortLenght ? "..." : "");
@@ -58,6 +60,7 @@ class EntityModel {
         this.params.set("single", (params?.single ?? this.defaultSingleParams));
 
         this.simpleComponent = raw?.simpleComponent ?? undefined;
+        this.tagComponent = raw?.tagComponent ?? EntityTag;
         this.singleComponent = raw?.singleComponent ?? undefined;
     }
 
