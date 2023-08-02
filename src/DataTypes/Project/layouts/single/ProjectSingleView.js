@@ -16,6 +16,7 @@ import Head from "next/head";
 import {getTitle} from "@/DataTypes/MetaData/MetaTitle";
 import {clientSideExternalApiRequest} from "@/src/hooks/http-hook";
 import EntitiesTagGrid from "@/DataTypes/Entity/layouts/EntitiesTagGrid";
+import {ExternalLink} from "@/common/Components/ExternalLink";
 
 
 const ProjectSingleView = ({ data }) => {
@@ -125,7 +126,7 @@ const ProjectSingleView = ({ data }) => {
                 title="Membre de l'équipe"
                 className="mb-3"
             >
-                <EntitiesTagGrid feed={team} subEntityProperty={"member"} subBadgeProperty={"role"} />
+                <EntitiesTagGrid feed={team} subEntityProperty={"member"} subBadgeProperty={"role"} noneMessage={"Aucun membre de l'équipe spécifiés"} />
             </SingleInfo>
 
             {/* scheduleBudget */}
@@ -212,7 +213,9 @@ const ProjectSingleView = ({ data }) => {
     const Footer = (
         <>
             {/* Url */}
-            <SingleInfo title="Hyperlien"><p>{url}</p></SingleInfo>
+            <SingleInfo title="Hyperlien" className={"pb-4"}>
+                <ExternalLink href={url}>{url}</ExternalLink>
+            </SingleInfo>
             {
                 (createdAt || updatedAt || status) &&
                 <SingleEntityStatus 

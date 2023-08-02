@@ -45,7 +45,7 @@ const EntitiesTagGrid = ({feed, className, columnClass, subEntityProperty, subBa
                         )
                     })
                     :
-                    <h5 className={"py-4"}>{noneMessage}</h5>
+                    <p className={"py-4"}>{noneMessage}</p>
             }
         </ContainerTag>
     )

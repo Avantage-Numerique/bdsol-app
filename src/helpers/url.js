@@ -33,3 +33,16 @@ export const replacePathname = (pathname, replaceWith) => {
     return pathParts.join("/");
 }
 
+
+export const forceHttps = (url) => {
+    // Regular expression to check if the string starts with 'https://'
+    const regex = /^https:\/\//;
+
+    // If the string does not start with 'https://', add it to the beginning
+    if (!regex.test(url)) {
+        url = 'https://' + url;
+    }
+
+    return url;
+}
+

@@ -2,3 +2,16 @@ a.disabled {
     pointer-events: none;
     cursor: default;
 }
+
+a.external-link {
+    text-decoration-line: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
+    @include transition();
+    &:hover {
+        color: $primary;
+        text-decoration-color: $primary;
+        text-decoration-thickness: 3px;
+        text-underline-offset: 4px;
+    }
+}

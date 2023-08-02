@@ -14,6 +14,7 @@ import {SingleEntityStatus} from "@/DataTypes/Status/components/SingleEntityStat
 import Head from "next/head";
 import {getTitle} from "@/DataTypes/MetaData/MetaTitle";
 import EntitiesTagGrid from "@/DataTypes/Entity/layouts/EntitiesTagGrid";
+import {ExternalLink} from "@/common/Components/ExternalLink";
 
 const OrganisationSingleView = ({ data }) => {
 
@@ -105,7 +106,11 @@ const OrganisationSingleView = ({ data }) => {
             </SingleInfo>
             <SingleInfo title={"Lien URL"} className={"mb-3"}>
                 { url &&
-                    <p><a href={url}>{url}</a></p>
+                    <p>
+                        <ExternalLink href={url} title={`${model.title}`}>
+                            {url}
+                        </ExternalLink>
+                    </p>
                 }
             </SingleInfo>
         </>
