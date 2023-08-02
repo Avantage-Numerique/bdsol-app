@@ -21,6 +21,20 @@ const Select2BaseSingle = ({name, ...props}) => {
 
     const selectRef = useRef();
 
+    //Simple styling to remove the border
+    const styling = {
+        control: (styles, state) => ({ 
+            ...styles,
+            border: state.isFocused ? 0 : 0,
+            // This line disable the blue border
+            boxShadow: state.isFocused ? 0 : 0,
+            '&:hover': {
+               border: state.isFocused ? 0 : 0
+            },
+            //backgroundColor: 'white' 
+        })
+    }
+
     //Creatable Section
     const filterCreate = (option, searchText) => {
         //If we are in not creatable
@@ -76,6 +90,8 @@ const Select2BaseSingle = ({name, ...props}) => {
                 :
                 props.inputValueSetter(val)
             }}
+
+            styles={styling}
 
             //Creatable Section
             formatCreateLabel={(val)=> lang.createOptionLabel + val}

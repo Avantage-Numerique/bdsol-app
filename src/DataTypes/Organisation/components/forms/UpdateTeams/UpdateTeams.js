@@ -55,6 +55,10 @@ const UpdateTeams = ({name, formTools, parentEntity, ...props}) => {
                                     fetch={"/persons/list"}
                                     searchField={"firstName"}
                                     selectField={"fullname"}
+
+                                    validationRules={[
+                                        {name: "REQUIRED"}
+                                    ]}
                                 />
                             </div>
                             <div className="col-12 col-md-6">
