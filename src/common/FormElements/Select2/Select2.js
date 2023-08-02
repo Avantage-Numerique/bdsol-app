@@ -45,7 +45,7 @@ const Select2 = ({ name, formTools, ...props }) => {
     const [value, setValue] = useState(null);
 
     //Extract validator message
-    const { validate } = useValidation( props.validationRules )
+    const { validate, RequirementsBadges } = useValidation( props.validationRules )
 
     //Extract root modal 
     const { Modal, displayModal, closeModal, modalInitValues } = useRootModal();
@@ -127,10 +127,6 @@ const Select2 = ({ name, formTools, ...props }) => {
         ) :
         (<></>);
 
-    const buttonToDisplayModal = () => {
-        return
-    }
-
     const select = props.isMulti ? 
         (<Select2BaseMulti
             name={name}
@@ -163,7 +159,17 @@ const Select2 = ({ name, formTools, ...props }) => {
     return (
         <>
             {label} 
-            {select}
+            
+            <div 
+                className="
+                    form-element
+                    form-element--color-validation
+                ">
+                    {select}
+                    <RequirementsBadges addUlPadding /> 
+
+            </div>
+
             <Modal {...props}>
                 
                 <header className={`d-flex`}>

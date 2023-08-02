@@ -33,6 +33,7 @@ export const selectStyle = () => {
             const color = data.color ? chroma(data.color) : chroma(defaultColor);
             return {
                 ...styles,
+                border: 0,
                 backgroundColor: isDisabled
                     ? undefined
                     : isSelected
