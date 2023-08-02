@@ -1,16 +1,13 @@
 import React from 'react';
-import getConfig from 'next/config';
 
-//Components
+//components
 import SanitizedInnerHtml from '@/src/utils/SanitizedInnerHtml';
-import Button from '@/common/FormElements/Buttons/Button/Button'
+import Button from '@/common/FormElements/Button/Button'
 
 //styling
 import styles from './presentationCard.module.scss';
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-
+import getConfig from 'next/config';
+import {lang} from "@/common/Data/GlobalConstants";
 
 const { publicRuntimeConfig } = getConfig();
 /*
@@ -38,143 +35,129 @@ const PresentationCard = ({header, data}) => {
         contactPoint
     } = data
 
+    //Dictionnary for entity type. Set header = { type : label }
+    const dict = { "Person" : "Personne", "Organisation": "Organisation"}
+    header = dict[header];
+
     const showFullDescription = false;
+    const singleUrl = '/persons/'+slug;
+    const defaultPersonAvatar = '/general_images/Dennis_Nedry.webp';
+    const defaultOrgAvatar = '/general_images/Jurassic_Park_Main_Gate.jpg';
 
     return (
+        <article className={`bg-white ${styles["card"]}`}>
 
-        <article className={`
-            bg-white 
-            ${styles["card"]}
-        `}>  
-                
-            <Container className="justify-content-between">
+            <div className="container">
 
                 <header>
 
-                    <Row className={`py-2 ${styles["card__header-container"]}`}>
-                      
+                    <div className={`d-flex justify-content-between align-items-center py-2 ${styles["card__header-container"]}`}>
+
                         {/* Type of data displayed in the header */}
-                        <Col className="align-self-center">
+                        <div className="">
                             <h5 className="m-0">{ header }</h5>
-                        </Col>
+                        </div>
 
                         {/* Redirection link */}
-                        <Col className="d-flex justify-content-end">
-                            <Button disabled={(header === "Organisation")} href={`persons/${slug}`} small >Voir</Button>
-                        </Col>
-                        
-                    </Row>
-
+                        <div className="">
+                            <Button disabled={(header === "Organisation")} href={`${singleUrl}`} small >{lang.see}</Button>
+                        </div>
+                    </div>
                 </header>
 
-                <Row className={`${styles["card__img-container"]}`}>
-                        
-                        {/* Temporary shape */}
+                <div className={`row ${styles["card__img-container"]}`}>
+                        {/* Temporary */}
                         { header === "Organisation" &&
-                            <img 
+                            <img
                                 className={`px-0 ${styles["card__img-container__img"]}`}
-                                src="/general_images/Jurassic_Park_Main_Gate.jpg"
-                                alt="Photo de putin qui chevauche un ours" 
+                                src={defaultOrgAvatar}
+                                alt="Organisation"
                             />
                         }
 
                         { header !== "Organisation" &&
-                            <img 
+                            <img
                                 className={`px-0 ${styles["card__img-container__img"]}`}
-                                src="/general_images/Dennis_Nedry.webp"
-                                alt="Photo de putin qui chevauche un ours" 
+                                src={defaultPersonAvatar}
+                                alt="Photo de putin qui chevauche un ours"
                             />
                         }
+                </div>
 
-                </Row>
-          
 
-            </Container>
+            </div>
 
-            {/************************************ 
-                 
-                Main content of the component
-            
-            **************************************/}
-            <Container className="pt-3"> 
-    
-                <Row>
-                    <section className={`${styles["card__content"]}`}>
+            {/*Main content of the component*/}
 
-        {name && <h3>{name}</h3>}
-        { (firstName || lastName) && 
-            <h3>{firstName && firstName} {lastName && lastName}</h3>
-        }
+            <div className="container pt-3">
+                <section className={`row ${styles["card__content"]}`}>
 
-                        {showFullDescription &&
-                            <div>
-                                <SanitizedInnerHtml>
-                                    { description }
-                                </SanitizedInnerHtml>
-                            </div>
-                        }
-                        
-                        {/**********  URL ************/}
-                        { url && 
-                        <Row xs={"auto"} className={`${styles["card__content__single-info"]}`}>
-                            <Col xm={3} className={`fw-semibold`}>
-                                <p>Url :</p>
-                            </Col>
-                            <Col>   
-                                <p className="text-truncate"> {url}</p>
-                            </Col>
-                        </Row>
-                        }
+                    {name && <h3>{name}</h3>}
+                    { (firstName || lastName) &&
+                        <h3>{firstName && firstName} {lastName && lastName}</h3>
+                    }
 
-                        {/**********  contactPoint ************/}
-                        { contactPoint &&
-                        <Row xs={"auto"} className={`${styles["card__content__single-info"]}`}>
-                            <Col xm={3} className={`fw-semibold`}>
-                                <p>Contact :</p>
-                            </Col>
-                            <Col>   
-                                <p className="text-truncate">{contactPoint}</p>
-                            </Col>
-                        </Row>
-                        }
+                    {showFullDescription &&
+                        <div>
+                            <SanitizedInnerHtml>
+                                { description }
+                            </SanitizedInnerHtml>
+                        </div>
+                    }
 
-                        {/**********  username  ************/}
-                        { username &&
-                        <Row xs={"auto"} className={`${styles["card__content__single-info"]}`}>
-                            <Col xm={3} className={`fw-semibold`}>
-                                <p>Surnom :</p>
-                            </Col>
-                            <Col>   
-                                <p className="text-truncate">{username}</p>
-                            </Col>
-                        </Row>
-                        }
-                    </section>
-                </Row>
+                    {/***********  URL *************/}
+                    { url &&
+                    <div className={`row ${styles["card__content__single-info"]}`}>
+                        <div className={`col-2 fw-semibold`}>
+                            <SanitizedInnerHtml tag={"p"}>{lang.urlLabel}</SanitizedInnerHtml>
+                        </div>
+                        <div className={`col`}>
+                            <p className="text-truncate">{url}</p>
+                        </div>
+                    </div>
+                    }
 
-            </Container>   
+                    {/**********  contactPoint ************/}
+                    { contactPoint &&
+                    <div className={`row ${styles["card__content__single-info"]}`}>
+                        <div className={`col-2 fw-semibold`}>
+                            <SanitizedInnerHtml tag={"p"}>{lang.contactLabel}</SanitizedInnerHtml>
+                        </div>
+                        <div>
+                            <p className="text-truncate">{contactPoint}</p>
+                        </div>
+                    </div>
+                    }
 
-            {/************************************ 
-                 
-                Article footer
-            
-            **************************************/}
-            <footer className={` py-2 `}>
-                <Container> 
-                    <Row className="justify-content-between">
-                        <Col sm="auto">
-                            <time>
-                                {(new Date(createdAt)).toLocaleDateString(publicRuntimeConfig.dates.defaultLanguage)}
-                            </time>
-                        </Col>
-                        <Col sm="auto">
-                            <time>
-                                {(new Date(createdAt)).toLocaleTimeString(publicRuntimeConfig.dates.defaultLanguage)}
-                            </time>
-                        </Col>
-                    </Row>
-                </Container>    
-            </footer> 
+                    {/**********  username  ************/}
+                    { username &&
+                    <div className={`row ${styles["card__content__single-info"]}`}>
+                        <div className={`col-2 fw-semibold`}>
+                            <SanitizedInnerHtml tag={"p"}>{lang.nicknameLabel}</SanitizedInnerHtml>
+                        </div>
+                        <div>
+                            <p className="text-truncate">{username}</p>
+                        </div>
+                    </div>
+                    }
+                </section>
+            </div>
+
+            {/* Article footer */}
+            <footer className={`container py-2 `}>
+                <div className="row justify-content-between">
+                    <div className={"col"}>
+                        <time>
+                            {(new Date(createdAt)).toLocaleDateString(publicRuntimeConfig.dates.defaultLanguage)}
+                        </time>
+                    </div>
+                    <div className={"col"}>
+                        <time>
+                            {(new Date(createdAt)).toLocaleTimeString(publicRuntimeConfig.dates.defaultLanguage)}
+                        </time>
+                    </div>
+                    </div>
+            </footer>
         </article>
     )
 }

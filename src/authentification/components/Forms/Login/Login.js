@@ -9,12 +9,11 @@ import { MessageContext } from '@/src/common/UserNotifications/Message/Context/M
 //Custom hooks
 import { useForm } from '@/src/hooks/form-hook';
 import { useSessionHook } from '@/auth/hooks/useSessionHook';
-import { useFormUtils } from '@/src/hooks/useFormUtils/useFormUtils'
 
 
 //Form components
 import Input from '@/src/common/FormElements/Input/Input';
-import Button from '@/src/common/FormElements/Buttons/Button/Button';
+import Button from '@/src/common/FormElements/Button/Button';
 import Spinner from '@/src/common/widgets/spinner/Spinner';
 
 //Styling
@@ -73,7 +72,7 @@ const Login = () => {
                     username:  formState.inputs.username.value,
                     password: formState.inputs.password.value //@todo encrypt with app key before sending? or https is enought ?
                 };
-
+                
                 //Call the login hook responsible for the connection
                 await login(formData);
 
@@ -124,7 +123,7 @@ const Login = () => {
                     />
 
                     <div className={"pb-3"}>
-                        <Button type="submit" disabled={!formState.isValid}>Soumettre</Button>
+                        <Button type="submit" size="slim" disabled={!formState.isValid}>Soumettre</Button>
                     </div>
 
                     <p className={`${styles.formRedirection} pb-1`}>

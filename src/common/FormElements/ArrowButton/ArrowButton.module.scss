@@ -1,0 +1,121 @@
+/*
+
+        Styling and animation for the X Button
+
+*/
+
+.xButton{
+    width: 3rem;
+    height: 3rem; 
+
+    justify-self: center;
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    svg{
+        transition: 0.3s;
+    }
+
+    &.upDirection svg{
+        svg{
+            margin:0 0 15% 0;
+
+            -webkit-transform: rotate(180deg); /* WebKit */
+            -moz-transform: rotate(180deg); /* Mozilla */
+            -o-transform: rotate(180deg); /* Opera */
+            -ms-transform: rotate(180deg); /* Internet Explorer */
+            transform: rotate(180deg); /* CSS3 */
+        }
+
+        &.openned{
+            svg{
+                margin:15% 0 0 0;
+
+                -webkit-transform: rotate(0deg); /* WebKit */
+                -moz-transform: rotate(0deg); /* Mozilla */
+                -o-transform: rotate(0deg); /* Opera */
+                -ms-transform: rotate(0deg); /* Internet Explorer */
+                transform: rotate(0deg); /* CSS3 */
+            }
+        }
+    }
+
+    &.rightDirection{
+        svg{
+            margin:0 0 0 15%;
+
+            -webkit-transform: rotate(270deg); /* WebKit */
+            -moz-transform: rotate(270deg); /* Mozilla */
+            -o-transform: rotate(270deg); /* Opera */
+            -ms-transform: rotate(270deg); /* Internet Explorer */
+            transform: rotate(270deg); /* CSS3 */
+        }
+
+        &.openned{
+            svg{
+                margin:0 15% 0 0;
+
+                -webkit-transform: rotate(90deg); /* WebKit */
+                -moz-transform: rotate(90deg); /* Mozilla */
+                -o-transform: rotate(90deg); /* Opera */
+                -ms-transform: rotate(90deg); /* Internet Explorer */
+                transform: rotate(90deg); /* CSS3 */
+            }
+        }
+    }
+
+    &.downDirection{
+        svg{
+            margin:15% 0 0 0;
+
+            -webkit-transform: rotate(0deg); /* WebKit */
+            -moz-transform: rotate(0deg); /* Mozilla */
+            -o-transform: rotate(0deg); /* Opera */
+            -ms-transform: rotate(0deg); /* Internet Explorer */
+            transform: rotate(0deg); /* CSS3 */
+        }
+
+        &.openned{
+            svg{
+                margin:0 0 15% 0;
+
+                -webkit-transform: rotate(180deg); /* WebKit */
+                -moz-transform: rotate(180deg); /* Mozilla */
+                -o-transform: rotate(180deg); /* Opera */
+                -ms-transform: rotate(180deg); /* Internet Explorer */
+                transform: rotate(180deg); /* CSS3 */
+            }
+        }
+    }
+
+    &.leftDirection svg{
+        svg{
+            margin:0 15% 0 0;
+
+            -webkit-transform: rotate(90deg); /* WebKit */
+            -moz-transform: rotate(90deg); /* Mozilla */
+            -o-transform: rotate(90deg); /* Opera */
+            -ms-transform: rotate(90deg); /* Internet Explorer */
+            transform: rotate(90deg); /* CSS3 */
+        }
+
+        &.openned{
+            svg{
+                margin:0 0 0 15%;
+
+                -webkit-transform: rotate(-90deg); /* WebKit */
+                -moz-transform: rotate(-90deg); /* Mozilla */
+                -o-transform: rotate(-90deg); /* Opera */
+                -ms-transform: rotate(-90deg); /* Internet Explorer */
+                transform: rotate(-90deg); /* CSS3 */
+            }
+        }
+    }
+
+    &.custom-btn-arrow-large{
+        width:4rem;
+        height:4rem;
+    }
+}

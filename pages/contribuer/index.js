@@ -1,6 +1,7 @@
+import React from "react";
 
-//Components
-import Button2 from 'react-bootstrap/Button';
+//components
+import Button from "@/src/common/FormElements/Button/Button"
 
 //Context
 import {useAuth} from '@/auth/context/auth-context'
@@ -10,72 +11,91 @@ import styles from './contribution-page.module.scss'
 import {withSessionSsr} from "@/auth/session/handlers/withSession";
 import {ssrCanAccess} from "@/auth/permissions/ssrCanAccess";
 
-import Container from 'react-bootstrap/Container';
-import Col from 'react-bootstrap/Col';
-import Row from 'react-bootstrap/Row';
 import PageHeader from "@/layouts/Header/PageHeader";
-import React from "react";
 
- 
+//Entities
+import Person from "@/DataTypes/Person/models/Person";
+import Organisation from "@/DataTypes/Organisation/models/Organisation";
+import Project from "@/DataTypes/Project/models/Project";
+
+
 const Index = () => {
 
     const auth = useAuth();
+
+    //Function to return the path to the page of creation of an entity, depending on location
+    const getCreateEntityPath = (type) => {
+        let model;
+        //@todo need DRY and verification for using "TYPE_PERSON", TYPE_ is a constant with a string value of the type.
+        if(type == "TYPE_PERSON")
+            model = new Person({})
+        if(type == "TYPE_ORGANISATION")
+            model = new Organisation({})
+        if(type == "TYPE_PROJECT")
+            model = new Project({})
+        return model.createRoute.asPath;
+    }
 
     return (
         <div className={`${styles["contribution-page"]}`}>
 
             <PageHeader
-                title={"Créer une donnée"}
-                description={"Vous avez accès ici à tous les types de données qu'il est présentement possible d'intégrer à la base de données."} />
+                title="Contribuer en ajoutant une entité"
+                subtitleColor="primary"
+                description="Vous pouvez créer ces différents types de données."
+            />
 
             <div className={`${styles["contribution-page__menu"]}`}>
-                <Container className='p-0'>
+                <div className='container p-0'>
 
                     { !auth.user.isLoggedIn &&
-                        <Row>
-                            <Col>
+                        <div className="row">
+                            <div>
                                 <span className="text-danger"><strong>Attention ! </strong></span>
                                 Vous devez être connecté afin de pouvoir éditer la base de données.
-                            </Col>
-                        </Row>
+                            </div>
+                        </div>
                     }
 
-                    <Row className='pt-3'>
-                        <Col>
-                            <h4 className="col-12">Sélectionnez le type d'entité que vous voulez ajouter</h4>
-                        </Col>
-                    </Row>
+                    <div className='row pt-5 pb-3'>
+                        <div className="col">
+                            <h2 className="col-12">Ajouter une : </h2>
+                        </div>
+                    </div>
 
-                    <Row className='pt-3'>
-                        <Col>
-                            <Button2 href="/contribuer/person" size="lg" className={"w-100"} disabled={!auth.user.isLoggedIn}>Personne</Button2>
-                        </Col>
-                        <Col>
-                            <Button2 href="/contribuer/organisation" size="lg" className={"w-100"} disabled={!auth.user.isLoggedIn}>Organisation</Button2>
-                        </Col>
-                        <Col>
-                            <Button2 href="/contribuer/taxonomy" size="lg" className={"w-100"} disabled={!auth.user.isLoggedIn}>Taxonomie</Button2>
-                        </Col>
-                    </Row>
+                    <div className='row pb-5 row-cols-1 row-cols-md-4 gy-3'>
+                        <div className="col">
+                            <Button href={getCreateEntityPath("TYPE_PERSON")} size="large-100" disabled={!auth.user.isLoggedIn}>Personne</Button>
+                        </div>
+                        <div className="col">
+                            <Button href={getCreateEntityPath("TYPE_ORGANISATION")} size="large-100" disabled={!auth.user.isLoggedIn}>Organisation</Button>
+                        </div>
+                        <div className="col">
+                            <Button href="/contribuer/categorie" size="large-100" disabled={!auth.user.isLoggedIn}>Catégorie</Button>
+                        </div>
+                        <div className="col">
+                            <Button href={getCreateEntityPath("TYPE_PROJECT")} size="large-100" disabled={!auth.user.isLoggedIn}>Projet</Button>
+                        </div>
+                    </div>
+                    {
+                        /* Retrait de "entité à venir" pour faire clean avec les tests user
+                        <div className='row pt-5 pb-3'>
+                            <div className="col">
+                                <h2 className="col-12">Entités à venir</h2>
+                            </div>
+                        </div>
 
-                    <Row className='pt-3'>
-                        <Col>
-                            <h4 className="col-12">Entités à venir</h4>
-                        </Col>
-                    </Row>
-
-                    <Row className='pt-3'>
-                        <Col>
-                            <Button2 href="/" size='lg' className={"w-100"} disabled>Projet</Button2>
-                        </Col>
-                        <Col>
-                            <Button2 href="/" size='lg' className={"w-100"} disabled>Événement</Button2>
-                        </Col>
-                        <Col>
-                            <Button2 href="/" size='lg' className={"w-100"} disabled>Matériel</Button2>
-                        </Col>
-                    </Row>
-                </Container>
+                        <div className='row pb-5 row-cols-1 row-cols-md-4 gy-3'>
+                            <div className="col">
+                                <Button href="/" size="large-100" disabled>Événement</Button>
+                            </div>
+                            <div className="col">
+                                <Button href="/" size="large-100" disabled>Matériel</Button>
+                            </div>
+                        </div>
+                        */
+                    }
+                </div>
             </div>
         </div>
     )

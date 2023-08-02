@@ -9,7 +9,7 @@ import { useFormUtils } from '@/src/hooks/useFormUtils/useFormUtils'
 
 //Form components
 import Input from '@/src/common/FormElements/Input/Input'
-import Button from '@/src/common/FormElements/Buttons/Button/Button'
+import Button from '@/src/common/FormElements/Button/Button'
 import Spinner from '@/src/common/widgets/spinner/Spinner'
 import { MessageContext } from '@/src/common/UserNotifications/Message/Context/Message-Context'
 
@@ -67,7 +67,7 @@ const Register = () => {
     const { login } = useSessionHook()
 
     //Extract the functions inside useHttpClient
-    const {isLoading, sendRequest} = useHttpClient();
+    const {isLoading} = useHttpClient();
 
     /*
         First of all, verify if the user is logged in.

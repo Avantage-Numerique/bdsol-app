@@ -1,0 +1,16 @@
+.background-hover {
+    @include transition();
+
+    &:hover {background-color: lighten($grey, 15); }
+}
+
+.list-background-odd { >:nth-child(odd){
+    background-color: lighten($grey, 18);
+    &.background-hover{ 
+        &:hover {
+            background-color: lighten($grey, 15); 
+        } 
+    }
+} }
+
+.pointer { cursor: pointer }

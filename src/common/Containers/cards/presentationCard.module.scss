@@ -20,13 +20,13 @@
         position: relative; 
         min-height: 15rem;
         max-height: 30rem;
-        height: 35vh;  
+        height: 35vh;
         //border-radius: var(--$border-radius);
 
         .card__img-container__img {
             position: absolute;
-            top: 0px;
-            left: 0px;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
             object-fit: cover;
@@ -40,14 +40,14 @@
         h3 {
             font-size: 1.5rem;
             //While wating for bootstrap variables
-            color: rgb(118, 118, 161);
+            color: $primary;
         }
 
         .card__content__single-info {
             p { 
                 margin: 0; 
                 /* Waiting for bootstrap variables */
-                color: rgb(78, 78, 78);
+                color: $body-color;
             }
         }
     }

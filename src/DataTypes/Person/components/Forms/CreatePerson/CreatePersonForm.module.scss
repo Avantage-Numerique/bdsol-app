@@ -1,0 +1,60 @@
+.create-person-form {
+
+    position: relative;  //So the spinner knows where to fixe itself
+
+    label {
+
+        font-weight: 600;
+        > * { font-weight: normal; }
+
+    }
+
+    /*
+
+        The direct children of this form element are fields elements
+
+    */
+
+    > * {
+        margin-bottom: 1rem;
+
+        &:not(button){
+            width: 100%;
+        }
+    }
+
+    
+}
+
+/*
+    Modal to create a new taxonomy before adding a person
+*/
+.taxonomy-modal{
+
+    h3 { 
+        color: var(--blue4); 
+        margin-top: 0;
+    }
+
+    p { margin: 0; }
+
+}
+
+/* On screens that are 600px or more, set the background color to blue */
+@media screen and (min-width: 600px) {
+    .create-person-form {
+        /*
+            Specific sizes for the two fields firstname and lastname
+        */
+        [for="lastName"], 
+        [for="firstName"] {
+            width: calc(50% - 1rem);
+        }
+
+        [for="lastName"], 
+        [for="firstName"] & :last-of-type{
+            float: right;
+        }
+
+    }
+  }

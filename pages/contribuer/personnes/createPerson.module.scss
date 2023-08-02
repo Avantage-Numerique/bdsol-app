@@ -1,0 +1,45 @@
+/*
+*
+*       Styling for the page createPerson 
+*       /contribuer/personne
+*
+*/
+
+.create-person {
+
+
+    .create-person--max-width {
+        
+        margin: auto;
+        max-width: 70ch;
+        width: 100%;
+
+    }
+
+    .create-person__return-button {
+        margin-top: 5vh;
+        button { float: right; }
+    }
+
+    header {
+
+        h1 {  margin: 0; }
+        h4 { 
+            
+            margin: 0 0 1rem 0;
+            color: rgba(83, 83, 83, 0.651);
+
+        }
+
+        padding: 10vh 0;
+
+    }
+
+    section {
+        position: relative;            /* To determine the spinner position */
+        background-color: rgba(193, 201, 236, 0.178);
+        padding: 5vh 0;
+    }
+
+
+}

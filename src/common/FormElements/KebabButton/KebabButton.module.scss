@@ -1,0 +1,21 @@
+.Kebab-button {
+    height: 1.2rem;
+    svg { 
+        transition: 0.3s ease;
+        fill: lighten($mild-dark, 30%); 
+    }
+
+    &:hover { 
+        svg { fill: $mild-dark; }
+    }
+
+    &.reverse-color {
+        svg { 
+            fill: darken($white, 10%); 
+        }
+    
+        &:hover { 
+            svg { fill: $white; }
+        }
+    }
+}

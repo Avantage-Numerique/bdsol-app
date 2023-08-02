@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 
-//Components 
-import Button from '@/src/common/FormElements/Buttons/Button/Button'
+//components
+import Button from '@/src/common/FormElements/Button/Button'
 
 //Styling
 import styles from './BottomBanner.module.scss'

@@ -27,11 +27,9 @@
                     > div { padding: 1rem; }
                 }
             }
-
-            .rich-textarea__quill__field__extra-content {
-                display: flex;
-                justify-content: flex-start;
-            }
         }
+    }
+    >blockquote {
+        font-size:smaller;
     }
 }

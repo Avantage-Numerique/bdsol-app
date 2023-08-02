@@ -1,64 +1,89 @@
-
 import React from "react";
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
+
 import SanitizedInnerHtml from "@/src/utils/SanitizedInnerHtml";
-import Button2 from "react-bootstrap/Button";
+
+import Button from "@/src/common/FormElements/Button/Button"
 
 import styles from './PageHeader.module.scss';
+import SearchTag from "@/common/Components/SearchTag";
 
 const PageHeader = (props) => {
 
     const bgClass = props.bg ?? "bg-light";
+    const titleColor = props.titleColor ? `text-${props.titleColor}` : "text-dark";
+    const subtitleColor = props.subtitleColor ? `text-${props.subtitleColor}` : "text-dark";
+    const subtitleLineColor = props.subtitleColor ? `bg-${props.subtitleColor}` : "bg-dark";
+    const descriptionColor = props.descriptionColor ?? "text-dark";
     const textClass = props.textColor ?? "text-primary";
     const colWidth = props.colWidth ?? 12;
-    const asideColNumberXs = 4;
+    const asideColNumberXs = 5;
     const colNumberXs = props.image ? colWidth - asideColNumberXs : colWidth;
     const historyBack = props.historyBack;
 
     return (
         <header className={`${styles['page-header']} ${bgClass}`}>
-            <Container fluid>
-                <Row>
-                    <Col>
-                        <Container>
-                            <Row className={'justify-content-center'}>
-                                <Col xs={colNumberXs} className={"d-flex flex-column justify-content-center"}>
-                                    {historyBack &&
-                                    <div className={"d-flex justify-content-end"}>
-                                        <Button2 variant="outline-primary" href={historyBack.uri}>
-                                            {historyBack.label}
-                                        </Button2>
-                                    </div>
-                                    }
-                                    <h1 className={textClass}>{props.title}</h1>
-                                    {props.subTitle &&
-                                        <h3 className={textClass}>{props.subTitle}</h3>
-                                    }
-                                    {props.description &&
-                                        <SanitizedInnerHtml tag={"p"}>
-                                            {props.description}
-                                        </SanitizedInnerHtml>
-                                    }
-                                    {props.children &&
-                                        props.children
-                                    }
-                                </Col>
-                                {props.image &&
-                                    <Col xs={asideColNumberXs}>
-                                        <img
-                                            className={"img-fluid"}
-                                            src={props.image}
-                                            alt={(props.imageAlt ?? props.title)}
-                                        />
-                                    </Col>
-                                }
-                            </Row>
-                        </Container>
-                    </Col>
-                </Row>
-            </Container>
+            <div className="container">
+                <div className='row justify-content-center align-items-center'>
+                    <div className={`col col-sm-${colNumberXs} d-flex flex-column justify-content-center`}>
+                        {historyBack &&
+                        <div className={"d-flex justify-content-end"}>
+                            <Button color="white" outline="primary" href={historyBack.uri}>
+                                {historyBack.label}
+                            </Button>
+                        </div>
+                        }
+                        
+                        {props.title &&
+                            <h1 className={titleColor}>{props.title}</h1>
+                        }
+                        
+                        {props.htmlTitle &&
+                            <h1 className={titleColor} dangerouslySetInnerHTML={{ __html: props.htmlTitle }}></h1>
+                        }
+                        
+                        <div className={`${styles.subtitleLine} mb-2`}>
+                            <span className={subtitleLineColor}></span>
+                            <span className={subtitleLineColor}></span>
+                        </div>
+                        
+                        {props.subTitle &&
+                            <h3 className={`${subtitleColor} mb-2`} dangerouslySetInnerHTML={{ __html: props.subTitle}}></h3>
+                        }
+
+                        {props.tags &&
+                            <h3 className={`${subtitleColor} mb-2`}>
+                                <SearchTag
+                                    className="row"
+                                    list={props.tags.list}
+                                    listProperty={props.tags.listProperty}
+                                    tagBgColor={"secondary"}
+                                />
+                            </h3>
+                        }
+
+
+                        
+                        {props.description &&
+                            <SanitizedInnerHtml tag={"p"} className={descriptionColor}>
+                                {props.description}
+                            </SanitizedInnerHtml>
+                        }
+                        
+                        {props.children &&
+                            props.children
+                        }
+                    </div>
+                    {props.image &&
+                        <div className={`col-sm-${asideColNumberXs}`}>
+                            <img
+                                className={"img-fluid"}
+                                src={props.image}
+                                alt={(props.imageAlt ?? props.title)}
+                            />
+                        </div>
+                    }
+                </div>
+            </div>
         </header>
     )
 }

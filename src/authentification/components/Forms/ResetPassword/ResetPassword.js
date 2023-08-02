@@ -6,7 +6,7 @@ import { useForm } from '@/src/hooks/form-hook'
 
 //Form components
 import Input from '@/src/common/FormElements/Input/Input'
-import Button from '@/src/common/FormElements/Buttons/Button/Button'
+import Button from '@/src/common/FormElements/Button/Button'
 
 //Styling
 import styles from './ResetPassword.module.scss'
@@ -61,7 +61,7 @@ const ResetPassword = () => {
 
 
             } catch(err){
-                console.log(err);
+                throw err;
             }
         }
         

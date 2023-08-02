@@ -1,0 +1,10 @@
+.mediaFigure {
+    background-color: $main-image-bg-color;
+    @include transition();
+
+    &:hover {
+        .dark-transparent-gradient {
+            opacity: 0.3;
+        }
+    }
+}

@@ -1,0 +1,17 @@
+.repeater {
+    //overflow: hidden;
+    //Button to drag
+    .dragging-button{
+
+        cursor: move;
+
+        &:hover { background-color: lighten($mild-dark, 50%); }
+        @include transition();
+    }
+
+    //Styling to make sure that the dropdown of any Select2 component is displayed in front of the siblings
+    .repeatable:focus-within {
+        position:relative; 
+        z-index: 10;
+    }
+}

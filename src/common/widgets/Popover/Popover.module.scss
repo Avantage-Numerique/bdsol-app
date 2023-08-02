@@ -1,0 +1,81 @@
+
+
+.tooltip-container {
+
+    $tooltip-height: .5em;
+
+    position: relative;
+    display: inline-block;
+
+    &:before {
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        border: $tooltip-height solid transparent;
+        border-bottom-color: black;
+    }
+    &:after {
+        position: absolute;
+        right: -20%;
+        top: 100%;
+        left: -20%;
+        display: block;
+        height: calc($tooltip-height * 2);
+    }
+
+    &.tooltip-visible {
+        &:after,
+        &:before {
+            content: '';
+        }
+    }
+    &.top {
+        &:after,
+        &:before,
+        [role="tooltip"] {
+            top: unset;
+            bottom: 100%;
+        }
+
+        &:before {
+            border-top-color: black;
+            border-bottom-color: transparent;
+        }
+
+        [role="tooltip"] {
+            bottom: calc(100% + calc($tooltip-height * 2));
+        }
+    }
+
+
+/* Tooltip styles */
+[role="tooltip"] {
+    position: absolute;
+    top: calc(100% + calc($tooltip-height * 2));
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 0;
+    padding: .5em 1em;
+    border-radius: .25em;
+    color: white;
+    background: black;
+    min-width: max-content;
+    max-width: 10em;
+    box-shadow: 0 1px 2px hsl(0, 0%, 0%);
+}
+
+/* Hides the tooltip */
+.tooltip-hidden {
+    display: none;
+}
+
+/*
+  Removes the emoji container from the pointer event targets.
+  If removed the globalPointerDown() function will break when you click/tap exactly on the emoji.
+*/
+[aria-hidden="true"] {
+    pointer-events: none;
+}
+
+}

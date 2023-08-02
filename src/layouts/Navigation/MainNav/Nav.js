@@ -16,8 +16,9 @@ const Nav = ( {menuState, setMenuState} ) => {
     useEffect(() => {
         //Verify the the menu is open. If it is, then close it
         if (menuState === 1){ setMenuState(0) }
-        
     }, [router.asPath]);
+
+    const closeMenu = () => { setMenuState(0) }
 
     return (
 
@@ -26,20 +27,23 @@ const Nav = ( {menuState, setMenuState} ) => {
              
                 <ul className={`${navStyles.mainMenu}`}>
 
-                    <li>
+                    <li onClick={closeMenu}>
                         <Link href="/">Accueil</Link>
                     </li>
 
-                    <li className={`${navStyles["unactive"]}`}>
-                        Consulter les données
+                    <li onClick={closeMenu}>
+                        <Link href="/categories">Consulter les données</Link>
                     </li>
 
-                    <li>
+                    <li onClick={closeMenu}>
                         <Link href="/contribuer">Contribuer à la base de données</Link>
                     </li>
 
-                    <li>
-                        <Link href="/a-propos">À propos de nous</Link>
+                    <li onClick={closeMenu}>
+                        <Link href="/faq/a-propos">À propos de nous</Link>
+                    </li>
+                    <li onClick={closeMenu}>
+                        <Link href="/faq">FAQ</Link>
                     </li>
 
                 </ul>
@@ -48,19 +52,19 @@ const Nav = ( {menuState, setMenuState} ) => {
 
                 <ul className={`${navStyles.secondaryMenu} d-flex flex-column`}>
                     <li>
-                        <Link href="https://avantagenumerique.org/le-croissant-boreal/">Le Croissant boréal</Link>
+                        <a target="_blank" href="https://avantagenumerique.org/le-croissant-boreal/">Le Croissant boréal</a>
                     </li>
                     <li>
-                        <Link href="https://avantagenumerique.org/charte-des-valeurs/">Charte des valeurs</Link>
+                        <a target="_blank" href="https://avantagenumerique.org/charte-des-valeurs/">Charte des valeurs</a>
                     </li>
                     <li>
-                        <Link href="https://avantagenumerique.org/notre-equipe/">Notre équipe</Link>
+                        <a target="_blank" href="https://avantagenumerique.org/notre-equipe/">Notre équipe</a>
                     </li>
                     <li>
-                        <Link href="https://avantagenumerique.org/a-propos/">À propos d'Avantage Numérique</Link>
+                        <a target="_blank" href="https://avantagenumerique.org/a-propos">À propos d'Avantage Numérique</a>
                     </li>
                     <li>
-                        <Link href="https://avantagenumerique.org/nous-joindre/">Nous joindre</Link>
+                        <a target="_blank" href="https://avantagenumerique.org/nous-joindre/">Nous joindre</a>
                     </li>
                 </ul>
 

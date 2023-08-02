@@ -3,39 +3,64 @@
     01Hub - 08/08/2022
 */
 
+$primary-text-emphasis-dark:#0f0f0f;
+
 //colors
 $blue: #455ae6; // Avantage numérique's mainBlue (and blue1)
 $blue2: #4d64ff; // Avantage numérique's mainBlue (and blue2)
 $blue3: #4dc4ff; // Avantage numérique's mainBlue (and blue3)
 $blue4: #5f71ea; // Avantage numérique's mainBlue (and blue4)
-$green1:  #adc9b0; //Light green
-$green2:  #7ba076; 
-$green3:  #364637; //Darkgreen
+$bluelight: #8dc6e2;
+$green-light:  #adc9b0; //Light green
+$green:  #7ba076;
+$green-dark:  #364637; //Darkgreen
 $pink: #c881ca;
 $pink-100: lighten($pink, 80%);
 $red: #dd5c5c;  // Avantage numérique's red
+$yellow: #FAFA10;
 $red-light: #ff9e9e;  // Avantage numérique's red
 $purple-light: #b2b2eb;
-$purple-lighter: lighten($purple-light, 12%);
+$purple-lighter: lighten($purple-light, 10%);
+$blue-extralight: #ebeefd;
 
 $grey: #bbbfd7;
+$light-grey-bg: #f2f2f2;
 $mild-dark: #606060; // Avantage numérique's input labels
 $dark: #292929;
 $light: lighten($grey, 30%);
 $white: #FEFEFE;
 $black: #010101;
 
+//Taxonomies colors
+$green-accepted: green;
+$yellow-pending: $yellow;
+$red-rejected: $red;
+$grey-deprecated: $mild-dark;
+$occupations:#38D0EB;//0.647
+$skills: #38EB89;//0.647
+$domains:#EB3889;//0.647
+$abilities:#E9A511;//0.647
+$general-tag: $grey;
+$bg-general-tag: rgba($grey, 30%);
+
+
 //Inputs variables
-$selected-input: #455ae6;
+$selected-input: $blue;
 
 // scss-docs-start theme-color-variables
 $primary:       $blue;
 $primarylight:  $purple-light;
+$primaryextratlight:  $blue-extralight;
+$primarydark:  darken($blue, 10%);
+$secondary: $grey;
+$secondarylight:  lighten($secondary,10%);
 
 $theme-colors:(
     "primary": $blue,
     "primarylight": $purple-light,
-    "secondary": $grey,
+    "primaryextratlight": $primaryextratlight,
+    "secondary": $secondary,
+    "secondarylight": $secondarylight,
     "purplelight": $purple-light,
     "purplelighter": $purple-lighter,
     "pink": $pink,
@@ -48,20 +73,43 @@ $theme-colors:(
     "light": $light,
     "white":$white,
     "black":$black,
-    "success": $green2,
-    "successlighter": $green1,
-    "successDarker": $green3,
+    "greyBg": $light-grey-bg,
+    "blueExtralight": $blue-extralight,
+
+    "success": $green,
+    "successlighter": $green-light,
+    "successDarker": $green-dark,
+    
+    //Taxonomies
+    "accepted":$green-accepted,
+    "pending":$yellow-pending,
+    "rejected":$red-rejected,
+    "deprecated":$grey-deprecated,
+    "occupations":$occupations,
+    "skills":$skills,
+    "domains":$domains,
+    "abilities":$abilities,
+    "general-tag":$general-tag,
+    
 );
 
+$main-image-bg-color: $light;
 
 $body-color: $dark;
 
 $min-contrast-ratio: 4.5;
 
 //fonts
-$font-size-root: 14px;
-//$font-family-base: 'Open Sans', sans-serif;
-$font-family-base: 'SuisseIntl','Helvetica Neue','Helvetica','Arial',sans-serif;
+$font-size-root: 16px;//moved from 14px to 16px font base size.
+
+$font-family-sans-serif:      'SuisseIntl','Helvetica Neue','Helvetica','Arial',sans-serif;
+
+$font-weight-lighter:         lighter;
+$font-weight-light:           300;
+$font-weight-normal:          400;
+$font-weight-semibold:        600;
+$font-weight-bold:            700;
+$font-weight-bolder:          bolder;
 
 $line-height-base: 1.4;
 
@@ -79,7 +127,13 @@ $h6-font-size:                0.8rem !default; //this is smaller than regular te
 
 $link-decoration: none;
 
+
+/*
+    BORDER
+ */
+
 $border-radius: 0.5em;
+$border-width: 0.15rem;
 //to-do; transpose value from rem to em (only one button radius is used in the app for now.
 // $border-radius-sm:            .25rem !default;
 // $border-radius-lg:            .5rem !default;
@@ -87,12 +141,116 @@ $border-radius: 0.5em;
 // $border-radius-2xl:           2rem !default;
 // $border-radius-pill:          50rem !default;
 
+
 /*
     bootstrap's variable button override
 */
+
 $btn-padding-x-lg: 4rem;
 $btn-padding-y-lg: 2rem;
 $btn-font-size-lg: 1rem;
-$btn-border-radius-lg: 4px;
+$btn-border-radius-lg: $border-radius;
 
+$image-border-color: rgb(231, 231, 231);
+$image-border-width: $border-width;
+$border-light: $image-border-width solid $image-border-color;
+
+
+/**
+        SHADOW
+ */
+
+//$default-box-shadow: 1px 1px 4px 2px rgba(0,0,0,0.15);
+$default-box-shadow: 1.1px 2.4px 8.5px rgba(0, 0, 0, 0.048),
+4.7px 10.4px 17.5px rgba(0, 0, 0, 0.051);
+
+$default-box-shadow-over: 1.1px 2.4px 4.2px rgba(0, 0, 0, 0.09);
+
+$top-box-shadow: 0px 0px 1.7px rgba(0, 0, 0, 0.026),
+0px 0px 3.6px rgba(0, 0, 0, 0.032),
+0px 0px 6.1px rgba(0, 0, 0, 0.036),
+0px 0px 10.4px rgba(0, 0, 0, 0.039),
+0px 0px 19.6px rgba(0, 0, 0, 0.045),
+0px 0px 74px rgba(0, 0, 0, 0.07)
+;
+
+/*
+    nav
+*/
+
+$nav-tabs-border-color:             $primary;
+$nav-tabs-border-width:             $border-width;
+
+
+/*
+    Badges
+ */
+
+// scss-docs-start badge-variables
+$badge-font-size:                   .75em;
+$badge-font-weight:                 $font-weight-normal;
+$badge-color:                       $white;
+$badge-padding-y:                   .35em;
+$badge-padding-x:                   .65em;
+$badge-border-radius:               $border-radius;
+
+/*
+    INPUT
+ */
+$input-border-radius: $border-radius;
+
+
+/*
+    TRANSITION
+ */
+
+$transition-default-time: 100ms;
+$transition-default-property: all;
+
+$bezier-default: cubic-bezier(0.19, 1, 0.22, 1);
+$bezier-ease-out: cubic-bezier(0, 0, 0.58, 1);
+$bezier-ease-in: cubic-bezier(0.42, 0, 1, 1);
+$bezier-ease-in-out: cubic-bezier(0.42, 0, 0.58, 1);
+$bezier-ease: cubic-bezier(0.25, 0.1, 0.25, 1);
+$bezier-linear: cubic-bezier(0, 0, 1, 1);
+$bezier-translation: cubic-bezier(.54, -0.09,.5, 1.13);
+
+$transition-ease-out: $transition-default-property $transition-default-time $bezier-ease-out;
+$transition-ease-in: $transition-default-property $transition-default-time $bezier-ease-in;
+$transition-ease-in-out: $transition-default-property $transition-default-time $bezier-ease-in-out;
+$transition-ease: $transition-default-property $transition-default-time $bezier-ease;
+$transition-linear: $transition-default-property $transition-default-time $bezier-linear;
+$transition-translation: $transition-default-property $transition-default-time $bezier-translation;
+
+$transition-default: $transition-default-property $transition-default-time $bezier-default;
+$transition-base:        $transition-ease;
+$transition-base-slow:        $transition-default-property $transition-default-time*2 $bezier-ease-in-out;
+$transition-base-quick:        $transition-default-property $transition-default-time/2 $bezier-ease-in-out;
+
+$transition-fade: opacity 0.15s $bezier-default;
+$transition-collapse: height 0.35s $bezier-ease-in-out;
+$transition-collapse-hori: width 0.35s $bezier-ease-in-out;
+
+
+/*
+    BREADCRUMBS
+ */
+$breadcrumb-font-size:              null;
+$breadcrumb-padding-y:              0;
+$breadcrumb-padding-x:              0;
+$breadcrumb-item-padding-x:         .5rem;
+$breadcrumb-margin-bottom:          1rem;
+$breadcrumb-bg:                     null;
+$breadcrumb-divider-color:          $secondary;
+$breadcrumb-active-color:           $secondary;
+$breadcrumb-divider:                quote("/");
+$breadcrumb-divider-flipped:        quote("/");
+$breadcrumb-border-radius:          $border-radius;
+
+
+
+/*
+    SIMPLE TEMPLATE
+ */
+$simple-default-padding: 0.75rem;
 

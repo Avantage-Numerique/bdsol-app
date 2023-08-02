@@ -1,0 +1,12 @@
+
+
+@each $color, $value in $theme-colors {
+    .btn.btn-arrow-svg-#{$color} svg {
+        fill: #{$value};
+    }
+
+    .btn.btn-arrow-svg-custom-outline-hover-#{$color}:hover svg,
+    .btn.btn-arrow-svg-custom-outline-hover-#{$color}:active svg{
+        fill: #{$value};
+    }
+}

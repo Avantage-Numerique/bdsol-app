@@ -1,16 +1,15 @@
 import React, { useState } from 'react';
 import DOMPurify from 'isomorphic-dompurify';
 
-
 import Head from 'next/head'
-
 
 import Class from '../components/Class/Class'
 import styles from './Documentation.module.scss'
+import ArrowButton from '../../src/common/FormElements/ArrowButton/ArrowButton'
 
 //import jsonFile from '../doc/exemples.json'   Not used for now since, for development purposes, a mock api is used
 
-
+import PageHeader from "@/src/layouts/Header/PageHeader";
 
 
 
@@ -125,6 +124,12 @@ const Documentation = ( {documentation} ) => {
 
       </Head>
       
+      <PageHeader
+        subtitleColor="primary"
+        title={`A - Documentation de l'ontologie AN`}
+        subTitle={`Lorem ipsum dolor sit amet, consectetur adipiscing elit.`}
+        description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ut commodo felis, nec egestas massa. Suspendisse convallis tortor ac varius rutrum. In tincidunt efficitur nulla in faucibus. Donec efficitur vulputate ligula, nec ultrices mi ullamcorper eget. Cras sed interdum ex. Integer pellentesque, diam eu euismod lobortis, velit purus accumsan diam."
+      />
 
       {/* General header of the page */}
       <header className="bg-blue2">
@@ -151,44 +156,35 @@ const Documentation = ( {documentation} ) => {
       </header>
 
       {/* Main section of the page that contains all the classes */}
-      <section className={styles.classesContainer}>
-        <div className="maxWidthPageContainer">
+      <section className={`${styles.classesContainer} container p-0`}>
 
-          <header>
-
-            {/* Main content of the header, presented has an article */}
-            <article>
-              <h1>A - Documentation de l'ontologie AN</h1>
-              <div className="col-12">
-                <div className={`${styles.line} line bg-primary`}></div>
-                <div className={`${styles.line} line bg-primary`}></div>
-              </div>
-              <h5 className="text-primary">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean et urna iaculis, rutrum sapien eu, luctus ante. Integer dapibus, risus.</h5>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ut commodo felis, nec egestas massa. Suspendisse convallis tortor ac varius rutrum. In tincidunt efficitur nulla in faucibus. Donec efficitur vulputate ligula, nec ultrices mi ullamcorper eget. Cras sed interdum ex. Integer pellentesque, diam eu euismod lobortis, velit purus accumsan diam.</p>
-            </article>
+          <header className='row gx-5'>
 
             {/* Call to action */}
-            <aside className="text-white commonRadius bg-primary">
+            <aside className="col-3">
 
-              <section>
-                <h3 className="col-12">Lorem ipsum dolor sit amet</h3>
-                <h5 className="col-12">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</h5>
-              </section>
+              <div className='text-white commonRadius bg-primary'>
+
+                <section>
+                  <h3 className="col-12">Lorem ipsum dolor sit amet</h3>
+                  <h5 className="col-12">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</h5>
+                </section>
+                
+                <section>
+                  <div>
+                    <ArrowButton color="primary" outline="white" direction="right" size="large"> </ArrowButton>
+                  </div>
+                </section>
+              </div>
               
-              <section>
-                <div>
-                  <button className={styles.circle_Container}>
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 11.31 16.97"><polygon points="2.83 16.97 0 14.14 5.66 8.48 0 2.83 2.83 0 11.31 8.48 2.83 16.97"/></svg>
-                  </button>
-                </div>
-              </section>
             </aside>
 
           </header>
 
-          <section>
+          <section className='row'>
 
             <h2>Liste des classes</h2>
+
             {/* Create the classes elements */}
             {documentation.classes.map(( data, classIndex ) => (
               <>
@@ -212,7 +208,6 @@ const Documentation = ( {documentation} ) => {
 
           </section>
     
-        </div>
       </section>
       
     </div>

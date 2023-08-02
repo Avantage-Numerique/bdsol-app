@@ -8,7 +8,7 @@ import React, { useState, useContext, useEffect, useCallback } from 'react'
 import { scroller } from 'react-scroll'
 import Router from 'next/router'
 
-//Components 
+//components
 import Spinner from '@/src/common/widgets/spinner/Spinner'
 
 //Custom hooks
@@ -19,6 +19,7 @@ import { MessageContext } from '@/src/common/UserNotifications/Message/Context/M
 
 //Form UI styling
 import styles from './formUI.module.scss'
+import {getDefaultUpdateEntityStatus} from "@/DataTypes/Status/EntityStatus";
 
 
 
@@ -56,9 +57,9 @@ export const useFormUtils = ( initialState, actions ) => {
     const {isLoading, sendRequest} = useHttpClient();
 
     //Custom hook to manage the state of the form (data)
-    const [formState, formTools, clearFormData] = useForm(initialState)
+    const [formState, formTools, clearFormData, updateManyFields] = useForm(initialState);
 
-    const submitRequest = async (route, type, data, header = { 'Content-Type': 'application/json' }) => {
+    const submitRequest = async (route, type, data, header = { 'Content-Type': 'application/json' }, params={isBodyJson:true}) => {
 
         if(formState.isValid){
 
@@ -66,8 +67,9 @@ export const useFormUtils = ( initialState, actions ) => {
             const response = await sendRequest (
                 route,
                 type,
-                JSON.stringify(data),
-                header
+                data,
+                header,
+                params
             )
            
             //Store the response in state
@@ -80,9 +82,7 @@ export const useFormUtils = ( initialState, actions ) => {
                 if(innerMessage)
                     setInnerMessage("")
 
-                /*
-                    Actions executed when the form is positive
-                */
+                /* Actions executed when the form is positive */
 
                 //1. Clear the form
                 if(positiveResponseActions.clearForm)
@@ -117,6 +117,26 @@ export const useFormUtils = ( initialState, actions ) => {
             
         }
     }
+
+
+    /**
+     * Helper to transmute data to help with select that use data from outside and need to adapt it
+     * @param params
+     * @return {*[]}
+     */
+    const transmuteTaxonomyTargetInput = useCallback((params) => {
+        const {inputs, fieldName, user} = params;
+        const transmutedData = [];
+
+        inputs.value.forEach( (inputValue) => {
+            transmutedData.push({
+                [fieldName]: inputValue[fieldName]._id,
+                status: getDefaultUpdateEntityStatus(user)
+            })
+        });
+        return transmutedData;
+    }, []);
+
 
     //Import message context 
     const msg = useContext(MessageContext);
@@ -154,7 +174,9 @@ export const useFormUtils = ( initialState, actions ) => {
         formState,
         formTools, 
         requestResponse,
-        clearFormData
+        clearFormData,
+        transmuteTaxonomyTargetInput,
+        updateManyFields
     }
 
 }

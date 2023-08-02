@@ -1,35 +1,26 @@
 import React from 'react'
+import {externalApiRequest} from '@/src/hooks/http-hook';
 
-import {
-    externalApiRequest
-} from '@/src/hooks/http-hook';
-
-//Styling
-import styles from './singlePerson.module.scss';
 
 //components
-import MainPersonView from '@/src/DataTypes/Person/Components/layouts/single/MainPersonView'
+import PersonSingleView from '@/DataTypes/Person/components/layouts/single/PersonSingleView'
 import {getUserHeadersFromUserSession} from "@/auth/context/auth-context";
 import {withSessionSsr} from "@/auth/session/handlers/withSession";
+import AppRoutes from "@/src/Routing/AppRoutes";
 
 
-const SinglePersonPage = props => {
+const SinglePersonViewPage = props => {
 
     return (
-        <div className={`${styles["single-person"]}`}>
-
+        <div className={`single-container single-person`}>
             <div className="maxWidthPageContainer">
-            
-                <MainPersonView data={props} />
-
+                <PersonSingleView data={props} route={AppRoutes.personSingle} />
             </div>
-            
         </div>
     )
 }
     
-export default SinglePersonPage;
-
+export default SinglePersonViewPage;
 
 export const getServerSideProps = withSessionSsr(personSlugSSProps);
 
@@ -43,6 +34,9 @@ export async function personSlugSSProps(context) {
             headers: getUserHeadersFromUserSession(context.req.session.user)
         });
 
+    if(typeof response.data._id === "undefined")
+        return { notFound: true };
+        
     return { props: response.data };
 }
 

@@ -4,11 +4,8 @@
     V.P.R. - 18/10/2022
 
 */
-import { useState } from 'react'
-
-//Import styling
-import styles from './validation.module.scss'
-
+import {useState} from 'react'
+import {lang} from "@/common/Data/GlobalConstants";
 
 const rules_settings = {
     REQUIRED: { 
@@ -17,11 +14,11 @@ const rules_settings = {
             //Make sure there is actually a value passed
             if(!value) return false
             //If the value is an array 
-            if(Array.isArray(value)) return value.length > 0 ? true : false;
+            if(Array.isArray(value)) return value.length > 0;
             //Everything else (for now), we convert it to string, trim it and compare
-            return value.toString().trim().length > 0 ? true : false
+            return value.toString().trim().length > 0
         }),
-        renderBadge: (() => "Requis")
+        renderBadge: (() => lang.badgeRequired)
     },
     MIN_LENGTH: { 
         renderMessage: ((min = 5) => `Ce champ doit contenir au moins ${min} caractères`),
@@ -52,6 +49,11 @@ const rules_settings = {
         renderMessage: (() => "Ce champ ne doit contenir que des caractères alphanumériques (lettres et chiffres)"),
         validationMethod: (value => /^[A-Za-z0-9]*$/.test(value)),
         renderBadge: (() => `Alphanumerique (lettres et chiffres)`)
+    },
+    FILE_MAX_SIZE: {
+        renderMessage: ((mo = 5) => `Ce champ n'accepte que les fichiers de ${mo} Mo et moins.`),
+        validationMethod: ((value, mo = 5) => value ? value?.size <= (mo * 1024 * 1024) : true),
+        renderBadge: ((mo = 5) => `${mo} Mo max`)
     }
 }
 
@@ -118,26 +120,34 @@ export const useValidation = ( setOfRules ) => {
 
         const rulesNameList = Object.keys(validator);
 
+        const forceBadgeDisplay = Object.values(validator).map(rule => rule.isValid).some(elem => elem === false)
+
         return (
             <>
                 {/* At least one validator to */}
                 { rulesNameList.length > 0 && 
-                <ul className={`mb-0 ${props.addUlPadding && "form-element--field-padding-top-reverse"} badge-container`}>
-                    { rulesNameList.map(ruleName => (
-                        <li 
-                            title={`${validator[ruleName].message}`}
-                            className={`
-                                        me-2
-                                        mt-1 
-                                        rounded-1
-                                        badge-container__badge
-                                        ${validator[ruleName].isValid && "badge--validation-succes"}
-                                    `}
-                            key={"badge-" + ruleName}
-                            >{validator[ruleName].badge}
-                        </li>
-                    ))}
-                </ul>
+                <div className="w-100">
+                    { forceBadgeDisplay && rulesNameList.length > 0 &&
+                        <div className="w-100 form-element--field-padding-x">
+                            <div className="form-element--default-border--top"></div>
+                        </div>
+                    }
+                    <ul className={`mb-0 ${props.addUlPadding && "form-element--field-padding-top-reverse"} ${props.alwaysDisplay && "d-flex"} badge-container gap-2 ${forceBadgeDisplay ? "form-element--force-badge-display" : ""}`}>
+                        { rulesNameList.map(ruleName => (
+                            <li 
+                                title={`${validator[ruleName].message}`}
+                                className={`
+                                             
+                                            rounded-1
+                                            badge-container__badge
+                                            ${validator[ruleName].isValid && "badge--validation-succes"}
+                                        `}
+                                key={"badge-" + ruleName}
+                                >{validator[ruleName].badge}
+                            </li>
+                        ))}
+                    </ul>
+                </div>
                 }
             </>
         )

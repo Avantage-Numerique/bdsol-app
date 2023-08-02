@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-//Components
+//components
 import Modal from './Modal/Modal'
 
 export const useModal = ( prefilledValues ) => {
@@ -20,7 +20,6 @@ export const useModal = ( prefilledValues ) => {
             {
                 lastName: "Boudreau",
                 firstName: "Walter"
-
             }
         */
         setModal(prev => ({

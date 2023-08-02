@@ -11,19 +11,40 @@
         */
         --horizontal-spacing: 0.75rem;
         --vertical-spacing: 0.75rem;
+        --default-border: 0.1rem solid rgba(94, 94, 94, 0.13);
+        --placeholder-color: #{$grey};
 
-        background-color: $light;
+        //To prevent the h2 class from changing the size of the hole element
+        line-height:1rem;
+
         position: relative;
-        
+
+        background-color:  $light;
+        border: var(--default-border);
         border-radius: 0.25rem;
-        border: 0.1rem solid rgba(94, 94, 94, 0.13);
+
+        //To prevent the field from overflowing the container
+        max-width: 100%;
+
+        &.discrete-without-focus {
+                //Make the element slimer
+                --horizontal-spacing: 0.5rem;
+                --vertical-spacing: 0.25rem;
+
+                background-color: #45454540;
+                border: 0.1rem solid rgba(0, 0, 0, 0);
+
+                &.form-text-white { color: white; }
+
+                &:hover{ 
+                        background-color:  $light; 
+                        border: var(--default-border);
+                        &.form-text-white {color: var(--bs-gray-700)};
+                }
+        }
 
         &.form-element--color-validation{
 
-                -webkit-transition: all 300ms ease;
-                -moz-transition: all 300ms ease;
-                -ms-transition: all 300ms ease;
-                -o-transition: all 300ms ease;
                 transition: all 300ms ease;
 
                 &:focus-within {
@@ -33,7 +54,7 @@
                         */
                         background-color: lighten($selected-input, 32%);
                         border: 0.1rem solid lighten($selected-input, 15%);
-                        
+                        &.form-text-white {color: var(--bs-gray-700)};
                 }
 
                 &.control--invalid:not(:focus-within) {
@@ -49,25 +70,29 @@
         .badge-container {
                 
                 display: none;
+                flex-wrap: wrap;
+
+                /* Allow the badges to only disapear if they are valid */
+                &.form-element--force-badge-display { display: inline-flex; }
                     
                 .badge-container__badge {
-                        --badge--color: rgba(87, 87, 87, 0.822);
-                        --badge--bg-color: rgba(218, 218, 218, 0.336);
-                        --badge--border-color: rgba(170, 170, 170, 0.623);
+                        --badge--color: rgb(103, 103, 103);
+                        --badge--bg-color: rgb(241, 241, 241);
+                        --badge--border-color: rgb(179, 179, 179);
                         
                         
                         background-color: var(--badge--bg-color);
                         border: 0.12rem solid var(--badge--border-color);
                         font-size: 0.7rem;
+                        font-weight: normal;
                         padding: 0.15rem;
                         color: var(--badge--color);
                         
                         /* Variables BOOTSTRAP to define */
                         &.badge--validation-succes {
-
-                                --badge--color: #364637c1;
-                                --badge--bg-color: #adc9b07e;
-                                --badge--border-color: #7ba07681;
+                                --badge--color: rgb(54, 70, 55);
+                                --badge--bg-color:  rgb(192, 216, 194);
+                                --badge--border-color:  rgb(155, 173, 155);
                         }       
                 }
         }
@@ -76,22 +101,49 @@
                 .badge-container { display: inline-flex }
         }
 
-
-    
+        /****
+        *       Placeholder color
+        */
+        ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+                color: var(--placeholder-color);
+                opacity: 1; /* Firefox */
+        }
+        :-ms-input-placeholder { /* Internet Explorer 10-11 */
+                color: var(--placeholder-color);
+        }
+        
+        ::-ms-input-placeholder { /* Microsoft Edge */
+                color: var(--placeholder-color);
+        }
 
 }
 
 /* Inner padding of every field that defines the distance between the content and the border */
 .form-element--field-padding { 
-        padding: var(--horizontal-spacing) var(--vertical-spacing); 
+        padding: var(--vertical-spacing) var(--horizontal-spacing); 
 }
+
+/* Inner padding - vertical only */
+.form-element--field-padding-y { 
+        padding-top: var(--vertical-spacing);
+        padding-bottom:  var(--vertical-spacing);
+}
+
+/* Inner padding - horizontal only */
+.form-element--field-padding-x { 
+        padding-left: var(--horizontal-spacing);
+        padding-right:  var(--horizontal-spacing);
+}
+
+.form-element--default-border { border: var(--default-border); }
+.form-element--default-border--top { border-top: var(--default-border); }
 
 .form-element--b-radius { border-radius: $border-radius; }
 
 /* Same values than the field padding, but with not padding-top. */
 .form-element--field-padding-top-reverse {
-        padding: var(--horizontal-spacing) var(--vertical-spacing); 
-        padding-top: 0;
+        padding: calc(0.5 * var(--vertical-spacing)) var(--horizontal-spacing); 
+        //padding-top: calc(0.5 * var(--vertical-spacing))
 }
 
 /*  Container of the error messages displayed under the field */
@@ -108,7 +160,7 @@
                         border-radius: 100%;
                         font-size: 0.6rem;
                         height: fit-content;
-                        padding: 0.075em 0.25em 0em 0.25em;
+                        padding: 0.075em 0.25em 0 0.25em;
                         margin-right: 0.25rem;
                 }
         }

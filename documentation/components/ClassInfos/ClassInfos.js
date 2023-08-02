@@ -10,6 +10,7 @@ import React, { useState } from 'react';
 import styles from './ClassInfos.module.scss';
 import Property from '../Property/Property';
 import LinkedClass from '../LinkedClass/LinkedClass';
+import Button from '@/FormElements/Button/Button'
 
 
 const ClassInfos = ( {data, active, globalData} ) => {
@@ -31,6 +32,8 @@ const ClassInfos = ( {data, active, globalData} ) => {
         }
 
     }
+
+    let bidule = 0;
 
     return (
 
@@ -56,21 +59,31 @@ const ClassInfos = ( {data, active, globalData} ) => {
 
                 <h4 className="text-primary col-12">Propriétés</h4>
 
-                <div className={`${styles.propertiesButtonContainer} col-12`}>     
-                     
-                     {/* Display every properties */}
-                     {data.properties.map( (propData, propIndex) => (
-
-                        <button 
-                            key={` ${propData.slug}-button`} 
-                            onClick={ () => onPropertyDisplayClick( propIndex ) } 
-                            className={`${styles.propertyName} text-white ${ index == propIndex ? "bg-primary" : "bg-secondary" } `} 
-                        >
-                            { propData.title }
-                        </button>
-                     ))}
-
+                <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                    {/* Display every properties */}
+                    {
+                        data.properties.map(
+                            (propData, propIndex) => (
+                                <>
+                                    <input
+                                        key={` ${propData.slug}-button`}
+                                        type="radio"
+                                        name="btnradio"
+                                        id={`btnradio${propIndex}`}
+                                        autocomplete="off"
+                                        class="btn-check"
+                                        checked={`${ index == propIndex ? "checked" : "" }`}
+                                        onClick={ () => onPropertyDisplayClick( propIndex ) }
+                                    />
+                                    <label class="btn btn-outline-primary" for={`btnradio${propIndex}`}>{ propData.title }</label>
+                                </>
+                            )
+                        )
+                    }
                 </div>
+
+
+
 
                 {/* Section that contains the properties informations, passed through as articles */}
                 <div className="col-12">

@@ -8,8 +8,9 @@
             "@/auth/*": ["src/authentification/*"],
             "@/layouts/*": ["src/layouts/*"],
             "@/DataTypes/*": ["src/DataTypes/*"],
-            "@/public/*": ["./public"],
+            "@/public/*": ["public/*"],
             "@/common/*": ["./src/common/*"],
+            "@/FormElements/*": ["./src/common/FormElements/*"],
             "@/*": ["./*"]
         }
     }

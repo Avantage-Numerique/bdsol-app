@@ -1,15 +1,26 @@
 .page-header {
 
     padding: 8vh 4vw;
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
 
     h1 {
         font-size: min(8vw, 3.2rem);
     }
 
-    p {
-        max-width: 70ch;
+}
+
+.subtitleLine {
+    
+    > span {
+        display:inline-block;
+        height: 0.4rem;
+        vertical-align: middle;
+        margin-right: 0.7rem;
+        border-radius: 0.2rem;
     }
 
-    background: var(--bs-pinklighter);
-
+    > span:first-of-type{ width: 11rem; }
+    
+    > span:last-of-type{ width: 2rem; }
 }

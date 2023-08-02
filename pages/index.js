@@ -2,31 +2,30 @@ import React, {useContext, useEffect, useState} from 'react';
 
 import DOMPurify from 'isomorphic-dompurify';
 import Head from 'next/head';
+import {lang} from "@/src/common/Data/GlobalConstants";
 
-//Components
-import Button from '@/src/common/FormElements/Buttons/Button/Button'
-import PresentationCard from '@/src/common/Containers/cards/presentationCard'
+//components
+import Button from '@/src/common/FormElements/Button/Button'
 import Spinner from '@/src/common/widgets/spinner/Spinner'
-
-
 import {sortDescBy} from "@/src/common/Data/Sorting/Sort";
+import PageHeader from "@/src/layouts/Header/PageHeader";
+import EntitiesGrid from "@/DataTypes/Entity/layouts/EntitiesGrid";
 
-//Costum hooks 
+//Entities
+import Person from "@/DataTypes/Person/models/Person";
+import Organisation from "@/DataTypes/Organisation/models/Organisation";
+import Project from "@/DataTypes/Project/models/Project";
+
+//Costum hooks
 import {useHttpClient} from '@/src/hooks/http-hook';
 
 //Context
 import {MessageContext} from '@/src/common/UserNotifications/Message/Context/Message-Context';
 import {useAuth} from '@/src/authentification/context/auth-context';
+import SanitizedInnerHtml from "@/src/utils/SanitizedInnerHtml";
 
 //Styling
 //import styles from './home-page.module.scss'
-import {lang} from "@/src/common/Data/GlobalConstants";
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import Button2 from "react-bootstrap/Button";
-import PageHeader from "@/src/layouts/Header/PageHeader";
-
 
 const HomePage = ({}) => {
 
@@ -44,57 +43,68 @@ const HomePage = ({}) => {
 
     const fetchHomeFeed = async () => {
 
+
         const listQuery = {"sort": "desc"};//{"sort": {"updatedAt": -1}}; //{};//
+        const defaultHeader = {'Content-Type': 'application/json'};
+        const entities = [
+            {
+                path:"/organisations/list",
+                queryParams: listQuery,
+                result: {}
+            },
+            {
+                path:"/persons/list",
+                queryParams: listQuery,
+                result: {}
+            },
+            {
+                path:"/projects/list",
+                queryParams: listQuery,
+                result: {}
+            }
+        ];
 
-        //Send the request with the specialized hook
-        const orgResponse = await sendRequest(
-            "/organisations/list",
-            'POST',
-            JSON.stringify({"data": listQuery}),
-            {'Content-Type': 'application/json'}
-        )
+        let haveError = false;
+        let feed = [];
 
-        //Send the request with the specialized hook
-        const persResponse = await sendRequest(
-            "/persons/list",
-            'POST',
-            JSON.stringify({"data": listQuery}),
-            {'Content-Type': 'application/json'}
-        )
+        const feedPromises = entities.map(async (query) => {
 
-        /*
-            Display the proper message relative to the api response
-        */
+            const currentResult = sendRequest(
+                query.path,
+                'POST',
+                JSON.stringify({"data": query.queryParams}),
+                defaultHeader
+            );
+            query.result = currentResult;
 
-        //If positive
-        if (!orgResponse.error && !persResponse.error) {
+            haveError = !haveError && !currentResult.error;
+            return currentResult;
 
-            orgResponse.data.forEach(element => element.dataType = "organisation")
-            persResponse.data.forEach(element => element.dataType = "person")
+        });
 
-            const feed = [...orgResponse.data, ...persResponse.data];
+        Promise.all(feedPromises).then((entitiesResults) => {
 
-            //Sort and mixed both collection the data to display the new elements before
-            feed.sort(sortDescBy('createdAt'));
+            entitiesResults.map(async (result) => {
 
-            //Finaly, update the state to display the result
-            setFeedList(feed);
+                //populate the feed if the current request return a success (!error)
+                if (!result.error && result?.data?.length > 0) {
+                    feed = [...feed, ...result.data];
+                }
 
-            //If negative
-        } else {
+                //Show a message if the query return and error.
+                if (result.error) {
+                    msg.addMessage({
+                        text: result.message,
+                        positive: false
+                    });
+                }
 
-            if (orgResponse.error)
-                msg.addMessage({
-                    text: orgResponse.message,
-                    positive: false
-                })
-
-            if (persResponse.error)
-                msg.addMessage({
-                    text: persResponse.message,
-                    positive: false
-                })
-        }
+                if (feed.length > 0 && haveError) {
+                    feed.sort(sortDescBy('createdAt'));//   Sort and mixed both collection the data to display the new elements before
+                    setFeedList(feed); //   Finaly, update the state to display the result
+                }
+            });
+        });
     }
 
     //Fetch the data 
@@ -102,6 +112,18 @@ const HomePage = ({}) => {
         fetchHomeFeed();
     }, [])
 
+    //Function to return the path to the page of creation of an entity, depending on location
+    const getCreateEntityPath = (type) => {
+        //@todo need DRY and verification for using "TYPE_PERSON", TYPE_ is a constant with a string value of the type.
+        let model;// = getModelFromType(type, {});
+        if(type == "TYPE_PERSON")
+            model = new Person({})
+        if(type == "TYPE_ORGANISATION")
+            model = new Organisation({})
+        if(type == "TYPE_PROJECT")
+            model = new Project({})
+        return model.createRoute.asPath;
+    }
 
     /****************************
      LD+Json data
@@ -141,10 +163,8 @@ const HomePage = ({}) => {
                 <meta name="twitter:title" content={lang.appDefaultName}/>
                 <meta name="twitter:description" content={lang.appDefaultDescription}/>
 
-                {/*
-                To add when the domain will be selected ....
-                <link rel="canonical" href="https://avantagenumerique.org/">
-                */}
+                {/* To add when the domain will be selected ....
+                    <link rel="canonical" href="https://avantagenumerique.org/">  */}
 
                 {/* Structured data */}
                 <script
@@ -154,20 +174,22 @@ const HomePage = ({}) => {
             </Head>
 
             <PageHeader
-                bg={"bg-pink"}
+                bg={"bg-primaryextratlight"}
                 textColor={"text-white"}
                 title={lang.homePageTitle}
                 subTitle={lang.homePageDescription}
                 description=""
                 image={"/general_images/Croissant-Boreal@3x-1440x1440.png"}
-                imgAlt={"Carte du croissant boréal"} />
+                imgAlt={"Carte du croissant boréal"} key={"pageHeaderHomePage"} />
 
 
-            <Container className={"home-page__main"}>
-                <Row>
-                    <Col xs={9}>
-                        <section className={"home-page__feed-section px-3"}>
-                            <h2>{lang.actualities}</h2>
+            <div className="container home-page__main p-0">
+                <div className="row gx-5">
+                    <div className="col col-12 col-md-9 position-relative">
+                        <section className="home-page__feed-section">
+                            <div className={"d-flex justify-content-between content-header"}>
+                                <h2>{lang.allData}</h2>
+                            </div>
                             <hr />
                             {
                                 <>
@@ -186,105 +208,112 @@ const HomePage = ({}) => {
                                     {
                                         feedList.length === 0 && !isLoading &&
                                         <div>
-                                            <h5>Aucune donnée ¯\_(ツ)_/¯ pour l'instant. On a peut-être un problème en
-                                                arrière
-                                                plan.</h5>
+                                            <h5>{lang.noResult}</h5>
                                         </div>
                                     }
-                                    <Row className={"home-page__feed-section--container"}>
-
-                                            {/* Display feed if there is one */}
-                                            {
-                                                feedList.length > 0 && !isLoading &&
-                                                feedList.map(elem => (
-                                                    <Col md={6} lg={4} className="p-2" key={elem._id + "-" + elem.slug}>
-                                                        <PresentationCard
-                                                            key={elem._id}
-                                                            header={elem.dataType === "person" ? "Personne" : "Organisation"} /* VERY VERY VERY VERY VERY TEMPORARY */
-                                                            data={elem}
-                                                        />
-                                                    </Col>
-                                                ))
-                                            }
-
-
-                                    </Row>
+                                    {/*  Show the feed in the EntitiesGrid component. It manages an empty list in it, but it make it more readable to show it here too */}
+                                    {
+                                        feedList.length > 0 && !isLoading &&
+                                        <EntitiesGrid className={"row home-page__feed-section--container row-cols-1 row-cols-sm-2 row-cols-xl-3"} columnClass={"col g-3"} feed={feedList}/>
+                                    }
                                 </>
                             }
                         </section>
-                    </Col>
-                    <Col xs={3} as={"aside"} className={"px-3"}>
-                        <div className={"px-3"}>
-
-                            <h2>{lang.menu}</h2>
-                            <hr />
+                    </div>
+                    <aside className="col col-12 col-md-3">
+                        <div>
                             {/* If user is not connected, offer the option to connect itself*/}
-                            {!auth.user.isLoggedIn &&
-                            <section>
-                                <Button2 className={"btn btn-primary btn-block w-100"} href="/compte/connexion">Se connecter</Button2>
-                                <hr />
-                            </section>
+
+                            {auth.user.isLoggedIn ?
+                                <div className={"d-flex flex-column content-header"}>
+                                    <Button color="white" outline="primary" href="/contribuer">Ajouter une donnée</Button>
+                                </div>
+                                :
+                                <section className="d-grid content-header">
+                                    <Button color="primary" href="/compte/connexion">Se connecter</Button>
+                                </section>
                             }
-
-                            {/*Rapid options to access of edit the database*/}
-                            <section className={"aside__db-edit-options"}>
-
-                                <div className={"db-edit-options__button-set"}>
-                                    <Button disabled slim>Événement</Button>
-                                    <Button disabled slim>+</Button>
-                                </div>
-
-                                <div className={"db-edit-options__button-set"}>
-                                    <Button disabled slim>Personne</Button>
-                                    <Button
-                                        disabled={!auth.user.isLoggedIn}
-                                        href="/contribuer/person"
-                                        slim
-                                    >+</Button>
-                                </div>
-
-                                <div className={"db-edit-options__button-set"}>
-                                    <Button disabled slim>Organisation</Button>
-                                    <Button
-                                        disabled={!auth.user.isLoggedIn}
-                                        slim
-                                        href="/contribuer/organisation"
-                                    >+</Button>
-                                </div>
-
-                                <div className={"db-edit-options__button-set"}>
-                                    <Button disabled slim>Taxonomie</Button>
-                                    <Button
-                                        disabled={!auth.user.isLoggedIn}
-                                        slim
-                                        href="/contribuer/taxonomy"
-                                    >+</Button>
-                                </div>
-                                {auth.user.isLoggedIn &&
-                                    <div className={"d-flex flex-column mt-3"}>
-                                        <Button2 variant={"outline-primary"} href="/contribuer">Ajouter une donnée</Button2>
-                                    </div>
-                                }
-
-                                <hr/>
-                                <p>
-                                    <strong className="text-danger">DÉVELOPPEMENT EN COURS.</strong> Vous pourrez
-                                    bientôt lancer des recherches et consulter toutes les données.
-                                </p>
-                            </section>
                             <hr />
-
-                            {/* Section : If user is not connected, propose to create an account if he doesn't have one */}
                             {!auth.user.isLoggedIn &&
-                            <section className={"aside__register-option"}>
+                            <section className={"aside__register-option py-2"}>
                                 <div className="bg-primary text-white d-flex flex-column">
                                     <h4>Pas encore de compte ?</h4>
                                     <p>Vous en aurez besoin afin de vous aussi contribuer aux données</p>
-                                    <Button2 href="/compte/inscription" variant={"outline-white"}>C'est par ici !</Button2>
+                                    <Button color="light" outline="light" href="/compte/inscription">C'est par ici !</Button>
                                 </div>
                                 <hr />
                             </section>
                             }
+                            
+                            {/*Rapid options to access of edit the database*/}
+                            <section className={"aside__db-edit-options"}>
+
+                                {/*<div className={"db-edit-options__button-set"}>
+                                    <Button 
+                                        disabled 
+                                        size="slim" 
+                                    >{lang.Events}</Button>
+                                    <Button 
+                                        disabled     
+                                        size="slim" 
+                                    >+</Button>
+                                </div>*/}
+
+                                <div className={"db-edit-options__button-set"}>
+                                    <Button 
+                                        href="/persons/"
+                                        size="slim" 
+                                        color="primary"
+                                        slim>
+                                        {lang.Persons}</Button>
+                                    <Button
+                                        color="primary"
+                                        size="slim"
+                                        disabled={!auth.user.isLoggedIn}
+                                        href={getCreateEntityPath("TYPE_PERSON")}
+                                    >+</Button>
+                                </div>
+
+                                <div className={"db-edit-options__button-set"}>
+                                    <Button 
+                                        href="/organisations/"
+                                        color="primary" 
+                                        size="slim" 
+                                    >{lang.Organisations}</Button>
+                                    <Button
+                                        color="primary"
+                                        size="slim"
+                                        disabled={!auth.user.isLoggedIn}
+                                        href={getCreateEntityPath("TYPE_ORGANISATION")}
+                                    >+</Button>
+                                </div>
+
+                                <div className={"db-edit-options__button-set"}>
+                                    <Button href="/projets" color="primary" size="slim">{lang.Projects}</Button>
+                                    <Button
+                                        color="primary"
+                                        size="slim"
+                                        disabled={!auth.user.isLoggedIn}
+                                        href={getCreateEntityPath("TYPE_PROJECT")}
+                                    >+</Button>
+                                </div>
+
+                                <div className={"db-edit-options__button-set"}>
+                                    <Button href="/categories" color="primary" size="slim">{lang.Taxonomies}</Button>
+                                    <Button
+                                        color="primary"
+                                        size="slim"
+                                        disabled={!auth.user.isLoggedIn}
+                                        href="/contribuer/categorie"
+                                    >+</Button>
+                                </div>
+
+                                <hr/>
+                                <SanitizedInnerHtml tag={"p"}>
+                                    {lang.projectInDev}
+                                </SanitizedInnerHtml>
+                            </section>
+                            <hr />
 
                             {/*
                                 Section : More informations about the project
@@ -292,18 +321,15 @@ const HomePage = ({}) => {
                             <section className={"d-flex flex-column"}>
                                 <h4>À propos</h4>
                                 <p>
-                                    La Base de données structurées, ouvertes et liées (BDSOL) est le cœur du hub virtuel
-                                    d’Avantage numérique. Elle vise à recenser et géolocaliser les talents, les
-                                    compétences, les ressources, les initiatives techno-créatives à travers le territoire du Croissant Boréal.
+                                    La base de données structurées, ouvertes et liées (BDSOL) est le cœur du hub virtuel d’Avantage numérique.
+                                    Elle vise à recenser et géolocaliser les talents, les compétences, les ressources, les initiatives technocréatives à travers le territoire du Croissant Boréal.
                                 </p>
-                                <Button2 href="/a-propos" className="mt-3" variant={"outline-primary"}>En savoir plus</Button2>
+                                <Button classes="mt-3" color="white" outline="primary" href="/faq/a-propos">En savoir plus</Button>
                             </section>
-
                         </div>
-                    </Col>
-                </Row>
-            </Container>
-
+                    </aside>
+                </div>
+            </div>
         </div>
     )
 }

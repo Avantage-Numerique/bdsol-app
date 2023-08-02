@@ -1,405 +1,211 @@
-import React, {useEffect, useState, useRef, useContext, useCallback} from 'react'
+//React
+import { useState, useEffect, useContext, useRef } from "react";
 
-//Custom Hooks
-import { useHttpClient } from '@/src/hooks/http-hook'
-import { useValidation } from '@/src/hooks/useValidation/useValidation';
-//import { useDebounce } from '@/src/hooks/useDebounce'
+//Helper
+import ApiEntityModel from "@/src/DataTypes/Entity/models/ApiEntityModel";
 
-//Contexts
-import { MessageContext } from '@/src/common/UserNotifications/Message/Context/Message-Context'
+//Component
+import Select2BaseSingle from "./Select2BaseSingle";
+import Select2BaseMulti from "./Select2BaseMulti";
+import Tip from '@/common/FormElements/Tip/Tip';
+import Button from '@/src/common/FormElements/Button/Button';
+import CreateTaxonomyForm from '@/DataTypes/Taxonomy/components/Forms/CreateTaxonomy/CreateTaxonomyForm';
 
-//Components
+//Hook
+import { useHttpClient } from "@/src/hooks/http-hook";
 import useDebounce from '@/src/hooks/useDebounce'
-
-//Styling
-import styles from './Select2.module.scss'
-import Button from 'react-bootstrap/Button'
-
-import { useAuth } from '@/src/authentification/context/auth-context'
-
-/*
-    Temporary hardcoded value to prevent making switch cases
-*/
-const dictionnary = {
-    offers: "offer",
-    occupations: "occupation",
-    team: "member"
-}
-
-const convertFormatedObject = (name, valueId, userId) => {
-    return {
-        [dictionnary[name]]: valueId,
-        status: {
-            state:"Pending",
-            requestedBy: userId,
-            lastModifiedBy: userId
-        }
-    }
-}
+import { useRootModal } from '@/src/hooks/useModal/useRootModal'
+import { useValidation } from '@/src/hooks/useValidation/useValidation';
 
 
-const Select2 = ({name, formTools, ...props}) => {
+/**
+ * @param {string} name : used for id and formState
+ * @param {formTools} formTools : FormTools
+ * @param {string} label : Title of the field displayed over it
+ * @param {boolean} creatable : true if allowed to create, false or undefined means not allowed to create new option
+ * @param {boolean} isMulti : true if multiple selection allowed, false if single option selectable
+ * @param {Array} optionsList : (optionnal) Can specify directly a list of option in format [ { label, value, color? }, ... ]
+ * @param {string} fetch : Url to fetch data from and create options
+ * @param {string} className : className added from outside the component 
+ * @param {string} formClassName : className for the form layer
+ * @param {object} requestData : param to always pass during request (e.g. category : "skills" to only access skills taxonomy)
+ * @param {string} searchField : for the moment => a string added to requestData that's dynamically searching with the select
+ * @param {string} selectField : String that allow ApiEntityModel to know what to return as a select option from the data of formState (domains, offers, fullName)
+ * Note : Works best if "type" is in the formState data, else it goes to switch case default and exceptions need to be handled
+ * @param {function} createOptionFunction : function that handles the create (modal pop-up ...) if undefined, create default 
+ */
 
-    const selectTagRef = useRef();
 
-    //Extract validation methods
-    const { validate, RequirementsBadges, ValidationErrorMessages } = useValidation( props.validationRules )
 
-    //Import message context 
-    const msg = useContext(MessageContext);
+const Select2 = ({ name, formTools, ...props }) => {
 
-    //Import Auth context
-    const auth = useAuth();
-
-    //Extract the functions inside useHttpClient
     const {sendRequest} = useHttpClient();
+    const [optionsList, setOptionList] = useState(props.optionsList ?? []);
+    const [inputValue, setInputValue] = useState("");
+    const [value, setValue] = useState(null);
 
-    /*
-        Access the differents form tools 
-    */
+    //Extract validator message
+    const { validate, RequirementsBadges } = useValidation( props.validationRules )
+
+    //Extract root modal 
+    const { Modal, displayModal, closeModal, modalInitValues } = useRootModal();
+
+    //Formstate
     const {
         formState,
         inputHandler,
         inputTouched
     } = formTools;
 
-    //Make sure that the initial value is if type array. Otherwise, it create
-    const currentState = formState.inputs[name].value;
-
-    const updateValue = value => {
-        console.log(value)
+    useEffect(() => {
         inputHandler(
             name,
             value,
             props.validationRules ? validate(value) : true
         )
-    }
+    },  [value])
 
-    /***********************
-     * 
-     *      Matching value 
-     * 
-     *      => Confirmed match between the field entered value and one entity in the database
-     * 
-     ************************/
-
-    //Find if there is a matching value between the list proposed by the api and the value entered in the field by the user
-    const findMatchingValue = () => selectList.data.find(e => {return e[props.searchField] === selectTagRef.current.value})
-
-    //Store globally the matching value when evaluated
-    const matchingValue = useRef();
-
-    /**************************
-        Other select states
-    ***************************/
-
-    //List of options fetched by the api and proposed to the user in the data list in grey
-    const [selectList, setSelectList] = useState([]);
-
-    //Full list of property about selected Entity to be displayed
-    const [selectedEntities, setSelectedEntities] = useState([]); 
-    
-    //Value sent to the api to receive 10 options corresponding
-    //shape : data: {category: 'occupations', name: 'ingenieur'}
-    const [selectRequest, setSelectRequest] = useState(props.requestData)
-
-    const debouncedRequest = useDebounce(selectRequest, 400);
-
-    const matchLocalToFormState = async () => {
-
-        //New edited selectedEntities state 
-        let editedSelectedEntities = [];
-
-        //OPTION 1 : Evaluate if one or many ids present in the selectedEntities are not in the current State
-        //  => Action: we need to extract only the ones that match the formState
-        editedSelectedEntities = selectedEntities.filter(o1 => currentState.some(o2 => o1._id === o2[dictionnary[name]]));
-
-        //OPTION 2 : One or many ids in the current state doesn't appear in the selectedEntites
-        //  => Action: we need to add them
-        //Get a new array containing every elements present in the formstate that are not reflected in the selected entities
-        const absentFormStateObjs = currentState.filter(o1 => !selectedEntities.some(o2 => o1[dictionnary[name]] === o2._id));
-
-        if(absentFormStateObjs.length > 0)
-
-            //update the state with the new values
-            for(const entity of absentFormStateObjs){
-                //If the object data stored in the matching value 
-                if(matchingValue.current && (entity[dictionnary[name]] === matchingValue.current._id)){
-                    //Use this one to store in the selectedEntities
-                    editedSelectedEntities.push(matchingValue.current)
-
-                //If the object data is not in the matchingValue, we have to fetch it
-                } else {
-                    //Fetch by the Id
-                    const entityData =  await sendRequest(
-                        (props.request + "/search"),
-                        'POST',
-                        JSON.stringify({data:{_id: entity[dictionnary[name]]}})
-                    );
-
-                    //If there is an error, passed the message to the user
-                    if(entityData.error){
-                        msg.addMessage({ 
-                            text: `Suite à une erreur, une ou plusieurs informations n'ont pas pu être importées et affichées dans le champ "${props.label}"`,
-                            positive: false 
-                        })
-                    } else {
-                        //No mistake
-                        //Add the newly fetch entity to the selectedEntities so it can be displayed
-                        editedSelectedEntities.push(entityData.data)
-                    }     
-                }                
-            }
-        
-        //Finaly, we can update the local state with the new value
-        setSelectedEntities(editedSelectedEntities)
-    }
-
-    //Standardize the return values stored in the state to make such they have the right shape for the server. 
-    //This is in the case the form has been prefilled with the right data but wrong shape.
-    //convertFormatedObject = (name, valueId, userId) 
-    const standardizeCurrentState = () => {
-
-        let isModified = false;
-        let newStateToReturn = [...currentState];
-
-        newStateToReturn.forEach((obj, i) => {
-            if(obj._id || (typeof obj[dictionnary[name]] == "object" )){
-                isModified = true;
-                newStateToReturn[i] = convertFormatedObject(name, obj[dictionnary[name]]._id, auth.user.id)
-/*
-            {
-                    [dictionnary[name]]: obj[dictionnary[name]]._id,
-                    status: {
-                        state: obj.status.state,
-                        requestedBy: obj.status.requestedBy,
-                        lastModifiedBy:obj.status.lastModifiedBy
-                    }
-                } */
-            }
-        })
-
-        console.log("state to return", newStateToReturn);
-        if(isModified)
-            updateValue(newStateToReturn)
-    }
-
-    //Update the selectedEntities whenever the form state change.
-    //This way, the "selectedEntities" state is bind to the main form state and will always reflect it
-    useEffect(() => {
-        //call the function
-        matchLocalToFormState()
-        standardizeCurrentState()
-    }, [currentState])
-
-    //Called whenever the user enter or modify a value into the field
-    const formRequestData = (val) => {
-        //Get the value inside the requestData in the "props.searchField" to send a new search request
-        props.requestData.data[props.searchField != undefined ? props.searchField : "name"] = val;
-        setSelectRequest({...props.requestData});
-    }
-
-    //Function to add a taxonomy element to the selected list that will be submitted with the form
-    const resetSelectComponent = () => {
-        selectTagRef.current.value = "";
-        selectTagRef.current.focus();           //Reset focus on field
-        formRequestData("")                     //Reset the input text stored in the state
-    }
-
-    const getSelectList = async () => {
-        if(props.request !== undefined && props.requestData !== undefined) {
-            const SelectList =  await sendRequest(
-                (props.request + "/list"),
-                'POST',
-                JSON.stringify(selectRequest)
-            );
-
-            //This function remove an option in the list when it is well written in the field. 
-            //Its conflictual right now with the submission but we'll have to correct it eventually
-/*
-            SelectList.data = SelectList.data.filter((elem) => { 
-                return elem.name !== selectRequest.data.name; 
-            });
-*/
-            setSelectList(SelectList);
+    useEffect( () => {
+        const valueList = ApiEntityModel.getSelectOption(formState.inputs[name].value, props.selectField);
+        //if formState contains no value
+        if(valueList === null || valueList?.length == 0){
+            setValue(null);
         }
-    }
-
-    //Update the list of options to display
-    useEffect(() => {
-        getSelectList();
-    },[debouncedRequest]);
-    
-
-    //Add the value to the displayed list 
-    const addValueToSelectedItem = () => {
-
-        //Make sure there is a value entered in the field
-        if(selectTagRef.current.value){
-
-            //Get the NEW matching value or set it to undefined
-            matchingValue.current = findMatchingValue() || undefined
-
-            //If there is a matching value, then go forward
-            if (matchingValue.current) {
-
-                //Make sure that the object is not already in the list to prevent duplicates
-                const isDuplicate = [...currentState].some(item => {
-                    return item[dictionnary[name]] === matchingValue.current._id;
-                  });
-            
-                if(!isDuplicate){
-
-                    {/*const formatedObject = {
-                        [dictionnary[name]]: matchingValue.current._id,
-                        status: {
-                            state:"Pending",
-                            requestedBy: auth.user.id,
-                            lastModifiedBy: auth.user.id
-                        }
-                    };*/}
-
-                    //Return a premade exportation format
-                    const formatedObject = convertFormatedObject(name, matchingValue.current._id, auth.user.id)
-
-                    //Update the value in the form state with the new value
-                    updateValue([...currentState, formatedObject])
-                    //Reset the field 
-                    resetSelectComponent();
-
-                } else {
-                    //If the value is a duplicate
-                    msg.addMessage({ 
-                        text: "La valeur que vous essayez d'ajouter est déjà dans la liste de vos choix.",
-                        positive: false 
-                    })
-                }
+        else {
+            //isMulti
+            if (props.isMulti){
+                setValue(valueList)
             }
-            //No matching Value displays message it's not a taxonomy
+            //is not multi (single)
             else {
-                msg.addMessage({
-                    text: "La valeur sélectionnée n'existe pas. Veuillez sélectionner dans la liste ou créer la taxonomie"
-                })
+                setValue(valueList[0])
             }
         }
-        
-        //For the moment, this only send the id if the occupation exist
-        //If taxonomy schema expect and id, when the value is 12 char long, the cast to objectId succeed even tho it shouldn't. Beware
-    }
+    }, [])
 
-    const removeValueFromSelectedItem = (selectedObj) => {
-        console.log(currentState)
-        //Update the value of the form, excluding the element to remove
-        updateValue(currentState.filter(arr => (arr[dictionnary[name]]._id || arr[dictionnary[name]]) !== selectedObj._id));
-    }
+    //Fetch
+    const fetchOptions = async () => {
+        if(props.optionsList == undefined && props.fetch !== undefined){
+            const requestData = props.requestData ?? {};
+            const apiResponse = await sendRequest(
+                (props.fetch),
+                'POST',
+                JSON.stringify({
+                    data: {
+                        ...requestData,
+                        [props.searchField]: inputValue
+                    }
+                }),
+                { 'Content-Type': 'application/json' }
+            )
+            const optionList = ApiEntityModel.getSelectOption(apiResponse.data, props.selectField);
+            setOptionList(optionList);
+        }
+    }   
 
-    if( selectList &&
-        selectList.data)
-    return (
-        <div className={`${styles["select"]}`}> 
+    //Allow only one request per 400ms, after the user stop typing
+    const debouncedRequest = useDebounce(inputValue, 400);
+    //Update the list of options to display
+    useEffect(() => { fetchOptions() }, [debouncedRequest] );
 
-            {/************ field label ************/}
-            { props.label && 
-            <div className={`${styles["select__label-row"]}`}>
-                <label htmlFor='SelectInput'>{ props.label }</label>
-            </div>
-            }
-                <div className={`
-                    form-element 
-                    form-element--color-validation 
-                    d-flex
-                    ${!formState.inputs[name].isValid && formState.inputs[name].isTouched && "control--invalid"}
-                `}>
-
-                    <Button 
-                        type="button" 
-                        slim="true" 
-                        disabled={selectRequest.data[props.searchField] && findMatchingValue() ? false : true} 
-                        onClick={addValueToSelectedItem}
-                        className="m-1 rounded-1">
-                            +
-                    </Button>
-
-                    <div className="flex-grow-1 form-element--field-padding">
-                    
-                        <input
-                            type="text" 
-                            list={props.label + props.searchField}
-                            name={'SelectInput-' + name }
-                            id={'SelectInput-'+ name}
-                            onBlur={() => inputTouched(name)}
-                            placeholder={props.placeholder}
-                            className={`
-                                w-100 
-                                p-0
-                                border-0  
-                            `}
-                            ref={selectTagRef}
-                            onChange={(e) => {formRequestData(e.target.value)}}
-                        />
-
-                        <div className="w-100 d-flex">
-                            <RequirementsBadges /> 
-                        </div>
-                        
-                        <datalist id={props.label + props.searchField} name={"Datalist-"+ name } className={`${styles["datalist-input"]}`}>
-                            {selectList.data.map( item => 
-                                <option key={`datalist-${item[props.searchField]}`} value={item[props.searchField]}></option>
-                            )}
-                        </datalist>
-
-                    </div>
-
-                </div>
-                <div className="validation-error-messages-container">
-                    { formState.inputs[name].isTouched && <ValidationErrorMessages /> }
-                </div>
-                
-                {/* Button to call a form and add a new taxonomie */}
-                {/* If the updateModal function is defined, it meens that the modal functionnalities have to be activated */}
-                { props.displayModal &&
-                    <div className={`col-12 ${styles["button-container"]}`}>
-                        <button
-                            type="button"
-                            disabled={ ((selectTagRef.current && selectTagRef.current.value) && !findMatchingValue() && props.displayModal) ? false : true}
-                            onClick={() => props.displayModal(
-                                {
-                                    name: selectTagRef.current.value
-                                },
-                                responseId => {
-                                    updateValue([...currentState, convertFormatedObject(name, responseId, auth.user.id)])
-                                    resetSelectComponent()
-                                }
-                            )}
-                        >
-                            <small>Soumettre comme nouvelle taxonomie</small>
-                        </button>
-                    </div>
+    const addSelectedValue = (val) => {
+        if(val.label != undefined && val.value != undefined)
+        {
+            if(props.isMulti){
+                if(value){
+                    setValue([...value, val]);
+                } else {
+                    setValue([val])
                 }
+            } else{
+                setValue(val)
+            }
+        }
+    }
 
+    const label = props.label ? 
+        (
+            <div className="d-flex justify-content-between">
+                <label htmlFor={name} >{props.label}</label>
+                {props.tooltip && <Tip header={props.tooltip?.header} body={props.tooltip?.body}/>}
+            </div>
+        ) :
+        (<></>);
 
-            {/*
-
-                Display the selected items
+    const select = props.isMulti ? 
+        (<Select2BaseMulti
+            name={name}
+            creatable={props.creatable}
+            //createOptionFunction={props.createOptionFunction}
+            createOptionFunction={elem => displayModal({
+                name: elem
+            })}
+            options={optionsList}
+            inputValue={inputValue}
+            inputValueSetter={setInputValue}
+            value={value}
+            valueSetter={setValue}
+        />):
+        (<Select2BaseSingle
+            name={name}
+            creatable={props.creatable}
+            //createOptionFunction={props.createOptionFunction}
+            createOptionFunction={elem => displayModal({
+                name: elem
+            })}
             
-            */}
-            <ul className={`${styles['tagList']}`}>
+            options={optionsList}
+            inputValue={inputValue}
+            inputValueSetter={setInputValue}
+            value={value}
+            valueSetter={setValue}
+        />);
 
-                {selectedEntities && selectedEntities.map(selected =>
-                <li 
-                    key={`select-tag-${selected[props.searchField]}`}
-                    className={`${styles['tag']} ${props.tag ? styles[props.tag] : styles["generaltag"]}`}
-                >
-                    <button className={`${styles['closeButton']}`} type="button" onClick={() => removeValueFromSelectedItem(selected)}>&#10006;</button>
-                    <span className={`${styles[ selected.status ? selected.status.state : "Default"]}`}>◉</span>
-                    <span>{selected[props.searchField]}</span>
-                </li>
-                )}
+    return (
+        <>
+            {label} 
+            
+            <div 
+                className="
+                    form-element
+                    form-element--color-validation
+                ">
+                    {select}
+                    <RequirementsBadges addUlPadding /> 
 
-            </ul>
+            </div>
 
-        </div>
+            <Modal {...props}>
+                
+                <header className={`d-flex`}>
+                    <p>Le nouvel élément de taxonomie que vous ajoutez ici pourra ensuite être directement intégrée à votre formulaire.</p>
+                    <Button onClick={() => closeModal()}>Fermer</Button>
+                </header>               
+                
+                <div className={`my-4 border-bottom`}></div>
+
+                <CreateTaxonomyForm
+                    {...props}
+                    name={name ?? ''}   //Prefilled value
+                    initValues={ modalInitValues ?? {} }
+                    category={props.requestData?.category}
+                    positiveRequestActions={{
+                        //CallbackFunction is one of the four behaviors the useFormUtils hook can apply when a request return a positive answer
+                        callbackFunction: requestResponse => {
+                            //Here could be a call back function to execute 
+                            const optionCreated = ApiEntityModel.getSelectOption(requestResponse.data)
+                            console.log("Option created", optionCreated)
+                            addSelectedValue(...optionCreated)
+                            //Close the modal 
+                            closeModal()                        }
+                    }}
+                /> 
+                
+            </Modal>
+        </>
     );
+
+    
 }
-// ${selected.status.state === "Accepted" ? styles['accepted'] : (selected.status.state === "Pending" ? styles['pending'] : styles['rejected'])}`
+
 export default Select2;

@@ -27,9 +27,10 @@ const Select = props => {
         formTools,      //Object - Every utils handled by the formState
         tip,            //Object - Display a button on the right of the field to offer more details
         label,          //String - Displayed title of the field
-        noValueText,    //String - Annonce if the is an empty option or not. Is the value is empty, than it is just a white line that is displayed
-        options,        //Array  - Array of options with the format {label: " ", value: " "}. 
+        noValueText,    //String - Annonce if there is an empty option or not. If the value is empty, than it is just a white line that is displayed
+        options,        //Array  - Array of options with the format {label: " ", value: " ", disabled: false}. 
         defaultValue,   //String - starting value 
+        className,      //String - class names added from outside the component
         validationRules //Object - containing the rules that are going to be verify every time we submit
     } = props;
 
@@ -70,7 +71,10 @@ const Select = props => {
     }, [])  
  
     return (
-        <div className={`${styles["select-component"]}`}>  
+        <div className={`
+            ${className}
+            ${styles["select-component"]}
+        `}>  
             <div className={`${styles["select-component__label-container"]}`} >
                 <label 
                     htmlFor={name}
@@ -107,7 +111,7 @@ const Select = props => {
                     autoComplete={props.type === "password" ? "on" : undefined}
                 > 
                     {noValueText && 
-                        <option value="">{ typeof noValueText === "string" ? noValueText : ""}</option>
+                        <option value="" className="text-secondary">{ typeof noValueText === "string" ? noValueText : ""}</option>
                     }
                     {options &&
                         options.map((option) => (

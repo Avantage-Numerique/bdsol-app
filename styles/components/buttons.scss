@@ -1,0 +1,26 @@
+/***
+*
+*   Global classes for buttons classes
+*
+***/
+@each $color, $value in $theme-colors {
+    // Overwrite some outline colors depending on defined $theme-colors
+    .btn.btn-custom-outline-#{$color} {
+        --bs-btn-bg: #{$value};
+        --bs-btn-hover-color: #{$value};
+        --bs-btn-active-color: #{$value};
+    }
+}
+
+
+.underlined-button {
+    text-decoration: underline;
+    background: none;
+    border: none;
+    opacity: 0.8;
+    @include transition();
+    &:hover { 
+        opacity: 1;
+        background: none;
+    }
+}

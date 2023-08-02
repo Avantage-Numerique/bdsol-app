@@ -1,5 +1,5 @@
-import { useContext } from 'react'
 import Link from 'next/link'
+import Button from '@/src/common/FormElements/Button/Button'
 
 //Authentication context
 import { useAuth } from '@/auth/context/auth-context'
@@ -25,7 +25,7 @@ const AccountTopBar = () => {
                         <a>Compte</a>
                     </Link>
                     <div className={styles.verticalLine}></div>
-                    <button onClick={auth.logout}>Se déconnecter</button>
+                    <Button onClick={auth.logout}>Se déconnecter</Button>
                 </div>
             </div>
 
