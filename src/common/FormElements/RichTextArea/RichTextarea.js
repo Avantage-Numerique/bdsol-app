@@ -131,9 +131,7 @@ const RichTextarea = ({name, formTools, ...props}) => {
                         />
 
                         {/* Receive extra content like the validation tags */}
-                        <div className={`${styles["rich-textarea__quill__field__extra-content"]}`}>
-                            <RequirementsBadges /> 
-                        </div>
+                        <RequirementsBadges addUlPadding /> 
 
                     </div>
              </>}  

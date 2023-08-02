@@ -53,9 +53,6 @@ const UpdateSkillGroup = ({parentEntity, positiveRequestActions, name, formTools
                                 className="col-12 col-md-6"
                                 label="Nom de groupe"
                                 name="groupName"
-                                validationRules={[
-                                    {name: "REQUIRED"}
-                                ]}
                             />
                             <div className="col-12 col-md-6">
                                 <Select2

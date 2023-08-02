@@ -120,26 +120,34 @@ export const useValidation = ( setOfRules ) => {
 
         const rulesNameList = Object.keys(validator);
 
+        const forceBadgeDisplay = Object.values(validator).map(rule => rule.isValid).some(elem => elem === false)
+
         return (
             <>
                 {/* At least one validator to */}
                 { rulesNameList.length > 0 && 
-                <ul className={`mb-0 ${props.addUlPadding && "form-element--field-padding-top-reverse"} ${props.alwaysDisplay && "d-flex"} badge-container`}>
-                    { rulesNameList.map(ruleName => (
-                        <li 
-                            title={`${validator[ruleName].message}`}
-                            className={`
-                                        me-2
-                                        mt-1 
-                                        rounded-1
-                                        badge-container__badge
-                                        ${validator[ruleName].isValid && "badge--validation-succes"}
-                                    `}
-                            key={"badge-" + ruleName}
-                            >{validator[ruleName].badge}
-                        </li>
-                    ))}
-                </ul>
+                <div className="w-100">
+                    { forceBadgeDisplay && rulesNameList.length > 0 &&
+                        <div className="w-100 form-element--field-padding-x">
+                            <div className="form-element--default-border--top"></div>
+                        </div>
+                    }
+                    <ul className={`mb-0 ${props.addUlPadding && "form-element--field-padding-top-reverse"} ${props.alwaysDisplay && "d-flex"} badge-container gap-2 ${forceBadgeDisplay ? "form-element--force-badge-display" : ""}`}>
+                        { rulesNameList.map(ruleName => (
+                            <li 
+                                title={`${validator[ruleName].message}`}
+                                className={`
+                                             
+                                            rounded-1
+                                            badge-container__badge
+                                            ${validator[ruleName].isValid && "badge--validation-succes"}
+                                        `}
+                                key={"badge-" + ruleName}
+                                >{validator[ruleName].badge}
+                            </li>
+                        ))}
+                    </ul>
+                </div>
                 }
             </>
         )

@@ -14,6 +14,9 @@
         --default-border: 0.1rem solid rgba(94, 94, 94, 0.13);
         --placeholder-color: #{$grey};
 
+        //To prevent the h2 class from changing the size of the hole element
+        line-height:1rem;
+
         position: relative;
 
         background-color:  $light;
@@ -67,6 +70,10 @@
         .badge-container {
                 
                 display: none;
+                flex-wrap: wrap;
+
+                /* Allow the badges to only disapear if they are valid */
+                &.form-element--force-badge-display { display: inline-flex; }
                     
                 .badge-container__badge {
                         --badge--color: rgb(103, 103, 103);
@@ -116,12 +123,27 @@
         padding: var(--vertical-spacing) var(--horizontal-spacing); 
 }
 
+/* Inner padding - vertical only */
+.form-element--field-padding-y { 
+        padding-top: var(--vertical-spacing);
+        padding-bottom:  var(--vertical-spacing);
+}
+
+/* Inner padding - horizontal only */
+.form-element--field-padding-x { 
+        padding-left: var(--horizontal-spacing);
+        padding-right:  var(--horizontal-spacing);
+}
+
+.form-element--default-border { border: var(--default-border); }
+.form-element--default-border--top { border-top: var(--default-border); }
+
 .form-element--b-radius { border-radius: $border-radius; }
 
 /* Same values than the field padding, but with not padding-top. */
 .form-element--field-padding-top-reverse {
-        padding: var(--vertical-spacing) var(--horizontal-spacing); 
-        padding-top: 0;
+        padding: calc(0.5 * var(--vertical-spacing)) var(--horizontal-spacing); 
+        //padding-top: calc(0.5 * var(--vertical-spacing))
 }
 
 /*  Container of the error messages displayed under the field */
