@@ -111,10 +111,15 @@ const Select2 = ({ name, formTools, ...props }) => {
     const addSelectedValue = (val) => {
         if(val.label != undefined && val.value != undefined)
         {
-            if(props.isMulti)
-                setValue([...value, val]);
-            else
+            if(props.isMulti){
+                if(value){
+                    setValue([...value, val]);
+                } else {
+                    setValue([val])
+                }
+            } else{
                 setValue(val)
+            }
         }
     }
 
@@ -188,7 +193,9 @@ const Select2 = ({ name, formTools, ...props }) => {
                         //CallbackFunction is one of the four behaviors the useFormUtils hook can apply when a request return a positive answer
                         callbackFunction: requestResponse => {
                             //Here could be a call back function to execute 
-                            //addSelectedValue({})
+                            const optionCreated = ApiEntityModel.getSelectOption(requestResponse.data)
+                            console.log("Option created", optionCreated)
+                            addSelectedValue(...optionCreated)
                             //Close the modal 
                             closeModal()                        }
                     }}

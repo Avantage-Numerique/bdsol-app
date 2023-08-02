@@ -11,7 +11,7 @@ class ApiEntityModel {
         if(typeof requestData == "string")
             return requestData == "" ? null : [{label: requestData, value: requestData}];
         //If requestData is not an array
-        if(Array.isArray(requestData))
+        if(!Array.isArray(requestData))
             return ApiEntityModel.entityTypeHandler(requestData, field)
 
         //if requestData is an array
