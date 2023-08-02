@@ -97,6 +97,9 @@ const UpdateScheduleBudget = ({name, formTools, ...props}) => {
                                             name="step"
                                             label="Nom de l'étape"
                                             formTools={formTools}
+                                            validationRules={[
+                                                {name: "REQUIRED"}
+                                            ]}
                                         />
                                         <SelectFetch 
                                             className="col-12 col-md-6 col-lg-4"
@@ -105,6 +108,10 @@ const UpdateScheduleBudget = ({name, formTools, ...props}) => {
                                             formTools={formTools}
                                             noValueText={lang.noSelectedOption}
                                             fetchOption="timeframeeta-enum"
+                                            validationRules={[
+                                                {name: "REQUIRED"}
+                                            ]}
+                                            
                                         />
                                         <SelectFetch 
                                             className="col-12 col-md-6 col-lg-4"
@@ -113,6 +120,9 @@ const UpdateScheduleBudget = ({name, formTools, ...props}) => {
                                             formTools={formTools}
                                             noValueText={lang.noSelectedOption}
                                             fetchOption="budgetrange-enum"
+                                            validationRules={[
+                                                {name: "REQUIRED"}
+                                            ]}
                                         />
                                     
                                     </section>

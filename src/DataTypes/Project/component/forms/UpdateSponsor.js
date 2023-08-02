@@ -57,6 +57,9 @@ const UpdateSponsor = ({name, formTools, ...props}) => {
                                             fetch={"/organisations/list"}
                                             searchField={"name"}
                                             selectField={"name"}
+                                            validationRules={[
+                                                {name: "REQUIRED"}
+                                            ]}
                                         />
                                     </div>
                                     <div className="col-12 col-md-6">
