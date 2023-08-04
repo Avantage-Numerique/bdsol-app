@@ -41,7 +41,7 @@ export const forceHttps = (url) => {
 
     //If the url contain http:// with no ssl, we remove it to only add https.
     if (regexNoSSL.test(url)) {
-        url.replace(regexNoSSL, '');
+        url = url.replace(regexNoSSL, '');
     }
 
     // If the string does not start with 'https://', add it to the beginning
