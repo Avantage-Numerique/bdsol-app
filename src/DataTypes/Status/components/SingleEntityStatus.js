@@ -23,7 +23,7 @@ export const SingleEntityStatus = (props) => {
         children
     } = props;
     return (
-        <SingleInfo className={className} title={lang.entityMetadata}>
+        <SingleInfo className={`border-top pt-3 ${className}`} title={lang.entityMetadata}>
             <ul className={"list-style-none"}>
                 {
                     status?.state &&

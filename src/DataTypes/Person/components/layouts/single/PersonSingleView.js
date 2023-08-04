@@ -112,49 +112,58 @@ const PersonSingleView = ({ data }) => {
     )
 
     const FullWidthContent = (
-        <SingleInfo
-            title={"Présentation"} 
-            NAMessage="Aucune description n'est disponible pour le moment"
-            className={"mb-3 mt-3"}>
-                {description &&
-                    <SanitizedInnerHtml>
-                        {description}
-                    </SanitizedInnerHtml>
-                }
-        </SingleInfo>
+        <>
+            {description !== '' &&
+                <SingleInfo
+                    title={"Présentation"}
+                    NAMessage="Aucune description n'est disponible pour le moment"
+                    className={"mb-3 mt-3"}>
+                    {description &&
+                        <SanitizedInnerHtml>
+                            {description}
+                        </SanitizedInnerHtml>
+                    }
+                </SingleInfo>
+            }
+        </>
     )
 
     const ContentColumnLeft = (
         <>
-            <SingleInfo
-                title={"Occupations"}
-                NAMessage="Aucune occupation n'est disponible pour le moment"
-                className={"mb-3 mt-3"}
-            >    
-                {/* Display the different groups of occupations */}
-                { occupations && occupations.length > 0 &&
-                    occupations.map(occ => (
-                        <OccupationGroup 
-                            occupationName={occ.groupName} 
-                            skillList={occ.skills}
-                            key={occ.groupName}
-                        />
-                    ))
-                }
-            </SingleInfo>
+            { occupations.length > 0 &&
+                <SingleInfo
+                    title={"Occupations"}
+                    NAMessage="Aucune occupation n'est disponible pour le moment"
+                    className={"mb-3 mt-3"}
+                >
+                    {/* Display the different groups of occupations */}
+                    { occupations && occupations.length > 0 &&
+                        occupations.map(occ => (
+                            <OccupationGroup
+                                occupationName={occ.groupName}
+                                skillList={occ.skills}
+                                key={occ.groupName}
+                            />
+                        ))
+                    }
+                </SingleInfo>
+            }
         </>
     )
 
     const ContentColumnRight = (
-        <> 
-            {/*********** Domains ***********/}
+        <>
+        {domains.length > 0 &&
             <SingleInfo title={lang.domainsSingleLabel} className={"mb-3"}>
+
+                {/*********** Domains ***********/}
                 <SearchTag
                     className="row"
                     list={domains}
                     listProperty={"domain"}
                 />
             </SingleInfo>
+        }
         </>
     )
 
@@ -162,7 +171,7 @@ const PersonSingleView = ({ data }) => {
         <>
             {
                 (createdAt || updatedAt || status) &&
-                <SingleEntityStatus className="border-bottom pb-2" createdAt={createdAt} updatedAt={updatedAt} status={status} />
+                <SingleEntityStatus createdAt={createdAt} updatedAt={updatedAt} status={status} />
             }
         </>
     )

@@ -1,0 +1,10 @@
+.opacity-5 {
+  opacity: 0.05;
+}
+
+$new-opacity-steps: [5,10,15,20,30,35,40,45,55,60];
+@each $step in $new-opacity-steps {
+  .opacity-#{$step} {
+    opacity: #{$step/100};
+  }
+}
