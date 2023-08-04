@@ -9,6 +9,13 @@ const events = {
     "entityInCharge":"Organisation en charge",
     "startDate": "Date de début",
     "endDate": "Date de fin",
+    "hyperlink": "Hyperlien",
+    "contactPoint": "Pour nous contacter",
+    "eventType": "Type d'événement",
+    "subEvents": "Événements liées",
+    "attendees": "Participants",
+    "eventSkills": "Compétences liée à l'événement"
+
 
 }
 

@@ -6,7 +6,6 @@ const organisations = {
     "Organisations": "Organisations",
     "organisation": "organisation",
     "organisations": "organisations",
-    "teamMembers": "Membres de l'organisation",
     "fondationDate": "Date de fondation",
 
     "singleDescriptionLabel": "Présentation",

@@ -123,7 +123,7 @@ const ProjectSingleView = ({ data }) => {
         <>
             {/* Team */}
             <SingleInfo 
-                title="Membre de l'équipe"
+                title={lang.teamMembers}
                 className="mb-3"
             >
                 <EntitiesTagGrid feed={team} subEntityProperty={"member"} subBadgeProperty={"role"} noneMessage={"Aucun membre de l'équipe spécifiés"} />
@@ -213,7 +213,7 @@ const ProjectSingleView = ({ data }) => {
     const Footer = (
         <>
             {/* Url */}
-            <SingleInfo title="Hyperlien" className={"pb-4"}>
+            <SingleInfo title={lang.hyperlink} className={"pb-4"}>
                 <ExternalLink href={url}>{url}</ExternalLink>
             </SingleInfo>
             {

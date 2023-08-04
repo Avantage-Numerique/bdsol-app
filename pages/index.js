@@ -62,6 +62,11 @@ const HomePage = ({}) => {
                 path:"/projects/list",
                 queryParams: listQuery,
                 result: {}
+            },
+            {
+                path:"/events/list",
+                queryParams: listQuery,
+                result: {}
             }
         ];
 
@@ -70,7 +75,7 @@ const HomePage = ({}) => {
 
         const feedPromises = entities.map(async (query) => {
 
-            const currentResult = sendRequest(
+            const currentResult = await sendRequest(
                 query.path,
                 'POST',
                 JSON.stringify({"data": query.queryParams}),
@@ -78,13 +83,12 @@ const HomePage = ({}) => {
             );
             query.result = currentResult;
 
-            haveError = !haveError && !currentResult.error;
+            haveError = haveError && !currentResult.error;
             return currentResult;
 
         });
 
         Promise.all(feedPromises).then((entitiesResults) => {
-
             entitiesResults.map(async (result) => {
 
                 //populate the feed if the current request return a success (!error)
@@ -100,7 +104,8 @@ const HomePage = ({}) => {
                     });
                 }
 
-                if (feed.length > 0 && haveError) {
+                console.log("feed and haveError", feed, haveError)
+                if (feed.length > 0 && !haveError) {
                     feed.sort(sortDescBy('createdAt'));//   Sort and mixed both collection the data to display the new elements before
                     setFeedList(feed); //   Finaly, update the state to display the result
                 }
@@ -145,6 +150,8 @@ const HomePage = ({}) => {
             mainEntityOfPage: "https://avantagenumerique.org/"
         }
     }
+
+    useEffect( () => {console.log("feedList", feedList)},[feedList])
 
     return (
         <div className={"home-page"}>

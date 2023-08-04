@@ -104,7 +104,7 @@ const OrganisationSingleView = ({ data }) => {
             <SingleInfo title={lang.teamMembers} className={"mb-3"}>
                 <EntitiesTagGrid feed={team} subEntityProperty={"member"} subBadgeProperty={"role"} noneMessage={lang.noTeamMemberSetMessage} />
             </SingleInfo>
-            <SingleInfo title={"Lien URL"} className={"mb-3"}>
+            <SingleInfo title={lang.hyperlink} className={"mb-3"}>
                 { url &&
                     <p>
                         <ExternalLink href={url} title={`${model.title}`}>

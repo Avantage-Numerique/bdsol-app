@@ -7,6 +7,9 @@ import Select2 from '@/src/common/FormElements/Select2/Select2';
 import Repeater from '@/src/common/FormElements/Repeater/Repeater';
 import SingleInfo from "@/src/DataTypes/common/layouts/SingleInfo/SingleInfo";
 
+//Utils
+import { lang } from '@/src/common/Data/GlobalConstants';
+
 //Styling
 import styles from './UpdateTeams.module.scss'
 
@@ -47,7 +50,7 @@ const UpdateTeams = ({name, formTools, parentEntity, ...props}) => {
                             <div className="col-12 col-md-6">
                                 <Select2
                                     name="member"
-                                    label="Membre de l'équipe"
+                                    label={lang.teamMembers}
                                     formTools={formTools}
                                     creatable={false}
                                     isMulti={false}
