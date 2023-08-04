@@ -75,73 +75,80 @@ const OrganisationSingleView = ({ data }) => {
     )
 
     const FullWidthContent = (
-        <SingleInfo title={"Présentation"} className={"mb-3 mt-4"}>
-            <SanitizedInnerHtml>
-                {description}
-            </SanitizedInnerHtml>
-        </SingleInfo>
+        <>
+            {description !== "" &&
+                <SingleInfo title={"Présentation"} className={"mb-3 mt-4"}>
+                    <SanitizedInnerHtml>
+                        {description}
+                    </SanitizedInnerHtml>
+                </SingleInfo>
+            }
+        </>
     )
 
     const ContentColumnLeft = (
         <>
-            {/*************** Offers *****************/}
-            <SingleInfo 
-                title="Services offerts"
-                NAMessage="Aucun service n'est inscrit pour cette organisation."
-                className="mb-4"
-                classNameH4="my-3"
-            >
-                { offers?.length > 0 && offers.map(offer => (
-                    <article key={offer.groupName} className={`d-flex flex-column p-2 mb-2 skill-group bg-light`}>
-                        <h5 className="text-dark mb-1 group-name">{offer.groupName}</h5>
-                            <SearchTag
-                                className="row"
-                                list={offer.skills}
-                            />
-                    </article>
-                ))}
-            </SingleInfo>
-            <SingleInfo title={lang.teamMembers} className={"mb-3"}>
-                <EntitiesTagGrid feed={team} subEntityProperty={"member"} subBadgeProperty={"role"} noneMessage={lang.noTeamMemberSetMessage} />
-            </SingleInfo>
-            <SingleInfo title={"Lien URL"} className={"mb-3"}>
-                { url &&
+            { offers.length > 0 &&
+                <SingleInfo
+                    title="Services offerts"
+                    NAMessage="Aucun service n'est inscrit pour cette organisation."
+                    className="mb-4"
+                    classNameH4="my-3"
+                >
+                    { offers?.length > 0 && offers.map(offer => (
+                        <article key={offer.groupName} className={`d-flex flex-column p-2 mb-2 skill-group bg-light`}>
+                            <h5 className="text-dark mb-1 group-name">{offer.groupName}</h5>
+                                <SearchTag
+                                    className="row"
+                                    list={offer.skills}
+                                />
+                        </article>
+                    ))}
+                </SingleInfo>
+            }
+            {team.length > 0 &&
+                <SingleInfo title={lang.teamMembers} className={"mb-3"}>
+                    <EntitiesTagGrid feed={team} subEntityProperty={"member"} subBadgeProperty={"role"} noneMessage={lang.noTeamMemberSetMessage} />
+                </SingleInfo>
+            }
+            { url &&
+                <SingleInfo title={"Lien URL"} className={"mb-3"}>
                     <p>
                         <ExternalLink href={url} title={`${model.title}`}>
                             {url}
                         </ExternalLink>
                     </p>
-                }
-            </SingleInfo>
+                </SingleInfo>
+            }
         </>
     )
 
     const ContentColumnRight = (
         <> 
-            {/*********** Domains ***********/}
-            <SingleInfo 
-                title={lang.domainsSingleLabel} 
-                className={"mb-3"}
-                NAMessage="Aucun domaine d'activité n'est précisé pour le moment."
-            >   
-                {domains &&
-                    <SearchTag
-                        className="row"
-                        list={domains}
-                        listProperty={"domain"}
-                    />
-                }
-                
-            </SingleInfo>
-            {/*********** Contact ***********/}
-            <SingleInfo title={"Contact"} className={"mb-3"}>
-                {contactPoint && contactPoint}
-            </SingleInfo>
+            { domains.length > 0 &&
+                <SingleInfo
+                    title={lang.domainsSingleLabel}
+                    className={"mb-3"}
+                    NAMessage="Aucun domaine d'activité n'est précisé pour le moment." >
+                    {domains &&
+                        <SearchTag
+                            className="row"
+                            list={domains}
+                            listProperty={"domain"}
+                        />
+                    }
+                </SingleInfo>
+            }
+            { contactPoint &&
+                <SingleInfo title={"Contact"} className={"mb-3"}>
+                    {contactPoint}
+                </SingleInfo>
+            }
         </>
     )
 
     const Footer = (
-        <div className="border-top border-bottom pt-2">
+        <>
             {
                 (createdAt || updatedAt || status) &&
                 <SingleEntityStatus  
@@ -149,7 +156,7 @@ const OrganisationSingleView = ({ data }) => {
                     updatedAt={updatedAt} 
                     status={status} />
             }
-        </div>
+        </>
     )
 
     {/**************************
