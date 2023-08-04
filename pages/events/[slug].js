@@ -1,42 +1,42 @@
 import React from 'react'
-
-import {
-    externalApiRequest
-} from '@/src/hooks/http-hook';
+import {externalApiRequest} from '@/src/hooks/http-hook';
 
 
 //components
+import EventSingleView from '@/src/DataTypes/Event/component/layout/single/EventSingleView';
 import {getUserHeadersFromUserSession} from "@/auth/context/auth-context";
 import {withSessionSsr} from "@/auth/session/handlers/withSession";
 import AppRoutes from "@/src/Routing/AppRoutes";
-import PersonSingleEdit from '@/DataTypes/Person/components/Forms/CreatePerson/PersonSingleEdit';
 
 
-const SinglePersonEditPage = props => {
+const SingleEventViewPage = props => {
 
     return (
         <div className={`single-container single-person`}>
             <div className="maxWidthPageContainer">
-                <PersonSingleEdit data={props} route={AppRoutes.personSingle} />
+                <EventSingleView data={props} route={AppRoutes.eventSingle} />
             </div>
         </div>
     )
 }
     
-export default SinglePersonEditPage;
+export default SingleEventViewPage;
 
-export const getServerSideProps = withSessionSsr(personSlugSSProps);
+export const getServerSideProps = withSessionSsr(eventSlugSSProps);
 
-export async function personSlugSSProps(context) {
+export async function eventSlugSSProps(context) {
     const { slug } = context.query;
 
     const response = await externalApiRequest(
-        `/persons/${slug}`,
+        `/events/${slug}`,
         {
             method: 'GET',
             headers: getUserHeadersFromUserSession(context.req.session.user)
         });
 
+    if(typeof response.data._id === "undefined")
+        return { notFound: true };
+        
     return { props: response.data };
 }
 

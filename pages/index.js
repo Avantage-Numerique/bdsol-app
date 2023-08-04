@@ -23,6 +23,7 @@ import {useHttpClient} from '@/src/hooks/http-hook';
 import {MessageContext} from '@/src/common/UserNotifications/Message/Context/Message-Context';
 import {useAuth} from '@/src/authentification/context/auth-context';
 import SanitizedInnerHtml from "@/src/utils/SanitizedInnerHtml";
+import Event from '@/src/DataTypes/Event/models/Event';
 
 //Styling
 //import styles from './home-page.module.scss'
@@ -122,6 +123,8 @@ const HomePage = ({}) => {
             model = new Organisation({})
         if(type == "TYPE_PROJECT")
             model = new Project({})
+        if(type == "TYPE_EVENT")
+            model = new Event({})
         return model.createRoute.asPath;
     }
 
@@ -305,6 +308,16 @@ const HomePage = ({}) => {
                                         size="slim"
                                         disabled={!auth.user.isLoggedIn}
                                         href="/contribuer/categorie"
+                                    >+</Button>
+                                </div>
+
+                                <div className={"db-edit-options__button-set"}>
+                                    <Button href="/events" color="primary" size="slim">{lang.Events}</Button>
+                                    <Button
+                                        color="primary"
+                                        size="slim"
+                                        disabled={!auth.user.isLoggedIn}
+                                        href={getCreateEntityPath("TYPE_EVENT")}
                                     >+</Button>
                                 </div>
 
