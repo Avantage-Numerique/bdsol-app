@@ -85,12 +85,14 @@ const EntitySimple = (props) => {
     /**
      * Defining the ContenDefault layout for the EntitySimple, TO be overwrite with Content.
      * @type {JSX.Element}
+     *
+     *
      */
     const ContentDefault = (
         <>
-            <header className="d-flex justify-content-between">
+            <header className={`d-flex mb-2 justify-content-between ${styles["simple-abstract__content__header"]}`}>
                 {/* Main name of the entity */}
-                <h3 className={` 
+                <h3 className={`m-0 d-flex flex-column justify-content-center 
                     ${styles["simple-abstract__content__title"]}
                     ${styles["simple-abstract__content_ellipsis"]}
                 `}>

@@ -62,16 +62,20 @@
     .simple-abstract__content {
         padding: var(--simple-abstract--padding);
 
-        .simple-abstract__content__title{
-            --single-title-font-size: 1.25rem;
-            font-size: var(--single-title-font-size); 
-            line-height: 1.2rem;
+        --single-title-font-size: 1.25rem;
+
+        .simple-abstract__content__header{
             height: calc(2 * var(--single-title-font-size));
+        }
+
+        .simple-abstract__content__title{
+            font-size: var(--single-title-font-size); 
+            line-height: var(--single-title-font-size);
         }
         .simple-abstract__content__description { 
             font-size: 0.9rem; 
-            line-height: 1.2rem;
-            height: 2.4em;
+            line-height: var(--single-title-font-size);
+            height: calc(2 * var(--single-title-font-size));
         }
         .simple-abstract__content__tagList { 
             gap: calc(var(--simple-abstract--padding) * 0.5);
