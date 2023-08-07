@@ -21,6 +21,9 @@ export const getColor = (data, chromatise=false) => {
     if (data.type === "Organisation"){
         color = defaultColor;
     }
+    if (data.type == "Event"){
+        color = defaultColor;
+    }
     return chromatise ? chroma(color) : color;
 }
 

@@ -1,5 +1,5 @@
 import { getColor } from "@/src/styles/datatypeStyle";
-import { TYPE_ORGANISATION, TYPE_PERSON, TYPE_PROJECT, TYPE_TAXONOMY } from "../Types";
+import { TYPE_EVENT, TYPE_ORGANISATION, TYPE_PERSON, TYPE_PROJECT, TYPE_TAXONOMY } from "../Types";
 
 
 
@@ -45,6 +45,8 @@ class ApiEntityModel {
             case TYPE_TAXONOMY :
                     return ApiEntityModel.nameToSelectOptions( entity );
                 break;
+            case TYPE_EVENT :
+                    return ApiEntityModel.nameToSelectOptions( entity );
             default : 
                 if(field == "domains")
                     return ApiEntityModel.domainsToSelectOptions( entity );

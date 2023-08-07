@@ -33,7 +33,6 @@ import Person from "@/DataTypes/Person/models/Person";
 import {replacePathname} from "@/src/helpers/url";
 import Icon from "@/common/widgets/Icon/Icon";
 import MainImageDisplay from "@/DataTypes/common/layouts/single/defaultSections/MainImageDisplay/MainImageDisplay";
-import Organisation from "@/DataTypes/Organisation/models/Organisation";
 
 
 const PersonSingleEdit = ({initValues, positiveRequestActions, ...props}) => {
@@ -66,7 +65,7 @@ const PersonSingleEdit = ({initValues, positiveRequestActions, ...props}) => {
     const [currentModel, setCurrentModel] = useState(model);
 
     const updateEntityModel = useCallback((rawData) => {
-        model = new Organisation(rawData);
+        model = new Person(rawData);
         setCurrentMainImage(model.mainImage);
     }, [setCurrentModel]);
 
