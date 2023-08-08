@@ -16,7 +16,7 @@ const nextConfig = {
         APP_PROTOCOLE: process.env.APP_PROTOCOLE ?? "http://",
         APP_BASE_URL: process.env.APP_BASE_URL ?? "localhost",
         APP_PORT: process.env.APP_PORT ?? 3000,
-        APP_URL: process.env.NEXT_PUBLIC_APP_URL ?? process.env.APP_PROTOCOLE + process.env.APP_BASE_URL + ":" + process.env.APP_PORT,
+        APP_URL: process.env.NEXT_PUBLIC_APP_URL ?? process.env.APP_PROTOCOLE + process.env.APP_BASE_URL + ":" + (process.env.APP_PORT ? ":" + process.env.APP_PORT : ""),
         APP_API_URL: process.env.NEXT_PUBLIC_APP_API_URL ?? process.env.APP_PROTOCOLE + process.env.APP_BASE_URL + (process.env.APP_PORT ? ":" + process.env.APP_PORT : ""),
 
         //Main API

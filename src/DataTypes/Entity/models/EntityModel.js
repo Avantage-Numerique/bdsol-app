@@ -1,6 +1,6 @@
 import {getType, TYPE_DEFAULT} from "@/DataTypes/Entity/Types";
 import {removeHtml} from "@/src/helpers/str";
-import {replacePathname} from "@/src/helpers/url";
+import {appUrl, replacePathname} from "@/src/helpers/url";
 import EntityTag from "@/DataTypes/Entity/layouts/EntityTag";
 
 /**
@@ -244,6 +244,10 @@ class EntityModel {
     }
     get singleEditLink() {
         return "/"+replacePathname(this.singleEditRoute.pathname, {slug: this.slug});
+    }
+
+    get fullSingleLinkUrl() {
+        return appUrl(this.singleLink);//`${nextConfig.env.APP_URL}${this.singleLink}`;
     }
 
     /**

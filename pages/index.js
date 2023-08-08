@@ -23,6 +23,7 @@ import {useHttpClient} from '@/src/hooks/http-hook';
 import {MessageContext} from '@/src/common/UserNotifications/Message/Context/Message-Context';
 import {useAuth} from '@/src/authentification/context/auth-context';
 import SanitizedInnerHtml from "@/src/utils/SanitizedInnerHtml";
+import {appUrl} from "@/src/helpers/url";
 
 //Styling
 //import styles from './home-page.module.scss'
@@ -159,6 +160,9 @@ const HomePage = ({}) => {
                 {/* social media meta tag */}
                 <meta property="og:title" content={lang.appDefaultName}/>
                 <meta property="og:description" content={lang.appDefaultDescription}/>
+                <meta property="og:url" content={appUrl()} />
+                <meta property="og:site_name" content="BDSOL avantage numérique" />
+                <meta property="og:locale" content="fr_CA" />
 
                 <meta name="twitter:title" content={lang.appDefaultName}/>
                 <meta name="twitter:description" content={lang.appDefaultDescription}/>

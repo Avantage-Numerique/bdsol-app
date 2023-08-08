@@ -1,3 +1,4 @@
+import nextConfig from "@/next.config";
 
 /**
  * Generate each crumbs based of the Router URL (as a path).
@@ -52,3 +53,6 @@ export const forceHttps = (url) => {
     return url;
 }
 
+export const appUrl = (url= "") => {
+    return `${nextConfig.env.APP_URL}${url}`;
+}
