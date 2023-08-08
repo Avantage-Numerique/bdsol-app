@@ -11,11 +11,8 @@ import Organisation from '@/src/DataTypes/Organisation/models/Organisation';
 import {lang} from "@/common/Data/GlobalConstants";
 import SingleInfo from "@/DataTypes/common/layouts/SingleInfo/SingleInfo";
 import {SingleEntityStatus} from "@/DataTypes/Status/components/SingleEntityStatus";
-import Head from "next/head";
-import {getTitle} from "@/DataTypes/MetaData/MetaTitle";
 import EntitiesTagGrid from "@/DataTypes/Entity/layouts/EntitiesTagGrid";
 import {ExternalLink} from "@/common/Components/ExternalLink";
-import {removeTagsFromString} from "@/src/helpers/html";
 
 const OrganisationSingleView = ({ data }) => {
 
@@ -165,39 +162,6 @@ const OrganisationSingleView = ({ data }) => {
     */}
     return (
         <>
-            <Head>
-                <title>{getTitle([model.title, model.Type.label])}</title>
-
-                {model &&
-                    <>
-                        <meta property="og:url" content={model.fullSingleLinkUrl} />
-                        <meta property="og:title" content={model.title}/>
-                        <meta property="og:description" content={removeTagsFromString(model.description)} />
-                        <meta property="og:image" content={model.mainImageModel.src} />
-                        <meta property="og:image:alt" content={model.title} />
-                        <meta property="og:image:width" content="2560" />
-                        <meta property="og:image:height" content="1345" />
-
-                        <meta name="twitter:title" content={model.title} />
-                        <meta name="twitter:description" content={removeTagsFromString(model.description)} />
-                        <meta name="twitter:card" content="summary_large_image"/>
-                        <meta name="twitter:image" content={model.mainImageModel.src} />
-                        <meta name="twitter:image:alt" content="Public assistant à une performance qui contient des nouvelles technologies."/>
-                        <meta name="twitter:image:width" content="2560" />
-                        <meta name="twitter:image:height" content="1345" />
-
-                        <meta name="twitter:label1" content={"Type"} />
-                        <meta name="twitter:data1" content={model.type.label} />
-                        <meta name="twitter:label2" content={"Temps de lecture"} />
-                        <meta name="twitter:data2" content={"3 minutes (static value)"} />
-
-                        <meta property="article:section" content="Main domain" />
-                        <meta property="article:tag" content="start loop of taxonomy 1" />
-                        <meta property="article:tag" content="end loop of taxonomy 1" />
-                    </>
-                }
-
-            </Head>
             <SingleBase 
                 breadCrumb={breadCrumb}
                 header={Header}
@@ -205,6 +169,7 @@ const OrganisationSingleView = ({ data }) => {
                 contentColumnLeft={ContentColumnLeft}
                 contentColumnRight={ContentColumnRight}
                 footer={Footer}
+                model={model}
             />
         </>
     )

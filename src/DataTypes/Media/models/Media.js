@@ -24,10 +24,11 @@ class Media extends EntityModel {
         super(raw);
         this.title = raw?.name ?? "";
         this.description = raw?.description ?? "";
-        this.mainImage = raw?.mainImage;
+        this.mainImage = raw?.mainImage ?? {};
         this.baseSrc = raw?.baseSrc ?? `${process.env.NEXT_PUBLIC_API_URL}`;
         this.src = raw?.url ?? "";
         this.alt = raw?.alt ?? "";
+        this.mainImage.src = this.src;
         this.licence = raw?.licence ?? "";
         this.type = raw?.type === TYPE_MEDIA ? TYPE_MEDIA : TYPE_DEFAULT;//Wrong data sent here.
         //this.taxonomies = new Map();

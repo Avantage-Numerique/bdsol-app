@@ -17,6 +17,7 @@ import SanitizedInnerHtml from "@/src/utils/SanitizedInnerHtml";
 import {SingleEntityStatus} from "@/src/DataTypes/Status/components/SingleEntityStatus";
 import Head from "next/head";
 import {getTitle} from "@/DataTypes/MetaData/MetaTitle";
+import Media from "@/DataTypes/Media/models/Media";
 
 
 const SingleInfoLayout = ({ title, NAMessage="-", children }) => {
@@ -49,6 +50,7 @@ const MediaSingleView = ({data}, ...props) => {
     } = data;
 
     const baseSrc = `${process.env.NEXT_PUBLIC_API_URL}`;
+    const model = new Media(data);
 
     const associatedEntityType = getType(data.entityId.type, true);
     const associatedEntityModel = getModelFromType(data.entityId.type, data.entityId);
@@ -162,6 +164,7 @@ const MediaSingleView = ({data}, ...props) => {
                 contentColumnLeft={contentColumnLeft}
                 contentColumnRight={contentColumnRight}
                 footer={footer}
+                model={model}
             />
         </>
     )
