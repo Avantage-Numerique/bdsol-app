@@ -92,13 +92,14 @@ const EntitySimple = (props) => {
         <>
             <header className={`d-flex mb-2 justify-content-between ${styles["simple-abstract__content__header"]}`}>
                 {/* Main name of the entity */}
-                <h3 className={`m-0 d-flex flex-column justify-content-center 
-                    ${styles["simple-abstract__content__title"]}
-                    ${styles["simple-abstract__content_ellipsis"]}
-                `}>
-                    {model.title}
-                </h3>
-                {/* Redirection button */}
+                <div className={"d-flex flex-column justify-content-center "}>
+                    <h3 className={`m-0 
+                        ${styles["simple-abstract__content__title"]}
+                        ${styles["simple-abstract__content_ellipsis"]}
+                    `}>
+                        {model.title}
+                    </h3>
+                </div>
                 { model.singleLink && <KebabButton href={model.singleLink} /> }
             </header>
             <section>
