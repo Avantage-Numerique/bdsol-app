@@ -263,7 +263,7 @@ const ProjectSingleEdit = (props) => {
     const getLabelGenerator = useCallback((param, query) => {
         return {
             "contribuer": lang.menuContributeLabel,
-            "projets": lang.Projects,
+            "projets": lang.createProject,
             "slug": name ?? "-"
         }[param];
     }, []);
