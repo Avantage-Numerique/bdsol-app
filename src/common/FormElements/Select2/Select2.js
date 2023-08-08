@@ -194,7 +194,6 @@ const Select2 = ({ name, formTools, ...props }) => {
                         callbackFunction: requestResponse => {
                             //Here could be a call back function to execute 
                             const optionCreated = ApiEntityModel.getSelectOption(requestResponse.data)
-                            console.log("Option created", optionCreated)
                             addSelectedValue(...optionCreated)
                             //Close the modal 
                             closeModal()                        }

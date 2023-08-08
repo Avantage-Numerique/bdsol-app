@@ -18,7 +18,7 @@ import {getModelFromType} from "@/DataTypes/Entity/Types";
 const EntitiesTagGrid = ({feed, className, columnClass, subEntityProperty, subBadgeProperty, noneMessage}) => {
 
     const ContainerTag = "ul";
-    subEntityProperty = subEntityProperty ?? 'entity';//
+    //subEntityProperty = subEntityProperty ?? 'entity';//
     subBadgeProperty = subBadgeProperty ?? 'name';
     noneMessage = noneMessage ?? lang.noResult;
 
@@ -36,6 +36,7 @@ const EntitiesTagGrid = ({feed, className, columnClass, subEntityProperty, subBa
                     feed.map((entity, index) => {
                         const rawData = subEntityProperty ? entity[subEntityProperty] : entity;
                         const model = getModelFromType(rawData.type, rawData);
+                        console.log("model", model)
                         model.badge = entity[subBadgeProperty] ?? "";
                         const TagComponent = model.tagComponent;
                         return (

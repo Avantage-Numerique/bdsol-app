@@ -114,7 +114,7 @@ const ProjectSingleView = ({ data }) => {
             </SingleInfo>
             {/* Sponsor */}
             <SingleInfo title="Partenaires">
-                <EntitiesTagGrid feed={sponsor} />
+                <EntitiesTagGrid feed={sponsor} subEntityProperty="entity" />
             </SingleInfo>
         </>
     )
@@ -122,7 +122,7 @@ const ProjectSingleView = ({ data }) => {
     const ContentColumnLeft = (
         <>
             {/* Team */}
-            <SingleInfo 
+            <SingleInfo
                 title={lang.teamMembers}
                 className="mb-3"
             >
@@ -130,7 +130,7 @@ const ProjectSingleView = ({ data }) => {
             </SingleInfo>
 
             {/* scheduleBudget */}
-            <SingleInfo 
+            <SingleInfo
                 title="Échéancier et budget"
                 className="mb-3"
             >
@@ -164,14 +164,14 @@ const ProjectSingleView = ({ data }) => {
     const ContentColumnRight = (
         <>  
             {/* Context */}
-            <SingleInfo 
+            <SingleInfo
                 title="Contexte du projet"
                 className="mb-3"
             >
                 {allEnumState?.[context] ?? context}
             </SingleInfo>
             {/* Skills */}
-            <SingleInfo 
+            <SingleInfo
                 title="Compétences liées au projet"
                 className="mb-3"
             >
@@ -197,7 +197,7 @@ const ProjectSingleView = ({ data }) => {
                 }
             </SingleInfo>
             
-            <SingleInfo 
+            <SingleInfo
                 title={"Contact"} 
                 className={"mb-3"}
             >

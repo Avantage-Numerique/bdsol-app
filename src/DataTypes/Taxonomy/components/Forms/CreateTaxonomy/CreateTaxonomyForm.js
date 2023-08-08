@@ -24,7 +24,6 @@ import {useModal} from "@/src/hooks/useModal/useModal";
 
 const CreateTaxonomyForm = ({name, category, initValues, positiveRequestActions, ...props}) => {
 
-    console.log("Init values", initValues)
     const submitUri = props.uri ?? "create";
 
     /*

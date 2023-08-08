@@ -104,7 +104,6 @@ const HomePage = ({}) => {
                     });
                 }
 
-                console.log("feed and haveError", feed, haveError)
                 if (feed.length > 0 && !haveError) {
                     feed.sort(sortDescBy('createdAt'));//   Sort and mixed both collection the data to display the new elements before
                     setFeedList(feed); //   Finaly, update the state to display the result
@@ -150,8 +149,6 @@ const HomePage = ({}) => {
             mainEntityOfPage: "https://avantagenumerique.org/"
         }
     }
-
-    useEffect( () => {console.log("feedList", feedList)},[feedList])
 
     return (
         <div className={"home-page"}>

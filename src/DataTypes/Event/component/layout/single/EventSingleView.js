@@ -15,6 +15,7 @@ import { lang } from "@/src/common/Data/GlobalConstants";
 import {SingleEntityStatus} from "@/DataTypes/Status/components/SingleEntityStatus";
 import {getTitle} from "@/DataTypes/MetaData/MetaTitle";
 import Event from "../../../models/Event";
+import DisplaySchedule from "../../Forms/Schedule/DisplaySchedule";
 
 const EventSingleView = ({data}) => {
 
@@ -39,6 +40,7 @@ const EventSingleView = ({data}) => {
         domains,
         skills,
         //experience,
+        schedule,
         subEvents,
         status,
         type,
@@ -114,6 +116,13 @@ const EventSingleView = ({data}) => {
     )
     const contentColumnLeft = (
         <>
+            {/* schedule */}
+            {
+                schedule &&
+                <SingleInfo title={lang.schedule}>
+                    <DisplaySchedule feed={schedule}/>
+                </SingleInfo>
+            }
             {/* subEvents */}
             {
                 subEvents &&
