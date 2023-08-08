@@ -1,11 +1,14 @@
 //React
 import { useContext, useState, useCallback, useEffect } from "react";
+import Router from "next/router";
 
 //Utils, context
 import { useAuth } from "@/src/authentification/context/auth-context";
 import { MessageContext } from "@/src/common/UserNotifications/Message/Context/Message-Context";
 import { useFormUtils } from "@/src/hooks/useFormUtils/useFormUtils";
 import { lang } from "@/src/common/Data/GlobalConstants";
+import { getDefaultCreateEntityStatus } from "@/src/DataTypes/Status/EntityStatus";
+import {replacePathname} from "@/src/helpers/url";
 
 //Component
 import Event from "../../../models/Event";
@@ -19,7 +22,7 @@ import Input from "@/src/common/FormElements/Input/Input";
 import Select2 from "@/src/common/FormElements/Select2/Select2";
 import RichTextarea from "@/src/common/FormElements/RichTextArea/RichTextarea";
 import SelectFetch from "@/src/common/FormElements/Select/SelectFetch";
-import UpdateSchedule from "../../Forms/UpdateSchedule";
+import UpdateSchedule from "../../Forms/Schedule/UpdateSchedule";
 import UpdateTeams from "@/src/DataTypes/Organisation/components/forms/UpdateTeams/UpdateTeams";
 
 const EventSingleEdit = ({data}, ...props) => {
@@ -169,7 +172,30 @@ const EventSingleEdit = ({data}, ...props) => {
         const formData = {
             data: {
                 id: _id,
+                alternateName: formState.inputs.alternateName.value,
+                entityInCharge: formState.inputs.entityInCharge.value.value,
+                organizer: formState.inputs.organizer.value.value,
                 description: formState.inputs.description.value,
+                eventType: formState.inputs.eventType.value,
+                startDate: formState.inputs.startDate.value,
+                endDate: formState.inputs.endDate.value,
+                url: formState.inputs.url.value,
+                contactPoint: formState.inputs.contactPoint.value,
+                schedule: formState.inputs.schedule.value.map( (singleSchedule) => {
+                    return {
+                        name: singleSchedule.value.name.value,
+                        startDate: singleSchedule.value.startDate.value,
+                        startTime: singleSchedule.value.startTime.value,
+                        endDate: singleSchedule.value.endDate.value,
+                        endTime: singleSchedule.value.endTime.value,
+                    }
+                }),
+                subEvents: formState.inputs.subEvents.value?.length > 0 ?
+                    formState.inputs.subEvents.value.map( (selectedSubEvent) => { return selectedSubEvent.value }) : [],
+                attendees: formState.inputs.attendees.value?.length > 0 ?
+                    formState.inputs.attendees.value.map( (selectedAttendee) => { return selectedAttendee.value }) : [],
+                skills: formState.inputs.skills?.value?.length > 0 ?
+                    formState.inputs.skills.value.map( (selectOptionSkill) => { return selectOptionSkill.value }) : [],
                 domains: formState.inputs.domains?.value?.length > 0 ?
                     formState.inputs.domains.value.map( (elem) => {
                         return {
@@ -178,6 +204,13 @@ const EventSingleEdit = ({data}, ...props) => {
                         }
                     })
                     : [],
+                team:formState.inputs.team.value.map(function(singleMember){
+                    return {
+                        status: singleMember.status,
+                        member: singleMember.value.member.value.value,
+                        role: singleMember.value.role.value
+                    }
+                }),
                 status: getDefaultCreateEntityStatus(auth.user),
             }
         };
