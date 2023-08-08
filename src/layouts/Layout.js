@@ -84,17 +84,6 @@ const Layout = ( {children} ) => {
 
                 {/* General social medias meta tags */}
                 <meta property="og:type" content="website" />{/*article*/}
-                <meta property="og:image" content={appUrl("/meta-images/show_screen_shot.jpg")} />
-                <meta property="og:image:alt" content="Public assistant à une performance qui contient des nouvelles technologies." />
-                <meta property="og:image:width" content="2560" />
-                <meta property="og:image:height" content="1345" />
-                <meta property="og:locale" content="fr_CA" />
-
-                <meta name="twitter:card" content="summary_large_image"/>
-                <meta name="twitter:image" content={appUrl("/meta-images/show_screen_shot.jpg")} />
-                <meta name="twitter:image:alt" content="Public assistant à une performance qui contient des nouvelles technologies."/>
-                <meta name="twitter:image:width" content="2560" />
-                <meta name="twitter:image:height" content="1345" />
 
                 <meta name="twitter:label1" content="Written by" />
                 <meta name="twitter:data1" content="Author's user" />
