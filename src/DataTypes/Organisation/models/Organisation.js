@@ -40,6 +40,17 @@ class Organisation extends EntityModel {
 
         //sets all the rest as a this[key] = raw[key] value.
         this.setProperties(raw);
+        //Set the simple list based on the nature of the component
+        let list = []
+        if(raw?.offers)
+            raw.offers.forEach(offer => {
+                if(offer.groupName){
+                    list.push(offer.groupName)
+                } else {
+                    offer.skills.forEach(skill => list.push(skill.name))
+                }
+            });
+        this.simpleEditList(list)
     }
 
 }

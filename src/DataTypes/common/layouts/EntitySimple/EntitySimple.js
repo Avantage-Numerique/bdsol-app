@@ -42,9 +42,11 @@ const EntitySimple = (props) => {
         tagListTitle,
         tagList,
         tagKeyName,
+        simgleList,
         model
     } = props;
 
+    console.log("Simple", props)
     //content
     const title = model.title;
     const description = model.shortDescription;
@@ -105,6 +107,7 @@ const EntitySimple = (props) => {
                     <HtmlTagsRemover 
                         tag="p"
                         className={`
+                            mb-0
                             ${styles["simple-abstract__content__description"]}
                             ${styles["simple-abstract__content_ellipsis"]}
                         `}>
@@ -112,15 +115,17 @@ const EntitySimple = (props) => {
                     </HtmlTagsRemover> :
                     <p className={`${styles["simple-abstract__content__description"]}`}>Aucune description</p>
                 }
-                {/* List of tags 
-                <ul className={`d-flex flex-wrap ${styles["simple-abstract__content__tagList"]}`}>
-                    {tagList && tagList.length > 0 &&
-                        tagList.map(tag => (
-                            <li className="rounded">{tag[tagKeyName]}</li>
+                {/* List of tags */}
+                { model.simgleList && 
+                <ul className={`d-flex mb-0 ${styles["simple-abstract__content__tagList"]}`}>
+                    {model.simgleList.length > 0 &&
+                        model.simgleList.map(tag => (
+                            <li title={tag} className="rounded">{tag}</li>
                         ))
                     }
                 </ul>
-                */}
+                }
+                
 
             </section>
         </>

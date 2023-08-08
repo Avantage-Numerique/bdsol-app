@@ -23,7 +23,7 @@ const EventSimple = ({ model }) => {
     );
 
     return (
-        <EntitySimple model={model} className={`${styles["event-simple"]}`} Header={Header} />
+        <EntitySimple model={model} className={`${styles["event-simple"]}`} />
     )
 }
 

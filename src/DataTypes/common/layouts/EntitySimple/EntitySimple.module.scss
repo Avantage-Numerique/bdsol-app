@@ -14,7 +14,7 @@
     /* Header's styling */
     .simple-abstract__header {
         position: relative;
-        height: 10rem;
+        height: 9rem;
         @include transition($transition-simple-base);
 
         .entity-type {
@@ -76,8 +76,13 @@
         .simple-abstract__content__tagList { 
             gap: calc(var(--simple-abstract--padding) * 0.5);
             li {
+                min-width: 6ch;
+                font-size: 0.8rem;
                 padding: 0.1rem 0.4rem;
                 background-color: $gray-200;
+                overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;
             }
         }
     }
