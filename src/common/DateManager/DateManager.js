@@ -18,20 +18,6 @@ import 'moment/locale/fr';
  * 
  * */
 
-/********
- * 
- *   Components that shape the display of time
- * 
- */
-//Simple tag that display a time element
-const TimeTag = ({dateTime, content}) => {
-    return ( 
-        <time dateTime={dateTime}>
-            &nbsp;{content}&nbsp;
-        </time> 
-    )
-}
-
 
 export const useDateManager = (time1, time2 = null) => {
 
@@ -74,22 +60,36 @@ export const useDateManager = (time1, time2 = null) => {
     const setDateFormat = format => setTime({...time, dateFormat: format})
     const setHourFormat = format => setTime({...time, hourFormat: format})
 
-    const TimeIntervalSentence = ({tag, className="", format1='L', format2='L'}) => {
+    /********
+     * 
+     *   Components that shape the display of time
+     * 
+     */
+    //Simple tag that display a time element
+    const TimeTag = ({format='L', endingDate = false}) => {
+        
+        //Define the variables to fill with proper dates and format
+        const content = endingDate ? getEndingDate() : getStartingDate();
+        const dateTime = endingDate ? getEndingDate(format) : getStartingDate(format);
+
+        return ( 
+            <time dateTime={dateTime}>
+                &nbsp;{content}&nbsp;
+            </time> 
+        )
+    }
+
+    const TimeIntervalSentence = ({tag, className=""}) => {
 
         //Define the tag surrounding 
         const Tag = tag ?? 'p';
-        //Extract the details
-        const content1 = getStartingDate();
-        const dateTime1 = getStartingDate(format1);
-        const content2 = getEndingDate();
-        const dateTime2 = getEndingDate(format2);
     
         return (
             <Tag className={className}>
                 Du
-                <TimeTag dateTime={dateTime1} content={content1} />
+                <TimeTag />
                 au
-                <TimeTag dateTime={dateTime2} content={content2} />
+                <TimeTag endingDate />
             </Tag>
         )
     }
