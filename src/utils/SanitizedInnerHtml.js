@@ -22,17 +22,6 @@ export const SanitizedInnerHtml = ( {tag, type, className, children, removeQlEdi
     if (className) typeProps.className += className;
     if (!removeQlEditorClass) typeProps.className += " ql-editor p-0 ";
 
-
-    //If the desired tag is a script tag
-    // if(tag === "script")
-    //     return (
-    //         <Wrapper {...typeProps}
-    //             dangerouslySetInnerHTML={{
-    //             __html: DOMPurify.sanitize(cleanedData)
-    //             }}
-    //         />
-    //     )
-
     //By default
     return (
         <Wrapper {...typeProps}

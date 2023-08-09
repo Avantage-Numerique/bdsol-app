@@ -105,6 +105,11 @@ const EventSingleEdit = ({data}, ...props) => {
                 value: alternateName ?? "",
                 isValid: false
             },
+            //Not activated. Simply here for the information
+            location: {
+                value: "",
+                isValid: true
+            },
             url: {
                 value: url ?? "",
                 isValid: true
@@ -133,8 +138,16 @@ const EventSingleEdit = ({data}, ...props) => {
                 value: startDate ? startDate.split("T")[0] : "",
                 isValid: true
             },
+            startTime: {
+                value: "",
+                isValid: true
+            },
             endDate: {
                 value: endDate ? endDate.split("T")[0] : "",
+                isValid: true
+            },
+            endTime: {
+                value: "",
                 isValid: true
             },
             contactPoint: {
@@ -308,59 +321,67 @@ const EventSingleEdit = ({data}, ...props) => {
                 />
             </div>
             <div className="row">
-                <div className="col-6">
+                <div className="col col-md-6">
+                    {/*startDate*/}
+                    <div className="bg-greyBg col rounded-1 mb-2">
+                        <div className="row py-1 px-2">
+                            <Input
+                                className="col-8"
+                                name="startDate"
+                                label={lang.startDate}
+                                type="date"
+                                formTools={formTools}
+                            />
+                            <Input
+                                className="col-4"
+                                name="startTime"
+                                label={lang.startTime}
+                                type="time"
+                                formTools={formTools}
+                            />
+                        </div>
+                    </div>
+
+                    {/*endDate*/}
+                    <div className="bg-greyBg col rounded-1">
+                        <div className="row py-1 px-2">
+                            <Input
+                                className="col-8"
+                                name="endDate"
+                                label={lang.endDate}
+                                type="date"
+                                formTools={formTools}
+                            />
+                            <Input
+                                className="col-4"
+                                name="endTime"
+                                label={lang.endTime}
+                                type="time"
+                                formTools={formTools}
+                            />
+                        </div>
+                    </div>
+                </div>
+                <div className="col col-md-6">
+
+                    {/* experiences */}
                     {/*eventType*/}
                     <SelectFetch 
                         name="eventType"
                         label={lang.selectEventType}
-                        className="my-1"
+                        className="mb-1"
                         formTools={formTools}
                         //validationRules={[{name: "REQUIRED"}]}
                         noValueText={lang.noSelectedOption}
                         fetchOption="eventtype-enum"
                     />
-                    {/*startDate*/}
-                    <Input
-                        className="col-12 col-md-6"
-                        name="startDate"
-                        label={lang.startDate}
-                        type="date"
+                    <Input 
+                        label="Lieu"
+                        placeholder="Option bientôt disponible"
                         formTools={formTools}
+                        name="location"
+                        disabled={true}
                     />
-                    {/*endDate*/}
-                    <Input
-                        className="col-12 col-md-6"
-                        name="endDate"
-                        label={lang.endDate}
-                        type="date"
-                        formTools={formTools}
-                    />
-
-                </div>
-                <div className="col-6">
-                    {/* Url */}
-                    <Input
-                        name="url"
-                        label={lang.hyperlink}
-                        type="url"
-                        className="mb-3"
-                        pattern="^https?:\/\/[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$"
-                        placeholder="Une url avec le https, exemple : https://siteWeb.com"
-                        formTools={formTools}
-                    />
-                    {/* contactPoint */}
-                    <Input
-                        className="mb-3"
-                        name="contactPoint"
-                        label={lang.projectContactPointLabel}
-                        tip={{
-                            header: lang.projectContactPointTipTitle,
-                            body: lang.projectContactPointTipContent
-                        }}
-                        placeholder={lang.projectContactPointPlaceholder}
-                        formTools={formTools}
-                    />
-                    {/* experiences */}
 
                 </div>
 
@@ -407,6 +428,14 @@ const EventSingleEdit = ({data}, ...props) => {
                 searchField={"firstName"}
                 selectField={"fullname"}
             />
+
+            {/* team */}
+            <UpdateTeams
+                name="team"
+                formTools={formTools}
+                parentEntity={data}
+                label="Éditez vos membre d'équipe"
+            />
             
         </>
     )
@@ -437,14 +466,29 @@ const EventSingleEdit = ({data}, ...props) => {
                 searchField={"name"}
                 selectField={"domains"}
             />
-            
-            {/* team */}
-            <UpdateTeams
-                name="team"
+            {/* Url */}
+            <Input
+                name="url"
+                label={lang.hyperlink}
+                type="url"
+                className="mb-3"
+                pattern="^https?:\/\/[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$"
+                placeholder="Une url avec le https, exemple : https://siteWeb.com"
                 formTools={formTools}
-                parentEntity={data}
-                label="Éditez vos membre d'équipe"
             />
+            {/* contactPoint */}
+            <Input
+                className="mb-3"
+                name="contactPoint"
+                label={lang.projectContactPointLabel}
+                tip={{
+                    header: lang.projectContactPointTipTitle,
+                    body: lang.projectContactPointTipContent
+                }}
+                placeholder={lang.projectContactPointPlaceholder}
+                formTools={formTools}
+            />
+            
         </>
     )
 

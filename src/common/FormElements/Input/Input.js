@@ -83,6 +83,7 @@ const Input = ({name, formTools, ...props}) => {
                 className={`
                 form-element
                 form-element--color-validation
+                ${props.disabled ? "bg-greyBg" : ""}
                 ${props.formClassName && props.formClassName}
                 ${styles["input-component__field-container"]}
                 ${!currentState.isValid && currentState.isTouched && "control--invalid"}
@@ -92,6 +93,7 @@ const Input = ({name, formTools, ...props}) => {
                     className="w-100 border-0 form-element--field-padding --place-holder-color-primary"
                     name={ name }
                     id={ name }
+                    disabled={props.disabled ? true : false}
                     //If there is a state attached to the component, make it a controlled components where the value depends on the state
                     list={props.list ? props.list : null}
                     value={ currentState ? currentState.value : null }

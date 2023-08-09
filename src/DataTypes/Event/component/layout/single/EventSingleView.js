@@ -66,7 +66,7 @@ const EventSingleView = ({data}) => {
             title={(<SanitizedInnerHtml tag={"h1"} className="text-white">{`${model.title}`}</SanitizedInnerHtml>)}
             subtitle={(
                 <div className="d-text">
-                    <h4 className="text-white">{model.alternateName ? model.alternateName : "Aucun"}</h4>
+                    <h4 className="text-white">{model.alternateName ? model.alternateName : "Aucun surnom"}</h4>
                     <div className="mt-4">
                         <p className="text-white m-0">Entité en charge : {model.entityInCharge ? model.entityInCharge.name : "Aucune"}</p>
                         <p className="text-white">Organisateur : {model.organizer ? model.organizer.name : "Aucun"}</p>
@@ -141,6 +141,17 @@ const EventSingleView = ({data}) => {
                     <EntitiesTagGrid feed={attendees} />
                 </SingleInfo>
             }
+
+            {/* team */}
+            {
+                team?.length > 0 &&
+                <SingleInfo 
+                    title={lang.teamMembers}
+                    className="mb-3"
+                >
+                    <EntitiesTagGrid feed={team} subEntityProperty={"member"} subBadgeProperty={"role"} noneMessage={"Aucun membre de l'équipe spécifiés"} />
+                </SingleInfo>
+            }
             
         </>
     )
@@ -174,31 +185,22 @@ const EventSingleView = ({data}) => {
                 </SingleInfo>
             }
 
-            {/* team */}
-            {
-                team?.length > 0 &&
-                <SingleInfo 
-                    title={lang.teamMembers}
-                    className="mb-3"
-                >
-                    <EntitiesTagGrid feed={team} subEntityProperty={"member"} subBadgeProperty={"role"} noneMessage={"Aucun membre de l'équipe spécifiés"} />
-                </SingleInfo>
-            }
+
 
         </>
     )
-    const footer = (
-        <>
+
+    {/*********** Footer section ***********/}
+    const Footer = (
+        <div className="border-top border-bottom pt-2">
             {
                 (createdAt || updatedAt || status) &&
-                <SingleEntityStatus 
-                    className="border-bottom pb-2"
+                <SingleEntityStatus  
                     createdAt={createdAt} 
                     updatedAt={updatedAt} 
-                    status={status} 
-                />
+                    status={status} />
             }
-        </>
+        </div>
     )
     
     return (
@@ -212,7 +214,7 @@ const EventSingleView = ({data}) => {
                 fullWidthContent={fullWidthContent}
                 contentColumnLeft={contentColumnLeft}
                 contentColumnRight={contentColumnRight}
-                footer={footer}
+                footer={Footer}
             />
         </>
     )
