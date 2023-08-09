@@ -47,15 +47,6 @@ export const useDateManager = (time1, time2 = null) => {
     const getHour = getStartingHour;
     const getEndingHour = time.endingTimeStamp ? (format = null) => getHourMoment(time.endingTimeStamp, format) : null;
 
-    console.log("TESTING  ", 
-        "state", time,
-        "getStartingDate :", getStartingDate(),
-        "getDate :", getDate(),
-        "getEndingDate :", getEndingDate(),
-        "getStartingHour :", getStartingHour(),
-        "getHour :", getHour(),
-        "getEndingHour :", getEndingHour()
-    )
     //SETTERS
     const setDateFormat = format => setTime({...time, dateFormat: format})
     const setHourFormat = format => setTime({...time, hourFormat: format})
@@ -78,6 +69,8 @@ export const useDateManager = (time1, time2 = null) => {
             </time> 
         )
     }
+
+    //Simple tag that contains the time and hour 
 
     const TimeIntervalSentence = ({tag, className=""}) => {
 
@@ -112,64 +105,3 @@ export const useDateManager = (time1, time2 = null) => {
         TimeIntervalSentence: TimeIntervalSentence
     }
 }
-
-    /* Main class to hold the data of a time element
-    class TimeViewer {
-        constructor(languageCode = "fr") {
-            //Language code. French by default
-            this.language = languageCode;
-            //Default formats
-            this.dateDefaultFormat = 'll';    //Only date
-            this.hourDefaultFormat = 'LT';    //Only hour
-
-            moment.locale(this.language); 
-
-        }
-
-        setDateDefaultFormat( newDefault ){ this.dateDefaultFormat = newDefault }
-        setHourDefaultFormat( newDefault ){ this.hourDefaultFormat = newDefault }
-
-        //Main method to return the formatted element
-        //getTime( time, format ){ return moment(time).locale(this.language).format(format)}
-
-    }
-
-    class SingleTimeViewer extends TimeViewer {
-        constructor(time, languageCode){
-            super(languageCode)
-
-            this.timeStamp = time
-        }
-    }
-
-    class IntervalTimeViewer extends TimeViewer {
-        constructor(startingTime, endingTime, languageCode){
-            super(languageCode)
-
-            //Starting
-            this.startingTimeStamp = startingTime;
-            //Ending
-            this.endingTimeStamp = endingTime;
-        }
-
-        getStartDate( format = this.dateDefaultFormat ) {
-            return moment(this.startingTimeStamp).locale(this.language).format(format)
-        }
-        getStartHour( format = this.this.hourDefaultFormat ) {
-            return moment(this.startingTimeStamp).locale(this.language).format(format)
-        }
-        getEndDate( format = this.dateDefaultFormat ) {
-            return moment(this.endingTimeStamp).locale(this.language).format(format)
-        }
-        getEndHour( format = this.this.hourDefaultFormat ) {
-            return moment(this.startingendingTimeStampTimeStamp).locale(this.language).format(format)
-        }
-        //Extract data to generate a component
-        getTimeTagIntervalData( format = this.dateDefaultFormat ){
-            return {
-                dateTime, 
-                content
-            }
-        }
-  
-    }*/
