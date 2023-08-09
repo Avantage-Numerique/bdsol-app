@@ -19,9 +19,9 @@ const events = {
     "startTime": "Heure de début",
     "endDate": "Date de fin",
     "endTime": "Heure de fin",
-    "subEvents": "Événements liées",
+    "subEvents": "Sous-Événements",
     "attendees": "Participants",
-    "eventSkills": "Compétences liée à l'événement"
+    "eventSkills": "Compétences liées à l'événement"
 
 
 }

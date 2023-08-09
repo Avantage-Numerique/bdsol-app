@@ -24,6 +24,7 @@ import RichTextarea from "@/src/common/FormElements/RichTextArea/RichTextarea";
 import SelectFetch from "@/src/common/FormElements/Select/SelectFetch";
 import UpdateSchedule from "../../Forms/Schedule/UpdateSchedule";
 import UpdateTeams from "@/src/DataTypes/Organisation/components/forms/UpdateTeams/UpdateTeams";
+import { getDateFromIsoString } from "@/src/utils/DateHelper";
 
 const EventSingleEdit = ({data}, ...props) => {
 
@@ -48,6 +49,7 @@ const EventSingleEdit = ({data}, ...props) => {
         domains,
         skills,
         //experience,
+        schedule,
         subEvents,
         status,
         type,
@@ -372,6 +374,13 @@ const EventSingleEdit = ({data}, ...props) => {
             <UpdateSchedule
                 name="schedule"
                 label={lang.schedule}
+                schedule={schedule?.length > 0 ? schedule.map( (elem, ind, arr) => {
+                    if(elem.startDate)
+                        elem.startDate = getDateFromIsoString(elem.startDate);
+                    if(elem.endDate)
+                        elem.endDate = getDateFromIsoString(elem.endDate);
+                    return elem;
+                }):[]}
                 formTools={formTools}
             />
             {/* subEvents */}
