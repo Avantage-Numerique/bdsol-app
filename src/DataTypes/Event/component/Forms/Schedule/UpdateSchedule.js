@@ -4,7 +4,7 @@ import Input from "@/src/common/FormElements/Input/Input";
 import SingleInfo from "@/src/DataTypes/common/layouts/SingleInfo/SingleInfo";
 import { lang } from "@/src/common/Data/GlobalConstants";
 
-const UpdateSchedule = ({name, formTools, ...props}) => {
+const UpdateSchedule = ({name, formTools, schedule, ...props}) => {
 
     return (
         <SingleInfo
@@ -13,7 +13,7 @@ const UpdateSchedule = ({name, formTools, ...props}) => {
         >
             <Repeater
                 formTools={formTools}
-                name="schedule"
+                name={name}
                 formInitStructure={{
                     name: {
                         value: "",
@@ -36,7 +36,7 @@ const UpdateSchedule = ({name, formTools, ...props}) => {
                         isValid: true
                     },
                 }}
-                initValues={props.parentEntity?.schedule ?? []}
+                initValues={schedule ?? []}
             >
                 <div className="my-2 bg-greyBg rounded-1">
                     <section className="row my-2 align-items-end">

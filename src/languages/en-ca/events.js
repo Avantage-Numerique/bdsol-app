@@ -19,7 +19,7 @@ const events = {
     "startTime": "Starts at",
     "endDate": "End date",
     "endTime": "Ends at",
-    "subEvents": "Linked events",
+    "subEvents": "Subevents",
     "attendees": "Attendees",
     "eventSkills": "Skills linked to this event"
 

@@ -82,7 +82,11 @@ const EventSingleView = ({data}) => {
     const fullWidthContent = (
         <div>
             <div className="row">
-                {description && <SingleInfo title={lang.description}>{description}</SingleInfo>}
+                {
+                    description &&
+                    <SingleInfo title={lang.description}>
+                        <SanitizedInnerHtml>{description}</SanitizedInnerHtml>
+                    </SingleInfo>}
             </div>
             <div className="row">
                 <div className="col-6">
@@ -188,7 +192,7 @@ const EventSingleView = ({data}) => {
             {
                 (createdAt || updatedAt || status) &&
                 <SingleEntityStatus 
-                    className="border-bottom pb-2" 
+                    className="border-bottom pb-2"
                     createdAt={createdAt} 
                     updatedAt={updatedAt} 
                     status={status} 

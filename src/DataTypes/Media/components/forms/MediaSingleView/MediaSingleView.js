@@ -62,6 +62,7 @@ const MediaSingleView = ({data}, ...props) => {
             "persons": "persons",
             "organisations": "organisations",
             "projects": "projects",
+            "events":"events",
             "medias": "medias"
         };
     }, []);
@@ -73,9 +74,11 @@ const MediaSingleView = ({data}, ...props) => {
             "person.slug": () => associatedEntityModel.title ?? "Personne",
             "organisation.slug": () => associatedEntityModel.title ?? "Organisation",
             "project.slug": associatedEntityModel.title ?? "Projet",
+            "event.slug": associatedEntityModel.title ?? "Événement",
             "persons": () => "Personnes",
             "organisations": () => "Organisations",
             "projets": () => "Projets",
+            "events": () => "Événements",
             "medias": () => "Média"
         }[param];
     }, []);

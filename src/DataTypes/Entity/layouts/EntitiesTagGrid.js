@@ -36,7 +36,6 @@ const EntitiesTagGrid = ({feed, className, columnClass, subEntityProperty, subBa
                     feed.map((entity, index) => {
                         const rawData = subEntityProperty ? entity[subEntityProperty] : entity;
                         const model = getModelFromType(rawData.type, rawData);
-                        console.log("model", model)
                         model.badge = entity[subBadgeProperty] ?? "";
                         const TagComponent = model.tagComponent;
                         return (
