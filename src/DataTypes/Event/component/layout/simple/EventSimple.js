@@ -1,4 +1,8 @@
 import React from "react"
+import moment from"moment";
+import 'moment/locale/fr';
+
+import {useDateManager} from '@/common/DateManager/DateManager'
 
 /***  Local styling ***/
 import styles from './eventSimple.module.scss'
@@ -9,21 +13,21 @@ const EventSimple = ({ model }) => {
 
     const link = "/"+replacePathname(model.singleRoute.pathname, {slug: model.slug});
 
-    const Header = (
-        <div className={`d-flex flex-column justify-content-center align-items-center h-100 ${styles["event-simple__header"]}`}>
-            <section className={`${styles["event-simple__header__top-section"]}`}>
-                {/* Profil picture */}
-                <figure className={`${styles["event-simple__header__picture"]}`}>
-                    <a href={link} title={`${model.title}`} className={"position-absolute w-100 h-100"} target={"_self"} rel={"follow"}>
-                        <img src={`${model.mainImage.baseSrc}${model.mainImage.url}`} alt={model.mainImage.alt} />
-                    </a>
-                </figure>
-            </section>
-        </div>
-    );
+    const BottomLineContent = () => {
+
+
+        //Create an instance of the date manager and extract the right class
+        const { TimeIntervalSentence } = useDateManager(model.startDate, model.endDate);
+
+        return (
+            <>
+                <TimeIntervalSentence />
+            </>
+        )
+    }
 
     return (
-        <EntitySimple model={model} className={`${styles["event-simple"]}`} />
+        <EntitySimple model={model} className={`${styles["event-simple"]}`} BottomLineContent={BottomLineContent} />
     )
 }
 

@@ -18,6 +18,7 @@ import Link from "next/link";
  * @param props.model {EntitySimple|object}
  * @param props.Header {JSX.Component}
  * @param props.Content {JSX.Component}
+ * @param props.BottomLineContent {JSX.Component} Define the overwriting of the last line under the description
  * @param props.tagListTitle {String} Title of the section containing a list of tag
  * @param props.tagList  {Object}  List to be displayed of individual tags
  * @return {JSX.Element}
@@ -33,26 +34,24 @@ const EntitySimple = (props) => {
         //redirectionLink,
         Header,
         Content,
+        BottomLineContent,
         //showEntityType,
         //Props for informations to display
         //title,
         //imgSrc,
         //imgAlt,
         //description,
-        tagListTitle,
-        tagList,
-        tagKeyName,
-        simgleList,
         model
     } = props;
 
-    console.log("Simple", props)
     //content
     const title = model.title;
     const description = model.shortDescription;
     //params
     const showEntityType = props.showEntityType ?? true;
     const appType = getType(model.type);
+    //Verify is a bottom line is available to be displayed
+    const isBottomLine = BottomLineContent || model.simgleList ? true : false
 
 
     /**
@@ -101,7 +100,12 @@ const EntitySimple = (props) => {
                 {/* Redirection button */}
                 { model.singleLink && <KebabButton href={model.singleLink} /> }
             </header>
-            <section>
+            <section className={`
+                d-flex
+                justify-content-between
+                flex-column
+                ${styles["simple-abstract__sub-section"]}
+            `}>
                 {/* Description */}
                 {description ? 
                     <HtmlTagsRemover 
@@ -110,21 +114,27 @@ const EntitySimple = (props) => {
                             mb-0
                             ${styles["simple-abstract__content__description"]}
                             ${styles["simple-abstract__content_ellipsis"]}
+                            ${!isBottomLine && styles["simple-abstract__content_ellipsis--3lines"]}
                         `}>
                         {description}
                     </HtmlTagsRemover> :
-                    <p className={`${styles["simple-abstract__content__description"]}`}>Aucune description</p>
+                    <p className={`mb-0 ${styles["simple-abstract__content__description"]}`}>Aucune description</p>
                 }
                 {/* List of tags */}
-                { model.simgleList && 
+                { !BottomLineContent && model.simgleList && 
                 <ul className={`d-flex mb-0 ${styles["simple-abstract__content__tagList"]}`}>
                     {model.simgleList.length > 0 &&
                         model.simgleList.map(tag => (
-                            <li title={tag} className="rounded">{tag}</li>
+                            <li key={tag} title={tag} className="rounded">{tag}</li>
                         ))
                     }
                 </ul>
                 }
+                {/* Overwrite buttom line content */}
+                { BottomLineContent && 
+                    <BottomLineContent />
+                }
+
                 
 
             </section>
