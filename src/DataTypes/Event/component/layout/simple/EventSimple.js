@@ -14,7 +14,6 @@ const EventSimple = ({ model }) => {
     const link = "/"+replacePathname(model.singleRoute.pathname, {slug: model.slug});
 
     const BottomLineContent = () => {
-
         //Create an instance of the date manager and extract the right class
         const { TimeTag } = useDateManager(model.startDate, model.endDate);
 
@@ -22,9 +21,7 @@ const EventSimple = ({ model }) => {
             <p className="mb-0 text--dark" style={{ fontSize: "0.90rem"}}>
                 <b>
                     <TimeTag />
-                    {model.endDate && 
-                        <><span> - </span><TimeTag endingDate /></>
-                    }
+                    {model.endDate && <><span> - </span><TimeTag endingDate /></>}
                 </b>
             </p>
         )
