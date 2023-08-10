@@ -9,9 +9,12 @@ import { useFormUtils } from "@/src/hooks/useFormUtils/useFormUtils";
 import { lang } from "@/src/common/Data/GlobalConstants";
 import { getDefaultCreateEntityStatus } from "@/src/DataTypes/Status/EntityStatus";
 import {replacePathname} from "@/src/helpers/url";
+import {SingleEntityStatus} from '@/DataTypes/Status/components/SingleEntityStatus';
+
 
 //Component
 import Event from "../../../models/Event";
+import SingleInfo from "@/src/DataTypes/common/layouts/SingleInfo/SingleInfo";
 import SingleBaseHeader from "@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseHeader";
 import SingleBase from "@/src/DataTypes/common/layouts/single/SingleBase";
 import MainImageDisplay from "@/src/DataTypes/common/layouts/single/defaultSections/MainImageDisplay/MainImageDisplay";
@@ -323,44 +326,46 @@ const EventSingleEdit = ({data}, ...props) => {
             <div className="row">
                 <div className="col col-md-6">
                     {/*startDate*/}
-                    <div className="bg-greyBg col rounded-1 mb-2">
-                        <div className="row py-1 px-2">
-                            <Input
-                                className="col-8"
-                                name="startDate"
-                                label={lang.startDate}
-                                type="date"
-                                formTools={formTools}
-                            />
-                            <Input
-                                className="col-4"
-                                name="startTime"
-                                label={lang.startTime}
-                                type="time"
-                                formTools={formTools}
-                            />
+                        <div className="bg-greyBg col rounded-1 mb-2">
+                            <div className="row py-1 px-2">
+                                <Input
+                                    className="col-12 col-lg-8"
+                                    name="startDate"
+                                    label={lang.startDate}
+                                    type="date"
+                                    formTools={formTools}
+                                />
+                                <Input
+                                    className="col-12 col-lg-4"
+                                    name="startTime"
+                                    label={lang.startTime}
+                                    type="time"
+                                    formTools={formTools}
+                                />
+                            </div>
                         </div>
-                    </div>
 
-                    {/*endDate*/}
-                    <div className="bg-greyBg col rounded-1">
-                        <div className="row py-1 px-2">
-                            <Input
-                                className="col-8"
-                                name="endDate"
-                                label={lang.endDate}
-                                type="date"
-                                formTools={formTools}
-                            />
-                            <Input
-                                className="col-4"
-                                name="endTime"
-                                label={lang.endTime}
-                                type="time"
-                                formTools={formTools}
-                            />
+                        {/*endDate*/}
+                        <div className="bg-greyBg col rounded-1">
+                            <div className="row py-1 px-2">
+                                <Input
+                                    className="col-12 col-lg-8"
+                                    name="endDate"
+                                    label={lang.endDate}
+                                    type="date"
+                                    formTools={formTools}
+                                />
+                                <Input
+                                    className="col-12 col-lg-4"
+                                    name="endTime"
+                                    label={lang.endTime}
+                                    type="time"
+                                    formTools={formTools}
+                                />
+                            </div>
                         </div>
-                    </div>
+                        
+            
                 </div>
                 <div className="col col-md-6">
 
@@ -442,58 +447,69 @@ const EventSingleEdit = ({data}, ...props) => {
 
     const contentColumnRight = (
         <>
-            {/* skills */}
-            <Select2
-                name="skills"
-                label={lang.eventSkills}
-                formTools={formTools}
-                creatable={true}
-                isMulti={true}
-                requestData={{name:""}}
-                fetch={"/taxonomies/list"}
-                searchField={"name"}
-                selectField={"name"}
-            />
-            {/* domains */}
-            <Select2
-                name="domains"
-                label={lang.Domains}
-                formTools={formTools}
-                creatable={true}
-                isMulti={true}
-                fetch={"/taxonomies/list"}
-                requestData={{category:"domains", name:""}}
-                searchField={"name"}
-                selectField={"domains"}
-            />
-            {/* Url */}
-            <Input
-                name="url"
-                label={lang.hyperlink}
-                type="url"
-                className="mb-3"
-                pattern="^https?:\/\/[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$"
-                placeholder="Une url avec le https, exemple : https://siteWeb.com"
-                formTools={formTools}
-            />
-            {/* contactPoint */}
-            <Input
-                className="mb-3"
-                name="contactPoint"
-                label={lang.projectContactPointLabel}
-                tip={{
-                    header: lang.projectContactPointTipTitle,
-                    body: lang.projectContactPointTipContent
-                }}
-                placeholder={lang.projectContactPointPlaceholder}
-                formTools={formTools}
-            />
-            
+            <SingleInfo
+                title={"Informations supplémentaires"}
+                className="py-3"
+            >
+                {/* skills */}
+                <Select2
+                    name="skills"
+                    label={lang.eventSkills}
+                    formTools={formTools}
+                    creatable={true}
+                    isMulti={true}
+                    requestData={{name:""}}
+                    fetch={"/taxonomies/list"}
+                    searchField={"name"}
+                    selectField={"name"}
+                />
+                {/* domains */}
+                <Select2
+                    name="domains"
+                    label={lang.Domains}
+                    formTools={formTools}
+                    creatable={true}
+                    isMulti={true}
+                    fetch={"/taxonomies/list"}
+                    requestData={{category:"domains", name:""}}
+                    searchField={"name"}
+                    selectField={"domains"}
+                />
+                {/* Url */}
+                <Input
+                    name="url"
+                    label={lang.hyperlink}
+                    type="url"
+                    className="mb-3"
+                    pattern="^https?:\/\/[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$"
+                    placeholder="Une url avec le https, exemple : https://siteWeb.com"
+                    formTools={formTools}
+                />
+                {/* contactPoint */}
+                <Input
+                    className="mb-3"
+                    name="contactPoint"
+                    label={lang.projectContactPointLabel}
+                    tip={{
+                        header: lang.projectContactPointTipTitle,
+                        body: lang.projectContactPointTipContent
+                    }}
+                    placeholder={lang.projectContactPointPlaceholder}
+                    formTools={formTools}
+                />
+                </SingleInfo>
         </>
     )
 
     const footer = (
-        <></>
+        <>
+            <div className="border-top border-bottom pt-3">
+                {
+                    (createdAt || updatedAt || status) &&
+                    <SingleEntityStatus createdAt={createdAt} updatedAt={updatedAt} status={status} />
+                }
+            </div>
+        </>
     );
 
     return (

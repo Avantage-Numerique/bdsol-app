@@ -11,6 +11,8 @@ const UpdateSchedule = ({name, formTools, schedule, ...props}) => {
             title={props.label}
             className="py-3"
         >
+            <div className='px-4 border-start'>
+
             <Repeater
                 formTools={formTools}
                 name={name}
@@ -39,9 +41,9 @@ const UpdateSchedule = ({name, formTools, schedule, ...props}) => {
                 initValues={schedule ?? []}
             >
                 <div className="my-2 bg-greyBg rounded-1">
-                    <section className="row my-2 align-items-end">
+                    <section className="row my-2 align-items-start">
                         <Input
-                            className="col-12 col-md-4"
+                            className="col-md-12 col-lg-4 mb-2"
                             name="name"
                             label={lang.name}
                             formTools={formTools}
@@ -49,48 +51,59 @@ const UpdateSchedule = ({name, formTools, schedule, ...props}) => {
                                 {name: "REQUIRED"}
                             ]}
                         />
-                        <Input
-                            className="col-12 col-md-4"
-                            name="startDate"
-                            label={lang.startDate}
-                            formTools={formTools}
-                            type="date"
-                            validationRules={[
-                                {name: "REQUIRED"}
-                            ]}
-                        />
-                        <Input
-                            className="col-12 col-md-4"
-                            name="startTime"
-                            label={lang.startTime}
-                            formTools={formTools}
-                            type="time"
-                            validationRules={[
-                                {name: "REQUIRED"}
-                            ]}
-                        />
-                        
-                        <div className="col-md-4"></div> {/* <--- please remove this attrocity (used to fix column (4-4-4) ) */}
-                        <Input
-                            className="col-12 col-md-4"
-                            name="endDate"
-                            label={lang.endDate}
-                            formTools={formTools}
-                            type="date"
-                            validationRules={[
-                                {name: "REQUIRED"}
-                            ]}
-                        />
-                        <Input
-                            className="col-12 col-md-4"
-                            name="endTime"
-                            label={lang.endTime}
-                            formTools={formTools}
-                            type="time"
-                            validationRules={[
-                                {name: "REQUIRED"}
-                            ]}
-                        />  
+                        <div className="col-md-12 col-lg-8">
+                            <h6 className="col text-dark fw-normal mb-1 mt-1">Début</h6>
+                            <div className="col-12 bg-secondarylight p-2 mb-2 rounded-1" >
+                                <div className="row">
+                                    <Input
+                                        className="col-sm-12 col-md-7"
+                                        name="startDate"
+                                        //label={lang.startDate}
+                                        formTools={formTools}
+                                        type="date"
+                                        validationRules={[
+                                            {name: "REQUIRED"}
+                                        ]}
+                                    />
+                                    <Input
+                                        className="col-sm-12 col-md-5"
+                                        name="startTime"
+                                        //label={lang.startTime}
+                                        formTools={formTools}
+                                        type="time"
+                                        validationRules={[
+                                            {name: "REQUIRED"}
+                                        ]}
+                                    />
+                                </div>
+                            </div>
+                            <h6 className="col text-dark fw-normal mb-1 mt-1">Fin</h6>
+                            <div className="col-12 bg-secondarylight rounded-1 p-2">
+
+                                <div className="row">
+                                    <Input
+                                        className="col-sm-12 col-md-7"
+                                        name="endDate"
+                                        //label={lang.endDate}
+                                        formTools={formTools}
+                                        type="date"
+                                        validationRules={[
+                                            {name: "REQUIRED"}
+                                        ]}
+                                    />
+                                    <Input
+                                        className="col-sm-12 col-md-5"
+                                        name="endTime"
+                                        //label={lang.endTime}
+                                        formTools={formTools}
+                                        type="time"
+                                        validationRules={[
+                                            {name: "REQUIRED"}
+                                        ]}
+                                    />  
+                                </div>
+                            </div>
+                        </div>
                     </section>
 
                     <div className="cold mb-2 d-flex justify-content-end">
@@ -103,6 +116,7 @@ const UpdateSchedule = ({name, formTools, schedule, ...props}) => {
                     </div>
                 </div>
             </Repeater>
+            </div>
         </SingleInfo>
     );
 }
