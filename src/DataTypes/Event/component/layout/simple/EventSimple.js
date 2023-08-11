@@ -1,6 +1,4 @@
 import React from "react"
-import moment from"moment";
-import 'moment/locale/fr';
 
 import {useDateManager} from '@/common/DateManager/DateManager'
 

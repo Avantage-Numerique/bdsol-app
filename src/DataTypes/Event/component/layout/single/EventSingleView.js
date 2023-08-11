@@ -17,6 +17,10 @@ import {getTitle} from "@/DataTypes/MetaData/MetaTitle";
 import Event from "../../../models/Event";
 import DisplaySchedule from "../../Forms/Schedule/DisplaySchedule";
 
+//Hooks
+import {useDateManager} from '@/common/DateManager/DateManager'
+
+
 const EventSingleView = ({data}) => {
 
     const {
@@ -61,12 +65,15 @@ const EventSingleView = ({data}) => {
         getLabelGenerator: getLabelGenerator
     }
 
+    const { TimeTag, TimeIntervalSentence } = useDateManager(startDate, endDate);
+
+
     const header = (
         <SingleBaseHeader 
             title={(<SanitizedInnerHtml tag={"h1"} className="text-white">{`${model.title}`}</SanitizedInnerHtml>)}
             subtitle={(
                 <div className="d-text">
-                    <h4 className="text-white">{model.alternateName ? model.alternateName : "Aucun surnom"}</h4>
+                    <h4 className="text-white">{model.alternateName ? model.alternateName : "Aucun nom alternatif"}</h4>
                     <div className="mt-4">
                         <p className="text-white m-0">Entité en charge : {model.entityInCharge ? model.entityInCharge.name : "Aucune"}</p>
                         <p className="text-white">Organisateur : {model.organizer ? model.organizer.name : "Aucun"}</p>
@@ -81,23 +88,18 @@ const EventSingleView = ({data}) => {
     )
     const fullWidthContent = (
         <div>
-            <div className="row">
-                {
-                    description &&
-                    <SingleInfo title={lang.description}>
-                        <SanitizedInnerHtml>{description}</SanitizedInnerHtml>
-                    </SingleInfo>}
-            </div>
-            <div className="row">
-                <div className="col-6">
-                    {/*eventType*/}
-                        { eventType && <SingleInfo title={lang.eventType}>{eventType}</SingleInfo> }
-                    {/*startDate*/}
-                        { startDate && <SingleInfo title={lang.startDate}>{startDate}</SingleInfo> }
-                    {/*endDate*/}
-                        { endDate && <SingleInfo title={lang.endDate}>{endDate}</SingleInfo> }
+            <div className="row mt-4">
 
+                <div className="col-12">              
+                    {/*Date*/}
+                    <div>
+                        { startDate && endDate  && <TimeIntervalSentence tag="h3" /> }  
+                    </div>
+                    <div>
+                        <h4 className="text-primarylight">{eventType}</h4>
+                    </div>
                 </div>
+
                 <div className="col-6">
                     {/* Url */}
                     { url &&
@@ -115,6 +117,13 @@ const EventSingleView = ({data}) => {
 
                 </div>
 
+            </div>
+            <div className="row">
+                {
+                    description &&
+                    <SingleInfo title={lang.description}>
+                        <SanitizedInnerHtml>{description}</SanitizedInnerHtml>
+                    </SingleInfo>}
             </div>
         </div>
     )

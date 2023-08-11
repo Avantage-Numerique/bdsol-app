@@ -71,9 +71,6 @@ const UpdateSchedule = ({name, formTools, schedule, ...props}) => {
                                         //label={lang.startTime}
                                         formTools={formTools}
                                         type="time"
-                                        validationRules={[
-                                            {name: "REQUIRED"}
-                                        ]}
                                     />
                                 </div>
                             </div>
@@ -97,9 +94,6 @@ const UpdateSchedule = ({name, formTools, schedule, ...props}) => {
                                         //label={lang.endTime}
                                         formTools={formTools}
                                         type="time"
-                                        validationRules={[
-                                            {name: "REQUIRED"}
-                                        ]}
                                     />  
                                 </div>
                             </div>

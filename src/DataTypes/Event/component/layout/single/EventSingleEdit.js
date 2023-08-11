@@ -315,15 +315,6 @@ const EventSingleEdit = ({data}, ...props) => {
     const fullWidthContent = (
         <div>
             <div className="row">
-                {/* Description */}
-                <RichTextarea
-                    className="mb-3"
-                    name="description"
-                    label={lang.description}
-                    formTools={formTools}
-                />
-            </div>
-            <div className="row">
                 <div className="col col-md-6">
                     {/*startDate*/}
                         <div className="bg-greyBg col rounded-1 mb-2">
@@ -391,8 +382,18 @@ const EventSingleEdit = ({data}, ...props) => {
                 </div>
 
             </div>
+            <div className="row">
+                {/* Description */}
+                <RichTextarea
+                    className="mb-3 mt-2"
+                    name="description"
+                    label={lang.description}
+                    formTools={formTools}
+                />
+            </div>
         </div>
     )
+
 
     const contentColumnLeft = (
         <>

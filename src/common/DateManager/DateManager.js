@@ -57,11 +57,11 @@ export const useDateManager = (time1, time2 = null) => {
      * 
      */
     //Simple tag that display a time element
-    const TimeTag = ({format='L', endingDate = false}) => {
+    const TimeTag = ({format, endingDate = false}) => {
         
         //Define the variables to fill with proper dates and format
-        const content = endingDate ? getEndingDate() : getStartingDate();
-        const dateTime = endingDate ? getEndingDate(format) : getStartingDate(format);
+        const content = endingDate ? getEndingDate(format) : getStartingDate(format);
+        const dateTime = endingDate ? getEndingDate() : getStartingDate();
 
         return ( 
             <time dateTime={dateTime}>
@@ -73,10 +73,12 @@ export const useDateManager = (time1, time2 = null) => {
     //Simple tag that contains the time and hour 
 
     const TimeIntervalSentence = ({tag, className=""}) => {
-
         //Define the tag surrounding 
         const Tag = tag ?? 'p';
-    
+
+        //To activate eventually
+        //const hideYear = getStartingDate('yyyy') == getEndingDate('yyyy') ? true : false;
+
         return (
             <Tag className={className}>
                 Du

@@ -359,7 +359,8 @@ const OrganisationSingleEdit = (props) => {
                     <SingleEntityStatus createdAt={createdAt} updatedAt={updatedAt} status={status} />
                 }
             </div>
-        </>);
+        </>
+    );
 
 
     const modalCategoryMode = useRef("skills");
