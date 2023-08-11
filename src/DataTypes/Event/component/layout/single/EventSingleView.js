@@ -91,7 +91,19 @@ const EventSingleView = ({data}) => {
             <div className="row">
                 <div className="col-6">
                     {/*eventType*/}
-                        { eventType && <SingleInfo title={lang.eventType}>{eventType}</SingleInfo> }
+                        { eventType?.length > 0 &&
+                            <SingleInfo title={lang.eventType}>
+                                <ul>
+                                    {eventType.map( (type) => {return (
+                                        <li>
+                                            {type.name}
+                                        </li>
+                                        )})
+                                    }
+                                    
+                                </ul>
+                            </SingleInfo>
+                        }
                     {/*startDate*/}
                         { startDate && <SingleInfo title={lang.startDate}>{startDate}</SingleInfo> }
                     {/*endDate*/}

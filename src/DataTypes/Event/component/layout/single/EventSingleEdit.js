@@ -193,7 +193,8 @@ const EventSingleEdit = ({data}, ...props) => {
                 entityInCharge: formState.inputs.entityInCharge.value.value,
                 organizer: formState.inputs.organizer.value?.value ?? undefined,
                 description: formState.inputs.description.value,
-                eventType: formState.inputs.eventType.value,
+                eventType: formState.inputs.eventType.value?.length > 0 ?
+                    formState.inputs.eventType.value.map( (selectedEventType) => { return selectedEventType.value }) : [],
                 startDate: formState.inputs.startDate.value,
                 endDate: formState.inputs.endDate.value,
                 url: formState.inputs.url.value,
