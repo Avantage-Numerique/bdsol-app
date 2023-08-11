@@ -66,7 +66,7 @@ const EventSingleView = ({data}) => {
             title={(<SanitizedInnerHtml tag={"h1"} className="text-white">{`${model.title}`}</SanitizedInnerHtml>)}
             subtitle={(
                 <div className="d-text">
-                    <h4 className="text-white">{model.alternateName ? model.alternateName : "Aucun surnom"}</h4>
+                    <h4 className="text-white">{model.alternateName ? model.alternateName : ""}</h4>
                     <div className="mt-4">
                         <p className="text-white m-0">Entité en charge : {model.entityInCharge ? model.entityInCharge.name : "Aucune"}</p>
                         <p className="text-white">Organisateur : {model.organizer ? model.organizer.name : "Aucun"}</p>
