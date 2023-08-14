@@ -88,15 +88,17 @@ const EventSingleView = ({data}) => {
     )
     const fullWidthContent = (
         <div>
-            <div className="row mt-4">
-                {
-                    description &&
-                    <SingleInfo title={lang.description}>
-                        <SanitizedInnerHtml>{description}</SanitizedInnerHtml>
-                    </SingleInfo>}
-            </div>
             <div className="row">
-                <div className="col-6">
+                <div className="col col-md-6">              
+                    {/*Date*/}
+                    <div>
+                        { startDate && endDate  && <TimeIntervalSentence tag="h3" /> }  
+                    </div>
+                    <div>
+                        <h4 className="text-primarylight">{eventType}</h4>
+                    </div>
+                </div>
+                <div className="col col-md-6">
                     {/*eventType */}
                     { eventType?.length > 0 &&
                         <SingleInfo title={lang.eventType}>
@@ -109,47 +111,15 @@ const EventSingleView = ({data}) => {
                             </ul>
                         </SingleInfo>
                     }
-                
-   
-                    {/*startDate*/}
-                        { startDate && <SingleInfo title={lang.startDate}>{startDate}</SingleInfo> }
-                    {/*endDate*/}
-                        { endDate && <SingleInfo title={lang.endDate}>{endDate}</SingleInfo> }
                 </div>
-                <div className="col-12">              
-                    {/*Date*/}
-                    <div>
-                        { startDate && endDate  && <TimeIntervalSentence tag="h3" /> }  
-                    </div>
-                    <div>
-                        <h4 className="text-primarylight">{eventType}</h4>
-                    </div>
-                </div>
-
-                <div className="col-6">
-                    {/* Url */}
-                    { url &&
-                        <SingleInfo title={lang.hyperlink} className={"pb-4"}>
-                            <ExternalLink href={url}>{url}</ExternalLink>
-                        </SingleInfo>
-                    }
-                    {/* contactPoint */}
-                    { contactPoint &&
-                        <SingleInfo title={lang.contactPoint}>
-                            {contactPoint}
-                        </SingleInfo>
-                    }
-                    {/* experiences */}
-
-                </div>
-
             </div>
-            <div className="row">
+            <div className="row mt-4">
                 {
                     description &&
                     <SingleInfo title={lang.description}>
                         <SanitizedInnerHtml>{description}</SanitizedInnerHtml>
-                    </SingleInfo>}
+                    </SingleInfo>
+                }
             </div>
         </div>
     )
@@ -219,9 +189,18 @@ const EventSingleView = ({data}) => {
                     />
                 </SingleInfo>
             }
-
-
-
+            {/* Url */}
+            { url &&
+                <SingleInfo title={lang.hyperlink} className={"pb-4"}>
+                    <ExternalLink href={url}>{url}</ExternalLink>
+                </SingleInfo>
+            }
+            {/* contactPoint */}
+            { contactPoint &&
+                <SingleInfo title={lang.contactPoint}>
+                    {contactPoint}
+                </SingleInfo>
+            }
         </>
     )
 
