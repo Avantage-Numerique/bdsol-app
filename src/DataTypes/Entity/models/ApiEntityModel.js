@@ -14,7 +14,10 @@ class ApiEntityModel {
         if(!Array.isArray(requestData))
             return ApiEntityModel.entityTypeHandler(requestData, field)
 
-        //if requestData is an array
+        //if requestData is an array, check not empty
+        if(requestData?.length == 0)
+            return [];
+        //parse option for every item
         let selectOptions = []
         requestData.forEach(elem => {
             selectOptions.push( ApiEntityModel.entityTypeHandler(elem, field) )
@@ -23,7 +26,7 @@ class ApiEntityModel {
     }
 
     static entityTypeHandler( entity, field ) {
-        switch (entity.type) {
+        switch (entity?.type) {
             case TYPE_PERSON :
                 if(field == "occupations")
                     return ApiEntityModel.occupationsToSelectOptions( entity.occupations ?? entity );

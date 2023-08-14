@@ -73,7 +73,7 @@ const EventSingleView = ({data}) => {
             title={(<SanitizedInnerHtml tag={"h1"} className="text-white">{`${model.title}`}</SanitizedInnerHtml>)}
             subtitle={(
                 <div className="d-text">
-                    <h4 className="text-white">{model.alternateName ? model.alternateName : "Aucun nom alternatif"}</h4>
+                    <h4 className="text-white">{model.alternateName ? model.alternateName : ""}</h4>
                     <div className="mt-4">
                         <p className="text-white m-0">Entité en charge : {model.entityInCharge ? model.entityInCharge.name : "Aucune"}</p>
                         <p className="text-white">Organisateur : {model.organizer ? model.organizer.name : "Aucun"}</p>
@@ -89,6 +89,32 @@ const EventSingleView = ({data}) => {
     const fullWidthContent = (
         <div>
             <div className="row mt-4">
+                {
+                    description &&
+                    <SingleInfo title={lang.description}>
+                        <SanitizedInnerHtml>{description}</SanitizedInnerHtml>
+                    </SingleInfo>}
+            </div>
+            <div className="row">
+                <div className="col-6">
+                    {/*eventType*/}
+                        { eventType?.length > 0 &&
+                            <SingleInfo title={lang.eventType}>
+                                <ul>
+                                    {eventType.map( (type) => {return (
+                                        <li>
+                                            {type.name}
+                                        </li>
+                                        )})
+                                    }
+                                    
+                                </ul>
+                            </SingleInfo>
+                        }
+                    {/*startDate*/}
+                        { startDate && <SingleInfo title={lang.startDate}>{startDate}</SingleInfo> }
+                    {/*endDate*/}
+                        { endDate && <SingleInfo title={lang.endDate}>{endDate}</SingleInfo> }
 
                 <div className="col-12">              
                     {/*Date*/}
@@ -125,6 +151,7 @@ const EventSingleView = ({data}) => {
                         <SanitizedInnerHtml>{description}</SanitizedInnerHtml>
                     </SingleInfo>}
             </div>
+        </div>
         </div>
     )
     const contentColumnLeft = (
@@ -228,4 +255,5 @@ const EventSingleView = ({data}) => {
         </>
     )
 }
+
 export default EventSingleView;

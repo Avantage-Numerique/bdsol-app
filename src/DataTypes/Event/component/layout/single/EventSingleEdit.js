@@ -24,7 +24,6 @@ import Button from "@/src/common/FormElements/Button/Button";
 import Input from "@/src/common/FormElements/Input/Input";
 import Select2 from "@/src/common/FormElements/Select2/Select2";
 import RichTextarea from "@/src/common/FormElements/RichTextArea/RichTextarea";
-import SelectFetch from "@/src/common/FormElements/Select/SelectFetch";
 import UpdateSchedule from "../../Forms/Schedule/UpdateSchedule";
 import UpdateTeams from "@/src/DataTypes/Organisation/components/forms/UpdateTeams/UpdateTeams";
 import { getDateFromIsoString } from "@/src/utils/DateHelper";
@@ -192,9 +191,10 @@ const EventSingleEdit = ({data}, ...props) => {
                 id: _id,
                 alternateName: formState.inputs.alternateName.value,
                 entityInCharge: formState.inputs.entityInCharge.value.value,
-                organizer: formState.inputs.organizer.value.value,
+                organizer: formState.inputs.organizer.value?.value ?? undefined,
                 description: formState.inputs.description.value,
-                eventType: formState.inputs.eventType.value,
+                eventType: formState.inputs.eventType.value?.length > 0 ?
+                    formState.inputs.eventType.value.map( (selectedEventType) => { return selectedEventType.value }) : [],
                 startDate: formState.inputs.startDate.value,
                 endDate: formState.inputs.endDate.value,
                 url: formState.inputs.url.value,
@@ -258,7 +258,7 @@ const EventSingleEdit = ({data}, ...props) => {
     const subtitle = (
         <>
             {/* alternateName */}
-            <Input 
+            <Input
                 name="alternateName"
                 label={lang.eventAlternateName}      
                 formClassName="discrete-without-focus form-text-white h4"
@@ -362,14 +362,17 @@ const EventSingleEdit = ({data}, ...props) => {
 
                     {/* experiences */}
                     {/*eventType*/}
-                    <SelectFetch 
+                    <Select2
                         name="eventType"
+                        className="my-1"
                         label={lang.selectEventType}
-                        className="mb-1"
                         formTools={formTools}
-                        //validationRules={[{name: "REQUIRED"}]}
-                        noValueText={lang.noSelectedOption}
-                        fetchOption="eventtype-enum"
+                        creatable={false}
+                        isMulti={true}
+                        fetch={"/taxonomies/list"}
+                        requestData={ {category: "eventType", name:""}}
+                        searchField={"name"}
+                        selectField={"name"}
                     />
                     <Input 
                         label="Lieu"
@@ -419,6 +422,7 @@ const EventSingleEdit = ({data}, ...props) => {
                 creatable={false}
                 isMulti={true}
                 fetch={"/events/list"}
+                requestData={{id:"$ne:"+_id}}
                 searchField={"name"}
                 selectField={"name"}
             />
