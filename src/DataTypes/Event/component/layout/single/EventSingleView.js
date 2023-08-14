@@ -97,25 +97,25 @@ const EventSingleView = ({data}) => {
             </div>
             <div className="row">
                 <div className="col-6">
-                    {/*eventType*/}
-                        { eventType?.length > 0 &&
-                            <SingleInfo title={lang.eventType}>
-                                <ul>
-                                    {eventType.map( (type) => {return (
-                                        <li>
-                                            {type.name}
-                                        </li>
-                                        )})
-                                    }
-                                    
-                                </ul>
-                            </SingleInfo>
-                        }
+                    {/*eventType */}
+                    { eventType?.length > 0 &&
+                        <SingleInfo title={lang.eventType}>
+                            <ul>
+                                {eventType.map( type => (
+                                    <li>
+                                        {type.name}
+                                    </li>
+                                ))}
+                            </ul>
+                        </SingleInfo>
+                    }
+                
+   
                     {/*startDate*/}
                         { startDate && <SingleInfo title={lang.startDate}>{startDate}</SingleInfo> }
                     {/*endDate*/}
                         { endDate && <SingleInfo title={lang.endDate}>{endDate}</SingleInfo> }
-
+                </div>
                 <div className="col-12">              
                     {/*Date*/}
                     <div>
@@ -151,7 +151,6 @@ const EventSingleView = ({data}) => {
                         <SanitizedInnerHtml>{description}</SanitizedInnerHtml>
                     </SingleInfo>}
             </div>
-        </div>
         </div>
     )
     const contentColumnLeft = (
