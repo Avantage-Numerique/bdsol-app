@@ -23,6 +23,8 @@ class Organisation extends EntityModel {
         this.mainImageModel = new Media(this.mainImage);
         this.type = TYPE_ORGANISATION;
 
+        this.mainImage.src = this.mainImageModel.src;
+
         //this.taxonomies = new Map();
         //this.taxonomies.set("domains", raw.domains);
         //this.taxonomies.set("skills", raw.skills);

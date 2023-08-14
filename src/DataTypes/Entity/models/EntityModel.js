@@ -46,7 +46,9 @@ class EntityModel {
         this.contributeRoute = raw?.contributeRoute ?? "";
 
         this.meta = {
-            seperator: " - "
+            seperator: " - ",
+            title: this.title,
+            description: this.description
         };
 
         //Ajouter _id et id ??

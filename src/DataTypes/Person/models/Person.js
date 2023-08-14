@@ -28,6 +28,8 @@ class Person extends EntityModel {
 
         this.mainImageModel = new Media(this.mainImage);
 
+        this.mainImage.src = this.mainImageModel.src;
+
         this.type = TYPE_PERSON;
 
         params.showMeta = params.showMeta ?? true;

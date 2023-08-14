@@ -12,15 +12,15 @@ import {removeTagsFromString} from "@/src/helpers/html";
 
 /**
  * 
- * @param {React.Component} header
- * @param {React.Component} mainImageContainer
- * @param {React.Component} fullWidthContent content under header
- * @param {React.Component} contentColumnLeft main content column left
- * @param {React.Component} contentColumnRight main content column right
- * @param {React.Component} footer
- * 
+ * @param {React.Component} props.header
+ * @param {React.Component} props.mainImageContainer
+ * @param {React.Component} props.fullWidthContent content under header
+ * @param {React.Component} props.contentColumnLeft main content column left
+ * @param {React.Component} props.contentColumnRight main content column right
+ * @param {React.Component} props.footer
+ * @param {React.Component} props.model
+ *
  */
-
 const SingleBase = (props) => {
 
     //Main props destructuring
@@ -36,23 +36,24 @@ const SingleBase = (props) => {
 
     const defaultHeaderBg = props.defaultHeaderBg ?? "/general_images/single-header-default-bg.svg";//"/general_images/default-single-background.jpg";
 
+    const imageSrc = model ? (model.mainImage.src ?? model.src) : "";//model.type === "Media" ? model.mainImage.src : model.mainImage.url;
     return (
         <>
             { model &&
                 <Head>
-                    <title>{getTitle([model.title, model.Type.label])}</title>
+                    <title>{getTitle([model.meta.title, model.Type.label])}</title>
                     <meta property="og:url" content={model.fullSingleLinkUrl} />
-                    <meta property="og:title" content={model.title} />
-                    <meta property="og:description" content={removeTagsFromString(model.description)} />
-                    <meta property="og:image" content={model.mainImage.src} />
+                    <meta property="og:title" content={model.meta.title} />
+                    <meta property="og:description" content={removeTagsFromString(model.meta.description)} />
+                    <meta property="og:image" content={imageSrc} />
                     <meta property="og:image:alt" content={model.title} />
                     <meta property="og:image:width" content="2560" />
                     <meta property="og:image:height" content="1345" />
 
-                    <meta name="twitter:title" content={model.title} />
-                    <meta name="twitter:description" content={removeTagsFromString(model.description)} />
+                    <meta name="twitter:title" content={model.meta.title} />
+                    <meta name="twitter:description" content={removeTagsFromString(model.meta.description)} />
                     <meta name="twitter:card" content="summary_large_image"/>
-                    <meta name="twitter:image" content={model.mainImage.src} />
+                    <meta name="twitter:image" content={imageSrc} />
                     <meta name="twitter:image:alt" content="Public assistant à une performance qui contient des nouvelles technologies."/>
                     <meta name="twitter:image:width" content="2560" />
                     <meta name="twitter:image:height" content="1345" />
@@ -60,7 +61,7 @@ const SingleBase = (props) => {
                     <meta name="twitter:label1" content={"Type"} />
                     <meta name="twitter:data1" content={model.type.label} />
                     <meta name="twitter:label2" content={"Temps de lecture"} />
-                    <meta name="twitter:data2" content={"3 minutes (static value)"} />
+                    <meta name="twitter:data2" content={"3 minutes (test)"} />
 
                     <meta property="article:section" content="Main domain" />
                     <meta property="article:tag" content="start loop of taxonomy 1" />
