@@ -422,7 +422,7 @@ const EventSingleEdit = ({data}, ...props) => {
                 creatable={false}
                 isMulti={true}
                 fetch={"/events/list"}
-                requestData={{id:"$ne:"+_id}}
+                requestData={ _id ? {_id:"ne:"+_id} : {}}
                 searchField={"name"}
                 selectField={"name"}
             />
@@ -465,6 +465,7 @@ const EventSingleEdit = ({data}, ...props) => {
                     isMulti={true}
                     requestData={{name:""}}
                     fetch={"/taxonomies/list"}
+                    //requestData={}
                     searchField={"name"}
                     selectField={"name"}
                 />

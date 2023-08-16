@@ -94,9 +94,6 @@ const EventSingleView = ({data}) => {
                     <div>
                         { startDate && endDate  && <TimeIntervalSentence tag="h3" /> }  
                     </div>
-                    <div>
-                        <h4 className="text-primarylight">{eventType}</h4>
-                    </div>
                 </div>
                 <div className="col col-md-6">
                     {/*eventType */}

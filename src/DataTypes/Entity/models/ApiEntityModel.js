@@ -82,7 +82,7 @@ class ApiEntityModel {
 
     static domainsToSelectOptions(domains){
         //If domains is from entity formState
-        if(domains.length == undefined)
+        if(domains?.length == undefined)
             return [{ value : domains.domain._id, label : domains.domain.name, color : getColor(domains.domain) }]
         
         //Else if domains are from request db taxonomies
