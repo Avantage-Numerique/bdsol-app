@@ -42,7 +42,9 @@ const rules_settings = {
     },
     TYPE_EMAIL: { 
         renderMessage: (() => "Ce champ doit être une adresse courriel valide"),
-        validationMethod: (value => /^[\w-\.]+@([\w-]+\.)+[\w-]{2,5}$/.test(value)),
+        //validationMethod: (value => /^[\w-\.]+@([\w-]+\.)+[\w-]{2,9}$/.test(value)),
+        //validationMethod: (value => /^[\w+-\.]+@([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,9}$/.test(value)),
+        validationMethod: (value => /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(value)),
         renderBadge: (() => `Format courriel`)
     },
     TYPE_ALPHANUMERIC: {
