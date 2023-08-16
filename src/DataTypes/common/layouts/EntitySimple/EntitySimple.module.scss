@@ -1,5 +1,4 @@
 
-
 .simple-abstract {
 
     //Number of lines allowed to be displayed in the description
@@ -83,11 +82,14 @@
             line-height: var(--single-title-font-size);
             height: calc(2 * var(--single-title-font-size));
         }
-        .simple-abstract__content__tagList { 
+        .simple-abstract__content__tagList {
             gap: calc(var(--simple-abstract--padding) * 0.5);
+
             li {
                 padding: 0.1rem 0.4rem;
                 background-color: $gray-200;
+            }
+        }
         .simple-abstract__sub-section {
             height: 4.5rem;
 
@@ -143,4 +145,3 @@
     opacity: 1;
     @include transition();
 }
-
