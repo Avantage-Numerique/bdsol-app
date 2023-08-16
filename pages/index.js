@@ -24,6 +24,7 @@ import {MessageContext} from '@/src/common/UserNotifications/Message/Context/Mes
 import {useAuth} from '@/src/authentification/context/auth-context';
 import SanitizedInnerHtml from "@/src/utils/SanitizedInnerHtml";
 import {appUrl} from "@/src/helpers/url";
+import Event from '@/src/DataTypes/Event/models/Event';
 
 //Styling
 //import styles from './home-page.module.scss'
@@ -62,6 +63,11 @@ const HomePage = ({}) => {
                 path:"/projects/list",
                 queryParams: listQuery,
                 result: {}
+            },
+            {
+                path:"/events/list",
+                queryParams: listQuery,
+                result: {}
             }
         ];
 
@@ -70,7 +76,7 @@ const HomePage = ({}) => {
 
         const feedPromises = entities.map(async (query) => {
 
-            const currentResult = sendRequest(
+            const currentResult = await sendRequest(
                 query.path,
                 'POST',
                 JSON.stringify({"data": query.queryParams}),
@@ -78,13 +84,12 @@ const HomePage = ({}) => {
             );
             query.result = currentResult;
 
-            haveError = !haveError && !currentResult.error;
+            haveError = haveError && !currentResult.error;
             return currentResult;
 
         });
 
         Promise.all(feedPromises).then((entitiesResults) => {
-
             entitiesResults.map(async (result) => {
 
                 //populate the feed if the current request return a success (!error)
@@ -100,7 +105,7 @@ const HomePage = ({}) => {
                     });
                 }
 
-                if (feed.length > 0 && haveError) {
+                if (feed.length > 0 && !haveError) {
                     feed.sort(sortDescBy('createdAt'));//   Sort and mixed both collection the data to display the new elements before
                     setFeedList(feed); //   Finaly, update the state to display the result
                 }
@@ -123,6 +128,8 @@ const HomePage = ({}) => {
             model = new Organisation({})
         if(type == "TYPE_PROJECT")
             model = new Project({})
+        if(type == "TYPE_EVENT")
+            model = new Event({})
         return model.createRoute.asPath;
     }
 
@@ -321,6 +328,16 @@ const HomePage = ({}) => {
                                         size="slim"
                                         disabled={!auth.user.isLoggedIn}
                                         href="/contribuer/categorie"
+                                    >+</Button>
+                                </div>
+
+                                <div className={"db-edit-options__button-set"}>
+                                    <Button href="/events" color="primary" size="slim">{lang.Events}</Button>
+                                    <Button
+                                        color="primary"
+                                        size="slim"
+                                        disabled={!auth.user.isLoggedIn}
+                                        href={getCreateEntityPath("TYPE_EVENT")}
                                     >+</Button>
                                 </div>
 

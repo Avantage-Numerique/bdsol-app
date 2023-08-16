@@ -9,29 +9,29 @@ import {
 import {getUserHeadersFromUserSession} from "@/auth/context/auth-context";
 import {withSessionSsr} from "@/auth/session/handlers/withSession";
 import AppRoutes from "@/src/Routing/AppRoutes";
-import PersonSingleEdit from '@/DataTypes/Person/components/Forms/CreatePerson/PersonSingleEdit';
+import EventSingleEdit from '@/src/DataTypes/Event/component/layout/single/EventSingleEdit';
 
 
-const SinglePersonEditPage = props => {
+const SingleEventEditPage = props => {
 
     return (
         <div className={`single-container single-person`}>
             <div className="maxWidthPageContainer">
-                <PersonSingleEdit data={props} route={AppRoutes.personSingle} />
+                <EventSingleEdit data={props} route={AppRoutes.personSingle} />
             </div>
         </div>
     )
 }
     
-export default SinglePersonEditPage;
+export default SingleEventEditPage;
 
-export const getServerSideProps = withSessionSsr(personSlugSSProps);
+export const getServerSideProps = withSessionSsr(eventSlugSSProps);
 
-export async function personSlugSSProps(context) {
+export async function eventSlugSSProps(context) {
     const { slug } = context.query;
 
     const response = await externalApiRequest(
-        `/persons/${slug}`,
+        `/events/${slug}`,
         {
             method: 'GET',
             headers: getUserHeadersFromUserSession(context.req.session.user)

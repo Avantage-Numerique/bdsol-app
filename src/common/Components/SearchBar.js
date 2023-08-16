@@ -41,6 +41,20 @@ const SearchBar = ({small, ...props}) => {
         },
     );
 
+    //Simple styling to remove the border
+    const styling = {
+        control: (styles, state) => ({ 
+            ...styles,
+            border: state.isFocused ? 0 : 0,
+            // This line disable the blue border
+            boxShadow: state.isFocused ? 0 : 0,
+            '&:hover': {
+                border: state.isFocused ? 0 : 0
+            },
+            //backgroundColor: 'white' 
+        })
+    }
+
     const inputHandler = formTools.inputHandler;
 
     useEffect( () => {
@@ -136,14 +150,15 @@ const SearchBar = ({small, ...props}) => {
     return (
         <form onSubmit={submitHandler} className={`search-bar ${small && "small-searchBar w-100"}`}>
             <div className="input-group my-2 ">
-                <button type="submit" className="btn btn-outline-light">
+                <button type="submit" className="p-1 btn btn-outline-light">
                     <Icon iconName="search" />
                 </button>
             
                 <Select
-                    className={"form-control px-3 py-2"}
+                    className={"form-control p-0 "}
                     key={"SearchBar-layout"}
                     ref={selectRef}
+                    styles={styling}
                     instanceId={"SearchBar-layout"}
                     placeholder={"Rechercher"}
                     value={value}

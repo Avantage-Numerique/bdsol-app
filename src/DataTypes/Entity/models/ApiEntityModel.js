@@ -1,5 +1,5 @@
 import { getColor } from "@/src/styles/datatypeStyle";
-import { TYPE_ORGANISATION, TYPE_PERSON, TYPE_PROJECT, TYPE_TAXONOMY } from "../Types";
+import { TYPE_EVENT, TYPE_ORGANISATION, TYPE_PERSON, TYPE_PROJECT, TYPE_TAXONOMY } from "../Types";
 
 
 
@@ -14,7 +14,10 @@ class ApiEntityModel {
         if(!Array.isArray(requestData))
             return ApiEntityModel.entityTypeHandler(requestData, field)
 
-        //if requestData is an array
+        //if requestData is an array, check not empty
+        if(requestData?.length == 0)
+            return [];
+        //parse option for every item
         let selectOptions = []
         requestData.forEach(elem => {
             selectOptions.push( ApiEntityModel.entityTypeHandler(elem, field) )
@@ -23,7 +26,7 @@ class ApiEntityModel {
     }
 
     static entityTypeHandler( entity, field ) {
-        switch (entity.type) {
+        switch (entity?.type) {
             case TYPE_PERSON :
                 if(field == "occupations")
                     return ApiEntityModel.occupationsToSelectOptions( entity.occupations ?? entity );
@@ -45,6 +48,8 @@ class ApiEntityModel {
             case TYPE_TAXONOMY :
                     return ApiEntityModel.nameToSelectOptions( entity );
                 break;
+            case TYPE_EVENT :
+                    return ApiEntityModel.nameToSelectOptions( entity );
             default : 
                 if(field == "domains")
                     return ApiEntityModel.domainsToSelectOptions( entity );
@@ -77,7 +82,7 @@ class ApiEntityModel {
 
     static domainsToSelectOptions(domains){
         //If domains is from entity formState
-        if(domains.length == undefined)
+        if(domains?.length == undefined)
             return [{ value : domains.domain._id, label : domains.domain.name, color : getColor(domains.domain) }]
         
         //Else if domains are from request db taxonomies

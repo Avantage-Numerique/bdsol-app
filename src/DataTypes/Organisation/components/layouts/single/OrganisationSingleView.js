@@ -110,7 +110,7 @@ const OrganisationSingleView = ({ data }) => {
                 </SingleInfo>
             }
             { url &&
-                <SingleInfo title={"Lien URL"} className={"mb-3"}>
+                <SingleInfo title={lang.hyperlink} className={"mb-3"}>
                     <p>
                         <ExternalLink href={url} title={`${model.title}`}>
                             {url}

@@ -111,7 +111,7 @@ export const base = {
     "Organisations": "Organisations",
     "organisation": "organisation",
     "organisations": "organisations",
-    "teamMembers": "Members of organisation",
+    "teamMembers": "Team members",
     "fondationDate": "Fondation date",
 
     "singleDescriptionLabel": "Presentation",

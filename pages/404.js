@@ -11,6 +11,7 @@ function Error404() {
         AppRoutes.persons,
         AppRoutes.projects,
         AppRoutes.categories,
+        AppRoutes.events
     ];
 
     return (
