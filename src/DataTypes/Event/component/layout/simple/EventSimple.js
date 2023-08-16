@@ -3,14 +3,10 @@ import React from "react"
 import {useDateManager} from '@/common/DateManager/DateManager'
 
 /***  Local styling ***/
-import styles from './eventSimple.module.scss'
+import styles from './EventSimple.module.scss';
 import EntitySimple from "@/DataTypes/common/layouts/EntitySimple/EntitySimple";
-import {replacePathname} from "@/src/helpers/url";
 
 const EventSimple = ({ model }) => {
-
-    const link = "/"+replacePathname(model.singleRoute.pathname, {slug: model.slug});
-
     const BottomLineContent = () => {
         //Create an instance of the date manager and extract the right class
         const { TimeTag } = useDateManager(model.startDate, model.endDate);
