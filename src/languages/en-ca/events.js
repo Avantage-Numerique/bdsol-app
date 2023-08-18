@@ -14,6 +14,7 @@ const events = {
     "hyperlink": "Hyperlink",
     "contactPoint": "To contact us",
     "eventType": "Event type",
+    "eventFormat": "Event format",
     "schedule":"Schedule",
     "startDate": "Launch date",
     "startTime": "Starts at",

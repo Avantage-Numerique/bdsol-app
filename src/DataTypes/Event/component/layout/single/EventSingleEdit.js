@@ -28,6 +28,7 @@ import UpdateSchedule from "../../Forms/Schedule/UpdateSchedule";
 import UpdateTeams from "@/src/DataTypes/Organisation/components/forms/UpdateTeams/UpdateTeams";
 import { getDateFromIsoString } from "@/src/utils/DateHelper";
 import { TYPE_EVENT, TYPE_TAXONOMY } from "@/src/DataTypes/Entity/Types";
+import SelectFetch from "@/src/common/FormElements/Select/SelectFetch";
 
 const EventSingleEdit = ({data}, ...props) => {
 
@@ -41,9 +42,8 @@ const EventSingleEdit = ({data}, ...props) => {
         entityInCharge,
         organizer,
         eventType,
+        eventFormat,
         team,
-        //duration,
-        //location,
         startDate,
         endDate,
         contactPoint,
@@ -51,9 +51,10 @@ const EventSingleEdit = ({data}, ...props) => {
         attendees,
         domains,
         skills,
-        //experience,
+        experience,
         schedule,
         subEvents,
+        location,
         status,
         type,
         createdAt,
@@ -108,11 +109,7 @@ const EventSingleEdit = ({data}, ...props) => {
                 value: alternateName ?? "",
                 isValid: false
             },
-            //Not activated. Simply here for the information
-            location: {
-                value: "",
-                isValid: true
-            },
+
             url: {
                 value: url ?? "",
                 isValid: true
@@ -131,6 +128,10 @@ const EventSingleEdit = ({data}, ...props) => {
             },
             eventType: {
                 value: eventType ?? undefined,
+                isValid: true
+            },
+            eventFormat: {
+                value: eventFormat ?? "",
                 isValid: true
             },
             team: {
@@ -169,8 +170,16 @@ const EventSingleEdit = ({data}, ...props) => {
                 value: domains ?? [],
                 isValid: true
             },
+            experience: {
+                value: experience ?? [],
+                isValid: true
+            },
             subEvents: {
                 value: subEvents ?? [],
+                isValid: true
+            },
+            location: {
+                value: location ? location[0]?.name : "",
                 isValid: true
             }
         },
@@ -196,6 +205,7 @@ const EventSingleEdit = ({data}, ...props) => {
                 description: formState.inputs.description.value,
                 eventType: formState.inputs.eventType.value?.length > 0 ?
                     formState.inputs.eventType.value.map( (selectedEventType) => { return selectedEventType.value }) : [],
+                eventFormat: formState.inputs.eventFormat.value,
                 startDate: formState.inputs.startDate.value,
                 endDate: formState.inputs.endDate.value,
                 url: formState.inputs.url.value,
@@ -230,6 +240,9 @@ const EventSingleEdit = ({data}, ...props) => {
                         role: singleMember.value.role.value
                     }
                 }),
+                //Temporary set the input in name field until we have a more elaborated structure for location
+                location: [{ name: formState.inputs.location.value}],
+                //experience: formState.inputs.experience.value
                 status: getDefaultCreateEntityStatus(auth.user),
             }
         };
@@ -362,7 +375,14 @@ const EventSingleEdit = ({data}, ...props) => {
                 <div className="col col-md-6">
 
                     {/* experiences */}
-                    {/*eventType*/}
+                    <Input
+                        name="experience"
+                        label="Expérience"
+                        formTools={formTools}
+                        disabled={true}
+                        placeholder="Bientôt disponible"
+                    />
+                    {/* eventType */}
                     <Select2
                         name="eventType"
                         className="my-1"
@@ -375,12 +395,23 @@ const EventSingleEdit = ({data}, ...props) => {
                         searchField={"name"}
                         selectField={"name"}
                     />
+
+                    {/* eventFormat */}
+                    <SelectFetch 
+                        name="eventFormat"
+                        label="Choisissez un format"
+                        className="my-1"
+                        formTools={formTools}
+                        noValueText={lang.noSelectedOption}
+                        fetchOption="eventformat-enum"
+                    />
+                    
+                    {/* location */}
                     <Input 
                         label="Lieu"
-                        placeholder="Option bientôt disponible"
+                        placeholder="Addresse, nom de bâtiment, ville ..."
                         formTools={formTools}
                         name="location"
-                        disabled={true}
                     />
 
                 </div>
