@@ -51,13 +51,7 @@ const CreateOrganisationForm = ({ onPositiveResponse }) => {
             displayResMessage: true,     //Display a message to the user to confirm the succes
             callbackFunction: (response) => {
                 //Execute additionnal function from parent component
-                if(onPositiveResponse) onPositiveResponse()
-                //Create a model for the response
-                const model = new Organisation(response.data);
-                //Redirection link to the edit page
-                const link = "/"+replacePathname(model.singleEditRoute.pathname, {slug: model.slug});
-                //Execute the redirection
-                Router.push( link )
+                if(onPositiveResponse) onPositiveResponse(response)
             }
         }
     );

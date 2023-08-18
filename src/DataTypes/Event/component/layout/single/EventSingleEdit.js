@@ -27,6 +27,7 @@ import RichTextarea from "@/src/common/FormElements/RichTextArea/RichTextarea";
 import UpdateSchedule from "../../Forms/Schedule/UpdateSchedule";
 import UpdateTeams from "@/src/DataTypes/Organisation/components/forms/UpdateTeams/UpdateTeams";
 import { getDateFromIsoString } from "@/src/utils/DateHelper";
+import { TYPE_EVENT, TYPE_TAXONOMY } from "@/src/DataTypes/Entity/Types";
 
 const EventSingleEdit = ({data}, ...props) => {
 
@@ -419,7 +420,8 @@ const EventSingleEdit = ({data}, ...props) => {
                 className="my-1"
                 label={lang.subEvents}
                 formTools={formTools}
-                creatable={false}
+                creatable={true}
+                modalType={TYPE_EVENT}
                 isMulti={true}
                 fetch={"/events/list"}
                 requestData={ _id ? {_id:"ne:"+_id} : {}}
@@ -462,9 +464,10 @@ const EventSingleEdit = ({data}, ...props) => {
                     label={lang.eventSkills}
                     formTools={formTools}
                     creatable={true}
+                    modalType={TYPE_TAXONOMY}
                     isMulti={true}
                     requestData={{name:""}}
-                    fetch={"/taxonomies/list"}
+                    fetch={"/taxonomies/group/skills"}
                     //requestData={}
                     searchField={"name"}
                     selectField={"name"}
@@ -475,6 +478,7 @@ const EventSingleEdit = ({data}, ...props) => {
                     label={lang.Domains}
                     formTools={formTools}
                     creatable={true}
+                    modalType={TYPE_TAXONOMY}
                     isMulti={true}
                     fetch={"/taxonomies/list"}
                     requestData={{category:"domains", name:""}}

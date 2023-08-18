@@ -31,6 +31,7 @@ import UpdateScheduleBudget from '@/src/DataTypes/Project/component/forms/Update
 import UpdateSponsor from '@/src/DataTypes/Project/component/forms/UpdateSponsor';
 import Icon from "@/common/widgets/Icon/Icon";
 import MainImageDisplay from "@/DataTypes/common/layouts/single/defaultSections/MainImageDisplay/MainImageDisplay";
+import { TYPE_TAXONOMY } from '@/src/DataTypes/Entity/Types';
 
 const ProjectSingleEdit = (props) => {
 
@@ -404,6 +405,7 @@ const ProjectSingleEdit = (props) => {
                     label="Compétences liées au projet"
                     formTools={formTools}
                     creatable={true}
+                    modalType={TYPE_TAXONOMY}
                     isMulti={true}
                     createOptionFunction={displayModalForSkills}
                     requestData={{name:""}}
@@ -417,6 +419,7 @@ const ProjectSingleEdit = (props) => {
                 label={lang.Domains}
                 formTools={formTools}
                 creatable={true}
+                modalType={TYPE_TAXONOMY}
                 isMulti={true}
                 createOptionFunction={displayModalForDomains}
 

@@ -33,6 +33,7 @@ import {replacePathname} from "@/src/helpers/url";
 import {lang} from "@/src/common/Data/GlobalConstants";
 import MainImageDisplay from "@/DataTypes/common/layouts/single/defaultSections/MainImageDisplay/MainImageDisplay";
 import Icon from "@/common/widgets/Icon/Icon";
+import { TYPE_TAXONOMY } from '@/src/DataTypes/Entity/Types';
 
 
 const OrganisationSingleEdit = (props) => {
@@ -310,6 +311,7 @@ const OrganisationSingleEdit = (props) => {
                         label={lang.Domains}
                         formTools={formTools}
                         creatable={true}
+                        modalType={TYPE_TAXONOMY}
                         isMulti={true}
                         //createOptionFunction={displayModalForDomains}
 

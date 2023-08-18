@@ -7,25 +7,20 @@ import {useFormUtils} from '@/src/hooks/useFormUtils/useFormUtils'
 //components
 import Button from '@/FormElements/Button/Button'
 import Input from '@/FormElements/Input/Input'
-import SelectFetch from '@/FormElements/Select/SelectFetch'
 import Select2 from '@/FormElements/Select2/Select2'
 
 //Utils
 import {lang} from "@/src/common/Data/GlobalConstants";
 import {getDefaultCreateEntityStatus} from "@/DataTypes/Status/EntityStatus";
-import {replacePathname} from "@/src/helpers/url";
 
 //Context
 import {useAuth} from "@/src/authentification/context/auth-context";
-
-//Model
-import Event from '../../../models/Event';
 
 
 /**
  * @param {function} onPositiveResponse : Additionnal function to be executed if the submit response is positive
  */
-const CreateEventForm = ({ onPositiveResponse }) => {
+const CreateEventForm = ({ onPositiveResponse, initValues }) => {
 
     //Authentication ref
     const auth = useAuth();
@@ -33,35 +28,27 @@ const CreateEventForm = ({ onPositiveResponse }) => {
     const { FormUI, submitRequest, formState, formTools } = useFormUtils(
         {
             name: {
-                value: "",
+                value: initValues?.name ?? "",
                 isValid: true
             },
             entityInCharge: {
-                value: "",
+                value: initValues?.entityInCharge ?? "",
                 isValid: true
             },
             startDate: {
-                value: "",
+                value: initValues?.startDate ?? "",
                 isValid: true
             },
             endDate: {
-                value: "",
+                value: initValues?.endDate ?? "",
                 isValid: true
             }
         },//Pass a set of rules to execute a valid response of an api request
         {
-            displayResMessage: true,     //Display a message to the user to confirm the succes
+            displayResMessage: true,     //Display a message to the user to confirm the success
             callbackFunction: (response) => {
                 //Execute additionnal function from parent component
-                if(onPositiveResponse) onPositiveResponse();
-
-                //Create a model for the response
-                const model = new Event(response.data);
-
-                //Redirection link to the edit page
-                const link = "/"+replacePathname(model.singleEditRoute.pathname, {slug: model.slug});
-                //Execute the redirection
-                Router.push( link )
+                if(onPositiveResponse) onPositiveResponse(response);
             }
         }
     );
