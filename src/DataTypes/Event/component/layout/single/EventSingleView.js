@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { useCallback, useState, useEffect } from "react";
 
 //Components
 import SingleBase from "@/src/DataTypes/common/layouts/single/SingleBase";
@@ -19,6 +19,7 @@ import DisplaySchedule from "../../Forms/Schedule/DisplaySchedule";
 
 //Hooks
 import {useDateManager} from '@/common/DateManager/DateManager'
+import { clientSideExternalApiRequest } from "@/src/hooks/http-hook";
 
 
 const EventSingleView = ({data}) => {
@@ -33,9 +34,9 @@ const EventSingleView = ({data}) => {
         entityInCharge,
         organizer,
         eventType,
+        eventFormat,
         team,
         //duration,
-        //location,
         startDate,
         endDate,
         contactPoint,
@@ -43,15 +44,30 @@ const EventSingleView = ({data}) => {
         attendees,
         domains,
         skills,
-        //experience,
+        experience,
         schedule,
         subEvents,
+        location,
         status,
         type,
         createdAt,
         updatedAt
     } = data
     const model = new Event(data);
+
+    const [formatEnumState, setFormatEnumState] = useState(undefined);
+    useEffect( () => {
+        const getEventFormatEnum = async () => {
+            const eventFormatResponse = await clientSideExternalApiRequest(
+                '/info/eventformat-enum',
+                { method: 'GET' }
+            );
+            const keyValueEnum = {}
+            eventFormatResponse.forEach( (elem) => { keyValueEnum[elem.value] = elem.label });
+            setFormatEnumState(keyValueEnum);
+        }
+        getEventFormatEnum();
+    }, [])
 
     const getLabelGenerator = useCallback((param, query) => {
         return {
@@ -101,14 +117,29 @@ const EventSingleView = ({data}) => {
                         <SingleInfo title={lang.eventType}>
                             <ul>
                                 {eventType.map( type => (
-                                    <li>
+                                    <li key="type.name">
                                         {type.name}
                                     </li>
                                 ))}
                             </ul>
                         </SingleInfo>
                     }
+                    {/* eventFormat */}
+                    { eventFormat &&
+                        <SingleInfo title={lang.eventFormat}>
+                            {formatEnumState?.[eventFormat] ?? eventFormat}
+                        </SingleInfo>
+                    }
+                    {/* location */}
+                    {
+                        location?.length > 0 &&
+                        <SingleInfo title={"Lieu"}>
+                            {location[0].name}
+                        </SingleInfo>
+                    }
                 </div>
+
+
             </div>
             <div className="row mt-4">
                 {

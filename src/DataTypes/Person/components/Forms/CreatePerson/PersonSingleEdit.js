@@ -33,6 +33,7 @@ import Person from "@/DataTypes/Person/models/Person";
 import {replacePathname} from "@/src/helpers/url";
 import Icon from "@/common/widgets/Icon/Icon";
 import MainImageDisplay from "@/DataTypes/common/layouts/single/defaultSections/MainImageDisplay/MainImageDisplay";
+import { TYPE_TAXONOMY } from '@/src/DataTypes/Entity/Types'
 
 
 const PersonSingleEdit = ({initValues, positiveRequestActions, ...props}) => {
@@ -311,6 +312,7 @@ const PersonSingleEdit = ({initValues, positiveRequestActions, ...props}) => {
                 label={lang.Domains}
                 formTools={formTools}
                 creatable={true}
+                modalType={TYPE_TAXONOMY}
                 isMulti={true}
                 createOptionFunction={displayModalForDomains}
 

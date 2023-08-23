@@ -14,6 +14,7 @@ const events = {
     "hyperlink": "Hyperlien",
     "contactPoint": "Pour nous contacter",
     "eventType": "Type d'événement",
+    "eventFormat": "Format de l'événement",
     "schedule":"Horaire",
     "startDate": "Date de début",
     "startTime": "Heure de début",

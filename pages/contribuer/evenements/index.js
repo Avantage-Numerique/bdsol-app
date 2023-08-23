@@ -14,7 +14,10 @@ import {withSessionSsr} from "@/auth/session/handlers/withSession";
 import {ssrCanAccess} from "@/auth/permissions/ssrCanAccess";
 import Router from "next/router";
 import CreateEventForm from '@/src/DataTypes/Event/component/Forms/CreateEvent/CreateEventForm';
+import {replacePathname} from "@/src/helpers/url";
 
+//Model
+import Event from '@/src/DataTypes/Event/models/Event';
 
 const EventSingleEditPage = () => {
 
@@ -51,10 +54,17 @@ const EventSingleEditPage = () => {
                                 }}
                             >Fermer</Button>
                         </header>
-                        <CreateEventForm onPositiveResponse={() => {
-                            closeModal()
-                            setIsLoading(true)
-                        }}/>
+                        <CreateEventForm
+                            onPositiveResponse={(response) => {
+                                //Create a model for the response
+                                const model = new Event(response.data);
+
+                                //Execute the redirection
+                                Router.push( model.singleEditLink )
+                                closeModal()
+                                setIsLoading(true)
+                            }}
+                        />
                     </Modal>
                 }
         </div>
