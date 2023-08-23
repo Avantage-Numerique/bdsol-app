@@ -132,7 +132,7 @@ const EventSingleView = ({data}) => {
                     }
                     {/* location */}
                     {
-                        location &&
+                        location?.length > 0 &&
                         <SingleInfo title={"Lieu"}>
                             {location[0].name}
                         </SingleInfo>
