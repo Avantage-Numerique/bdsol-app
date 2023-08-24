@@ -23,7 +23,7 @@ export const SingleEntityStatus = (props) => {
         children
     } = props;
     return (
-        <SingleInfo className={`border-top pt-3 ${className}`} title={lang.entityMetadata}>
+        <SingleInfo className={`border-top pt-3 mt-5 ${className}`} title={lang.entityMetadata}>
             <ul className={"list-style-none"}>
                 {
                     status?.state &&
@@ -37,10 +37,10 @@ export const SingleEntityStatus = (props) => {
                     <li>
                         <span>{lang.created}</span>
                         {
-                            status?.requestedBy?.username &&
+                            status?.requestedBy?.name &&
                             <span>
                                 &nbsp;{lang.by}&nbsp;:&nbsp;
-                                {status.requestedBy.username}
+                                {status.requestedBy.name}
                             </span>
                         }
                         { createdAt &&
@@ -51,13 +51,13 @@ export const SingleEntityStatus = (props) => {
                     </li>
                 }
                 {
-                    (status?.lastModifiedBy?.username || updatedAt) &&
+                    (status?.lastModifiedBy?.name || updatedAt) &&
                     <li>
                         <span>{lang.lastModification}</span>
                         {
-                            status?.lastModifiedBy?.username &&
+                            status?.lastModifiedBy?.name &&
                             <span>
-                                &nbsp;{lang.by}&nbsp;:&nbsp;{status.lastModifiedBy.username}
+                                &nbsp;{lang.by}&nbsp;:&nbsp;{status.lastModifiedBy.name}
                             </span>
                         }
                         { createdAt !== updatedAt &&

@@ -33,7 +33,8 @@ import {replacePathname} from "@/src/helpers/url";
 import {lang} from "@/src/common/Data/GlobalConstants";
 import MainImageDisplay from "@/DataTypes/common/layouts/single/defaultSections/MainImageDisplay/MainImageDisplay";
 import Icon from "@/common/widgets/Icon/Icon";
-import { TYPE_TAXONOMY } from '@/src/DataTypes/Entity/Types';
+import {TYPE_TAXONOMY} from '@/src/DataTypes/Entity/Types';
+import SubmitEntity from "@/DataTypes/common/Forms/SingleEdit/SubmitEntity";
 
 
 const OrganisationSingleEdit = (props) => {
@@ -355,7 +356,7 @@ const OrganisationSingleEdit = (props) => {
                 placeholder="Une url avec le https, exemple : https://siteWeb.com"
                 formTools={formTools}
             />
-            <div className="border-top border-bottom pt-3">
+            <div>
                 {
                     (createdAt || updatedAt || status) &&
                     <SingleEntityStatus createdAt={createdAt} updatedAt={updatedAt} status={status} />
@@ -389,16 +390,7 @@ const OrganisationSingleEdit = (props) => {
                 contentColumnRight={contentColumnRight}
                 footer={footer}
             />
-
-            <div className="d-flex pt-4 align-items-end flex-column">
-                <Button disabled={!formState.isValid} onClick={submitHandler}>
-                    {lang.save}
-                </Button>
-                {
-                    !formState.isValid &&
-                    <p className="p-2 mt-2 col-md-4 border border-danger rounded"><small>{lang.validationFailedCantSave}</small></p>
-                }
-            </div>
+            <SubmitEntity submitHandler={submitHandler} formState={formState} />
 
             { modal.display &&
                 <Modal 

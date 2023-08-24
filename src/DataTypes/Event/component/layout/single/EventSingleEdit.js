@@ -1,5 +1,5 @@
 //React
-import {useCallback, useContext, useEffect, useState} from "react";
+import React, {useCallback, useContext, useEffect, useState} from "react";
 import Router from "next/router";
 
 //Utils, context
@@ -29,6 +29,7 @@ import UpdateTeams from "@/src/DataTypes/Organisation/components/forms/UpdateTea
 import {getDateFromIsoString} from "@/src/utils/DateHelper";
 import {TYPE_EVENT, TYPE_TAXONOMY} from "@/src/DataTypes/Entity/Types";
 import SelectFetch from "@/src/common/FormElements/Select/SelectFetch";
+import SubmitEntity from "@/DataTypes/common/Forms/SingleEdit/SubmitEntity";
 
 const EventSingleEdit = ({data}, ...props) => {
 
@@ -544,12 +545,10 @@ const EventSingleEdit = ({data}, ...props) => {
 
     const footer = (
         <>
-            <div>
-                {
-                    (createdAt || updatedAt || status) &&
-                    <SingleEntityStatus createdAt={createdAt} updatedAt={updatedAt} status={status} />
-                }
-            </div>
+            {
+                (createdAt || updatedAt || status) &&
+                <SingleEntityStatus createdAt={createdAt} updatedAt={updatedAt} status={status} />
+            }
         </>
     );
 
@@ -563,6 +562,7 @@ const EventSingleEdit = ({data}, ...props) => {
                 contentColumnRight={contentColumnRight}
                 footer={footer}
             />
+            <SubmitEntity submitHandler={submitHandler} formState={formState} />
         </>
     )
 }

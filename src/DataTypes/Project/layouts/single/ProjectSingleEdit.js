@@ -31,7 +31,8 @@ import UpdateScheduleBudget from '@/src/DataTypes/Project/component/forms/Update
 import UpdateSponsor from '@/src/DataTypes/Project/component/forms/UpdateSponsor';
 import Icon from "@/common/widgets/Icon/Icon";
 import MainImageDisplay from "@/DataTypes/common/layouts/single/defaultSections/MainImageDisplay/MainImageDisplay";
-import { TYPE_TAXONOMY } from '@/src/DataTypes/Entity/Types';
+import {TYPE_TAXONOMY} from '@/src/DataTypes/Entity/Types';
+import SubmitEntity from "@/DataTypes/common/Forms/SingleEdit/SubmitEntity";
 
 const ProjectSingleEdit = (props) => {
 
@@ -454,12 +455,12 @@ const ProjectSingleEdit = (props) => {
                 placeholder="Une url avec le https, exemple : https://siteWeb.com"
                 formTools={formTools}
             />
-            <div className="border-top border-bottom pt-2">
+            <>
                 {
                     (createdAt || updatedAt || status) &&
                     <SingleEntityStatus createdAt={createdAt} updatedAt={updatedAt} status={status} />
                 }
-            </div>
+            </>
         </>
     );
 
@@ -485,16 +486,8 @@ const ProjectSingleEdit = (props) => {
                 contentColumnRight={contentColumnRight}
                 footer={footer}
             />
-            <div className="d-flex pt-4 align-items-end flex-column">
-                <Button disabled={!formState.isValid} onClick={submitHandler}>
-                    {lang.submitModification}
-                </Button>
-                {
-                    !formState.isValid &&
-                    <p className="p-2 mt-2 col-md-4 border border-danger rounded"><small>{lang.formHasError}</small></p>
-                }
+            <SubmitEntity submitHandler={submitHandler} formState={formState} />
 
-            </div>
             { modal.display &&
                 <Modal
                     coloredBackground
