@@ -5,7 +5,6 @@ import {clientSideExternalApiRequest} from "@/src/hooks/http-hook";
 import PageHeader from "@/layouts/Header/PageHeader";
 import EntitiesGrid from "@/src/DataTypes/Entity/layouts/EntitiesGrid";
 
-
 const SearchResults = () => {
 
     const [searchList, setSearchList] = useState([]);
@@ -16,13 +15,13 @@ const SearchResults = () => {
 
 
     const updateFilterState = (filterType) => {
-        if(filterType == "all")
+        if(filterType === "all")
             setFilter([]);
         else {
             const filterState = [...filter]
             //If already in array remove it else push in front
             if(filterState.includes(filterType))
-                setFilter(filterState.filter( (el) => { return el != filterType}));
+                setFilter(filterState.filter( (el) => { return el !== filterType}));
             else {
                 filterState.unshift(filterType);
                 setFilter(filterState)
@@ -78,7 +77,7 @@ const SearchResults = () => {
     }
 
     const researchResult = (entityType, includeEntitySuggestedByTaxonomy=false) => {
-        if(entityType == "linkedTaxonomy")
+        if(entityType === "linkedTaxonomy")
             return linkedEntityToTaxonomyComponent();
 
         const resultMessage = entityType ? "Résultats pour " + entityType + ":" : "Résultats de recherche :";
@@ -88,7 +87,7 @@ const SearchResults = () => {
             if(includeEntitySuggestedByTaxonomy){
                 filteredList.push(...nearTaxonomyObject.linkedEntityToNearestTaxonomy);
             }
-            filteredList = filteredList.filter( (el) => { return el.type == entityType })
+            filteredList = filteredList.filter( (el) => { return el.type === entityType })
         }
 
         return (
@@ -162,7 +161,7 @@ const SearchResults = () => {
                         { searchList &&
                             <ul>
                                 <li className="row py-2 form-check flex-nowrap d-flex" role="button" key="filter-CBL-all" onClick={() => updateFilterState("all")}>
-                                    <input readOnly className="form-check-input col-1" type="checkbox" checked={filter.length == 0} id="filter-CB-all"/>
+                                    <input readOnly className="form-check-input col-1" type="checkbox" checked={filter.length === 0} id="filter-CB-all"/>
                                     <span className="d-flex align-items-center justify-content-between">
                                         <span className="form-check-label col-8">Tout les résultats</span>                                
                                         <span className="col-3">{(nearTaxonomyObject?.linkedEntityToNearestTaxonomy?.length || 0) + (searchList?.length || 0)}</span>
@@ -181,7 +180,7 @@ const SearchResults = () => {
                                     <input readOnly className="form-check-input col-1" type="checkbox" checked={filter.includes("Person")} id="filter-CB-person"/>
                                     <span className="d-flex align-items-center justify-content-between">
                                         <span className="form-check-label col-8">Personnes</span>
-                                        <span className="col-3">{searchList.filter( (el) => {return el.type == "Person"}).length.toString() ?? "0"}</span>
+                                        <span className="col-3">{searchList.filter( (el) => {return el.type === "Person"}).length.toString() ?? "0"}</span>
                                     </span>
                                 </li>
 
@@ -189,7 +188,7 @@ const SearchResults = () => {
                                     <input readOnly className="form-check-input col-1" type="checkbox" checked={filter.includes("Organisation")} id="filter-CB-organisation"/>
                                     <span className="d-flex align-items-center justify-content-between">
                                         <span className="form-check-label col-8">Organisations</span>
-                                        <span className="col-3">{searchList.filter( (el) => {return el.type == "Organisation"}).length.toString() ?? "0"}</span>
+                                        <span className="col-3">{searchList.filter( (el) => {return el.type === "Organisation"}).length.toString() ?? "0"}</span>
                                     </span>
                                 </li>
 
@@ -197,7 +196,7 @@ const SearchResults = () => {
                                     <input readOnly className="form-check-input col-1" type="checkbox" checked={filter.includes("Project")} id="filter-CB-project"/>
                                     <span className="d-flex align-items-center justify-content-between">
                                         <span className="form-check-label col-8">Projets</span>
-                                        <span className="col-3">{searchList.filter( (el) => {return el.type == "Project"}).length.toString() ?? "0"}</span>
+                                        <span className="col-3">{searchList.filter( (el) => {return el.type === "Project"}).length.toString() ?? "0"}</span>
                                     </span>
                                 </li>
                             </ul>
@@ -208,7 +207,7 @@ const SearchResults = () => {
                 <div className="row col-9">
                     {/* If filter set to all results */}
                     {
-                        filter.length == 0 ?
+                        filter.length === 0 ?
                         <div>
                             {linkedEntityToTaxonomyComponent()}
                             {researchResult()}

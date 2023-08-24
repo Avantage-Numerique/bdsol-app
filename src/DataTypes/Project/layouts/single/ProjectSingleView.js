@@ -219,10 +219,6 @@ const ProjectSingleView = ({ data }) => {
 
     const Footer = (
         <>
-            {/* Url */}
-            <SingleInfo title={lang.hyperlink} className={"pb-4"}>
-                <ExternalLink href={url}>{url}</ExternalLink>
-            </SingleInfo>
             {
                 (createdAt || updatedAt || status) &&
                 <SingleEntityStatus

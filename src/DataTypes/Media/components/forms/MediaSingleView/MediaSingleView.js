@@ -150,7 +150,7 @@ const MediaSingleView = ({data}, ...props) => {
             </SingleInfoLayout>
             {
                 (createdAt || updatedAt || status) &&
-                <SingleEntityStatus className="border-bottom py-4" createdAt={createdAt} updatedAt={updatedAt} status={status} />
+                <SingleEntityStatus createdAt={createdAt} updatedAt={updatedAt} status={status} />
             }
         </>
     );

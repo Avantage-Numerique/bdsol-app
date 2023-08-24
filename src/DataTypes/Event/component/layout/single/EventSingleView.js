@@ -143,7 +143,7 @@ const EventSingleView = ({data}) => {
             </div>
             <div className="row mt-4">
                 {
-                    description &&
+                    description && description !== "" &&
                     <SingleInfo title={lang.description}>
                         <SanitizedInnerHtml>{description}</SanitizedInnerHtml>
                     </SingleInfo>
@@ -155,21 +155,21 @@ const EventSingleView = ({data}) => {
         <>
             {/* schedule */}
             {
-                schedule &&
+                schedule && schedule.length > 0 &&
                 <SingleInfo title={lang.schedule}>
                     <DisplaySchedule feed={schedule}/>
                 </SingleInfo>
             }
             {/* subEvents */}
             {
-                subEvents &&
+                subEvents && subEvents.length > 0 &&
                 <SingleInfo title={lang.subEvents}>
                     <EntitiesTagGrid feed={subEvents} />
                 </SingleInfo>
             }
             {/* attendees */}
             {
-                attendees &&
+                attendees && attendees.length > 0 &&
                 <SingleInfo title={lang.attendees}>
                     <EntitiesTagGrid feed={attendees} />
                 </SingleInfo>
