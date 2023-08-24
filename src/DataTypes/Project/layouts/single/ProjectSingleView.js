@@ -15,6 +15,7 @@ import {lang} from "@/common/Data/GlobalConstants";
 import {clientSideExternalApiRequest} from "@/src/hooks/http-hook";
 import EntitiesTagGrid from "@/DataTypes/Entity/layouts/EntitiesTagGrid";
 import {ExternalLink} from "@/common/Components/ExternalLink";
+import EntityLink from "@/DataTypes/Entity/layouts/EntityLink";
 
 
 const ProjectSingleView = ({ data }) => {
@@ -91,8 +92,16 @@ const ProjectSingleView = ({ data }) => {
                 <div className="d-text">
                     <h4 className="text-white">{alternateName}</h4>
                     <div className="mt-4">
-                        <p className="text-white m-0">Entité en charge : {entityInCharge ? entityInCharge.name : "Aucune"}</p>
-                        <p className="text-white">Producteur : {producer ? producer.name : "Aucun"}</p>
+                        {entityInCharge &&
+                            <p className="text-white">
+                                <span className={"badge bg-secondary"}>{lang.inCharge}</span> <EntityLink data={entityInCharge} />
+                            </p>
+                        }
+                        {producer &&
+                            <p className="text-white">
+                                <span className={"badge bg-secondary"}>{lang.producer}</span> <EntityLink data={producer} />
+                            </p>
+                        }
                     </div>
                 </div>
             )}

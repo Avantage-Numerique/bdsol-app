@@ -1,4 +1,4 @@
-import {useCallback, useEffect, useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 
 //Components
 import SingleBase from "@/src/DataTypes/common/layouts/single/SingleBase";
@@ -20,6 +20,7 @@ import DisplaySchedule from "../../Forms/Schedule/DisplaySchedule";
 //Hooks
 import {useDateManager} from '@/common/DateManager/DateManager'
 import {clientSideExternalApiRequest} from "@/src/hooks/http-hook";
+import EntityLink from "@/DataTypes/Entity/layouts/EntityLink";
 
 
 const EventSingleView = ({data}) => {
@@ -91,8 +92,16 @@ const EventSingleView = ({data}) => {
                 <div className="d-text">
                     <h4 className="text-white">{model.alternateName ? model.alternateName : ""}</h4>
                     <div className="mt-4">
-                        <p className="text-white m-0">Entité en charge : {model.entityInCharge ? model.entityInCharge.name : "Aucune"}</p>
-                        <p className="text-white">Organisateur : {model.organizer ? model.organizer.name : "Aucun"}</p>
+                        {model.entityInCharge &&
+                            <p className="text-white">
+                                <span className={"badge bg-secondary"}>{lang.inCharge}</span> <EntityLink data={model.entityInCharge} />
+                            </p>
+                        }
+                        {model.organizer &&
+                            <p className="text-white">
+                                <span className={"badge bg-secondary"}>{lang.eventOrganizer}</span> <EntityLink data={model.organizer} />
+                            </p>
+                        }
                     </div>
                 </div>
             )}

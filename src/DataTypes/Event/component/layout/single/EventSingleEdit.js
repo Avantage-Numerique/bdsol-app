@@ -29,7 +29,6 @@ import UpdateTeams from "@/src/DataTypes/Organisation/components/forms/UpdateTea
 import {getDateFromIsoString} from "@/src/utils/DateHelper";
 import {TYPE_EVENT, TYPE_TAXONOMY} from "@/src/DataTypes/Entity/Types";
 import SelectFetch from "@/src/common/FormElements/Select/SelectFetch";
-import SubmitEntity from "@/DataTypes/common/Forms/SingleEdit/SubmitEntity";
 
 const EventSingleEdit = ({data}, ...props) => {
 
@@ -179,10 +178,10 @@ const EventSingleEdit = ({data}, ...props) => {
                 value: subEvents ?? [],
                 isValid: true
             },
-            location: {
-                value: location ? location[0]?.name : "",
+            /*location: {
+                value: "",//location ? location[0]?.name : "",
                 isValid: true
-            }
+            }*/
         },
         //Pass a set of rules to execute a valid response of an api request
         {
@@ -206,7 +205,7 @@ const EventSingleEdit = ({data}, ...props) => {
                 description: formState.inputs.description.value,
                 eventType: formState.inputs.eventType.value?.length > 0 ?
                     formState.inputs.eventType.value.map( (selectedEventType) => { return selectedEventType.value }) : [],
-                eventFormat: formState.inputs.eventFormat.value,
+                eventFormat: formState.inputs.eventFormat.value && formState.inputs.eventFormat.value !== "" ? formState.inputs.eventFormat.value : "",
                 startDate: formState.inputs.startDate.value,
                 endDate: formState.inputs.endDate.value,
                 url: formState.inputs.url.value,
@@ -242,7 +241,7 @@ const EventSingleEdit = ({data}, ...props) => {
                     }
                 }),
                 //Temporary set the input in name field until we have a more elaborated structure for location
-                location: [{ name: formState.inputs.location.value}],
+                //location: [{ name: formState.inputs.location.value}],
                 //experience: formState.inputs.experience.value
                 status: getDefaultCreateEntityStatus(auth.user),
             }
@@ -392,7 +391,7 @@ const EventSingleEdit = ({data}, ...props) => {
                         creatable={false}
                         isMulti={true}
                         fetch={"/taxonomies/list"}
-                        requestData={ {category: "eventType", name:""}}
+                        requestData={{category: "eventType", name:""}}
                         searchField={"name"}
                         selectField={"name"}
                     />
@@ -408,12 +407,12 @@ const EventSingleEdit = ({data}, ...props) => {
                     />
                     
                     {/* location */}
-                    <Input 
+                    {/*<Input
                         label="Lieu"
                         placeholder="Addresse, nom de bâtiment, ville ..."
                         formTools={formTools}
                         name="location"
-                    />
+                    />*/}
 
                 </div>
 
@@ -562,7 +561,6 @@ const EventSingleEdit = ({data}, ...props) => {
                 contentColumnRight={contentColumnRight}
                 footer={footer}
             />
-            <SubmitEntity submitHandler={submitHandler} formState={formState} />
         </>
     )
 }
