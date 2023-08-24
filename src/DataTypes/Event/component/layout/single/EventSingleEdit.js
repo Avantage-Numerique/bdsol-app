@@ -1,13 +1,13 @@
 //React
-import { useContext, useState, useCallback, useEffect } from "react";
+import {useCallback, useContext, useEffect, useState} from "react";
 import Router from "next/router";
 
 //Utils, context
-import { useAuth } from "@/src/authentification/context/auth-context";
-import { MessageContext } from "@/src/common/UserNotifications/Message/Context/Message-Context";
-import { useFormUtils } from "@/src/hooks/useFormUtils/useFormUtils";
-import { lang } from "@/src/common/Data/GlobalConstants";
-import { getDefaultCreateEntityStatus } from "@/src/DataTypes/Status/EntityStatus";
+import {useAuth} from "@/src/authentification/context/auth-context";
+import {MessageContext} from "@/src/common/UserNotifications/Message/Context/Message-Context";
+import {useFormUtils} from "@/src/hooks/useFormUtils/useFormUtils";
+import {lang} from "@/src/common/Data/GlobalConstants";
+import {getDefaultCreateEntityStatus} from "@/src/DataTypes/Status/EntityStatus";
 import {replacePathname} from "@/src/helpers/url";
 import {SingleEntityStatus} from '@/DataTypes/Status/components/SingleEntityStatus';
 
@@ -26,8 +26,8 @@ import Select2 from "@/src/common/FormElements/Select2/Select2";
 import RichTextarea from "@/src/common/FormElements/RichTextArea/RichTextarea";
 import UpdateSchedule from "../../Forms/Schedule/UpdateSchedule";
 import UpdateTeams from "@/src/DataTypes/Organisation/components/forms/UpdateTeams/UpdateTeams";
-import { getDateFromIsoString } from "@/src/utils/DateHelper";
-import { TYPE_EVENT, TYPE_TAXONOMY } from "@/src/DataTypes/Entity/Types";
+import {getDateFromIsoString} from "@/src/utils/DateHelper";
+import {TYPE_EVENT, TYPE_TAXONOMY} from "@/src/DataTypes/Entity/Types";
 import SelectFetch from "@/src/common/FormElements/Select/SelectFetch";
 
 const EventSingleEdit = ({data}, ...props) => {
@@ -61,7 +61,7 @@ const EventSingleEdit = ({data}, ...props) => {
         updatedAt
     } = data
 
-    const model = new Event(data);
+    let model = new Event(data);
 
     //Import the authentication context to make sure the user is well connected
     const auth = useAuth();
@@ -544,7 +544,7 @@ const EventSingleEdit = ({data}, ...props) => {
 
     const footer = (
         <>
-            <div className="border-top border-bottom pt-3">
+            <div>
                 {
                     (createdAt || updatedAt || status) &&
                     <SingleEntityStatus createdAt={createdAt} updatedAt={updatedAt} status={status} />

@@ -1,4 +1,4 @@
-import { useCallback, useState, useEffect } from "react";
+import {useCallback, useEffect, useState} from "react";
 
 //Components
 import SingleBase from "@/src/DataTypes/common/layouts/single/SingleBase";
@@ -6,12 +6,12 @@ import SingleBaseHeader from "@/src/DataTypes/common/layouts/single/defaultSecti
 import SingleInfo from "@/src/DataTypes/common/layouts/SingleInfo/SingleInfo";
 import EntitiesTagGrid from "@/src/DataTypes/Entity/layouts/EntitiesTagGrid";
 import SearchTag from "@/src/common/Components/SearchTag";
-import { ExternalLink } from "@/src/common/Components/ExternalLink";
+import {ExternalLink} from "@/src/common/Components/ExternalLink";
 
 //Utils
 import Head from "next/head";
 import SanitizedInnerHtml from '@/src/utils/SanitizedInnerHtml';
-import { lang } from "@/src/common/Data/GlobalConstants";
+import {lang} from "@/src/common/Data/GlobalConstants";
 import {SingleEntityStatus} from "@/DataTypes/Status/components/SingleEntityStatus";
 import {getTitle} from "@/DataTypes/MetaData/MetaTitle";
 import Event from "../../../models/Event";
@@ -19,7 +19,7 @@ import DisplaySchedule from "../../Forms/Schedule/DisplaySchedule";
 
 //Hooks
 import {useDateManager} from '@/common/DateManager/DateManager'
-import { clientSideExternalApiRequest } from "@/src/hooks/http-hook";
+import {clientSideExternalApiRequest} from "@/src/hooks/http-hook";
 
 
 const EventSingleView = ({data}) => {
@@ -234,7 +234,7 @@ const EventSingleView = ({data}) => {
 
     {/*********** Footer section ***********/}
     const Footer = (
-        <div className="border-top border-bottom pt-2">
+        <div>
             {
                 (createdAt || updatedAt || status) &&
                 <SingleEntityStatus  
