@@ -23,6 +23,7 @@ class Type {
         this.label = values.label;
         this.labelPlural = values.labelPlural;
         this.modelClass = values.modelClass;
+        this.model = values.model;
         this.icon = values.icon;
         this.inSentencePrefix = values.inSentencePrefix;
         this.defaultMainImage = values.defaultMainImage
@@ -36,6 +37,7 @@ TYPES.set(TYPE_MEDIA, new Type({
     label: "Média",
     labelPlural: "Médias",
     modelClass: Media,
+    model: undefined,
     inSentencePrefix: " un ",
     defaultMainImage: "",
     icon:"file"
@@ -45,6 +47,7 @@ TYPES.set(TYPE_ORGANISATION, new Type({
     label: "Organisation",
     labelPlural: "Organisations",
     modelClass: Organisation,
+    model: undefined,
     inSentencePrefix: " une ",
     defaultMainImage: "/general_images/organisation-default.png",
     icon:"users"
@@ -54,6 +57,7 @@ TYPES.set(TYPE_PROJECT, new Type({
     label: "Projet",
     labelPlural: "Projets",
     modelClass: Project,
+    model: undefined,
     inSentencePrefix: " un ",
     defaultMainImage: "/general_images/project-default.png",
     icon:"project-diagram"
@@ -63,6 +67,7 @@ TYPES.set(TYPE_PERSON, new Type({
     label: "Personne",
     labelPlural: "Personnes",
     modelClass: Person,
+    model: undefined,
     inSentencePrefix: " une ",
     defaultMainImage: "/general_images/person-default.png",
     icon:"user"
@@ -72,6 +77,7 @@ TYPES.set(TYPE_ABSTRACT, new Type({
     label: "Entité",
     labelPlural: "Entités",
     modelClass: EntityModel,
+    model: undefined,
     inSentencePrefix: " une ",
     defaultMainImage: "/general_images/person-default.png",
     icon:"book"
@@ -81,6 +87,7 @@ TYPES.set(TYPE_TAXONOMY, new Type({
     label: "Catégorie",
     labelPlural: "Catégories",
     modelClass: EntityModel,
+    model: undefined,
     inSentencePrefix: " une ",
     defaultMainImage: "/general_images/project-default.png",
     icon:"tag"
@@ -91,6 +98,7 @@ TYPES.set(TYPE_EVENT, new Type({
     label: "Événement",
     labelPlural: "Événements",
     modelClass: Event,
+    model: undefined,
     inSentencePrefix: " un ",
     defaultMainImage: "",
     icon: ""
@@ -101,6 +109,7 @@ TYPES.set(TYPE_NOTSET, new Type({
     label: "undefined",
     labelPlural: "undefined",
     modelClass: "undefined",
+    model: "undefined",
     inSentencePrefix: "",
     defaultMainImage: "/general_images/person-default.png",
     icon:"hourglass-end"

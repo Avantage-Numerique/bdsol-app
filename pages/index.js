@@ -12,9 +12,6 @@ import PageHeader from "@/src/layouts/Header/PageHeader";
 import EntitiesGrid from "@/DataTypes/Entity/layouts/EntitiesGrid";
 
 //Entities
-import Person from "@/DataTypes/Person/models/Person";
-import Organisation from "@/DataTypes/Organisation/models/Organisation";
-import Project from "@/DataTypes/Project/models/Project";
 
 //Costum hooks
 import {useHttpClient} from '@/src/hooks/http-hook';
@@ -24,7 +21,7 @@ import {MessageContext} from '@/src/common/UserNotifications/Message/Context/Mes
 import {useAuth} from '@/src/authentification/context/auth-context';
 import SanitizedInnerHtml from "@/src/utils/SanitizedInnerHtml";
 import {appUrl} from "@/src/helpers/url";
-import Event from '@/src/DataTypes/Event/models/Event';
+import {getType, TYPE_EVENT, TYPE_ORGANISATION, TYPE_PERSON, TYPE_PROJECT} from "@/DataTypes/Entity/Types";
 
 //Styling
 //import styles from './home-page.module.scss'
@@ -120,17 +117,17 @@ const HomePage = ({}) => {
 
     //Function to return the path to the page of creation of an entity, depending on location
     const getCreateEntityPath = (type) => {
-        //@todo need DRY and verification for using "TYPE_PERSON", TYPE_ is a constant with a string value of the type.
-        let model;// = getModelFromType(type, {});
-        if(type == "TYPE_PERSON")
-            model = new Person({})
-        if(type == "TYPE_ORGANISATION")
-            model = new Organisation({})
-        if(type == "TYPE_PROJECT")
-            model = new Project({})
-        if(type == "TYPE_EVENT")
-            model = new Event({})
-        return model.createRoute.asPath;
+
+        //Get the model by type
+        let targetType = getType(type);
+
+        //type.model is undefined at init, so checking if it's set ? If not set it.
+        if (typeof targetType.model === "undefined") {
+            const ModelClass = targetType.modelClass;
+            targetType.model = new ModelClass({});
+        }
+        //returning the asPath from the createRoute.
+        return targetType.model.createRoute.asPath;
     }
 
     /****************************
@@ -223,7 +220,7 @@ const HomePage = ({}) => {
                                             <div>
                                                 <Spinner reverse/>
                                             </div>
-                                            <p><strong>Chargement des données</strong></p>
+                                            <p><strong>{lang.loadingData}</strong></p>
                                         </div>
                                     }
 
@@ -271,17 +268,6 @@ const HomePage = ({}) => {
                             {/*Rapid options to access of edit the database*/}
                             <section className={"aside__db-edit-options"}>
 
-                                {/*<div className={"db-edit-options__button-set"}>
-                                    <Button 
-                                        disabled 
-                                        size="slim" 
-                                    >{lang.Events}</Button>
-                                    <Button 
-                                        disabled     
-                                        size="slim" 
-                                    >+</Button>
-                                </div>*/}
-
                                 <div className={"db-edit-options__button-set"}>
                                     <Button 
                                         href="/persons/"
@@ -293,7 +279,7 @@ const HomePage = ({}) => {
                                         color="primary"
                                         size="slim"
                                         disabled={!auth.user.isLoggedIn}
-                                        href={getCreateEntityPath("TYPE_PERSON")}
+                                        href={getCreateEntityPath(TYPE_PERSON)}
                                     >+</Button>
                                 </div>
 
@@ -307,7 +293,7 @@ const HomePage = ({}) => {
                                         color="primary"
                                         size="slim"
                                         disabled={!auth.user.isLoggedIn}
-                                        href={getCreateEntityPath("TYPE_ORGANISATION")}
+                                        href={getCreateEntityPath(TYPE_ORGANISATION)}
                                     >+</Button>
                                 </div>
 
@@ -317,7 +303,7 @@ const HomePage = ({}) => {
                                         color="primary"
                                         size="slim"
                                         disabled={!auth.user.isLoggedIn}
-                                        href={getCreateEntityPath("TYPE_PROJECT")}
+                                        href={getCreateEntityPath(TYPE_PROJECT)}
                                     >+</Button>
                                 </div>
 
@@ -337,7 +323,7 @@ const HomePage = ({}) => {
                                         color="primary"
                                         size="slim"
                                         disabled={!auth.user.isLoggedIn}
-                                        href={getCreateEntityPath("TYPE_EVENT")}
+                                        href={getCreateEntityPath(TYPE_EVENT)}
                                     >+</Button>
                                 </div>
 
@@ -352,12 +338,12 @@ const HomePage = ({}) => {
                                 Section : More informations about the project
                             */}
                             <section className={"d-flex flex-column"}>
-                                <h4>À propos</h4>
+                                <h4>{lang.aboutUs}</h4>
                                 <p>
                                     La base de données structurées, ouvertes et liées (BDSOL) est le cœur du hub virtuel d’Avantage numérique.
                                     Elle vise à recenser et géolocaliser les talents, les compétences, les ressources, les initiatives technocréatives à travers le territoire du Croissant Boréal.
                                 </p>
-                                <Button classes="mt-3" color="white" outline="primary" href="/faq/a-propos">En savoir plus</Button>
+                                <Button classes="mt-3" color="white" outline="primary" href="/faq/a-propos">{lang.knowMore}</Button>
                             </section>
                         </div>
                     </aside>
