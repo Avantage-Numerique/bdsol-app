@@ -12,7 +12,6 @@ import PageHeader from "@/src/layouts/Header/PageHeader";
 import EntitiesGrid from "@/DataTypes/Entity/layouts/EntitiesGrid";
 
 //Entities
-
 //Costum hooks
 import {useHttpClient} from '@/src/hooks/http-hook';
 
@@ -38,7 +37,7 @@ const HomePage = ({}) => {
     const msg = useContext(MessageContext);
 
     //Extract the functions inside useHttpClient
-    const {isLoading, sendRequest} = useHttpClient();
+    const {isLoading, sendRequest, setIsLoading} = useHttpClient();
 
     const fetchHomeFeed = async () => {
 
@@ -79,6 +78,7 @@ const HomePage = ({}) => {
                 JSON.stringify({"data": query.queryParams}),
                 defaultHeader
             );
+            setIsLoading(true);//bypass the sendRequest setting of isLoading, because of all these promises here.
             query.result = currentResult;
 
             haveError = haveError && !currentResult.error;
@@ -106,7 +106,11 @@ const HomePage = ({}) => {
                     feed.sort(sortDescBy('createdAt'));//   Sort and mixed both collection the data to display the new elements before
                     setFeedList(feed); //   Finaly, update the state to display the result
                 }
+
+                setIsLoading(true);
             });
+        }).then(() => {
+            setIsLoading(false);//when all finishes, set this to false.
         });
     }
 

@@ -1,4 +1,4 @@
-import {useState, useCallback, useRef, useEffect} from 'react';
+import {useCallback, useEffect, useRef, useState} from 'react';
 import {getUserHeadersFromUserSession, useAuth} from '@/auth/context/auth-context'
 import {lang} from "@/src/common/Data/GlobalConstants";
 
@@ -144,5 +144,5 @@ export const useHttpClient = () => {
         };
     }, []);
 
-    return {isLoading, sendRequest};
+    return {isLoading, setIsLoading, sendRequest};
 };
