@@ -4,6 +4,7 @@ import Project from "@/DataTypes/Project/models/Project";
 import EntityModel from "@/DataTypes/Entity/models/EntityModel";
 import Media from "../Media/models/Media";
 import Event from "../Event/models/Event";
+import Place from "../Place/models/Place";
 
 export const TYPE_ABSTRACT = "Entity";
 export const TYPE_ORGANISATION = "Organisation";
@@ -11,7 +12,8 @@ export const TYPE_TAXONOMY = "Taxonomy"
 export const TYPE_PROJECT = "Project";
 export const TYPE_PERSON = "Person";
 export const TYPE_MEDIA = "Media";
-export const TYPE_EVENT = "Event"
+export const TYPE_EVENT = "Event";
+export const TYPE_PLACE = "Place";
 export const TYPE_DEFAULT = TYPE_ABSTRACT;
 export const TYPE_NOTSET = "undefined";
 
@@ -99,6 +101,16 @@ TYPES.set(TYPE_EVENT, new Type({
     labelPlural: "Événements",
     modelClass: Event,
     model: undefined,
+    inSentencePrefix: " un ",
+    defaultMainImage: "",
+    icon: ""
+}))
+
+TYPES.set(TYPE_PLACE, new Type({
+    slug:"place",
+    label: "Lieu",
+    labelPlural: "Lieux",
+    modelClass: Place,
     inSentencePrefix: " un ",
     defaultMainImage: "",
     icon: ""

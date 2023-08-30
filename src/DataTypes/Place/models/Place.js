@@ -1,12 +1,12 @@
-import PersonSimple from "@/DataTypes/Person/components/layouts/simple/PersonSimple";
-import PersonSingleView from "../components/layouts/single/PersonSingleView";
+import PlaceSimple from "../components/layouts/simple/PlaceSimple";
+import PlaceSingleView from "../components/layouts/single/PlaceSingleView";
 import EntityModel from "@/DataTypes/Entity/models/EntityModel";
 import AppRoutes from "@/src/Routing/AppRoutes";
-import {TYPE_PERSON} from "@/DataTypes/Entity/Types";
+import {TYPE_PLACE} from "@/DataTypes/Entity/Types";
 import Media from "@/DataTypes/Media/models/Media";
 
 
-class Person extends EntityModel {
+class Place extends EntityModel {
 
     constructor(raw, params={}) {
 
@@ -17,10 +17,10 @@ class Person extends EntityModel {
 
         super(raw);
 
-        this.title = raw.firstName + " " + raw.lastName ?? "";
+        this.title = raw.name ?? "";
         this.description = raw.description ?? "";
         this.mainImage = !raw.mainImage || raw.mainImage === "" || !raw.mainImage ? {
-            url: "/general_images/default-person.png",
+            url: "/general_images/default-place.png",
             alt: this.title,
             baseSrc: `${process.env.NEXT_PUBLIC_APP_URL}`,
             isDefault: true
@@ -30,7 +30,7 @@ class Person extends EntityModel {
 
         this.mainImage.src = this.mainImageModel.src;
 
-        this.type = TYPE_PERSON;
+        this.type = TYPE_PLACE;
 
         this.meta.title = this.title;
         this.meta.description = this.description;
@@ -38,14 +38,14 @@ class Person extends EntityModel {
         params.showMeta = params.showMeta ?? true;
         params.showStatus = params.showStatus ?? true;
 
-        this.simpleComponent = PersonSimple;
-        this.singleComponent = PersonSingleView;
+        this.simpleComponent = PlaceSimple;
+        this.singleComponent = PlaceSingleView;
 
         //Routing
-        this.singleRoute = {...AppRoutes.personSingle};
-        this.singleMediaRoute = {...AppRoutes.personSingleMedia};
-        this.singleEditRoute = {...AppRoutes.personSingleEdit};
-        this.createRoute = {...AppRoutes.personCreate};
+        this.singleRoute = {...AppRoutes.placeSingle};
+        this.singleMediaRoute = {...AppRoutes.placeSingleMedia};
+        this.singleEditRoute = {...AppRoutes.placeSingleEdit};
+        this.createRoute = {...AppRoutes.placeCreate};
 
 
         //sets all the rest as this[key] = raw[key] value.
@@ -54,4 +54,4 @@ class Person extends EntityModel {
 
 }
 
-export default Person;
+export default Place;

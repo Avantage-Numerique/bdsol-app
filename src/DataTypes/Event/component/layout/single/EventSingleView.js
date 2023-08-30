@@ -142,8 +142,8 @@ const EventSingleView = ({data}) => {
                     {/* location */}
                     {
                         location?.length > 0 &&
-                        <SingleInfo title={"Lieu"}>
-                            {location[0].name}
+                        <SingleInfo title="Emplacement">
+                            <EntitiesTagGrid feed={location} subBadgeProperty={"address"} />
                         </SingleInfo>
                     }
                 </div>
@@ -242,7 +242,7 @@ const EventSingleView = ({data}) => {
     )
 
     {/*********** Footer section ***********/}
-    const Footer = (
+    const footer = (
         <div>
             {
                 (createdAt || updatedAt || status) &&
@@ -265,7 +265,7 @@ const EventSingleView = ({data}) => {
                 fullWidthContent={fullWidthContent}
                 contentColumnLeft={contentColumnLeft}
                 contentColumnRight={contentColumnRight}
-                footer={Footer}
+                footer={footer}
             />
         </>
     )

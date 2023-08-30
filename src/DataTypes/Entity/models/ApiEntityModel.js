@@ -1,5 +1,5 @@
 import { getColor } from "@/src/styles/datatypeStyle";
-import { TYPE_EVENT, TYPE_ORGANISATION, TYPE_PERSON, TYPE_PROJECT, TYPE_TAXONOMY } from "../Types";
+import { TYPE_EVENT, TYPE_ORGANISATION, TYPE_PERSON, TYPE_PLACE, TYPE_PROJECT, TYPE_TAXONOMY } from "../Types";
 
 
 
@@ -50,6 +50,12 @@ class ApiEntityModel {
                 break;
             case TYPE_EVENT :
                     return ApiEntityModel.nameToSelectOptions( entity );
+                break;
+            case TYPE_PLACE :
+                    console.log("Type place")
+                    return ApiEntityModel.locationToSelectOptions( entity );
+                break;
+
             default : 
                 if(field == "domains")
                     return ApiEntityModel.domainsToSelectOptions( entity );
@@ -93,6 +99,13 @@ class ApiEntityModel {
 
     static nameToSelectOptions(entity){
         return [{ value : entity._id, label : entity.name, color : getColor(entity) }]
+    }
+
+    static locationToSelectOptions(entity){
+        if(entity.address)
+            return [{ value: entity._id, label : entity.address + ', ' + entity.name}]
+        else
+            return [{ value: entity._id, label : entity.name}]
     }
 }
 

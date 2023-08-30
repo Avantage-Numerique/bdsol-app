@@ -1,0 +1,27 @@
+.create-place-form {
+
+    position: relative;  //So the spinner knows where to fixe itself
+
+    label {
+
+        font-weight: 600;
+        > * { font-weight: normal; }
+
+    }
+
+    /*
+
+        The direct children of this form element are fields elements
+
+    */
+
+    > * {
+        margin-bottom: 1rem;
+
+        &:not(button){
+            width: 100%;
+        }
+    }
+
+    
+}

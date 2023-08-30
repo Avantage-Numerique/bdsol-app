@@ -27,7 +27,7 @@ import RichTextarea from "@/src/common/FormElements/RichTextArea/RichTextarea";
 import UpdateSchedule from "../../Forms/Schedule/UpdateSchedule";
 import UpdateTeams from "@/src/DataTypes/Organisation/components/forms/UpdateTeams/UpdateTeams";
 import {getDateFromIsoString} from "@/src/utils/DateHelper";
-import {TYPE_EVENT, TYPE_TAXONOMY} from "@/src/DataTypes/Entity/Types";
+import {TYPE_EVENT, TYPE_PLACE, TYPE_TAXONOMY} from "@/src/DataTypes/Entity/Types";
 import SelectFetch from "@/src/common/FormElements/Select/SelectFetch";
 
 const EventSingleEdit = ({data}, ...props) => {
@@ -143,7 +143,7 @@ const EventSingleEdit = ({data}, ...props) => {
                 isValid: true
             },
             startTime: {
-                value: "",
+                value: "13:30",
                 isValid: true
             },
             endDate: {
@@ -151,7 +151,7 @@ const EventSingleEdit = ({data}, ...props) => {
                 isValid: true
             },
             endTime: {
-                value: "",
+                value: "14:30",
                 isValid: true
             },
             contactPoint: {
@@ -178,10 +178,10 @@ const EventSingleEdit = ({data}, ...props) => {
                 value: subEvents ?? [],
                 isValid: true
             },
-            /*location: {
-                value: "",//location ? location[0]?.name : "",
+            location: {
+                value: location ? location : [],
                 isValid: true
-            }*/
+            }
         },
         //Pass a set of rules to execute a valid response of an api request
         {
@@ -200,7 +200,7 @@ const EventSingleEdit = ({data}, ...props) => {
             data: {
                 id: _id,
                 alternateName: formState.inputs.alternateName.value,
-                entityInCharge: formState.inputs.entityInCharge.value.value,
+                entityInCharge: formState.inputs.entityInCharge.value?.value ?? undefined,
                 organizer: formState.inputs.organizer.value?.value ?? undefined,
                 description: formState.inputs.description.value,
                 eventType: formState.inputs.eventType.value?.length > 0 ?
@@ -239,6 +239,9 @@ const EventSingleEdit = ({data}, ...props) => {
                         member: singleMember.value.member.value.value,
                         role: singleMember.value.role.value
                     }
+                }),
+                location: formState.inputs.location.value.map(function(singlePlace){
+                    return singlePlace.value
                 }),
                 //Temporary set the input in name field until we have a more elaborated structure for location
                 //location: [{ name: formState.inputs.location.value}],
@@ -407,12 +410,19 @@ const EventSingleEdit = ({data}, ...props) => {
                     />
                     
                     {/* location */}
-                    {/*<Input
-                        label="Lieu"
-                        placeholder="Addresse, nom de bâtiment, ville ..."
-                        formTools={formTools}
+                    <Select2
                         name="location"
-                    />*/}
+                        label={"Emplacement (par addresse)"}//lang.location}
+                        formTools={formTools}
+                        creatable={true}
+                        modalType={TYPE_PLACE}
+                        isMulti={true}
+                        
+                        fetch={"/places/list"}
+                        requestData={{address:""}}
+                        searchField={"address"}
+                        //selectField={"address"}
+                    />
 
                 </div>
 

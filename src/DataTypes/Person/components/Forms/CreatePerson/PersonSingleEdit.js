@@ -36,7 +36,7 @@ import {TYPE_TAXONOMY} from '@/src/DataTypes/Entity/Types'
 import SubmitEntity from "@/DataTypes/common/Forms/SingleEdit/SubmitEntity";
 
 
-const PersonSingleEdit = ({initValues, positiveRequestActions, ...props}) => {
+const PersonSingleEdit = ({ positiveRequestActions, ...props}) => {
 
     //Person data extract
     const {

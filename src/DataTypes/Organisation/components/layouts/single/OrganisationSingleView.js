@@ -33,6 +33,7 @@ const OrganisationSingleView = ({ data }) => {
         team,
         updatedAt,
         url,
+        location,
         status,
         //__v,
         //_id
@@ -122,7 +123,18 @@ const OrganisationSingleView = ({ data }) => {
     )
 
     const ContentColumnRight = (
-        <> 
+        <>
+            {
+                location?.length > 0 &&
+                <SingleInfo title="Emplacement">
+                    <EntitiesTagGrid feed={location} subBadgeProperty={"address"} />
+                </SingleInfo>
+            }
+            { contactPoint &&
+                <SingleInfo title={"Contact"} className={"mb-3"}>
+                    {contactPoint}
+                </SingleInfo>
+            }
             { domains.length > 0 &&
                 <SingleInfo
                     title={lang.domainsSingleLabel}
@@ -135,11 +147,6 @@ const OrganisationSingleView = ({ data }) => {
                             listProperty={"domain"}
                         />
                     }
-                </SingleInfo>
-            }
-            { contactPoint &&
-                <SingleInfo title={"Contact"} className={"mb-3"}>
-                    {contactPoint}
                 </SingleInfo>
             }
         </>

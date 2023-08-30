@@ -176,6 +176,41 @@ const AppRoutesRaw = {
         }
     },
 
+    /*************
+     *  Place
+     ***/
+    places : {
+        label: "Tous les lieux",
+        pathname: "/places",
+        asPath: "/places",
+    },
+    placeSingle : {
+        label: "Un lieu",
+        pathname: "/places/[slug]",
+        asPath: "/places/[slug]"
+    },
+    placeSingleEdit : {
+        label: "Modifier un événement",
+        pathname: "/contribuer/lieux/[slug]",
+        asPath: "/contribuer/lieux/[slug]"
+    },
+    placeCreate : {
+        label: "Ajouter un événement",
+        pathname: "/contribuer/lieux",
+        asPath: "/contribuer/lieux"
+    },
+    placeSingleMedia : {
+        label: "Média d'un lieu",
+        pathname: "/medias/[slug]",
+        asPath: "/medias/[slug]",
+        breadcrumbPathName: "/places/[place.slug]/[slug]",
+        breadcrumbAsPath: "/places/[place.slug]/[slug]",
+        breadcrumbQuery: {
+            slug: "slug",
+            mediaType: "main-image"
+        }
+    },
+
 
     about: {
         label: "À propos",

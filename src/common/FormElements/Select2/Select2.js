@@ -17,12 +17,13 @@ import { useRootModal } from '@/src/hooks/useModal/useRootModal'
 import { useValidation } from '@/src/hooks/useValidation/useValidation';
 
 //Modal component
-import { TYPE_EVENT, TYPE_ORGANISATION, TYPE_PERSON, TYPE_PROJECT, TYPE_TAXONOMY } from "@/src/DataTypes/Entity/Types";
+import { TYPE_EVENT, TYPE_ORGANISATION, TYPE_PERSON, TYPE_PLACE, TYPE_PROJECT, TYPE_TAXONOMY } from "@/src/DataTypes/Entity/Types";
 import CreatePersonForm from "@/src/DataTypes/Person/components/Forms/CreatePerson/CreatePersonForm";
 import CreateOrganisationForm from "@/src/DataTypes/Organisation/components/forms/CreateOrganisationForm/CreateOrganisationForm";
 import CreateTaxonomyForm from '@/DataTypes/Taxonomy/components/Forms/CreateTaxonomy/CreateTaxonomyForm';
 import CreateProjectForm from "@/src/DataTypes/Project/component/forms/CreateProjectForm";
 import CreateEventForm from "@/src/DataTypes/Event/component/Forms/CreateEvent/CreateEventForm";
+import CreatePlaceForm from "@/src/DataTypes/Place/components/forms/CreatePlaceForm/CreatePlaceForm";
 
 
 /**
@@ -37,7 +38,7 @@ import CreateEventForm from "@/src/DataTypes/Event/component/Forms/CreateEvent/C
  * @param {string} className : className added from outside the component 
  * @param {string} formClassName : className for the form layer
  * @param {object} requestData : param to always pass during request (e.g. category : "skills" to only access skills taxonomy)
- * @param {string} searchField : for the moment => a string added to requestData that's dynamically searching with the select
+ * @param {string} searchField : name of the property to search in the database from select2 input (e.g. "name", "firstName")
  * @param {string} selectField : String that allow ApiEntityModel to know what to return as a select option from the data of formState (domains, offers, fullName)
  * Note : Works best if "type" is in the formState data, else it goes to switch case default and exceptions need to be handled
  * @param {function} createOptionFunction : function that handles the create (modal pop-up ...) if undefined, create default 
@@ -230,6 +231,7 @@ const Select2 = ({ name, formTools, ...props }) => {
         <CreateEventForm
             initValues={ modalInitValues ?? {}}
             onPositiveResponse={(response) => {
+                    console.log("Response on positive", response)
                     //Here could be a call back function to execute 
                     const optionCreated = ApiEntityModel.getSelectOption(response.data)
                     addSelectedValue(...optionCreated)
@@ -240,6 +242,20 @@ const Select2 = ({ name, formTools, ...props }) => {
 
         </CreateEventForm>
     )
+    const PlaceModalForm = (
+        <CreatePlaceForm
+            initValues={ modalInitValues ?? {}}
+            onPositiveResponse={(response) => {
+                    //Here could be a call back function to execute 
+                    const optionCreated = ApiEntityModel.getSelectOption(response.data)
+                    addSelectedValue(...optionCreated)
+                    //Close the modal 
+                    closeModal()
+            }}
+        >
+
+        </CreatePlaceForm>
+    )
 
     const createModal = () => {
 
@@ -249,6 +265,7 @@ const Select2 = ({ name, formTools, ...props }) => {
         modals.set(TYPE_TAXONOMY, TaxonomyModalForm);
         modals.set(TYPE_PROJECT, ProjectModalForm);
         modals.set(TYPE_EVENT, EventModalForm);
+        modals.set(TYPE_PLACE, PlaceModalForm);
 
         return modals.get(props.modalType)
     }

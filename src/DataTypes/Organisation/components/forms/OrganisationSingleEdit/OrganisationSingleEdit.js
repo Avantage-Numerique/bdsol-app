@@ -33,7 +33,7 @@ import {replacePathname} from "@/src/helpers/url";
 import {lang} from "@/src/common/Data/GlobalConstants";
 import MainImageDisplay from "@/DataTypes/common/layouts/single/defaultSections/MainImageDisplay/MainImageDisplay";
 import Icon from "@/common/widgets/Icon/Icon";
-import {TYPE_TAXONOMY} from '@/src/DataTypes/Entity/Types';
+import {TYPE_PLACE, TYPE_TAXONOMY} from '@/src/DataTypes/Entity/Types';
 import SubmitEntity from "@/DataTypes/common/Forms/SingleEdit/SubmitEntity";
 
 
@@ -54,6 +54,7 @@ const OrganisationSingleEdit = (props) => {
         slug,
         catchphrase,
         status,
+        location,
         type,
         createdAt,
         updatedAt,
@@ -150,6 +151,10 @@ const OrganisationSingleEdit = (props) => {
         team: {
             value: team ?? [],
             isValid: true
+        },
+        location: {
+            value: location ?? [],
+            isValid: true
         }
     }, {
             displayResMessage: true,     //Display a message to the user to confirm the succes
@@ -194,6 +199,9 @@ const OrganisationSingleEdit = (props) => {
                         member: singleTeam.value.member.value.value,
                         role: singleTeam.value.role.value
                     }
+                }),
+                location: formState.inputs.location.value.map(function(singlePlace){
+                    return singlePlace.value
                 }),
                 status: getDefaultUpdateEntityStatus(auth.user)
             }
@@ -306,23 +314,19 @@ const OrganisationSingleEdit = (props) => {
                 classNameH4="mb-0"
                 className="mt-3"
             >
-                <div className="mb-3 mt-3">
-                    <Select2
-                        name="domains"
-                        label={lang.Domains}
-                        formTools={formTools}
-                        creatable={true}
-                        modalType={TYPE_TAXONOMY}
-                        isMulti={true}
-                        //createOptionFunction={displayModalForDomains}
-
-                        placeholder={lang.domainsInputPlaceholder}
-                        fetch={"/taxonomies/list"}
-                        requestData={{category:"domains", name:""}}
-                        searchField={"name"}
-                        selectField={"domains"}
-                    />
-                </div>
+                <Select2
+                    name="location"
+                    label={"Emplacement (par addresse)"}//lang.location}
+                    formTools={formTools}
+                    creatable={true}
+                    modalType={TYPE_PLACE}
+                    isMulti={true}
+                    
+                    fetch={"/places/list"}
+                    requestData={{address:""}}
+                    searchField={"address"}
+                    //selectField={"address"}
+                />
                 <Input
                     className="mb-3"
                     name="contactPoint"
@@ -341,6 +345,24 @@ const OrganisationSingleEdit = (props) => {
                     type="date"
                     formTools={formTools}
                 />
+                <div className="mb-3 mt-3">
+                    <Select2
+                        name="domains"
+                        label={lang.Domains}
+                        formTools={formTools}
+                        creatable={true}
+                        modalType={TYPE_TAXONOMY}
+                        isMulti={true}
+                        //createOptionFunction={displayModalForDomains}
+
+                        placeholder={lang.domainsInputPlaceholder}
+                        fetch={"/taxonomies/list"}
+                        requestData={{category:"domains", name:""}}
+                        searchField={"name"}
+                        selectField={"domains"}
+                    />
+                </div>
+
             </SingleInfo>
         </>
     );
