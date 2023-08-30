@@ -15,6 +15,7 @@ export const lang = StringDictionary.getInstance([
     "projects",
     "taxonomies",
     "events",
+    "places",
     "errors",
     "messages",
 ]);

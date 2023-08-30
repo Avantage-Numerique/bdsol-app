@@ -9,7 +9,6 @@ import Select2BaseSingle from "./Select2BaseSingle";
 import Select2BaseMulti from "./Select2BaseMulti";
 import Tip from '@/common/FormElements/Tip/Tip';
 import Button from '@/src/common/FormElements/Button/Button';
-import CreateTaxonomyForm from '@/DataTypes/Taxonomy/components/Forms/CreateTaxonomy/CreateTaxonomyForm';
 
 //Hook
 import { useHttpClient } from "@/src/hooks/http-hook";
@@ -17,19 +16,29 @@ import useDebounce from '@/src/hooks/useDebounce'
 import { useRootModal } from '@/src/hooks/useModal/useRootModal'
 import { useValidation } from '@/src/hooks/useValidation/useValidation';
 
+//Modal component
+import { TYPE_EVENT, TYPE_ORGANISATION, TYPE_PERSON, TYPE_PLACE, TYPE_PROJECT, TYPE_TAXONOMY } from "@/src/DataTypes/Entity/Types";
+import CreatePersonForm from "@/src/DataTypes/Person/components/Forms/CreatePerson/CreatePersonForm";
+import CreateOrganisationForm from "@/src/DataTypes/Organisation/components/forms/CreateOrganisationForm/CreateOrganisationForm";
+import CreateTaxonomyForm from '@/DataTypes/Taxonomy/components/Forms/CreateTaxonomy/CreateTaxonomyForm';
+import CreateProjectForm from "@/src/DataTypes/Project/component/forms/CreateProjectForm";
+import CreateEventForm from "@/src/DataTypes/Event/component/Forms/CreateEvent/CreateEventForm";
+import CreatePlaceForm from "@/src/DataTypes/Place/components/forms/CreatePlaceForm/CreatePlaceForm";
+
 
 /**
  * @param {string} name : used for id and formState
  * @param {formTools} formTools : FormTools
  * @param {string} label : Title of the field displayed over it
  * @param {boolean} creatable : true if allowed to create, false or undefined means not allowed to create new option
+ * @param {TYPES} modalType : Type of the createModal if allowed to create. It choose which createForm to show upon createOption 
  * @param {boolean} isMulti : true if multiple selection allowed, false if single option selectable
  * @param {Array} optionsList : (optionnal) Can specify directly a list of option in format [ { label, value, color? }, ... ]
  * @param {string} fetch : Url to fetch data from and create options
  * @param {string} className : className added from outside the component 
  * @param {string} formClassName : className for the form layer
  * @param {object} requestData : param to always pass during request (e.g. category : "skills" to only access skills taxonomy)
- * @param {string} searchField : for the moment => a string added to requestData that's dynamically searching with the select
+ * @param {string} searchField : name of the property to search in the database from select2 input (e.g. "name", "firstName")
  * @param {string} selectField : String that allow ApiEntityModel to know what to return as a select option from the data of formState (domains, offers, fullName)
  * Note : Works best if "type" is in the formState data, else it goes to switch case default and exceptions need to be handled
  * @param {function} createOptionFunction : function that handles the create (modal pop-up ...) if undefined, create default 
@@ -161,6 +170,106 @@ const Select2 = ({ name, formTools, ...props }) => {
             valueSetter={setValue}
         />);
 
+
+    const PersonModalForm = (
+        <CreatePersonForm
+            initValues={ modalInitValues ?? {}}
+            /*onPositiveResponse={(response) => {
+                    //Here could be a call back function to execute 
+                    const optionCreated = ApiEntityModel.getSelectOption(response.data)
+                    addSelectedValue(...optionCreated)
+                    //Close the modal 
+                    closeModal()
+                
+            }}*/ //Commented because ApiEntityModel doesn't handle project yet since we don't use it at the moment
+        >
+        </CreatePersonForm>
+    )
+    const OrganisationModalForm = (
+        <CreateOrganisationForm
+            initValues={ modalInitValues ?? {}}
+            /*onPositiveResponse={(response) => {
+                    //Here could be a call back function to execute 
+                    const optionCreated = ApiEntityModel.getSelectOption(response.data)
+                    addSelectedValue(...optionCreated)
+                    //Close the modal 
+                    closeModal()
+                
+            }}*/ //Commented because ApiEntityModel doesn't handle project yet since we don't use it at the moment
+        >
+        </CreateOrganisationForm>
+    )
+    const TaxonomyModalForm = (
+        <CreateTaxonomyForm
+            {...props}
+            name={name ?? ''}   //Prefilled value
+            initValues={ modalInitValues ?? {} }
+            category={props.requestData?.category}
+            onPositiveResponse={(response) => {
+                const optionCreated = ApiEntityModel.getSelectOption(response.data)
+                addSelectedValue(...optionCreated)
+                //Close the modal 
+                closeModal()
+            }}
+        /> 
+    )
+    const ProjectModalForm = (
+        <CreateProjectForm
+            initValues={ modalInitValues ?? {}}
+            /*onPositiveResponse={(response) => {
+                    //Here could be a call back function to execute 
+                    const optionCreated = ApiEntityModel.getSelectOption(response.data)
+                    addSelectedValue(...optionCreated)
+                    //Close the modal 
+                    closeModal()
+                
+            }}*/ //Commented because ApiEntityModel doesn't handle project yet since we have no use for it at the moment
+        >    
+        </CreateProjectForm>
+    )
+    const EventModalForm = (
+        <CreateEventForm
+            initValues={ modalInitValues ?? {}}
+            onPositiveResponse={(response) => {
+                    console.log("Response on positive", response)
+                    //Here could be a call back function to execute 
+                    const optionCreated = ApiEntityModel.getSelectOption(response.data)
+                    addSelectedValue(...optionCreated)
+                    //Close the modal 
+                    closeModal()
+            }}
+        >
+
+        </CreateEventForm>
+    )
+    const PlaceModalForm = (
+        <CreatePlaceForm
+            initValues={ modalInitValues ?? {}}
+            onPositiveResponse={(response) => {
+                    //Here could be a call back function to execute 
+                    const optionCreated = ApiEntityModel.getSelectOption(response.data)
+                    addSelectedValue(...optionCreated)
+                    //Close the modal 
+                    closeModal()
+            }}
+        >
+
+        </CreatePlaceForm>
+    )
+
+    const createModal = () => {
+
+        const modals = new Map();
+        modals.set(TYPE_PERSON, PersonModalForm);
+        modals.set(TYPE_ORGANISATION, OrganisationModalForm);
+        modals.set(TYPE_TAXONOMY, TaxonomyModalForm);
+        modals.set(TYPE_PROJECT, ProjectModalForm);
+        modals.set(TYPE_EVENT, EventModalForm);
+        modals.set(TYPE_PLACE, PlaceModalForm);
+
+        return modals.get(props.modalType)
+    }
+
     return (
         <>
             {label} 
@@ -183,23 +292,8 @@ const Select2 = ({ name, formTools, ...props }) => {
                 </header>               
                 
                 <div className={`my-4 border-bottom`}></div>
-
-                <CreateTaxonomyForm
-                    {...props}
-                    name={name ?? ''}   //Prefilled value
-                    initValues={ modalInitValues ?? {} }
-                    category={props.requestData?.category}
-                    positiveRequestActions={{
-                        //CallbackFunction is one of the four behaviors the useFormUtils hook can apply when a request return a positive answer
-                        callbackFunction: requestResponse => {
-                            //Here could be a call back function to execute 
-                            const optionCreated = ApiEntityModel.getSelectOption(requestResponse.data)
-                            console.log("Option created", optionCreated)
-                            addSelectedValue(...optionCreated)
-                            //Close the modal 
-                            closeModal()                        }
-                    }}
-                /> 
+                {createModal()}
+                
                 
             </Modal>
         </>

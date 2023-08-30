@@ -5,6 +5,7 @@ import Button from "@/src/common/FormElements/Button/Button"
 
 //Context
 import {useAuth} from '@/auth/context/auth-context'
+import { lang } from "@/src/common/Data/GlobalConstants";
 
 //styling
 import styles from './contribution-page.module.scss'
@@ -17,6 +18,7 @@ import PageHeader from "@/layouts/Header/PageHeader";
 import Person from "@/DataTypes/Person/models/Person";
 import Organisation from "@/DataTypes/Organisation/models/Organisation";
 import Project from "@/DataTypes/Project/models/Project";
+import Event from "@/src/DataTypes/Event/models/Event";
 
 
 const Index = () => {
@@ -33,6 +35,8 @@ const Index = () => {
             model = new Organisation({})
         if(type == "TYPE_PROJECT")
             model = new Project({})
+        if(type == "TYPE_EVENT")
+            model = new Event({})
         return model.createRoute.asPath;
     }
 
@@ -65,16 +69,19 @@ const Index = () => {
 
                     <div className='row pb-5 row-cols-1 row-cols-md-4 gy-3'>
                         <div className="col">
-                            <Button href={getCreateEntityPath("TYPE_PERSON")} size="large-100" disabled={!auth.user.isLoggedIn}>Personne</Button>
+                            <Button href={getCreateEntityPath("TYPE_PERSON")} size="large-100" disabled={!auth.user.isLoggedIn}>{lang.Person}</Button>
                         </div>
                         <div className="col">
-                            <Button href={getCreateEntityPath("TYPE_ORGANISATION")} size="large-100" disabled={!auth.user.isLoggedIn}>Organisation</Button>
+                            <Button href={getCreateEntityPath("TYPE_ORGANISATION")} size="large-100" disabled={!auth.user.isLoggedIn}>{lang.Organisation}</Button>
                         </div>
                         <div className="col">
-                            <Button href="/contribuer/categorie" size="large-100" disabled={!auth.user.isLoggedIn}>Catégorie</Button>
+                            <Button href="/contribuer/categorie" size="large-100" disabled={!auth.user.isLoggedIn}>{lang.Taxonomy}</Button>
                         </div>
                         <div className="col">
-                            <Button href={getCreateEntityPath("TYPE_PROJECT")} size="large-100" disabled={!auth.user.isLoggedIn}>Projet</Button>
+                            <Button href={getCreateEntityPath("TYPE_PROJECT")} size="large-100" disabled={!auth.user.isLoggedIn}>{lang.Project}</Button>
+                        </div>
+                        <div className="col">
+                            <Button href={getCreateEntityPath("TYPE_EVENT")} size="large-100" disabled={!auth.user.isLoggedIn}>{lang.Event}</Button>
                         </div>
                     </div>
                     {

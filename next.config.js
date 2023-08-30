@@ -5,7 +5,20 @@ const path = require('path');
  * @type {import('next').NextConfig}
  */
 const nextConfig = {
-
+    /*async headers() {
+        return [
+            {
+                source: '/:all*(svg|jpg|png|webp|jpeg)',
+                locale: false,
+                headers: [
+                    {
+                        key: 'Cache-Control',
+                        value: 'public, max-age=604800, must-revalidate',
+                    }
+                ],
+            },
+        ]
+    },*/
     //define default value for env variables that aren't declare in the .env file or add some there.
     env: {
         //APP
@@ -16,7 +29,7 @@ const nextConfig = {
         APP_PROTOCOLE: process.env.APP_PROTOCOLE ?? "http://",
         APP_BASE_URL: process.env.APP_BASE_URL ?? "localhost",
         APP_PORT: process.env.APP_PORT ?? 3000,
-        APP_URL: process.env.NEXT_PUBLIC_APP_URL ?? process.env.APP_PROTOCOLE + process.env.APP_BASE_URL + ":" + process.env.APP_PORT,
+        APP_URL: process.env.NEXT_PUBLIC_APP_URL ?? process.env.APP_PROTOCOLE + process.env.APP_BASE_URL + ":" + (process.env.APP_PORT ? ":" + process.env.APP_PORT : ""),
         APP_API_URL: process.env.NEXT_PUBLIC_APP_API_URL ?? process.env.APP_PROTOCOLE + process.env.APP_BASE_URL + (process.env.APP_PORT ? ":" + process.env.APP_PORT : ""),
 
         //Main API

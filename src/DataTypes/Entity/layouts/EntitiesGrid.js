@@ -20,7 +20,7 @@ const EntitiesGrid = ({feed, className, columnClass}) => {
         const sep = "-";
         return prefix + model.type + sep + (model._id ?? "") + sep + model.slug + index;
     });
-
+    
     return (
         <ContainerTag className={className}>
             {

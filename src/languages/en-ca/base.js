@@ -111,13 +111,18 @@ export const base = {
     "Organisations": "Organisations",
     "organisation": "organisation",
     "organisations": "organisations",
-    "teamMembers": "Members of organisation",
+    "teamMembers": "Team members",
     "fondationDate": "Fondation date",
 
     "singleDescriptionLabel": "Presentation",
     "bestContactPointLabel": "Best way to contact : ",
 
-
+    //Place
+    "Place": "Place",
+    "Places": "Places",
+    "place": "place",
+    "places": "places",
+    "placeLocationPlaceholder": "112, 7e rue / Petit Théâtre du vieux Noranda",
 
     //  Taxonomy
 

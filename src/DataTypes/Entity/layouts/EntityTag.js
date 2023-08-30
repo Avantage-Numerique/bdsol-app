@@ -36,7 +36,7 @@ const EntityTag = (props) => {
     className = className ?? "";
 
     badge = badge ?? "";
-    console.log(badge);
+
     //get height and width dynamicaly ?
     return (
         <>

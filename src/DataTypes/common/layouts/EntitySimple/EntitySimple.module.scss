@@ -1,7 +1,9 @@
 
-
 .simple-abstract {
 
+    //Number of lines allowed to be displayed in the description
+    --description-allowed-lines: 2;
+    --text-line-height: 1.2;       //To convert into em
     --simple-abstract--padding: #{$simple-default-padding};
 
     box-shadow: $default-box-shadow;//1px 1px 4px 2px rgba(0,0,0,0.15);
@@ -14,7 +16,7 @@
     /* Header's styling */
     .simple-abstract__header {
         position: relative;
-        height: 10rem;
+        height: 9rem;
         @include transition($transition-simple-base);
 
         .entity-type {
@@ -62,40 +64,75 @@
     .simple-abstract__content {
         padding: var(--simple-abstract--padding);
 
+        --single-title-font-size: 1.25rem;
+
+        .simple-abstract__content__header{
+            height: calc(2 * var(--single-title-font-size));
+        }
+
         .simple-abstract__content__title{
+            font-size: var(--single-title-font-size);
+            line-height: var(--single-title-font-size);
+            max-height: 100%;
             --single-title-font-size: 1.25rem;
-            font-size: var(--single-title-font-size); 
-            line-height: 1.2rem;
             height: calc(2 * var(--single-title-font-size));
         }
         .simple-abstract__content__description { 
             font-size: 0.9rem; 
-            line-height: 1.2rem;
-            height: 2.4em;
+            line-height: var(--single-title-font-size);
+            height: calc(2 * var(--single-title-font-size));
         }
-        .simple-abstract__content__tagList { 
+        .simple-abstract__content__tagList {
             gap: calc(var(--simple-abstract--padding) * 0.5);
+
             li {
                 padding: 0.1rem 0.4rem;
                 background-color: $gray-200;
             }
         }
+        .simple-abstract__sub-section {
+            height: 4.5rem;
+
+            .simple-abstract__content__description {
+                font-size: 0.9rem;
+                line-height: 1.3em;
+                height: calc(1.2 * var(--description-allowed-lines))
+            }
+            .simple-abstract__content__tagList {
+                gap: calc(var(--simple-abstract--padding) * 0.5);
+                li {
+                    min-width: 6ch;
+                    font-size: 0.8rem;
+                    padding: 0.1rem 0.4rem;
+                    background-color: $gray-200;
+                    overflow: hidden;
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
+                }
+            }
+        }
     }
 
     .simple-abstract__content_ellipsis {
+
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
 
+
+
         /* If browser support allows it, then display the second line with ellipsis */
-        @supports (-webkit-line-clamp: 2) {
+        @supports (-webkit-line-clamp: var(--description-allowed-lines)) {
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: initial;
             display: -webkit-box;
-            -webkit-line-clamp: 2;
+            -webkit-line-clamp: var(--description-allowed-lines);
             -webkit-box-orient: vertical;
         }
+
+        //Update the number of lines displayed to 3
+        &.simple-abstract__content_ellipsis--3lines { --description-allowed-lines: 5; }
     }
 
 }
@@ -108,4 +145,3 @@
     opacity: 1;
     @include transition();
 }
-

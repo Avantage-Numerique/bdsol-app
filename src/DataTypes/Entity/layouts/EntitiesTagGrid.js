@@ -18,7 +18,7 @@ import {getModelFromType} from "@/DataTypes/Entity/Types";
 const EntitiesTagGrid = ({feed, className, columnClass, subEntityProperty, subBadgeProperty, noneMessage}) => {
 
     const ContainerTag = "ul";
-    subEntityProperty = subEntityProperty ?? 'entity';//
+    //subEntityProperty = subEntityProperty ?? 'entity';//
     subBadgeProperty = subBadgeProperty ?? 'name';
     noneMessage = noneMessage ?? lang.noResult;
 

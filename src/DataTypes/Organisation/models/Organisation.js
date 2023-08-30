@@ -23,9 +23,14 @@ class Organisation extends EntityModel {
         this.mainImageModel = new Media(this.mainImage);
         this.type = TYPE_ORGANISATION;
 
+        this.mainImage.src = this.mainImageModel.src;
+
         //this.taxonomies = new Map();
         //this.taxonomies.set("domains", raw.domains);
         //this.taxonomies.set("skills", raw.skills);
+
+        this.meta.title = this.title;
+        this.meta.description = this.description;
 
         params.showMeta = params.showMeta ?? true;
         params.showStatus = params.showStatus ?? true;
@@ -40,6 +45,17 @@ class Organisation extends EntityModel {
 
         //sets all the rest as a this[key] = raw[key] value.
         this.setProperties(raw);
+        //Set the simple list based on the nature of the component
+        let list = []
+        if(raw?.offers)
+            raw.offers.forEach(offer => {
+                if(offer.groupName){
+                    list.push(offer.groupName)
+                } else {
+                    offer.skills.forEach(skill => list.push(skill.name))
+                }
+            });
+        this.simpleEditList(list)
     }
 
 }

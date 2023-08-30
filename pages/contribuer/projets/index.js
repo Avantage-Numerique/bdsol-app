@@ -14,6 +14,7 @@ import {lang} from "@/src/common/Data/GlobalConstants";
 import {withSessionSsr} from "@/auth/session/handlers/withSession";
 import {ssrCanAccess} from "@/auth/permissions/ssrCanAccess";
 import Router from "next/router";
+import Project from '@/src/DataTypes/Project/models/Project';
 
 
 const PersonSingleEditPage = () => {
@@ -50,7 +51,12 @@ const PersonSingleEditPage = () => {
                                 }}
                             >Fermer</Button>
                         </header>   
-                        <CreateProjectForm onPositiveResponse={() => {
+                        <CreateProjectForm onPositiveResponse={(response) => {
+                            //Create a model for the response
+                            const model = new Project(response.data);
+
+                            //Execute the redirection
+                            Router.push( model.singleEditLink )
                             closeModal()
                             setIsLoading(true)
                         }}/>

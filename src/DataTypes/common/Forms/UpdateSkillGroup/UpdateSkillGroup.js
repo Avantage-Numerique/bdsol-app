@@ -15,6 +15,7 @@ import Icon from '@/src/common/widgets/Icon/Icon';
 import Repeater from '@/src/common/FormElements/Repeater/Repeater';
 import SingleInfo from "@/DataTypes/common/layouts/SingleInfo/SingleInfo";
 import { useEffect } from 'react';
+import { TYPE_TAXONOMY } from '@/src/DataTypes/Entity/Types';
 
 
 
@@ -60,10 +61,11 @@ const UpdateSkillGroup = ({parentEntity, positiveRequestActions, name, formTools
                                     label="Attribuer des compétences"
                                     formTools={formTools}
                                     creatable={true}
+                                    modalType={TYPE_TAXONOMY}
                                     isMulti={true}
                                     createOptionFunction={props.createOptionFunction}
 
-                                    fetch={"/taxonomies/list"}
+                                    fetch={"/taxonomies/group/skills"}
                                     searchField={"name"}
                                     selectField={"name"}
                                     validationRules={[

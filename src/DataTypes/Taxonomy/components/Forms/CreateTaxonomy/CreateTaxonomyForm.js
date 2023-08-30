@@ -19,12 +19,10 @@ import styles from './CreateTaxonomyForm.module.scss'
 import { lang } from '@/src/common/Data/GlobalConstants'
 import Select2 from '@/src/common/FormElements/Select2/Select2'
 import {getDefaultCreateEntityStatus} from "@/DataTypes/Status/EntityStatus";
-import {useModal} from "@/src/hooks/useModal/useModal";
 
 
-const CreateTaxonomyForm = ({name, category, initValues, positiveRequestActions, ...props}) => {
+const CreateTaxonomyForm = ({name, category, initValues, onPositiveResponse, ...props}) => {
 
-    console.log("Init values", initValues)
     const submitUri = props.uri ?? "create";
 
     /*
@@ -42,8 +40,6 @@ const CreateTaxonomyForm = ({name, category, initValues, positiveRequestActions,
     const auth = useAuth();
 
     const msg = useContext(MessageContext);
-
-    const modal = useModal();
 
     /*
     First of all, verify if the user is logged in.
@@ -86,10 +82,14 @@ const CreateTaxonomyForm = ({name, category, initValues, positiveRequestActions,
 
         },
         //Pass a set of rules to execute a valid response of an api request
-        positiveRequestActions || {
-            clearForm: true,            //Clear the form
-            displayResMessage: true     //Display a message to the user to confirm the succes
-        }         
+        {
+            displayResMessage: true,     //Display a message to the user to confirm the success
+            clearForm: true,
+            callbackFunction: (response) => {
+                //Execute additionnal function from parent component
+                if(onPositiveResponse) onPositiveResponse(response);
+            }
+        }
     )
 
     //Submit the form

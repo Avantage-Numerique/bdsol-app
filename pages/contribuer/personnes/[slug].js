@@ -17,7 +17,7 @@ const SinglePersonEditPage = props => {
     return (
         <div className={`single-container single-person`}>
             <div className="maxWidthPageContainer">
-                <PersonSingleEdit data={props} route={AppRoutes.projectSingle} />
+                <PersonSingleEdit data={props} route={AppRoutes.personSingle} />
             </div>
         </div>
     )

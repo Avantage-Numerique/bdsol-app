@@ -12,11 +12,10 @@ import {SingleEntityStatus} from "@/DataTypes/Status/components/SingleEntityStat
 import {getDateFromIsoString} from "@/src/utils/DateHelper";
 import Project from "@/DataTypes/Project/models/Project";
 import {lang} from "@/common/Data/GlobalConstants";
-import Head from "next/head";
-import {getTitle} from "@/DataTypes/MetaData/MetaTitle";
 import {clientSideExternalApiRequest} from "@/src/hooks/http-hook";
 import EntitiesTagGrid from "@/DataTypes/Entity/layouts/EntitiesTagGrid";
 import {ExternalLink} from "@/common/Components/ExternalLink";
+import EntityLink from "@/DataTypes/Entity/layouts/EntityLink";
 
 
 const ProjectSingleView = ({ data }) => {
@@ -93,8 +92,16 @@ const ProjectSingleView = ({ data }) => {
                 <div className="d-text">
                     <h4 className="text-white">{alternateName}</h4>
                     <div className="mt-4">
-                        <p className="text-white m-0">Entité en charge : {entityInCharge ? entityInCharge.name : "Aucune"}</p>
-                        <p className="text-white">Producteur : {producer ? producer.name : "Aucun"}</p>
+                        {entityInCharge &&
+                            <p className="text-white">
+                                <span className={"badge bg-secondary"}>{lang.inCharge}</span> <EntityLink data={entityInCharge} />
+                            </p>
+                        }
+                        {producer &&
+                            <p className="text-white">
+                                <span className={"badge bg-secondary"}>{lang.producer}</span> <EntityLink data={producer} />
+                            </p>
+                        }
                     </div>
                 </div>
             )}
@@ -107,119 +114,123 @@ const ProjectSingleView = ({ data }) => {
 
     const FullWidthContent = (
         <>
-            <SingleInfo title={"Présentation"} className={"mb-3 mt-3"}>
-                <SanitizedInnerHtml>
-                    {description}
-                </SanitizedInnerHtml>
-            </SingleInfo>
-            {/* Sponsor */}
-            <SingleInfo title="Partenaires">
-                <EntitiesTagGrid feed={sponsor} />
-            </SingleInfo>
+            { description !== "" &&
+                <SingleInfo title={"Présentation"} className={"mb-3 mt-3"}>
+                    <SanitizedInnerHtml>
+                        {description}
+                    </SanitizedInnerHtml>
+                </SingleInfo>
+            }
+            {sponsor.length > 0 &&
+                <SingleInfo title="Partenaires">
+                    <EntitiesTagGrid feed={sponsor} />
+                </SingleInfo>
+            }
         </>
     )
 
     const ContentColumnLeft = (
         <>
-            {/* Team */}
-            <SingleInfo 
-                title="Membre de l'équipe"
-                className="mb-3"
-            >
-                <EntitiesTagGrid feed={team} subEntityProperty={"member"} subBadgeProperty={"role"} noneMessage={"Aucun membre de l'équipe spécifiés"} />
-            </SingleInfo>
+            {team.length > 0 &&
+                <SingleInfo
+                    title={lang.teamMembers}
+                    className="mb-3"
+                >
+                    <EntitiesTagGrid feed={team} subEntityProperty={"member"} subBadgeProperty={"role"} noneMessage={"Aucun membre de l'équipe spécifiés"} />
+                </SingleInfo>
+            }
 
-            {/* scheduleBudget */}
-            <SingleInfo 
-                title="Échéancier et budget"
-                className="mb-3"
-            >
-                <section className='ps-4 border-start'>
-                    {scheduleBudget?.startDate && <div key="startDate">Date de début : {getDateFromIsoString(scheduleBudget.startDate)}</div>}
-                    {scheduleBudget?.endDateEstimate && <div key="endDateEstimate">Date estimée de fin : {getDateFromIsoString(scheduleBudget.endDateEstimate)}</div>}
-                    {scheduleBudget?.completionDate && <div key="completionDate">Date de fin : {getDateFromIsoString(scheduleBudget.completionDate)}</div>}
-                    {scheduleBudget?.estimatedTotalBudget && <div key="estimatedTotalBudget">Budget total : {scheduleBudget.estimatedTotalBudget}$</div>}
-                    {scheduleBudget?.eta && <div key="eta">Lapse de temps avant la complétion : {scheduleBudget.eta}</div>}
-                    {scheduleBudget?.timeframe?.length > 0 && 
-                        <ul key="timeframe-container">
-                                Échéancier : {
-                                scheduleBudget.timeframe.map( (singleTimeframe, index) => {
-                                    return (
-                                        <li key={`timeframe-${singleTimeframe._id}`} className={`border-start p-2 ${(index % 2 === 0) && "bg-greyBg"}`}>
-                                            {singleTimeframe?.step ? <h5 className="text-successDarker m-0">{singleTimeframe.step}</h5> : <></> }
-                                            <div className="d-flex flex-wrap gap-4">     
-                                                {singleTimeframe?.eta ? <div key={"timeframe-eta-"+index}>Durée : {allEnumState?.[singleTimeframe.eta] ?? singleTimeframe.eta}</div> : <></> }
-                                                {singleTimeframe?.budgetRange ? <div key={"timeframe-budgetRange-"+index}>Budget : {allEnumState?.[singleTimeframe.budgetRange] ?? singleTimeframe.budgetRange}</div> : <></> }
-                                            </div>
-                                        </li>
-                                    )
-                                }
-                        )}</ul>
-                    }
-                </section>
-            </SingleInfo>
+            { scheduleBudget &&
+                <SingleInfo
+                    title="Échéancier et budget"
+                    className="mb-3"
+                >
+                    <section className='ps-4 border-start'>
+                        {scheduleBudget?.startDate && <div key="startDate">Date de début : {getDateFromIsoString(scheduleBudget.startDate)}</div>}
+                        {scheduleBudget?.endDateEstimate && <div key="endDateEstimate">Date estimée de fin : {getDateFromIsoString(scheduleBudget.endDateEstimate)}</div>}
+                        {scheduleBudget?.completionDate && <div key="completionDate">Date de fin : {getDateFromIsoString(scheduleBudget.completionDate)}</div>}
+                        {scheduleBudget?.estimatedTotalBudget && <div key="estimatedTotalBudget">Budget total : {scheduleBudget.estimatedTotalBudget}$</div>}
+                        {scheduleBudget?.eta && <div key="eta">Lapse de temps avant la complétion : {scheduleBudget.eta}</div>}
+                        {scheduleBudget?.timeframe?.length > 0 &&
+                            <ul key="timeframe-container">
+                                    Échéancier : {
+                                    scheduleBudget.timeframe.map( (singleTimeframe, index) => {
+                                        return (
+                                            <li key={`timeframe-${singleTimeframe._id}`} className={`border-start p-2 ${(index % 2 === 0) && "bg-greyBg"}`}>
+                                                {singleTimeframe?.step ? <h5 className="text-successDarker m-0">{singleTimeframe.step}</h5> : <></> }
+                                                <div className="d-flex flex-wrap gap-4">
+                                                    {singleTimeframe?.eta ? <div key={"timeframe-eta-"+index}>Durée : {allEnumState?.[singleTimeframe.eta] ?? singleTimeframe.eta}</div> : <></> }
+                                                    {singleTimeframe?.budgetRange ? <div key={"timeframe-budgetRange-"+index}>Budget : {allEnumState?.[singleTimeframe.budgetRange] ?? singleTimeframe.budgetRange}</div> : <></> }
+                                                </div>
+                                            </li>
+                                        )
+                                    }
+                            )}</ul>
+                        }
+                    </section>
+                </SingleInfo>
+            }
+
+            {url &&
+                <SingleInfo title="Hyperlien" className={"pb-4"}>
+                    <ExternalLink href={url}>{url}</ExternalLink>
+                </SingleInfo>
+            }
         </>
     )
 
     const ContentColumnRight = (
-        <>  
-            {/* Context */}
-            <SingleInfo 
-                title="Contexte du projet"
-                className="mb-3"
-            >
-                {allEnumState?.[context] ?? context}
-            </SingleInfo>
-            {/* Skills */}
-            <SingleInfo 
-                title="Compétences liées au projet"
-                className="mb-3"
-            >
-            {
-                skills?.length > 0 &&
-                <>
-                    <SearchTag
-                        className="row"
-                        list={skills}
-                    />
-                </>
+        <>
+            {context !== "" &&
+                <SingleInfo
+                    title="Contexte du projet"
+                    className="mb-3"
+                >
+                    {allEnumState?.[context] ?? context}
+                </SingleInfo>
             }
-            </SingleInfo>
 
-            <SingleInfo title={lang.domainsSingleLabel} className={"mb-3"}>
-                {
-                    domains?.length > 0 && 
+            { skills?.length > 0 &&
+                <SingleInfo
+                    title="Compétences liées au projet"
+                    className="mb-3"
+                >
+                    <>
+                        <SearchTag
+                            className="row"
+                            list={skills}
+                        />
+                    </>
+                </SingleInfo>
+            }
+
+            { domains?.length > 0 &&
+                <SingleInfo title={lang.domainsSingleLabel} className={"mb-3"}>
                     <SearchTag
                         className="row"
                         list={domains}
                         listProperty={"domain"}
                     />
-                }
-            </SingleInfo>
-            
-            <SingleInfo 
-                title={"Contact"} 
-                className={"mb-3"}
-            >
-                {contactPoint && 
+                </SingleInfo>
+            }
+
+            { contactPoint &&
+                <SingleInfo
+                    title={"Contact"}
+                    className={"mb-3"}>
                     <SanitizedInnerHtml>
                         {contactPoint}
                     </SanitizedInnerHtml>
-                }
-            </SingleInfo>
+                </SingleInfo>
+            }
         </>
     )
 
     const Footer = (
         <>
-            {/* Url */}
-            <SingleInfo title="Hyperlien" className={"pb-4"}>
-                <ExternalLink href={url}>{url}</ExternalLink>
-            </SingleInfo>
             {
                 (createdAt || updatedAt || status) &&
-                <SingleEntityStatus 
-                    className="border-bottom pb-2" 
+                <SingleEntityStatus
                     createdAt={createdAt} 
                     updatedAt={updatedAt} 
                     status={status} 
@@ -230,9 +241,6 @@ const ProjectSingleView = ({ data }) => {
 
     return (
         <>
-            <Head>
-                <title>{getTitle([model.title, model.Type.label])}</title>
-            </Head>
             <SingleBase
                 breadCrumb={breadCrumb}
                 header={Header}
@@ -240,6 +248,7 @@ const ProjectSingleView = ({ data }) => {
                 contentColumnLeft={ContentColumnLeft}
                 contentColumnRight={ContentColumnRight}
                 footer={Footer}
+                model={model}
             />
         </>
     )

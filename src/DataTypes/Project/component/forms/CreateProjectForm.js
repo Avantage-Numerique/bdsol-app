@@ -25,7 +25,7 @@ import Project from "@/src/DataTypes/Project/models/Project"
 /**
  * @param {function} onPositiveResponse : Additionnal function to be executed if the submit response is positive
  */
-const CreateProjectForm = ({ onPositiveResponse }) => {
+const CreateProjectForm = ({ onPositiveResponse, initValues }) => {
 
     //Authentication ref
     const auth = useAuth();
@@ -33,15 +33,15 @@ const CreateProjectForm = ({ onPositiveResponse }) => {
     const { FormUI, submitRequest, formState, formTools } = useFormUtils(
         {
             name: {
-                value: "",
+                value: initValues?.name ?? "",
                 isValid: true
             },
             entityInCharge: {
-                value: "",
+                value: initValues?.entityInCharge ?? "",
                 isValid: true
             },
             context: {
-                value: "",
+                value: initValues?.context ?? "",
                 isValid: true
             }
         },//Pass a set of rules to execute a valid response of an api request
@@ -49,15 +49,7 @@ const CreateProjectForm = ({ onPositiveResponse }) => {
             displayResMessage: true,     //Display a message to the user to confirm the succes
             callbackFunction: (response) => {
                 //Execute additionnal function from parent component
-                if(onPositiveResponse) onPositiveResponse();
-
-                //Create a model for the response
-                const model = new Project(response.data);
-
-                //Redirection link to the edit page
-                const link = "/"+replacePathname(model.singleEditRoute.pathname, {slug: model.slug});
-                //Execute the redirection
-                Router.push( link )
+                if(onPositiveResponse) onPositiveResponse(response);
             }
         }
     );

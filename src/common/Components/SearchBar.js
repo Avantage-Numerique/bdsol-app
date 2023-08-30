@@ -1,11 +1,11 @@
-import {useState, useEffect, useRef} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import {clientSideExternalApiRequest} from '@/src/hooks/http-hook';
 import {useFormUtils} from '@/src/hooks/useFormUtils/useFormUtils';
 import useDebounce from '@/src/hooks/useDebounce';
 import Router, {useRouter} from 'next/router';
 import Icon from "@/common/widgets/Icon/Icon";
 import Select from 'react-select';
-import { getType } from '@/src/DataTypes/Entity/Types';
+import {getType} from '@/src/DataTypes/Entity/Types';
 
 //Component
 //import Input from "../FormElements/Input/Input";
@@ -40,6 +40,32 @@ const SearchBar = ({small, ...props}) => {
             }
         },
     );
+
+    //Simple styling to remove the border
+    const styling = {
+        /*control: (styles, state) => ({
+            ...styles,
+            border: state.isFocused ? 0 : 0,
+            // This line disable the blue border
+            boxShadow: state.isFocused ? 0 : 0,
+            '&:hover': {
+                border: state.isFocused ? 0 : 0
+            },
+            //backgroundColor: 'white' 
+        })*/
+
+        //simplifed the no border
+        control: (styles, state) => ({
+            ...styles,
+            border: 0,
+            // This line disable the blue border
+            boxShadow: 0,
+            '&:hover': {
+                border: 0
+            },
+            //backgroundColor: 'white'
+        })
+    }
 
     const inputHandler = formTools.inputHandler;
 
@@ -136,14 +162,15 @@ const SearchBar = ({small, ...props}) => {
     return (
         <form onSubmit={submitHandler} className={`search-bar ${small && "small-searchBar w-100"}`}>
             <div className="input-group my-2 ">
-                <button type="submit" className="btn btn-outline-light">
+                <button type="submit" className="p-1 btn btn-outline-light">
                     <Icon iconName="search" />
                 </button>
             
                 <Select
-                    className={"form-control px-3 py-2"}
+                    className={"form-control p-0 "}
                     key={"SearchBar-layout"}
                     ref={selectRef}
+                    styles={styling}
                     instanceId={"SearchBar-layout"}
                     placeholder={"Rechercher"}
                     value={value}

@@ -1,3 +1,4 @@
+import nextConfig from "@/next.config";
 
 /**
  * Generate each crumbs based of the Router URL (as a path).
@@ -37,6 +38,12 @@ export const replacePathname = (pathname, replaceWith) => {
 export const forceHttps = (url) => {
     // Regular expression to check if the string starts with 'https://'
     const regex = /^https:\/\//;
+    const regexNoSSL = /^http:\/\//;
+
+    //If the url contain http:// with no ssl, we remove it to only add https.
+    if (regexNoSSL.test(url)) {
+        url = url.replace(regexNoSSL, '');
+    }
 
     // If the string does not start with 'https://', add it to the beginning
     if (!regex.test(url)) {
@@ -46,3 +53,6 @@ export const forceHttps = (url) => {
     return url;
 }
 
+export const appUrl = (url= "") => {
+    return `${nextConfig.env.APP_URL}${url}`;
+}

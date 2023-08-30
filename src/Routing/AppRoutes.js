@@ -141,6 +141,77 @@ const AppRoutesRaw = {
         }
     },
 
+    /*************
+     *  Event
+     ***/
+    events : {
+        label: "Tous les événement",
+        pathname: "/events",
+        asPath: "/events",
+    },
+    eventSingle : {
+        label: "Un événement",
+        pathname: "/events/[slug]",
+        asPath: "/events/[slug]"
+    },
+    eventSingleEdit : {
+        label: "Modifier un événement",
+        pathname: "/contribuer/evenements/[slug]",
+        asPath: "/contribuer/evenements/[slug]"
+    },
+    eventCreate : {
+        label: "Ajouter un événement",
+        pathname: "/contribuer/evenements",
+        asPath: "/contribuer/evenements"
+    },
+    eventSingleMedia : {
+        label: "Média d'un événement",
+        pathname: "/medias/[slug]",
+        asPath: "/medias/[slug]",
+        breadcrumbPathName: "/events/[event.slug]/[slug]",
+        breadcrumbAsPath: "/events/[event.slug]/[slug]",
+        breadcrumbQuery: {
+            slug: "slug",
+            mediaType: "main-image"
+        }
+    },
+
+    /*************
+     *  Place
+     ***/
+    places : {
+        label: "Tous les lieux",
+        pathname: "/places",
+        asPath: "/places",
+    },
+    placeSingle : {
+        label: "Un lieu",
+        pathname: "/places/[slug]",
+        asPath: "/places/[slug]"
+    },
+    placeSingleEdit : {
+        label: "Modifier un événement",
+        pathname: "/contribuer/lieux/[slug]",
+        asPath: "/contribuer/lieux/[slug]"
+    },
+    placeCreate : {
+        label: "Ajouter un événement",
+        pathname: "/contribuer/lieux",
+        asPath: "/contribuer/lieux"
+    },
+    placeSingleMedia : {
+        label: "Média d'un lieu",
+        pathname: "/medias/[slug]",
+        asPath: "/medias/[slug]",
+        breadcrumbPathName: "/places/[place.slug]/[slug]",
+        breadcrumbAsPath: "/places/[place.slug]/[slug]",
+        breadcrumbQuery: {
+            slug: "slug",
+            mediaType: "main-image"
+        }
+    },
+
+
     about: {
         label: "À propos",
         pathname: "/a-propos",

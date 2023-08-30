@@ -12,10 +12,6 @@ import PageHeader from "@/src/layouts/Header/PageHeader";
 import EntitiesGrid from "@/DataTypes/Entity/layouts/EntitiesGrid";
 
 //Entities
-import Person from "@/DataTypes/Person/models/Person";
-import Organisation from "@/DataTypes/Organisation/models/Organisation";
-import Project from "@/DataTypes/Project/models/Project";
-
 //Costum hooks
 import {useHttpClient} from '@/src/hooks/http-hook';
 
@@ -23,6 +19,8 @@ import {useHttpClient} from '@/src/hooks/http-hook';
 import {MessageContext} from '@/src/common/UserNotifications/Message/Context/Message-Context';
 import {useAuth} from '@/src/authentification/context/auth-context';
 import SanitizedInnerHtml from "@/src/utils/SanitizedInnerHtml";
+import {appUrl} from "@/src/helpers/url";
+import {getType, TYPE_EVENT, TYPE_ORGANISATION, TYPE_PERSON, TYPE_PROJECT} from "@/DataTypes/Entity/Types";
 
 //Styling
 //import styles from './home-page.module.scss'
@@ -39,7 +37,7 @@ const HomePage = ({}) => {
     const msg = useContext(MessageContext);
 
     //Extract the functions inside useHttpClient
-    const {isLoading, sendRequest} = useHttpClient();
+    const {isLoading, sendRequest, setIsLoading} = useHttpClient();
 
     const fetchHomeFeed = async () => {
 
@@ -61,6 +59,11 @@ const HomePage = ({}) => {
                 path:"/projects/list",
                 queryParams: listQuery,
                 result: {}
+            },
+            {
+                path:"/events/list",
+                queryParams: listQuery,
+                result: {}
             }
         ];
 
@@ -69,21 +72,21 @@ const HomePage = ({}) => {
 
         const feedPromises = entities.map(async (query) => {
 
-            const currentResult = sendRequest(
+            const currentResult = await sendRequest(
                 query.path,
                 'POST',
                 JSON.stringify({"data": query.queryParams}),
                 defaultHeader
             );
+            setIsLoading(true);//bypass the sendRequest setting of isLoading, because of all these promises here.
             query.result = currentResult;
 
-            haveError = !haveError && !currentResult.error;
+            haveError = haveError && !currentResult.error;
             return currentResult;
 
         });
 
         Promise.all(feedPromises).then((entitiesResults) => {
-
             entitiesResults.map(async (result) => {
 
                 //populate the feed if the current request return a success (!error)
@@ -99,11 +102,15 @@ const HomePage = ({}) => {
                     });
                 }
 
-                if (feed.length > 0 && haveError) {
+                if (feed.length > 0 && !haveError) {
                     feed.sort(sortDescBy('createdAt'));//   Sort and mixed both collection the data to display the new elements before
                     setFeedList(feed); //   Finaly, update the state to display the result
                 }
+
+                setIsLoading(true);
             });
+        }).then(() => {
+            setIsLoading(false);//when all finishes, set this to false.
         });
     }
 
@@ -114,15 +121,17 @@ const HomePage = ({}) => {
 
     //Function to return the path to the page of creation of an entity, depending on location
     const getCreateEntityPath = (type) => {
-        //@todo need DRY and verification for using "TYPE_PERSON", TYPE_ is a constant with a string value of the type.
-        let model;// = getModelFromType(type, {});
-        if(type == "TYPE_PERSON")
-            model = new Person({})
-        if(type == "TYPE_ORGANISATION")
-            model = new Organisation({})
-        if(type == "TYPE_PROJECT")
-            model = new Project({})
-        return model.createRoute.asPath;
+
+        //Get the model by type
+        let targetType = getType(type);
+
+        //type.model is undefined at init, so checking if it's set ? If not set it.
+        if (typeof targetType.model === "undefined") {
+            const ModelClass = targetType.modelClass;
+            targetType.model = new ModelClass({});
+        }
+        //returning the asPath from the createRoute.
+        return targetType.model.createRoute.asPath;
     }
 
     /****************************
@@ -159,9 +168,24 @@ const HomePage = ({}) => {
                 {/* social media meta tag */}
                 <meta property="og:title" content={lang.appDefaultName}/>
                 <meta property="og:description" content={lang.appDefaultDescription}/>
+                <meta property="og:url" content={appUrl()} />
+                <meta property="og:site_name" content="BDSOL avantage numérique" />
+                <meta property="og:locale" content="fr_CA" />
 
                 <meta name="twitter:title" content={lang.appDefaultName}/>
                 <meta name="twitter:description" content={lang.appDefaultDescription}/>
+
+                <meta property="og:image" content={appUrl("/meta-images/show_screen_shot.jpg")} />
+                <meta property="og:image:alt" content="Public assistant à une performance qui contient des nouvelles technologies." />
+                <meta property="og:image:width" content="2560" />
+                <meta property="og:image:height" content="1345" />
+                <meta property="og:locale" content="fr_CA" />
+
+                <meta name="twitter:card" content="summary_large_image"/>
+                <meta name="twitter:image" content={appUrl("/meta-images/show_screen_shot.jpg")} />
+                <meta name="twitter:image:alt" content="Public assistant à une performance qui contient des nouvelles technologies."/>
+                <meta name="twitter:image:width" content="2560" />
+                <meta name="twitter:image:height" content="1345" />
 
                 {/* To add when the domain will be selected ....
                     <link rel="canonical" href="https://avantagenumerique.org/">  */}
@@ -200,7 +224,7 @@ const HomePage = ({}) => {
                                             <div>
                                                 <Spinner reverse/>
                                             </div>
-                                            <p><strong>Chargement des données</strong></p>
+                                            <p><strong>{lang.loadingData}</strong></p>
                                         </div>
                                     }
 
@@ -248,17 +272,6 @@ const HomePage = ({}) => {
                             {/*Rapid options to access of edit the database*/}
                             <section className={"aside__db-edit-options"}>
 
-                                {/*<div className={"db-edit-options__button-set"}>
-                                    <Button 
-                                        disabled 
-                                        size="slim" 
-                                    >{lang.Events}</Button>
-                                    <Button 
-                                        disabled     
-                                        size="slim" 
-                                    >+</Button>
-                                </div>*/}
-
                                 <div className={"db-edit-options__button-set"}>
                                     <Button 
                                         href="/persons/"
@@ -270,7 +283,7 @@ const HomePage = ({}) => {
                                         color="primary"
                                         size="slim"
                                         disabled={!auth.user.isLoggedIn}
-                                        href={getCreateEntityPath("TYPE_PERSON")}
+                                        href={getCreateEntityPath(TYPE_PERSON)}
                                     >+</Button>
                                 </div>
 
@@ -284,7 +297,7 @@ const HomePage = ({}) => {
                                         color="primary"
                                         size="slim"
                                         disabled={!auth.user.isLoggedIn}
-                                        href={getCreateEntityPath("TYPE_ORGANISATION")}
+                                        href={getCreateEntityPath(TYPE_ORGANISATION)}
                                     >+</Button>
                                 </div>
 
@@ -294,7 +307,7 @@ const HomePage = ({}) => {
                                         color="primary"
                                         size="slim"
                                         disabled={!auth.user.isLoggedIn}
-                                        href={getCreateEntityPath("TYPE_PROJECT")}
+                                        href={getCreateEntityPath(TYPE_PROJECT)}
                                     >+</Button>
                                 </div>
 
@@ -305,6 +318,16 @@ const HomePage = ({}) => {
                                         size="slim"
                                         disabled={!auth.user.isLoggedIn}
                                         href="/contribuer/categorie"
+                                    >+</Button>
+                                </div>
+
+                                <div className={"db-edit-options__button-set"}>
+                                    <Button href="/events" color="primary" size="slim">{lang.Events}</Button>
+                                    <Button
+                                        color="primary"
+                                        size="slim"
+                                        disabled={!auth.user.isLoggedIn}
+                                        href={getCreateEntityPath(TYPE_EVENT)}
                                     >+</Button>
                                 </div>
 
@@ -319,12 +342,12 @@ const HomePage = ({}) => {
                                 Section : More informations about the project
                             */}
                             <section className={"d-flex flex-column"}>
-                                <h4>À propos</h4>
+                                <h4>{lang.aboutUs}</h4>
                                 <p>
                                     La base de données structurées, ouvertes et liées (BDSOL) est le cœur du hub virtuel d’Avantage numérique.
                                     Elle vise à recenser et géolocaliser les talents, les compétences, les ressources, les initiatives technocréatives à travers le territoire du Croissant Boréal.
                                 </p>
-                                <Button classes="mt-3" color="white" outline="primary" href="/faq/a-propos">En savoir plus</Button>
+                                <Button classes="mt-3" color="white" outline="primary" href="/faq/a-propos">{lang.knowMore}</Button>
                             </section>
                         </div>
                     </aside>

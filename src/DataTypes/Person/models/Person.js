@@ -1,5 +1,5 @@
 import PersonSimple from "@/DataTypes/Person/components/layouts/simple/PersonSimple";
-import PersonSingle from "@/DataTypes/Person/components/layouts/single/PersonSingle";
+import PersonSingleView from "../components/layouts/single/PersonSingleView";
 import EntityModel from "@/DataTypes/Entity/models/EntityModel";
 import AppRoutes from "@/src/Routing/AppRoutes";
 import {TYPE_PERSON} from "@/DataTypes/Entity/Types";
@@ -28,13 +28,18 @@ class Person extends EntityModel {
 
         this.mainImageModel = new Media(this.mainImage);
 
+        this.mainImage.src = this.mainImageModel.src;
+
         this.type = TYPE_PERSON;
+
+        this.meta.title = this.title;
+        this.meta.description = this.description;
 
         params.showMeta = params.showMeta ?? true;
         params.showStatus = params.showStatus ?? true;
 
         this.simpleComponent = PersonSimple;
-        this.singleComponent = PersonSingle;
+        this.singleComponent = PersonSingleView;
 
         //Routing
         this.singleRoute = {...AppRoutes.personSingle};

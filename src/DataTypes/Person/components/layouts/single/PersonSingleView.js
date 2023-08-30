@@ -14,8 +14,6 @@ import SanitizedInnerHtml from '@/src/utils/SanitizedInnerHtml';
 import {SingleEntityStatus} from "@/DataTypes/Status/components/SingleEntityStatus";
 import {lang} from "@/common/Data/GlobalConstants";
 import Person from "@/DataTypes/Person/models/Person";
-import Head from "next/head";
-import {getTitle} from "@/DataTypes/MetaData/MetaTitle";
 
 
 const PersonSingleView = ({ data }) => {
@@ -112,49 +110,58 @@ const PersonSingleView = ({ data }) => {
     )
 
     const FullWidthContent = (
-        <SingleInfo
-            title={"Présentation"} 
-            NAMessage="Aucune description n'est disponible pour le moment"
-            className={"mb-3 mt-3"}>
-                {description &&
-                    <SanitizedInnerHtml>
-                        {description}
-                    </SanitizedInnerHtml>
-                }
-        </SingleInfo>
+        <>
+            {description !== '' &&
+                <SingleInfo
+                    title={"Présentation"}
+                    NAMessage="Aucune description n'est disponible pour le moment"
+                    className={"mb-3 mt-3"}>
+                    {description &&
+                        <SanitizedInnerHtml>
+                            {description}
+                        </SanitizedInnerHtml>
+                    }
+                </SingleInfo>
+            }
+        </>
     )
 
     const ContentColumnLeft = (
         <>
-            <SingleInfo
-                title={"Occupations"}
-                NAMessage="Aucune occupation n'est disponible pour le moment"
-                className={"mb-3 mt-3"}
-            >    
-                {/* Display the different groups of occupations */}
-                { occupations && occupations.length > 0 &&
-                    occupations.map(occ => (
-                        <OccupationGroup 
-                            occupationName={occ.groupName} 
-                            skillList={occ.skills}
-                            key={occ.groupName}
-                        />
-                    ))
-                }
-            </SingleInfo>
+            { occupations.length > 0 &&
+                <SingleInfo
+                    title={"Occupations"}
+                    NAMessage="Aucune occupation n'est disponible pour le moment"
+                    className={"mb-3 mt-3"}
+                >
+                    {/* Display the different groups of occupations */}
+                    { occupations && occupations.length > 0 &&
+                        occupations.map(occ => (
+                            <OccupationGroup
+                                occupationName={occ.groupName}
+                                skillList={occ.skills}
+                                key={occ.groupName}
+                            />
+                        ))
+                    }
+                </SingleInfo>
+            }
         </>
     )
 
     const ContentColumnRight = (
-        <> 
-            {/*********** Domains ***********/}
+        <>
+        {domains.length > 0 &&
             <SingleInfo title={lang.domainsSingleLabel} className={"mb-3"}>
+
+                {/*********** Domains ***********/}
                 <SearchTag
                     className="row"
                     list={domains}
                     listProperty={"domain"}
                 />
             </SingleInfo>
+        }
         </>
     )
 
@@ -162,7 +169,7 @@ const PersonSingleView = ({ data }) => {
         <>
             {
                 (createdAt || updatedAt || status) &&
-                <SingleEntityStatus className="border-bottom pb-2" createdAt={createdAt} updatedAt={updatedAt} status={status} />
+                <SingleEntityStatus createdAt={createdAt} updatedAt={updatedAt} status={status} />
             }
         </>
     )
@@ -172,9 +179,6 @@ const PersonSingleView = ({ data }) => {
     */}
     return (
         <>
-            <Head>
-                <title>{getTitle([model.title, model.Type.label])}</title>
-            </Head>
             <SingleBase
                 breadCrumb={breadCrumb}
                 header={Header}              
@@ -182,6 +186,7 @@ const PersonSingleView = ({ data }) => {
                 contentColumnLeft={ContentColumnLeft}
                 contentColumnRight={ContentColumnRight}
                 footer={Footer}
+                model={model}
             />
         </>
     )

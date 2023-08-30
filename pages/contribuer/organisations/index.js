@@ -15,6 +15,7 @@ import {withSessionSsr} from "@/auth/session/handlers/withSession";
 import {ssrCanAccess} from "@/auth/permissions/ssrCanAccess";
 import {lang} from "@/src/common/Data/GlobalConstants";
 import Router from "next/router";
+import Organisation from "@/src/DataTypes/Organisation/models/Organisation";
 
 
 
@@ -51,7 +52,12 @@ const CreateOrganisationPage = () => {
                                 }}
                             >Fermer</Button>
                         </header>   
-                        <CreateOrganisationForm onPositiveResponse={() => {
+                        <CreateOrganisationForm onPositiveResponse={(response) => {
+                            //Create a model for the response
+                            const model = new Organisation(response.data);
+
+                            //Execute the redirection
+                            Router.push( model.singleEditLink )
                             closeModal()
                             setIsLoading(true)
                         }} />

@@ -1,6 +1,6 @@
 import {getType, TYPE_DEFAULT} from "@/DataTypes/Entity/Types";
 import {removeHtml} from "@/src/helpers/str";
-import {replacePathname} from "@/src/helpers/url";
+import {appUrl, replacePathname} from "@/src/helpers/url";
 import EntityTag from "@/DataTypes/Entity/layouts/EntityTag";
 
 /**
@@ -40,13 +40,17 @@ class EntityModel {
         this.shortDescription = this.shortDescription.substring(0,this.shortLenght) + (this.shortDescription.length > this.shortLenght ? "..." : "");
         this.mainImage = raw?.mainImage ?? {url:"", alt:""};
 
+        this.simgleList;
+
         //  Routes associated with single base, single and contribute uri.
         this.repertoryRoute = raw?.repertoryRoute ?? "";
         this.singleRoute = raw?.singleRoute ?? "";
         this.contributeRoute = raw?.contributeRoute ?? "";
 
         this.meta = {
-            seperator: " - "
+            seperator: " - ",
+            title: this.title,
+            description: this.description
         };
 
         //Ajouter _id et id ??
@@ -235,7 +239,13 @@ class EntityModel {
         this.contributeURI = value.pathname;
         return this._contributeRoute = value;
     }
-
+    /**
+     * Update the simple list to be displayed
+     * @param value {Array}
+     */
+    simpleEditList(value) {
+        this.simgleList = value
+    }
 
     //  --- UTILS ---
 
@@ -244,6 +254,10 @@ class EntityModel {
     }
     get singleEditLink() {
         return "/"+replacePathname(this.singleEditRoute.pathname, {slug: this.slug});
+    }
+
+    get fullSingleLinkUrl() {
+        return appUrl(this.singleLink);//`${nextConfig.env.APP_URL}${this.singleLink}`;
     }
 
     /**

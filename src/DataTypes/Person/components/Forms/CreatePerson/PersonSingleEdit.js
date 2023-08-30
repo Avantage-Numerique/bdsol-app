@@ -18,8 +18,7 @@ import {SingleEntityStatus} from '@/DataTypes/Status/components/SingleEntityStat
 
 //Context
 import {useAuth} from "@/src/authentification/context/auth-context";
-import { MessageContext } from '@/src/common/UserNotifications/Message/Context/Message-Context';
-import { ModalContext } from '@/src/layouts/Layout';
+import {MessageContext} from '@/src/common/UserNotifications/Message/Context/Message-Context';
 
 //Styling
 import styles from './CreatePersonForm.module.scss'
@@ -33,10 +32,11 @@ import Person from "@/DataTypes/Person/models/Person";
 import {replacePathname} from "@/src/helpers/url";
 import Icon from "@/common/widgets/Icon/Icon";
 import MainImageDisplay from "@/DataTypes/common/layouts/single/defaultSections/MainImageDisplay/MainImageDisplay";
-import Organisation from "@/DataTypes/Organisation/models/Organisation";
+import {TYPE_TAXONOMY} from '@/src/DataTypes/Entity/Types'
+import SubmitEntity from "@/DataTypes/common/Forms/SingleEdit/SubmitEntity";
 
 
-const PersonSingleEdit = ({initValues, positiveRequestActions, ...props}) => {
+const PersonSingleEdit = ({ positiveRequestActions, ...props}) => {
 
     //Person data extract
     const {
@@ -66,7 +66,7 @@ const PersonSingleEdit = ({initValues, positiveRequestActions, ...props}) => {
     const [currentModel, setCurrentModel] = useState(model);
 
     const updateEntityModel = useCallback((rawData) => {
-        model = new Organisation(rawData);
+        model = new Person(rawData);
         setCurrentMainImage(model.mainImage);
     }, [setCurrentModel]);
 
@@ -312,6 +312,7 @@ const PersonSingleEdit = ({initValues, positiveRequestActions, ...props}) => {
                 label={lang.Domains}
                 formTools={formTools}
                 creatable={true}
+                modalType={TYPE_TAXONOMY}
                 isMulti={true}
                 createOptionFunction={displayModalForDomains}
 
@@ -324,12 +325,12 @@ const PersonSingleEdit = ({initValues, positiveRequestActions, ...props}) => {
     )
 
     const footer = (
-        <div className="border-top border-bottom pt-3">
+        <>
             {
                 (createdAt || updatedAt || status) &&
                 <SingleEntityStatus createdAt={createdAt} updatedAt={updatedAt} status={status} />
             }
-        </div>
+        </>
     )
 
 
@@ -391,16 +392,8 @@ const PersonSingleEdit = ({initValues, positiveRequestActions, ...props}) => {
                     contentColumnRight={contentColumnRight}
                     footer={footer}
                 />
+                <SubmitEntity submitHandler={submitHandler} formState={formState} />
 
-                <div className="d-flex pt-4 align-items-end flex-column">
-                    <Button disabled={!formState.isValid} onClick={submitHandler}>
-                        {lang.save}
-                    </Button>
-                    {
-                        !formState.isValid &&
-                        <p className="p-2 mt-2 col-md-4 border border-danger rounded"><small>{lang.validationFailedCantSave}</small></p>
-                    }
-                </div>
              {/* </form> */}
 
             { modal.display && false &&

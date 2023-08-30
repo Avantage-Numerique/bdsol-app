@@ -53,12 +53,6 @@ const CreatePersonForm = ({ onPositiveResponse }) => {
             callbackFunction: (response) => {
                 //Execute additionnal function from parent component
                 if(onPositiveResponse) onPositiveResponse()
-                //Create a model for the response
-                const model = new Person(response.data);
-                //Redirection link to the edit page
-                const link = "/"+replacePathname(model.singleEditRoute.pathname, {slug: model.slug});
-                //Execute the redirection
-                Router.push( link )
             }
         }
     );

@@ -23,9 +23,11 @@ const Header = (props) => {
                 <div className="row">
                     <div className="col">
                         {/* Container that fills all the width of the platform and contain the logo*/}
-                        <div className={`${styles["header__content"]} header-center`} onClick={ () => setMenuState(0) }>
+                        <div className={`${styles["header__content"]} header-center d-flex justify-content-start align-items-center text-light`} onClick={ () => setMenuState(0) }>
                             <Link href="/">
-                                <img src="/logo.svg" alt="Logo Avantage Numérique" />
+                                <a href={"/"} className={"fs-4 px-5"}>
+                                    AVNU
+                                </a>
                             </Link>
                         </div>
                     </div>

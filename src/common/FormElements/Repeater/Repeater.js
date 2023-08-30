@@ -297,7 +297,7 @@ const Repeater = props => {
             </section>
             {/* <DNDUI /> */}
             {/* By default, there is an add button */}
-            <div className="my-2 d-flex justify-content-end p-0">
+            <div className="my-2 d-flex justify-content-start p-0">
                 <Button type="button" size="slim" onClick={addNewIteration} className="m-0">Ajouter</Button>
             </div>
         </>

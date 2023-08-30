@@ -17,6 +17,7 @@ import SanitizedInnerHtml from "@/src/utils/SanitizedInnerHtml";
 import {SingleEntityStatus} from "@/src/DataTypes/Status/components/SingleEntityStatus";
 import Head from "next/head";
 import {getTitle} from "@/DataTypes/MetaData/MetaTitle";
+import Media from "@/DataTypes/Media/models/Media";
 
 
 const SingleInfoLayout = ({ title, NAMessage="-", children }) => {
@@ -49,6 +50,7 @@ const MediaSingleView = ({data}, ...props) => {
     } = data;
 
     const baseSrc = `${process.env.NEXT_PUBLIC_API_URL}`;
+    const model = new Media(data);
 
     const associatedEntityType = getType(data.entityId.type, true);
     const associatedEntityModel = getModelFromType(data.entityId.type, data.entityId);
@@ -62,6 +64,7 @@ const MediaSingleView = ({data}, ...props) => {
             "persons": "persons",
             "organisations": "organisations",
             "projects": "projects",
+            "events":"events",
             "medias": "medias"
         };
     }, []);
@@ -73,9 +76,11 @@ const MediaSingleView = ({data}, ...props) => {
             "person.slug": () => associatedEntityModel.title ?? "Personne",
             "organisation.slug": () => associatedEntityModel.title ?? "Organisation",
             "project.slug": associatedEntityModel.title ?? "Projet",
+            "event.slug": associatedEntityModel.title ?? "Événement",
             "persons": () => "Personnes",
             "organisations": () => "Organisations",
             "projets": () => "Projets",
+            "events": () => "Événements",
             "medias": () => "Média"
         }[param];
     }, []);
@@ -145,7 +150,7 @@ const MediaSingleView = ({data}, ...props) => {
             </SingleInfoLayout>
             {
                 (createdAt || updatedAt || status) &&
-                <SingleEntityStatus className="border-bottom py-4" createdAt={createdAt} updatedAt={updatedAt} status={status} />
+                <SingleEntityStatus createdAt={createdAt} updatedAt={updatedAt} status={status} />
             }
         </>
     );
@@ -162,6 +167,7 @@ const MediaSingleView = ({data}, ...props) => {
                 contentColumnLeft={contentColumnLeft}
                 contentColumnRight={contentColumnRight}
                 footer={footer}
+                model={model}
             />
         </>
     )

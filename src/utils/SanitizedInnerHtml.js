@@ -10,23 +10,17 @@ import DOMPurify from 'isomorphic-dompurify';
 
 */
 
-export const SanitizedInnerHtml = ( {tag, type, className, children} ) => {
+export const SanitizedInnerHtml = ( {tag, type, className, children, removeQlEditorClass} ) => {
 
     //Cleaning machine
     const cleanedData = DOMPurify.sanitize( children );
     const typeProps = type ? {type: type} : {};
     const Wrapper = tag ?? "div";
-    if (className) typeProps.className = className;
 
-    //If the desired tag is a script tag
-    // if(tag === "script")
-    //     return (
-    //         <Wrapper {...typeProps}
-    //             dangerouslySetInnerHTML={{
-    //             __html: DOMPurify.sanitize(cleanedData)
-    //             }}
-    //         />
-    //     )
+    typeProps.className = "";
+
+    if (className) typeProps.className += className;
+    if (!removeQlEditorClass) typeProps.className += " ql-editor p-0 ";
 
     //By default
     return (

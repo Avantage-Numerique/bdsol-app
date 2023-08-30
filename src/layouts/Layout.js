@@ -24,6 +24,7 @@ import {FeedbackWidget} from "@/src/common/Feedbacks/components/feedback-widget"
 
 //Hooks
 import {useModalController} from '@/src/hooks/useModal/ModalsController/ModalsController'
+import {appUrl} from "@/src/helpers/url";
 
 export const ModalContext = createContext({});
 
@@ -74,25 +75,24 @@ const Layout = ( {children} ) => {
                 <meta name="robots" content="index, follow" />
 
                 {/* Icone to appear on the top of the page */}
-                <link rel="icon" href="/icones/cropped-Frame-10-32x32.png" sizes="32x32" />
-                <link rel="icon" href="/icones/cropped-Frame-10-192x192.png" sizes="192x192" />
-                <link rel="apple-touch-icon" href="/icones/cropped-Frame-10-180x180.png" />
-                <meta name="msapplication-TileImage" content="/icones/cropped-Frame-10-270x270.png" />
+                <link rel="icon" href={appUrl("/icones/cropped-Frame-10-32x32.png")} sizes="32x32" />
+                <link rel="icon" href={appUrl("/icones/cropped-Frame-10-192x192.png")} sizes="192x192" />
+                <link rel="apple-touch-icon" href={appUrl("/icones/cropped-Frame-10-180x180.png")} />
+                <meta name="msapplication-TileImage" content={appUrl("/icones/cropped-Frame-10-270x270.png")} />
 
                 <meta name="theme-color" content="#000" />
 
                 {/* General social medias meta tags */}
-                <meta property="og:type"               content="website" />
-                <meta property="og:image"              content="meta-images\show_screen_shot.jpg" />
-                <meta property="og:image:width"        content="2560" />
-                <meta property="og:image:height"       content="1345" />
-                <meta property="og:locale"             content="fr_CA" />
+                <meta property="og:type" content="website" />{/*article*/}
 
-                <meta name="twitter:card"              content="summary_large_image"/>
-                <meta name="twitter:image"             content="meta-images\show_screen_shot.jpg" />
-                <meta name="twitter:image:width"       content="2560" />
-                <meta name="twitter:image:height"      content="1345" />
-                <meta name="twitter:image:alt"         content="Public assistant à une performance qui contient des nouvelles technologies."/>
+                <meta name="twitter:label1" content="Written by" />
+                <meta name="twitter:data1" content="Author's user" />
+                <meta name="twitter:label2" content="Reading time" />
+                <meta name="twitter:data2" content="3 minutes (static value)" />
+
+                <meta property="article:section" content="Technology" />
+                <meta property="article:tag" content="data" />
+                <meta property="article:tag" content="teachnocreatif" />
 
                 {/* Fonts 
                     <link rel="preconnect" href="https://fonts.googleapis.com" />

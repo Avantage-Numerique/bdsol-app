@@ -2,7 +2,6 @@ import EntityModel from "@/DataTypes/Entity/models/EntityModel";
 import MediaSingleView from "../components/forms/MediaSingleView/MediaSingleView";
 import {TYPE_DEFAULT, TYPE_MEDIA} from "@/DataTypes/Entity/Types";
 
-
 class Media extends EntityModel {
 
     /**
@@ -24,12 +23,18 @@ class Media extends EntityModel {
         super(raw);
         this.title = raw?.name ?? "";
         this.description = raw?.description ?? "";
-        this.mainImage = raw?.mainImage;
+        this.mainImage = raw?.mainImage ?? {};
         this.baseSrc = raw?.baseSrc ?? `${process.env.NEXT_PUBLIC_API_URL}`;
-        this.src = raw?.url ?? "";
+        this.src = raw?.url ?? raw?.src ?? "";
         this.alt = raw?.alt ?? "";
+        this.mainImage.src = this.src;
         this.licence = raw?.licence ?? "";
         this.type = raw?.type === TYPE_MEDIA ? TYPE_MEDIA : TYPE_DEFAULT;//Wrong data sent here.
+
+        //need a better flow for value for this. the first return false.
+        //this.associatedEntity = getModelFromType(raw.entityId?.type, raw.entityId);
+        //this.meta.title = `${lang.mainImage} ${lang.associatedTo}`;//this.associatedEntity
+
         //this.taxonomies = new Map();
         //this.taxonomies.set("domains", raw.domains);
         //this.taxonomies.set("skills", raw.skills);

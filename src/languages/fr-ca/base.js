@@ -18,6 +18,8 @@ const base = {
     "subTitle": "sous-titre",
     "infoNotAvailable": "Information non disponible",
     "metadatas": "métadonnées",
+    "knowMore": "En savoir plus",
+    "aboutUs": "À propos",
 
     // Status
 
@@ -82,6 +84,7 @@ const base = {
     //  TEAMS
 
     "noTeamMemberSetMessage": "Personne n'est inscrit comme membre de l'équipe de cette organisation.",
+    "teamMembers": "Membres de l'équipe",
 
     //  NAV
 
