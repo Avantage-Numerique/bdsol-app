@@ -22,7 +22,7 @@ const PlaceSingleView = ({ data }) => {
     const getLabelGenerator = useCallback((param, query) => {
         return {
             "places": lang.Places,
-            "slug": model.title        
+            "slug": model.title
         }[param];
     }, []);
 
