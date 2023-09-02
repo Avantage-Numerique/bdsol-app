@@ -61,6 +61,7 @@ const MediaSingleView = ({data}, ...props) => {
             "[person.slug]": associatedEntityModel.slug ?? "no-set",
             "[organisation.slug]": associatedEntityModel.slug ?? "no-set",
             "[project.slug]": associatedEntityModel.slug ?? "no-set",
+            "[event.slug]": associatedEntityModel.slug ?? "no-set",
             "persons": "persons",
             "organisations": "organisations",
             "projects": "projects",
