@@ -164,6 +164,7 @@ const OrganisationSingleEdit = (props) => {
 
         })
 
+        console.log("formState", formState)
     //Function to submit the form
     const submitHandler = async event => {
 
@@ -180,6 +181,7 @@ const OrganisationSingleEdit = (props) => {
                 offers: formState.inputs.offers.value.map(function(singleOffer){
                     return {
                         status: singleOffer.status,
+                        order: singleOffer.order,
                         groupName: singleOffer.value.groupName.value,
                         skills: singleOffer.value.skills.value.map( (skill) => { return skill.value })
                     }

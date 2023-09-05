@@ -321,7 +321,7 @@ const Repeater = props => {
         const obj = {
             [key]: {
                 key: key,
-                order: orderNumber || ( iterationsArray.length > 0 ? (Math.max(...iterationsArray.map(o => o.order)) + 1) : 1),  //Prioriser le order number. S'il n'y en a aucun, on prend la plus haute valeur dans iterations
+                order: orderNumber || ( iterationsArray.length > 0 ? (Math.max(...iterationsArray.map(o => o.order))) + 1 : 0),  //Prioriser le order number. S'il n'y en a aucun, on prend la plus haute valeur dans iterations
                 value: {},
                 status: status ? status : getDefaultCreateEntityStatus(auth.user),
                 initFormStructureWithValues: initFormStructureWithValues ? initFormStructureWithValues : null,
@@ -406,7 +406,7 @@ const Repeater = props => {
                 //Find the new order of the element by its index in the array
                 let newIndex = modifiedOrders.indexOf(oldOrder);
                 //Convert the index in position by incrementing it
-                const newOrder = newIndex + 1;
+                const newOrder = newIndex;
                 //Modify the value
                 newIterationState[key].order = newOrder;
             })
