@@ -1,5 +1,5 @@
 //React
-import { useState, useEffect, useContext, useRef } from "react";
+import { useState, useEffect } from "react";
 
 //Helper
 import ApiEntityModel from "@/src/DataTypes/Entity/models/ApiEntityModel";
@@ -96,13 +96,25 @@ const Select2 = ({ name, formTools, ...props }) => {
     const fetchOptions = async () => {
         if(props.optionsList == undefined && props.fetch !== undefined){
             const requestData = props.requestData ?? {};
+            let data = {};
+            if(Array.isArray(props.searchField)){
+                data.or = [];
+                props.searchField.forEach(searchElem => {
+                    data.or.push({[searchElem] : inputValue})
+                }); 
+            }
+            else
+            {
+                data[props.searchField] = inputValue
+            }
+
             const apiResponse = await sendRequest(
                 (props.fetch),
                 'POST',
                 JSON.stringify({
                     data: {
                         ...requestData,
-                        [props.searchField]: inputValue
+                        ...data,
                     }
                 }),
                 { 'Content-Type': 'application/json' }

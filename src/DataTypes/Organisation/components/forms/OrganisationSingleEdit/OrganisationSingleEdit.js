@@ -323,8 +323,7 @@ const OrganisationSingleEdit = (props) => {
                     isMulti={true}
                     
                     fetch={"/places/list"}
-                    requestData={{address:""}}
-                    searchField={"address"}
+                    searchField={["address", "name"]}
                     //selectField={"address"}
                 />
                 <Input

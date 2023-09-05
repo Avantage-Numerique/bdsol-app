@@ -17,7 +17,7 @@ class Place extends EntityModel {
 
         super(raw);
 
-        this.title = raw.name ?? "";
+        this.title = this.getBreadCrumbTitle(raw);
         this.description = raw.description ?? "";
         this.mainImage = !raw.mainImage || raw.mainImage === "" || !raw.mainImage ? {
             url: "/general_images/default-place.png",
@@ -50,6 +50,35 @@ class Place extends EntityModel {
 
         //sets all the rest as this[key] = raw[key] value.
         this.setProperties(raw);
+    }
+
+    getBreadCrumbTitle(raw){
+        if(raw.address){
+            if(raw.name)
+                return raw.address + ', ' + raw.name;
+            if(raw.city)
+                return raw.address + ', ' + raw.city;
+            if(raw.postalCode)
+                return raw.address + ', ' + raw.postalCode;
+            return raw.address //We probably don't want to only show address if there is no city or no postalcode
+        }
+        if(raw.name){
+            if(raw.city)
+                return raw.name + ', ' + raw.city
+            if(raw.postalCode)
+                return raw.name + ', ' + raw.postalCode
+            return raw.name //We probably don't want to only show name alone (good for title to show on simple component)
+        }
+        if(raw.postalCode){
+            if(raw.city)
+                return raw.postalCode + ', ' + raw.city
+        }
+        if(raw.longitude && raw.latitude){
+            if(raw.city)
+                return raw.longitude + ', ' + raw.latitude + ', ' + raw.city
+            return raw.longitude + ', ' + raw.latitude
+        }
+
     }
 
 }
