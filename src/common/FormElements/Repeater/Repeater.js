@@ -110,7 +110,7 @@ const SortableItem = props => {
                     {...listeners}
                     draggable={true}
                     type="button" 
-                    className={`${styles["dragging-button"]} flex-grow-0 d-flex align-items-center p-2`}
+                    className={`${styles["dragging-button"]} rounded-start flex-grow-0 d-flex align-items-center p-2`}
                 >
                     <Icon className="d-flex align-items-center" iconName='las la-grip-vertical'/>
                 </div>
@@ -412,9 +412,8 @@ const Repeater = props => {
             })
             //Update the state with the new modified object
             setIterations(newIterationState)
-            setDragActiveItem(null);
-
         }   
+        setDragActiveItem(null);
     }
 }
 
