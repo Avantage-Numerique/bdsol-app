@@ -1,19 +1,27 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useRef, useState, useMemo} from 'react';
 
-import {DndContext} from '@dnd-kit/core';
-import {Draggable} from './Draggable';
-import {Droppable} from './Droppable';
+import {
+    DndContext, 
+    closestCenter,
+    KeyboardSensor,
+    PointerSensor,
+    useSensor,
+    useSensors,
+} from '@dnd-kit/core';
 
 import {
     arrayMove,
     SortableContext,
     sortableKeyboardCoordinates,
     verticalListSortingStrategy,
-  } from '@dnd-kit/sortable';
+} from '@dnd-kit/sortable';
+
+import {useSortable} from '@dnd-kit/sortable';
+
+import {CSS} from '@dnd-kit/utilities';
 
 //Hooks
 import {useFormUtils} from '@/src/hooks/useFormUtils/useFormUtils';
-import { useDND } from '@/src/hooks/useDND/useDND';
 
 //components
 import Button from "@/FormElements/Button/Button";
@@ -26,13 +34,15 @@ import {getDefaultCreateEntityStatus} from "@/DataTypes/Status/EntityStatus";
 //styles
 import styles from './Repeater.module.scss'
 
+
 //Recursive function to create the children with the proper values
 const iterateOverChildren = (children, formInitSubStructure, formTools, deleteIteration) => {
     return React.Children.map((children), (child) => {
       // equal to (if (child == null || typeof child == 'string'))
       if (!React.isValidElement(child)) return child;
 
-      //If this child has a name prop, and if the value is equal to one of the values declared for the formState, then it means it is a field and require a formtool
+      //If this child has a name prop,
+      // and if the value is equal to one of the values declared for the formState, then it means it is a field and require a formtool
       const newProps = Object.keys(formInitSubStructure).some(key => key === child.props?.name) ? {'formTools': formTools} : {};
       const deleteButton = child.props?.repeaterDeleteElem ? {'onClick': () => deleteIteration()} : {};
 
@@ -57,6 +67,70 @@ const RepeaterSingleIteration = ({children, formInitSubStructure, iterationKey, 
         return iterateOverChildren(children, formInitSubStructure, formTools, deleteIterationByKey);
 }
 
+//Iterations elements 
+const SortableItem = props => {
+
+    const {
+        iteration,
+        className,
+        isDragActive,
+        sortable,
+        sortedIterationsArray,
+        deleteIterationByKey,
+        updateIterationValue,
+        children,
+        formInitStructure
+    } = props;
+
+    const {
+        attributes,
+        listeners,
+        setNodeRef,
+        transform,
+        transition,
+      } = useSortable({ id: props.id });
+
+    const style = {
+        transform: CSS.Transform.toString(transform),
+        transition,
+    };
+      
+    return (
+        <article 
+            style={style}
+            id={iteration.key}
+            ref={setNodeRef}
+            className={`d-flex flex-nowrap rounded my-2 ${styles["repeatable"]} ${className} ${isDragActive && "shadow"}`}
+            draggable={true}
+            data-order={iteration.order}
+        >
+            { sortable && sortedIterationsArray.length > 1 && 
+                <div 
+                    {...attributes} 
+                    {...listeners}
+                    draggable={true}
+                    type="button" 
+                    className={`${styles["dragging-button"]} flex-grow-0 d-flex align-items-center p-2`}
+                >
+                    <Icon className="d-flex align-items-center" iconName='las la-grip-vertical'/>
+                </div>
+            }
+            <div className="container">
+                <div className="row">
+                    <RepeaterSingleIteration 
+                        iterationKey={iteration.key}
+                        deleteIterationByKey={() => deleteIterationByKey(iteration.key)}
+                        formInitSubStructure={iteration.initFormStructureWithValues ? iteration.initFormStructureWithValues : formInitStructure}
+                        updateIterationValue={updateIterationValue}
+                    >
+                        {children}
+                    </RepeaterSingleIteration>
+                </div>
+            </div>
+        </article>
+    )
+}
+
 
 
 /*******************
@@ -79,38 +153,25 @@ const Repeater = props => {
         name,                   // - [string] : Name to refer to the repeater in the main form State
         initValues,             // - [array] : Expected to be an array of object where each object contains the values for one iteration of this repeater 
         //formReturnStructure   //
-        //sortable,             // - [bool] : If true, the repeater add an order value, display the drag and drop UI and activate that function
+        sortable = false,             // - [bool] : If true, the repeater add an order value, display the drag and drop UI and activate that function
         className               // - [String] : Represent the class names of the generated containers to repeat
     } = props;
     
     //Import the authentication context to make sure the user is well connected
     const auth = useAuth();
 
-    const sortable = false;
-
     //Extract the needed elements from the formtools
-    const {
-        //formState,
-        inputHandler
-    } = formTools;
+    const { inputHandler } = formTools;
     
     //State to manage the values of every iterations of the repeater
     let initIteration = {};
     const [iterations, setIterations] = useState(addInitValuesToState(initValues));
     initIteration = iterations;
 
-    //useEffect(() => { setIterations(addInitValuesToState(initValues))}, [])
-    
+    //Announce the current dragged element
+    const [dragActiveItem, setDragActiveItem] = useState(null);
     //Reference to the dom elements
     const containerRef = useRef();
-
-    //Custom hook used for moving the elements
-     /* const { DNDUI } = useDND(containerRef, iterations, {
-        dragButton: elem => elem.querySelector(`.${styles["dragging-button"]}`), 
-        movingElem: null,
-        order: null,
-        updateOrder: () => {}
-    }); */
     
     //Gives us access to the values of the main state in the shape of an array. And since it is sorted, we use it to display the elements
     const sortedIterationsArray = iterations ? Object.values(iterations).sort((a, b) => (a.order > b.order) ? 1 : -1) : [];
@@ -222,8 +283,20 @@ const Repeater = props => {
     }
     //Delete an iteration from the state
     const deleteIterationByKey = ( key ) => {
+        //Create a new instance of the state to edit
         let updatedIterations = {...iterations};
+        //Save the order's value of the element to delete
+        const deletedOrder = updatedIterations[key].order;
+        //Remove the selected element 
         delete updatedIterations[ key ];
+        //Update the orders to have a following suit
+        Object.keys(updatedIterations).forEach(objKey => {
+            const objOrder = updatedIterations[objKey].order;
+            //If the order is higher than the one we deleted, decrease it from 1
+            if(objOrder > deletedOrder)
+                updatedIterations[objKey].order = objOrder - 1;
+        })
+        //update the state
         setIterations(updatedIterations);
     }
 
@@ -244,8 +317,6 @@ const Repeater = props => {
         const key = generateUniqueId();
         //Iterations array
         const iterationsArray = initIteration ? Object.values(initIteration) : [];
-
-        
         //Build the object
         const obj = {
             [key]: {
@@ -262,39 +333,48 @@ const Repeater = props => {
         return obj;
     }
 
+    const sensors = useSensors(
+        useSensor(PointerSensor),
+        useSensor(KeyboardSensor, {
+          coordinateGetter: sortableKeyboardCoordinates,
+        })
+    );
+
     return (
         <>  
             <section ref={containerRef} className={`${styles["repeater"]}`}>
-               {sortedIterationsArray.map(iteration => (
-                    <article 
-                        key={iteration.key} 
-                        className={`d-flex flex-nowrap rounded my-2 ${styles["repeatable"]} ${className}`}
-                        draggable={true}
-                        data-order={iteration.order}
+                <DndContext 
+                    sensors={sensors} 
+                    collisionDetection={closestCenter} 
+                    onDragStart={({ active }) => {
+                        setDragActiveItem(active);
+                    }}
+                    onDragCancel={() => setDragActiveItem(null)}
+                    onDragEnd={handleDragEnd}
+                >
+                    <SortableContext 
+                        items={sortedIterationsArray.map(elem => String(elem.key))} 
+                        strategy={verticalListSortingStrategy}
                     >
-                        { sortable && sortedIterationsArray.length > 1 &&
-                            <div 
-                                draggable={true}
-                                type="button" 
-                                className={`${styles["dragging-button"]} flex-grow-0 d-flex align-items-center p-2`}>
-                                <Icon className="d-flex align-items-center" iconName='las la-grip-vertical'/>
-                            </div>
-                        }
-                        <div className="container">
-                            <div className="row">
-                                <RepeaterSingleIteration 
-                                    iterationKey={iteration.key}
-                                    deleteIterationByKey={() => deleteIterationByKey(iteration.key)}
-                                    formInitSubStructure={iteration.initFormStructureWithValues ? iteration.initFormStructureWithValues : formInitStructure}
-                                    updateIterationValue={updateIterationValue}
-                                >
-                                    {children}
-                                </RepeaterSingleIteration>
-                            </div>
-                        </div>
-                    </article>
-               ))}                   
+                    {sortedIterationsArray.map(iteration => (
+                        <SortableItem 
+                            id={String(iteration.key)}
+                            key={iteration.key}
+                            iteration={iteration}
+                            className={className}
+                            isDragActive={String(iteration.key) === dragActiveItem?.id}
+                            sortable={sortable}
+                            sortedIterationsArray={sortedIterationsArray}
+                            deleteIterationByKey={deleteIterationByKey}
+                            updateIterationValue={updateIterationValue}
+                            children={children}
+                            formInitStructure={formInitStructure}
+                        />
+                    ))}      
+                    </SortableContext>    
+               </DndContext>         
             </section>
+
             {/* <DNDUI /> */}
             {/* By default, there is an add button */}
             <div className="my-2 d-flex justify-content-start p-0">
@@ -302,6 +382,40 @@ const Repeater = props => {
             </div>
         </>
     )
+
+    /* Manage the reordering when the element is droped */
+    function handleDragEnd(event) {
+        
+        const {active, over} = event;
+
+        if (active?.id && over?.id && active.id !== over.id) {
+            const sortedKeysArray = sortedIterationsArray.map(elem => String(elem.key))
+            //Initial array of orders (supposed to be sorted). Ex : [1, 2, 3, 4]
+            const arrayOfActualOrders = sortedIterationsArray.map(elem => elem.order)
+            //Array of modified orders. Ex : [1, 4, 2, 3] 
+            const modifiedOrders = arrayMove(arrayOfActualOrders, sortedKeysArray.indexOf(active.id), sortedKeysArray.indexOf(over.id));
+            //New state object to edit and then, update
+            let newIterationState = {...iterations}
+            //Create a keys array
+            const iterationsKeys = Object.keys(iterations)
+            //Loop through the iterations state object with the keys
+            iterationsKeys.forEach(key => {
+                //Get the new correct calculated order by index refering
+                //For this to work, we assume that the index are in order
+                const oldOrder = newIterationState[key].order;
+                //Find the new order of the element by its index in the array
+                let newIndex = modifiedOrders.indexOf(oldOrder);
+                //Convert the index in position by incrementing it
+                const newOrder = newIndex + 1;
+                //Modify the value
+                newIterationState[key].order = newOrder;
+            })
+            //Update the state with the new modified object
+            setIterations(newIterationState)
+            setDragActiveItem(null);
+
+        }   
+    }
 }
 
-export default Repeater
+export default Repeater;
