@@ -1,5 +1,4 @@
 import React from 'react'
-import Router from 'next/router'
 
 //Custom hooks
 import {useFormUtils} from '@/src/hooks/useFormUtils/useFormUtils'
@@ -18,8 +17,6 @@ import styles from './CreatePersonForm.module.scss'
 //FormData
 import {getDefaultCreateEntityStatus} from "@/DataTypes/Status/EntityStatus";
 
-import Person from "@/DataTypes/Person/models/Person";
-import {replacePathname} from "@/src/helpers/url";
 
 const CreatePersonForm = ({ onPositiveResponse }) => {
     
@@ -52,7 +49,7 @@ const CreatePersonForm = ({ onPositiveResponse }) => {
             displayResMessage: true,     //Display a message to the user to confirm the succes
             callbackFunction: (response) => {
                 //Execute additionnal function from parent component
-                if(onPositiveResponse) onPositiveResponse()
+                if(onPositiveResponse) onPositiveResponse(response)
             }
         }
     );
