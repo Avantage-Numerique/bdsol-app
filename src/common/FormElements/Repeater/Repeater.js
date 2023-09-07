@@ -404,9 +404,7 @@ const Repeater = props => {
                 //For this to work, we assume that the index are in order
                 const oldOrder = newIterationState[key].order;
                 //Find the new order of the element by its index in the array
-                let newIndex = modifiedOrders.indexOf(oldOrder);
-                //Convert the index in position by incrementing it
-                const newOrder = newIndex;
+                const newOrder = modifiedOrders.indexOf(oldOrder);
                 //Modify the value
                 newIterationState[key].order = newOrder;
             })
