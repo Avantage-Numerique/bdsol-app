@@ -18,7 +18,7 @@ import Event from "../../../models/Event";
 import DisplaySchedule from "../../Forms/Schedule/DisplaySchedule";
 
 //Hooks
-import {useDateManager} from '@/common/DateManager/DateManager'
+import {useDateManager} from '@/common/DateManager/UseDateManager'
 import {clientSideExternalApiRequest} from "@/src/hooks/http-hook";
 import EntityLink from "@/DataTypes/Entity/layouts/EntityLink";
 
@@ -63,7 +63,7 @@ const EventSingleView = ({data}) => {
                 '/info/eventformat-enum',
                 { method: 'GET' }
             );
-            const keyValueEnum = {}
+            const keyValueEnum = {};
             eventFormatResponse.forEach( (elem) => { keyValueEnum[elem.value] = elem.label });
             setFormatEnumState(keyValueEnum);
         }
@@ -110,7 +110,9 @@ const EventSingleView = ({data}) => {
             buttonText="Proposer des modifications"
             buttonLink={model.singleEditLink}
         />
-    )
+    );
+
+
     const fullWidthContent = (
         <div>
             <div className="row">

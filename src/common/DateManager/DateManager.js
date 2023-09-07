@@ -1,6 +1,8 @@
-import { useState } from 'react';
-import moment from"moment";
+import {useState} from 'react';
+import moment from "moment";
 import 'moment/locale/fr';
+import {DateTag} from "@/common/DateManager/DateTag";
+import {lang} from "@/common/Data/GlobalConstants";
 
 /**********
  * 
@@ -24,8 +26,11 @@ export const useDateManager = (time1, time2 = null) => {
     const [time, setTime] = useState({
         timeStamp: time1,
         endingTimeStamp: time2,
+        startTime: time1,
+        endTime:time2,
         language: 'fr-CA',
-        dateFormat: 'll',
+        dateFormat: 'L',
+        timeFormat: 'LT',
         hourFormat: 'LT'
     })
 
@@ -36,15 +41,21 @@ export const useDateManager = (time1, time2 = null) => {
      */
 
     //GENERAL FUNCTIONS
+        //@todo refactor var and methods names, with Date and Time (hour is too confusing since we may need to support hours, minutes, etc.)
     const getDateMoment = (date, format) => moment(date).locale(time.language).format(format || time.dateFormat);
     const getHourMoment = (hour, format) => moment(hour).locale(time.language).format(format || time.hourFormat);
 
     //GETTERS FOR SPECIFICS 
     const getStartingDate = (format = null) => getDateMoment(time.timeStamp, format);
-    const getDate = getStartingDate;
+
+    const getDate = getStartingDate;//why ?
+
     const getEndingDate = time.endingTimeStamp ? (format = null) => getDateMoment(time.endingTimeStamp, format) : null ;
+
     const getStartingHour =  (format = null) => getHourMoment(time.timeStamp, format);
-    const getHour = getStartingHour;
+
+    const getHour = getStartingHour;//why ??
+
     const getEndingHour = time.endingTimeStamp ? (format = null) => getHourMoment(time.endingTimeStamp, format) : null;
 
     //SETTERS
@@ -60,24 +71,30 @@ export const useDateManager = (time1, time2 = null) => {
     const TimeTag = ({format, endingDate = false}) => {
         
         //Define the variables to fill with proper dates and format
+        // I don't understand the check to the bool ending date ??
         const content = endingDate ? getEndingDate(format) : getStartingDate(format);
         const dateTime = endingDate ? getEndingDate() : getStartingDate();
 
-        return ( 
-            <time dateTime={dateTime}>
-                &nbsp;{content}&nbsp;
-            </time> 
-        )
+        console.log("TimeTag", format, endingDate, content, dateTime);
+        console.log("TimeTag", getEndingDate(), getStartingDate());
+        return (
+            <DateTag value={dateTime} label={content} />
+        );
     }
 
     //Simple tag that contains the time and hour 
 
-    const TimeIntervalSentence = ({tag, className=""}) => {
+    const TimeIntervalSentence = ({tag, className="", format}) => {
         //Define the tag surrounding 
         const Tag = tag ?? 'p';
+        const targetFormat = format ?? time.dateFormat;
+        const isSameYear = getStartingDate('yyyy') === getEndingDate('yyyy');
 
-        //To activate eventually
-        //const hideYear = getStartingDate('yyyy') == getEndingDate('yyyy') ? true : false;
+        return (
+            <Tag className={className}>
+                {lang.capitalize("from")} <DateTag value={getStartingDate()} label={getStartingDate(targetFormat)} /> {lang.to} <DateTag value={getEndingDate()} label={getEndingDate(targetFormat)} />
+            </Tag>
+        )
 
         return (
             <Tag className={className}>
@@ -85,6 +102,7 @@ export const useDateManager = (time1, time2 = null) => {
                 <TimeTag />
                 au
                 <TimeTag endingDate />
+                ({time.startTime} {time.endTime}
             </Tag>
         )
     }

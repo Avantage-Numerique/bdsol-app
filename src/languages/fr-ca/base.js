@@ -14,6 +14,8 @@ const base = {
     "colon": " : ",
     "by": "par",
     "on": "le",
+    "from": "de",
+    "to": "au",
     "title":"titre",
     "subTitle": "sous-titre",
     "infoNotAvailable": "Information non disponible",
