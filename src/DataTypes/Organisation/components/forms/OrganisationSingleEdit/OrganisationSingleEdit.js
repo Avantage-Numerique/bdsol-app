@@ -201,9 +201,11 @@ const OrganisationSingleEdit = (props) => {
                         role: singleTeam.value.role.value
                     }
                 }),
-                location: formState.inputs.location.value.map(function(singlePlace){
-                    return singlePlace.value
-                }),
+                location: formState.inputs.location?.value?.length > 0 ?
+                    formState.inputs.location.value.map(function(singlePlace){
+                        return singlePlace.value
+                    })
+                    : [],
                 status: getDefaultUpdateEntityStatus(auth.user)
             }
         };

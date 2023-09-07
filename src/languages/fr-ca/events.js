@@ -22,7 +22,10 @@ const events = {
     "endTime": "Heure de fin",
     "subEvents": "Sous-Événements",
     "attendees": "Participants",
-    "eventSkills": "Compétences liées à l'événement"
+    "eventSkills": "Compétences liées à l'événement",
+
+    "photoGallery": "Gallerie photo",
+    "addPhotoGallery": "Ajouter une image",
 
 
 }

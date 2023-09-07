@@ -24,13 +24,13 @@ import {getDefaultImageByEntityType} from "@/src/helpers/images";
 
 const CreateMediaForm = (props) => {
     
+    const mediaField = props.mediaField ?? 'mainImage'
     const {
         initValues,
         positiveRequestActions,
         entity
     } = props;
 
-    //For now, we assume the it is always going to be mainImage
     const {
         alt,
         description,
@@ -57,7 +57,7 @@ const CreateMediaForm = (props) => {
     //Main form functionalities
     const {FormUI, submitRequest, formState, formTools, clearFormData, updateManyFields} = useFormUtils(
         {
-            mainImage: {
+            [mediaField]: {
                 value: "",
                 isValid:  true
             },
@@ -95,7 +95,7 @@ const CreateMediaForm = (props) => {
     useEffect(() => {
         if(!isNewFile){
             updateManyFields({
-                mainImage: "", 
+                [mediaField]: "", 
                 licence: licence ?? "copyright",
                 description: description ?? '',
                 alt: alt ?? '',
@@ -136,13 +136,13 @@ const CreateMediaForm = (props) => {
                 "description": formState.inputs.description.value,
                 "licence": formState.inputs.licence.value ?? undefined,
                 "fileType": "image",
-                "mediaField": "mainImage",
+                "mediaField": mediaField,
                 "entityType": entity.type,
                 "entityId": entity._id,
                 "status": getDefaultCreateEntityStatus(auth.user)
             }
             //Add the image to the form data object
-            rawFromData.append("mainImage", formState.inputs.mainImage.value);
+            rawFromData.append(mediaField, formState.inputs[mediaField].value);
             //Add the field values
             rawFromData.append("data", JSON.stringify(formData));
 
@@ -163,7 +163,7 @@ const CreateMediaForm = (props) => {
 
             const formData = {
                 "data": {
-                    "id": entity.mainImage._id,
+                    "id": entity[mediaField]._id,
                     "title": formState.inputs.title.value,
                     "alt": formState.inputs.alt.value,
                     "description": formState.inputs.description.value,
@@ -208,7 +208,7 @@ const CreateMediaForm = (props) => {
                     <div className={`col-6 ${styles["image-column"]}`}>
                         {isNewFile &&
                             <LargeFileInput 
-                                name="mainImage"
+                                name={mediaField}
                                 label="Fichier"
                                 formTools={formTools}
                             />
@@ -290,7 +290,7 @@ const CreateMediaForm = (props) => {
                         }
                         <div className="mt-2 d-flex gap-2 flex-wrap">
                                 <Button
-                                    disabled={entity.mainImage?._id == undefined && formState.inputs.mainImage.value == ""}
+                                    disabled={entity?.[mediaField]?._id == undefined && formState.inputs[mediaField].value == ""}
                                     onClick={submitHandler}
                                     size="slim"
                                 > Soumettre

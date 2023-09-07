@@ -29,6 +29,7 @@ import UpdateTeams from "@/src/DataTypes/Organisation/components/forms/UpdateTea
 import {getDateFromIsoString} from "@/src/utils/DateHelper";
 import {TYPE_EVENT, TYPE_PLACE, TYPE_TAXONOMY} from "@/src/DataTypes/Entity/Types";
 import SelectFetch from "@/src/common/FormElements/Select/SelectFetch";
+import CreatePhotoGallery from "@/src/DataTypes/Media/components/forms/CreatePhotoGallery/CreatePhotoGallery";
 
 const EventSingleEdit = ({data}, ...props) => {
 
@@ -240,9 +241,11 @@ const EventSingleEdit = ({data}, ...props) => {
                         role: singleMember.value.role.value
                     }
                 }),
-                location: formState.inputs.location.value.map(function(singlePlace){
-                    return singlePlace.value
-                }),
+                location: formState.inputs.location?.value?.length > 0 ?
+                    formState.inputs.location.value.map(function(singlePlace){
+                        return singlePlace.value
+                    })
+                    :[],
                 //Temporary set the input in name field until we have a more elaborated structure for location
                 //location: [{ name: formState.inputs.location.value}],
                 //experience: formState.inputs.experience.value
@@ -547,6 +550,10 @@ const EventSingleEdit = ({data}, ...props) => {
                     }}
                     placeholder={lang.projectContactPointPlaceholder}
                     formTools={formTools}
+                />
+                {/* photoGallery */}
+                <CreatePhotoGallery
+                    entity={model}
                 />
                 </SingleInfo>
         </>

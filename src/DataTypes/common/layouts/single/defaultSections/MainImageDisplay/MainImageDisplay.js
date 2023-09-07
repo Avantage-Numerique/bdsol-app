@@ -52,6 +52,7 @@ const MainImageDisplay = ({ mainImage, entity, setter }) => {
                     <CreateMediaForm
                         initValues={mainImage}
                         entity={entity}
+                        mediaField="mainImage"
                         positiveRequestActions={{//CallbackFunction is one of the four behaviors the useFormUtils hook can apply when a request return a positive answer
                             callbackFunction: (requestResponse) => {
                                 refreshImage(requestResponse);

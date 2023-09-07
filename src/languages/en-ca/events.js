@@ -22,8 +22,10 @@ const events = {
     "endTime": "Ends at",
     "subEvents": "Subevents",
     "attendees": "Attendees",
-    "eventSkills": "Skills linked to this event"
+    "eventSkills": "Skills linked to this event",
 
+    "photoGallery": "Photo gallery",
+    "addPhotoGallery": "Ajouter une image",
 
 
 }
