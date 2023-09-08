@@ -18,7 +18,7 @@ import Event from "../../../models/Event";
 import DisplaySchedule from "../../Forms/Schedule/DisplaySchedule";
 
 //Hooks
-import {useDateManager} from '@/common/DateManager/UseDateManager'
+import {dateManager} from '@/common/DateManager/DateManager'
 import {clientSideExternalApiRequest} from "@/src/hooks/http-hook";
 import EntityLink from "@/DataTypes/Entity/layouts/EntityLink";
 
@@ -82,7 +82,7 @@ const EventSingleView = ({data}) => {
         getLabelGenerator: getLabelGenerator
     }
 
-    const { TimeTag, TimeIntervalSentence } = useDateManager(startDate, endDate);
+    const { TimeTag, TimeIntervalSentence } = dateManager(startDate, endDate);
 
 
     const header = (

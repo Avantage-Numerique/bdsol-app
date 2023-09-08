@@ -1,6 +1,6 @@
 import React from "react"
 
-import {useDateManager} from '@/common/DateManager/UseDateManager'
+import {dateManager} from '@/common/DateManager/DateManager'
 
 /***  Local styling ***/
 import styles from './EventSimple.module.scss';
@@ -10,7 +10,7 @@ const EventSimple = ({ model }) => {
 
     const BottomLineContent = () => {
         //Create an instance of the date manager and extract the right class
-        const { TimeIntervalSentence } = useDateManager(model.startDate, model.endDate);
+        const { TimeIntervalSentence } = dateManager(model.startDate, model.endDate);
 
         return (
             <p className="mb-0 text--dark">
