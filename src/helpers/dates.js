@@ -1,7 +1,6 @@
 
 
 const dateToISO = (date) => {
-    console.log(typeof date);
     return date.toISOString();
 }
 

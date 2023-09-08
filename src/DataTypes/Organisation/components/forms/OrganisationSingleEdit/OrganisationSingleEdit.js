@@ -163,8 +163,6 @@ const OrganisationSingleEdit = (props) => {
             }
 
         })
-
-        console.log("formState", formState)
     //Function to submit the form
     const submitHandler = async event => {
 

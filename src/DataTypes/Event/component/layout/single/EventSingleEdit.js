@@ -30,12 +30,7 @@ import {getDateFromIsoString} from "@/src/utils/DateHelper";
 import {TYPE_EVENT, TYPE_PLACE, TYPE_TAXONOMY} from "@/src/DataTypes/Entity/Types";
 import SelectFetch from "@/src/common/FormElements/Select/SelectFetch";
 import CreatePhotoGallery from "@/src/DataTypes/Media/components/forms/CreatePhotoGallery/CreatePhotoGallery";
-import {
-    apiDateToDateInput,
-    apiDateToTimeInput,
-    dateTimeStringToUTC,
-    dateTimeStringUTCToZonedTime
-} from "@/common/DateManager/Parse";
+import {apiDateToDateInput, apiDateToTimeInput, dateTimeStringToUTC} from "@/common/DateManager/Parse";
 
 const EventSingleEdit = ({data}, ...props) => {
 
@@ -106,7 +101,6 @@ const EventSingleEdit = ({data}, ...props) => {
     }, [auth.user.isLoggedIn]);
 
     const combineDateAndTime = (date, time) => {
-        console.log("combineDateAndTime", date, time);
         return dateTimeStringToUTC(`${date} ${time}`);
     }
 
@@ -208,7 +202,7 @@ const EventSingleEdit = ({data}, ...props) => {
     const submitHandler = async event => { 
 
         event.preventDefault();
-        console.log(combineDateAndTime(formState.inputs.startDate.value, formState.inputs.startTime.value));
+
         const formData = {
             data: {
                 id: _id,
@@ -287,6 +281,7 @@ const EventSingleEdit = ({data}, ...props) => {
             />
         </>
     );
+
     const subtitle = (
         <>
             {/* alternateName */}
@@ -322,6 +317,7 @@ const EventSingleEdit = ({data}, ...props) => {
             />
 
         </>);
+
     const ctaHeaderSection = (
         <div className="d-flex align-items-end">
             <Link href={model.singleLink} >
@@ -343,7 +339,7 @@ const EventSingleEdit = ({data}, ...props) => {
             <MainImageDisplay mainImage={currentMainImage} entity={currentModel} setter={updateModelMainImage} />
         </SingleBaseHeader>
     );
-    console.log("dateTimeStringUTCToZonedTime UTC", dateTimeStringUTCToZonedTime(startDate));
+
     const fullWidthContent = (
         <div>
             <div className="row">
@@ -470,6 +466,7 @@ const EventSingleEdit = ({data}, ...props) => {
                 }):[]}
                 formTools={formTools}
             />
+
             {/* subEvents */}
             <Select2
                 name="subEvents"

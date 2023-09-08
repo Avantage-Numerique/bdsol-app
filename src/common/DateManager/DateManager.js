@@ -37,7 +37,6 @@ export const dateManager = (time1, time2 = null) => {
 
 
     const getDate = (date, format=time.dateFormat, locale=time.language) => {
-        console.log("getDate", date, format, locale);
         const dateObject = setDateTime(date);
         return Format(dateObject, format, {locale:locale});
     }

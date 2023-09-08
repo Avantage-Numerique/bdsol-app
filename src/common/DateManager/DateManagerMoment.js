@@ -75,8 +75,6 @@ export const useDateManager = (time1, time2 = null) => {
         const content = endingDate ? getEndingDate(format) : getStartingDate(format);
         const dateTime = endingDate ? getEndingDate() : getStartingDate();
 
-        console.log("TimeTag", format, endingDate, content, dateTime);
-        console.log("TimeTag", getEndingDate(), getStartingDate());
         return (
             <DateTag value={dateTime} label={content} />
         );

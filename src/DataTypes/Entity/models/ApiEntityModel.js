@@ -1,6 +1,5 @@
-import { getColor } from "@/src/styles/datatypeStyle";
-import { TYPE_EVENT, TYPE_ORGANISATION, TYPE_PERSON, TYPE_PLACE, TYPE_PROJECT, TYPE_TAXONOMY } from "../Types";
-
+import {getColor} from "@/src/styles/datatypeStyle";
+import {TYPE_EVENT, TYPE_ORGANISATION, TYPE_PERSON, TYPE_PLACE, TYPE_PROJECT, TYPE_TAXONOMY} from "../Types";
 
 
 class ApiEntityModel {
@@ -28,21 +27,21 @@ class ApiEntityModel {
     static entityTypeHandler( entity, field ) {
         switch (entity?.type) {
             case TYPE_PERSON :
-                if(field == "occupations")
+                if(field === "occupations")
                     return ApiEntityModel.occupationsToSelectOptions( entity.occupations ?? entity );
-                if(field == "domains")
+                if(field === "domains")
                     return ApiEntityModel.domainsToSelectOptions( entity.domain );
-                if(field == "fullname")
+                if(field === "fullname")
                     return ApiEntityModel.fullnameToSelectOptions( entity );
                 break;
             case TYPE_ORGANISATION :
-                if(field == "offers")
+                if(field === "offers")
                     return ApiEntityModel.occupationsToSelectOptions( entity.offers ?? entity );
-                if(field == "name")
+                if(field === "name")
                     return ApiEntityModel.nameToSelectOptions( entity );
                 break;
             case TYPE_PROJECT :
-                if(field == "domains")
+                if(field === "domains")
                     return ApiEntityModel.domainsToSelectOptions( entity.domain );
                 break;
             case TYPE_TAXONOMY :
@@ -52,12 +51,11 @@ class ApiEntityModel {
                     return ApiEntityModel.nameToSelectOptions( entity );
                 break;
             case TYPE_PLACE :
-                    console.log("Type place")
                     return ApiEntityModel.locationToSelectOptions( entity );
                 break;
 
             default : 
-                if(field == "domains")
+                if(field === "domains")
                     return ApiEntityModel.domainsToSelectOptions( entity );
                 return [];
         }
