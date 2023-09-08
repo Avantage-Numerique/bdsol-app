@@ -62,7 +62,7 @@ export const dateManager = (time1, time2 = null) => {
 
     //Simple tag that contains the time and hour
 
-    const TimeIntervalSentence = ({tag, className="", format= time.fullHumanDateFormat}) => {
+    const TimeIntervalSentence = ({tag, className="", showDay=true}) => {
         //Define the tag surrounding
         const Tag = tag ?? 'p';
 
@@ -76,8 +76,12 @@ export const dateManager = (time1, time2 = null) => {
                 {/* is one day */}
                 {isSameDay && isSameMonth && isSameYear &&
                     <>
-                        {lang.capitalize("the")} <TimeTag date={time.startTime} format={time.humanDateFormat} /> {formatDate(time.startTime, 'yyyy')}
-                        <br/>
+                        {showDay &&
+                            <>
+                                {lang.capitalize("the")} <TimeTag date={time.startTime} format={time.humanDateFormat} /> {formatDate(time.startTime, 'yyyy')}
+                                <br/>
+                            </>
+                        }
                         <TimeTag date={time.startTime} format={time.timeFormat} /> {lang.hourTo} <TimeTag date={time.endTime} format={time.timeFormat} />
                     </>
                 }
@@ -89,7 +93,7 @@ export const dateManager = (time1, time2 = null) => {
                         <TimeTag date={time.endTime} format={time.humanDateFormat} /> <TimeTag date={time.endTime} format={time.timeFormat} /> {formatDate(time.startTime, 'yyyy')}
                     </>
                 }
-                {/* Within one month */}
+                {/* Within one month on the same year indeed */}
                 {!isSameDay && isSameMonth && isSameYear &&
                     <>
                         {lang.capitalize("from")} <TimeTag date={time.startTime} format={time.humanDateMonthFormat} /> <TimeTag date={time.startTime} format={time.timeFormat} /> {lang.to}<br />

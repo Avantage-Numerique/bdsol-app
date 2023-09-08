@@ -26,7 +26,6 @@ import Select2 from "@/src/common/FormElements/Select2/Select2";
 import RichTextarea from "@/src/common/FormElements/RichTextArea/RichTextarea";
 import UpdateSchedule from "../../Forms/Schedule/UpdateSchedule";
 import UpdateTeams from "@/src/DataTypes/Organisation/components/forms/UpdateTeams/UpdateTeams";
-import {getDateFromIsoString} from "@/src/utils/DateHelper";
 import {TYPE_EVENT, TYPE_PLACE, TYPE_TAXONOMY} from "@/src/DataTypes/Entity/Types";
 import SelectFetch from "@/src/common/FormElements/Select/SelectFetch";
 import CreatePhotoGallery from "@/src/DataTypes/Media/components/forms/CreatePhotoGallery/CreatePhotoGallery";
@@ -220,9 +219,9 @@ const EventSingleEdit = ({data}, ...props) => {
                 schedule: formState.inputs.schedule.value.map( (singleSchedule) => {
                     return {
                         name: singleSchedule.value.name.value,
-                        startDate: singleSchedule.value.startDate.value,
+                        startDate: combineDateAndTime(singleSchedule.value.startDate.value, singleSchedule.value.startTime.value),
                         startTime: singleSchedule.value.startTime.value,
-                        endDate: singleSchedule.value.endDate.value,
+                        endDate: combineDateAndTime(singleSchedule.value.endDate.value, singleSchedule.value.endTime.value),
                         endTime: singleSchedule.value.endTime.value,
                     }
                 }),
@@ -459,9 +458,9 @@ const EventSingleEdit = ({data}, ...props) => {
                 label={lang.schedule}
                 schedule={schedule?.length > 0 ? schedule.map( (elem, ind, arr) => {
                     if(elem.startDate)
-                        elem.startDate = getDateFromIsoString(elem.startDate);
+                        elem.startDate = apiDateToDateInput(elem.startDate);//getDateFromIsoString(elem.startDate);
                     if(elem.endDate)
-                        elem.endDate = getDateFromIsoString(elem.endDate);
+                        elem.endDate = apiDateToDateInput(elem.endDate);//getDateFromIsoString(elem.endDate);
                     return elem;
                 }):[]}
                 formTools={formTools}

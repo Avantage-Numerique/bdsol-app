@@ -57,6 +57,7 @@ const EventSingleView = ({data}) => {
     const model = new Event(data);
 
     const [formatEnumState, setFormatEnumState] = useState(undefined);
+
     useEffect( () => {
         const getEventFormatEnum = async () => {
             const eventFormatResponse = await clientSideExternalApiRequest(
@@ -167,21 +168,21 @@ const EventSingleView = ({data}) => {
             {/* schedule */}
             {
                 schedule && schedule.length > 0 &&
-                <SingleInfo title={lang.schedule}>
+                <SingleInfo title={lang.schedule} className={"pb-3"}>
                     <DisplaySchedule feed={schedule}/>
                 </SingleInfo>
             }
             {/* subEvents */}
             {
                 subEvents && subEvents.length > 0 &&
-                <SingleInfo title={lang.subEvents}>
+                <SingleInfo title={lang.subEvents} className={"pb-3"}>
                     <EntitiesTagGrid feed={subEvents} />
                 </SingleInfo>
             }
             {/* attendees */}
             {
                 attendees && attendees.length > 0 &&
-                <SingleInfo title={lang.attendees}>
+                <SingleInfo title={lang.attendees} className={"pb-3"}>
                     <EntitiesTagGrid feed={attendees} />
                 </SingleInfo>
             }
