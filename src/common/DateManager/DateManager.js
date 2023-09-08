@@ -25,10 +25,11 @@ export const dateManager = (time1, time2 = null) => {
         endTime: setDateTime(time2),
         language: frCA,
         dateFormat: 'yyyy-LL-dd',
-        timeFormat: 'H \h mm',
+        timeFormat: "H 'h' mm",
         dayFormat: 'dd',
         monthFormat: 'MMM',
         humanDateFormat: 'EEEE d MMM',
+        humanDateMonthFormat: 'd MMM',
         humanTimeFormat: '',
         fullHumanDateFormat: 'E d MMM yyyy',
         fullHumanTimeFormat: ''
@@ -72,28 +73,36 @@ export const dateManager = (time1, time2 = null) => {
 
         return (
             <Tag className={className}>
+                {/* DATE */}
                 {/* is one day */}
                 {isSameDay && isSameMonth && isSameYear &&
                     <>
                         {lang.capitalize("the")} <TimeTag date={time.startTime} format={time.humanDateFormat} /> {formatDate(time.startTime, 'yyyy')}
+                        <br/>
+                        <TimeTag date={time.startTime} format={time.timeFormat} /> {lang.hourTo} <TimeTag date={time.endTime} format={time.timeFormat} />
                     </>
                 }
                 {/* Same year only */}
                 {!isSameDay && !isSameMonth && isSameYear &&
                     <>
-                        {lang.capitalize("from")} <TimeTag date={time.startTime} format={time.humanDateFormat} /> {lang.to} <TimeTag date={time.endTime} format={time.humanDateFormat} /> {formatDate(time.startTime, 'yyyy')}
+                        {lang.capitalize("from")} <TimeTag date={time.startTime} format={time.humanDateFormat} /> <TimeTag date={time.startTime} format={time.timeFormat} />
+                        &nbsp;{lang.to}&nbsp;
+                        <TimeTag date={time.endTime} format={time.humanDateFormat} /> <TimeTag date={time.endTime} format={time.timeFormat} /> {formatDate(time.startTime, 'yyyy')}
                     </>
                 }
                 {/* Within one month */}
                 {!isSameDay && isSameMonth && isSameYear &&
                     <>
-                        {lang.capitalize("from")} <TimeTag date={time.startTime} format={'d'} /> {lang.to} <TimeTag date={time.endTime} format={'d'} /> {formatDate(time.startTime, time.monthFormat)} {formatDate(time.startTime, 'yyyy')}
+                        {lang.capitalize("from")} <TimeTag date={time.startTime} format={time.humanDateMonthFormat} /> <TimeTag date={time.startTime} format={time.timeFormat} /> {lang.to}<br />
+                        <TimeTag date={time.endTime} format={time.humanDateMonthFormat} /> <TimeTag date={time.endTime} format={time.timeFormat} /> ({formatDate(time.startTime, 'yyyy')})
                     </>
                 }
                 {/* Multi years */}
                 {!isSameDay && !isSameMonth && !isSameYear &&
                     <>
-                        {lang.capitalize("from")} <TimeTag date={time.startTime} format={time.fullHumanDateFormat} /> {lang.to} <TimeTag date={time.endTime} format={time.fullHumanDateFormat} />
+                        {lang.capitalize("from")} <TimeTag date={time.startTime} format={time.fullHumanDateFormat} /> <TimeTag date={time.startTime} format={time.timeFormat} />
+                        &nbsp;{lang.to}&nbsp;
+                        <TimeTag date={time.endTime} format={time.fullHumanDateFormat} /> <TimeTag date={time.endTime} format={time.timeFormat} />
                     </>
                 }
             </Tag>

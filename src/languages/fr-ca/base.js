@@ -16,6 +16,7 @@ const base = {
     "on": "le",
     "from": "du",
     "to": "au",
+    "hourTo": "à",
     "the": "le",
     "title":"titre",
     "subTitle": "sous-titre",
