@@ -10,7 +10,7 @@ const EventSimple = ({ model }) => {
 
     const BottomLineContent = () => {
         //Create an instance of the date manager and extract the right class
-        const { TimeTag, TimeIntervalSentence } = useDateManager(model.startDate, model.endDate);
+        const { TimeIntervalSentence } = useDateManager(model.startDate, model.endDate);
 
         return (
             <p className="mb-0 text--dark">
