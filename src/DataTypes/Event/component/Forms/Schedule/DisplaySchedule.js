@@ -1,5 +1,4 @@
-
-import { getDateFromIsoString } from "@/src/utils/DateHelper"
+import {getDateFromIsoString} from "@/src/utils/DateHelper"
 
 const DisplaySchedule = ({feed}, ...props) => {
 
@@ -15,12 +14,12 @@ const DisplaySchedule = ({feed}, ...props) => {
                         <div key={step.name + "" + step.startTime} className={`d-flex py-1 px-2 rounded-1 align-items-center ${i % 2 ? "bg-primaryextratlight": ""}`}>
                             <h6 className="flex-grow-1 fw-normal m-0">{step.name}</h6>
                             <div style={{width: "9ch"}} className="d-flex flex-wrap justify-content-end ml-1">
-                                <time className="" datetime={getDateFromIsoString(step.startDate)}>{getDateFromIsoString(step.startDate)}</time>
-                                <time className="" datetime={step.startTime}>{step.startTime}</time>
+                                <time className="" dateTime={getDateFromIsoString(step.startDate)}>{getDateFromIsoString(step.startDate)}</time>
+                                <time className="" dateTime={step.startTime}>{step.startTime}</time>
                             </div>
                             <div style={{width: "9ch"}} className="d-flex flex-wrap justify-content-end ml-1">
-                                <time className="" datetime={getDateFromIsoString(step.endDate)}>{getDateFromIsoString(step.endDate)}</time>
-                                <time className="" datetime={step.endTime}>{step.endTime}</time>
+                                <time className="" dateTime={getDateFromIsoString(step.endDate)}>{getDateFromIsoString(step.endDate)}</time>
+                                <time className="" dateTime={step.endTime}>{step.endTime}</time>
                             </div>
                         </div>
                     )
