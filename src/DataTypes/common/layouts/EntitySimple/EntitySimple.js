@@ -1,14 +1,13 @@
 import React from 'react';
 
 //components
-import KebabButton from '@/common/FormElements/KebabButton/KebabButton'
-
 //Styling
 import styles from './EntitySimple.module.scss';
 import MediaFigure from "@/DataTypes/Media/layouts/MediaFigure";
 import {getType} from "@/DataTypes/Entity/Types";
 import HtmlTagsRemover from '@/src/utils/HtmlTagsRemover'
 import Link from "next/link";
+import Icon from "@/common/widgets/Icon/Icon";
 
 
 /**
@@ -51,7 +50,7 @@ const EntitySimple = (props) => {
     const showEntityType = props.showEntityType ?? true;
     const appType = getType(model.type);
     //Verify is a bottom line is available to be displayed
-    const isBottomLine = BottomLineContent || model.simgleList ? true : false
+    const isBottomLine = (BottomLineContent || model.simgleList);
 
 
     /**
@@ -78,7 +77,7 @@ const EntitySimple = (props) => {
             }
             {/* Display over the entity the type of image */}
             {showEntityType && appType &&
-                <h4 className={`position-relative text-white fw-normal m-0 ${styles["entity-type"]}`}>{appType.label}</h4>
+                <h4 className={`position-relative text-white fw-normal justify-self-end m-0 pe-none ${styles["entity-type"]}`}><Icon iconName={appType.icon}/></h4>
             }
         </div>
     );
@@ -93,15 +92,19 @@ const EntitySimple = (props) => {
         <>
             <header className={`d-flex mb-2 justify-content-between ${styles["simple-abstract__content__header"]}`}>
                 {/* Main name of the entity */}
-                <div className={"d-flex flex-column justify-content-center "}>
-                    <h3 className={`m-0 
+                <div className={"w-100 d-flex flex-column justify-content-center "}>
+                    <h3 className={`w-100 m-0 
                         ${styles["simple-abstract__content__title"]}
                         ${styles["simple-abstract__content_ellipsis"]}
                     `}>
-                        {model.title}
+                        <Link href={model.singleLink} title={title}>
+                            <a className={"d-block w-100"}>
+                                {model.title}
+                            </a>
+                        </Link>
                     </h3>
                 </div>
-                { model.singleLink && <KebabButton href={model.singleLink} /> }
+                {/* model.singleLink && <KebabButton href={model.singleLink} /> */}
             </header>
             <section className={`
                 d-flex
@@ -137,9 +140,6 @@ const EntitySimple = (props) => {
                 { BottomLineContent && 
                     <BottomLineContent />
                 }
-
-                
-
             </section>
         </>
     );
