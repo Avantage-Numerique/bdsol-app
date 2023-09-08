@@ -30,6 +30,12 @@ import {getDateFromIsoString} from "@/src/utils/DateHelper";
 import {TYPE_EVENT, TYPE_PLACE, TYPE_TAXONOMY} from "@/src/DataTypes/Entity/Types";
 import SelectFetch from "@/src/common/FormElements/Select/SelectFetch";
 import CreatePhotoGallery from "@/src/DataTypes/Media/components/forms/CreatePhotoGallery/CreatePhotoGallery";
+import {
+    apiDateToDateInput,
+    apiDateToTimeInput,
+    dateTimeStringToUTC,
+    dateTimeStringUTCToZonedTime
+} from "@/common/DateManager/Parse";
 
 const EventSingleEdit = ({data}, ...props) => {
 
@@ -99,6 +105,11 @@ const EventSingleEdit = ({data}, ...props) => {
         }
     }, [auth.user.isLoggedIn]);
 
+    const combineDateAndTime = (date, time) => {
+        console.log("combineDateAndTime", date, time);
+        return dateTimeStringToUTC(`${date} ${time}`);
+    }
+
     //Main form functionalities
     const { FormUI, submitRequest, formState, formTools } = useFormUtils(
         {
@@ -140,19 +151,19 @@ const EventSingleEdit = ({data}, ...props) => {
                 isValid: true
             },
             startDate: {
-                value: startDate ? startDate.split("T")[0] : "",
+                value: startDate ? apiDateToDateInput(startDate) : "",
                 isValid: true
             },
             startTime: {
-                value: "13:30",
+                value: startDate ? apiDateToTimeInput(startDate) : "",
                 isValid: true
             },
             endDate: {
-                value: endDate ? endDate.split("T")[0] : "",
+                value: endDate ? apiDateToDateInput(endDate) : "",
                 isValid: true
             },
             endTime: {
-                value: "14:30",
+                value: endDate ? apiDateToTimeInput(endDate) : "",
                 isValid: true
             },
             contactPoint: {
@@ -197,6 +208,7 @@ const EventSingleEdit = ({data}, ...props) => {
     const submitHandler = async event => { 
 
         event.preventDefault();
+        console.log(combineDateAndTime(formState.inputs.startDate.value, formState.inputs.startTime.value));
         const formData = {
             data: {
                 id: _id,
@@ -207,8 +219,8 @@ const EventSingleEdit = ({data}, ...props) => {
                 eventType: formState.inputs.eventType.value?.length > 0 ?
                     formState.inputs.eventType.value.map( (selectedEventType) => { return selectedEventType.value }) : [],
                 eventFormat: formState.inputs.eventFormat.value && formState.inputs.eventFormat.value !== "" ? formState.inputs.eventFormat.value : "",
-                startDate: formState.inputs.startDate.value,
-                endDate: formState.inputs.endDate.value,
+                startDate: combineDateAndTime(formState.inputs.startDate.value, formState.inputs.startTime.value),
+                endDate: combineDateAndTime(formState.inputs.endDate.value, formState.inputs.endTime.value),
                 url: formState.inputs.url.value,
                 contactPoint: formState.inputs.contactPoint.value,
                 schedule: formState.inputs.schedule.value.map( (singleSchedule) => {
@@ -331,7 +343,7 @@ const EventSingleEdit = ({data}, ...props) => {
             <MainImageDisplay mainImage={currentMainImage} entity={currentModel} setter={updateModelMainImage} />
         </SingleBaseHeader>
     );
-
+    console.log("dateTimeStringUTCToZonedTime UTC", dateTimeStringUTCToZonedTime(startDate));
     const fullWidthContent = (
         <div>
             <div className="row">

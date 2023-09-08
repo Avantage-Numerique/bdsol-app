@@ -128,7 +128,7 @@ const EventSingleView = ({data}) => {
                         <SingleInfo title={lang.eventType}>
                             <ul>
                                 {eventType.map( type => (
-                                    <li key="type.name">
+                                    <li key={`${type.name}`}>
                                         {type.name}
                                     </li>
                                 ))}
