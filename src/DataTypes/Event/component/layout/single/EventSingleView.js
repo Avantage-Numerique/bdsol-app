@@ -146,7 +146,7 @@ const EventSingleView = ({data}) => {
                     {
                         location?.length > 0 &&
                         <SingleInfo title="Emplacement">
-                            <EntitiesTagGrid feed={location} subBadgeProperty={"address"} />
+                            <EntitiesTagGrid feed={location} subBadgeProperty={"address"} columnClass={"col-12"} />
                         </SingleInfo>
                     }
                 </div>

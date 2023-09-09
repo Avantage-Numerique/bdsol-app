@@ -13,6 +13,8 @@ import SingleInfo from "@/DataTypes/common/layouts/SingleInfo/SingleInfo";
 import {SingleEntityStatus} from "@/DataTypes/Status/components/SingleEntityStatus";
 import EntitiesTagGrid from "@/DataTypes/Entity/layouts/EntitiesTagGrid";
 import {ExternalLink} from "@/common/Components/ExternalLink";
+import {dateManager, FULL_HUMAN_DATE_FORMAT} from "@/common/DateManager/DateManager";
+
 
 const OrganisationSingleView = ({ data }) => {
 
@@ -84,7 +86,7 @@ const OrganisationSingleView = ({ data }) => {
             }
         </>
     )
-
+    const { TimeTag } = dateManager(fondationDate);
     const ContentColumnLeft = (
         <>
             { offers.length > 0 &&
@@ -110,6 +112,13 @@ const OrganisationSingleView = ({ data }) => {
                     <EntitiesTagGrid feed={team} subEntityProperty={"member"} subBadgeProperty={"role"} noneMessage={lang.noTeamMemberSetMessage} />
                 </SingleInfo>
             }
+            { fondationDate &&
+                <SingleInfo
+                    title={lang.fondationDate}
+                    className={"mb-3"}>
+                    <TimeTag date={fondationDate} format={FULL_HUMAN_DATE_FORMAT} />
+                </SingleInfo>
+            }
             { url &&
                 <SingleInfo title={lang.hyperlink} className={"mb-3"}>
                     <p>
@@ -127,7 +136,7 @@ const OrganisationSingleView = ({ data }) => {
             {
                 location?.length > 0 &&
                 <SingleInfo title="Emplacement">
-                    <EntitiesTagGrid feed={location} subBadgeProperty={"address"} />
+                    <EntitiesTagGrid feed={location} subBadgeProperty={"address"} columnClass={"col-12"} />
                 </SingleInfo>
             }
             { contactPoint &&
