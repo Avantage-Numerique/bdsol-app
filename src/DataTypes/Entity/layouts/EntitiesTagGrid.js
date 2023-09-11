@@ -22,7 +22,7 @@ const EntitiesTagGrid = ({feed, className, columnClass, subEntityProperty, subBa
     subBadgeProperty = subBadgeProperty ?? 'name';
     noneMessage = noneMessage ?? lang.noResult;
 
-    const colContainerClass = columnClass ?? "col-6";
+    const colContainerClass = columnClass ?? "col-12 col-md-6";
 
     const getKeyString = useCallback((prefix, model, index) => {
         const sep = "-";
