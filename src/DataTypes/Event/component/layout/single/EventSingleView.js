@@ -18,7 +18,7 @@ import Event from "../../../models/Event";
 import DisplaySchedule from "../../Forms/Schedule/DisplaySchedule";
 
 //Hooks
-import {useDateManager} from '@/common/DateManager/DateManager'
+import {dateManager} from '@/common/DateManager/DateManager'
 import {clientSideExternalApiRequest} from "@/src/hooks/http-hook";
 import EntityLink from "@/DataTypes/Entity/layouts/EntityLink";
 
@@ -57,13 +57,14 @@ const EventSingleView = ({data}) => {
     const model = new Event(data);
 
     const [formatEnumState, setFormatEnumState] = useState(undefined);
+
     useEffect( () => {
         const getEventFormatEnum = async () => {
             const eventFormatResponse = await clientSideExternalApiRequest(
                 '/info/eventformat-enum',
                 { method: 'GET' }
             );
-            const keyValueEnum = {}
+            const keyValueEnum = {};
             eventFormatResponse.forEach( (elem) => { keyValueEnum[elem.value] = elem.label });
             setFormatEnumState(keyValueEnum);
         }
@@ -82,7 +83,7 @@ const EventSingleView = ({data}) => {
         getLabelGenerator: getLabelGenerator
     }
 
-    const { TimeTag, TimeIntervalSentence } = useDateManager(startDate, endDate);
+    const { TimeTag, TimeIntervalSentence } = dateManager(startDate, endDate);
 
 
     const header = (
@@ -110,7 +111,9 @@ const EventSingleView = ({data}) => {
             buttonText="Proposer des modifications"
             buttonLink={model.singleEditLink}
         />
-    )
+    );
+
+
     const fullWidthContent = (
         <div>
             <div className="row">
@@ -126,7 +129,7 @@ const EventSingleView = ({data}) => {
                         <SingleInfo title={lang.eventType}>
                             <ul>
                                 {eventType.map( type => (
-                                    <li key="type.name">
+                                    <li key={`${type.name}`}>
                                         {type.name}
                                     </li>
                                 ))}
@@ -143,7 +146,7 @@ const EventSingleView = ({data}) => {
                     {
                         location?.length > 0 &&
                         <SingleInfo title="Emplacement">
-                            <EntitiesTagGrid feed={location} subBadgeProperty={"address"} />
+                            <EntitiesTagGrid feed={location} subBadgeProperty={"address"} columnClass={"col-12"} />
                         </SingleInfo>
                     }
                 </div>
@@ -165,21 +168,21 @@ const EventSingleView = ({data}) => {
             {/* schedule */}
             {
                 schedule && schedule.length > 0 &&
-                <SingleInfo title={lang.schedule}>
+                <SingleInfo title={lang.schedule} className={"pb-3"}>
                     <DisplaySchedule feed={schedule}/>
                 </SingleInfo>
             }
             {/* subEvents */}
             {
                 subEvents && subEvents.length > 0 &&
-                <SingleInfo title={lang.subEvents}>
+                <SingleInfo title={lang.subEvents} className={"pb-3"}>
                     <EntitiesTagGrid feed={subEvents} />
                 </SingleInfo>
             }
             {/* attendees */}
             {
                 attendees && attendees.length > 0 &&
-                <SingleInfo title={lang.attendees}>
+                <SingleInfo title={lang.attendees} className={"pb-3"}>
                     <EntitiesTagGrid feed={attendees} />
                 </SingleInfo>
             }

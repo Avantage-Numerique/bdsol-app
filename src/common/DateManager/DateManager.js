@@ -1,90 +1,115 @@
-import { useState } from 'react';
-import moment from"moment";
-import 'moment/locale/fr';
+import {useState} from 'react';
 
-/**********
- * 
- *      +++++++++ FORMATS OPTIONS +++++++++++
- *      moment().format('LT');   // 15:26
- *      moment().format('LTS');  // 15:26:40
- *      moment().format('L');    // 2023-08-08
- *      moment().format('l');    // 2023-8-8
- *      moment().format('LL');   // 8 août 2023
- *      moment().format('ll');   // 8 août 2023
- *      moment().format('LLL');  // 8 août 2023 15:26
- *      moment().format('lll');  // 8 août 2023 15:26
- *      moment().format('LLLL'); // mardi 8 août 2023 15:26
- *      moment().format('llll'); // mar. 8 août 2023 15:27
- * 
- * */
+import Format from "@/common/DateManager/Format";
+import {frCA} from 'date-fns/locale'
+
+import {DateTag} from "@/common/DateManager/DateTag";
+import {lang} from "@/common/Data/GlobalConstants";
 
 
-export const useDateManager = (time1, time2 = null) => {
+export const FULL_HUMAN_DATE_FORMAT = 'E d MMM yyyy';
+
+export const dateManager = (time1, time2 = null) => {
+
+    const setDateTime = (time=undefined) => {
+        if (typeof time !== "undefined") {
+            return new Date(time);
+        }
+        return null;
+    }
 
     const [time, setTime] = useState({
         timeStamp: time1,
         endingTimeStamp: time2,
-        language: 'fr-CA',
-        dateFormat: 'll',
-        hourFormat: 'LT'
-    })
+        initStartTime: time1,
+        initEndTime: time2,
+        startTime: setDateTime(time1),
+        endTime: setDateTime(time2),
+        language: frCA,
+        dateFormat: 'yyyy-LL-dd',
+        timeFormat: "H 'h' mm",
+        dayFormat: 'dd',
+        monthFormat: 'MMM',
+        humanDateFormat: 'EEEE d MMM',
+        humanDateMonthFormat: 'd MMM',
+        humanTimeFormat: '',
+        fullHumanDateFormat: FULL_HUMAN_DATE_FORMAT,
+        fullHumanTimeFormat: ''
+    });
 
-    /******
-     * 
-     *    UTIL FUNCTIONS
-     * 
-     */
 
-    //GENERAL FUNCTIONS
-    const getDateMoment = (date, format) => moment(date).locale(time.language).format(format || time.dateFormat);
-    const getHourMoment = (hour, format) => moment(hour).locale(time.language).format(format || time.hourFormat);
-
-    //GETTERS FOR SPECIFICS 
-    const getStartingDate = (format = null) => getDateMoment(time.timeStamp, format);
-    const getDate = getStartingDate;
-    const getEndingDate = time.endingTimeStamp ? (format = null) => getDateMoment(time.endingTimeStamp, format) : null ;
-    const getStartingHour =  (format = null) => getHourMoment(time.timeStamp, format);
-    const getHour = getStartingHour;
-    const getEndingHour = time.endingTimeStamp ? (format = null) => getHourMoment(time.endingTimeStamp, format) : null;
-
-    //SETTERS
-    const setDateFormat = format => setTime({...time, dateFormat: format})
-    const setHourFormat = format => setTime({...time, hourFormat: format})
-
-    /********
-     * 
-     *   Components that shape the display of time
-     * 
-     */
-    //Simple tag that display a time element
-    const TimeTag = ({format, endingDate = false}) => {
-        
-        //Define the variables to fill with proper dates and format
-        const content = endingDate ? getEndingDate(format) : getStartingDate(format);
-        const dateTime = endingDate ? getEndingDate() : getStartingDate();
-
-        return ( 
-            <time dateTime={dateTime}>
-                &nbsp;{content}&nbsp;
-            </time> 
-        )
+    const getDate = (date, format = lang.dateFormat, locale=time.language) => {
+        const dateObject = setDateTime(date);
+        return Format(dateObject, format, {locale:locale});
     }
 
-    //Simple tag that contains the time and hour 
+    const formatDate = (dateObject, format = lang.dateFormat, locale=time.language) => {
+        if (typeof dateObject === 'object') {
+            return Format(dateObject, format, {locale:locale});
+        }
+        return dateObject;
+    }
 
-    const TimeIntervalSentence = ({tag, className=""}) => {
-        //Define the tag surrounding 
+    const TimeTag = ({date, format}) => {
+
+        format = format ?? lang.humanDateFormat;
+
+        const formatedDate = formatDate(setDateTime(date), format);
+
+        return (
+            <DateTag value={date} label={formatedDate} />
+        );
+    }
+
+
+    //Simple tag that contains the time and hour
+
+    const TimeIntervalSentence = ({tag, className="", showDay=true}) => {
+        //Define the tag surrounding
         const Tag = tag ?? 'p';
 
-        //To activate eventually
-        //const hideYear = getStartingDate('yyyy') == getEndingDate('yyyy') ? true : false;
+        const isSameYear = formatDate(time.startTime, lang.yearFormat) === formatDate(time.endTime, lang.yearFormat);
+        const isSameMonth = formatDate(time.startTime, lang.monthNumberFormat) === formatDate(time.endTime, lang.monthNumberFormat);
+        const isSameDay = formatDate(time.startTime, lang.dayMonthNumberFormat) === formatDate(time.endTime, lang.dayMonthNumberFormat);
 
         return (
             <Tag className={className}>
-                Du
-                <TimeTag />
-                au
-                <TimeTag endingDate />
+                {/* DATE */}
+                {/* is one day */}
+                {isSameDay && isSameMonth && isSameYear &&
+                    <>
+                        {showDay &&
+                            <>
+                                {lang.capitalize("the")} <TimeTag date={time.startTime} format={lang.humanDateFormat} /> {formatDate(time.startTime, lang.yearFormat)}
+                                <br/>
+                            </>
+                        }
+                        <TimeTag date={time.startTime} format={lang.timeFormat} /> {lang.hourTo} <TimeTag date={time.endTime} format={lang.timeFormat} />
+                    </>
+                }
+                {/* Same year only */}
+                {!isSameDay && !isSameMonth && isSameYear &&
+                    <>
+                        {lang.capitalize("from")} <TimeTag date={time.startTime} format={time.humanDateFormat} /> <TimeTag date={time.startTime} format={lang.timeFormat} />
+                        &nbsp;{lang.to}&nbsp;
+                        <TimeTag date={time.endTime} format={lang.humanDateFormat} /> <TimeTag date={time.endTime} format={lang.timeFormat} /> {formatDate(time.startTime, lang.yearFormat)}
+                    </>
+                }
+                {/* Within one month on the same year indeed */}
+                {!isSameDay && isSameMonth && isSameYear &&
+                    <>
+                        {lang.capitalize("from")} <TimeTag date={time.startTime} format={lang.humanDateMonthFormat} /> <TimeTag date={time.startTime} format={lang.timeFormat} /> {lang.to}<br />
+                        <TimeTag date={time.endTime} format={lang.humanDateMonthFormat} /> <TimeTag date={time.endTime} format={lang.timeFormat} /> ({formatDate(time.startTime, lang.yearFormat)})
+                    </>
+                }
+                {/* Multi years */}
+                {!isSameDay && !isSameMonth && !isSameYear &&
+                    <>
+                        {lang.capitalize("from")} <TimeTag date={time.startTime} format={lang.fullHumanDateFormat} /> <TimeTag date={time.startTime} format={lang.timeFormat} />
+                        &nbsp;{lang.to}&nbsp;
+                        <TimeTag date={time.endTime} format={lang.fullHumanDateFormat} /> <TimeTag date={time.endTime} format={lang.timeFormat} />
+                    </>
+                }
             </Tag>
         )
     }
@@ -92,16 +117,12 @@ export const useDateManager = (time1, time2 = null) => {
 
     return {
         getters: {
-            getStartingDate,
             getDate,
-            getEndingDate,
-            getStartingHour,
-            getHour,
-            getEndingHour
+            formatDate,
         },
         setters: {
-            setDateFormat,
-            setHourFormat
+            setDateTime,
+            //setHourFormat
         },
         TimeTag,
         TimeIntervalSentence: TimeIntervalSentence

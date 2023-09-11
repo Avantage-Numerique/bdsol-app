@@ -35,14 +35,22 @@ const EntitiesTagGrid = ({feed, className, columnClass, subEntityProperty, subBa
                 feed.length > 0 ?
                     feed.map((entity, index) => {
                         const rawData = subEntityProperty ? entity[subEntityProperty] : entity;
-                        const model = getModelFromType(rawData.type, rawData);
-                        model.badge = entity[subBadgeProperty] ?? "";
-                        const TagComponent = model.tagComponent;
+                        const type = rawData.type ?? rawData.entityType;
+                        const model = getModelFromType(type, rawData);
+                        if (model) {
+                            model.badge = entity[subBadgeProperty] ?? "";
+                            const TagComponent = model.tagComponent;
+                            return (
+                                <li className={`flex-column ${colContainerClass} pb-4`} key={getKeyString("container", model, index)}>
+                                    <TagComponent model={model} key={getKeyString("tag", model, index)} />
+                                </li>
+                            )
+                        }
+                        console.error("Model not valid", rawData);
                         return (
-                            <li className={`flex-column ${colContainerClass} pb-4`} key={getKeyString("container", model, index)}>
-                                <TagComponent model={model} key={getKeyString("tag", model, index)} />
-                            </li>
+                            <li className={`flex-column ${colContainerClass} pb-4`} key={"not-valid"+index}>not valid</li>
                         )
+
                     })
                     :
                     <p className={"py-4"}>{noneMessage}</p>

@@ -70,12 +70,12 @@ const Header = (props) => {
                             { auth.user.isLoggedIn &&
                                 <div className={`bg-primary d-flex align-items-center ${styles["account-menu-container"]}`}>
                                     <button
-                                        className={`${styles["account-menu-container__button"]}`}
+                                        className={`${styles["account-menu-container__button"]} bg-secondary`}
                                         onClick={() => setMenuState(menuState !== 2 ? 2 : 0) }>
 
                                         {(auth.user.avatar === undefined || auth.user.avatar === null || auth.user.avatar.toString() === "") ?
                                             <img className={`${styles["user-img"]} img-fluid`}
-                                                 src="https://freesvg.org/img/1389952697.png"
+                                                 src="/general_images/default-avatar.webp"
                                                  alt="Aucune image de profil"/>
                                             :
                                             <img

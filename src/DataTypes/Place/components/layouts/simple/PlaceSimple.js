@@ -1,6 +1,6 @@
 import React from "react"
 
-import {useDateManager} from '@/common/DateManager/DateManager'
+import {useDateManager} from '@/common/DateManager/DateManagerMoment'
 
 /***  Local styling ***/
 import styles from './PlaceSimple.module.scss';

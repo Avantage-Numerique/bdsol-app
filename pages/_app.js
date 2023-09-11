@@ -16,6 +16,7 @@ import "@/src/helpers/ExtendedString";
 
 function MyApp({Component, pageProps, user}) {
 
+    //window.__localeId__ = "frCA";
     /**
      * Main app render.
      */
