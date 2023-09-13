@@ -7,9 +7,9 @@ import {useAuth} from "@/src/authentification/context/auth-context";
 import {MessageContext} from "@/src/common/UserNotifications/Message/Context/Message-Context";
 import {useFormUtils} from "@/src/hooks/useFormUtils/useFormUtils";
 import {lang} from "@/src/common/Data/GlobalConstants";
-import {getDefaultCreateEntityStatus} from "@/src/DataTypes/Status/EntityStatus";
+import {getDefaultCreateEntityMeta} from "@/src/DataTypes/Meta/EntityMeta";
 import {replacePathname} from "@/src/helpers/url";
-import {SingleEntityStatus} from '@/DataTypes/Status/components/SingleEntityStatus';
+import {SingleEntityMeta} from '@/src/DataTypes/Meta/components/SingleEntityMeta';
 
 
 //Component
@@ -56,7 +56,7 @@ const EventSingleEdit = ({data}, ...props) => {
         schedule,
         subEvents,
         location,
-        status,
+        meta,
         type,
         createdAt,
         updatedAt
@@ -230,15 +230,14 @@ const EventSingleEdit = ({data}, ...props) => {
                     formState.inputs.domains.value.map( (elem) => {
                         return {
                             domain: elem.value,
-                            status: getDefaultCreateEntityStatus(auth.user)
                         }
                     })
                     : [],
                 team:formState.inputs.team.value.map(function(singleMember){
                     return {
-                        status: singleMember.status,
                         member: singleMember.value.member.value.value,
-                        role: singleMember.value.role.value
+                        role: singleMember.value.role.value,
+                        subMeta: { order: singleMember.order }
                     }
                 }),
                 location: formState.inputs.location?.value?.length > 0 ?
@@ -249,7 +248,7 @@ const EventSingleEdit = ({data}, ...props) => {
                 //Temporary set the input in name field until we have a more elaborated structure for location
                 //location: [{ name: formState.inputs.location.value}],
                 //experience: formState.inputs.experience.value
-                status: getDefaultCreateEntityStatus(auth.user),
+                meta: getDefaultCreateEntityMeta(auth.user),
             }
         };
 
@@ -562,8 +561,8 @@ const EventSingleEdit = ({data}, ...props) => {
     const footer = (
         <>
             {
-                (createdAt || updatedAt || status) &&
-                <SingleEntityStatus createdAt={createdAt} updatedAt={updatedAt} status={status} />
+                (createdAt || updatedAt || meta) &&
+                <SingleEntityMeta createdAt={createdAt} updatedAt={updatedAt} meta={meta} />
             }
         </>
     );

@@ -12,7 +12,7 @@ import Select2 from '@/FormElements/Select2/Select2'
 
 //Utils
 import {lang} from "@/src/common/Data/GlobalConstants";
-import {getDefaultCreateEntityStatus} from "@/DataTypes/Status/EntityStatus";
+import {getDefaultCreateEntityMeta} from "@/src/DataTypes/Meta/EntityMeta";
 import {replacePathname} from "@/src/helpers/url";
 
 //Context
@@ -63,7 +63,7 @@ const CreateProjectForm = ({ onPositiveResponse, initValues }) => {
                 name: formState.inputs.name.value,
                 entityInCharge: formState.inputs.entityInCharge?.value?.value,
                 context: formState.inputs.context.value,
-                status: getDefaultCreateEntityStatus(auth.user),
+                meta: getDefaultCreateEntityMeta(auth.user),
             }
         }
         

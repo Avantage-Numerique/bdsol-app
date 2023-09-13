@@ -7,7 +7,7 @@ import StringDictionary from "@/src/languages/StringDictionary";
 export const lang = StringDictionary.getInstance([
     "base",
     "validation",
-    "status",
+    "meta",
     "contribute",
     "medias",
     "organisations",

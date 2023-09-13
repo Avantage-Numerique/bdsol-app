@@ -13,14 +13,14 @@ import SelectFetch from '@/FormElements/Select/SelectFetch'
 import Select2 from '@/FormElements/Select2/Select2'
 import SingleBaseHeader from '@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseHeader';
 import RichTextarea from '@/src/common/FormElements/RichTextArea/RichTextarea';
-import {SingleEntityStatus} from '@/DataTypes/Status/components/SingleEntityStatus';
+import {SingleEntityMeta} from '@/src/DataTypes/Meta/components/SingleEntityMeta';
 import SingleBase from '@/src/DataTypes/common/layouts/single/SingleBase';
 import UpdateTeams from '@/src/DataTypes/Organisation/components/forms/UpdateTeams/UpdateTeams';
 import CreateTaxonomyForm from '@/src/DataTypes/Taxonomy/components/Forms/CreateTaxonomy/CreateTaxonomyForm';
 
 //Utils
 import {lang} from "@/src/common/Data/GlobalConstants";
-import {getDefaultCreateEntityStatus} from "@/DataTypes/Status/EntityStatus";
+import {getDefaultCreateEntityMeta} from "@/src/DataTypes/Meta/EntityMeta";
 import Project from "@/DataTypes/Project/models/Project";
 import {replacePathname} from "@/src/helpers/url";
 
@@ -54,7 +54,7 @@ const ProjectSingleEdit = (props) => {
         skills,
         domains,
         context,
-        status,
+        meta,
         type,
         createdAt,
         updatedAt,
@@ -212,7 +212,8 @@ const ProjectSingleEdit = (props) => {
                     return {
                         name: singleSponsor.value.name.value,
                         entity: singleSponsor.value.entity.value.value,
-                        entityType: "Organisation"
+                        entityType: "Organisation",
+                        subMeta: { order: singleSponsor.order }
                     }
                 }),
                 scheduleBudget: {
@@ -231,9 +232,9 @@ const ProjectSingleEdit = (props) => {
                 },
                 team:formState.inputs.team.value.map(function(singleTeam){
                     return {
-                        status: singleTeam.status,
                         member: singleTeam.value.member.value.value,
-                        role: singleTeam.value.role.value
+                        role: singleTeam.value.role.value,
+                        subMeta: { order: singleTeam.order }
                     }
                 }),
                 skills: formState.inputs.skills?.value?.length > 0 ? formState.inputs.skills.value.map( (selectOptionSkill) => {
@@ -243,13 +244,12 @@ const ProjectSingleEdit = (props) => {
                     formState.inputs.domains.value.map( (elem) => {
                         return {
                             domain: elem.value,
-                            status: getDefaultCreateEntityStatus(auth.user)
                         }
                     })
                     : [],
                 contactPoint: formState.inputs.contactPoint.value,
                 url: formState.inputs.url.value,
-                status: getDefaultCreateEntityStatus(auth.user),
+                meta: getDefaultCreateEntityMeta(auth.user),
             }
         }
         
@@ -457,8 +457,8 @@ const ProjectSingleEdit = (props) => {
             />
             <>
                 {
-                    (createdAt || updatedAt || status) &&
-                    <SingleEntityStatus createdAt={createdAt} updatedAt={updatedAt} status={status} />
+                    (createdAt || updatedAt || meta) &&
+                    <SingleEntityMeta createdAt={createdAt} updatedAt={updatedAt} meta={meta} />
                 }
             </>
         </>

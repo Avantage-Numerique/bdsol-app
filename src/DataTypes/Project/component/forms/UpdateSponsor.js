@@ -43,6 +43,7 @@ const UpdateSponsor = ({name, formTools, ...props}) => {
                                 }
                             }}
                             initValues={props.parentEntity?.sponsor ?? []}
+                            sortable
                         >
                             <article className="mb-2 py-2 rounded-1 d-flex gap-4 bg-greyBg">
                                 <section className="col mb-1 row">

@@ -13,7 +13,7 @@ import LargeFileInput from '@/FormElements/LargeFileInput/LargeFileInput'
 
 //Context
 import {useAuth} from "@/src/authentification/context/auth-context";
-import {getDefaultCreateEntityStatus} from "@/DataTypes/Status/EntityStatus";
+import {getDefaultCreateEntityMeta} from "@/src/DataTypes/Meta/EntityMeta";
 
 //Styling
 import styles from "./CreateMediaForm.module.scss";
@@ -139,7 +139,7 @@ const CreateMediaForm = (props) => {
                 "mediaField": mediaField,
                 "entityType": entity.type,
                 "entityId": entity._id,
-                "status": getDefaultCreateEntityStatus(auth.user)
+                "meta": getDefaultCreateEntityMeta(auth.user)
             }
             //Add the image to the form data object
             rawFromData.append(mediaField, formState.inputs[mediaField].value);

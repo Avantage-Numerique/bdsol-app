@@ -19,7 +19,7 @@ import { MessageContext } from '@/src/common/UserNotifications/Message/Context/M
 
 //Form UI styling
 import styles from './formUI.module.scss'
-import {getDefaultUpdateEntityStatus} from "@/DataTypes/Status/EntityStatus";
+import {getDefaultUpdateEntityMeta} from "@/src/DataTypes/Meta/EntityMeta";
 
 
 
@@ -131,7 +131,7 @@ export const useFormUtils = ( initialState, actions ) => {
         inputs.value.forEach( (inputValue) => {
             transmutedData.push({
                 [fieldName]: inputValue[fieldName]._id,
-                status: getDefaultUpdateEntityStatus(user)
+                meta: getDefaultUpdateEntityMeta(user)
             })
         });
         return transmutedData;

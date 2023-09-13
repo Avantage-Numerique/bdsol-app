@@ -11,7 +11,7 @@ import Select2 from '@/FormElements/Select2/Select2'
 
 //Utils
 import {lang} from "@/src/common/Data/GlobalConstants";
-import {getDefaultCreateEntityStatus} from "@/DataTypes/Status/EntityStatus";
+import {getDefaultCreateEntityMeta} from "@/src/DataTypes/Meta/EntityMeta";
 
 //Context
 import {useAuth} from "@/src/authentification/context/auth-context";
@@ -63,7 +63,7 @@ const CreateEventForm = ({ onPositiveResponse, initValues }) => {
                 entityInCharge: formState.inputs.entityInCharge?.value?.value,
                 startDate: formState.inputs.startDate.value,
                 endDate: formState.inputs.endDate.value,
-                status: getDefaultCreateEntityStatus(auth.user),
+                meta: getDefaultCreateEntityMeta(auth.user),
             }
         }
         

@@ -8,7 +8,7 @@ import SearchTag from '@/src/common/Components/SearchTag';
 
 //Utils
 import SanitizedInnerHtml from '@/src/utils/SanitizedInnerHtml';
-import {SingleEntityStatus} from "@/DataTypes/Status/components/SingleEntityStatus";
+import {SingleEntityMeta} from "@/src/DataTypes/Meta/components/SingleEntityMeta";
 import {getDateFromIsoString} from "@/src/utils/DateHelper";
 import Project from "@/DataTypes/Project/models/Project";
 import {lang} from "@/common/Data/GlobalConstants";
@@ -38,7 +38,7 @@ const ProjectSingleView = ({ data }) => {
         skills,
         domains,
         context,
-        status,
+        meta,
         createdAt,
         updatedAt
     } = data;
@@ -123,7 +123,7 @@ const ProjectSingleView = ({ data }) => {
             }
             {sponsor.length > 0 &&
                 <SingleInfo title="Partenaires">
-                    <EntitiesTagGrid feed={sponsor} />
+                    <EntitiesTagGrid feed={sponsor} subEntityProperty={"entity"} subBadgeProperty={"name"} />
                 </SingleInfo>
             }
         </>
@@ -229,11 +229,11 @@ const ProjectSingleView = ({ data }) => {
     const Footer = (
         <>
             {
-                (createdAt || updatedAt || status) &&
-                <SingleEntityStatus
+                (createdAt || updatedAt || meta) &&
+                <SingleEntityMeta
                     createdAt={createdAt} 
                     updatedAt={updatedAt} 
-                    status={status} 
+                    meta={meta} 
                 />
             }
         </>

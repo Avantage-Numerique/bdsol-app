@@ -14,7 +14,7 @@ import SingleBaseHeader from "@/src/DataTypes/common/layouts/single/defaultSecti
 import EntityTag from "@/src/DataTypes/Entity/layouts/EntityTag";
 import LicenceDisplay from "@/src/common/FormElements/SelectLicence/LicenceDisplay";
 import SanitizedInnerHtml from "@/src/utils/SanitizedInnerHtml";
-import {SingleEntityStatus} from "@/src/DataTypes/Status/components/SingleEntityStatus";
+import {SingleEntityMeta} from "@/src/DataTypes/Meta/components/SingleEntityMeta";
 import Head from "next/head";
 import {getTitle} from "@/DataTypes/MetaData/MetaTitle";
 import Media from "@/DataTypes/Media/models/Media";
@@ -46,7 +46,7 @@ const MediaSingleView = ({data}, ...props) => {
         extension,
         createdAt,
         updatedAt,
-        status
+        meta
     } = data;
 
     const baseSrc = `${process.env.NEXT_PUBLIC_API_URL}`;
@@ -150,8 +150,8 @@ const MediaSingleView = ({data}, ...props) => {
                 <SanitizedInnerHtml tag={"span"}>{description}</SanitizedInnerHtml>
             </SingleInfoLayout>
             {
-                (createdAt || updatedAt || status) &&
-                <SingleEntityStatus createdAt={createdAt} updatedAt={updatedAt} status={status} />
+                (createdAt || updatedAt || meta) &&
+                <SingleEntityMeta createdAt={createdAt} updatedAt={updatedAt} meta={meta} />
             }
         </>
     );

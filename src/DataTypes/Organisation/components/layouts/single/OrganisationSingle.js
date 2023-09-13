@@ -23,7 +23,7 @@ import Single from "@/DataTypes/common/layouts/single/Single";
 import OrganisationSingleEdit
     from "@/src/DataTypes/Organisation/components/forms/OrganisationSingleEdit/OrganisationSingleEdit";
 import SingleInfo from "@/DataTypes/common/layouts/SingleInfo/SingleInfo";
-import {SingleEntityStatus} from "@/DataTypes/Status/components/SingleEntityStatus";
+import {SingleEntityMeta} from "@/src/DataTypes/Meta/components/SingleEntityMeta";
 import UpdateTeams from '@/src/DataTypes/Organisation/components/forms/UpdateTeams/UpdateTeams';
 
 
@@ -59,11 +59,10 @@ const OrganisationSingle = ({ data }) => {
         offers,
         domains,
         //slug,
-        //status,
         team,
         updatedAt,
         url,
-        status,
+        meta,
         //__v,
         //_id
     } = data;
@@ -192,8 +191,8 @@ const OrganisationSingle = ({ data }) => {
 
 
             {
-                (createdAt || updatedAt || status) &&
-                <SingleEntityStatus className={singleInfoCommonClass} createdAt={createdAt} updatedAt={updatedAt} status={status} />
+                (createdAt || updatedAt || meta) &&
+                <SingleEntityMeta className={singleInfoCommonClass} createdAt={createdAt} updatedAt={updatedAt} meta={meta} />
             }
         </Single>
 

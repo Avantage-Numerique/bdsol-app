@@ -4,7 +4,7 @@ import React from 'react';
 import { useFormUtils } from '@/src/hooks/useFormUtils/useFormUtils';
 
 //context
-import {getDefaultCreateEntityStatus} from "@/DataTypes/Status/EntityStatus";
+import {getDefaultCreateEntityMeta} from "@/src/DataTypes/Meta/EntityMeta";
 import {useAuth} from '@/auth/context/auth-context';
 
 //components
@@ -36,7 +36,6 @@ const UpdateOffers = ({parentEntity, positiveRequestActions}) => {
 
         const formattedOccupations = formState.inputs.skillGoups.value.map(function(occ){
             return {
-                status: occ.status,
                 groupName: occ.value.groupName.value,
                 skills: occ.value.skills.value.map(skill => skill.skill._id)
             }
@@ -46,7 +45,7 @@ const UpdateOffers = ({parentEntity, positiveRequestActions}) => {
             "data": {
                 id: parentEntity._id,
                 offers: formattedOccupations,
-                status: parentEntity.status
+                meta: parentEntity.meta
             }
         }
         

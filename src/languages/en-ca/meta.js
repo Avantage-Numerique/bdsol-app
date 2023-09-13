@@ -1,10 +1,10 @@
-const status = {
+const meta = {
     "accepted": "accepted",
     "pending": "pending approbation",
     "reported": "reported",
     "lastModification": "Last modifications",
     "created": "created",
-    "entityStatus": "Statut de l'entité",
+    "entityMeta": "Entity's status",
 
     //  History (user Histories, etc)
 
@@ -12,4 +12,4 @@ const status = {
     "entityMetadata": "Data's information",
 }
 
-exports.status = status;
+exports.meta = meta;

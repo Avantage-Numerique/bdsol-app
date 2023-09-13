@@ -15,7 +15,7 @@ import {useAuth} from "@/src/authentification/context/auth-context";
 import styles from './CreatePersonForm.module.scss'
 
 //FormData
-import {getDefaultCreateEntityStatus} from "@/DataTypes/Status/EntityStatus";
+import {getDefaultCreateEntityMeta} from "@/src/DataTypes/Meta/EntityMeta";
 
 
 const CreatePersonForm = ({ onPositiveResponse }) => {
@@ -66,7 +66,7 @@ const CreatePersonForm = ({ onPositiveResponse }) => {
                 firstName:  formState.inputs.firstName.value,
                 nickname: formState.inputs.nickName.value,
                 description: formState.inputs.description.value,
-                status: getDefaultCreateEntityStatus(auth.user),
+                meta: getDefaultCreateEntityMeta(auth.user),
             }
         };
 

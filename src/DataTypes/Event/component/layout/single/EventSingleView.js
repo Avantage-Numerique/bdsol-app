@@ -12,7 +12,7 @@ import {ExternalLink} from "@/src/common/Components/ExternalLink";
 import Head from "next/head";
 import SanitizedInnerHtml from '@/src/utils/SanitizedInnerHtml';
 import {lang} from "@/src/common/Data/GlobalConstants";
-import {SingleEntityStatus} from "@/DataTypes/Status/components/SingleEntityStatus";
+import {SingleEntityMeta} from "@/src/DataTypes/Meta/components/SingleEntityMeta";
 import {getTitle} from "@/DataTypes/MetaData/MetaTitle";
 import Event from "../../../models/Event";
 import DisplaySchedule from "../../Forms/Schedule/DisplaySchedule";
@@ -49,7 +49,7 @@ const EventSingleView = ({data}) => {
         schedule,
         subEvents,
         location,
-        status,
+        meta,
         type,
         createdAt,
         updatedAt
@@ -245,11 +245,11 @@ const EventSingleView = ({data}) => {
     const footer = (
         <div>
             {
-                (createdAt || updatedAt || status) &&
-                <SingleEntityStatus  
+                (createdAt || updatedAt || meta) &&
+                <SingleEntityMeta  
                     createdAt={createdAt} 
                     updatedAt={updatedAt} 
-                    status={status} />
+                    meta={meta} />
             }
         </div>
     )

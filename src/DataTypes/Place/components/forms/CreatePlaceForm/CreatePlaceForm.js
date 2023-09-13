@@ -15,7 +15,7 @@ import {useAuth} from "@/src/authentification/context/auth-context";
 import styles from './CreatePlaceForm.module.scss'
 
 //Utils
-import {getDefaultCreateEntityStatus} from "@/DataTypes/Status/EntityStatus";
+import {getDefaultCreateEntityMeta} from "@/src/DataTypes/Meta/EntityMeta";
 import { lang } from '@/src/common/Data/GlobalConstants'
 
 const CreatePlaceForm = ({ onPositiveResponse, initValues }) => {
@@ -101,7 +101,7 @@ const CreatePlaceForm = ({ onPositiveResponse, initValues }) => {
                 country: formState.inputs.country.value,
                 latitude: formState.inputs.latitude.value,
                 longitude: formState.inputs.longitude.value,
-                status: getDefaultCreateEntityStatus(auth.user)
+                meta: getDefaultCreateEntityMeta(auth.user)
             }
         };
 

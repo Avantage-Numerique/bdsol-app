@@ -13,7 +13,7 @@ import {useModal} from "@/src/hooks/useModal/useModal";
 
 //Utils
 import SanitizedInnerHtml from '@/src/utils/SanitizedInnerHtml';
-import {SingleEntityStatus} from "@/DataTypes/Status/components/SingleEntityStatus";
+import {SingleEntityMeta} from "@/src/DataTypes/Meta/components/SingleEntityMeta";
 import {lang} from "@/common/Data/GlobalConstants";
 
 const ProjectSingle = ({data, route}) => {
@@ -35,7 +35,7 @@ const ProjectSingle = ({data, route}) => {
         scheduleBudget,
         skills,
         context,
-        status,
+        meta,
         createdAt,
         updatedAt
     } = data;
@@ -137,9 +137,12 @@ const ProjectSingle = ({data, route}) => {
                 </SingleInfo>
 
                 {
-                    (createdAt || updatedAt || status) &&
-                    <SingleEntityStatus className={singleInfoCommonClass} createdAt={createdAt} updatedAt={updatedAt}
-                                        status={status}/>
+                    (createdAt || updatedAt || meta) &&
+                    <SingleEntityMeta
+                        className={singleInfoCommonClass} 
+                        createdAt={createdAt}
+                        updatedAt={updatedAt}
+                        meta={meta}/>
                 }
             </Single>
 
