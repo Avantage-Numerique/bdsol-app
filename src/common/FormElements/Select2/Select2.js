@@ -1,5 +1,5 @@
 //React
-import { useState, useEffect } from "react";
+import {useEffect, useState} from "react";
 
 //Helper
 import ApiEntityModel from "@/src/DataTypes/Entity/models/ApiEntityModel";
@@ -11,15 +11,23 @@ import Tip from '@/common/FormElements/Tip/Tip';
 import Button from '@/src/common/FormElements/Button/Button';
 
 //Hook
-import { useHttpClient } from "@/src/hooks/http-hook";
+import {useHttpClient} from "@/src/hooks/http-hook";
 import useDebounce from '@/src/hooks/useDebounce'
-import { useRootModal } from '@/src/hooks/useModal/useRootModal'
-import { useValidation } from '@/src/hooks/useValidation/useValidation';
+import {useRootModal} from '@/src/hooks/useModal/useRootModal'
+import {useValidation} from '@/src/hooks/useValidation/useValidation';
 
 //Modal component
-import { TYPE_EVENT, TYPE_ORGANISATION, TYPE_PERSON, TYPE_PLACE, TYPE_PROJECT, TYPE_TAXONOMY } from "@/src/DataTypes/Entity/Types";
+import {
+    TYPE_EVENT,
+    TYPE_ORGANISATION,
+    TYPE_PERSON,
+    TYPE_PLACE,
+    TYPE_PROJECT,
+    TYPE_TAXONOMY
+} from "@/src/DataTypes/Entity/Types";
 import CreatePersonForm from "@/src/DataTypes/Person/components/Forms/CreatePerson/CreatePersonForm";
-import CreateOrganisationForm from "@/src/DataTypes/Organisation/components/forms/CreateOrganisationForm/CreateOrganisationForm";
+import CreateOrganisationForm
+    from "@/src/DataTypes/Organisation/components/forms/CreateOrganisationForm/CreateOrganisationForm";
 import CreateTaxonomyForm from '@/DataTypes/Taxonomy/components/Forms/CreateTaxonomy/CreateTaxonomyForm';
 import CreateProjectForm from "@/src/DataTypes/Project/component/forms/CreateProjectForm";
 import CreateEventForm from "@/src/DataTypes/Event/component/Forms/CreateEvent/CreateEventForm";
@@ -243,7 +251,6 @@ const Select2 = ({ name, formTools, ...props }) => {
         <CreateEventForm
             initValues={ modalInitValues ?? {}}
             onPositiveResponse={(response) => {
-                    console.log("Response on positive", response)
                     //Here could be a call back function to execute 
                     const optionCreated = ApiEntityModel.getSelectOption(response.data)
                     addSelectedValue(...optionCreated)

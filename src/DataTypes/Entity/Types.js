@@ -103,7 +103,7 @@ TYPES.set(TYPE_EVENT, new Type({
     model: undefined,
     inSentencePrefix: " un ",
     defaultMainImage: "",
-    icon: ""
+    icon: "calendar"
 }))
 
 TYPES.set(TYPE_PLACE, new Type({
@@ -113,7 +113,7 @@ TYPES.set(TYPE_PLACE, new Type({
     modelClass: Place,
     inSentencePrefix: " un ",
     defaultMainImage: "",
-    icon: ""
+    icon: "map-marker"
 }))
 
 TYPES.set(TYPE_NOTSET, new Type({

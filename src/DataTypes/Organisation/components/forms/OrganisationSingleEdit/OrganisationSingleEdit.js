@@ -16,10 +16,8 @@ import Button from '@/src/common/FormElements/Button/Button';
 import Input from '@/src/common/FormElements/Input/Input';
 import RichTextarea from '@/src/common/FormElements/RichTextArea/RichTextarea';
 import CreateTaxonomyForm from '@/DataTypes/Taxonomy/components/Forms/CreateTaxonomy/CreateTaxonomyForm';
-import Modal from '@/src/hooks/useModal/Modal/Modal';
 
 import {getDefaultUpdateEntityMeta} from "@/src/DataTypes/Meta/EntityMeta";
-import {getDateFromIsoString} from "@/src/utils/DateHelper";
 import SingleBase from '@/src/DataTypes/common/layouts/single/SingleBase';
 import SingleBaseHeader from '@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseHeader';
 import SingleInfo from '@/src/DataTypes/common/layouts/SingleInfo/SingleInfo';
@@ -35,6 +33,7 @@ import MainImageDisplay from "@/DataTypes/common/layouts/single/defaultSections/
 import Icon from "@/common/widgets/Icon/Icon";
 import {TYPE_PLACE, TYPE_TAXONOMY} from '@/src/DataTypes/Entity/Types';
 import SubmitEntity from "@/DataTypes/common/Forms/SingleEdit/SubmitEntity";
+import {apiDateToDateInput, dateTimeStringToUTC} from "@/common/DateManager/Parse";
 
 
 const OrganisationSingleEdit = (props) => {
@@ -133,7 +132,7 @@ const OrganisationSingleEdit = (props) => {
             isValid: true
         },
         fondationDate: {
-            value: fondationDate ? getDateFromIsoString(fondationDate) : "",
+            value: fondationDate ? apiDateToDateInput(fondationDate) : "",
             isValid: true
         },
         catchphrase: {
@@ -163,8 +162,6 @@ const OrganisationSingleEdit = (props) => {
             }
 
         })
-
-        console.log("formState", formState)
     //Function to submit the form
     const submitHandler = async event => {
 
@@ -177,7 +174,7 @@ const OrganisationSingleEdit = (props) => {
                 description:  formState.inputs.description.value,
                 url: formState.inputs.url.value,
                 contactPoint: formState.inputs.contactPoint.value,
-                fondationDate: formState.inputs.fondationDate.value,
+                fondationDate: dateTimeStringToUTC(formState.inputs.fondationDate.value),
                 offers: formState.inputs.offers.value.map(function(singleOffer){
                     return {
                         groupName: singleOffer.value.groupName.value,
