@@ -10,7 +10,7 @@ import SingleBaseHeader from "@/src/DataTypes/common/layouts/single/defaultSecti
 import Place from "../../../models/Place";
 import SanitizedInnerHtml from "@/src/utils/SanitizedInnerHtml";
 import SingleInfo from "@/src/DataTypes/common/layouts/SingleInfo/SingleInfo";
-import { SingleEntityStatus } from "@/src/DataTypes/Status/components/SingleEntityStatus";
+import { SingleEntityMeta } from "@/src/DataTypes/Meta/components/SingleEntityMeta";
 import Head from "next/head";
 
 
@@ -185,11 +185,11 @@ const PlaceSingleView = ({ data }) => {
     const footer = (
         <div>
             {
-                (model.createdAt || model.updatedAt || model.status) &&
-                <SingleEntityStatus
+                (model.createdAt || model.updatedAt || model.meta) &&
+                <SingleEntityMeta
                     createdAt={model.createdAt}
                     updatedAt={model.updatedAt}
-                    status={model.status} />
+                    meta={model.meta} />
             }
         </div>
     )

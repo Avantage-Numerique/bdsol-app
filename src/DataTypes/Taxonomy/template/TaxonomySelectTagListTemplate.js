@@ -44,19 +44,6 @@ const TaxonomySelectTagListTemplate = ({name, formTools, ...props}) => {
 
     //Update the return object
     useEffect( () => {
-        /*
-        const tempReturnObject = [];
-        taxonomyList.forEach( (elem) => {
-            tempReturnObject.push({
-                [props.idField] : elem,
-                status: {
-                    state: "pending",
-                    lastModifiedBy: auth.user.id,
-                    requestedBy: auth.user.id
-                }
-            })
-        });*/
-        //updateValue(name, tempReturnObject);
         updateValue(name, taxonomyList);
     }, [taxonomyList])
 
@@ -98,7 +85,7 @@ const TaxonomySelectTagListTemplate = ({name, formTools, ...props}) => {
                             className={`${styles['tag']} ${"bg-" + (props.tag ?? "generaltag")}`}
                         >
                             <button className={`${styles['closeButton']}`} type="button" onClick={() => removeEntity(selected)}>✖</button>
-                            <span className={"text-"+ (taxonomySelected.status.state ?? "general-tag")}>◉</span>
+                            <span className={"text-"+ (taxonomySelected.meta.state ?? "general-tag")}>◉</span>
                             <span>{taxonomySelected.name}</span>
                         </li>
                     )}

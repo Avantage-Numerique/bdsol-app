@@ -16,13 +16,12 @@ import Button from '@/src/common/FormElements/Button/Button';
 import Input from '@/src/common/FormElements/Input/Input';
 import RichTextarea from '@/src/common/FormElements/RichTextArea/RichTextarea';
 import CreateTaxonomyForm from '@/DataTypes/Taxonomy/components/Forms/CreateTaxonomy/CreateTaxonomyForm';
-import Modal from '@/src/hooks/useModal/Modal/Modal';
 
-import {getDefaultUpdateEntityStatus} from "@/DataTypes/Status/EntityStatus";
+import {getDefaultUpdateEntityMeta} from "@/src/DataTypes/Meta/EntityMeta";
 import SingleBase from '@/src/DataTypes/common/layouts/single/SingleBase';
 import SingleBaseHeader from '@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseHeader';
 import SingleInfo from '@/src/DataTypes/common/layouts/SingleInfo/SingleInfo';
-import {SingleEntityStatus} from '@/DataTypes/Status/components/SingleEntityStatus';
+import {SingleEntityMeta} from '@/src/DataTypes/Meta/components/SingleEntityMeta';
 import UpdateSkillGroup from '@/src/DataTypes/common/Forms/UpdateSkillGroup/UpdateSkillGroup';
 import UpdateTeams from '../UpdateTeams/UpdateTeams';
 
@@ -53,7 +52,7 @@ const OrganisationSingleEdit = (props) => {
         mainImage,
         slug,
         catchphrase,
-        status,
+        meta,
         location,
         type,
         createdAt,
@@ -178,9 +177,9 @@ const OrganisationSingleEdit = (props) => {
                 fondationDate: dateTimeStringToUTC(formState.inputs.fondationDate.value),
                 offers: formState.inputs.offers.value.map(function(singleOffer){
                     return {
-                        status: singleOffer.status,
                         groupName: singleOffer.value.groupName.value,
-                        skills: singleOffer.value.skills.value.map( (skill) => { return skill.value })
+                        skills: singleOffer.value.skills.value.map( (skill) => { return skill.value }),
+                        subMeta: {order: singleOffer.order},
                     }
                 }),
                 catchphrase: formState.inputs.catchphrase.value,
@@ -188,15 +187,14 @@ const OrganisationSingleEdit = (props) => {
                     formState.inputs.domains.value.map( (elem) => {
                         return {
                             domain: elem.value,
-                            status: getDefaultUpdateEntityStatus(auth.user)
                         }
                     })
                     : [],
                 team:formState.inputs.team.value.map(function(singleTeam){
                     return {
-                        status: singleTeam.status,
                         member: singleTeam.value.member.value.value,
-                        role: singleTeam.value.role.value
+                        role: singleTeam.value.role.value,
+                        subMeta: {order: singleTeam.order},
                     }
                 }),
                 location: formState.inputs.location?.value?.length > 0 ?
@@ -204,7 +202,7 @@ const OrganisationSingleEdit = (props) => {
                         return singlePlace.value
                     })
                     : [],
-                status: getDefaultUpdateEntityStatus(auth.user)
+                meta: getDefaultUpdateEntityMeta(auth.user)
             }
         };
 
@@ -380,8 +378,8 @@ const OrganisationSingleEdit = (props) => {
             />
             <div>
                 {
-                    (createdAt || updatedAt || status) &&
-                    <SingleEntityStatus createdAt={createdAt} updatedAt={updatedAt} status={status} />
+                    (createdAt || updatedAt || meta) &&
+                    <SingleEntityMeta createdAt={createdAt} updatedAt={updatedAt} meta={meta} />
                 }
             </div>
         </>

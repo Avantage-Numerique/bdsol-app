@@ -4,7 +4,7 @@ import Router from "next/router";
 //Utils
 import Place from "../../../models/Place";
 import { lang } from "@/src/common/Data/GlobalConstants";
-import { getDefaultUpdateEntityStatus } from "@/src/DataTypes/Status/EntityStatus";
+import { getDefaultUpdateEntityMeta } from "@/src/DataTypes/Meta/EntityMeta";
 import {replacePathname} from "@/src/helpers/url";
 
 //hooks
@@ -135,7 +135,7 @@ const PlaceSingleEdit = ({ positiveRequestActions, ...props}) => {
                 country: formState.inputs.country.value,
                 latitude: formState.inputs.latitude.value,
                 longitude: formState.inputs.longitude.value,
-                status: getDefaultUpdateEntityStatus(auth.user)
+                meta: getDefaultUpdateEntityMeta(auth.user)
             }
         };
 

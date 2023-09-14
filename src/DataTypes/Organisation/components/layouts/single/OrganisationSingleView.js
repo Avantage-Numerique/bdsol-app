@@ -10,7 +10,7 @@ import SearchTag from '@/src/common/Components/SearchTag';
 import Organisation from '@/src/DataTypes/Organisation/models/Organisation';
 import {lang} from "@/common/Data/GlobalConstants";
 import SingleInfo from "@/DataTypes/common/layouts/SingleInfo/SingleInfo";
-import {SingleEntityStatus} from "@/DataTypes/Status/components/SingleEntityStatus";
+import {SingleEntityMeta} from "@/src/DataTypes/Meta/components/SingleEntityMeta";
 import EntitiesTagGrid from "@/DataTypes/Entity/layouts/EntitiesTagGrid";
 import {ExternalLink} from "@/common/Components/ExternalLink";
 import {dateManager, FULL_HUMAN_DATE_FORMAT} from "@/common/DateManager/DateManager";
@@ -31,12 +31,11 @@ const OrganisationSingleView = ({ data }) => {
         offers,
         domains,
         //slug,
-        //status,
         team,
         updatedAt,
         url,
         location,
-        status,
+        meta,
         //__v,
         //_id
     } = data;
@@ -164,11 +163,11 @@ const OrganisationSingleView = ({ data }) => {
     const Footer = (
         <>
             {
-                (createdAt || updatedAt || status) &&
-                <SingleEntityStatus  
+                (createdAt || updatedAt || meta) &&
+                <SingleEntityMeta  
                     createdAt={createdAt} 
                     updatedAt={updatedAt} 
-                    status={status} />
+                    meta={meta} />
             }
         </>
     )

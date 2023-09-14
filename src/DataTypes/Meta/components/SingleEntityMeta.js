@@ -7,18 +7,18 @@ import React from "react";
  *
  * @param props.createdAt {string} Date in a string format
  * @param props.updatedAt {string} Date in a string format
- * @param props.status {object} The status object with username and status of the modification.
- * @param props.status {className} additional class to add as is in the element className property.
+ * @param props.meta {object} The meta object with username and state of the modification.
+ * @param props.className {className} additional class to add as is in the element className property.
  * @param props.children {any} The children, if this has children from its parent.
  * @return {JSX.Element}
  * @constructor
  */
-export const SingleEntityStatus = (props) => {
+export const SingleEntityMeta = (props) => {
 
     const {
         createdAt,
         updatedAt,
-        status,
+        meta,
         className,
         children
     } = props;
@@ -26,21 +26,21 @@ export const SingleEntityStatus = (props) => {
         <SingleInfo className={`border-top pt-3 mt-5 ${className}`} title={lang.entityMetadata}>
             <ul className={"list-style-none"}>
                 {
-                    status?.state &&
+                    meta?.state &&
                     <li>
-                        <span>{lang.entityStatus}{lang.colon}</span>
-                        <span>{lang.capitalize(status.state) ?? ""}</span>
+                        <span>{lang.entityMeta}{lang.colon}</span>
+                        <span>{lang.capitalize(meta.state) ?? ""}</span>
                     </li>
                 }
                 {
-                    (status?.requestedBy?.username || createdAt) &&
+                    (meta?.requestedBy?.username || createdAt) &&
                     <li>
                         <span>{lang.created}</span>
                         {
-                            status?.requestedBy?.name &&
+                            meta?.requestedBy?.name &&
                             <span>
                                 &nbsp;{lang.by}&nbsp;:&nbsp;
-                                {status.requestedBy.name}
+                                {meta.requestedBy.name}
                             </span>
                         }
                         { createdAt &&
@@ -51,13 +51,13 @@ export const SingleEntityStatus = (props) => {
                     </li>
                 }
                 {
-                    (status?.lastModifiedBy?.name || updatedAt) &&
+                    (meta?.lastModifiedBy?.name || updatedAt) &&
                     <li>
                         <span>{lang.lastModification}</span>
                         {
-                            status?.lastModifiedBy?.name &&
+                            meta?.lastModifiedBy?.name &&
                             <span>
-                                &nbsp;{lang.by}&nbsp;:&nbsp;{status.lastModifiedBy.name}
+                                &nbsp;{lang.by}&nbsp;:&nbsp;{meta.lastModifiedBy.name}
                             </span>
                         }
                         { createdAt !== updatedAt &&

@@ -3,7 +3,7 @@ import LicenceDisplay from '@/src/common/FormElements/SelectLicence/LicenceDispl
 
 //components
 import Single from "@/DataTypes/common/layouts/single/Single";
-import {SingleEntityStatus} from "@/DataTypes/Status/components/SingleEntityStatus";
+import {SingleEntityMeta} from "@/src/DataTypes/Meta/components/SingleEntityMeta";
 
 //hooks
 //import { useModal } from '@/src/hooks/useModal/useModal';
@@ -131,8 +131,8 @@ const MediaSingle = ({ data, route }) => {
                 <SanitizedInnerHtml tag={"span"}>{data.description}</SanitizedInnerHtml>
             </SingleInfoLayout>
             {
-                (data.createdAt || data.updatedAt || data.status) &&
-                <SingleEntityStatus className={singleInfoCommonClass} createdAt={data.createdAt} updatedAt={data.updatedAt} status={data.status} />
+                (data.createdAt || data.updatedAt || data.meta) &&
+                <SingleEntityMeta className={singleInfoCommonClass} createdAt={data.createdAt} updatedAt={data.updatedAt} meta={data.meta} />
             }
         </Single>
     )

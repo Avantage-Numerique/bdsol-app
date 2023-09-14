@@ -14,7 +14,7 @@ import CreateTaxonomyForm from '@/DataTypes/Taxonomy/components/Forms/CreateTaxo
 import {lang} from "@/src/common/Data/GlobalConstants";
 import Select2 from '@/src/common/FormElements/Select2/Select2'
 import Modal from '@/src/hooks/useModal/Modal/Modal'
-import {SingleEntityStatus} from '@/DataTypes/Status/components/SingleEntityStatus'
+import {SingleEntityMeta} from '@/src/DataTypes/Meta/components/SingleEntityMeta'
 
 //Context
 import {useAuth} from "@/src/authentification/context/auth-context";
@@ -24,7 +24,7 @@ import {MessageContext} from '@/src/common/UserNotifications/Message/Context/Mes
 import styles from './CreatePersonForm.module.scss'
 
 //FormData
-import {getDefaultCreateEntityStatus} from "@/DataTypes/Status/EntityStatus";
+import {getDefaultCreateEntityMeta} from "@/src/DataTypes/Meta/EntityMeta";
 import SingleBaseHeader from '@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseHeader'
 import SingleBase from '@/src/DataTypes/common/layouts/single/SingleBase'
 import UpdateSkillGroup from '@/src/DataTypes/common/Forms/UpdateSkillGroup/UpdateSkillGroup'
@@ -50,7 +50,7 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props}) => {
         mainImage,
         slug,
         catchphrase,
-        status,
+        meta,
         type,
         fullName,
         createdAt,
@@ -172,20 +172,19 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props}) => {
                 catchphrase: formState.inputs.catchphrase.value,
                 occupations: formState.inputs.occupations.value.map(function(singleOccupation){
                     return {
-                        status: singleOccupation.status,
                         groupName: singleOccupation.value.groupName.value,
-                        skills: singleOccupation.value.skills.value.map( (skill) => { return skill.value })
+                        skills: singleOccupation.value.skills.value.map( (skill) => { return skill.value }),
+                        subMeta: { order : singleOccupation.order }
                     }
                 }),
                 domains: formState.inputs.domains?.value?.length > 0 ?
                     formState.inputs.domains.value.map( (elem) => {
                         return {
                             domain: elem.value,
-                            status: getDefaultCreateEntityStatus(auth.user)
                         }
                     })
                     : [],
-                status: getDefaultCreateEntityStatus(auth.user),
+                meta: getDefaultCreateEntityMeta(auth.user),
             }
         };
 
@@ -327,8 +326,8 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props}) => {
     const footer = (
         <>
             {
-                (createdAt || updatedAt || status) &&
-                <SingleEntityStatus createdAt={createdAt} updatedAt={updatedAt} status={status} />
+                (createdAt || updatedAt || meta) &&
+                <SingleEntityMeta createdAt={createdAt} updatedAt={updatedAt} meta={meta} />
             }
         </>
     )

@@ -4,7 +4,7 @@ import React from 'react';
 import { useFormUtils } from '@/src/hooks/useFormUtils/useFormUtils';
 
 //context
-import {getDefaultCreateEntityStatus} from "@/DataTypes/Status/EntityStatus";
+import {getDefaultCreateEntityMeta} from "@/src/DataTypes/Meta/EntityMeta";
 import {useAuth} from '@/auth/context/auth-context';
 
 //components

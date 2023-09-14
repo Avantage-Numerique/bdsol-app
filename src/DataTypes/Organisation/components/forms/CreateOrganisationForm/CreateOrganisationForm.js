@@ -1,5 +1,4 @@
 import React from 'react'
-import Router from 'next/router'
 
 //Custom hooks
 import { useFormUtils } from '@/src/hooks/useFormUtils/useFormUtils'
@@ -13,13 +12,7 @@ import RichTextarea from '@/FormElements/RichTextArea/RichTextarea'
 import { useAuth } from "@/src/authentification/context/auth-context";
 
 //FormData
-import {getDefaultCreateEntityStatus} from "@/DataTypes/Status/EntityStatus";
-
-//Utils
-import {replacePathname} from "@/src/helpers/url";
-
-//Model
-import Organisation from "@/DataTypes/Organisation/models/Organisation"
+import {getDefaultCreateEntityMeta} from "@/src/DataTypes/Meta/EntityMeta";
 
 /**
  * @param {function} onPositiveResponse : Additionnal function to be executed if the submit response is positive
@@ -66,7 +59,7 @@ const CreateOrganisationForm = ({ onPositiveResponse }) => {
                 name: formState.inputs.name.value,
                 url:  formState.inputs.url.value,
                 description: formState.inputs.description.value,
-                status: getDefaultCreateEntityStatus(auth.user),
+                meta: getDefaultCreateEntityMeta(auth.user),
             }
         };
 

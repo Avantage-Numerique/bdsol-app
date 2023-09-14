@@ -8,7 +8,7 @@ export const lang = StringDictionary.getInstance([
     "base",
     "dates",
     "validation",
-    "status",
+    "meta",
     "contribute",
     "medias",
     "organisations",

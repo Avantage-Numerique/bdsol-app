@@ -18,7 +18,7 @@ import { MessageContext } from '@/src/common/UserNotifications/Message/Context/M
 import styles from './CreateTaxonomyForm.module.scss'
 import { lang } from '@/src/common/Data/GlobalConstants'
 import Select2 from '@/src/common/FormElements/Select2/Select2'
-import {getDefaultCreateEntityStatus} from "@/DataTypes/Status/EntityStatus";
+import {getDefaultCreateEntityMeta} from "@/src/DataTypes/Meta/EntityMeta";
 
 
 const CreateTaxonomyForm = ({name, category, initValues, onPositiveResponse, ...props}) => {
@@ -75,7 +75,7 @@ const CreateTaxonomyForm = ({name, category, initValues, onPositiveResponse, ...
                 value: initValues?.domains ?? [],
                 isValid: true
             },
-            "status.message": {
+            "meta.message": {
                 value: '',
                 isValid: true
             }
@@ -112,11 +112,10 @@ const CreateTaxonomyForm = ({name, category, initValues, onPositiveResponse, ...
                 "domains": formState.inputs.domains.value ? formState.inputs.domains.value.map( (singleDomain) => {
                     return {
                         domain: singleDomain.value,
-                        status: getDefaultCreateEntityStatus(auth.user)
                     }
                 }): [],
                 /*"source": formState.inputs.source.value,*/
-                "status": getDefaultCreateEntityStatus(auth.user)
+                "meta": getDefaultCreateEntityMeta(auth.user)
             }
         };
 
@@ -179,7 +178,7 @@ const CreateTaxonomyForm = ({name, category, initValues, onPositiveResponse, ...
                 />
 
                 <RichTextarea
-                    name="status.message"
+                    name="meta.message"
                     label="Dites nous en quelques mots la raison de l'ajout de cette catégorie"
                     labelNote="Cette information restera privée. Elle nous permet seulement de mieux comprendre la demande d'ajout."
                     placeholder="Je préfère cette appellation pour décrire mon activité professionnelle plutôt qu'une autre [...]"

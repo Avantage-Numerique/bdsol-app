@@ -11,7 +11,7 @@ import styles from './PersonSingle.module.scss'
 
 //Utils
 import SanitizedInnerHtml from '@/src/utils/SanitizedInnerHtml';
-import {SingleEntityStatus} from "@/DataTypes/Status/components/SingleEntityStatus";
+import {SingleEntityMeta} from "@/src/DataTypes/Meta/components/SingleEntityMeta";
 import {lang} from "@/common/Data/GlobalConstants";
 import Person from "@/DataTypes/Person/models/Person";
 
@@ -31,7 +31,7 @@ const PersonSingleView = ({ data }) => {
         catchphrase,
         createdAt,
         updatedAt,
-        status,
+        meta,
         mainImage
     } = data;
 
@@ -168,8 +168,8 @@ const PersonSingleView = ({ data }) => {
     const Footer = (
         <>
             {
-                (createdAt || updatedAt || status) &&
-                <SingleEntityStatus createdAt={createdAt} updatedAt={updatedAt} status={status} />
+                (createdAt || updatedAt || meta) &&
+                <SingleEntityMeta createdAt={createdAt} updatedAt={updatedAt} meta={meta} />
             }
         </>
     )

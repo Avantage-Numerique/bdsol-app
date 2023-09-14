@@ -25,8 +25,6 @@ const base = {
     "knowMore": "En savoir plus",
     "aboutUs": "À propos",
 
-    // Status
-
     // App
 
     "appDefaultName": "BDSOL d'Avantage Numérique",

@@ -18,7 +18,7 @@ import {getColor, selectStyle} from '@/src/styles/datatypeStyle';
  * @param name {string} formState update and mainly use for ids and keys
  * @param formTools {any} For formState update (If there is an initial value to formState, it should be an array, and elem.[idField]._id and elem[searchField] should exist)
  * @param props {object} all the props.
- * @param props.idField {string} field the id should go in ==> select tag set formState value to [ { idField : value, status: {statusObject} }.
+ * @param props.idField {string} field the id should go in ==> select tag set formState value to [ { idField : value, meta: {metaObject} }.
  * @param props.searchField {any} The name of the field to make the search on
  * @param props.validators
  * @param props.className {string} Allow us to add element to the class names from outside
@@ -245,7 +245,7 @@ export const getSelectedToFormData = (selected, idField, user ) => {
     return selected.map( (elem) => {
         return {
             [idField] : elem[idField]._id,
-            status: {
+            meta: {
                 state: "pending",
                 lastModifiedBy: user.id,
                 requestedBy: user.id

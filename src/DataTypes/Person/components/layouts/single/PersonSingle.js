@@ -18,7 +18,7 @@ import {useModal} from "@/src/hooks/useModal/useModal";
 
 //Utils
 import SanitizedInnerHtml from '@/src/utils/SanitizedInnerHtml';
-import {SingleEntityStatus} from "@/DataTypes/Status/components/SingleEntityStatus";
+import {SingleEntityMeta} from "@/src/DataTypes/Meta/components/SingleEntityMeta";
 import {lang} from "@/common/Data/GlobalConstants";
 import {useAuth} from "@/auth/context/auth-context";
 
@@ -38,7 +38,7 @@ const PersonSingle = ({ data, route }) => {
         catchphrase,
         createdAt,
         updatedAt,
-        status,
+        meta,
         mainImage
     } = data;
 
@@ -224,8 +224,8 @@ const PersonSingle = ({ data, route }) => {
             <SingleInfo title={"Projets"} />
 
             {
-                (createdAt || updatedAt || status) &&
-                <SingleEntityStatus className={singleInfoCommonClass} createdAt={createdAt} updatedAt={updatedAt} status={status} />
+                (createdAt || updatedAt || meta) &&
+                <SingleEntityMeta className={singleInfoCommonClass} createdAt={createdAt} updatedAt={updatedAt} meta={meta} />
             }
         </Single>
 
