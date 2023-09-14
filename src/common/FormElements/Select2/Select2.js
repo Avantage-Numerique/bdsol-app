@@ -62,8 +62,7 @@ const Select2 = ({ name, formTools, ...props }) => {
     const [value, setValue] = useState(null);
 
     //Extract validator message
-    const { validate, RequirementsBadges } = useValidation( props.validationRules )
-
+    const { validate, RequirementsBadges, rerenderToggled } = useValidation( props.validationRules )
     //Extract root modal 
     const { Modal, displayModal, closeModal, modalInitValues } = useRootModal();
 
@@ -75,12 +74,13 @@ const Select2 = ({ name, formTools, ...props }) => {
     } = formTools;
 
     useEffect(() => {
+        console.log("UPDATE IN THE USE EFFECT : ", value, formState)
         inputHandler(
             name,
             value,
-            props.validationRules ? validate(value) : true
+            props.validationRules ? validate(value, formState) : true
         )
-    },  [value])
+    },  [value, String(rerenderToggled)])
 
     useEffect( () => {
         const valueList = ApiEntityModel.getSelectOption(formState.inputs[name].value, props.selectField);

@@ -23,7 +23,7 @@ import styles from './Input.module.scss';
 
 const Input = ({name, formTools, ...props}) => {
 
-    const { validate, RequirementsBadges, ValidationErrorMessages } = useValidation( props.validationRules )
+    const { validate, RequirementsBadges, ValidationErrorMessages, rerenderToggled } = useValidation( props.validationRules )
     /*
         Access the differents form tools 
     */
@@ -50,7 +50,7 @@ const Input = ({name, formTools, ...props}) => {
         inputHandler(
             name,
             event.target.value,
-            props.validationRules ? validate(event.target.value) : true
+            props.validationRules ? validate(event.target.value, formState) : true
         )
     }
 
@@ -58,9 +58,9 @@ const Input = ({name, formTools, ...props}) => {
         inputHandler(
             name,
             fieldRef.current.value,
-            props.validationRules ? validate(fieldRef.current.value) : true
+            props.validationRules ? validate(fieldRef.current.value, formState) : true
         )
-    }, [])
+    }, [rerenderToggled])
 
  
     return (

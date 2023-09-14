@@ -4,20 +4,22 @@
     V.P.R. - 18/10/2022
 
 */
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
 import {lang} from "@/common/Data/GlobalConstants";
+
+const isValuePositive = value => {
+    //Make sure there is actually a value passed
+    if(!value) return false
+    //If the value is an array 
+    if(Array.isArray(value)) return value.length > 0;
+    //Everything else (for now), we convert it to string, trim it and compare
+    return value.toString().trim().length > 0
+}
 
 const rules_settings = {
     REQUIRED: { 
         renderMessage: (() => "Ce champ est requis"),
-        validationMethod: (value => {
-            //Make sure there is actually a value passed
-            if(!value) return false
-            //If the value is an array 
-            if(Array.isArray(value)) return value.length > 0;
-            //Everything else (for now), we convert it to string, trim it and compare
-            return value.toString().trim().length > 0
-        }),
+        validationMethod: (value => isValuePositive(value)),
         renderBadge: (() => lang.badgeRequired)
     },
     MIN_LENGTH: { 
@@ -54,6 +56,11 @@ const rules_settings = {
         renderMessage: ((mo = 5) => `Ce champ n'accepte que les fichiers de ${mo} Mo et moins.`),
         validationMethod: ((value, mo = 5) => value ? value?.size <= (mo * 1024 * 1024) : true),
         renderBadge: ((mo = 5) => `${mo} Mo max`)
+    },
+    ONE_OF_MANY_REQUIRED: {
+        renderMessage: (() => `Vous devez remplir au moins l'un des champs de cette section`),
+        validationMethod: ((value, dependencies) =>  isValuePositive(value) || dependencies.some(value => isValuePositive(value))),
+        renderBadge: (() => `1 champ requis`)
     }
 }
 
@@ -71,6 +78,7 @@ const initiateValidator = selectedRules => {
             //If there is a match, build the permanent validator object for this field
             newFieldValidators[settingRuleName] = {
                 specification: matchingValidator.specification,
+                dependencies: matchingValidator.dependencies || [],      //New feature for passing an array of functions that returns TRUE of FALSE. Allow us to compare with external values
                 message: rules_settings[settingRuleName].renderMessage((matchingValidator.specification && matchingValidator.specification)),
                 validationMethod: rules_settings[settingRuleName].validationMethod,
                 badge: rules_settings[settingRuleName].renderBadge((matchingValidator.specification && matchingValidator.specification)),
@@ -85,9 +93,11 @@ const initiateValidator = selectedRules => {
 export const useValidation = ( setOfRules ) => {
 
     const [validator, setValidator] = useState(initiateValidator( setOfRules || [] ))
+    //Bool that is set to go on and off to trigger rerendering in dependent components
+    const [rerenderState, setRerenderState] = useState(false)   
 
-    const validate = (value) => {
 
+    const validate = (value, formState) => {
         //Evaluate the validity of the field => only positiv if every validation rules are respected
         let generalValidity = true
 
@@ -95,13 +105,24 @@ export const useValidation = ( setOfRules ) => {
         for(const ruleName in validator){
             //Reference to the specific validator 
             const rule = validator[ruleName]
+            //Edit the specification of dependencies functions if there are
+                //Init value
+                let param = null;
+                if(rule.specification)
+                    //Apply the simple rule specification
+                    param = rule.specification;
+                if(!rule.specification && rule.dependencies)
+                    //Extract the content to evaluate in the formstate depending of the passed function
+                    param = rule.dependencies.map(depFunction => depFunction(formState))
+                
             //For each, apply the validation method 
-            const validationResult = rule.validationMethod(value, rule.specification)
+            const validationResult = rule.validationMethod(value, param)
             //Apply result to general validity variable
             if(!validationResult) generalValidity = false
             //Verify if there is a change of state
-            if(validationResult !== rule.isValid)
+            if(validationResult !== rule.isValid){
                 //If there is, update the state with the new validity
+                console.log("Inside update ")
                 setValidator(prev => ({
                     ...prev,
                     [ruleName]: {
@@ -109,8 +130,12 @@ export const useValidation = ( setOfRules ) => {
                         isValid: validationResult
                     }
                 }))
+                //Update the rerendering state to update other components relying on this information
+                if(rule.dependencies)
+                    setRerenderState(!rerenderState)
+                
+            }
         }
-
         return generalValidity
     }
 
@@ -137,7 +162,6 @@ export const useValidation = ( setOfRules ) => {
                             <li 
                                 title={`${validator[ruleName].message}`}
                                 className={`
-                                             
                                             rounded-1
                                             badge-container__badge
                                             ${validator[ruleName].isValid && "badge--validation-succes"}
@@ -157,7 +181,6 @@ export const useValidation = ( setOfRules ) => {
     const ValidationErrorMessages = () => {
 
         const completeRulesList = Object.keys(validator);
-
         //List of errors to display (list of there names)
         const errorRulesList = completeRulesList.filter(ruleName => validator[ruleName].isValid === false)
 
@@ -184,6 +207,7 @@ export const useValidation = ( setOfRules ) => {
     return {
         validate,
         RequirementsBadges,
-        ValidationErrorMessages
+        ValidationErrorMessages,
+        rerenderToggled: rerenderState
     }
 }

@@ -22,7 +22,7 @@ import styles from './UpdateTeams.module.scss'
  * @param {object} props rest of the props.
  */
 const UpdateTeams = ({name, formTools, parentEntity, ...props}) => {
-
+    console.log(formTools)
     return (
         <>
             <SingleInfo
@@ -51,16 +51,14 @@ const UpdateTeams = ({name, formTools, parentEntity, ...props}) => {
                                 <Select2
                                     name="member"
                                     label={lang.teamMembers}
-                                    formTools={formTools}
                                     creatable={false}
                                     isMulti={false}
-
                                     fetch={"/persons/list"}
                                     searchField={"firstName"}
                                     selectField={"fullname"}
-
                                     validationRules={[
-                                        {name: "REQUIRED"}
+                                        {name: "REQUIRED"},
+                                        {name: "ONE_OF_MANY_REQUIRED", dependencies: [state => state.inputs["role"].value]}
                                     ]}
                                 />
                             </div>
@@ -69,6 +67,9 @@ const UpdateTeams = ({name, formTools, parentEntity, ...props}) => {
                                     name="role"
                                     label="Role"
                                     placeholder="Rôle dans l'équipe"
+                                    validationRules={[
+                                        {name: "ONE_OF_MANY_REQUIRED", dependencies: [state => state.inputs["member"].value]}
+                                    ]}
                                 />
                             </div>
                         </div>
