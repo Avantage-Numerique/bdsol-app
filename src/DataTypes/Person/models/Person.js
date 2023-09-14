@@ -47,9 +47,21 @@ class Person extends EntityModel {
         this.singleEditRoute = {...AppRoutes.personSingleEdit};
         this.createRoute = {...AppRoutes.personCreate};
 
-
         //sets all the rest as this[key] = raw[key] value.
         this.setProperties(raw);
+
+        //Set the simple list based on the nature of the component
+        let list = []
+        if(raw?.occupations)
+            raw.occupations.forEach(occ => {
+                if(occ.groupName){
+                    list.push(occ.groupName)
+                } else {
+                    occ.skills.forEach(skill => list.push(skill.name))
+                }
+            });
+        this.simpleEditList(list) 
+
     }
 
 }

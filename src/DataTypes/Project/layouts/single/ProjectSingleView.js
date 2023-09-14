@@ -17,6 +17,8 @@ import EntitiesTagGrid from "@/DataTypes/Entity/layouts/EntitiesTagGrid";
 import {ExternalLink} from "@/common/Components/ExternalLink";
 import EntityLink from "@/DataTypes/Entity/layouts/EntityLink";
 
+//styling 
+import styles from "./ProjectSingleView.module.scss"
 
 const ProjectSingleView = ({ data }) => {
 
@@ -145,27 +147,41 @@ const ProjectSingleView = ({ data }) => {
                     title="Échéancier et budget"
                     className="mb-3"
                 >
-                    <section className='ps-4 border-start'>
-                        {scheduleBudget?.startDate && <div key="startDate">Date de début : {getDateFromIsoString(scheduleBudget.startDate)}</div>}
-                        {scheduleBudget?.endDateEstimate && <div key="endDateEstimate">Date estimée de fin : {getDateFromIsoString(scheduleBudget.endDateEstimate)}</div>}
-                        {scheduleBudget?.completionDate && <div key="completionDate">Date de fin : {getDateFromIsoString(scheduleBudget.completionDate)}</div>}
-                        {scheduleBudget?.estimatedTotalBudget && <div key="estimatedTotalBudget">Budget total : {scheduleBudget.estimatedTotalBudget}$</div>}
-                        {scheduleBudget?.eta && <div key="eta">Lapse de temps avant la complétion : {scheduleBudget.eta}</div>}
-                        {scheduleBudget?.timeframe?.length > 0 &&
-                            <ul key="timeframe-container">
-                                    Échéancier : {
-                                    scheduleBudget.timeframe.map( (singleTimeframe, index) => {
-                                        return (
-                                            <li key={`timeframe-${singleTimeframe._id}`} className={`border-start p-2 ${(index % 2 === 0) && "bg-greyBg"}`}>
-                                                {singleTimeframe?.step ? <h5 className="text-successDarker m-0">{singleTimeframe.step}</h5> : <></> }
-                                                <div className="d-flex flex-wrap gap-4">
-                                                    {singleTimeframe?.eta ? <div key={"timeframe-eta-"+index}>Durée : {allEnumState?.[singleTimeframe.eta] ?? singleTimeframe.eta}</div> : <></> }
-                                                    {singleTimeframe?.budgetRange ? <div key={"timeframe-budgetRange-"+index}>Budget : {allEnumState?.[singleTimeframe.budgetRange] ?? singleTimeframe.budgetRange}</div> : <></> }
-                                                </div>
-                                            </li>
-                                        )
+                    <section className={`ps-4 border-start  ${styles["budget"]}`}>
+                        <div className="container my-2">
+                            <div className="row">
+                                <BudgetCard title="Date de début" data={scheduleBudget?.startDate} />
+                                <BudgetCard title="Date estimée de fin" data={scheduleBudget?.endDateEstimate} />
+                                <BudgetCard title="Date de fin" data={scheduleBudget?.completionDate} />
+                                <BudgetCard title="Budget total" data={scheduleBudget?.estimatedTotalBudget} isDate={false} />
+                                <BudgetCard title="Temps avant la complétion" data={scheduleBudget?.eta} isDate={false} />
+                            </div>
+                        </div>
+
+                        {scheduleBudget?.timeframe?.length > 0 && 
+                            <>
+                                <h5 className="mt-4 text-dark">Étapes du projet</h5>
+                                <ul 
+                                    key="timeframe-container" 
+                                    className={`container rounded overflow-hidden shadow-sm`}
+                                >
+                                    {/* Table's header */}
+                                    <BudgetStep header />
+                                    {
+                                        scheduleBudget.timeframe.map( (singleTimeframe, index) => {
+                                            return (
+                                                <BudgetStep 
+                                                    key={`timeframe-${singleTimeframe._id}`}
+                                                    index={index}
+                                                    step={singleTimeframe.step}
+                                                    duration= {allEnumState?.[singleTimeframe.eta] ?? singleTimeframe.eta}
+                                                    costs={allEnumState?.[singleTimeframe.budgetRange] ?? singleTimeframe.budgetRange}
+                                                />
+                                            )
+                                        })
                                     }
-                            )}</ul>
+                                </ul>
+                            </>
                         }
                     </section>
                 </SingleInfo>
@@ -255,3 +271,55 @@ const ProjectSingleView = ({ data }) => {
 }
 
 export default ProjectSingleView
+
+/********************************
+ * 
+ * 
+ *      Other functions and components
+ * 
+ */
+
+ //Line component for the budget steps
+ function BudgetStep(props){
+    //Deconstruct props
+    const {
+        header = false,
+        index,
+        step = " - ",
+        duration = " - ",
+        costs = " - "
+    } = props; 
+
+    const Tag = header ? "h6" : "p";
+    const bg_color = header ? "bg-secondarylight" : ((index % 2 === 0) ? "bg-greyBg" : "")
+
+    return (
+        <li className={`${bg_color} row`}>
+            <Tag className="col col-flex-1 my-2">{header ? "Étape" : step}</Tag>
+            <Tag className="col flex-1 my-2">{header ? "Durée" : duration}</Tag>
+            <Tag className="col flex-1 my-2">{header ? "Coûts" : costs}</Tag>
+        </li>
+     )
+ }
+
+ function BudgetCard(props){
+
+    const {
+        title,
+        data,               //Main value to be displayed
+        isDate = true,      //By default, considered has holding a date
+        col = "col-6",
+    } = props;
+
+    const style = {"border": "0.15rem dashed"}
+
+    if(title && data)
+        return (
+            <div className={`${col} g-3`}>
+                <div style={style} className="bg-greyBg py-3 px-3 rounded border-secondary">
+                    <h6 className="text-grey mb-1">{title}</h6>
+                    <p className="mb-0">{isDate ? getDateFromIsoString(data) : data}</p>
+                </div>
+            </div>
+        )
+ }
