@@ -30,6 +30,7 @@ import {TYPE_EVENT, TYPE_PLACE, TYPE_TAXONOMY} from "@/src/DataTypes/Entity/Type
 import SelectFetch from "@/src/common/FormElements/Select/SelectFetch";
 import CreatePhotoGallery from "@/src/DataTypes/Media/components/forms/CreatePhotoGallery/CreatePhotoGallery";
 import {apiDateToDateInput, apiDateToTimeInput, dateTimeStringToUTC} from "@/common/DateManager/Parse";
+import SubmitEntity from "@/DataTypes/common/Forms/SingleEdit/SubmitEntity";
 
 const EventSingleEdit = ({data}, ...props) => {
 
@@ -196,6 +197,32 @@ const EventSingleEdit = ({data}, ...props) => {
             }
         }
     );
+
+
+    // Save current events dates and time into field to help the user managing and adding multiple schedule step.
+
+    //react when the form's state change, to adjust the form accordingly to the dates.
+    useEffect(() => {
+        updateCurrentEventDateTime();
+    }, [formState]);
+
+    //set a st
+
+    const [currentEventDateTime, setCurrentEventDateTime] = useState({
+        startDate: startDate,//startDate
+        endDate: endDate,
+        startTime: '00:00',//startDate
+        endTime: '00:00',
+    });
+
+    const updateCurrentEventDateTime =() => {
+        setCurrentEventDateTime({
+            startDate: formState.inputs.startDate.value,
+            endDate: formState.inputs.endDate.value,
+            startTime: formState.inputs.startTime.value,
+            endTime: formState.inputs.endTime.value
+        });
+    };
 
     //Submit the form
     const submitHandler = async event => { 
@@ -386,14 +413,6 @@ const EventSingleEdit = ({data}, ...props) => {
                 </div>
                 <div className="col col-md-6">
 
-                    {/* experiences */}
-                    <Input
-                        name="experience"
-                        label="Expérience"
-                        formTools={formTools}
-                        disabled={true}
-                        placeholder="Bientôt disponible"
-                    />
                     {/* eventType */}
                     <Select2
                         name="eventType"
@@ -416,6 +435,9 @@ const EventSingleEdit = ({data}, ...props) => {
                         formTools={formTools}
                         noValueText={lang.noSelectedOption}
                         fetchOption="eventformat-enum"
+                        validationRules={[
+                            {name: "REQUIRED"}
+                        ]}
                     />
                     
                     {/* location */}
@@ -433,6 +455,14 @@ const EventSingleEdit = ({data}, ...props) => {
                         //selectField={"address"}
                     />
 
+                    {/* experiences */}
+                    <Input
+                        name="experience"
+                        label="Expérience"
+                        formTools={formTools}
+                        disabled={true}
+                        placeholder="Bientôt disponible"
+                    />
                 </div>
 
             </div>
@@ -455,6 +485,10 @@ const EventSingleEdit = ({data}, ...props) => {
             <UpdateSchedule
                 name="schedule"
                 label={lang.schedule}
+                minDate={currentEventDateTime.startDate}
+                maxDate={currentEventDateTime.endDate}
+                minTime={currentEventDateTime.startTime}
+                maxTime={currentEventDateTime.endTime}
                 schedule={schedule?.length > 0 ? schedule.map( (elem, ind, arr) => {
                     if(elem.startDate)
                         elem.startDate = apiDateToDateInput(elem.startDate);//getDateFromIsoString(elem.startDate);
@@ -463,12 +497,13 @@ const EventSingleEdit = ({data}, ...props) => {
                     return elem;
                 }):[]}
                 formTools={formTools}
+                description={lang.scheduleFieldDescription}
             />
 
             {/* subEvents */}
             <Select2
                 name="subEvents"
-                className="my-1"
+                className="my-2"
                 label={lang.subEvents}
                 formTools={formTools}
                 creatable={true}
@@ -482,7 +517,7 @@ const EventSingleEdit = ({data}, ...props) => {
             {/* attendees */}
             <Select2
                 name="attendees"
-                className="my-1"
+                className="my-2"
                 label={lang.attendees}
                 formTools={formTools}
                 creatable={false}
@@ -585,6 +620,8 @@ const EventSingleEdit = ({data}, ...props) => {
                 contentColumnRight={contentColumnRight}
                 footer={footer}
             />
+
+            <SubmitEntity submitHandler={submitHandler} formState={formState} />
         </>
     )
 }

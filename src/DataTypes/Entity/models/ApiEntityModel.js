@@ -4,17 +4,20 @@ import {TYPE_EVENT, TYPE_ORGANISATION, TYPE_PERSON, TYPE_PLACE, TYPE_PROJECT, TY
 
 class ApiEntityModel {
 
-    /** @param {object} requestData Response object data. And array of entities */
+    /**
+     * @param {object} requestData Response object data. And array of entities
+     * @parem field {any}
+     * */
     static getSelectOption(requestData, field){
         //If requestData is a string
         if(typeof requestData == "string")
-            return requestData == "" ? null : [{label: requestData, value: requestData}];
+            return requestData === "" ? null : [{label: requestData, value: requestData}];
         //If requestData is not an array
         if(!Array.isArray(requestData))
             return ApiEntityModel.entityTypeHandler(requestData, field)
 
         //if requestData is an array, check not empty
-        if(requestData?.length == 0)
+        if(requestData?.length === 0)
             return [];
         //parse option for every item
         let selectOptions = []
@@ -63,7 +66,7 @@ class ApiEntityModel {
 
     static occupationsToSelectOptions(elemArray) {
         //If there's no occupations group return []
-        if(elemArray == undefined)
+        if(elemArray === undefined)
             return []
         
         //For each occupations group, transmute every skills into options
@@ -86,7 +89,7 @@ class ApiEntityModel {
 
     static domainsToSelectOptions(domains){
         //If domains is from entity formState
-        if(domains?.length == undefined)
+        if(domains?.length === undefined)
             return [{ value : domains.domain._id, label : domains.domain.name, color : getColor(domains.domain) }]
         
         //Else if domains are from request db taxonomies

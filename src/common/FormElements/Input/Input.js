@@ -1,7 +1,7 @@
 import {useEffect, useRef} from 'react';
 
 //Hooks
-import { useValidation } from '@/src/hooks/useValidation/useValidation';
+import {useValidation} from '@/src/hooks/useValidation/useValidation';
 
 //components
 import Tip from '@/common/FormElements/Tip/Tip';
@@ -52,6 +52,10 @@ const Input = ({name, formTools, ...props}) => {
             event.target.value,
             props.validationRules ? validate(event.target.value) : true
         )
+        if (typeof props.onChangeInput === 'function') {
+            //if the component got an onChange method sets. Trigger it.
+            props.onChangeInput(event);
+        }
     }
 
     useEffect(() => {
@@ -103,7 +107,9 @@ const Input = ({name, formTools, ...props}) => {
                     onBlur={() => inputTouched(name)}
                     autoComplete={props.type === "password" ? "on" : undefined}
                     pattern={props.pattern ?? undefined}
-                /> 
+                    min={props.min ?? undefined}
+                    max={props.max ?? undefined}
+                />
 
                 <RequirementsBadges addUlPadding /> 
             </div>

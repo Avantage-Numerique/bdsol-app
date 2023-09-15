@@ -124,24 +124,6 @@ const EventSingleView = ({data}) => {
                     </div>
                 </div>
                 <div className="col col-md-6">
-                    {/*eventType */}
-                    { eventType?.length > 0 &&
-                        <SingleInfo title={lang.eventType}>
-                            <ul>
-                                {eventType.map( type => (
-                                    <li key={`${type.name}`}>
-                                        {type.name}
-                                    </li>
-                                ))}
-                            </ul>
-                        </SingleInfo>
-                    }
-                    {/* eventFormat */}
-                    { eventFormat &&
-                        <SingleInfo title={lang.eventFormat}>
-                            {formatEnumState?.[eventFormat] ?? eventFormat}
-                        </SingleInfo>
-                    }
                     {/* location */}
                     {
                         location?.length > 0 &&
@@ -150,8 +132,6 @@ const EventSingleView = ({data}) => {
                         </SingleInfo>
                     }
                 </div>
-
-
             </div>
             <div className="row mt-4">
                 {
@@ -163,6 +143,7 @@ const EventSingleView = ({data}) => {
             </div>
         </div>
     )
+
     const contentColumnLeft = (
         <>
             {/* schedule */}
@@ -175,14 +156,14 @@ const EventSingleView = ({data}) => {
             {/* subEvents */}
             {
                 subEvents && subEvents.length > 0 &&
-                <SingleInfo title={lang.subEvents} className={"pb-3"}>
+                <SingleInfo title={lang.subEvents} className={"py-3"}>
                     <EntitiesTagGrid feed={subEvents} />
                 </SingleInfo>
             }
             {/* attendees */}
             {
                 attendees && attendees.length > 0 &&
-                <SingleInfo title={lang.attendees} className={"pb-3"}>
+                <SingleInfo title={lang.attendees} className={"py-3"}>
                     <EntitiesTagGrid feed={attendees} />
                 </SingleInfo>
             }
@@ -202,6 +183,24 @@ const EventSingleView = ({data}) => {
     )
     const contentColumnRight = (
         <>
+            {/*eventType */}
+            { eventType?.length > 0 &&
+                <SingleInfo title={lang.eventType}>
+                    <ul>
+                        {eventType.map( type => (
+                            <li key={`${type.name}`}>
+                                {type.name}
+                            </li>
+                        ))}
+                    </ul>
+                </SingleInfo>
+            }
+            {/* eventFormat */}
+            { eventFormat &&
+                <SingleInfo title={lang.eventFormat}>
+                    {formatEnumState?.[eventFormat] ?? eventFormat}
+                </SingleInfo>
+            }
             {/* skills */}
             {
                 skills?.length > 0 &&

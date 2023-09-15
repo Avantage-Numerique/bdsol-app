@@ -137,9 +137,10 @@ export const useForm = (initialInputs) => {
     }, []);
 
     const updateManyFields = useCallback(modificationsObj => {
-        //Receives an object of this shape : {[fieldName]: [fieldNewValue], [fieldName]: [fieldNewValue]}
-
-        /* Expect to receive an object of this shape */
+        /**
+         * Expect to receive an object of this shape
+        * {[fieldName]: [fieldNewValue], [fieldName]: [fieldNewValue]}
+        */
         dispatch({
             type: 'UPDATE_MANY_FIELDS',
             modifiedFields: modificationsObj

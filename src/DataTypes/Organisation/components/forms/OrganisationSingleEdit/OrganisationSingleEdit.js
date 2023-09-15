@@ -27,7 +27,7 @@ import UpdateTeams from '../UpdateTeams/UpdateTeams';
 
 //Utils
 import Organisation from '@/src/DataTypes/Organisation/models/Organisation';
-import {replacePathname} from "@/src/helpers/url";
+import {inputUrlRegex, replacePathname} from "@/src/helpers/url";
 import {lang} from "@/src/common/Data/GlobalConstants";
 import MainImageDisplay from "@/DataTypes/common/layouts/single/defaultSections/MainImageDisplay/MainImageDisplay";
 import Icon from "@/common/widgets/Icon/Icon";
@@ -372,7 +372,7 @@ const OrganisationSingleEdit = (props) => {
                 className="mb-3"
                 label="Hyperlien"
                 type="url"
-                pattern="^https?:\/\/[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$"
+                pattern={inputUrlRegex}
                 placeholder="Une url avec le https, exemple : https://siteWeb.com"
                 formTools={formTools}
             />
@@ -385,8 +385,8 @@ const OrganisationSingleEdit = (props) => {
         </>
     );
 
-
     const modalCategoryMode = useRef("skills");
+
 
     function displayModalForSkills(elem) {
         modalCategoryMode.current = "skills";
@@ -394,12 +394,14 @@ const OrganisationSingleEdit = (props) => {
         displayModal();
     }
 
+
     function displayModalForDomains(elem) {
         modalCategoryMode.current = "domains";
         modal.enteredValues.name = elem;
         displayModal();
     }
-    
+
+
     return (
         <>
             <SingleBase
@@ -420,7 +422,7 @@ const OrganisationSingleEdit = (props) => {
                     <header className={`d-flex`}>
                         <p>Le nouvel élément de taxonomie que vous ajoutez ici pourra ensuite être directement intégrée à votre formulaire.</p>
                         <Button onClick={closeModal}>Fermer</Button>
-                    </header>               
+                    </header>
                       
                     {/* Separation line */}
                     <div className={`my-4 border-bottom`}></div>

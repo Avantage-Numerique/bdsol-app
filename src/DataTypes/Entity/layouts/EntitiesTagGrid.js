@@ -19,6 +19,7 @@ const EntitiesTagGrid = ({feed, className, columnClass, subEntityProperty, subBa
 
     const ContainerTag = "ul";
     //subEntityProperty = subEntityProperty ?? 'entity';//
+
     subBadgeProperty = subBadgeProperty ?? 'name';
     noneMessage = noneMessage ?? lang.noResult;
 
@@ -41,7 +42,7 @@ const EntitiesTagGrid = ({feed, className, columnClass, subEntityProperty, subBa
                             model.badge = entity[subBadgeProperty] ?? "";
                             const TagComponent = model.tagComponent;
                             return (
-                                <li className={`flex-column ${colContainerClass} pb-4`} key={getKeyString("container", model, index)}>
+                                <li className={`flex-column ${colContainerClass}`} key={getKeyString("container", model, index)}>
                                     <TagComponent model={model} key={getKeyString("tag", model, index)} />
                                 </li>
                             )

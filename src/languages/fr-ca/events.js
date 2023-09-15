@@ -27,7 +27,7 @@ const events = {
     "photoGallery": "Gallerie photo",
     "addPhotoGallery": "Ajouter une image",
 
-
+    "scheduleFieldDescription" : "L'horaire sera automatiquement classé par jour, basé sur la date du départ de l'étape.",
 }
 
 exports.events = events;
