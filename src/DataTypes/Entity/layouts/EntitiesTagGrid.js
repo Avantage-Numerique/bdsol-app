@@ -50,7 +50,6 @@ const EntitiesTagGrid = ({feed, className, columnClass, subEntityProperty, subBa
                         const model = getModelFromType(type, rawData);
                         const isLastRow = index >= (feedLength - nbColumnsMd);
                         const spacingClasses = !isLastRow ? 'pb-4' : '';
-                        console.log(notes, "isLastRow", isLastRow, "spacingClasses", spacingClasses, "feedLength", feedLength, "nbColumnsMd", nbColumnsMd);
                         if (model) {
                             model.badge = entity[subBadgeProperty] ?? "";
                             const TagComponent = model.tagComponent;
