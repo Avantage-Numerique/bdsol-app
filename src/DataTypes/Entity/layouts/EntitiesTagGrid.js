@@ -23,7 +23,13 @@ const EntitiesTagGrid = ({feed, className, columnClass, subEntityProperty, subBa
     subBadgeProperty = subBadgeProperty ?? 'name';
     noneMessage = noneMessage ?? lang.noResult;
 
-    const colContainerClass = columnClass ?? "col-12 col-md-6";
+    const nbColumnsMd = 2;
+    const mdColumnMobile = 1;
+    const columnsTotal = 12;
+    const mobileClasses = `col-${Math.floor(columnsTotal/mdColumnMobile)}`;
+    const tabletClasses = `col-md-${Math.floor(columnsTotal/nbColumnsMd)}`;
+
+    const colContainerClass = columnClass ?? `${mobileClasses} ${tabletClasses}`;
 
     const getKeyString = useCallback((prefix, model, index) => {
         const sep = "-";
@@ -47,9 +53,10 @@ const EntitiesTagGrid = ({feed, className, columnClass, subEntityProperty, subBa
                                 </li>
                             )
                         }
-                        console.error("Model not valid", rawData);
+                        //If the model isn't valid on complet. It happen when a model isn't populated.
+                        console.error(lang.modelNotValid, rawData);//this is legit console log. Don't remove it unless you found a better way to handle this case <3
                         return (
-                            <li className={`flex-column ${colContainerClass} pb-4`} key={"not-valid"+index}>not valid</li>
+                            <li className={`flex-column ${colContainerClass} pb-4`} key={"not-valid"+index}>{lang.modelNotValid}</li>
                         )
 
                     })
