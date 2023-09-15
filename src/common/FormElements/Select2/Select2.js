@@ -154,8 +154,8 @@ const Select2 = ({ name, formTools, ...props }) => {
 
     const label = props.label ? 
         (
-            <div className="d-flex justify-content-between">
-                <label htmlFor={name} >{props.label}</label>
+            <div className="d-flex justify-content-between pb-1">
+                <label htmlFor={name}>{props.label}</label>
                 {props.tooltip && <Tip header={props.tooltip?.header} body={props.tooltip?.body}/>}
             </div>
         ) :
@@ -293,14 +293,12 @@ const Select2 = ({ name, formTools, ...props }) => {
         <>
             {label} 
             
-            <div 
-                className="
+            <div className="
                     form-element
                     form-element--color-validation
                 ">
                     {select}
-                    <RequirementsBadges addUlPadding /> 
-
+                    <RequirementsBadges addUlPadding />
             </div>
 
             <Modal {...props}>
