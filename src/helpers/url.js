@@ -56,3 +56,6 @@ export const forceHttps = (url) => {
 export const appUrl = (url= "") => {
     return `${nextConfig.env.APP_URL}${url}`;
 }
+
+
+export const  inputUrlRegex= /^(https?):\/\/[^\s/$.?#].[^\s]*$/;
