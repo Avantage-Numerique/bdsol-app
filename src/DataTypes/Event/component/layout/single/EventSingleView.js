@@ -116,19 +116,19 @@ const EventSingleView = ({data}) => {
 
     const fullWidthContent = (
         <div>
-            <div className="row">
+            <div className="row justify-content-center align-items-center">
                 <div className="col col-md-6">              
                     {/*Date*/}
-                    <div>
-                        { startDate && endDate  && <TimeIntervalSentence tag="h3" /> }  
-                    </div>
+                    { startDate && endDate  &&
+                        <TimeIntervalSentence tag="h3" />
+                    }
                 </div>
                 <div className="col col-md-6">
                     {/* location */}
                     {
                         location?.length > 0 &&
                         <SingleInfo title="Emplacement">
-                            <EntitiesTagGrid feed={location} subBadgeProperty={"address"} columnClass={"col-12"} />
+                            <EntitiesTagGrid feed={location} subBadgeProperty={"address"} numberOfCols={1} notes={"--------------- locations events ----------------"} />
                         </SingleInfo>
                     }
                 </div>
@@ -136,7 +136,7 @@ const EventSingleView = ({data}) => {
             <div className="row mt-4">
                 {
                     description && description !== "" &&
-                    <SingleInfo title={lang.description}>
+                    <SingleInfo title={lang.description} className={"col"}>
                         <SanitizedInnerHtml>{description}</SanitizedInnerHtml>
                     </SingleInfo>
                 }
@@ -149,7 +149,7 @@ const EventSingleView = ({data}) => {
             {/* schedule */}
             {
                 schedule && schedule.length > 0 &&
-                <SingleInfo title={lang.schedule} className={"pb-3"}>
+                <SingleInfo title={lang.schedule} className={"pb-3 mb-3"}>
                     <DisplaySchedule feed={schedule}/>
                 </SingleInfo>
             }
@@ -160,22 +160,23 @@ const EventSingleView = ({data}) => {
                     <EntitiesTagGrid feed={subEvents} />
                 </SingleInfo>
             }
+
+            {/* team */}
+            {
+                team?.length > 0 &&
+                <SingleInfo
+                    title={lang.teamMembers}
+                    className="mb-3"
+                >
+                    <EntitiesTagGrid feed={team} subEntityProperty={"member"} subBadgeProperty={"role"} noneMessage={"Aucun membre de l'équipe spécifiés"} />
+                </SingleInfo>
+            }
+
             {/* attendees */}
             {
                 attendees && attendees.length > 0 &&
                 <SingleInfo title={lang.attendees} className={"py-3"}>
                     <EntitiesTagGrid feed={attendees} />
-                </SingleInfo>
-            }
-
-            {/* team */}
-            {
-                team?.length > 0 &&
-                <SingleInfo 
-                    title={lang.teamMembers}
-                    className="mb-3"
-                >
-                    <EntitiesTagGrid feed={team} subEntityProperty={"member"} subBadgeProperty={"role"} noneMessage={"Aucun membre de l'équipe spécifiés"} />
                 </SingleInfo>
             }
             

@@ -12,10 +12,11 @@ import {getModelFromType} from "@/DataTypes/Entity/Types";
  * @param subEntityProperty {string} The entity where we can get the data on the relation feed like sponsors.entity
  * @param subBadgeProperty {string} The relation often contain some supra information about the relation. If you this to name or other thing, it will show that relation string. Role, sponsor name.
  * @param noneMessage {string} If set show the target message instead of the lang.noResult value.
+ * @param notes {string} pass some string for tests or somethings.
  * @return {JSX.Element}
  * @constructor
  */
-const EntitiesTagGrid = ({feed, className, columnClass, subEntityProperty, subBadgeProperty, noneMessage}) => {
+const EntitiesTagGrid = ({feed, className, columnClass, subEntityProperty, subBadgeProperty, noneMessage, numberOfCols, notes}, ...props) => {
 
     const ContainerTag = "ul";
     //subEntityProperty = subEntityProperty ?? 'entity';//
@@ -23,9 +24,12 @@ const EntitiesTagGrid = ({feed, className, columnClass, subEntityProperty, subBa
     subBadgeProperty = subBadgeProperty ?? 'name';
     noneMessage = noneMessage ?? lang.noResult;
 
-    const nbColumnsMd = 2;
+    const nbColumnsMd = numberOfCols ?? 2;
     const mdColumnMobile = 1;
     const columnsTotal = 12;
+    const feedLength = feed.length;
+    const numberOfRows = Math.floor(feedLength / nbColumnsMd);
+
     const mobileClasses = `col-${Math.floor(columnsTotal/mdColumnMobile)}`;
     const tabletClasses = `col-md-${Math.floor(columnsTotal/nbColumnsMd)}`;
 
@@ -39,16 +43,19 @@ const EntitiesTagGrid = ({feed, className, columnClass, subEntityProperty, subBa
     return (
         <ContainerTag className={`row py-3 ${className ?? ""}`}>
             {
-                feed.length > 0 ?
+                feedLength > 0 ?
                     feed.map((entity, index) => {
                         const rawData = subEntityProperty ? entity[subEntityProperty] : entity;
                         const type = rawData.type ?? rawData.entityType;
                         const model = getModelFromType(type, rawData);
+                        const isLastRow = index >= (feedLength - nbColumnsMd);
+                        const spacingClasses = !isLastRow ? 'pb-4' : '';
+                        console.log(notes, "isLastRow", isLastRow, "spacingClasses", spacingClasses, "feedLength", feedLength, "nbColumnsMd", nbColumnsMd);
                         if (model) {
                             model.badge = entity[subBadgeProperty] ?? "";
                             const TagComponent = model.tagComponent;
                             return (
-                                <li className={`flex-column ${colContainerClass}`} key={getKeyString("container", model, index)}>
+                                <li className={`flex-column ${colContainerClass} ${spacingClasses}`} key={getKeyString("container", model, index)}>
                                     <TagComponent model={model} key={getKeyString("tag", model, index)} />
                                 </li>
                             )

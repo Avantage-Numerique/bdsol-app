@@ -38,8 +38,6 @@ export const parseDatesFeed = (feed) => {
 
     feedDates = feedDates.sort(compareAsc);
 
-
-    console.log('parseDatesFeed', tempFeed, feedKeys);
     return {
         initFeed: feed,
         feed: tempFeed,
