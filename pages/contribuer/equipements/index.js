@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 
 //Component 
-import EventSingleEdit from '@/src/DataTypes/Event/component/layout/single/EventSingleEdit';
 import Spinner from '@/src/common/widgets/spinner/Spinner';
 import Button from '@/src/common/FormElements/Button/Button'
 
@@ -12,12 +11,13 @@ import { useModal } from '@/src/hooks/useModal/useModal';
 import {withSessionSsr} from "@/auth/session/handlers/withSession";
 import {ssrCanAccess} from "@/auth/permissions/ssrCanAccess";
 import Router from "next/router";
-import CreateEventForm from '@/src/DataTypes/Event/component/Forms/CreateEvent/CreateEventForm';
+import EquipmentSingleEdit from '@/src/DataTypes/Equipment/components/layouts/single/EquipmentSingleEdit';
+import CreateEquipmentForm from '@/src/DataTypes/Equipment/components/Forms/CreateEquipmentForm/CreateEquipmentForm';
 
 //Model
-import Event from '@/src/DataTypes/Event/models/Event';
+import Equipment from '@/src/DataTypes/Equipment/models/Equipment';
 
-const EventSingleEditPage = () => {
+const EquipmentSingleEditPage = () => {
 
     //Modal hook
     const { modal, Modal, displayModal, closeModal } = useModal()
@@ -30,7 +30,7 @@ const EventSingleEditPage = () => {
     return (
         <div className="container py-4">
                 {/* Empty single edit in the background */}
-                <EventSingleEdit data={{}} />
+                <EquipmentSingleEdit data={{}} />
                 {/* Loading state while waiting for rederection */}
                 {isLoading && <Spinner fixed />}
 
@@ -41,8 +41,8 @@ const EventSingleEditPage = () => {
                     >
                         <header className={`d-flex justify-content-between align-items-start`}>
                             <div className="d-flex flex-column">
-                                <h3 className="text-primary">Ajouter une Événement</h3>
-                                <p>Entrez les informations de base d'une entité "Événement". Vous pourrez l'éditer de manière détaillée par la suite.</p>
+                                <h3 className="text-primary">Ajouter une Équipement</h3>
+                                <p>Entrez les informations de base d'une entité "Équipement". Vous pourrez l'éditer de manière détaillée par la suite.</p>
                             </div>
                             <Button 
                                 onClick={() => {
@@ -52,10 +52,10 @@ const EventSingleEditPage = () => {
                                 }}
                             >Fermer</Button>
                         </header>
-                        <CreateEventForm
+                        <CreateEquipmentForm
                             onPositiveResponse={(response) => {
                                 //Create a model for the response
-                                const model = new Event(response.data);
+                                const model = new Equipment(response.data);
 
                                 //Execute the redirection
                                 Router.push( model.singleEditLink )
@@ -72,4 +72,4 @@ const EventSingleEditPage = () => {
 
 export const getServerSideProps = withSessionSsr(ssrCanAccess);
 
-export default EventSingleEditPage
+export default EquipmentSingleEditPage

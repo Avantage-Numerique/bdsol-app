@@ -19,6 +19,7 @@ import Person from "@/DataTypes/Person/models/Person";
 import Organisation from "@/DataTypes/Organisation/models/Organisation";
 import Project from "@/DataTypes/Project/models/Project";
 import Event from "@/src/DataTypes/Event/models/Event";
+import Equipment from "@/src/DataTypes/Equipment/models/Equipment";
 
 
 const Index = () => {
@@ -37,6 +38,8 @@ const Index = () => {
             model = new Project({})
         if(type == "TYPE_EVENT")
             model = new Event({})
+        if(type == "TYPE_EQUIPMENT")
+            model = new Equipment({})
         return model.createRoute.asPath;
     }
 
@@ -82,6 +85,9 @@ const Index = () => {
                         </div>
                         <div className="col">
                             <Button href={getCreateEntityPath("TYPE_EVENT")} size="large-100" disabled={!auth.user.isLoggedIn}>{lang.Event}</Button>
+                        </div>
+                        <div className="col">
+                            <Button href={getCreateEntityPath("TYPE_EQUIPMENT")} size="large-100" disabled={!auth.user.isLoggedIn}>{lang.Equipment}</Button>
                         </div>
                     </div>
                     {

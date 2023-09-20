@@ -18,6 +18,7 @@ import {useValidation} from '@/src/hooks/useValidation/useValidation';
 
 //Modal component
 import {
+    TYPE_EQUIPMENT,
     TYPE_EVENT,
     TYPE_ORGANISATION,
     TYPE_PERSON,
@@ -32,6 +33,7 @@ import CreateTaxonomyForm from '@/DataTypes/Taxonomy/components/Forms/CreateTaxo
 import CreateProjectForm from "@/src/DataTypes/Project/component/forms/CreateProjectForm";
 import CreateEventForm from "@/src/DataTypes/Event/component/Forms/CreateEvent/CreateEventForm";
 import CreatePlaceForm from "@/src/DataTypes/Place/components/forms/CreatePlaceForm/CreatePlaceForm";
+import CreateEquipmentForm from "@/src/DataTypes/Equipment/components/Forms/CreateEquipmentForm/CreateEquipmentForm";
 
 
 /**
@@ -201,9 +203,8 @@ const Select2 = ({ name, formTools, ...props }) => {
                     //Close the modal 
                     closeModal()
                 
-            }}*/ //Commented because ApiEntityModel doesn't handle project yet since we don't use it at the moment
-        >
-        </CreatePersonForm>
+            }}*/ //Commented because ApiEntityModel doesn't handle person yet since we don't use it at the moment
+        />
     )
     const OrganisationModalForm = (
         <CreateOrganisationForm
@@ -215,9 +216,8 @@ const Select2 = ({ name, formTools, ...props }) => {
                     //Close the modal 
                     closeModal()
                 
-            }}*/ //Commented because ApiEntityModel doesn't handle project yet since we don't use it at the moment
-        >
-        </CreateOrganisationForm>
+            }}*/ //Commented because ApiEntityModel doesn't handle organisation yet since we don't use it at the moment
+        />
     )
     const TaxonomyModalForm = (
         <CreateTaxonomyForm
@@ -244,8 +244,7 @@ const Select2 = ({ name, formTools, ...props }) => {
                     closeModal()
                 
             }}*/ //Commented because ApiEntityModel doesn't handle project yet since we have no use for it at the moment
-        >    
-        </CreateProjectForm>
+        />    
     )
     const EventModalForm = (
         <CreateEventForm
@@ -257,9 +256,7 @@ const Select2 = ({ name, formTools, ...props }) => {
                     //Close the modal 
                     closeModal()
             }}
-        >
-
-        </CreateEventForm>
+        />
     )
     const PlaceModalForm = (
         <CreatePlaceForm
@@ -271,9 +268,19 @@ const Select2 = ({ name, formTools, ...props }) => {
                     //Close the modal 
                     closeModal()
             }}
-        >
-
-        </CreatePlaceForm>
+        />
+    )
+    const EquipmentModalForm = (
+        <CreateEquipmentForm
+        /* initValues={ modalInitValues ?? {}}
+        onPositiveResponse={(response) => {
+                //Here could be a call back function to execute 
+                const optionCreated = ApiEntityModel.getSelectOption(response.data)
+                addSelectedValue(...optionCreated)
+                //Close the modal 
+                closeModal()
+        }} */
+        />
     )
 
     const createModal = () => {
@@ -285,6 +292,7 @@ const Select2 = ({ name, formTools, ...props }) => {
         modals.set(TYPE_PROJECT, ProjectModalForm);
         modals.set(TYPE_EVENT, EventModalForm);
         modals.set(TYPE_PLACE, PlaceModalForm);
+        modals.set(TYPE_EQUIPMENT, EquipmentModalForm);
 
         return modals.get(props.modalType)
     }
