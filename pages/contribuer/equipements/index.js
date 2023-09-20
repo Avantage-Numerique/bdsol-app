@@ -56,7 +56,6 @@ const EquipmentSingleEditPage = () => {
                             onPositiveResponse={(response) => {
                                 //Create a model for the response
                                 const model = new Equipment(response.data);
-
                                 //Execute the redirection
                                 Router.push( model.singleEditLink )
                                 closeModal()
