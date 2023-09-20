@@ -43,7 +43,7 @@ const iterateOverChildren = (children, formInitSubStructure, formTools, deleteIt
       //If this child has a name prop,
       // and if the value is equal to one of the values declared for the formState, then it means it is a field and require a formtool
       const newProps = Object.keys(formInitSubStructure).some(key => key === child.props?.name) ? {'formTools': formTools} : {};
-      const deleteButton = child.props?.repeaterDeleteElem ? {'onClick': () => deleteIteration()} : {};
+      const deleteButton = child.props?.repeaterdeletedlem ? {'onClick': () => deleteIteration()} : {};
 
       return React.cloneElement(child, {
         ...child.props,
@@ -144,7 +144,7 @@ const Repeater = props => {
         children,               // - Elements to repeat
                                 //             (can be on multiple level. EX : <div><Input /></div>)
                                 //              List of key words in the children (props name that the repeater is going to be looking for) : 
-                                //                  - repeaterDeleteElem : if true, an onClick event is going to be added to delete this iteration
+                                //                  - repeaterdeletedlem : if true, an onClick event is going to be added to delete this iteration
                                 //                  - name : if defined and if it fits the values passed in the form init structure, it is going to receive the sub formTools for this specific iteration
         formInitStructure,      // - [object] :Structure of the form for every instance of the repeated element
                                 // -           CAREFUL => the names in the formInitstructure must reflect the names of the fields entered has children

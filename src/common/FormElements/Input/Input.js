@@ -54,13 +54,18 @@ const Input = ({name, formTools, ...props}) => {
         )
     }
 
+    const onTouch = event => {
+        updateValue(event)
+        inputTouched(name)
+    }
+
     useEffect(() => {
         inputHandler(
             name,
             fieldRef.current.value,
             props.validationRules ? validate(fieldRef.current.value, formState) : true
         )
-    }, [rerenderToggled])
+    }, [])
 
  
     return (
@@ -100,7 +105,7 @@ const Input = ({name, formTools, ...props}) => {
                     type={props.type ? props.type : "text"}
                     placeholder={props.placeholder}
                     onChange={updateValue}
-                    onBlur={() => inputTouched(name)}
+                    onBlur={onTouch}
                     autoComplete={props.type === "password" ? "on" : undefined}
                     pattern={props.pattern ?? undefined}
                 /> 

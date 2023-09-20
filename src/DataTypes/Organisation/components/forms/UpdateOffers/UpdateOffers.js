@@ -105,7 +105,7 @@ const UpdateOffers = ({parentEntity, positiveRequestActions}) => {
                         {/* Icone to move the element */}
                         <div className="col pe-0 flex-grow-0 text-secondary">
                             <Button 
-                                    repeaterDeleteElem={true}
+                                    repeaterdeletedlem={true}
                                     type="button" 
                                     color="danger" 
                                     size="slim"

@@ -102,7 +102,7 @@ const UpdateSchedule = ({name, formTools, schedule, ...props}) => {
 
                     <div className="cold mb-2 d-flex justify-content-end">
                         <button 
-                            repeaterDeleteElem={true}
+                            repeaterdeletedlem={true}
                             type="button" 
                             className="btn underlined-button text-danger py-1">
                                 Supprimer l'étape

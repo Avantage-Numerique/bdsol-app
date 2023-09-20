@@ -23,7 +23,7 @@ const UpdateSkillGroup = ({parentEntity, positiveRequestActions, name, formTools
 
     //Import the authentication context to make sure the user is well connected
     const auth = useAuth();
-    
+
     return (
         <SingleInfo
             title={props.label}
@@ -77,7 +77,7 @@ const UpdateSkillGroup = ({parentEntity, positiveRequestActions, name, formTools
                         {/* Delete element */}
                         <div className="col pr-0 flex-grow-0 text-secondary pt-1">
                             <Button 
-                                repeaterDeleteElem={true} 
+                                repeaterdeletedlem={true} 
                                 type="button" 
                                 color="danger" 
                                 size="slim"

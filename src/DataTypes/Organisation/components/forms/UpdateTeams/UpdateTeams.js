@@ -76,7 +76,7 @@ const UpdateTeams = ({name, formTools, parentEntity, ...props}) => {
                         </div>
                         <div className="col col-auto h-100 pt-1">
                             <Button 
-                                repeaterDeleteElem={true}
+                                repeaterdeletedlem={true}
                                 type="button" 
                                 color="danger" 
                                 size="slim"
