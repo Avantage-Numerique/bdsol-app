@@ -23,7 +23,7 @@ const UpdateSkillGroup = ({parentEntity, positiveRequestActions, name, formTools
 
     //Import the authentication context to make sure the user is well connected
     const auth = useAuth();
-
+    
     return (
         <SingleInfo
             title={props.label}

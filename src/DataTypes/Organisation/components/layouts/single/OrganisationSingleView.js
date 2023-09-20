@@ -42,6 +42,8 @@ const OrganisationSingleView = ({ data }) => {
 
     const model = new Organisation(data);
 
+    console.log("offers", offers)
+
     /* Needed for breadCrumb generator */
     const getLabelGenerator = useCallback((param, query) => {
         return {

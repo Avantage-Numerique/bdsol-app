@@ -74,7 +74,6 @@ const Select2 = ({ name, formTools, ...props }) => {
     } = formTools;
 
     useEffect(() => {
-        console.log("UPDATE IN THE USE EFFECT : ", value, formState)
         inputHandler(
             name,
             value,

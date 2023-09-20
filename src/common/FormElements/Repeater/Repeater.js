@@ -248,7 +248,7 @@ const Repeater = props => {
                         }
                 })
                 //New lets build the formObject with thoses values
-                const newIterationObj = createIteration( current_meta, current_id, formInitStructureWithValues, elem?.subMeta?.order);
+                const newIterationObj = createIteration( current_meta, current_id, formInitStructureWithValues, elem?.subMeta?.order, (Object.keys(startIterationsObj).length > 0 ? startIterationsObj : null));
                 //Update the return object
                 startIterationsObj = {...startIterationsObj, ...newIterationObj};
             });
@@ -311,16 +311,47 @@ const Repeater = props => {
     }
 
     //Create a new Id and make sure its not gonna be in double
-    function createIteration( meta, _id, initFormStructureWithValues, orderNumber=null ){
+    function createIteration( meta, _id, initFormStructureWithValues, orderNumber=null, initialValues = null ){
         //Create an ID
         const key = generateUniqueId();
-        //Iterations array
-        const iterationsArray = initIteration ? Object.values(initIteration) : [];
+        //Actual data already present. 
+        // 1. We prioritize the initialValues that are passed through the function at the initialisation of the component
+        // 2. If the parameter is not defined, this means we are not anymore at the initialisation stage and the value to evaluate is stored in the state. Therefore, we evaluate the state with the variable "initIteration" 
+        // 3. If both of them are empty, then we pass an empty array because there is simply no data
+        const iterationsArray = initialValues ? Object.values(initialValues) : (Object.values(initIteration) ? Object.values(initIteration) : []);
+        //Get order number and prevent it from creating duplicates
+        let order = null;
+        //If order number is defined
+        if(orderNumber || orderNumber == 0){
+            //Does it already exist in the state ?
+            if(iterationsArray.map(o => o.order).some(elem => elem === orderNumber)){
+                //If it exist, then we need to give it the first (smallest) available position instead
+                //For this, we are gonna loop through the possible instances while incrementing the order until it finds an available value
+                const arrayOfExistingOrders = iterationsArray.map(o => o.order);
+                let loopCondition = true
+                let i = 0;
+
+                while(loopCondition && i < 100){
+                    i++; //Increment the value
+                    if(i == 99)
+                        console.error("Repeater prevented an infinite loop, or blocked it because of too many elements. ")
+                    if(!arrayOfExistingOrders.some(elem => elem === (orderNumber + i))){
+                        loopCondition = false; //Stop the loop
+                        order = orderNumber + i
+                    }
+                }
+
+            //If the order doesn't already exist, then add it directly as the right value
+            } else { order = orderNumber; }
+    
+        } else {
+            order = iterationsArray.length > 0 ? (Math.max(...iterationsArray.map(o => o.order))) + 1 : 0 //Prioriser le order number. S'il n'y en a aucun, on prend la plus haute valeur dans iterations
+        }
         //Build the object
         const obj = {
             [key]: {
                 key: key,
-                order: orderNumber || ( iterationsArray.length > 0 ? (Math.max(...iterationsArray.map(o => o.order))) + 1 : 0),  //Prioriser le order number. S'il n'y en a aucun, on prend la plus haute valeur dans iterations
+                order: order,
                 value: {},
                 meta: meta ? meta : getDefaultCreateEntityMeta(auth.user),
                 initFormStructureWithValues: initFormStructureWithValues ? initFormStructureWithValues : null,
