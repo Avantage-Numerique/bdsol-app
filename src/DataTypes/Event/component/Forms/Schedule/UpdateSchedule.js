@@ -1,10 +1,17 @@
-
 import Repeater from "@/src/common/FormElements/Repeater/Repeater";
 import Input from "@/src/common/FormElements/Input/Input";
 import SingleInfo from "@/src/DataTypes/common/layouts/SingleInfo/SingleInfo";
-import { lang } from "@/src/common/Data/GlobalConstants";
+import {lang} from "@/src/common/Data/GlobalConstants";
 
 const UpdateSchedule = ({name, formTools, schedule, ...props}) => {
+
+    //min
+    //max
+    //for now time min max would be not, maybe if min max date == same ?
+    const minDate = props.minDate ?? undefined;
+    const maxDate = props.maxDate ?? undefined;
+    const minTime = props.minTime ?? undefined;
+    const maxTime = props.maxTime ?? undefined;
 
     return (
         <SingleInfo
@@ -12,6 +19,10 @@ const UpdateSchedule = ({name, formTools, schedule, ...props}) => {
             className="py-3"
         >
             <div className='px-4 border-start'>
+
+                {props.description &&
+                    <p>{props.description}</p>
+                }
 
             <Repeater
                 formTools={formTools}
@@ -22,19 +33,19 @@ const UpdateSchedule = ({name, formTools, schedule, ...props}) => {
                         isValid:false,
                     },
                     startDate: {
-                        value: "",
+                        value: minDate ?? "",
                         isValid: false
                     },
                     startTime: {
-                        value: "",
+                        value: minTime ?? "",
                         isValid: true
                     },
                     endDate: {
-                        value: "",
+                        value: maxDate ?? "",
                         isValid: false
                     },
                     endTime: {
-                        value: "",
+                        value: maxTime ?? "",
                         isValid: true
                     },
                 }}
@@ -61,6 +72,8 @@ const UpdateSchedule = ({name, formTools, schedule, ...props}) => {
                                         //label={lang.startDate}
                                         formTools={formTools}
                                         type="date"
+                                        min={minDate}
+                                        max={maxDate}
                                         validationRules={[
                                             {name: "REQUIRED"}
                                         ]}
@@ -76,7 +89,7 @@ const UpdateSchedule = ({name, formTools, schedule, ...props}) => {
                             </div>
                             <h6 className="col text-dark fw-normal mb-1 mt-1">Fin</h6>
                             <div className="col-12 bg-secondarylight rounded-1 p-2">
-
+                                {/* adjust that live to avoid past of endDate */}
                                 <div className="row">
                                     <Input
                                         className="col-sm-12 col-md-7"
@@ -84,9 +97,12 @@ const UpdateSchedule = ({name, formTools, schedule, ...props}) => {
                                         //label={lang.endDate}
                                         formTools={formTools}
                                         type="date"
+                                        min={minDate}
+                                        max={maxDate}
                                         validationRules={[
                                             {name: "REQUIRED"}
                                         ]}
+                                        value={minDate}
                                     />
                                     <Input
                                         className="col-sm-12 col-md-5"
@@ -94,6 +110,9 @@ const UpdateSchedule = ({name, formTools, schedule, ...props}) => {
                                         //label={lang.endTime}
                                         formTools={formTools}
                                         type="time"
+                                        min={minTime}
+                                        max={maxTime}
+                                        value={minTime}
                                     />  
                                 </div>
                             </div>

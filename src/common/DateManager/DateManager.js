@@ -5,18 +5,55 @@ import {frCA} from 'date-fns/locale'
 
 import {DateTag} from "@/common/DateManager/DateTag";
 import {lang} from "@/common/Data/GlobalConstants";
+import compareAsc from "date-fns/compareAsc";
+import {formatDate, setDateTime} from "@/src/helpers/dates";
 
 
-export const FULL_HUMAN_DATE_FORMAT = 'E d MMM yyyy';
+export const parseDatesFeed = (feed) => {
+    let tempFeed = {};
+    let feedKeys = [];
+    let feedDates = [];
+
+    for (let step of feed) {
+
+        let currentDate = {...step};
+
+        const currentDateObject = setDateTime(step.startDate);
+        const currentDateKey = formatDate(currentDateObject);
+
+        currentDate.startDateObject = currentDateObject;
+        currentDate.key = currentDateKey;
+
+        if (tempFeed[currentDateKey] === undefined) {
+            tempFeed[currentDateKey] = [];
+        }
+
+        if (!feedKeys.includes(currentDateKey)) {
+            feedKeys.push(currentDateKey);
+            feedDates.push(currentDateObject);
+        }
+
+        tempFeed[currentDateKey].push(currentDate);
+    }
+
+    feedDates = feedDates.sort(compareAsc);
+
+    return {
+        initFeed: feed,
+        feed: tempFeed,
+        feedKeys: feedKeys,
+        feedDates: feedDates
+    }
+};
 
 export const dateManager = (time1, time2 = null) => {
 
-    const setDateTime = (time=undefined) => {
+    /*const setDateTime = (time=undefined) => {
         if (typeof time !== "undefined") {
             return new Date(time);
         }
         return null;
-    }
+    }*/
 
     const [time, setTime] = useState({
         timeStamp: time1,
@@ -26,29 +63,20 @@ export const dateManager = (time1, time2 = null) => {
         startTime: setDateTime(time1),
         endTime: setDateTime(time2),
         language: frCA,
-        dateFormat: 'yyyy-LL-dd',
-        timeFormat: "H 'h' mm",
-        dayFormat: 'dd',
-        monthFormat: 'MMM',
-        humanDateFormat: 'EEEE d MMM',
-        humanDateMonthFormat: 'd MMM',
-        humanTimeFormat: '',
-        fullHumanDateFormat: FULL_HUMAN_DATE_FORMAT,
-        fullHumanTimeFormat: ''
     });
 
 
-    const getDate = (date, format = lang.dateFormat, locale=time.language) => {
+    const getDate = (date, format = lang.dateFormat, locale= frCA) => {
         const dateObject = setDateTime(date);
         return Format(dateObject, format, {locale:locale});
     }
 
-    const formatDate = (dateObject, format = lang.dateFormat, locale=time.language) => {
+    /*const formatDate = (dateObject, format = lang.dateFormat, locale= frCA) => {
         if (typeof dateObject === 'object') {
             return Format(dateObject, format, {locale:locale});
         }
         return dateObject;
-    }
+    }*/
 
     const TimeTag = ({date, format}) => {
 
@@ -119,11 +147,14 @@ export const dateManager = (time1, time2 = null) => {
         getters: {
             getDate,
             formatDate,
+            setTime,
         },
         setters: {
             setDateTime,
             //setHourFormat
         },
+        formatDate,
+        time,
         TimeTag,
         TimeIntervalSentence: TimeIntervalSentence
     }
