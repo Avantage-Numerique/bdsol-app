@@ -42,7 +42,9 @@ const OrganisationSingleView = ({ data }) => {
 
     const model = new Organisation(data);
 
-    console.log("offers", offers)
+    /******* Sorted lists ********/
+    const sortedOffers = offers?.[0]?.subMeta?.order ? offers.sort((a,b) => a.subMeta.order - b.subMeta.order) : offers;
+    const sortedTeam = team?.[0]?.subMeta?.order ? team.sort((a,b) => a.subMeta.order - b.subMeta.order) : team;
 
     /* Needed for breadCrumb generator */
     const getLabelGenerator = useCallback((param, query) => {
@@ -97,7 +99,7 @@ const OrganisationSingleView = ({ data }) => {
                     className="mb-4"
                     classNameH4="my-3"
                 >
-                    { offers?.length > 0 && offers.map(offer => (
+                    { sortedOffers?.length > 0 && sortedOffers.map(offer => (
                         <article key={offer.groupName} className={`d-flex flex-column p-2 mb-2 skill-group bg-light`}>
                             <h5 className="text-dark mb-1 group-name">{offer.groupName}</h5>
                                 <SearchTag
@@ -108,9 +110,9 @@ const OrganisationSingleView = ({ data }) => {
                     ))}
                 </SingleInfo>
             }
-            {team.length > 0 &&
+            {sortedTeam.length > 0 &&
                 <SingleInfo title={lang.teamMembers} className={"mb-3"}>
-                    <EntitiesTagGrid feed={team} subEntityProperty={"member"} subBadgeProperty={"role"} noneMessage={lang.noTeamMemberSetMessage} />
+                    <EntitiesTagGrid feed={sortedTeam} subEntityProperty={"member"} subBadgeProperty={"role"} noneMessage={lang.noTeamMemberSetMessage} />
                 </SingleInfo>
             }
             { fondationDate &&

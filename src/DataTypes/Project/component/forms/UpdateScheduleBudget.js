@@ -74,6 +74,8 @@ const UpdateScheduleBudget = ({name, formTools, ...props}) => {
                             <Repeater
                                 formTools={formTools}
                                 name="timeframe"
+                                sortable
+                                className="bg-greyBg"
                                 formInitStructure={{
                                     step: {
                                         value: "",

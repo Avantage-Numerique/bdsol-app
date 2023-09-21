@@ -47,6 +47,10 @@ const ProjectSingleView = ({ data }) => {
 
     const model = new Project(data);
 
+    /******* Sorted lists ********/
+    const sortedSponsors = sponsor?.[0]?.subMeta?.order ? sponsor.sort((a,b) => a.subMeta.order - b.subMeta.order) : sponsor;
+    const sortedTeam = team?.[0]?.subMeta?.order ? team.sort((a,b) => a.subMeta.order - b.subMeta.order) : team;
+
     /* Needed for breadCrumb generator */
     const getLabelGenerator = useCallback((param, query) => {
         return {
@@ -123,9 +127,9 @@ const ProjectSingleView = ({ data }) => {
                     </SanitizedInnerHtml>
                 </SingleInfo>
             }
-            {sponsor.length > 0 &&
+            {sortedSponsors.length > 0 &&
                 <SingleInfo title="Partenaires">
-                    <EntitiesTagGrid feed={sponsor} subEntityProperty={"entity"} subBadgeProperty={"name"} />
+                    <EntitiesTagGrid feed={sortedSponsors} subEntityProperty={"entity"} subBadgeProperty={"name"} />
                 </SingleInfo>
             }
         </>
@@ -133,12 +137,12 @@ const ProjectSingleView = ({ data }) => {
 
     const ContentColumnLeft = (
         <>
-            {team.length > 0 &&
+            {sortedTeam.length > 0 &&
                 <SingleInfo
                     title={lang.teamMembers}
                     className="mb-3"
                 >
-                    <EntitiesTagGrid feed={team} subEntityProperty={"member"} subBadgeProperty={"role"} noneMessage={"Aucun membre de l'équipe spécifiés"} />
+                    <EntitiesTagGrid feed={sortedTeam} subEntityProperty={"member"} subBadgeProperty={"role"} noneMessage={"Aucun membre de l'équipe spécifiés"} />
                 </SingleInfo>
             }
 

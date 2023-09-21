@@ -58,6 +58,10 @@ const EventSingleView = ({data}) => {
 
     const [formatEnumState, setFormatEnumState] = useState(undefined);
 
+    /******* Sorted lists ********/
+    const sortedTeam = team?.[0]?.subMeta?.order ? team.sort((a,b) => a.subMeta.order - b.subMeta.order) : team;
+
+
     useEffect( () => {
         const getEventFormatEnum = async () => {
             const eventFormatResponse = await clientSideExternalApiRequest(
@@ -163,12 +167,12 @@ const EventSingleView = ({data}) => {
 
             {/* team */}
             {
-                team?.length > 0 &&
+                sortedTeam?.length > 0 &&
                 <SingleInfo
                     title={lang.teamMembers}
                     className="mb-3"
                 >
-                    <EntitiesTagGrid feed={team} subEntityProperty={"member"} subBadgeProperty={"role"} noneMessage={"Aucun membre de l'équipe spécifiés"} />
+                    <EntitiesTagGrid feed={sortedTeam} subEntityProperty={"member"} subBadgeProperty={"role"} noneMessage={"Aucun membre de l'équipe spécifiés"} />
                 </SingleInfo>
             }
 

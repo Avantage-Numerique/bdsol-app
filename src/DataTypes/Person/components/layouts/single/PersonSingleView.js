@@ -35,7 +35,9 @@ const PersonSingleView = ({ data }) => {
         mainImage
     } = data;
 
-    
+    //To display occupations in the proper order
+    const sortedOccupations = occupations?.[0]?.subMeta?.order ? occupations.sort((a,b) => a.subMeta.order - b.subMeta.order) : occupations;
+
     const model = new Person(data);
 
     //Edit the skills list
@@ -135,8 +137,8 @@ const PersonSingleView = ({ data }) => {
                     className={"mb-3 mt-3"}
                 >
                     {/* Display the different groups of occupations */}
-                    { occupations && occupations.length > 0 &&
-                        occupations.map(occ => (
+                    { sortedOccupations && sortedOccupations.length > 0 &&
+                        sortedOccupations.map(occ => (
                             <OccupationGroup
                                 occupationName={occ.groupName}
                                 skillList={occ.skills}

@@ -31,6 +31,7 @@ const UpdateTeams = ({name, formTools, parentEntity, ...props}) => {
             >
             <div className='px-4 border-start'>
                 <Repeater
+                    className="bg-greyBg"
                     formTools={formTools}
                     name={name}
                     formInitStructure={{

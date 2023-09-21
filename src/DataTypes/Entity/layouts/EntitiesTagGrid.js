@@ -40,8 +40,6 @@ const EntitiesTagGrid = ({feed, className, columnClass, subEntityProperty, subBa
         return prefix + model.type + sep + (model._id ?? "") + sep + model.slug + index;
     });
 
-    console.log("Feed", feed)
-
     return (
         <ContainerTag className={`row py-3 ${className ?? ""}`}>
             {

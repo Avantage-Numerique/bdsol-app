@@ -27,6 +27,8 @@ const UpdateSchedule = ({name, formTools, schedule, ...props}) => {
             <Repeater
                 formTools={formTools}
                 name={name}
+                sortable
+                className="bg-greyBg"
                 formInitStructure={{
                     name: {
                         value: "",
@@ -57,7 +59,6 @@ const UpdateSchedule = ({name, formTools, schedule, ...props}) => {
                             className="col-md-12 col-lg-4 mb-2"
                             name="name"
                             label={lang.name}
-                            formTools={formTools}
                             validationRules={[
                                 {name: "REQUIRED"}
                             ]}
@@ -70,7 +71,6 @@ const UpdateSchedule = ({name, formTools, schedule, ...props}) => {
                                         className="col-sm-12 col-md-7"
                                         name="startDate"
                                         //label={lang.startDate}
-                                        formTools={formTools}
                                         type="date"
                                         min={minDate}
                                         max={maxDate}
@@ -82,7 +82,6 @@ const UpdateSchedule = ({name, formTools, schedule, ...props}) => {
                                         className="col-sm-12 col-md-5"
                                         name="startTime"
                                         //label={lang.startTime}
-                                        formTools={formTools}
                                         type="time"
                                     />
                                 </div>
@@ -95,7 +94,6 @@ const UpdateSchedule = ({name, formTools, schedule, ...props}) => {
                                         className="col-sm-12 col-md-7"
                                         name="endDate"
                                         //label={lang.endDate}
-                                        formTools={formTools}
                                         type="date"
                                         min={minDate}
                                         max={maxDate}
@@ -108,7 +106,6 @@ const UpdateSchedule = ({name, formTools, schedule, ...props}) => {
                                         className="col-sm-12 col-md-5"
                                         name="endTime"
                                         //label={lang.endTime}
-                                        formTools={formTools}
                                         type="time"
                                         min={minTime}
                                         max={maxTime}

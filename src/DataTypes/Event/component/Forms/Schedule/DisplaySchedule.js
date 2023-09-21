@@ -13,7 +13,6 @@ const DisplaySchedule = ({feed}, ...props) => {
     let lastDate;
     let currentDate;
 
-
     /** feed structure
      * endDate: "2023-09-12T23:00:00.000Z"
      * endTime: "19:00"
@@ -49,7 +48,7 @@ const DisplaySchedule = ({feed}, ...props) => {
                                 endDate: step.endDate
                             }
                             return (
-                                <li key={step.key + "-" + step.name + "" + step.startTime + "scheduleInfo"}
+                                <li key={step.key + "-" + step.name + "" + String(step.startTime) + "scheduleInfo"}
                                     className={`list-group-item d-flex justify-content-between align-items-center ${i % 2 ? "bg-primaryextratlight" : ""}`}>
                                     <div className="d-flex w-25">
                                         <TimeIntervalSentence showDay={false} tag={"span"}/>
