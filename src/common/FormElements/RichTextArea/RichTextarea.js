@@ -14,10 +14,6 @@ const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
 
 const RichTextarea = ({name, formTools, ...props}) => {
-
-    //Extract the validator methods and utilities
-    const { validate, RequirementsBadges, ValidationErrorMessages, rerenderToggled } = useValidation( props.validationRules )
-
     //Create a unique ID to link the custom tool bar to the quill element. 
     //In a useRef because it must not be affected by component rerendering
     const toolbarId = useRef(`rich-text-tool-bar-${Math.floor(Math.random() * 10000000)}`)
@@ -36,6 +32,10 @@ const RichTextarea = ({name, formTools, ...props}) => {
         inputHandler,
         inputTouched
     } = formTools;
+
+    
+    //Extract the validator methods and utilities
+    const { validate, RequirementsBadges, ValidationErrorMessages, rerenderToggled } = useValidation( props.validationRules, formState )
 
     const currentState = formState.inputs[name];
 

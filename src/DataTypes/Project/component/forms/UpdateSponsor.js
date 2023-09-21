@@ -74,7 +74,7 @@ const UpdateSponsor = ({name, formTools, ...props}) => {
                                 </section>
 
                                 <div className="col pr-0 flex-grow-0 text-secondary pt-1">
-                                    <Button repeaterdeletedlem={true} type="button" color="danger" size="slim">&#x2716;</Button>
+                                    <Button repeaterdeletedlem type="button" color="danger" size="slim">&#x2716;</Button>
                                 </div>
                             </article>
                         </Repeater>

@@ -85,19 +85,26 @@ const initiateValidator = selectedRules => {
                 isValid: false
             }
     }
-
     //Return the object that will serve as state
     return newFieldValidators
 }
 
-export const useValidation = ( setOfRules ) => {
+export const useValidation = ( setOfRules, formState ) => {
 
     const [validator, setValidator] = useState(initiateValidator( setOfRules || [] ))
     //Bool that is set to go on and off to trigger rerendering in dependent components
-    const [rerenderState, setRerenderState] = useState(false)   
+    const [triggerDependencies, setTriggerDependencies] = useState(false)  
+
+    //List of dependecies listener (usually validation state)
+    let ONE_OF_MANY_DEPENDECIES = (formState && validator["ONE_OF_MANY_REQUIRED"]) ? validator["ONE_OF_MANY_REQUIRED"].dependencies.map(dep => dep.listenerValue(formState)) : []
+    //UseEffect listening for event changing
+    useEffect(() => {
+        //Trigger the re-evaluation of the dependecies
+        setTriggerDependencies(!triggerDependencies)
+    }, [...ONE_OF_MANY_DEPENDECIES])
 
 
-    const validate = (value, formState) => {
+    const validate = (value) => {
         //Evaluate the validity of the field => only positiv if every validation rules are respected
         let generalValidity = true
 
@@ -113,7 +120,7 @@ export const useValidation = ( setOfRules ) => {
                     param = rule.specification;
                 if(!rule.specification && rule.dependencies)
                     //Extract the content to evaluate in the formstate depending of the passed function
-                    param = rule.dependencies.map(depFunction => depFunction(formState))
+                    param = rule.dependencies.map(depFunction => depFunction.value(formState))
                 
             //For each, apply the validation method 
             const validationResult = rule.validationMethod(value, param)
@@ -122,18 +129,13 @@ export const useValidation = ( setOfRules ) => {
             //Verify if there is a change of state
             if(validationResult !== rule.isValid){
                 //If there is, update the state with the new validity
-                console.log("Inside update ")
                 setValidator(prev => ({
                     ...prev,
                     [ruleName]: {
                         ...prev[ruleName],
                         isValid: validationResult
                     }
-                }))
-                //Update the rerendering state to update other components relying on this information
-                if(rule.dependencies)
-                    setRerenderState(!rerenderState)
-                
+                }))           
             }
         }
         return generalValidity
@@ -208,6 +210,6 @@ export const useValidation = ( setOfRules ) => {
         validate,
         RequirementsBadges,
         ValidationErrorMessages,
-        rerenderToggled: rerenderState
+        dependencyCallingValidation: triggerDependencies
     }
 }

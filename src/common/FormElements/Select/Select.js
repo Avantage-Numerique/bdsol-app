@@ -34,9 +34,6 @@ const Select = props => {
         validationRules //Object - containing the rules that are going to be verify every time we submit
     } = props;
 
-    //Destructure functionalities from validation hook
-    const { validate, RequirementsBadges, ValidationErrorMessages } = useValidation( props.validationRules )
-
     /* Access the differents form tools */
     const {
         formState,
@@ -45,6 +42,9 @@ const Select = props => {
     } = formTools;
 
     const currentState = formState.inputs[name];
+
+    //Destructure functionalities from validation hook
+    const { validate, RequirementsBadges, ValidationErrorMessages, dependencyCallingValidation } = useValidation( props.validationRules, formState )
 
     const updateValue = event => {
         inputHandler(
@@ -68,7 +68,7 @@ const Select = props => {
             valueToUpdate,
             props.validationRules ? validate(valueToUpdate) : true
         )
-    }, [])  
+    }, [dependencyCallingValidation])  
  
     return (
         <div className={`

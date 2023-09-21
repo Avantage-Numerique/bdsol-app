@@ -22,7 +22,7 @@ import styles from './UpdateTeams.module.scss'
  * @param {object} props rest of the props.
  */
 const UpdateTeams = ({name, formTools, parentEntity, ...props}) => {
-    console.log(formTools)
+
     return (
         <>
             <SingleInfo
@@ -59,7 +59,10 @@ const UpdateTeams = ({name, formTools, parentEntity, ...props}) => {
                                     selectField={"fullname"}
                                     validationRules={[
                                         {name: "REQUIRED"},
-                                        {name: "ONE_OF_MANY_REQUIRED", dependencies: [state => state.inputs["role"].value]}
+                                        {name: "ONE_OF_MANY_REQUIRED", dependencies: [
+                                                {value: state => state.inputs["role"].value, listenerValue: state => state.inputs["role"].isValid}
+                                            ]
+                                        }
                                     ]}
                                 />
                             </div>
@@ -69,14 +72,17 @@ const UpdateTeams = ({name, formTools, parentEntity, ...props}) => {
                                     label="Role"
                                     placeholder="Rôle dans l'équipe"
                                     validationRules={[
-                                        {name: "ONE_OF_MANY_REQUIRED", dependencies: [state => state.inputs["member"].value]}
+                                        {name: "ONE_OF_MANY_REQUIRED", dependencies: [
+                                            {value: state => state.inputs["member"].value, listenerValue: state => state.inputs["member"].isValid}
+                                        ]
+                                    }
                                     ]}
                                 />
                             </div>
                         </div>
                         <div className="col col-auto h-100 pt-1">
                             <Button 
-                                repeaterdeletedlem={true}
+                                repeaterdeletedlem
                                 type="button" 
                                 color="danger" 
                                 size="slim"

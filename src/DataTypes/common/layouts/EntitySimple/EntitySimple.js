@@ -49,7 +49,6 @@ const EntitySimple = (props) => {
     //params
     const showEntityType = props.showEntityType ?? true;
     const appType = getType(model.type);
-    console.log("type", appType)
     //Verify is a bottom line is available to be displayed
     const isBottomLine = (BottomLineContent || model.simgleList);
 
