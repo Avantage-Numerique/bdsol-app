@@ -67,7 +67,7 @@ const UpdateSponsor = ({name, formTools, ...props}) => {
                                     <div className="col-12 col-md-6">
                                         <Input
                                             name="name"
-                                            label="Nom"
+                                            label="Titre"
                                             formTools={formTools}
                                         />
                                     </div>

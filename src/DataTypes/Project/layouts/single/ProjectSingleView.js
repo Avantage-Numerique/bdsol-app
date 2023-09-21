@@ -44,7 +44,7 @@ const ProjectSingleView = ({ data }) => {
         createdAt,
         updatedAt
     } = data;
-
+    console.log("scheduleBudget", scheduleBudget)
     const model = new Project(data);
 
     /******* Sorted lists ********/

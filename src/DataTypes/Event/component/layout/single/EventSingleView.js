@@ -56,6 +56,8 @@ const EventSingleView = ({data}) => {
     } = data
     const model = new Event(data);
 
+    console.log("schedule", schedule)
+
     const [formatEnumState, setFormatEnumState] = useState(undefined);
 
     /******* Sorted lists ********/

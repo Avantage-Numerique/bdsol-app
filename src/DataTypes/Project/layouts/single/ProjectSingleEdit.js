@@ -227,6 +227,7 @@ const ProjectSingleEdit = (props) => {
                             step: singleTimeframe.value.step.value,
                             eta: singleTimeframe.value.eta.value,
                             budgetRange: singleTimeframe.value.budgetRange.value,
+                            subMeta: { order: singleTimeframe.order }
                         }
                     }),
                 },
