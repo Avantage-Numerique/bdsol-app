@@ -52,13 +52,13 @@ const UpdateSkillGroup = ({parentEntity, positiveRequestActions, name, formTools
                         <section className="row col">
                             <Input
                                 className="col-12 col-md-6"
-                                label="Nom de groupe"
+                                label="Titre de l'offre"
                                 name="groupName"
                             />
                             <div className="col-12 col-md-6">
                                 <Select2
                                     name="skills"
-                                    label="Attribuer des compétences"
+                                    label="Compétences qui la compose"
                                     formTools={formTools}
                                     creatable={true}
                                     modalType={TYPE_TAXONOMY}

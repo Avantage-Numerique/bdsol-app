@@ -17,6 +17,7 @@ import {SingleEntityMeta} from '@/src/DataTypes/Meta/components/SingleEntityMeta
 import SingleBase from '@/src/DataTypes/common/layouts/single/SingleBase';
 import UpdateTeams from '@/src/DataTypes/Organisation/components/forms/UpdateTeams/UpdateTeams';
 import CreateTaxonomyForm from '@/src/DataTypes/Taxonomy/components/Forms/CreateTaxonomy/CreateTaxonomyForm';
+import SelectEquipment from '@/src/DataTypes/Equipment/components/layouts/SelectEquipment/SelectEquipment'
 
 //Utils
 import {lang} from "@/src/common/Data/GlobalConstants";
@@ -139,6 +140,10 @@ const ProjectSingleEdit = (props) => {
             },
             team: {
                 value: team ?? [],
+                isValid: true
+            },
+            equipment: {
+                value: [],
                 isValid: true
             },
             /*mainImage: {
@@ -385,7 +390,13 @@ const ProjectSingleEdit = (props) => {
                 label="Échéancier et budget"
                 parentEntity={props.data}
             />
-            
+            { /* Update the equipment list */ }
+            <SelectEquipment 
+                name="equipment"
+                formTools={formTools}
+                label="Technologies utilisées"
+                parentEntity={props.data}
+            />
         </>
     );
     const contentColumnRight = (
