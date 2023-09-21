@@ -119,7 +119,7 @@ const EquipmentSingleEdit = ({ positiveRequestActions, ...props}) => {
         const formData = {
             data: {
                 id: model._id,
-                equipmentType: formState.inputs.equipmentType.value.value,
+                equipmentType: formState.inputs.equipmentType.value,
                 label:  formState.inputs.label.value,
                 brand: formState.inputs.brand.value,
                 modelName: formState.inputs.modelName.value,
