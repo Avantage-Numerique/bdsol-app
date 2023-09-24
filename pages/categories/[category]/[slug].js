@@ -32,7 +32,6 @@ export async function getServerSideProps(context) {
 
     if(typeof taxonomy.data._id === 'undefined' || entities.data._id)
         return { notFound: true };
-
     return { props: {
             taxonomy: taxonomy.data,
             data: entities.data
@@ -41,11 +40,11 @@ export async function getServerSideProps(context) {
 
 
 const TaxonomiesSinglePage = (props) => {
-
     const category = [
         {label: "Compétence", value: "skills"},
         {label: "Domaine", value: "domains"},
-        {label: "Technologie", value: "technologies"}
+        {label: "Technologie", value: "technologies"},
+        {label: lang.equipmentType, value: "equipmentType"}
     ]
 
     const {data, taxonomy} = props;
