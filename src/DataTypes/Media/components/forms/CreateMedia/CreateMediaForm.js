@@ -290,7 +290,7 @@ const CreateMediaForm = (props) => {
                         }
                         <div className="mt-2 d-flex gap-2 flex-wrap">
                                 <Button
-                                    disabled={entity?.[mediaField]?._id == undefined && formState.inputs[mediaField].value == ""}
+                                    disabled={entity?.[mediaField]?._id == undefined && (formState.inputs[mediaField].value == "" || formState.inputs[mediaField].value == undefined)}
                                     onClick={submitHandler}
                                     size="slim"
                                 > Soumettre

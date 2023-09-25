@@ -429,9 +429,7 @@ const ProjectSingleEdit = (props) => {
                     modalType={TYPE_TAXONOMY}
                     isMulti={true}
                     createOptionFunction={displayModalForSkills}
-                    requestData={{name:""}}
-                    fetch={"/taxonomies/list"}
-                    requestData={{category:"skills", name:""}}
+                    fetch={"/taxonomies/group/skills"}
                     searchField={"name"}
                     selectField={"name"}
                 />

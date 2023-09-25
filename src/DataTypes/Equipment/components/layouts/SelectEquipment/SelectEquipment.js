@@ -54,8 +54,8 @@ const SelectEquipment = ({name, formTools, parentEntity, ...props}) => {
                                     creatable
                                     isMulti
                                     fetch={"/equipment/list"}
-                                    searchField={"name"}
-                                    selectField={"name"}
+                                    searchField={"label"}
+                                    selectField={"label"}
                                     validationRules={[
                                         {name: "REQUIRED"}
                                     ]}
