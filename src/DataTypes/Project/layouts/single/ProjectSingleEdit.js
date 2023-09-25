@@ -431,24 +431,27 @@ const ProjectSingleEdit = (props) => {
                     createOptionFunction={displayModalForSkills}
                     requestData={{name:""}}
                     fetch={"/taxonomies/list"}
+                    requestData={{category:"skills", name:""}}
                     searchField={"name"}
                     selectField={"name"}
                 />
             </div>
-            <Select2
-                name="domains"
-                label={lang.Domains}
-                formTools={formTools}
-                creatable={true}
-                modalType={TYPE_TAXONOMY}
-                isMulti={true}
-                createOptionFunction={displayModalForDomains}
+            <div className="mb-3">
+                <Select2
+                    name="domains"
+                    label={lang.Domains}
+                    formTools={formTools}
+                    creatable={true}
+                    modalType={TYPE_TAXONOMY}
+                    isMulti={true}
+                    createOptionFunction={displayModalForDomains}
 
-                fetch={"/taxonomies/list"}
-                requestData={{category:"domains", name:""}}
-                searchField={"name"}
-                selectField={"domains"}
-            />
+                    fetch={"/taxonomies/list"}
+                    requestData={{category:"domains", name:""}}
+                    searchField={"name"}
+                    selectField={"domains"}
+                />
+            </div>
             <Input
                 className="mb-3"
                 name="contactPoint"
