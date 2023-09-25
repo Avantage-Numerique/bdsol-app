@@ -33,7 +33,8 @@ class Media extends EntityModel {
 
         //need a better flow for value for this. the first return false.
         //this.associatedEntity = getModelFromType(raw.entityId?.type, raw.entityId);
-        //this.meta.title = `${lang.mainImage} ${lang.associatedTo}`;//this.associatedEntity
+        
+        this.meta = {title: this.title, description: this.description, ...raw.meta};
 
         //this.taxonomies = new Map();
         //this.taxonomies.set("domains", raw.domains);

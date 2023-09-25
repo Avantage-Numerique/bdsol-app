@@ -31,11 +31,15 @@ const EquipmentSingleView = ({ data }) => {
         route: model.singleRoute,
         getLabelGenerator: getLabelGenerator
     }
-
+    const title = (
+        <>
+            <SanitizedInnerHtml tag={"h5"} className="text-white">{`${model.equipmentType.name}`}</SanitizedInnerHtml>
+            <SanitizedInnerHtml tag={"h3"} className="text-white">{`${model.title}`}</SanitizedInnerHtml>
+        </>)
     const subtitle = (<></>)
     const Header = (
         <SingleBaseHeader
-            title={(<SanitizedInnerHtml tag={"h1"} className="text-white">{`${model.title}`}</SanitizedInnerHtml>)}
+            title={title}
             subtitle={subtitle}
             mainImage={model.mainImage}
             entity={model}

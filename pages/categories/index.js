@@ -21,6 +21,7 @@ const TaxonomiesCategoryPage = () => {
         {value:"domains", label: lang.Domains},
         {value:"technologies", label: lang.Technologies},
         {value:"skills", label: lang.Skills},
+        {value:"equipmentType", label: lang.equipmentType}
     ];
     const type = getType(TYPE_TAXONOMY);
     
