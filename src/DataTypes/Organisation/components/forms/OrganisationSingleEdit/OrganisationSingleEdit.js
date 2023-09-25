@@ -24,6 +24,7 @@ import SingleInfo from '@/src/DataTypes/common/layouts/SingleInfo/SingleInfo';
 import {SingleEntityMeta} from '@/src/DataTypes/Meta/components/SingleEntityMeta';
 import UpdateSkillGroup from '@/src/DataTypes/common/Forms/UpdateSkillGroup/UpdateSkillGroup';
 import UpdateTeams from '../UpdateTeams/UpdateTeams';
+import SelectEquipment from '@/src/DataTypes/Equipment/components/layouts/SelectEquipment/SelectEquipment';
 
 //Utils
 import Organisation from '@/src/DataTypes/Organisation/models/Organisation';
@@ -51,6 +52,7 @@ const OrganisationSingleEdit = (props) => {
         team,
         mainImage,
         slug,
+        equipment,
         catchphrase,
         meta,
         location,
@@ -153,6 +155,10 @@ const OrganisationSingleEdit = (props) => {
         },
         location: {
             value: location ?? [],
+            isValid: true
+        },
+        equipment: {
+            value: equipment ?? [],
             isValid: true
         }
     }, {
@@ -293,7 +299,7 @@ const OrganisationSingleEdit = (props) => {
                 parentEntity={props.data}
                 formTools={formTools}
                 name="offers"
-                label="Éditez vos groupes d'offres de services"
+                label="Éditez les groupes d'offres de services"
                 //createOptionFunction={displayModalForSkills}
             />
             { /* team */ }
@@ -301,7 +307,14 @@ const OrganisationSingleEdit = (props) => {
                 name="team"
                 formTools={formTools}
                 parentEntity={props.data}
-                label="Éditez vos membre d'équipe"
+                label="Éditez les membres de l'équipe"
+            />
+            { /* Equipment */}
+            <SelectEquipment 
+                name="equipment"
+                formTools={formTools}
+                parentEntity={props.data}
+                label={lang.EditEquipment}
             />
         </>
     );

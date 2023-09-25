@@ -33,16 +33,12 @@ const SelectEquipment = ({name, formTools, parentEntity, ...props}) => {
                     className="bg-greyBg"
                     name={name}
                     formInitStructure={{
-                        textElement: {
-                            value: "",
-                            isValid: false
-                        },
                         equipment: {
                             value: [],
                             isValid: true
                         },
-                        technology: {
-                            value: [],
+                        qte: {
+                            value: 1,
                             isValid: true
                         }
                     }}
@@ -50,45 +46,31 @@ const SelectEquipment = ({name, formTools, parentEntity, ...props}) => {
                     sortable
                 >
                     <div className={`d-flex align-items-center gap-3 mb-2 border-b py-2 bg-greyBg rounded-1`}>
-                        <div className="col align-items-start row">
+                        <div className="col align-items-start row d-flex">
+                            <div className="col-9">
+                                <Select2
+                                    name="equipment"
+                                    label={lang.Equipment}
+                                    creatable
+                                    isMulti
+                                    fetch={"/equipment/list"}
+                                    searchField={"name"}
+                                    selectField={"name"}
+                                    validationRules={[
+                                        {name: "REQUIRED"}
+                                    ]}
+                                />
+                            </div>
                             <Input 
-                                className="col-12 col-md-4"
-                                name="textElement"
-                                label="Text"
-                                placeholder="Rôle dans l'équipe"
+                                className="col-3"
+                                name="qte"
+                                type="number"
+                                label={lang.Quantity}
+                                default={1}
+                                validationRules={[
+                                    {name: "REQUIRED"}
+                                ]}
                             />
-                            <div className="col-12 col-md-4">
-                                <Select2
-                                        name="equipment"
-                                        label="Équipement"
-                                        creatable={false}
-                                        isMulti={false}
-
-                                        fetch={"/persons/list"}
-                                        searchField={"firstName"}
-                                        selectField={"fullname"}
-
-                                        validationRules={[
-                                            {name: "REQUIRED"}
-                                        ]}
-                                    />
-                            </div>
-                            <div className="col-12 col-md-4">
-                                <Select2
-                                        name="technology"
-                                        label="Technologie"
-                                        creatable={false}
-                                        isMulti={false}
-
-                                        fetch={"/persons/list"}
-                                        searchField={"firstName"}
-                                        selectField={"fullname"}
-
-                                        validationRules={[
-                                            {name: "REQUIRED"}
-                                        ]}
-                                    />
-                            </div>
                         </div>
                         <div className="col col-auto h-100 pt-1">
                             <Button 

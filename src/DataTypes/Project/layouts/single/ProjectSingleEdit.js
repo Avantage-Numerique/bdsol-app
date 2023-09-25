@@ -17,7 +17,8 @@ import {SingleEntityMeta} from '@/src/DataTypes/Meta/components/SingleEntityMeta
 import SingleBase from '@/src/DataTypes/common/layouts/single/SingleBase';
 import UpdateTeams from '@/src/DataTypes/Organisation/components/forms/UpdateTeams/UpdateTeams';
 import CreateTaxonomyForm from '@/src/DataTypes/Taxonomy/components/Forms/CreateTaxonomy/CreateTaxonomyForm';
-import SelectEquipment from '@/src/DataTypes/Equipment/components/layouts/SelectEquipment/SelectEquipment'
+//import SelectEquipment from '@/src/DataTypes/Equipment/components/layouts/SelectEquipment/SelectEquipment'
+import SingleInfo from "@/src/DataTypes/common/layouts/SingleInfo/SingleInfo";
 
 //Utils
 import {lang} from "@/src/common/Data/GlobalConstants";
@@ -390,13 +391,21 @@ const ProjectSingleEdit = (props) => {
                 label="Échéancier et budget"
                 parentEntity={props.data}
             />
-            { /* Update the equipment list */ }
-            <SelectEquipment 
-                name="equipment"
-                formTools={formTools}
-                label="Technologies utilisées"
-                parentEntity={props.data}
-            />
+            { /* Update the equipment list */ }         
+            <SingleInfo
+                title={lang.equipmentUsed}
+                className="py-3"
+            >
+                <Select2
+                    name="equipment"
+                    creatable
+                    isMulti
+                    formTools={formTools}
+                    fetch={"/equipment/list"}
+                    searchField={"name"}
+                    selectField={"name"}
+                />
+            </SingleInfo>
         </>
     );
     const contentColumnRight = (

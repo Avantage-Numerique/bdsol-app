@@ -15,6 +15,7 @@ import {lang} from "@/src/common/Data/GlobalConstants";
 import Select2 from '@/src/common/FormElements/Select2/Select2'
 import Modal from '@/src/hooks/useModal/Modal/Modal'
 import {SingleEntityMeta} from '@/src/DataTypes/Meta/components/SingleEntityMeta'
+import SelectEquipment from '@/src/DataTypes/Equipment/components/layouts/SelectEquipment/SelectEquipment';
 
 //Context
 import {useAuth} from "@/src/authentification/context/auth-context";
@@ -54,6 +55,7 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props}) => {
         type,
         fullName,
         createdAt,
+        equipment,
         updatedAt
     } = props?.data;
 
@@ -145,6 +147,10 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props}) => {
             },
             domains: {
                 value: domains ?? [],
+                isValid: true
+            },
+            equipment: {
+                value: equipment ?? [],
                 isValid: true
             }
         },
@@ -300,6 +306,13 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props}) => {
                 name="occupations"
                 label="Éditez vos groupes de compétences"
                 createOptionFunction={displayModalForSkills}
+            />
+            { /* Equipment */}
+            <SelectEquipment 
+                name="equipment"
+                formTools={formTools}
+                parentEntity={props.data}
+                label={lang.EditEquipment}
             />
         </>
     )
