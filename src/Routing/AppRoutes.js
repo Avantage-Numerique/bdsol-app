@@ -215,8 +215,8 @@ const AppRoutesRaw = {
      ***/
     equipment : {
         label: "Tous les équipements",
-        pathname: "/equipements",
-        asPath: "/equipements",
+        pathname: "/equipment",
+        asPath: "/equipment",
     },
     equipmentSingle : {
         label: "Un équipement",
