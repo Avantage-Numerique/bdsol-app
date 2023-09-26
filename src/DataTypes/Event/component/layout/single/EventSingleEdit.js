@@ -53,7 +53,6 @@ const EventSingleEdit = ({data}, ...props) => {
         attendees,
         domains,
         skills,
-        experience,
         schedule,
         subEvents,
         location,
@@ -176,10 +175,6 @@ const EventSingleEdit = ({data}, ...props) => {
                 value: domains ?? [],
                 isValid: true
             },
-            experience: {
-                value: experience ?? [],
-                isValid: true
-            },
             subEvents: {
                 value: subEvents ?? [],
                 isValid: true
@@ -279,7 +274,6 @@ const EventSingleEdit = ({data}, ...props) => {
                     :[],
                 //Temporary set the input in name field until we have a more elaborated structure for location
                 //location: [{ name: formState.inputs.location.value}],
-                //experience: formState.inputs.experience.value
                 meta: getDefaultCreateEntityMeta(auth.user),
             }
         };
@@ -467,15 +461,6 @@ const EventSingleEdit = ({data}, ...props) => {
                         requestData={{address:""}}
                         searchField={"address"}
                         //selectField={"address"}
-                    />
-
-                    {/* experiences */}
-                    <Input
-                        name="experience"
-                        label="Expérience"
-                        formTools={formTools}
-                        disabled={true}
-                        placeholder="Bientôt disponible"
                     />
                 </div>
 

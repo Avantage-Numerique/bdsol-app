@@ -17,6 +17,8 @@ const equipment = {
     "equipmentUsed": "Équipements utilisés",
     "equipmentTypePlaceholder": "Microphone, Imprimante 3D",
     "labelPlaceholder": "Micro-casque, Imprimante 3D PLA ...",
+
+    "addEquipmentButtonLabel": "Ajouter un équipement"
 }
 
 exports.equipment = equipment;

@@ -65,7 +65,18 @@ const EquipmentSingleView = ({ data }) => {
             }
             {
                 model?.url?.length > 0 &&
-                <SingleInfo title={lang.url}>{model.url}</SingleInfo>
+                <SingleInfo title={lang.url}>
+                    {model.url.map( (singleUrl) => {
+                        return (
+                            <div>
+                                <div>
+                                    {singleUrl.label}
+                                </div>
+                                <a href={singleUrl.url} target='blank'>{singleUrl.url}</a>
+                            </div>
+                        )
+                    })}
+                </SingleInfo>
             }
         </>
     )

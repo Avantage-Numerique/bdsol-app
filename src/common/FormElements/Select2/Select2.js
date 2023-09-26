@@ -152,6 +152,8 @@ const Select2 = ({ name, formTools, ...props }) => {
                 setValue(val)
             }
         }
+        //Refetch
+        fetchOptions();
     }
 
     const label = props.label ? 
@@ -311,8 +313,7 @@ const Select2 = ({ name, formTools, ...props }) => {
 
             <Modal {...props}>
                 
-                <header className={`d-flex`}>
-                    <p>Le nouvel élément de taxonomie que vous ajoutez ici pourra ensuite être directement intégrée à votre formulaire.</p>
+                <header className={`d-flex justify-content-end`}>
                     <Button onClick={() => closeModal()}>Fermer</Button>
                 </header>               
                 

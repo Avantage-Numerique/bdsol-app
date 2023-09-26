@@ -18,6 +18,8 @@ const equipment = {
 
     "equipmentTypePlaceholder": "Microphone, 3D Printer",
     "labelPlaceholder": "Headset, PLA 3D Printer ...",
+
+    "addEquipmentButtonLabel": "Add an equipment"
 }
 
 exports.equipment = equipment;

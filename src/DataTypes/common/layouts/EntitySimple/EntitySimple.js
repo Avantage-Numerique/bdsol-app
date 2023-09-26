@@ -113,7 +113,7 @@ const EntitySimple = (props) => {
                 ${styles["simple-abstract__sub-section"]}
             `}>
                 {/* Description */}
-                {description ? 
+                {description &&
                     <HtmlTagsRemover 
                         tag="p"
                         className={`
@@ -123,8 +123,8 @@ const EntitySimple = (props) => {
                             ${!isBottomLine && styles["simple-abstract__content_ellipsis--3lines"]}
                         `}>
                         {description}
-                    </HtmlTagsRemover> :
-                    <p className={`mb-0 ${styles["simple-abstract__content__description"]}`}>Aucune description</p>
+                    </HtmlTagsRemover>
+                    //<p className={`mb-0 ${styles["simple-abstract__content__description"]}`}>Aucune description</p>
                 }
                 {/* List of tags */}
                 { !BottomLineContent && model.simgleList && 

@@ -30,6 +30,7 @@ import MainImageDisplay from "@/DataTypes/common/layouts/single/defaultSections/
 import {TYPE_TAXONOMY} from '@/src/DataTypes/Entity/Types'
 import SubmitEntity from "@/DataTypes/common/Forms/SingleEdit/SubmitEntity";
 import Equipment from '../../../models/Equipment'
+import UpdateSocialHandles from '../../../../common/Forms/UpdateSocialHandles/UpdateSocialHandles'
 
 
 const EquipmentSingleEdit = ({ positiveRequestActions, ...props}) => {
@@ -119,18 +120,17 @@ const EquipmentSingleEdit = ({ positiveRequestActions, ...props}) => {
         const formData = {
             data: {
                 id: model._id,
-                equipmentType: formState.inputs.equipmentType.value,
+                equipmentType: formState.inputs.equipmentType.value.value,
                 label:  formState.inputs.label.value,
                 brand: formState.inputs.brand.value,
                 modelName: formState.inputs.modelName.value,
-                //url: [{label: "Hyperlien", url:formState.inputs.url.value}],
-                /*.map(function(singleOccupation){
+                url: formState.inputs.url.value.map(function(singleUrl){
                     return {
-                        groupName: singleOccupation.value.groupName.value,
-                        skills: singleOccupation.value.skills.value.map( (skill) => { return skill.value }),
-                        subMeta: { order : singleOccupation.order }
+                        label: singleUrl.value.label.value,
+                        url: singleUrl.value.url.value,
+                        subMeta: { order : singleUrl.order }
                     }
-                }),*/
+                }),
 
                 meta: getDefaultCreateEntityMeta(auth.user),
             }
@@ -225,9 +225,10 @@ const EquipmentSingleEdit = ({ positiveRequestActions, ...props}) => {
                 label={lang.modelName}
                 formTools={formTools}
             />
-            <Input
+            <UpdateSocialHandles
                 name="url"
                 label={lang.url}
+                parentEntity={model}
                 formTools={formTools}
             />
         </div>

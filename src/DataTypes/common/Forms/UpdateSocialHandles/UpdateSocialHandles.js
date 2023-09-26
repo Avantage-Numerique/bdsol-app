@@ -1,16 +1,15 @@
 import React from 'react';
 
 //components
-import Select2 from '@/src/common/FormElements/Select2/Select2';
 import Button from "@/FormElements/Button/Button"
 import Input from '@/src/common/FormElements/Input/Input';
 import Repeater from '@/src/common/FormElements/Repeater/Repeater';
 import SingleInfo from "@/DataTypes/common/layouts/SingleInfo/SingleInfo";
-import { TYPE_TAXONOMY } from '@/src/DataTypes/Entity/Types';
+import { lang } from '@/src/common/Data/GlobalConstants';
 
 
 
-const UpdateSkillGroup = ({parentEntity, name, formTools, ...props}) => {
+const UpdateSocialHandles = ({parentEntity, name, formTools, ...props}) => {
 
     return (
         <SingleInfo
@@ -24,13 +23,13 @@ const UpdateSkillGroup = ({parentEntity, name, formTools, ...props}) => {
                     name={name}
                     sortable
                     formInitStructure={{
-                        groupName: {
+                        label: {
                             value: "",
                             isValid: false
                         },
-                        skills: {
-                            value: [],
-                            isValid: true
+                        url: {
+                            value: "",
+                            isValid: false
                         }
                     }}
                     initValues={parentEntity[name]}
@@ -40,27 +39,23 @@ const UpdateSkillGroup = ({parentEntity, name, formTools, ...props}) => {
                         <section className="row col">
                             <Input
                                 className="col-12 col-md-6"
-                                label="Titre de l'offre"
-                                name="groupName"
+                                label={"Nom"}
+                                name="label"
+                                validationRules={[
+                                    {name: "REQUIRED"}
+                                ]}
                             />
-                            <div className="col-12 col-md-6">
-                                <Select2
-                                    name="skills"
-                                    label="Compétences qui la compose"
-                                    formTools={formTools}
-                                    creatable={true}
-                                    modalType={TYPE_TAXONOMY}
-                                    isMulti={true}
-                                    createOptionFunction={props.createOptionFunction}
-
-                                    fetch={"/taxonomies/group/skills"}
-                                    searchField={"name"}
-                                    selectField={"name"}
-                                    validationRules={[
-                                        {name: "REQUIRED"}
-                                    ]}
-                                />
-                            </div>
+                            <Input  
+                                className="col-12 col-md-6"
+                                name="url"
+                                label={lang.url}
+                                type="url"
+                                //pattern="^https?:\/\/[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$"
+                                placeholder="Exemple : https://siteWeb.com"
+                                validationRules={[
+                                    {name: "REQUIRED"}
+                                ]}
+                            />
                         </section>
                         {/* Delete element */}
                         <div className="col pr-0 flex-grow-0 text-secondary pt-1">
@@ -80,4 +75,4 @@ const UpdateSkillGroup = ({parentEntity, name, formTools, ...props}) => {
 };
 
 
-export default UpdateSkillGroup;
+export default UpdateSocialHandles;

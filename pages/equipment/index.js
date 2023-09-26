@@ -119,6 +119,34 @@ const EquipmentPage = () => {
                                 <EntitiesGrid className="position-relative row row-cols-1 row-cols-sm-2 row-cols-xl-3" columnClass={"col g-3"} feed={equipmentList}/>
                             }
                         </section>
+                        {/* Aside section */}
+                        <aside className="col col-12 col-md-3">
+                            <div className="my-4">
+                                <Button 
+                                    disabled={!auth.user.isLoggedIn}
+                                    href="/contribuer/equipements" 
+                                    size="reg-100">
+                                    {lang.addEquipmentButtonLabel}
+                                </Button>
+
+                                {
+                                    !auth.user.isLoggedIn &&
+                                    <p className="mt-2">
+                                        Notez que vous devez être <b className="text-primary">connecté</b> pour pouvoir ajouter des entitées à la base de données.
+                                    </p>
+                                }
+                            </div>
+                                {   !auth.user.isLoggedIn &&
+                                    <>
+                                        <hr/>
+                                        <Button
+                                            size="reg-100"
+                                            href="/compte/connexion"
+                                        >Se connecter</Button>
+                                    </>
+                                }
+                            
+                        </aside>
                     </div>
                 </div>
 
