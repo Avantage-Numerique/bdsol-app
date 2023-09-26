@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import {useEffect, useState} from "react"
 
 /**
  *
@@ -36,7 +36,7 @@ const SearchTag = ({list, max, ...props}) => {
     return (
         <>
             { searchTagList?.length > 0 &&
-                <p>
+                <p className={`${props.className ?? ''}`}>
                 {
                     searchTagList.map( (tag, index) => {
                         if (index < max || max === "-1") {

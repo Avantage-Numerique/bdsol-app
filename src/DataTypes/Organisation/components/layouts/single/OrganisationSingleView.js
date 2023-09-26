@@ -14,6 +14,7 @@ import {SingleEntityMeta} from "@/src/DataTypes/Meta/components/SingleEntityMeta
 import EntitiesTagGrid from "@/DataTypes/Entity/layouts/EntitiesTagGrid";
 import {ExternalLink} from "@/common/Components/ExternalLink";
 import {dateManager, FULL_HUMAN_DATE_FORMAT} from "@/common/DateManager/DateManager";
+import {SkillGroup} from "@/DataTypes/common/layouts/skillsGroup/SkillGroup";
 
 
 const OrganisationSingleView = ({ data }) => {
@@ -100,13 +101,11 @@ const OrganisationSingleView = ({ data }) => {
                     classNameH4="my-3"
                 >
                     { sortedOffers?.length > 0 && sortedOffers.map(offer => (
-                        <article key={offer.groupName} className={`d-flex flex-column p-2 mb-2 skill-group bg-light`}>
-                            <h5 className="text-dark mb-1 group-name">{offer.groupName}</h5>
-                                <SearchTag
-                                    className="row"
-                                    list={offer.skills}
-                                />
-                        </article>
+                        <SkillGroup
+                            label={offer.groupName}
+                            skills={offer.skills}
+                            key={offer.groupName}
+                        />
                     ))}
                 </SingleInfo>
             }

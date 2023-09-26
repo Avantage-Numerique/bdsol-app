@@ -21,6 +21,12 @@ const persons = {
     "formPersonInstructions": "",
     "personUploadMediaMainImage": "Vous pourrez téléverser une image à partir de la page de cette personne. Cette image représentera cette personne et sera affiché dans sa fiche et dans les pages qui la liste.",
 
+    "memberOfOrganisations": "Membre des organisations",
+    "memberOfOrganisation": "Membre des organisation",
+
+    "memberOfProjects": "Membre des projets",
+    "memberOfProject": "Membre des projet"
+
 }
 
 exports.persons = persons;

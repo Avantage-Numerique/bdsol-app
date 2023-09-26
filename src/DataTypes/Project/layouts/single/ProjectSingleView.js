@@ -217,7 +217,6 @@ const ProjectSingleView = ({ data }) => {
                 >
                     <>
                         <SearchTag
-                            className="row"
                             list={skills}
                         />
                     </>
@@ -227,7 +226,6 @@ const ProjectSingleView = ({ data }) => {
             { domains?.length > 0 &&
                 <SingleInfo title={lang.domainsSingleLabel} className={"mb-3"}>
                     <SearchTag
-                        className="row"
                         list={domains}
                         listProperty={"domain"}
                     />
