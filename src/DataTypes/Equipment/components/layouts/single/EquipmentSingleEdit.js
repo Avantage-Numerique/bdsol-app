@@ -147,18 +147,11 @@ const EquipmentSingleEdit = ({ positiveRequestActions, ...props}) => {
     const getLabelGenerator = useCallback((param, query) => {
         return {
             "contribuer": lang.menuContributeLabel,
-            "equipements": lang.Equipements,
-            "slug": `${model.name}`
+            "equipements": lang.Equipments,
+            "slug": `${model.name ?? '-'}`
         }[param];
     }, []);
 
-    /*****************************
-     * 
-     * 
-     *  Sections
-     * 
-     * 
-     ***************************/
     const breadCrumb = {
         route: model.singleEditRoute,
         getLabelGenerator: getLabelGenerator

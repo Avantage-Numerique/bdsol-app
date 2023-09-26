@@ -271,8 +271,8 @@ const ProjectSingleEdit = (props) => {
     const getLabelGenerator = useCallback((param, query) => {
         return {
             "contribuer": lang.menuContributeLabel,
-            "projets": lang.createProject,
-            "slug": name ?? "-"
+            "projets": lang.Projects,
+            "slug": model.name ?? "-"
         }[param];
     }, []);
 

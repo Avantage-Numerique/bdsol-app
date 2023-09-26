@@ -206,7 +206,7 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props}) => {
         return {
             "contribuer": lang.menuContributeLabel,
             "personnes": lang.Persons,
-            "slug": `${firstName ?? "-"} ${lastName ?? "-"}`
+            "slug": `${model.firstName ?? ""} ${model.lastName ?? "-"}`
         }[param];
     }, []);
 

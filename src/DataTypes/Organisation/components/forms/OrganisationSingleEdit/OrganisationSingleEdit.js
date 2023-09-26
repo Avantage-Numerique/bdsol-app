@@ -225,7 +225,7 @@ const OrganisationSingleEdit = (props) => {
         return {
             "contribuer": lang.menuContributeLabel,
             "organisations": lang.Organisations,
-            "slug": name ?? "-"
+            "slug": model.name ?? "-"
         }[param];
     }, []);
 

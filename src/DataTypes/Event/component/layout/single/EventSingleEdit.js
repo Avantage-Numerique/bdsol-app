@@ -291,6 +291,20 @@ const EventSingleEdit = ({data}, ...props) => {
         );
     }
 
+    /* Needed for breadCrumb generator */
+    const getLabelGenerator = useCallback((param, query) => {
+        return {
+            "contribuer": lang.menuContributeLabel,
+            "evenements": lang.Events,
+            "slug": `${model.name ?? '-'}`
+        }[param];
+    }, []);
+
+    const breadCrumb = {
+        route: model.singleEditRoute,
+        getLabelGenerator: getLabelGenerator
+    }
+
     const title = (
         <>
             <Input 
@@ -613,7 +627,7 @@ const EventSingleEdit = ({data}, ...props) => {
     return (
         <>
             <SingleBase
-                //breadCrumb={breadCrumb}
+                breadCrumb={breadCrumb}
                 header={header}
                 fullWidthContent={fullWidthContent}
                 contentColumnLeft={contentColumnLeft}
