@@ -15,8 +15,8 @@ import {SingleEntityMeta} from "@/src/DataTypes/Meta/components/SingleEntityMeta
 import {lang} from "@/common/Data/GlobalConstants";
 import Person from "@/DataTypes/Person/models/Person";
 import EntitiesTagGrid from "@/DataTypes/Entity/layouts/EntitiesTagGrid";
-import {TYPE_ORGANISATION, TYPE_PROJECT} from "@/DataTypes/Entity/Types";
 import {SkillGroup} from "@/DataTypes/common/layouts/skillsGroup/SkillGroup";
+import EntitiesGrid from "@/DataTypes/Entity/layouts/EntitiesGrid";
 
 
 const PersonSingleView = ({ data }) => {
@@ -154,15 +154,19 @@ const PersonSingleView = ({ data }) => {
                 </SingleInfo>
             }
 
-            {organisations.length > 0 &&
-                <SingleInfo title={lang.memberOfOrganisation} className={"py-3"}>
-                    <EntitiesTagGrid feed={organisations} forceType={TYPE_ORGANISATION} />
-                </SingleInfo>
-            }
+            {/* Show linked entities as tag */}
 
             {projects.length > 0 &&
                 <SingleInfo title={lang.memberOfProjects} className={"py-3"}>
-                    <EntitiesTagGrid feed={projects} forceType={TYPE_PROJECT} />
+                    <EntitiesTagGrid feed={projects} />
+                </SingleInfo>
+            }
+
+            {/* Show linked entities as simple */}
+
+            {organisations.length > 0 &&
+                <SingleInfo title={lang.memberOfOrganisation} className={"py-3"}>
+                    <EntitiesGrid className="position-relative row row-cols-1 row-cols-sm-2" columnClass={"col"} feed={organisations}/>
                 </SingleInfo>
             }
         </>
