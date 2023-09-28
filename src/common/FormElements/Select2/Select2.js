@@ -117,7 +117,6 @@ const Select2 = ({ name, formTools, ...props }) => {
             {
                 data[props.searchField] = inputValue
             }
-
             const apiResponse = await sendRequest(
                 (props.fetch),
                 'POST',
@@ -129,6 +128,7 @@ const Select2 = ({ name, formTools, ...props }) => {
                 }),
                 { 'Content-Type': 'application/json' }
             )
+            console.log((name == "equipment") && apiResponse)
             const optionList = ApiEntityModel.getSelectOption(apiResponse.data, props.selectField);
             setOptionList(optionList);
         }

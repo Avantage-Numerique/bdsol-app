@@ -5,7 +5,8 @@ const equipment = {
     "equipments":"equipment",
     "Equipments":"Equipment",
 
-    "EditEquipment": "Edit the equipment",
+    "EditEquipment": "Edit the equipment",    
+    "technologiesUsed": "Technologies used",
     "equipmentUsed": "Equipment used",
     "equipmentType":"Equipment type",
     "label": "Short name",

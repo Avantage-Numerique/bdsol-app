@@ -15,6 +15,7 @@ const equipment = {
     "Quantity": "Quantité",
 
     "equipmentUsed": "Équipements utilisés",
+    "technologiesUsed": "Technologies utilisées",
     "equipmentTypePlaceholder": "Microphone, Imprimante 3D",
     "labelPlaceholder": "Micro-casque, Imprimante 3D PLA ...",
 

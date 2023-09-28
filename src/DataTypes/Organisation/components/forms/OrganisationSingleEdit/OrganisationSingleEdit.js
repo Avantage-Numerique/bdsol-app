@@ -196,6 +196,13 @@ const OrganisationSingleEdit = (props) => {
                         }
                     })
                     : [],
+                equipment: formState.inputs.equipment.value.map(elem => {
+                    return {
+                        equip_id: elem.value.equipment.value,
+                        role: elem.value.id.value,
+                        subMeta: {order: elem.order},
+                    }
+                }),
                 team:formState.inputs.team.value.map(function(singleTeam){
                     return {
                         member: singleTeam.value.member.value.value,

@@ -33,7 +33,7 @@ import UpdateScheduleBudget from '@/src/DataTypes/Project/component/forms/Update
 import UpdateSponsor from '@/src/DataTypes/Project/component/forms/UpdateSponsor';
 import Icon from "@/common/widgets/Icon/Icon";
 import MainImageDisplay from "@/DataTypes/common/layouts/single/defaultSections/MainImageDisplay/MainImageDisplay";
-import {TYPE_TAXONOMY} from '@/src/DataTypes/Entity/Types';
+import {TYPE_TAXONOMY, TYPE_EQUIPMENT} from '@/src/DataTypes/Entity/Types';
 import SubmitEntity from "@/DataTypes/common/Forms/SingleEdit/SubmitEntity";
 
 const ProjectSingleEdit = (props) => {
@@ -57,6 +57,7 @@ const ProjectSingleEdit = (props) => {
         domains,
         context,
         meta,
+        equipment,
         type,
         createdAt,
         updatedAt,
@@ -144,7 +145,7 @@ const ProjectSingleEdit = (props) => {
                 isValid: true
             },
             equipment: {
-                value: [],
+                value: equipment ?? [],
                 isValid: true
             },
             /*mainImage: {
@@ -200,7 +201,7 @@ const ProjectSingleEdit = (props) => {
             }
         }
     )
-
+    useEffect(() => console.log("Form state", formState), [formState])
     const submitHandler = async event => {
         
         event.preventDefault();
@@ -243,6 +244,7 @@ const ProjectSingleEdit = (props) => {
                         subMeta: { order: singleTeam.order }
                     }
                 }),
+                //equipment: formState.inputs?.equipment?.value?.map(elem => elem.value),
                 skills: formState.inputs.skills?.value?.length > 0 ? formState.inputs.skills.value.map( (selectOptionSkill) => {
                     return selectOptionSkill.value
                 }) : [],
@@ -401,9 +403,10 @@ const ProjectSingleEdit = (props) => {
                     creatable
                     isMulti
                     formTools={formTools}
+                    modalType={TYPE_EQUIPMENT}
                     fetch={"/equipment/list"}
-                    searchField={"name"}
-                    selectField={"name"}
+                    searchField={"label"}
+                    selectField={"label"}
                 />
             </SingleInfo>
         </>
