@@ -22,7 +22,7 @@ import SingleInfo from "@/src/DataTypes/common/layouts/SingleInfo/SingleInfo";
 
 //Utils
 import {lang} from "@/src/common/Data/GlobalConstants";
-import {getDefaultCreateEntityMeta} from "@/src/DataTypes/Meta/EntityMeta";
+import {getDefaultUpdateEntityMeta} from "@/src/DataTypes/Meta/EntityMeta";
 import Project from "@/DataTypes/Project/models/Project";
 import {replacePathname} from "@/src/helpers/url";
 
@@ -257,7 +257,7 @@ const ProjectSingleEdit = (props) => {
                     : [],
                 contactPoint: formState.inputs.contactPoint.value,
                 url: formState.inputs.url.value,
-                meta: getDefaultCreateEntityMeta(auth.user),
+                meta: getDefaultUpdateEntityMeta(auth.user),
             }
         }
         

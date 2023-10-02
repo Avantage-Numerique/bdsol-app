@@ -13,7 +13,6 @@ import RichTextarea from '@/FormElements/RichTextArea/RichTextarea'
 import CreateTaxonomyForm from '@/DataTypes/Taxonomy/components/Forms/CreateTaxonomy/CreateTaxonomyForm'
 import {lang} from "@/src/common/Data/GlobalConstants";
 import Select2 from '@/src/common/FormElements/Select2/Select2'
-import Modal from '@/src/hooks/useModal/Modal/Modal'
 import {SingleEntityMeta} from '@/src/DataTypes/Meta/components/SingleEntityMeta'
 
 //Context
@@ -24,7 +23,7 @@ import {MessageContext} from '@/src/common/UserNotifications/Message/Context/Mes
 import styles from './CreatePersonForm.module.scss'
 
 //FormData
-import {getDefaultCreateEntityMeta} from "@/src/DataTypes/Meta/EntityMeta";
+import {getDefaultUpdateEntityMeta} from "@/src/DataTypes/Meta/EntityMeta";
 import SingleBaseHeader from '@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseHeader'
 import SingleBase from '@/src/DataTypes/common/layouts/single/SingleBase'
 import UpdateSkillGroup from '@/src/DataTypes/common/Forms/UpdateSkillGroup/UpdateSkillGroup'
@@ -185,7 +184,7 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props}) => {
                         }
                     })
                     : [],
-                meta: getDefaultCreateEntityMeta(auth.user),
+                meta: getDefaultUpdateEntityMeta(auth.user),
             }
         };
 
