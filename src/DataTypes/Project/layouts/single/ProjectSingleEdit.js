@@ -201,7 +201,6 @@ const ProjectSingleEdit = (props) => {
             }
         }
     )
-    useEffect(() => console.log("Form state", formState), [formState])
     const submitHandler = async event => {
         
         event.preventDefault();
@@ -475,8 +474,8 @@ const ProjectSingleEdit = (props) => {
                 label="Hyperlien"
                 type="url"
                 className="mb-3"
-                pattern="^https?:\/\/[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$"
-                placeholder="Une url avec le https, exemple : https://siteWeb.com"
+                //pattern="^https?:\/\/[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$"
+                placeholder="exemple : https://siteWeb.com"
                 formTools={formTools}
             />
             <>

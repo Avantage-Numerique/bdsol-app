@@ -128,7 +128,6 @@ const Select2 = ({ name, formTools, ...props }) => {
                 }),
                 { 'Content-Type': 'application/json' }
             )
-            console.log((name == "equipment") && apiResponse)
             const optionList = ApiEntityModel.getSelectOption(apiResponse.data, props.selectField);
             setOptionList(optionList);
         }
@@ -233,7 +232,7 @@ const Select2 = ({ name, formTools, ...props }) => {
                 //Close the modal 
                 closeModal()
             }}
-        /> 
+        />
     )
     const ProjectModalForm = (
         <CreateProjectForm
@@ -315,7 +314,7 @@ const Select2 = ({ name, formTools, ...props }) => {
                 
                 <header className={`d-flex justify-content-end`}>
                     <Button onClick={() => closeModal()}>Fermer</Button>
-                </header>               
+                </header>
                 
                 <div className={`my-4 border-bottom`}></div>
                 {createModal()}

@@ -392,8 +392,8 @@ const OrganisationSingleEdit = (props) => {
                 className="mb-3"
                 label="Hyperlien"
                 type="url"
-                pattern={inputUrlRegex}
-                placeholder="Une url avec le https, exemple : https://siteWeb.com"
+                //pattern={inputUrlRegex}
+                placeholder="exemple : https://www.siteWeb.com"
                 formTools={formTools}
             />
             <div>
