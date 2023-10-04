@@ -207,6 +207,7 @@ const Select2 = ({ name, formTools, ...props }) => {
             }}*/ //Commented because ApiEntityModel doesn't handle person yet since we don't use it at the moment
         />
     )
+    const PersonDescription = (<p></p>)
     const OrganisationModalForm = (
         <CreateOrganisationForm
             initValues={ modalInitValues ?? {}}
@@ -220,6 +221,7 @@ const Select2 = ({ name, formTools, ...props }) => {
             }}*/ //Commented because ApiEntityModel doesn't handle organisation yet since we don't use it at the moment
         />
     )
+    const OrganisationDescription = (<p></p>)
     const TaxonomyModalForm = (
         <CreateTaxonomyForm
             {...props}
@@ -234,6 +236,7 @@ const Select2 = ({ name, formTools, ...props }) => {
             }}
         />
     )
+    const TaxonomyDescription = (<p>La catégorie que vous ajoutez sera directement intégrée à votre formulaire.</p>)
     const ProjectModalForm = (
         <CreateProjectForm
             initValues={ modalInitValues ?? {}}
@@ -247,6 +250,7 @@ const Select2 = ({ name, formTools, ...props }) => {
             }}*/ //Commented because ApiEntityModel doesn't handle project yet since we have no use for it at the moment
         />    
     )
+    const ProjectDescription = (<p></p>)
     const EventModalForm = (
         <CreateEventForm
             initValues={ modalInitValues ?? {}}
@@ -259,6 +263,7 @@ const Select2 = ({ name, formTools, ...props }) => {
             }}
         />
     )
+    const EventDescription = (<p>L'événement que vous ajoutez sera directement intégrée à votre formulaire.</p>)
     const PlaceModalForm = (
         <CreatePlaceForm
             initValues={ modalInitValues ?? {}}
@@ -271,6 +276,7 @@ const Select2 = ({ name, formTools, ...props }) => {
             }}
         />
     )
+    const PlaceDescription = (<p>Le lieu que vous ajoutez sera directement intégrée à votre formulaire.</p>)
     const EquipmentModalForm = (
         <CreateEquipmentForm
         /* initValues={ modalInitValues ?? {}}
@@ -283,9 +289,9 @@ const Select2 = ({ name, formTools, ...props }) => {
         }} */
         />
     )
+    const EquipmentDescription = (<p></p>)
 
     const createModal = () => {
-
         const modals = new Map();
         modals.set(TYPE_PERSON, PersonModalForm);
         modals.set(TYPE_ORGANISATION, OrganisationModalForm);
@@ -296,6 +302,17 @@ const Select2 = ({ name, formTools, ...props }) => {
         modals.set(TYPE_EQUIPMENT, EquipmentModalForm);
 
         return modals.get(props.modalType)
+    }
+    const modalDescription = () => {
+        const descriptions = new Map();
+        descriptions.set(TYPE_PERSON, PersonDescription);
+        descriptions.set(TYPE_ORGANISATION, OrganisationDescription);
+        descriptions.set(TYPE_TAXONOMY, TaxonomyDescription);
+        descriptions.set(TYPE_PROJECT, ProjectDescription);
+        descriptions.set(TYPE_EVENT, EventDescription);
+        descriptions.set(TYPE_PLACE, PlaceDescription);
+        descriptions.set(TYPE_EQUIPMENT, EquipmentDescription);
+        return descriptions.get(props.modalType);
     }
 
     return (
@@ -313,6 +330,7 @@ const Select2 = ({ name, formTools, ...props }) => {
             <Modal {...props}>
                 
                 <header className={`d-flex justify-content-end`}>
+                    {modalDescription()}
                     <Button onClick={() => closeModal()}>Fermer</Button>
                 </header>
                 
