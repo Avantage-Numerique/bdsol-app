@@ -31,9 +31,7 @@ export const useRootModal = ( prefilledValues, modalProps = {} ) => {
                     coloredBackground={modal.modalProps.coloredBackground}
                     className={modal.modalProps.className}
                     closingFunction={modal.modalProps.closingButton}
-                    //initValues={modal.enteredValues ?? null}
-                    initValues={{ name: "pénis"}}
-
+                    initValues={modal.enteredValues ?? null}
                 >
                     { children }
                 </Modal>,
