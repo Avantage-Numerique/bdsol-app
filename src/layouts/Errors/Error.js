@@ -16,7 +16,7 @@ function Error({statusCode, ...props}) {
     statusCode = statusCode ?? 404;
 
     const duck = "              ,-.\n" +
-        "      ,      ( (·)=   !\n" +
+        "      ,      ( (·)<  .(!)\n" +
         "      {`\"=,___) (\n" +
         "       \\  ,_.-   )\n" +
         "~~~^~^~^`^~^~_^_'~^~^~~~^~^~~^~~~^~^~~"
