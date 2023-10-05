@@ -88,7 +88,7 @@ const ProjectSingleEdit = (props) => {
 
     //Import message context 
     const msg = useContext(MessageContext);
-
+    console.log("Équipment", equipment)
     /*
     First of all, verify if the user is logged in.
     If he isn't, then redirect him in the connexion page
@@ -244,7 +244,7 @@ const ProjectSingleEdit = (props) => {
                         subMeta: { order: singleTeam.order }
                     }
                 }),
-                //equipment: formState.inputs?.equipment?.value?.map(elem => elem.value),
+                equipment: formState.inputs?.equipment?.value?.map(elem => elem.value),
                 skills: formState.inputs.skills?.value?.length > 0 ? formState.inputs.skills.value.map( (selectOptionSkill) => {
                     return selectOptionSkill.value
                 }) : [],

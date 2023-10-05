@@ -168,6 +168,7 @@ const OrganisationSingleEdit = (props) => {
             }
 
         })
+
     //Function to submit the form
     const submitHandler = async event => {
 
@@ -197,9 +198,15 @@ const OrganisationSingleEdit = (props) => {
                     })
                     : [],
                 equipment: formState.inputs.equipment.value.map(elem => {
+                    console.log("Equipments data", elem)
+                    console.log("equipement, ", {
+                        equipment: elem.value.equipment.value.value,
+                        qty: elem.value.qte.value,
+                        subMeta: {order: elem.order},
+                    })
                     return {
-                        equip_id: elem.value.equipment.value,
-                        role: elem.value.id.value,
+                        equipment: elem.value.equipment.value.value,
+                        qty: parseInt(elem.value.qte.value),
                         subMeta: {order: elem.order},
                     }
                 }),

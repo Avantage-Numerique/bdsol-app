@@ -46,7 +46,7 @@ const EntitiesTagGrid = ({feed, className, columnClass, subEntityProperty, subBa
                 feedLength > 0 ?
                     feed.map((entity, index) => {
                         const rawData = subEntityProperty ? entity[subEntityProperty] : entity;
-                        const type = rawData.type ?? rawData.entityType;
+                        const type = rawData?.type || rawData?.entityType;
                         const model = getModelFromType(type, rawData);
                         const isLastRow = index >= (feedLength - nbColumnsMd);
                         const spacingClasses = !isLastRow ? 'pb-4' : '';

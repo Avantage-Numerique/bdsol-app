@@ -33,6 +33,7 @@ const ProjectSingleView = ({ data }) => {
         location,
         team,
         mainImage,
+        equipment,
         sponsor,
         scheduleBudget,
         skills,
@@ -168,6 +169,12 @@ const ProjectSingleView = ({ data }) => {
                             )}</ul>
                         }
                     </section>
+                </SingleInfo>
+            }
+
+            {equipment && 
+                <SingleInfo title={lang.Equipments} className={"pb-4"}>
+                    <EntitiesTagGrid feed={equipment}  noneMessage={""} />
                 </SingleInfo>
             }
 

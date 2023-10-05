@@ -6,6 +6,8 @@ import Input from '@/src/common/FormElements/Input/Input';
 import Select2 from '@/src/common/FormElements/Select2/Select2';
 import Repeater from '@/src/common/FormElements/Repeater/Repeater';
 import SingleInfo from "@/src/DataTypes/common/layouts/SingleInfo/SingleInfo";
+import {TYPE_EQUIPMENT} from "@/src/DataTypes/Entity/Types";
+
 
 //Utils
 import { lang } from '@/src/common/Data/GlobalConstants';
@@ -52,10 +54,10 @@ const SelectEquipment = ({name, formTools, parentEntity, ...props}) => {
                                     name="equipment"
                                     label={lang.Equipment}
                                     creatable
-                                    isMulti
                                     fetch={"/equipment/list"}
                                     searchField={"label"}
                                     selectField={"label"}
+                                    modalType={TYPE_EQUIPMENT}
                                     validationRules={[
                                         {name: "REQUIRED"}
                                     ]}

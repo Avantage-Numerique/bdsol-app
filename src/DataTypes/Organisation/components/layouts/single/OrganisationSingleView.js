@@ -8,6 +8,7 @@ import SearchTag from '@/src/common/Components/SearchTag';
 
 //Utils
 import Organisation from '@/src/DataTypes/Organisation/models/Organisation';
+import Equipment from '@/src/DataTypes/Equipment/models/Equipment';
 import {lang} from "@/common/Data/GlobalConstants";
 import SingleInfo from "@/DataTypes/common/layouts/SingleInfo/SingleInfo";
 import {SingleEntityMeta} from "@/src/DataTypes/Meta/components/SingleEntityMeta";
@@ -36,10 +37,11 @@ const OrganisationSingleView = ({ data }) => {
         url,
         location,
         meta,
+        equipment,
         //__v,
         //_id
     } = data;
-
+console.log("data", data)
     const model = new Organisation(data);
 
     /* Needed for breadCrumb generator */
@@ -125,6 +127,20 @@ const OrganisationSingleView = ({ data }) => {
                             {url}
                         </ExternalLink>
                     </p>
+                </SingleInfo>
+            }
+            {
+                equipment &&
+                <SingleInfo title={lang.Equipments} className={"mb-3"}>
+                    {
+                        equipment.map(equip => {
+                            console.log(equip, "equip")
+                            const model = new Equipment(equip);
+                            return (
+                                <model.tagComponent model={model} />
+                            )
+                        })
+                    }
                 </SingleInfo>
             }
         </>
