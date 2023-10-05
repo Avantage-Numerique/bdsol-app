@@ -270,6 +270,7 @@ const AppRoutes = new Routes(AppRoutesRaw);
  * @property projectSingleMedia {Route}
  * @property projectSingleEdit {Route}
  * @property projectCreate {Route}
+ * @property events {Route}
  * @property apropos {Route}
  * @property compte {Route}
  * @property contribuer {Route}

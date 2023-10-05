@@ -14,13 +14,29 @@ import {lang} from "@/common/Data/GlobalConstants";
 function Error({statusCode, ...props}) {
 
     statusCode = statusCode ?? 404;
+
+    const duck = "              ,-.\n" +
+        "      ,      ( (·)=   !\n" +
+        "      {`\"=,___) (\n" +
+        "       \\  ,_.-   )\n" +
+        "~~~^~^~^`^~^~_^_'~^~^~~~^~^~~^~~~^~^~~"
+
+    const duck2 = "    __\n" +
+        "  >(' )\n" +
+        "    )/\n" +
+        "   /(\n" +
+        "  \/  `----/\n" +
+        "  \\  ~=- /\n" +
+        "^~~~^~^~~~^~~~^~^~~~~^~^";
+
     return (
         <div>
             <PageHeader
                 bg={"bg-purplelighter"}
                 textColor={"text-white"}
-                htmlTitle={lang[`title${statusCode}`] || lang.title404}
+                htmlTitle={`${lang[`title${statusCode}`] || lang.title404}`}
                 subTitle={lang[`description${statusCode}`] || lang.description404}
+                art={duck}
             >
                 <Breadcrumbs className={"pt-2"} route={AppRoutes[`error${statusCode}`] || AppRoutes.error404} />
             </PageHeader>

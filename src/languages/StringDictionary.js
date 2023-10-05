@@ -120,6 +120,10 @@ export default class StringDictionary {
         return str.charAt(0).toLowerCase() + str.slice(1);
     }
 
+    plural(single, plural, n) {
+        return n === 1 ? single : plural;
+    }
+
 
     /**
      * Set all the properties into this scope

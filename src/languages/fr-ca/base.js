@@ -5,7 +5,7 @@ const base = {
 
     "historyBack": "Retour à la page précédente",
     "see": "Voir",
-    "noResult": "Aucune donnée ¯\\_(ツ)_/¯ pour l'instant.",
+    "noResult": "Aucune donnée pour l'instant.",
     "maybeABackendProblem": "On a peut-être un problème en arrière plan.",
     "loadingData": "Chargement des données",
     "back": "Retour",

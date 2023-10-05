@@ -22,10 +22,10 @@ const persons = {
     "personUploadMediaMainImage": "Vous pourrez téléverser une image à partir de la page de cette personne. Cette image représentera cette personne et sera affiché dans sa fiche et dans les pages qui la liste.",
 
     "memberOfOrganisations": "Membre de l'équipe des organisations",
-    "memberOfOrganisation": "Membre de l'équipe des organisation",
+    "memberOfOrganisation": "Membre de l'équipe de l'organisation",
 
     "memberOfProjects": "Membre de l'équipe des projets",
-    "memberOfProject": "Membre des projet"
+    "memberOfProject": "Membre de l'équipe du projet"
 
 }
 

@@ -42,7 +42,7 @@ const OrganisationSingleView = ({ data }) => {
     } = data;
 
     const model = new Organisation(data);
-
+    console.log("OrganisationSingleView", model);
     /******* Sorted lists ********/
     const sortedOffers = offers?.[0]?.subMeta?.order ? offers.sort((a,b) => a.subMeta.order - b.subMeta.order) : offers;
     const sortedTeam = team?.[0]?.subMeta?.order ? team.sort((a,b) => a.subMeta.order - b.subMeta.order) : team;
