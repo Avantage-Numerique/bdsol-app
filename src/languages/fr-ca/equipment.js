@@ -13,6 +13,7 @@ const equipment = {
     "modelName": "Modèle",
     "url": "Hyperlien",
     "Quantity": "Quantité",
+    "Qty": "Qte",
 
     "equipmentUsed": "Équipements utilisés",
     "technologiesUsed": "Technologies utilisées",

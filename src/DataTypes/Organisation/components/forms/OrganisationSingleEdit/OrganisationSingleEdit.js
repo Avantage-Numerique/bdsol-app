@@ -198,12 +198,6 @@ const OrganisationSingleEdit = (props) => {
                     })
                     : [],
                 equipment: formState.inputs.equipment.value.map(elem => {
-                    console.log("Equipments data", elem)
-                    console.log("equipement, ", {
-                        equipment: elem.value.equipment.value.value,
-                        qty: elem.value.qte.value,
-                        subMeta: {order: elem.order},
-                    })
                     return {
                         equipment: elem.value.equipment.value.value,
                         qty: parseInt(elem.value.qte.value),

@@ -88,7 +88,6 @@ const ProjectSingleEdit = (props) => {
 
     //Import message context 
     const msg = useContext(MessageContext);
-    console.log("Équipment", equipment)
     /*
     First of all, verify if the user is logged in.
     If he isn't, then redirect him in the connexion page

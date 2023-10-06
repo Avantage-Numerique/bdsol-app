@@ -44,7 +44,7 @@ const OrganisationSingleView = ({ data }) => {
         //__v,
         //_id
     } = data;
-console.log("data", data)
+
     const model = new Organisation(data);
 
     /* Needed for breadCrumb generator */
@@ -138,17 +138,15 @@ console.log("data", data)
                     <ul className={`container mt-2 ${styles["equipment-container"]}`}>
                             <li className="row">
                                 <div className="d-flex">
-                                    <div className={`text-secondary ${styles["equipment-row__qty"]}`}>Qte</div>
-                                    <div className={`col text-secondary`}>Nom</div> 
-                                    <div className="col text-secondary">Model</div>  
-                                    <div className="col text-secondary">Marque</div>  
+                                    <div className={`text-secondary ${styles["equipment-row__qty"]}`}>{lang.Qty}</div>
+                                    <div className={`col text-secondary`}>{lang.label}</div> 
+                                    <div className="col text-secondary">{lang.modelName}</div>  
+                                    <div className="col text-secondary">{lang.brand}</div>  
                                 </div> 
                             </li>
                         {
                             equipment.map(equip => {
                                 const model = new Equipment(equip.equipment);
-                                
-                                console.log(model, "model")
                                 return (
                                     <li className={` ${styles["equipment-row"]} row border-top py-2`}>
                                         <Link href={model.singleLink} title={model.name}>

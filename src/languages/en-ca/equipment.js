@@ -15,6 +15,7 @@ const equipment = {
     "modelName": "Model",
     "url": "Hyperlink",
     "Quantity": "Quantity",
+    "Qty": "Qty",
 
 
     "equipmentTypePlaceholder": "Microphone, 3D Printer",

@@ -45,7 +45,6 @@ const EntitiesTagGrid = ({feed, className, columnClass, subEntityProperty, subBa
             {
                 feedLength > 0 ?
                     feed.map((entity, index) => {
-                        console.log(entity)
                         const rawData = subEntityProperty ? entity[subEntityProperty] : entity;
                         const type = rawData?.type || rawData?.entityType;
                         const model = getModelFromType(type, rawData);
