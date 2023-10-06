@@ -38,6 +38,7 @@ const OrganisationSingleView = ({ data }) => {
         location,
         meta,
         projects,
+        events,
         //__v,
         //_id
     } = data;
@@ -123,8 +124,13 @@ const OrganisationSingleView = ({ data }) => {
                 </SingleInfo>
             }
             {projects.length > 0 &&
-                <SingleInfo title={`${lang.plural(lang.inChargeOfProject, lang.inChargeOfProjects, projects.length)}`} className={"py-3"}>
+                <SingleInfo title={`${lang.plural(lang.inChargeOfProject, lang.inChargeOfProjects, projects.length)}`} className={"mb-3"}>
                     <EntitiesTagGrid feed={projects} />
+                </SingleInfo>
+            }
+            {events.length > 0 &&
+                <SingleInfo title={`${lang.plural(lang.organizerOfEvent, lang.organizerOfEvents, events.length)}`} className={"mb-3"}>
+                    <EntitiesTagGrid feed={events} />
                 </SingleInfo>
             }
             { url &&

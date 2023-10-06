@@ -156,7 +156,7 @@ const PersonSingleView = ({ data }) => {
             {/* Show linked entities as tag */}
 
             {projects.length > 0 &&
-                <SingleInfo title={`${lang.plural(lang.memberOfProject, lang.memberOfProjects, projects.length)}`} className={"py-3"}>
+                <SingleInfo title={`${lang.plural(lang.memberOfProject, lang.memberOfProjects, projects.length)}`} className={"mb-3"}>
                     <EntitiesTagGrid feed={projects} />
                 </SingleInfo>
             }
@@ -164,7 +164,7 @@ const PersonSingleView = ({ data }) => {
             {/* Show linked entities as tag */}
 
             {organisations.length > 0 &&
-                <SingleInfo title={`${lang.plural(lang.memberOfOrganisation, lang.memberOfOrganisations, organisations.length)}`} className={"py-3"}>
+                <SingleInfo title={`${lang.plural(lang.memberOfOrganisation, lang.memberOfOrganisations, organisations.length)}`} className={"mb-3"}>
                     <EntitiesTagGrid feed={organisations}/>
                 </SingleInfo>
             }

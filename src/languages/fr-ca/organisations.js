@@ -18,6 +18,12 @@ const organisations = {
     "formOrganisationInstructions": "Super formulaire",
     "organisationUploadMediaMainImage": "Vous pourrez téléverser une image à partir de la page de cette organisation. Cette image représentera cette organisation et sera affiché dans sa fiche et dans les pages qui la liste.",
 
+
+    "inChargeOfProject": "En charge du projet",
+    "inChargeOfProjects": "En charge des projets",
+
+    "organizerOfEvent": "A organisé cet événement",
+    "organizerOfEvents": "A organisé ces événements",
 }
 
 exports.organisations = organisations;
