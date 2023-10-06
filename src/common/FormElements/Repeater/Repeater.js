@@ -29,7 +29,6 @@ import Icon from '@/src/common/widgets/Icon/Icon';
 
 //Context
 import {useAuth} from '@/auth/context/auth-context';
-import {getDefaultCreateEntityMeta} from "@/src/DataTypes/Meta/EntityMeta";
 
 //styles
 import styles from './Repeater.module.scss'
@@ -201,8 +200,6 @@ const Repeater = props => {
                     //replace the name by the value to return
                     returnShape[getKeyByValue(returnShape, fieldName)] = ite.value[fieldName] ? ite.value[fieldName].value : {};
                 }) 
-                //Add the proper meta
-                returnShape.meta = ite.meta;
                 //Add the result to the return array
                 value.push(returnShape);
             */
@@ -238,7 +235,6 @@ const Repeater = props => {
             //3. Loop in the initialValues passed has props to fill the startIterationsObj
             initValues.forEach((elem, i) => {
                 //Initialize the value that are going to compose the return object
-                let current_meta = elem.meta ? elem.meta : undefined;
                 let current_id = elem._id ? elem._id : elem.id ? elem.id : undefined;
                 let formInitStructureWithValues = {};  //Same shape but going to be filled with the values
                 //For the last one, lets loop into the array of key words to search for a fit
@@ -249,7 +245,7 @@ const Repeater = props => {
                         }
                 })
                 //New lets build the formObject with thoses values
-                const newIterationObj = createIteration( current_meta, current_id, formInitStructureWithValues, elem?.subMeta?.order);
+                const newIterationObj = createIteration(current_id, formInitStructureWithValues, elem?.subMeta?.order);
                 //Update the return object
                 startIterationsObj = {...startIterationsObj, ...newIterationObj};
             });
@@ -312,7 +308,7 @@ const Repeater = props => {
     }
 
     //Create a new Id and make sure its not gonna be in double
-    function createIteration( meta, _id, initFormStructureWithValues, orderNumber=null ){
+    function createIteration(_id, initFormStructureWithValues, orderNumber=null ){
         //Create an ID
         const key = generateUniqueId();
         //Iterations array
@@ -323,7 +319,6 @@ const Repeater = props => {
                 key: key,
                 order: orderNumber || ( iterationsArray.length > 0 ? (Math.max(...iterationsArray.map(o => o.order))) + 1 : 0),  //Prioriser le order number. S'il n'y en a aucun, on prend la plus haute valeur dans iterations
                 value: {},
-                meta: meta ? meta : getDefaultCreateEntityMeta(auth.user),
                 initFormStructureWithValues: initFormStructureWithValues ? initFormStructureWithValues : null,
                 _id: _id ? _id : null,
                 isValid: true

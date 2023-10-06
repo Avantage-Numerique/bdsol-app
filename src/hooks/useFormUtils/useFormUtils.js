@@ -16,12 +16,8 @@ import { useHttpClient } from '../http-hook'
 import { useForm } from '../form-hook'
 import { MessageContext } from '@/src/common/UserNotifications/Message/Context/Message-Context'
 
-
 //Form UI styling
 import styles from './formUI.module.scss'
-import {getDefaultUpdateEntityMeta} from "@/src/DataTypes/Meta/EntityMeta";
-
-
 
 export const useFormUtils = ( initialState, actions ) => {
 
@@ -118,26 +114,6 @@ export const useFormUtils = ( initialState, actions ) => {
         }
     }
 
-
-    /**
-     * Helper to transmute data to help with select that use data from outside and need to adapt it
-     * @param params
-     * @return {*[]}
-     */
-    const transmuteTaxonomyTargetInput = useCallback((params) => {
-        const {inputs, fieldName, user} = params;
-        const transmutedData = [];
-
-        inputs.value.forEach( (inputValue) => {
-            transmutedData.push({
-                [fieldName]: inputValue[fieldName]._id,
-                meta: getDefaultUpdateEntityMeta(user)
-            })
-        });
-        return transmutedData;
-    }, []);
-
-
     //Import message context 
     const msg = useContext(MessageContext);
 
@@ -175,7 +151,6 @@ export const useFormUtils = ( initialState, actions ) => {
         formTools, 
         requestResponse,
         clearFormData,
-        transmuteTaxonomyTargetInput,
         updateManyFields
     }
 

@@ -274,7 +274,7 @@ const EventSingleEdit = ({data}, ...props) => {
                     :[],
                 //Temporary set the input in name field until we have a more elaborated structure for location
                 //location: [{ name: formState.inputs.location.value}],
-                meta: getDefaultUpdateEntityMeta(auth.user),
+                meta: getDefaultUpdateEntityMeta(auth.user, model.meta.requestedBy),
             }
         };
 

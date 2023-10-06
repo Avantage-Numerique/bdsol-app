@@ -256,7 +256,7 @@ const ProjectSingleEdit = (props) => {
                     : [],
                 contactPoint: formState.inputs.contactPoint.value,
                 url: formState.inputs.url.value,
-                meta: getDefaultUpdateEntityMeta(auth.user),
+                meta: getDefaultUpdateEntityMeta(auth.user, model.meta.requestedBy),
             }
         }
         
