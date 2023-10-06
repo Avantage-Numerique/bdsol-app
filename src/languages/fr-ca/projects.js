@@ -14,6 +14,9 @@ const projects = {
 
     "producer": "Producteur",
     "inCharge": "Entité en charge",
+
+    "inChargeOfProject": "En charge du projet",
+    "inChargeOfProjects": "En charge des projets",
 }
 
 exports.projects = projects;

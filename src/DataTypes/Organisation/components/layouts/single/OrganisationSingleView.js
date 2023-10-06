@@ -37,6 +37,7 @@ const OrganisationSingleView = ({ data }) => {
         url,
         location,
         meta,
+        projects,
         //__v,
         //_id
     } = data;
@@ -119,6 +120,11 @@ const OrganisationSingleView = ({ data }) => {
                     title={lang.fondationDate}
                     className={"mb-3"}>
                     <TimeTag date={fondationDate} format={FULL_HUMAN_DATE_FORMAT} />
+                </SingleInfo>
+            }
+            {projects.length > 0 &&
+                <SingleInfo title={`${lang.plural(lang.inChargeOfProject, lang.inChargeOfProjects, projects.length)}`} className={"py-3"}>
+                    <EntitiesTagGrid feed={projects} />
                 </SingleInfo>
             }
             { url &&
