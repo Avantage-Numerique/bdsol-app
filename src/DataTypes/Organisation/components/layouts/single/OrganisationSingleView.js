@@ -44,7 +44,7 @@ const OrganisationSingleView = ({ data }) => {
     } = data;
 
     const model = new Organisation(data);
-    console.log("OrganisationSingleView", model);
+
     /******* Sorted lists ********/
     const sortedOffers = offers?.[0]?.subMeta?.order ? offers.sort((a,b) => a.subMeta.order - b.subMeta.order) : offers;
     const sortedTeam = team?.[0]?.subMeta?.order ? team.sort((a,b) => a.subMeta.order - b.subMeta.order) : team;
@@ -116,6 +116,7 @@ const OrganisationSingleView = ({ data }) => {
                     <EntitiesTagGrid feed={sortedTeam} subEntityProperty={"member"} subBadgeProperty={"role"} noneMessage={lang.noTeamMemberSetMessage} />
                 </SingleInfo>
             }
+
             { fondationDate &&
                 <SingleInfo
                     title={lang.fondationDate}
@@ -123,6 +124,7 @@ const OrganisationSingleView = ({ data }) => {
                     <TimeTag date={fondationDate} format={FULL_HUMAN_DATE_FORMAT} />
                 </SingleInfo>
             }
+
             {projects.length > 0 &&
                 <SingleInfo title={`${lang.plural(lang.inChargeOfProject, lang.inChargeOfProjects, projects.length)}`} className={"mb-3"}>
                     <EntitiesTagGrid feed={projects} />

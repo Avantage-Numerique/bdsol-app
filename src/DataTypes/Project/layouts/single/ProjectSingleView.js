@@ -19,6 +19,7 @@ import EntityLink from "@/DataTypes/Entity/layouts/EntityLink";
 
 //styling 
 import styles from "./ProjectSingleView.module.scss"
+import {haveAValidValue} from "@/src/helpers/obj";
 
 const ProjectSingleView = ({ data }) => {
 
@@ -44,7 +45,7 @@ const ProjectSingleView = ({ data }) => {
         createdAt,
         updatedAt
     } = data;
-    console.log("scheduleBudget", scheduleBudget)
+
     const model = new Project(data);
 
     /******* Sorted lists ********/
@@ -133,7 +134,7 @@ const ProjectSingleView = ({ data }) => {
                 </SingleInfo>
             }
         </>
-    )
+    );
 
     const ContentColumnLeft = (
         <>
@@ -146,9 +147,9 @@ const ProjectSingleView = ({ data }) => {
                 </SingleInfo>
             }
 
-            { scheduleBudget &&
+            { scheduleBudget && haveAValidValue(scheduleBudget) &&
                 <SingleInfo
-                    title="Échéancier et budget"
+                    title={lang.timelineAndBudget}
                     className="mb-3"
                 >
                     <section className={`ps-4 border-start  ${styles["budget"]}`}>
@@ -164,7 +165,7 @@ const ProjectSingleView = ({ data }) => {
 
                         {scheduleBudget?.timeframe?.length > 0 && 
                             <>
-                                <h5 className="mt-4 text-dark">Étapes du projet</h5>
+                                <h5 className="mt-4 text-dark">{lang.projectsSteps}</h5>
                                 <ul 
                                     key="timeframe-container" 
                                     className={`container rounded overflow-hidden shadow-sm`}

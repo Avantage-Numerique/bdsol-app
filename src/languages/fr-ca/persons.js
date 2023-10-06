@@ -25,7 +25,10 @@ const persons = {
     "memberOfOrganisation": "Membre de l'équipe de l'organisation",
 
     "memberOfProjects": "Membre de l'équipe des projets",
-    "memberOfProject": "Membre de l'équipe du projet"
+    "memberOfProject": "Membre de l'équipe du projet",
+
+    "attendThisEvent": "J'ai participé à cet événement",
+    "attendTheseEvents": "J'ai participé à ces événements"
 
 }
 

@@ -36,7 +36,8 @@ const PersonSingleView = ({ data }) => {
         meta,
         mainImage,
         organisations,
-        projects
+        projects,
+        events
     } = data;
 
     //To display occupations in the proper order
@@ -138,7 +139,7 @@ const PersonSingleView = ({ data }) => {
                 <SingleInfo
                     title={"Occupations"}
                     NAMessage="Aucune occupation n'est disponible pour le moment"
-                    className={"mb-3 mt-3 pt-2"}
+                    className={"mb-4 mt-3 pt-2"}
                 >
                     {/* Display the different groups of occupations */}
                     { sortedOccupations && sortedOccupations.length > 0 &&
@@ -156,16 +157,20 @@ const PersonSingleView = ({ data }) => {
             {/* Show linked entities as tag */}
 
             {projects.length > 0 &&
-                <SingleInfo title={`${lang.plural(lang.memberOfProject, lang.memberOfProjects, projects.length)}`} className={"mb-3"}>
+                <SingleInfo title={`${lang.plural(lang.memberOfProject, lang.memberOfProjects, projects.length)}`} className={"mb-4"}>
                     <EntitiesTagGrid feed={projects} />
                 </SingleInfo>
             }
 
-            {/* Show linked entities as tag */}
-
             {organisations.length > 0 &&
-                <SingleInfo title={`${lang.plural(lang.memberOfOrganisation, lang.memberOfOrganisations, organisations.length)}`} className={"mb-3"}>
+                <SingleInfo title={`${lang.plural(lang.memberOfOrganisation, lang.memberOfOrganisations, organisations.length)}`} className={"mb-4"}>
                     <EntitiesTagGrid feed={organisations}/>
+                </SingleInfo>
+            }
+
+            {events.length > 0 &&
+                <SingleInfo title={`${lang.plural(lang.attendThisEvent, lang.attendTheseEvents, events.length)}`} className={"mb-4"}>
+                    <EntitiesTagGrid feed={events}/>
                 </SingleInfo>
             }
         </>
