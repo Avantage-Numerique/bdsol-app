@@ -18,6 +18,13 @@ const organisations = {
     "formOrganisationInstructions": "Super formulaire",
     "organisationUploadMediaMainImage": "Vous pourrez téléverser une image à partir de la page de cette organisation. Cette image représentera cette organisation et sera affiché dans sa fiche et dans les pages qui la liste.",
 
+    "organisationDescription": "Présentation",
+    "organisationSkills": "Services offerts",
+
+    "organisationPlace": "Emplacement",
+    "organisationPlaces": "Emplacements",
+
+    "organisationContact": "Contact",
 
     "inChargeOfProject": "En charge du projet",
     "inChargeOfProjects": "En charge des projets",

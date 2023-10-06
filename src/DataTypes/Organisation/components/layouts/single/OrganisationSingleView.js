@@ -15,6 +15,7 @@ import EntitiesTagGrid from "@/DataTypes/Entity/layouts/EntitiesTagGrid";
 import {ExternalLink} from "@/common/Components/ExternalLink";
 import {dateManager, FULL_HUMAN_DATE_FORMAT} from "@/common/DateManager/DateManager";
 import {SkillGroup} from "@/DataTypes/common/layouts/skillsGroup/SkillGroup";
+import {appConfig} from "@/src/configs/AppConfig";
 
 
 const OrganisationSingleView = ({ data }) => {
@@ -44,6 +45,8 @@ const OrganisationSingleView = ({ data }) => {
     } = data;
 
     const model = new Organisation(data);
+
+    const sectionClassSpacing = appConfig.spacing.singleSectionSpacingClass;
 
     /******* Sorted lists ********/
     const sortedOffers = offers?.[0]?.subMeta?.order ? offers.sort((a,b) => a.subMeta.order - b.subMeta.order) : offers;
@@ -76,7 +79,7 @@ const OrganisationSingleView = ({ data }) => {
             )}
             mainImage={model.mainImage}
             entity={model}
-            buttonText="Proposer des modifications"
+            buttonText={lang.contributeButtonLabel}
             buttonLink={model.singleEditLink}
         />
     )
@@ -84,7 +87,7 @@ const OrganisationSingleView = ({ data }) => {
     const FullWidthContent = (
         <>
             {description !== "" &&
-                <SingleInfo title={"Présentation"} className={"mb-3 mt-4"}>
+                <SingleInfo title={lang.organisationDescription} className={"mb-3 mt-4"}>
                     <SanitizedInnerHtml>
                         {description}
                     </SanitizedInnerHtml>
@@ -97,9 +100,9 @@ const OrganisationSingleView = ({ data }) => {
         <>
             { offers.length > 0 &&
                 <SingleInfo
-                    title="Services offerts"
+                    title={lang.organisationSkills}
                     NAMessage="Aucun service n'est inscrit pour cette organisation."
-                    className="mb-4"
+                    className={`${sectionClassSpacing}`}
                     classNameH4="my-3"
                 >
                     { sortedOffers?.length > 0 && sortedOffers.map(offer => (
@@ -112,31 +115,23 @@ const OrganisationSingleView = ({ data }) => {
                 </SingleInfo>
             }
             {sortedTeam.length > 0 &&
-                <SingleInfo title={lang.teamMembers} className={"mb-3"}>
+                <SingleInfo title={lang.teamMembers} className={`${sectionClassSpacing}`}>
                     <EntitiesTagGrid feed={sortedTeam} subEntityProperty={"member"} subBadgeProperty={"role"} noneMessage={lang.noTeamMemberSetMessage} />
                 </SingleInfo>
             }
 
-            { fondationDate &&
-                <SingleInfo
-                    title={lang.fondationDate}
-                    className={"mb-3"}>
-                    <TimeTag date={fondationDate} format={FULL_HUMAN_DATE_FORMAT} />
-                </SingleInfo>
-            }
-
             {projects.length > 0 &&
-                <SingleInfo title={`${lang.plural(lang.inChargeOfProject, lang.inChargeOfProjects, projects.length)}`} className={"mb-3"}>
+                <SingleInfo title={`${lang.plural(lang.inChargeOfProject, lang.inChargeOfProjects, projects.length)}`} className={`${sectionClassSpacing}`}>
                     <EntitiesTagGrid feed={projects} />
                 </SingleInfo>
             }
             {events.length > 0 &&
-                <SingleInfo title={`${lang.plural(lang.organizerOfEvent, lang.organizerOfEvents, events.length)}`} className={"mb-3"}>
+                <SingleInfo title={`${lang.plural(lang.organizerOfEvent, lang.organizerOfEvents, events.length)}`} className={`${sectionClassSpacing}`}>
                     <EntitiesTagGrid feed={events} />
                 </SingleInfo>
             }
             { url &&
-                <SingleInfo title={lang.hyperlink} className={"mb-3"}>
+                <SingleInfo title={lang.hyperlink} className={`${sectionClassSpacing}`}>
                     <p>
                         <ExternalLink href={url} title={`${model.title}`}>
                             {url}
@@ -151,27 +146,34 @@ const OrganisationSingleView = ({ data }) => {
         <>
             {
                 location?.length > 0 &&
-                <SingleInfo title="Emplacement">
+                <SingleInfo title={lang.plural(lang.organisationPlace, lang.organisationPlaces, location.length)} className={`${sectionClassSpacing}`}>
                     <EntitiesTagGrid feed={location} subBadgeProperty={"address"} columnClass={"col-12"} />
                 </SingleInfo>
             }
             { contactPoint &&
-                <SingleInfo title={"Contact"} className={"mb-3"}>
+                <SingleInfo title={lang.organisationContact} className={`${sectionClassSpacing}`}>
                     {contactPoint}
                 </SingleInfo>
             }
             { domains.length > 0 &&
                 <SingleInfo
                     title={lang.domainsSingleLabel}
-                    className={"mb-3"}
+                    className={`${sectionClassSpacing}`}
                     NAMessage="Aucun domaine d'activité n'est précisé pour le moment." >
                     {domains &&
                         <SearchTag
-                            className="row"
                             list={domains}
                             listProperty={"domain"}
                         />
                     }
+                </SingleInfo>
+            }
+
+            { fondationDate &&
+                <SingleInfo
+                    title={lang.fondationDate}
+                    className={`${sectionClassSpacing}`}>
+                    <TimeTag date={fondationDate} format={FULL_HUMAN_DATE_FORMAT} />
                 </SingleInfo>
             }
         </>

@@ -24,6 +24,7 @@ const base = {
     "metadatas": "métadonnées",
     "knowMore": "En savoir plus",
     "aboutUs": "À propos",
+    "contributeButtonLabel": "Proposer des modifications",
 
     // App
 

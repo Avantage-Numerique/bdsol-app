@@ -20,6 +20,7 @@ import EntityLink from "@/DataTypes/Entity/layouts/EntityLink";
 //styling 
 import styles from "./ProjectSingleView.module.scss"
 import {haveAValidValue} from "@/src/helpers/obj";
+import {appConfig} from "@/src/configs/AppConfig";
 
 const ProjectSingleView = ({ data }) => {
 
@@ -48,7 +49,7 @@ const ProjectSingleView = ({ data }) => {
 
     const model = new Project(data);
 
-    const sectionClassSpacing = "mb-4";
+    const sectionClassSpacing = appConfig.spacing.singleSectionSpacingClass;
 
     /******* Sorted lists ********/
     const sortedSponsors = sponsor?.[0]?.subMeta?.order ? sponsor.sort((a,b) => a.subMeta.order - b.subMeta.order) : sponsor;
