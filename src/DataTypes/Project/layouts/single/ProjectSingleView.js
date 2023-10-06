@@ -48,6 +48,8 @@ const ProjectSingleView = ({ data }) => {
 
     const model = new Project(data);
 
+    const sectionClassSpacing = "mb-4";
+
     /******* Sorted lists ********/
     const sortedSponsors = sponsor?.[0]?.subMeta?.order ? sponsor.sort((a,b) => a.subMeta.order - b.subMeta.order) : sponsor;
     const sortedTeam = team?.[0]?.subMeta?.order ? team.sort((a,b) => a.subMeta.order - b.subMeta.order) : team;
@@ -122,14 +124,14 @@ const ProjectSingleView = ({ data }) => {
     const FullWidthContent = (
         <>
             { description !== "" &&
-                <SingleInfo title={"Présentation"} className={"mb-3 mt-3"}>
+                <SingleInfo title={lang.projectDescription} className={`${sectionClassSpacing} mt-3`}>
                     <SanitizedInnerHtml>
                         {description}
                     </SanitizedInnerHtml>
                 </SingleInfo>
             }
             {sortedSponsors.length > 0 &&
-                <SingleInfo title="Partenaires">
+                <SingleInfo title={lang.projectPartners} className={`${sectionClassSpacing}`}>
                     <EntitiesTagGrid feed={sortedSponsors} subEntityProperty={"entity"} subBadgeProperty={"name"} />
                 </SingleInfo>
             }
@@ -150,7 +152,7 @@ const ProjectSingleView = ({ data }) => {
             { scheduleBudget && haveAValidValue(scheduleBudget) &&
                 <SingleInfo
                     title={lang.timelineAndBudget}
-                    className="mb-3"
+                    className={`${sectionClassSpacing}`}
                 >
                     <section className={`ps-4 border-start  ${styles["budget"]}`}>
                         <div className="container my-2">
@@ -193,7 +195,7 @@ const ProjectSingleView = ({ data }) => {
             }
 
             {url &&
-                <SingleInfo title="Hyperlien" className={"pb-4"}>
+                <SingleInfo title={lang.projectLink} className={`${sectionClassSpacing}`}>
                     <ExternalLink href={url}>{url}</ExternalLink>
                 </SingleInfo>
             }
@@ -204,8 +206,8 @@ const ProjectSingleView = ({ data }) => {
         <>
             {context !== "" &&
                 <SingleInfo
-                    title="Contexte du projet"
-                    className="mb-3"
+                    title={lang.projectContext}
+                    className={`${sectionClassSpacing}`}
                 >
                     {allEnumState?.[context] ?? context}
                 </SingleInfo>
@@ -213,8 +215,8 @@ const ProjectSingleView = ({ data }) => {
 
             { skills?.length > 0 &&
                 <SingleInfo
-                    title="Compétences liées au projet"
-                    className="mb-3"
+                    title={lang.projectSkills}
+                    className={`${sectionClassSpacing}`}
                 >
                     <>
                         <SearchTag
@@ -225,7 +227,7 @@ const ProjectSingleView = ({ data }) => {
             }
 
             { domains?.length > 0 &&
-                <SingleInfo title={lang.domainsSingleLabel} className={"mb-3"}>
+                <SingleInfo title={lang.domainsSingleLabel} className={`${sectionClassSpacing}`}>
                     <SearchTag
                         list={domains}
                         listProperty={"domain"}
@@ -235,8 +237,8 @@ const ProjectSingleView = ({ data }) => {
 
             { contactPoint &&
                 <SingleInfo
-                    title={"Contact"}
-                    className={"mb-3"}>
+                    title={lang.projectContact}
+                    className={`${sectionClassSpacing}`}>
                     <SanitizedInnerHtml>
                         {contactPoint}
                     </SanitizedInnerHtml>
