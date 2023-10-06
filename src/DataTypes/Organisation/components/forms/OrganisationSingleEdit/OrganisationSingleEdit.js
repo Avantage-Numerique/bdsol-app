@@ -222,7 +222,7 @@ const OrganisationSingleEdit = (props) => {
                         return singlePlace.value
                     })
                     : [],
-                meta: getDefaultUpdateEntityMeta(auth.user)
+                meta: getDefaultUpdateEntityMeta(auth.user, model.meta.requestedBy)
             }
         };
 

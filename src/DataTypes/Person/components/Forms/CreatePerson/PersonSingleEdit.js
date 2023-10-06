@@ -116,7 +116,6 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props}) => {
     }, [auth.user.isLoggedIn]);
 
     //Main form functionalities
-    //not used : transmuteTaxonomyTargetInput
     const { FormUI, submitRequest, formState, formTools } = useFormUtils(
         {
             firstName: {
@@ -184,7 +183,7 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props}) => {
                         }
                     })
                     : [],
-                meta: getDefaultUpdateEntityMeta(auth.user),
+                meta: getDefaultUpdateEntityMeta(auth.user, model.meta.requestedBy),
             }
         };
 

@@ -24,7 +24,6 @@ const CreatePlaceForm = ({ onPositiveResponse, initValues }) => {
     const auth = useAuth();
 
     //Main form functionalities
-    //not used : transmuteTaxonomyTargetInput
     const { FormUI, submitRequest, formState, formTools } = useFormUtils(
         {
             name: {
