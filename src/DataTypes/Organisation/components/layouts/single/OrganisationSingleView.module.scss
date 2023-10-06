@@ -1,0 +1,10 @@
+.equipment-container {
+
+    .equipment-row:hover {
+        background-color: var(--bs-gray-300);
+        cursor: pointer;
+    }
+    .equipment-row__qty { width: 4ch; }
+
+
+}

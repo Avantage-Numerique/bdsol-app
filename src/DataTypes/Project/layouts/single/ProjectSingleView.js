@@ -174,7 +174,7 @@ const ProjectSingleView = ({ data }) => {
 
             {equipment && 
                 <SingleInfo title={lang.Equipments} className={"pb-4"}>
-                    <EntitiesTagGrid feed={equipment}  noneMessage={""} />
+                    <EntitiesTagGrid feed={equipment} noneMessage={""} />
                 </SingleInfo>
             }
 

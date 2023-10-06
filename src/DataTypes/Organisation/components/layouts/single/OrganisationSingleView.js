@@ -1,4 +1,5 @@
 import React, {useCallback} from 'react';
+import Link from "next/link";
 
 //components
 import SingleBaseHeader from "@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseHeader"
@@ -16,6 +17,8 @@ import EntitiesTagGrid from "@/DataTypes/Entity/layouts/EntitiesTagGrid";
 import {ExternalLink} from "@/common/Components/ExternalLink";
 import {dateManager, FULL_HUMAN_DATE_FORMAT} from "@/common/DateManager/DateManager";
 
+//Styles
+import styles from './OrganisationSingleView.module.scss';
 
 const OrganisationSingleView = ({ data }) => {
 
@@ -131,16 +134,36 @@ console.log("data", data)
             }
             {
                 equipment &&
-                <SingleInfo title={lang.Equipments} className={"mb-3"}>
-                    {
-                        equipment.map(equip => {
-                            console.log(equip, "equip")
-                            const model = new Equipment(equip);
-                            return (
-                                <model.tagComponent model={model} />
-                            )
-                        })
-                    }
+                <SingleInfo title={lang.Equipments} className={"mb-3 mt-2"}>
+                    <ul className={`container mt-2 ${styles["equipment-container"]}`}>
+                            <li className="row">
+                                <div className="d-flex">
+                                    <div className={`text-secondary ${styles["equipment-row__qty"]}`}>Qte</div>
+                                    <div className={`col text-secondary`}>Nom</div> 
+                                    <div className="col text-secondary">Model</div>  
+                                    <div className="col text-secondary">Marque</div>  
+                                </div> 
+                            </li>
+                        {
+                            equipment.map(equip => {
+                                const model = new Equipment(equip.equipment);
+                                
+                                console.log(model, "model")
+                                return (
+                                    <li className={` ${styles["equipment-row"]} row border-top py-2`}>
+                                        <Link href={model.singleLink} title={model.name}>
+                                            <div className="d-flex">
+                                                <div className={`${styles["equipment-row__qty"]}`}>{equip.qty}</div>
+                                                <div className={`col ${styles["equipment-row__name"]}`}>{model.label}</div> 
+                                                <div className="col">{model.modelName}</div>  
+                                                <div className="col">{model.brand}</div>  
+                                            </div> 
+                                        </Link>                 
+                                    </li>
+                                )
+                            })
+                        }
+                    </ul>
                 </SingleInfo>
             }
         </>
