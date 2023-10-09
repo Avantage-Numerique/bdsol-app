@@ -5,6 +5,9 @@ const equipment = {
     "equipments":"équipements",
     "Equipments":"Équipements",
 
+    "allEquipmentTitle": "Consulter les équipements",
+    "allEquipmentDescription" : "Les équipements listés peuvent être liés à des organisations, des projets ou d'autre entité du milieu culturel.",
+
     "EditEquipment": "Éditez les équipements",
     "equipmentType":"Type d'équipement",
     "label": "Nom court",
