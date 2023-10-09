@@ -20,7 +20,7 @@ import {MessageContext} from '@/src/common/UserNotifications/Message/Context/Mes
 import {useAuth} from '@/src/authentification/context/auth-context';
 import SanitizedInnerHtml from "@/src/utils/SanitizedInnerHtml";
 import {appUrl} from "@/src/helpers/url";
-import {getType, TYPE_EVENT, TYPE_ORGANISATION, TYPE_PERSON, TYPE_PROJECT} from "@/DataTypes/Entity/Types";
+import {getType, TYPE_EQUIPMENT, TYPE_EVENT, TYPE_ORGANISATION, TYPE_PERSON, TYPE_PROJECT} from "@/DataTypes/Entity/Types";
 
 //Styling
 //import styles from './home-page.module.scss'
@@ -328,6 +328,15 @@ const HomePage = ({}) => {
                                         size="slim"
                                         disabled={!auth.user.isLoggedIn}
                                         href={getCreateEntityPath(TYPE_EVENT)}
+                                    >+</Button>
+                                </div>
+                                <div className={"db-edit-options__button-set"}>
+                                    <Button href="/equipment" color="primary" size="slim">{lang.Equipments}</Button>
+                                    <Button
+                                        color="primary"
+                                        size="slim"
+                                        disabled={!auth.user.isLoggedIn}
+                                        href={getCreateEntityPath(TYPE_EQUIPMENT)}
                                     >+</Button>
                                 </div>
 

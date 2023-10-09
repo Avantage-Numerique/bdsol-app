@@ -210,6 +210,40 @@ const AppRoutesRaw = {
             mediaType: "main-image"
         }
     },
+    /*************
+     *  Equipment
+     ***/
+    equipment : {
+        label: "Tous les équipements",
+        pathname: "/equipements",
+        asPath: "/equipements",
+    },
+    equipmentSingle : {
+        label: "Un équipement",
+        pathname: "/equipment/[slug]",
+        asPath: "/equipment/[slug]"
+    },
+    equipmentSingleEdit : {
+        label: "Modifier un événement",
+        pathname: "/contribuer/equipements/[slug]",
+        asPath: "/contribuer/equipements/[slug]"
+    },
+    equipmentCreate : {
+        label: "Ajouter un événement",
+        pathname: "/contribuer/equipements",
+        asPath: "/contribuer/equipements"
+    },
+    equipmentSingleMedia : {
+        label: "Média d'un équipment",
+        pathname: "/medias/[slug]",
+        asPath: "/medias/[slug]",
+        breadcrumbPathName: "/equipment/[equipment.slug]/[slug]",
+        breadcrumbAsPath: "/equipment/[equipment.slug]/[slug]",
+        breadcrumbQuery: {
+            slug: "slug",
+            mediaType: "main-image"
+        }
+    },
 
 
     about: {

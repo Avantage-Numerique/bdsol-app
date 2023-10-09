@@ -5,6 +5,7 @@ import EntityModel from "@/DataTypes/Entity/models/EntityModel";
 import Media from "../Media/models/Media";
 import Event from "../Event/models/Event";
 import Place from "../Place/models/Place";
+import Equipment from "../Equipment/models/Equipment";
 
 export const TYPE_ABSTRACT = "Entity";
 export const TYPE_ORGANISATION = "Organisation";
@@ -14,6 +15,7 @@ export const TYPE_PERSON = "Person";
 export const TYPE_MEDIA = "Media";
 export const TYPE_EVENT = "Event";
 export const TYPE_PLACE = "Place";
+export const TYPE_EQUIPMENT = "Equipment";
 export const TYPE_DEFAULT = TYPE_ABSTRACT;
 export const TYPE_NOTSET = "undefined";
 
@@ -102,7 +104,7 @@ TYPES.set(TYPE_EVENT, new Type({
     modelClass: Event,
     model: undefined,
     inSentencePrefix: " un ",
-    defaultMainImage: "",
+    defaultMainImage: "/general_images/event-default.png",
     icon: "calendar"
 }))
 
@@ -112,7 +114,17 @@ TYPES.set(TYPE_PLACE, new Type({
     labelPlural: "Lieux",
     modelClass: Place,
     inSentencePrefix: " un ",
-    defaultMainImage: "",
+    defaultMainImage: "/general_images/place-default.png",
+    icon: "map-marker"
+}))
+
+TYPES.set(TYPE_EQUIPMENT, new Type({
+    slug:"equipment",
+    label: "Équipement",
+    labelPlural: "Équipements",
+    modelClass: Equipment,
+    inSentencePrefix: " un ",
+    defaultMainImage: "/general_images/equipment-default.png",
     icon: "map-marker"
 }))
 

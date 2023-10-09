@@ -1,5 +1,5 @@
 import {getColor} from "@/src/styles/datatypeStyle";
-import {TYPE_EVENT, TYPE_ORGANISATION, TYPE_PERSON, TYPE_PLACE, TYPE_PROJECT, TYPE_TAXONOMY} from "../Types";
+import {TYPE_EQUIPMENT, TYPE_EVENT, TYPE_ORGANISATION, TYPE_PERSON, TYPE_PLACE, TYPE_PROJECT, TYPE_TAXONOMY} from "../Types";
 
 
 class ApiEntityModel {
@@ -55,6 +55,9 @@ class ApiEntityModel {
                 break;
             case TYPE_PLACE :
                     return ApiEntityModel.locationToSelectOptions( entity );
+                break;
+            case TYPE_EQUIPMENT :
+                    return ApiEntityModel.nameToSelectOptions( entity );
                 break;
 
             default : 

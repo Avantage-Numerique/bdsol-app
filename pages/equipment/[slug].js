@@ -1,42 +1,42 @@
 import React from 'react'
-
-import {
-    externalApiRequest
-} from '@/src/hooks/http-hook';
+import {externalApiRequest} from '@/src/hooks/http-hook';
 
 
 //components
+import EquipmentSingleView from '@/src/DataTypes/Equipment/components/layouts/single/EquipmentSingleView';
 import {getUserHeadersFromUserSession} from "@/auth/context/auth-context";
 import {withSessionSsr} from "@/auth/session/handlers/withSession";
 import AppRoutes from "@/src/Routing/AppRoutes";
-import EventSingleEdit from '@/src/DataTypes/Event/component/layout/single/EventSingleEdit';
 
 
-const SingleEventEditPage = props => {
+const SingleEquipmentViewPage = props => {
 
     return (
         <div className={`single-container single-person`}>
             <div className="maxWidthPageContainer">
-                <EventSingleEdit data={props} route={AppRoutes.eventSingle} />
+                <EquipmentSingleView data={props} route={AppRoutes.equipmentSingle} />
             </div>
         </div>
     )
 }
     
-export default SingleEventEditPage;
+export default SingleEquipmentViewPage;
 
-export const getServerSideProps = withSessionSsr(eventSlugSSProps);
+export const getServerSideProps = withSessionSsr(equipmentSlugSSProps);
 
-export async function eventSlugSSProps(context) {
+export async function equipmentSlugSSProps(context) {
     const { slug } = context.query;
 
     const response = await externalApiRequest(
-        `/events/${slug}`,
+        `/equipment/${slug}`,
         {
             method: 'GET',
             headers: getUserHeadersFromUserSession(context.req.session.user)
         });
 
+    if(typeof response.data._id === "undefined")
+        return { notFound: true };
+        
     return { props: response.data };
 }
 
