@@ -3,7 +3,6 @@ import React, {useCallback} from 'react';
 //components
 import SingleBase from "@/src/DataTypes/common/layouts/single/SingleBase"
 import SingleBaseHeader from "@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseHeader"
-import SearchTag from '@/src/common/Components/SearchTag';
 import SingleInfo from "@/DataTypes/common/layouts/SingleInfo/SingleInfo";
 import SocialHandleDisplay from '@/DataTypes/common/layouts/SocialHandlesViews/SocialHandleDisplay'
 
@@ -12,16 +11,20 @@ import SanitizedInnerHtml from '@/src/utils/SanitizedInnerHtml';
 import {SingleEntityMeta} from "@/src/DataTypes/Meta/components/SingleEntityMeta";
 import {lang} from "@/common/Data/GlobalConstants";
 import Equipment from '../../../models/Equipment';
+import {appConfig} from "@/src/configs/AppConfig";
 
 
 const EquipmentSingleView = ({ data }) => {
 
     const model = new Equipment(data);
+
+    const sectionClassSpacing = appConfig.spacing.singleSectionSpacingClass;
+
     /* Needed for breadCrumb generator */
     const getLabelGenerator = useCallback((param, query) => {
         return {
             "equipment": lang.Equipment,
-            "slug": model.title        
+            "slug": model.title
         }[param];
     }, []);
 
@@ -58,16 +61,17 @@ const EquipmentSingleView = ({ data }) => {
         <>
             {
                 model.brand &&
-                <SingleInfo title={lang.brand}>{model.brand}</SingleInfo>
+                <SingleInfo title={lang.brand} className={`${sectionClassSpacing}`}>{model.brand}</SingleInfo>
             }
             {
                 model.modelName &&
-                <SingleInfo title={lang.modelName}>{model.modelName}</SingleInfo>
+                <SingleInfo title={lang.modelName} className={`${sectionClassSpacing}`}>{model.modelName}</SingleInfo>
             }
             
             <SocialHandleDisplay 
                 title={lang.url} 
-                url={model?.url} 
+                url={model?.url}
+                className={`${sectionClassSpacing}`}
             />
         </>
     )

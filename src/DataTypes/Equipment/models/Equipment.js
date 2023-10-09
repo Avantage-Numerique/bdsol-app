@@ -12,7 +12,7 @@ class Equipment extends EntityModel {
 
         super(raw);
 
-        this.title = raw.name ?? "";
+        this.title = raw.label ?? "";
         this.description = raw.description ?? "";
         this.mainImage = !raw.mainImage || raw.mainImage === "" || !raw.mainImage ? {
             url: "/general_images/default-equipment.png",
