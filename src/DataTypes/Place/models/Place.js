@@ -32,8 +32,7 @@ class Place extends EntityModel {
 
         this.type = TYPE_PLACE;
 
-        this.meta.title = this.title;
-        this.meta.description = this.description;
+        this.meta = {title: this.title, description: this.description, ...raw.meta};
 
         params.showMeta = params.showMeta ?? true;
         params.showStatus = params.showStatus ?? true;

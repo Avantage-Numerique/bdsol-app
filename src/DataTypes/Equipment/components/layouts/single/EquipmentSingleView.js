@@ -31,11 +31,15 @@ const EquipmentSingleView = ({ data }) => {
         route: model.singleRoute,
         getLabelGenerator: getLabelGenerator
     }
-
+    const title = (
+        <>
+            <SanitizedInnerHtml tag={"h5"} className="text-white">{`${model.equipmentType.name}`}</SanitizedInnerHtml>
+            <SanitizedInnerHtml tag={"h3"} className="text-white">{`${model.title}`}</SanitizedInnerHtml>
+        </>)
     const subtitle = (<></>)
     const Header = (
         <SingleBaseHeader
-            title={(<SanitizedInnerHtml tag={"h1"} className="text-white">{`${model.title}`}</SanitizedInnerHtml>)}
+            title={title}
             subtitle={subtitle}
             mainImage={model.mainImage}
             entity={model}
@@ -61,7 +65,18 @@ const EquipmentSingleView = ({ data }) => {
             }
             {
                 model?.url?.length > 0 &&
-                <SingleInfo title={lang.url}>{model.url}</SingleInfo>
+                <SingleInfo title={lang.url}>
+                    {model.url.map( (singleUrl) => {
+                        return (
+                            <div>
+                                <div>
+                                    {singleUrl.label}
+                                </div>
+                                <a href={singleUrl.url} target='blank'>{singleUrl.url}</a>
+                            </div>
+                        )
+                    })}
+                </SingleInfo>
             }
         </>
     )

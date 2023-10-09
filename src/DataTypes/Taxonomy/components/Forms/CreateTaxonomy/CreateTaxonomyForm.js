@@ -200,7 +200,7 @@ const CreateTaxonomyForm = ({name, category, initValues, onPositiveResponse, ...
                 />
 
                 <div className="col-12">
-                    <Button type="submit" disabled={!formState.isValid}>Soumettre</Button>
+                    <Button type="button" onClick={submitHandler} disabled={!formState.isValid}>Soumettre</Button>
                 </div>
 
             </form>

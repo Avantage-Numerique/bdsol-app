@@ -121,7 +121,7 @@ const EventSingleView = ({data}) => {
 
 
     const fullWidthContent = (
-        <div>
+        <div className="border">
             <div className="row justify-content-center align-items-center">
                 <div className="col col-md-6">              
                     {/*Date*/}

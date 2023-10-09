@@ -57,7 +57,7 @@ class ApiEntityModel {
                     return ApiEntityModel.locationToSelectOptions( entity );
                 break;
             case TYPE_EQUIPMENT :
-                    return ApiEntityModel.nameToSelectOptions( entity );
+                    return ApiEntityModel.equipmentToSelectOptions( entity );
                 break;
 
             default : 
@@ -98,6 +98,17 @@ class ApiEntityModel {
         //Else if domains are from request db taxonomies
         return domains.map( (domain) => {
             return [{ value : domain._id, label : domain.name, color : getColor(domain) }]
+        })
+    }
+
+    static equipmentToSelectOptions(equipment){
+        //If domains is from entity formState
+        if(!Array.isArray(equipment))
+            return [{ value : equipment._id, label : equipment.label, color : getColor(equipment) }]
+        
+        //Else if domains are from request db taxonomies
+        return equipment.map( (equipment) => {
+            return [{ value : equipment._id, label : equipment.label, color : getColor(equipment) }]
         })
     }
 

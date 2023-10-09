@@ -17,6 +17,7 @@ import {
 } from '@dnd-kit/sortable';
 
 import {useSortable} from '@dnd-kit/sortable';
+
 import {CSS} from '@dnd-kit/utilities';
 
 //Hooks
@@ -28,7 +29,6 @@ import Icon from '@/src/common/widgets/Icon/Icon';
 
 //Context
 import {useAuth} from '@/auth/context/auth-context';
-import {getDefaultCreateEntityMeta} from "@/src/DataTypes/Meta/EntityMeta";
 
 //styles
 import styles from './Repeater.module.scss'
@@ -43,7 +43,7 @@ const iterateOverChildren = (children, formInitSubStructure, formTools, deleteIt
       //If this child has a name prop,
       // and if the value is equal to one of the values declared for the formState, then it means it is a field and require a formtool
       const newProps = Object.keys(formInitSubStructure).some(key => key === child.props?.name) ? {'formTools': formTools} : {};
-      const deleteButton = child.props?.repeaterdeletedlem ? {'onClick': () => deleteIteration()} : {};
+      const deleteButton = child.props?.repeaterDeleteElem ? {'onClick': () => deleteIteration()} : {};
 
       return React.cloneElement(child, {
         ...child.props,
@@ -144,7 +144,7 @@ const Repeater = props => {
         children,               // - Elements to repeat
                                 //             (can be on multiple level. EX : <div><Input /></div>)
                                 //              List of key words in the children (props name that the repeater is going to be looking for) : 
-                                //                  - repeaterdeletedlem : if true, an onClick event is going to be added to delete this iteration
+                                //                  - repeaterDeleteElem : if true, an onClick event is going to be added to delete this iteration
                                 //                  - name : if defined and if it fits the values passed in the form init structure, it is going to receive the sub formTools for this specific iteration
         formInitStructure,      // - [object] :Structure of the form for every instance of the repeated element
                                 // -           CAREFUL => the names in the formInitstructure must reflect the names of the fields entered has children
@@ -200,8 +200,6 @@ const Repeater = props => {
                     //replace the name by the value to return
                     returnShape[getKeyByValue(returnShape, fieldName)] = ite.value[fieldName] ? ite.value[fieldName].value : {};
                 }) 
-                //Add the proper meta
-                returnShape.meta = ite.meta;
                 //Add the result to the return array
                 value.push(returnShape);
             */
@@ -237,7 +235,6 @@ const Repeater = props => {
             //3. Loop in the initialValues passed has props to fill the startIterationsObj
             initValues.forEach((elem, i) => {
                 //Initialize the value that are going to compose the return object
-                let current_meta = elem.meta ? elem.meta : undefined;
                 let current_id = elem._id ? elem._id : elem.id ? elem.id : undefined;
                 let formInitStructureWithValues = {};  //Same shape but going to be filled with the values
                 //For the last one, lets loop into the array of key words to search for a fit
@@ -248,7 +245,7 @@ const Repeater = props => {
                         }
                 })
                 //New lets build the formObject with thoses values
-                const newIterationObj = createIteration( current_meta, current_id, formInitStructureWithValues, elem?.subMeta?.order, (Object.keys(startIterationsObj).length > 0 ? startIterationsObj : null));
+                const newIterationObj = createIteration(current_id, formInitStructureWithValues, elem?.subMeta?.order);
                 //Update the return object
                 startIterationsObj = {...startIterationsObj, ...newIterationObj};
             });
@@ -311,49 +308,17 @@ const Repeater = props => {
     }
 
     //Create a new Id and make sure its not gonna be in double
-    function createIteration( meta, _id, initFormStructureWithValues, orderNumber=null, initialValues = null ){
+    function createIteration(_id, initFormStructureWithValues, orderNumber=null ){
         //Create an ID
         const key = generateUniqueId();
-        //Actual data already present. 
-        // 1. We prioritize the initialValues that are passed through the function at the initialisation of the component
-        // 2. If the parameter is not defined, this means we are not anymore at the initialisation stage and the value to evaluate is stored in the state. Therefore, we evaluate the state with the variable "initIteration" 
-        // 3. If both of them are empty, then we pass an empty array because there is simply no data
-        const iterationsArray = initialValues ? Object.values(initialValues) : (Object.values(initIteration) ? Object.values(initIteration) : []);
-        //Get order number and prevent it from creating duplicates
-        let order = null;
-        //If order number is defined
-        if(orderNumber || orderNumber == 0){
-            //Does it already exist in the state ?
-            if(iterationsArray.map(o => o.order).some(elem => elem === orderNumber)){
-                //If it exist, then we need to give it the first (smallest) available position instead
-                //For this, we are gonna loop through the possible instances while incrementing the order until it finds an available value
-                const arrayOfExistingOrders = iterationsArray.map(o => o.order);
-                let loopCondition = true
-                let i = 0;
-
-                while(loopCondition && i < 100){
-                    i++; //Increment the value
-                    if(i == 99)
-                        console.error("Repeater prevented an infinite loop, or blocked it because of too many elements. ")
-                    if(!arrayOfExistingOrders.some(elem => elem === (orderNumber + i))){
-                        loopCondition = false; //Stop the loop
-                        order = orderNumber + i
-                    }
-                }
-
-            //If the order doesn't already exist, then add it directly as the right value
-            } else { order = orderNumber; }
-    
-        } else {
-            order = iterationsArray.length > 0 ? (Math.max(...iterationsArray.map(o => o.order))) + 1 : 0 //Prioriser le order number. S'il n'y en a aucun, on prend la plus haute valeur dans iterations
-        }
+        //Iterations array
+        const iterationsArray = initIteration ? Object.values(initIteration) : [];
         //Build the object
         const obj = {
             [key]: {
                 key: key,
-                order: order,
+                order: orderNumber || ( iterationsArray.length > 0 ? (Math.max(...iterationsArray.map(o => o.order))) + 1 : 0),  //Prioriser le order number. S'il n'y en a aucun, on prend la plus haute valeur dans iterations
                 value: {},
-                meta: meta ? meta : getDefaultCreateEntityMeta(auth.user),
                 initFormStructureWithValues: initFormStructureWithValues ? initFormStructureWithValues : null,
                 _id: _id ? _id : null,
                 isValid: true
@@ -434,7 +399,9 @@ const Repeater = props => {
                 //For this to work, we assume that the index are in order
                 const oldOrder = newIterationState[key].order;
                 //Find the new order of the element by its index in the array
-                const newOrder = modifiedOrders.indexOf(oldOrder);
+                let newIndex = modifiedOrders.indexOf(oldOrder);
+                //Convert the index in position by incrementing it
+                const newOrder = newIndex;
                 //Modify the value
                 newIterationState[key].order = newOrder;
             })

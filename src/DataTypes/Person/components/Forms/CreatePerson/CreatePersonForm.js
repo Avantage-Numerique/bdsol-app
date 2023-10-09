@@ -24,7 +24,6 @@ const CreatePersonForm = ({ onPositiveResponse }) => {
     const auth = useAuth();
 
     //Main form functionalities
-    //not used : transmuteTaxonomyTargetInput
     const { FormUI, submitRequest, formState, formTools } = useFormUtils(
         {
             firstName: {

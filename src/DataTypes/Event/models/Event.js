@@ -25,6 +25,8 @@ class Event extends EntityModel {
         this.mainImageModel = new Media(this.mainImage);
         this.type = TYPE_EVENT;
 
+        this.meta = {title: this.title, description: this.description, ...raw.meta};
+
         //this.taxonomies = new Map();
         //this.taxonomies.set("domains", raw.domains);
         //this.taxonomies.set("skills", raw.skills);

@@ -60,7 +60,7 @@ const CreateEquipmentForm = ({ onPositiveResponse }) => {
 
         const formData = {
             data: {
-                equipmentType: formState.inputs.equipmentType.value,
+                equipmentType: formState.inputs.equipmentType.value.value,
                 label:  formState.inputs.label.value,
                 brand: formState.inputs.brand.value,
                 modelName: formState.inputs.modelName.value,

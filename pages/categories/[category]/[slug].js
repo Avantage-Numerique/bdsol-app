@@ -3,7 +3,7 @@ import PageHeader from "@/layouts/Header/PageHeader";
 import React, {useCallback} from "react";
 import {lang} from "@/common/Data/GlobalConstants";
 import CreateTaxonomyForm from "@/DataTypes/Taxonomy/components/Forms/CreateTaxonomy/CreateTaxonomyForm";
-import {useModal} from "@/src/hooks/useModal/useModal";
+import { useRootModal } from '@/src/hooks/useModal/useRootModal';
 import Router, {useRouter} from "next/router";
 import Button from "@/FormElements/Button/Button";
 import {useAuth} from "@/auth/context/auth-context";
@@ -32,7 +32,6 @@ export async function getServerSideProps(context) {
 
     if(typeof taxonomy.data._id === 'undefined' || entities.data._id)
         return { notFound: true };
-
     return { props: {
             taxonomy: taxonomy.data,
             data: entities.data
@@ -41,11 +40,11 @@ export async function getServerSideProps(context) {
 
 
 const TaxonomiesSinglePage = (props) => {
-
     const category = [
         {label: "Compétence", value: "skills"},
         {label: "Domaine", value: "domains"},
-        {label: "Technologie", value: "technologies"}
+        {label: "Technologie", value: "technologies"},
+        {label: lang.equipmentType, value: "equipmentType"}
     ]
 
     const {data, taxonomy} = props;
@@ -55,33 +54,11 @@ const TaxonomiesSinglePage = (props) => {
     const auth = useAuth();
     const router = useRouter();
     const closingModalBaseURI = router.asPath;
-    const {displayModal, modal, closeModal, Modal} = useModal();
 
-    const ModalComponent = CreateTaxonomyForm;
-    const modalComponentParams = {
-        uri:"update"
-    };
+    //Extract root modal 
+    const { Modal, displayModal, closeModal, modalInitValues } = useRootModal();
 
     const type = getType(TYPE_TAXONOMY);
-
-    const redirectOnClosingHandler = (requestResponse, closingCallback, targetSlug) => {
-        let redirectUrl = "";
-
-        if (closingModalBaseURI !== undefined) {    //Add the baseURI
-            redirectUrl += `${closingModalBaseURI}`;
-        }
-
-        if (targetSlug !== undefined) {             //Add the slug if it's set
-            redirectUrl += `${targetSlug}`;
-        }
-
-        if (redirectUrl !== "") {
-            Router.push(`${redirectUrl}`);
-            closingCallback();
-        } else {
-            throw(new Error("Un problème est survenu."));
-        }
-    }
 
     const displayUpdateForm = () => {
         displayModal();
@@ -137,25 +114,25 @@ const TaxonomiesSinglePage = (props) => {
             {/*  Show the feed in the EntitiesGrid component. It manages an empty list in it, but it make it more readable to show it here too */}
             <EntitiesGrid className="row row-cols-1 row-cols-sm-2 row-cols-xl-3" columnClass={"col g-3"} feed={data}/>
 
-            {
-                modal.display &&
-                <Modal
-                    className={`taxonomy-form-modal`}
-                    coloredBackground
-                    darkColorButton
-                    closingFunction={closeModal}
-                >
-                    <ModalComponent
-                        initValues={taxonomy}
-                        positiveRequestActions={{
-                            callbackFunction: requestResponse => {  //CallbackFunction is one of the four behaviors the useFormUtils hook can apply when a request return a positive answer
-                                redirectOnClosingHandler(requestResponse, closeModal);
-                            }
-                        }}
-                        {...modalComponentParams}
-                    />
-                </Modal>
-            }
+            <Modal {...props}>
+                <header className={`d-flex justify-content-end`}>
+                    <Button onClick={() => closeModal()}>Fermer</Button>
+                </header>
+                <div className={`my-4 border-bottom`}></div>
+
+                <CreateTaxonomyForm
+                    {...props}
+                    uri="update"
+                    name={taxonomy.name ?? ''}   //Prefilled value
+                    initValues={ taxonomy ?? {} }
+                    category={props.requestData?.category}
+                    onPositiveResponse={(requestResponse) => {
+                        Router.push(`/categories/${requestResponse.data.category}/${requestResponse.data.slug}`);
+                        closeModal();
+                    }}
+                    
+                />
+            </Modal>
         </div>
     )
 }

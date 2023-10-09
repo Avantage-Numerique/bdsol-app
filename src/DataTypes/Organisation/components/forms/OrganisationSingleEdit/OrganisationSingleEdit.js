@@ -24,6 +24,7 @@ import SingleInfo from '@/src/DataTypes/common/layouts/SingleInfo/SingleInfo';
 import {SingleEntityMeta} from '@/src/DataTypes/Meta/components/SingleEntityMeta';
 import UpdateSkillGroup from '@/src/DataTypes/common/Forms/UpdateSkillGroup/UpdateSkillGroup';
 import UpdateTeams from '../UpdateTeams/UpdateTeams';
+import SelectEquipment from '@/src/DataTypes/Equipment/components/layouts/SelectEquipment/SelectEquipment';
 
 //Utils
 import Organisation from '@/src/DataTypes/Organisation/models/Organisation';
@@ -51,6 +52,7 @@ const OrganisationSingleEdit = (props) => {
         team,
         mainImage,
         slug,
+        equipment,
         catchphrase,
         meta,
         location,
@@ -153,6 +155,10 @@ const OrganisationSingleEdit = (props) => {
         location: {
             value: location ?? [],
             isValid: true
+        },
+        equipment: {
+            value: equipment ?? [],
+            isValid: true
         }
     }, {
             displayResMessage: true,     //Display a message to the user to confirm the succes
@@ -161,6 +167,7 @@ const OrganisationSingleEdit = (props) => {
             }
 
         })
+
     //Function to submit the form
     const submitHandler = async event => {
 
@@ -189,6 +196,13 @@ const OrganisationSingleEdit = (props) => {
                         }
                     })
                     : [],
+                equipment: formState.inputs.equipment.value.map(elem => {
+                    return {
+                        equipment: elem.value.equipment.value.value,
+                        qty: parseInt(elem.value.qte.value),
+                        subMeta: {order: elem.order},
+                    }
+                }),
                 team:formState.inputs.team.value.map(function(singleTeam){
                     return {
                         member: singleTeam.value.member.value.value,
@@ -201,7 +215,7 @@ const OrganisationSingleEdit = (props) => {
                         return singlePlace.value
                     })
                     : [],
-                meta: getDefaultUpdateEntityMeta(auth.user)
+                meta: getDefaultUpdateEntityMeta(auth.user, model.meta.requestedBy)
             }
         };
 
@@ -218,7 +232,7 @@ const OrganisationSingleEdit = (props) => {
         return {
             "contribuer": lang.menuContributeLabel,
             "organisations": lang.Organisations,
-            "slug": name ?? "-"
+            "slug": model.name ?? "-"
         }[param];
     }, []);
 
@@ -292,7 +306,7 @@ const OrganisationSingleEdit = (props) => {
                 parentEntity={props.data}
                 formTools={formTools}
                 name="offers"
-                label="Éditez vos groupes d'offres de services"
+                label="Éditez les groupes d'offres de services"
                 //createOptionFunction={displayModalForSkills}
             />
             { /* team */ }
@@ -300,7 +314,14 @@ const OrganisationSingleEdit = (props) => {
                 name="team"
                 formTools={formTools}
                 parentEntity={props.data}
-                label="Éditez vos membre d'équipe"
+                label="Éditez les membres de l'équipe"
+            />
+            { /* Equipment */}
+            <SelectEquipment 
+                name="equipment"
+                formTools={formTools}
+                parentEntity={props.data}
+                label={lang.EditEquipment}
             />
         </>
     );
@@ -371,8 +392,8 @@ const OrganisationSingleEdit = (props) => {
                 className="mb-3"
                 label="Hyperlien"
                 type="url"
-                pattern={inputUrlRegex}
-                placeholder="Une url avec le https, exemple : https://siteWeb.com"
+                //pattern={inputUrlRegex}
+                placeholder="exemple : https://www.siteWeb.com"
                 formTools={formTools}
             />
             <div>

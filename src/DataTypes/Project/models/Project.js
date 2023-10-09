@@ -26,8 +26,7 @@ class Project extends EntityModel {
 
         this.type = TYPE_PROJECT;
 
-        this.meta.title = this.title;
-        this.meta.description = this.description;
+        this.meta = {title: this.title, description: this.description, ...raw.meta};
 
         //this.taxonomies = new Map();
         //this.taxonomies.set("domains", raw.domains);

@@ -2,7 +2,7 @@ const meta = {
     "accepted": "Accepté",
     "pending": "En attente d'approbation",
     "reported": "rapporté",
-    "lastModification": "Dernière modifications",
+    "lastModification": "Dernières modifications",
     "created": "Créé",
 
     "entityMeta": "Statut de l'entité",
@@ -10,7 +10,7 @@ const meta = {
     //  History (user Histories, etc)
 
     "modificationHistory": "Historique de modification",
-    "entityMetadata": "Information de la donnée",
+    "entityMetadata": "Informations de la donnée",
 }
 
 exports.meta = meta;

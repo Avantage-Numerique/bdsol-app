@@ -54,6 +54,7 @@ const EntitiesTagGrid = ({feed, className, columnClass, subEntityProperty, subBa
                         const type = typeof forcedType === "string" ? forcedType : entityType;//forced type can be use if the data doesn't contain the types.
 
                         const model = getModelFromType(type, rawData);
+
                         const isLastRow = index >= (feedLength - nbColumnsMd);
                         const spacingClasses = !isLastRow ? 'pb-4' : '';
                         if (model) {

@@ -17,10 +17,12 @@ import {SingleEntityMeta} from '@/src/DataTypes/Meta/components/SingleEntityMeta
 import SingleBase from '@/src/DataTypes/common/layouts/single/SingleBase';
 import UpdateTeams from '@/src/DataTypes/Organisation/components/forms/UpdateTeams/UpdateTeams';
 import CreateTaxonomyForm from '@/src/DataTypes/Taxonomy/components/Forms/CreateTaxonomy/CreateTaxonomyForm';
+//import SelectEquipment from '@/src/DataTypes/Equipment/components/layouts/SelectEquipment/SelectEquipment'
+import SingleInfo from "@/src/DataTypes/common/layouts/SingleInfo/SingleInfo";
 
 //Utils
 import {lang} from "@/src/common/Data/GlobalConstants";
-import {getDefaultCreateEntityMeta} from "@/src/DataTypes/Meta/EntityMeta";
+import {getDefaultUpdateEntityMeta} from "@/src/DataTypes/Meta/EntityMeta";
 import Project from "@/DataTypes/Project/models/Project";
 import {replacePathname} from "@/src/helpers/url";
 
@@ -31,7 +33,7 @@ import UpdateScheduleBudget from '@/src/DataTypes/Project/component/forms/Update
 import UpdateSponsor from '@/src/DataTypes/Project/component/forms/UpdateSponsor';
 import Icon from "@/common/widgets/Icon/Icon";
 import MainImageDisplay from "@/DataTypes/common/layouts/single/defaultSections/MainImageDisplay/MainImageDisplay";
-import {TYPE_TAXONOMY} from '@/src/DataTypes/Entity/Types';
+import {TYPE_TAXONOMY, TYPE_EQUIPMENT} from '@/src/DataTypes/Entity/Types';
 import SubmitEntity from "@/DataTypes/common/Forms/SingleEdit/SubmitEntity";
 
 const ProjectSingleEdit = (props) => {
@@ -55,6 +57,7 @@ const ProjectSingleEdit = (props) => {
         domains,
         context,
         meta,
+        equipment,
         type,
         createdAt,
         updatedAt,
@@ -85,7 +88,6 @@ const ProjectSingleEdit = (props) => {
 
     //Import message context 
     const msg = useContext(MessageContext);
-
     /*
     First of all, verify if the user is logged in.
     If he isn't, then redirect him in the connexion page
@@ -141,6 +143,10 @@ const ProjectSingleEdit = (props) => {
                 value: team ?? [],
                 isValid: true
             },
+            equipment: {
+                value: equipment ?? [],
+                isValid: true
+            },
             /*mainImage: {
                 value: mainImage ?? "",
                 isValid: true
@@ -194,7 +200,6 @@ const ProjectSingleEdit = (props) => {
             }
         }
     )
-
     const submitHandler = async event => {
         
         event.preventDefault();
@@ -238,6 +243,7 @@ const ProjectSingleEdit = (props) => {
                         subMeta: { order: singleTeam.order }
                     }
                 }),
+                equipment: formState.inputs?.equipment?.value?.map(elem => elem.value),
                 skills: formState.inputs.skills?.value?.length > 0 ? formState.inputs.skills.value.map( (selectOptionSkill) => {
                     return selectOptionSkill.value
                 }) : [],
@@ -250,7 +256,7 @@ const ProjectSingleEdit = (props) => {
                     : [],
                 contactPoint: formState.inputs.contactPoint.value,
                 url: formState.inputs.url.value,
-                meta: getDefaultCreateEntityMeta(auth.user),
+                meta: getDefaultUpdateEntityMeta(auth.user, model.meta.requestedBy),
             }
         }
         
@@ -266,8 +272,8 @@ const ProjectSingleEdit = (props) => {
     const getLabelGenerator = useCallback((param, query) => {
         return {
             "contribuer": lang.menuContributeLabel,
-            "projets": lang.createProject,
-            "slug": name ?? "-"
+            "projets": lang.Projects,
+            "slug": model.name ?? "-"
         }[param];
     }, []);
 
@@ -386,7 +392,22 @@ const ProjectSingleEdit = (props) => {
                 label="Échéancier et budget"
                 parentEntity={props.data}
             />
-            
+            { /* Update the equipment list */ }         
+            <SingleInfo
+                title={lang.equipmentUsed}
+                className="py-3"
+            >
+                <Select2
+                    name="equipment"
+                    creatable
+                    isMulti
+                    formTools={formTools}
+                    modalType={TYPE_EQUIPMENT}
+                    fetch={"/equipment/list"}
+                    searchField={"label"}
+                    selectField={"label"}
+                />
+            </SingleInfo>
         </>
     );
     const contentColumnRight = (
@@ -410,26 +431,27 @@ const ProjectSingleEdit = (props) => {
                     modalType={TYPE_TAXONOMY}
                     isMulti={true}
                     createOptionFunction={displayModalForSkills}
-                    requestData={{name:""}}
-                    fetch={"/taxonomies/list"}
+                    fetch={"/taxonomies/group/skills"}
                     searchField={"name"}
                     selectField={"name"}
                 />
             </div>
-            <Select2
-                name="domains"
-                label={lang.Domains}
-                formTools={formTools}
-                creatable={true}
-                modalType={TYPE_TAXONOMY}
-                isMulti={true}
-                createOptionFunction={displayModalForDomains}
+            <div className="mb-3">
+                <Select2
+                    name="domains"
+                    label={lang.Domains}
+                    formTools={formTools}
+                    creatable={true}
+                    modalType={TYPE_TAXONOMY}
+                    isMulti={true}
+                    createOptionFunction={displayModalForDomains}
 
-                fetch={"/taxonomies/list"}
-                requestData={{category:"domains", name:""}}
-                searchField={"name"}
-                selectField={"domains"}
-            />
+                    fetch={"/taxonomies/list"}
+                    requestData={{category:"domains", name:""}}
+                    searchField={"name"}
+                    selectField={"domains"}
+                />
+            </div>
             <Input
                 className="mb-3"
                 name="contactPoint"
@@ -452,8 +474,8 @@ const ProjectSingleEdit = (props) => {
                 label="Hyperlien"
                 type="url"
                 className="mb-3"
-                pattern="^https?:\/\/[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$"
-                placeholder="Une url avec le https, exemple : https://siteWeb.com"
+                //pattern="^https?:\/\/[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$"
+                placeholder="exemple : https://siteWeb.com"
                 formTools={formTools}
             />
             <>

@@ -1,4 +1,5 @@
 import React, {useCallback} from 'react';
+import Link from "next/link";
 
 //components
 import SingleBaseHeader from "@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseHeader"
@@ -8,6 +9,7 @@ import SearchTag from '@/src/common/Components/SearchTag';
 
 //Utils
 import Organisation from '@/src/DataTypes/Organisation/models/Organisation';
+import Equipment from '@/src/DataTypes/Equipment/models/Equipment';
 import {lang} from "@/common/Data/GlobalConstants";
 import SingleInfo from "@/DataTypes/common/layouts/SingleInfo/SingleInfo";
 import {SingleEntityMeta} from "@/src/DataTypes/Meta/components/SingleEntityMeta";
@@ -17,6 +19,8 @@ import {dateManager, FULL_HUMAN_DATE_FORMAT} from "@/common/DateManager/DateMana
 import {SkillGroup} from "@/DataTypes/common/layouts/skillsGroup/SkillGroup";
 import {appConfig} from "@/src/configs/AppConfig";
 
+//Styles
+import styles from './OrganisationSingleView.module.scss';
 
 const OrganisationSingleView = ({ data }) => {
 
@@ -40,6 +44,7 @@ const OrganisationSingleView = ({ data }) => {
         meta,
         projects,
         events,
+        equipment,
         //__v,
         //_id
     } = data;
@@ -137,6 +142,38 @@ const OrganisationSingleView = ({ data }) => {
                             {url}
                         </ExternalLink>
                     </p>
+                </SingleInfo>
+            }
+            {
+                equipment &&
+                <SingleInfo title={lang.Equipments} className={"mb-3 mt-2"}>
+                    <ul className={`container mt-2 ${styles["equipment-container"]}`}>
+                            <li className="row">
+                                <div className="d-flex">
+                                    <div className={`text-secondary ${styles["equipment-row__qty"]}`}>{lang.Qty}</div>
+                                    <div className={`col text-secondary`}>{lang.label}</div>
+                                    <div className="col text-secondary">{lang.modelName}</div>
+                                    <div className="col text-secondary">{lang.brand}</div>
+                                </div>
+                            </li>
+                        {
+                            equipment.map(equip => {
+                                const model = new Equipment(equip.equipment);
+                                return (
+                                    <li className={` ${styles["equipment-row"]} row border-top py-2`}>
+                                        <Link href={model.singleLink} title={model.name}>
+                                            <div className="d-flex">
+                                                <div className={`${styles["equipment-row__qty"]}`}>{equip.qty}</div>
+                                                <div className={`col ${styles["equipment-row__name"]}`}>{model.label}</div>
+                                                <div className="col">{model.modelName}</div>
+                                                <div className="col">{model.brand}</div>
+                                            </div>
+                                        </Link>
+                                    </li>
+                                )
+                            })
+                        }
+                    </ul>
                 </SingleInfo>
             }
         </>

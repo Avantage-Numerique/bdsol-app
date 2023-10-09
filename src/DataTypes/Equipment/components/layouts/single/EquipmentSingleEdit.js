@@ -9,11 +9,8 @@ import {useModal} from '@/src/hooks/useModal/useModal'
 //components
 import Button from '@/FormElements/Button/Button'
 import Input from '@/FormElements/Input/Input'
-import RichTextarea from '@/FormElements/RichTextArea/RichTextarea'
-import CreateTaxonomyForm from '@/DataTypes/Taxonomy/components/Forms/CreateTaxonomy/CreateTaxonomyForm'
 import {lang} from "@/src/common/Data/GlobalConstants";
 import Select2 from '@/src/common/FormElements/Select2/Select2'
-import Modal from '@/src/hooks/useModal/Modal/Modal'
 import {SingleEntityMeta} from '@/src/DataTypes/Meta/components/SingleEntityMeta'
 
 //Context
@@ -21,7 +18,7 @@ import {useAuth} from "@/src/authentification/context/auth-context";
 import {MessageContext} from '@/src/common/UserNotifications/Message/Context/Message-Context';
 
 //FormData
-import {getDefaultCreateEntityMeta} from "@/src/DataTypes/Meta/EntityMeta";
+import {getDefaultUpdateEntityMeta} from "@/src/DataTypes/Meta/EntityMeta";
 import SingleBaseHeader from '@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseHeader'
 import SingleBase from '@/src/DataTypes/common/layouts/single/SingleBase'
 import {replacePathname} from "@/src/helpers/url";
@@ -30,6 +27,7 @@ import MainImageDisplay from "@/DataTypes/common/layouts/single/defaultSections/
 import {TYPE_TAXONOMY} from '@/src/DataTypes/Entity/Types'
 import SubmitEntity from "@/DataTypes/common/Forms/SingleEdit/SubmitEntity";
 import Equipment from '../../../models/Equipment'
+import UpdateSocialHandles from '../../../../common/Forms/UpdateSocialHandles/UpdateSocialHandles'
 
 
 const EquipmentSingleEdit = ({ positiveRequestActions, ...props}) => {
@@ -78,7 +76,6 @@ const EquipmentSingleEdit = ({ positiveRequestActions, ...props}) => {
     }, [auth.user.isLoggedIn]);
 
     //Main form functionalities
-    //not used : transmuteTaxonomyTargetInput
     const { FormUI, submitRequest, formState, formTools } = useFormUtils(
         {
             equipmentType: {
@@ -119,20 +116,19 @@ const EquipmentSingleEdit = ({ positiveRequestActions, ...props}) => {
         const formData = {
             data: {
                 id: model._id,
-                equipmentType: formState.inputs.equipmentType.value,
+                equipmentType: formState.inputs.equipmentType.value.value,
                 label:  formState.inputs.label.value,
                 brand: formState.inputs.brand.value,
                 modelName: formState.inputs.modelName.value,
-                //url: [{label: "Hyperlien", url:formState.inputs.url.value}],
-                /*.map(function(singleOccupation){
+                url: formState.inputs.url.value.map(function(singleUrl){
                     return {
-                        groupName: singleOccupation.value.groupName.value,
-                        skills: singleOccupation.value.skills.value.map( (skill) => { return skill.value }),
-                        subMeta: { order : singleOccupation.order }
+                        label: singleUrl.value.label.value,
+                        url: singleUrl.value.url.value,
+                        subMeta: { order : singleUrl.order }
                     }
-                }),*/
+                }),
 
-                meta: getDefaultCreateEntityMeta(auth.user),
+                meta: getDefaultUpdateEntityMeta(auth.user, model.meta.requestedBy),
             }
         };
 
@@ -147,18 +143,11 @@ const EquipmentSingleEdit = ({ positiveRequestActions, ...props}) => {
     const getLabelGenerator = useCallback((param, query) => {
         return {
             "contribuer": lang.menuContributeLabel,
-            "equipements": lang.Equipements,
-            "slug": `${model.name}`
+            "equipements": lang.Equipments,
+            "slug": `${model.name ?? '-'}`
         }[param];
     }, []);
 
-    /*****************************
-     * 
-     * 
-     *  Sections
-     * 
-     * 
-     ***************************/
     const breadCrumb = {
         route: model.singleEditRoute,
         getLabelGenerator: getLabelGenerator
@@ -232,9 +221,10 @@ const EquipmentSingleEdit = ({ positiveRequestActions, ...props}) => {
                 label={lang.modelName}
                 formTools={formTools}
             />
-            <Input
+            <UpdateSocialHandles
                 name="url"
                 label={lang.url}
+                parentEntity={model}
                 formTools={formTools}
             />
         </div>

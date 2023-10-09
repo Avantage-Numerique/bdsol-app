@@ -7,7 +7,7 @@ import {useAuth} from "@/src/authentification/context/auth-context";
 import {MessageContext} from "@/src/common/UserNotifications/Message/Context/Message-Context";
 import {useFormUtils} from "@/src/hooks/useFormUtils/useFormUtils";
 import {lang} from "@/src/common/Data/GlobalConstants";
-import {getDefaultCreateEntityMeta} from "@/src/DataTypes/Meta/EntityMeta";
+import {getDefaultUpdateEntityMeta} from "@/src/DataTypes/Meta/EntityMeta";
 import {replacePathname} from "@/src/helpers/url";
 import {SingleEntityMeta} from '@/src/DataTypes/Meta/components/SingleEntityMeta';
 
@@ -53,7 +53,6 @@ const EventSingleEdit = ({data}, ...props) => {
         attendees,
         domains,
         skills,
-        experience,
         schedule,
         subEvents,
         location,
@@ -176,10 +175,6 @@ const EventSingleEdit = ({data}, ...props) => {
                 value: domains ?? [],
                 isValid: true
             },
-            experience: {
-                value: experience ?? [],
-                isValid: true
-            },
             subEvents: {
                 value: subEvents ?? [],
                 isValid: true
@@ -280,8 +275,7 @@ const EventSingleEdit = ({data}, ...props) => {
                     :[],
                 //Temporary set the input in name field until we have a more elaborated structure for location
                 //location: [{ name: formState.inputs.location.value}],
-                //experience: formState.inputs.experience.value
-                meta: getDefaultCreateEntityMeta(auth.user),
+                meta: getDefaultUpdateEntityMeta(auth.user, model.meta.requestedBy),
             }
         };
 
@@ -290,6 +284,20 @@ const EventSingleEdit = ({data}, ...props) => {
             'POST',
             JSON.stringify(formData)
         );
+    }
+
+    /* Needed for breadCrumb generator */
+    const getLabelGenerator = useCallback((param, query) => {
+        return {
+            "contribuer": lang.menuContributeLabel,
+            "evenements": lang.Events,
+            "slug": `${model.name ?? '-'}`
+        }[param];
+    }, []);
+
+    const breadCrumb = {
+        route: model.singleEditRoute,
+        getLabelGenerator: getLabelGenerator
     }
 
     const title = (
@@ -455,15 +463,6 @@ const EventSingleEdit = ({data}, ...props) => {
                         searchField={"address"}
                         //selectField={"address"}
                     />
-
-                    {/* experiences */}
-                    <Input
-                        name="experience"
-                        label="Expérience"
-                        formTools={formTools}
-                        disabled={true}
-                        placeholder="Bientôt disponible"
-                    />
                 </div>
 
             </div>
@@ -614,7 +613,7 @@ const EventSingleEdit = ({data}, ...props) => {
     return (
         <>
             <SingleBase
-                //breadCrumb={breadCrumb}
+                breadCrumb={breadCrumb}
                 header={header}
                 fullWidthContent={fullWidthContent}
                 contentColumnLeft={contentColumnLeft}
