@@ -74,6 +74,8 @@ const UpdateScheduleBudget = ({name, formTools, ...props}) => {
                             <Repeater
                                 formTools={formTools}
                                 name="timeframe"
+                                sortable
+                                className="bg-greyBg"
                                 formInitStructure={{
                                     step: {
                                         value: "",
@@ -129,7 +131,7 @@ const UpdateScheduleBudget = ({name, formTools, ...props}) => {
 
                                     <div className="cold mb-2 d-flex justify-content-end">
                                         <button 
-                                            repeaterDeleteElem={true}
+                                            repeaterdeletedlem
                                             type="button" 
                                             className="btn underlined-button text-danger py-1">
                                                 Supprimer l'étape

@@ -22,8 +22,6 @@ import styles from './Input.module.scss';
 
 
 const Input = ({name, formTools, ...props}) => {
-
-    const { validate, RequirementsBadges, ValidationErrorMessages } = useValidation( props.validationRules )
     /*
         Access the differents form tools 
     */
@@ -32,6 +30,9 @@ const Input = ({name, formTools, ...props}) => {
         inputHandler,
         inputTouched
     } = formTools;
+
+    const { validate, RequirementsBadges, ValidationErrorMessages, dependencyCallingValidation } = useValidation( props.validationRules, formState )
+
 
     const currentState = formState.inputs[name];
 
@@ -58,13 +59,18 @@ const Input = ({name, formTools, ...props}) => {
         }
     }
 
+    const onTouch = event => {
+        updateValue(event)
+        inputTouched(name)
+    }
+
     useEffect(() => {
         inputHandler(
             name,
             fieldRef.current.value,
             props.validationRules ? validate(fieldRef.current.value) : true
         )
-    }, [])
+    }, [dependencyCallingValidation])
 
  
     return (
@@ -104,7 +110,7 @@ const Input = ({name, formTools, ...props}) => {
                     type={props.type ? props.type : "text"}
                     placeholder={props.placeholder}
                     onChange={updateValue}
-                    onBlur={() => inputTouched(name)}
+                    onBlur={onTouch}
                     autoComplete={props.type === "password" ? "on" : undefined}
                     pattern={props.pattern ?? undefined}
                     min={props.min ?? undefined}

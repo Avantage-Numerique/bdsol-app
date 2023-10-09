@@ -14,6 +14,9 @@ import SanitizedInnerHtml from '@/src/utils/SanitizedInnerHtml';
 import {SingleEntityMeta} from "@/src/DataTypes/Meta/components/SingleEntityMeta";
 import {lang} from "@/common/Data/GlobalConstants";
 import Person from "@/DataTypes/Person/models/Person";
+import EntitiesTagGrid from "@/DataTypes/Entity/layouts/EntitiesTagGrid";
+import {SkillGroup} from "@/DataTypes/common/layouts/skillsGroup/SkillGroup";
+import {appConfig} from "@/src/configs/AppConfig";
 
 
 const PersonSingleView = ({ data }) => {
@@ -32,11 +35,18 @@ const PersonSingleView = ({ data }) => {
         createdAt,
         updatedAt,
         meta,
-        mainImage
+        mainImage,
+        organisations,
+        projects,
+        events
     } = data;
 
-    
+    //To display occupations in the proper order
+    const sortedOccupations = occupations?.[0]?.subMeta?.order ? occupations.sort((a,b) => a.subMeta.order - b.subMeta.order) : occupations;
+
     const model = new Person(data);
+
+    const sectionClassSpacing = appConfig.spacing.singleSectionSpacingClass;
 
     //Edit the skills list
     const SkillsList = ({occupations}) => {
@@ -68,11 +78,11 @@ const PersonSingleView = ({ data }) => {
 
     const OccupationGroup = ({occupationName, skillList}) => {
         return (
-            <article className={`d-flex flex-column p-2 mb-2 ${styles["occupation-group"]}`}>
-                <h5 className="text-dark mb-0">{occupationName}</h5>
-                    <SearchTag
+            <article className={`d-flex flex-column p-2 ${sectionClassSpacing} ${styles["occupation-group"]} border-start`}>
+                <h5 className="text-dark mb-2">{occupationName}</h5>
+                    <SearchTag className={"m-0"}
                         list={skillList}
-                    />                    
+                    />
             </article>
         )
     }
@@ -104,7 +114,7 @@ const PersonSingleView = ({ data }) => {
             )}
             mainImage={model.mainImage}
             entity={model}
-            buttonText="Proposer des modifications"
+            buttonText={lang.contributeButtonLabel}
             buttonLink={model.singleEditLink}
         />
     )
@@ -132,18 +142,38 @@ const PersonSingleView = ({ data }) => {
                 <SingleInfo
                     title={"Occupations"}
                     NAMessage="Aucune occupation n'est disponible pour le moment"
-                    className={"mb-3 mt-3"}
+                    className={`mb-4 mt-3 pt-2 ${sectionClassSpacing}`}
                 >
                     {/* Display the different groups of occupations */}
-                    { occupations && occupations.length > 0 &&
-                        occupations.map(occ => (
-                            <OccupationGroup
-                                occupationName={occ.groupName}
-                                skillList={occ.skills}
+                    { sortedOccupations && sortedOccupations.length > 0 &&
+                        sortedOccupations.map(occ => (
+                            <SkillGroup
+                                label={occ.groupName}
+                                skills={occ.skills}
                                 key={occ.groupName}
                             />
                         ))
                     }
+                </SingleInfo>
+            }
+
+            {/* Show linked entities as tag */}
+
+            {projects.length > 0 &&
+                <SingleInfo title={`${lang.plural(lang.memberOfProject, lang.memberOfProjects, projects.length)}`} className={`${sectionClassSpacing}`}>
+                    <EntitiesTagGrid feed={projects} />
+                </SingleInfo>
+            }
+
+            {organisations.length > 0 &&
+                <SingleInfo title={`${lang.plural(lang.memberOfOrganisation, lang.memberOfOrganisations, organisations.length)}`} className={`${sectionClassSpacing}`}>
+                    <EntitiesTagGrid feed={organisations}/>
+                </SingleInfo>
+            }
+
+            {events.length > 0 &&
+                <SingleInfo title={`${lang.plural(lang.attendThisEvent, lang.attendTheseEvents, events.length)}`} className={`${sectionClassSpacing}`}>
+                    <EntitiesTagGrid feed={events}/>
                 </SingleInfo>
             }
         </>
@@ -152,11 +182,10 @@ const PersonSingleView = ({ data }) => {
     const ContentColumnRight = (
         <>
         {domains.length > 0 &&
-            <SingleInfo title={lang.domainsSingleLabel} className={"mb-3"}>
+            <SingleInfo title={lang.domainsSingleLabel} className={`${sectionClassSpacing}`}>
 
                 {/*********** Domains ***********/}
                 <SearchTag
-                    className="row"
                     list={domains}
                     listProperty={"domain"}
                 />

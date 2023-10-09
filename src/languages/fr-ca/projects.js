@@ -14,6 +14,15 @@ const projects = {
 
     "producer": "Producteur",
     "inCharge": "Entité en charge",
+    "timelineAndBudget": "Échéancier et budget",
+    "projectContext": "Contexte du projet",
+    "projectContact": "Contact",
+    "projectSkills": "Compétences liées au projet",
+    "projectLink": "Hyperlien",
+    "projectPartners": "Partenaires",
+    "projectDescription": "Présentation",
+
+    "projectsSteps": "Étapes du projet",
 }
 
 exports.projects = projects;

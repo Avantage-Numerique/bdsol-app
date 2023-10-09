@@ -238,13 +238,14 @@ const EventSingleEdit = ({data}, ...props) => {
                 endDate: combineDateAndTime(formState.inputs.endDate.value, formState.inputs.endTime.value),
                 url: formState.inputs.url.value,
                 contactPoint: formState.inputs.contactPoint.value,
-                schedule: formState.inputs.schedule.value.map( (singleSchedule) => {
+                schedule: formState.inputs.schedule.value.map( singleSchedule => {
                     return {
                         name: singleSchedule.value.name.value,
                         startDate: combineDateAndTime(singleSchedule.value.startDate.value, singleSchedule.value.startTime.value),
                         startTime: singleSchedule.value.startTime.value,
                         endDate: combineDateAndTime(singleSchedule.value.endDate.value, singleSchedule.value.endTime.value),
                         endTime: singleSchedule.value.endTime.value,
+                        subMeta: { order: singleSchedule.order }
                     }
                 }),
                 subEvents: formState.inputs.subEvents.value?.length > 0 ?

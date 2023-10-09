@@ -63,7 +63,6 @@ const OrganisationSingleEdit = (props) => {
 
     //  Model de project
     let model = new Organisation(props.data);
-
     /*
      *  1. Change the link getter in ctaHeaderSection components.
      *  1.1 Change the button save and visualize.

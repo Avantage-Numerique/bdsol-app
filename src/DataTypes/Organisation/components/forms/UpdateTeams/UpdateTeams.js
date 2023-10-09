@@ -31,6 +31,7 @@ const UpdateTeams = ({name, formTools, parentEntity, ...props}) => {
             >
             <div className='px-4 border-start'>
                 <Repeater
+                    className="bg-greyBg"
                     formTools={formTools}
                     name={name}
                     formInitStructure={{
@@ -52,16 +53,17 @@ const UpdateTeams = ({name, formTools, parentEntity, ...props}) => {
                                 <Select2
                                     name="member"
                                     label={lang.teamMembers}
-                                    formTools={formTools}
                                     creatable={false}
                                     isMulti={false}
-
                                     fetch={"/persons/list"}
                                     searchField={"firstName"}
                                     selectField={"fullname"}
-
                                     validationRules={[
-                                        {name: "REQUIRED"}
+                                        {name: "REQUIRED"},
+                                        {name: "ONE_OF_MANY_REQUIRED", dependencies: [
+                                                {value: state => state.inputs["role"].value, listenerValue: state => state.inputs["role"].isValid}
+                                            ]
+                                        }
                                     ]}
                                 />
                             </div>
@@ -70,6 +72,12 @@ const UpdateTeams = ({name, formTools, parentEntity, ...props}) => {
                                     name="role"
                                     label="Role"
                                     placeholder="Rôle dans l'équipe"
+                                    validationRules={[
+                                        {name: "ONE_OF_MANY_REQUIRED", dependencies: [
+                                            {value: state => state.inputs["member"].value, listenerValue: state => state.inputs["member"].isValid}
+                                        ]
+                                    }
+                                    ]}
                                 />
                             </div>
                         </div>

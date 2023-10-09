@@ -19,11 +19,13 @@ const PageHeader = (props) => {
     const asideColNumberXs = 5;
     const colNumberXs = props.image ? colWidth - asideColNumberXs : colWidth;
     const historyBack = props.historyBack;
+    const asciiArt = props.art ?? "";
 
     return (
         <header className={`${styles['page-header']} ${bgClass}`}>
             <div className="container">
                 <div className='row justify-content-center align-items-center'>
+
                     <div className={`col col-sm-${colNumberXs} d-flex flex-column justify-content-center`}>
                         {historyBack &&
                         <div className={"d-flex justify-content-end"}>
@@ -32,7 +34,9 @@ const PageHeader = (props) => {
                             </Button>
                         </div>
                         }
-                        
+                        {asciiArt !== "" &&
+                            <pre>{props.art}</pre>
+                        }
                         {props.title &&
                             <h1 className={titleColor}>{props.title}</h1>
                         }
@@ -61,8 +65,6 @@ const PageHeader = (props) => {
                             </h3>
                         }
 
-
-                        
                         {props.description &&
                             <SanitizedInnerHtml tag={"p"} className={descriptionColor}>
                                 {props.description}

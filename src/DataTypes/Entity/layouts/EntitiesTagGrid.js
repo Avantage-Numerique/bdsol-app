@@ -12,16 +12,18 @@ import {getModelFromType} from "@/DataTypes/Entity/Types";
  * @param subEntityProperty {string} The entity where we can get the data on the relation feed like sponsors.entity
  * @param subBadgeProperty {string} The relation often contain some supra information about the relation. If you this to name or other thing, it will show that relation string. Role, sponsor name.
  * @param noneMessage {string} If set show the target message instead of the lang.noResult value.
+ * @param numberOfCols {number} the number of column to use for it.
+ * @param forceType {string} to avoid gettin gthe type from the data, force it.
  * @param notes {string} pass some string for tests or somethings.
  * @return {JSX.Element}
  * @constructor
  */
-const EntitiesTagGrid = ({feed, className, columnClass, subEntityProperty, subBadgeProperty, noneMessage, numberOfCols, notes}, ...props) => {
+const EntitiesTagGrid = ({feed, className, columnClass, subEntityProperty, subBadgeProperty, noneMessage, numberOfCols, forceType, notes}, ...props) => {
 
     const ContainerTag = "ul";
     //subEntityProperty = subEntityProperty ?? 'entity';//
 
-    subBadgeProperty = subBadgeProperty ?? 'name';
+    subBadgeProperty = subBadgeProperty ?? '';
     noneMessage = noneMessage ?? lang.noResult;
 
     const nbColumnsMd = numberOfCols ?? 2;
@@ -35,6 +37,8 @@ const EntitiesTagGrid = ({feed, className, columnClass, subEntityProperty, subBa
 
     const colContainerClass = columnClass ?? `${mobileClasses} ${tabletClasses}`;
 
+    const forcedType = forceType ?? false;
+
     const getKeyString = useCallback((prefix, model, index) => {
         const sep = "-";
         return prefix + model.type + sep + (model._id ?? "") + sep + model.slug + index;
@@ -46,7 +50,9 @@ const EntitiesTagGrid = ({feed, className, columnClass, subEntityProperty, subBa
                 feedLength > 0 ?
                     feed.map((entity, index) => {
                         const rawData = subEntityProperty ? entity[subEntityProperty] : entity;
-                        const type = rawData?.type || rawData?.entityType;
+                        const entityType = rawData.type ?? rawData.entityType;
+                        const type = typeof forcedType === "string" ? forcedType : entityType;//forced type can be use if the data doesn't contain the types.
+
                         const model = getModelFromType(type, rawData);
 
                         const isLastRow = index >= (feedLength - nbColumnsMd);

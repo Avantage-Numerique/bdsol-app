@@ -63,9 +63,6 @@ const Select2 = ({ name, formTools, ...props }) => {
     const [inputValue, setInputValue] = useState("");
     const [value, setValue] = useState(null);
 
-    //Extract validator message
-    const { validate, RequirementsBadges } = useValidation( props.validationRules )
-
     //Extract root modal 
     const { Modal, displayModal, closeModal, modalInitValues } = useRootModal();
 
@@ -76,13 +73,16 @@ const Select2 = ({ name, formTools, ...props }) => {
         inputTouched
     } = formTools;
 
+    //Extract validator message
+    const { validate, RequirementsBadges, dependencyCallingValidation } = useValidation( props.validationRules, formState )
+
     useEffect(() => {
         inputHandler(
             name,
             value,
             props.validationRules ? validate(value) : true
         )
-    },  [value])
+    },  [value, dependencyCallingValidation])
 
     useEffect( () => {
         const valueList = ApiEntityModel.getSelectOption(formState.inputs[name].value, props.selectField);

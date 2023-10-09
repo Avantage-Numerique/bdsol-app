@@ -21,6 +21,7 @@ import DisplaySchedule from "../../Forms/Schedule/DisplaySchedule";
 import {dateManager} from '@/common/DateManager/DateManager'
 import {clientSideExternalApiRequest} from "@/src/hooks/http-hook";
 import EntityLink from "@/DataTypes/Entity/layouts/EntityLink";
+import {appConfig} from "@/src/configs/AppConfig";
 
 
 const EventSingleView = ({data}) => {
@@ -56,7 +57,12 @@ const EventSingleView = ({data}) => {
     } = data
     const model = new Event(data);
 
+    const sectionClassSpacing = appConfig.spacing.singleSectionSpacingClass;
+
     const [formatEnumState, setFormatEnumState] = useState(undefined);
+
+    /******* Sorted lists ********/
+    const sortedTeam = team?.[0]?.subMeta?.order ? team.sort((a,b) => a.subMeta.order - b.subMeta.order) : team;
 
     useEffect( () => {
         const getEventFormatEnum = async () => {
@@ -108,7 +114,7 @@ const EventSingleView = ({data}) => {
             )}
             mainImage={model.mainImage}
             entity={model}
-            buttonText="Proposer des modifications"
+            buttonText={lang.contributeButtonLabel}
             buttonLink={model.singleEditLink}
         />
     );
@@ -149,33 +155,33 @@ const EventSingleView = ({data}) => {
             {/* schedule */}
             {
                 schedule && schedule.length > 0 &&
-                <SingleInfo title={lang.schedule} className={"pb-3 mb-3"}>
+                <SingleInfo title={lang.schedule} className={`pb-3 ${sectionClassSpacing}`}>
                     <DisplaySchedule feed={schedule}/>
                 </SingleInfo>
             }
             {/* subEvents */}
             {
                 subEvents && subEvents.length > 0 &&
-                <SingleInfo title={lang.subEvents} className={"py-3"}>
+                <SingleInfo title={lang.subEvents} className={`${sectionClassSpacing}`}>
                     <EntitiesTagGrid feed={subEvents} />
                 </SingleInfo>
             }
 
             {/* team */}
             {
-                team?.length > 0 &&
+                sortedTeam?.length > 0 &&
                 <SingleInfo
                     title={lang.teamMembers}
-                    className="mb-3"
+                    className={`${sectionClassSpacing}`}
                 >
-                    <EntitiesTagGrid feed={team} subEntityProperty={"member"} subBadgeProperty={"role"} noneMessage={"Aucun membre de l'équipe spécifiés"} />
+                    <EntitiesTagGrid feed={sortedTeam} subEntityProperty={"member"} subBadgeProperty={"role"} noneMessage={"Aucun membre de l'équipe spécifiés"} />
                 </SingleInfo>
             }
 
             {/* attendees */}
             {
                 attendees && attendees.length > 0 &&
-                <SingleInfo title={lang.attendees} className={"py-3"}>
+                <SingleInfo title={lang.attendees} className={`${sectionClassSpacing}`}>
                     <EntitiesTagGrid feed={attendees} />
                 </SingleInfo>
             }
@@ -186,7 +192,7 @@ const EventSingleView = ({data}) => {
         <>
             {/*eventType */}
             { eventType?.length > 0 &&
-                <SingleInfo title={lang.eventType}>
+                <SingleInfo title={lang.eventType} className={`${sectionClassSpacing}`}>
                     <ul>
                         {eventType.map( type => (
                             <li key={`${type.name}`}>
@@ -198,7 +204,7 @@ const EventSingleView = ({data}) => {
             }
             {/* eventFormat */}
             { eventFormat &&
-                <SingleInfo title={lang.eventFormat}>
+                <SingleInfo title={lang.eventFormat} className={`${sectionClassSpacing}`}>
                     {formatEnumState?.[eventFormat] ?? eventFormat}
                 </SingleInfo>
             }
@@ -207,11 +213,10 @@ const EventSingleView = ({data}) => {
                 skills?.length > 0 &&
                 <SingleInfo 
                     title={lang.eventSkills}
-                    className="mb-3"
+                    className={`${sectionClassSpacing}`}
                 >
                     <>
                         <SearchTag
-                            className="row"
                             list={skills}
                         />
                     </>
@@ -221,9 +226,8 @@ const EventSingleView = ({data}) => {
             {/* domains */}
             {
                 domains?.length > 0 && 
-                <SingleInfo title={lang.domainsSingleLabel} className={"mb-3"}>
+                <SingleInfo title={lang.domainsSingleLabel} className={`${sectionClassSpacing}`}>
                     <SearchTag
-                        className="row"
                         list={domains}
                         listProperty={"domain"}
                     />
@@ -231,13 +235,13 @@ const EventSingleView = ({data}) => {
             }
             {/* Url */}
             { url &&
-                <SingleInfo title={lang.hyperlink} className={"pb-4"}>
+                <SingleInfo title={lang.hyperlink} className={`${sectionClassSpacing}`}>
                     <ExternalLink href={url}>{url}</ExternalLink>
                 </SingleInfo>
             }
             {/* contactPoint */}
             { contactPoint &&
-                <SingleInfo title={lang.contactPoint}>
+                <SingleInfo title={lang.contactPoint} className={`${sectionClassSpacing}`}>
                     {contactPoint}
                 </SingleInfo>
             }

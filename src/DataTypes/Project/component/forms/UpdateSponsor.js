@@ -28,6 +28,7 @@ const UpdateSponsor = ({name, formTools, ...props}) => {
                         <Repeater
                             formTools={formTools}
                             name={name}
+                            className="bg-greyBg"
                             formInitStructure={{
                                 name: {
                                     value: "",
@@ -66,7 +67,7 @@ const UpdateSponsor = ({name, formTools, ...props}) => {
                                     <div className="col-12 col-md-6">
                                         <Input
                                             name="name"
-                                            label="Nom"
+                                            label="Titre"
                                             formTools={formTools}
                                         />
                                     </div>
@@ -74,7 +75,7 @@ const UpdateSponsor = ({name, formTools, ...props}) => {
                                 </section>
 
                                 <div className="col pr-0 flex-grow-0 text-secondary pt-1">
-                                    <Button repeaterDeleteElem={true} type="button" color="danger" size="slim">&#x2716;</Button>
+                                    <Button repeaterdeletedlem type="button" color="danger" size="slim">&#x2716;</Button>
                                 </div>
                             </article>
                         </Repeater>

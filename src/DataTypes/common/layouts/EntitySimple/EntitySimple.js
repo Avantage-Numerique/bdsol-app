@@ -77,7 +77,7 @@ const EntitySimple = (props) => {
             }
             {/* Display over the entity the type of image */}
             {showEntityType && appType &&
-                <h4 className={`position-relative text-white fw-normal justify-self-end m-0 pe-none ${styles["entity-type"]}`}><Icon iconName={appType.icon}/></h4>
+                <h4 title={appType.label} className={`position-relative text-white fw-normal justify-self-end m-2 p-0 ${styles["entity-type"]}`}><Icon iconName={appType.icon}/></h4>
             }
         </div>
     );
