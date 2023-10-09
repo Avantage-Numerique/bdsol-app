@@ -20,7 +20,6 @@ import Message from '@/src/common/UserNotifications/Message/Message'
 
 //Styling
 import styles from './Layout.module.scss'
-import {FeedbackWidget} from "@/src/common/Feedbacks/components/feedback-widget";
 
 //Hooks
 import {useModalController} from '@/src/hooks/useModal/ModalsController/ModalsController'
@@ -159,7 +158,6 @@ const Layout = ( {children} ) => {
                 
                 </div>
             </div>
-            <FeedbackWidget />
         </>
     )   
 
