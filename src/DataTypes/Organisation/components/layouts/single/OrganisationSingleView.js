@@ -146,7 +146,7 @@ const OrganisationSingleView = ({ data }) => {
             }
             {
                 equipment &&
-                <SingleInfo title={lang.Equipments} className={"mb-3 mt-2"}>
+                <SingleInfo title={lang.Equipments} className={`${sectionClassSpacing}`}>
                     <ul className={`container mt-2 ${styles["equipment-container"]}`}>
                             <li className="row">
                                 <div className="d-flex">
