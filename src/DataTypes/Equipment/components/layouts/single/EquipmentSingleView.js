@@ -12,6 +12,7 @@ import {SingleEntityMeta} from "@/src/DataTypes/Meta/components/SingleEntityMeta
 import {lang} from "@/common/Data/GlobalConstants";
 import Equipment from '../../../models/Equipment';
 import {appConfig} from "@/src/configs/AppConfig";
+import EntitiesTagGrid from "@/DataTypes/Entity/layouts/EntitiesTagGrid";
 
 
 const EquipmentSingleView = ({ data }) => {
@@ -73,6 +74,18 @@ const EquipmentSingleView = ({ data }) => {
                 url={model?.url}
                 className={`${sectionClassSpacing}`}
             />
+
+            {model.organisations.length > 0 &&
+                <SingleInfo title={`${lang.plural(lang.ownByOrganisation, lang.ownByOrganisations, model.organisations.length)}`} className={`${sectionClassSpacing}`}>
+                    <EntitiesTagGrid feed={model.organisations}/>
+                </SingleInfo>
+            }
+
+            {model.projects.length > 0 &&
+                <SingleInfo title={`${lang.plural(lang.usedInProject, lang.usedInProjects, model.projects.length)}`} className={`${sectionClassSpacing}`}>
+                    <EntitiesTagGrid feed={model.projects}/>
+                </SingleInfo>
+            }
         </>
     )
 

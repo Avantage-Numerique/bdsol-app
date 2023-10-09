@@ -125,7 +125,7 @@ TYPES.set(TYPE_EQUIPMENT, new Type({
     modelClass: Equipment,
     inSentencePrefix: " un ",
     defaultMainImage: "/general_images/equipment-default.png",
-    icon: "map-marker"
+    icon: "cube"
 }))
 
 TYPES.set(TYPE_NOTSET, new Type({
