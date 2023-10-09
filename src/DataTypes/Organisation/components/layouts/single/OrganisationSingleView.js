@@ -157,16 +157,16 @@ const OrganisationSingleView = ({ data }) => {
                                 </div>
                             </li>
                         {
-                            equipment.map(equip => {
-                                const model = new Equipment(equip.equipment);
+                            equipment.map((equip, index) => {
+                                const equipmentModel = new Equipment(equip.equipment);
                                 return (
-                                    <li className={` ${styles["equipment-row"]} row border-top py-2`}>
-                                        <Link href={model.singleLink} title={model.name}>
+                                    <li className={` ${styles["equipment-row"]} row border-top py-2`} key={`orgEquip${index}`}>
+                                        <Link href={equipmentModel.singleLink} title={equipmentModel.name}>
                                             <div className="d-flex">
                                                 <div className={`${styles["equipment-row__qty"]}`}>{equip.qty}</div>
-                                                <div className={`col ${styles["equipment-row__name"]}`}>{model.label}</div>
-                                                <div className="col">{model.modelName}</div>
-                                                <div className="col">{model.brand}</div>
+                                                <div className={`col ${styles["equipment-row__name"]}`}>{equipmentModel.label}</div>
+                                                <div className="col">{equipmentModel.modelName}</div>
+                                                <div className="col">{equipmentModel.brand}</div>
                                             </div>
                                         </Link>
                                     </li>
