@@ -25,8 +25,6 @@ const EquipmentSingleView = ({ data }) => {
         }[param];
     }, []);
 
-    console.log("data", data)
-
     /****************************
      *  Sections
      ***************************/
