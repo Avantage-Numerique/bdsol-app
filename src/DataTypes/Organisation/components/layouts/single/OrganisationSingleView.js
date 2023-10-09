@@ -135,15 +135,6 @@ const OrganisationSingleView = ({ data }) => {
                     <EntitiesTagGrid feed={events} />
                 </SingleInfo>
             }
-            { url &&
-                <SingleInfo title={lang.hyperlink} className={`${sectionClassSpacing}`}>
-                    <p>
-                        <ExternalLink href={url} title={`${model.title}`}>
-                            {url}
-                        </ExternalLink>
-                    </p>
-                </SingleInfo>
-            }
             {
                 equipment &&
                 <SingleInfo title={lang.Equipments} className={`${sectionClassSpacing}`}>
@@ -205,12 +196,20 @@ const OrganisationSingleView = ({ data }) => {
                     }
                 </SingleInfo>
             }
-
             { fondationDate &&
                 <SingleInfo
                     title={lang.fondationDate}
                     className={`${sectionClassSpacing}`}>
                     <TimeTag date={fondationDate} format={FULL_HUMAN_DATE_FORMAT} />
+                </SingleInfo>
+            }
+            { url &&
+                <SingleInfo title={lang.hyperlink} className={`${sectionClassSpacing}`}>
+                    <p>
+                        <ExternalLink href={url} title={`${model.title}`}>
+                            {url}
+                        </ExternalLink>
+                    </p>
                 </SingleInfo>
             }
         </>
