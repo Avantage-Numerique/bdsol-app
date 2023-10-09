@@ -85,7 +85,7 @@ const SingleBase = (props) => {
                     </figure>
 
                     {/* Header's content */}
-                    { header ?? <SingleBaseHeader/> }
+                    { header || <SingleBaseHeader/> }
                 </header>
 
                 { /* FullWidthContent */ }
@@ -110,9 +110,11 @@ const SingleBase = (props) => {
                 </div>
 
                 { /* Footer */ }
-                <footer className="row p-2">
-                    { footer && footer }
-                </footer>
+                { footer &&
+                    <footer className="row p-2">
+                        { footer } 
+                    </footer>
+                }
 
             </div>
         </>

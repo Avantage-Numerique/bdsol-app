@@ -1,0 +1,18 @@
+.single-social-hangle {
+    max-width: 50ch;
+
+    .single-social-hangle__icons { 
+        transition: 0.3s ease-out;
+        opacity: 0; 
+        transform: translateY(0.3rem);
+    }
+
+    :hover {
+        .single-social-hangle__icons {         
+            opacity: 1; 
+            transform: translateY(0rem); 
+        }
+        .single-social-hangle__link { text-decoration: underline;}
+    }
+}
+

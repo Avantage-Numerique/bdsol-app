@@ -88,7 +88,7 @@ const EventSingleView = ({data}) => {
 
     const header = (
         <SingleBaseHeader 
-            title={(<SanitizedInnerHtml tag={"h1"} className="text-white">{`${model.title}`}</SanitizedInnerHtml>)}
+            title={(<SanitizedInnerHtml removeQlEditorClass tag={"h1"} className="text-white">{`${model.title}`}</SanitizedInnerHtml>)}
             subtitle={(
                 <div className="d-text">
                     <h4 className="text-white">{model.alternateName ? model.alternateName : ""}</h4>

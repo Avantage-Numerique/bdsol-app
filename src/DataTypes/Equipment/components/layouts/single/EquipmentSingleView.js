@@ -5,6 +5,7 @@ import SingleBase from "@/src/DataTypes/common/layouts/single/SingleBase"
 import SingleBaseHeader from "@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseHeader"
 import SearchTag from '@/src/common/Components/SearchTag';
 import SingleInfo from "@/DataTypes/common/layouts/SingleInfo/SingleInfo";
+import SocialHandleDisplay from '@/DataTypes/common/layouts/SocialHandlesViews/SocialHandleDisplay'
 
 //Utils
 import SanitizedInnerHtml from '@/src/utils/SanitizedInnerHtml';
@@ -23,6 +24,8 @@ const EquipmentSingleView = ({ data }) => {
             "slug": model.title        
         }[param];
     }, []);
+
+    console.log("data", data)
 
     /****************************
      *  Sections
@@ -63,21 +66,11 @@ const EquipmentSingleView = ({ data }) => {
                 model.modelName &&
                 <SingleInfo title={lang.modelName}>{model.modelName}</SingleInfo>
             }
-            {
-                model?.url?.length > 0 &&
-                <SingleInfo title={lang.url}>
-                    {model.url.map( (singleUrl) => {
-                        return (
-                            <div>
-                                <div>
-                                    {singleUrl.label}
-                                </div>
-                                <a href={singleUrl.url} target='blank'>{singleUrl.url}</a>
-                            </div>
-                        )
-                    })}
-                </SingleInfo>
-            }
+            
+            <SocialHandleDisplay 
+                title={lang.url} 
+                url={model?.url} 
+            />
         </>
     )
 
