@@ -45,7 +45,7 @@ const EntitiesTagGrid = ({feed, className, columnClass, subEntityProperty, subBa
     });
 
     return (
-        <ContainerTag className={`row py-3 ${className ?? ""}`}>
+        <ContainerTag className={`row pt-3 ${className ?? ""}`}>
             {
                 feedLength > 0 ?
                     feed.map((entity, index) => {

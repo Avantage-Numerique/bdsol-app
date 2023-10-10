@@ -135,18 +135,9 @@ const OrganisationSingleView = ({ data }) => {
                     <EntitiesTagGrid feed={events} />
                 </SingleInfo>
             }
-            { url &&
-                <SingleInfo title={lang.hyperlink} className={`${sectionClassSpacing}`}>
-                    <p>
-                        <ExternalLink href={url} title={`${model.title}`}>
-                            {url}
-                        </ExternalLink>
-                    </p>
-                </SingleInfo>
-            }
             {
                 equipment &&
-                <SingleInfo title={lang.Equipments} className={"mb-3 mt-2"}>
+                <SingleInfo title={lang.Equipments} className={`${sectionClassSpacing}`}>
                     <ul className={`container mt-2 ${styles["equipment-container"]}`}>
                             <li className="row">
                                 <div className="d-flex">
@@ -157,16 +148,16 @@ const OrganisationSingleView = ({ data }) => {
                                 </div>
                             </li>
                         {
-                            equipment.map(equip => {
-                                const model = new Equipment(equip.equipment);
+                            equipment.map((equip, index) => {
+                                const equipmentModel = new Equipment(equip.equipment);
                                 return (
-                                    <li className={` ${styles["equipment-row"]} row border-top py-2`}>
-                                        <Link href={model.singleLink} title={model.name}>
+                                    <li className={` ${styles["equipment-row"]} row border-top py-2`} key={`orgEquip${index}`}>
+                                        <Link href={equipmentModel.singleLink} title={equipmentModel.name}>
                                             <div className="d-flex">
                                                 <div className={`${styles["equipment-row__qty"]}`}>{equip.qty}</div>
-                                                <div className={`col ${styles["equipment-row__name"]}`}>{model.label}</div>
-                                                <div className="col">{model.modelName}</div>
-                                                <div className="col">{model.brand}</div>
+                                                <div className={`col ${styles["equipment-row__name"]}`}>{equipmentModel.label}</div>
+                                                <div className="col">{equipmentModel.modelName}</div>
+                                                <div className="col">{equipmentModel.brand}</div>
                                             </div>
                                         </Link>
                                     </li>
@@ -205,12 +196,20 @@ const OrganisationSingleView = ({ data }) => {
                     }
                 </SingleInfo>
             }
-
             { fondationDate &&
                 <SingleInfo
                     title={lang.fondationDate}
                     className={`${sectionClassSpacing}`}>
                     <TimeTag date={fondationDate} format={FULL_HUMAN_DATE_FORMAT} />
+                </SingleInfo>
+            }
+            { url &&
+                <SingleInfo title={lang.hyperlink} className={`${sectionClassSpacing}`}>
+                    <p>
+                        <ExternalLink href={url} title={`${model.title}`}>
+                            {url}
+                        </ExternalLink>
+                    </p>
                 </SingleInfo>
             }
         </>

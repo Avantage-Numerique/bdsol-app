@@ -9,7 +9,7 @@ export const getDefaultEntityMeta = (user, requestedByUser) => {
 }
 
 export const getDefaultUpdateEntityMeta = (user, requestedByUser) => {
-    return getDefaultEntityMeta(user, requestedByUser._id);
+    return getDefaultEntityMeta(user, requestedByUser?._id);
 }
 export const getDefaultCreateEntityMeta = (user) => {
     return getDefaultEntityMeta(user, user.id);

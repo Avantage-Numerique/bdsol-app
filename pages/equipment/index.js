@@ -20,7 +20,7 @@ import AppRoutes from "@/src/Routing/AppRoutes";
 import EntitiesGrid from "@/DataTypes/Entity/layouts/EntitiesGrid";
 import {getTitle} from "@/DataTypes/MetaData/MetaTitle";
 import Head from "next/head";
-import {getType, TYPE_EQUIPMENT, TYPE_PLACE} from "@/DataTypes/Entity/Types";
+import {getType, TYPE_EQUIPMENT} from "@/DataTypes/Entity/Types";
 
 
 const EquipmentPage = () => {
@@ -37,9 +37,9 @@ const EquipmentPage = () => {
     const msg = useContext(MessageContext);
 
     const type = getType(TYPE_EQUIPMENT);
-    /* 
-        Fetch data  
-        
+
+    /**
+        Fetch data
     */
     const fetchData = async () => {
 
@@ -53,12 +53,12 @@ const EquipmentPage = () => {
 
         //If positive
         if (!equipmentResponse.error) { 
-            setEquipmentList(equipmentResponse.data)
+            setEquipmentList(equipmentResponse.data);
         } else {
             msg.addMessage({
                 text: "Une erreur est survenue et nous n'arrivons pas à afficher les fiches de lieux. Veuillez réessayer.",
                 positive: false
-            })
+            });
         }
     }
 
@@ -79,10 +79,10 @@ const EquipmentPage = () => {
             <PageHeader
                 bg={"bg-purplelighter"}
                 textColor={"text-white"}
-                title={"Consulter les équipements"}
-                description="Les équipements listés peuvent être liés à des organisations, des projets ou d'autre entité du milieu culturel."
+                title={lang.allEquipmentTitle}
+                description={lang.allEquipmentDescription}
             >
-                <Breadcrumbs className={"pt-2"} route={AppRoutes.persons} getLabelGenerator={getLabelGenerator} />
+                <Breadcrumbs className={"pt-2"} route={AppRoutes.equipment} getLabelGenerator={getLabelGenerator} />
             </PageHeader>
 
                 <div className="container">

@@ -145,7 +145,7 @@ const ProjectSingleView = ({ data }) => {
             {sortedTeam.length > 0 &&
                 <SingleInfo
                     title={lang.teamMembers}
-                    className="mb-3"
+                    className={`${sectionClassSpacing}`}
                 >
                     <EntitiesTagGrid feed={sortedTeam} subEntityProperty={"member"} subBadgeProperty={"role"} noneMessage={"Aucun membre de l'équipe spécifiés"} />
                 </SingleInfo>
@@ -197,7 +197,7 @@ const ProjectSingleView = ({ data }) => {
             }
 
             {equipment && 
-                <SingleInfo title={lang.Equipments} className={"pb-4"}>
+                <SingleInfo title={lang.Equipments} className={`${sectionClassSpacing}`}>
                     <EntitiesTagGrid feed={equipment} noneMessage={""} />
                 </SingleInfo>
             }

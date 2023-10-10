@@ -28,7 +28,7 @@ import SelectEquipment from '@/src/DataTypes/Equipment/components/layouts/Select
 
 //Utils
 import Organisation from '@/src/DataTypes/Organisation/models/Organisation';
-import {inputUrlRegex, replacePathname} from "@/src/helpers/url";
+import {replacePathname} from "@/src/helpers/url";
 import {lang} from "@/src/common/Data/GlobalConstants";
 import MainImageDisplay from "@/DataTypes/common/layouts/single/defaultSections/MainImageDisplay/MainImageDisplay";
 import Icon from "@/common/widgets/Icon/Icon";
@@ -199,7 +199,7 @@ const OrganisationSingleEdit = (props) => {
                 equipment: formState.inputs.equipment.value.map(elem => {
                     return {
                         equipment: elem.value.equipment.value.value,
-                        qty: parseInt(elem.value.qte.value),
+                        qty: parseInt(elem.value.qty.value),
                         subMeta: {order: elem.order},
                     }
                 }),

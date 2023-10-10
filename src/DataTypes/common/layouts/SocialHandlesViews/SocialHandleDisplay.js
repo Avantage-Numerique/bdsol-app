@@ -39,12 +39,12 @@ const SingleSocialHandle = ( {data} ) => {
  * @param {String} props.title String containing the title of the section
  *
  */
-const SocialHandleDisplay = ({ url, title }) => {
+const SocialHandleDisplay = ({ url, title, className }) => {
 
     const orderedUrls = url.sort((a, b) => (a.subMeta.order > b.subMeta.order) ? 1 : -1);
 
     return (
-        <SingleInfo title={title}>
+        <SingleInfo title={title} className={className}>
             {orderedUrls.map( (singleUrl) => <SingleSocialHandle data={singleUrl} key={("url_" + singleUrl.url)} />)}
         </SingleInfo>
     )

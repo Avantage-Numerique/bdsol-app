@@ -10,7 +10,7 @@ import {TYPE_EQUIPMENT} from "@/src/DataTypes/Entity/Types";
 
 
 //Utils
-import { lang } from '@/src/common/Data/GlobalConstants';
+import {lang} from '@/src/common/Data/GlobalConstants';
 
 
 /**
@@ -39,12 +39,12 @@ const SelectEquipment = ({name, formTools, parentEntity, ...props}) => {
                             value: [],
                             isValid: true
                         },
-                        qte: {
+                        qty: {
                             value: 1,
                             isValid: true
                         }
                     }}
-                    initValues={parentEntity.team}
+                    initValues={parentEntity.equipment}
                     sortable
                 >
                     <div className={`d-flex align-items-center gap-3 mb-2 border-b py-2 bg-greyBg rounded-1`}>
@@ -65,7 +65,7 @@ const SelectEquipment = ({name, formTools, parentEntity, ...props}) => {
                             </div>
                             <Input 
                                 className="col-3"
-                                name="qte"
+                                name="qty"
                                 type="number"
                                 label={lang.Quantity}
                                 default={1}

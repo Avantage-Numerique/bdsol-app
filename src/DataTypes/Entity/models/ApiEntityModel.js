@@ -1,5 +1,13 @@
 import {getColor} from "@/src/styles/datatypeStyle";
-import {TYPE_EQUIPMENT, TYPE_EVENT, TYPE_ORGANISATION, TYPE_PERSON, TYPE_PLACE, TYPE_PROJECT, TYPE_TAXONOMY} from "../Types";
+import {
+    TYPE_EQUIPMENT,
+    TYPE_EVENT,
+    TYPE_ORGANISATION,
+    TYPE_PERSON,
+    TYPE_PLACE,
+    TYPE_PROJECT,
+    TYPE_TAXONOMY
+} from "../Types";
 
 
 class ApiEntityModel {
@@ -103,8 +111,9 @@ class ApiEntityModel {
 
     static equipmentToSelectOptions(equipment){
         //If domains is from entity formState
-        if(!Array.isArray(equipment))
-            return [{ value : equipment._id, label : equipment.label, color : getColor(equipment) }]
+        if(!Array.isArray(equipment)) {
+            return [{ value : equipment._id, label : equipment.label, color : getColor(equipment) }];
+        }
         
         //Else if domains are from request db taxonomies
         return equipment.map( (equipment) => {
