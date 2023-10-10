@@ -61,7 +61,12 @@ const rules_settings = {
         renderMessage: (() => `Vous devez remplir au moins l'un des champs de cette section`),
         validationMethod: ((value, dependencies) =>  isValuePositive(value) || dependencies.some(value => isValuePositive(value))),
         renderBadge: (() => `1 champ requis`)
-    }
+    },
+    HIGHER_DATE_REQUIRED: {
+        renderMessage: (() => `La date dans ce champ doit être ultérieure à celle du prédécent`),
+        validationMethod: ((value, dependencies) => !dependencies.some(dep => new Date(dep).getTime() >= new Date(value).getTime())),
+        renderBadge: (() => `Date ultérieure`)
+    },
 }
 
 const initiateValidator = selectedRules => {
@@ -96,12 +101,13 @@ export const useValidation = ( setOfRules, formState ) => {
     const [triggerDependencies, setTriggerDependencies] = useState(false)  
 
     //List of dependecies listener (usually validation state)
-    let ONE_OF_MANY_DEPENDECIES = (formState && validator["ONE_OF_MANY_REQUIRED"]) ? validator["ONE_OF_MANY_REQUIRED"].dependencies.map(dep => dep.listenerValue(formState)) : []
+    let ONE_OF_MANY_DEPENDECIES = (formState && validator["ONE_OF_MANY_REQUIRED"]) ? validator["ONE_OF_MANY_REQUIRED"].dependencies.map(dep => dep.listenerValue(formState)) : [];
+    let HIGHER_DATE_REQUIRED = (formState && validator["HIGHER_DATE_REQUIRED"]) ? validator["HIGHER_DATE_REQUIRED"].dependencies.map(dep => dep.listenerValue(formState)) : [];
     //UseEffect listening for event changing
     useEffect(() => {
         //Trigger the re-evaluation of the dependecies
         setTriggerDependencies(!triggerDependencies)
-    }, [...ONE_OF_MANY_DEPENDECIES])
+    }, [...ONE_OF_MANY_DEPENDECIES, ...HIGHER_DATE_REQUIRED])
 
 
     const validate = (value) => {
@@ -121,7 +127,6 @@ export const useValidation = ( setOfRules, formState ) => {
                 if(!rule.specification && rule.dependencies)
                     //Extract the content to evaluate in the formstate depending of the passed function
                     param = rule.dependencies.map(depFunction => depFunction.value(formState))
-                
             //For each, apply the validation method 
             const validationResult = rule.validationMethod(value, param)
             //Apply result to general validity variable

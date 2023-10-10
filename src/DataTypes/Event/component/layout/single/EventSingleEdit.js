@@ -407,6 +407,12 @@ const EventSingleEdit = ({data}, ...props) => {
                                     label={lang.endDate}
                                     type="date"
                                     formTools={formTools}
+                                    validationRules={[
+                                        {name: "HIGHER_DATE_REQUIRED", dependencies: [
+                                            {value: state => state.inputs["startDate"].value, listenerValue: state => state.inputs["startDate"].value}
+                                        ]}
+                                    ]}
+                                    
                                 />
                                 <Input
                                     className="col-12 col-lg-4"

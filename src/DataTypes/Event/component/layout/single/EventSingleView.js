@@ -56,7 +56,6 @@ const EventSingleView = ({data}) => {
         updatedAt
     } = data
     const model = new Event(data);
-
     const sectionClassSpacing = appConfig.spacing.singleSectionSpacingClass;
 
     const [formatEnumState, setFormatEnumState] = useState(undefined);
