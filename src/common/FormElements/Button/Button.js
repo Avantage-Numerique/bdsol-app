@@ -14,6 +14,9 @@ const Button = ({ rippleEffect, ...props }) => {
             Convert design properties to bootstrap classes
         */
 
+        if (props.className) {
+            classList.push(props.className);
+        }
         classList.push("btn");
 
         let bootstrapColor = props.color ? props.color : "primary";
@@ -72,14 +75,13 @@ const Button = ({ rippleEffect, ...props }) => {
     }
 
     if (props.href) {
-
         return (
-            <Link href={props.href} >
-                <button 
-                    className={`${classesString}`}
-                    disabled={props.disabled}>
-                    {props.children}
-                </button>
+            <Link
+                href={props.href}
+                className={`${classesString} ${props.disabled ? "disabled" : ""}`}
+                aria-disabled={props.disabled ? "true" : "false"}
+                role={"button"}>
+                {props.children}
             </Link>
         );
     }
@@ -94,7 +96,6 @@ const Button = ({ rippleEffect, ...props }) => {
         >
             {/* Button text */}
             {props.children}
-
         </button>
     );
 }

@@ -20,7 +20,14 @@ import {MessageContext} from '@/src/common/UserNotifications/Message/Context/Mes
 import {useAuth} from '@/src/authentification/context/auth-context';
 import SanitizedInnerHtml from "@/src/utils/SanitizedInnerHtml";
 import {appUrl} from "@/src/helpers/url";
-import {getType, TYPE_EQUIPMENT, TYPE_EVENT, TYPE_ORGANISATION, TYPE_PERSON, TYPE_PROJECT} from "@/DataTypes/Entity/Types";
+import {
+    getType,
+    TYPE_EQUIPMENT,
+    TYPE_EVENT,
+    TYPE_ORGANISATION,
+    TYPE_PERSON,
+    TYPE_PROJECT
+} from "@/DataTypes/Entity/Types";
 
 //Styling
 //import styles from './home-page.module.scss'
@@ -277,6 +284,7 @@ const HomePage = ({}) => {
                                         href="/persons/"
                                         size="slim" 
                                         color="primary"
+                                        className={"w-100"}
                                         slim>
                                         {lang.Persons}</Button>
                                     <Button
@@ -291,7 +299,8 @@ const HomePage = ({}) => {
                                     <Button 
                                         href="/organisations/"
                                         color="primary" 
-                                        size="slim" 
+                                        size="slim"
+                                        className={"w-100"}
                                     >{lang.Organisations}</Button>
                                     <Button
                                         color="primary"
@@ -302,7 +311,7 @@ const HomePage = ({}) => {
                                 </div>
 
                                 <div className={"db-edit-options__button-set"}>
-                                    <Button href="/projets" color="primary" size="slim">{lang.Projects}</Button>
+                                    <Button href="/projets" color="primary" size="slim" className={"w-100"}>{lang.Projects}</Button>
                                     <Button
                                         color="primary"
                                         size="slim"
@@ -312,7 +321,7 @@ const HomePage = ({}) => {
                                 </div>
 
                                 <div className={"db-edit-options__button-set"}>
-                                    <Button href="/categories" color="primary" size="slim">{lang.Taxonomies}</Button>
+                                    <Button href="/categories" color="primary" size="slim" className={"w-100"}>{lang.Taxonomies}</Button>
                                     <Button
                                         color="primary"
                                         size="slim"
@@ -322,7 +331,7 @@ const HomePage = ({}) => {
                                 </div>
 
                                 <div className={"db-edit-options__button-set"}>
-                                    <Button href="/events" color="primary" size="slim">{lang.Events}</Button>
+                                    <Button href="/events" color="primary" size="slim" className={"w-100"}>{lang.Events}</Button>
                                     <Button
                                         color="primary"
                                         size="slim"
@@ -331,7 +340,7 @@ const HomePage = ({}) => {
                                     >+</Button>
                                 </div>
                                 <div className={"db-edit-options__button-set"}>
-                                    <Button href="/equipment" color="primary" size="slim">{lang.Equipments}</Button>
+                                    <Button href="/equipment" color="primary" size="slim" className={"w-100"}>{lang.Equipments}</Button>
                                     <Button
                                         color="primary"
                                         size="slim"
