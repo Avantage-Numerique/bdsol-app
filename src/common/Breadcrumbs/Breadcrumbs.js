@@ -1,5 +1,5 @@
 import {useRouter} from "next/router";
-import {useMemo, useState, useEffect} from "react";
+import {useEffect, useMemo, useState} from "react";
 import {lang} from "@/common/Data/GlobalConstants";
 import Link from "next/link";
 
@@ -144,9 +144,9 @@ const Crumb = ({text: defaultText, textGenerator, href, last = false}) => {
 //link-underline link-underline-opacity-0 link-underline-opacity-75-hover
     return (
         <li className="breadcrumb-item">
-            <Link href={href}>
-                <a className="text-decoration-underline link-underline-dark link-underline-opacity-0 link-underline-opacity-75-hover" dangerouslySetInnerHTML={{ __html: text }}></a>
-            </Link>
+            <Link href={href}
+                  className="text-decoration-underline link-underline-dark link-underline-opacity-0 link-underline-opacity-75-hover"
+                  dangerouslySetInnerHTML={{ __html: text }} />
         </li>
     );
 }

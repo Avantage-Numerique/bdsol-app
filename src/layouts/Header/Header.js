@@ -24,11 +24,7 @@ const Header = (props) => {
                     <div className="col">
                         {/* Container that fills all the width of the platform and contain the logo*/}
                         <div className={`${styles["header__content"]} header-center d-flex justify-content-start align-items-center text-light`} onClick={ () => setMenuState(0) }>
-                            <Link href="/">
-                                <a href={"/"} className={"fs-4 px-5"}>
-                                    AVNU
-                                </a>
-                            </Link>
+                            <Link href="/" className={"fs-4 px-5"}>AVNU</Link>
                         </div>
                     </div>
 
@@ -43,10 +39,8 @@ const Header = (props) => {
                                 {auth.user.isLoggedIn &&
                                     <div className={"col-2 d-flex-content-center"}>
                                         <div className="d-grid w-100" onClick={ () => setMenuState(0) }>
-                                            <Link href={"/contribuer"}>
-                                                <a className={"btn btn-outline-light"}>
-                                                    <Icon iconName="plus-circle" /> {lang.menuContributeLabel}
-                                                </a>
+                                            <Link href={"/contribuer"} className={"btn btn-outline-light"}>
+                                                <Icon iconName="plus-circle" /> {lang.menuContributeLabel}
                                             </Link>
                                         </div>
                                     </div>

@@ -71,10 +71,7 @@ const EntityTag = (props) => {
                         <span className={"badge bg-secondary position-absolute top-0 start-50 translate-middle"} dangerouslySetInnerHTML={{__html:model?.badge}}></span>
                     }
                     {addButton &&
-                    <Link href={model.singleLink} title={model.name}>
-                        <a href={model.singleLink} className={"full-link"}>
-                        </a>
-                    </Link>
+                        <Link href={model.singleLink} title={model.name} className={"full-link"} />
                     }
                 </article>
             }

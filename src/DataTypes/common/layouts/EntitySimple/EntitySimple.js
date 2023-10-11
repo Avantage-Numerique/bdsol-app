@@ -63,15 +63,13 @@ const EntitySimple = (props) => {
             { model.mainImage &&
                 <div>
                     <Link href={model.singleLink} title={title}>
-                        <a>
-                            <MediaFigure
-                                model={model.mainImage}
-                                className={`${styles["simple-abstract__header__figure"]} position-absolute top-0 start-0 w-100 h-100 t-0`}
-                                imgClassName={`${styles["simple-abstract__header__figure__img"]}`}
-                                addGradientOver={true}>
-                                <div className={`${styles["figure-overlay"]} position-absolute w-100 h-100 no-pointer-events dark-transparent-gradient`}></div>
-                            </MediaFigure>
-                        </a>
+                        <MediaFigure
+                            model={model.mainImage}
+                            className={`${styles["simple-abstract__header__figure"]} position-absolute top-0 start-0 w-100 h-100 t-0`}
+                            imgClassName={`${styles["simple-abstract__header__figure__img"]}`}
+                            addGradientOver={true}>
+                            <div className={`${styles["figure-overlay"]} position-absolute w-100 h-100 no-pointer-events dark-transparent-gradient`}></div>
+                        </MediaFigure>
                     </Link>
                 </div>
             }
@@ -97,10 +95,8 @@ const EntitySimple = (props) => {
                         ${styles["simple-abstract__content__title"]}
                         ${styles["simple-abstract__content_ellipsis"]}
                     `}>
-                        <Link href={model.singleLink} title={title}>
-                            <a className={"d-block w-100"}>
-                                {model.title}
-                            </a>
+                        <Link href={model.singleLink} title={title} className={"d-block w-100"}>
+                            {model.title}
                         </Link>
                     </h3>
                 </div>

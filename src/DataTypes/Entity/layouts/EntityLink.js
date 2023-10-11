@@ -28,10 +28,8 @@ const EntityLink = (props) => {
     return (
         <>
             {model &&
-                <Link href={model.singleLink} title={model.title}>
-                    <a href={model.singleLink} className={`link ${className}`}>
-                        <Icon iconName={type.icon} className="pe-1" /> {model.title}
-                    </a>
+                <Link href={model.singleLink} title={model.title} className={`link ${className}`}>
+                    <Icon iconName={type.icon} className="pe-1" /> {model.title}
                 </Link>
             }
         </>

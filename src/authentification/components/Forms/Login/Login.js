@@ -1,14 +1,14 @@
-import React, { useContext, useEffect } from 'react';
+import React, {useContext, useEffect} from 'react';
 
 import Link from 'next/link';
 
 //Context
-import { useAuth } from '@/auth/context/auth-context';
-import { MessageContext } from '@/src/common/UserNotifications/Message/Context/Message-Context';
+import {useAuth} from '@/auth/context/auth-context';
+import {MessageContext} from '@/src/common/UserNotifications/Message/Context/Message-Context';
 
 //Custom hooks
-import { useForm } from '@/src/hooks/form-hook';
-import { useSessionHook } from '@/auth/hooks/useSessionHook';
+import {useForm} from '@/src/hooks/form-hook';
+import {useSessionHook} from '@/auth/hooks/useSessionHook';
 
 
 //Form components
@@ -123,17 +123,16 @@ const Login = () => {
                     />
 
                     <div className={"pb-3"}>
-                        <Button type="submit" size="slim" disabled={!formState.isValid}>Soumettre</Button>
+                        <Button type="submit" size="slim" disabled={!formState.isValid}>Me connecter</Button>
                     </div>
 
                     <p className={`${styles.formRedirection} pb-1`}>
-                        Vous n'avez pas encore de compte ?
-                        <Link href="/compte/inscription"> C'est par ici.</Link>
+                        <Link href="/compte/inscription"> Créez votre compte</Link>
                     </p>
 
                     <p className={`${styles.formRedirection}`}>
                         Vous avez oublié votre mot de passe ?
-                        <Link href="/compte/reinitialiser"> Vous pouvez le réinitialiser </Link>
+                        <Link href="/compte/reinitialiser"> Réinitialisé votre mot de passe.</Link>
                     </p>
                 </div>
             </form>

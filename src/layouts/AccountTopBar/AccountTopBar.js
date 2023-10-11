@@ -2,9 +2,9 @@ import Link from 'next/link'
 import Button from '@/src/common/FormElements/Button/Button'
 
 //Authentication context
-import { useAuth } from '@/auth/context/auth-context'
+import {useAuth} from '@/auth/context/auth-context'
 
-//Styling 
+//Styling
 import styles from './AccountTopBar.module.scss'
 
 const AccountTopBar = () => {
@@ -21,9 +21,7 @@ const AccountTopBar = () => {
                     <strong><span> Vincent</span></strong>
                 </div>
                 <div className={styles.alignCenter}>
-                    <Link href="/compte">
-                        <a>Compte</a>
-                    </Link>
+                    <Link href="/compte">Compte</Link>
                     <div className={styles.verticalLine}></div>
                     <Button onClick={auth.logout}>Se déconnecter</Button>
                 </div>
