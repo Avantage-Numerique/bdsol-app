@@ -212,6 +212,8 @@ export const base = {
     "noSelectedOption": "No selection",
 
     //Select2
-    "createOptionLabel" : "Create : "
+    "createOptionLabel" : "Create : ",
 
+    //Button
+    "apply" : "Apply"
 }

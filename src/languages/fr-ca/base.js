@@ -118,5 +118,8 @@ const base = {
 
     //Select2
     "createOptionLabel" : "Créer : ",
+
+    //Button
+    "apply" : "Appliquer"
 }
 exports.base = base;
