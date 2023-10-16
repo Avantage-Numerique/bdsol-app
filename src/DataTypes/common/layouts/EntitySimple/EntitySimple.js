@@ -127,7 +127,7 @@ const EntitySimple = (props) => {
                 <ul className={`d-flex mb-0 ${styles["simple-abstract__content__tagList"]}`}>
                     {model.simgleList.length > 0 &&
                         model.simgleList.map(tag => (
-                            <li key={tag} title={tag} className="rounded">{tag}</li>
+                            <li key={tag} title={tag} className="rounded bg-general-tag">{tag}</li>
                         ))
                     }
                 </ul>

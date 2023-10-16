@@ -205,7 +205,7 @@ const HomePage = ({}) => {
             </Head>
 
             <PageHeader
-                bg={"bg-primaryextratlight"}
+                bg={"bg-primary_background"}
                 textColor={"text-white"}
                 title={lang.homePageTitle}
                 subTitle={lang.homePageDescription}

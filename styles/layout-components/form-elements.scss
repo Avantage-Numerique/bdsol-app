@@ -48,10 +48,7 @@
                 transition: all 300ms ease;
 
                 &:focus-within {
-                        /*  VARIABLE NOT WORKING YET
-                        background-color: lighten($purple-lighter, 5%);
-                        border: 0.1rem solid $purple-lighter;
-                        */
+
                         background-color: lighten($selected-input, 32%);
                         border: 0.1rem solid lighten($selected-input, 15%);
                         &.form-text-white {color: var(--bs-gray-700)};

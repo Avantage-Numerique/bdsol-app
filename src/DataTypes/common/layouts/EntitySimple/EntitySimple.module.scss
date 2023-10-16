@@ -7,7 +7,7 @@
     --simple-abstract--padding: #{$simple-default-padding};
 
     box-shadow: $default-box-shadow;//1px 1px 4px 2px rgba(0,0,0,0.15);
-    background-color: $light;
+    background-color: $primary_background;
     overflow: hidden;
     $transition-simple-base: $transition-default-property $transition-default-time $bezier-ease-in;
     @include transition($transition-simple-base);
@@ -87,7 +87,6 @@
 
             li {
                 padding: 0.1rem 0.4rem;
-                background-color: $gray-200;
             }
         }
         .simple-abstract__sub-section {

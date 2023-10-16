@@ -3,94 +3,154 @@
     01Hub - 08/08/2022
 */
 
-$primary-text-emphasis-dark:#0f0f0f;
-
 //colors
 $blue: #455ae6; // Avantage numérique's mainBlue (and blue1)
 $blue2: #4d64ff; // Avantage numérique's mainBlue (and blue2)
 $blue3: #4dc4ff; // Avantage numérique's mainBlue (and blue3)
 $blue4: #5f71ea; // Avantage numérique's mainBlue (and blue4)
-$bluelight: #8dc6e2;
-$green-light:  #adc9b0; //Light green
-$green:  #7ba076;
-$green-dark:  #364637; //Darkgreen
-$pink: #c881ca;
-$pink-100: lighten($pink, 80%);
-$red: #dd5c5c;  // Avantage numérique's red
-$yellow: #FAFA10;
-$red-light: #ff9e9e;  // Avantage numérique's red
+//$green-light:  #adc9b0; //Light green
+//$green:  #7ba076;
+//$green-dark:  #364637; //Darkgreen
+//$pink: #c881ca;
+//$pink-100: lighten($pink, 80%);
+//$red: #dd5c5c;  // Avantage numérique's red
+//$yellow: #FAFA10;
 $purple-light: #b2b2eb;
 $purple-lighter: lighten($purple-light, 10%);
-$blue-extralight: #ebeefd;
 
 $grey: #bbbfd7;
 $light-grey-bg: #f2f2f2;
 $mild-dark: #606060; // Avantage numérique's input labels
-$dark: #292929;
+//$dark: #292929;
 $light: lighten($grey, 30%);
-$white: #FEFEFE;
-$black: #010101;
 
-//Taxonomies colors
-$green-accepted: green;
-$yellow-pending: $yellow;
+
+
+$yellow-pending: #FAFA10;
 $red-rejected: $red;
-$grey-deprecated: $mild-dark;
-$occupations:#38D0EB;//0.647
-$skills: #38EB89;//0.647
-$domains:#EB3889;//0.647
+//$occupations:#38D0EB;//0.647
+//$skills: #38EB89;//0.647
+//$domains:#EB3889;//0.647
 $abilities:#E9A511;//0.647
-$general-tag: $grey;
-$bg-general-tag: rgba($grey, 30%);
+//$general-tag: $grey;
 
+
+/**************************************************
+***************************************************
+****** UPDATED COLORS
+******
+******/
+
+
+/*********** Primary ***********/
+$primary: #F09664;
+//Its Shades
+$primary_1: #F6AE85;
+$primary_2: #F9C3A3;
+$primary_3: #FCD8C3;
+$primary_4: #FDECE1;
+$primary_5: #FBF7F5;
+$primary_6: #ECDCD1;
+$primary_7: #D9BAA4;
+$primary_8: #A65D36;
+
+$primarylight:  $primary_3;
+$primaryextratlight: $primary_5;
+$primary_background: $primary_5;
+
+/*********** Secondary ***********/
+$secondary: #6EC8CD;
+//Its Shades
+$secondary_1: #89D5D8;
+$secondary_2: #A7DFE2;
+$secondary_3: #C4EAEB;
+$secondary_4: #E2F4F5;
+$secondary_5: #D7E5E6;
+$secondary_6: #AFCCCD;
+$secondary_7: #87B2B4;
+$secondary_8: #377E81;
+
+$secondarylight:  $secondary_3;
+
+
+/*********** Other colors ***********/
+$black: #1F1F2E;
+$dark: lighten($black, 10%);
+$mild-dark: lighten($black, 30%);
+$grey: lighten($black, 40%);
+$light: $secondary_4;
+
+//Red
+$red: #D74B32;
+$lighten_red: lighten($red, 10%);
+$darken_red: darken($red, 10%);
+
+//Green
+$green: #AAD287;
+$lighten_green: lighten($green, 10%);
+$darken_green: darken($green, 10%);
+
+/********** Specific variables for components **********/
+$green-accepted: $darken_green;
+//$yellow-pending: #FAFA10;      TO DO
+$red-rejected: $red;
+$occupations:$secondary_7;//0.647
+$skills: $darken_green;//0.647
+$domains: $red;
+//$abilities:#E9A511;//0.647     TO DO
 
 //Inputs variables
-$selected-input: $blue;
-
-// scss-docs-start theme-color-variables
-$primary:       $blue;
-$primarylight:  $purple-light;
-$primaryextratlight:  $blue-extralight;
-$primarydark:  darken($blue, 10%);
-$secondary: $grey;
-$secondarylight:  lighten($secondary,10%);
+$selected-input: $secondary_8;
 
 $theme-colors:(
-    "primary": $blue,
-    "primarylight": $purple-light,
-    "primaryextratlight": $primaryextratlight,
-    "secondary": $secondary,
-    "secondarylight": $secondarylight,
+    //"primary": $blue,
+    //"primarylight": $purple-light,
     "purplelight": $purple-light,
     "purplelighter": $purple-lighter,
-    "pink": $pink,
-    "pink-100": $pink-100,
+    //"pink": $pink,
+    //"pink-100": $pink-100,
     "blue2": $blue2,   // Avantage numérique's altBlue (and blue2) rgb(77, 100, 255)
     "blue3": $blue3,   // Avantage numérique's blue3 rgb(77, 196, 255)
     "blue4": $blue4,   // Avantage numérique's blue4 rgb(95, 113, 234)
-    "danger": $red-light,
-    "dark": $dark,
-    "light": $light,
-    "white":$white,
-    "black":$black,
-    "greyBg": $light-grey-bg,
-    "blueExtralight": $blue-extralight,
-
-    "success": $green,
-    "successlighter": $green-light,
-    "successDarker": $green-dark,
     
+    "light": $light,
+    
+    "greyBg": $light-grey-bg,
+
     //Taxonomies
     "accepted":$green-accepted,
     "pending":$yellow-pending,
     "rejected":$red-rejected,
-    "deprecated":$grey-deprecated,
     "occupations":$occupations,
     "skills":$skills,
     "domains":$domains,
     "abilities":$abilities,
-    "general-tag":$general-tag,
-    
+
+    /**************************************************
+    ***************************************************
+    ****** UPDATED Themes
+    ******
+    ******/
+
+    //PRIMARY 
+    "primary": $primary,
+    "primarylight": $primarylight,
+    "primaryextratlight": $primaryextratlight,
+    "primary_background": $primary_background,
+    //SECONDARY 
+    "secondary": $secondary,
+    "secondarylight": $secondarylight,
+    //GENERIC COLORS
+    "dark": $dark,
+    "black": $black,
+    "white": white,
+    //SPECIFIC TO COMPONENTS
+    "general-tag":$primary_2,
+    //SITUATIONAL
+    "success": $green,
+    "successlighter": $lighten_green,
+    "successDarker": $darken_green,
+    "danger": $lighten_red,
 );
 
 $main-image-bg-color: $light;
