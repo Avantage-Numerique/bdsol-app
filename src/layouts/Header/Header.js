@@ -6,7 +6,8 @@ import ConnectionBanner from "@/src/layouts/ConnexionBanner/ConnectionBanner";
 import SearchBar from '@/src/common/Components/SearchBar';
 import {lang} from "@/common/Data/GlobalConstants";
 import Icon from "@/common/widgets/Icon/Icon";
-
+import Image from "next/image"; 
+import logo from '@/public/logos-avnu/AVNU-LogoReduit-RVB.png'
 
 const Header = (props) => {
 
@@ -24,7 +25,9 @@ const Header = (props) => {
                     <div className="col">
                         {/* Container that fills all the width of the platform and contain the logo*/}
                         <div className={`${styles["header__content"]} header-center d-flex justify-content-start align-items-center text-light`} onClick={ () => setMenuState(0) }>
-                            <Link href="/" className={"fs-4 px-5"}>AVNU</Link>
+                            <Link href="/" className={"fs-4 px-5"}>
+                                <Image src={logo} alt="Logo réduit de AVNU"/>
+                            </Link>
                         </div>
                     </div>
 
