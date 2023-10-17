@@ -89,8 +89,13 @@ export const useSessionHook = () => {
                 } 
 
                 if(response.positive) {
-                    //auth.login(response.data.user);
-                    await Router.push(response.redirectUri);
+                    //If user not verified, redirect to aconfirmer
+                    if(response.user.verify.isVerified !== true)
+                        Router.push("/compte/aconfirmer");
+                    else{
+                        //auth.login(response.data.user);
+                        await Router.push(response.redirectUri);
+                    }
                 } 
 
                 //End the loading process
