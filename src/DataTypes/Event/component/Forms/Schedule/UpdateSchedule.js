@@ -65,7 +65,7 @@ const UpdateSchedule = ({name, formTools, schedule, ...props}) => {
                         />
                         <div className="col-md-12 col-lg-8">
                             <h6 className="col text-dark fw-normal mb-1 mt-1">Début</h6>
-                            <div className="col-12 bg-secondarylight p-2 mb-2 rounded-1" >
+                            <div className="col-12 bg-secondary-light p-2 mb-2 rounded-1" >
                                 <div className="row">
                                     <Input
                                         className="col-sm-12 col-md-7"
@@ -87,7 +87,7 @@ const UpdateSchedule = ({name, formTools, schedule, ...props}) => {
                                 </div>
                             </div>
                             <h6 className="col text-dark fw-normal mb-1 mt-1">Fin</h6>
-                            <div className="col-12 bg-secondarylight rounded-1 p-2">
+                            <div className="col-12 bg-secondary-light rounded-1 p-2">
                                 {/* adjust that live to avoid past of endDate */}
                                 <div className="row">
                                     <Input

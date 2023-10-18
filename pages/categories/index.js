@@ -68,20 +68,20 @@ const TaxonomiesCategoryPage = () => {
             list.map( (elem) => 
                 <div
                     className="col-6 col-sm-4 col-md-3 p-sm-1 p-md-2 d-flex"
+                    key={elem.slug}
                 >
-                    <Link href={`/categories/${elem.category}/${elem.slug}`}>
-                        <a
-                            key={elem.slug}
-                            className={`border d-flex justify-content-between align-items-center w-100 p-sm-1 p-md-2 rounded ${styles["list-tag"]}`}
-                            href={`/categories/${elem.category}/${elem.slug}`}
-                        >
+                    <Link 
+                        className={`border d-flex justify-content-between align-items-center w-100 p-sm-1 p-md-2 rounded ${styles["list-tag"]}`}
+                        href={`/categories/${elem.category}/${elem.slug}`}
+                    >
+                        
                             <span>{elem.name}</span>
                             {
                                 elem.meta?.count > 0 ?
                             <span className={"badge bg-primary"}>{elem.meta?.count}</span>
                             :
                             ""}
-                        </a>
+                    
                     </Link>
                 </div>
             )

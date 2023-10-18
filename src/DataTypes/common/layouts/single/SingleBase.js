@@ -79,7 +79,7 @@ const SingleBase = (props) => {
                 { /* Header */ }
                 {/* Background image */}
                 <header className={`${styles["header-base"]} row position-relative`}>
-                    <figure className={`${styles["background-image-figure"]} p-0 rounded overflow-hidden bg-secondary`}>
+                    <figure className={`${styles["background-image-figure"]} p-0 rounded overflow-hidden`}>
                         <img className="w-100 opacity-5" src={defaultHeaderBg} alt="Image d'arrière plan de l'entête"/>
                         <div className={`dark-transparent-gradient doubled`}></div>
                     </figure>

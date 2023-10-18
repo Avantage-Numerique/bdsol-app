@@ -72,42 +72,25 @@ const Index = () => {
 
                     <div className='row pb-5 row-cols-1 row-cols-md-4 gy-3'>
                         <div className="col">
-                            <Button href={getCreateEntityPath("TYPE_PERSON")} size="large-100" disabled={!auth.user.isLoggedIn}>{lang.Person}</Button>
+                            <Button href={getCreateEntityPath("TYPE_PERSON")} disabled={!auth.user.isLoggedIn}>{lang.Person}</Button>
                         </div>
                         <div className="col">
-                            <Button href={getCreateEntityPath("TYPE_ORGANISATION")} size="large-100" disabled={!auth.user.isLoggedIn}>{lang.Organisation}</Button>
+                            <Button href={getCreateEntityPath("TYPE_ORGANISATION")} disabled={!auth.user.isLoggedIn}>{lang.Organisation}</Button>
                         </div>
                         <div className="col">
-                            <Button href="/contribuer/categorie" size="large-100" disabled={!auth.user.isLoggedIn}>{lang.Taxonomy}</Button>
+                            <Button href="/contribuer/categorie" disabled={!auth.user.isLoggedIn}>{lang.Taxonomy}</Button>
                         </div>
                         <div className="col">
-                            <Button href={getCreateEntityPath("TYPE_PROJECT")} size="large-100" disabled={!auth.user.isLoggedIn}>{lang.Project}</Button>
+                            <Button href={getCreateEntityPath("TYPE_PROJECT")} disabled={!auth.user.isLoggedIn}>{lang.Project}</Button>
                         </div>
                         <div className="col">
-                            <Button href={getCreateEntityPath("TYPE_EVENT")} size="large-100" disabled={!auth.user.isLoggedIn}>{lang.Event}</Button>
+                            <Button href={getCreateEntityPath("TYPE_EVENT")} disabled={!auth.user.isLoggedIn}>{lang.Event}</Button>
                         </div>
                         <div className="col">
-                            <Button href={getCreateEntityPath("TYPE_EQUIPMENT")} size="large-100" disabled={!auth.user.isLoggedIn}>{lang.Equipment}</Button>
+                            <Button href={getCreateEntityPath("TYPE_EQUIPMENT")} disabled={!auth.user.isLoggedIn}>{lang.Equipment}</Button>
                         </div>
                     </div>
-                    {
-                        /* Retrait de "entité à venir" pour faire clean avec les tests user
-                        <div className='row pt-5 pb-3'>
-                            <div className="col">
-                                <h2 className="col-12">Entités à venir</h2>
-                            </div>
-                        </div>
 
-                        <div className='row pb-5 row-cols-1 row-cols-md-4 gy-3'>
-                            <div className="col">
-                                <Button href="/" size="large-100" disabled>Événement</Button>
-                            </div>
-                            <div className="col">
-                                <Button href="/" size="large-100" disabled>Matériel</Button>
-                            </div>
-                        </div>
-                        */
-                    }
                 </div>
             </div>
         </div>

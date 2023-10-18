@@ -8,19 +8,12 @@ $blue: #455ae6; // Avantage numérique's mainBlue (and blue1)
 $blue2: #4d64ff; // Avantage numérique's mainBlue (and blue2)
 $blue3: #4dc4ff; // Avantage numérique's mainBlue (and blue3)
 $blue4: #5f71ea; // Avantage numérique's mainBlue (and blue4)
-//$green-light:  #adc9b0; //Light green
-//$green:  #7ba076;
-//$green-dark:  #364637; //Darkgreen
-//$pink: #c881ca;
-//$pink-100: lighten($pink, 80%);
-//$red: #dd5c5c;  // Avantage numérique's red
-//$yellow: #FAFA10;
+
 $purple-light: #b2b2eb;
 $purple-lighter: lighten($purple-light, 10%);
 
 $grey: #bbbfd7;
 $light-grey-bg: #f2f2f2;
-$mild-dark: #606060; // Avantage numérique's input labels
 //$dark: #292929;
 $light: lighten($grey, 30%);
 
@@ -54,9 +47,9 @@ $primary_6: #ECDCD1;
 $primary_7: #D9BAA4;
 $primary_8: #A65D36;
 
-$primarylight:  $primary_3;
-$primaryextratlight: $primary_5;
-$primary_background: $primary_5;
+$primary-light:  $primary_3;
+$primary-lighter: $primary_5;
+$primary-dark: $primary_6;
 
 /*********** Secondary ***********/
 $secondary: #6EC8CD;
@@ -70,8 +63,9 @@ $secondary_6: #AFCCCD;
 $secondary_7: #87B2B4;
 $secondary_8: #377E81;
 
-$secondarylight:  $secondary_3;
-
+$secondary-light:  $secondary_2;
+$secondary-lighter:  $secondary_4;
+$secondary-dark:  $secondary_6;
 
 /*********** Other colors ***********/
 $black: #1F1F2E;
@@ -134,12 +128,14 @@ $theme-colors:(
 
     //PRIMARY 
     "primary": $primary,
-    "primarylight": $primarylight,
-    "primaryextratlight": $primaryextratlight,
-    "primary_background": $primary_background,
+    "primary-light": $primary-light,
+    "primary-lighter": $primary-lighter,
+    "primary-dark": $primary-dark,
     //SECONDARY 
     "secondary": $secondary,
-    "secondarylight": $secondarylight,
+    "secondary-light": $secondary-light,
+    "secondary-lighter": $secondary-lighter,
+    "secondary-dark": $secondary-dark,
     //GENERIC COLORS
     "dark": $dark,
     "black": $black,
@@ -192,7 +188,7 @@ $link-decoration: none;
     BORDER
  */
 
-$border-radius: 0.5em;
+$border-radius: 1em;
 $border-width: 0.15rem;
 //to-do; transpose value from rem to em (only one button radius is used in the app for now.
 // $border-radius-sm:            .25rem !default;

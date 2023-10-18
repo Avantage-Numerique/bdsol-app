@@ -49,7 +49,7 @@ const DisplaySchedule = ({feed}, ...props) => {
                             }
                             return (
                                 <li key={step.key + "-" + step.name + "" + String(step.startTime) + "scheduleInfo"}
-                                    className={`list-group-item d-flex justify-content-between align-items-center ${i % 2 ? "bg-primaryextratlight" : ""}`}>
+                                    className={`list-group-item d-flex justify-content-between align-items-center ${i % 2 ? "bg-primary-lighter" : ""}`}>
                                     <div className="d-flex w-25">
                                         <TimeIntervalSentence showDay={false} tag={"span"}/>
                                     </div>
@@ -107,7 +107,7 @@ const DisplaySchedule = ({feed}, ...props) => {
                                     <strong>{lang.capitalize("the")} <TimeTag date={step.startDate} format={lang.humanDateFormat}/></strong>
                                 </p>
                                 <li key={step.key + "-" + step.name + "" + step.startTime + "scheduleInfo"}
-                                    className={`list-group-item d-flex justify-content-between align-items-center ${i % 2 ? "bg-primaryextratlight" : ""}`}>
+                                    className={`list-group-item d-flex justify-content-between align-items-center ${i % 2 ? "bg-primary-lighter" : ""}`}>
                                     <div className="d-flex w-25">
                                         <TimeIntervalSentence showDay={false} tag={"span"}/>
                                     </div>

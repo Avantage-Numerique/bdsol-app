@@ -15,7 +15,7 @@ const SearchTag = ({list, max, ...props}) => {
     const [moreThanMax, setMoreThanMax] = useState(false);
 
     max = max ?? "-1";
-    const tagBgColor = props.tagBgColor ?? "primarylight";
+    const tagBgColor = props.tagBgColor ?? "primary-light";
 
     useEffect( () => {
         const setupList = list?.map( (listElement) => {
@@ -51,7 +51,7 @@ const SearchTag = ({list, max, ...props}) => {
                 }
                 {
                     moreThanMax &&
-                    <span className={`badge text-bg-primarylight me-1`} key={"searchTag-showmore"}>
+                    <span className={`badge text-bg-primary-light me-1`} key={"searchTag-showmore"}>
                         &hellip;
                     </span>
                 }

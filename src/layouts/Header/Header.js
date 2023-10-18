@@ -18,14 +18,14 @@ const Header = (props) => {
     const { menuState, setMenuState } = props
 
     return (
-        <header className={`main-nav ${styles.header} bg-dark sticky-top`}>
+        <header className={`main-nav ${styles.header} sticky-top bg-primary-dark`}>
 
             <div className="container-fluid">
                 <div className="row">
                     <div className="col">
                         {/* Container that fills all the width of the platform and contain the logo*/}
                         <div className={`${styles["header__content"]} header-center d-flex justify-content-start align-items-center text-light`} onClick={ () => setMenuState(0) }>
-                            <Link href="/" className={"fs-4 px-5"}>
+                            <Link href="/" className={"fs-5 px-5"}>
                                 <Image src={logo} alt="Logo réduit de AVNU"/>
                             </Link>
                         </div>
@@ -57,10 +57,10 @@ const Header = (props) => {
                             { !auth.user.isLoggedIn &&
                                 <ul className={`nav align-items-center`} onClick={ () => setMenuState(0) }>
                                     <li className="nav-item">
-                                        <a href="/compte/inscription" className={"nav-link"}>{lang.menuSubscribeLabel}</a>
+                                        <a href="/compte/inscription" className={"nav-link text-black"}>{lang.menuSubscribeLabel}</a>
                                     </li>
                                     <li className="nav-item">
-                                        <a href="/compte/connexion" className={`nav-link`}><Icon iconName="sign-in-alt" className={"la-lg"} /> {lang.menuConnectLabel}</a>
+                                        <a href="/compte/connexion" className={`nav-link text-black`}><Icon iconName="sign-in-alt" className={"la-lg"} /> {lang.menuConnectLabel}</a>
                                     </li>
                                 </ul>
                             }
@@ -86,7 +86,7 @@ const Header = (props) => {
                             }
 
                             {/* Button for the main menu */}
-                            <div className={`${styles["ham-menu-container"]} bg-primary`}>
+                            <div className={`${styles["ham-menu-container"]}`}>
                                 <HamburgerButton {...props} />
                             </div>
 

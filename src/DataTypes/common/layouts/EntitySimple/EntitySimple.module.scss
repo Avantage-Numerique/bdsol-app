@@ -7,7 +7,7 @@
     --simple-abstract--padding: #{$simple-default-padding};
 
     box-shadow: $default-box-shadow;//1px 1px 4px 2px rgba(0,0,0,0.15);
-    background-color: $primary_background;
+    background-color: $primary-lighter;
     overflow: hidden;
     $transition-simple-base: $transition-default-property $transition-default-time $bezier-ease-in;
     @include transition($transition-simple-base);

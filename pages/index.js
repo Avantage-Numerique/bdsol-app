@@ -205,7 +205,7 @@ const HomePage = ({}) => {
             </Head>
 
             <PageHeader
-                bg={"bg-primary_background"}
+                bg={"bg-primary-lighter"}
                 textColor={"text-white"}
                 title={lang.homePageTitle}
                 subTitle={lang.homePageDescription}
@@ -261,16 +261,16 @@ const HomePage = ({}) => {
                                 </div>
                                 :
                                 <section className="d-grid content-header">
-                                    <Button color="primary" href="/compte/connexion">Se connecter</Button>
+                                    <Button href="/compte/connexion">Se connecter</Button>
                                 </section>
                             }
                             <hr />
                             {!auth.user.isLoggedIn &&
                             <section className={"aside__register-option py-2"}>
-                                <div className="bg-primary text-white d-flex flex-column">
+                                <div className="bg-secondary text-white d-flex flex-column">
                                     <h4>Pas encore de compte ?</h4>
                                     <p>Vous en aurez besoin afin de vous aussi contribuer aux données</p>
-                                    <Button color="light" outline="light" href="/compte/inscription">C'est par ici !</Button>
+                                    <Button color="light" text_color_hover="secondary" outline="light" href="/compte/inscription">C'est par ici !</Button>
                                 </div>
                                 <hr />
                             </section>
@@ -283,12 +283,10 @@ const HomePage = ({}) => {
                                     <Button 
                                         href="/persons/"
                                         size="slim" 
-                                        color="primary"
                                         className={"w-100"}
-                                        slim>
+                                    >
                                         {lang.Persons}</Button>
                                     <Button
-                                        color="primary"
                                         size="slim"
                                         disabled={!auth.user.isLoggedIn}
                                         href={getCreateEntityPath(TYPE_PERSON)}
@@ -298,12 +296,10 @@ const HomePage = ({}) => {
                                 <div className={"db-edit-options__button-set"}>
                                     <Button 
                                         href="/organisations/"
-                                        color="primary" 
                                         size="slim"
                                         className={"w-100"}
                                     >{lang.Organisations}</Button>
                                     <Button
-                                        color="primary"
                                         size="slim"
                                         disabled={!auth.user.isLoggedIn}
                                         href={getCreateEntityPath(TYPE_ORGANISATION)}
@@ -311,9 +307,8 @@ const HomePage = ({}) => {
                                 </div>
 
                                 <div className={"db-edit-options__button-set"}>
-                                    <Button href="/projets" color="primary" size="slim" className={"w-100"}>{lang.Projects}</Button>
+                                    <Button href="/projets"  size="slim" className={"w-100"}>{lang.Projects}</Button>
                                     <Button
-                                        color="primary"
                                         size="slim"
                                         disabled={!auth.user.isLoggedIn}
                                         href={getCreateEntityPath(TYPE_PROJECT)}
@@ -321,9 +316,8 @@ const HomePage = ({}) => {
                                 </div>
 
                                 <div className={"db-edit-options__button-set"}>
-                                    <Button href="/categories" color="primary" size="slim" className={"w-100"}>{lang.Taxonomies}</Button>
+                                    <Button href="/categories"  size="slim" className={"w-100"}>{lang.Taxonomies}</Button>
                                     <Button
-                                        color="primary"
                                         size="slim"
                                         disabled={!auth.user.isLoggedIn}
                                         href="/contribuer/categorie"
@@ -331,18 +325,16 @@ const HomePage = ({}) => {
                                 </div>
 
                                 <div className={"db-edit-options__button-set"}>
-                                    <Button href="/events" color="primary" size="slim" className={"w-100"}>{lang.Events}</Button>
+                                    <Button href="/events" size="slim" className={"w-100"}>{lang.Events}</Button>
                                     <Button
-                                        color="primary"
                                         size="slim"
                                         disabled={!auth.user.isLoggedIn}
                                         href={getCreateEntityPath(TYPE_EVENT)}
                                     >+</Button>
                                 </div>
                                 <div className={"db-edit-options__button-set"}>
-                                    <Button href="/equipment" color="primary" size="slim" className={"w-100"}>{lang.Equipments}</Button>
+                                    <Button href="/equipment" size="slim" className={"w-100"}>{lang.Equipments}</Button>
                                     <Button
-                                        color="primary"
                                         size="slim"
                                         disabled={!auth.user.isLoggedIn}
                                         href={getCreateEntityPath(TYPE_EQUIPMENT)}
@@ -365,7 +357,7 @@ const HomePage = ({}) => {
                                     La base de données structurées, ouvertes et liées (BDSOL) est le cœur du hub virtuel d’Avantage numérique.
                                     Elle vise à recenser et géolocaliser les talents, les compétences, les ressources, les initiatives technocréatives à travers le territoire du Croissant Boréal.
                                 </p>
-                                <Button classes="mt-3" color="white" outline="primary" href="/faq/a-propos">{lang.knowMore}</Button>
+                                <Button className="mt-3" color="white" outline="primary" href="/faq/a-propos">{lang.knowMore}</Button>
                             </section>
                         </div>
                     </aside>
