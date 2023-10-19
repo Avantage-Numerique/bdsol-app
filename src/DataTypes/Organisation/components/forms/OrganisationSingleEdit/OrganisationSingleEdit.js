@@ -166,7 +166,7 @@ const OrganisationSingleEdit = (props) => {
                 Router.push("/"+replacePathname(model.singleRoute.pathname, {slug: response.data.slug}))
             }
 
-        })
+    })
 
     //Function to submit the form
     const submitHandler = async event => {
