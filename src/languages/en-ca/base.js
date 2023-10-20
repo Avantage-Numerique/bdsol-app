@@ -28,8 +28,8 @@ export const base = {
 
     //  HomePage
 
-    "homePageTitle": "Explore techno-creative actors of Croissant boréal",
-    "homePageDescription": "Code name : Open and linked database of Avantage Numérique.",
+    "homePageTitle": 'The perfect tool to explore the "Croissant boréal" technological resources',
+    "homePageDescription": "In just a few clicks, find organizations, projects, people, equipment and events related to the digital in your territory.",
     "actualities": "Actualities",
     "menu": "Menu",
 

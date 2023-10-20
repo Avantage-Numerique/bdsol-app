@@ -37,8 +37,8 @@ const base = {
 
     //  HomePage
 
-    "homePageTitle": "Techno-créatifs·ves dans le croissant boréal",
-    "homePageDescription": "Nom de code : Base de données structurée ouverte et liée d'Avantage Numérique.",
+    "homePageTitle": "L'outil d'exploration des ressources technologiques du Croissant boréal",
+    "homePageDescription": "Retrouvez en quelques clics les organismes, projets, personnes, équipements et événements en lien avec le numérique sur votre territoire.",
     "actualities": "Actualités",
     "allData": "Toutes les données",
     "menu": "Menu",

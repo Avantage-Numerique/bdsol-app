@@ -24,9 +24,9 @@ const PageHeader = (props) => {
     return (
         <header className={`${styles['page-header']} ${bgClass}`}>
             <div className="container">
-                <div className='row justify-content-center align-items-center'>
+                <div className='row justify-content-between align-items-center'>
 
-                    <div className={`col col-sm-${colNumberXs} d-flex flex-column justify-content-center`}>
+                    <div className={`${styles['header-left-col--max-width']} col col-sm-${colNumberXs} d-flex flex-column justify-content-center`}>
                         {historyBack &&
                         <div className={"d-flex justify-content-end"}>
                             <Button color="white" outline="primary" href={historyBack.uri}>
@@ -51,7 +51,7 @@ const PageHeader = (props) => {
                         </div>
                         
                         {props.subTitle &&
-                            <h3 className={`${subtitleColor} mb-2`} dangerouslySetInnerHTML={{ __html: props.subTitle}}></h3>
+                            <h3 className={`${subtitleColor} mb-2 fs-5`} dangerouslySetInnerHTML={{ __html: props.subTitle}}></h3>
                         }
 
                         {props.tags &&
