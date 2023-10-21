@@ -13,7 +13,8 @@ export const defaultSessionData = {
     createdAt: null,
     ip: null,
     browser: null,
-    language: null
+    language: null,
+    verify:{ isVerified: false }
 };
 
 /**
@@ -38,6 +39,7 @@ export const getSessionFromData = (userData) => {
             ip: userData.ip ?? null,
             browser: userData.browser ?? null,
             language: userData.language ?? null,
+            verify: userData.verify ?? { isVerified: false }
         }
     }
     return defaultSessionData;

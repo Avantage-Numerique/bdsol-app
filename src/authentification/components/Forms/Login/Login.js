@@ -3,7 +3,7 @@ import React, {useContext, useEffect} from 'react';
 import Link from 'next/link';
 
 //Context
-import {useAuth} from '@/auth/context/auth-context';
+import {useAuth} from "@/src/authentification/context/auth-context";
 import {MessageContext} from '@/src/common/UserNotifications/Message/Context/Message-Context';
 
 //Custom hooks
@@ -18,6 +18,7 @@ import Spinner from '@/src/common/widgets/spinner/Spinner';
 
 //Styling
 import styles from './Login.module.scss';
+import Router from 'next/router'
 
 const Login = () => {
 
@@ -33,8 +34,8 @@ const Login = () => {
         If he isn't, then redirect him in the account page
     */
     useEffect(() => {
-          if(auth.isLoggedIn) {
-            //Router.push('/compte')
+          if(auth.user.isLoggedIn) {
+            Router.push('/compte')
           }
     }, [auth.isLoggedIn])
 
@@ -58,33 +59,25 @@ const Login = () => {
 
         event.preventDefault();
 
-        if(auth.isLoggedIn){
+        //Make sure that the form is valid before submitting it
+        if(formState.isValid){
 
-            //redirect the user to the account page. 
-            //Router.push('/compte');
+            const formData = {
+                username:  formState.inputs.username.value,
+                password: formState.inputs.password.value //@todo encrypt with app key before sending? or https is enought ?
+            };
+            
+            //Call the login hook responsible for the connection
+            await login(formData);
 
         } else {
-
-            //Make sure that the form is valid before submitting it
-            if(formState.isValid){
-
-                const formData = {
-                    username:  formState.inputs.username.value,
-                    password: formState.inputs.password.value //@todo encrypt with app key before sending? or https is enought ?
-                };
-                
-                //Call the login hook responsible for the connection
-                await login(formData);
-
-            } else {
-                /*
-                    Send a message if the form is not valid
-                */
-                msg.addMessage({ 
-                    text: "Attention. Le formulaire envoyé n'est pas valide. Assurez-vous que tous les champs sont bien remplis.",
-                    positive: false 
-                });
-            }
+            /*
+                Send a message if the form is not valid
+            */
+            msg.addMessage({ 
+                text: "Attention. Le formulaire envoyé n'est pas valide. Assurez-vous que tous les champs sont bien remplis.",
+                positive: false 
+            });
         }
     }
 
