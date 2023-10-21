@@ -1,62 +1,25 @@
-/*
-        Styles specifics to the footer of every pages
-        V.P.R - 30/09/2021
-*/
-
 #pageFooter {
-    width:100%;
-    padding:1.5em 0;
 
-    .separatorLine{
-        border-bottom: 3px solid white;
-    }
-    
-    h3 { 
-        // font-family: var(--generalFont);
-        font-family: var(--bs-body-font-family);
-        font-weight: bold;
-        margin: 1rem 0rem;
-    }
+    --footer-vertical-paddings: clamp(0.5rem, 2vh, 2rem);
 
-    section{
-        color: white;
-        padding: 1.5em 0px;
-    }
-
-    p{
-        margin-bottom:0;
-    }
-
-    form.newsletterSubscription{
-        display:flex;
-
-        /* The input that is not submit will stretch to all the width */
-        input:not([type='submit']){
-            flex: 1;
+    .main-logo--container {
+        img { 
+            max-width: clamp(8rem, 10vw, 15rem); 
+            padding: var(--footer-vertical-paddings) 0px;
         }
     }
-    
-    .partnersLogos{
-        li{
-            display:inline;
 
-            img {
-                height:2em;
-                margin: 0.25em 0.5em;
-                opacity: 0.7;
-    
-                -webkit-transition: opacity 0.2s ease-out;
-                -moz-transition: opacity 0.2s ease-out;
-                -o-transition: opacity 0.2s ease-out;
-                transition: opacity 0.2s ease-out;
-    
-                &:hover{ opacity: 1;}
-            }
+    .secondary-logo--container {
+        img { 
+            width: clamp(15rem, 15vw, 23rem); 
+            padding: var(--footer-vertical-paddings) 0px;
         }
     }
 
     /* Social media logos container   */
     .socialMediaLogos{
+
+        padding: var(--footer-vertical-paddings) 0px;
 
         /* Individual social media logo */
         .socialMediaLogo {
@@ -69,8 +32,10 @@
             }
         }
 
+
         /* Class to specify which path element will change of color  */
         .colorTransition{
+            fill: $primary-dark;
             -webkit-transition: fill 0.2s ease-out;
             -moz-transition: fill 0.2s ease-out;
             -o-transition: fill 0.2s ease-out;
@@ -82,45 +47,5 @@
         .InstagramLogo:hover{ .colorTransition{ fill:  #F58529; }  }
         .YoutubeLogo:hover{ .colorTransition{ fill: #FF0000}  }
 
-    }
-
-    .footerFooter{
-        display: flex;
-        justify-content: space-between;
-
-        /* credit section */
-        small {
-
-            display: flex;
-            align-items: center;
-
-                /* Avantage numérique Logo */
-            img {height: 1.5em;}
-
-            .creditYear {padding-left: 1em;}
-
-        }
-
-        /* Button to scroll to the top */
-    .goPageTop{
-        color: white;
-        opacity: 0.6;
-
-        /* opacity transition */ 
-        -webkit-transition: opacity 0.2s ease-out;
-        -moz-transition: opacity 0.2s ease-out;
-        -o-transition: opacity 0.2s ease-out;
-        transition: opacity 0.2s ease-out;
-
-        /* Arrow */
-        img {
-            height: 1.25em;
-            margin-left: 0.5em;
-            margin-bottom: -0.15em;
-            vertical-align: baseline;
-        }
-
-        &:hover{ opacity: 1;}
-    }
     }
 }
