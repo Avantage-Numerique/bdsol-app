@@ -210,10 +210,9 @@ const HomePage = ({}) => {
                 title={lang.homePageTitle}
                 subTitle={lang.homePageDescription}
                 description=""
-                image={"/general_images/Croissant-Boreal@3x-1440x1440.png"}
-                imgAlt={"Carte du croissant boréal"} key={"pageHeaderHomePage"} />
-
-
+                image={"/general_images/CroissantBoreal.png"}
+                imgAlt={"Carte du croissant boréal"} key={"pageHeaderHomePage"} 
+            />
             <div className="container home-page__main p-0">
                 <div className="row gx-5">
                     <div className="col col-12 col-md-9 position-relative">
