@@ -36,17 +36,17 @@ const accountPage = ({ user }) => {
                         {user && (
                             <div className={"side-menu"}>
                                 <div className={`${styles["user-card"]}`}>
-                                    <div className="d-flex align-items-center">
-                                        <div className="flex-shrink-0">
+                                    <div className="d-flex align-items-center justify-content-center">
+                                        <div className="flex-shrink-0 bg-secondary">
                                         {(user.avatar === undefined || user.avatar === null || user.avatar.toString() === "") ?
-                                                <img src="https://freesvg.org/img/1389952697.png" alt="Aucune image de profil" width="120" height="120"/>
+                                                <img src="/general_images/default-avatar.webp" className={"img-fluid"} alt="Aucune image de profil" width="120" height="120"/>
                                                 :
                                                 <img src={user.avatar} alt="Ton avatar" width="120" height="120"/>
                                         }
                                         </div>
                                     </div>
                                 </div>
-                                <div className="flex-grow-1">
+                                <div className="flex-grow-1 text-center">
                                     <h3>{user.name}</h3>
                                     <div>{user.username}</div>
                                 </div>
