@@ -15,8 +15,8 @@
 
     /* Header's styling */
     .simple-abstract__header {
+        padding: var(--simple-abstract--padding);
         position: relative;
-        height: 9rem;
         @include transition($transition-simple-base);
 
         .entity-type {
@@ -25,6 +25,9 @@
         }
         .simple-abstract__header__figure {
             position: relative;
+            width: clamp(6rem, 40%, 8rem);
+            aspect-ratio: 1 / 1;
+            border-radius: 100%;
             @include transition();
 
             overflow: hidden;
@@ -39,6 +42,16 @@
                 width: 100%;
                 height: 100%;
                 object-fit: cover;
+
+            }
+            /* If default image, change the styling */
+            &.img-contained { 
+                
+                border-radius: 0px;
+                .simple-abstract__header__figure__img {
+                    object-fit: contain; 
+                    filter: drop-shadow(0.15rem 0.15rem 0.1rem #2929297d)
+                }
             }
         }
     }
@@ -68,6 +81,8 @@
 
         .simple-abstract__content__header{
             height: calc(2 * var(--single-title-font-size));
+
+            a { width: fit-content; }
         }
 
         .simple-abstract__content__title{

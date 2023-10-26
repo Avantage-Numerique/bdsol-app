@@ -3,7 +3,7 @@ import OrganisationSimple from "@/DataTypes/Organisation/components/layouts/simp
 import Media from "@/DataTypes/Media/models/Media";
 import {TYPE_ORGANISATION} from "@/DataTypes/Entity/Types";
 import AppRoutes from "@/src/Routing/AppRoutes";
-
+import {lang} from "@/common/Data/GlobalConstants";
 
 class Organisation extends EntityModel {
 
@@ -14,7 +14,7 @@ class Organisation extends EntityModel {
         this.title = raw.name ?? "";
         this.description = raw.description ?? "";
         this.mainImage = !raw.mainImage || raw.mainImage === "" ? {
-            url: "/general_images/default-organisation.png",
+            url: "/entity-icones/L-format/png/Icone-GrandFormat-Organisation.png",
             alt: raw.name,
             baseSrc: `${process.env.NEXT_PUBLIC_APP_URL}`,
             isDefault: true
@@ -24,6 +24,9 @@ class Organisation extends EntityModel {
         this.type = TYPE_ORGANISATION;
 
         this.mainImage.src = this.mainImageModel?.src ?? "";
+        
+        this.icon.url = "/entity-icones/SM-format/organisation_tiny_icon.svg"
+        this.icon.alt = lang.iconOfOrganization;
 
         //this.taxonomies = new Map();
         //this.taxonomies.set("domains", raw.domains);

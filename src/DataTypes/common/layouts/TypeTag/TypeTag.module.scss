@@ -1,0 +1,54 @@
+.type-tag {
+
+    //Base size values
+    --height: 1.5rem; 
+    --font-size:  0.85rem;
+
+    //Base color values
+    --background-color: #{$secondary_2};
+    --color: #{$secondary_8};
+
+    //Calculated spacing
+    --padding-left: var(--height); 
+    --general-padding-x: 0.5rem;
+    --general-padding-y: calc((var(--height) - var(--font-size)) / 2);
+
+    //height: var(--height);
+    font-size: var(--font-size);
+    line-height: var(--font-size);
+    width: fit-content;
+    display: flex;
+
+    .tag {
+        background-color: grey;
+        border-radius: 50%;
+        height: var(--height);
+        width: var(--height);  
+        background-color: var(--background-color);
+        color: var(--color);
+        
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        img {
+            max-width: 70%;
+            max-height: 60%;
+        }
+    }
+
+    .label {
+        width: fit-content;
+
+        padding: var(--general-padding-y) var(--general-padding-x) ;
+        padding-left: calc(var(--padding-left) + var(--general-padding-y));
+        background: radial-gradient(var(--padding-left) 75% at left, transparent 100%, var(--background-color) 51%);
+        border-radius: 0 1rem 1rem 0;
+        color: var(--color);
+
+        transform: translateX(calc(-2 * (var(--padding-left) / 3)));
+
+        display: flex;
+        align-items: center;
+    }
+}

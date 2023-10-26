@@ -8,7 +8,7 @@ import {getType} from "@/DataTypes/Entity/Types";
 import HtmlTagsRemover from '@/src/utils/HtmlTagsRemover'
 import Link from "next/link";
 import Icon from "@/common/widgets/Icon/Icon";
-
+import TypeTag from '@/DataTypes/common/layouts/TypeTag/TypeTag'
 
 /**
  *
@@ -52,31 +52,42 @@ const EntitySimple = (props) => {
     //Verify is a bottom line is available to be displayed
     const isBottomLine = (BottomLineContent || model.simgleList);
 
-
     /**
      * Defininf the default header fo the EntitySimple to be overwrite with Header
      * @type {JSX.Element}
      */
     const HeaderDefault = (
-        <div className={"d-flex h-100 justify-content-start align-items-end"}>
+        <div className={"h-100 d-flex flex-column"}>
+            {/* Tag container */}
+            <div className="mb-2">
+                <TypeTag 
+                    type={appType.label}
+                    icon={model.icon.url}
+                    iconAlt={model.icon.alt}
+                />
+            </div>
             {/* Image representing the entity */}
             { model.mainImage &&
-                <div>
-                    <Link href={model.singleLink} title={title}>
-                        <MediaFigure
-                            model={model.mainImage}
-                            className={`${styles["simple-abstract__header__figure"]} position-absolute top-0 start-0 w-100 h-100 t-0`}
-                            imgClassName={`${styles["simple-abstract__header__figure__img"]}`}
-                            addGradientOver={true}>
+                <div className="d-flex justify-content-center w-100 mt-4">
+                    <MediaFigure
+                        model={model.mainImage}
+                        className={`${styles["simple-abstract__header__figure"]} t-0 ${model.mainImage.isDefault && styles["img-contained"]}`}
+                        imgClassName={`${styles["simple-abstract__header__figure__img"]}`}
+                        addGradientOver={true}
+                        link={model.singleLink}
+                        linkTitle={title}
+                    >
+                        {!model.mainImage.isDefault &&
                             <div className={`${styles["figure-overlay"]} position-absolute w-100 h-100 no-pointer-events dark-transparent-gradient`}></div>
-                        </MediaFigure>
-                    </Link>
+                        }
+                    </MediaFigure>
                 </div>
             }
-            {/* Display over the entity the type of image */}
+            {/* Display over the entity the type of image 
             {showEntityType && appType &&
                 <h4 title={appType.label} className={`position-relative text-white fw-normal justify-self-end m-2 p-0 ${styles["entity-type"]}`}><Icon iconName={appType.icon}/></h4>
             }
+            */}
         </div>
     );
 
@@ -90,15 +101,15 @@ const EntitySimple = (props) => {
         <>
             <header className={`d-flex mb-2 justify-content-between ${styles["simple-abstract__content__header"]}`}>
                 {/* Main name of the entity */}
-                <div className={"w-100 d-flex flex-column justify-content-center "}>
-                    <h3 className={`w-100 m-0 
-                        ${styles["simple-abstract__content__title"]}
-                        ${styles["simple-abstract__content_ellipsis"]}
-                    `}>
-                        <Link href={model.singleLink} title={title} className={"d-block w-100"}>
+                <div className={"w-100 d-flex flex-column justify-content-center align-items-center"}>
+                    <Link href={model.singleLink} title={title}>
+                        <h3 className={`w-100 m-0 text-center
+                            ${styles["simple-abstract__content__title"]}
+                            ${styles["simple-abstract__content_ellipsis"]}
+                        `}>
                             {model.title}
-                        </Link>
-                    </h3>
+                        </h3>
+                    </Link>
                 </div>
                 {/* model.singleLink && <KebabButton href={model.singleLink} /> */}
             </header>
@@ -114,6 +125,7 @@ const EntitySimple = (props) => {
                         tag="p"
                         className={`
                             mb-0
+                            text-center
                             ${styles["simple-abstract__content__description"]}
                             ${styles["simple-abstract__content_ellipsis"]}
                             ${!isBottomLine && styles["simple-abstract__content_ellipsis--3lines"]}
@@ -142,6 +154,7 @@ const EntitySimple = (props) => {
 
     return (
         <Tag className={`${className} rounded ${styles["simple-abstract"]}`}>
+
             {/* SECTION 1/2 : HeaderDefault */}
             <header className={`${styles["simple-abstract__header"]}`}>
                 {/* Override the display of the normal visual if there is the overRidingHeader is defined */}

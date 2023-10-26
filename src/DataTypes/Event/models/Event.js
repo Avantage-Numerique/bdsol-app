@@ -5,6 +5,7 @@ import {TYPE_EVENT} from "@/DataTypes/Entity/Types";
 import Media from "@/DataTypes/Media/models/Media";
 import AppRoutes from "@/src/Routing/AppRoutes";
 import EventSimple from "../component/layout/simple/EventSimple";
+import {lang} from "@/common/Data/GlobalConstants";
 
 
 class Event extends EntityModel {
@@ -24,6 +25,10 @@ class Event extends EntityModel {
 
         this.mainImageModel = new Media(this.mainImage);
         this.type = TYPE_EVENT;
+
+        this.icon.url = "/entity-icones/SM-format/event_tiny_icon.svg"
+        this.icon.alt = lang.iconOfEvent;
+
 
         this.meta = {title: this.title, description: this.description, ...raw.meta};
 

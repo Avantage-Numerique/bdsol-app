@@ -23,6 +23,9 @@ const projects = {
     "projectDescription": "Présentation",
 
     "projectsSteps": "Étapes du projet",
+
+    "iconOfProject": "Icône représentant un projet",
+
 }
 
 exports.projects = projects;

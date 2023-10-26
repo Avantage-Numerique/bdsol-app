@@ -27,6 +27,7 @@ const events = {
     "photoGallery": "Photo gallery",
     "addPhotoGallery": "Ajouter une image",
 
+    "iconOfEvent": "Icon representing an event",
 
 }
 

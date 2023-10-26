@@ -4,6 +4,7 @@ import ProjectSingleView from "@/DataTypes/Project/layouts/single/ProjectSingleV
 import {TYPE_PROJECT} from "@/DataTypes/Entity/Types";
 import Media from "@/DataTypes/Media/models/Media";
 import AppRoutes from "@/src/Routing/AppRoutes";
+import {lang} from "@/common/Data/GlobalConstants";
 
 
 class Project extends EntityModel {
@@ -23,6 +24,9 @@ class Project extends EntityModel {
 
         this.mainImageModel = new Media(this.mainImage);
         this.mainImage.src = this.mainImageModel.src;
+
+        this.icon.url = "/entity-icones/SM-format/project_tiny_icon.svg"
+        this.icon.alt = lang.iconOfProject;
 
         this.type = TYPE_PROJECT;
 

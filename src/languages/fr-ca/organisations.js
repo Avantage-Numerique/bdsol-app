@@ -31,6 +31,8 @@ const organisations = {
 
     "organizerOfEvent": "A organisé cet événement",
     "organizerOfEvents": "A organisé ces événements",
+
+    "iconOfOrganization": "Icône représentant une organisation",
 }
 
 exports.organisations = organisations;
