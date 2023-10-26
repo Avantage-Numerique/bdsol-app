@@ -77,7 +77,7 @@ const PersonsPage = () => {
                 <title>{getTitle([type.labelPlural])}</title>
             </Head>
             <PageHeader
-                bg={"bg-purplelighter"}
+                bg={"bg-primary-lighter"}
                 textColor={"text-white"}
                 title={"Consulter les personnes"}
                 subTitle={"Qu'elles proviennent du milieu du savoir, de la culture ou des affaires..."}

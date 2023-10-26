@@ -77,7 +77,7 @@ const EventsPage = () => {
                 <title>{getTitle([type.labelPlural])}</title>
             </Head>
             <PageHeader
-                bg={"bg-purplelighter"}
+                bg={"bg-primary-lighter"}
                 textColor={"text-white"}
                 title={"Consulter les événement"}
                 subTitle={"Sous-titre pertinent [...]"}

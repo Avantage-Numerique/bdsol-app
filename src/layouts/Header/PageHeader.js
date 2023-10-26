@@ -9,7 +9,7 @@ import SearchTag from "@/common/Components/SearchTag";
 
 const PageHeader = (props) => {
 
-    const bgClass = props.bg ?? "bg-light";
+    const bgClass = props.bg ?? "bg-primary-lighter";
     const titleColor = props.titleColor ? `text-${props.titleColor}` : "text-dark";
     const subtitleColor = props.subtitleColor ? `text-${props.subtitleColor}` : "text-dark";
     const subtitleLineColor = props.subtitleColor ? `bg-${props.subtitleColor}` : "bg-dark";

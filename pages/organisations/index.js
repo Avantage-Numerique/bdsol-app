@@ -76,7 +76,7 @@ const OrganisationsPage = () => {
                 <title>{getTitle([type.labelPlural])}</title>
             </Head>
             <PageHeader
-                bg={"bg-purplelighter"}
+                bg={"bg-primary-lighter"}
                 textColor={"text-white"}
                 htmlTitle={"Consulter les organisations"}
                 subTitle={"Les organisations présentées ici travaillent avec les technologies numériques et se trouvent sur le territoire du Croissant boréal."}

@@ -1,10 +1,10 @@
 import Button from "@/src/common/FormElements/Button/Button";
-import { externalApiRequest } from "@/src/hooks/http-hook";
+import {externalApiRequest} from "@/src/hooks/http-hook";
 import PageHeader from "@/src/layouts/Header/PageHeader";
 import Router from "next/router";
-import { useContext } from "react";
-import { MessageContext } from "@/src/common/UserNotifications/Message/Context/Message-Context";
-import { useFormUtils } from "@/src/hooks/useFormUtils/useFormUtils";
+import {useContext} from "react";
+import {MessageContext} from "@/src/common/UserNotifications/Message/Context/Message-Context";
+import {useFormUtils} from "@/src/hooks/useFormUtils/useFormUtils";
 import Input from "@/src/common/FormElements/Input/Input";
 
 
@@ -33,14 +33,14 @@ const verifyAccount = props => {
             }
         );
         if(apiResponse.error){
-            if(apiResponse.code == 200){
+            if(apiResponse.code === 200){
                 msg.addMessage({ 
                     text: "Veuillez attendre 5 minutes entre l'envoie d'un nouveau courriel",
                     positive: false
                 })
             }
             else {
-                if(apiResponse.code == 418){
+                if(apiResponse.code === 418){
                     //I'm a tea pot
                     msg.addMessage({
                         text: "Le compte est déjà vérifier, vous pouvez vous connecter.",
@@ -68,7 +68,7 @@ const verifyAccount = props => {
     return (
         <form>
             <PageHeader
-                bg={"bg-purplelighter"}
+                bg={"bg-primary-lighter"}
                 textColor={"text-white"}
                 htmlTitle={"Page de confirmation de compte"}
                 //description={"Page de confirmation"}
@@ -81,7 +81,7 @@ const verifyAccount = props => {
                 </>
             }
             {
-                props.verifyState == false &&
+                props.verifyState === false &&
                 <>
                     <h2>Malheureusement, le lien a expiré...</h2>
                     <div>Voulez-vous un nouveau lien de confirmation?</div>
@@ -98,7 +98,7 @@ const verifyAccount = props => {
                 </>
             }
             {
-                props.verifyState == true &&
+                props.verifyState === true &&
                 <>
                     <h2>Votre compte a bien été vérifé!</h2>
                     <div>Vous pouvez maintenant vous connecter</div>
@@ -121,12 +121,12 @@ export async function getServerSideProps(context) {
         { method: 'GET' }
     );
 
-    if(!response.error && response.code == 200){
+    if(!response.error && response.code === 200){
         //If no error, then account got verified
         verifyState = true;
     }
     else {
-        if(response.code == 200)
+        if(response.code === 200)
             verifyState = false;
 
         else

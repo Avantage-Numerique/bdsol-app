@@ -77,7 +77,7 @@ const EquipmentPage = () => {
                 <title>{getTitle([type.labelPlural])}</title>
             </Head>
             <PageHeader
-                bg={"bg-purplelighter"}
+                bg={"bg-primary-lighter"}
                 textColor={"text-white"}
                 title={lang.allEquipmentTitle}
                 description={lang.allEquipmentDescription}

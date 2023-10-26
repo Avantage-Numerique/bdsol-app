@@ -32,7 +32,7 @@ function Error({statusCode, ...props}) {
     return (
         <div>
             <PageHeader
-                bg={"bg-purplelighter"}
+                bg={"bg-primary"}
                 textColor={"text-white"}
                 htmlTitle={`${lang[`title${statusCode}`] || lang.title404}`}
                 subTitle={lang[`description${statusCode}`] || lang.description404}
