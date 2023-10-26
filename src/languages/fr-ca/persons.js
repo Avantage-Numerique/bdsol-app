@@ -28,8 +28,9 @@ const persons = {
     "memberOfProject": "Membre de l'équipe du projet",
 
     "attendThisEvent": "J'ai participé à cet événement",
-    "attendTheseEvents": "J'ai participé à ces événements"
-
+    "attendTheseEvents": "J'ai participé à ces événements",
+    
+    "iconOfPerson": "Icône représentant une personne",
 }
 
 exports.persons = persons;

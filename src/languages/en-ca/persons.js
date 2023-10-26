@@ -21,6 +21,7 @@ const persons = {
     "formPersonInstructions": "",
     "personUploadMediaMainImage": "Vous pourrez téléverser une image à partir de la page de cette personne. Cette image représentera cette personne et sera affiché dans sa fiche et dans les pages qui la liste.",
 
+    "iconOfPerson": "Icon representing a person",
 }
 
 exports.persons = persons;

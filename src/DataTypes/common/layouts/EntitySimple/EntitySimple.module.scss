@@ -46,8 +46,7 @@
             }
             /* If default image, change the styling */
             &.img-contained { 
-                
-                border-radius: 0px;
+                overflow: visible;
                 .simple-abstract__header__figure__img {
                     object-fit: contain; 
                     filter: drop-shadow(0.15rem 0.15rem 0.1rem #2929297d)

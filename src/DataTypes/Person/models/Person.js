@@ -4,6 +4,7 @@ import EntityModel from "@/DataTypes/Entity/models/EntityModel";
 import AppRoutes from "@/src/Routing/AppRoutes";
 import {TYPE_PERSON} from "@/DataTypes/Entity/Types";
 import Media from "@/DataTypes/Media/models/Media";
+import {lang} from "@/common/Data/GlobalConstants";
 
 
 class Person extends EntityModel {
@@ -20,7 +21,7 @@ class Person extends EntityModel {
         this.title = raw.firstName + " " + raw.lastName ?? "";
         this.description = raw.description ?? "";
         this.mainImage = !raw.mainImage || raw.mainImage === "" || !raw.mainImage ? {
-            url: "/general_images/default-person.png",
+            url: "/entity-icones/L-format/png/Icone-GrandFormat-Personne.png",
             alt: this.title,
             baseSrc: `${process.env.NEXT_PUBLIC_APP_URL}`,
             isDefault: true
@@ -31,6 +32,9 @@ class Person extends EntityModel {
         this.mainImage.src = this.mainImageModel.src;
 
         this.type = TYPE_PERSON;
+
+        this.icon.url = "/entity-icones/SM-format/person_tiny_icon.svg"
+        this.icon.alt = lang.iconOfPerson;
 
         this.meta = {title: this.title, description: this.description, ...raw.meta};
 
