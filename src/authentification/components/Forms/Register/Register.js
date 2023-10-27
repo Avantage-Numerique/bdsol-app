@@ -197,19 +197,19 @@ const Register = () => {
                     ]}
                     errorText="Veuillez entrer un mot de passe valide"
                     formTools={formTools}
-                /> 
+                />
 
                 <Input
                     name="password2"
                     type="password"
-                    label="Confirmation du mot de passe "
+                    label="Confirmation du mot de passe"
                     validationRules={[
                         {name: "REQUIRED"},
                         {name: "MIN_LENGTH", specification: 8}
                     ]}
                     errorText="Veuillez entrer un mot de passe valide"
                     formTools={formTools}
-                />   
+                />
 
                 <div className="col-12">
                     <Button type="submit" disabled={!formState.isValid}>Soumettre</Button>

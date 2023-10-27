@@ -6,7 +6,6 @@ import { externalApiRequest } from '@/src/hooks/http-hook'
 import Input from '@/src/common/FormElements/Input/Input'
 import Button from '@/src/common/FormElements/Button/Button'
 import { MessageContext } from '@/src/common/UserNotifications/Message/Context/Message-Context'
-import styles from './aconfirmer.module.scss'
 
 const AConfirmer = () => {
 
