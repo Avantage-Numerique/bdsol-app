@@ -75,7 +75,7 @@ const ProjectsPage = () => {
                 <title>{getTitle([type.labelPlural])}</title>
             </Head>
             <PageHeader
-                bg={"bg-purplelighter"}
+                bg={"bg-primary-lighter"}
                 textColor={"text-white"}
                 htmlTitle={"Consulter les projets"}
                 subTitle={"Vous trouverez ici une liste des projets produits par les technocréatifs.ves du Croissant boréal."}

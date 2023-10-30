@@ -2,7 +2,6 @@ import React, {useCallback, useContext, useEffect, useState} from 'react'
 
 //components
 import PageHeader from "@/src/layouts/Header/PageHeader";
-import Button from '@/src/common/FormElements/Button/Button'
 import Spinner from '@/src/common/widgets/spinner/Spinner'
 
 
@@ -77,7 +76,7 @@ const PlacesPage = () => {
                 <title>{getTitle([type.labelPlural])}</title>
             </Head>
             <PageHeader
-                bg={"bg-purplelighter"}
+                bg={"bg-primary-lighter"}
                 textColor={"text-white"}
                 title={"Consulter les lieux"}
                 description="Les lieux listés peuvent être liés à des événements, des organisations ou d'autre entité du milieu culturel."

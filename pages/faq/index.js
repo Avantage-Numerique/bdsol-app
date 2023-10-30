@@ -3,11 +3,10 @@ import Link from 'next/link';
 
 //Components
 import PageHeader from "@/src/layouts/Header/PageHeader";
-import Button from "@/src/common/FormElements/Button/Button";
 import Icon from "@/src/common/widgets/Icon/Icon"
 
 //Utils
-import { Breadcrumbs } from "@/src/common/Breadcrumbs/Breadcrumbs";
+import {Breadcrumbs} from "@/src/common/Breadcrumbs/Breadcrumbs";
 import AppRoutes from "@/src/Routing/AppRoutes";
 
 //styling
@@ -25,7 +24,7 @@ const SubjectRow = props => {
     } = props;
 
     //Variable reloaded for every state change and saying if the current is active of not
-    const isActive = index == activeSubjectIndex;
+    const isActive = index === activeSubjectIndex;
 
     return (
         <li className={`list-group-item ${styles["pointer"]} ${!isActive && styles["background-hover"]}`}>
@@ -68,7 +67,7 @@ const FAQ = () => {
     return (
         <>
             <PageHeader
-                bg={"bg-purplelighter"}
+                bg={"bg-primary-lighter"}
                 textColor={"text-white"}
                 title={"FAQ"}
             >

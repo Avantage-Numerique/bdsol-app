@@ -3,7 +3,7 @@ import PageHeader from "@/layouts/Header/PageHeader";
 import React, {useCallback} from "react";
 import {lang} from "@/common/Data/GlobalConstants";
 import CreateTaxonomyForm from "@/DataTypes/Taxonomy/components/Forms/CreateTaxonomy/CreateTaxonomyForm";
-import { useRootModal } from '@/src/hooks/useModal/useRootModal';
+import {useRootModal} from '@/src/hooks/useModal/useRootModal';
 import Router, {useRouter} from "next/router";
 import Button from "@/FormElements/Button/Button";
 import {useAuth} from "@/auth/context/auth-context";
@@ -91,7 +91,7 @@ const TaxonomiesSinglePage = (props) => {
                 <title>{getTitle([taxonomy.name, currentTaxonomy.label, type.labelPlural])}</title>
             </Head>
             <PageHeader
-                bg={"bg-purplelighter"}
+                bg={"bg-primary-lighter"}
                 textColor={"text-white"}
                 htmlTitle={currentTitle}
                 tags={{
