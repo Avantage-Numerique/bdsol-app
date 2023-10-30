@@ -71,15 +71,13 @@ const EntitySimple = (props) => {
                 <div className="d-flex justify-content-center w-100 mt-4">
                     <MediaFigure
                         model={model.mainImage}
-                        className={`${styles["simple-abstract__header__figure"]} t-0 ${model.mainImage.isDefault && styles["img-contained"]}`}
+                        className={`${styles["simple-abstract__header__figure"]} t-0 ${model.mainImage.isDefault && (styles["img-contained"] + " py-3")}`}
                         imgClassName={`${styles["simple-abstract__header__figure__img"]}`}
                         addGradientOver={true}
                         link={model.singleLink}
                         linkTitle={title}
                     >
-                        {!model.mainImage.isDefault &&
-                            <div className={`${styles["figure-overlay"]} position-absolute w-100 h-100 no-pointer-events dark-transparent-gradient`}></div>
-                        }
+                        {!model.mainImage.isDefault && <div className={`${styles["figure-overlay"]} position-absolute w-100 h-100 no-pointer-events dark-transparent-gradient`}></div> }
                     </MediaFigure>
                 </div>
             }
