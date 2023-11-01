@@ -120,6 +120,11 @@ const base = {
     "createOptionLabel" : "Créer : ",
 
     //Button
-    "apply" : "Appliquer"
+    "apply" : "Appliquer",
+
+    //Contact us
+    "message": "Message",
+    "email": "Adresse courriel",
+    "sendMessage": "Envoyer le message"
 }
 exports.base = base;
