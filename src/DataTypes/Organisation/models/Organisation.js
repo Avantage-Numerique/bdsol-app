@@ -60,6 +60,11 @@ class Organisation extends EntityModel {
         this.simpleEditList(list)
     }
 
+    /****** Static values *********/
+
+    //Icon class to represent the type
+    static icon = "icon-organisation_tiny_icon";
+
 }
 
 export default Organisation;

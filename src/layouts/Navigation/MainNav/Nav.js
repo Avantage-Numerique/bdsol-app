@@ -4,9 +4,22 @@
 */
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
+import Image from 'next/image'
 
-import Link from 'next/link'
-import navStyles from './Nav.module.scss'
+//Components
+import Button from '@/src/common/FormElements/Button/Button'
+
+//Styling
+import styles from './Nav.module.scss'
+import organizationPresentationImg from '@/public/general_images/Fusée_Planetes_Poitilles2.svg'
+
+//Entities
+import Person from "@/DataTypes/Person/models/Person";
+import Organisation from "@/DataTypes/Organisation/models/Organisation";
+import Project from "@/DataTypes/Project/models/Project";
+import Event from "@/DataTypes/Event/models/Event";
+import Equipment from "@/DataTypes/Equipment/models/Equipment";
+
 
 const Nav = ( {menuState, setMenuState} ) => {
 
@@ -15,17 +28,92 @@ const Nav = ( {menuState, setMenuState} ) => {
     
     useEffect(() => {
         //Verify the the menu is open. If it is, then close it
-        if (menuState === 1){ setMenuState(0) }
+        if (menuState){ setMenuState(false) }
     }, [router.asPath]);
 
-    const closeMenu = () => { setMenuState(0) }
 
     return (
 
-        <nav className={`${navStyles.navContainer} ${menuState === 1 && navStyles.displayed} bg-primary`}>
-            <div className={navStyles.maxWidthPageContainer + ' ' + "maxWidthPageContainer"}>
-             
-                <ul className={`${navStyles.mainMenu}`}>
+        <nav className={`${styles.navContainer} ${menuState && styles.displayed} bg-primary-lighter`}>
+            <figure style={{zIndex: "-1", pointerEvents: "none", overflow: "hidden"}} className="position-absolute top-0 bottom-0 start-0 end-0">
+                <Image className={`position-absolute bottom-0 w-auto ${styles["rotate-bg-img"]}`} src={organizationPresentationImg} />
+            </figure>
+            <div className={"container"}>
+                <div className={`row ${styles["limited-width"]}`}>
+                    <div className="col-12 col-sm-6">
+                        <section className={`${styles["nav-section"]}`}>
+                            <Button className="fs-3 h2" text_color="dark" href="/consulter">Consulter les données</Button>
+                        </section>
+
+                        <section className={`${styles["nav-section"]}`}>
+                            <Button className="fs-3 h2" text_color="dark" href="/contribuer">Ajouter des données</Button>
+                            <ul className={`${styles["button-list"]}`}>
+                                <li>
+                                    <Button text_color="dark" href="/contribuer/organisations"><i className={`${Organisation.icon} ${styles["entity-icon"]}`} />Ajouter une organisation</Button>
+                                </li>
+                                <li>
+                                    <Button text_color="dark" href="/contribuer/personnes"><i className={`${Person.icon} ${styles["entity-icon"]}`} />Ajouter une personne</Button>
+                                </li>
+                                <li>
+                                    <Button text_color="dark" href="/contribuer/projets"><i className={`${Project.icon} ${styles["entity-icon"]}`} />Ajouter un projet</Button>
+                                </li>
+                                <li>
+                                    <Button text_color="dark" href="/contribuer/evenements"><i className={`${Event.icon} ${styles["entity-icon"]}`} />Ajouter un événement</Button>
+                                </li>
+                                <li>
+                                    <Button text_color="dark" href="/contribuer/equipements"><i className={`${Equipment.icon} ${styles["entity-icon"]}`} />Ajouter un équipement</Button>
+                                </li>
+                            </ul>
+                        </section>
+
+                        <section className={`${styles["nav-section"]}`}>
+                            <Button className="fs-3 h2" text_color="dark" href="/categories">Toutes les catégories</Button>
+                        </section>
+                    </div>
+                    <div className="col-12 col-sm-6">
+                        <section className={`${styles["nav-section"]}`}>
+                            <Button className="fs-3 h2" text_color="dark" href="/">À propos</Button>
+                            <ul className={`${styles["button-list"]}`}>
+                                <li>
+                                    <Button text_color="dark" href="/">En savoir plus sur le projet AVNU</Button>
+                                </li>
+                                <li>
+                                    <Button text_color="dark" href="https://avantagenumerique.org/notre-equipe/" external={true}>Notre équipe</Button>
+                                </li>
+                                <li>
+                                    <Button text_color="dark" href="/nous-joindre">Nous joindre</Button>
+                                </li>
+                                <li>
+                                    <Button text_color="dark" href="/">FAQ</Button>
+                                </li>
+                            </ul>
+                        </section>
+
+                        <section className={`${styles["nav-section"]}`}>
+                            <Button className="fs-3 h2" text_color="dark" href="/">Espace membre</Button>
+                            <ul className={`${styles["button-list"]}`}>
+                                <li>
+                                    <Button text_color="dark" href="/">Mon profil</Button>
+                                </li>
+                                <li>
+                                    <Button text_color="dark" href="/">Se déconnecter</Button>
+                                </li>
+                            </ul>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        
+    )   
+}
+
+export default Nav;
+
+
+/* 
+
+<ul className={`${navStyles.mainMenu}`}>
 
                     <li onClick={closeMenu}>
                         <Link href="/">Accueil</Link>
@@ -68,10 +156,5 @@ const Nav = ( {menuState, setMenuState} ) => {
                     </li>
                 </ul>
 
-            </div>
-        </nav>
-        
-    )   
-}
 
-export default Nav;
+*/

@@ -52,6 +52,11 @@ class Event extends EntityModel {
         //sets all the rest as a this[key] = raw[key] value.
         this.setProperties(raw);
     }
+
+    /****** Static values *********/
+
+    //Icon class to represent the type
+    static icon = "icon-event_tiny_icon";
 }
 
 export default Event;

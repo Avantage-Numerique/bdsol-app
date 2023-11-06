@@ -47,6 +47,10 @@
         }
     }
 
+    .item-displayed-in-menu {
+        position: relative;
+        z-index: $zindex-fixed;
+    }
 
     .searchbar-menu-container {
         position: relative;

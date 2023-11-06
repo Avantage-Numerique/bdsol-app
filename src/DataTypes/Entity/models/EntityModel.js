@@ -67,8 +67,6 @@ class EntityModel {
         this.tagComponent = raw?.tagComponent ?? EntityTag;
         this.singleComponent = raw?.singleComponent ?? undefined;
     }
-
-
     //  --- GETTER / SETTER ---
 
     /**

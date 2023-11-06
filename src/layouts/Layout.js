@@ -14,7 +14,6 @@ import {MessageContext} from '@/src/common/UserNotifications/Message/Context/Mes
 //components
 import Footer from '@/layouts/Footer/Footer'
 import Header from '@/layouts/Header/Header'
-import Nav from '@/layouts/Navigation/MainNav/Nav'
 import AccountNav from '@/layouts/Navigation/AccountNav/AccountNav'
 import Message from '@/src/common/UserNotifications/Message/Message'
 
@@ -28,19 +27,6 @@ import {appUrl} from "@/src/helpers/url";
 export const ModalContext = createContext({});
 
 const Layout = ( {children} ) => {
-
-    /*
-        State manager to manage the situation of the two menus. (Main menu and  account menu)
-        Listen in the header component and update in the nav component.
-
-        Three menu states possible : 
-        0 : close
-        1 : Main menu open
-        2 : Account menu open
-    */
-
-    //Navigation menus in the header
-    const [menuState, setMenuState] = useState(0);
 
     //Modal container referenve
     const modalContainer = useRef();
@@ -102,9 +88,8 @@ const Layout = ( {children} ) => {
             </Head>
 
             <div id={styles.layout}>
-                <Header menuState={menuState} setMenuState={setMenuState} />
-                <Nav menuState={menuState} setMenuState={setMenuState} />
-                <AccountNav menuState={menuState} setMenuState={setMenuState} />
+                <Header />
+               {/*  <AccountNav menuState={menuState} setMenuState={setMenuState} /> */}
                 
                 {/* Defining contextes to be passed along children */}
                 <ModalContext.Provider value={{modalTools: modalTools}}>

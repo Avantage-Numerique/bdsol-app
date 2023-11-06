@@ -67,6 +67,10 @@ class Person extends EntityModel {
 
     }
 
+    /****** Static values *********/
+
+    //Icon class to represent the type
+    static icon = "icon-person_tiny_icon";
 }
 
 export default Person;

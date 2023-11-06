@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from 'react'
 import Image from "next/image"; 
 import Link from 'next/link';
@@ -7,6 +8,7 @@ import HamburgerButton from '@/src/common/FormElements/HamburgerButton/Hamburger
 import ConnectionBanner from "@/src/layouts/ConnexionBanner/ConnectionBanner";
 import SearchBar from '@/src/common/Components/SearchBar';
 import Icon from "@/common/widgets/Icon/Icon";
+import Nav from '@/layouts/Navigation/MainNav/Nav'
 
 //Contextes
 import {useAuth} from '@/auth/context/auth-context';
@@ -22,11 +24,11 @@ import logo from '@/public/logos-avnu/AVNU-LogoReduit-RVB.png'
 
 const Header = (props) => {
 
+    //Navigation menu state
+    const [menuState, setMenuState] = useState(false);
+
     //Import the authentication context to make sure the user is well connected
     const auth = useAuth();
-
-    //Destructuring to acces those elements easier
-    const { menuState, setMenuState } = props
 
     //Window scrolling position 
     const [windowScrollTop, setWindowScrollTop] = useState(true)
@@ -48,13 +50,14 @@ const Header = (props) => {
 
     return (
         <header className={`main-nav ${styles.header} ${!windowScrollTop && styles["scroll-inner-page"]}`}>
+            <Nav menuState={menuState} setMenuState={setMenuState} />
 
             <div className="container-fluid h-100">
                 <div className="row h-100 align-items-center">
                     <div className="col">
                         {/* Container that fills all the width of the platform and contain the logo*/}
                         <div className={`${styles["header__content"]} header-center d-flex justify-content-start align-items-center text-light h-100`} onClick={ () => setMenuState(0) }>
-                            <Link href="/" className={"fs-5 px-5"}>
+                            <Link href="/" className={`fs-5 px-5 ${styles["item-displayed-in-menu"]}`}>
                                 <Image src={logo} alt="Logo réduit de AVNU"/>
                             </Link>
                         </div>
@@ -70,7 +73,7 @@ const Header = (props) => {
                                 </div>
                                 {auth.user.isLoggedIn &&
                                     <div className={"col-2 d-flex-content-center"}>
-                                        <div className="d-grid w-100" onClick={ () => setMenuState(0) }>
+                                        <div className="d-grid w-100" onClick={ () => setMenuState(false) }>
                                             <Link href={"/contribuer"} className={"btn btn-outline-light"}>
                                                  <Icon iconName="plus-circle" /> {lang.menuContributeLabel}
                                             </Link>
@@ -84,7 +87,7 @@ const Header = (props) => {
                     <div className="col g-0 h-100">
                         <div className={"d-flex justify-content-end h-100"}>
                             { !auth.user.isLoggedIn &&
-                                <ul className={`nav flex-nowrap align-items-center`} onClick={ () => setMenuState(0) }>
+                                <ul className={`nav flex-nowrap align-items-center`} onClick={ () => setMenuState(false) }>
                                     <li>
                                         <a href="/compte/inscription" className={"nav-link text-black"}>{lang.menuSubscribeLabel}</a>
                                     </li>
@@ -97,7 +100,9 @@ const Header = (props) => {
                                 <div className={`bg-primary d-flex align-items-center h-100 ${styles["account-menu-container"]}`}>
                                     <button
                                         className={`${styles["account-menu-container__button"]} bg-secondary`}
-                                        onClick={() => setMenuState(menuState !== 2 ? 2 : 0) }>
+                                        onClick={() => {
+                                            //setMenuState(menuState !== 2 ? 2 : 0)
+                                        } }>
 
                                         {(auth.user.avatar === undefined || auth.user.avatar === null || auth.user.avatar.toString() === "") ?
                                             <img className={`${styles["user-img"]} img-fluid`}
@@ -115,8 +120,8 @@ const Header = (props) => {
                             }
 
                             {/* Button for the main menu */}
-                            <div className={`${styles["ham-menu-container"]}`}>
-                                <HamburgerButton {...props} />
+                            <div className={`${styles["ham-menu-container"]} ${styles["item-displayed-in-menu"]}`}>
+                                <HamburgerButton {...props} setMenuState={setMenuState} menuState={menuState}  />
                             </div>
 
                         </div>

@@ -3,13 +3,12 @@
 */
 .navContainer {
     position: fixed;
-    top: calc(var(--headersHeight) - 1px);
+    top: 0px;
     bottom: 0px;
     width: 100%;
-    color: white;
     z-index: 1019;
     clip-path: inset(0 0 100% 0);
-    padding: 10vh 0px;
+    overflow: auto;
 
     /* Transition for the openning animation */
     -webkit-transition: all 500ms ease;
@@ -20,46 +19,37 @@
 
     > div {
 
-        ul {
-            li {
-                color: white;
-                font-weight: bold;
-                line-height: 1.5em;
+        margin-top: calc(var(--headersHeight) + 10vh);
+    } 
 
-                /* Transition for the openning animation */
-                -webkit-transition: text-shadow 400ms ease;
-                -moz-transition: text-shadow 400ms ease;
-                -ms-transition: text-shadow 400ms ease;
-                -o-transition: text-shadow 400ms ease;
-                transition: text-shadow 400ms ease;
+    .nav-section {
+        padding: 1rem;
+        margin-bottom: clamp(1.5rem, 2vh, 3rem);
+        min-width: 30ch;
+        * { text-align: left; }
+    }
 
-                &:hover {
-                    text-shadow: 3px 3px grey;
-                }
-
-                &.unactive{
-                    opacity: 0.5;
-                    cursor: not-allowed;
-
-                    &:hover { text-shadow: none;}
-                }
-            }
-        }
-
-        ul.mainMenu { font-size: 2rem;
-            
-        }
-
-        .line {
-            border-bottom: 2px solid white;
-            width: 20rem;
-            margin: 2rem 0rem;
-        }
-
-        ul.secondaryMenu { font-size: 1.5rem; }
-
+    .limited-width {
+        width: min(100ch, 95%);
     }
     
+    .entity-icon {
+        color: $secondary;
+        margin-right: 1rem;
+    }
+
+    .button-list {
+        font-size: 1rem;
+
+        li { margin-top: 1vh; }
+    }
+
+    /* Temporary */
+    .rotate-bg-img{
+        transform: rotate(90deg);
+        right: -5rem;
+        height: 50vh;
+    }
 }
 
 .navContainer.displayed { clip-path: inset(0); }

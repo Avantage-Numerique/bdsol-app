@@ -7,7 +7,6 @@ import MediaFigure from "@/DataTypes/Media/layouts/MediaFigure";
 import {getType} from "@/DataTypes/Entity/Types";
 import HtmlTagsRemover from '@/src/utils/HtmlTagsRemover'
 import Link from "next/link";
-import Icon from "@/common/widgets/Icon/Icon";
 import TypeTag from '@/DataTypes/common/layouts/TypeTag/TypeTag'
 
 /**
@@ -51,7 +50,6 @@ const EntitySimple = (props) => {
     const appType = getType(model.type);
     //Verify is a bottom line is available to be displayed
     const isBottomLine = (BottomLineContent || model.simgleList);
-
     /**
      * Defininf the default header fo the EntitySimple to be overwrite with Header
      * @type {JSX.Element}
@@ -62,7 +60,7 @@ const EntitySimple = (props) => {
             <div className="mb-2">
                 <TypeTag 
                     type={appType.label}
-                    icon={model.icon}
+                    icon={appType.modelClass.icon}
                 />
             </div>
             {/* Image representing the entity */}

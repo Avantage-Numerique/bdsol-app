@@ -49,6 +49,11 @@ class Equipment extends EntityModel {
         this.setProperties(raw);
     }
 
+    /****** Static values *********/
+
+    //Icon class to represent the type
+    static icon = "icon-equipment";
+
 }
 
 export default Equipment;
