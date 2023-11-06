@@ -43,17 +43,6 @@ const SearchBar = ({small, ...props}) => {
 
     //Simple styling to remove the border
     const styling = {
-        /*control: (styles, state) => ({
-            ...styles,
-            border: state.isFocused ? 0 : 0,
-            // This line disable the blue border
-            boxShadow: state.isFocused ? 0 : 0,
-            '&:hover': {
-                border: state.isFocused ? 0 : 0
-            },
-            //backgroundColor: 'white' 
-        })*/
-
         //simplifed the no border
         control: (styles, state) => ({
             ...styles,
@@ -161,13 +150,9 @@ const SearchBar = ({small, ...props}) => {
 
     return (
         <form onSubmit={submitHandler} className={`search-bar ${small && "small-searchBar w-100"}`}>
-            <div className="input-group my-2 ">
-                <button type="submit" className="p-1 btn btn-outline-light">
-                    <Icon iconName="search" />
-                </button>
-            
+            <div className="input-group my-2 bg-white">
                 <Select
-                    className={"form-control p-0 "}
+                    className={"form-control p-0 border-0"}
                     key={"SearchBar-layout"}
                     ref={selectRef}
                     styles={styling}
@@ -190,8 +175,12 @@ const SearchBar = ({small, ...props}) => {
                             Appuyez sur la touche <Icon iconName={"keyboard"} /> <code>Entrer</code> pour rechercher avec cette valeur quand même.
                         </p>
                     )}
+                    components={{ DropdownIndicator:() => null, IndicatorSeparator:() => null }}
                     filterOption={(option, searchText) => {return true}}
                 />
+                <button type="submit" className="p-1 btn">
+                    <Icon iconName="search" />
+                </button>
             </div>
         </form>
     )

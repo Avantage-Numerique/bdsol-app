@@ -8,7 +8,7 @@ const Footer = () => {
 
     return (
 
-        <footer id={styles.pageFooter} className="bg-primary-dark mt-5 py-4">
+        <footer id={styles.pageFooter} className="bg-primary-dark py-4">
 
             <div className="container">
                 {/* Logo AVNU*/}

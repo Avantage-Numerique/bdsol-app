@@ -39,7 +39,6 @@ class EntityModel {
         this.shortDescription = removeHtml(this.description);
         this.shortDescription = this.shortDescription.substring(0,this.shortLenght) + (this.shortDescription.length > this.shortLenght ? "..." : "");
         this.mainImage = raw?.mainImage ?? {url:"", alt:""};
-        this.icon = {url:"", alt:""};
 
         this.simgleList;
 

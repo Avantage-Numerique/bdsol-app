@@ -28,13 +28,10 @@
         color: var(--color);
         
         display: flex;
-        justify-content: center;
         align-items: center;
-
-        img {
-            max-width: 70%;
-            max-height: 60%;
-        }
+        justify-content: center;
+        
+     
     }
 
     .label {

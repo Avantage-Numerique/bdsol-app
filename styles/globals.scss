@@ -6,7 +6,7 @@
   /* Maximum width the content of the page can take */
   --max-width-page-content: 85rem;
   /* Header's height.  */
-  --headersHeight : 5em;
+  --headersHeight : 6em;
 
 }
 
@@ -46,7 +46,6 @@ ul {padding: 0;} /* TODO switch to Bootstrap's vertical nav component */
 label {
   color:  $mild-dark;
 }
-
 
 .content {
     a:not(.btn) {

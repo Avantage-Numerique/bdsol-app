@@ -27,6 +27,9 @@ class Equipment extends EntityModel {
 
         this.type = TYPE_EQUIPMENT;
 
+        //Class name of the icon entity
+        this.icon = "icon-equipment";
+
         this.meta = {title: this.title, description: this.description, ...raw.meta};
 
         params.showMeta = params.showMeta ?? true;

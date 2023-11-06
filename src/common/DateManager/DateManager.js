@@ -92,9 +92,10 @@ export const dateManager = (time1, time2 = null) => {
 
     //Simple tag that contains the time and hour
 
-    const TimeIntervalSentence = ({tag, className="", showDay=true}) => {
+    const TimeIntervalSentence = ({tag, className="", showDay=true, withPreposition=true}) => {
         //Define the tag surrounding
         const Tag = tag ?? 'p';
+        const wp = withPreposition; //Shorter variable for easier reading
 
         const isSameYear = formatDate(time.startTime, lang.yearFormat) === formatDate(time.endTime, lang.yearFormat);
         const isSameMonth = formatDate(time.startTime, lang.monthNumberFormat) === formatDate(time.endTime, lang.monthNumberFormat);
@@ -108,7 +109,7 @@ export const dateManager = (time1, time2 = null) => {
                     <>
                         {showDay &&
                             <>
-                                {lang.capitalize("the")} <TimeTag date={time.startTime} format={lang.humanDateFormat} /> {formatDate(time.startTime, lang.yearFormat)}
+                                {wp && lang.capitalize("the")} <TimeTag date={time.startTime} format={lang.humanDateFormat} /> {formatDate(time.startTime, lang.yearFormat)}
                                 <br/>
                             </>
                         }
@@ -118,24 +119,29 @@ export const dateManager = (time1, time2 = null) => {
                 {/* Same year only */}
                 {!isSameDay && !isSameMonth && isSameYear &&
                     <>
-                        {lang.capitalize("from")} <TimeTag date={time.startTime} format={time.humanDateFormat} /> <TimeTag date={time.startTime} format={lang.timeFormat} />
-                        &nbsp;{lang.to}&nbsp;
-                        <TimeTag date={time.endTime} format={lang.humanDateFormat} /> <TimeTag date={time.endTime} format={lang.timeFormat} /> {formatDate(time.startTime, lang.yearFormat)}
+                        {wp && lang.capitalize("from")} 
+                        <TimeTag date={time.startTime} format={time.humanDateMonthFormat} /> 
+                        {wp ? ` ${lang.to}` : " -"}&nbsp;
+                        <TimeTag date={time.endTime} format={lang.humanDateMonthFormat} />
+                        ({formatDate(time.startTime, lang.yearFormat)})
                     </>
                 }
                 {/* Within one month on the same year indeed */}
                 {!isSameDay && isSameMonth && isSameYear &&
                     <>
-                        {lang.capitalize("from")} <TimeTag date={time.startTime} format={lang.humanDateMonthFormat} /> <TimeTag date={time.startTime} format={lang.timeFormat} /> {lang.to}<br />
-                        <TimeTag date={time.endTime} format={lang.humanDateMonthFormat} /> <TimeTag date={time.endTime} format={lang.timeFormat} /> ({formatDate(time.startTime, lang.yearFormat)})
+                        {wp && lang.capitalize("from")} 
+                        <TimeTag date={time.startTime} format={lang.humanDateMonthFormat} /> 
+                        {wp ? ` ${lang.to}` : " -"}&nbsp;
+                        <TimeTag date={time.endTime} format={lang.humanDateMonthFormat} /> 
+                        ({formatDate(time.startTime, lang.yearFormat)})
                     </>
                 }
                 {/* Multi years */}
                 {!isSameDay && !isSameMonth && !isSameYear &&
                     <>
-                        {lang.capitalize("from")} <TimeTag date={time.startTime} format={lang.fullHumanDateFormat} /> <TimeTag date={time.startTime} format={lang.timeFormat} />
-                        &nbsp;{lang.to}&nbsp;
-                        <TimeTag date={time.endTime} format={lang.fullHumanDateFormat} /> <TimeTag date={time.endTime} format={lang.timeFormat} />
+                        {wp && lang.capitalize("from")} <TimeTag date={time.startTime} format={lang.humanDateMonthFormat} />
+                        {wp ? ` ${lang.to}` : " -"}&nbsp;
+                        <TimeTag date={time.endTime} format={lang.humanDateMonthFormat} />
                     </>
                 }
             </Tag>

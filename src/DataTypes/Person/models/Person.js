@@ -33,8 +33,8 @@ class Person extends EntityModel {
 
         this.type = TYPE_PERSON;
 
-        this.icon.url = "/entity-icones/SM-format/person_tiny_icon.svg"
-        this.icon.alt = lang.iconOfPerson;
+        //Class name of the icon entity
+        this.icon = "icon-person_tiny_icon";
 
         this.meta = {title: this.title, description: this.description, ...raw.meta};
 

@@ -1,4 +1,5 @@
 import React, {useContext, useEffect, useState} from 'react';
+import Image from 'next/image'
 
 import DOMPurify from 'isomorphic-dompurify';
 import Head from 'next/head';
@@ -29,8 +30,20 @@ import {
     TYPE_PROJECT
 } from "@/DataTypes/Entity/Types";
 
-//Styling
-//import styles from './home-page.module.scss'
+//Images
+import backgroundImg from '@/public/general_images/Pointilles1.svg'
+import AvantageNumeriqueLogo from '@/public/logo.svg';
+import organizationPresentationImg from '@/public/general_images/shutterstock_514412107.jpg'
+import shipAndPlanetsImg from '@/public/general_images/Fusée_Planetes_Poitilles2.svg'
+
+//Background image for the page header
+const HomePageHeaderBgImg = () => {
+    return (
+        <figure style={{zIndex: "0"}} className="position-absolute top-0 start-0 w-100 h-100">
+            <Image src={backgroundImg} style={{bottom: "5vh"}} className="w-100 h-auto position-absolute start-0 end-0" alt="Trajet de la fusée d'Avantage Numérique" />
+        </figure>
+    )
+}
 
 const HomePage = ({}) => {
 
@@ -111,7 +124,11 @@ const HomePage = ({}) => {
 
                 if (feed.length > 0 && !haveError) {
                     feed.sort(sortDescBy('createdAt'));//   Sort and mixed both collection the data to display the new elements before
-                    setFeedList(feed); //   Finaly, update the state to display the result
+                    const reducedFeed = feed.reduce((a, c, i) => {
+                        if (i < 6) a[i] = c
+                        return a
+                      }, [])
+                    setFeedList(reducedFeed); //   Finaly, update the state to display the result
                 }
 
                 setIsLoading(true);
@@ -211,159 +228,99 @@ const HomePage = ({}) => {
                 subTitle={lang.homePageDescription}
                 description=""
                 image={"/general_images/CroissantBoreal.png"}
-                imgAlt={"Carte du croissant boréal"} key={"pageHeaderHomePage"} 
+                imgAlt={"Carte du croissant boréal"} 
+                key={"pageHeaderHomePage"} 
+                custom_FullWidthContent={HomePageHeaderBgImg}
             />
-            <div className="container home-page__main p-0">
+            <section className="container home-page__main p-0">
+                {/* Display of 6 latest entities*/}
                 <div className="row gx-5">
-                    <div className="col col-12 col-md-9 position-relative">
-                        <section className="home-page__feed-section">
-                            <div className={"d-flex justify-content-between content-header"}>
-                                <h2>{lang.allData}</h2>
-                            </div>
-                            <hr />
+                    <div className="d-flex flex-column align-items-center">
+                        <h2 className="mt-4 text-center">Ajouts récents à la base de données</h2>
+                        <p className="mb-4 text-center">Cliquez sur les différents profils afin d'obtenir plus d'informations sur ces ressources.</p>
+                        <div className="home-page__feed-section py-4 position-relative">
+                            {/* Loading state : If loading is on and there is no feed */}
                             {
-                                <>
-                                    {/* Loading state : If loading is on and there is no feed */}
-                                    {
-                                        isLoading &&
-                                        <div className={"home-page__feed-section--spinner-container"}>
-                                            <div>
-                                                <Spinner reverse/>
-                                            </div>
-                                            <p><strong>{lang.loadingData}</strong></p>
-                                        </div>
-                                    }
-
-                                    {/* If there is no loading state and no feed, go on that by default */}
-                                    {
-                                        feedList.length === 0 && !isLoading &&
-                                        <div>
-                                            <h5>{lang.noResult}</h5>
-                                        </div>
-                                    }
-                                    {/*  Show the feed in the EntitiesGrid component. It manages an empty list in it, but it make it more readable to show it here too */}
-                                    {
-                                        feedList.length > 0 && !isLoading &&
-                                        <EntitiesGrid className={"row home-page__feed-section--container row-cols-1 row-cols-sm-2 row-cols-xl-3"} columnClass={"col g-3"} feed={feedList}/>
-                                    }
-                                </>
+                                isLoading &&
+                                <div className={"home-page__feed-section--spinner-container"}>
+                                    <div>
+                                        <Spinner reverse/>
+                                    </div>
+                                    <p><strong>{lang.loadingData}</strong></p>
+                                </div>
                             }
-                        </section>
-                    </div>
-                    <aside className="col col-12 col-md-3">
-                        <div>
-                            {/* If user is not connected, offer the option to connect itself*/}
 
-                            {auth.user.isLoggedIn ?
-                                <div className={"d-flex flex-column content-header"}>
-                                    <Button color="white" outline="primary" href="/contribuer">Ajouter une donnée</Button>
+                            {/* If there is no loading state and no feed, go on that by default */}
+                            {
+                                feedList.length === 0 && !isLoading &&
+                                <div>
+                                    <h5>{lang.noResult}</h5>
                                 </div>
-                                :
-                                <section className="d-grid content-header">
-                                    <Button href="/compte/connexion">Se connecter</Button>
-                                </section>
                             }
-                            <hr />
-                            {!auth.user.isLoggedIn &&
-                            <section className={"aside__register-option py-2"}>
-                                <div className="bg-secondary text-white d-flex flex-column">
-                                    <h4>Pas encore de compte ?</h4>
-                                    <p>Vous en aurez besoin afin de vous aussi contribuer aux données</p>
-                                    <Button color="light" text_color_hover="secondary" outline="light" href="/compte/inscription">C'est par ici !</Button>
-                                </div>
-                                <hr />
-                            </section>
+                            {/*  Show the feed in the EntitiesGrid component. It manages an empty list in it, but it make it more readable to show it here too */}
+                            {
+                                feedList.length > 0 && !isLoading &&
+                                <EntitiesGrid className={"row home-page__feed-section--container row-cols-1 row-cols-sm-2 row-cols-xl-3"} columnClass={"col g-3"} feed={feedList}/>
                             }
-                            
-                            {/*Rapid options to access of edit the database*/}
-                            <section className={"aside__db-edit-options"}>
-
-                                <div className={"db-edit-options__button-set"}>
-                                    <Button 
-                                        href="/persons/"
-                                        size="slim" 
-                                        className={"w-100"}
-                                    >
-                                        {lang.Persons}</Button>
-                                    <Button
-                                        size="slim"
-                                        disabled={!auth.user.isLoggedIn}
-                                        href={getCreateEntityPath(TYPE_PERSON)}
-                                    >+</Button>
-                                </div>
-
-                                <div className={"db-edit-options__button-set"}>
-                                    <Button 
-                                        href="/organisations/"
-                                        size="slim"
-                                        className={"w-100"}
-                                    >{lang.Organisations}</Button>
-                                    <Button
-                                        size="slim"
-                                        disabled={!auth.user.isLoggedIn}
-                                        href={getCreateEntityPath(TYPE_ORGANISATION)}
-                                    >+</Button>
-                                </div>
-
-                                <div className={"db-edit-options__button-set"}>
-                                    <Button href="/projets"  size="slim" className={"w-100"}>{lang.Projects}</Button>
-                                    <Button
-                                        size="slim"
-                                        disabled={!auth.user.isLoggedIn}
-                                        href={getCreateEntityPath(TYPE_PROJECT)}
-                                    >+</Button>
-                                </div>
-
-                                <div className={"db-edit-options__button-set"}>
-                                    <Button href="/categories"  size="slim" className={"w-100"}>{lang.Taxonomies}</Button>
-                                    <Button
-                                        size="slim"
-                                        disabled={!auth.user.isLoggedIn}
-                                        href="/contribuer/categorie"
-                                    >+</Button>
-                                </div>
-
-                                <div className={"db-edit-options__button-set"}>
-                                    <Button href="/events" size="slim" className={"w-100"}>{lang.Events}</Button>
-                                    <Button
-                                        size="slim"
-                                        disabled={!auth.user.isLoggedIn}
-                                        href={getCreateEntityPath(TYPE_EVENT)}
-                                    >+</Button>
-                                </div>
-                                <div className={"db-edit-options__button-set"}>
-                                    <Button href="/equipment" size="slim" className={"w-100"}>{lang.Equipments}</Button>
-                                    <Button
-                                        size="slim"
-                                        disabled={!auth.user.isLoggedIn}
-                                        href={getCreateEntityPath(TYPE_EQUIPMENT)}
-                                    >+</Button>
-                                </div>
-
-                                <hr/>
-                                <SanitizedInnerHtml tag={"p"}>
-                                    {lang.projectInDev}
-                                </SanitizedInnerHtml>
-                            </section>
-                            <hr />
-
-                            {/*
-                                Section : More informations about the project
-                            */}
-                            <section className={"d-flex flex-column"}>
-                                <h4>{lang.aboutUs}</h4>
-                                <p>
-                                    La base de données structurées, ouvertes et liées (BDSOL) est le cœur du hub virtuel d’Avantage numérique.
-                                    Elle vise à recenser et géolocaliser les talents, les compétences, les ressources, les initiatives technocréatives à travers le territoire du Croissant Boréal.
-                                </p>
-                                <Button className="mt-3" color="white" outline="primary" href="/faq/a-propos">{lang.knowMore}</Button>
-                            </section>
                         </div>
-                    </aside>
+                        <div className="py-4 my-4">
+                            <Button className="px-4"> Voir toutes les données </Button>
+                        </div>
+                    </div>
                 </div>
-            </div>
+            </section>
+            
+            {/* Organization presentation*/}
+            <section className="home-page__full-width-section bg-secondary-lighter mt-4">
+                <div className="container">
+                    <div className='row justify-content-around align-items-center home-page__section-inner-y-padding'>
+                        <div style={{aspectRatio: "1 / 1"}} className="col col-md-4 p-4">
+                            <Image className="w-100 h-100 object-fit-cover" src={organizationPresentationImg} />
+                        </div>
+                        <div style={{maxWidth: "60ch"}} className="col col-md-8 p-4 flex-column align-items-start">
+                            <h2 className="mb-4">AVNU, c'est quoi?</h2>
+                            <p className="mt-4">    
+                                AVNU est une base de données qui a pour objectif de recenser et de
+                                géolocaliser les talents, les ressources et les initiatives numériques en
+                                lien avec le territoire du Croissant boréal. En naviguant sur son interface,
+                                vous pourrez découvrir les personnes, les organismes, les projets, les
+                                équipements et les événements qui répondent à vos besoins
+                                technologiques.
+                            </p>
+                            <div className="d-flex flex-wrap">
+                                <p>Le projet AVNU est développé par le hub &nbsp;</p>
+                                <a href="https://avantagenumerique.org/">
+                                    <Image alt="Logo avantage numérique" className="w-auto" style={{height: "1.25rem"}} src={AvantageNumeriqueLogo} />
+                                </a> 
+                            </div>
+                            <div className="d-flex flex-column align-items-start mt-3">
+                                <Button className="px-4" href="/faq/a-propos">En savoir plus sur l'initiative</Button>
+                                <Button className="mt-2" href="https://avantagenumerique.org/" external={true} text_color="dark">Découvrir Avantage Numérique</Button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* Account section */}
+            <section className="home-page__full-width-section position-relative">
+                <figure className="position-absolute top-0 bottom-0 start-0 end-0">
+                    <Image className="h-100 w-auto position-absolute end-0 top-0" src={shipAndPlanetsImg} />
+                </figure>
+                <div className="container">
+                    <div className='row home-page__section-inner-y-padding'>
+                            <h2 className="text-center">Pas encore de compte ?</h2>
+                            <p className="text-center my-2">Vous en aurez besoin afin de vous aussi ajouter des données.</p>
+                            <div className="d-flex justify-content-center my-4">
+                                <Button className="px-4" color="primary">C'est par ici !</Button>
+                            </div>
+                    </div>
+                </div>
+            </section>
+                
         </div>
     )
 }
 
 export default HomePage;
+

@@ -7,6 +7,15 @@ import Button from "@/src/common/FormElements/Button/Button"
 import styles from './PageHeader.module.scss';
 import SearchTag from "@/common/Components/SearchTag";
 
+
+/**
+ *
+ * @param props.custom_FullWidthContent {JSX.Element} Custom component to be added to the component root
+ * @param props.custom_LeftColContent {JSX.Element} Custom component to be added to the left colomn
+ * @param props.custom_RightColElement {JSX.Element} Custom component to be added to the right colomn
+ * @return {JSX.Element}
+ * 
+ */
 const PageHeader = (props) => {
 
     const bgClass = props.bg ?? "bg-primary-lighter";
@@ -22,11 +31,11 @@ const PageHeader = (props) => {
     const asciiArt = props.art ?? "";
 
     return (
-        <header className={`${styles['page-header']} ${bgClass}`}>
+        <header className={`${styles['page-header']} ${bgClass} position-relative`}>
             <div className="container">
                 <div className='row justify-content-between align-items-center'>
 
-                    <div className={`${styles['header-left-col--max-width']} col col-sm-${colNumberXs} d-flex flex-column justify-content-center`}>
+                    <div className={`${styles['header-left-col--max-width']} col col-sm-${colNumberXs} d-flex flex-column justify-content-center position-relative`}>
                         {historyBack &&
                         <div className={"d-flex justify-content-end"}>
                             <Button color="white" outline="primary" href={historyBack.uri}>
@@ -74,18 +83,24 @@ const PageHeader = (props) => {
                         {props.children &&
                             props.children
                         }
+                        {/* If the custom_LeftColContent prop is define, then inject it */}
+                        {props.custom_LeftColContent && props.custom_LeftColContent}
                     </div>
-                    {props.image &&
-                        <div className={`col-sm-${asideColNumberXs}`}>
-                            <img
-                                className={"img-fluid"}
-                                src={props.image}
-                                alt={(props.imageAlt ?? props.title)}
-                            />
-                        </div>
-                    }
+                    <div className={`col-sm-${asideColNumberXs}`}>
+                        {props.image &&
+                                <img
+                                    className={"img-fluid"}
+                                    src={props.image}
+                                    alt={(props.imageAlt ?? props.title)}
+                                />
+                        }
+                        {/* If the custom_RightColElement prop is define, then inject it */}
+                        {props.custom_RightColElement && props.custom_RightColElement}
+                    </div>
                 </div>
             </div>
+            {/* If the custom_FullWidthContent prop is define, then inject it */}
+            {props.custom_FullWidthContent && <props.custom_FullWidthContent />}
         </header>
     )
 }

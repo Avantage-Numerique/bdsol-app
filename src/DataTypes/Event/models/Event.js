@@ -17,7 +17,7 @@ class Event extends EntityModel {
         this.title = raw.name ?? "";
         this.description = raw.description ?? "";
         this.mainImage = !raw.mainImage || raw.mainImage === "" ? {
-            url: "/general_images/default-event.png",
+            url: "/entity-icones/L-format/png/Icone-GrandFormat-Evenement.png",
             alt: raw.name,
             baseSrc: `${process.env.NEXT_PUBLIC_APP_URL}`,
             isDefault: true
@@ -26,8 +26,8 @@ class Event extends EntityModel {
         this.mainImageModel = new Media(this.mainImage);
         this.type = TYPE_EVENT;
 
-        this.icon.url = "/entity-icones/SM-format/event_tiny_icon.svg"
-        this.icon.alt = lang.iconOfEvent;
+        //Class name of the icon entity
+        this.icon = "icon-event_tiny_icon";
 
 
         this.meta = {title: this.title, description: this.description, ...raw.meta};

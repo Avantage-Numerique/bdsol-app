@@ -14,19 +14,27 @@
     height: var(--headersHeight);
     display: flex;
     flex-direction: column;
+    position: fixed;
+    top: 0px; 
+    left: 0px;
+    right: 0px;
+    z-index: $zindex-fixed;
+    transition: 0.3s ease-out; 
 
     &.account-bar {
         height: calc(var(--headersHeight) + 2rem);
+        .navButton { top: 2rem; }
+    }
 
-        .navButton {
-            top: 2rem;
-        }
+    &.scroll-inner-page {
+        background-color: $primary-dark;
+        height: 4em;
     }
 
     /* Title container where is putted the logo */
     .header__content {
         width: 100%;
-        height: var(--headersHeight);
+        //height: var(--headersHeight);
 
         img {
             cursor: pointer;
@@ -133,7 +141,7 @@
         /* Align the hamburger menu in the center */
         display: flex;
         align-content: center;
-        height: 5em;
+        height: 100%;
         width: 7vw;
     }
 }

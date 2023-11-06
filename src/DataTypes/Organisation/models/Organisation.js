@@ -25,8 +25,8 @@ class Organisation extends EntityModel {
 
         this.mainImage.src = this.mainImageModel?.src ?? "";
         
-        this.icon.url = "/entity-icones/SM-format/organisation_tiny_icon.svg"
-        this.icon.alt = lang.iconOfOrganization;
+        //Class name of the icon entity
+        this.icon = "icon-organisation_tiny_icon";
 
         //this.taxonomies = new Map();
         //this.taxonomies.set("domains", raw.domains);

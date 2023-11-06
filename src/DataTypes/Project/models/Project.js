@@ -25,8 +25,8 @@ class Project extends EntityModel {
         this.mainImageModel = new Media(this.mainImage);
         this.mainImage.src = this.mainImageModel.src;
 
-        this.icon.url = "/entity-icones/SM-format/project_tiny_icon.svg"
-        this.icon.alt = lang.iconOfProject;
+        //Class name of the icon entity
+        this.icon = "icon-project_tiny_icon";
 
         this.type = TYPE_PROJECT;
 

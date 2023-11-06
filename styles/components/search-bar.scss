@@ -1,5 +1,10 @@
 .search-bar {
+    max-width: 60ch;
     .input-group {
+
+        border-radius: $border-radius; 
+        overflow: hidden;
+
         button {
             min-width: 4rem;
             font-size: 1.1rem;

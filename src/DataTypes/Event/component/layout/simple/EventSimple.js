@@ -13,8 +13,8 @@ const EventSimple = ({ model }) => {
         const { TimeIntervalSentence } = dateManager(model.startDate, model.endDate);
 
         return (
-            <p className="mb-0 text--dark">
-                <TimeIntervalSentence tag={"strong"} />
+            <p className="m-0 text--dark text-center">
+                <TimeIntervalSentence tag={"strong"} showDay={false} withPreposition={false} />
             </p>
         )
     }

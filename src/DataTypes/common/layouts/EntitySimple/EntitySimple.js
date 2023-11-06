@@ -62,8 +62,7 @@ const EntitySimple = (props) => {
             <div className="mb-2">
                 <TypeTag 
                     type={appType.label}
-                    icon={model.icon.url}
-                    iconAlt={model.icon.alt}
+                    icon={model.icon}
                 />
             </div>
             {/* Image representing the entity */}
