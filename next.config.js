@@ -5,23 +5,12 @@ const path = require('path');
  * @type {import('next').NextConfig}
  */
 const nextConfig = {
-    /*async headers() {
-        return [
-            {
-                source: '/:all*(svg|jpg|png|webp|jpeg)',
-                locale: false,
-                headers: [
-                    {
-                        key: 'Cache-Control',
-                        value: 'public, max-age=604800, must-revalidate',
-                    }
-                ],
-            },
-        ]
-    },*/
+
     //define default value for env variables that aren't declare in the .env file or add some there.
     env: {
         //APP
+        MODE: process.env.MODE ?? 'full',
+        VERSION: process.env.VERSION ?? '0.0.0',
         ENVIRONNEMENT: process.env.NODE_ENV ?? 'development',
         IS_PRODUCTION: process.env.NODE_ENV === "production",
         IS_DEV: process.env.NODE_ENV === "development",

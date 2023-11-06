@@ -68,11 +68,12 @@ export const getUserHeadersFromUserSession = (user, withAuthentification= false)
 
 const AuthContext = createContext({});
 
-export function AuthProvider({fromSessionUser, children}) {
+export function AuthProvider({fromSessionUser, appMode, children}) {
 
     const [user, setUser] = useState(fromSessionUser ?? {...defaultSessionData} );
     const [loading, setLoading] = useState(true);
     const [apiUp, setApiUp] = useState(true);
+    const [mode, setMode] = useState(appMode);
     useApi(setApiUp);
 
     return (
@@ -82,7 +83,9 @@ export function AuthProvider({fromSessionUser, children}) {
             loading: loading,
             setLoading: setLoading,
             apiUp : apiUp,
-            setApiUp : setApiUp
+            setApiUp : setApiUp,
+            mode: mode,
+            setMode: setMode
         }}>
             {children}
         </AuthContext.Provider>

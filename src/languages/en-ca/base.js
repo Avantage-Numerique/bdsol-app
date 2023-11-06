@@ -215,5 +215,10 @@ export const base = {
     "createOptionLabel" : "Create : ",
 
     //Button
-    "apply" : "Apply"
+    "apply" : "Apply",
+
+    //Contact us
+    "message": "Message",
+    "email": "Email address",
+    "sendMessage": "Send message"
 }

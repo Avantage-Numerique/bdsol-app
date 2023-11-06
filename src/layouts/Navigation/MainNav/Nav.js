@@ -64,7 +64,7 @@ const Nav = ( {menuState, setMenuState} ) => {
                         <a target="_blank" href="https://avantagenumerique.org/a-propos">À propos d'Avantage Numérique</a>
                     </li>
                     <li>
-                        <a target="_blank" href="https://avantagenumerique.org/nous-joindre/">Nous joindre</a>
+                        <Link href="/nous-joindre">Nous joindre</Link>
                     </li>
                 </ul>
 

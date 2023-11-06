@@ -1,7 +1,7 @@
 {
-  "name": "bdsol-frontend",
-  "version": "0.0.1",
-  "description": "BDSOL fronted en nextjs",
+  "name": "avnu",
+  "version": "0.0.7",
+  "description": "Application frontend called avnu",
   "authors": [
     "Frédéric Rivard",
     "Marc-André Martin",
