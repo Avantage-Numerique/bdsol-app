@@ -1,0 +1,15 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/nmrlkv60/avnuappstg/
+    - /bin/cp -R pages $DEPLOYPATH
+    - /bin/cp -R styles $DEPLOYPATH
+    - /bin/cp -R src $DEPLOYPATH
+    - /bin/cp -R public $DEPLOYPATH
+    - /bin/cp package.json $DEPLOYPATH
+    - /bin/cp package-lock.json $DEPLOYPATH
+    - /bin/cp .eslintrc $DEPLOYPATH
+    - /bin/cp 1postcss.config.js $DEPLOYPATH
+    - /bin/cp app.json $DEPLOYPATH
+    - /bin/cp jsconfig.json $DEPLOYPATH
+    - /bin/cp next.config.js $DEPLOYPATH
