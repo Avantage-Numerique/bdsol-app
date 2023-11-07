@@ -13,3 +13,4 @@ deployment:
     - /bin/cp app.json $DEPLOYPATH
     - /bin/cp jsconfig.json $DEPLOYPATH
     - /bin/cp next.config.js $DEPLOYPATH
+    - /bin/cp jest.config.js $DEPLOYPATH
