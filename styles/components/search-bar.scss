@@ -1,9 +1,13 @@
 .search-bar {
     max-width: 60ch;
+
     .input-group {
 
+        &:focus-within {
+            outline: 0.1rem solid $secondary-light;
+        }
+
         border-radius: $border-radius; 
-        overflow: hidden;
 
         button {
             min-width: 4rem;

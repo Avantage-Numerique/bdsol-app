@@ -47,6 +47,7 @@ const SearchBar = ({small, ...props}) => {
         control: (styles, state) => ({
             ...styles,
             border: 0,
+            borderRadius: "1.5rem",
             // This line disable the blue border
             boxShadow: 0,
             '&:hover': {
@@ -148,11 +149,13 @@ const SearchBar = ({small, ...props}) => {
         setTimeout( () => blockSubmitSlug.current = false, 500 )
     }
 
+
+
     return (
         <form onSubmit={submitHandler} className={`search-bar ${small && "small-searchBar w-100"}`}>
             <div className="input-group my-2 bg-white">
                 <Select
-                    className={"form-control p-0 border-0"}
+                    className={"form-control ms-2 p-0 border-0 rounded"}
                     key={"SearchBar-layout"}
                     ref={selectRef}
                     styles={styling}

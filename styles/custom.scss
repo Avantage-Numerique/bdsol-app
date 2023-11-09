@@ -109,7 +109,6 @@ $theme-colors:(
     
     "light": $light,
     
-    "greyBg": $light-grey-bg,
 
     //Taxonomies
     "accepted":$green-accepted,
@@ -125,6 +124,8 @@ $theme-colors:(
     ****** UPDATED Themes
     ******
     ******/
+    "greyBg": $light-grey-bg,
+
 
     //PRIMARY 
     "primary": $primary,
