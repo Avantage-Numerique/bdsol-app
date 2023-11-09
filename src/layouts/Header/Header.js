@@ -76,6 +76,7 @@ const Header = (props) => {
                                         <Button
                                             size="slim"
                                             className="rounded"
+                                            href="/contribuer"
                                         >
                                             Contribuer
                                         </Button>
