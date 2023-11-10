@@ -65,7 +65,7 @@ const UpdateSkillGroup = ({parentEntity, name, formTools, ...props}) => {
                         {/* Delete element */}
                         <div className="col pr-0 flex-grow-0 text-secondary pt-1">
                             <Button 
-                                repeaterdeletedlem
+                                repeaterDeleteElem
                                 type="button" 
                                 color="danger" 
                                 size="slim"

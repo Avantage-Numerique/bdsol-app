@@ -7,8 +7,8 @@ import Link from 'next/link';
 import HamburgerButton from '@/src/common/FormElements/HamburgerButton/HamburgerButton';
 import ConnectionBanner from "@/src/layouts/ConnexionBanner/ConnectionBanner";
 import SearchBar from '@/src/common/Components/SearchBar';
-import Icon from "@/common/widgets/Icon/Icon";
 import Nav from '@/layouts/Navigation/MainNav/Nav'
+import Button from "@/FormElements/Button/Button";
 
 //Contextes
 import {useAuth} from '@/auth/context/auth-context';
@@ -73,11 +73,13 @@ const Header = (props) => {
                                 </div>
                                 {auth.user.isLoggedIn &&
                                     <div className={"col-2 d-flex-content-center"}>
-                                        <div className="d-grid w-100" onClick={ () => setMenuState(false) }>
-                                            <Link href={"/contribuer"} className={"btn btn-outline-light"}>
-                                                 <Icon iconName="plus-circle" /> {lang.menuContributeLabel}
-                                            </Link>
-                                        </div>
+                                        <Button
+                                            size="slim"
+                                            className="rounded"
+                                            href="/contribuer"
+                                        >
+                                            Contribuer
+                                        </Button>
                                     </div>
                                 }
                             </div>
@@ -87,12 +89,12 @@ const Header = (props) => {
                     <div className="col g-0 h-100">
                         <div className={"d-flex justify-content-end h-100"}>
                             { !auth.user.isLoggedIn &&
-                                <ul className={`nav flex-nowrap align-items-center`} onClick={ () => setMenuState(false) }>
+                                <ul className={`nav flex-nowrap align-items-center h-100`} onClick={ () => setMenuState(false) }>
                                     <li>
                                         <a href="/compte/inscription" className={"nav-link text-black"}>{lang.menuSubscribeLabel}</a>
                                     </li>
                                     <li>
-                                        <a href="/compte/connexion" className={`nav-link text-black`}><Icon iconName="sign-in-alt" className={"la-lg"} /> {lang.menuConnectLabel}</a>
+                                        <a href="/compte/connexion" className={`nav-link text-black`}>{lang.menuConnectLabel}</a>
                                     </li>
                                 </ul>
                             }
@@ -103,7 +105,6 @@ const Header = (props) => {
                                         onClick={() => {
                                             //setMenuState(menuState !== 2 ? 2 : 0)
                                         } }>
-
                                         {(auth.user.avatar === undefined || auth.user.avatar === null || auth.user.avatar.toString() === "") ?
                                             <img className={`${styles["user-img"]} img-fluid`}
                                                  src="/general_images/default-avatar.webp"

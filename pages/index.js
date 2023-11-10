@@ -307,7 +307,7 @@ const HomePage = ({}) => {
                 <figure className="position-absolute top-0 bottom-0 start-0 end-0">
                     <Image className="h-100 w-auto position-absolute end-0 top-0" src={shipAndPlanetsImg} />
                 </figure>
-                <div className="container">
+                <div className="container position-relative">
                     <div className='row home-page__section-inner-y-padding'>
                             <h2 className="text-center">Pas encore de compte ?</h2>
                             <p className="text-center my-2">Vous en aurez besoin afin de vous aussi ajouter des données.</p>

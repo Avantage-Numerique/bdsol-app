@@ -20,12 +20,23 @@ import Project from "@/DataTypes/Project/models/Project";
 import Event from "@/DataTypes/Event/models/Event";
 import Equipment from "@/DataTypes/Equipment/models/Equipment";
 
+//Contextes & hooks
+import {useAuth} from '@/auth/context/auth-context';
+import { useSessionHook } from '@/auth/hooks/useSessionHook'
+
+//Utils
+import {lang} from "@/src/common/Data/GlobalConstants";
 
 const Nav = ( {menuState, setMenuState} ) => {
 
     //Listen for a page change. If it happens, close the menu
     const router = useRouter();
+    //Import the authentication context to know if the user is connected
+    const auth = useAuth();
+    //Extract logout function
+    const { logout } = useSessionHook();
     
+    //When the page change, close the menu
     useEffect(() => {
         //Verify the the menu is open. If it is, then close it
         if (menuState){ setMenuState(false) }
@@ -92,12 +103,25 @@ const Nav = ( {menuState, setMenuState} ) => {
                         <section className={`${styles["nav-section"]}`}>
                             <Button className="fs-3 h2" text_color="dark" href="/">Espace membre</Button>
                             <ul className={`${styles["button-list"]}`}>
-                                <li>
-                                    <Button text_color="dark" href="/">Mon profil</Button>
-                                </li>
-                                <li>
-                                    <Button text_color="dark" href="/">Se déconnecter</Button>
-                                </li>
+                                { auth.user.isLoggedIn ? 
+                                <>
+                                    <li>
+                                        <Button href="/compte" text_color="dark" href="/compte">Mon profil</Button>
+                                    </li>
+                                    <li>
+                                        <Button onClick={logout} text_color="dark" href="/">{lang.menuLabelToDisconnect}</Button>
+                                    </li>
+                                </> 
+                                : 
+                                <> 
+                                    <li>
+                                        <Button href="/compte/connexion" text_color="dark" href="/">{lang.menuLabelConnect}</Button>
+                                    </li>
+                                    <li>
+                                        <Button href="/compte/inscription" text_color="dark" href="/">{lang.menuLabelConnect}</Button>
+                                    </li>
+                                </>
+                                }
                             </ul>
                         </section>
                     </div>

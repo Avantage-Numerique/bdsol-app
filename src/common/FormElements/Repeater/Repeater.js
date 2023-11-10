@@ -279,6 +279,7 @@ const Repeater = props => {
     }
     //Delete an iteration from the state
     const deleteIterationByKey = ( key ) => {
+        console.log("Deletion called")
         //Create a new instance of the state to edit
         let updatedIterations = {...iterations};
         //Save the order's value of the element to delete
