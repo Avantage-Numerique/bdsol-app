@@ -1,4 +1,4 @@
-import React, { useContext,useEffect } from 'react'
+import React, { useContext,useEffect, useState } from 'react'
 import Router from 'next/router'
 
 //Custom hooks
@@ -19,6 +19,7 @@ import styles from './Register.module.scss'
 
 const Register = () => {
 
+    const [isTOSAccepted, setIsTOSAccepted] = useState(false)
     //State that hold the form data
     const { FormUI, submitRequest, formState, formTools } = useFormUtils(
 
@@ -105,7 +106,8 @@ const Register = () => {
                         "password": formState.inputs.password.value,
                         "avatar": formState.inputs.avatar.value,
                         "firstName": formState.inputs.firstName.value,
-                        "lastName": formState.inputs.lastName.value
+                        "lastName": formState.inputs.lastName.value,
+                        "tos": { accepted: isTOSAccepted}
                     }
                 };
 
@@ -211,8 +213,20 @@ const Register = () => {
                     formTools={formTools}
                 />
 
+                <span className="row py-2 form-check flex-nowrap d-flex">
+                    <input
+                        readOnly
+                        className="form-check-input col-4"
+                        role="button"
+                        type="checkbox"
+                        onClick={() => {setIsTOSAccepted(!isTOSAccepted)}}
+                        checked={isTOSAccepted}
+                    />
+                    <span className="form-check-label col-8">J'accepte les <a className="text-primary" target="_blank" href="/termes-et-conditions-d'utilisation">termes et conditions d'utilisation</a></span>
+                </span>
+
                 <div className="col-12">
-                    <Button type="submit" disabled={!formState.isValid}>Soumettre</Button>
+                    <Button type="submit" disabled={!formState.isValid && isTOSAccepted}>Soumettre</Button>
                 </div>
             </form>
             
