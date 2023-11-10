@@ -9,4 +9,4 @@ const PolitiqueDutilisationDesDonnees = () => {
     )
 }
 
-export default PolitiqueDesDonnees;
+export default PolitiqueDutilisationDesDonnees;
