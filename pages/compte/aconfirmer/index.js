@@ -28,36 +28,10 @@ const confirmationForm = () => {
                 body: JSON.stringify({data: { email: formState.inputs.email.value }}),
             }
         );
-        if(apiResponse.error){
-            if(apiResponse.code == 200){
-                msg.addMessage({ 
-                    text: "Veuillez attendre 5 minutes entre l'envoie d'un nouveau courriel",
-                    positive: false
-                })
-            }
-            else {
-                if(apiResponse.code == 418){
-                    //I'm a tea pot
-                    msg.addMessage({
-                        text: "Le compte est déjà vérifier, vous pouvez vous connecter.",
-                        positive: true
-                    })
-                    Router.push("/compte/connexion")
-                }
-                else{
-                    msg.addMessage({ 
-                        text: "Courriel invalide",
-                        positive: false 
-                    })
-                }
-            }
-        }
-        else {
-            msg.addMessage({ 
-                text: "Un email de confirmation a été envoyé",
-                positive: true
-            })
-        }
+        msg.addMessage({ 
+            text: "Un email de confirmation a été envoyé s'il s'agit d'un courriel associé à un compte",
+            positive: true
+        })
     }
 
     return (
@@ -75,6 +49,7 @@ const confirmationForm = () => {
                 formTools={formTools}
             />
             <Button type="button" onClick={resendToken}>Envoyer un nouveau lien de confirmation</Button>
+            <p>*Noter qu'il y a un délai de 5 minutes pour un envoi vers une même adresse courriel</p>
         </div>
     )
 }
