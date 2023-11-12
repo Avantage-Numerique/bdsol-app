@@ -115,10 +115,10 @@ const Nav = ( {menuState, setMenuState} ) => {
                                 : 
                                 <> 
                                     <li>
-                                        <Button href="/compte/connexion" text_color="dark" href="/">{lang.menuLabelConnect}</Button>
+                                        <Button href="/compte/connexion" text_color="dark" href="/connexion">{lang.menuLabelConnect}</Button>
                                     </li>
                                     <li>
-                                        <Button href="/compte/inscription" text_color="dark" href="/">{lang.menuLabelConnect}</Button>
+                                        <Button href="/compte/inscription" text_color="dark" href="/inscription">{lang.menuLabelCreateAccount}</Button>
                                     </li>
                                 </>
                                 }

@@ -13,7 +13,7 @@ $purple-light: #b2b2eb;
 $purple-lighter: lighten($purple-light, 10%);
 
 $grey: #bbbfd7;
-$light-grey-bg: #f2f2f2;
+$light-grey-bg: #f5f5f5;
 //$dark: #292929;
 $light: lighten($grey, 30%);
 
@@ -139,6 +139,8 @@ $theme-colors:(
     "secondary-dark": $secondary-dark,
     //GENERIC COLORS
     "dark": $dark,
+    "dark-light": lighten($dark, 15%),
+    "dark-lighter": lighten($dark, 30%),
     "black": $black,
     "white": white,
     //SPECIFIC TO COMPONENTS
@@ -256,7 +258,7 @@ $badge-border-radius:               $border-radius;
     INPUT
  */
 $input-border-radius: $border-radius;
-
+$input-base-bg-color: #f9f9f9;
 
 /*
     TRANSITION

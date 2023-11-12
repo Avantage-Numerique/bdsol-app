@@ -1,7 +1,5 @@
 import React, {useContext, useEffect} from 'react';
 
-import Link from 'next/link';
-
 //Context
 import {useAuth} from "@/src/authentification/context/auth-context";
 import {MessageContext} from '@/src/common/UserNotifications/Message/Context/Message-Context';
@@ -82,14 +80,14 @@ const Login = () => {
     }
 
     return (
-        <section className={styles.authPage}>
+        <section className={`header-less-page ${styles.authPage}`}>
 
             {/* Spinner to display when the app is waiting for the api*/}
             {isLoading && <Spinner />}
 
-            <form onSubmit={authSubmitHandler}>
+            <form onSubmit={authSubmitHandler} className="bg-primary-lighter rounded">
                 <div className={"d-flex flex-column"}>
-                    <h3 className="text-primary" >Connexion</h3>
+                    <h3 className="text-dark-light mb-4" >Connexion</h3>
 
                     <Input
                         name="username"
@@ -120,13 +118,16 @@ const Login = () => {
                     </div>
 
                     <p className={`${styles.formRedirection} pb-1`}>
-                        <Link href="/compte/inscription"> Créez votre compte</Link>
+                        <Button text_color="secondary" href="/compte/inscription"> Créez votre compte</Button>
                     </p>
-
-                    <p className={`${styles.formRedirection}`}>
-                        Vous avez oublié votre mot de passe ?
-                        <Link href="/compte/reinitialiser"> Réinitialisé votre mot de passe.</Link>
-                    </p>
+                    
+                    <div className="d-flex flex-wrap">
+                        <p className={`fs-6 ${styles.formRedirection}`}>
+                            Vous avez oublié votre mot de passe ?
+                        </p>
+                        <Button className="fs-6" text_color="secondary" href="/compte/reinitialiser"> Réinitialisé votre mot de passe.</Button>
+                
+                    </div>
                 </div>
             </form>
             

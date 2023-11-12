@@ -14,8 +14,6 @@ import Spinner from '@/src/common/widgets/spinner/Spinner'
 import { MessageContext } from '@/src/common/UserNotifications/Message/Context/Message-Context'
 
 
-//Styling
-import styles from './Register.module.scss'
 
 const Register = () => {
 
@@ -139,9 +137,9 @@ const Register = () => {
 
             { isLoading && <Spinner />}
 
-            <form className={`${styles["registration-form"]} auth-form-container`} onSubmit={submitHandler}>
+            <form className="bg-primary-lighter rounded form-box-shadow p-4" onSubmit={submitHandler}>
 
-                <h3 className="text-primary">Création de compte</h3>
+                <h3 className="text-dark-light mb-4">Création de compte</h3>
                 <FormUI />
 
                 <Input
@@ -183,7 +181,6 @@ const Register = () => {
                         {name: "REQUIRED"},
                         {name: "TYPE_EMAIL"}
                     ]}
-                    errorText="Veuillez entrer une adresse courriel valide"
                     formTools={formTools}
                 /> 
 
@@ -195,7 +192,6 @@ const Register = () => {
                         {name: "REQUIRED"},
                         {name: "MIN_LENGTH", specification: 8}
                     ]}
-                    errorText="Veuillez entrer un mot de passe valide"
                     formTools={formTools}
                 />
 
@@ -207,11 +203,10 @@ const Register = () => {
                         {name: "REQUIRED"},
                         {name: "MIN_LENGTH", specification: 8}
                     ]}
-                    errorText="Veuillez entrer un mot de passe valide"
                     formTools={formTools}
                 />
 
-                <div className="col-12">
+                <div className="col-12 mt-4">
                     <Button type="submit" disabled={!formState.isValid}>Soumettre</Button>
                 </div>
             </form>
