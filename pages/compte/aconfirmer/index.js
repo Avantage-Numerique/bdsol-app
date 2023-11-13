@@ -7,7 +7,7 @@ import Input from '@/src/common/FormElements/Input/Input'
 import Button from '@/src/common/FormElements/Button/Button'
 import { MessageContext } from '@/src/common/UserNotifications/Message/Context/Message-Context'
 
-const AConfirmer = () => {
+const confirmationForm = () => {
 
     const msg = useContext(MessageContext);
     const { FormUI, submitRequest, formState, formTools } = useFormUtils(
@@ -28,60 +28,42 @@ const AConfirmer = () => {
                 body: JSON.stringify({data: { email: formState.inputs.email.value }}),
             }
         );
-        if(apiResponse.error){
-            if(apiResponse.code == 200){
-                msg.addMessage({ 
-                    text: "Veuillez attendre 5 minutes entre l'envoie d'un nouveau courriel",
-                    positive: false
-                })
-            }
-            else {
-                if(apiResponse.code == 418){
-                    //I'm a tea pot
-                    msg.addMessage({
-                        text: "Le compte est déjà vérifier, vous pouvez vous connecter.",
-                        positive: true
-                    })
-                    Router.push("/compte/connexion")
-                }
-                else{
-                    msg.addMessage({ 
-                        text: "Courriel invalide",
-                        positive: false 
-                    })
-                }
-            }
-        }
-        else {
-            msg.addMessage({ 
-                text: "Un email de confirmation a été envoyé",
-                positive: true
-            })
-        }
+        msg.addMessage({ 
+            text: "Un email de confirmation a été envoyé s'il s'agit d'un courriel associé à un compte",
+            positive: true
+        })
     }
 
     return (
-        <>
-            <section className='py-4'>
-                <AuthenticationMessage 
-                    header="En attente de confirmation" 
-                    message="Vous devriez recevoir un courriel de confirmation sous peu. Une fois que vous aurez confirmé votre identité, vous pourrez vous connecter à votre compte."
-                />
-            </section>
-            <div>
-                <div>Voulez-vous un nouveau lien de confirmation?</div>
-                <Input 
-                    name="email"
-                    label="Adresse Courriel"
-                    formClassName="discrete-without-focus form-text-white h2"
-                    validationRules={[
-                        {name: "REQUIRED"}
-                    ]}
-                    formTools={formTools}
-                />
-                <Button type="button" onClick={resendToken}>Envoyer un nouveau lien de confirmation</Button>
-            </div>
-        </>
+        <div>
+            <div className="border-bottom my-4"></div>
+            <h3 className="fs-5 text-dark-light">Voulez-vous un nouveau lien de confirmation?</h3>
+            <Input 
+                name="email"
+                className="my-4"
+                label="Adresse Courriel"
+                validationRules={[
+                    {name: "REQUIRED"},
+                    {name: "TYPE_EMAIL"}
+                ]}
+                formTools={formTools}
+            />
+            <Button type="button" onClick={resendToken}>Envoyer un nouveau lien de confirmation</Button>
+            <p>*Noter qu'il y a un délai de 5 minutes pour un envoi vers une même adresse courriel</p>
+        </div>
+    )
+}
+
+const AConfirmer = () => {
+
+    return (
+        <section className='py-4 d-flex justify-content-center'>
+            <AuthenticationMessage 
+                header="En attente de confirmation" 
+                message="Vous devriez recevoir un courriel de confirmation sous peu. Une fois que vous aurez confirmé votre identité, vous pourrez vous connecter à votre compte."
+                Added_content={confirmationForm}
+            />
+        </section>
     );
 }
 

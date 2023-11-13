@@ -3,7 +3,10 @@ import { useEffect, useState } from "react";
 //Component
 import PageHeader from "@/layouts/Header/PageHeader";
 import Button from "@/src/common/FormElements/Button/Button";
+import Select2 from "@/src/common/FormElements/Select2/Select2";
 
+//hooks
+import { useFormUtils } from "@/src/hooks/useFormUtils/useFormUtils";
 //Utils
 import { lang } from "@/src/common/Data/GlobalConstants";
 import { clientSideExternalApiRequest } from "@/src/hooks/http-hook";
@@ -35,6 +38,26 @@ const ConsultData = () => {
         }
         setShowApplyBtn(true)
     } */
+
+    /* const { FormUI, submitRequest, formState, formTools } = useFormUtils(
+        {
+            domains: {
+                value: [],
+                isValid: false
+            },
+            technologies: {
+                value: [],
+                isValid: true
+            },
+            skills: {
+                value: [],
+                isValid: true
+            },
+        },
+        {
+            displayResMessage: true
+        }
+    ) */
     const getListResponses = () => {
         if(filterState == "all")
             return clientSideExternalApiRequest("/search/?searchIndex=", { method: 'GET'});
@@ -53,60 +76,130 @@ const ConsultData = () => {
     return (
         <div>
             <PageHeader
-                bg={"bg-purplelight"}
+                bg={"bg-primary-light"}
                 textColor={"text-white"}
                 htmlTitle={"Consulter les ressources technologiques du Croissant boréal"}
                 description="Voir les personnes et organisation sur le territoire, les projets et événements en cours où à venir, et bien plus!">
             </PageHeader>
-            <section className="py-4">
+            <section style={{ width:"100vw", marginLeft:"calc(50% - 50vw)"}}>
                 {/* Filter type section */}
-                <section>
-                    <h3><Icon iconName="filter"/>Filtrer par type de données</h3>
-                    <ul className="d-flex justify-content-center">
-                        <li className="row p-2 form-check flex-nowrap d-flex" role="button" key="filter-CBL-all" onClick={() => setFilterState("all")}>
-                            <input readOnly className="form-check-input col-1" type="checkbox" checked={filterState == "all"} id="filter-CB-all"/>
-                            <span className="d-flex align-items-center justify-content-between">
-                                <span className="form-check-label col-8">Tous les types</span>                                
-                            </span>
-                        </li>
-                        <li className="row p-2 form-check flex-nowrap d-flex" role="button" key="filter-CBL-person" onClick={() => setFilterState("Person")}>
-                            <input readOnly className="form-check-input col-1" type="checkbox" checked={filterState == "Person"} id="filter-CB-person"/>
-                            <span className="d-flex align-items-center justify-content-between">
-                                <span className="form-check-label col-8">Personnes</span>
-                            </span>
-                        </li>
-                        <li className="row p-2 form-check flex-nowrap d-flex" role="button" key="filter-CBL-organisation" onClick={() => setFilterState("Organisation")}>
-                            <input readOnly className="form-check-input col-1" type="checkbox" checked={filterState == "Organisation"} id="filter-CB-organisation"/>
-                            <span className="d-flex align-items-center justify-content-between">
-                                <span className="form-check-label col-8">Organisations</span>
-                            </span>
-                        </li>
-                        <li className="row p-2 form-check flex-nowrap d-flex" role="button" key="filter-CBL-project" onClick={() => setFilterState("Project")}>
-                            <input readOnly className="form-check-input col-1" type="checkbox" checked={filterState == "Project"} id="filter-CB-project"/>
-                            <span className="d-flex align-items-center justify-content-between">
-                                <span className="form-check-label col-8">Projets</span>
-                            </span>
-                        </li>
-                        <li className="row p-2 form-check flex-nowrap d-flex" role="button" key="filter-CBL-event" onClick={() => setFilterState("Event")}>
-                            <input readOnly className="form-check-input col-1" type="checkbox" checked={filterState == "Event"} id="filter-CB-event"/>
-                            <span className="d-flex align-items-center justify-content-between">
-                                <span className="form-check-label col-8">Événements</span>
-                            </span>
-                        </li>
-                    </ul>
+                <section className="bg-greyBg">
+                    <div className="container py-4">
+                        <h3><Icon iconName="filter"/>Filtrer par type de données</h3>
+                        <div className="d-flex flex-wrap justify-content-center">
+                            <Button
+                                className="mx-2 rounded flex-grow-1"
+                                color={filterState == "all" ? "secondary" : null}
+                                outline={filterState == "all" ? null : "secondary"}
+                                text_color_over="dark"
+                                onClick={() => setFilterState("all")}
+                                id="filter-btn-all"
+                            >
+                                Tous les types
+                            </Button>
+                            <Button className="mx-2 rounded flex-grow-1"
+                                color={filterState == "Person" ? "secondary" : null}
+                                outline={filterState == "Person" ? null : "secondary"}
+                                text_color_over="dark"
+                                onClick={() => setFilterState("Person")}
+                                id="filter-btn-person"
+                            >
+                                Personnes
+                            </Button>
+                            <Button className="mx-2 rounded flex-grow-1"
+                                color={filterState == "Organisation" ? "secondary" : null}
+                                outline={filterState == "Organisation" ? null : "secondary"}
+                                text_color_over="dark"
+                                onClick={() => setFilterState("Organisation")}
+                                id="filter-btn-organisation"
+                            >
+                                Organisations
+                            </Button>
+                            <Button className="mx-2 rounded flex-grow-1"
+                                color={filterState == "Project" ? "secondary" : null}
+                                outline={filterState == "Project" ? null : "secondary"}
+                                text_color_over="dark"
+                                onClick={() => setFilterState("Project")}
+                                id="filter-btn-project"
+                            >
+                                Projets
+                            </Button>
+                            <Button className="mx-2 rounded flex-grow-1"
+                                color={filterState == "Event" ? "secondary" : null}
+                                outline={filterState == "Event" ? null : "secondary"}
+                                text_color_over="dark"
+                                onClick={() => setFilterState("Event")}
+                                id="filter-btn-event"
+                            >
+                                Événements
+                            </Button>
+                            <Button className="mx-2 rounded flex-grow-1"
+                                color={filterState == "Equipment" ? "secondary" : null}
+                                outline={filterState == "Equipment" ? null : "secondary"}
+                                text_color_over="dark"
+                                onClick={() => setFilterState("Equipment")}
+                                id="filter-btn-equipment"
+                            >
+                                Équipement
+                            </Button>
+                        </div>
+
+                    </div>
                 </section>
                 {/* Filter taxonomy section */}
-                <section>
-                    <h3><Icon iconName="filter"/>Filtrer par catégories <Button href="/categories">Voir toute les catégories</Button></h3>
-                    <div className="d-flex justify-content-center">
-                        <div>Category filter 1</div>
-                        <div>Category filter 2</div>
-                        <div>Category filter 3</div>
-                    </div>
-                    <div>
-                        <Button disabled={!showApplyBtn} onClick={sendApiListRequest}>{lang.apply}</Button>
-                    </div>
-                </section>
+                {/*
+                <section className="bg-greyBg">
+                    <div className="container py-4">
+                        <h3><Icon iconName="filter"/>Filtrer par catégories <Button className="mx-4" href="/categories">Voir toute les catégories</Button></h3>
+                        <div className="row d-flex justify-content-center">
+                            <div className="col-4">
+                                <p className="mb-1 fw-semibold">Secteur d'activité</p>
+                                <Select2
+                                    name="domains"
+                                    formTools={formTools}
+                                    creatable={false}
+                                    isMulti={true}
+                                    
+                                    fetch={"/taxonomies/list"}
+                                    requestData={{ category: "domains" }}
+                                    searchField={"name"}
+                                    selectField={"name"}
+                                />
+                            </div>
+                            <div className="col-4">
+                                <p className="mb-1 fw-semibold">Technologies utilisées</p>
+                                <Select2
+                                    name="technologies"
+                                    formTools={formTools}
+                                    creatable={false}
+                                    isMulti={true}
+                                    
+                                    fetch={"/taxonomies/list"}
+                                    requestData={{ category: "technologies" }}
+                                    searchField={"name"}
+                                    selectField={"name"}
+                                />
+                            </div>
+                            <div className="col-4">
+                                <p className="mb-1 fw-semibold">Compétences mise en oeuvre</p>
+                                <Select2
+                                    name="skills"
+                                    formTools={formTools}
+                                    creatable={false}
+                                    isMulti={true}
+                                    
+                                    fetch={"/taxonomies/list"}
+                                    requestData={{ category: "skills" }}
+                                    searchField={"name"}
+                                    selectField={"name"}
+                                />
+                            </div>
+                        </div>
+                        {/* <div>
+                            <Button disabled={!showApplyBtn} onClick={sendApiListRequest}>{lang.apply}</Button>
+                        </div> */}
+                    {/*</div>
+                </section>*/}
             </section>
             <div className="py-4">
                 {/* Entities list section */}

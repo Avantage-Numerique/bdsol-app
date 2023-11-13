@@ -34,7 +34,7 @@ const Footer = () => {
                 {/* Utils and legal links */}
                 <div className={`row d-flex flex-column`}>
                     <p className="text-center mb-0">
-                        <a>Mentions légales</a> | <a>Politique de confidentialité</a> | <a>Conditions générales d'utilisation</a> | <a>Crédits</a>
+                        <a>Mentions légales</a> | <a href="/politique-d'utilisation-des-donnees">Politique de confidentialité</a> | <a href="termes-et-conditions-d'utilisation">Conditions générales d'utilisation</a> | <a>Crédits</a>
                     </p>
                     <p className="text-center my-0"><small>Contact : Nom Prénom, adressecourriel@petittheatre.org, 112 7e rue, Rouyn-Noranda</small></p>
                 </div>

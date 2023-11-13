@@ -50,51 +50,35 @@ const ResetPassword = () => {
                 { body: JSON.stringify({data: { email: formState.inputs.email.value }})}
             );
 
-            //If error (200 is wait 5 min, 400 is bad request)
-            if(apiResponse.error){
-                if(apiResponse.code == 200)
-                    msg.addMessage({
-                        text: "Veuillez attendre 5 minutes avant l'envoi d'un nouveau courriel",
-                        positive: false
-                    })
-                else
-                    msg.addMessage({
-                        text: "Courriel invalide",
-                        positive: false
-                    })
-            }
-            //Else (no error is email sent)
-            else {
-                msg.addMessage({
-                    text: "Courriel de réinitialisation de mot de passe envoyé",
-                    positive: true
-                })
-            }
+            msg.addMessage({
+                text: "Un email sera envoyé s'il est associé à un compte.",
+                positive: true
+            })
         }  
     }
 
     return (
-        <section className={styles.resetPassword}>
-            <form>
+        <section className={`header-less-page  ${styles.resetPassword}`}>
+            <form className="bg-primary-lighter rounded form-box-shadow">
                 <div className={"d-flex flex-column"}>
 
-                    <h3 className="text-primary">Réinitialiser votre mot de passe</h3>
+                    <h3 className="text-dark-light mb-4">Réinitialiser votre mot de passe</h3>
                     <p>Entrer une adresse courriel pour récupérer votre mot de passe.</p>
-
+                    <FormUI />
                     <Input
                         name="email"
                         type="email"
                         label="Adresse courriel"
                         validationRules={[
-                            {name: "REQUIRED"}
+                            {name: "REQUIRED"},
+                            {name: "TYPE_EMAIL"}
                         ]}
-                        errorText="Veuillez entrer une adresse courriel valide"
                         formTools={formTools}
-                        className={"pb-3"}
                     />
-                    <div>
+                    <div className="mt-3">
                         <Button type="button" onClick={submitHandler} disabled={!formState.isValid}>Soumettre</Button>
                     </div>
+                    <p>*Noter qu'il y a un délai de 5 minutes pour un envoi vers une même adresse courriel</p>
                 </div>
             </form>
         </section>

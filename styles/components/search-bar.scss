@@ -3,6 +3,7 @@
 
     .input-group {
 
+        outline: 0.1rem solid rgb(233, 233, 233);
         &:focus-within {
             outline: 0.1rem solid $secondary-light;
         }

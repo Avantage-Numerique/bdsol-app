@@ -1,4 +1,4 @@
-import React, { useContext,useEffect } from 'react'
+import React, { useContext,useEffect, useState } from 'react'
 import Router from 'next/router'
 
 //Custom hooks
@@ -14,11 +14,10 @@ import Spinner from '@/src/common/widgets/spinner/Spinner'
 import { MessageContext } from '@/src/common/UserNotifications/Message/Context/Message-Context'
 
 
-//Styling
-import styles from './Register.module.scss'
 
 const Register = () => {
 
+    const [isTOSAccepted, setIsTOSAccepted] = useState(false)
     //State that hold the form data
     const { FormUI, submitRequest, formState, formTools } = useFormUtils(
 
@@ -105,7 +104,8 @@ const Register = () => {
                         "password": formState.inputs.password.value,
                         "avatar": formState.inputs.avatar.value,
                         "firstName": formState.inputs.firstName.value,
-                        "lastName": formState.inputs.lastName.value
+                        "lastName": formState.inputs.lastName.value,
+                        "tos": { accepted: isTOSAccepted}
                     }
                 };
 
@@ -139,9 +139,9 @@ const Register = () => {
 
             { isLoading && <Spinner />}
 
-            <form className={`${styles["registration-form"]} auth-form-container`} onSubmit={submitHandler}>
+            <form className="bg-primary-lighter rounded form-box-shadow p-4" onSubmit={submitHandler}>
 
-                <h3 className="text-primary">Création de compte</h3>
+                <h3 className="text-dark-light mb-4">Création de compte</h3>
                 <FormUI />
 
                 <Input
@@ -183,7 +183,6 @@ const Register = () => {
                         {name: "REQUIRED"},
                         {name: "TYPE_EMAIL"}
                     ]}
-                    errorText="Veuillez entrer une adresse courriel valide"
                     formTools={formTools}
                 /> 
 
@@ -195,7 +194,6 @@ const Register = () => {
                         {name: "REQUIRED"},
                         {name: "MIN_LENGTH", specification: 8}
                     ]}
-                    errorText="Veuillez entrer un mot de passe valide"
                     formTools={formTools}
                 />
 
@@ -207,12 +205,28 @@ const Register = () => {
                         {name: "REQUIRED"},
                         {name: "MIN_LENGTH", specification: 8}
                     ]}
-                    errorText="Veuillez entrer un mot de passe valide"
                     formTools={formTools}
                 />
 
-                <div className="col-12">
+<<<<<<< HEAD
+                <div className="col-12 mt-4">
                     <Button type="submit" disabled={!formState.isValid}>Soumettre</Button>
+=======
+                <span className="row py-2 form-check flex-nowrap d-flex">
+                    <input
+                        readOnly
+                        className="form-check-input col-4"
+                        role="button"
+                        type="checkbox"
+                        onClick={() => {setIsTOSAccepted(!isTOSAccepted)}}
+                        checked={isTOSAccepted}
+                    />
+                    <span className="form-check-label col-8">J'accepte les <a className="text-primary" target="_blank" href="/termes-et-conditions-d'utilisation">termes et conditions d'utilisation</a></span>
+                </span>
+
+                <div className="col-12">
+                    <Button type="submit" disabled={!formState.isValid && isTOSAccepted}>Soumettre</Button>
+>>>>>>> 3838e3e215c1493a5058b31688d0844bcd77aa01
                 </div>
             </form>
             

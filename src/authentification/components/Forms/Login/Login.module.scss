@@ -15,12 +15,12 @@
     form {
         width: min(35rem, 95%);
         padding: 2rem;
-        border: 1px solid $secondary;
+        box-shadow: $default-box-shadow;
+        
         h3 { margin-top: 0; }
 
         .formRedirection {
             margin: 0.7rem 0 0 0;
-            font-size: 0.9rem;
         }
     }
 

@@ -8,7 +8,7 @@ import styles from './CompteConfirme.module.scss'
 const CompteConfirme = () => {
 
     return (
-        <section className={styles.compteConfirmePage}>
+        <section className={` ${styles.compteConfirmePage}`}>
             <AuthenticationMessage 
                 header="Félicitations" 
                 message="Votre compte a bien été créé. Vous pouvez y accéder avec le lien ci-dessous."

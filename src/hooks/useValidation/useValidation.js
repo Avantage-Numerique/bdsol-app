@@ -58,13 +58,13 @@ const rules_settings = {
         renderBadge: ((mo = 5) => `${mo} Mo max`)
     },
     ONE_OF_MANY_REQUIRED: {
-        renderMessage: (() => `Vous devez remplir au moins l'un des champs de cette section`),
+        renderMessage: (()                 => `Vous devez remplir au moins l'un des champs de cette section`),
         validationMethod: ((value, dependencies) =>  isValuePositive(value) || dependencies.some(value => isValuePositive(value))),
         renderBadge: (() => `1 champ requis`)
     },
     HIGHER_DATE_REQUIRED: {
         renderMessage: (() => `La date dans ce champ doit être ultérieure à celle du prédécent`),
-        validationMethod: ((value, dependencies) => !dependencies.some(dep => new Date(dep).getTime() >= new Date(value).getTime())),
+        validationMethod: ((value, dependencies) => !dependencies.some(dep => new Date(dep).getTime() > new Date(value).getTime())),
         renderBadge: (() => `Date ultérieure`)
     },
 }
