@@ -1,18 +1,17 @@
-import React, { useContext,useEffect, useState } from 'react'
+import React, {useContext, useEffect, useState} from 'react'
 import Router from 'next/router'
 
 //Custom hooks
-import { useHttpClient } from '@/src/hooks/http-hook'
-import { useSessionHook } from '@/auth/hooks/useSessionHook'
-import { useAuth } from '@/auth/context/auth-context'
-import { useFormUtils } from '@/src/hooks/useFormUtils/useFormUtils'
+import {useHttpClient} from '@/src/hooks/http-hook'
+import {useSessionHook} from '@/auth/hooks/useSessionHook'
+import {useAuth} from '@/auth/context/auth-context'
+import {useFormUtils} from '@/src/hooks/useFormUtils/useFormUtils'
 
 //Form components
 import Input from '@/src/common/FormElements/Input/Input'
 import Button from '@/src/common/FormElements/Button/Button'
 import Spinner from '@/src/common/widgets/spinner/Spinner'
-import { MessageContext } from '@/src/common/UserNotifications/Message/Context/Message-Context'
-
+import {MessageContext} from '@/src/common/UserNotifications/Message/Context/Message-Context'
 
 
 const Register = () => {
@@ -208,10 +207,9 @@ const Register = () => {
                     formTools={formTools}
                 />
 
-<<<<<<< HEAD
                 <div className="col-12 mt-4">
                     <Button type="submit" disabled={!formState.isValid}>Soumettre</Button>
-=======
+
                 <span className="row py-2 form-check flex-nowrap d-flex">
                     <input
                         readOnly
@@ -226,7 +224,8 @@ const Register = () => {
 
                 <div className="col-12">
                     <Button type="submit" disabled={!formState.isValid && isTOSAccepted}>Soumettre</Button>
->>>>>>> 3838e3e215c1493a5058b31688d0844bcd77aa01
+
+                </div>
                 </div>
             </form>
             
