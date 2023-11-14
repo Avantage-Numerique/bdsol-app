@@ -16,6 +16,7 @@
     "build:staging": "next build && next export",
     "test": "jest --watch",
     "start": "next start -p 3000",
+    "stop": "next stop",
     "docker:dev": "npx concurrently \"npm run build\" \"npm run dev\"",
     "docker:dev:watch": "npx concurrently \"npm run dev:watch\" \"npm run docker:dev:run\"",
     "docker:dev:run": "npx nodemon --legacy-watch",
