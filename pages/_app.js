@@ -80,7 +80,7 @@ MyApp.getInitialProps = async (context) => {
         };
     }
 
-    return appProps
+    return appProps;
 }
 
 //it isn't call in _app : noMyApp.getServerSideProps or I didn't declare it the good way.

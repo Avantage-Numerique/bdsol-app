@@ -100,7 +100,6 @@ class ApiEntityModel {
     }
 
     static domainsToSelectOptions(domains){
-        console.log("domainsToSelectOptions", domains);
         //If domains is from entity formState
         if(domains?.length === undefined && domains.domain !== null)
             return [{ value : domains.domain._id, label : domains.domain.name, color : getColor(domains.domain) }]

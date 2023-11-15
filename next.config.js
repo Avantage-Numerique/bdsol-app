@@ -53,6 +53,7 @@ const nextConfig = {
 
         APP_COOKIE_NAME: process.env.APP_BASE_URL + '/bdsolAppAN',
         COOKIE_PRIVATE_KEY: process.env.COOKIE_PRIVATE_KEY ?? 'private key not set',
+        COOKIE_MAX_AGE: process.env.COOKIE_MAX_AGE ?? 86600,
 
         PING_INTERVAL: process.env.PING_INTERVAL ?? 10000,
 

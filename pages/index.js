@@ -19,16 +19,8 @@ import {useHttpClient} from '@/src/hooks/http-hook';
 //Context
 import {MessageContext} from '@/src/common/UserNotifications/Message/Context/Message-Context';
 import {useAuth} from '@/src/authentification/context/auth-context';
-import SanitizedInnerHtml from "@/src/utils/SanitizedInnerHtml";
 import {appUrl} from "@/src/helpers/url";
-import {
-    getType,
-    TYPE_EQUIPMENT,
-    TYPE_EVENT,
-    TYPE_ORGANISATION,
-    TYPE_PERSON,
-    TYPE_PROJECT
-} from "@/DataTypes/Entity/Types";
+import {getType} from "@/DataTypes/Entity/Types";
 
 //Images
 import backgroundImg from '@/public/general_images/Pointilles1.svg'
@@ -264,7 +256,7 @@ const HomePage = ({}) => {
                             }
                         </div>
                         <div className="py-4 my-4">
-                            <Button className="px-4"> Voir toutes les données </Button>
+                            <Button className="px-4" href="/consulter"> Voir toutes les données </Button>
                         </div>
                     </div>
                 </div>

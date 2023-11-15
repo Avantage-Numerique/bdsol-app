@@ -1,22 +1,14 @@
-import React, {useEffect, useRef, useState, useMemo} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 
-import {
-    DndContext, 
-    closestCenter,
-    KeyboardSensor,
-    PointerSensor,
-    useSensor,
-    useSensors,
-} from '@dnd-kit/core';
+import {closestCenter, DndContext, KeyboardSensor, PointerSensor, useSensor, useSensors,} from '@dnd-kit/core';
 
 import {
     arrayMove,
     SortableContext,
     sortableKeyboardCoordinates,
+    useSortable,
     verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
-
-import {useSortable} from '@dnd-kit/sortable';
 
 import {CSS} from '@dnd-kit/utilities';
 
@@ -279,7 +271,6 @@ const Repeater = props => {
     }
     //Delete an iteration from the state
     const deleteIterationByKey = ( key ) => {
-        console.log("Deletion called")
         //Create a new instance of the state to edit
         let updatedIterations = {...iterations};
         //Save the order's value of the element to delete
