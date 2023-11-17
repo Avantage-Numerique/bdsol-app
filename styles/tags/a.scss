@@ -4,7 +4,8 @@ a.disabled {
 }
 
 a.link,
-a.external-link {
+a.external-link,
+a.internal-link {
     text-decoration-line: underline;
     text-decoration-thickness: 2px;
     text-underline-offset: 3px;
