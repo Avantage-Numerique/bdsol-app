@@ -1,6 +1,7 @@
 import {appConfig} from "@/src/configs/AppConfig";
 import PageHeader from "@/layouts/Header/PageHeader";
 import React from "react";
+import {RouteLink} from "@/common/Components/RouteLink";
 
 
 const PolitiqueDutilisationDesDonnees = () => {
@@ -29,7 +30,7 @@ const PolitiqueDutilisationDesDonnees = () => {
                     <div className={"col"}>
                         <p>La Troupe de Théâtre « Les Zybrides », personne morale sans but lucratif (« la Troupe », « notre », « nous ») prend votre vie privée et la protection de vos Renseignements personnels au sérieux. Afin de protéger vos Renseignements personnels, nous avons mis en place des politiques, pratiques et procédures relatives à la gestion des Renseignements personnels que nous détenons. Les politiques et procédures internes encadrent la collecte, l’utilisation, la communication, la conservation et la destruction des renseignements personnels, ainsi que le traitement des plaintes, la sécurité de l’information et la gouvernance des données chez La Troupe. Elles fournissent également le cadre de la mise en œuvre des évaluations des facteurs relatifs à la vie privée, lorsqu’elles sont nécessaires, de même que la prévention et la réponse aux potentiels incidents de confidentialité. Toutes ces politiques et pratiques ont été approuvées par notre Responsable de la protection des renseignements personnels. La collecte de vos Renseignements personnels par le biais de notre Plateforme respecte les exigences de ce programme.</p>
                         <p>La présente Politique de confidentialité (la « Politique ») décrit spécifiquement nos pratiques en matière de protection des Renseignements personnels, les types de Renseignements personnels que nous pouvons recevoir ou recueillir auprès de vous et la manière dont nous les utilisons, les divulguons, les hébergeons et les sécurisons, afin que vous soyez en mesure de faire des choix judicieux et informés.</p>
-                        <p>La présente Politique s’applique à notre plateforme web disponible à l’adresse [URL] (notre « Plateforme »). Toutefois, nous souhaitons attirer votre attention sur le fait que les droits et obligations décrits dans cette Politique ne couvrent pas les sites web tiers qui peuvent être liés ou mentionnés sur notre Plateforme. Ces sites web tiers ont leur propre politique de confidentialité et nous vous encourageons à les lire attentivement.</p>
+                        <p>La présente Politique s’applique à notre plateforme web disponible à l’adresse <RouteLink routeName={"app"} /> (notre « Plateforme »). Toutefois, nous souhaitons attirer votre attention sur le fait que les droits et obligations décrits dans cette Politique ne couvrent pas les sites web tiers qui peuvent être liés ou mentionnés sur notre Plateforme. Ces sites web tiers ont leur propre politique de confidentialité et nous vous encourageons à les lire attentivement.</p>
                     </div>
                 </div>
     
@@ -256,13 +257,13 @@ const PolitiqueDutilisationDesDonnees = () => {
 
                         <h3>Responsable de la protection des renseignements personnels</h3>
                         <ul>
-                            <li>Adresse : [Adresse]</li>
-                            <li>Courriel : [courriel]</li>
-                            <li>No de téléphone : [Numéro de téléphone]</li>
+                            <li>Adresse : {appConfig.legal.address}</li>
+                            <li>Courriel : {appConfig.legal.email}</li>
+                            <li>No. de téléphone : {appConfig.legal.phone}</li>
                         </ul>
 
                         <p>Votre demande pourra être acceptée ou refusée par la Troupe selon les lois applicables. La Troupe prendra rapidement des mesures correctives lorsqu’elle aura connaissance de tout manquement à cette Politique. La Troupe ne peut être tenu responsable de tout dommage indirect, accessoire, consécutif ou punitif lié à cette Politique. Vous pouvez à tout moment déposer une plainte auprès de l’autorité compétente si vous pensez que la Troupe ne traite pas vos Renseignements personnels de manière conforme à la présente Politique ou aux lois applicables.</p>
-                        <p>Pour toute question liée à un problème technique de la Plateforme quant à votre accès ou à l’utilisation des fonctionnalités de celui-ci, nous vous invitons à communiquer avec nous via l’adresse suivante : [INSÉRER L’ADRESSE COURRIEL DU SUPPORT]</p>
+                        <p>Pour toute question liée à un problème technique de la Plateforme quant à votre accès ou à l’utilisation des fonctionnalités de celui-ci, nous vous invitons à communiquer avec nous via l’adresse suivante : {appConfig.support.email}</p>
                     </div>
                 </div>
 
