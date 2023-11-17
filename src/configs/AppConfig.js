@@ -4,6 +4,7 @@ export const appConfig = {
         seperator: " - "
     },
     spacing: {
-        singleSectionSpacingClass: "mb-4"
+        singleSectionSpacingClass: "mb-4",
+        pagesContentSpacing: "my-4"
     }
 }
