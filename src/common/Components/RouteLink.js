@@ -10,5 +10,4 @@ export const RouteLink = ({routeName}) => {
             <Link href={route.asPath} className={"internal-link"} title={route.label}>{route.label}</Link>
         );
     }
-    return;
 }
