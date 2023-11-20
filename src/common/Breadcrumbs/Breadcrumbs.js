@@ -138,7 +138,7 @@ const Crumb = ({text: defaultText, textGenerator, href, last = false}) => {
 
     if (last) {
         return (
-            <li className="breadcrumb-item text-primary" aria-current="page" dangerouslySetInnerHTML={{ __html: text }}></li>
+            <li className="breadcrumb-item text-secondary-darker" aria-current="page" dangerouslySetInnerHTML={{ __html: text }}></li>
         )
     }
 //link-underline link-underline-opacity-0 link-underline-opacity-75-hover

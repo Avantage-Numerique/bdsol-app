@@ -208,10 +208,6 @@ const Register = () => {
                     formTools={formTools}
                 />
 
-<<<<<<< HEAD
-                <div className="col-12 mt-4">
-                    <Button type="submit" disabled={!formState.isValid}>Soumettre</Button>
-=======
                 <span className="row py-2 form-check flex-nowrap d-flex">
                     <input
                         readOnly
@@ -226,7 +222,6 @@ const Register = () => {
 
                 <div className="col-12">
                     <Button type="submit" disabled={!formState.isValid && isTOSAccepted}>Soumettre</Button>
->>>>>>> 3838e3e215c1493a5058b31688d0844bcd77aa01
                 </div>
             </form>
             

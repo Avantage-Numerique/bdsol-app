@@ -49,7 +49,7 @@ const confirmationForm = () => {
                 formTools={formTools}
             />
             <Button type="button" onClick={resendToken}>Envoyer un nouveau lien de confirmation</Button>
-            <p>*Noter qu'il y a un délai de 5 minutes pour un envoi vers une même adresse courriel</p>
+            <small><p className="mt-2">*Noter qu'il y a un délai de 5 minutes pour un envoi vers une même adresse courriel</p></small>
         </div>
     )
 }

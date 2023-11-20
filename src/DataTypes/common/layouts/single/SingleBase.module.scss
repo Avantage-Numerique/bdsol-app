@@ -1,18 +1,12 @@
 
 
 .header-base {
-    min-height: clamp(8rem, 35vh, 20rem);
+    //min-height: clamp(8rem, 35vh, 20rem);
+    padding-top: var(--headersHeight);
+    background-color: $primary_1;
 }
 
-.background-image-figure{
-    z-index: -1;
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    img {
-        position: absolute;
-        height: 100%;
-        object-fit: cover;
-        object-position: 65% 65%;
-    }
+.full-width-container {
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
 }

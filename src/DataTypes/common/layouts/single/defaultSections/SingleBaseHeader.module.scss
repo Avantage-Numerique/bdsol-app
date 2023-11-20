@@ -1,2 +1,16 @@
+.over-flowing-button-section {
+    transform: translateY(50%);
+}
 
+.content-padding-top {
+    padding-top: clamp(4rem, 15vh, 8rem);
+}
+
+.content-margin-bottom {
+    margin-bottom: clamp(5rem, 10vh, 8rem);
+}
+
+.default-drop-shadow {
+    filter: drop-shadow(0.15rem 0.15rem 0.1rem rgba(41, 41, 41, 0.4901960784));
+}
 

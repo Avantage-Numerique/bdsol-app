@@ -105,12 +105,14 @@ const PersonSingleView = ({ data }) => {
 
     const Header = (
         <SingleBaseHeader
-            title={(<SanitizedInnerHtml tag={"h1"} className="text-white">{`${model.title}`}</SanitizedInnerHtml>)}
-            subtitle={(
-                <div className="d-text">
-                    <h4 className="text-white">{nickname}</h4>
-                    <i><blockquote className="text-white">{catchphrase}</blockquote></i>
+            title={(
+                <div className="d-flex flex-wrap justify-content-start align-items-end">
+                    <h1 style={{lineHeight: "1em"}} className="me-2 mb-0">{`${model.title}`}</h1>
+                    <p className=" mb-0 fs-4">({nickname})</p>
                 </div>
+            )}
+            subtitle={(
+                <i className="mt-2 fw-semibold"><blockquote className="text-dark">{catchphrase}</blockquote></i>
             )}
             mainImage={model.mainImage}
             entity={model}

@@ -12,11 +12,7 @@ import AppRoutes from "@/src/Routing/AppRoutes";
 const SingleEventViewPage = props => {
 
     return (
-        <div className={`single-container single-person`}>
-            <div className="maxWidthPageContainer">
-                <EventSingleView data={props} route={AppRoutes.eventSingle} />
-            </div>
-        </div>
+        <EventSingleView data={props} route={AppRoutes.eventSingle} />
     )
 }
     

@@ -14,11 +14,7 @@ import PlaceSingleEdit from '@/src/DataTypes/Place/components/layouts/single/Pla
 const SinglePersonEditPage = props => {
 
     return (
-        <div className={`single-container single-person`}>
-            <div className="maxWidthPageContainer">
-                <PlaceSingleEdit data={props} route={AppRoutes.placeSingle} />
-            </div>
-        </div>
+        <PlaceSingleEdit data={props} route={AppRoutes.placeSingle} />
     )
 }
     

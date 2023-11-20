@@ -8,12 +8,8 @@ import MediaSingleView from '@/src/DataTypes/Media/components/forms/MediaSingleV
 const SingleMediaPage = (props) => {
 
     return (
-        <div className={`single-container ${styles["single-media"]}`}>
-            <div className="maxWidthPageContainer">
-
-                <MediaSingleView data={props} />
-
-            </div>
+        <div className={`${styles["single-media"]}`}>
+            <MediaSingleView data={props} />
         </div>
     )
 }

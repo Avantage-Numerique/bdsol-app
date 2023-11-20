@@ -38,8 +38,7 @@ const PersonsPage = () => {
 
     const type = getType(TYPE_PERSON);
     /* 
-        Fetch data  
-        
+        Fetch data 
     */
     const fetchData = async () => {
 

@@ -14,11 +14,7 @@ import EquipmentSingleEdit from '@/src/DataTypes/Equipment/components/layouts/si
 const SingleEquipmentEditPage = props => {
 
     return (
-        <div className={`single-container single-person`}>
-            <div className="maxWidthPageContainer">
-                <EquipmentSingleEdit data={props} route={AppRoutes.equipmentSingle} />
-            </div>
-        </div>
+        <EquipmentSingleEdit data={props} route={AppRoutes.equipmentSingle} />
     )
 }
     

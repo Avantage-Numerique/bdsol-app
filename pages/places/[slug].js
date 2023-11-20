@@ -12,11 +12,7 @@ import AppRoutes from "@/src/Routing/AppRoutes";
 const SinglePlaceViewPage = props => {
 
     return (
-        <div className={`single-container single-person`}>
-            <div className="maxWidthPageContainer">
-                <PlaceSingleView data={props} route={AppRoutes.placeSingle} />
-            </div>
-        </div>
+        <PlaceSingleView data={props} route={AppRoutes.placeSingle} />
     )
 }
     

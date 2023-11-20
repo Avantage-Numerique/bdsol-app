@@ -75,11 +75,10 @@ const OrganisationSingleView = ({ data }) => {
 
     const Header = (
         <SingleBaseHeader
-            className={"mode-public"}
-            title={(<SanitizedInnerHtml tag={"h1"} className="text-white">{`${model.title}`}</SanitizedInnerHtml>)}
+            title={(<h1>{`${model.title}`}</h1>)}
             subtitle={(
                 <div className="d-text">
-                    <h4 className="text-white">{catchphrase}</h4>
+                    <h4>{catchphrase}</h4>
                 </div>
             )}
             mainImage={model.mainImage}
@@ -108,7 +107,7 @@ const OrganisationSingleView = ({ data }) => {
                     title={lang.organisationSkills}
                     NAMessage="Aucun service n'est inscrit pour cette organisation."
                     className={`${sectionClassSpacing}`}
-                    classNameH4="my-3"
+                    classNameTitle="my-3"
                 >
                     { sortedOffers?.length > 0 && sortedOffers.map(offer => (
                         <SkillGroup

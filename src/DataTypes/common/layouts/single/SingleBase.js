@@ -68,24 +68,23 @@ const SingleBase = (props) => {
                     <meta property="article:tag" content="end loop of taxonomy 1" />
                 </Head>
             }
-            <div className="container">
-                { /* BreadCrumbs */ }
-                {  breadCrumb &&
-                <div className="row">
-                    <Breadcrumbs className={"pt-2"} route={breadCrumb.route} getLabelGenerator={breadCrumb.getLabelGenerator || undefined} getHrefGenerator={breadCrumb.getHrefGenerator || undefined} />
-                </div>
-                }
+            
+            <div>
+                
 
                 { /* Header */ }
-                {/* Background image */}
-                <header className={`${styles["header-base"]} row position-relative`}>
-                    <figure className={`${styles["background-image-figure"]} p-0 rounded overflow-hidden`}>
-                        <img className="w-100 opacity-5" src={defaultHeaderBg} alt="Image d'arrière plan de l'entête"/>
-                        <div className={`dark-transparent-gradient doubled`}></div>
-                    </figure>
-
-                    {/* Header's content */}
-                    { header || <SingleBaseHeader/> }
+                <header className={`${styles["header-base"]} ${styles["full-width-container"]} position-relative`}>
+                    <div className="container">
+                        { /* BreadCrumbs  */ }
+                        {  breadCrumb &&
+                            <div className="row">
+                                <Breadcrumbs className={"pt-2"} route={breadCrumb.route} getLabelGenerator={breadCrumb.getLabelGenerator || undefined} getHrefGenerator={breadCrumb.getHrefGenerator || undefined} />
+                            </div>
+                        }
+                
+                        {/* Header's content */}
+                        { header || <SingleBaseHeader/> }
+                    </div>
                 </header>
 
                 { /* FullWidthContent */ }

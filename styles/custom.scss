@@ -50,6 +50,7 @@ $primary_8: #A65D36;
 $primary-light:  $primary_3;
 $primary-lighter: $primary_5;
 $primary-dark: $primary_6;
+$primary-darker: $primary_8;
 
 /*********** Secondary ***********/
 $secondary: #6EC8CD;
@@ -65,7 +66,9 @@ $secondary_8: #377E81;
 
 $secondary-light:  $secondary_2;
 $secondary-lighter:  $secondary_4;
-$secondary-dark:  $secondary_6;
+$secondary-dark:  $secondary_7;
+$secondary-darker:  $secondary_8;
+
 
 /*********** Other colors ***********/
 $black: #1F1F2E;
@@ -132,11 +135,14 @@ $theme-colors:(
     "primary-light": $primary-light,
     "primary-lighter": $primary-lighter,
     "primary-dark": $primary-dark,
+    "primary-darker": $primary-darker,
+
     //SECONDARY 
     "secondary": $secondary,
     "secondary-light": $secondary-light,
     "secondary-lighter": $secondary-lighter,
     "secondary-dark": $secondary-dark,
+    "secondary-darker": $secondary-darker,
     //GENERIC COLORS
     "dark": $dark,
     "dark-light": lighten($dark, 15%),
@@ -301,8 +307,8 @@ $breadcrumb-padding-x:              0;
 $breadcrumb-item-padding-x:         .5rem;
 $breadcrumb-margin-bottom:          1rem;
 $breadcrumb-bg:                     null;
-$breadcrumb-divider-color:          $secondary;
-$breadcrumb-active-color:           $secondary;
+$breadcrumb-divider-color:          $secondary-darker;
+$breadcrumb-active-color:           $secondary-darker;
 $breadcrumb-divider:                quote("/");
 $breadcrumb-divider-flipped:        quote("/");
 $breadcrumb-border-radius:          $border-radius;

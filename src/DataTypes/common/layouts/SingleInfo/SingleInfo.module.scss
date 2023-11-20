@@ -1,4 +1,9 @@
 .single-info-layout {
+    font-size: 1.1rem;
+    .title {
+        font-weight: 800;
+        margin-bottom: clamp(1rem, 5vh, 3rem)
+    }
     .single-info-layout__main {
 
     }

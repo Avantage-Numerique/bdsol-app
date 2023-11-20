@@ -15,11 +15,7 @@ import EventSingleEdit from '@/src/DataTypes/Event/component/layout/single/Event
 const SingleEventEditPage = props => {
 
     return (
-        <div className={`single-container single-person`}>
-            <div className="maxWidthPageContainer">
-                <EventSingleEdit data={props} route={AppRoutes.eventSingle} />
-            </div>
-        </div>
+        <EventSingleEdit data={props} route={AppRoutes.eventSingle} />
     )
 }
     

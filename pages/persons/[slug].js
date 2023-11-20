@@ -12,15 +12,12 @@ import AppRoutes from "@/src/Routing/AppRoutes";
 const SinglePersonViewPage = props => {
 
     return (
-        <div className={`single-container single-person`}>
-            <div className="maxWidthPageContainer">
-                <PersonSingleView data={props} route={AppRoutes.personSingle} />
-            </div>
-        </div>
+        <PersonSingleView data={props} route={AppRoutes.personSingle} />
     )
 }
     
 export default SinglePersonViewPage;
+
 
 export const getServerSideProps = withSessionSsr(personSlugSSProps);
 

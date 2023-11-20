@@ -290,7 +290,7 @@ const OrganisationSingleEdit = (props) => {
     const fullWidthContent = (
         <SingleInfo
             title="Description"
-            classNameH4="mb-0"
+            classNameTitle="mb-0"
         >
             <RichTextarea
                 className="py-3"
@@ -330,7 +330,7 @@ const OrganisationSingleEdit = (props) => {
         <>
             <SingleInfo
                 title="Informations supplémentaires"
-                classNameH4="mb-0"
+                classNameTitle="mb-0"
                 className="mt-3"
             >
                 <Select2

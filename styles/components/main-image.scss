@@ -6,20 +6,26 @@
 
   position:relative;
   margin-bottom: var(--margin-bottom);
-  margin-left: 3vw;
   width: var(--picture-size);
-  min-height: var(--picture-size);
+  height: var(--picture-size);
   border-radius: 50%;
-  border: 0.2rem solid white;
-  overflow: hidden;
+
+  &.default-img {
+    //Make it a tiny bit less overflowing if its the default picture
+    --margin-bottom: calc(-0.20*var(--picture-size));
+    img {
+      object-fit: contain !important; 
+      object-position: center bottom;
+     }
+  }
 
   .main-image {
-    background-color: $main-image-bg-color;
     bottom: 0;
     position: absolute;
     width: var(--picture-size);
     height:  var(--picture-size);
     object-fit: cover;
+    //box-shadow: $default-box-shadow;
   }
 
   .edit-image-button {

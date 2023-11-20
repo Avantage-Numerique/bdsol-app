@@ -13,10 +13,8 @@ import AppRoutes from "@/src/Routing/AppRoutes";
 const SingleProjectViewPage = props => {
 
     return (
-        <div className={`single-container single-organisation`}>
-            <div className="maxWidthPageContainer">
-                <ProjectSingleView data={props} route={AppRoutes.projectSingle} />
-            </div>
+        <div className={`single-organisation`}>
+            <ProjectSingleView data={props} route={AppRoutes.projectSingle} />
         </div>
     )
 }
