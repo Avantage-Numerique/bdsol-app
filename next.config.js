@@ -6,6 +6,13 @@ const path = require('path');
  */
 const nextConfig = {
 
+    /*experimental: {
+        // This is experimental but can
+        // be enabled to allow parallel threads
+        // with nextjs automatic static generation
+        workerThreads: false,
+        cpus: 1
+    },*/
     //define default value for env variables that aren't declare in the .env file or add some there.
     env: {
         //APP
@@ -44,8 +51,9 @@ const nextConfig = {
 
         LANGUAGE: process.env.LANGUAGE ?? "fr-CA",
 
-        APP_COOKIE_NAME: process.env.APP_BASE_URL + '/bdsolAppAN',
+        APP_COOKIE_NAME: process.env.APP_BASE_URL + '/avnuConnexion',
         COOKIE_PRIVATE_KEY: process.env.COOKIE_PRIVATE_KEY ?? 'private key not set',
+        COOKIE_MAX_AGE: process.env.COOKIE_MAX_AGE ?? 86600,
 
         PING_INTERVAL: process.env.PING_INTERVAL ?? 10000,
 

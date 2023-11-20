@@ -14,6 +14,7 @@ class ApiEntityModel {
 
     /**
      * @param {object} requestData Response object data. And array of entities
+     * @param {object} field Response object data. And array of entities
      * @parem field {any}
      * */
     static getSelectOption(requestData, field){
@@ -100,13 +101,20 @@ class ApiEntityModel {
 
     static domainsToSelectOptions(domains){
         //If domains is from entity formState
-        if(domains?.length === undefined)
+        if(domains?.length === undefined && domains.domain !== null)
             return [{ value : domains.domain._id, label : domains.domain.name, color : getColor(domains.domain) }]
-        
-        //Else if domains are from request db taxonomies
-        return domains.map( (domain) => {
-            return [{ value : domain._id, label : domain.name, color : getColor(domain) }]
-        })
+
+        if (Array.isArray(domains)) {
+            //Else if domains are from request db taxonomies
+            return domains.map( (domain) => {
+                if (domain !== null) {
+                    return [{ value : domain._id, label : domain.name, color : getColor(domain) }]
+                }
+                return null;
+            });
+        }
+
+        return;
     }
 
     static equipmentToSelectOptions(equipment){

@@ -2,8 +2,8 @@
     Navigation bar displayed in the top of a page 
     V.P.R.
 */
-import { useEffect } from 'react'
-import { useRouter } from 'next/router'
+import {useEffect} from 'react'
+import {useRouter} from 'next/router'
 import Image from 'next/image'
 
 //Components
@@ -22,7 +22,7 @@ import Equipment from "@/DataTypes/Equipment/models/Equipment";
 
 //Contextes & hooks
 import {useAuth} from '@/auth/context/auth-context';
-import { useSessionHook } from '@/auth/hooks/useSessionHook'
+import {useSessionHook} from '@/auth/hooks/useSessionHook'
 
 //Utils
 import {lang} from "@/src/common/Data/GlobalConstants";
@@ -47,7 +47,7 @@ const Nav = ( {menuState, setMenuState} ) => {
 
         <nav className={`${styles.navContainer} ${menuState && styles.displayed} bg-primary-lighter`}>
             <figure style={{zIndex: "-1", pointerEvents: "none", overflow: "hidden"}} className="position-absolute top-0 bottom-0 start-0 end-0">
-                <Image className={`position-absolute bottom-0 w-auto ${styles["rotate-bg-img"]}`} src={organizationPresentationImg} />
+                <Image className={`position-absolute bottom-0 w-auto ${styles["rotate-bg-img"]}`} src={organizationPresentationImg} alt={"Icone organisation"} />
             </figure>
             <div className={"container"}>
                 <div className={`row ${styles["limited-width"]}`}>
@@ -95,7 +95,7 @@ const Nav = ( {menuState, setMenuState} ) => {
                                     <Button text_color="dark" href="/nous-joindre">Nous joindre</Button>
                                 </li>
                                 <li>
-                                    <Button text_color="dark" href="/">FAQ</Button>
+                                    <Button text_color="dark" href="/faq">FAQ</Button>
                                 </li>
                             </ul>
                         </section>
@@ -106,19 +106,19 @@ const Nav = ( {menuState, setMenuState} ) => {
                                 { auth.user.isLoggedIn ? 
                                 <>
                                     <li>
-                                        <Button href="/compte" text_color="dark" href="/compte">Mon profil</Button>
+                                        <Button href="/compte" text_color="dark">Mon profil</Button>
                                     </li>
                                     <li>
-                                        <Button onClick={logout} text_color="dark" href="/">{lang.menuLabelToDisconnect}</Button>
+                                        <Button onClick={logout} text_color="dark">{lang.menuLabelToDisconnect}</Button>
                                     </li>
                                 </> 
                                 : 
                                 <> 
                                     <li>
-                                        <Button href="/compte/connexion" text_color="dark" href="/connexion">{lang.menuLabelConnect}</Button>
+                                        <Button href="/compte/connexion" text_color="dark">{lang.menuLabelConnect}</Button>
                                     </li>
                                     <li>
-                                        <Button href="/compte/inscription" text_color="dark" href="/inscription">{lang.menuLabelCreateAccount}</Button>
+                                        <Button href="/compte/inscription" text_color="dark">{lang.menuLabelCreateAccount}</Button>
                                     </li>
                                 </>
                                 }

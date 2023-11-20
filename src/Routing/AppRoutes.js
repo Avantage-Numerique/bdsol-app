@@ -8,6 +8,12 @@ import Routes from "@/src/Routing/Routes";
 */
 const AppRoutesRaw = {
 
+    app : {
+        label: "avnu.ca",
+        pathname: "/",
+        asPath: "/",
+    },
+
     accueil : {
         label: "Accueil",
         pathname: "/",
@@ -284,7 +290,37 @@ const AppRoutesRaw = {
         pathname: "/faq/licences",
         asPath: "/faq/licences",
         needAuth: false,
+    },
+
+    contact: {
+        label: "Contactez-nous",
+        pathname: "/nous-joindre",
+        asPath: "/nous-joindre",
+        needAuth: false,
+    },
+
+    termOfUse: {
+        label: "Conditions d'utilisation",
+        pathname: "/termes-et-conditions-d'utilisation",
+        asPath: "/termes-et-conditions-d'utilisation",
+        needAuth: false,
+    },
+
+    confidentialityPolicy: {
+        label: "Politique de confidentialité",
+        pathname: "/politique-d'utilisation-des-donnees",
+        asPath: "/politique-d'utilisation-des-donnees",
+        needAuth: false,
+    },
+
+    valuesChart: {
+        label: "Charte de valeurs",
+        pathname: "/politique-d'utilisation-des-donnees",
+        asPath: "/politique-d'utilisation-des-donnees",
+        needAuth: false,
     }
+
+
 }
 
 const AppRoutes = new Routes(AppRoutesRaw);

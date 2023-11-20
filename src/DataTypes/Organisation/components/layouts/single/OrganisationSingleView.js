@@ -15,7 +15,7 @@ import SingleInfo from "@/DataTypes/common/layouts/SingleInfo/SingleInfo";
 import {SingleEntityMeta} from "@/src/DataTypes/Meta/components/SingleEntityMeta";
 import EntitiesTagGrid from "@/DataTypes/Entity/layouts/EntitiesTagGrid";
 import {ExternalLink} from "@/common/Components/ExternalLink";
-import {dateManager, FULL_HUMAN_DATE_FORMAT} from "@/common/DateManager/DateManager";
+import {dateManager} from "@/common/DateManager/DateManager";
 import {SkillGroup} from "@/DataTypes/common/layouts/skillsGroup/SkillGroup";
 import {appConfig} from "@/src/configs/AppConfig";
 
@@ -199,7 +199,7 @@ const OrganisationSingleView = ({ data }) => {
                 <SingleInfo
                     title={lang.fondationDate}
                     className={`${sectionClassSpacing}`}>
-                    <TimeTag date={fondationDate} format={FULL_HUMAN_DATE_FORMAT} />
+                    <TimeTag date={fondationDate} format={lang.fullHumanDateFormat} />
                 </SingleInfo>
             }
             { url &&

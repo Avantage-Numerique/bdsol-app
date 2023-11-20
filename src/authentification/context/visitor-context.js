@@ -1,4 +1,4 @@
-import { createContext } from 'react';
+import {createContext} from 'react';
 
 export const visitorContextDefaults = {
     ip: "",
@@ -28,7 +28,6 @@ export const getVisitorDataFromRequest = (request) => {
 
 export const getVisitorIpFromRequest = (request) => {
     if (request) {
-
         if (request.headers["x-forwarded-for"]) {
             return request.headers["x-forwarded-for"].split(',')[0];
         }

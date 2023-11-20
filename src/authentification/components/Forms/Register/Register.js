@@ -1,18 +1,17 @@
-import React, { useContext,useEffect, useState } from 'react'
+import React, {useContext, useEffect, useState} from 'react'
 import Router from 'next/router'
 
 //Custom hooks
-import { useHttpClient } from '@/src/hooks/http-hook'
-import { useSessionHook } from '@/auth/hooks/useSessionHook'
-import { useAuth } from '@/auth/context/auth-context'
-import { useFormUtils } from '@/src/hooks/useFormUtils/useFormUtils'
+import {useHttpClient} from '@/src/hooks/http-hook'
+import {useSessionHook} from '@/auth/hooks/useSessionHook'
+import {useAuth} from '@/auth/context/auth-context'
+import {useFormUtils} from '@/src/hooks/useFormUtils/useFormUtils'
 
 //Form components
 import Input from '@/src/common/FormElements/Input/Input'
 import Button from '@/src/common/FormElements/Button/Button'
 import Spinner from '@/src/common/widgets/spinner/Spinner'
-import { MessageContext } from '@/src/common/UserNotifications/Message/Context/Message-Context'
-
+import {MessageContext} from '@/src/common/UserNotifications/Message/Context/Message-Context'
 
 
 const Register = () => {
@@ -208,7 +207,7 @@ const Register = () => {
                     formTools={formTools}
                 />
 
-                <span className="row py-2 form-check flex-nowrap d-flex">
+                <div className="py-2 row form-check flex-nowrap d-flex no-wrap">
                     <input
                         readOnly
                         className="form-check-input col-4"
@@ -218,7 +217,7 @@ const Register = () => {
                         checked={isTOSAccepted}
                     />
                     <span className="form-check-label col-8">J'accepte les <a className="text-primary" target="_blank" href="/termes-et-conditions-d'utilisation">termes et conditions d'utilisation</a></span>
-                </span>
+                </div>
 
                 <div className="col-12">
                     <Button type="submit" disabled={!formState.isValid && isTOSAccepted}>Soumettre</Button>
