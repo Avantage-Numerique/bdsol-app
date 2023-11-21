@@ -4,6 +4,9 @@ import {useRouter} from "next/router";
 import {clientSideExternalApiRequest} from "@/src/hooks/http-hook";
 import PageHeader from "@/layouts/Header/PageHeader";
 import EntitiesGrid from "@/src/DataTypes/Entity/layouts/EntitiesGrid";
+import Button from "@/src/common/FormElements/Button/Button";
+import Icon from "@/src/common/widgets/Icon/Icon";
+import { lang } from "@/src/common/Data/GlobalConstants";
 
 const SearchResults = () => {
 
@@ -80,7 +83,7 @@ const SearchResults = () => {
         if(entityType === "linkedTaxonomy")
             return linkedEntityToTaxonomyComponent();
 
-        const resultMessage = entityType ? "Résultats pour " + entityType + ":" : "Résultats de recherche :";
+        const resultMessage = entityType ? "Résultats pour " + lang[entityType] + ":" : "Résultats de recherche :";
         let filteredList = searchList ? [...searchList] : [];
         if(entityType) {
             //If include entitySuggested add them to the list
@@ -127,16 +130,89 @@ const SearchResults = () => {
         )
     }
 
+    useEffect( () => console.log(nearTaxonomyObject?.linkedEntityToNearestTaxonomy?.length, "searchList : ", searchList?.length || 0 ))
+    useEffect( () => console.log(searchList))
     return (
         <div>
             <PageHeader
-                bg={"bg-purplelight"}
+                bg={"bg-primary-light"}
                 textColor={"text-white"}
                 htmlTitle={"Résultats de recherche pour : \"" + router.query.searchIndex + "\""}
                 description=""
             >
             </PageHeader>
-
+            <section className="bg-greyBg" style={{ width:"100vw", marginLeft:"calc(50% - 50vw)"}}>
+                <div className="container py-4">
+                    <h3><Icon iconName="filter"/>Filtrer par type de données</h3>
+                    <div className="d-flex flex-wrap justify-content-center">
+                        <Button
+                            className="mx-2 rounded flex-grow-1"
+                            color={filter.includes("linkedTaxonomy") ? "secondary" : null}
+                            outline={filter.includes("linkedTaxonomy") ? null : "secondary"}
+                            text_color_over="dark"
+                            onClick={() => updateFilterState("linkedTaxonomy")}
+                            id="filter-btn-linkedTaxonomy"
+                        >
+                            {"Entités liées suggérées (" + (nearTaxonomyObject?.linkedEntityToNearestTaxonomy?.length.toString() ?? "0") + ")"}
+                        </Button>
+                        <Button
+                            className="mx-2 rounded flex-grow-1"
+                            color={filter.length == 0 ? "secondary" : null}
+                            outline={filter.length == 0 ? null : "secondary"}
+                            text_color_over="dark"
+                            onClick={() => updateFilterState("all")}
+                            id="filter-btn-all"
+                        >
+                            {"Tous les types (" + ((nearTaxonomyObject?.linkedEntityToNearestTaxonomy?.length || 0) + (searchList.filter(elem => elem.type != "Taxonomy").length || 0)) + ")"}
+                        </Button>
+                        <Button className="mx-2 rounded flex-grow-1"
+                            color={filter.includes("Person") ? "secondary" : null}
+                            outline={filter.includes("Person") ? null : "secondary"}
+                            text_color_over="dark"
+                            onClick={() => updateFilterState("Person")}
+                            id="filter-btn-person"
+                        >
+                            {"Personnes (" + (searchList.filter( (el) => {return el.type === "Person"}).length.toString() ?? "0") + ")"}
+                        </Button>
+                        <Button className="mx-2 rounded flex-grow-1"
+                            color={filter.includes("Organisation") ? "secondary" : null}
+                            outline={filter.includes("Organisation") ? null : "secondary"}
+                            text_color_over="dark"
+                            onClick={() => updateFilterState("Organisation")}
+                            id="filter-btn-organisation"
+                        >
+                            {"Organisations (" + (searchList.filter( (el) => {return el.type === "Organisation"}).length.toString() ?? "0") + ")"}
+                        </Button>
+                        <Button className="mx-2 rounded flex-grow-1"
+                            color={filter.includes("Project") ? "secondary" : null}
+                            outline={filter.includes("Project") ? null : "secondary"}
+                            text_color_over="dark"
+                            onClick={() => updateFilterState("Project")}
+                            id="filter-btn-project"
+                        >
+                            {"Projets (" + (searchList.filter( (el) => {return el.type === "Project"}).length.toString() ?? "0") + ")"}
+                        </Button>
+                        <Button className="mx-2 rounded flex-grow-1"
+                            color={filter.includes("Event") ? "secondary" : null}
+                            outline={filter.includes("Event") ? null : "secondary"}
+                            text_color_over="dark"
+                            onClick={() => updateFilterState("Event")}
+                            id="filter-btn-event"
+                        >
+                            {"Événements (" + (searchList.filter( (el) => {return el.type === "Event"}).length.toString() ?? "0") + ")"}
+                        </Button>
+                        <Button className="mx-2 rounded flex-grow-1"
+                            color={filter.includes("Equipment") ? "secondary" : null}
+                            outline={filter.includes("Equipment") ? null : "secondary"}
+                            text_color_over="dark"
+                            onClick={() => updateFilterState("Equipment")}
+                            id="filter-btn-equipment"
+                        >
+                            {"Équipement (" + (searchList.filter( (el) => {return el.type === "Equipment"}).length.toString() ?? "0") + ")"}
+                        </Button>
+                    </div>
+                </div>
+            </section>
             <div className="row py-4">
 
                 <div className="col-3 py-4">
@@ -146,7 +222,7 @@ const SearchResults = () => {
                             <>
                                 <h4>Vous cherchiez peut-être :</h4>
                                 <ul>
-                                    { nearTaxonomyObject.otherNearbyTaxonomy.map( (nearTaxo, index) => {
+                                    { nearTaxonomyObject.otherNearbyTaxonomy.slice(0,8).map( (nearTaxo, index) => {
                                         return (
                                             <li key={"nearTaxoList-"+nearTaxo._id}>
                                                 <a href={`/categories/${nearTaxo?.category}/${nearTaxo?.slug}`}>{nearTaxo.name}</a>
@@ -154,52 +230,6 @@ const SearchResults = () => {
                                     })}
                                 </ul>
                             </>
-                        }
-                    </div>
-                    <div>
-                        <h4>Filtres</h4>
-                        { searchList &&
-                            <ul>
-                                <li className="row py-2 form-check flex-nowrap d-flex" role="button" key="filter-CBL-all" onClick={() => updateFilterState("all")}>
-                                    <input readOnly className="form-check-input col-1" type="checkbox" checked={filter.length === 0} id="filter-CB-all"/>
-                                    <span className="d-flex align-items-center justify-content-between">
-                                        <span className="form-check-label col-8">Tout les résultats</span>                                
-                                        <span className="col-3">{(nearTaxonomyObject?.linkedEntityToNearestTaxonomy?.length || 0) + (searchList?.length || 0)}</span>
-                                    </span>
-                                </li>
-
-                                <li className="row py-2 form-check flex-nowrap d-flex" role="button" key="filter-CBL-linkedTaxonomy" onClick={() => updateFilterState("linkedTaxonomy")}>
-                                    <input readOnly className="form-check-input col-1" type="checkbox" checked={filter.includes("linkedTaxonomy")} id="filter-CB-linkedTaxonomy"/>
-                                    <span className="d-flex align-items-center justify-content-between">
-                                        <span className="form-check-label col-8">Entité liée suggérée</span>
-                                        <span className="col-3">{nearTaxonomyObject?.linkedEntityToNearestTaxonomy?.length.toString() ?? "0"}</span>
-                                    </span>
-                                </li>
-
-                                <li className="row py-2 form-check flex-nowrap d-flex" role="button" key="filter-CBL-person" onClick={() => {updateFilterState("Person")}}>
-                                    <input readOnly className="form-check-input col-1" type="checkbox" checked={filter.includes("Person")} id="filter-CB-person"/>
-                                    <span className="d-flex align-items-center justify-content-between">
-                                        <span className="form-check-label col-8">Personnes</span>
-                                        <span className="col-3">{searchList.filter( (el) => {return el.type === "Person"}).length.toString() ?? "0"}</span>
-                                    </span>
-                                </li>
-
-                                <li className="row py-2 form-check flex-nowrap d-flex" role="button" key="filter-CBL-organisation" onClick={() => updateFilterState("Organisation")}>
-                                    <input readOnly className="form-check-input col-1" type="checkbox" checked={filter.includes("Organisation")} id="filter-CB-organisation"/>
-                                    <span className="d-flex align-items-center justify-content-between">
-                                        <span className="form-check-label col-8">Organisations</span>
-                                        <span className="col-3">{searchList.filter( (el) => {return el.type === "Organisation"}).length.toString() ?? "0"}</span>
-                                    </span>
-                                </li>
-
-                                <li className="row py-2 form-check flex-nowrap d-flex" role="button" key="filter-CBL-project" onClick={() => updateFilterState("Project")}>
-                                    <input readOnly className="form-check-input col-1" type="checkbox" checked={filter.includes("Project")} id="filter-CB-project"/>
-                                    <span className="d-flex align-items-center justify-content-between">
-                                        <span className="form-check-label col-8">Projets</span>
-                                        <span className="col-3">{searchList.filter( (el) => {return el.type === "Project"}).length.toString() ?? "0"}</span>
-                                    </span>
-                                </li>
-                            </ul>
                         }
                     </div>
                 </div>
