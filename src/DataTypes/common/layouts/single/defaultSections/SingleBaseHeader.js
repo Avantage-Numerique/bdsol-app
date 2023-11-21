@@ -47,7 +47,7 @@ const SingleBaseHeader = (props) => {
     //Removed from coloumn, it's more useful to use the justify or align from start or end.
     return (
         <section className={`row ms-0  ${styles["content-padding-top"]} ${styles["content-margin-bottom"]} ${props.className}`}>
-            <div className="col d-flex flex-grow-0">
+            <div className="col d-flex flex-grow-0 align-items-end">
                 <MediaFigure model={mainImage} className={`main-image-container ${!mainImage.isDefault ? "overflow-hidden shadow" : (styles["default-drop-shadow"] + " default-img ")}`} imgClassName={"main-image"}>
                     { mainImage && mainImage.url !== "" && !mainImage.isDefault &&
                         <a href={`/medias/${mainImage._id}`}

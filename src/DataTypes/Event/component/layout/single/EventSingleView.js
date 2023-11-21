@@ -93,19 +93,19 @@ const EventSingleView = ({data}) => {
 
     const header = (
         <SingleBaseHeader 
-            title={(<SanitizedInnerHtml removeQlEditorClass tag={"h1"} className="text-white">{`${model.title}`}</SanitizedInnerHtml>)}
+            title={(<h1>{model.title}</h1>)}
             subtitle={(
                 <div className="d-text">
                     <h4 className="text-white">{model.alternateName ? model.alternateName : ""}</h4>
                     <div className="mt-4">
                         {model.entityInCharge &&
                             <p className="text-white">
-                                <span className={"badge bg-secondary"}>{lang.inCharge}</span> <EntityLink data={model.entityInCharge} />
+                                <span className={"badge bg-secondary-darker"}>{lang.inCharge}</span> <EntityLink data={model.entityInCharge} />
                             </p>
                         }
                         {model.organizer &&
                             <p className="text-white">
-                                <span className={"badge bg-secondary"}>{lang.eventOrganizer}</span> <EntityLink data={model.organizer} />
+                                <span className={"badge bg-secondary-darker"}>{lang.eventOrganizer}</span> <EntityLink data={model.organizer} />
                             </p>
                         }
                     </div>

@@ -98,7 +98,7 @@ const Header = (props) => {
                                     </li>
                                 </ul>
                             }
-                            { auth.user.isLoggedIn &&
+                            { auth.user.isLoggedIn && false &&
                                 <div className={`bg-primary d-flex align-items-center h-100 ${styles["account-menu-container"]}`}>
                                     <button
                                         className={`${styles["account-menu-container__button"]} bg-secondary`}
