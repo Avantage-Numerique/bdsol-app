@@ -25,9 +25,6 @@ class Organisation extends EntityModel {
 
         this.mainImage.src = this.mainImageModel?.src ?? "";
         
-        //Class name of the icon entity
-        this.icon = "icon-organisation_tiny_icon";
-
         //this.taxonomies = new Map();
         //this.taxonomies.set("domains", raw.domains);
         //this.taxonomies.set("skills", raw.skills);
@@ -63,7 +60,7 @@ class Organisation extends EntityModel {
     /****** Static values *********/
 
     //Icon class to represent the type
-    static icon = "icon-organisation_tiny_icon";
+    static icon = "icon-icone-organisation";
 
 }
 

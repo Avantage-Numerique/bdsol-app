@@ -145,6 +145,8 @@
     -webkit-font-smoothing: antialiased;
 }
 
+
+
 .icon-project_tiny_icon:before {
     content: "\e000";
 }
@@ -153,7 +155,7 @@
     content: "\e001";
 }
 
-.icon-organisation_tiny_icon:before {
+.icon-icone-lieu:before {
     content: "\e002";
 }
 
@@ -163,4 +165,8 @@
 
 .icon-equipment:before {
     content: "\e004";
+}
+
+.icon-icone-organisation:before {
+    content: "\e005";
 }

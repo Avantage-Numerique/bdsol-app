@@ -33,9 +33,6 @@ class Person extends EntityModel {
 
         this.type = TYPE_PERSON;
 
-        //Class name of the icon entity
-        this.icon = "icon-person_tiny_icon";
-
         this.meta = {title: this.title, description: this.description, ...raw.meta};
 
         params.showMeta = params.showMeta ?? true;

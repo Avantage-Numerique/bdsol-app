@@ -80,6 +80,11 @@ class Place extends EntityModel {
 
     }
 
+    /****** Static values *********/
+
+    //Icon class to represent the type
+    static icon = "icon-icone-lieu";
+
 }
 
 export default Place;
