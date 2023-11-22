@@ -18,7 +18,7 @@ import {lang} from "@/common/Data/GlobalConstants";
 
 //Styling
 import styles from './Header.module.scss'
-import logo from '@/public/logos-avnu/AVNU-LogoReduit-RVB.png'
+import logo from '@/public/AVNU_Branding/AVNU-LogoReduit-RVB.png'
 
 
 

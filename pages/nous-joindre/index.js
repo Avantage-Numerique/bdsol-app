@@ -15,7 +15,7 @@ import { MessageContext } from "@/src/common/UserNotifications/Message/Context/M
 
 //utils
 import { lang } from "@/src/common/Data/GlobalConstants";
-import logo from '@/public/logos-avnu/AVNU-LogoComplet-RVB.png'
+import logo from '@/public/AVNU_Branding/AVNU-LogoComplet-RVB.png'
 
 const NousJoindre = () => {
 

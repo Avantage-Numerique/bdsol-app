@@ -18,7 +18,7 @@ const Footer = () => {
             <div className="container position-relative">
                 {/* Logo AVNU*/}
                 <div className={`row justify-content-center ${styles["main-logo--container"]}`}>
-                    <img alt="Logo officiel de AVNU" src="/logos-avnu/AVNU-LogoComplet-RVB.png" />
+                    <img alt="Logo officiel de AVNU" src="/AVNU_Branding/AVNU-LogoComplet-RVB.png" />
                 </div>                                
                 {/* Presentation of Avantage Numerique */}
                 <div className={`row`}>

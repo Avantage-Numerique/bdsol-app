@@ -59,11 +59,18 @@ const Layout = ( {children} ) => {
                 <meta httpEquiv="X-UA-Compatible" content="ie=edge"/>
                 <meta name="robots" content="index, follow" />
 
-                {/* Icone to appear on the top of the page */}
-                <link rel="icon" href={appUrl("/icones/cropped-Frame-10-32x32.png")} sizes="32x32" />
-                <link rel="icon" href={appUrl("/icones/cropped-Frame-10-192x192.png")} sizes="192x192" />
-                <link rel="apple-touch-icon" href={appUrl("/icones/cropped-Frame-10-180x180.png")} />
-                <meta name="msapplication-TileImage" content={appUrl("/icones/cropped-Frame-10-270x270.png")} />
+                {/* For IE 11 or earlier */} 
+                {/* No support for PNG favicons with 16x16 or 32x32 sizes, so use the ICO format */}
+                <link rel="icon" type="image/x-icon" href="/AVNU_Branding/favicon/favicon.ico" />
+
+                {/* For modern browsers */}
+                <link rel="icon" type="image/png" sizes="16x16" href="/AVNU_Branding/favicon/favicon-16x16.png" />
+                <link rel="icon" type="image/png" sizes="32x32" href="/AVNU_Branding/favicon/favicon-32x32.png" />
+                <link rel="apple-touch-icon" sizes="180x180" href="/AVNU_Branding/favicon/apple-touch-icon.png" />
+
+                {/* For Android Chrome */}
+                <link rel="icon" type="image/png" sizes="192x192" href="/AVNU_Branding/favicon/android-chrome-192x192.png" />
+                <link rel="icon" type="image/png" sizes="512x512" href="/AVNU_Branding/favicon/android-chrome-512x512.png" />
 
                 <meta name="theme-color" content="#000" />
 
@@ -79,12 +86,6 @@ const Layout = ( {children} ) => {
                 <meta property="article:tag" content="data" />
                 <meta property="article:tag" content="teachnocreatif" />
 
-                {/* Fonts 
-                    <link rel="preconnect" href="https://fonts.googleapis.com" />
-                    <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
-                    <link href="https://fonts.googleapis.com/css2?family=Yeseva+One&display=swap" rel="stylesheet" />
-                    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet" />
-                */}
             </Head>
 
             <div id={styles.layout}>
