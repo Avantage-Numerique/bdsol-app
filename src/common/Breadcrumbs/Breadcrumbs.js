@@ -138,15 +138,19 @@ const Crumb = ({text: defaultText, textGenerator, href, last = false}) => {
 
     if (last) {
         return (
-            <li className="breadcrumb-item text-secondary-darker" aria-current="page" dangerouslySetInnerHTML={{ __html: text }}></li>
+            <li className="breadcrumb-item d-flex" aria-current="page">
+                <div className="text-primary-darker py-0 px-1 bg-primary-light rounded-1" dangerouslySetInnerHTML={{ __html: text }}></div>
+            </li>
         )
     }
 //link-underline link-underline-opacity-0 link-underline-opacity-75-hover
     return (
-        <li className="breadcrumb-item">
+        <li className="breadcrumb-item d-flex">
             <Link href={href}
-                  className="text-decoration-underline link-underline-dark link-underline-opacity-0 link-underline-opacity-75-hover"
-                  dangerouslySetInnerHTML={{ __html: text }} />
+                  className="text-decoration-underline link-underline-secondary-darker link-underline-opacity-0 link-underline-opacity-75-hover bg-"
+            >
+                <div className="text-secondary-darker py-0 px-1 bg-secondary-light rounded-1" dangerouslySetInnerHTML={{ __html: text }}></div>
+            </Link>
         </li>
     );
 }

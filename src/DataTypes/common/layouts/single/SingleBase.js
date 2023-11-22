@@ -75,18 +75,16 @@ const SingleBase = (props) => {
                 { /* Header */ }
                 <header className={`${styles["header-base"]} ${styles["full-width-container"]} position-relative`}>
                     <div className="container">
-                        { /* BreadCrumbs  */ }
-                        {  breadCrumb &&
-                            <div className="row">
-                                <Breadcrumbs className={"pt-2"} route={breadCrumb.route} getLabelGenerator={breadCrumb.getLabelGenerator || undefined} getHrefGenerator={breadCrumb.getHrefGenerator || undefined} />
-                            </div>
-                        }
-                
                         {/* Header's content */}
                         { header || <SingleBaseHeader/> }
                     </div>
                 </header>
-
+                {/* Breadcrumb section */}
+                {  breadCrumb &&
+                    <div className="row">
+                        <Breadcrumbs className={"pt-2"} route={breadCrumb.route} getLabelGenerator={breadCrumb.getLabelGenerator || undefined} getHrefGenerator={breadCrumb.getHrefGenerator || undefined} />
+                    </div>
+                }
                 { /* FullWidthContent */ }
                 <section className="row p-2 my-4">
                     { fullWidthContent && fullWidthContent }
