@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 //Component
 import PageHeader from "@/layouts/Header/PageHeader";
@@ -12,6 +12,7 @@ import { lang } from "@/src/common/Data/GlobalConstants";
 import { clientSideExternalApiRequest } from "@/src/hooks/http-hook";
 import EntitiesGrid from "@/src/DataTypes/Entity/layouts/EntitiesGrid";
 import Icon from "@/src/common/widgets/Icon/Icon";
+//import Pagination from "@/src/common/Components/Pagination";
 
 
 
@@ -19,7 +20,9 @@ const ConsultData = () => {
 
     const [entityList, setEntityList] = useState([]);
     const [filterState, setFilterState] = useState("all");//For multi choice, it need to be an array at first render
-    const [showApplyBtn, setShowApplyBtn] = useState(false)
+    const [showApplyBtn, setShowApplyBtn] = useState(false);
+    const [skipNumber, setSkipNumber] = useState(0);
+    const resetPagination = useRef(0)
 
     //Multi choice filter (as in searchResult page)
     //To reimplement => checkboxes are checked={filterState.includes("Person")}, checkbox for all filter : checked={filterState.length === 0}
@@ -62,7 +65,7 @@ const ConsultData = () => {
         if(filterState == "all")
             return clientSideExternalApiRequest("/search/?searchIndex=", { method: 'GET'});
         else
-            return clientSideExternalApiRequest("/search/type", { method: 'POST', body: JSON.stringify({data : {type: filterState, skip:0}})});
+            return clientSideExternalApiRequest("/search/type", { method: 'POST', body: JSON.stringify({data : {type: filterState, skip:skipNumber}})});
     }
     async function sendApiListRequest(){
         const res = await getListResponses();
@@ -71,7 +74,7 @@ const ConsultData = () => {
         setShowApplyBtn(false);
     }
     //First render fetch
-    useEffect(()=>{ sendApiListRequest() }, [filterState])
+    useEffect(()=>{ sendApiListRequest() }, [filterState, skipNumber])
 
     return (
         <div>
@@ -201,18 +204,22 @@ const ConsultData = () => {
                     {/*</div>
                 </section>*/}
             </section>
-            <div className="py-4">
-                {/* Entities list section */}
-                {
-                    entityList?.length > 0 ?
-                    <EntitiesGrid className={"row"} columnClass={"col g-3 col-md-4"} feed={entityList.filter(el => el.type !== "Taxonomy")}></EntitiesGrid>
-                    :
-                    <div>Aucune entité, peut-être que notre petit canard fait une sieste.</div>
-                }
-            </div>
-            <div>
-                {/* Pagination section */}
-            </div>
+            {/*<Pagination
+                totalCount={125}
+                length={18}
+                reset={resetPagination}
+                setSkipNumber={setSkipNumber}
+            >*/}
+                <div className="py-4">
+                    {/* Entities list section */}
+                    {
+                        entityList?.length > 0 ?
+                        <EntitiesGrid className={"row"} columnClass={"col g-3 col-md-4"} feed={entityList.filter(el => el.type !== "Taxonomy")}></EntitiesGrid>
+                        :
+                        <div>Aucune entité, peut-être que notre petit canard fait une sieste.</div>
+                    }
+                </div>
+            {/*</Pagination>*/}
         </div>
     )
 }
