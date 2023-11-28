@@ -33,9 +33,6 @@ const EntitiesGrid = ({feed, className, columnClass}) => {
                             <SimpleComponent data={entity} model={model} key={getKeyString("simple", model, index)} />
                         </div>
                     )
-                    /*return (
-                        <div key={`container${index}`}>empty</div>
-                    )*/
                 })
                 :
                 <h5 className={"py-4"}>{lang.noResult}</h5>

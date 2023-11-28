@@ -20,7 +20,7 @@ class Place extends EntityModel {
         this.title = this.getBreadCrumbTitle(raw);
         this.description = raw.description ?? "";
         this.mainImage = !raw.mainImage || raw.mainImage === "" || !raw.mainImage ? {
-            url: "/general_images/default-place.png",
+            url: "/entity-icones/L-format/png/Icone-GrandFormat-Lieu.png",
             alt: this.title,
             baseSrc: `${process.env.NEXT_PUBLIC_APP_URL}`,
             isDefault: true

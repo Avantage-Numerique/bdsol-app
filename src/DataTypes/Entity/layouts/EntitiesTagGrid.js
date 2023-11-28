@@ -61,7 +61,7 @@ const EntitiesTagGrid = ({feed, className, columnClass, subEntityProperty, subBa
                             model.badge = entity[subBadgeProperty] ?? "";
                             const TagComponent = model.tagComponent;
                             return (
-                                <li className={`flex-column ${colContainerClass} ${spacingClasses}`} key={getKeyString("container", model, index)}>
+                                <li className={`d-flex flex-wrap justify-content-start ${colContainerClass} ${spacingClasses}`} key={getKeyString("container", model, index)}>
                                     <TagComponent model={model} key={getKeyString("tag", model, index)} />
                                 </li>
                             )

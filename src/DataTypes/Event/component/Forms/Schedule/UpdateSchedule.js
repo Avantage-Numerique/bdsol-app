@@ -117,12 +117,13 @@ const UpdateSchedule = ({name, formTools, schedule, ...props}) => {
                     </section>
 
                     <div className="cold mb-2 d-flex justify-content-end">
-                        <button 
+                        <Button 
                             repeaterDeleteElem
                             type="button" 
-                            className="btn underlined-button text-danger py-1">
-                                Supprimer l'étape
-                        </button>
+                            text_color="danger" 
+                        >
+                            Supprimer l'étape
+                        </Button>
                     </div>
                 </div>
             </Repeater>

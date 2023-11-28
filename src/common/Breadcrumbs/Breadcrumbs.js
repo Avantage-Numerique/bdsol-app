@@ -143,7 +143,6 @@ const Crumb = ({text: defaultText, textGenerator, href, last = false}) => {
             </li>
         )
     }
-//link-underline link-underline-opacity-0 link-underline-opacity-75-hover
     return (
         <li className="breadcrumb-item d-flex">
             <Link href={href}

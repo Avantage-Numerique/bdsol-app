@@ -71,17 +71,6 @@ const Header = (props) => {
                                         <SearchBar id="searchbar-layout" clearAfterSearch="true" small />
                                     </div>
                                 </div>
-                                {auth.user.isLoggedIn &&
-                                    <div className={"col-2 d-flex-content-center"}>
-                                        <Button
-                                            size="slim"
-                                            className="rounded"
-                                            href="/contribuer"
-                                        >
-                                            Contribuer
-                                        </Button>
-                                    </div>
-                                }
                             </div>
                         </div>
                     </div>
@@ -98,7 +87,19 @@ const Header = (props) => {
                                     </li>
                                 </ul>
                             }
-                            { auth.user.isLoggedIn && false &&
+                            {auth.user.isLoggedIn &&
+                                <div className={"col-2 d-flex-content-center"}>
+                                    <Button
+                                        size="slim"
+                                        className="rounded shadow-sm"
+                                        href="/contribuer"
+                                    >
+                                        Contribuer
+                                    </Button>
+                                </div>
+                            }
+                            {/* Waiting to be sure we won't use it before removing it */}
+                            {/* auth.user.isLoggedIn &&
                                 <div className={`bg-primary d-flex align-items-center h-100 ${styles["account-menu-container"]}`}>
                                     <button
                                         className={`${styles["account-menu-container__button"]} bg-secondary`}
@@ -118,7 +119,7 @@ const Header = (props) => {
                                         }
                                     </button>
                                 </div>
-                            }
+                            */}
 
                             {/* Button for the main menu */}
                             <div className={`${styles["ham-menu-container"]} ${styles["item-displayed-in-menu"]}`}>
