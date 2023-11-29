@@ -332,7 +332,6 @@ const EventSingleEdit = ({data}, ...props) => {
                 formTools={formTools}
                 creatable={false}
                 isMulti={false}
-
                 fetch={"/organisations/list"}
                 searchField={"name"}
                 selectField={"name"}

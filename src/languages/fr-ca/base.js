@@ -66,7 +66,7 @@ const base = {
 
     //  DataType/common/commonFormFeatures/commonFormFeatures.js
     "needAuthToContribute": "Vous devez être connecté pour pouvoir contribuer à la base de données.",
-
+    "authInvitationToContribute": "Connectez-vous pour pouvoir contribuer à la base de données.",
     // http-hook
 
     "fetchErrorMessage": "Une erreur est survenue et le serveur ne semble pas répondre. Assurez-vous d'avoir une connexion internet.",

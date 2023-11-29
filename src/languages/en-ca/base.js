@@ -60,6 +60,7 @@ export const base = {
 
     //  DataType/common/commonFormFeatures/commonFormFeatures.js
     "needAuthToContribute": "You need to be connected in order to add data to the database.",
+    "authInvitationToContribute": "Log in to be able to contribute to the database.",
 
     // http-hook
 

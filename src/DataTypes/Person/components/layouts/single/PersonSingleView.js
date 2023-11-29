@@ -5,7 +5,7 @@ import SingleBase from "@/src/DataTypes/common/layouts/single/SingleBase"
 import SingleBaseHeader from "@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseHeader"
 import SearchTag from '@/src/common/Components/SearchTag';
 import SingleInfo from "@/DataTypes/common/layouts/SingleInfo/SingleInfo";
-
+import SingleBaseProgressBar from '@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseProgressBar/SingleBaseProgressBar'
 //Styling
 import styles from './PersonSingle.module.scss'
 
@@ -16,7 +16,6 @@ import {lang} from "@/common/Data/GlobalConstants";
 import Person from "@/DataTypes/Person/models/Person";
 import EntitiesTagGrid from "@/DataTypes/Entity/layouts/EntitiesTagGrid";
 import {SkillGroup} from "@/DataTypes/common/layouts/skillsGroup/SkillGroup";
-import {appConfig} from "@/src/configs/AppConfig";
 
 
 const PersonSingleView = ({ data }) => {
@@ -45,8 +44,6 @@ const PersonSingleView = ({ data }) => {
     const sortedOccupations = occupations?.[0]?.subMeta?.order ? occupations.sort((a,b) => a.subMeta.order - b.subMeta.order) : occupations;
 
     const model = new Person(data);
-
-    const sectionClassSpacing = appConfig.spacing.singleSectionSpacingClass;
 
     //Edit the skills list
     const SkillsList = ({occupations}) => {
@@ -78,7 +75,7 @@ const PersonSingleView = ({ data }) => {
 
     const OccupationGroup = ({occupationName, skillList}) => {
         return (
-            <article className={`d-flex flex-column p-2 ${sectionClassSpacing} ${styles["occupation-group"]} border-start`}>
+            <article className={`d-flex flex-column p-2 ${styles["occupation-group"]} border-start`}>
                 <h5 className="text-dark mb-2">{occupationName}</h5>
                     <SearchTag className={"m-0"}
                         list={skillList}
@@ -111,6 +108,7 @@ const PersonSingleView = ({ data }) => {
                     <p className=" mb-0 fs-4">({nickname})</p>
                 </div>
             )}
+
             subtitle={(
                 <i className="mt-2 fw-semibold"><blockquote className="text-dark">{catchphrase}</blockquote></i>
             )}
@@ -127,7 +125,9 @@ const PersonSingleView = ({ data }) => {
                 <SingleInfo
                     title={"Présentation"}
                     NAMessage="Aucune description n'est disponible pour le moment"
-                    className={"mb-3 mt-3"}>
+                    className={""}
+                    cardLayout
+                >
                     {description &&
                         <SanitizedInnerHtml>
                             {description}
@@ -144,7 +144,7 @@ const PersonSingleView = ({ data }) => {
                 <SingleInfo
                     title={"Occupations"}
                     NAMessage="Aucune occupation n'est disponible pour le moment"
-                    className={`mb-4 mt-3 pt-2 ${sectionClassSpacing}`}
+                    cardLayout
                 >
                     {/* Display the different groups of occupations */}
                     { sortedOccupations && sortedOccupations.length > 0 &&
@@ -160,9 +160,11 @@ const PersonSingleView = ({ data }) => {
             }
 
             {/* Show linked entities as tag */}
-
             {projects.length > 0 &&
-                <SingleInfo title={`${lang.plural(lang.memberOfProject, lang.memberOfProjects, projects.length)}`} className={`${sectionClassSpacing}`}>
+                <SingleInfo 
+                    title={`${lang.plural(lang.memberOfProject, lang.memberOfProjects, projects.length)}`} 
+                    cardLayout
+                >
                     <EntitiesTagGrid feed={projects} />
                 </SingleInfo>
             }
@@ -183,16 +185,28 @@ const PersonSingleView = ({ data }) => {
 
     const ContentColumnRight = (
         <>
-        {domains.length > 0 &&
-            <SingleInfo title={lang.domainsSingleLabel} className={`${sectionClassSpacing}`}>
+            {domains.length > 0 &&
+                <SingleInfo 
+                    title={lang.domainsSingleLabel} 
+                    cardLayout
+                >
 
-                {/*********** Domains ***********/}
-                <SearchTag
-                    list={domains}
-                    listProperty={"domain"}
-                />
-            </SingleInfo>
-        }
+                    {/*********** Domains ***********/}
+                    <SearchTag
+                        list={domains}
+                        listProperty={"domain"}
+                    />
+                </SingleInfo>
+            }
+            { (createdAt || updatedAt || meta) &&
+                <SingleInfo 
+                    title={lang.entityMetadata} 
+                    cardLayout
+                >
+                    {/*********** Entity data ***********/}
+                    <SingleEntityMeta createdAt={createdAt} updatedAt={updatedAt} meta={meta} />
+                </SingleInfo>
+            }
         </>
     )
 
@@ -200,8 +214,32 @@ const PersonSingleView = ({ data }) => {
         <>
             {
                 (createdAt || updatedAt || meta) &&
-                <SingleEntityMeta createdAt={createdAt} updatedAt={updatedAt} meta={meta} />
+                <SingleInfo 
+                    title={lang.entityMetadata} 
+                    className="border-top pt-3"
+                >
+                    {/*********** Entity data ***********/}
+                    <SingleEntityMeta createdAt={createdAt} updatedAt={updatedAt} meta={meta} />
+                </SingleInfo>
             }
+        </>
+    )
+
+    const ProgressBar = (
+        <>
+            <SingleBaseProgressBar 
+                dataList={[
+                    {data: (firstName + " " + lastName) || ""},
+                    {data: nickname},
+                    {data: description},
+                    {data: occupations},
+                    {data: domains},
+                    {data: catchphrase},
+                    {data: model.mainImage.isDefault, validationFunction: ((value) => !value)},
+                ]}
+                buttonText={lang.contributeButtonLabel}
+                buttonLink={model.singleEditLink}
+            />
         </>
     )
 
@@ -217,6 +255,7 @@ const PersonSingleView = ({ data }) => {
                 contentColumnLeft={ContentColumnLeft}
                 contentColumnRight={ContentColumnRight}
                 footer={Footer}
+                progressBar={ProgressBar}
                 model={model}
             />
         </>

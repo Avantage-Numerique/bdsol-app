@@ -18,6 +18,7 @@ import {removeTagsFromString} from "@/src/helpers/html";
  * @param {React.Component} props.contentColumnLeft main content column left
  * @param {React.Component} props.contentColumnRight main content column right
  * @param {React.Component} props.footer
+ * @param {React.Component} props.progressBar
  * @param {React.Component} props.model
  *
  */
@@ -31,10 +32,9 @@ const SingleBase = (props) => {
         contentColumnLeft,
         contentColumnRight,
         footer,
+        progressBar,
         model
     } = props;
-
-    const defaultHeaderBg = props.defaultHeaderBg ?? "/general_images/single-header-default-bg.svg";//"/general_images/default-single-background.jpg";
 
     const imageSrc = model ? (model.mainImage.src ?? model.src) : "";//model.type === "Media" ? model.mainImage.src : model.mainImage.url;
     return (
@@ -82,36 +82,45 @@ const SingleBase = (props) => {
                 {/* Breadcrumb section */}
                 {  breadCrumb &&
                     <div className="row">
-                        <Breadcrumbs className={"pt-2"} route={breadCrumb.route} getLabelGenerator={breadCrumb.getLabelGenerator || undefined} getHrefGenerator={breadCrumb.getHrefGenerator || undefined} />
+                        <div className="col-12">
+                            <Breadcrumbs className={"pt-2"} route={breadCrumb.route} getLabelGenerator={breadCrumb.getLabelGenerator || undefined} getHrefGenerator={breadCrumb.getHrefGenerator || undefined} />
+                        </div>
                     </div>
                 }
                 { /* FullWidthContent */ }
-                <section className="row p-2 my-4">
-                    { fullWidthContent && fullWidthContent }
+                <section className="row">
+                    <div className="col-12">
+                        { fullWidthContent && fullWidthContent }
+                    </div>
                 </section>
 
                 { /* ContentColumn */ }
-                <div className="row p-2 my-4">
-
+                <div className="row">
                     { /* ContentColumnLeft */ }
                     <section className="col-md-8">
                         { contentColumnLeft && contentColumnLeft }
                     </section>
-
-
                     { /* ContentColumnRight */ }
                     <section className="col-md-4">
                         { contentColumnRight && contentColumnRight }
                     </section>
-
                 </div>
 
                 { /* Footer */ }
                 { footer &&
-                    <footer className="row p-2">
+                    <footer className="row">
                         { footer } 
                     </footer>
                 }
+
+                {/* Progress bar */}
+                <section className={`${styles["full-width-container"]} position-relative bg-primary-lighter`}>
+                    <div className="container">
+                        <div className="row">
+                           {progressBar}
+                        </div>
+                    </div>
+                </section>
 
             </div>
         </>

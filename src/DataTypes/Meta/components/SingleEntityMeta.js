@@ -23,7 +23,7 @@ export const SingleEntityMeta = (props) => {
         children
     } = props;
     return (
-        <SingleInfo className={`border-top pt-3 mt-5 ${className}`} title={lang.entityMetadata}>
+        <div>
             <ul className={"list-style-none"}>
                 {
                     meta?.state &&
@@ -74,6 +74,6 @@ export const SingleEntityMeta = (props) => {
                     {children}
                 </div>
             }
-        </SingleInfo>
+        </div>
     )
 }

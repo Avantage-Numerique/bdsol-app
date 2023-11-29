@@ -14,6 +14,7 @@ import CreateTaxonomyForm from '@/DataTypes/Taxonomy/components/Forms/CreateTaxo
 import {lang} from "@/src/common/Data/GlobalConstants";
 import Select2 from '@/src/common/FormElements/Select2/Select2'
 import {SingleEntityMeta} from '@/src/DataTypes/Meta/components/SingleEntityMeta'
+import SingleInfo from "@/DataTypes/common/layouts/SingleInfo/SingleInfo";
 
 //Context
 import {useAuth} from "@/src/authentification/context/auth-context";
@@ -282,29 +283,35 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props}) => {
     );
 
     const fullWidthContent = (
-        <>
+        <SingleInfo
+            title={"Biographie / description"}
+        >
             <RichTextarea
                 className="my-3"
                 name="description"
-                label="Biographie / description"
+                //label="Biographie / description"
                 formTools={formTools}
             />
-        </>)
+        </SingleInfo>
+    )
 
     const contentColumnLeft = (
-        <>
+        <SingleInfo
+            title={"Éditez vos groupes de compétences"}
+        >
             <UpdateSkillGroup
                 parentEntity={props.data}
                 formTools={formTools}
                 name="occupations"
-                label="Éditez vos groupes de compétences"
                 createOptionFunction={displayModalForSkills}
             />
-        </>
+        </SingleInfo>
     )
 
     const contentColumnRight = (
-        <>
+        <SingleInfo 
+            title={lang.domainsSingleLabel} 
+        >
             <Select2
                 name="domains"
                 label={lang.Domains}
@@ -319,14 +326,20 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props}) => {
                 searchField={"name"}
                 selectField={"domains"}
             />
-        </>
+        </SingleInfo>
     )
 
-    const footer = (
+    const Footer = (
         <>
             {
                 (createdAt || updatedAt || meta) &&
-                <SingleEntityMeta createdAt={createdAt} updatedAt={updatedAt} meta={meta} />
+                <SingleInfo 
+                    title={lang.entityMetadata} 
+                    className="border-top pt-3"
+                >
+                    {/*********** Entity data ***********/}
+                    <SingleEntityMeta createdAt={createdAt} updatedAt={updatedAt} meta={meta} />
+                </SingleInfo>
             }
         </>
     )
@@ -388,7 +401,7 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props}) => {
                     fullWidthContent={fullWidthContent}
                     contentColumnLeft={contentColumnLeft}
                     contentColumnRight={contentColumnRight}
-                    footer={footer}
+                    footer={Footer}
                 />
                 <SubmitEntity submitHandler={submitHandler} formState={formState} />
 

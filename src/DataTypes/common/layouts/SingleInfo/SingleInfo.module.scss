@@ -1,5 +1,13 @@
 .single-info-layout {
     font-size: 1.1rem;
+
+    &.cardLayout {
+        padding: $single-infos-padding-y;
+        background-color: $primary-lighter;
+        border-radius: $border-radius;
+        border-left: 1em solid $secondary-light;
+    }
+    
     .title {
         font-weight: 800;
         margin-bottom: clamp(1rem, 5vh, 3rem)
@@ -7,4 +15,9 @@
     .single-info-layout__main {
 
     }
+}
+
+.single-info-container {
+    //Prevent margin collapsing
+    padding: calc(var(--bs-gutter-x) * 0.5) 0;
 }

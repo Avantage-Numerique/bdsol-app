@@ -43,7 +43,6 @@ const SingleBaseHeader = (props) => {
     const auth = useAuth();
     const type = getType(entity.type) ?? getType(TYPE_DEFAULT);
 
-    console.log("Is main image default ? : ", )
     //Removed from coloumn, it's more useful to use the justify or align from start or end.
     return (
         <section className={`row ms-0  ${styles["content-padding-top"]} ${styles["content-margin-bottom"]} ${props.className}`}>

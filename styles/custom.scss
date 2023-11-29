@@ -270,6 +270,16 @@ $input-base-bg-color: #f9f9f9;
     TRANSITION
  */
 
+/*
+    Single sections
+    Based on the default bootstrap gutter
+*/
+$single-infos-padding-y: $grid-gutter-width;
+$single-infos-margin-y: calc(0.5 * $grid-gutter-width);
+
+
+
+
 $transition-default-time: 100ms;
 $transition-default-property: all;
 
