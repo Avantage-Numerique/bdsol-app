@@ -144,10 +144,23 @@ const PersonSingleView = ({ data }) => {
                 <SingleInfo
                     title={"Occupations"}
                     NAMessage="Aucune occupation n'est disponible pour le moment"
+                    NAComponent={(
+                        <div>
+                            <p className="mb-2">Exemple : </p>
+                            <div className="ms-2">
+                                <h5 className="text-dark">Programmeur</h5>
+                                <ul className="d-flex flex-wrap gap-2 mb-0">
+                                    <li className="rounded badge py-1 text-dark mb-1 px-2 bg-primary-light"><small>WordPress</small></li>
+                                    <li className="rounded badge py-1 text-dark mb-1 px-2 bg-primary-light"><small>MySQL</small></li>
+                                    <li className="rounded badge py-1 text-dark mb-1 px-2 bg-primary-light"><small>UX Design</small></li>
+                                </ul>
+                            </div>
+                        </div>
+                    )}
                     cardLayout
                 >
                     {/* Display the different groups of occupations */}
-                    { sortedOccupations && sortedOccupations.length > 0 &&
+                    { false && sortedOccupations && sortedOccupations.length > 0 &&
                         sortedOccupations.map(occ => (
                             <SkillGroup
                                 label={occ.groupName}
