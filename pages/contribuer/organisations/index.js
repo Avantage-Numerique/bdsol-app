@@ -41,7 +41,7 @@ const CreateOrganisationPage = () => {
                     >
                         <header className={`d-flex justify-content-between align-items-start`}>
                             <div className="d-flex flex-column">
-                                <h3 className="text-primary">Ajouter une Organisation</h3>
+                                <h3 className="text-primary">Ajouter une organisation</h3>
                                 <p>Entrez les informations de base d'une entité "Organisation". Vous pourrez l'éditer de manière détaillée par la suite.</p>
                             </div>
                             <Button 

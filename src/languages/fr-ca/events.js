@@ -24,7 +24,7 @@ const events = {
     "attendees": "Participants",
     "eventSkills": "Compétences liées à l'événement",
 
-    "photoGallery": "Gallerie photo",
+    "photoGallery": "Galerie photo",
     "addPhotoGallery": "Ajouter une image",
 
     "scheduleFieldDescription" : "L'horaire sera automatiquement classé par jour, basé sur la date du départ de l'étape.",

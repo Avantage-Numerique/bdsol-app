@@ -457,7 +457,7 @@ const EventSingleEdit = ({data}, ...props) => {
                     {/* location */}
                     <Select2
                         name="location"
-                        label={"Emplacement (par addresse)"}//lang.location}
+                        label={"Emplacement (par adresse)"}//lang.location}
                         formTools={formTools}
                         creatable={true}
                         modalType={TYPE_PLACE}

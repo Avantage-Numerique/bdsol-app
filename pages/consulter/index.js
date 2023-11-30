@@ -143,7 +143,7 @@ const ConsultData = () => {
                                 onClick={() => setFilterState("Equipment")}
                                 id="filter-btn-equipment"
                             >
-                                Équipement
+                                Équipements
                             </Button>
                         </div>
 

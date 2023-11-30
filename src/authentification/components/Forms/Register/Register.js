@@ -56,6 +56,7 @@ const Register = () => {
         })}
         )
 
+    useEffect( () => console.log("!isValid", !formState.isValid, "TOS", isTOSAccepted), [formState.isValid, isTOSAccepted])
     //Import message context 
     const msg = useContext(MessageContext);
 
@@ -220,7 +221,7 @@ const Register = () => {
                 </div>
 
                 <div className="col-12">
-                    <Button type="submit" disabled={!formState.isValid && isTOSAccepted}>Soumettre</Button>
+                    <Button type="submit" disabled={(!(formState.isValid) || !isTOSAccepted)}>Soumettre</Button>
                 </div>
             </form>
             

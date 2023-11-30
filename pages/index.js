@@ -304,7 +304,7 @@ const HomePage = ({}) => {
                             <h2 className="text-center">Pas encore de compte ?</h2>
                             <p className="text-center my-2">Vous en aurez besoin afin de vous aussi ajouter des données.</p>
                             <div className="d-flex justify-content-center my-4">
-                                <Button className="px-4" color="primary">C'est par ici !</Button>
+                                <Button className="px-4" color="primary" href="/compte/inscription">C'est par ici !</Button>
                             </div>
                     </div>
                 </div>

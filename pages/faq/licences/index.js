@@ -82,7 +82,7 @@ const Licences = (props) => {
                                     </a>
                                 </h4>
                                 <p>
-                                    L'Oeuvre fait partie du domaine public. Il n'y a aucun droit d'auteur.
+                                    L'Oeuvre fait partie du domaine public. Il n'y a aucun droits d'auteur.
                                     <br/>
                                     Vous pouvez copier, modifier, distribuer, représenter l'oeuvre, même à des fins commerciales, sans avoir besoin de demander l'autorisation.
                                 </p>

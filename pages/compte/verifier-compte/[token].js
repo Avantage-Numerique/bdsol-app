@@ -100,9 +100,9 @@ const verifyAccount = props => {
             {
                 props.verifyState === true &&
                 <>
-                    <h2>Votre compte a bien été vérifé!</h2>
+                    <h2>Votre compte a bien été vérifié!</h2>
                     <div>Vous pouvez maintenant vous connecter</div>
-                    <Button href="/compte/connexion">Se connecter</Button>
+                    <Button className="my-3" href="/compte/connexion">Se connecter</Button>
                 </>
             }
         </form>
