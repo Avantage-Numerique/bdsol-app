@@ -6,7 +6,7 @@ import {lang} from "@/common/Data/GlobalConstants";
 const SubmitEntity = ({ children, className, submitHandler, formState }) => {
 
     return (
-        <div className={`d-flex pt-4 align-items-end flex-column ${className}`}>
+        <div className={`d-flex flex-column ${className || ""}`}>
             <Button disabled={!formState.isValid} onClick={submitHandler}>
                 <Icon iconName={"save"} />&nbsp;{lang.submitModification}
             </Button>

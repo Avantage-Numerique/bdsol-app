@@ -314,7 +314,7 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props}) => {
         >
             <Select2
                 name="domains"
-                label={lang.Domains}
+                //label={lang.Domains}
                 formTools={formTools}
                 creatable={true}
                 modalType={TYPE_TAXONOMY}
@@ -344,6 +344,10 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props}) => {
         </>
     )
 
+    const SinglePageBottom = (
+        <SubmitEntity submitHandler={submitHandler} formState={formState} />
+    )
+
 
     const modalCategoryMode = useRef("skills")
     function displayModalForSkills(elem) {
@@ -356,36 +360,7 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props}) => {
         modal.enteredValues.name = elem;
         displayModal();
     }
-/*
-    function taxoModal() {
-        return (
-            <>
-                <header className={`d-flex`}>
-                    <p>Le nouvel élément de taxonomie que vous ajoutez ici pourra ensuite être directement intégrée à votre formulaire.</p>
-                    <Button onClick={() => newModal.close()}>Fermer</Button>
-                </header>               
-                
-                <div className={`my-4 border-bottom`}></div>
 
-                <CreateTaxonomyForm
-                    name={modal.enteredValues.name ?? ''}   //Prefilled value
-                    initValues={ {name:modal.enteredValues.name} }
-                    category={modalCategoryMode.current}
-                    positiveRequestActions={{
-                        //CallbackFunction is one of the four behaviors the useFormUtils hook can apply when a request return a positive answer
-                        callbackFunction: requestResponse => {
-
-                            //Here could be a call back function to execute 
-                            
-                            //Close the modal 
-                            newModal.close()
-                        }
-                    }}
-                />
-            </>
-        )
-    }
-*/
 
     return (
         <>
@@ -402,8 +377,8 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props}) => {
                     contentColumnLeft={contentColumnLeft}
                     contentColumnRight={contentColumnRight}
                     footer={Footer}
+                    singlePageBottom={SinglePageBottom}
                 />
-                <SubmitEntity submitHandler={submitHandler} formState={formState} />
 
              {/* </form> */}
 

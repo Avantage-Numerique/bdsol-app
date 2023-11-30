@@ -18,7 +18,7 @@ import {removeTagsFromString} from "@/src/helpers/html";
  * @param {React.Component} props.contentColumnLeft main content column left
  * @param {React.Component} props.contentColumnRight main content column right
  * @param {React.Component} props.footer
- * @param {React.Component} props.progressBar
+ * @param {React.Component} props.singlePageBottom
  * @param {React.Component} props.model
  *
  */
@@ -32,7 +32,7 @@ const SingleBase = (props) => {
         contentColumnLeft,
         contentColumnRight,
         footer,
-        progressBar,
+        singlePageBottom,
         model
     } = props;
 
@@ -113,11 +113,13 @@ const SingleBase = (props) => {
                     </footer>
                 }
 
-                {/* Progress bar */}
+                {/* Page bottom : CTA + progress */}
                 <section className={`${styles["full-width-container"]} position-relative bg-primary-lighter`}>
                     <div className="container">
                         <div className="row">
-                           {progressBar}
+                            <div className="d-flex justify-content-center align-items-center py-4">
+                                {singlePageBottom}
+                            </div>
                         </div>
                     </div>
                 </section>

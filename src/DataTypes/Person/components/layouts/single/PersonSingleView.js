@@ -238,7 +238,7 @@ const PersonSingleView = ({ data }) => {
         </>
     )
 
-    const ProgressBar = (
+    const SinglePageBottom = (
         <>
             <SingleBaseProgressBar 
                 dataList={[
@@ -268,7 +268,7 @@ const PersonSingleView = ({ data }) => {
                 contentColumnLeft={ContentColumnLeft}
                 contentColumnRight={ContentColumnRight}
                 footer={Footer}
-                progressBar={ProgressBar}
+                singlePageBottom={SinglePageBottom}
                 model={model}
             />
         </>
