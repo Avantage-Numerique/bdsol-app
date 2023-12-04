@@ -7,11 +7,9 @@ import DOMPurify from 'isomorphic-dompurify';
 
     It centralize the use of dangerouslySetInnerHTML
 
-
 */
 
 export const SanitizedInnerHtml = ( {tag, type, className, children, removeQlEditorClass} ) => {
-
     //Cleaning machine
     const cleanedData = DOMPurify.sanitize( children );
     const typeProps = type ? {type: type} : {};

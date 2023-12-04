@@ -1,9 +1,13 @@
 import { useState, useEffect } from 'react';
 import { useHttpClient } from '@/src/hooks/http-hook';
 
+//Styling
+import styles from './SelectLicence.module.scss'
+
 //Component
 import Select from '@/FormElements/Select/Select';
-import SanitizedInnerHtml from '@/src/utils/SanitizedInnerHtml';
+import Button from '@/src/common/FormElements/Button/Button'
+import HtmlTagsRemover from '@/src/utils/HtmlTagsRemover';
 
 
 const SelectLicence = ({name, formTools, ...props}) => {
@@ -65,26 +69,24 @@ const SelectLicence = ({name, formTools, ...props}) => {
                 options={licences}
                 formTools={formTools}
             />
-            <small className="fs-6">{
+            <small>{
                 formState.inputs[name].value &&
-                <div>
-                    <img src={
-                        licences.filter( (elem) => {
-                            return elem.value == formState.inputs.licence.value
-                        })[0]?.image
-                    } alt=""/>
-                    <SanitizedInnerHtml>
-                        {
-                            licences.filter( (elem) => {
-                                return elem.value == formState.inputs.licence.value
-                            })[0]?.guide ?? ''
-                        }
-                    </SanitizedInnerHtml>
+                <div className={`my-2 ${styles["licence-container"]} bg-greyBg`}>
+                    <img 
+                        src={licences.filter( (elem) => elem.value == formState.inputs.licence.value)[0]?.image} 
+                        alt=""
+                        className=""
+                    />
+                    <HtmlTagsRemover
+                        className={``}
+                    >
+                        {licences.filter( (elem) => elem.value == formState.inputs.licence.value )[0]?.guide ?? ''}
+                    </HtmlTagsRemover>
+                    <Button className={`${styles["details-button"]}`} href="/faq/licences" text_color="secondary-darker">
+                        Plus de détails sur les licences
+                    </Button>
                 </div>
                 }
-                <a href="/faq/licences" target="_blank">
-                    Plus de détails sur les licences
-                </a>
             </small>
         </>
     )

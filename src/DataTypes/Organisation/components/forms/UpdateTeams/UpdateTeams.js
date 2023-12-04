@@ -24,78 +24,71 @@ import styles from './UpdateTeams.module.scss'
 const UpdateTeams = ({name, formTools, parentEntity, ...props}) => {
 
     return (
-        <>
-            <SingleInfo
-                title={props.label}
-                className="py-3"
+        <div className='px-4 border-start'>
+            <Repeater
+                className="bg-greyBg"
+                formTools={formTools}
+                name={name}
+                formInitStructure={{
+                    member: {
+                        value: [],
+                        isValid: false
+                    },
+                    role: {
+                        value: "",
+                        isValid: true
+                    }
+                }}
+                initValues={parentEntity.team}
+                sortable
             >
-            <div className='px-4 border-start'>
-                <Repeater
-                    className="bg-greyBg"
-                    formTools={formTools}
-                    name={name}
-                    formInitStructure={{
-                        member: {
-                            value: [],
-                            isValid: false
-                        },
-                        role: {
-                            value: "",
-                            isValid: true
-                        }
-                    }}
-                    initValues={parentEntity.team}
-                    sortable
-                >
-                    <div className={`${styles["team-member-row"]} d-flex align-items-center gap-3 mb-2 border-b py-2 bg-greyBg rounded-1`}>
-                        <div className="col align-items-center row">
-                            <div className="col-12 col-md-6">
-                                <Select2
-                                    name="member"
-                                    label={lang.teamMembers}
-                                    creatable={false}
-                                    isMulti={false}
-                                    fetch={"/persons/list"}
-                                    searchField={"firstName"}
-                                    selectField={"fullname"}
-                                    validationRules={[
-                                        {name: "REQUIRED"},
-                                        {name: "ONE_OF_MANY_REQUIRED", dependencies: [
-                                                {value: state => state.inputs["role"].value, listenerValue: state => state.inputs["role"].isValid}
-                                            ]
-                                        }
-                                    ]}
-                                />
-                            </div>
-                            <div className="col-12 col-md-6">
-                                <Input 
-                                    name="role"
-                                    label="Role"
-                                    placeholder="Rôle dans l'équipe"
-                                    validationRules={[
-                                        {name: "ONE_OF_MANY_REQUIRED", dependencies: [
-                                            {value: state => state.inputs["member"].value, listenerValue: state => state.inputs["member"].isValid}
+                <div className={`${styles["team-member-row"]} d-flex align-items-center gap-3 mb-2 border-b py-2 bg-greyBg rounded-1`}>
+                    <div className="col align-items-center row">
+                        <div className="col-12 col-md-6">
+                            <Select2
+                                name="member"
+                                label={lang.teamMembers}
+                                creatable={false}
+                                isMulti={false}
+                                fetch={"/persons/list"}
+                                searchField={"firstName"}
+                                selectField={"fullname"}
+                                validationRules={[
+                                    {name: "REQUIRED"},
+                                    {name: "ONE_OF_MANY_REQUIRED", dependencies: [
+                                            {value: state => state.inputs["role"].value, listenerValue: state => state.inputs["role"].isValid}
                                         ]
                                     }
-                                    ]}
-                                />
-                            </div>
+                                ]}
+                            />
                         </div>
-                        <div className="col col-auto h-100 pt-1">
-                            <Button 
-                                repeaterDeleteElem
-                                type="button" 
-                                color="danger" 
-                                size="slim"
-                            >
-                                &#x2716;
-                            </Button>
+                        <div className="col-12 col-md-6">
+                            <Input 
+                                name="role"
+                                label="Role"
+                                placeholder="Rôle dans l'équipe"
+                                validationRules={[
+                                    {name: "ONE_OF_MANY_REQUIRED", dependencies: [
+                                        {value: state => state.inputs["member"].value, listenerValue: state => state.inputs["member"].isValid}
+                                    ]
+                                }
+                                ]}
+                            />
                         </div>
                     </div>
-                </Repeater>
-            </div>
-            </SingleInfo>
-        </>
+                    <div className="col col-auto h-100 pt-1">
+                        <Button 
+                            repeaterDeleteElem
+                            type="button" 
+                            color="danger" 
+                            size="slim"
+                        >
+                            &#x2716;
+                        </Button>
+                    </div>
+                </div>
+            </Repeater>
+        </div>
     )
 }
 

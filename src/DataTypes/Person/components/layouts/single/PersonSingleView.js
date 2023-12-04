@@ -16,6 +16,7 @@ import {lang} from "@/common/Data/GlobalConstants";
 import Person from "@/DataTypes/Person/models/Person";
 import EntitiesTagGrid from "@/DataTypes/Entity/layouts/EntitiesTagGrid";
 import {SkillGroup} from "@/DataTypes/common/layouts/skillsGroup/SkillGroup";
+import {removeTagsFromString} from '@/src/helpers/html'
 
 
 const PersonSingleView = ({ data }) => {
@@ -125,10 +126,9 @@ const PersonSingleView = ({ data }) => {
                 <SingleInfo
                     title={"Présentation"}
                     NAMessage="Aucune description n'est disponible pour le moment"
-                    className={""}
-                    cardLayout
+                    //cardLayout
                 >
-                    {description &&
+                    {   removeTagsFromString(description) &&
                         <SanitizedInnerHtml>
                             {description}
                         </SanitizedInnerHtml>
@@ -140,38 +140,36 @@ const PersonSingleView = ({ data }) => {
 
     const ContentColumnLeft = (
         <>
-            { occupations.length > 0 &&
-                <SingleInfo
-                    title={"Occupations"}
-                    NAMessage="Aucune occupation n'est disponible pour le moment"
-                    NAComponent={(
-                        <div>
-                            <p className="mb-2">Exemple : </p>
-                            <div className="ms-2">
-                                <h5 className="text-dark">Programmeur</h5>
-                                <ul className="d-flex flex-wrap gap-2 mb-0">
-                                    <li className="rounded badge py-1 text-dark mb-1 px-2 bg-primary-light"><small>WordPress</small></li>
-                                    <li className="rounded badge py-1 text-dark mb-1 px-2 bg-primary-light"><small>MySQL</small></li>
-                                    <li className="rounded badge py-1 text-dark mb-1 px-2 bg-primary-light"><small>UX Design</small></li>
-                                </ul>
-                            </div>
+            <SingleInfo
+                title={"Occupations"}
+                NAMessage="Aucune occupation n'est disponible pour le moment"
+                NAComponent={(
+                    <div>
+                        <p className="mb-2">Exemple : </p>
+                        <div className="ms-2">
+                            <h5 className="text-dark">Programmeur</h5>
+                            <ul className="d-flex flex-wrap gap-2 mb-0">
+                                <li className="rounded badge py-1 text-dark mb-1 px-2 bg-primary-light"><small>WordPress</small></li>
+                                <li className="rounded badge py-1 text-dark mb-1 px-2 bg-primary-light"><small>MySQL</small></li>
+                                <li className="rounded badge py-1 text-dark mb-1 px-2 bg-primary-light"><small>UX Design</small></li>
+                            </ul>
                         </div>
-                    )}
-                    cardLayout
-                >
-                    {/* Display the different groups of occupations */}
-                    { false && sortedOccupations && sortedOccupations.length > 0 &&
-                        sortedOccupations.map(occ => (
-                            <SkillGroup
-                                label={occ.groupName}
-                                skills={occ.skills}
-                                key={occ.groupName}
-                            />
-                        ))
-                    }
-                </SingleInfo>
-            }
-
+                    </div>
+                )}
+                cardLayout
+            >
+                {/* Display the different groups of occupations */}
+                { false && sortedOccupations && sortedOccupations?.length > 0 &&
+                    sortedOccupations.map(occ => (
+                        <SkillGroup
+                            label={occ.groupName}
+                            skills={occ.skills}
+                            key={occ.groupName}
+                        />
+                    ))
+                }
+            </SingleInfo>
+            
             {/* Show linked entities as tag */}
             {projects.length > 0 &&
                 <SingleInfo 

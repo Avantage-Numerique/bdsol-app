@@ -302,32 +302,41 @@ const OrganisationSingleEdit = (props) => {
 
     const contentColumnLeft = (
         <>
-            <UpdateSkillGroup
-                parentEntity={props.data}
-                formTools={formTools}
-                name="offers"
-                label="Éditez les groupes d'offres de services"
-                //createOptionFunction={displayModalForSkills}
-            />
+            <SingleInfo
+                title="Éditez les groupes d'offres de services"
+            >
+                <UpdateSkillGroup
+                    parentEntity={props.data}
+                    formTools={formTools}
+                    name="offers"
+                    //createOptionFunction={displayModalForSkills}
+                />
+            </SingleInfo>
+            
             { /* team */ }
-            <UpdateTeams
-                name="team"
-                formTools={formTools}
-                parentEntity={props.data}
-                label="Éditez les membres de l'équipe"
-            />
+            <SingleInfo
+                title="Éditez les membres de l'équipe"
+            >
+                <UpdateTeams
+                    name="team"
+                    formTools={formTools}
+                    parentEntity={props.data}
+                />
+            </SingleInfo>
             { /* Equipment */}
-            <SelectEquipment 
-                name="equipment"
-                formTools={formTools}
-                parentEntity={props.data}
-                label={lang.EditEquipment}
-            />
+            <SingleInfo
+                title={lang.EditEquipment}
+            >
+                <SelectEquipment 
+                    name="equipment"
+                    formTools={formTools}
+                    parentEntity={props.data}
+                />
+            </SingleInfo>
         </>
     );
 
     const contentColumnRight = (
-        <>
             <SingleInfo
                 title="Informations supplémentaires"
                 classNameTitle="mb-0"
@@ -346,7 +355,6 @@ const OrganisationSingleEdit = (props) => {
                     //selectField={"address"}
                 />
                 <Input
-                    className="mb-3"
                     name="contactPoint"
                     label="Information de contact"
                     tip={{
@@ -356,46 +364,40 @@ const OrganisationSingleEdit = (props) => {
                     placeholder="Adresse courriel, numéro de téléphone, etc..."
                     formTools={formTools}
                 />
+                <Select2
+                    name="domains"
+                    label={lang.Domains}
+                    formTools={formTools}
+                    creatable={true}
+                    modalType={TYPE_TAXONOMY}
+                    isMulti={true}
+                    //createOptionFunction={displayModalForDomains}
+
+                    placeholder={lang.domainsInputPlaceholder}
+                    fetch={"/taxonomies/list"}
+                    requestData={{category:"domains", name:""}}
+                    searchField={"name"}
+                    selectField={"domains"}
+                />
                 <Input
-                    className="mb-3"
                     name="fondationDate"
                     label="Date de fondation"
                     type="date"
                     formTools={formTools}
                 />
-                <div className="mb-3 mt-3">
-                    <Select2
-                        name="domains"
-                        label={lang.Domains}
-                        formTools={formTools}
-                        creatable={true}
-                        modalType={TYPE_TAXONOMY}
-                        isMulti={true}
-                        //createOptionFunction={displayModalForDomains}
-
-                        placeholder={lang.domainsInputPlaceholder}
-                        fetch={"/taxonomies/list"}
-                        requestData={{category:"domains", name:""}}
-                        searchField={"name"}
-                        selectField={"domains"}
-                    />
-                </div>
-
+                <Input
+                    name="url"
+                    label="Hyperlien"
+                    type="url"
+                    //pattern={inputUrlRegex}
+                    placeholder="exemple : https://www.siteWeb.com"
+                    formTools={formTools}
+                />
             </SingleInfo>
-        </>
     );
 
     const footer = (
         <>
-            <Input
-                name="url"
-                className="mb-3"
-                label="Hyperlien"
-                type="url"
-                //pattern={inputUrlRegex}
-                placeholder="exemple : https://www.siteWeb.com"
-                formTools={formTools}
-            />
             <div>
                 {
                     (createdAt || updatedAt || meta) &&
@@ -404,6 +406,11 @@ const OrganisationSingleEdit = (props) => {
             </div>
         </>
     );
+
+    const SinglePageBottom = (
+        <SubmitEntity submitHandler={submitHandler} formState={formState} />
+    )
+
 
     const modalCategoryMode = useRef("skills");
 
@@ -431,8 +438,9 @@ const OrganisationSingleEdit = (props) => {
                 contentColumnLeft={contentColumnLeft}
                 contentColumnRight={contentColumnRight}
                 footer={footer}
+                singlePageBottom={SinglePageBottom}
+
             />
-            <SubmitEntity submitHandler={submitHandler} formState={formState} />
 
             { modal.display &&
                 <Modal 

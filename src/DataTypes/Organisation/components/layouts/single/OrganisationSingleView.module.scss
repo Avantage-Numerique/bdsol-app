@@ -1,8 +1,11 @@
 .equipment-container {
-
-    .equipment-row:hover {
-        background-color: var(--bs-gray-300);
+    
+    .equipment-row {
+        background-color: lighten($secondary-dark, 15%);
         cursor: pointer;
+        transition: 0.3s ease-out;
+        
+        &:hover { background-color: $secondary-dark; }
     }
     .equipment-row__qty { width: 4ch; }
 

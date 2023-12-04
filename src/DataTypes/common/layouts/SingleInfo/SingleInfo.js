@@ -16,6 +16,7 @@ import styles from './SingleInfo.module.scss'
  * @param props.tooltip.header {string} Text of the tooltip header's content
  * @param props.tooltip.body {string} Text of the tooltip main's content
  * @param props.cardLayout {boolean} Boolean to display or not the current info with the card styling. 
+ * @param props.displayCondition {boolean} Boolean that tell the component to display or not the children. This is for element that would be displayed but the children prop would still be considered true 
  * @return {JSX.Element}
  * 
  */
@@ -29,11 +30,12 @@ const SingleInfo = props => {
         classNameTitle, 
         children, 
         tooltip, 
-        cardLayout 
+        cardLayout,
+        displayCondition = true
     } = props;
 
     //Is the info filled
-    const isFilled = children ? true : false;
+    const isFilled = children && displayCondition ? true : false;
     //Is there default data
     const defaultDisplay = NAMessage || NAComponent ? true : false;
     //Prevent the display if nothing to show
