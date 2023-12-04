@@ -34,13 +34,11 @@ const Footer = () => {
                 {/* Utils and legal links */}
                 <div className={`row d-flex flex-column`}>
                     <p className="text-center mb-0">
-                        <a>Mentions légales</a> |&nbsp;
                         <a className="link-hover-primary link-secondary" href="/politique-d'utilisation-des-donnees">Politique de confidentialité</a> |&nbsp;
                         <a className="link-hover-primary link-secondary" href="termes-et-conditions-d'utilisation">Conditions générales d'utilisation</a> |&nbsp;
-                        <a className="link-hover-primary link-secondary" href='/nous-joindre'>Nous joindre</a> |&nbsp;
-                        <a>Crédits</a>
+                        <a className="link-hover-primary link-secondary" href='/nous-joindre'>Nous joindre</a>
                     </p>
-                    <p className="text-center my-0"><small>Contact : Nom Prénom, adressecourriel@petittheatre.org, 112 7e rue, Rouyn-Noranda</small></p>
+                    <p className="text-center my-0"><small>Contact : bonjour@avnu.ca, 112 7e rue, J9X 1Z9, Rouyn-Noranda, Québec, Canada</small></p>
                 </div>
                 <div className={`row`}>
                     <div className={`${styles.socialMediaLogos} d-flex justify-content-center`}>    

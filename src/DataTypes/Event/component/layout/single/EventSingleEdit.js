@@ -449,9 +449,6 @@ const EventSingleEdit = ({data}, ...props) => {
                         formTools={formTools}
                         noValueText={lang.noSelectedOption}
                         fetchOption="eventformat-enum"
-                        validationRules={[
-                            {name: "REQUIRED"}
-                        ]}
                     />
                     
                     {/* location */}

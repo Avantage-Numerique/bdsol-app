@@ -78,7 +78,7 @@ const ResetPassword = () => {
                     <div className="mt-3">
                         <Button type="button" onClick={submitHandler} disabled={!formState.isValid}>Soumettre</Button>
                     </div>
-                    <p>*Noter qu'il y a un délai de 5 minutes pour un envoi vers une même adresse courriel</p>
+                    <p>*Si vous n'avez pas reçu le courriel, veuillez attendre 5 minutes avant de pouvoir soumettre à nouveau.</p>
                 </div>
             </form>
         </section>

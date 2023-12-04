@@ -65,7 +65,7 @@ const PlacesPage = () => {
 
     const getLabelGenerator = useCallback((param, query) => {
         return {
-            "places": type.labelPlural,
+            "places": lang.Places,
         }[param];
     }, []);
 
@@ -81,7 +81,7 @@ const PlacesPage = () => {
                 title={"Consulter les lieux"}
                 description="Les lieux listés peuvent être liés à des événements, des organisations ou d'autre entité du milieu culturel."
             >
-                <Breadcrumbs className={"pt-2"} route={AppRoutes.persons} getLabelGenerator={getLabelGenerator} />
+                <Breadcrumbs className={"pt-2"} route={AppRoutes.places} getLabelGenerator={getLabelGenerator} />
             </PageHeader>
 
                 <div className="container">

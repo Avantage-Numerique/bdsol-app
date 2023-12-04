@@ -16,10 +16,10 @@ import { MessageContext } from "@/src/common/UserNotifications/Message/Context/M
 //utils
 import { lang } from "@/src/common/Data/GlobalConstants";
 import logo from '@/public/AVNU_Branding/AVNU-LogoComplet-RVB.png'
+import { appConfig } from "@/src/configs/AppConfig";
 
 const NousJoindre = () => {
 
-    const avnuSupportEmail = "support@avnu.ca"
     const {sendRequest} = useHttpClient()
     const msg = useContext(MessageContext);
 
@@ -87,12 +87,14 @@ const NousJoindre = () => {
             <section className="row d-flex py-4">
                 <section className="col-6">
                     <div>
-                        <Image width="280" height="120" src={logo} alt="Logo réduit de AVNU"/>
+                        <Image width="320" height="120" src={logo} alt="Logo réduit de AVNU"/>
                     </div>
                     <div className="py-4">
-                        {<div className="py-4">Adresse courriel : {`${avnuSupportEmail}`}</div>
-                        }
-                        <Button href={"mailto:"+avnuSupportEmail}>Nous contacter par courriel</Button>
+                        <div className="py-2">Adresse courriel : {appConfig.support.email}</div>
+                        <div className="py-2">Adresse : {appConfig.support.address}</div>
+                        <div className="py-2">Numéro de téléphone : {appConfig.support.phone}</div>
+                        
+                        <Button className="my-2"href={"mailto:"+appConfig.support.email}>Nous contacter par courriel</Button>
                     </div>
                 </section>
                 <section className="col-6">

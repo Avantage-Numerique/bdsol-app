@@ -59,7 +59,7 @@ const SingleInfo = props => {
     return (
         <div className={`${styles["single-info-container"]}`}> {/* Container with padding instead of margin to prevent "margin collapsing" */}
             <section className={`${styles["single-info-layout"]} ${cardLayout && styles["cardLayout"]} ${!isFilled && styles["cardLayout--NA-border"]}  ${className}`}>
-                <header class='d-flex'>
+                <header className='d-flex'>
                     <h3 className={`text-grey flex-grow-1 mb-3 ${styles["title"]} ${classNameTitle}`}>{title}</h3>
                     {tooltip && <Tip header={tooltip?.header} body={tooltip?.body}/>}
                 </header>

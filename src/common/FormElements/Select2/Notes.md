@@ -1,0 +1,11 @@
+J'ai désactivé dans le "Select2BaseMulti" et "Select2BaseSingle", l'ajout par la virgule (setValueWithComma).
+Plusieurs bugs sont occasionné par l'ajout par la virgule :
+- Présentement la virgule "set-value" donc sélectionne l'élément focused mais le set value remplace toute les valeurs précédement sélectionnée par la seule valeur sélectionnée. (Facile à fix, faut mettre [ ...state du select, la valeur focused] quand on set value dans la fonction de setValueWithComma)
+- Si on fait "Virgule" sa ajoute la valeur, mais le select devient en état "fermé", et si on refait virgule tout de suite après, le champ n'est pas ouvert et aucune option focused --> efface les champs (dû au bug précédent) pour ajouter "aucune option" (rien) puisqu'aucune option n'est focused.
+- Si on peut créer une option avec un modal ça sélectionne l'option du create. Exemple: J'inscrit "Patate", l'option focused est "Créer : Patate". Si je fais virgule, ça sélectionne (donc ajoute au select) "Créer : Patate" Comme tag.
+- Si l'on veut créer un lieu, souvent on va écrire le numéro civique suivi d'une virgule, ce qui occasionne le bug précédent et donc on aimerait probablement inscrire "145, rue Perreault Ouest, Rouyn-Noranda" mais la virgule ne fait que ça ne fonctionne pas. (Même si ces infos se retrouve dans le modal dans le champs "Nom du lieu")
+
+Il faudrait retravailler cette fonctionnalité si on veux vraiment avoir l'ajout par la virgule.
+Piste de solution :
+- Pour le premier point, il est déjà écrit une piste de solution (pas mal sur que c'est juste ça)
+- Pour ce qui est de l'option "Créer : Patate" qui devient sélectionné comme tag, une piste est que la touche "ENTER" ou le "CLICK" active correctement la fonctionnalité. Sur un "ENTER" ça ouvre le form de création comme attendu. Il faudrait donc trouver la vraie propriété (si elle existe) qui permet de dire quelles touches ou événement sont associé à la sélection prebuilt (en d'autre terme pourquoi le Enter trigger le modal et pas le "set-value" du "setValueWithComma" donc probablement pas la bonne fonction utilisée dans le "setValueWithComma").

@@ -118,13 +118,6 @@ export const base = {
     "singleDescriptionLabel": "Presentation",
     "bestContactPointLabel": "Best way to contact : ",
 
-    //Place
-    "Place": "Place",
-    "Places": "Places",
-    "place": "place",
-    "places": "places",
-    "placeLocationPlaceholder": "112, 7e rue / Petit Théâtre du vieux Noranda",
-
     //  Taxonomy
 
     "Taxonomy": "Category",

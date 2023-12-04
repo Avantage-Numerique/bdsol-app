@@ -2,6 +2,7 @@ import Repeater from "@/src/common/FormElements/Repeater/Repeater";
 import Input from "@/src/common/FormElements/Input/Input";
 import SingleInfo from "@/src/DataTypes/common/layouts/SingleInfo/SingleInfo";
 import {lang} from "@/src/common/Data/GlobalConstants";
+import Button from "@/src/common/FormElements/Button/Button";
 
 const UpdateSchedule = ({name, formTools, schedule, ...props}) => {
 

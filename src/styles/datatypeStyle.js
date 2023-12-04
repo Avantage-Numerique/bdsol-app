@@ -4,7 +4,7 @@ import chroma from 'chroma-js';
 export const defaultColor = "black";
 
 export const colorDict = {
-    skills: "red",
+    skills: "teal",
     occupations:"blue",
     technologies:"green",
     domains:"purple"

@@ -123,9 +123,9 @@ const UpdateScheduleBudget = ({name, formTools, ...props}) => {
                                             formTools={formTools}
                                             noValueText={lang.noSelectedOption}
                                             fetchOption="budgetrange-enum"
-                                            validationRules={[
+/*                                             validationRules={[
                                                 {name: "REQUIRED"}
-                                            ]}
+                                            ]} */
                                         />
                                     
                                     </section>

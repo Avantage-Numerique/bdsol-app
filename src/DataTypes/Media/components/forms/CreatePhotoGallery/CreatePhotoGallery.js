@@ -11,8 +11,8 @@ const CreatePhotoGallery = ({entity, ...props}) => {
     
     return (
         <div>
-            <label>{lang.photoGallery}</label>
-            <Button onClick={displayModal}>{lang.addPhotoGallery}</Button>
+            <label>{lang.photoGallery}</label><br/>
+            <Button className="my-2" onClick={displayModal}>{lang.addPhotoGallery}</Button>
 
             {
                 modal.display &&

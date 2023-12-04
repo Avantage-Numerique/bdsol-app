@@ -1,9 +1,9 @@
 const places = {
     //Place
-    "Place": "Place",
-    "Places": "Places",
-    "place": "place",
-    "places": "places",
+    "Place": "Lieu",
+    "Places": "Lieux",
+    "place": "lieu",
+    "places": "lieux",
 
     "placeLocationPlaceholder": "112, 7e rue / Petit Théâtre du vieux Noranda",
     
