@@ -181,13 +181,13 @@ const PersonSingleView = ({ data }) => {
             }
 
             {organisations.length > 0 &&
-                <SingleInfo title={`${lang.plural(lang.memberOfOrganisation, lang.memberOfOrganisations, organisations.length)}`} className={`${sectionClassSpacing}`}>
+                <SingleInfo title={`${lang.plural(lang.memberOfOrganisation, lang.memberOfOrganisations, organisations.length)}`}>
                     <EntitiesTagGrid feed={organisations}/>
                 </SingleInfo>
             }
 
             {events.length > 0 &&
-                <SingleInfo title={`${lang.plural(lang.attendThisEvent, lang.attendTheseEvents, events.length)}`} className={`${sectionClassSpacing}`}>
+                <SingleInfo title={`${lang.plural(lang.attendThisEvent, lang.attendTheseEvents, events.length)}`}>
                     <EntitiesTagGrid feed={events}/>
                 </SingleInfo>
             }
