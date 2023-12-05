@@ -56,7 +56,6 @@ const Register = () => {
         })}
         )
 
-    useEffect( () => console.log("!isValid", !formState.isValid, "TOS", isTOSAccepted), [formState.isValid, isTOSAccepted])
     //Import message context 
     const msg = useContext(MessageContext);
 

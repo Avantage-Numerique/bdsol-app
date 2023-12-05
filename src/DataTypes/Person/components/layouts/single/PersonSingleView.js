@@ -106,7 +106,7 @@ const PersonSingleView = ({ data }) => {
             title={(
                 <div className="d-flex flex-wrap justify-content-start align-items-end">
                     <h1 style={{lineHeight: "1em"}} className="me-2 mb-0">{`${model.title}`}</h1>
-                    <p className=" mb-0 fs-4">({nickname})</p>
+                    <p className=" mb-0 fs-4">{model.nickname ? "(" + model.nickname + ")" : ""}</p>
                 </div>
             )}
 
