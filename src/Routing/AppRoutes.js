@@ -315,8 +315,8 @@ const AppRoutesRaw = {
 
     valuesChart: {
         label: "Charte de valeurs",
-        pathname: "/politique-d'utilisation-des-donnees",
-        asPath: "/politique-d'utilisation-des-donnees",
+        pathname: "/charte-de-valeurs",
+        asPath: "/charte-de-valeurs",
         needAuth: false,
     }
 
