@@ -1,7 +1,7 @@
 //hook
-import { useContext } from "react";
-import { useFormUtils } from "@/src/hooks/useFormUtils/useFormUtils";
-import { useHttpClient } from "@/src/hooks/http-hook";
+import {useContext} from "react";
+import {useFormUtils} from "@/src/hooks/useFormUtils/useFormUtils";
+import {useHttpClient} from "@/src/hooks/http-hook";
 
 //Component
 import PageHeader from "@/src/layouts/Header/PageHeader";
@@ -11,12 +11,12 @@ import Input from "@/src/common/FormElements/Input/Input";
 import RichTextarea from "@/src/common/FormElements/RichTextArea/RichTextarea";
 
 //Context
-import { MessageContext } from "@/src/common/UserNotifications/Message/Context/Message-Context";
+import {MessageContext} from "@/src/common/UserNotifications/Message/Context/Message-Context";
 
 //utils
-import { lang } from "@/src/common/Data/GlobalConstants";
+import {lang} from "@/src/common/Data/GlobalConstants";
 import logo from '@/public/AVNU_Branding/AVNU-LogoComplet-RVB.png'
-import { appConfig } from "@/src/configs/AppConfig";
+import {appConfig} from "@/src/configs/AppConfig";
 
 const NousJoindre = () => {
 
@@ -79,7 +79,6 @@ const NousJoindre = () => {
     return (
         <>
             <PageHeader
-                bg={"bg-purplelight"}
                 textColor={"text-white"}
                 htmlTitle={"Nous joindre"}
                 description="Vous avez des questions ou commentaires?<br/>Vous êtes au bon endroit !">

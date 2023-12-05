@@ -308,8 +308,8 @@ const AppRoutesRaw = {
 
     confidentialityPolicy: {
         label: "Politique de confidentialité",
-        pathname: "/politique-d'utilisation-des-donnees",
-        asPath: "/politique-d'utilisation-des-donnees",
+        pathname: "/politique-de-confidentialite",
+        asPath: "/politique-de-confidentialite",
         needAuth: false,
     },
 

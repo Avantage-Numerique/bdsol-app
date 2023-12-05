@@ -5,6 +5,8 @@ import styles from './Footer.module.scss'
 import {useAuth} from "@/auth/context/auth-context";
 import {appConfig} from "@/src/configs/AppConfig";
 import nextConfig from "@/next.config";
+import {RouteLink} from "@/common/Components/RouteLink";
+import React from "react";
 
 
 const Footer = () => {
@@ -26,20 +28,20 @@ const Footer = () => {
                 </div>
                 <div className={`row justify-content-center ${styles["secondary-logo--container"]}`}>
                     <div className="d-flex justify-content-center ">
-                        <a href="https://avantagenumerique.org/">
+                        <a href="https://avantagenumerique.org/?ref=avnuca" title={"Site web d'avantage numérique"} rel={"nofollow"}>
                             <img alt="Logo avantage numérique" src="/logo.svg" />
                         </a> 
                     </div>
                 </div>
                 {/* Utils and legal links */}
                 <div className={`row d-flex flex-column`}>
-                    <p className="text-center mb-0">
-                        <a className="link-hover-primary link-secondary" href="/chartes-de-valeurs">Charte de valeurs</a> |&nbsp;
-                        <a className="link-hover-primary link-secondary" href="/politique-d'utilisation-des-donnees">Politique de confidentialité</a> |&nbsp;
-                        <a className="link-hover-primary link-secondary" href="/termes-et-conditions-d'utilisation">Conditions générales d'utilisation</a> |&nbsp;
-                        <a className="link-hover-primary link-secondary" href='/nous-joindre'>Nous joindre</a>
-                    </p>
-                    <p className="text-center my-0"><small>Contact : bonjour@avnu.ca, 112 7e rue, J9X 1Z9, Rouyn-Noranda, Québec, Canada</small></p>
+                    <nav className="nav nav-pills mb-0 justify-content-center align-items-center">
+                        <RouteLink routeName={"valuesChart"} className={"nav-link link-hover-primary link-secondary"} />
+                        <RouteLink routeName={"confidentialityPolicy"} className={"nav-link link-hover-primary link-secondary"} />
+                        <RouteLink routeName={"termOfUse"} className={"nav-link link-hover-primary link-secondary"} />
+                        <RouteLink routeName={"contact"} className={"nav-link link-hover-primary link-secondary"} />
+                    </nav>
+                    <p className="text-center my-0"><small>Contact : {appConfig.legal.email}, {appConfig.legal.address}</small></p>
                 </div>
                 <div className={`row`}>
                     <div className={`${styles.socialMediaLogos} d-flex justify-content-center`}>    
