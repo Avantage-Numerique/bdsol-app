@@ -129,6 +129,30 @@ const FAQ = () => {
                             },
                         ]}
                     />
+                    <SubjectRow
+                        index={3}
+                        subject="Documents légaux"
+                        activeSubjectIndex={activeSubjectIndex}
+                        setActiveSubject={() => setActiveSubjectIndex(3)}
+                        close={() => setActiveSubjectIndex(false)}
+                        rows={[
+                            {
+                                name: "Charte de valeurs",
+                                link: "/charte-de-valeurs",
+                                tag: ""
+                            },
+                            {
+                                name: "Politique d'utilisation des données",
+                                link: "/politique-d'utilisation-des-donnees",
+                                tag: ""
+                            },
+                            {
+                                name: "Termes et conditions d'utilisation",
+                                link: "/termes-et-conditions-d'utilisation",
+                                tag: ""
+                            },
+                        ]}
+                    />
 
                 </ul>
             </section>
