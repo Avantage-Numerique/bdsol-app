@@ -23,6 +23,8 @@ import {removeTagsFromString} from '@/src/helpers/html'
 
 //Styles
 import styles from './OrganisationSingleView.module.scss';
+import { appConfig } from '@/src/configs/AppConfig';
+import SocialHandleDisplay from '@/src/DataTypes/common/layouts/SocialHandlesViews/SocialHandleDisplay';
 
 const OrganisationSingleView = ({ data }) => {
 
@@ -230,18 +232,12 @@ const OrganisationSingleView = ({ data }) => {
                 <TimeTag date={fondationDate} format={lang.fullHumanDateFormat} />
             </SingleInfo>
 
-            {/* Hyperlink */}
-            <SingleInfo 
-                title={lang.hyperlink}
-                displayCondition={url ? true : false}
-                cardLayout
-            >
-                <p>
-                    <ExternalLink className="text-break" href={url} title={`${model.title}`}>
-                        {url}
-                    </ExternalLink>
-                </p>
-            </SingleInfo>
+            {/* Url */}
+            <SocialHandleDisplay 
+                title={lang.url} 
+                url={model?.url}
+                className={`${appConfig.spacing.singleSectionSpacingClass}`}
+            />
             
         </>
     )

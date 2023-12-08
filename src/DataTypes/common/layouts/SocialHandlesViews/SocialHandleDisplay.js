@@ -3,6 +3,7 @@ import React from 'react';
 //Components 
 import SingleInfo from "@/DataTypes/common/layouts/SingleInfo/SingleInfo";
 import Icon from "@/src/common/widgets/Icon/Icon"
+import { ExternalLink } from '@/src/common/Components/ExternalLink';
 
 //Styles 
 import styles from './SocialHandleDisplay.module.scss';
@@ -17,17 +18,16 @@ import styles from './SocialHandleDisplay.module.scss';
 const SingleSocialHandle = ( {data} ) => {
     return (
         <div className={`p-1 ${styles["single-social-hangle"]}`}>
-            <a href={data.url} className="d-flex flex-column" target='blank'>
+            <ExternalLink href={data.url} className="d-flex flex-column" target='blank'>
                 {/* Label section */}
                 <div className="d-flex">
                     <p className="m-0 fw-semibold text-truncate">{data.label}</p>
-                    <Icon className={`ms-2 fs-5 font-weight-bold ${styles["single-social-hangle__icons"]}`} iconName={`las la-external-link-alt`}/>
                 </div>
                 {/* Display link */}
                 <small>
                     <p className={`m-0 text-truncate text-secondary ${styles["single-social-hangle__link"]}`}>{data.url}</p>
                 </small>
-            </a>
+            </ExternalLink>
         </div>
     )
 }
@@ -44,9 +44,11 @@ const SocialHandleDisplay = ({ url, title, className }) => {
     const orderedUrls = url.sort((a, b) => (a.subMeta.order > b.subMeta.order) ? 1 : -1);
 
     return (
-        <SingleInfo title={title} className={className}>
-            {orderedUrls.map( (singleUrl) => <SingleSocialHandle data={singleUrl} key={("url_" + singleUrl.url)} />)}
-        </SingleInfo>
+        (url.length > 0) &&
+            <SingleInfo title={title} className={className}>
+                {orderedUrls.map( (singleUrl) => <SingleSocialHandle data={singleUrl} key={("url_" + singleUrl.url)} />)}
+            </SingleInfo>
+        
     )
 }
 

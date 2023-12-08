@@ -31,6 +31,7 @@ import SelectFetch from "@/src/common/FormElements/Select/SelectFetch";
 import CreatePhotoGallery from "@/src/DataTypes/Media/components/forms/CreatePhotoGallery/CreatePhotoGallery";
 import {apiDateToDateInput, apiDateToTimeInput, dateTimeStringToUTC} from "@/common/DateManager/Parse";
 import SubmitEntity from "@/DataTypes/common/Forms/SingleEdit/SubmitEntity";
+import UpdateSocialHandles from "@/src/DataTypes/common/Forms/UpdateSocialHandles/UpdateSocialHandles";
 
 const EventSingleEdit = ({data}, ...props) => {
 
@@ -116,7 +117,7 @@ const EventSingleEdit = ({data}, ...props) => {
             },
 
             url: {
-                value: url ?? "",
+                value: url ?? [],
                 isValid: true
             },
             description: {
@@ -236,7 +237,13 @@ const EventSingleEdit = ({data}, ...props) => {
                 eventFormat: formState.inputs.eventFormat.value && formState.inputs.eventFormat.value !== "" ? formState.inputs.eventFormat.value : "",
                 startDate: combineDateAndTime(formState.inputs.startDate.value, formState.inputs.startTime.value),
                 endDate: combineDateAndTime(formState.inputs.endDate.value, formState.inputs.endTime.value),
-                url: formState.inputs.url.value,
+                url: formState.inputs.url.value.map(function(singleUrl){
+                    return {
+                        label: singleUrl.value.label.value,
+                        url: singleUrl.value.url.value,
+                        subMeta: { order : singleUrl.order }
+                    }
+                }),
                 contactPoint: formState.inputs.contactPoint.value,
                 schedule: formState.inputs.schedule.value.map( singleSchedule => {
                     return {
@@ -574,13 +581,10 @@ const EventSingleEdit = ({data}, ...props) => {
                     selectField={"domains"}
                 />
                 {/* Url */}
-                <Input
+                <UpdateSocialHandles
                     name="url"
-                    label={lang.hyperlink}
-                    type="url"
-                    className="mb-3"
-                    pattern="^https?:\/\/[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$"
-                    placeholder="Une url avec le https, exemple : https://siteWeb.com"
+                    label={lang.url}
+                    parentEntity={model}
                     formTools={formTools}
                 />
                 {/* contactPoint */}

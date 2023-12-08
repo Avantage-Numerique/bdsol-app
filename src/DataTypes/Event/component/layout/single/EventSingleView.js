@@ -6,7 +6,7 @@ import SingleBaseHeader from "@/src/DataTypes/common/layouts/single/defaultSecti
 import SingleInfo from "@/src/DataTypes/common/layouts/SingleInfo/SingleInfo";
 import EntitiesTagGrid from "@/src/DataTypes/Entity/layouts/EntitiesTagGrid";
 import SearchTag from "@/src/common/Components/SearchTag";
-import {ExternalLink} from "@/src/common/Components/ExternalLink";
+import SocialHandleDisplay from "@/src/DataTypes/common/layouts/SocialHandlesViews/SocialHandleDisplay";
 
 //Utils
 import Head from "next/head";
@@ -233,11 +233,11 @@ const EventSingleView = ({data}) => {
                 </SingleInfo>
             }
             {/* Url */}
-            { url &&
-                <SingleInfo title={lang.hyperlink} className={`${sectionClassSpacing}`}>
-                    <ExternalLink href={url}>{url}</ExternalLink>
-                </SingleInfo>
-            }
+            <SocialHandleDisplay 
+                title={lang.url} 
+                url={model?.url}
+                className={`${appConfig.spacing.singleSectionSpacingClass}`}
+            />
             {/* contactPoint */}
             { contactPoint &&
                 <SingleInfo title={lang.contactPoint} className={`${sectionClassSpacing}`}>
