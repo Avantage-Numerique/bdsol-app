@@ -76,17 +76,14 @@ const Select = props => {
             ${styles["select-component"]}
         `}>  
             <div className={`${styles["select-component__label-container"]}`} >
+                {label && 
                 <label 
                     htmlFor={name}
                 >
-                    {label && label}
+                    {label}
                 </label>
-                {
-                    tip &&
-                    <Tip 
-                        {...tip}
-                    />
                 }
+                {tip && <Tip {...tip} />}
             </div>
 
             <div 

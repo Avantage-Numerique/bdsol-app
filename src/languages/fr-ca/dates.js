@@ -10,6 +10,7 @@ const dates = {
     "monthNumberFormat": "LL",
     "dayMonthNumberFormat": "LL-dd",
     "yearFormat": "yyyy",
+    "hourMinuteFormat": "h:mm a"
 }
 
 exports.dates = dates;

@@ -91,7 +91,7 @@ const SortableItem = props => {
             style={style}
             id={iteration.key}
             ref={setNodeRef}
-            className={`d-flex flex-nowrap rounded my-2 ${styles["repeatable"]} ${className} ${isDragActive && "shadow"}`}
+            className={`d-flex flex-nowrap rounded my-2 ${styles["repeatable"]} ${styles["box-shadow"]} ${className} ${isDragActive && "shadow"}`}
             draggable={true}
             data-order={iteration.order}
         >
@@ -362,7 +362,6 @@ const Repeater = props => {
                </DndContext>         
             </section>
 
-            {/* <DNDUI /> */}
             {/* By default, there is an add button */}
             <div className="my-2 d-flex justify-content-start p-0">
                 <Button type="button" size="slim" onClick={addNewIteration} className="m-0">Ajouter</Button>

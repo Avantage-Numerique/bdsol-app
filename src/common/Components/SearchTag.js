@@ -36,7 +36,7 @@ const SearchTag = ({list, max, ...props}) => {
     return (
         <>
             { searchTagList?.length > 0 &&
-                <p className={`${props.className ?? ''}`}>
+                <p className={`${props.className ?? ''} mb-0`}>
                 {
                     searchTagList.map( (tag, index) => {
                         if (index < max || max === "-1") {

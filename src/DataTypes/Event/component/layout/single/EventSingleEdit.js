@@ -104,7 +104,7 @@ const EventSingleEdit = ({data}, ...props) => {
     }
 
     //Main form functionalities
-    const { FormUI, submitRequest, formState, formTools } = useFormUtils(
+    const { submitRequest, formState, formTools } = useFormUtils(
         {
             name: {
                 value: name ?? "",
@@ -322,32 +322,65 @@ const EventSingleEdit = ({data}, ...props) => {
             <Input
                 name="alternateName"
                 label={lang.eventAlternateName}      
-                formClassName="discrete-without-focus form-text-white h4"
+                formClassName="discrete-without-focus form-text-white"
                 formTools={formTools}
             />
-            {/* entityInCharge */}
-            <Select2
-                name="entityInCharge"
-                label="Organisation en charge"
-                formTools={formTools}
-                creatable={false}
-                isMulti={false}
-                fetch={"/organisations/list"}
-                searchField={"name"}
-                selectField={"name"}
-            />
-            {/* organizer */}
-            <Select2
-                name="organizer"
-                label={lang.eventOrganizer}
-                formTools={formTools}
-                creatable={false}
-                isMulti={false}
+            
+            <div className="container mt-3">
+                <div className="row gap-2">
+                    {/*startDate*/}
+                    <div style={{backgroundColor: "#4f4f4f1c"}} className="col-12 col-sm-5 col-lg-4  rounded-1 mb-2 px-2 py-2 ">
+                        <h5 className="m-0 mb-1 text-dark-light">Début</h5>
+                        <div className="row p-0">
+                            <Input
+                                className="col-7"
+                                formClassName="discrete-without-focus form-text-white "
+                                name="startDate"
+                                label={lang.date}
+                                type="date"
+                                formTools={formTools}
+                            />
+                            <Input
+                                className="col-5"
+                                formClassName="discrete-without-focus form-text-white "
+                                name="startTime"
+                                label={lang.hour}
+                                type="time"
+                                formTools={formTools}
+                            />
+                        </div>
+                    </div>
 
-                fetch={"/organisations/list"}
-                searchField={"name"}
-                selectField={"name"}
-            />
+                    {/*endDate*/}
+                    <div style={{backgroundColor: "#4f4f4f1c"}} className="col-12 col-sm-5 col-lg-4 rounded-1 mb-2 px-2 py-2">
+                        <h5 className="m-0 mb-1 text-dark-light">Fin</h5>
+                        <div className="row p-0">
+                            <Input
+                                className="col-7"
+                                formClassName="discrete-without-focus form-text-white "
+                                name="endDate"
+                                label={lang.date}
+                                type="date"
+                                formTools={formTools}
+                                validationRules={[
+                                    {name: "HIGHER_DATE_REQUIRED", dependencies: [
+                                        {value: state => state.inputs["startDate"].value, listenerValue: state => state.inputs["startDate"].value}
+                                    ]}
+                                ]}
+                                
+                            />
+                            <Input
+                                className="col-5"
+                                formClassName="discrete-without-focus form-text-white "
+                                name="endTime"
+                                label={lang.hour}
+                                type="time"
+                                formTools={formTools}
+                            />
+                        </div>
+                    </div>
+                </div>
+            </div>
 
         </>);
 
@@ -377,105 +410,72 @@ const EventSingleEdit = ({data}, ...props) => {
         <div>
             <div className="row">
                 <div className="col col-md-6">
-                    {/*startDate*/}
-                        <div className="bg-greyBg col rounded-1 mb-2">
-                            <div className="row py-1 px-2">
-                                <Input
-                                    className="col-12 col-lg-8"
-                                    name="startDate"
-                                    label={lang.startDate}
-                                    type="date"
-                                    formTools={formTools}
-                                />
-                                <Input
-                                    className="col-12 col-lg-4"
-                                    name="startTime"
-                                    label={lang.startTime}
-                                    type="time"
-                                    formTools={formTools}
-                                />
-                            </div>
-                        </div>
 
-                        {/*endDate*/}
-                        <div className="bg-greyBg col rounded-1">
-                            <div className="row py-1 px-2">
-                                <Input
-                                    className="col-12 col-lg-8"
-                                    name="endDate"
-                                    label={lang.endDate}
-                                    type="date"
-                                    formTools={formTools}
-                                    validationRules={[
-                                        {name: "HIGHER_DATE_REQUIRED", dependencies: [
-                                            {value: state => state.inputs["startDate"].value, listenerValue: state => state.inputs["startDate"].value}
-                                        ]}
-                                    ]}
-                                    
-                                />
-                                <Input
-                                    className="col-12 col-lg-4"
-                                    name="endTime"
-                                    label={lang.endTime}
-                                    type="time"
-                                    formTools={formTools}
-                                />
-                            </div>
-                        </div>
-                        
+                    <SingleInfo 
+                        title="Entités responsables"
+                    >
+                        <SingleInfo 
+                            title={lang.inCharge}
+                            isSubtitle
+                        >
+                            {/* entityInCharge */}
+                            <Select2
+                                name="entityInCharge"
+                                formTools={formTools}
+                                creatable={false}
+                                isMulti={false}
+                                fetch={"/organisations/list"}
+                                searchField={"name"}
+                                selectField={"name"}
+                            />
+                        </SingleInfo> 
+                        <SingleInfo 
+                            title={lang.eventOrganizer}
+                            isSubtitle
+                        >
+                            {/* organizer */}
+                            <Select2
+                                name="organizer"
+                                formTools={formTools}
+                                creatable={false}
+                                isMulti={false}
+                                fetch={"/organisations/list"}
+                                searchField={"name"}
+                                selectField={"name"}
+                            />   
+                        </SingleInfo>
+                    </SingleInfo>                 
             
                 </div>
                 <div className="col col-md-6">
-
-                    {/* eventType */}
-                    <Select2
-                        name="eventType"
-                        className="my-1"
-                        label={lang.selectEventType}
-                        formTools={formTools}
-                        creatable={false}
-                        isMulti={true}
-                        fetch={"/taxonomies/list"}
-                        requestData={{category: "eventType", name:""}}
-                        searchField={"name"}
-                        selectField={"name"}
-                    />
-
-                    {/* eventFormat */}
-                    <SelectFetch 
-                        name="eventFormat"
-                        label="Choisissez un format"
-                        className="my-1"
-                        formTools={formTools}
-                        noValueText={lang.noSelectedOption}
-                        fetchOption="eventformat-enum"
-                    />
-                    
                     {/* location */}
-                    <Select2
-                        name="location"
-                        label={"Emplacement (par adresse)"}//lang.location}
-                        formTools={formTools}
-                        creatable={true}
-                        modalType={TYPE_PLACE}
-                        isMulti={true}
-                        
-                        fetch={"/places/list"}
-                        requestData={{address:""}}
-                        searchField={"address"}
-                        //selectField={"address"}
-                    />
+                    <SingleInfo 
+                        title="Emplacement (par adresse)"
+                    >
+                        <Select2
+                            name="location"
+                            formTools={formTools}
+                            creatable={true}
+                            modalType={TYPE_PLACE}
+                            isMulti={true}
+                            
+                            fetch={"/places/list"}
+                            requestData={{address:""}}
+                            searchField={"address"}
+                        />
+                    </SingleInfo>                   
                 </div>
 
             </div>
             <div className="row">
-                {/* Description */}
-                <RichTextarea
-                    className="mb-3 mt-2"
-                    name="description"
-                    label={lang.description}
-                    formTools={formTools}
-                />
+                <SingleInfo title={lang.description} className={"col"}>
+                    {/* Description */}
+                    <RichTextarea
+                        name="description"
+                        //label={lang.description}
+                        formTools={formTools}
+                    />
+                </SingleInfo>
             </div>
         </div>
     )
@@ -484,58 +484,77 @@ const EventSingleEdit = ({data}, ...props) => {
     const contentColumnLeft = (
         <>
             {/* schedule */}
-            <UpdateSchedule
-                name="schedule"
-                label={lang.schedule}
-                minDate={currentEventDateTime.startDate}
-                maxDate={currentEventDateTime.endDate}
-                minTime={currentEventDateTime.startTime}
-                maxTime={currentEventDateTime.endTime}
-                schedule={schedule?.length > 0 ? schedule.map( (elem, ind, arr) => {
-                    if(elem.startDate)
-                        elem.startDate = apiDateToDateInput(elem.startDate);//getDateFromIsoString(elem.startDate);
-                    if(elem.endDate)
-                        elem.endDate = apiDateToDateInput(elem.endDate);//getDateFromIsoString(elem.endDate);
-                    return elem;
-                }):[]}
-                formTools={formTools}
-                description={lang.scheduleFieldDescription}
-            />
+            <SingleInfo
+                title={lang.schedule}
+                cardLayout
+            >     
+                <UpdateSchedule
+                    name="schedule"
+                    minDate={currentEventDateTime.startDate}
+                    maxDate={currentEventDateTime.endDate}
+                    minTime={currentEventDateTime.startTime}
+                    maxTime={currentEventDateTime.endTime}
+                    schedule={schedule?.length > 0 ? schedule.map( (elem, ind, arr) => {
+                        if(elem.startDate)
+                            elem.startDate = apiDateToDateInput(elem.startDate);//getDateFromIsoString(elem.startDate);
+                        if(elem.endDate)
+                            elem.endDate = apiDateToDateInput(elem.endDate);//getDateFromIsoString(elem.endDate);
+                        return elem;
+                    }):[]}
+                    formTools={formTools}
+                    description={lang.scheduleFieldDescription}
+                />
+            </SingleInfo>
 
             {/* subEvents */}
-            <Select2
-                name="subEvents"
-                className="my-2"
-                label={lang.subEvents}
-                formTools={formTools}
-                creatable={true}
-                modalType={TYPE_EVENT}
-                isMulti={true}
-                fetch={"/events/list"}
-                requestData={ _id ? {_id:"ne:"+_id} : {}}
-                searchField={"name"}
-                selectField={"name"}
-            />
-            {/* attendees */}
-            <Select2
-                name="attendees"
-                className="my-2"
-                label={lang.attendees}
-                formTools={formTools}
-                creatable={false}
-                isMulti={true}
-                fetch={"/persons/list"}
-                searchField={"firstName"}
-                selectField={"fullname"}
-            />
+            <SingleInfo 
+                title={lang.subEvents}
+                cardLayout
+            >
+                <Select2
+                    name="subEvents"
+                    className="my-2"
+                    formTools={formTools}
+                    creatable={true}
+                    modalType={TYPE_EVENT}
+                    isMulti={true}
+                    fetch={"/events/list"}
+                    requestData={ _id ? {_id:"ne:"+_id} : {}}
+                    searchField={"name"}
+                    selectField={"name"}
+                />
+            </SingleInfo>
 
             {/* team */}
-            <UpdateTeams
-                name="team"
-                formTools={formTools}
-                parentEntity={data}
-                label="Éditez vos membre d'équipe"
-            />
+            <SingleInfo
+                title={lang.teamMembers}
+                cardLayout
+            >
+                <UpdateTeams
+                    name="team"
+                    formTools={formTools}
+                    parentEntity={data}
+                    label="Éditez vos membre d'équipe"
+                />
+            </SingleInfo>
+
+            {/* attendees */}
+            <SingleInfo 
+                title={lang.attendees}
+                cardLayout
+            >
+                {/* attendees */}
+                <Select2
+                    name="attendees"
+                    className="my-2"
+                    formTools={formTools}
+                    creatable={false}
+                    isMulti={true}
+                    fetch={"/persons/list"}
+                    searchField={"firstName"}
+                    selectField={"fullname"}
+                />
+            </SingleInfo>
             
         </>
     )
@@ -545,72 +564,134 @@ const EventSingleEdit = ({data}, ...props) => {
             <SingleInfo
                 title={"Informations supplémentaires"}
                 className="py-3"
+                cardLayout
             >
                 {/* skills */}
-                <Select2
-                    name="skills"
-                    label={lang.eventSkills}
-                    formTools={formTools}
-                    creatable={true}
-                    modalType={TYPE_TAXONOMY}
-                    isMulti={true}
-                    requestData={{name:""}}
-                    fetch={"/taxonomies/group/skills"}
-                    //requestData={}
-                    searchField={"name"}
-                    selectField={"name"}
-                />
+                <SingleInfo 
+                    title={lang.eventSkills}
+                    isSubtitle
+                >
+                    <Select2
+                        name="skills"
+                        formTools={formTools}
+                        creatable={true}
+                        modalType={TYPE_TAXONOMY}
+                        isMulti={true}
+                        requestData={{name:""}}
+                        fetch={"/taxonomies/group/skills"}
+                        //requestData={}
+                        searchField={"name"}
+                        selectField={"name"}
+                    />
+                </SingleInfo>
+
                 {/* domains */}
-                <Select2
-                    name="domains"
-                    label={lang.Domains}
-                    formTools={formTools}
-                    creatable={true}
-                    modalType={TYPE_TAXONOMY}
-                    isMulti={true}
-                    fetch={"/taxonomies/list"}
-                    requestData={{category:"domains", name:""}}
-                    searchField={"name"}
-                    selectField={"domains"}
-                />
+                <SingleInfo 
+                    title={lang.domainsSingleLabel} 
+                    isSubtitle
+                >
+                    <Select2
+                        name="domains"
+                        formTools={formTools}
+                        creatable={true}
+                        modalType={TYPE_TAXONOMY}
+                        isMulti={true}
+                        fetch={"/taxonomies/list"}
+                        requestData={{category:"domains", name:""}}
+                        searchField={"name"}
+                        selectField={"domains"}
+                    />
+                </SingleInfo>
+                
                 {/* Url */}
-                <Input
-                    name="url"
-                    label={lang.hyperlink}
-                    type="url"
-                    className="mb-3"
-                    pattern="^https?:\/\/[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$"
-                    placeholder="Une url avec le https, exemple : https://siteWeb.com"
-                    formTools={formTools}
-                />
+                <SingleInfo 
+                    title={lang.hyperlink}
+                    isSubtitle
+                >
+                    <Input
+                        name="url"
+                        type="url"
+                        pattern="^https?:\/\/[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$"
+                        placeholder="Une url avec le https, exemple : https://siteWeb.com"
+                        formTools={formTools}
+                    />
+                </SingleInfo>
+
                 {/* contactPoint */}
-                <Input
-                    className="mb-3"
-                    name="contactPoint"
-                    label={lang.projectContactPointLabel}
-                    tip={{
+                <SingleInfo 
+                    title={lang.projectContactPointLabel}
+                    isSubtitle
+                    tooltip={{
                         header: lang.projectContactPointTipTitle,
                         body: lang.projectContactPointTipContent
                     }}
-                    placeholder={lang.projectContactPointPlaceholder}
-                    formTools={formTools}
-                />
-                {/* photoGallery */}
+                >
+                    <Input
+                        name="contactPoint"
+                        placeholder={lang.projectContactPointPlaceholder}
+                        formTools={formTools}
+                    />
+                </SingleInfo>
+
+
+                {/*eventType */}
+                <SingleInfo 
+                        isSubtitle 
+                        title={lang.selectEventType}
+                    >
+                    <Select2
+                        name="eventType"
+                        formTools={formTools}
+                        creatable={false}
+                        isMulti={true}
+                        fetch={"/taxonomies/list"}
+                        requestData={{category: "eventType", name:""}}
+                        searchField={"name"}
+                        selectField={"name"}
+                    />
+                </SingleInfo>
+
+                {/* eventFormat */}
+                <SingleInfo 
+                    isSubtitle 
+                    title={lang.eventFormat}
+                >
+                    <SelectFetch 
+                        name="eventFormat"
+                        formTools={formTools}
+                        noValueText={lang.noSelectedOption}
+                        fetchOption="eventformat-enum"
+                    />
+                </SingleInfo>
+                {/* photoGallery 
                 <CreatePhotoGallery
                     entity={model}
                 />
+                */}
                 </SingleInfo>
         </>
     )
 
-    const footer = (
+    {/*********** Footer section ***********/}
+    const Footer = (
         <>
             {
                 (createdAt || updatedAt || meta) &&
-                <SingleEntityMeta createdAt={createdAt} updatedAt={updatedAt} meta={meta} />
+                <SingleInfo 
+                    title={lang.entityMetadata} 
+                    className="border-top pt-3"
+                >
+                    {/*********** Entity data ***********/}
+                    <SingleEntityMeta createdAt={createdAt} updatedAt={updatedAt} meta={meta} />
+                </SingleInfo>
             }
         </>
-    );
+    )
+
+    {/*********** Submit section ***********/}
+    const SinglePageBottom = (
+        <SubmitEntity submitHandler={submitHandler} formState={formState} />
+    )
 
     return (
         <>
@@ -620,10 +701,10 @@ const EventSingleEdit = ({data}, ...props) => {
                 fullWidthContent={fullWidthContent}
                 contentColumnLeft={contentColumnLeft}
                 contentColumnRight={contentColumnRight}
-                footer={footer}
+                footer={Footer}
+                singlePageBottom={SinglePageBottom}
             />
 
-            <SubmitEntity submitHandler={submitHandler} formState={formState} />
         </>
     )
 }

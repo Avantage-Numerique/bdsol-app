@@ -148,6 +148,7 @@ $theme-colors:(
     "dark-light": lighten($dark, 15%),
     "dark-lighter": lighten($dark, 30%),
     "black": $black,
+    'mild-dark': $mild-dark,
     "white": white,
     //SPECIFIC TO COMPONENTS
     "general-tag":$primary_2,
