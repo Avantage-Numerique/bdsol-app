@@ -9,11 +9,9 @@ import Button from "@/src/common/FormElements/Button/Button";
 import {clientSideExternalApiRequest} from "@/src/hooks/http-hook";
 import EntitiesGrid from "@/src/DataTypes/Entity/layouts/EntitiesGrid";
 import Icon from "@/src/common/widgets/Icon/Icon";
-//import Pagination from "@/src/common/Components/Pagination";
 
 
-
-const ConsultData = () => {
+const ConsultDataTest = () => {
 
     const [entityList, setEntityList] = useState([]);
     const [filterState, setFilterState] = useState("all");//For multi choice, it need to be an array at first render
@@ -59,7 +57,7 @@ const ConsultData = () => {
         }
     ) */
     const getListResponses = () => {
-        if(filterState === "all")
+        if(filterState == "all")
             return clientSideExternalApiRequest("/search/?searchIndex=", { method: 'GET'});
         else
             return clientSideExternalApiRequest("/search/type", { method: 'POST', body: JSON.stringify({data : {type: filterState, skip:skipNumber}})});
@@ -89,8 +87,8 @@ const ConsultData = () => {
                         <div className="d-flex flex-wrap justify-content-center">
                             <Button
                                 className="mx-2 rounded flex-grow-1"
-                                color={filterState === "all" ? "secondary" : null}
-                                outline={filterState === "all" ? null : "secondary"}
+                                color={filterState == "all" ? "secondary" : null}
+                                outline={filterState == "all" ? null : "secondary"}
                                 text_color_over="dark"
                                 onClick={() => setFilterState("all")}
                                 id="filter-btn-all"
@@ -98,47 +96,47 @@ const ConsultData = () => {
                                 Tous les types
                             </Button>
                             <Button className="mx-2 rounded flex-grow-1"
-                                color={filterState === "Person" ? "secondary" : null}
-                                outline={filterState === "Person" ? null : "secondary"}
-                                text_color_over="dark"
-                                onClick={() => setFilterState("Person")}
-                                id="filter-btn-person"
+                                    color={filterState == "Person" ? "secondary" : null}
+                                    outline={filterState == "Person" ? null : "secondary"}
+                                    text_color_over="dark"
+                                    onClick={() => setFilterState("Person")}
+                                    id="filter-btn-person"
                             >
                                 Personnes
                             </Button>
                             <Button className="mx-2 rounded flex-grow-1"
-                                color={filterState === "Organisation" ? "secondary" : null}
-                                outline={filterState === "Organisation" ? null : "secondary"}
-                                text_color_over="dark"
-                                onClick={() => setFilterState("Organisation")}
-                                id="filter-btn-organisation"
+                                    color={filterState == "Organisation" ? "secondary" : null}
+                                    outline={filterState == "Organisation" ? null : "secondary"}
+                                    text_color_over="dark"
+                                    onClick={() => setFilterState("Organisation")}
+                                    id="filter-btn-organisation"
                             >
                                 Organisations
                             </Button>
                             <Button className="mx-2 rounded flex-grow-1"
-                                color={filterState === "Project" ? "secondary" : null}
-                                outline={filterState === "Project" ? null : "secondary"}
-                                text_color_over="dark"
-                                onClick={() => setFilterState("Project")}
-                                id="filter-btn-project"
+                                    color={filterState == "Project" ? "secondary" : null}
+                                    outline={filterState == "Project" ? null : "secondary"}
+                                    text_color_over="dark"
+                                    onClick={() => setFilterState("Project")}
+                                    id="filter-btn-project"
                             >
                                 Projets
                             </Button>
                             <Button className="mx-2 rounded flex-grow-1"
-                                color={filterState === "Event" ? "secondary" : null}
-                                outline={filterState === "Event" ? null : "secondary"}
-                                text_color_over="dark"
-                                onClick={() => setFilterState("Event")}
-                                id="filter-btn-event"
+                                    color={filterState == "Event" ? "secondary" : null}
+                                    outline={filterState == "Event" ? null : "secondary"}
+                                    text_color_over="dark"
+                                    onClick={() => setFilterState("Event")}
+                                    id="filter-btn-event"
                             >
                                 Événements
                             </Button>
                             <Button className="mx-2 rounded flex-grow-1"
-                                color={filterState === "Equipment" ? "secondary" : null}
-                                outline={filterState === "Equipment" ? null : "secondary"}
-                                text_color_over="dark"
-                                onClick={() => setFilterState("Equipment")}
-                                id="filter-btn-equipment"
+                                    color={filterState == "Equipment" ? "secondary" : null}
+                                    outline={filterState == "Equipment" ? null : "secondary"}
+                                    text_color_over="dark"
+                                    onClick={() => setFilterState("Equipment")}
+                                    id="filter-btn-equipment"
                             >
                                 Équipements
                             </Button>
@@ -159,7 +157,7 @@ const ConsultData = () => {
                                     formTools={formTools}
                                     creatable={false}
                                     isMulti={true}
-                                    
+
                                     fetch={"/taxonomies/list"}
                                     requestData={{ category: "domains" }}
                                     searchField={"name"}
@@ -173,7 +171,7 @@ const ConsultData = () => {
                                     formTools={formTools}
                                     creatable={false}
                                     isMulti={true}
-                                    
+
                                     fetch={"/taxonomies/list"}
                                     requestData={{ category: "technologies" }}
                                     searchField={"name"}
@@ -187,7 +185,7 @@ const ConsultData = () => {
                                     formTools={formTools}
                                     creatable={false}
                                     isMulti={true}
-                                    
+
                                     fetch={"/taxonomies/list"}
                                     requestData={{ category: "skills" }}
                                     searchField={"name"}
@@ -198,7 +196,7 @@ const ConsultData = () => {
                         {/* <div>
                             <Button disabled={!showApplyBtn} onClick={sendApiListRequest}>{lang.apply}</Button>
                         </div> */}
-                    {/*</div>
+                {/*</div>
                 </section>*/}
             </section>
             {/*<Pagination
@@ -207,17 +205,17 @@ const ConsultData = () => {
                 reset={resetPagination}
                 setSkipNumber={setSkipNumber}
             >*/}
-                <div className="py-4">
-                    {/* Entities list section */}
-                    {
-                        entityList?.length > 0 ?
+            <div className="py-4">
+                {/* Entities list section */}
+                {
+                    entityList?.length > 0 ?
                         <EntitiesGrid className={"row"} columnClass={"col g-3 col-md-4"} feed={entityList.filter(el => el.type !== "Taxonomy")}></EntitiesGrid>
                         :
                         <div>Aucune entité, peut-être que notre petit canard fait une sieste.</div>
-                    }
-                </div>
+                }
+            </div>
             {/*</Pagination>*/}
         </div>
     )
 }
-export default ConsultData
+export default ConsultDataTest
