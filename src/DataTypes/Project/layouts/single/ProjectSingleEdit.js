@@ -35,6 +35,7 @@ import Icon from "@/common/widgets/Icon/Icon";
 import MainImageDisplay from "@/DataTypes/common/layouts/single/defaultSections/MainImageDisplay/MainImageDisplay";
 import {TYPE_TAXONOMY, TYPE_EQUIPMENT} from '@/src/DataTypes/Entity/Types';
 import SubmitEntity from "@/DataTypes/common/Forms/SingleEdit/SubmitEntity";
+import UpdateSocialHandles from '@/src/DataTypes/common/Forms/UpdateSocialHandles/UpdateSocialHandles';
 
 const ProjectSingleEdit = (props) => {
 
@@ -128,7 +129,7 @@ const ProjectSingleEdit = (props) => {
                 isValid: true
             },
             url: {
-                value: url ?? "",
+                value: url ?? [],
                 isValid: true
             },
             contactPoint: {
@@ -255,7 +256,13 @@ const ProjectSingleEdit = (props) => {
                     })
                     : [],
                 contactPoint: formState.inputs.contactPoint.value,
-                url: formState.inputs.url.value,
+                url: formState.inputs.url.value.map(function(singleUrl){
+                    return {
+                        label: singleUrl.value.label.value,
+                        url: singleUrl.value.url.value,
+                        subMeta: { order : singleUrl.order }
+                    }
+                }),
                 meta: getDefaultUpdateEntityMeta(auth.user, model.meta.requestedBy),
             }
         }
@@ -469,13 +476,10 @@ const ProjectSingleEdit = (props) => {
         <>
             { /* location */}
             { /* Url */}
-            <Input
+            <UpdateSocialHandles
                 name="url"
-                label="Hyperlien"
-                type="url"
-                className="mb-3"
-                //pattern="^https?:\/\/[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$"
-                placeholder="exemple : https://siteWeb.com"
+                label={lang.url}
+                parentEntity={model}
                 formTools={formTools}
             />
             <>

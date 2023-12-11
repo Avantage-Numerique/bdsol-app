@@ -8,7 +8,7 @@ import EntitiesTagGrid from "@/src/DataTypes/Entity/layouts/EntitiesTagGrid";
 import SearchTag from "@/src/common/Components/SearchTag";
 import {ExternalLink} from "@/src/common/Components/ExternalLink";
 import SingleBaseProgressBar from '@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseProgressBar/SingleBaseProgressBar'
-
+import SocialHandleDisplay from '@/src/DataTypes/common/layouts/SocialHandlesViews/SocialHandleDisplay'
 //Utils
 import Head from "next/head";
 import SanitizedInnerHtml from '@/src/utils/SanitizedInnerHtml';
@@ -60,8 +60,6 @@ const EventSingleView = ({data}) => {
     } = data
 
     const model = new Event(data);
-    const sectionClassSpacing = appConfig.spacing.singleSectionSpacingClass;
-
     const [formatEnumState, setFormatEnumState] = useState(undefined);
 
     /******* Sorted lists ********/
@@ -119,7 +117,6 @@ const EventSingleView = ({data}) => {
         <div>
             <div className="row">
                 <div className="col col-md-6">   
-                    {/* location */}
                     <SingleInfo 
                         title="Entités responsables"
                     >
@@ -256,9 +253,13 @@ const EventSingleView = ({data}) => {
                     title={lang.hyperlink}
                     isSubtitle
                 >
-                    <ExternalLink className="text-break fs-6" href={url} title={`${model.title}`}>
-                        {url}
-                    </ExternalLink>
+                    {model?.url && 
+                    <SocialHandleDisplay 
+                        title={lang.url} 
+                        url={model?.url}
+                        className={`${appConfig.spacing.singleSectionSpacingClass}`}
+                    />
+                    }
                 </SingleInfo>
                 
                 {/* contactPoint */}

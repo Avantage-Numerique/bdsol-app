@@ -5,6 +5,9 @@ import SingleBaseHeader from "@/src/DataTypes/common/layouts/single/defaultSecti
 import SingleBase from "@/src/DataTypes/common/layouts/single/SingleBase"
 import SingleInfo from "@/DataTypes/common/layouts/SingleInfo/SingleInfo";
 import SearchTag from '@/src/common/Components/SearchTag';
+import SocialHandleDisplay from '@/src/DataTypes/common/layouts/SocialHandlesViews/SocialHandleDisplay';
+import EntitiesTagGrid from "@/DataTypes/Entity/layouts/EntitiesTagGrid";
+import EntityLink from "@/DataTypes/Entity/layouts/EntityLink";
 
 //Utils
 import SanitizedInnerHtml from '@/src/utils/SanitizedInnerHtml';
@@ -13,9 +16,6 @@ import {getDateFromIsoString} from "@/src/utils/DateHelper";
 import Project from "@/DataTypes/Project/models/Project";
 import {lang} from "@/common/Data/GlobalConstants";
 import {clientSideExternalApiRequest} from "@/src/hooks/http-hook";
-import EntitiesTagGrid from "@/DataTypes/Entity/layouts/EntitiesTagGrid";
-import {ExternalLink} from "@/common/Components/ExternalLink";
-import EntityLink from "@/DataTypes/Entity/layouts/EntityLink";
 
 //styling 
 import styles from "./ProjectSingleView.module.scss"
@@ -202,11 +202,12 @@ const ProjectSingleView = ({ data }) => {
                 </SingleInfo>
             }
 
-            {url &&
-                <SingleInfo title={lang.projectLink} className={`${sectionClassSpacing}`}>
-                    <ExternalLink href={url}>{url}</ExternalLink>
-                </SingleInfo>
-            }
+            {/*url*/}
+            <SocialHandleDisplay 
+                title={lang.url} 
+                url={model?.url}
+                className={`${appConfig.spacing.singleSectionSpacingClass}`}
+            />
         </>
     )
 

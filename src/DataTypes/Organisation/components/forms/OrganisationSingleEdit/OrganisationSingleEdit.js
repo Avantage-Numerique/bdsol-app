@@ -25,6 +25,7 @@ import {SingleEntityMeta} from '@/src/DataTypes/Meta/components/SingleEntityMeta
 import UpdateSkillGroup from '@/src/DataTypes/common/Forms/UpdateSkillGroup/UpdateSkillGroup';
 import UpdateTeams from '../UpdateTeams/UpdateTeams';
 import SelectEquipment from '@/src/DataTypes/Equipment/components/layouts/SelectEquipment/SelectEquipment';
+import UpdateSocialHandles from '@/src/DataTypes/common/Forms/UpdateSocialHandles/UpdateSocialHandles';
 
 //Utils
 import Organisation from '@/src/DataTypes/Organisation/models/Organisation';
@@ -125,7 +126,7 @@ const OrganisationSingleEdit = (props) => {
             isValid: true
         },
         url: {
-            value: url ?? '',
+            value: url ?? [],
             isValid: true
         },
         contactPoint: {
@@ -178,7 +179,13 @@ const OrganisationSingleEdit = (props) => {
                 id: _id,
                 name: formState.inputs.name.value,
                 description:  formState.inputs.description.value,
-                url: formState.inputs.url.value,
+                url: formState.inputs.url.value.map(function(singleUrl){
+                    return {
+                        label: singleUrl.value.label.value,
+                        url: singleUrl.value.url.value,
+                        subMeta: { order : singleUrl.order }
+                    }
+                }),
                 contactPoint: formState.inputs.contactPoint.value,
                 fondationDate: dateTimeStringToUTC(formState.inputs.fondationDate.value),
                 offers: formState.inputs.offers.value.map(function(singleOffer){
@@ -385,12 +392,10 @@ const OrganisationSingleEdit = (props) => {
                     type="date"
                     formTools={formTools}
                 />
-                <Input
+                <UpdateSocialHandles
                     name="url"
-                    label="Hyperlien"
-                    type="url"
-                    //pattern={inputUrlRegex}
-                    placeholder="exemple : https://www.siteWeb.com"
+                    label={lang.url}
+                    parentEntity={model}
                     formTools={formTools}
                 />
             </SingleInfo>

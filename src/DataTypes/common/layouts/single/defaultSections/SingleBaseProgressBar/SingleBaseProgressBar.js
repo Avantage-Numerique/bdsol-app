@@ -48,21 +48,15 @@ const SingleBaseProgressBar = props => {
                 //Use specific validation
                 if(item.validationFunction(item.data)){
                     filled++;
-                    console.log("Index : ", i, " + Positive")
                 } else {
                     empty++;
-                    console.log("Index : ", i, " + Negative")
                 }
             } else {
                 //Use regular validation
                 if(isValueFilled(item.data)){
                     filled++;
-                    console.log("Index : ", i, " + Positive")
-
                 } else {
                     empty++;
-                    console.log("Index : ", i, " + Negative")
-
                 }
             }
         });
