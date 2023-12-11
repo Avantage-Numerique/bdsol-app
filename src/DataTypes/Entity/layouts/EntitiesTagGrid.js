@@ -44,8 +44,11 @@ const EntitiesTagGrid = ({feed, className, columnClass, subEntityProperty, subBa
         return prefix + model.type + sep + (model._id ?? "") + sep + model.slug + index;
     });
 
+    //Using this instead of pt-3 because it is impossible to overide a pt-3 with something smaller passed in the className
+    const style = {paddingTop: "1rem"}
+
     return (
-        <ContainerTag className={`row pt-3 ${className ?? ""}`}>
+        <ContainerTag style={style} className={`row ${className ?? ""}`}>
             {
                 (Array.isArray(feed) && feedLength > 0) ?
                     feed.map((entity, index) => {
@@ -74,9 +77,7 @@ const EntitiesTagGrid = ({feed, className, columnClass, subEntityProperty, subBa
 
                     })
                 :
-                    <p className={"py-4"}>
-                        {noneMessage}
-                    </p>
+                <p className={"py-4"}> {noneMessage} </p>
             }
         </ContainerTag>
     )

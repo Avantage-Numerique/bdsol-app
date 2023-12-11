@@ -1,5 +1,3 @@
-
-
 const DateTag = (props) => {
     const {
         value,

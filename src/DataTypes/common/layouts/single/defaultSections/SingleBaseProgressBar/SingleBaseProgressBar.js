@@ -43,7 +43,7 @@ const SingleBaseProgressBar = props => {
         let filled = 0;
         let empty = 0;
         //Loop through the values
-        listOfItem.forEach(item => {
+        listOfItem.forEach((item, i) => {
             if(item.validationFunction){
                 //Use specific validation
                 if(item.validationFunction(item.data)){

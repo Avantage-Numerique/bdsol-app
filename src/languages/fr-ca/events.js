@@ -18,6 +18,8 @@ const events = {
     "schedule":"Horaire",
     "startDate": "Date de début",
     "startTime": "Heure de début",
+    "date": "Date",
+    "hour": "Heure",
     "endDate": "Date de fin",
     "endTime": "Heure de fin",
     "subEvents": "Sous-Événements",

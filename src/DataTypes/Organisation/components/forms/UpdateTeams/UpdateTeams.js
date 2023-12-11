@@ -26,7 +26,8 @@ const UpdateTeams = ({name, formTools, parentEntity, ...props}) => {
     return (
         <div className='px-4 border-start'>
             <Repeater
-                className="bg-greyBg"
+                className="bg-white"
+                sortable
                 formTools={formTools}
                 name={name}
                 formInitStructure={{
@@ -40,9 +41,8 @@ const UpdateTeams = ({name, formTools, parentEntity, ...props}) => {
                     }
                 }}
                 initValues={parentEntity.team}
-                sortable
             >
-                <div className={`${styles["team-member-row"]} d-flex align-items-center gap-3 mb-2 border-b py-2 bg-greyBg rounded-1`}>
+                <div className={`${styles["team-member-row"]} d-flex align-items-center gap-3 mb-2 border-b py-2`}>
                     <div className="col align-items-center row">
                         <div className="col-12 col-md-6">
                             <Select2

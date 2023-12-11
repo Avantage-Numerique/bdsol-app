@@ -17,6 +17,8 @@ const events = {
     "eventFormat": "Event format",
     "schedule":"Schedule",
     "startDate": "Launch date",
+    "date": "Date",
+    "hour": "Hour",
     "startTime": "Starts at",
     "endDate": "End date",
     "endTime": "Ends at",

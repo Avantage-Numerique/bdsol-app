@@ -4,6 +4,7 @@ import Format from "@/common/DateManager/Format";
 import {frCA} from 'date-fns/locale'
 
 import {DateTag} from "@/common/DateManager/DateTag";
+
 import {lang} from "@/common/Data/GlobalConstants";
 import compareAsc from "date-fns/compareAsc";
 import {formatDate, setDateTime} from "@/src/helpers/dates";
@@ -89,10 +90,9 @@ export const dateManager = (time1, time2 = null) => {
         );
     }
 
-
     //Simple tag that contains the time and hour
 
-    const TimeIntervalSentence = ({tag, className="", showDay=true, withPreposition=true}) => {
+    const TimeIntervalSentence = ({tag, className="", showDay=true, showHour=true, withPreposition=true}) => {
         //Define the tag surrounding
         const Tag = tag ?? 'p';
         const wp = withPreposition; //Shorter variable for easier reading
@@ -131,8 +131,10 @@ export const dateManager = (time1, time2 = null) => {
                     <>
                         {wp && lang.capitalize("from")} 
                         <TimeTag date={time.startTime} format={lang.humanDateMonthFormat} /> 
+                        {showHour && (<TimeTag date={time.startTime} format={lang.hourMinuteFormat} />)}
                         {wp ? ` ${lang.to}` : " -"}&nbsp;
                         <TimeTag date={time.endTime} format={lang.humanDateMonthFormat} /> 
+                        {showHour && (<TimeTag date={time.endTime} format={lang.hourMinuteFormat} />)}
                         ({formatDate(time.startTime, lang.yearFormat)})
                     </>
                 }
@@ -162,6 +164,6 @@ export const dateManager = (time1, time2 = null) => {
         formatDate,
         time,
         TimeTag,
-        TimeIntervalSentence: TimeIntervalSentence
+        TimeIntervalSentence: TimeIntervalSentence,
     }
 }

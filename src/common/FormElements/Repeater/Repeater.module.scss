@@ -1,5 +1,5 @@
 .repeater {
-    //overflow: hidden;
+
     //Button to drag
     .dragging-button{
 
@@ -9,6 +9,9 @@
         @include transition();
     }
 
+    .box-shadow {
+        box-shadow: $default-box-shadow;
+    }
     //Styling to make sure that the dropdown of any Select2 component is displayed in front of the siblings
     .repeatable:focus-within {
         position:relative; 

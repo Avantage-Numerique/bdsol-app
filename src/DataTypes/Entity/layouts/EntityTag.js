@@ -62,7 +62,7 @@ const EntityTag = (props) => {
                                     icon={type.modelClass.icon}
                                 />
                                 {model.title &&
-                                    <p className="m-0 p-2 pb-0 fw-semibold">
+                                    <p className="m-0 p-2 lh-1 pb-0 fw-semibold">
                                         {model.title}
                                     </p>
                                 }
