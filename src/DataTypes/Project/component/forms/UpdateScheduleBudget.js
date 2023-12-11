@@ -28,10 +28,9 @@ const UpdateScheduleBudget = ({name, formTools, ...props}) => {
         <>
             <SingleInfo
                 title={props.label}
-                className="py-3"
+                cardLayout
             >
                 <div className="d-flex">
-                    <div className="ps-4 border-start"></div>
                     <div className="w-100 row">
                         <Input
                             className="col-12 col-md-6"
@@ -76,7 +75,7 @@ const UpdateScheduleBudget = ({name, formTools, ...props}) => {
                                 formTools={formTools}
                                 name="timeframe"
                                 sortable
-                                className="bg-greyBg"
+                                className="bg-white"
                                 formInitStructure={{
                                     step: {
                                         value: "",
@@ -93,7 +92,7 @@ const UpdateScheduleBudget = ({name, formTools, ...props}) => {
                                 }}
                                 initValues={props.parentEntity?.scheduleBudget?.timeframe ?? []}
                             >
-                                <div className="my-2 bg-greyBg rounded-1">
+                                <div className="my-2">
                                     <section className="row my-2 align-items-end">
                                         <Input
                                             className="col-12 col-lg-4"
@@ -144,7 +143,6 @@ const UpdateScheduleBudget = ({name, formTools, ...props}) => {
                             </Repeater>
                         </SingleInfo>
                     </div>
-                    <div className="ps-4"></div>
                 </div>
             </SingleInfo>
         </>

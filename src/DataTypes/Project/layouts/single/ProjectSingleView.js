@@ -8,6 +8,7 @@ import SearchTag from '@/src/common/Components/SearchTag';
 import SocialHandleDisplay from '@/src/DataTypes/common/layouts/SocialHandlesViews/SocialHandleDisplay';
 import EntitiesTagGrid from "@/DataTypes/Entity/layouts/EntitiesTagGrid";
 import EntityLink from "@/DataTypes/Entity/layouts/EntityLink";
+import SingleBaseProgressBar from '@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseProgressBar/SingleBaseProgressBar'
 
 //Utils
 import SanitizedInnerHtml from '@/src/utils/SanitizedInnerHtml';
@@ -16,6 +17,8 @@ import {getDateFromIsoString} from "@/src/utils/DateHelper";
 import Project from "@/DataTypes/Project/models/Project";
 import {lang} from "@/common/Data/GlobalConstants";
 import {clientSideExternalApiRequest} from "@/src/hooks/http-hook";
+import {removeTagsFromString} from '@/src/helpers/html'
+
 
 //styling 
 import styles from "./ProjectSingleView.module.scss"
@@ -125,148 +128,197 @@ const ProjectSingleView = ({ data }) => {
 
     const FullWidthContent = (
         <>
-            { description !== "" &&
-                <SingleInfo title={lang.projectDescription} className={`${sectionClassSpacing} mt-3`}>
+            <SingleInfo 
+                title={lang.organisationDescription} 
+                NAMessage="Aucune description n'est disponible pour le moment."
+            >
+                {
+                    removeTagsFromString(description) && 
                     <SanitizedInnerHtml>
                         {description}
                     </SanitizedInnerHtml>
-                </SingleInfo>
-            }
-            {sortedSponsors.length > 0 &&
-                <SingleInfo title={lang.projectPartners} className={`${sectionClassSpacing}`}>
-                    <EntitiesTagGrid feed={sortedSponsors} subEntityProperty={"entity"} subBadgeProperty={"name"} />
-                </SingleInfo>
-            }
+                }
+            </SingleInfo>
         </>
     );
 
     const ContentColumnLeft = (
         <>
-            {sortedTeam.length > 0 &&
-                <SingleInfo
+            {/* Partners */}
+            <SingleInfo 
+                title={lang.projectPartners} 
+                displayCondition={sortedSponsors.length > 0}
+                cardLayout
+            >
+                <EntitiesTagGrid feed={sortedSponsors} subEntityProperty={"entity"} subBadgeProperty={"name"} />
+            </SingleInfo>
+            
+            {/* Partners */}
+            <SingleInfo
                     title={lang.teamMembers}
-                    className={`${sectionClassSpacing}`}
-                >
-                    <EntitiesTagGrid feed={sortedTeam} subEntityProperty={"member"} subBadgeProperty={"role"} noneMessage={"Aucun membre de l'équipe spécifiés"} />
-                </SingleInfo>
-            }
-
-            { scheduleBudget && haveAValidValue(scheduleBudget) &&
-                <SingleInfo
-                    title={lang.timelineAndBudget}
-                    className={`${sectionClassSpacing}`}
-                >
-                    <section className={`ps-4 border-start  ${styles["budget"]}`}>
-                        <div className="container my-2">
-                            <div className="row">
-                                <BudgetCard title="Date de début" data={scheduleBudget?.startDate} />
-                                <BudgetCard title="Date estimée de fin" data={scheduleBudget?.endDateEstimate} />
-                                <BudgetCard title="Date de fin" data={scheduleBudget?.completionDate} />
-                                <BudgetCard title="Budget total" data={scheduleBudget?.estimatedTotalBudget} isDate={false} />
-                                <BudgetCard title="Temps avant la complétion" data={scheduleBudget?.eta} isDate={false} />
-                            </div>
+                    displayCondition={sortedTeam.length > 0}
+                    cardLayout
+            >
+                <EntitiesTagGrid feed={sortedTeam} subEntityProperty={"member"} subBadgeProperty={"role"} noneMessage={"Aucun membre de l'équipe spécifiés"} />
+            </SingleInfo>
+            
+            {/* schedule budget */}
+            <SingleInfo
+                title={lang.timelineAndBudget}
+                cardLayout
+                displayCondition={scheduleBudget && haveAValidValue(scheduleBudget)}
+            >
+                <section className={`${styles["budget"]}`}>
+                    <div className="container my-2">
+                        <div className="row">
+                            <BudgetCard title="Date de début" data={scheduleBudget?.startDate} />
+                            <BudgetCard title="Date estimée de fin" data={scheduleBudget?.endDateEstimate} />
+                            <BudgetCard title="Date de fin" data={scheduleBudget?.completionDate} />
+                            <BudgetCard title="Budget total" data={scheduleBudget?.estimatedTotalBudget} isDate={false} />
+                            <BudgetCard title="Temps avant la complétion" data={scheduleBudget?.eta} isDate={false} />
                         </div>
+                    </div>
 
-                        {scheduleBudget?.timeframe?.length > 0 && 
-                            <>
-                                <h5 className="mt-4 text-dark">{lang.projectsSteps}</h5>
-                                <ul 
-                                    key="timeframe-container" 
-                                    className={`container rounded overflow-hidden shadow-sm`}
-                                >
-                                    {/* Table's header */}
-                                    <BudgetStep header />
-                                    {
-                                        scheduleBudget.timeframe.map( (singleTimeframe, index) => {
-                                            return (
-                                                <BudgetStep 
-                                                    key={`timeframe-${singleTimeframe._id}`}
-                                                    index={index}
-                                                    step={singleTimeframe.step}
-                                                    duration= {allEnumState?.[singleTimeframe.eta] ?? singleTimeframe.eta}
-                                                    costs={allEnumState?.[singleTimeframe.budgetRange] ?? singleTimeframe.budgetRange}
-                                                />
-                                            )
-                                        })
-                                    }
-                                </ul>
-                            </>
-                        }
-                    </section>
-                </SingleInfo>
-            }
-
-            {equipment && 
-                <SingleInfo title={lang.Equipments} className={`${sectionClassSpacing}`}>
+                    {scheduleBudget?.timeframe?.length > 0 && 
+                        <>
+                            <h5 className="mt-4 text-dark">{lang.projectsSteps}</h5>
+                            <ul 
+                                key="timeframe-container" 
+                                className={`container rounded overflow-hidden shadow-sm`}
+                            >
+                                {/* Table's header */}
+                                <BudgetStep header />
+                                {
+                                    scheduleBudget.timeframe.map( (singleTimeframe, index) => {
+                                        return (
+                                            <BudgetStep 
+                                                key={`timeframe-${singleTimeframe._id}`}
+                                                index={index}
+                                                step={singleTimeframe.step}
+                                                duration= {allEnumState?.[singleTimeframe.eta] ?? singleTimeframe.eta}
+                                                costs={allEnumState?.[singleTimeframe.budgetRange] ?? singleTimeframe.budgetRange}
+                                            />
+                                        )
+                                    })
+                                }
+                            </ul>
+                        </>
+                    }
+                </section>
+            </SingleInfo>
+            
+            {/* Equipments */}
+            <SingleInfo 
+                title={lang.Equipments} 
+                cardLayout
+            >
+                {equipment && 
                     <EntitiesTagGrid feed={equipment} noneMessage={""} />
-                </SingleInfo>
-            }
+                }
+            </SingleInfo>
 
-            {/*url*/}
-            <SocialHandleDisplay 
-                title={lang.url} 
-                url={model?.url}
-                className={`${appConfig.spacing.singleSectionSpacingClass}`}
-            />
         </>
     )
 
     const ContentColumnRight = (
-        <>
+        <SingleInfo
+            title="Informations supplémentaires"
+            cardLayout
+        >
             {context !== "" &&
                 <SingleInfo
                     title={lang.projectContext}
-                    className={`${sectionClassSpacing}`}
+                    isSubtitle
                 >
                     {allEnumState?.[context] ?? context}
                 </SingleInfo>
             }
 
-            { skills?.length > 0 &&
-                <SingleInfo
-                    title={lang.projectSkills}
-                    className={`${sectionClassSpacing}`}
+            {/* Skills */}
+            <SingleInfo
+                title={lang.projectSkills}
+                displayCondition={skills?.length > 0}
+                isSubtitle
+            >
+                <SearchTag list={skills} />
+            </SingleInfo>
+            
+            {/* Domains */}
+            <SingleInfo 
+                title={lang.domainsSingleLabel} 
+                displayCondition={domains?.length > 0}
+                isSubtitle
+            >
+                <SearchTag
+                    list={domains}
+                    listProperty={"domain"}
+                />
+            </SingleInfo>
+            
+            {/* Contact */}            
+            <SingleInfo
+                title={lang.projectContact}
+                isSubtitle                
+            >
+                { contactPoint &&
+                <SanitizedInnerHtml>
+                    {contactPoint}
+                </SanitizedInnerHtml>
+                }
+            </SingleInfo>
+            
+            {/*url*/}
+            <SingleInfo 
+                title={lang.url} 
+                isSubtitle
+            >
+                <SocialHandleDisplay 
+                    //title={lang.url} 
+                    url={model?.url}
+                    className={`${appConfig.spacing.singleSectionSpacingClass}`}
+                />
+            </SingleInfo>
+        </SingleInfo>
+    )
+
+    {/*********** Footer section ***********/}
+    const Footer = (
+        <>
+            {
+                (createdAt || updatedAt || meta) &&
+                <SingleInfo 
+                    title={lang.entityMetadata} 
+                    className="border-top pt-3"
                 >
-                    <>
-                        <SearchTag
-                            list={skills}
-                        />
-                    </>
-                </SingleInfo>
-            }
-
-            { domains?.length > 0 &&
-                <SingleInfo title={lang.domainsSingleLabel} className={`${sectionClassSpacing}`}>
-                    <SearchTag
-                        list={domains}
-                        listProperty={"domain"}
-                    />
-                </SingleInfo>
-            }
-
-            { contactPoint &&
-                <SingleInfo
-                    title={lang.projectContact}
-                    className={`${sectionClassSpacing}`}>
-                    <SanitizedInnerHtml>
-                        {contactPoint}
-                    </SanitizedInnerHtml>
+                    {/*********** Entity data ***********/}
+                    <SingleEntityMeta createdAt={createdAt} updatedAt={updatedAt} meta={meta} />
                 </SingleInfo>
             }
         </>
     )
 
-    const Footer = (
-        <>
-            {
-                (createdAt || updatedAt || meta) &&
-                <SingleEntityMeta
-                    createdAt={createdAt} 
-                    updatedAt={updatedAt} 
-                    meta={meta} 
-                />
-            }
-        </>
+    {/*********** Bottom section ***********/}
+    const SinglePageBottom = (
+        <SingleBaseProgressBar 
+            dataList={[
+                {data: model.title},
+                {data: alternateName},
+                {data: entityInCharge},
+                {data: producer},
+                {data: description, validationFunction: (value => removeTagsFromString(value) ? true : false)},
+                {data: sortedSponsors},
+                {data: sortedTeam},
+                {data: scheduleBudget, validationFunction: ((value) => value && haveAValidValue(value))},
+                {data: equipment},
+                {data: context},
+                {data: skills},
+                {data: domains},
+                {data: contactPoint},
+                {data: model?.url}
+            ]}
+            buttonText={lang.contributeButtonLabel}
+            buttonLink={model.singleEditLink}
+        />
     )
 
     return (
@@ -278,6 +330,7 @@ const ProjectSingleView = ({ data }) => {
                 contentColumnLeft={ContentColumnLeft}
                 contentColumnRight={ContentColumnRight}
                 footer={Footer}
+                singlePageBottom={SinglePageBottom}
                 model={model}
             />
         </>

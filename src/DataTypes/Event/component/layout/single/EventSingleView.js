@@ -20,6 +20,7 @@ import DisplaySchedule from "../../Forms/Schedule/DisplaySchedule";
 import {removeTagsFromString} from '@/src/helpers/html'
 
 
+
 //Hooks
 import {dateManager} from '@/common/DateManager/DateManager'
 import {clientSideExternalApiRequest} from "@/src/hooks/http-hook";
@@ -163,12 +164,17 @@ const EventSingleView = ({data}) => {
                 </div>
             </div>
             <div className="row mt-4">
-                {
-                    description && description !== "" &&
-                    <SingleInfo title={lang.description} className={"col"}>
-                        <SanitizedInnerHtml>{description}</SanitizedInnerHtml>
-                    </SingleInfo>
-                }
+                <SingleInfo 
+                    title={lang.organisationDescription} 
+                    NAMessage="Aucune description n'est disponible pour le moment."
+                >
+                    {
+                        removeTagsFromString(description) && 
+                        <SanitizedInnerHtml>
+                            {description}
+                        </SanitizedInnerHtml>
+                    }
+                </SingleInfo>
             </div>
         </div>
     )

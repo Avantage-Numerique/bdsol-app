@@ -366,14 +366,18 @@ const ProjectSingleEdit = (props) => {
     );
 
     const fullWidthContent = (
+            <SingleInfo
+                title="Description"
+            >
+                <RichTextarea
+                    name="description"
+                    formTools={formTools}
+                />
+            </SingleInfo>
+    );
+
+    const contentColumnLeft = (
         <>
-            {/* Description */}
-            <RichTextarea
-                className="mb-3"
-                name="description"
-                label="Description"
-                formTools={formTools}
-            />
             {/* Sponsor */}
             <UpdateSponsor
                 name="sponsor"
@@ -381,17 +385,18 @@ const ProjectSingleEdit = (props) => {
                 formTools={formTools}
                 parentEntity={props.data}
             />
-        </>
-    );
-    const contentColumnLeft = (
-        <>
             { /* team */ }
-            <UpdateTeams
-                name="team"
-                formTools={formTools}
-                parentEntity={props.data}
-                label="Éditez vos membre d'équipe"
-            />
+            <SingleInfo
+                title="Éditez les membres de l'équipe"
+                cardLayout
+            >
+                <UpdateTeams
+                    name="team"
+                    formTools={formTools}
+                    parentEntity={props.data}
+                    label="Éditez vos membre d'équipe"
+                />
+            </SingleInfo>
             { /* scheduleBudget */}
             <UpdateScheduleBudget
                 name="scheduleBudget"
@@ -402,7 +407,7 @@ const ProjectSingleEdit = (props) => {
             { /* Update the equipment list */ }         
             <SingleInfo
                 title={lang.equipmentUsed}
-                className="py-3"
+                cardLayout
             >
                 <Select2
                     name="equipment"
@@ -418,7 +423,10 @@ const ProjectSingleEdit = (props) => {
         </>
     );
     const contentColumnRight = (
-        <>
+        <SingleInfo
+            title="Informations supplémentaires"
+            cardLayout
+        >
             {/* Context */}
             <div className="mb-3">
                 <SelectFetch
@@ -429,7 +437,7 @@ const ProjectSingleEdit = (props) => {
                     fetchOption="context-enum"
                 />
             </div>
-            <div className="mb-3">
+            <SingleInfo>
                 <Select2
                     name="skills"
                     label="Compétences liées au projet"
@@ -442,8 +450,8 @@ const ProjectSingleEdit = (props) => {
                     searchField={"name"}
                     selectField={"name"}
                 />
-            </div>
-            <div className="mb-3">
+            </SingleInfo>
+            <SingleInfo>
                 <Select2
                     name="domains"
                     label={lang.Domains}
@@ -458,38 +466,56 @@ const ProjectSingleEdit = (props) => {
                     searchField={"name"}
                     selectField={"domains"}
                 />
-            </div>
-            <Input
-                className="mb-3"
-                name="contactPoint"
-                label={lang.projectContactPointLabel}
-                tip={{
-                    header: lang.projectContactPointTipTitle,
-                    body: lang.projectContactPointTipContent
-                }}
-                placeholder={lang.projectContactPointPlaceholder}
-                formTools={formTools}
-            />
-        </>
+            </SingleInfo>
+            <SingleInfo>
+                <Input
+                    name="contactPoint"
+                    label={lang.projectContactPointLabel}
+                    tip={{
+                        header: lang.projectContactPointTipTitle,
+                        body: lang.projectContactPointTipContent
+                    }}
+                    placeholder={lang.projectContactPointPlaceholder}
+                    formTools={formTools}
+                />
+            </SingleInfo>
+            <SingleInfo
+                title={lang.url}
+                isSubtitle
+            >
+                { /* Url */}
+                <UpdateSocialHandles
+                    name="url"
+                    label={lang.url}
+                    parentEntity={model}
+                    formTools={formTools}
+                />
+            </SingleInfo>
+         
+        </SingleInfo>
     );
-    const footer = (
+
+
+    {/*********** Footer section ***********/}
+    const Footer = (
         <>
-            { /* location */}
-            { /* Url */}
-            <UpdateSocialHandles
-                name="url"
-                label={lang.url}
-                parentEntity={model}
-                formTools={formTools}
-            />
-            <>
-                {
-                    (createdAt || updatedAt || meta) &&
+            {
+                (createdAt || updatedAt || meta) &&
+                <SingleInfo 
+                    title={lang.entityMetadata} 
+                    className="border-top pt-3"
+                >
+                    {/*********** Entity data ***********/}
                     <SingleEntityMeta createdAt={createdAt} updatedAt={updatedAt} meta={meta} />
-                }
-            </>
+                </SingleInfo>
+            }
         </>
-    );
+    )
+
+    {/*********** Submit section ***********/}
+    const SinglePageBottom = (
+        <SubmitEntity submitHandler={submitHandler} formState={formState} />
+    )
 
     const modalCategoryMode= useRef("skills");
     function displayModalForSkills(elem) {
@@ -511,9 +537,9 @@ const ProjectSingleEdit = (props) => {
                 fullWidthContent={fullWidthContent}
                 contentColumnLeft={contentColumnLeft}
                 contentColumnRight={contentColumnRight}
-                footer={footer}
+                singlePageBottom={SinglePageBottom}
+                footer={Footer}
             />
-            <SubmitEntity submitHandler={submitHandler} formState={formState} />
 
             { modal.display &&
                 <Modal

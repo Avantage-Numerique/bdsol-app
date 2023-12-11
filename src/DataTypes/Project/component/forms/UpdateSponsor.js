@@ -20,70 +20,64 @@ const UpdateSponsor = ({name, formTools, ...props}) => {
         <>
             <SingleInfo
                 title={props.label}
-                className="py-3"
+                cardLayout
             >
-                <div className="d-flex">
-                    <div className="ps-4 border-start"></div>
-                    <div className="w-100">
-                        <Repeater
-                            formTools={formTools}
-                            name={name}
-                            className="bg-greyBg"
-                            formInitStructure={{
-                                name: {
-                                    value: "",
-                                    isValid: false
-                                },
-                                entity: {
-                                    value: "",
-                                    isValid: true
-                                },
-                                entityType: {
-                                    value: "",
-                                    isValid: true
-                                }
-                            }}
-                            initValues={props.parentEntity?.sponsor ?? []}
-                            sortable
-                        >
-                            <article className="mb-2 py-2 rounded-1 d-flex gap-4 bg-greyBg">
-                                <section className="col mb-1 row">
-                                    <div className="col-12 col-md-6">
-                                        <Select2
-                                            name="entity"
-                                            label="Partenaire"
-                                            formTools={formTools}
-                                            creatable={false}
-                                            isMulti={false}
+                <Repeater
+                    formTools={formTools}
+                    name={name}
+                    className="bg-white"
+                    formInitStructure={{
+                        name: {
+                            value: "",
+                            isValid: false
+                        },
+                        entity: {
+                            value: "",
+                            isValid: true
+                        },
+                        entityType: {
+                            value: "",
+                            isValid: true
+                        }
+                    }}
+                    initValues={props.parentEntity?.sponsor ?? []}
+                    sortable
+                >
+                    <article className="mb-2 py-2 rounded-1 d-flex gap-4">
+                        <section className="col mb-1 row">
+                            <div className="col-12 col-md-6">
+                                <Select2
+                                    name="entity"
+                                    label="Partenaire"
+                                    formTools={formTools}
+                                    creatable={false}
+                                    isMulti={false}
 
-                                            fetch={"/organisations/list"}
-                                            searchField={"name"}
-                                            selectField={"name"}
-                                            validationRules={[
-                                                {name: "REQUIRED"}
-                                            ]}
-                                        />
-                                    </div>
-                                    <div className="col-12 col-md-6">
-                                        <Input
-                                            name="name"
-                                            label="Titre"
-                                            formTools={formTools}
-                                        />
-                                    </div>
-                                    
-                                </section>
+                                    fetch={"/organisations/list"}
+                                    searchField={"name"}
+                                    selectField={"name"}
+                                    validationRules={[
+                                        {name: "REQUIRED"}
+                                    ]}
+                                />
+                            </div>
+                            <div className="col-12 col-md-6">
+                                <Input
+                                    name="name"
+                                    label="Titre"
+                                    formTools={formTools}
+                                />
+                            </div>
+                            
+                        </section>
 
-                                <div className="col pr-0 flex-grow-0 text-secondary pt-1">
-                                    <Button repeaterDeleteElem type="button" color="danger" size="slim">&#x2716;</Button>
-                                </div>
-                            </article>
-                        </Repeater>
-                        
-                        
-                    </div>
-                    <div className="ps-4"></div>
-                </div>
+                        <div className="col pr-0 flex-grow-0 text-secondary pt-1">
+                            <Button repeaterDeleteElem type="button" color="danger" size="slim">&#x2716;</Button>
+                        </div>
+                    </article>
+                </Repeater>
+                
+                
             </SingleInfo>
         </>
     )
