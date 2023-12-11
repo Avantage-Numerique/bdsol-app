@@ -12,6 +12,7 @@ import Input from '@/FormElements/Input/Input'
 import {lang} from "@/src/common/Data/GlobalConstants";
 import Select2 from '@/src/common/FormElements/Select2/Select2'
 import {SingleEntityMeta} from '@/src/DataTypes/Meta/components/SingleEntityMeta'
+import SingleInfo from "@/src/DataTypes/common/layouts/SingleInfo/SingleInfo";
 
 //Context
 import {useAuth} from "@/src/authentification/context/auth-context";
@@ -172,6 +173,7 @@ const EquipmentSingleEdit = ({ positiveRequestActions, ...props}) => {
             <Input
                 name="label"
                 label={lang.label}
+                formClassName="discrete-without-focus form-text-white h3"
                 formTools={formTools}
                 placeholder={lang.labelPlaceholder}
             />
@@ -204,13 +206,11 @@ const EquipmentSingleEdit = ({ positiveRequestActions, ...props}) => {
         </SingleBaseHeader>
     );
 
-    const fullWidthContent = (
-        <>
-
-        </>)
-
     const contentColumnLeft = (
-        <div>
+        <SingleInfo
+            title={lang.productInformations}
+            cardLayout
+        >
             <Input
                 name="brand"
                 label={lang.brand}
@@ -221,28 +221,41 @@ const EquipmentSingleEdit = ({ positiveRequestActions, ...props}) => {
                 label={lang.modelName}
                 formTools={formTools}
             />
-            <UpdateSocialHandles
-                name="url"
-                label={lang.url}
-                parentEntity={model}
-                formTools={formTools}
-            />
-        </div>
+        </SingleInfo>
     )
 
     const contentColumnRight = (
-        <>
-
-        </>
+        <SingleInfo
+            title={lang.url}
+            cardLayout
+        >
+            <UpdateSocialHandles
+                name="url"
+                parentEntity={model}
+                formTools={formTools}
+            />
+        </SingleInfo>
     )
 
     const footer = (
         <>
             {
                 (model.createdAt || model.updatedAt || model.meta) &&
-                <SingleEntityMeta createdAt={model.createdAt} updatedAt={model.updatedAt} meta={model.meta} />
+                <SingleInfo 
+                    title={lang.entityMetadata} 
+                    className="border-top pt-3"
+                >
+                    {/*********** Entity data ***********/}
+                    <SingleEntityMeta createdAt={model.createdAt} updatedAt={model.updatedAt} meta={model.meta} />
+                </SingleInfo>            
             }
         </>
+    )
+
+    
+    {/*********** Submit section ***********/}
+    const SinglePageBottom = (
+        <SubmitEntity submitHandler={submitHandler} formState={formState} />
     )
 
     return (
@@ -256,12 +269,11 @@ const EquipmentSingleEdit = ({ positiveRequestActions, ...props}) => {
                 <SingleBase
                     breadCrumb={breadCrumb}
                     header={header}
-                    fullWidthContent={fullWidthContent}
                     contentColumnLeft={contentColumnLeft}
                     contentColumnRight={contentColumnRight}
                     footer={footer}
+                    singlePageBottom={SinglePageBottom}
                 />
-                <SubmitEntity submitHandler={submitHandler} formState={formState} />
 
              {/* </form> */}
 

@@ -5,6 +5,7 @@ import SingleBase from "@/src/DataTypes/common/layouts/single/SingleBase"
 import SingleBaseHeader from "@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseHeader"
 import SingleInfo from "@/DataTypes/common/layouts/SingleInfo/SingleInfo";
 import SocialHandleDisplay from '@/DataTypes/common/layouts/SocialHandlesViews/SocialHandleDisplay'
+import SingleBaseProgressBar from '@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseProgressBar/SingleBaseProgressBar'
 
 //Utils
 import SanitizedInnerHtml from '@/src/utils/SanitizedInnerHtml';
@@ -53,44 +54,56 @@ const EquipmentSingleView = ({ data }) => {
         />
     )
 
-    const FullWidthContent = (
-        <>
-        </>
-    )
-
     const ContentColumnLeft = (
         <>
-            {
-                model.brand &&
-                <SingleInfo title={lang.brand} className={`${sectionClassSpacing}`}>{model.brand}</SingleInfo>
-            }
-            {
-                model.modelName &&
-                <SingleInfo title={lang.modelName} className={`${sectionClassSpacing}`}>{model.modelName}</SingleInfo>
-            }
+            <SingleInfo
+                cardLayout
+                title={lang.productInformations}
+            >
+                
+                <SingleInfo 
+                    title={lang.brand}
+                    isSubtitle
+                >{model.brand && model.brand}
+                </SingleInfo>
+                
+                <SingleInfo 
+                    title={lang.modelName}
+                    isSubtitle
+                    >{model.modelName && model.modelName}
+                </SingleInfo>
+                
+            </SingleInfo>
+
+            <SingleInfo 
+                title={`${lang.plural(lang.ownByOrganisation, lang.ownByOrganisations, model.organisations.length)}`} 
+                cardLayout
+                displayCondition={model.organisations.length > 0}
+            >
+                <EntitiesTagGrid feed={model.organisations}/>
+            </SingleInfo>
             
-            <SocialHandleDisplay 
-                title={lang.url} 
-                url={model?.url}
-                className={`${sectionClassSpacing}`}
-            />
-
-            {model.organisations.length > 0 &&
-                <SingleInfo title={`${lang.plural(lang.ownByOrganisation, lang.ownByOrganisations, model.organisations.length)}`} className={`${sectionClassSpacing}`}>
-                    <EntitiesTagGrid feed={model.organisations}/>
-                </SingleInfo>
-            }
-
-            {model.projects.length > 0 &&
-                <SingleInfo title={`${lang.plural(lang.usedInProject, lang.usedInProjects, model.projects.length)}`} className={`${sectionClassSpacing}`}>
-                    <EntitiesTagGrid feed={model.projects}/>
-                </SingleInfo>
-            }
+            <SingleInfo 
+                title={`${lang.plural(lang.usedInProject, lang.usedInProjects, model.projects.length)}`} 
+                cardLayout
+                displayCondition={model.projects.length > 0}
+            >
+                <EntitiesTagGrid feed={model.projects}/>
+            </SingleInfo>
+            
         </>
     )
 
     const ContentColumnRight = (
         <>
+            <SingleInfo 
+                title={lang.url}
+                cardLayout
+            >
+                <SocialHandleDisplay 
+                    url={model?.url}
+                />            
+            </SingleInfo>     
         </>
     )
 
@@ -98,9 +111,31 @@ const EquipmentSingleView = ({ data }) => {
         <>
             {
                 (model.createdAt || model.updatedAt || model.meta) &&
-                <SingleEntityMeta createdAt={model.createdAt} updatedAt={model.updatedAt} meta={model.meta} />
+                <SingleInfo 
+                    title={lang.entityMetadata} 
+                    className="border-top pt-3"
+                >
+                    {/*********** Entity data ***********/}
+                    <SingleEntityMeta createdAt={model.createdAt} updatedAt={model.updatedAt} meta={model.meta} />
+                </SingleInfo>            
             }
         </>
+    )
+
+    {/*********** Bottom section ***********/}
+    const SinglePageBottom = (
+        <SingleBaseProgressBar 
+            dataList={[
+                {data: model.equipmentType.name},
+                {data: model.title},
+                {data: model.brand},
+                {data: lang.modelName},
+                {data: model?.url},
+                {data: model.mainImage.isDefault, validationFunction: ((value) => !value)}, 
+            ]}
+            buttonText={lang.contributeButtonLabel}
+            buttonLink={model.singleEditLink}
+        />
     )
 
     {/**************************
@@ -111,10 +146,10 @@ const EquipmentSingleView = ({ data }) => {
             <SingleBase
                 breadCrumb={breadCrumb}
                 header={Header}              
-                fullWidthContent={FullWidthContent}
                 contentColumnLeft={ContentColumnLeft}
                 contentColumnRight={ContentColumnRight}
                 footer={Footer}
+                singlePageBottom={SinglePageBottom}
                 model={model}
             />
         </>

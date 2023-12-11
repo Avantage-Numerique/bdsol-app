@@ -314,7 +314,8 @@ const ProjectSingleView = ({ data }) => {
                 {data: skills},
                 {data: domains},
                 {data: contactPoint},
-                {data: model?.url}
+                {data: model?.url},
+                {data: model.mainImage.isDefault, validationFunction: ((value) => !value)}, 
             ]}
             buttonText={lang.contributeButtonLabel}
             buttonLink={model.singleEditLink}

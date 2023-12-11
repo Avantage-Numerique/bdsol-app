@@ -5,6 +5,7 @@ const equipment = {
     "equipments":"equipment",
     "Equipments":"Equipment",
 
+    "productInformations": "Product informations",
     "EditEquipment": "Edit the equipment",    
     "technologiesUsed": "Technologies used",
     "equipmentUsed": "Equipment used",
