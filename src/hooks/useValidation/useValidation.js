@@ -150,6 +150,12 @@ export const useValidation = ( setOfRules, formState ) => {
     /* Validator badges sections displayed under the text in the selected field */
     const RequirementsBadges = ( props ) => {
 
+        const {
+            addUlPadding,
+            alwaysDisplay,
+            displayOnlyBadges = false
+        } = props
+
         const rulesNameList = Object.keys(validator);
 
         const forceBadgeDisplay = Object.values(validator).map(rule => rule.isValid).some(elem => elem === false)
@@ -159,12 +165,12 @@ export const useValidation = ( setOfRules, formState ) => {
                 {/* At least one validator to */}
                 { rulesNameList.length > 0 && 
                 <div className="w-100">
-                    { forceBadgeDisplay && rulesNameList.length > 0 &&
+                    { forceBadgeDisplay && rulesNameList.length > 0 && !displayOnlyBadges &&
                         <div className="w-100 form-element--field-padding-x">
                             <div className="form-element--default-border--top"></div>
                         </div>
                     }
-                    <ul className={`mb-0 ${props.addUlPadding && "form-element--field-padding-top-reverse"} ${props.alwaysDisplay && "d-flex"} badge-container gap-2 ${forceBadgeDisplay ? "form-element--force-badge-display" : ""}`}>
+                    <ul className={`mb-0 ${addUlPadding && "form-element--field-padding-top-reverse"} ${alwaysDisplay && "d-flex"} badge-container gap-2 ${forceBadgeDisplay ? "form-element--force-badge-display" : ""}`}>
                         { rulesNameList.map(ruleName => (
                             <li 
                                 title={`${validator[ruleName].message}`}

@@ -15,7 +15,7 @@ const Footer = () => {
 
     return (
 
-        <footer id={styles.pageFooter} className="bg-primary-dark py-4">
+        <footer id={styles.pageFooter} className="py-4">
 
             <div className="container position-relative">
                 {/* Logo AVNU*/}
@@ -36,10 +36,10 @@ const Footer = () => {
                 {/* Utils and legal links */}
                 <div className={`row d-flex flex-column`}>
                     <nav className="nav nav-pills mb-0 justify-content-center align-items-center">
-                        <RouteLink routeName={"valuesChart"} className={"nav-link link-hover-primary link-secondary"} />
-                        <RouteLink routeName={"confidentialityPolicy"} className={"nav-link link-hover-primary link-secondary"} />
-                        <RouteLink routeName={"termOfUse"} className={"nav-link link-hover-primary link-secondary"} />
-                        <RouteLink routeName={"contact"} className={"nav-link link-hover-primary link-secondary"} />
+                        <RouteLink routeName={"valuesChart"} className={"nav-link text-dark"} />
+                        <RouteLink routeName={"confidentialityPolicy"} className={"nav-link text-dark"} />
+                        <RouteLink routeName={"termOfUse"} className={"nav-link text-dark"} />
+                        <RouteLink routeName={"contact"} className={"nav-link text-dark"} />
                     </nav>
                     <p className="text-center my-0"><small>Contact : {appConfig.legal.email}, {appConfig.legal.address}</small></p>
                 </div>

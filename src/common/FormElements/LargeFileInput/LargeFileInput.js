@@ -1,14 +1,19 @@
 import {useEffect, useRef} from 'react';
+import Image from 'next/image'
 
 //Hooks
 import {useValidation} from '@/src/hooks/useValidation/useValidation';
+import {useRootModal} from '@/src/hooks/useModal/useRootModal';
 
 //components
 import Tip from '@/common/FormElements/Tip/Tip';
+import Button from "@/FormElements/Button/Button";
 
 //Styling
 import styles from './LargeFileInput.module.scss';
 
+//Media
+import img_suggesting_placement from '@/public/general_images/img_suggesting_placement.png'
 
 const LargeFileInput = ( props ) => {
 
@@ -50,6 +55,9 @@ const LargeFileInput = ( props ) => {
         inputHandler,
         inputTouched
     } = formTools;
+    
+    //Extract root modal 
+    const { Modal, displayModal, closeModal, modalInitValues } = useRootModal();
 
     //State specific to this field
     const currentState = formState.inputs[name];
@@ -89,12 +97,7 @@ const LargeFileInput = ( props ) => {
                     {label}
                 </label>
                 {/* Display the tip button id there is one */}
-                {
-                    tip &&
-                    <Tip 
-                        {...tip}
-                    />
-                }
+                { tip && <Tip  {...tip} /> }
             </div>
 
             <div
@@ -121,15 +124,13 @@ const LargeFileInput = ( props ) => {
                     tabIndex="0"
                 >
                     {/* New Ui button to replace the default one displayed by the browser */}
-                    <button
-                        type="button"
-                        className="
+                    <section
+                        className={`
+                            ${styles["file-selection-container"]}
                             position-relative
                             w-100
                             h-100
-                        "
-                        //When the user click on the Ui button, this trigger a click on the real one to
-                        onClick={() => fieldRef.current.click()}
+                        `}
                     >
 
                         {/* Field that holds a current image or one to be uploaded */}
@@ -163,28 +164,39 @@ const LargeFileInput = ( props ) => {
                                 ${styles["input-ui__over-img-content"]} 
                             `}
                         >
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21.75 21">
-                                    <polyline points="5.25 10 1.5 10 1.5 19.5 20.25 19.5 20.25 10 16.5 10" fill="none" stroke="#000" strokeLinecap="round" strokeLinejoin="round" strokeWidth="3"/>
-                                    <polyline points="6.87 5.5 10.87 1.5 14.87 5.5 10.87 1.5 10.87 15" fill="none" stroke="#000" strokeLinecap="round" strokeLinejoin="round" strokeWidth="3"/>
-                            </svg>
-
-                            {/* Display of the selected file */}
-                            <div
-                                dir="rtl"
-                                className={`
-                                    fs-6
-                                    m-2
-                                    ${styles["input-ui__file-name"]}`}
+                            <button
+                                //When the user click on the Ui button, this trigger a click on the real one to
+                                onClick={() => fieldRef.current.click()}
+                                type="button"
+                                className={`${styles["select-file-button"]}`}
                             >
-                                { !currentState.value && !currentState.value?.name && "Sélectionnez un fichier"}
-                            </div>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21.75 21">
+                                        <polyline points="5.25 10 1.5 10 1.5 19.5 20.25 19.5 20.25 10 16.5 10" fill="none" stroke="#000" strokeLinecap="round" strokeLinejoin="round" strokeWidth="3"/>
+                                        <polyline points="6.87 5.5 10.87 1.5 14.87 5.5 10.87 1.5 10.87 15" fill="none" stroke="#000" strokeLinecap="round" strokeLinejoin="round" strokeWidth="3"/>
+                                </svg>
+
+                                {/* Display of the selected file */}
+                                <div
+                                    dir="rtl"
+                                    className={`m-2 ${styles["input-ui__file-name"]}`}
+                                >
+                                    { !currentState.value && !currentState.value?.name && "Sélectionnez un fichier"}
+                                </div>
+                            </button>
                             {validationRules && 
                                 <div className={`px-1 ${styles["input-ui__RequirementsBadges-container"]}`}>
-                                    <RequirementsBadges alwaysDisplay /> 
+                                    <RequirementsBadges alwaysDisplay displayOnlyBadges /> 
                                 </div>
                             }
+                            {/* Format preferences */}
+                            <div className="p-2 w-100 d-flex justify-content-center">
+                                <div className={`mt-2 ${styles["square-format"]}`}>
+                                    <p className="text-dark">Images carrées suggérées</p>
+                                    <button type="button" onClick={displayModal} className="text-dark m-0 mt-1">Pourquoi ?</button>
+                                </div>
+                            </div>
                         </div>
-                    </button>
+                    </section>
                 </div>
 
                 {/* Real input used for its fonctionalities */}
@@ -201,6 +213,25 @@ const LargeFileInput = ( props ) => {
             <div className="validation-error-messages-container">
                 { currentState.isTouched && <ValidationErrorMessages /> }
             </div>
+
+            <Modal>
+                <header className={`d-flex justify-content-between align-items-start`}>
+                    <div className="me-2">
+                        <h4 className="text-dark">Priorisez une image carrée</h4>
+                        <small><p>Les images représentant les entitées sont généralement affichées à travers des cercles de dimensions égales</p></small>
+                    </div>
+                    <Button onClick={() => closeModal()}>Fermer</Button>
+                </header>
+                <small>
+                    <p>Pour garantir une visualisation optimale du contenu, les photos sont toujours affichées à partir de leur centre. </p>
+                    <p>Tel qu'illustré ci-dessous, une photo dont le format n'est pas carré risque ainsi de voir sont contenu coupé au mauvais endroit.</p>
+                </small>
+                <Image
+                    src={img_suggesting_placement}
+                    alt="Priorisez une image de format carré afin d'être sûr de bien afficher son contenu."
+                />
+                
+            </Modal>
 
         </div>
     )

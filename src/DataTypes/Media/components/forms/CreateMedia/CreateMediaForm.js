@@ -211,6 +211,10 @@ const CreateMediaForm = (props) => {
                                 name={mediaField}
                                 label="Fichier"
                                 formTools={formTools}
+                                validationRules={[
+                                    {name: "REQUIRED"},
+                                    {name: "FILE_MAX_SIZE", specification: 1},
+                                ]}
                             />
                         }
                         {!isNewFile &&
