@@ -57,13 +57,13 @@ const Header = (props) => {
                     <div className="col">
                         {/* Container that fills all the width of the platform and contain the logo*/}
                         <div className={`${styles["header__content"]} header-center d-flex justify-content-start align-items-center text-light h-100`} onClick={ () => setMenuState(0) }>
-                            <Link href="/" className={`fs-5 px-5 ${styles["item-displayed-in-menu"]}`}>
+                            <Link href="/" className={`fs-5 ms-2 px-5 ${styles["item-displayed-in-menu"]}`}>
                                 <Image src={logo} alt="Logo réduit de AVNU"/>
                             </Link>
                         </div>
                     </div>
 
-                    <div className="col-6 d-flex justify-content-center align-items-center">
+                    <div className="col-5 d-none d-sm-flex justify-content-center align-items-center">
                         <div className={"container"}>
                             <div className={"row"}>
                                 <div className={"col"}>
@@ -88,7 +88,7 @@ const Header = (props) => {
                                 </ul>
                             }
                             {auth.user.isLoggedIn &&
-                                <div className={"col-2 d-flex-content-center"}>
+                                <div className={"d-flex-content-center"}>
                                     <Button
                                         size="slim"
                                         className="rounded shadow-sm"
@@ -98,28 +98,6 @@ const Header = (props) => {
                                     </Button>
                                 </div>
                             }
-                            {/* Waiting to be sure we won't use it before removing it */}
-                            {/* auth.user.isLoggedIn &&
-                                <div className={`bg-primary d-flex align-items-center h-100 ${styles["account-menu-container"]}`}>
-                                    <button
-                                        className={`${styles["account-menu-container__button"]} bg-secondary`}
-                                        onClick={() => {
-                                            //setMenuState(menuState !== 2 ? 2 : 0)
-                                        } }>
-                                        {(auth.user.avatar === undefined || auth.user.avatar === null || auth.user.avatar.toString() === "") ?
-                                            <img className={`${styles["user-img"]} img-fluid`}
-                                                 src="/general_images/default-avatar.webp"
-                                                 alt="Aucune image de profil"/>
-                                            :
-                                            <img
-                                                className={`${styles["user-img"]} img-fluid`}
-                                                src={auth.user.avatar}
-                                                alt="Votre avatar"
-                                            />
-                                        }
-                                    </button>
-                                </div>
-                            */}
 
                             {/* Button for the main menu */}
                             <div className={`${styles["ham-menu-container"]} ${styles["item-displayed-in-menu"]}`}>

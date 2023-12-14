@@ -34,14 +34,13 @@
     /* Title container where is putted the logo */
     .header__content {
         width: 100%;
-        //height: var(--headersHeight);
 
         img {
             cursor: pointer;
             width: 100%;
             max-width: 236px;
             height: 100%;
-            max-height: 2.5rem;
+            max-height: 2rem;
             object-fit: contain;
             object-position: left center;
         }
@@ -49,7 +48,7 @@
 
     .item-displayed-in-menu {
         position: relative;
-        z-index: $zindex-fixed;
+        z-index: $zindex-fixed;        
     }
 
     .searchbar-menu-container {
@@ -77,9 +76,7 @@
             align-items: center;
             color: white;
 
-            a {
-                margin: 1rem;
-            }
+            a { margin: 1rem; }
         }
 
         .contribute-menu-container {
@@ -103,13 +100,8 @@
                 -o-transition: opacity 200ms;
                 transition: opacity 200ms;
 
-                &:hover {
-                    opacity: 1;
-                }
-
-                svg {
-                    width: 100%;
-                }
+                &:hover { opacity: 1; }
+                svg { width: 100%; }
             }
         }
     }
@@ -125,18 +117,9 @@
             height: var(--headersHeight);
             width: 100%;
             fill: white;
-
-            &:hover {
-                opacity: 1;
-            }
-
-            svg {
-                width: 100%;
-            }
-
-            .user-img {
-                object-fit: cover;
-            }
+            &:hover { opacity: 1; }
+            svg { width: 100%; }
+            .user-img { object-fit: cover; }
         }
     }
 
@@ -147,5 +130,6 @@
         align-content: center;
         height: 100%;
         width: 7vw;
+        min-width: 5rem;
     }
 }
