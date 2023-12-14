@@ -26,11 +26,11 @@ export const SingleEntityMeta = (props) => {
         <div>
             <ul className={"list-style-none"}>
                 {
-                    meta?.state &&
+                    /*meta?.state &&
                     <li>
                         <span>{lang.entityMeta}{lang.colon}</span>
                         <span>{lang.capitalize(meta.state) ?? ""}</span>
-                    </li>
+                    </li>*/
                 }
                 {
                     (meta?.requestedBy?.username || createdAt) &&

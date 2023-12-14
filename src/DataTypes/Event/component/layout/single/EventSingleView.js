@@ -255,18 +255,11 @@ const EventSingleView = ({data}) => {
                 </SingleInfo>
                 
                 {/* Url */}
-                <SingleInfo 
-                    title={lang.hyperlink}
-                    isSubtitle
-                >
-                    {model?.url && 
-                    <SocialHandleDisplay 
-                        title={lang.url} 
-                        url={model?.url}
-                        className={`${appConfig.spacing.singleSectionSpacingClass}`}
-                    />
-                    }
-                </SingleInfo>
+                <SocialHandleDisplay 
+                    title={lang.url} 
+                    url={model?.url}
+                    className={`${appConfig.spacing.singleSectionSpacingClass}`}
+                />
                 
                 {/* contactPoint */}
                 <SingleInfo 

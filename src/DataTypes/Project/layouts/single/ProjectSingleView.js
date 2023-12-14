@@ -268,16 +268,11 @@ const ProjectSingleView = ({ data }) => {
             </SingleInfo>
             
             {/*url*/}
-            <SingleInfo 
+            <SocialHandleDisplay 
                 title={lang.url} 
-                isSubtitle
-            >
-                <SocialHandleDisplay 
-                    //title={lang.url} 
-                    url={model?.url}
-                    className={`${appConfig.spacing.singleSectionSpacingClass}`}
-                />
-            </SingleInfo>
+                url={model?.url}
+                className={`${appConfig.spacing.singleSectionSpacingClass}`}
+            />
         </SingleInfo>
     )
 
