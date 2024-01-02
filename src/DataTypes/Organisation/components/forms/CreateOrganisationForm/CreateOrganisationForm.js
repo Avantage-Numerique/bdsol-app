@@ -30,10 +30,6 @@ const CreateOrganisationForm = ({ onPositiveResponse }) => {
                 value: "",
                 isValid: false
             },
-            url: {
-                value: "",
-                isValid: true
-            },
             description: {
                 value: "",
                 isValid: true
@@ -57,7 +53,6 @@ const CreateOrganisationForm = ({ onPositiveResponse }) => {
         const formData = {
             data: {
                 name: formState.inputs.name.value,
-                url:  formState.inputs.url.value,
                 description: formState.inputs.description.value,
                 meta: getDefaultCreateEntityMeta(auth.user),
             }
@@ -79,15 +74,6 @@ const CreateOrganisationForm = ({ onPositiveResponse }) => {
                     className="my-1"
                     validationRules={[{name: "REQUIRED"}]}
                     errorText="Cette information est requise"
-                    formTools={formTools}
-                />
-                <Input  
-                    name="url"
-                    label="Hyperlien"
-                    type="url"
-                    className="my-1"
-                    pattern="^https?:\/\/[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$"
-                    placeholder="Exemple : https://siteWeb.com"
                     formTools={formTools}
                 />
                 <RichTextarea 
