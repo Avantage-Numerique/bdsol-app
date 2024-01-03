@@ -57,7 +57,7 @@ const Header = (props) => {
                     <div className="col">
                         {/* Container that fills all the width of the platform and contain the logo*/}
                         <div className={`${styles["header__content"]} header-center d-flex justify-content-start align-items-center text-light h-100`} onClick={ () => setMenuState(0) }>
-                            <Link href="/" className={`fs-5 ms-2 px-5 ${styles["item-displayed-in-menu"]}`}>
+                            <Link href="/" className={`fs-5 ms-2 ps-2 ${styles["item-displayed-in-menu"]}`}>
                                 <Image src={logo} alt="Logo réduit de AVNU"/>
                             </Link>
                         </div>
@@ -80,10 +80,10 @@ const Header = (props) => {
                             { !auth.user.isLoggedIn &&
                                 <ul className={`nav flex-nowrap align-items-center h-100`} onClick={ () => setMenuState(false) }>
                                     <li>
-                                        <a href="/compte/inscription" className={"nav-link text-black"}>{lang.menuSubscribeLabel}</a>
+                                        <a href="/compte/inscription" className={"nav-link text-black d-none d-md-block text-nowrap"}>{lang.menuSubscribeLabel}</a>
                                     </li>
                                     <li>
-                                        <a href="/compte/connexion" className={`nav-link text-black`}>{lang.menuConnectLabel}</a>
+                                        <a href="/compte/connexion" className={`nav-link text-black text-nowrap`}>{lang.menuConnectLabel}</a>
                                     </li>
                                 </ul>
                             }
@@ -98,7 +98,6 @@ const Header = (props) => {
                                     </Button>
                                 </div>
                             }
-
                             {/* Button for the main menu */}
                             <div className={`${styles["ham-menu-container"]} ${styles["item-displayed-in-menu"]}`}>
                                 <HamburgerButton {...props} setMenuState={setMenuState} menuState={menuState}  />

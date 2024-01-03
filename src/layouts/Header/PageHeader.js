@@ -29,13 +29,14 @@ const PageHeader = (props) => {
     const colNumberXs = props.image ? colWidth - asideColNumberXs : colWidth;
     const historyBack = props.historyBack;
     const asciiArt = props.art ?? "";
+    const reverseWrap = props.reverseWrap ? "flex-column-reverse flex-wrap-reverse flex-sm-row" : "";
 
     return (
         <header className={`${styles['page-header']} ${bgClass} position-relative`}>
             <div className="container">
-                <div className='row justify-content-between align-items-center'>
+                <div className={`row justify-content-between align-items-center ${reverseWrap}`}>
 
-                    <div className={`${styles['header-left-col--max-width']} col col-sm-${colNumberXs} d-flex flex-column justify-content-center position-relative`}>
+                    <div className={`${styles['header-left-col--max-width']} ${styles['stacking-context-front']} ${props.leftColClassName} col-12 col-md-${colNumberXs} d-flex flex-column justify-content-center position-relative`}>
                         {historyBack &&
                         <div className={"d-flex justify-content-end"}>
                             <Button color="white" outline="primary" href={historyBack.uri}>
@@ -84,9 +85,9 @@ const PageHeader = (props) => {
                             props.children
                         }
                         {/* If the custom_LeftColContent prop is define, then inject it */}
-                        {props.custom_LeftColContent && props.custom_LeftColContent}
+                        {props.custom_LeftColContent && <props.custom_LeftColContent />}
                     </div>
-                    <div className={`col-sm-${asideColNumberXs}`}>
+                    <div className={`col-12 col-md-${asideColNumberXs} ${styles['stacking-context-reg']}`}>
                         {props.image &&
                                 <img
                                     className={"img-fluid"}
@@ -95,7 +96,7 @@ const PageHeader = (props) => {
                                 />
                         }
                         {/* If the custom_RightColElement prop is define, then inject it */}
-                        {props.custom_RightColElement && props.custom_RightColElement}
+                        {props.custom_RightColElement && <props.custom_RightColElement />}
                     </div>
                 </div>
             </div>

@@ -20,16 +20,18 @@ const EntitiesGrid = ({feed, className, columnClass}) => {
         const sep = "-";
         return prefix + model.type + sep + (model._id ?? "") + sep + model.slug + index;
     });
+
+    const customStyling = {'maxWidth': '24rem'}
     
     return (
-        <ContainerTag className={className}>
+        <ContainerTag className={className + ' justify-content-center'}>
             {
                 feed.length > 0 ?
                 feed.map((entity, index) => {
                     const model = getModelFromType(entity.type, entity);
                     const SimpleComponent = model.simpleComponent;
                     return (
-                        <div className={`${colContainerClass}`} key={getKeyString("container", model, index)}>
+                        <div style={customStyling} className={`${colContainerClass}`} key={getKeyString("container", model, index)}>
                             <SimpleComponent data={entity} model={model} key={getKeyString("simple", model, index)} />
                         </div>
                     )

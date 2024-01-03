@@ -23,16 +23,28 @@ import {appUrl} from "@/src/helpers/url";
 import {getType} from "@/DataTypes/Entity/Types";
 
 //Images
-import backgroundImg from '@/public/general_images/Pointilles1.svg'
+import backgroundImg from '@/public/general_images/Fusee_Pointilles1.svg'
 import AvantageNumeriqueLogo from '@/public/logo.svg';
 import organizationPresentationImg from '@/public/general_images/shutterstock_514412107.jpg'
 import shipAndPlanetsImg from '@/public/general_images/Fusée_Planetes_Poitilles2.svg'
 
 //Background image for the page header
 const HomePageHeaderBgImg = () => {
+
+    const localFigureStyling = {
+        bottom: "-5vh",
+        zIndex: "1",
+        minWidth: "30rem"
+    }
+
+    const localImgStyling = {
+        objectFit: "contain",
+        objectPosition: "15% bottom",
+        minWidth: "80rem",
+    }
     return (
-        <figure style={{zIndex: "0"}} className="position-absolute top-0 start-0 w-100 h-100">
-            <Image src={backgroundImg} style={{bottom: "5vh"}} className="w-100 h-auto position-absolute start-0 end-0" alt="Trajet de la fusée d'Avantage Numérique" />
+        <figure style={localFigureStyling} className="position-absolute start-0 w-100 h-100 overflow-hidden">
+            <Image src={backgroundImg} style={localImgStyling} className="w-100 h-auto position-absolute start-0 bottom-0" alt="Trajet de la fusée d'Avantage Numérique" />
         </figure>
     )
 }
@@ -40,7 +52,7 @@ const HomePageHeaderBgImg = () => {
 const HomePage = ({}) => {
 
     //Import the authentication context to make sure the user is well connected
-    const auth = useAuth();
+    //const auth = useAuth();
 
     //Holds the state the organisations
     const [feedList, setFeedList] = useState([]);
@@ -115,9 +127,12 @@ const HomePage = ({}) => {
                 }
 
                 if (feed.length > 0 && !haveError) {
+
+                    //Display less elements when the screen is small.
+                    const nbOfItems = window.innerWidth < 570 ? 4 : 6;
                     feed.sort(sortDescBy('createdAt'));//   Sort and mixed both collection the data to display the new elements before
                     const reducedFeed = feed.reduce((a, c, i) => {
-                        if (i < 6) a[i] = c
+                        if (i < nbOfItems) a[i] = c
                         return a
                       }, [])
                     setFeedList(reducedFeed); //   Finaly, update the state to display the result
@@ -221,8 +236,10 @@ const HomePage = ({}) => {
                 description=""
                 image={"/general_images/CroissantBoreal.png"}
                 imgAlt={"Carte du croissant boréal"} 
+                leftColClassName="py-4"
                 key={"pageHeaderHomePage"} 
                 custom_FullWidthContent={HomePageHeaderBgImg}
+                reverseWrap
             />
             <section className="container home-page__main p-0">
                 {/* Display of 6 latest entities*/}
@@ -230,7 +247,7 @@ const HomePage = ({}) => {
                     <div className="d-flex flex-column align-items-center">
                         <h2 className="mt-4 text-center">Ajouts récents à la base de données</h2>
                         <p className="mb-4 text-center">Cliquez sur les différents profils afin d'obtenir plus d'informations sur ces ressources.</p>
-                        <div className="home-page__feed-section py-4 position-relative">
+                        <div className="home-page__feed-section container py-4 position-relative">
                             {/* Loading state : If loading is on and there is no feed */}
                             {
                                 isLoading &&
@@ -266,10 +283,10 @@ const HomePage = ({}) => {
             <section className="home-page__full-width-section bg-secondary-lighter mt-4">
                 <div className="container">
                     <div className='row justify-content-around align-items-center home-page__section-inner-y-padding'>
-                        <div style={{aspectRatio: "1 / 1"}} className="col col-md-4 p-4">
+                        <div style={{aspectRatio: "1 / 1"}} className="col-12 col-md-6 col-lg-4 order-2 order-md-1 p-2">
                             <Image className="w-100 h-100 object-fit-cover" src={organizationPresentationImg} />
                         </div>
-                        <div style={{maxWidth: "60ch"}} className="col col-md-8 p-4 flex-column align-items-start">
+                        <div style={{maxWidth: "60ch"}} className="col-12 order-1 order-md-2 col-md-6 col-lg-8 p-4 flex-column align-items-start">
                             <h2 className="mb-4">AVNU, c'est quoi?</h2>
                             <p className="mt-4">    
                                 AVNU est une base de données qui a pour objectif de recenser et de
@@ -286,8 +303,8 @@ const HomePage = ({}) => {
                                 </a> 
                             </div>
                             <div className="d-flex flex-column align-items-start mt-3">
-                                <Button className="px-4" href="/faq/a-propos">En savoir plus sur l'initiative</Button>
-                                <Button className="mt-2" href="https://avantagenumerique.org/" external={true} text_color="dark">Découvrir Avantage Numérique</Button>
+                                <Button className="px-4 mt-2" href="/faq/a-propos">En savoir plus sur l'initiative</Button>
+                                <Button className="mt-3" href="https://avantagenumerique.org/" external={true} text_color="dark">Découvrir Avantage Numérique</Button>
                             </div>
                         </div>
                     </div>
@@ -297,7 +314,7 @@ const HomePage = ({}) => {
             {/* Account section */}
             <section className="home-page__full-width-section position-relative">
                 <figure className="position-absolute top-0 bottom-0 start-0 end-0">
-                    <Image className="h-100 w-auto position-absolute end-0 top-0" src={shipAndPlanetsImg} />
+                    <Image className="h-75 d-none d-md-block w-auto position-absolute end-0 top-0" src={shipAndPlanetsImg} />
                 </figure>
                 <div className="container position-relative">
                     <div className='row home-page__section-inner-y-padding'>

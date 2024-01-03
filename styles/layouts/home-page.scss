@@ -109,6 +109,6 @@
 }
 
 .home-page__section-inner-y-padding {
-    padding-top: max(10vh, 5rem);
-    padding-bottom: max(10vh, 5rem);
+    padding-top: clamp(2rem, 7vw, 5rem);
+    padding-bottom: clamp(2rem, 7vw, 5rem);
 }
