@@ -301,8 +301,8 @@ const AppRoutesRaw = {
 
     termOfUse: {
         label: "Conditions d'utilisation",
-        pathname: "/termes-et-conditions-d'utilisation",
-        asPath: "/termes-et-conditions-d'utilisation",
+        pathname: "/termes-et-conditions-dutilisation",
+        asPath: "/termes-et-conditions-dutilisation",
         needAuth: false,
     },
 
@@ -319,8 +319,6 @@ const AppRoutesRaw = {
         asPath: "/charte-de-valeurs",
         needAuth: false,
     }
-
-
 }
 
 const AppRoutes = new Routes(AppRoutesRaw);
