@@ -6,7 +6,8 @@ import SingleBaseHeader from "@/src/DataTypes/common/layouts/single/defaultSecti
 import SingleBase from "@/src/DataTypes/common/layouts/single/SingleBase"
 import SanitizedInnerHtml from '@/src/utils/SanitizedInnerHtml';
 import SearchTag from '@/src/common/Components/SearchTag';
-import SingleBaseProgressBar from '@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseProgressBar/SingleBaseProgressBar'
+import SingleBaseProgressBar
+    from '@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseProgressBar/SingleBaseProgressBar'
 
 
 //Utils
@@ -16,14 +17,12 @@ import {lang} from "@/common/Data/GlobalConstants";
 import SingleInfo from "@/DataTypes/common/layouts/SingleInfo/SingleInfo";
 import {SingleEntityMeta} from "@/src/DataTypes/Meta/components/SingleEntityMeta";
 import EntitiesTagGrid from "@/DataTypes/Entity/layouts/EntitiesTagGrid";
-import {ExternalLink} from "@/common/Components/ExternalLink";
 import {dateManager} from "@/common/DateManager/DateManager";
 import {SkillGroup} from "@/DataTypes/common/layouts/skillsGroup/SkillGroup";
 import {removeTagsFromString} from '@/src/helpers/html'
 
 //Styles
 import styles from './OrganisationSingleView.module.scss';
-import { appConfig } from '@/src/configs/AppConfig';
 import SocialHandleDisplay from '@/src/DataTypes/common/layouts/SocialHandlesViews/SocialHandleDisplay';
 
 const OrganisationSingleView = ({ data }) => {
@@ -156,7 +155,7 @@ const OrganisationSingleView = ({ data }) => {
             {/* Equipment */}
             <SingleInfo 
                 title={lang.Equipments}
-                displayCondition={equipment.length > 0}
+                displayCondition={equipment && equipment.length > 0}
                 cardLayout
             >
                 <ul className={`container mt-2 mb-0 ${styles["equipment-container"]}`}>
@@ -168,7 +167,7 @@ const OrganisationSingleView = ({ data }) => {
                             <div className="col text-secondary-darker">{lang.brand}</div>
                         </div>
                     </li>
-                    {equipment.map((equip, index) => {
+                    {equipment && equipment.map((equip, index) => {
                         const equipmentModel = new Equipment(equip.equipment);
                         return (
                             <li className={` ${styles["equipment-row"]} row rounded py-2 mt-2`} key={`orgEquip${index}`}>
@@ -188,17 +187,19 @@ const OrganisationSingleView = ({ data }) => {
             
         </>
     )
-
+    console.log(location);
     const ContentColumnRight = (
         <>
             {/* Location */}
-            <SingleInfo 
-                displayCondition={location?.length > 0}
-                title={lang.plural(lang.organisationPlace, lang.organisationPlaces, location.length)}
-                cardLayout
-            >
-                <EntitiesTagGrid feed={location} subBadgeProperty={"address"} columnClass={"col-12"} />
-            </SingleInfo>
+            {location &&
+                <SingleInfo
+                    displayCondition={location?.length > 0}
+                    title={lang.plural(lang.organisationPlace, lang.organisationPlaces, location?.length)}
+                    cardLayout
+                >
+                    <EntitiesTagGrid feed={location} subBadgeProperty={"address"} columnClass={"col-12"} />
+                </SingleInfo>
+            }
             
             {/* Contact information */}
             <SingleInfo 
@@ -233,12 +234,12 @@ const OrganisationSingleView = ({ data }) => {
             </SingleInfo>
 
             {/* Url */}
-            <SocialHandleDisplay 
-                title={lang.url} 
-                url={model?.url}
-                className={`${appConfig.spacing.singleSectionSpacingClass}`}
-            />
-            
+            { model && model?.url &&
+                <SocialHandleDisplay
+                    title={lang.url}
+                    url={model?.url}
+                />
+            }
         </>
     )
 

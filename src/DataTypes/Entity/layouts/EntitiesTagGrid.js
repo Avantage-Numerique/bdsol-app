@@ -53,7 +53,7 @@ const EntitiesTagGrid = ({feed, className, columnClass, subEntityProperty, subBa
                 (Array.isArray(feed) && feedLength > 0) ?
                     feed.map((entity, index) => {
                         const rawData = subEntityProperty ? entity[subEntityProperty] : entity;
-                        const entityType = rawData.type ?? rawData.entityType;
+                        const entityType = rawData?.type ?? rawData.entityType;
                         const type = typeof forcedType === "string" ? forcedType : entityType;//forced type can be use if the data doesn't contain the types.
 
                         const model = getModelFromType(type, rawData);
@@ -74,7 +74,6 @@ const EntitiesTagGrid = ({feed, className, columnClass, subEntityProperty, subBa
                         return (
                             <li className={`flex-column ${colContainerClass} pb-4`} key={"not-valid"+index}>{lang.modelNotValid}</li>
                         )
-
                     })
                 :
                 <p className={"py-4"}> {noneMessage} </p>

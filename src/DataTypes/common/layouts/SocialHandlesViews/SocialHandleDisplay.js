@@ -1,11 +1,10 @@
 import React from 'react';
 
-//Components 
+//Components
 import SingleInfo from "@/DataTypes/common/layouts/SingleInfo/SingleInfo";
-import Icon from "@/src/common/widgets/Icon/Icon"
-import { ExternalLink } from '@/src/common/Components/ExternalLink';
+import {ExternalLink} from '@/src/common/Components/ExternalLink';
 
-//Styles 
+//Styles
 import styles from './SocialHandleDisplay.module.scss';
 
 /**
@@ -16,18 +15,22 @@ import styles from './SocialHandleDisplay.module.scss';
  *
  */
 const SingleSocialHandle = ( {data} ) => {
+
     return (
         <div className={`p-1 ${styles["single-social-hangle"]}`}>
-            <ExternalLink href={data.url} className="d-flex flex-column" target='blank'>
-                {/* Label section */}
-                <div className="d-flex">
-                    <p className="m-0 fw-semibold text-truncate">{data.label}</p>
-                </div>
-                {/* Display link */}
-                <small>
-                    <p className={`m-0 text-truncate text-secondary ${styles["single-social-hangle__link"]}`}>{data.url}</p>
-                </small>
-            </ExternalLink>
+            {
+                data.url === `${data.url}` && data.url === `${data.label}` &&
+                <ExternalLink href={data.url} className="d-flex flex-column" target='blank'>
+                    {/* Label section */}
+                    <div className="d-flex">
+                        <p className="m-0 fw-semibold text-truncate">{data.label}</p>
+                    </div>
+                    {/* Display link */}
+                    <small>
+                        <p className={`m-0 text-truncate text-secondary ${styles["single-social-hangle__link"]}`}>{data.url}</p>
+                    </small>
+                </ExternalLink>
+            }
         </div>
     )
 }
@@ -48,7 +51,9 @@ const SocialHandleDisplay = ({ url, title, className }) => {
     return (
         (orderedUrls.length > 0) &&
             <SingleInfo title={title} className={className}>
-                {orderedUrls.map( (singleUrl) => <SingleSocialHandle data={singleUrl} key={("url_" + singleUrl.url)} />)}
+                {
+                    orderedUrls.map( (singleUrl) => <SingleSocialHandle data={singleUrl} key={("url_" + singleUrl.url)} />)
+                }
             </SingleInfo>
         
     )
