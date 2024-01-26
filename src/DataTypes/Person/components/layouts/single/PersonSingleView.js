@@ -5,7 +5,8 @@ import SingleBase from "@/src/DataTypes/common/layouts/single/SingleBase"
 import SingleBaseHeader from "@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseHeader"
 import SearchTag from '@/src/common/Components/SearchTag';
 import SingleInfo from "@/DataTypes/common/layouts/SingleInfo/SingleInfo";
-import SingleBaseProgressBar from '@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseProgressBar/SingleBaseProgressBar'
+import SingleBaseProgressBar
+    from '@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseProgressBar/SingleBaseProgressBar'
 //Styling
 import styles from './PersonSingle.module.scss'
 
@@ -159,7 +160,7 @@ const PersonSingleView = ({ data }) => {
                 cardLayout
             >
                 {/* Display the different groups of occupations */}
-                { false && sortedOccupations && sortedOccupations?.length > 0 &&
+                { sortedOccupations && sortedOccupations?.length > 0 &&
                     sortedOccupations.map(occ => (
                         <SkillGroup
                             label={occ.groupName}
