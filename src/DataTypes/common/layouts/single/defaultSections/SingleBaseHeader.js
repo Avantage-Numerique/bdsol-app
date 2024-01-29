@@ -42,11 +42,12 @@ const SingleBaseHeader = (props) => {
 
     const auth = useAuth();
     const type = getType(entity.type) ?? getType(TYPE_DEFAULT);
+    const isUpdateMode = className?.includes("mode-update");
 
     //Removed from coloumn, it's more useful to use the justify or align from start or end.
     return (
-        <section className={`row ms-0  ${styles["content-padding-top"]} ${styles["content-margin-bottom"]} ${props.className}`}>
-            <div className="col d-flex flex-grow-0 align-items-end">
+        <section className={`row ms-0  ${styles["content-padding-top"]} ${props.className}`}>
+            <div className="col-12 order-2 col-sm order-sm-1 d-flex flex-grow-0 align-items-end">
                 <MediaFigure model={mainImage} className={`main-image-container ${!mainImage.isDefault ? "overflow-hidden shadow" : (styles["default-drop-shadow"] + " default-img ")}`} imgClassName={"main-image"}>
                     { mainImage && mainImage.url !== "" && !mainImage.isDefault &&
                         <a href={`/medias/${mainImage._id}`}
@@ -56,20 +57,26 @@ const SingleBaseHeader = (props) => {
                     }
                 </MediaFigure>
             </div>
-            <div className="col flex-grow-1 d-flex flex-column">
+            <div className="col-12 order-1 col-sm order-sm-2 flex-grow-1 d-flex flex-column">
                 <div className="d-flex flex-column text-dark">
                     { /* title */ }
                     { title || <h1 className='mt-4 ms-4'>{lang.title}</h1> }
                     { /* subtitle */ }
                     { subtitle || <h3 className='ms-4'>{lang.subTitle}</h3> }
+                    { /* Buttons when small screen */}
+                    <div class="d-sm-none mt-2">
+                        {buttonSection && buttonSection}
+                    </div>
                 </div>
                 { /* btnToggleViewEdit */ }
                 {/* If a button section is declared, use it */}
-                <div className="position-relative flex-grow-1 d-flex align-items-end">
-                    <div className={`${styles["over-flowing-button-section"]} d-flex justify-content-evenly w-100`}>
+                <div style={{height: "1rem"}} className="position-relative flex-grow-1 d-flex align-items-end">
+                    <div className={`${styles["over-flowing-button-section"]} ${isUpdateMode && styles["edition-mode"]} d-flex justify-content-evenly w-100`}>
                         {/* Empty div to allow the button to take the second third of the width */}
                         <div></div>
-                        {buttonSection && buttonSection}
+                        <div class="d-none d-sm-block">
+                            {buttonSection && buttonSection}
+                        </div>
                         {/* If the is no button section and there is a single button declared, display it */}
                         {!buttonSection && buttonText && buttonLink ?
                             (auth.user.isLoggedIn ?

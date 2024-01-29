@@ -1,13 +1,21 @@
 .over-flowing-button-section {
     transform: translateY(50%);
+
+    &.edition-mode {
+        transform: translateY(calc(1rem + 100%));
+    }
 }
 
 .content-padding-top {
     padding-top: clamp(4rem, 15vh, 8rem);
 }
 
-.content-margin-bottom {
-    margin-bottom: clamp(5rem, 10vh, 8rem);
+.content-margin-bottom--lg {
+    margin-bottom: clamp(8rem, 12vh, 12rem);
+}
+
+.content-margin-bottom--sm {
+    margin-bottom: 4rem;
 }
 
 .default-drop-shadow {

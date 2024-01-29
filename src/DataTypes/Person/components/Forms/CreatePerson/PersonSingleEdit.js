@@ -221,8 +221,8 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props}) => {
             <Input 
                 name="firstName"
                 label="Prénom"
-                className="col-12 col-md-6"
-                formClassName="discrete-without-focus form-text-white h2"
+                className="col-12 col-sm-6 col-md-4"
+                formClassName="discrete-without-focus form-text-white"
                 validationRules={[
                     {name: "REQUIRED"}
                 ]}
@@ -233,39 +233,42 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props}) => {
             <Input 
                 name="lastName"
                 label="Nom"
-                className="col-12 col-md-6"
-                formClassName="discrete-without-focus form-text-white h2"
+                className="col-12 col-sm-6 col-md-4"
+                formClassName="discrete-without-focus form-text-white"
                 validationRules={[
                     {name: "REQUIRED"}
                 ]}
                 errorText="Cette information est requise"
                 formTools={formTools}
             />
-        </div>
-    );
-    const subtitle = (
-        <>
             <Input  
                 name="nickName"
                 label="Surnom"
+                className="col-12 col-sm-6 col-md-4"
                 formClassName="discrete-without-focus form-text-white"
                 formTools={formTools}
             />
+        </div>
+    );
 
-            <Input
-                name="catchphrase"
-                formClassName="discrete-without-focus form-text-white"
-                label={lang.catchphrase}
-                formTools={formTools}
-            />
-        </>);
+    const subtitle = (
+        <Input
+            name="catchphrase"
+            formClassName="discrete-without-focus form-text-white"
+            label={lang.catchphrase}
+            formTools={formTools}
+        />
+    );
     
     const ctaHeaderSection = (
-        <div className="d-flex align-items-end">
-            <Link href={model.singleLink} >
-                <button type="button" className="btn underlined-button text-white"><Icon iconName={"eye"} />&nbsp;{lang.capitalize("visualize")}</button>
-            </Link>
-            <Button disabled={!formState.isValid} onClick={submitHandler}><Icon iconName={"save"} />&nbsp;{lang.capitalize("save")}</Button>
+        <div className="d-flex flex-wrap align-items-end gap-2 gap-md-3 gap-lg-4">
+            <MainImageDisplay buttonClasses="fs-6" mainImage={currentMainImage} entity={currentModel} setter={updateModelMainImage} />
+            <Button className='fs-6' size="slim" color="success" disabled={!formState.isValid} onClick={submitHandler}>
+                <Icon iconName={"save"} />&nbsp;{lang.capitalize("save")}
+            </Button>
+            <Button className='fs-6' size="slim" color="primary-light" href={model.singleLink}>
+                <Icon iconName={"times"} />&nbsp;{lang.capitalize("CancelChanges")}
+            </Button>
         </div>
     )
 
@@ -278,7 +281,6 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props}) => {
             buttonSection={ctaHeaderSection}
             entity={model}
         >
-            <MainImageDisplay mainImage={currentMainImage} entity={currentModel} setter={updateModelMainImage} />
         </SingleBaseHeader>
     );
 

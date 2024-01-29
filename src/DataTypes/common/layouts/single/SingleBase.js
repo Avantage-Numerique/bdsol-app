@@ -81,9 +81,9 @@ const SingleBase = (props) => {
                 </header>
                 {/* Breadcrumb section */}
                 {  breadCrumb &&
-                    <div className="row">
-                        <div className="col-12">
-                            <Breadcrumbs className={"pt-2"} route={breadCrumb.route} getLabelGenerator={breadCrumb.getLabelGenerator || undefined} getHrefGenerator={breadCrumb.getHrefGenerator || undefined} />
+                    <div className="row pt-sm-4 mt-sm-4">
+                        <div className="col-12 pt-4 mt-4">
+                            <Breadcrumbs className={"pt-4"} route={breadCrumb.route} getLabelGenerator={breadCrumb.getLabelGenerator || undefined} getHrefGenerator={breadCrumb.getHrefGenerator || undefined} />
                         </div>
                     </div>
                 }

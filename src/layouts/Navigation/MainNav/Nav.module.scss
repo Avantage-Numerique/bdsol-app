@@ -17,14 +17,15 @@
     -o-transition: all 500ms ease;
     transition: all 500ms ease;
 
-    > div {
+    .main-section {
+        margin-top: 10vh;
 
-        margin-top: calc(var(--headersHeight) + 10vh);
+        //margin-top: calc(var(--headersHeight) + 10vh);
     } 
 
     .nav-section {
-        padding: 1rem;
-        margin-bottom: clamp(1.5rem, 2vh, 3rem);
+        padding: .25rem;
+        margin-bottom: clamp(.75rem, 3vh, 5rem);
         min-width: 30ch;
         * { text-align: left; }
     }
@@ -50,6 +51,17 @@
         right: -5rem;
         height: 50vh;
     }
+
+    .top-covering-color {
+        background-color:  $primary-lighter;
+        height: var(--headersHeight);
+        position: sticky;
+        top: 0px;
+        width: 100%;
+        left: 0px;
+
+    }
+
 }
 
 .navContainer.displayed { clip-path: inset(0); }

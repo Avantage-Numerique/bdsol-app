@@ -46,14 +46,15 @@ const Nav = ( {menuState, setMenuState} ) => {
     return (
 
         <nav className={`${styles.navContainer} ${menuState && styles.displayed} bg-primary-lighter`}>
+            <div className={`${styles["top-covering-color"]}`}></div>
             <figure style={{zIndex: "-1", pointerEvents: "none", overflow: "hidden"}} className="position-absolute top-0 bottom-0 start-0 end-0">
-                <Image className={`position-absolute bottom-0 w-auto ${styles["rotate-bg-img"]}`} src={organizationPresentationImg} alt={"Icone organisation"} />
+                {/* <Image className={`position-absolute bottom-0 w-auto ${styles["rotate-bg-img"]}`} src={organizationPresentationImg} alt={"Icone organisation"} /> */}
             </figure>
-            <div className={"container"}>
+            <div className={`container ${styles["main-section"]}`}>
                 <div className={`row ${styles["limited-width"]}`}>
-                    <div className="col-12 col-sm-6">
+                    <div className="col">
                         <section className={`${styles["nav-section"]}`}>
-                            <Button className="fs-3 h2" text_color="dark" href="/consulter">Consulter les données</Button>
+                            <Button className={`fs-3 h2`} text_color="dark" href="/consulter">Consulter les données</Button>
                         </section>
 
                         <section className={`${styles["nav-section"]}`}>
@@ -81,7 +82,7 @@ const Nav = ( {menuState, setMenuState} ) => {
                             <Button className="fs-3 h2" text_color="dark" href="/categories">Toutes les catégories</Button>
                         </section>
                     </div>
-                    <div className="col-12 col-sm-6">
+                    <div className="col">
                         <section className={`${styles["nav-section"]}`}>
                             <Button className="fs-3 h2" text_color="dark" href="/">À propos</Button>
                             <ul className={`${styles["button-list"]}`}>

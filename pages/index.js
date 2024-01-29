@@ -283,7 +283,7 @@ const HomePage = ({}) => {
             <section className="home-page__full-width-section bg-secondary-lighter mt-4">
                 <div className="container">
                     <div className='row justify-content-around align-items-center home-page__section-inner-y-padding'>
-                        <div style={{aspectRatio: "1 / 1"}} className="col-12 col-md-6 col-lg-4 order-2 order-md-1 p-2">
+                        <div style={{aspectRatio: "1 / 1", maxHeight: "50vw"}} className="col-12 col-md-6 col-lg-4 order-2 order-md-1 p-2">
                             <Image className="w-100 h-100 object-fit-cover" src={organizationPresentationImg} />
                         </div>
                         <div style={{maxWidth: "60ch"}} className="col-12 order-1 order-md-2 col-md-6 col-lg-8 p-4 flex-column align-items-start">
