@@ -50,7 +50,6 @@ const EventSingleView = ({data}) => {
         attendees,
         domains,
         skills,
-        experience,
         schedule,
         subEvents,
         location,
