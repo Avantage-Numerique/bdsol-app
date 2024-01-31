@@ -19,7 +19,7 @@ const SingleSocialHandle = ( {data} ) => {
     return (
         <div className={`p-1 ${styles["single-social-hangle"]}`}>
             {
-                data.url === `${data.url}` && data.url === `${data.label}` &&
+                data.url === `${data.url}` && data.label === `${data.label}` &&
                 <ExternalLink href={data.url} className="d-flex flex-column" target='blank'>
                     {/* Label section */}
                     <div className="d-flex">
