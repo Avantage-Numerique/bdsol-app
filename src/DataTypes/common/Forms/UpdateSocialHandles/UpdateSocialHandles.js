@@ -8,14 +8,16 @@ import {lang} from '@/src/common/Data/GlobalConstants';
 
 
 const UpdateSocialHandles = ({parentEntity, name, formTools, ...props}) => {
-
+    const showLabel = false && props.label && props.label !== false;//set to false there because a lot of forms use this but don't want to.
     return (
         <>
-            <label
-                htmlFor={name}
-            >
-                {props.label}
-            </label>
+            {showLabel &&
+                <label
+                    htmlFor={name}
+                >
+                    {props.label}
+                </label>
+            }
             <Repeater
                 className="bg-greyBg"
                 formTools={formTools}

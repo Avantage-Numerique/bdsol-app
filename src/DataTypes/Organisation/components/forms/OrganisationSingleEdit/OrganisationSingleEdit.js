@@ -346,59 +346,73 @@ const OrganisationSingleEdit = (props) => {
     const contentColumnRight = (
             <SingleInfo
                 title="Informations supplémentaires"
-                classNameTitle="mb-0"
-                className="mt-3"
+                cardLayout
             >
-                <Select2
-                    name="location"
-                    label={"Emplacement (par addresse)"}//lang.location}
-                    formTools={formTools}
-                    creatable={true}
-                    modalType={TYPE_PLACE}
-                    isMulti={true}
-                    
-                    fetch={"/places/list"}
-                    searchField={["address", "name"]}
-                    //selectField={"address"}
-                />
-                <Input
-                    name="contactPoint"
-                    label="Information de contact"
-                    tip={{
-                        header: "À noter",
-                        body: "Cette information vise à offrir une option pour rejoindre un représentant de l'organisation."
-                    }}
-                    placeholder="Adresse courriel, numéro de téléphone, etc..."
-                    formTools={formTools}
-                />
-                <Select2
-                    name="domains"
-                    label={lang.Domains}
-                    formTools={formTools}
-                    creatable={true}
-                    modalType={TYPE_TAXONOMY}
-                    isMulti={true}
-                    //createOptionFunction={displayModalForDomains}
+                <SingleInfo>
+                    <Select2
+                        name="location"
+                        label="Emplacement (par addresse)"
+                        formTools={formTools}
+                        creatable={true}
+                        modalType={TYPE_PLACE}
+                        isMulti={true}
 
-                    placeholder={lang.domainsInputPlaceholder}
-                    fetch={"/taxonomies/list"}
-                    requestData={{category:"domains", name:""}}
-                    searchField={"name"}
-                    selectField={"domains"}
-                />
-                <Input
-                    name="fondationDate"
-                    label="Date de fondation"
-                    type="date"
-                    formTools={formTools}
-                />
+                        fetch={"/places/list"}
+                        searchField={["address", "name"]}
+                        //selectField={"address"}
+                    />
+                </SingleInfo>
+                <SingleInfo>
+                    <Input
+                        name="contactPoint"
+                        label="Information de contact"
+                        tip={{
+                            header: "À noter",
+                            body: "Cette information vise à offrir une option pour rejoindre un représentant de l'organisation."
+                        }}
+                        placeholder="Adresse courriel, numéro de téléphone, etc..."
+                        formTools={formTools}
+                    />
+                </SingleInfo>
+                <SingleInfo>
+                    <Select2
+                        name="domains"
+                        label={lang.Domains}
+                        formTools={formTools}
+                        creatable={true}
+                        modalType={TYPE_TAXONOMY}
+                        isMulti={true}
+                        //createOptionFunction={displayModalForDomains}
 
-                <UpdateSocialHandles
-                    name="url"
-                    label={lang.url}
-                    parentEntity={model}
-                    formTools={formTools}
-                />
+                        placeholder={lang.domainsInputPlaceholder}
+                        fetch={"/taxonomies/list"}
+                        requestData={{category:"domains", name:""}}
+                        searchField={"name"}
+                        selectField={"domains"}
+                    />
+                </SingleInfo>
+
+                <SingleInfo>
+                    <Input
+                        name="fondationDate"
+                        label="Date de fondation"
+                        type="date"
+                        formTools={formTools}
+                    />
+                </SingleInfo>
+
+                <SingleInfo
+                    title={lang.url}
+                    isSubtitle
+                >
+                    { /* Url */}
+                    <UpdateSocialHandles
+                        name="url"
+                        label={lang.url}
+                        parentEntity={model}
+                        formTools={formTools}
+                    />
+                </SingleInfo>
             </SingleInfo>
 
     );
