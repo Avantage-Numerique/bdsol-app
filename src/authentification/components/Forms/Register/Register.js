@@ -216,7 +216,7 @@ const Register = () => {
                         onClick={() => {setIsTOSAccepted(!isTOSAccepted)}}
                         checked={isTOSAccepted}
                     />
-                    <span className="form-check-label col-8">J'accepte les <a className="text-primary" target="_blank" href="/termes-et-conditions-d'utilisation">termes et conditions d'utilisation</a></span>
+                    <span className="form-check-label col-8">J'accepte les <a className="text-primary" target="_blank" href="/app/pages/termes-et-conditions-dutilisation">termes et conditions d'utilisation</a></span>
                 </div>
 
                 <div className="col-12">
