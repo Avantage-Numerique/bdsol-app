@@ -392,6 +392,7 @@ const OrganisationSingleEdit = (props) => {
                     type="date"
                     formTools={formTools}
                 />
+
                 <UpdateSocialHandles
                     name="url"
                     label={lang.url}
@@ -399,6 +400,7 @@ const OrganisationSingleEdit = (props) => {
                     formTools={formTools}
                 />
             </SingleInfo>
+
     );
 
     const footer = (
