@@ -147,7 +147,6 @@ const Register = () => {
                     name="username"
                     type="text"
                     label="Nom d'utilisateur"
-                    placeholder="Visible par tous"
                     validationRules={[
                         {name: "REQUIRED"},
                         {name: "TYPE_ALPHANUMERIC"},

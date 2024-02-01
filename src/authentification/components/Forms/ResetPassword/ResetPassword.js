@@ -62,8 +62,8 @@ const ResetPassword = () => {
             <form className="bg-primary-lighter rounded form-box-shadow">
                 <div className={"d-flex flex-column"}>
 
-                    <h3 className="text-dark-light mb-4">Réinitialiser votre mot de passe</h3>
-                    <p>Entrer une adresse courriel pour récupérer votre mot de passe.</p>
+                    <h3 className="text-dark-light mb-4">Réinitialiser votre mot de passe ou récupérer votre nom d'utilisateur.</h3>
+                    <p>Entrer une adresse courriel associé à votre compte.</p>
                     <FormUI />
                     <Input
                         name="email"
@@ -78,7 +78,7 @@ const ResetPassword = () => {
                     <div className="mt-3">
                         <Button type="button" onClick={submitHandler} disabled={!formState.isValid}>Soumettre</Button>
                     </div>
-                    <p>*Si vous n'avez pas reçu le courriel, veuillez attendre 5 minutes avant de pouvoir soumettre à nouveau.</p>
+                    <p>*Si vous n'avez pas reçu le courriel, veuillez attendre 5 minutes avant de soumettre à nouveau.</p>
                 </div>
             </form>
         </section>
