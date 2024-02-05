@@ -31,12 +31,12 @@ const accountPage = ({ user }) => {
         <div className={"account-page pb-3"}>
             <PageHeader title={`${lang.memberSpaceWelcome}, ${user && (user.username)}`} />
             <div className="container">
-                <div className="row gx-5">
-                    <aside className="col col-sm-3">
+                <div className="row py-2">
+                    <aside className="col col-md-4 col-lg-3 py-2">
                         {user && (
                             <div className={"side-menu"}>
                                 <div className={`${styles["user-card"]}`}>
-                                    <div className="d-flex align-items-center justify-content-center">
+                                    <div className="d-flex align-items-center">
                                         <div className="flex-shrink-0 bg-secondary">
                                         {(user.avatar === undefined || user.avatar === null || user.avatar.toString() === "") ?
                                                 <img src="/general_images/default-avatar.webp" className={"img-fluid"} alt="Aucune image de profil" width="120" height="120"/>
@@ -46,9 +46,9 @@ const accountPage = ({ user }) => {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="flex-grow-1 text-center">
+                                <div className="">
                                     <h3>{user.name}</h3>
-                                    <div>{user.username}</div>
+                                    <div className="fw-bold">{user.username}</div>
                                 </div>
 
                                 <div className="mt-4">
@@ -61,14 +61,14 @@ const accountPage = ({ user }) => {
                                     {/*<Button size="slim" className="mt-1 mb-1" key="pref" onClick={() => setLeftMenu("preferences")}>Préférences</Button>*/}
                                     <Button size="slim" className="mt-1 mb-1" key="historique" onClick={() => setLeftMenu("history")}>Historique de modification</Button>
                                     <Button size="slim" className="mt-1 mb-1" key="help" onClick={() => setLeftMenu("help")}>Aide</Button>
-                                    <Button href={"/contribuer"} className={"btn-block"}>Contribuer à la base de donnée</Button>
+                                    <Button size="slim" href={"/contribuer"} className={"btn-block"}>Contribuer à la base de donnée</Button>
                                     <Button size="slim" color="white" outline="danger" className="mt-1 mb-1" key="logout" onClick={logout}>Se déconnecter</Button>
 
                                 </div>
                             </div>
                         )}
                     </aside>
-                    <div className="col col-sm-9">
+                    <div className="col col-md-8 col-lg-9 py-2">
                         <div className={"account-page-content"}>
                             {leftMenu === "history" && <UserHistoryGrid/>}
                             {/*leftMenu === "preferences" && <Preferences/>*/}
