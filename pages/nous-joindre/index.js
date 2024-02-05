@@ -33,11 +33,11 @@ const NousJoindre = () => {
             },
             email: {
                 value: '',
-                isValid: true
+                isValid: false
             },
             message: {
                 value: '',
-                isValid: true
+                isValid: false
             }
         },
         { displayResMessage: true }
@@ -81,32 +81,31 @@ const NousJoindre = () => {
             <PageHeader
                 textColor={"text-white"}
                 htmlTitle={"Nous joindre"}
-                description="Vous avez des questions ou commentaires?<br/>Vous êtes au bon endroit !">
+                description="Vous avez des questions, des commentaires, une demande de support ou encore un bug à signaler ?<br/><br/>Vous êtes au bon endroit !">
             </PageHeader>
             <section className="row d-flex py-4">
-                <section className="col-6">
+                <section className="col-12 col-md-6">
                     <div>
-                        <Image width="320" height="120" src={logo} alt="Logo réduit de AVNU"/>
+                        <Image style={{width: "clamp(12rem, 20vw, 30rem)"}} className="h-auto" src={logo} alt="Logo réduit de AVNU"/>
                     </div>
                     <div className="py-4">
-                        <div className="py-2">Adresse courriel : {appConfig.support.email}</div>
-                        <div className="py-2">Adresse : {appConfig.support.address}</div>
-                        <div className="py-2">Numéro de téléphone : {appConfig.support.phone}</div>
-                        
-                        <Button className="my-2"href={"mailto:"+appConfig.support.email}>Nous contacter par courriel</Button>
+                        <div className="py-1"><span className="fw-semibold">Adresse courriel :</span> {appConfig.support.email}</div>
+                        <div className="py-1"><span className="fw-semibold">Adresse :</span> {appConfig.support.address}</div>
+                        <div className="py-1"><span className="fw-semibold">Numéro de téléphone :</span> {appConfig.support.phone}</div>
                     </div>
                 </section>
-                <section className="col-6">
-                    <div>Pour toutes questions, commentaires, signalements de bogues, ou demandes de support.</div>
-                    <div className="border-bottom">Nous vous réponderons le plus rapidement possible.</div>
+                <section className="col-12 col-md-6 mt-2">
+                    <h3 className="fs-3">Contactez-nous par courriel</h3>
+                    <p>Nous vous répondrons le plus rapidement possible.</p>
+                    <p>Pour le faire depuis votre propre boîte de courrier électronique, <Button text_color="secondary-darker" href={"mailto:"+appConfig.support.email}>c'est par ici!</Button></p>
                     <Input
-                        className="mb-3 py-4"
+                        className="py-1"
                         name="name"
                         label={"Nom"}
                         formTools={formTools}
                     />
                     <Input
-                        className="mb-3"
+                        className="py-1"
                         name="email"
                         label={lang.email}
                         validationRules={[
@@ -115,7 +114,7 @@ const NousJoindre = () => {
                         formTools={formTools}
                     />
                     <RichTextarea
-                        className="mb-3 mt-2"
+                        className="py-1"
                         name="message"
                         label={lang.message}
                         validationRules={[
@@ -123,7 +122,7 @@ const NousJoindre = () => {
                         ]}
                         formTools={formTools}
                     />
-                    <Button type="button" onClick={sendContactUsMessage}>{lang.sendMessage}</Button>
+                    <Button type="button" disabled={!formState.isValid} onClick={sendContactUsMessage}>{lang.sendMessage}</Button>
                 </section>
 
             </section>
