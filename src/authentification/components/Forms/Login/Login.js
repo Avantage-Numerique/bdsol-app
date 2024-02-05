@@ -123,9 +123,9 @@ const Login = () => {
                     
                     <div className="d-flex flex-wrap">
                         <p className={`fs-6 ${styles.formRedirection}`}>
-                            Vous avez oublié votre mot de passe ?
+                            Vous avez oublié votre mot de passe ou votre nom d'utilisateur ?
                         </p>
-                        <Button className="fs-6" text_color="secondary" href="/compte/reinitialiser"> Réinitialisé votre mot de passe.</Button>
+                        <Button className="fs-6" text_color="secondary" href="/compte/reinitialiser">Réinitialiser votre mot de passe ou récupérer votre nom d'utilisateur.</Button>
                 
                     </div>
                 </div>

@@ -76,7 +76,7 @@ const SingleBaseHeader = (props) => {
                     { /* subtitle */ }
                     { subtitle || <h3 className='ms-4'>{lang.subTitle}</h3> }
                     { /* Buttons when small screen */}
-                    <div class="d-sm-none mt-2">
+                    <div className="d-sm-none mt-2">
                         {buttonSection && buttonSection}
                     </div>
                 </div>
@@ -86,7 +86,7 @@ const SingleBaseHeader = (props) => {
                     <div className={`${styles["over-flowing-button-section"]} ${isUpdateMode && styles["edition-mode"]} d-flex justify-content-evenly w-100`}>
                         {/* Empty div to allow the button to take the second third of the width */}
                         <div></div>
-                        <div class="d-none d-sm-block">
+                        <div className="d-none d-sm-block">
                             {buttonSection && buttonSection}
                         </div>
                         {/* If the is no button section and there is a single button declared, display it */}

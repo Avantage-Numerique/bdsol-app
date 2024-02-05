@@ -5,7 +5,6 @@ import {AuthProvider} from '@/src/authentification/context/auth-context';
 import Layout from '@/src/layouts/Layout';
 import {getVisitorDataFromContext} from "@/src/authentification/context/visitor-context";
 import {verifyToken} from "@/auth/callbacks/verify-token.callback";
-import {ClientErrorHandler} from "@/layouts/Errors/ClientErrorHandler";
 
 /**
  * Import global SCSS files
@@ -24,11 +23,9 @@ function MyApp({Component, pageProps, user}) {
         <>
             {/* Authentication context provided to all the subsequent elements */}
             <AuthProvider fromSessionUser={user} appMode={process.env.MODE}>
-                <ClientErrorHandler fallback={<p>Oh canard ...</p>}>
-                    <Layout>
-                        <Component {...pageProps} />
-                    </Layout>
-                </ClientErrorHandler>
+                <Layout>
+                    <Component {...pageProps} />
+                </Layout>
             </AuthProvider>
         </>
     )
