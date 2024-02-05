@@ -14,6 +14,10 @@
 body {
   overflow-x:hidden;
 }
+//To hide the scroll bar when the menu is open
+body.menu-open {
+  overflow: hidden;
+}
 
 h1, h2, h3, h4 { 
   line-height: 1.3em;

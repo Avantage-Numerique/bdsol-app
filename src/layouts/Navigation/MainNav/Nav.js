@@ -5,13 +5,12 @@
 import {useEffect} from 'react'
 import {useRouter} from 'next/router'
 import Image from 'next/image'
-
 //Components
 import Button from '@/src/common/FormElements/Button/Button'
 
 //Styling
 import styles from './Nav.module.scss'
-import organizationPresentationImg from '@/public/general_images/Fusée_Planetes_Poitilles2.svg'
+import organizationPresentationImg from '@/public/general_images/Fusée_Planetes_Poitilles2_90deg.svg'
 
 //Entities
 import Person from "@/DataTypes/Person/models/Person";
@@ -42,89 +41,111 @@ const Nav = ( {menuState, setMenuState} ) => {
         if (menuState){ setMenuState(false) }
     }, [router.asPath]);
 
+    const toggleScrollableBody = () => {
+        if(menuState === undefined)
+            return
+        if (typeof document === 'undefined') 
+            return 
+        if(document.body.classList.contains('menu-open')){
+            if(!menuState)
+                //Remove the class
+                document.body.classList.remove('menu-open')
+        } else {
+            if(menuState)
+                //Remove the class
+                document.body.classList.add('menu-open')
+        }
+    }
+
+    useEffect(() => {
+        toggleScrollableBody()
+    }, [])
+    toggleScrollableBody()
 
     return (
 
         <nav className={`${styles.navContainer} ${menuState && styles.displayed} bg-primary-lighter`}>
-            <div className={`${styles["top-covering-color"]}`}></div>
-            <figure style={{zIndex: "-1", pointerEvents: "none", overflow: "hidden"}} className="position-absolute top-0 bottom-0 start-0 end-0">
-                {/* <Image className={`position-absolute bottom-0 w-auto ${styles["rotate-bg-img"]}`} src={organizationPresentationImg} alt={"Icone organisation"} /> */}
-            </figure>
-            <div className={`container ${styles["main-section"]}`}>
-                <div className={`row ${styles["limited-width"]}`}>
-                    <div className="col">
-                        <section className={`${styles["nav-section"]}`}>
-                            <Button className={`fs-3 h2`} text_color="dark" href="/consulter">Consulter les données</Button>
-                        </section>
+            <div className="position-relative h-100">
+                <div className={`${styles["top-covering-color"]}`}></div>
+                <figure className={`${styles["bg-img-container"]} d-none d-sm-block`}>
+                    <Image className={`position-absolute ${styles["bg-img"]}`} src={organizationPresentationImg} alt={"Fusée avec le canard d'AVNU qui se déplace dans l'espace."} /> 
+                </figure>
+                <div className={`container ${styles["main-section"]}`}>
+                    <div className={`row ${styles["limited-width"]}`}>
+                        <div className="col">
+                            <section className={`${styles["nav-section"]}`}>
+                                <Button className={`fs-3 h2`} text_color="dark" href="/consulter">Consulter les données</Button>
+                            </section>
 
-                        <section className={`${styles["nav-section"]}`}>
-                            <Button className="fs-3 h2" text_color="dark" href="/contribuer">Ajouter des données</Button>
-                            <ul className={`${styles["button-list"]}`}>
-                                <li>
-                                    <Button text_color="dark" href="/contribuer/organisations"><i className={`${Organisation.icon} ${styles["entity-icon"]}`} />Ajouter une organisation</Button>
-                                </li>
-                                <li>
-                                    <Button text_color="dark" href="/contribuer/personnes"><i className={`${Person.icon} ${styles["entity-icon"]}`} />Ajouter une personne</Button>
-                                </li>
-                                <li>
-                                    <Button text_color="dark" href="/contribuer/projets"><i className={`${Project.icon} ${styles["entity-icon"]}`} />Ajouter un projet</Button>
-                                </li>
-                                <li>
-                                    <Button text_color="dark" href="/contribuer/evenements"><i className={`${Event.icon} ${styles["entity-icon"]}`} />Ajouter un événement</Button>
-                                </li>
-                                <li>
-                                    <Button text_color="dark" href="/contribuer/equipements"><i className={`${Equipment.icon} ${styles["entity-icon"]}`} />Ajouter un équipement</Button>
-                                </li>
-                            </ul>
-                        </section>
+                            <section className={`${styles["nav-section"]}`}>
+                                <Button className="fs-3 h2" text_color="dark" href="/contribuer">Ajouter des données</Button>
+                                <ul className={`${styles["button-list"]}`}>
+                                    <li>
+                                        <Button text_color="dark" href="/contribuer/organisations"><i className={`${Organisation.icon} ${styles["entity-icon"]}`} />Ajouter une organisation</Button>
+                                    </li>
+                                    <li>
+                                        <Button text_color="dark" href="/contribuer/personnes"><i className={`${Person.icon} ${styles["entity-icon"]}`} />Ajouter une personne</Button>
+                                    </li>
+                                    <li>
+                                        <Button text_color="dark" href="/contribuer/projets"><i className={`${Project.icon} ${styles["entity-icon"]}`} />Ajouter un projet</Button>
+                                    </li>
+                                    <li>
+                                        <Button text_color="dark" href="/contribuer/evenements"><i className={`${Event.icon} ${styles["entity-icon"]}`} />Ajouter un événement</Button>
+                                    </li>
+                                    <li>
+                                        <Button text_color="dark" href="/contribuer/equipements"><i className={`${Equipment.icon} ${styles["entity-icon"]}`} />Ajouter un équipement</Button>
+                                    </li>
+                                </ul>
+                            </section>
 
-                        <section className={`${styles["nav-section"]}`}>
-                            <Button className="fs-3 h2" text_color="dark" href="/categories">Toutes les catégories</Button>
-                        </section>
-                    </div>
-                    <div className="col">
-                        <section className={`${styles["nav-section"]}`}>
-                            <Button className="fs-3 h2" text_color="dark" href="/">À propos</Button>
-                            <ul className={`${styles["button-list"]}`}>
-                                <li>
-                                    <Button text_color="dark" href="/">En savoir plus sur le projet AVNU</Button>
-                                </li>
-                                <li>
-                                    <Button text_color="dark" href="https://avantagenumerique.org/notre-equipe/" external={true}>Notre équipe</Button>
-                                </li>
-                                <li>
-                                    <Button text_color="dark" href="/nous-joindre">Nous joindre</Button>
-                                </li>
-                                <li>
-                                    <Button text_color="dark" href="/faq">FAQ</Button>
-                                </li>
-                            </ul>
-                        </section>
+                            <section className={`${styles["nav-section"]}`}>
+                                <Button className="fs-3 h2" text_color="dark" href="/categories">Toutes les catégories</Button>
+                            </section>
+                        </div>
+                        <div className="col">
+                            <section className={`${styles["nav-section"]}`}>
+                                <Button className="fs-3 h2" text_color="dark" href="/">À propos</Button>
+                                <ul className={`${styles["button-list"]}`}>
+                                    <li>
+                                        <Button text_color="dark" href="/">En savoir plus sur le projet AVNU</Button>
+                                    </li>
+                                    <li>
+                                        <Button text_color="dark" href="https://avantagenumerique.org/notre-equipe/" external={true}>Notre équipe</Button>
+                                    </li>
+                                    <li>
+                                        <Button text_color="dark" href="/nous-joindre">Nous joindre</Button>
+                                    </li>
+                                    <li>
+                                        <Button text_color="dark" href="/faq">FAQ</Button>
+                                    </li>
+                                </ul>
+                            </section>
 
-                        <section className={`${styles["nav-section"]}`}>
-                            <Button className="fs-3 h2" text_color="dark" href="/">Espace membre</Button>
-                            <ul className={`${styles["button-list"]}`}>
-                                { auth.user.isLoggedIn ? 
-                                <>
-                                    <li>
-                                        <Button href="/compte" text_color="dark">Mon profil</Button>
-                                    </li>
-                                    <li>
-                                        <Button onClick={logout} text_color="dark">{lang.menuLabelToDisconnect}</Button>
-                                    </li>
-                                </> 
-                                : 
-                                <> 
-                                    <li>
-                                        <Button href="/compte/connexion" text_color="dark">{lang.menuLabelConnect}</Button>
-                                    </li>
-                                    <li>
-                                        <Button href="/compte/inscription" text_color="dark">{lang.menuLabelCreateAccount}</Button>
-                                    </li>
-                                </>
-                                }
-                            </ul>
-                        </section>
+                            <section className={`${styles["nav-section"]}`}>
+                                <Button className="fs-3 h2" text_color="dark" href="/">Espace membre</Button>
+                                <ul className={`${styles["button-list"]}`}>
+                                    { auth.user.isLoggedIn ? 
+                                    <>
+                                        <li>
+                                            <Button href="/compte" text_color="dark">Mon profil</Button>
+                                        </li>
+                                        <li>
+                                            <Button onClick={logout} text_color="dark">{lang.menuLabelToDisconnect}</Button>
+                                        </li>
+                                    </> 
+                                    : 
+                                    <> 
+                                        <li>
+                                            <Button href="/compte/connexion" text_color="dark">{lang.menuLabelConnect}</Button>
+                                        </li>
+                                        <li>
+                                            <Button href="/compte/inscription" text_color="dark">{lang.menuLabelCreateAccount}</Button>
+                                        </li>
+                                    </>
+                                    }
+                                </ul>
+                            </section>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -135,51 +156,3 @@ const Nav = ( {menuState, setMenuState} ) => {
 
 export default Nav;
 
-
-/* 
-
-<ul className={`${navStyles.mainMenu}`}>
-
-                    <li onClick={closeMenu}>
-                        <Link href="/">Accueil</Link>
-                    </li>
-
-                    <li onClick={closeMenu}>
-                        <Link href="/categories">Consulter les données</Link>
-                    </li>
-
-                    <li onClick={closeMenu}>
-                        <Link href="/contribuer">Contribuer à la base de données</Link>
-                    </li>
-
-                    <li onClick={closeMenu}>
-                        <Link href="/faq/a-propos">À propos de nous</Link>
-                    </li>
-                    <li onClick={closeMenu}>
-                        <Link href="/faq">FAQ</Link>
-                    </li>
-
-                </ul>
-
-                <div className={`${navStyles.line}`}></div>
-
-                <ul className={`${navStyles.secondaryMenu} d-flex flex-column`}>
-                    <li>
-                        <a target="_blank" href="https://avantagenumerique.org/le-croissant-boreal/">Le Croissant boréal</a>
-                    </li>
-                    <li>
-                        <a target="_blank" href="https://avantagenumerique.org/charte-des-valeurs/">Charte des valeurs</a>
-                    </li>
-                    <li>
-                        <a target="_blank" href="https://avantagenumerique.org/notre-equipe/">Notre équipe</a>
-                    </li>
-                    <li>
-                        <a target="_blank" href="https://avantagenumerique.org/a-propos">À propos d'Avantage Numérique</a>
-                    </li>
-                    <li>
-                        <Link href="/nous-joindre">Nous joindre</Link>
-                    </li>
-                </ul>
-
-
-*/

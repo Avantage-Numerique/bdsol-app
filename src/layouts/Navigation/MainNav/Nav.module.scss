@@ -45,15 +45,27 @@
         li { margin-top: 1vh; }
     }
 
-    /* Temporary */
-    .rotate-bg-img{
-        transform: rotate(90deg);
-        right: -5rem;
-        height: 50vh;
+    .bg-img-container {
+        z-index: -1;
+        pointer-events: none;
+        overflow: hidden;
+        position: fixed;
+        top: 0px; 
+        bottom: 0px;
+        right: 0px; 
+        left: 0px;
+        .bg-img{
+            right: 1rem;
+            bottom: 0.5rem;
+            height: max(18rem, 80vh);
+            width: auto;
+        }
     }
 
+
     .top-covering-color {
-        background-color:  $primary-lighter;
+        background:  $primary-lighter;
+        background: linear-gradient(180deg, $primary-lighter 50%, rgba(255,255,255,0) 100%);
         height: var(--headersHeight);
         position: sticky;
         top: 0px;

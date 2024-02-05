@@ -65,6 +65,17 @@ const TaxonomiesCategoryPage = () => {
             return (
                 <div>Liste introuvable ou vide</div>
             )
+        
+        //Sort by alphabetical order so its possible for a user to find something :) 
+        list.sort((a, b) => {
+            if (a.slug < b.slug) {
+                return -1;
+            } else if (a.slug > b.slug) {
+                return 1;
+            } else {
+                return 0;
+            }
+        });
         return (
             list.map( (elem) => 
                 <div

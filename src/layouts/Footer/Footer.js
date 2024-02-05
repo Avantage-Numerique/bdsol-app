@@ -29,7 +29,7 @@ const Footer = () => {
                 <div className={`row justify-content-center ${styles["secondary-logo--container"]}`}>
                     <div className="d-flex justify-content-center ">
                         <a href="https://avantagenumerique.org/?ref=avnuca" title={"Site web d'avantage numérique"} rel={"nofollow"}>
-                            <img alt="Logo avantage numérique" src="/logo.svg" />
+                            <img alt="Logo avantage numérique" src="/logos/logo_Avantage_Numérique.svg" />
                         </a> 
                     </div>
                 </div>
