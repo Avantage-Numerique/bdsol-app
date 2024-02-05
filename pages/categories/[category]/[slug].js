@@ -92,6 +92,7 @@ const TaxonomiesSinglePage = (props) => {
             </Head>
             <PageHeader
                 bg={"bg-primary-lighter"}
+                colFullWidth
                 textColor={"text-white"}
                 htmlTitle={currentTitle}
                 tags={{
@@ -104,7 +105,7 @@ const TaxonomiesSinglePage = (props) => {
 
                 <p className={"pt-2"}>
                     {auth.user.isLoggedIn &&
-                        <Button outline={"light"} color="light" onClick={displayUpdateForm}>
+                        <Button onClick={displayUpdateForm}>
                             <Icon iconName={"edit"} /> {lang.proposeContentChangeLabel}
                         </Button>
                     }

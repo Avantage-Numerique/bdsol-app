@@ -9,7 +9,8 @@ import SearchTag from "@/common/Components/SearchTag";
 
 
 /**
- *
+ * 
+ * @param props.colFullWidth {bool} Set the first col to take the full width
  * @param props.custom_FullWidthContent {JSX.Element} Custom component to be added to the component root
  * @param props.custom_LeftColContent {JSX.Element} Custom component to be added to the left colomn
  * @param props.custom_RightColElement {JSX.Element} Custom component to be added to the right colomn
@@ -36,7 +37,7 @@ const PageHeader = (props) => {
             <div className="container">
                 <div className={`row justify-content-between align-items-center ${reverseWrap}`}>
 
-                    <div className={`${styles['header-left-col--max-width']} ${styles['stacking-context-front']} ${props.leftColClassName} col-12 col-md-${colNumberXs} d-flex flex-column justify-content-center position-relative`}>
+                    <div className={`${!props.colFullWidth && styles['header-left-col--max-width']} ${styles['stacking-context-front']} ${props.leftColClassName} col-12 col-md-${colNumberXs} d-flex flex-column justify-content-center position-relative`}>
                         {historyBack &&
                         <div className={"d-flex justify-content-end"}>
                             <Button color="white" outline="primary" href={historyBack.uri}>
@@ -65,14 +66,13 @@ const PageHeader = (props) => {
                         }
 
                         {props.tags &&
-                            <h3 className={`${subtitleColor} mb-2`}>
+                            <div className={`${subtitleColor} mb-2 d-flex`}>
                                 <SearchTag
-                                    className="row"
                                     list={props.tags.list}
                                     listProperty={props.tags.listProperty}
                                     tagBgColor={"secondary"}
                                 />
-                            </h3>
+                            </div>
                         }
 
                         {props.description &&
