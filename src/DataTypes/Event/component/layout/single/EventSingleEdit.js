@@ -313,7 +313,7 @@ const EventSingleEdit = ({data}, ...props) => {
                 name="name"
                 label={lang.eventName}
                 className="col-12 col-md-6"
-                formClassName="discrete-without-focus form-text-white h2"
+                formClassName="discrete-without-focus form-text-white"
                 validationRules={[
                     {name: "REQUIRED"}
                 ]}
@@ -391,14 +391,17 @@ const EventSingleEdit = ({data}, ...props) => {
 
         </>);
 
-    const ctaHeaderSection = (
-        <div className="d-flex align-items-end">
-            <Link href={model.singleLink} >
-                <button type="button" className="btn underlined-button text-white"><Icon iconName={"eye"} />&nbsp;{lang.capitalize("visualize")}</button>
-            </Link>
-            <Button disabled={!formState.isValid} onClick={submitHandler}><Icon iconName={"save"} />&nbsp;{lang.capitalize("save")}</Button>
-        </div>
-    )
+        const ctaHeaderSection = (
+            <div className="d-flex flex-wrap align-items-end gap-2 gap-md-3 gap-lg-4">
+                <MainImageDisplay buttonClasses="fs-6" mainImage={currentMainImage} entity={currentModel} setter={updateModelMainImage} />
+                <Button className='fs-6' size="slim" color="success" disabled={!formState.isValid} onClick={submitHandler}>
+                    <Icon iconName={"save"} />&nbsp;{lang.capitalize("save")}
+                </Button>
+                <Button className='fs-6' size="slim" color="primary-light" href={model.singleLink}>
+                    <Icon iconName={"times"} />&nbsp;{lang.capitalize("CancelChanges")}
+                </Button>
+            </div>
+        )
     
     const header = ( 
         <SingleBaseHeader
@@ -408,9 +411,7 @@ const EventSingleEdit = ({data}, ...props) => {
             mainImage={currentMainImage}
             buttonSection={ctaHeaderSection}
             entity={model}
-        >
-            <MainImageDisplay mainImage={currentMainImage} entity={currentModel} setter={updateModelMainImage} />
-        </SingleBaseHeader>
+        />
     );
 
     const fullWidthContent = (
@@ -493,7 +494,6 @@ const EventSingleEdit = ({data}, ...props) => {
             {/* schedule */}
             <SingleInfo
                 title={lang.schedule}
-                cardLayout
             >     
                 <UpdateSchedule
                     name="schedule"
@@ -516,7 +516,6 @@ const EventSingleEdit = ({data}, ...props) => {
             {/* subEvents */}
             <SingleInfo 
                 title={lang.subEvents}
-                cardLayout
             >
                 <Select2
                     name="subEvents"
@@ -535,7 +534,6 @@ const EventSingleEdit = ({data}, ...props) => {
             {/* team */}
             <SingleInfo
                 title={lang.teamMembers}
-                cardLayout
             >
                 <UpdateTeams
                     name="team"
@@ -548,7 +546,6 @@ const EventSingleEdit = ({data}, ...props) => {
             {/* attendees */}
             <SingleInfo 
                 title={lang.attendees}
-                cardLayout
             >
                 {/* attendees */}
                 <Select2
@@ -571,7 +568,6 @@ const EventSingleEdit = ({data}, ...props) => {
             <SingleInfo
                 title={"Informations supplémentaires"}
                 className="py-3"
-                cardLayout
             >
                 {/* skills */}
                 <SingleInfo 

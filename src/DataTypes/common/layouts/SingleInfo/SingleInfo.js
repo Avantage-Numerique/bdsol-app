@@ -71,8 +71,8 @@ const SingleInfo = props => {
                     </header>
                 }
                 <div>
-                    {children && children}
-                    {!children && <DefaultNotAvailableDisplay />}
+                    {isFilled && children}
+                    {!isFilled && <DefaultNotAvailableDisplay />}
                 </div>
             </section>
         </div>

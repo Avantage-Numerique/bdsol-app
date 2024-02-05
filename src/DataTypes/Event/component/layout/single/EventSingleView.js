@@ -59,6 +59,7 @@ const EventSingleView = ({data}) => {
         updatedAt
     } = data
 
+
     const model = new Event(data);
     const [formatEnumState, setFormatEnumState] = useState(undefined);
 
@@ -206,6 +207,7 @@ const EventSingleView = ({data}) => {
             >
                 <EntitiesTagGrid 
                     feed={sortedTeam} 
+                    regularFlexWrapping
                     subEntityProperty={"member"} 
                     subBadgeProperty={"role"} 
                     noneMessage={"Aucun membre de l'équipe spécifiés"} 
@@ -220,6 +222,7 @@ const EventSingleView = ({data}) => {
                 cardLayout
             >
                 <EntitiesTagGrid 
+                    regularFlexWrapping
                     feed={attendees} 
                     className="mb-0"
                 />

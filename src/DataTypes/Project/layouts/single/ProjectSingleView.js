@@ -153,13 +153,13 @@ const ProjectSingleView = ({ data }) => {
                 <EntitiesTagGrid feed={sortedSponsors} subEntityProperty={"entity"} subBadgeProperty={"name"} />
             </SingleInfo>
             
-            {/* Partners */}
+            {/* Team */}
             <SingleInfo
                     title={lang.teamMembers}
                     displayCondition={sortedTeam.length > 0}
                     cardLayout
             >
-                <EntitiesTagGrid feed={sortedTeam} subEntityProperty={"member"} subBadgeProperty={"role"} noneMessage={"Aucun membre de l'équipe spécifiés"} />
+                <EntitiesTagGrid feed={sortedTeam} regularFlexWrapping subEntityProperty={"member"} subBadgeProperty={"role"} noneMessage={"Aucun membre de l'équipe spécifiés"} />
             </SingleInfo>
             
             {/* schedule budget */}
@@ -213,7 +213,11 @@ const ProjectSingleView = ({ data }) => {
                 cardLayout
             >
                 {equipment && 
-                    <EntitiesTagGrid feed={equipment} noneMessage={""} />
+                    <EntitiesTagGrid 
+                        regularFlexWrapping 
+                        feed={equipment} 
+                        noneMessage={""} 
+                    />
                 }
             </SingleInfo>
 

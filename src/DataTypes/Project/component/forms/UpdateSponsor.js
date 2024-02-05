@@ -1,7 +1,6 @@
 //Component
 import Input from "@/src/common/FormElements/Input/Input";
 import Repeater from "@/src/common/FormElements/Repeater/Repeater";
-import SingleInfo from "@/src/DataTypes/common/layouts/SingleInfo/SingleInfo";
 import Select2 from "@/src/common/FormElements/Select2/Select2";
 import Button from "@/src/common/FormElements/Button/Button";
 
@@ -17,15 +16,11 @@ import { lang } from "@/src/common/Data/GlobalConstants";
 const UpdateSponsor = ({name, formTools, ...props}) => {
 
     return (
-        <>
-            <SingleInfo
-                title={props.label}
-                cardLayout
-            >
+        <div className="px-4 border-start">
                 <Repeater
                     formTools={formTools}
                     name={name}
-                    className="bg-white"
+                    className="bg-greyBg"
                     formInitStructure={{
                         name: {
                             value: "",
@@ -45,7 +40,7 @@ const UpdateSponsor = ({name, formTools, ...props}) => {
                 >
                     <article className="mb-2 py-2 rounded-1 d-flex gap-4">
                         <section className="col mb-1 row">
-                            <div className="col-12 col-md-6">
+                            <div className="col-12 col-lg-6">
                                 <Select2
                                     name="entity"
                                     label="Partenaire"
@@ -61,7 +56,7 @@ const UpdateSponsor = ({name, formTools, ...props}) => {
                                     ]}
                                 />
                             </div>
-                            <div className="col-12 col-md-6">
+                            <div className="col-12 col-lg-6">
                                 <Input
                                     name="name"
                                     label="Titre"
@@ -77,9 +72,8 @@ const UpdateSponsor = ({name, formTools, ...props}) => {
                     </article>
                 </Repeater>
                 
-                
-            </SingleInfo>
-        </>
+            </div>
+
     )
 
 }

@@ -173,23 +173,23 @@ const EquipmentSingleEdit = ({ positiveRequestActions, ...props}) => {
             <Input
                 name="label"
                 label={lang.label}
-                formClassName="discrete-without-focus form-text-white h3"
+                formClassName="discrete-without-focus form-text-white"
                 formTools={formTools}
                 placeholder={lang.labelPlaceholder}
             />
         </div>
     );
-    const subtitle = (
-        <>
-
-        </>);
+    const subtitle = (<></>);
     
     const ctaHeaderSection = (
-        <div className="d-flex align-items-end">
-            <Link href={model.singleLink} >
-                <button type="button" className="btn underlined-button text-white"><Icon iconName={"eye"} />&nbsp;{lang.capitalize("visualize")}</button>
-            </Link>
-            <Button disabled={!formState.isValid} onClick={submitHandler}><Icon iconName={"save"} />&nbsp;{lang.capitalize("save")}</Button>
+        <div className="d-flex flex-wrap align-items-end gap-2 gap-md-3 gap-lg-4">
+            <MainImageDisplay buttonClasses="fs-6" mainImage={currentMainImage} entity={currentModel} setter={updateModelMainImage} />
+            <Button className='fs-6' size="slim" color="success" disabled={!formState.isValid} onClick={submitHandler}>
+                <Icon iconName={"save"} />&nbsp;{lang.capitalize("save")}
+            </Button>
+            <Button className='fs-6' size="slim" color="primary-light" href={model.singleLink}>
+                <Icon iconName={"times"} />&nbsp;{lang.capitalize("CancelChanges")}
+            </Button>
         </div>
     )
 
@@ -201,9 +201,7 @@ const EquipmentSingleEdit = ({ positiveRequestActions, ...props}) => {
             mainImage={currentMainImage}
             buttonSection={ctaHeaderSection}
             entity={model}
-        >
-            <MainImageDisplay mainImage={currentMainImage} entity={currentModel} setter={updateModelMainImage} />
-        </SingleBaseHeader>
+        />
     );
 
     const contentColumnLeft = (

@@ -34,11 +34,11 @@ const UpdateSkillGroup = ({parentEntity, name, formTools, ...props}) => {
                     {/* Content of the elements */}
                     <section className="row col">
                         <Input
-                            className="col-12 col-md-6"
+                            className="col-12 col-lg-6"
                             label="Titre de l'offre"
                             name="groupName"
                         />
-                        <div className="col-12 col-md-6">
+                        <div className="col-12 col-lg-6">
                             <Select2
                                 name="skills"
                                 label="Compétences qui la compose"

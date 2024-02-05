@@ -18,7 +18,7 @@ import {getModelFromType} from "@/DataTypes/Entity/Types";
  * @return {JSX.Element}
  * @constructor
  */
-const EntitiesTagGrid = ({feed, className, columnClass, subEntityProperty, subBadgeProperty, noneMessage, numberOfCols, forceType, notes}, ...props) => {
+const EntitiesTagGrid = ({feed, className, columnClass, subEntityProperty, subBadgeProperty, noneMessage, numberOfCols, forceType, notes, regularFlexWrapping}, ...props) => {
 
     const ContainerTag = "ul";
     //subEntityProperty = subEntityProperty ?? 'entity';//
@@ -48,7 +48,7 @@ const EntitiesTagGrid = ({feed, className, columnClass, subEntityProperty, subBa
     const style = {paddingTop: "1rem"}
 
     return (
-        <ContainerTag style={style} className={`row ${className ?? ""}`}>
+        <ContainerTag style={style} className={`${regularFlexWrapping ? "d-flex flex-wrap justify-content-start" : "row"}  gap-2 gap-lg-3 ${className ?? ""}`}>
             {
                 (Array.isArray(feed) && feedLength > 0) ?
                     feed.map((entity, index) => {
@@ -64,7 +64,7 @@ const EntitiesTagGrid = ({feed, className, columnClass, subEntityProperty, subBa
                             model.badge = entity[subBadgeProperty] ?? "";
                             const TagComponent = model.tagComponent;
                             return (
-                                <li className={`d-flex flex-wrap justify-content-start ${colContainerClass} ${spacingClasses}`} key={getKeyString("container", model, index)}>
+                                <li className={`d-flex flex-wrap justify-content-start ${!regularFlexWrapping && colContainerClass} ${spacingClasses}`} key={getKeyString("container", model, index)}>
                                     <TagComponent model={model} key={getKeyString("tag", model, index)} />
                                 </li>
                             )

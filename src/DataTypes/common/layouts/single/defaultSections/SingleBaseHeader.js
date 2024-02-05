@@ -44,20 +44,32 @@ const SingleBaseHeader = (props) => {
     const type = getType(entity.type) ?? getType(TYPE_DEFAULT);
     const isUpdateMode = className?.includes("mode-update");
 
+    const MainImage = () => (
+        <>
+            { mainImage && mainImage.url !== "" && !mainImage.isDefault &&
+                <a href={`/medias/${mainImage._id}`}
+                    className={`fs-4 w-100 h-100 position-absolute d-flex align-items-center justify-content-center p-1 ${styles["profile-picture--modification-opt"]} main-image-link`}>
+                    <Icon iconName={"eye"} /> {lang.see}
+                </a>
+            }
+        </>
+    )
+
     //Removed from coloumn, it's more useful to use the justify or align from start or end.
     return (
         <section className={`row ms-0  ${styles["content-padding-top"]} ${props.className}`}>
-            <div className="col-12 order-2 col-sm order-sm-1 d-flex flex-grow-0 align-items-end">
-                <MediaFigure model={mainImage} className={`main-image-container ${!mainImage.isDefault ? "overflow-hidden shadow" : (styles["default-drop-shadow"] + " default-img ")}`} imgClassName={"main-image"}>
-                    { mainImage && mainImage.url !== "" && !mainImage.isDefault &&
-                        <a href={`/medias/${mainImage._id}`}
-                           className={`fs-4 w-100 h-100 position-absolute d-flex align-items-center justify-content-center p-1 ${styles["profile-picture--modification-opt"]} main-image-link`}>
-                            <Icon iconName={"eye"} /> {lang.see}
-                        </a>
-                    }
+            <div className="col-12 col-sm d-flex flex-grow-0 align-items-end">
+                {/* Base styling doesn't move down the picture since its not overflowing the container. A bit tricky with bootstrap grid so we need two components to apply different classes */}
+                {/* Base format (small screens) */}
+                <MediaFigure model={mainImage} className={`d-sm-none main-image-container no-bottom-margin ${!mainImage.isDefault ? "overflow-hidden shadow" : (styles["default-drop-shadow"] + " default-img ")}`} imgClassName={"main-image"}>
+                    <MainImage />
+                </MediaFigure>
+                {/* SM format and more */}
+                <MediaFigure model={mainImage} className={`d-none d-sm-block main-image-container ${!mainImage.isDefault ? "overflow-hidden shadow" : (styles["default-drop-shadow"] + " default-img ")}`} imgClassName={"main-image"}>
+                    <MainImage />
                 </MediaFigure>
             </div>
-            <div className="col-12 order-1 col-sm order-sm-2 flex-grow-1 d-flex flex-column">
+            <div className="col-12 col-sm flex-grow-1 d-flex flex-column">
                 <div className="d-flex flex-column text-dark">
                     { /* title */ }
                     { title || <h1 className='mt-4 ms-4'>{lang.title}</h1> }

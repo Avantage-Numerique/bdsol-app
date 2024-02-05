@@ -10,6 +10,10 @@
   height: var(--picture-size);
   border-radius: 50%;
 
+  &.no-bottom-margin {
+    --margin-bottom: 1rem;
+  }
+
   &.default-img {
     //Make it a tiny bit less overflowing if its the default picture
     --margin-bottom: calc(-0.20*var(--picture-size));
@@ -17,6 +21,9 @@
       object-fit: contain !important; 
       object-position: center bottom;
      }
+     &.no-bottom-margin {
+      --margin-bottom: 1rem;
+    }
   }
 
   .main-image {

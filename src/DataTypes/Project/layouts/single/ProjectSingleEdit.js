@@ -301,7 +301,7 @@ const ProjectSingleEdit = (props) => {
             name="name"
             label="Nom du projet"
             formTools={formTools}
-            formClassName="discrete-without-focus form-text-white h2"
+            formClassName="discrete-without-focus form-text-white"
             validationRules={[
                 {name: "REQUIRED"}
             ]}
@@ -312,7 +312,7 @@ const ProjectSingleEdit = (props) => {
             <Input 
                 name="alternateName"
                 label="Nom alternatif"        
-                formClassName="discrete-without-focus form-text-white h4"
+                formClassName="discrete-without-focus form-text-white"
                 formTools={formTools}
             />
             <Select2
@@ -344,11 +344,14 @@ const ProjectSingleEdit = (props) => {
 
 
     const ctaHeaderSection = (
-        <div className="d-flex align-items-end">
-            <Link href={model.singleLink} >
-                <button type="button" className="btn underlined-button text-white"><Icon iconName={"eye"} />&nbsp;{lang.capitalize("visualize")}</button>
-            </Link>
-            <Button disabled={!formState.isValid} onClick={submitHandler}><Icon iconName={"save"} />&nbsp;{lang.capitalize("save")}</Button>
+        <div className="d-flex flex-wrap align-items-end gap-2 gap-md-3 gap-lg-4">
+            <MainImageDisplay buttonClasses="fs-6" mainImage={currentMainImage} entity={currentModel} setter={updateModelMainImage} />
+            <Button className='fs-6' size="slim" color="success" disabled={!formState.isValid} onClick={submitHandler}>
+                <Icon iconName={"save"} />&nbsp;{lang.capitalize("save")}
+            </Button>
+            <Button className='fs-6' size="slim" color="primary-light" href={model.singleLink}>
+                <Icon iconName={"times"} />&nbsp;{lang.capitalize("CancelChanges")}
+            </Button>
         </div>
     )
 
@@ -360,9 +363,7 @@ const ProjectSingleEdit = (props) => {
             mainImage={currentMainImage}
             buttonSection={ctaHeaderSection}
             entity={model}
-        >
-            <MainImageDisplay mainImage={currentMainImage} entity={currentModel} setter={updateModelMainImage} />
-        </SingleBaseHeader>
+        />
     );
 
     const fullWidthContent = (
@@ -379,16 +380,18 @@ const ProjectSingleEdit = (props) => {
     const contentColumnLeft = (
         <>
             {/* Sponsor */}
-            <UpdateSponsor
-                name="sponsor"
-                label="Partenaires"
-                formTools={formTools}
-                parentEntity={props.data}
-            />
+            <SingleInfo
+                title="Partenaires"
+            >
+                <UpdateSponsor
+                    name="sponsor"
+                    formTools={formTools}
+                    parentEntity={props.data}
+                />
+            </SingleInfo>
             { /* team */ }
             <SingleInfo
                 title="Éditez les membres de l'équipe"
-                cardLayout
             >
                 <UpdateTeams
                     name="team"
@@ -398,16 +401,18 @@ const ProjectSingleEdit = (props) => {
                 />
             </SingleInfo>
             { /* scheduleBudget */}
-            <UpdateScheduleBudget
-                name="scheduleBudget"
-                formTools={formTools}
-                label="Échéancier et budget"
-                parentEntity={props.data}
-            />
+            <SingleInfo
+                title="Échéancier et budget"
+            >
+                <UpdateScheduleBudget
+                    name="scheduleBudget"
+                    formTools={formTools}
+                    parentEntity={props.data}
+                />
+            </SingleInfo>
             { /* Update the equipment list */ }         
             <SingleInfo
                 title={lang.equipmentUsed}
-                cardLayout
             >
                 <Select2
                     name="equipment"

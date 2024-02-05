@@ -14,7 +14,7 @@ const UpdateSchedule = ({name, formTools, schedule, ...props}) => {
     const maxTime = props.maxTime ?? undefined;
 
     return (
-        <div className="">
+        <div className="px-4 border-start">
 
                 {props.description &&
                     <p>{props.description}</p>
@@ -24,7 +24,7 @@ const UpdateSchedule = ({name, formTools, schedule, ...props}) => {
                     formTools={formTools}
                     name={name}
                     sortable
-                    className="bg-white "
+                    className="bg-greyBg"
                     formInitStructure={{
                         name: {
                             value: "",

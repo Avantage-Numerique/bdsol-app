@@ -53,6 +53,7 @@ const OrganisationSingleView = ({ data }) => {
         //_id
     } = data;
 
+
     const model = new Organisation(data);
 
     /******* Sorted lists ********/

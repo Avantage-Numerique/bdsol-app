@@ -93,12 +93,14 @@ const EquipmentSingleView = ({ data }) => {
             
         </>
     )
-
+    console.log("model?.url", model?.url)
     const ContentColumnRight = (
         <>
             <SingleInfo 
                 title={lang.url}
                 cardLayout
+                displayCondition={model?.url.length > 0}
+                NAMessage="Aucun hyperlien n'est disponible pour le moment."
             >
                 <SocialHandleDisplay 
                     url={model?.url}

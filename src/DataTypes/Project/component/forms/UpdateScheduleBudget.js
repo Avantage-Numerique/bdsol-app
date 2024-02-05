@@ -25,11 +25,7 @@ const UpdateScheduleBudget = ({name, formTools, ...props}) => {
     }, [])
 
     return (
-        <>
-            <SingleInfo
-                title={props.label}
-                cardLayout
-            >
+        <div className="px-4 border-start">
                 <div className="d-flex">
                     <div className="w-100 row">
                         <Input
@@ -69,13 +65,14 @@ const UpdateScheduleBudget = ({name, formTools, ...props}) => {
                         
                         <SingleInfo
                             title="Les étapes du projet"
-                            className="py-3"
+                            className="pt-3"
+                            isSubtitle
                         >
                             <Repeater
                                 formTools={formTools}
                                 name="timeframe"
                                 sortable
-                                className="bg-white"
+                                className="bg-greyBg"
                                 formInitStructure={{
                                     step: {
                                         value: "",
@@ -144,8 +141,7 @@ const UpdateScheduleBudget = ({name, formTools, ...props}) => {
                         </SingleInfo>
                     </div>
                 </div>
-            </SingleInfo>
-        </>
+        </div>
     )
 
 }

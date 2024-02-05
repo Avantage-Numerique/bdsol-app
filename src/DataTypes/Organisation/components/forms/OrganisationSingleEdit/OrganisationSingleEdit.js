@@ -256,7 +256,7 @@ const OrganisationSingleEdit = (props) => {
             name="name"
             placeholder="Nom de l'organisation"
             label="Nom de l'organisation"
-            formClassName="discrete-without-focus form-text-white h2"
+            formClassName="discrete-without-focus form-text-white"
             validationRules={[
                 {name: "REQUIRED"}
             ]}
@@ -267,17 +267,20 @@ const OrganisationSingleEdit = (props) => {
         <Input
             name="catchphrase"
             placeholder={lang.catchphrase}
-            formClassName="discrete-without-focus form-text-white h4"
+            formClassName="discrete-without-focus form-text-white"
             label={lang.catchphrase}
             formTools={formTools}
         />);
     
     const ctaHeaderSection = (
-        <div className="d-flex align-items-end">
-            <Link href={model.singleLink} >
-                <button type="button" className="btn underlined-button text-white"><Icon iconName={"eye"} />&nbsp;{lang.capitalize("visualize")}</button>
-            </Link>
-            <Button disabled={!formState.isValid} onClick={submitHandler}><Icon iconName={"save"} />&nbsp;{lang.capitalize("save")}</Button>
+        <div className="d-flex flex-wrap align-items-end gap-2 gap-md-3 gap-lg-4">
+            <MainImageDisplay buttonClasses="fs-6" mainImage={currentMainImage} entity={currentModel} setter={updateModelMainImage} />
+            <Button className='fs-6' size="slim" color="success" disabled={!formState.isValid} onClick={submitHandler}>
+                <Icon iconName={"save"} />&nbsp;{lang.capitalize("save")}
+            </Button>
+            <Button className='fs-6' size="slim" color="primary-light" href={model.singleLink}>
+                <Icon iconName={"times"} />&nbsp;{lang.capitalize("CancelChanges")}
+            </Button>
         </div>
     );
 
@@ -289,9 +292,7 @@ const OrganisationSingleEdit = (props) => {
             mainImage={currentMainImage}
             buttonSection={ctaHeaderSection}
             entity={model}
-        >
-            <MainImageDisplay mainImage={currentMainImage} entity={currentModel} setter={updateModelMainImage} />
-        </SingleBaseHeader>
+        />
     );
     
     const fullWidthContent = (
@@ -401,16 +402,21 @@ const OrganisationSingleEdit = (props) => {
             </SingleInfo>
     );
 
-    const footer = (
+    const Footer = (
         <>
-            <div>
-                {
-                    (createdAt || updatedAt || meta) &&
+            {
+                (createdAt || updatedAt || meta) &&
+                <SingleInfo 
+                    title={lang.entityMetadata} 
+                    className="border-top pt-3"
+                >
+                    {/*********** Entity data ***********/}
                     <SingleEntityMeta createdAt={createdAt} updatedAt={updatedAt} meta={meta} />
-                }
-            </div>
+                </SingleInfo>
+            }
         </>
-    );
+    )
+
 
     const SinglePageBottom = (
         <SubmitEntity submitHandler={submitHandler} formState={formState} />
@@ -442,7 +448,7 @@ const OrganisationSingleEdit = (props) => {
                 fullWidthContent={fullWidthContent}
                 contentColumnLeft={contentColumnLeft}
                 contentColumnRight={contentColumnRight}
-                footer={footer}
+                footer={Footer}
                 singlePageBottom={SinglePageBottom}
 
             />
