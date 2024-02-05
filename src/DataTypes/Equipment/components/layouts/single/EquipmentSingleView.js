@@ -93,7 +93,7 @@ const EquipmentSingleView = ({ data }) => {
             
         </>
     )
-    console.log("model?.url", model?.url)
+
     const ContentColumnRight = (
         <>
             <SingleInfo 

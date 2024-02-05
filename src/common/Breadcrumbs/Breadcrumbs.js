@@ -144,7 +144,7 @@ const Crumb = ({text: defaultText, textGenerator, href, last = false}) => {
         )
     }
     return (
-        <li className="breadcrumb-item d-flex">
+        <li className="breadcrumb-item d-flex mb-1">
             <Link href={href}
                   className="text-decoration-underline link-underline-secondary-darker link-underline-opacity-0 link-underline-opacity-75-hover bg-"
             >
