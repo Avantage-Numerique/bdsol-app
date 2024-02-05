@@ -15,7 +15,7 @@
         right: 0px;
         display: flex;
         flex-direction: column;
-        z-index: 1021;
+        z-index: $zindex-tooltip;
     }
 
     .main-container-min-height {
