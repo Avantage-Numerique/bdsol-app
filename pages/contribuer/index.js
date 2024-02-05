@@ -70,27 +70,33 @@ const Index = () => {
                         </div>
                     </div>
 
-                    <div className='row pb-5 row-cols-1 row-cols-md-4 gy-3'>
-                        <div className="col">
-                            <Button href={getCreateEntityPath("TYPE_PERSON")} disabled={!auth.user.isLoggedIn}>{lang.Person}</Button>
-                        </div>
-                        <div className="col">
-                            <Button href={getCreateEntityPath("TYPE_ORGANISATION")} disabled={!auth.user.isLoggedIn}>{lang.Organisation}</Button>
-                        </div>
-                        <div className="col">
-                            <Button href="/contribuer/categorie" disabled={!auth.user.isLoggedIn}>{lang.Taxonomy}</Button>
-                        </div>
-                        <div className="col">
-                            <Button href={getCreateEntityPath("TYPE_PROJECT")} disabled={!auth.user.isLoggedIn}>{lang.Project}</Button>
-                        </div>
-                        <div className="col">
-                            <Button href={getCreateEntityPath("TYPE_EVENT")} disabled={!auth.user.isLoggedIn}>{lang.Event}</Button>
-                        </div>
-                        <div className="col">
-                            <Button href={getCreateEntityPath("TYPE_EQUIPMENT")} disabled={!auth.user.isLoggedIn}>{lang.Equipment}</Button>
+                    <div className='row pb-5'>
+                        <div className="col-12 d-flex gap-2 gap-sm-3 gap-mg-4 gap-lg-5 flex-wrap">
+                            <Button href={getCreateEntityPath("TYPE_PERSON")} disabled={!auth.user.isLoggedIn}>
+                                {lang.Person}
+                                <i style={{fontSize: "0.9rem"}}className={`${Person.icon} ${styles["entity-icon"]}`} />
+                            </Button>
+                            <Button href={getCreateEntityPath("TYPE_ORGANISATION")} disabled={!auth.user.isLoggedIn}>
+                                {lang.Organisation}
+                                <i className={`${Organisation.icon} ${styles["entity-icon"]}`} />
+                            </Button>
+                            <Button href="/contribuer/categorie" disabled={!auth.user.isLoggedIn}>
+                                {lang.Taxonomy}
+                            </Button>
+                            <Button href={getCreateEntityPath("TYPE_PROJECT")} disabled={!auth.user.isLoggedIn}>
+                                {lang.Project}
+                                <i className={`${Project.icon} ${styles["entity-icon"]}`} />
+                            </Button>
+                            <Button href={getCreateEntityPath("TYPE_EVENT")} disabled={!auth.user.isLoggedIn}>
+                                {lang.Event}
+                                <i className={`${Event.icon} ${styles["entity-icon"]}`} />
+                            </Button>
+                            <Button href={getCreateEntityPath("TYPE_EQUIPMENT")} disabled={!auth.user.isLoggedIn}>
+                                {lang.Equipment}
+                                <i className={`${Equipment.icon} ${styles["entity-icon"]}`} />
+                            </Button>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
