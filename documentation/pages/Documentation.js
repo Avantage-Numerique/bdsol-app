@@ -138,6 +138,8 @@ const Documentation = ( {documentation} ) => {
 
           {/* SVG still to integrate and animate. This version is only temporary */}
           {/* @TODO : Warning du path, peut-être implémenté : https://nextjs.org/docs/basic-features/static-file-serving ?*/}
+          {/*           
+            Using old pictures that don't match the current styling. They have been deleted
           <figure>
             <img className={styles.mainIllustration} alt="Illustrations représentant Avantage Numérique." src="\index_main_background.png"/>
             <div>
@@ -149,7 +151,7 @@ const Documentation = ( {documentation} ) => {
             <div>
               <img className={styles.illustration_circle} alt="Illustrations représentant Avantage Numérique." src="\index_main_background-circle3.png"/>
             </div>
-          </figure>
+          </figure> */}
         </section>
     
     

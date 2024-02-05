@@ -24,7 +24,7 @@ import {getType} from "@/DataTypes/Entity/Types";
 
 //Images
 import backgroundImg from '@/public/general_images/Fusee_Pointilles1.svg'
-import AvantageNumeriqueLogo from '@/public/logo.svg';
+import AvantageNumeriqueLogo from '@/public/logos/logo_Avantage_Numérique.svg';
 import organizationPresentationImg from '@/public/general_images/shutterstock_514412107.jpg'
 import shipAndPlanetsImg from '@/public/general_images/Fusée_Planetes_Poitilles2.svg'
 
