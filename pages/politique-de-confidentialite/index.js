@@ -21,7 +21,7 @@ const PolitiqueDutilisationDesDonnees = () => {
                 bg={"bg-primary-lighter"}
                 textColor={"text-white"}
                 title={"Politique de confidentialité"}
-                subTitle={"Dernière mise à jour : 2023-11-15 (version 1.0)"}
+                subTitle={"Dernière mise à jour : 2024-02-10 (version 2.0)"}
                 description=""
                 key={"confidentialPolicyPage"}
             />
@@ -224,7 +224,7 @@ const PolitiqueDutilisationDesDonnees = () => {
                             <li>De requérir la portabilité de vos Renseignements personnels dans un format structuré, couramment utilisé et lisible par machine ;</li>
                             <li>De retirer votre consentement à tout moment, si nous avons collecté et traité vos Renseignements personnels avec votre consentement. Le retrait de votre consentement n’affectera pas la légalité du traitement que nous avons effectué avant votre retrait, ni le traitement de vos informations personnelles effectué sur la base de motifs de traitement légitimes autres que le consentement.</li>
                             <li>De refuser les communications promotionnelles transmises par La Troupe ;</li>
-                            <li>De porter plainte après d’une autorité de contrôle en protection des renseignements personnels, par exemple auprès d’un commissaire à la vie privée ou de la Commission d’accès à l’information</li>
+                            <li>De porter plainte auprès d’une autorité de contrôle en protection des renseignements personnels, par exemple auprès d’un commissaire à la vie privée ou de la Commission d’accès à l’information</li>
                         </ul>
                         <h3>Porter plainte</h3>
                         <p>Vous pouvez déposer une plainte auprès du Responsable de la protection des renseignements personnels de La Troupe si vous n’êtes pas satisfait de notre gestion de vos Renseignements personnels ou du respect de cette Politique.</p>
@@ -241,7 +241,7 @@ const PolitiqueDutilisationDesDonnees = () => {
                 <div className="row">
                     <div className={"col"}>
                         <h2>12. Vos choix concernant notre utilisation et la divulgation des renseignements personnels</h2>
-                        <p>Les Renseignements que vous fournissez peuvent être utilisés par La Troupe à des fins de marketing, y compris, mais sans s’y limiter, des courriels promotionnels uniques, des publipostages et des contacts commerciaux. Nous vous proposons de plusieurs choix concernant notre utilisation et divulgation de vos Renseignements personnels en matière de marketing, de données de localisation, de Cookies ou de publicité en ligne. Vous pouvez désactiver:</p>
+                        <p>Les Renseignements que vous fournissez peuvent être utilisés par La Troupe à des fins de marketing, y compris, mais sans s’y limiter, des courriels promotionnels uniques, des publipostages et des contacts commerciaux. Nous vous proposons plusieurs choix concernant notre utilisation et divulgation de vos Renseignements personnels en matière de marketing, de données de localisation, de Cookies ou de publicité en ligne. Vous pouvez désactiver:</p>
                         <ul>
                             <li>Nos communications électroniques à des fins de marketing : Vous pouvez refuser de recevoir ces courriels en envoyant une demande de suppression de la liste à partir de l’Adresse courriel listée dans la section « Comment nous contacter ? ». Vous pouvez vous désinscrire de nos listes d’envoi électroniques en tout temps. Si vous en faites la demande, nous n’utiliserons pas vos coordonnées à des fins marketing par la suite. Veuillez noter que nous pouvons néanmoins vous envoyer des messages à des fins administratives ou directement liées à votre utilisation de la Plateforme, et vous ne pouvez pas refuser de recevoir ces messages sans cesser de l’utiliser.</li>
                             <li>Certaines données de localisation : Si celles-ci sont collectées, vous pouvez désactiver l’utilisation de certaines données de localisation sur votre appareil, par exemple en désactivant les services de localisation de votre système dans les paramètres de confidentialité de votre système d’exploitation. Nous pouvons également conserver des données d’utilisation telles que la date et l’heure auxquelles l’application sur votre appareil accède à nos serveurs.</li>

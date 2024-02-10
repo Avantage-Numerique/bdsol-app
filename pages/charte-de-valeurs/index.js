@@ -1,5 +1,6 @@
 import {appConfig} from "@/src/configs/AppConfig";
 import PageHeader from "@/layouts/Header/PageHeader";
+import { RouteLink } from "@/src/common/Components/RouteLink";
 import React from "react";
 
 
@@ -20,14 +21,14 @@ const ValuesChart = () => {
                 bg={"bg-primary-lighter"}
                 textColor={"text-white"}
                 title={"Chartes de valeurs"}
-                subTitle={"Dernière mise à jour : 2023-12-05 (version 1.0)"}
+                subTitle={"Dernière mise à jour : 2024-02-10 (version 2.0)"}
                 description=""
                 key={"confidentialPolicyPage"}
             />
             <section className={`container ${pageSpacing}`}>
                 <div className="row">
                     <div className={"col"}>
-                        <p>Plus qu’une simple formalité, cette Charte de valeurs (la « Charte »), en complément des Conditions d’utilisation et de la Politique de confidentialité, propose un cadre commun pour favoriser le bon fonctionnement de la Plateforme. Cette Charte est appelée à évoluer ; la Troupe vous invite à fournir cos commentaires, suggestions et idées pour l’améliorer et l’adapter aux situations qui pourraient apparaître.</p>
+                        <p>Plus qu’une simple formalité, cette Charte de valeurs (la « Charte »), en complément des Conditions d’utilisation et de la <RouteLink routeName={"confidentialityPolicy"} />, propose un cadre commun pour favoriser le bon fonctionnement de la Plateforme. Cette Charte est appelée à évoluer ; la Troupe vous invite à fournir vos commentaires, suggestions et idées pour l’améliorer et l’adapter aux situations qui pourraient apparaître.</p>
                         <p>Tous les mots en majuscules ont le sens qui leur est donné dans la Charte ou qui leur est autrement donné dans les Conditions. En cas de doute, la Troupe vous invite à vous référer aux Conditions qui viennent établir les règles principales applicables.</p>
                         <p>Dans la mesure permise par la loi, nous nous réservons le droit, à notre seule et entière discrétion, de modifier la Charte, ou toute partie de celles-ci, à tout moment. Dans ce cas, la Troupe vous fournira un préavis raisonnable avant l’entrée en vigueur de la Charte modifiée et pourra vous en informer à travers un courriel. La Charte modifiée prendra effet lors de sa publication (ou tout autre délai autrement indiqué par écrit par la Troupe) et votre utilisation de la Plateforme après l’entrée en vigueur de la Charte modifiée équivaut à une acceptation tacite de celle-ci.</p>
                     </div>
@@ -87,7 +88,7 @@ const ValuesChart = () => {
                         <p>Il est attendu que les utilisateurs respecteront les lois applicables.</p>
                         <h3>2.4. La Troupe s’attend à ce que :</h3>
                         <ul>
-                            <li>Vous ne partagiez pas de renseignements personnels d’un individu sans son consentement exprès, éclairé et complet</li>
+                            <li>Vous ne partagiez pas de renseignements personnels d’un individu sans son consentement exprès, éclairé et complet.</li>
                             <li>Concernant les conséquences d’un tel partage, l’utilisation qui en sera faite et la portée de la Plateforme.</li>
                         </ul>
                         <h3>2.5. Si vous décidez d’endosser une Entité ou une information à propos d’une Entité</h3>
