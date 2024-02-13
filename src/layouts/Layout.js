@@ -57,7 +57,7 @@ const Layout = ( {children} ) => {
                 <meta charSet="UTF-8" />
                 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
                 <meta httpEquiv="X-UA-Compatible" content="ie=edge"/>
-                <meta name="robots" content="index, follow" />
+                <meta name="language" content="fr" />  {/* Static for now */}
 
                 {/* For IE 11 or earlier */} 
                 {/* No support for PNG favicons with 16x16 or 32x32 sizes, so use the ICO format */}
@@ -75,16 +75,10 @@ const Layout = ( {children} ) => {
                 <meta name="theme-color" content="#000" />
 
                 {/* General social medias meta tags */}
-                <meta property="og:type" content="website" />{/*article*/}
+                <meta property="og:type" content="website" />
+                <meta property="og:site_name" content="AVNU" />
+                <meta property="og:locale" content="fr_CA" />
 
-                <meta name="twitter:label1" content="Written by" />
-                <meta name="twitter:data1" content="Author's user" />
-                <meta name="twitter:label2" content="Reading time" />
-                <meta name="twitter:data2" content="3 minutes (static value)" />
-
-                <meta property="article:section" content="Technology" />
-                <meta property="article:tag" content="data" />
-                <meta property="article:tag" content="teachnocreatif" />
 
             </Head>
 

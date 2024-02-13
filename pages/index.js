@@ -1,8 +1,6 @@
 import React, {useContext, useEffect, useState} from 'react';
 import Image from 'next/image'
 
-import DOMPurify from 'isomorphic-dompurify';
-import Head from 'next/head';
 import {lang} from "@/src/common/Data/GlobalConstants";
 
 //components
@@ -11,6 +9,7 @@ import Spinner from '@/src/common/widgets/spinner/Spinner'
 import {sortDescBy} from "@/src/common/Data/Sorting/Sort";
 import PageHeader from "@/src/layouts/Header/PageHeader";
 import EntitiesGrid from "@/DataTypes/Entity/layouts/EntitiesGrid";
+import PageMeta from "@/src/common/PageMeta/PageMeta";
 
 //Entities
 //Costum hooks
@@ -18,8 +17,6 @@ import {useHttpClient} from '@/src/hooks/http-hook';
 
 //Context
 import {MessageContext} from '@/src/common/UserNotifications/Message/Context/Message-Context';
-import {useAuth} from '@/src/authentification/context/auth-context';
-import {appUrl} from "@/src/helpers/url";
 import {getType} from "@/DataTypes/Entity/Types";
 
 //Images
@@ -187,46 +184,13 @@ const HomePage = ({}) => {
         <div className={"home-page"}>
 
             {/* Page head element  */}
-            <Head>
-                <title>{lang.appDefaultName}</title>
-
-                {/* Keywords and description to evaluate */}
-                <meta name="description"
-                      content={lang.appDefaultDescription}/>
-                <meta name="keywords"
-                      content={lang.appDefaultKeywords}/>
-
-                {/* social media meta tag */}
-                <meta property="og:title" content={lang.appDefaultName}/>
-                <meta property="og:description" content={lang.appDefaultDescription}/>
-                <meta property="og:url" content={appUrl()} />
-                <meta property="og:site_name" content="BDSOL avantage numérique" />
-                <meta property="og:locale" content="fr_CA" />
-
-                <meta name="twitter:title" content={lang.appDefaultName}/>
-                <meta name="twitter:description" content={lang.appDefaultDescription}/>
-
-                <meta property="og:image" content={appUrl("/meta-images/show_screen_shot.jpg")} />
-                <meta property="og:image:alt" content="Public assistant à une performance qui contient des nouvelles technologies." />
-                <meta property="og:image:width" content="2560" />
-                <meta property="og:image:height" content="1345" />
-                <meta property="og:locale" content="fr_CA" />
-
-                <meta name="twitter:card" content="summary_large_image"/>
-                <meta name="twitter:image" content={appUrl("/meta-images/show_screen_shot.jpg")} />
-                <meta name="twitter:image:alt" content="Public assistant à une performance qui contient des nouvelles technologies."/>
-                <meta name="twitter:image:width" content="2560" />
-                <meta name="twitter:image:height" content="1345" />
-
-                {/* To add when the domain will be selected ....
-                    <link rel="canonical" href="https://avantagenumerique.org/">  */}
-
-                {/* Structured data */}
-                <script
-                    type='application/ld+json'
-                    dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(JSON.stringify(schema))}}
-                />
-            </Head>
+            <PageMeta 
+                currentAddress=""
+                //title  : Let the default kick in
+                //description  : Let the default kick in
+                keywords={lang.appDefaultKeywords}
+                structuredData={schema}
+            />
 
             <PageHeader
                 bg={"bg-primary-lighter"}
@@ -284,7 +248,7 @@ const HomePage = ({}) => {
                 <div className="container">
                     <div className='row justify-content-around align-items-center home-page__section-inner-y-padding'>
                         <div style={{aspectRatio: "1 / 1", maxHeight: "50vw"}} className="col-12 col-md-6 col-lg-4 order-2 order-md-1 p-2">
-                            <Image className="w-100 h-100 object-fit-cover" src={organizationPresentationImg} />
+                            <Image className="w-100 h-100 object-fit-cover" priority={false} src={organizationPresentationImg} alt="Femme développant un appareil électronique dans un atelier."/>
                         </div>
                         <div style={{maxWidth: "60ch"}} className="col-12 order-1 order-md-2 col-md-6 col-lg-8 p-4 flex-column align-items-start">
                             <h2 className="mb-4">AVNU, c'est quoi?</h2>
@@ -314,7 +278,7 @@ const HomePage = ({}) => {
             {/* Account section */}
             <section className="home-page__full-width-section position-relative">
                 <figure className="position-absolute top-0 bottom-0 start-0 end-0">
-                    <Image className="h-75 d-none d-md-block w-auto position-absolute end-0 top-0" src={shipAndPlanetsImg} />
+                    <Image className="h-75 d-none d-md-block w-auto position-absolute end-0 top-0" src={shipAndPlanetsImg} alt="Fusée d'AVNU se déplaçant entre les planètes dans l'espace." />
                 </figure>
                 <div className="container position-relative">
                     <div className='row home-page__section-inner-y-padding'>

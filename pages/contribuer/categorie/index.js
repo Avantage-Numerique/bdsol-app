@@ -1,31 +1,57 @@
+import React from "react";
 
 //Component 
 import CreateTaxonomyForm from '@/DataTypes/Taxonomy/components/Forms/CreateTaxonomy/CreateTaxonomyForm'
+import PageHeader from "@/src/layouts/Header/PageHeader";
+import Button from "@/src/common/FormElements/Button/Button"
+import SanitizedInnerHtml from '@/src/utils/SanitizedInnerHtml';
 
 
 //Styling
 import {withSessionSsr} from "@/auth/session/handlers/withSession";
 import {ssrCanAccess} from "@/auth/permissions/ssrCanAccess";
-import React from "react";
-import SingleViewEntityFormLayout
-    from "@/DataTypes/common/layouts/SingleViewEntityFormLayout/SingleViewEntityFormLayout";
 import {lang} from "@/src/common/Data/GlobalConstants";
 
 
 const CreateTaxonomyPage = () => {
 
+    const HeaderRightSection = () => {
+        return (
+            <div className="mt-4">
+                <Button 
+                    outline="secondary"
+                    href="/contribuer"
+                    size="slim"
+                >
+                    {lang.historyBack}
+                </Button>
+            </div>
+        )
+    }
+
     return (
-        <SingleViewEntityFormLayout formName={"taxonomy"} headerProps={{
-            title: "Catégorie",
-            subTitle: "Ajouter une nouvelle catégorie pour classifier les données",
-            subtitleColor: "primary",
-            historyBack: {
-                uri: "/contribuer",
-                label: lang.historyBack
-            }
-        }}>
-            <CreateTaxonomyForm initValues={{}} />
-        </SingleViewEntityFormLayout>
+        <>
+            <PageHeader 
+                title={"Catégorie"}
+                subTitle="Ajouter une nouvelle catégorie pour classifier les données"
+            >
+                <HeaderRightSection />
+            </PageHeader>
+            <section className="container py-4">
+                <div className="row justify-content-center ">
+                    <div className="col col-md-8 col-xl-7">            
+                        <SanitizedInnerHtml 
+                            className="fst-italic py-4" 
+                            Wrapper="p" 
+                            removeQlEditorClass
+                        >
+                            {lang.taxonomyExplications}
+                        </SanitizedInnerHtml>
+                        <CreateTaxonomyForm initValues={{}} />
+                    </div>
+                </div>
+            </section>
+        </>
     )
 }
 
