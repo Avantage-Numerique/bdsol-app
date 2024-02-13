@@ -11,7 +11,6 @@ import {getModelFromType} from "@/DataTypes/Entity/Types";
  * @constructor
  */
 const EntitiesGrid = ({feed, className, columnClass}) => {
-
     const ContainerTag = "div";
 
     const colContainerClass = columnClass ?? "col g-3";

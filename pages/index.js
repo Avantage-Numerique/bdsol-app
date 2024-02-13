@@ -15,10 +15,10 @@ import EntitiesGrid from "@/DataTypes/Entity/layouts/EntitiesGrid";
 //Entities
 //Costum hooks
 import {useHttpClient} from '@/src/hooks/http-hook';
+import { externalApiRequest } from '@/src/hooks/http-hook';
 
 //Context
 import {MessageContext} from '@/src/common/UserNotifications/Message/Context/Message-Context';
-import {useAuth} from '@/src/authentification/context/auth-context';
 import {appUrl} from "@/src/helpers/url";
 import {getType} from "@/DataTypes/Entity/Types";
 
@@ -65,84 +65,14 @@ const HomePage = ({}) => {
 
     const fetchHomeFeed = async () => {
 
+        setIsLoading(true);//bypass the sendRequest setting of isLoading, because of all these promises here.
+        const homePageEntities = await externalApiRequest(
+            `/search/homepage`,
+            { method: 'GET' }
+        );
+        setFeedList(homePageEntities.data)
 
-        const listQuery = {"sort": "desc"};//{"sort": {"updatedAt": -1}}; //{};//
-        const defaultHeader = {'Content-Type': 'application/json'};
-        const entities = [
-            {
-                path:"/organisations/list",
-                queryParams: listQuery,
-                result: {}
-            },
-            {
-                path:"/persons/list",
-                queryParams: listQuery,
-                result: {}
-            },
-            {
-                path:"/projects/list",
-                queryParams: listQuery,
-                result: {}
-            },
-            {
-                path:"/events/list",
-                queryParams: listQuery,
-                result: {}
-            }
-        ];
-
-        let haveError = false;
-        let feed = [];
-
-        const feedPromises = entities.map(async (query) => {
-
-            const currentResult = await sendRequest(
-                query.path,
-                'POST',
-                JSON.stringify({"data": query.queryParams}),
-                defaultHeader
-            );
-            setIsLoading(true);//bypass the sendRequest setting of isLoading, because of all these promises here.
-            query.result = currentResult;
-
-            haveError = haveError && !currentResult.error;
-            return currentResult;
-
-        });
-
-        Promise.all(feedPromises).then((entitiesResults) => {
-            entitiesResults.map(async (result) => {
-
-                //populate the feed if the current request return a success (!error)
-                if (!result.error && result?.data?.length > 0) {
-                    feed = [...feed, ...result.data];
-                }
-
-                //Show a message if the query return and error.
-                if (result.error) {
-                    msg.addMessage({
-                        text: result.message,
-                        positive: false
-                    });
-                }
-
-                if (feed.length > 0 && !haveError) {
-
-                    //Display less elements when the screen is small.
-                    const nbOfItems = window.innerWidth < 570 ? 4 : 6;
-                    feed.sort(sortDescBy('createdAt'));//   Sort and mixed both collection the data to display the new elements before
-                    const reducedFeed = feed.reduce((a, c, i) => {
-                        if (i < nbOfItems) a[i] = c
-                        return a
-                      }, [])
-                    setFeedList(reducedFeed); //   Finaly, update the state to display the result
-                }
-
-                setIsLoading(true);
-            });
-        }).then(() => {
-            setIsLoading(false);//when all finishes, set this to false.
-        });
+        setIsLoading(false);//when all finishes, set this to false.
     }
 
     //Fetch the data 
