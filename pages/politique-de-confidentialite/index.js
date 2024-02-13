@@ -189,7 +189,7 @@ const PolitiqueDutilisationDesDonnees = () => {
                 </div>
 
                 <div className="row">
-                    <div className={"col"}>
+                    <div className={"col"} id="usage-cookies">
                         <h2>10. Comment utilisons-nous les cookies ?</h2>
 
                         <p>Un cookie est un petit fichier texte qui est stocké dans un emplacement dédié sur votre ordinateur, appareil mobile, tablette ou autre appareil lorsque vous utilisez votre navigateur pour visiter un service en ligne. D’autres technologies de suivi, telles que les balises web et les pixels de suivi, peuvent être utilisées à des fins similaires. Dans la présente Politique, toutes ces technologies de suivi sont collectivement désignées par le terme « Cookie(s) ». Tout Renseignement personnel recueilli à l’aide de Cookies par la Troupe ou en son nom (le cas échéant) est traité avec le même niveau de confidentialité que tout autre Renseignement personnel détenu par la Troupe.</p>
