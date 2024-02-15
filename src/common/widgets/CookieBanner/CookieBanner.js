@@ -3,6 +3,7 @@ import React, {useState} from 'react'
 //components
 import BottomBanner from "@/common/UserNotifications/BottomBanner/BottomBanner";
 import {lang} from "@/common/Data/GlobalConstants";
+import {RouteLink} from "@/common/Components/RouteLink";
 
 
 export default function CookieBanner(props) {
@@ -31,12 +32,13 @@ export default function CookieBanner(props) {
             <BottomBanner
                 buttonText={lang.cookieBannerAcceptButtonLabel}
                 title={lang.cookieBannerTitle}
-                para1={lang.cookieBannerIntro}
-                para2={lang.cookieBannerContent}
                 bannerButtons={[
                     {label:lang.cookieBannerAcceptButtonLabel, action:onAcceptAllCookies, outline:"success"},
                     {label:lang.cookieBannerDenyButtonLabel, action:onRefuseAllCookies, outline:"secondary"}
-                ]} />
+                ]}>
+                <p>Consultez notre politique de gestion de cookie dans notre <RouteLink routeName={"confidentialityPolicy"} uriSuffix={"#usage-cookies"} />.</p>
+                <p>{lang.cookieBannerContent}</p>
+            </BottomBanner>
         </>
     )
 }

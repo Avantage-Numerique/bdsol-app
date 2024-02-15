@@ -13,7 +13,8 @@ export default function BottomBanner(props) {
         title,
         para1,
         para2,
-        bannerButtons
+        bannerButtons,
+        children
     } = props;
 
     const [displayState, setDisplayState] = useState(false);
@@ -63,15 +64,14 @@ export default function BottomBanner(props) {
                     <div className="maxWidthPageContainer">
                         <h2>{title}</h2>
                         <div className={`${styles["bottom-banner__text-container"]}`}>
-                            {para1 && <p>{para1}</p>}
-                            {para2 && <p>{para2}</p>}
+                            {children}
                         </div>
                         
                         <div className={`${styles["bottom-banner__buttons-container"]}`}>
                             {bannerButtons && bannerButtons.length > 0 &&
                                 bannerButtons.map((button, index) => {
                                     return (
-                                        <Button onClick={() => close(button.action)} outline={button.outline}>{button.label}</Button>
+                                        <Button key={`bottomBanner${index}`} onClick={() => close(button.action)} outline={button.outline}>{button.label}</Button>
                                     )
                                 })
                             }
