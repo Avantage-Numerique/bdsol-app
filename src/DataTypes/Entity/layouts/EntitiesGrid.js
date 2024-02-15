@@ -21,7 +21,7 @@ const EntitiesGrid = ({feed, className, columnClass}) => {
     });
 
     const customStyling = {'maxWidth': '24rem'}
-    console.log("Entity grid receive the feed : ", feed);
+
     return (
         <ContainerTag className={className + ' justify-content-center'}>
             {
