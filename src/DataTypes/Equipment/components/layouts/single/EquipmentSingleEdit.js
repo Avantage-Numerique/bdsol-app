@@ -1,6 +1,5 @@
-import React, {useCallback, useContext, useEffect, useRef, useState} from 'react'
+import React, {useCallback, useContext, useEffect, useState} from 'react'
 import Router from 'next/router'
-import Link from 'next/link'
 
 //Custom hooks
 import {useFormUtils} from '@/src/hooks/useFormUtils/useFormUtils'
@@ -145,7 +144,7 @@ const EquipmentSingleEdit = ({ positiveRequestActions, ...props}) => {
         return {
             "contribuer": lang.menuContributeLabel,
             "equipements": lang.Equipments,
-            "slug": `${model.name ?? '-'}`
+            "slug": `${model.title ?? '-'}`
         }[param];
     }, []);
 
