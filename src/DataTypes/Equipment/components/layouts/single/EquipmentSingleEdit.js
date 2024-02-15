@@ -24,10 +24,10 @@ import SingleBase from '@/src/DataTypes/common/layouts/single/SingleBase'
 import {replacePathname} from "@/src/helpers/url";
 import Icon from "@/common/widgets/Icon/Icon";
 import MainImageDisplay from "@/DataTypes/common/layouts/single/defaultSections/MainImageDisplay/MainImageDisplay";
-import {TYPE_TAXONOMY} from '@/src/DataTypes/Entity/Types'
+import {TYPE_TAXONOMY} from '@/src/DataTypes/Entity/Types';
 import SubmitEntity from "@/DataTypes/common/Forms/SingleEdit/SubmitEntity";
-import Equipment from '../../../models/Equipment'
-import UpdateSocialHandles from '../../../../common/Forms/UpdateSocialHandles/UpdateSocialHandles'
+import Equipment from '../../../models/Equipment';
+import UpdateSocialHandles from '../../../../common/Forms/UpdateSocialHandles/UpdateSocialHandles';
 
 
 const EquipmentSingleEdit = ({ positiveRequestActions, ...props}) => {
