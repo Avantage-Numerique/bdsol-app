@@ -187,13 +187,13 @@ const AppRoutesRaw = {
      ***/
     places : {
         label: "Tous les lieux",
-        pathname: "/places",
-        asPath: "/places",
+        pathname: "/lieux",
+        asPath: "/lieux",
     },
     placeSingle : {
         label: "Un lieu",
-        pathname: "/places/[slug]",
-        asPath: "/places/[slug]"
+        pathname: "/lieux/[slug]",
+        asPath: "/lieux/[slug]"
     },
     placeSingleEdit : {
         label: "Modifier un événement",
@@ -209,8 +209,8 @@ const AppRoutesRaw = {
         label: "Média d'un lieu",
         pathname: "/medias/[slug]",
         asPath: "/medias/[slug]",
-        breadcrumbPathName: "/places/[place.slug]/[slug]",
-        breadcrumbAsPath: "/places/[place.slug]/[slug]",
+        breadcrumbPathName: "/lieux/[place.slug]/[slug]",
+        breadcrumbAsPath: "/lieux/[place.slug]/[slug]",
         breadcrumbQuery: {
             slug: "slug",
             mediaType: "main-image"
