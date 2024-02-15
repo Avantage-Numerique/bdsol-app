@@ -11,8 +11,6 @@ export default function BottomBanner(props) {
 
     const {
         title,
-        para1,
-        para2,
         bannerButtons,
         children
     } = props;
