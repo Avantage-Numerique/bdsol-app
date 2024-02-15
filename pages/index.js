@@ -8,14 +8,12 @@ import {lang} from "@/src/common/Data/GlobalConstants";
 //components
 import Button from '@/src/common/FormElements/Button/Button'
 import Spinner from '@/src/common/widgets/spinner/Spinner'
-import {sortDescBy} from "@/src/common/Data/Sorting/Sort";
 import PageHeader from "@/src/layouts/Header/PageHeader";
 import EntitiesGrid from "@/DataTypes/Entity/layouts/EntitiesGrid";
 
 //Entities
 //Costum hooks
-import {useHttpClient} from '@/src/hooks/http-hook';
-import { externalApiRequest } from '@/src/hooks/http-hook';
+import {externalApiRequest, useHttpClient} from '@/src/hooks/http-hook';
 
 //Context
 import {MessageContext} from '@/src/common/UserNotifications/Message/Context/Message-Context';
@@ -27,6 +25,7 @@ import backgroundImg from '@/public/general_images/Fusee_Pointilles1.svg'
 import AvantageNumeriqueLogo from '@/public/logos/logo_Avantage_Numérique.svg';
 import organizationPresentationImg from '@/public/general_images/shutterstock_514412107.jpg'
 import shipAndPlanetsImg from '@/public/general_images/Fusée_Planetes_Poitilles2.svg'
+import CookieBanner from "@/common/widgets/CookieBanner/CookieBanner";
 
 //Background image for the page header
 const HomePageHeaderBgImg = () => {
@@ -214,7 +213,7 @@ const HomePage = ({}) => {
                 <div className="container">
                     <div className='row justify-content-around align-items-center home-page__section-inner-y-padding'>
                         <div style={{aspectRatio: "1 / 1", maxHeight: "50vw"}} className="col-12 col-md-6 col-lg-4 order-2 order-md-1 p-2">
-                            <Image className="w-100 h-100 object-fit-cover" src={organizationPresentationImg} />
+                            <Image className="w-100 h-100 object-fit-cover" src={organizationPresentationImg} alt={"Présentation de notre organisation"} />
                         </div>
                         <div style={{maxWidth: "60ch"}} className="col-12 order-1 order-md-2 col-md-6 col-lg-8 p-4 flex-column align-items-start">
                             <h2 className="mb-4">AVNU, c'est quoi?</h2>
@@ -229,7 +228,7 @@ const HomePage = ({}) => {
                             <div className="d-flex flex-wrap">
                                 <p>Le projet AVNU est développé par le hub &nbsp;</p>
                                 <a href="https://avantagenumerique.org/">
-                                    <Image alt="Logo avantage numérique" className="w-auto" style={{height: "1.25rem"}} src={AvantageNumeriqueLogo} />
+                                    <Image alt="Logo avantage numérique" className="w-auto" style={{height: "1.25rem"}} alt={"logo d'avantage numérique"} src={AvantageNumeriqueLogo} />
                                 </a> 
                             </div>
                             <div className="d-flex flex-column align-items-start mt-3">
@@ -244,7 +243,7 @@ const HomePage = ({}) => {
             {/* Account section */}
             <section className="home-page__full-width-section position-relative">
                 <figure className="position-absolute top-0 bottom-0 start-0 end-0">
-                    <Image className="h-75 d-none d-md-block w-auto position-absolute end-0 top-0" src={shipAndPlanetsImg} />
+                    <Image className="h-75 d-none d-md-block w-auto position-absolute end-0 top-0" alt={"Vaisseau"} src={shipAndPlanetsImg} />
                 </figure>
                 <div className="container position-relative">
                     <div className='row home-page__section-inner-y-padding'>
@@ -256,7 +255,7 @@ const HomePage = ({}) => {
                     </div>
                 </div>
             </section>
-                
+            <CookieBanner />
         </div>
     )
 }
