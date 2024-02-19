@@ -9,7 +9,7 @@ async function logoutRoute(req, res) {
     //req.session.user = defaultSessionData;
     //await req.session.save();
     await req.session.destroy();
-//getVisitorDataFromContext
+    //getVisitorDataFromContext
     res.send({
         text: lang.successDisconnected,
         positive: true,
