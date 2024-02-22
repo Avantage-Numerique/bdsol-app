@@ -22,10 +22,9 @@ export default function CookieBanner(props) {
         //save dans un cookie le résultats.
     //Returns date for choice for the futures ?<Button onClick={close} outline={"success"}>Cookie ok</Button>
 
-    const saveCookieChoices = useCallback((choices) => {
+    const saveCookieChoices = useCallback(async (choices) => {
         const savedCookie = fetchInternalApi("/api/cookies-choices", JSON.stringify(choices));
 
-        console.log("choices", choices, "return", savedCookie);
         return {
             "cookieReturn": savedCookie,
         };
