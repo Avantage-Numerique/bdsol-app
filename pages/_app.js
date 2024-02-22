@@ -48,6 +48,9 @@ MyApp.getInitialProps = async (context) => {
             appDefaultSessionOptions,
         );
 
+        //let cookieChoices = context.ctx.req.cookies.get("ChoixCookie");
+        console.log(context.ctx.req.cookies);
+
         //Save the IP
         const visitor = getVisitorDataFromContext(context);
         const savedInSessionUser = session.user ?? {};

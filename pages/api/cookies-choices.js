@@ -1,25 +1,31 @@
 import saveCookie from "@/common/Cookies/saveCookie";
 
-export default cookiesChoicesRoute;
-
 async function cookiesChoicesRoute(req, res) {
-    'use server';
+
     const choices = req.body;
     if (choices) {
-        await saveCookie({
+        await saveCookie(res,{
             name:"ChoixCookie",
             value: choices
         });
-        res.send({
+
+        res.status(200).json({
             error: false,
             data: choices
         });
     }
 
     if (!choices) {
-        res.send({
+        await saveCookie({
+            name:"ChoixCookie",
+            value: "no choices"
+        });
+
+        res.status(200).json({
             error: true,
             message: "No choices sets"
         });
     }
 }
+
+export default cookiesChoicesRoute;
