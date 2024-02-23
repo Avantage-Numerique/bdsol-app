@@ -1,7 +1,15 @@
-"use server"
-
 async function saveCookie(res, data) {
+//WIP and not used.
+    /*const oneDay = 24 * 60 * 60 * 1000;
 
+    cookies().set({
+        name: data.name ?? "defaultCookie",
+        value: data.value,
+        httpOnly: data.httpOnly ?? true,
+        path: data.path ?? '/',
+        maxAge: data.maxAge ?? 24*60*60*1000
+    });*/
+    /*
     res.cookies.set({
         name: data.name ?? "defaultCookie",
         value: data.value,
@@ -9,7 +17,6 @@ async function saveCookie(res, data) {
         path: data.path ?? '/',
         maxAge: data.maxAge ?? 24*60*60*1000
     });
-
     // Vérifiez si la méthode HTTP est POST
     if (req.method === 'POST') {
         // Récupérez les données du corps de la requête
@@ -23,8 +30,7 @@ async function saveCookie(res, data) {
     } else {
         // Si la méthode HTTP n'est pas POST, répondre avec une erreur
         res.status(405).json({ message: 'Méthode non autorisée' });
-    }
-
+    }*/
 }
 
 export default saveCookie;
