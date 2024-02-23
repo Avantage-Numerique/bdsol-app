@@ -12,7 +12,8 @@ export default function BottomBanner(props) {
     const {
         title,
         bannerButtons,
-        children
+        children,
+        onCloseCallback
     } = props;
 
     const [displayState, setDisplayState] = useState(false);
@@ -30,7 +31,7 @@ export default function BottomBanner(props) {
 
     const fadeInAction = () => {
         if(!displayState){
-            setDisplayState(true)
+            setDisplayState(true);
             //Call the close function after three secondes
             setTimeout(close, animationDuration);
         }
@@ -39,9 +40,12 @@ export default function BottomBanner(props) {
     const fadeOutAction = () => {
         if(displayState){
             //Slide out
-            setFadeOutClass(true)
+            setFadeOutClass(true);
             //Remove the element from the dom after 1 sec (when the element is totaly out)
-            setTimeout(() => setDisplayState(false), animationDuration);
+            setTimeout(() => {
+                    setDisplayState(false);
+                    onCloseCallback();
+                }, animationDuration);
         }
     }
 

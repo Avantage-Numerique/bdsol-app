@@ -13,10 +13,11 @@ import '@/styles/main.scss';
 
 // Extends basic Javascript for the project.
 import "@/src/helpers/ExtendedString";
+import CookieBanner from "@/common/widgets/CookieBanner/CookieBanner";
+import React from "react";
 
 function MyApp({Component, pageProps, user, serverCookiesChoices}) {
 
-    console.log("MyApp", serverCookiesChoices);
     /**
      * Main app render.
      */
@@ -26,6 +27,7 @@ function MyApp({Component, pageProps, user, serverCookiesChoices}) {
             <AuthProvider fromSessionUser={user} appMode={process.env.MODE} acceptedCookies={serverCookiesChoices}>
                 <Layout>
                     <Component {...pageProps} />
+                    <CookieBanner />
                 </Layout>
             </AuthProvider>
         </>

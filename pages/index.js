@@ -25,7 +25,6 @@ import backgroundImg from '@/public/general_images/Fusee_Pointilles1.svg'
 import AvantageNumeriqueLogo from '@/public/logos/logo_Avantage_Numérique.svg';
 import organizationPresentationImg from '@/public/general_images/shutterstock_514412107.jpg'
 import shipAndPlanetsImg from '@/public/general_images/Fusée_Planetes_Poitilles2.svg'
-import CookieBanner from "@/common/widgets/CookieBanner/CookieBanner";
 
 //Background image for the page header
 const HomePageHeaderBgImg = () => {
@@ -255,7 +254,6 @@ const HomePage = ({}) => {
                     </div>
                 </div>
             </section>
-            <CookieBanner />
         </div>
     )
 }
