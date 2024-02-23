@@ -45,7 +45,7 @@ const NousJoindre = () => {
 
     const sendContactUsMessage = async () => {
         const apiResponse = await sendRequest(
-            "/communications/create",
+            "/communications/contact-us",
             'POST',
             JSON.stringify(
                 {

@@ -47,45 +47,6 @@ const PersonSingleView = ({ data }) => {
 
     const model = new Person(data);
 
-    //Edit the skills list
-    const SkillsList = ({occupations}) => {
-        //Extract every skill objects from the occupations
-        const arrayOfSkillObjects = occupations.map(occ => occ.skills);
-        //Extract the values of those objects
-        const arrayOfSkills = arrayOfSkillObjects ? arrayOfSkillObjects.flat(1) : [];
-        //Only keep single instances
-        let arrayUniqueBy_id = [...new Map(arrayOfSkills.map(item => [item["_id"], item])).values()];
-        //Sort the array before returning the value
-        arrayUniqueBy_id.sort((a, b) => {
-            const nameA = a.name.toUpperCase(); // ignore upper and lowercase
-            const nameB = b.name.toUpperCase(); // ignore upper and lowercase
-            if (nameA < nameB) {
-              return -1;
-            }
-            if (nameA > nameB) {
-              return 1;
-            }
-            // names must be equal
-            return 0;
-          });
-        return (
-            <SearchTag
-                list={arrayUniqueBy_id}
-            />
-        );   
-    }
-
-    const OccupationGroup = ({occupationName, skillList}) => {
-        return (
-            <article className={`d-flex flex-column p-2 ${styles["occupation-group"]} border-start`}>
-                <h5 className="text-dark mb-2">{occupationName}</h5>
-                    <SearchTag className={"m-0"}
-                        list={skillList}
-                    />
-            </article>
-        )
-    }
-
     /* Needed for breadCrumb generator */
     const getLabelGenerator = useCallback((param, query) => {
         return {
@@ -270,6 +231,7 @@ const PersonSingleView = ({ data }) => {
                 singlePageBottom={SinglePageBottom}
                 model={model}
             />
+            
         </>
     )
 }
