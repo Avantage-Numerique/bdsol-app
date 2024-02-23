@@ -103,10 +103,9 @@ const SingleBaseHeader = (props) => {
             JSON.stringify(
                 {
                     data: {
-                        reportedEntityId: "",
-                        reportedEntityType: "",
-                        //name: formState.inputs.name.value,
-                        //email: formState.inputs.email.value,
+                        reportedEntityId: entity._id,
+                        reportedEntityType: entity.type,
+                        userId: auth.user.id,
                         message: formState.inputs.message.value,
                     }
                 }
@@ -125,15 +124,19 @@ const SingleBaseHeader = (props) => {
                 text: "Signalement effectué",
                 positive: true
             });
-            formState.inputs.name.value = "";
-            formState.inputs.email.value = "";
+            //formState.inputs.name.value = "";
+            //formState.inputs.email.value = "";
             formState.inputs.message.value = "";
+            modalReportEntity.closeModal();
         }  
     }
 
     //Removed from colomn, it's more useful to use the justify or align from start or end.
     return (
         <section className={`row ms-0  ${styles["content-padding-top"]} ${props.className}`}>
+            <div className="d-flex justify-content-end">
+                <button type="button" className="fs-3" onClick={modalReportEntity.displayModal}><Icon iconName="flag"/></button>
+            </div>
             <div className="col-12 col-sm d-flex flex-grow-0 align-items-end">
                 {/* Base styling doesn't move down the picture since its not overflowing the container. A bit tricky with bootstrap grid so we need two components to apply different classes */}
                 {/* Base format (small screens) */}
@@ -159,7 +162,6 @@ const SingleBaseHeader = (props) => {
                 { /* btnToggleViewEdit */ }
                 {/* If a button section is declared, use it */}
                 <div style={{height: "1rem"}} className="position-relative flex-grow-1 d-flex align-items-end">
-                    <Button size="slim" onClick={modalReportEntity.displayModal}><Icon iconName="flag"/></Button>
                     <div className={`${styles["over-flowing-button-section"]} ${isUpdateMode && styles["edition-mode"]} d-flex justify-content-evenly w-100`}>
                         {/* Empty div to allow the button to take the second third of the width */}
                         <div></div>
@@ -172,9 +174,9 @@ const SingleBaseHeader = (props) => {
                                 <Button className={`shadow`} href={buttonLink}>{buttonText}</Button>
                                 :
                                 <Button className={`shadow`} href="/compte/connexion">{buttonText}</Button>)
-                            :
-                            <></>
-                        }
+                                :
+                                <></>
+                            }
                     </div>
                 </div>
             </div>
