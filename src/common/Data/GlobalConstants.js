@@ -20,6 +20,7 @@ export const lang = StringDictionary.getInstance([
     "equipment",
     "errors",
     "messages",
+    "cookies",
 ]);
 
 export const now = new Date();

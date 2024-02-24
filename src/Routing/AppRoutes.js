@@ -318,6 +318,13 @@ const AppRoutesRaw = {
         pathname: "/charte-de-valeurs",
         asPath: "/charte-de-valeurs",
         needAuth: false,
+    },
+
+    paramsCookies: {
+        label: "Paramètres des cookies",
+        pathname: "/parametres/cookies",
+        asPath: "/parametres/cookies",
+        needAuth: false,
     }
 }
 

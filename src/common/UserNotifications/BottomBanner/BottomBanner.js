@@ -12,7 +12,8 @@ export default function BottomBanner(props) {
     const {
         title,
         bannerButtons,
-        children
+        children,
+        onCloseCallback
     } = props;
 
     const [displayState, setDisplayState] = useState(false);
@@ -30,7 +31,7 @@ export default function BottomBanner(props) {
 
     const fadeInAction = () => {
         if(!displayState){
-            setDisplayState(true)
+            setDisplayState(true);
             //Call the close function after three secondes
             setTimeout(close, animationDuration);
         }
@@ -39,9 +40,12 @@ export default function BottomBanner(props) {
     const fadeOutAction = () => {
         if(displayState){
             //Slide out
-            setFadeOutClass(true)
+            setFadeOutClass(true);
             //Remove the element from the dom after 1 sec (when the element is totaly out)
-            setTimeout(() => setDisplayState(false), animationDuration);
+            setTimeout(() => {
+                    setDisplayState(false);
+                    onCloseCallback();
+                }, animationDuration);
         }
     }
 
@@ -51,25 +55,27 @@ export default function BottomBanner(props) {
 
     const close = (action) => {
         fadeOutAction();
-        if (action) action();
+        if (action) action();//check if action is a callback.
     }
 
     return (
         <>
             {/* Only display the element if the state says it so */}
             { displayState &&
-                <dialog open className={`bg-primary-light ${fadeOutClass && styles["close"]} ${styles["bottom-banner"]}`}>
+                <dialog open className={`bg-primary-lighter ${fadeOutClass && styles["close"]} ${styles["bottom-banner"]}`}>
                     <div className="maxWidthPageContainer">
                         <h2>{title}</h2>
                         <div className={`${styles["bottom-banner__text-container"]}`}>
                             {children}
                         </div>
                         
-                        <div className={`${styles["bottom-banner__buttons-container"]}`}>
+                        <div className={`${styles["bottom-banner__buttons-container"]} d-flex`}>
                             {bannerButtons && bannerButtons.length > 0 &&
                                 bannerButtons.map((button, index) => {
                                     return (
-                                        <Button key={`bottomBanner${index}`} onClick={() => close(button.action)} outline={button.outline}>{button.label}</Button>
+                                        <div className={"me-2"} key={`bottomBannerButtonContainer${index}`}>
+                                            <Button key={`bottomBanner${index}`} onClick={() => close(button.action)} outline={button.outline}>{button.label}</Button>
+                                        </div>
                                     )
                                 })
                             }

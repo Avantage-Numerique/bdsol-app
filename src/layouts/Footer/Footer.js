@@ -39,6 +39,7 @@ const Footer = () => {
                         <RouteLink routeName={"valuesChart"} className={"nav-link text-dark"} />
                         <RouteLink routeName={"confidentialityPolicy"} className={"nav-link text-dark"} />
                         <RouteLink routeName={"termOfUse"} className={"nav-link text-dark"} />
+                        <RouteLink routeName={"paramsCookies"} className={"nav-link text-dark"} />
                         <RouteLink routeName={"contact"} className={"nav-link text-dark"} />
                     </nav>
                     <p className="text-center my-0"><small>Contact : {appConfig.legal.email}, {appConfig.legal.address}</small></p>

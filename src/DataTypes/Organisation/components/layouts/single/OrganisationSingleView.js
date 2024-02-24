@@ -188,7 +188,7 @@ const OrganisationSingleView = ({ data }) => {
             
         </>
     )
-    console.log(location);
+
     const ContentColumnRight = (
         <>
             {/* Location */}
