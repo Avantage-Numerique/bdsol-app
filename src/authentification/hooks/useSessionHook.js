@@ -91,7 +91,7 @@ export const useSessionHook = () => {
                 if(response.positive) {
                     //If user not verified, redirect to aconfirmer
                     if(response.user.verify.isVerified !== true)
-                        Router.push("/compte/aconfirmer");
+                        Router.push("/compte/a-confirmer");
                     else{
                         //auth.login(response.data.user);
                         await Router.push(response.redirectUri);

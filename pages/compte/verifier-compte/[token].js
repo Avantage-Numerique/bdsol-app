@@ -61,7 +61,7 @@ const verifyAccount = props => {
                 text: "Un email de confirmation a été envoyé",
                 positive: true
             })
-            Router.push("/compte/aconfirmer")
+            Router.push("/compte/a-confirmer")
         }
     }
     

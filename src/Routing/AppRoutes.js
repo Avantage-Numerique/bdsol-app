@@ -254,8 +254,8 @@ const AppRoutesRaw = {
 
     about: {
         label: "À propos",
-        pathname: "/a-propos",
-        asPath: "/a-propos"
+        pathname: "/faq/a-propos",
+        asPath: "/faq/a-propos"
     },
 
     account: {

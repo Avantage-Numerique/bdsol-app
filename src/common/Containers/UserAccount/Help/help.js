@@ -7,25 +7,20 @@ import styles from './help.module.scss'
 const Help = () => {
     return (
         <div className={`${styles["help-menu"]}`}>
-            <h3>Pour partager vos idées</h3>
-            <p>
-                Un bouton nommé "<strong>Partage d'idées</strong>" se trouve sur la droite de votre écran. Il permet de prendre en image une partie de votre écran 
-                et de surligner des éléments. Cette interface vous permettra d'écrire vos commentaires ainsi que de nous partager des éléments ou 
-                fonctionnalités que vous aimeriez voir dans l'application.
-            </p>
             <h3>Pour faciliter votre navigation</h3>
-            <h4>Dans la barre, en haut de l'écran :</h4>
+            <h4>Dans la section, en haut de l'écran :</h4>
             <ul>
-                <li>Le bouton <strong>Avantage Numérique</strong> vous ramènera à la page d'accueil.</li>
-                <li>Un peu plus à droite, se trouve un <strong>bouton rond de "profil"</strong> ou une <strong>image de profil</strong>, permettant d'accéder à la page du compte, où vous vous trouvez présentement.</li>
-                <li>Totalement à droite, le bouton fait de <strong>3 lignes horizontales</strong> vous ouvre un menu qui facilitera la navigation vers les autres pages.</li>
+                <li>Le logo <strong>Avantage Numérique</strong> vous ramènera à la page d'accueil.</li>
+                <li>Au milieu se trouve une <strong>barre de recherche</strong>, permettant de rechercher des rapidement dans la base de donnée.</li>
+                <li>Totalement à droite, le bouton fait de <strong>3 lignes horizontales</strong> vous ouvre un menu qui facilitera la navigation vers les différentes pages du site.</li>
             </ul>
-            <h4>À gauche de ce texte, sous votre photo de profil, les boutons bleu représentent le Menu du compte :</h4>
+            <h4>À gauche de ce texte, les boutons bleu représentent le Menu du compte :</h4>
             <ul>
-                <li>"<strong>Aide</strong>" : Affiche ce texte de présentation</li>
-                {/*<li>"<strong>Modifier mon profil</strong>" : Vous permet de modifier les informations de votre compte</li>*/}
+                <li>"<strong>Mon compte</strong>" : Vous permet de modifier certains paramètres de votre compte.</li>
                 <li>"<strong>Historique de modification</strong>" : Affiche les modifications que vous avez apportées à la base de données (les ajouts, modifications ou suppressions).</li>
-                <li>"<strong>Se déconnecter</strong>" : Permet de vous déconnecter. Cependant, vous trouverez aussi la possibilité de vous déconnecter dans le bouton profil au haut de la page</li>
+                <li>"<strong>Aide</strong>" : Affiche ce texte d'aide.</li>
+                <li>"<strong>Contribuer à la base de donnée</strong>" : Vous redirige vers la page de création d'entité.</li>
+                <li>"<strong>Se déconnecter</strong>" : Permet de vous déconnecter à partir de cette page. Un autre bouton de déconnexion se trouve dans le bouton de navigation en haut à droite de la page en tout temps.</li>
             </ul>
         </div>
     )
