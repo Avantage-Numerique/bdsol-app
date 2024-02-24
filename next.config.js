@@ -1,6 +1,8 @@
 
 const path = require('path');
 
+//Cookie name for cookies choices is : avnuCookies
+
 /**
  * @type {import('next').NextConfig}
  */

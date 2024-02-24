@@ -6,17 +6,17 @@ import {lang} from "@/src/common/Data/GlobalConstants";
 //components
 import Button from '@/src/common/FormElements/Button/Button'
 import Spinner from '@/src/common/widgets/spinner/Spinner'
-import {sortDescBy} from "@/src/common/Data/Sorting/Sort";
 import PageHeader from "@/src/layouts/Header/PageHeader";
 import EntitiesGrid from "@/DataTypes/Entity/layouts/EntitiesGrid";
 import PageMeta from "@/src/common/PageMeta/PageMeta";
 
 //Entities
 //Costum hooks
-import {useHttpClient} from '@/src/hooks/http-hook';
+import {externalApiRequest, useHttpClient} from '@/src/hooks/http-hook';
 
 //Context
 import {MessageContext} from '@/src/common/UserNotifications/Message/Context/Message-Context';
+import {appUrl} from "@/src/helpers/url";
 import {getType} from "@/DataTypes/Entity/Types";
 
 //Images
@@ -62,84 +62,14 @@ const HomePage = ({}) => {
 
     const fetchHomeFeed = async () => {
 
+        setIsLoading(true);//bypass the sendRequest setting of isLoading, because of all these promises here.
+        const homePageEntities = await externalApiRequest(
+            `/search/homepage`,
+            { method: 'GET' }
+        );
+        setFeedList(homePageEntities.data)
 
-        const listQuery = {"sort": "desc"};//{"sort": {"updatedAt": -1}}; //{};//
-        const defaultHeader = {'Content-Type': 'application/json'};
-        const entities = [
-            {
-                path:"/organisations/list",
-                queryParams: listQuery,
-                result: {}
-            },
-            {
-                path:"/persons/list",
-                queryParams: listQuery,
-                result: {}
-            },
-            {
-                path:"/projects/list",
-                queryParams: listQuery,
-                result: {}
-            },
-            {
-                path:"/events/list",
-                queryParams: listQuery,
-                result: {}
-            }
-        ];
-
-        let haveError = false;
-        let feed = [];
-
-        const feedPromises = entities.map(async (query) => {
-
-            const currentResult = await sendRequest(
-                query.path,
-                'POST',
-                JSON.stringify({"data": query.queryParams}),
-                defaultHeader
-            );
-            setIsLoading(true);//bypass the sendRequest setting of isLoading, because of all these promises here.
-            query.result = currentResult;
-
-            haveError = haveError && !currentResult.error;
-            return currentResult;
-
-        });
-
-        Promise.all(feedPromises).then((entitiesResults) => {
-            entitiesResults.map(async (result) => {
-
-                //populate the feed if the current request return a success (!error)
-                if (!result.error && result?.data?.length > 0) {
-                    feed = [...feed, ...result.data];
-                }
-
-                //Show a message if the query return and error.
-                if (result.error) {
-                    msg.addMessage({
-                        text: result.message,
-                        positive: false
-                    });
-                }
-
-                if (feed.length > 0 && !haveError) {
-
-                    //Display less elements when the screen is small.
-                    const nbOfItems = window.innerWidth < 570 ? 4 : 6;
-                    feed.sort(sortDescBy('createdAt'));//   Sort and mixed both collection the data to display the new elements before
-                    const reducedFeed = feed.reduce((a, c, i) => {
-                        if (i < nbOfItems) a[i] = c
-                        return a
-                      }, [])
-                    setFeedList(reducedFeed); //   Finaly, update the state to display the result
-                }
-
-                setIsLoading(true);
-            });
-        }).then(() => {
-            setIsLoading(false);//when all finishes, set this to false.
-        });
+        setIsLoading(false);//when all finishes, set this to false.
     }
 
     //Fetch the data 
@@ -248,7 +178,7 @@ const HomePage = ({}) => {
                 <div className="container">
                     <div className='row justify-content-around align-items-center home-page__section-inner-y-padding'>
                         <div style={{aspectRatio: "1 / 1", maxHeight: "50vw"}} className="col-12 col-md-6 col-lg-4 order-2 order-md-1 p-2">
-                            <Image className="w-100 h-100 object-fit-cover" priority={false} src={organizationPresentationImg} alt="Femme développant un appareil électronique dans un atelier."/>
+                            <Image className="w-100 h-100 object-fit-cover" priority={false} src={organizationPresentationImg} alt="Présentation de l'organisation"/>
                         </div>
                         <div style={{maxWidth: "60ch"}} className="col-12 order-1 order-md-2 col-md-6 col-lg-8 p-4 flex-column align-items-start">
                             <h2 className="mb-4">AVNU, c'est quoi?</h2>
@@ -263,7 +193,7 @@ const HomePage = ({}) => {
                             <div className="d-flex flex-wrap">
                                 <p>Le projet AVNU est développé par le hub &nbsp;</p>
                                 <a href="https://avantagenumerique.org/">
-                                    <Image alt="Logo avantage numérique" className="w-auto" style={{height: "1.25rem"}} src={AvantageNumeriqueLogo} />
+                                    <Image alt="Logo avantage numérique" className="w-auto" style={{height: "1.25rem"}} alt={"logo d'avantage numérique"} src={AvantageNumeriqueLogo} />
                                 </a> 
                             </div>
                             <div className="d-flex flex-column align-items-start mt-3">
@@ -290,7 +220,6 @@ const HomePage = ({}) => {
                     </div>
                 </div>
             </section>
-                
         </div>
     )
 }

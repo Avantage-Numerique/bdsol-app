@@ -1,8 +1,8 @@
-import { useCallback } from "react";
+import {useCallback} from "react";
 
 //Utils
-import { lang } from "@/src/common/Data/GlobalConstants";
-import { getTitle } from "@/src/DataTypes/MetaData/MetaTitle";
+import {lang} from "@/src/common/Data/GlobalConstants";
+import {getTitle} from "@/src/DataTypes/MetaData/MetaTitle";
 
 //Component
 import SingleBase from "@/src/DataTypes/common/layouts/single/SingleBase";
@@ -10,9 +10,8 @@ import SingleBaseHeader from "@/src/DataTypes/common/layouts/single/defaultSecti
 import Place from "../../../models/Place";
 import SanitizedInnerHtml from "@/src/utils/SanitizedInnerHtml";
 import SingleInfo from "@/src/DataTypes/common/layouts/SingleInfo/SingleInfo";
-import { SingleEntityMeta } from "@/src/DataTypes/Meta/components/SingleEntityMeta";
+import {SingleEntityMeta} from "@/src/DataTypes/Meta/components/SingleEntityMeta";
 import Head from "next/head";
-
 
 
 const PlaceSingleView = ({ data }) => {
@@ -21,7 +20,7 @@ const PlaceSingleView = ({ data }) => {
 
     const getLabelGenerator = useCallback((param, query) => {
         return {
-            "places": lang.Places,
+            "lieux": lang.Places,
             "slug": model.title
         }[param];
     }, []);

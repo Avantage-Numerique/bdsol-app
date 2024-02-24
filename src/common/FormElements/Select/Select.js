@@ -75,7 +75,7 @@ const Select = props => {
             ${className}
             ${styles["select-component"]}
         `}>  
-            <div className={`${styles["select-component__label-container"]}`} >
+            <div className={`${styles["select-component__label-container"]} d-flex justify-content-between pb-1`} >
                 {label && 
                 <label 
                     htmlFor={name}

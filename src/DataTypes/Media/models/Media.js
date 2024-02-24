@@ -21,7 +21,7 @@ class Media extends EntityModel {
      */
     constructor(raw, params={}) {
         super(raw);
-        this.title = raw?.name ?? "";
+        this.title = raw?.title ?? "";
         this.description = raw?.description ?? "";
         this.mainImage = raw?.mainImage ?? {};
         this.baseSrc = raw?.baseSrc ?? `${process.env.NEXT_PUBLIC_API_URL}`;

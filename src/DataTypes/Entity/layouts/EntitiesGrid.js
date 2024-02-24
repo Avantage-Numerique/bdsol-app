@@ -11,7 +11,6 @@ import {getModelFromType} from "@/DataTypes/Entity/Types";
  * @constructor
  */
 const EntitiesGrid = ({feed, className, columnClass}) => {
-
     const ContainerTag = "div";
 
     const colContainerClass = columnClass ?? "col g-3";
@@ -22,19 +21,21 @@ const EntitiesGrid = ({feed, className, columnClass}) => {
     });
 
     const customStyling = {'maxWidth': '24rem'}
-    
+
     return (
         <ContainerTag className={className + ' justify-content-center'}>
             {
                 feed.length > 0 ?
                 feed.map((entity, index) => {
-                    const model = getModelFromType(entity.type, entity);
-                    const SimpleComponent = model.simpleComponent;
-                    return (
-                        <div style={customStyling} className={`${colContainerClass}`} key={getKeyString("container", model, index)}>
-                            <SimpleComponent data={entity} model={model} key={getKeyString("simple", model, index)} />
-                        </div>
-                    )
+                    if (entity !== null) {//check that because upward from drilling here could send sont element null.
+                        const model = getModelFromType(entity.type, entity);
+                        const SimpleComponent = model.simpleComponent;
+                        return (
+                            <div style={customStyling} className={`${colContainerClass}`} key={getKeyString("container", model, index)}>
+                                <SimpleComponent data={entity} model={model} key={getKeyString("simple", model, index)} />
+                            </div>
+                        )
+                    }
                 })
                 :
                 <h5 className={"py-4"}>{lang.noResult}</h5>

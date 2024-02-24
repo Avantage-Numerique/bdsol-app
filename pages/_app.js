@@ -13,8 +13,10 @@ import '@/styles/main.scss';
 
 // Extends basic Javascript for the project.
 import "@/src/helpers/ExtendedString";
+import CookieBanner from "@/common/widgets/CookieBanner/CookieBanner";
+import React from "react";
 
-function MyApp({Component, pageProps, user}) {
+function MyApp({Component, pageProps, user, serverCookiesChoices}) {
 
     /**
      * Main app render.
@@ -22,9 +24,10 @@ function MyApp({Component, pageProps, user}) {
     return (
         <>
             {/* Authentication context provided to all the subsequent elements */}
-            <AuthProvider fromSessionUser={user} appMode={process.env.MODE}>
+            <AuthProvider fromSessionUser={user} appMode={process.env.MODE} acceptedCookies={serverCookiesChoices}>
                 <Layout>
                     <Component {...pageProps} />
+                    <CookieBanner />
                 </Layout>
             </AuthProvider>
         </>
@@ -50,33 +53,57 @@ MyApp.getInitialProps = async (context) => {
 
         //Save the IP
         const visitor = getVisitorDataFromContext(context);
-        const savedInSessionUser = session.user ?? {};
 
-        if (session && session.user && session.user.token && session.user.token !== "") {
-            //verify and set if the token is verified by the API
-            try {
-                const serverVerificationResponse = await verifyToken(session.user.token);
-                session.user.tokenVerified = session.user.isLoggedIn = !serverVerificationResponse.error && serverVerificationResponse.data.tokenVerified;
-            } catch (error) {
-                console.error("ERROR : Token verification failed");
-            }
+        //let cookieChoices = context.ctx.req.cookies.get("ChoixCookie");
+        const cookies = context.ctx.req.cookies;
+        let cookiesChoices = null;
+        if (cookies?.avnuCookies) {
+            cookiesChoices = JSON.parse(cookies.avnuCookies);
         }
 
-        session.user = {
-            ...savedInSessionUser,
-            ...visitor
-        };
+        if (cookiesChoices?.auth) {
 
-        await session.save();
+            const savedInSessionUser = session.user ?? {};
+
+            if (session && session.user && session.user.token && session.user.token !== "") {
+                //verify and set if the token is verified by the API
+                try {
+                    const serverVerificationResponse = await verifyToken(session.user.token);
+                    session.user.tokenVerified = session.user.isLoggedIn = !serverVerificationResponse.error && serverVerificationResponse.data.tokenVerified;
+                } catch (error) {
+                    console.error("ERROR : Token verification failed");
+                }
+            }
+
+            session.user = {
+                ...savedInSessionUser,
+                ...visitor
+            };
+
+            await session.save();
+            return {
+                pageProps: {
+                    ...appProps,
+                    user: session.user,
+                    serverCookiesChoices: cookiesChoices
+                },
+                ...appProps,
+                user: session.user,
+                visitor: visitor,
+                serverCookiesChoices: cookiesChoices
+            };
+        }
 
         return {
             pageProps: {
                 ...appProps,
-                user: session.user
+                user: null,
+                serverCookiesChoices: cookiesChoices
             },
             ...appProps,
-            user: session.user,
-            visitor: visitor
+            user: null,
+            visitor: visitor,
+            serverCookiesChoices: cookiesChoices
         };
     }
 

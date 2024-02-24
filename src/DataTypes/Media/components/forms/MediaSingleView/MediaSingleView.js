@@ -15,8 +15,6 @@ import EntityTag from "@/src/DataTypes/Entity/layouts/EntityTag";
 import LicenceDisplay from "@/src/common/FormElements/SelectLicence/LicenceDisplay";
 import SanitizedInnerHtml from "@/src/utils/SanitizedInnerHtml";
 import {SingleEntityMeta} from "@/src/DataTypes/Meta/components/SingleEntityMeta";
-import Head from "next/head";
-import {getTitle} from "@/DataTypes/MetaData/MetaTitle";
 import Media from "@/DataTypes/Media/models/Media";
 
 
@@ -62,6 +60,8 @@ const MediaSingleView = ({data}, ...props) => {
             "[organisation.slug]": associatedEntityModel.slug ?? "no-set",
             "[project.slug]": associatedEntityModel.slug ?? "no-set",
             "[event.slug]": associatedEntityModel.slug ?? "no-set",
+            "[equipment.slug]": associatedEntityModel.slug ?? "no-set",
+            "[place.slug]": associatedEntityModel.slug ?? "no-set",
             "persons": "persons",
             "organisations": "organisations",
             "projects": "projects",
@@ -78,7 +78,10 @@ const MediaSingleView = ({data}, ...props) => {
             "organisation.slug": () => associatedEntityModel.title ?? "Organisation",
             "project.slug": associatedEntityModel.title ?? "Projet",
             "event.slug": associatedEntityModel.title ?? "Événement",
+            "equipment.slug": associatedEntityModel.title ?? "Équipement",
+            "place.slug": associatedEntityModel.title ?? "Lieu",
             "persons": () => "Personnes",
+            "equipment": () => "Équipements",
             "organisations": () => "Organisations",
             "projets": () => "Projets",
             "events": () => "Événements",
@@ -159,9 +162,6 @@ const MediaSingleView = ({data}, ...props) => {
 
     return (
         <>
-            <Head>
-                <title>{getTitle([`${lang.mainImage} ${lang.associatedTo} ${associatedEntityModel.title}`, associatedEntityModel.Type.label])}</title>
-            </Head>
             <SingleBase
                 breadCrumb={breadCrumb}
                 header={header}

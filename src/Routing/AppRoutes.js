@@ -187,13 +187,13 @@ const AppRoutesRaw = {
      ***/
     places : {
         label: "Tous les lieux",
-        pathname: "/places",
-        asPath: "/places",
+        pathname: "/lieux",
+        asPath: "/lieux",
     },
     placeSingle : {
         label: "Un lieu",
-        pathname: "/places/[slug]",
-        asPath: "/places/[slug]"
+        pathname: "/lieux/[slug]",
+        asPath: "/lieux/[slug]"
     },
     placeSingleEdit : {
         label: "Modifier un événement",
@@ -209,8 +209,8 @@ const AppRoutesRaw = {
         label: "Média d'un lieu",
         pathname: "/medias/[slug]",
         asPath: "/medias/[slug]",
-        breadcrumbPathName: "/places/[place.slug]/[slug]",
-        breadcrumbAsPath: "/places/[place.slug]/[slug]",
+        breadcrumbPathName: "/lieux/[place.slug]/[slug]",
+        breadcrumbAsPath: "/lieux/[place.slug]/[slug]",
         breadcrumbQuery: {
             slug: "slug",
             mediaType: "main-image"
@@ -254,8 +254,8 @@ const AppRoutesRaw = {
 
     about: {
         label: "À propos",
-        pathname: "/a-propos",
-        asPath: "/a-propos"
+        pathname: "/faq/a-propos",
+        asPath: "/faq/a-propos"
     },
 
     account: {
@@ -317,6 +317,13 @@ const AppRoutesRaw = {
         label: "Charte de valeurs",
         pathname: "/charte-de-valeurs",
         asPath: "/charte-de-valeurs",
+        needAuth: false,
+    },
+
+    paramsCookies: {
+        label: "Paramètres des cookies",
+        pathname: "/parametres/cookies",
+        asPath: "/parametres/cookies",
         needAuth: false,
     }
 }

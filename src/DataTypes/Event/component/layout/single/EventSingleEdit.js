@@ -2,6 +2,9 @@
 import React, {useCallback, useContext, useEffect, useState} from "react";
 import Router from "next/router";
 
+//hooks
+import { useRootModal } from "@/src/hooks/useModal/useRootModal";
+
 //Utils, context
 import {useAuth} from "@/src/authentification/context/auth-context";
 import {MessageContext} from "@/src/common/UserNotifications/Message/Context/Message-Context";
@@ -18,7 +21,6 @@ import SingleInfo from "@/src/DataTypes/common/layouts/SingleInfo/SingleInfo";
 import SingleBaseHeader from "@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseHeader";
 import SingleBase from "@/src/DataTypes/common/layouts/single/SingleBase";
 import MainImageDisplay from "@/src/DataTypes/common/layouts/single/defaultSections/MainImageDisplay/MainImageDisplay";
-import Link from "next/link";
 import Icon from "@/src/common/widgets/Icon/Icon";
 import Button from "@/src/common/FormElements/Button/Button";
 import Input from "@/src/common/FormElements/Input/Input";
@@ -32,6 +34,7 @@ import CreatePhotoGallery from "@/src/DataTypes/Media/components/forms/CreatePho
 import {apiDateToDateInput, apiDateToTimeInput, dateTimeStringToUTC} from "@/common/DateManager/Parse";
 import SubmitEntity from "@/DataTypes/common/Forms/SingleEdit/SubmitEntity";
 import UpdateSocialHandles from "@/src/DataTypes/common/Forms/UpdateSocialHandles/UpdateSocialHandles";
+import SingleSaveEntityReminder from "@/src/DataTypes/common/layouts/SingleSaveEntityReminder/SingleSaveEntityReminder";
 
 const EventSingleEdit = ({data}, ...props) => {
 
@@ -73,6 +76,9 @@ const EventSingleEdit = ({data}, ...props) => {
 
     const [currentMainImage, setCurrentMainImage] = useState(model.mainImage);
     const [currentModel, setCurrentModel] = useState(model);
+
+    //Modal hook
+    const modalSaveEntityReminder = useRootModal();
 
     const updateEntityModel = useCallback((rawData) => {
         model = new Event(rawData);
@@ -229,8 +235,8 @@ const EventSingleEdit = ({data}, ...props) => {
             data: {
                 id: _id,
                 alternateName: formState.inputs.alternateName.value,
-                entityInCharge: formState.inputs.entityInCharge.value?.value ?? undefined,
-                organizer: formState.inputs.organizer.value?.value ?? undefined,
+                entityInCharge: formState.inputs.entityInCharge.value?.value ?? null,
+                organizer: formState.inputs.organizer.value?.value ?? null,
                 description: formState.inputs.description.value,
                 eventType: formState.inputs.eventType.value?.length > 0 ?
                     formState.inputs.eventType.value.map( (selectedEventType) => { return selectedEventType.value }) : [],
@@ -394,7 +400,7 @@ const EventSingleEdit = ({data}, ...props) => {
         const ctaHeaderSection = (
             <div className="d-flex flex-wrap align-items-end gap-2 gap-md-3 gap-lg-4">
                 <MainImageDisplay buttonClasses="fs-6" mainImage={currentMainImage} entity={currentModel} setter={updateModelMainImage} />
-                <Button className='fs-6' size="slim" color="success" disabled={!formState.isValid} onClick={submitHandler}>
+                <Button className='fs-6' size="slim" color="success" disabled={!formState.isValid} onClick={modalSaveEntityReminder.displayModal}>
                     <Icon iconName={"save"} />&nbsp;{lang.capitalize("save")}
                 </Button>
                 <Button className='fs-6' size="slim" color="primary-light" href={model.singleLink}>
@@ -692,7 +698,7 @@ const EventSingleEdit = ({data}, ...props) => {
 
     {/*********** Submit section ***********/}
     const SinglePageBottom = (
-        <SubmitEntity submitHandler={submitHandler} formState={formState} />
+        <SubmitEntity submitHandler={modalSaveEntityReminder.displayModal} formState={formState} />
     )
 
     return (
@@ -706,6 +712,12 @@ const EventSingleEdit = ({data}, ...props) => {
                 footer={Footer}
                 singlePageBottom={SinglePageBottom}
             />
+            <modalSaveEntityReminder.Modal>
+                <SingleSaveEntityReminder
+                    submitHandler={submitHandler}
+                    closeModal={modalSaveEntityReminder.closeModal}
+                />
+            </modalSaveEntityReminder.Modal>
 
         </>
     )

@@ -65,7 +65,7 @@ const PlacesPage = () => {
 
     const getLabelGenerator = useCallback((param, query) => {
         return {
-            "places": lang.Places,
+            "lieux": lang.Places,
         }[param];
     }, []);
 
