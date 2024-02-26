@@ -5,6 +5,7 @@ import {lang} from "@/common/Data/GlobalConstants";
 import {Breadcrumbs} from "@/common/Breadcrumbs/Breadcrumbs";
 import AppRoutes from "@/src/Routing/AppRoutes";
 import Button from '@/src/common/FormElements/Button/Button';
+import PageMeta from "@/src/common/PageMeta/PageMeta";
 
 //Styling 
 import styles from './index_categories.module.scss';
@@ -107,10 +108,13 @@ const TaxonomiesCategoryPage = () => {
     }, []);
 
     return (
-        <div>
-            <Head>
-                <title>{getTitle([type.labelPlural])}</title>
-            </Head>
+        <div>          
+            {/* Page head element  */}
+            <PageMeta 
+                title={getTitle([type.labelPlural])}
+                description={"Découvrez les différentes catégories utilisées pour classifier nos données : domaines, technologies, compétences, types d'équipement."}
+            />
+
             <PageHeader title={`Toutes les catégories`}>
                 <Breadcrumbs className={"pt-2"} route={AppRoutes.categories} getLabelGenerator={getLabelGenerator} />
             </PageHeader>

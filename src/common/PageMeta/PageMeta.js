@@ -1,11 +1,13 @@
 import React from 'react'
+import { useRouter } from 'next/router';
+
 import Head from 'next/head';
 import SanitizedInnerHtml from '@/src/utils/SanitizedInnerHtml';
 import {lang} from "@/common/Data/GlobalConstants";
 import {appUrl} from "@/src/helpers/url";
 import DOMPurify from 'isomorphic-dompurify';
 
-const lengthValidator = (recommandation, text, tagName="") => {
+const lengthValidator = (text, recommandation, tagName="") => {
 
     //Validate the length and send a warning if greater
     if(text.length > recommandation)
@@ -17,7 +19,6 @@ const lengthValidator = (recommandation, text, tagName="") => {
  * Generate a header component with all the defined tag
  * 
  * General details
- * @Param props.currentAddress {string} Will allow us to create canonical tags
  * @param props.title {string} Main title of the page
  * @param props.description {string} Main description of the page
  * @param props.keywords {string} Main keywords of the page
@@ -36,17 +37,27 @@ const lengthValidator = (recommandation, text, tagName="") => {
  */
 const PageMeta = (props) => {
 
+    //Extract the current address for the canonical
+    const router = useRouter();
+    const currentAddress = appUrl(router.pathname)
+
+    //If those two aren't filled, the default values are going to be injected instead.
     const defaultPageTitle = lang.appDefaultName
     const defaultPageDescription = lang.appDefaultDescription
 
+    //Og Values 
+    const displayedOgTitle = lengthValidator((props.ogTitle || (props.title || defaultPageTitle)), 65, "og:title")
+    const displayedOgDescription = lengthValidator((props.ogDescription || (props.description || defaultPageDescription)), 160, "og:description")
+
     //Default image for social media. The same by default for both
-    const defaultImg = "/meta-images/show_screen_shot.jpg";
-    const defaultImgAlt = "Public assistant à une performance qui contient des nouvelles technologies."
-    const defaultImgWidth = "2560"
-    const defaultImgHeight = "1345"
+    const defaultImg = "/meta-images/Avnu---Open-Graph.jpg";
+    const defaultImgAlt = "Logo officiel d'AVNU aux côtés de la fusée emblématique de l'organisation survolant le Québec et l'Ontario."
+    const defaultImgWidth = "1200"
+    const defaultImgHeight = "630"
+
     return (
         <Head>
-            <title>{lengthValidator((props.title ?? defaultPageTitle), 65, "Title")}</title>
+            <title>{lengthValidator((props.title || defaultPageTitle), 65, "Title")}</title>
 
             {/* Keywords and description to evaluate */}
             <meta name="description" content={lengthValidator((props.description ?? defaultPageDescription), 160, "Description")}/>  
@@ -55,7 +66,7 @@ const PageMeta = (props) => {
                 <meta name="robots" content="noindex, nofollow" /> : 
                 <meta name="robots" content="index, follow" /> 
             }
-            {(props.currentAddress || props.currentAddress === "") && <link rel="canonical" href={appUrl(props.currentAddress)} /> }
+            <link rel="canonical" href={currentAddress} /> 
 
             {/*****************
              * 
@@ -63,9 +74,9 @@ const PageMeta = (props) => {
              * 
              * */}
             {/* For the title and description, the component look for specific og:data, then for the general title and description values, and finaly for default values if nothing is available */}
-            {props.ogTitle && <meta property="og:title" content={lengthValidator((props.ogTitle || (props.title || defaultPageTitle)), 65, "og:title")}/>}
-            {props.ogDescription && <meta property="og:description" content={lengthValidator((props.ogDescription || (props.description || defaultPageDescription)), 160, "og:description")}/>}
-            {(props.currentAddress || props.currentAddress === "") && <meta property="og:url" content={appUrl(props.currentAddress)} />}
+            {displayedOgTitle && <meta property="og:title" content={displayedOgTitle}/>}
+            {displayedOgDescription && <meta property="og:description" content={displayedOgDescription}/>}
+            <meta property="og:url" content={currentAddress} />
             <meta property="og:locale" content="fr_CA" />
             {/* Note : absolute minimum size of an image for Open Graph is 200x200 pixels. To get the best display on high-resolution devices, it should be at least 1200x630 pixels */}
             <meta property="og:image" content={appUrl(props.image || defaultImg)} />
@@ -88,8 +99,8 @@ const PageMeta = (props) => {
              *  For now, using the same values as og
              * 
              * */}
-            {props.ogTitle && <meta name="twitter:title" content={props.ogTitle || (props.title || defaultPageTitle)}/>}
-            {props.ogDescription && <meta name="twitter:description" content={props.ogDescription || (props.description || defaultPageDescription)}/>}
+            {displayedOgTitle && <meta name="twitter:title" content={displayedOgTitle}/>}
+            {displayedOgDescription && <meta name="twitter:description" content={displayedOgDescription}/>}
 
             <meta name="twitter:card" content="summary_large_image"/>
             <meta name="twitter:image" content={appUrl(props.image || defaultImg)} />
@@ -106,14 +117,17 @@ const PageMeta = (props) => {
                 </>
             }
 
-{/*             {props.structuredData &&
+            {/*
+            {
+                props.structuredData &&
                 <SanitizedInnerHtml  
                     tag="script" 
                     type='application/ld+json'
                 >
                     {JSON.stringify(props.structuredData)}
                 </SanitizedInnerHtml>
-            } */}
+            } 
+            */}
 
 
             <script
@@ -129,7 +143,7 @@ const PageMeta = (props) => {
 
 export default PageMeta
 
-/* To bge developped - V.P.R.                
+/* To be developped, one day                
     <meta name="twitter:label1" content="Written by" />
     <meta name="twitter:data1" content="Author's user" />
     <meta name="twitter:label2" content="Reading time" />

@@ -5,6 +5,7 @@ import {clientSideExternalApiRequest} from '@/src/hooks/http-hook'
 import Input from '@/src/common/FormElements/Input/Input'
 import Button from '@/src/common/FormElements/Button/Button'
 import {MessageContext} from '@/src/common/UserNotifications/Message/Context/Message-Context'
+import PageMeta from "@/src/common/PageMeta/PageMeta";
 
 const confirmationForm = () => {
 
@@ -35,6 +36,10 @@ const confirmationForm = () => {
 
     return (
         <div>
+            <PageMeta 
+                title={"En attente de confirmation"}
+                preventIndexation
+            />
             <div className="border-bottom my-4"></div>
             <h3 className="fs-5 text-dark-light">Voulez-vous un nouveau lien de confirmation?</h3>
             <Input 

@@ -115,8 +115,9 @@ const HomePage = ({}) => {
 
             {/* Page head element  */}
             <PageMeta 
-                currentAddress=""
                 //title  : Let the default kick in
+                //title={lang.index__title}
+                //description={lang.index__description}
                 //description  : Let the default kick in
                 keywords={lang.appDefaultKeywords}
                 structuredData={schema}
@@ -157,7 +158,7 @@ const HomePage = ({}) => {
                             {
                                 feedList.length === 0 && !isLoading &&
                                 <div>
-                                    <h5>{lang.noResult}</h5>
+                                    <h5 className="text-center">{lang.noResult}</h5>
                                 </div>
                             }
                             {/*  Show the feed in the EntitiesGrid component. It manages an empty list in it, but it make it more readable to show it here too */}
