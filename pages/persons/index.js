@@ -4,6 +4,7 @@ import React, {useCallback, useContext, useEffect, useState} from 'react'
 import PageHeader from "@/src/layouts/Header/PageHeader";
 import Button from '@/src/common/FormElements/Button/Button'
 import Spinner from '@/src/common/widgets/spinner/Spinner'
+import PageMeta from "@/src/common/PageMeta/PageMeta";
 
 
 //Costum hooks
@@ -24,6 +25,7 @@ import {getType, TYPE_PERSON} from "@/DataTypes/Entity/Types";
 
 
 const PersonsPage = () => {
+    
 
     const [ personList, setPersonList ] = useState([]);
 

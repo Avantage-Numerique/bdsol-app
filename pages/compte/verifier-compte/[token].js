@@ -6,6 +6,7 @@ import {useContext} from "react";
 import {MessageContext} from "@/src/common/UserNotifications/Message/Context/Message-Context";
 import {useFormUtils} from "@/src/hooks/useFormUtils/useFormUtils";
 import Input from "@/src/common/FormElements/Input/Input";
+import PageMeta from "@/src/common/PageMeta/PageMeta";
 
 
 /**
@@ -66,46 +67,52 @@ const verifyAccount = props => {
     }
     
     return (
-        <form>
-            <PageHeader
-                bg={"bg-primary-lighter"}
-                textColor={"text-white"}
-                htmlTitle={"Page de confirmation de compte"}
-                //description={"Page de confirmation"}
+        <>
+            <PageMeta 
+                title={"Vérification de compte"}
+                preventIndexation
             />
-            {
-                props.verifyState == null &&
-                <>
-                    <h2>Ce lien est erroné</h2>
-                    <div>Réessayer à nouveau</div>
-                </>
-            }
-            {
-                props.verifyState === false &&
-                <>
-                    <h2>Malheureusement, le lien a expiré...</h2>
-                    <div>Voulez-vous un nouveau lien de confirmation?</div>
-                    <Input 
-                        name="email"
-                        label="Adresse Courriel"
-                        formClassName="discrete-without-focus form-text-white h2"
-                        validationRules={[
-                            {name: "REQUIRED"}
-                        ]}
-                        formTools={formTools}
-                    />
-                    <Button type="button" onClick={resendToken}>Envoyer un nouveau lien de confirmation</Button>
-                </>
-            }
-            {
-                props.verifyState === true &&
-                <>
-                    <h2>Votre compte a bien été vérifié!</h2>
-                    <div>Vous pouvez maintenant vous connecter</div>
-                    <Button className="my-3" href="/compte/connexion">Se connecter</Button>
-                </>
-            }
-        </form>
+            <form>
+                <PageHeader
+                    bg={"bg-primary-lighter"}
+                    textColor={"text-white"}
+                    htmlTitle={"Page de confirmation de compte"}
+                    //description={"Page de confirmation"}
+                />
+                {
+                    props.verifyState == null &&
+                    <>
+                        <h2>Ce lien est erroné</h2>
+                        <div>Réessayer à nouveau</div>
+                    </>
+                }
+                {
+                    props.verifyState === false &&
+                    <>
+                        <h2>Malheureusement, le lien a expiré...</h2>
+                        <div>Voulez-vous un nouveau lien de confirmation?</div>
+                        <Input 
+                            name="email"
+                            label="Adresse Courriel"
+                            formClassName="discrete-without-focus form-text-white h2"
+                            validationRules={[
+                                {name: "REQUIRED"}
+                            ]}
+                            formTools={formTools}
+                        />
+                        <Button type="button" onClick={resendToken}>Envoyer un nouveau lien de confirmation</Button>
+                    </>
+                }
+                {
+                    props.verifyState === true &&
+                    <>
+                        <h2>Votre compte a bien été vérifié!</h2>
+                        <div>Vous pouvez maintenant vous connecter</div>
+                        <Button className="my-3" href="/compte/connexion">Se connecter</Button>
+                    </>
+                }
+            </form>
+        </>
     )
 }
 

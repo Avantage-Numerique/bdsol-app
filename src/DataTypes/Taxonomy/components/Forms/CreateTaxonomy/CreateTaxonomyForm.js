@@ -25,18 +25,6 @@ const CreateTaxonomyForm = ({name, category, initValues, onPositiveResponse, ...
 
     const submitUri = props.uri ?? "create";
 
-    /*
-        Could be a great idea for every form in the application to have the possibility 
-        to recieve initial values passed as props with the exact corresponding field name
-        Ex : name
-
-        V.P.R.
-
-        yessss 8-)
-
-        M-A.M.
-    */
-
     const auth = useAuth();
 
     const msg = useContext(MessageContext);
@@ -126,7 +114,7 @@ const CreateTaxonomyForm = ({name, category, initValues, onPositiveResponse, ...
         submitRequest(
             `/taxonomies/${submitUri}`,
             'POST',
-            formData
+            formDat
         );
     }
 
