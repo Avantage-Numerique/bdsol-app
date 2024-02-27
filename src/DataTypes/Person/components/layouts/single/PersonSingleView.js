@@ -171,15 +171,6 @@ const PersonSingleView = ({ data }) => {
                     />
                 </SingleInfo>
             }
-            { (createdAt || updatedAt || meta) &&
-                <SingleInfo 
-                    title={lang.entityMetadata} 
-                    cardLayout
-                >
-                    {/*********** Entity data ***********/}
-                    <SingleEntityMeta createdAt={createdAt} updatedAt={updatedAt} meta={meta} />
-                </SingleInfo>
-            }
         </>
     )
 

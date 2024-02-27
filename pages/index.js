@@ -25,6 +25,7 @@ import backgroundImg from '@/public/general_images/Fusee_Pointilles1.svg'
 import AvantageNumeriqueLogo from '@/public/logos/logo_Avantage_Numérique.svg';
 import organizationPresentationImg from '@/public/general_images/shutterstock_514412107.jpg'
 import shipAndPlanetsImg from '@/public/general_images/Fusée_Planetes_Poitilles2.svg'
+import AppRoutes from '@/src/Routing/AppRoutes';
 
 //Background image for the page header
 const HomePageHeaderBgImg = () => {
@@ -227,11 +228,11 @@ const HomePage = ({}) => {
                             <div className="d-flex flex-wrap">
                                 <p>Le projet AVNU est développé par le hub &nbsp;</p>
                                 <a href="https://avantagenumerique.org/">
-                                    <Image alt="Logo avantage numérique" className="w-auto" style={{height: "1.25rem"}} alt={"logo d'avantage numérique"} src={AvantageNumeriqueLogo} />
+                                    <Image alt="Logo avantage numérique" className="w-auto" style={{height: "1.25rem"}} src={AvantageNumeriqueLogo} />
                                 </a> 
                             </div>
                             <div className="d-flex flex-column align-items-start mt-3">
-                                <Button className="px-4 mt-2" href="/faq/a-propos">En savoir plus sur l'initiative</Button>
+                                <Button className="px-4 mt-2" href={AppRoutes.about.asPath}>En savoir plus sur l'initiative</Button>
                                 <Button className="mt-3" href="https://avantagenumerique.org/" external={true} text_color="dark">Découvrir Avantage Numérique</Button>
                             </div>
                         </div>

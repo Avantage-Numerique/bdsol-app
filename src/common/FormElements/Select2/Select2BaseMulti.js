@@ -74,9 +74,9 @@ const Select2BaseMulti = ({name, ...props}) => {
 
             onChange={ (val) => { props.valueSetter(val)}}
             onInputChange={(val) => {
-                val.slice(-1) === ',' ?
+                /* val.slice(-1) === ',' ?
                 setValueWithComma()
-                :
+                : */
                 props.inputValueSetter(val)
             }}
 

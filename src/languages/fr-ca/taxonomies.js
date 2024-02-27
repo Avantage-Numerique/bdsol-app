@@ -23,6 +23,7 @@ const taxonomies = {
     "Skill": "Compétence",
     "skills": "compétences",
     "skill": "compétence",
+    "skillGroupName": "Nom du groupe de compétence",
 
     //  Occupations
 

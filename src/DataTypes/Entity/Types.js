@@ -98,7 +98,7 @@ TYPES.set(TYPE_TAXONOMY, new Type({
 }));
 
 TYPES.set(TYPE_EVENT, new Type({
-    slug:"event",
+    slug:"events",
     label: "Événement",
     labelPlural: "Événements",
     modelClass: Event,
