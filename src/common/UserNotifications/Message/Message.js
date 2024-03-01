@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import {useEffect, useState} from 'react'
 
 import styles from './Message.module.scss'
 
@@ -10,7 +10,6 @@ const Message = ({ children, positiveReview, clean }) => {
         positiveReview : contains the type of message : positive of negative (bool)
         clean : function to be called if defined to clean the state of the component who called the message when it must be removed
     */
-
     const [active, setActive] = useState(true);
     const [hideProperty, setHideProperty] = useState(false);
 
@@ -21,7 +20,7 @@ const Message = ({ children, positiveReview, clean }) => {
                 setActive(false)
                 clean();
             }, 
-        1000) 
+        1000)
         //The one second correspond to the duration of the transition of the animation in the scss file.
     }
 
@@ -30,8 +29,6 @@ const Message = ({ children, positiveReview, clean }) => {
             hideElement();
         }, 8000)
     }, [])
-
-   
 
 
 
