@@ -50,7 +50,7 @@ const PersonSingleView = ({ data }) => {
     /* Needed for breadCrumb generator */
     const getLabelGenerator = useCallback((param, query) => {
         return {
-            "persons": lang.Persons,
+            "personnes": lang.Persons,
             "slug": `${firstName} ${lastName}`        
         }[param];
     }, []);

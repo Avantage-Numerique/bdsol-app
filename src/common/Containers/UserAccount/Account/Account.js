@@ -55,6 +55,7 @@ const Account = () => {
         <>
             <button onClick={() => setSubMenu("account")}><Icon iconName="undo"/>Retour à la modification du profil</button>
             <h3>Modification du mot de passe</h3>
+            <div>Si vous ne recevez pas de courriels, veuillez vérifier vos courriels indérisables.</div>
             <Input
                 className="mb-3"
                 name="oldPassword"

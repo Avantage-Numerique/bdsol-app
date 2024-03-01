@@ -66,7 +66,7 @@ const EquipmentPage = () => {
 
     const getLabelGenerator = useCallback((param, query) => {
         return {
-            "equipment": type.labelPlural,
+            "equipement": type.labelPlural,
         }[param];
     }, []);
 

@@ -80,11 +80,11 @@ const MediaSingleView = ({data}, ...props) => {
             "event.slug": associatedEntityModel.title ?? "Événement",
             "equipment.slug": associatedEntityModel.title ?? "Équipement",
             "place.slug": associatedEntityModel.title ?? "Lieu",
-            "persons": () => "Personnes",
-            "equipment": () => "Équipements",
+            "personnes": () => "Personnes",
+            "equipement": () => "Équipements",
             "organisations": () => "Organisations",
             "projets": () => "Projets",
-            "events": () => "Événements",
+            "evenements": () => "Événements",
             "medias": () => "Média"
         }[param];
     }, []);

@@ -4,6 +4,7 @@ import React, {useCallback, useContext, useEffect, useState} from 'react'
 import PageHeader from "@/src/layouts/Header/PageHeader";
 import Button from '@/src/common/FormElements/Button/Button'
 import Spinner from '@/src/common/widgets/spinner/Spinner'
+import PageMeta from "@/src/common/PageMeta/PageMeta";
 
 
 //Costum hooks
@@ -20,12 +21,13 @@ import AppRoutes from "@/src/Routing/AppRoutes";
 import EntitiesGrid from "@/DataTypes/Entity/layouts/EntitiesGrid";
 import {getTitle} from "@/DataTypes/MetaData/MetaTitle";
 import Head from "next/head";
-import {getType, TYPE_EVENT} from "@/DataTypes/Entity/Types";
+import {getType, TYPE_PERSON} from "@/DataTypes/Entity/Types";
 
 
-const EventsPage = () => {
+const PersonsPage = () => {
+    
 
-    const [ eventList, setEventList ] = useState([]);
+    const [ personList, setPersonList ] = useState([]);
 
     //Import the authentication context to make sure the user is well connected
     const auth = useAuth();
@@ -36,27 +38,26 @@ const EventsPage = () => {
     //Import message context 
     const msg = useContext(MessageContext);
 
-    const type = getType(TYPE_EVENT);
+    const type = getType(TYPE_PERSON);
     /* 
-        Fetch data  
-        
+        Fetch data 
     */
     const fetchData = async () => {
 
         //Send the request with the specialized hook
-        const eventResponse = await sendRequest(
-            "/events/list",
+        const persResponse = await sendRequest(
+            "/persons/list",
             'POST',
             JSON.stringify({"data": {"sort": "desc"}}),
             {'Content-Type': 'application/json'}
         )
 
         //If positive
-        if (!eventResponse.error) { 
-            setEventList(eventResponse.data)
+        if (!persResponse.error) { 
+            setPersonList(persResponse.data)
         } else {
             msg.addMessage({
-                text: "Une erreur est survenue et nous n'arrivons pas à afficher les fiches événements. Veuillez réessayer.",
+                text: "Une erreur est survenue et nous n'arrivons pas à afficher les fiches de personne. Veuillez réessayer.",
                 positive: false
             })
         }
@@ -66,7 +67,7 @@ const EventsPage = () => {
 
     const getLabelGenerator = useCallback((param, query) => {
         return {
-            "events": type.labelPlural,
+            "personnes": type.labelPlural,
         }[param];
     }, []);
 
@@ -79,11 +80,11 @@ const EventsPage = () => {
             <PageHeader
                 bg={"bg-primary-lighter"}
                 textColor={"text-white"}
-                title={"Consulter les événement"}
-                subTitle={"Sous-titre pertinent [...]"}
-                description="Les événements qui sont listé peuvent être [...]"
+                title={"Consulter les personnes"}
+                subTitle={"Qu'elles proviennent du milieu du savoir, de la culture ou des affaires..."}
+                description="Les personnes listées ci-dessous peuvent être: des créateurs.trices numériques, des individus possédant une expertise ou de l'équipement spécialisé, des promoteurs d'initiatives numériques, ou toutes autres personnes intéressées à prendre part, d'une façon ou d'une autre, au développement des technologies numériques sur le territoire du Croissant Boréal."
             >
-                <Breadcrumbs className={"pt-2"} route={AppRoutes.events} getLabelGenerator={getLabelGenerator} />
+                <Breadcrumbs className={"pt-2"} route={AppRoutes.persons} getLabelGenerator={getLabelGenerator} />
             </PageHeader>
 
                 <div className="container">
@@ -107,7 +108,7 @@ const EventsPage = () => {
 
                                 {/* If there is no loading state and no feed, go on that by default */}
                                 {
-                                    eventList.length === 0 && !isLoading &&
+                                    personList.length === 0 && !isLoading &&
                                     <div>
                                         <h5>{lang.noResult}</h5>
                                     </div>
@@ -116,8 +117,8 @@ const EventsPage = () => {
 
                             {/*  Show the feed in the EntitiesGrid component. It manages an empty list in it, but it make it more readable to show it here too */}
                             {
-                                eventList.length > 0 && !isLoading &&
-                                <EntitiesGrid className="position-relative row row-cols-1 row-cols-sm-2 row-cols-xl-3" columnClass={"col g-3"} feed={eventList}/>
+                                personList.length > 0 && !isLoading &&
+                                <EntitiesGrid className="position-relative row row-cols-1 row-cols-sm-2 row-cols-xl-3" columnClass={"col g-3"} feed={personList}/>
                             }
                         </section>
 
@@ -126,9 +127,9 @@ const EventsPage = () => {
                             <div className="my-4">
                                 <Button 
                                     disabled={!auth.user.isLoggedIn}
-                                    href="/contribuer/evenements" 
+                                    href="/contribuer/personnes" 
                                     size="reg-100">
-                                    {lang.addEventButtonLabel}
+                                    {lang.addPersonButtonLabel}
                                 </Button>
 
                                 {
@@ -159,4 +160,4 @@ const EventsPage = () => {
     )
 }
 
-export default EventsPage
+export default PersonsPage

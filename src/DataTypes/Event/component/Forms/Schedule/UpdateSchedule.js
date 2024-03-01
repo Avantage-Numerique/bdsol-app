@@ -54,7 +54,7 @@ const UpdateSchedule = ({name, formTools, schedule, ...props}) => {
                             <Input
                                 className="col-md-12 col-lg-4 mb-2"
                                 name="name"
-                                label={lang.name}
+                                label={lang.activityName}
                                 validationRules={[
                                     {name: "REQUIRED"}
                                 ]}
