@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { useHttpClient } from '@/src/hooks/http-hook';
+import {useEffect, useState} from 'react';
+import {useHttpClient} from '@/src/hooks/http-hook';
 
 //Styling
 import styles from './SelectLicence.module.scss'
@@ -68,6 +68,12 @@ const SelectLicence = ({name, formTools, ...props}) => {
                 label="Licence"
                 options={licences}
                 formTools={formTools}
+                tip={
+                    {
+                        header : "Recommandations",
+                        body: "Nous recommandons, lorsque possible, de rendre les données disponibles dans le cadre de la licence libre et ouverte Creative Commons CC BY-NC-SA 4.0"
+                    }
+                }
             />
             <small>{
                 formState.inputs[name].value &&

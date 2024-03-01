@@ -85,17 +85,17 @@ const FAQ = () => {
                         rows={[
                             {
                                 name: "Qu'est-ce qu'une licence?",
-                                link: "/faq/licences",
+                                link: AppRoutes.licences.asPath,
                                 tag: "faq-licence-definition"
                             },
                             {
                                 name: "Licences supportées par la BDSOL",
-                                link: "/faq/licences",
+                                link: AppRoutes.licences.asPath,
                                 tag: "faq-licences-supportees"                                
                             },
                             {
                                 name: "Définition des accronymes utilisés",
-                                link: "/faq/licences",
+                                link: AppRoutes.licences.asPath,
                                 tag: "faq-licence-accronymes"                                
                             }
                         ]}
@@ -109,22 +109,22 @@ const FAQ = () => {
                         rows={[
                             {
                                 name: "Qu'est-ce que la BDSOL?",
-                                link: "/faq/a-propos",
+                                link: AppRoutes.about.asPath,
                                 tag: "a-propos"
                             },
                             {
                                 name: "À quoi va servir la base de données ?",
-                                link: "/faq/a-propos",
+                                link: AppRoutes.about.asPath,
                                 tag: "a-quoi-va-servir-la-base-de-donnees"
                             },
                             {
                                 name: "Qui pourra utiliser la base de données ?",
-                                link: "/faq/a-propos",
+                                link: AppRoutes.about.asPath,
                                 tag: "qui-pourra-utiliser-la-base-de-donnees"
                             },
                             {
                                 name: "Utilisation et gouvernance des données",
-                                link: "/faq/a-propos",
+                                link: AppRoutes.about.asPath,
                                 tag: "gouvernance-des-donnees"
                             },
                         ]}
@@ -138,17 +138,17 @@ const FAQ = () => {
                         rows={[
                             {
                                 name: "Charte de valeurs",
-                                link: "/charte-de-valeurs",
+                                link: AppRoutes.valuesChart.asPath,
                                 tag: ""
                             },
                             {
                                 name: "Politique d'utilisation des données",
-                                link: "/politique-d'utilisation-des-donnees",
+                                link: AppRoutes.confidentialityPolicy.asPath,
                                 tag: ""
                             },
                             {
                                 name: "Termes et conditions d'utilisation",
-                                link: "/termes-et-conditions-d'utilisation",
+                                link: AppRoutes.termOfUse.asPath,
                                 tag: ""
                             },
                         ]}

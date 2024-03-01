@@ -266,6 +266,12 @@ const CreateMediaForm = (props) => {
                             <SelectLicence
                                 formTools={formTools}
                                 name="licence"
+                                tooltip={
+                                    {
+                                        header : "Recommandations",
+                                        body: "Nous recommandons, lorsque possible, de rendre les données disponibles dans le cadre de la licence libre et ouverte Creative Commons CC BY-NC-SA 4.0"
+                                    }
+                                }
                             />
 
                             <Input 

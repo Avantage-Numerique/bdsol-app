@@ -34,4 +34,9 @@ export const noCookiesAccepted = {
     third:false//no plan of adding that.
 }
 
+export const changeCookieChoices = (choices) => {
+    choices.choiceMade = false;
+    return choices;
+}
+
 export default defaultCookiesChoices;

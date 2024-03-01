@@ -1,5 +1,4 @@
-import React, {useCallback, useContext, useEffect, useRef, useState} from 'react';
-import Link from 'next/link'
+import React, {useCallback, useContext, useEffect, useState} from 'react';
 import Router from 'next/router';
 
 //Context
@@ -8,14 +7,13 @@ import {MessageContext} from '@/src/common/UserNotifications/Message/Context/Mes
 //Hooks
 import {useAuth} from '@/auth/context/auth-context';
 import {useFormUtils} from '@/src/hooks/useFormUtils/useFormUtils';
-import {useModal} from '@/src/hooks/useModal/useModal';
+import {useRootModal} from '@/src/hooks/useModal/useRootModal';
 
 //Component
 import Select2 from '@/src/common/FormElements/Select2/Select2';
 import Button from '@/src/common/FormElements/Button/Button';
 import Input from '@/src/common/FormElements/Input/Input';
 import RichTextarea from '@/src/common/FormElements/RichTextArea/RichTextarea';
-import CreateTaxonomyForm from '@/DataTypes/Taxonomy/components/Forms/CreateTaxonomy/CreateTaxonomyForm';
 
 import {getDefaultUpdateEntityMeta} from "@/src/DataTypes/Meta/EntityMeta";
 import SingleBase from '@/src/DataTypes/common/layouts/single/SingleBase';
@@ -26,6 +24,7 @@ import UpdateSkillGroup from '@/src/DataTypes/common/Forms/UpdateSkillGroup/Upda
 import UpdateTeams from '../UpdateTeams/UpdateTeams';
 import SelectEquipment from '@/src/DataTypes/Equipment/components/layouts/SelectEquipment/SelectEquipment';
 import UpdateSocialHandles from '@/src/DataTypes/common/Forms/UpdateSocialHandles/UpdateSocialHandles';
+import SingleSaveEntityReminder from '@/src/DataTypes/common/layouts/SingleSaveEntityReminder/SingleSaveEntityReminder';
 
 //Utils
 import Organisation from '@/src/DataTypes/Organisation/models/Organisation';
@@ -92,7 +91,7 @@ const OrganisationSingleEdit = (props) => {
 
 
     //Modal hook
-    const {displayModal, modal, closeModal, Modal} = useModal();
+    const modalSaveEntityReminder = useRootModal();
 
     //Import the authentication context to make sure the user is well connected
     const auth = useAuth();
@@ -275,7 +274,7 @@ const OrganisationSingleEdit = (props) => {
     const ctaHeaderSection = (
         <div className="d-flex flex-wrap align-items-end gap-2 gap-md-3 gap-lg-4">
             <MainImageDisplay buttonClasses="fs-6" mainImage={currentMainImage} entity={currentModel} setter={updateModelMainImage} />
-            <Button className='fs-6' size="slim" color="success" disabled={!formState.isValid} onClick={submitHandler}>
+            <Button className='fs-6' size="slim" color="success" disabled={!formState.isValid} onClick={modalSaveEntityReminder.displayModal}>
                 <Icon iconName={"save"} />&nbsp;{lang.capitalize("save")}
             </Button>
             <Button className='fs-6' size="slim" color="primary-light" href={model.singleLink}>
@@ -317,7 +316,6 @@ const OrganisationSingleEdit = (props) => {
                     parentEntity={props.data}
                     formTools={formTools}
                     name="offers"
-                    //createOptionFunction={displayModalForSkills}
                 />
             </SingleInfo>
             
@@ -383,7 +381,6 @@ const OrganisationSingleEdit = (props) => {
                         creatable={true}
                         modalType={TYPE_TAXONOMY}
                         isMulti={true}
-                        //createOptionFunction={displayModalForDomains}
 
                         placeholder={lang.domainsInputPlaceholder}
                         fetch={"/taxonomies/list"}
@@ -435,25 +432,8 @@ const OrganisationSingleEdit = (props) => {
 
 
     const SinglePageBottom = (
-        <SubmitEntity submitHandler={submitHandler} formState={formState} />
+        <SubmitEntity submitHandler={modalSaveEntityReminder.displayModal} formState={formState} />
     )
-
-
-    const modalCategoryMode = useRef("skills");
-
-
-    function displayModalForSkills(elem) {
-        modalCategoryMode.current = "skills";
-        modal.enteredValues.name = elem;
-        displayModal();
-    }
-
-
-    function displayModalForDomains(elem) {
-        modalCategoryMode.current = "domains";
-        modal.enteredValues.name = elem;
-        displayModal();
-    }
 
 
     return (
@@ -466,41 +446,13 @@ const OrganisationSingleEdit = (props) => {
                 contentColumnRight={contentColumnRight}
                 footer={Footer}
                 singlePageBottom={SinglePageBottom}
-
             />
-
-            { modal.display &&
-                <Modal 
-                    coloredBackground
-                    darkColorButton
-                >
-                    <header className={`d-flex`}>
-                        <p>Le nouvel élément de taxonomie que vous ajoutez ici pourra ensuite être directement intégrée à votre formulaire.</p>
-                        <Button onClick={closeModal}>Fermer</Button>
-                    </header>
-                      
-                    {/* Separation line */}
-                    <div className={`my-4 border-bottom`}></div>
-
-                    <CreateTaxonomyForm 
-                        name={modal.enteredValues.name ?? ''}   //Prefilled value
-                        initValues={ {name:modal.enteredValues.name} }
-                        category={modalCategoryMode.current}
-                        positiveRequestActions={{
-                            //CallbackFunction is one of the four behaviors the useFormUtils hook can apply when a request return a positive answer
-                            callbackFunction: requestResponse => {
-
-                                //In this case, the modal callback receives the object to be passed which is the taxonomy item in the response of the request
-                                //modal.modal.callback(requestResponse.data)
-                                
-                                //Close the modal 
-                                closeModal()
-                            }
-                        }}
-                    />
-                </Modal>
-            }
-        
+            <modalSaveEntityReminder.Modal>
+                <SingleSaveEntityReminder
+                    submitHandler={submitHandler}
+                    closeModal={modalSaveEntityReminder.closeModal}
+                />
+            </modalSaveEntityReminder.Modal>
         </>
     )
 

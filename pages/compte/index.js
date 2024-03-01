@@ -3,6 +3,7 @@ import React, {useState} from 'react'
 //components
 import UserHistoryGrid from '@/src/DataTypes/UserHistory/UserHistoryGrid';
 import Button from '@/src/common/FormElements/Button/Button';
+import PageMeta from "@/src/common/PageMeta/PageMeta";
 
 //Hooks
 import {useSessionHook} from '@/auth/hooks/useSessionHook';
@@ -29,6 +30,11 @@ const accountPage = ({ user }) => {
 
     return (
         <div className={"account-page pb-3"}>
+            <PageMeta 
+                title={"Espace membre - AVNU"}
+                description={"Explorez votre espace membre : suivez l'historique de vos modifications, modifiez vos informations personnelles ou obtenez des astuces de navigation."}
+                preventIndexation
+            />
             <PageHeader title={`${lang.memberSpaceWelcome}, ${user && (user.username)}`} />
             <div className="container">
                 <div className="row py-2">

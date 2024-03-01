@@ -19,8 +19,8 @@ export const base = {
 
     // App
 
-    "appDefaultName": "BDSOL Avantage Numérique",
-    "appDefaultDescription": "Open and linked database created by Avantage Numérique, which identify techno-creatives people and project that are part of the Croissant Boréal (boreal crescent).",
+    "appDefaultName": "AVNU | By Avantage Numérique",
+    "appDefaultDescription": "The database that compiles and geolocates talents, skills, equipment, and technocreative initiatives in the Boreal Crescent (Croissant Boréal).",
     "appDefaultKeywords": "Ontology, class, property, database, technology, creator, community",
     "appDefaultProducer": "Avantage Numérique",
     "appProducerDefaultDescription": "Avantage numérique is a virtual, physical and mobile hub which deserve cultural, business and knowledge sector. It's goal is to help the growth of the creative, entrepreneurial and technologic ecosystem of Croissant boréal.",
@@ -141,6 +141,8 @@ export const base = {
     "Skill": "Skill",
     "skills": "skills",
     "skill": "skill",
+
+    "skillGroupName": "Skill group label",
 
     //  Occupations
 

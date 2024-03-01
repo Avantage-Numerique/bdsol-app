@@ -1,8 +1,6 @@
 import React, {useContext, useEffect, useState} from 'react';
 import Image from 'next/image'
 
-import DOMPurify from 'isomorphic-dompurify';
-import Head from 'next/head';
 import {lang} from "@/src/common/Data/GlobalConstants";
 
 //components
@@ -10,6 +8,7 @@ import Button from '@/src/common/FormElements/Button/Button'
 import Spinner from '@/src/common/widgets/spinner/Spinner'
 import PageHeader from "@/src/layouts/Header/PageHeader";
 import EntitiesGrid from "@/DataTypes/Entity/layouts/EntitiesGrid";
+import PageMeta from "@/src/common/PageMeta/PageMeta";
 
 //Entities
 //Costum hooks
@@ -17,7 +16,6 @@ import {externalApiRequest, useHttpClient} from '@/src/hooks/http-hook';
 
 //Context
 import {MessageContext} from '@/src/common/UserNotifications/Message/Context/Message-Context';
-import {appUrl} from "@/src/helpers/url";
 import {getType} from "@/DataTypes/Entity/Types";
 
 //Images
@@ -25,7 +23,7 @@ import backgroundImg from '@/public/general_images/Fusee_Pointilles1.svg'
 import AvantageNumeriqueLogo from '@/public/logos/logo_Avantage_Numérique.svg';
 import organizationPresentationImg from '@/public/general_images/shutterstock_514412107.jpg'
 import shipAndPlanetsImg from '@/public/general_images/Fusée_Planetes_Poitilles2.svg'
-import CookieBanner from "@/common/widgets/CookieBanner/CookieBanner";
+import AppRoutes from '@/src/Routing/AppRoutes';
 
 //Background image for the page header
 const HomePageHeaderBgImg = () => {
@@ -116,46 +114,14 @@ const HomePage = ({}) => {
         <div className={"home-page"}>
 
             {/* Page head element  */}
-            <Head>
-                <title>{lang.appDefaultName}</title>
-
-                {/* Keywords and description to evaluate */}
-                <meta name="description"
-                      content={lang.appDefaultDescription}/>
-                <meta name="keywords"
-                      content={lang.appDefaultKeywords}/>
-
-                {/* social media meta tag */}
-                <meta property="og:title" content={lang.appDefaultName}/>
-                <meta property="og:description" content={lang.appDefaultDescription}/>
-                <meta property="og:url" content={appUrl()} />
-                <meta property="og:site_name" content="BDSOL avantage numérique" />
-                <meta property="og:locale" content="fr_CA" />
-
-                <meta name="twitter:title" content={lang.appDefaultName}/>
-                <meta name="twitter:description" content={lang.appDefaultDescription}/>
-
-                <meta property="og:image" content={appUrl("/meta-images/show_screen_shot.jpg")} />
-                <meta property="og:image:alt" content="Public assistant à une performance qui contient des nouvelles technologies." />
-                <meta property="og:image:width" content="2560" />
-                <meta property="og:image:height" content="1345" />
-                <meta property="og:locale" content="fr_CA" />
-
-                <meta name="twitter:card" content="summary_large_image"/>
-                <meta name="twitter:image" content={appUrl("/meta-images/show_screen_shot.jpg")} />
-                <meta name="twitter:image:alt" content="Public assistant à une performance qui contient des nouvelles technologies."/>
-                <meta name="twitter:image:width" content="2560" />
-                <meta name="twitter:image:height" content="1345" />
-
-                {/* To add when the domain will be selected ....
-                    <link rel="canonical" href="https://avantagenumerique.org/">  */}
-
-                {/* Structured data */}
-                <script
-                    type='application/ld+json'
-                    dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(JSON.stringify(schema))}}
-                />
-            </Head>
+            <PageMeta 
+                //title  : Let the default kick in
+                //title={lang.index__title}
+                //description={lang.index__description}
+                //description  : Let the default kick in
+                keywords={lang.appDefaultKeywords}
+                structuredData={schema}
+            />
 
             <PageHeader
                 bg={"bg-primary-lighter"}
@@ -192,7 +158,7 @@ const HomePage = ({}) => {
                             {
                                 feedList.length === 0 && !isLoading &&
                                 <div>
-                                    <h5>{lang.noResult}</h5>
+                                    <h5 className="text-center">{lang.noResult}</h5>
                                 </div>
                             }
                             {/*  Show the feed in the EntitiesGrid component. It manages an empty list in it, but it make it more readable to show it here too */}
@@ -213,7 +179,7 @@ const HomePage = ({}) => {
                 <div className="container">
                     <div className='row justify-content-around align-items-center home-page__section-inner-y-padding'>
                         <div style={{aspectRatio: "1 / 1", maxHeight: "50vw"}} className="col-12 col-md-6 col-lg-4 order-2 order-md-1 p-2">
-                            <Image className="w-100 h-100 object-fit-cover" src={organizationPresentationImg} alt={"Présentation de notre organisation"} />
+                            <Image className="w-100 h-100 object-fit-cover" priority={false} src={organizationPresentationImg} alt="Présentation de l'organisation"/>
                         </div>
                         <div style={{maxWidth: "60ch"}} className="col-12 order-1 order-md-2 col-md-6 col-lg-8 p-4 flex-column align-items-start">
                             <h2 className="mb-4">AVNU, c'est quoi?</h2>
@@ -228,11 +194,11 @@ const HomePage = ({}) => {
                             <div className="d-flex flex-wrap">
                                 <p>Le projet AVNU est développé par le hub &nbsp;</p>
                                 <a href="https://avantagenumerique.org/">
-                                    <Image alt="Logo avantage numérique" className="w-auto" style={{height: "1.25rem"}} alt={"logo d'avantage numérique"} src={AvantageNumeriqueLogo} />
+                                    <Image alt="Logo avantage numérique" className="w-auto" style={{height: "1.25rem"}} src={AvantageNumeriqueLogo} />
                                 </a> 
                             </div>
                             <div className="d-flex flex-column align-items-start mt-3">
-                                <Button className="px-4 mt-2" href="/faq/a-propos">En savoir plus sur l'initiative</Button>
+                                <Button className="px-4 mt-2" href={AppRoutes.about.asPath}>En savoir plus sur l'initiative</Button>
                                 <Button className="mt-3" href="https://avantagenumerique.org/" external={true} text_color="dark">Découvrir Avantage Numérique</Button>
                             </div>
                         </div>
@@ -243,7 +209,7 @@ const HomePage = ({}) => {
             {/* Account section */}
             <section className="home-page__full-width-section position-relative">
                 <figure className="position-absolute top-0 bottom-0 start-0 end-0">
-                    <Image className="h-75 d-none d-md-block w-auto position-absolute end-0 top-0" alt={"Vaisseau"} src={shipAndPlanetsImg} />
+                    <Image className="h-75 d-none d-md-block w-auto position-absolute end-0 top-0" src={shipAndPlanetsImg} alt="Fusée d'AVNU se déplaçant entre les planètes dans l'espace." />
                 </figure>
                 <div className="container position-relative">
                     <div className='row home-page__section-inner-y-padding'>
@@ -255,7 +221,6 @@ const HomePage = ({}) => {
                     </div>
                 </div>
             </section>
-            <CookieBanner />
         </div>
     )
 }

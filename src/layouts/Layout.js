@@ -5,7 +5,7 @@
 
 */
 
-import {createContext, useRef, useState} from "react";
+import {createContext, useEffect, useRef, useState} from "react";
 import Head from 'next/head'
 
 //Context
@@ -14,7 +14,6 @@ import {MessageContext} from '@/src/common/UserNotifications/Message/Context/Mes
 //components
 import Footer from '@/layouts/Footer/Footer'
 import Header from '@/layouts/Header/Header'
-import AccountNav from '@/layouts/Navigation/AccountNav/AccountNav'
 import Message from '@/src/common/UserNotifications/Message/Message'
 
 //Styling
@@ -22,7 +21,7 @@ import styles from './Layout.module.scss'
 
 //Hooks
 import {useModalController} from '@/src/hooks/useModal/ModalsController/ModalsController'
-import {appUrl} from "@/src/helpers/url";
+import {useRouter} from "next/router";
 
 export const ModalContext = createContext({});
 
@@ -51,13 +50,28 @@ const Layout = ( {children} ) => {
         }])
     }
 
+    //  Catch if uri contains a msg query vars an display it in a toast alert.
+    const router = useRouter();
+    useEffect(() => {
+        if(router.query?.msg && router.query?.msg !== "")
+        {
+            setMessages([...messages, {
+                    positive:false,
+                    text:router.query.msg,
+                    creationTime: getCurrentTime()
+                }
+            ])
+        }
+    }, [router.query]);
+
+
     return (
         <>
             <Head>
                 <meta charSet="UTF-8" />
                 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
                 <meta httpEquiv="X-UA-Compatible" content="ie=edge"/>
-                <meta name="robots" content="index, follow" />
+                <meta name="language" content="fr" />  {/* Static for now */}
 
                 {/* For IE 11 or earlier */} 
                 {/* No support for PNG favicons with 16x16 or 32x32 sizes, so use the ICO format */}
@@ -75,17 +89,9 @@ const Layout = ( {children} ) => {
                 <meta name="theme-color" content="#000" />
 
                 {/* General social medias meta tags */}
-                <meta property="og:type" content="website" />{/*article*/}
-
-                <meta name="twitter:label1" content="Written by" />
-                <meta name="twitter:data1" content="Author's user" />
-                <meta name="twitter:label2" content="Reading time" />
-                <meta name="twitter:data2" content="3 minutes (static value)" />
-
-                <meta property="article:section" content="Technology" />
-                <meta property="article:tag" content="data" />
-                <meta property="article:tag" content="teachnocreatif" />
-
+                <meta property="og:type" content="website" />
+                <meta property="og:site_name" content="AVNU" />
+                <meta property="og:locale" content="fr_CA" />
             </Head>
 
             <div id={styles.layout}>
@@ -125,7 +131,7 @@ const Layout = ( {children} ) => {
                     {/* Display the messages */}
                     { messages.map(message => (
                         <Message 
-                            key={ "login-message-" + message.creationTime } 
+                            key={ "toast-message-" + message.creationTime }
                             positiveReview={ message.positive } 
                             clean={() => { setMessages(
                                 prevState => prevState.filter(i => i !== message)

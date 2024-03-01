@@ -1,16 +1,24 @@
 //Styles
 import styles from './SingleBaseHeader.module.scss';
-import {getType, TYPE_DEFAULT} from '@/src/DataTypes/Entity/Types';
 
 //Component
 import Button from '@/src/common/FormElements/Button/Button';
 import MediaFigure from "@/DataTypes/Media/layouts/MediaFigure";
+import RichTextarea from '@/src/common/FormElements/RichTextArea/RichTextarea';
+import Icon from "@/common/widgets/Icon/Icon";
 
 //Auth
 import {useAuth} from '@/src/authentification/context/auth-context';
 import {lang} from "@/common/Data/GlobalConstants";
-import React from "react";
-import Icon from "@/common/widgets/Icon/Icon";
+import React, {useContext} from "react";
+
+//Hook
+import {useRootModal} from '@/src/hooks/useModal/useRootModal';
+import {useFormUtils} from '@/src/hooks/useFormUtils/useFormUtils';
+import {useHttpClient} from '@/src/hooks/http-hook';
+
+//Context
+import {MessageContext} from '@/src/common/UserNotifications/Message/Context/Message-Context';
 
 
 /**
@@ -41,7 +49,6 @@ const SingleBaseHeader = (props) => {
     } = props;
 
     const auth = useAuth();
-    const type = getType(entity.type) ?? getType(TYPE_DEFAULT);
     const isUpdateMode = className?.includes("mode-update");
 
     const MainImage = () => (
@@ -55,9 +62,79 @@ const SingleBaseHeader = (props) => {
         </>
     )
 
-    //Removed from coloumn, it's more useful to use the justify or align from start or end.
+    //Modal hook
+    const modalReportEntity = useRootModal();
+    const {sendRequest} = useHttpClient();
+    const msg = useContext(MessageContext);
+
+    //Main modal form
+    const { FormUI, submitRequest, formState, formTools } = useFormUtils(
+        {
+            /* name: {
+                value: '',
+                isValid: false
+            },
+            email: {
+                value: '',
+                isValid: false
+            }, */
+            message: {
+                value: '',
+                isValid: false
+            },
+            reportedEntityId: {
+                value: entity._id,
+                isValid: true
+            },
+            reportedEntityType: {
+                value: entity.type,
+                isValid: true
+            }
+        },
+        { displayResMessage: true }
+    )
+
+    const sendReportEntity = async () => {
+        const apiResponse = await sendRequest(
+            "/communications/report",
+            'POST',
+            JSON.stringify(
+                {
+                    data: {
+                        reportedEntityId: entity._id,
+                        reportedEntityType: entity.type,
+                        userId: auth.user.id,
+                        message: formState.inputs.message.value,
+                    }
+                }
+            ),
+            {'Content-Type': 'application/json'}
+        );
+        
+        if(apiResponse.error){
+            msg.addMessage({ 
+                text: "Échec du signalement",
+                positive: false
+            })
+        }
+        else{
+            msg.addMessage({ 
+                text: "Signalement effectué",
+                positive: true
+            });
+            //formState.inputs.name.value = "";
+            //formState.inputs.email.value = "";
+            formState.inputs.message.value = "";
+            modalReportEntity.closeModal();
+        }  
+    }
+
+    //Removed from colomn, it's more useful to use the justify or align from start or end.
     return (
         <section className={`row ms-0  ${styles["content-padding-top"]} ${props.className}`}>
+            <div className="d-flex justify-content-end">
+                <button type="button" className="fs-3" onClick={modalReportEntity.displayModal}><Icon iconName="flag"/></button>
+            </div>
             <div className="col-12 col-sm d-flex flex-grow-0 align-items-end">
                 {/* Base styling doesn't move down the picture since its not overflowing the container. A bit tricky with bootstrap grid so we need two components to apply different classes */}
                 {/* Base format (small screens) */}
@@ -95,9 +172,9 @@ const SingleBaseHeader = (props) => {
                                 <Button className={`shadow`} href={buttonLink}>{buttonText}</Button>
                                 :
                                 <Button className={`shadow`} href="/compte/connexion">{buttonText}</Button>)
-                            :
-                            <></>
-                        }
+                                :
+                                <></>
+                            }
                     </div>
                 </div>
             </div>
@@ -106,6 +183,24 @@ const SingleBaseHeader = (props) => {
                     {children}
                 </div>
             }
+            <modalReportEntity.Modal>
+                <div>
+                    <header className={`d-flex mb-4 align-items-center`}>
+                        <b className="col-10">Signaler cette entité</b>
+                        <Button className="col-2" onClick={modalReportEntity.closeModal}>Fermer</Button>
+                    </header>
+                    <RichTextarea
+                        className="py-1"
+                        name="message"
+                        label={lang.message}
+                        validationRules={[
+                            {name: "REQUIRED"}
+                        ]}
+                        formTools={formTools}
+                    />
+                    <Button disabled={!formState.isValid} onClick={sendReportEntity}>Envoyer</Button>
+                </div>
+            </modalReportEntity.Modal>
         </section>
     )
 

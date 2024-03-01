@@ -24,6 +24,7 @@ import {getType, TYPE_PERSON} from "@/DataTypes/Entity/Types";
 
 
 const PersonsPage = () => {
+    
 
     const [ personList, setPersonList ] = useState([]);
 

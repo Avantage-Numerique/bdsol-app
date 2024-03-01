@@ -1,7 +1,7 @@
 import {useEffect} from 'react';
 
 //Hooks
-import { useValidation } from '@/src/hooks/useValidation/useValidation';
+import {useValidation} from '@/src/hooks/useValidation/useValidation';
 
 //components
 import Tip from '@/common/FormElements/Tip/Tip';
@@ -75,7 +75,7 @@ const Select = props => {
             ${className}
             ${styles["select-component"]}
         `}>  
-            <div className={`${styles["select-component__label-container"]}`} >
+            <div className={`${styles["select-component__label-container"]} d-flex justify-content-between pb-1`} >
                 {label && 
                 <label 
                     htmlFor={name}

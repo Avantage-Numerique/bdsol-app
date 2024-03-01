@@ -6,6 +6,7 @@ import {useContext} from "react";
 import {MessageContext} from "@/src/common/UserNotifications/Message/Context/Message-Context";
 import {useFormUtils} from "@/src/hooks/useFormUtils/useFormUtils";
 import Input from "@/src/common/FormElements/Input/Input";
+import PageMeta from "@/src/common/PageMeta/PageMeta";
 
 
 /**
@@ -77,38 +78,44 @@ const forgottenPasswordReset = props => {
     }
     
     return (
-        <form>
-            <PageHeader
-                bg={"bg-primary-lighter"}
-                textColor={"text-white"}
-                htmlTitle={"Réinitialiser votre mot de passe"}
-                //description={"Page de confirmation"}
+        <>
+            <PageMeta 
+                title={"Nouveau mot de passe"}
+                preventIndexation
             />
-            <Input
-                name="password"
-                type="password"
-                label="Mot de passe"
-                validationRules={[
-                    {name: "REQUIRED"},
-                    {name: "MIN_LENGTH", specification: 8}
-                ]}
-                errorText="Veuillez entrer un mot de passe valide"
-                formTools={formTools}
-            />
+            <form>
+                <PageHeader
+                    bg={"bg-primary-lighter"}
+                    textColor={"text-white"}
+                    htmlTitle={"Réinitialiser votre mot de passe"}
+                    //description={"Page de confirmation"}
+                />
+                <Input
+                    name="password"
+                    type="password"
+                    label="Mot de passe"
+                    validationRules={[
+                        {name: "REQUIRED"},
+                        {name: "MIN_LENGTH", specification: 8}
+                    ]}
+                    errorText="Veuillez entrer un mot de passe valide"
+                    formTools={formTools}
+                />
 
-            <Input
-                name="password2"
-                type="password"
-                label="Confirmation du mot de passe"
-                validationRules={[
-                    {name: "REQUIRED"},
-                    {name: "MIN_LENGTH", specification: 8}
-                ]}
-                errorText="Veuillez entrer un mot de passe valide"
-                formTools={formTools}
-            />
-            <Button type="button" disabled={!formState.isValid} onClick={sendNewPassword}>Changer mon mot de passe</Button>
-        </form>
+                <Input
+                    name="password2"
+                    type="password"
+                    label="Confirmation du mot de passe"
+                    validationRules={[
+                        {name: "REQUIRED"},
+                        {name: "MIN_LENGTH", specification: 8}
+                    ]}
+                    errorText="Veuillez entrer un mot de passe valide"
+                    formTools={formTools}
+                />
+                <Button type="button" disabled={!formState.isValid} onClick={sendNewPassword}>Changer mon mot de passe</Button>
+            </form>
+        </>
     )
 }
 

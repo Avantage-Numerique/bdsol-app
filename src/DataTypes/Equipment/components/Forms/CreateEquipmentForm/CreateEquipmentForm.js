@@ -10,14 +10,14 @@ import Select2 from '@/src/common/FormElements/Select2/Select2'
 
 //Context
 import {useAuth} from "@/src/authentification/context/auth-context";
-import { lang } from '@/src/common/Data/GlobalConstants';
+import {lang} from '@/src/common/Data/GlobalConstants';
 
 //FormData
 import {getDefaultCreateEntityMeta} from "@/src/DataTypes/Meta/EntityMeta";
-import { TYPE_TAXONOMY } from '@/src/DataTypes/Entity/Types';
+import {TYPE_TAXONOMY} from '@/src/DataTypes/Entity/Types';
 
 
-const CreateEquipmentForm = ({ onPositiveResponse }) => {
+const CreateEquipmentForm = ({ onPositiveResponse, initValues }) => {
     
     //Authentication ref
     const auth = useAuth();
@@ -26,19 +26,19 @@ const CreateEquipmentForm = ({ onPositiveResponse }) => {
     const { FormUI, submitRequest, formState, formTools } = useFormUtils(
         {
             equipmentType: {
-                value: "",
+                value: initValues?.equipmentType ?? "",
                 isValid: false
             },
             label: {
-                value: "",
+                value: initValues?.label ? initValues.label : initValues?.name ?? "",
                 isValid: false
             },
             brand: {
-                value: "",
+                value: initValues?.brand ?? "",
                 isValid: true
             },
             modelName: {
-                value: "",
+                value: initValues?.modelName ?? "",
                 isValid: true
             },
         },
