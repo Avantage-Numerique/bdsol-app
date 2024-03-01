@@ -38,7 +38,6 @@ export default function CookieBanner(props) {
         auth.setChoiceHasToBeMade(false);
     }, []);
 
-
     return (
         <>
             {auth.choiceHasToBeMade &&

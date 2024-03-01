@@ -1,6 +1,7 @@
 import {createContext, useContext, useState} from 'react';
 import useApi from '@/src/hooks/useApi';
 import defaultCookiesChoices from "@/src/common/Cookies/cookiesChoices";
+
 import {csSaveCookieChoices} from "@/common/Cookies/clientSideSaveCookiesChoices";
 
 export const defaultSessionData = {
@@ -76,12 +77,15 @@ export function AuthProvider({fromSessionUser, appMode, acceptedCookies, childre
     const [loading, setLoading] = useState(true);
     const [apiUp, setApiUp] = useState(true);
     const [mode, setMode] = useState(appMode);
-    const [cookiesChoices, setCookiesChoices] = useState(acceptedCookies ?? defaultCookiesChoices);
+
+    const [cookiesChoices, setCookiesChoices] = useState(acceptedCookies ?? defaultCookiesChoices)
     const [choiceHasToBeMade, setChoiceHasToBeMade] = useState(!acceptedCookies?.choiceMade ?? true);
+
     const saveCookieChoices = async (choices) => {
         await csSaveCookieChoices(choices);
         setCookiesChoices(choices);
     };
+
 
     useApi(setApiUp);
 
@@ -100,6 +104,7 @@ export function AuthProvider({fromSessionUser, appMode, acceptedCookies, childre
             saveCookieChoices: saveCookieChoices,
             choiceHasToBeMade: choiceHasToBeMade,
             setChoiceHasToBeMade: setChoiceHasToBeMade,
+
         }}>
             {children}
         </AuthContext.Provider>
