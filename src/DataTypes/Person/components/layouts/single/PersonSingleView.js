@@ -50,7 +50,7 @@ const PersonSingleView = ({ data }) => {
     /* Needed for breadCrumb generator */
     const getLabelGenerator = useCallback((param, query) => {
         return {
-            "persons": lang.Persons,
+            "personnes": lang.Persons,
             "slug": `${firstName} ${lastName}`        
         }[param];
     }, []);
@@ -169,15 +169,6 @@ const PersonSingleView = ({ data }) => {
                         list={domains}
                         listProperty={"domain"}
                     />
-                </SingleInfo>
-            }
-            { (createdAt || updatedAt || meta) &&
-                <SingleInfo 
-                    title={lang.entityMetadata} 
-                    cardLayout
-                >
-                    {/*********** Entity data ***********/}
-                    <SingleEntityMeta createdAt={createdAt} updatedAt={updatedAt} meta={meta} />
                 </SingleInfo>
             }
         </>

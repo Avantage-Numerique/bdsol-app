@@ -114,7 +114,10 @@ const CreateEventForm = ({ onPositiveResponse, initValues }) => {
                 label={lang.endDate}
                 formTools={formTools}
                 validationRules={[
-                    {name: "REQUIRED"}
+                    {name: "REQUIRED"},
+                    {name: "HIGHER_DATE_REQUIRED", dependencies: [
+                        {value: state => state.inputs["startDate"].value, listenerValue: state => state.inputs["startDate"].value}
+                    ]}
                 ]}
             />    
             <div className="d-flex justify-content-end">

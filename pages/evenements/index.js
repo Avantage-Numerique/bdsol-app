@@ -19,13 +19,12 @@ import {Breadcrumbs} from "@/common/Breadcrumbs/Breadcrumbs";
 import AppRoutes from "@/src/Routing/AppRoutes";
 import EntitiesGrid from "@/DataTypes/Entity/layouts/EntitiesGrid";
 import {getTitle} from "@/DataTypes/MetaData/MetaTitle";
-import Head from "next/head";
-import {getType, TYPE_EQUIPMENT} from "@/DataTypes/Entity/Types";
+import {getType, TYPE_EVENT} from "@/DataTypes/Entity/Types";
 
 
-const EquipmentPage = () => {
+const EventsPage = () => {
 
-    const [ equipmentList, setEquipmentList ] = useState([]);
+    const [ eventList, setEventList ] = useState([]);
 
     //Import the authentication context to make sure the user is well connected
     const auth = useAuth();
@@ -36,29 +35,29 @@ const EquipmentPage = () => {
     //Import message context 
     const msg = useContext(MessageContext);
 
-    const type = getType(TYPE_EQUIPMENT);
-
-    /**
-        Fetch data
+    const type = getType(TYPE_EVENT);
+    /* 
+        Fetch data  
+        
     */
     const fetchData = async () => {
 
         //Send the request with the specialized hook
-        const equipmentResponse = await sendRequest(
-            "/equipment/list",
+        const eventResponse = await sendRequest(
+            "/events/list",
             'POST',
             JSON.stringify({"data": {"sort": "desc"}}),
             {'Content-Type': 'application/json'}
         )
 
         //If positive
-        if (!equipmentResponse.error) { 
-            setEquipmentList(equipmentResponse.data);
+        if (!eventResponse.error) { 
+            setEventList(eventResponse.data)
         } else {
             msg.addMessage({
-                text: "Une erreur est survenue et nous n'arrivons pas à afficher les fiches de lieux. Veuillez réessayer.",
+                text: "Une erreur est survenue et nous n'arrivons pas à afficher les fiches événements. Veuillez réessayer.",
                 positive: false
-            });
+            })
         }
     }
 
@@ -66,7 +65,7 @@ const EquipmentPage = () => {
 
     const getLabelGenerator = useCallback((param, query) => {
         return {
-            "equipment": type.labelPlural,
+            "evenements": type.labelPlural,
         }[param];
     }, []);
 
@@ -75,15 +74,16 @@ const EquipmentPage = () => {
         <div>
             <PageMeta 
                 title={getTitle([type.labelPlural])}
-                description={lang.equipment__description}
+                description={lang.event__description}
             />
             <PageHeader
                 bg={"bg-primary-lighter"}
                 textColor={"text-white"}
-                title={lang.allEquipmentTitle}
-                description={lang.allEquipmentDescription}
+                title={"Consulter les événement"}
+                subTitle={""}
+                description="Les événements présentés sur AVNU sont gérés par des organisations et se caractérisent par leur aspect numérique. À la différence des projets, ceux-ci sont particulièrement éphémères et ne s'étalent que sur une courte période."
             >
-                <Breadcrumbs className={"pt-2"} route={AppRoutes.equipment} getLabelGenerator={getLabelGenerator} />
+                <Breadcrumbs className={"pt-2"} route={AppRoutes.events} getLabelGenerator={getLabelGenerator} />
             </PageHeader>
 
                 <div className="container">
@@ -107,7 +107,7 @@ const EquipmentPage = () => {
 
                                 {/* If there is no loading state and no feed, go on that by default */}
                                 {
-                                    equipmentList.length === 0 && !isLoading &&
+                                    eventList.length === 0 && !isLoading &&
                                     <div>
                                         <h5>{lang.noResult}</h5>
                                     </div>
@@ -116,18 +116,19 @@ const EquipmentPage = () => {
 
                             {/*  Show the feed in the EntitiesGrid component. It manages an empty list in it, but it make it more readable to show it here too */}
                             {
-                                equipmentList.length > 0 && !isLoading &&
-                                <EntitiesGrid className="position-relative row row-cols-1 row-cols-sm-2 row-cols-xl-3" columnClass={"col g-3"} feed={equipmentList}/>
+                                eventList.length > 0 && !isLoading &&
+                                <EntitiesGrid className="position-relative row row-cols-1 row-cols-sm-2 row-cols-xl-3" columnClass={"col g-3"} feed={eventList}/>
                             }
                         </section>
+
                         {/* Aside section */}
                         <aside className="col col-12 col-md-3">
                             <div className="my-4">
                                 <Button 
                                     disabled={!auth.user.isLoggedIn}
-                                    href="/contribuer/equipements" 
+                                    href="/contribuer/evenements" 
                                     size="reg-100">
-                                    {lang.addEquipmentButtonLabel}
+                                    {lang.addEventButtonLabel}
                                 </Button>
 
                                 {
@@ -148,6 +149,7 @@ const EquipmentPage = () => {
                                 }
                             
                         </aside>
+
                     </div>
                 </div>
 
@@ -157,4 +159,4 @@ const EquipmentPage = () => {
     )
 }
 
-export default EquipmentPage
+export default EventsPage

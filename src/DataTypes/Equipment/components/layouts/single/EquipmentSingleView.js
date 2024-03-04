@@ -25,7 +25,7 @@ const EquipmentSingleView = ({ data }) => {
     /* Needed for breadCrumb generator */
     const getLabelGenerator = useCallback((param, query) => {
         return {
-            "equipment": lang.Equipment,
+            "equipement": lang.Equipment,
             "slug": model.title
         }[param];
     }, []);

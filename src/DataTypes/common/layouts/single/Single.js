@@ -75,7 +75,7 @@ const Single = (props) => {
     const getLabelGenerator = breadcrumbParams.labelGenerator ?? useCallback((param, query) => {
         return {
             "slug": () => breadcrumbParams.title ?? "Error : Add a title name to the breadcrumb.",
-            "persons": "Personnes",
+            "personnes": "Personnes",
             "organisations": "Organisations",
             "medias": "Médias",
         }[param];

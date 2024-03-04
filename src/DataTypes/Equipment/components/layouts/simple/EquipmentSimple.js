@@ -22,8 +22,9 @@ const EquipmentSimple = ({ model }) => {
         </div>
     );
 
+    //Removed Header from EntitySimpleProps to show tag typeTag component from default header. 2024/03/01
     return (
-        <EntitySimple model={model} className={`${styles["equipment-simple"]}`} Header={Header} />
+        <EntitySimple model={model} className={`${styles["equipment-simple"]}`} />
     )
 }
 

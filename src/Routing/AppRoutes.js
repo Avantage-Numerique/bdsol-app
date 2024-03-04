@@ -25,20 +25,20 @@ const AppRoutesRaw = {
      */
     persons : {
         label: "Toutes les personnes",
-        pathname: "/persons",
-        asPath: "/persons"
+        pathname: "/personnes",
+        asPath: "/personnes"
     },
     personSingle : {
         label: "Page d'une personne",
-        pathname: "/persons/[slug]",
-        asPath: "/persons/[slug]",
+        pathname: "/personnes/[slug]",
+        asPath: "/personnes/[slug]",
     },
     personSingleMedia : {
         label: "Person",
         pathname: "/medias/[slug]",
         asPath: "/medias/[slug]",
-        breadcrumbPathName: "/persons/[person.slug]/[slug]",
-        breadcrumbAsPath: "/persons/[person.slug]/[slug]",
+        breadcrumbPathName: "/personnes/[person.slug]/[slug]",
+        breadcrumbAsPath: "/personnes/[person.slug]/[slug]",
         breadcrumbQuery: {
             slug: "slug",
             mediaType: "main-image"
@@ -152,13 +152,13 @@ const AppRoutesRaw = {
      ***/
     events : {
         label: "Tous les événement",
-        pathname: "/events",
-        asPath: "/events",
+        pathname: "/evenements",
+        asPath: "/evenements",
     },
     eventSingle : {
         label: "Un événement",
-        pathname: "/events/[slug]",
-        asPath: "/events/[slug]"
+        pathname: "/evenements/[slug]",
+        asPath: "/evenements/[slug]"
     },
     eventSingleEdit : {
         label: "Modifier un événement",
@@ -174,8 +174,8 @@ const AppRoutesRaw = {
         label: "Média d'un événement",
         pathname: "/medias/[slug]",
         asPath: "/medias/[slug]",
-        breadcrumbPathName: "/events/[event.slug]/[slug]",
-        breadcrumbAsPath: "/events/[event.slug]/[slug]",
+        breadcrumbPathName: "/evenements/[event.slug]/[slug]",
+        breadcrumbAsPath: "/evenements/[event.slug]/[slug]",
         breadcrumbQuery: {
             slug: "slug",
             mediaType: "main-image"
@@ -221,13 +221,13 @@ const AppRoutesRaw = {
      ***/
     equipment : {
         label: "Tous les équipements",
-        pathname: "/equipment",
-        asPath: "/equipment",
+        pathname: "/equipement",
+        asPath: "/equipement",
     },
     equipmentSingle : {
         label: "Un équipement",
-        pathname: "/equipment/[slug]",
-        asPath: "/equipment/[slug]"
+        pathname: "/equipement/[slug]",
+        asPath: "/equipement/[slug]"
     },
     equipmentSingleEdit : {
         label: "Modifier un événement",
@@ -243,8 +243,8 @@ const AppRoutesRaw = {
         label: "Média d'un équipment",
         pathname: "/medias/[slug]",
         asPath: "/medias/[slug]",
-        breadcrumbPathName: "/equipment/[equipment.slug]/[slug]",
-        breadcrumbAsPath: "/equipment/[equipment.slug]/[slug]",
+        breadcrumbPathName: "/equipement/[equipment.slug]/[slug]",
+        breadcrumbAsPath: "/equipement/[equipment.slug]/[slug]",
         breadcrumbQuery: {
             slug: "slug",
             mediaType: "main-image"
@@ -254,8 +254,8 @@ const AppRoutesRaw = {
 
     about: {
         label: "À propos",
-        pathname: "/faq/a-propos",
-        asPath: "/faq/a-propos"
+        pathname: "/a-propos",
+        asPath: "/a-propos"
     },
 
     account: {

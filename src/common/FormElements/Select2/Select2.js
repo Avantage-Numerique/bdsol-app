@@ -62,6 +62,7 @@ const Select2 = ({ name, formTools, ...props }) => {
     const [optionsList, setOptionList] = useState(props.optionsList ?? []);
     const [inputValue, setInputValue] = useState("");
     const [value, setValue] = useState(null);
+    useEffect(() => console.log("inputValue", "value", inputValue, value), [inputValue, value])
 
     //Extract root modal 
     const { Modal, displayModal, closeModal, modalInitValues } = useRootModal();
@@ -279,17 +280,17 @@ const Select2 = ({ name, formTools, ...props }) => {
     const PlaceDescription = (<p>Le lieu que vous ajoutez sera directement intégrée à votre formulaire.</p>)
     const EquipmentModalForm = (
         <CreateEquipmentForm
-        /* initValues={ modalInitValues ?? {}}
-        onPositiveResponse={(response) => {
+            initValues={ modalInitValues ?? {}}
+            onPositiveResponse={(response) => {
                 //Here could be a call back function to execute 
                 const optionCreated = ApiEntityModel.getSelectOption(response.data)
                 addSelectedValue(...optionCreated)
                 //Close the modal 
                 closeModal()
-        }} */
+        }}
         />
     )
-    const EquipmentDescription = (<p></p>)
+    const EquipmentDescription = (<p>L'équipement que vous ajoutez sera directement intégrée à votre formulaire.</p>)
 
     const createModal = () => {
         const modals = new Map();

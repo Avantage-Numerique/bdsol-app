@@ -81,7 +81,7 @@ const EventSingleView = ({data}) => {
 
     const getLabelGenerator = useCallback((param, query) => {
         return {
-            "events": lang.Events,
+            "evenements": lang.Events,
             "slug": model.title        
         }[param];
     }, []);

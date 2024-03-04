@@ -25,6 +25,7 @@ const events = {
     "subEvents": "Sous-Événements",
     "attendees": "Participants",
     "eventSkills": "Compétences liées à l'événement",
+    "activityName": "Nom de l'activité",
 
     "photoGallery": "Galerie photo",
     "addPhotoGallery": "Ajouter une image",

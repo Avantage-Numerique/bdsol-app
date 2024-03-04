@@ -142,6 +142,8 @@ export const base = {
     "skills": "skills",
     "skill": "skill",
 
+    "skillGroupName": "Skill group label",
+
     //  Occupations
 
     "occupations": "occupations",

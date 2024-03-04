@@ -30,7 +30,7 @@ const confirmationForm = () => {
                 body: JSON.stringify({data: { email: formState.inputs.email.value }}),
             })
 
-        msg.addMessage({ 
+        msg.addMessage({
             text: "Un email de confirmation a été envoyé s'il s'agit d'un courriel associé à un compte",
             positive: true
         });
@@ -44,6 +44,7 @@ const confirmationForm = () => {
             />
             <div className="border-bottom my-4"></div>
             <h3 className="fs-5 text-dark-light">Voulez-vous un nouveau lien de confirmation?</h3>
+            <div>Si vous ne recevez pas de courriel, veuillez vérifier vos courriels indésirables.</div>
             <Input 
                 name="email"
                 className="my-4"

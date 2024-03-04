@@ -230,8 +230,8 @@ const ProjectSingleEdit = (props) => {
                     timeframe: formState.inputs.timeframe.value.map( (singleTimeframe) => {
                         return {
                             step: singleTimeframe.value.step.value,
-                            eta: singleTimeframe.value.eta.value,
-                            budgetRange: singleTimeframe.value.budgetRange.value,
+                            eta: singleTimeframe.value.eta.value == "" ? undefined : singleTimeframe.value.eta.value,
+                            budgetRange: singleTimeframe.value.budgetRange.value == "" ? undefined : singleTimeframe.value.budgetRange.value,
                             subMeta: { order: singleTimeframe.order }
                         }
                     }),
