@@ -1,6 +1,8 @@
 //Context
 import PageHeader from "@/layouts/Header/PageHeader";
 import React from "react";
+import PageMeta from "@/src/common/PageMeta/PageMeta";
+import {lang} from "@/src/common/Data/GlobalConstants";
 
 /**
  * Really basic page with plain text. This could be dry with an entry or some sort of markdown file.
@@ -12,6 +14,10 @@ const Index = () => {
 
     return (
         <div id="a-propos" className={"page-apropos"}>
+            <PageMeta 
+                title={lang.faq__about__title}
+                description={lang.faq__about__description}
+            />
             <PageHeader title={`Qu'est-ce que la BDSOL ?`}/>
 
             <div className={"container home-page__main content"}>

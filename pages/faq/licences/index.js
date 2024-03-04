@@ -4,6 +4,7 @@ import { Breadcrumbs } from "@/src/common/Breadcrumbs/Breadcrumbs";
 import {getLicencesData} from "@/src/api/external/callbacks/getLicencesData";
 import {lang} from "@/common/Data/GlobalConstants";
 import AppRoutes from "@/src/Routing/AppRoutes";
+import PageMeta from "@/src/common/PageMeta/PageMeta";
 
 
 export async function getServerSideProps() {
@@ -29,6 +30,10 @@ const Licences = (props) => {
 
     return (
         <div className="content">
+            <PageMeta 
+                title={lang.faq__licences__title}
+                description={lang.faq__licences__description}
+            />
             <PageHeader title="Précision sur les licences et droits d'auteurs">
                 <Breadcrumbs className={"pt-2"} route={AppRoutes.licences} getLabelGenerator={getLabelGenerator} />
             </PageHeader>

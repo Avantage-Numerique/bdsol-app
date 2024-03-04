@@ -2,6 +2,7 @@ import {appConfig} from "@/src/configs/AppConfig";
 import PageHeader from "@/layouts/Header/PageHeader";
 import React from "react";
 import {RouteLink} from "@/common/Components/RouteLink";
+import {lang} from "@/src/common/Data/GlobalConstants";
 
 
 const PolitiqueDutilisationDesDonnees = () => {
@@ -17,6 +18,10 @@ const PolitiqueDutilisationDesDonnees = () => {
      */
     return (
         <div className={"legal-page page-terms-of-use"}>
+            <PageMeta 
+                title={lang.privacy_policy__title}
+                description={lang.privacy_policy__description}
+            />
             <PageHeader
                 bg={"bg-primary-lighter"}
                 textColor={"text-white"}

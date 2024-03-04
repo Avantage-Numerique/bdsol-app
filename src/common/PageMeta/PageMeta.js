@@ -26,8 +26,9 @@ const lengthValidator = (text, recommandation, tagName="") => {
  * @Param props.structuredData {Json} Contains data about the content of the page in a json shape
  * @Param props.ogTitle {String} Representing the title of the page to be shown on social medias. Must be engagning
  * @Param props.ogDescription {String} Representing the description of the page to be shown on social medias. Must be engagning
- * 
+ * @PAram props.caconical {String} Override the general canonical link if needed (usefull with specific entity pages)
  * Media 
+ * @Param props.imageFromApi {String} Override the address of the image if its from api
  * @Param props.image {String} Address of the image that will represent the page.
  * @Param props.imageAlt {String} Text descriptif du contenu de l'image
  * @Param props.imageWidth {Int} Announced width of the image
@@ -39,7 +40,7 @@ const PageMeta = (props) => {
 
     //Extract the current address for the canonical
     const router = useRouter();
-    const currentAddress = appUrl(router.pathname)
+    const currentAddress = props.canonical || appUrl(router.pathname)
 
     //If those two aren't filled, the default values are going to be injected instead.
     const defaultPageTitle = lang.appDefaultName
@@ -54,6 +55,8 @@ const PageMeta = (props) => {
     const defaultImgAlt = "Logo officiel d'AVNU aux côtés de la fusée emblématique de l'organisation survolant le Québec et l'Ontario."
     const defaultImgWidth = "1200"
     const defaultImgHeight = "630"
+
+    const displayedImg = props.imageFromApi || (appUrl(props.image) || appUrl(defaultImg))
 
     return (
         <Head>
@@ -79,7 +82,7 @@ const PageMeta = (props) => {
             <meta property="og:url" content={currentAddress} />
             <meta property="og:locale" content="fr_CA" />
             {/* Note : absolute minimum size of an image for Open Graph is 200x200 pixels. To get the best display on high-resolution devices, it should be at least 1200x630 pixels */}
-            <meta property="og:image" content={appUrl(props.image || defaultImg)} />
+            <meta property="og:image" content={displayedImg} />
             {props.image ?
                 <>
                     {props.imageAlt && <meta property="og:image:alt" content={props.imageAlt} />}
@@ -103,7 +106,7 @@ const PageMeta = (props) => {
             {displayedOgDescription && <meta name="twitter:description" content={displayedOgDescription}/>}
 
             <meta name="twitter:card" content="summary_large_image"/>
-            <meta name="twitter:image" content={appUrl(props.image || defaultImg)} />
+            <meta name="twitter:image" content={displayedImg} />
             {props.image ?
                 <>
                     {props.imageAlt && <meta property="twitter:image:alt" content={props.imageAlt} />}
@@ -116,19 +119,6 @@ const PageMeta = (props) => {
                     <meta property="twitter:image:height" content={defaultImgHeight} />
                 </>
             }
-
-            {/*
-            {
-                props.structuredData &&
-                <SanitizedInnerHtml  
-                    tag="script" 
-                    type='application/ld+json'
-                >
-                    {JSON.stringify(props.structuredData)}
-                </SanitizedInnerHtml>
-            } 
-            */}
-
 
             <script
                 type='application/ld+json'
@@ -143,14 +133,3 @@ const PageMeta = (props) => {
 
 export default PageMeta
 
-/* To be developped, one day                
-    <meta name="twitter:label1" content="Written by" />
-    <meta name="twitter:data1" content="Author's user" />
-    <meta name="twitter:label2" content="Reading time" />
-    <meta name="twitter:data2" content="3 minutes (static value)" />
-    ** The Open Graph protocol **
-
-    <meta property="article:section" content="Technology" />
-    <meta property="article:tag" content="data" />
-    <meta property="article:tag" content="teachnocreatif" />
-*/

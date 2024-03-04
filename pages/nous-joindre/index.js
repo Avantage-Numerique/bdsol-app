@@ -9,6 +9,7 @@ import Image from "next/image";
 import Button from "@/src/common/FormElements/Button/Button";
 import Input from "@/src/common/FormElements/Input/Input";
 import RichTextarea from "@/src/common/FormElements/RichTextArea/RichTextarea";
+import PageMeta from "@/src/common/PageMeta/PageMeta";
 
 //Context
 import {MessageContext} from "@/src/common/UserNotifications/Message/Context/Message-Context";
@@ -78,6 +79,10 @@ const NousJoindre = () => {
 
     return (
         <>
+            <PageMeta 
+                title={lang.contact_us__title}
+                description={lang.contact_us__description}
+            />
             <PageHeader
                 textColor={"text-white"}
                 htmlTitle={"Nous joindre"}

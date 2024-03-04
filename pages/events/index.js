@@ -4,7 +4,7 @@ import React, {useCallback, useContext, useEffect, useState} from 'react'
 import PageHeader from "@/src/layouts/Header/PageHeader";
 import Button from '@/src/common/FormElements/Button/Button'
 import Spinner from '@/src/common/widgets/spinner/Spinner'
-
+import PageMeta from "@/src/common/PageMeta/PageMeta";
 
 //Costum hooks
 import {useHttpClient} from '@/src/hooks/http-hook';
@@ -19,7 +19,6 @@ import {Breadcrumbs} from "@/common/Breadcrumbs/Breadcrumbs";
 import AppRoutes from "@/src/Routing/AppRoutes";
 import EntitiesGrid from "@/DataTypes/Entity/layouts/EntitiesGrid";
 import {getTitle} from "@/DataTypes/MetaData/MetaTitle";
-import Head from "next/head";
 import {getType, TYPE_EVENT} from "@/DataTypes/Entity/Types";
 
 
@@ -73,15 +72,16 @@ const EventsPage = () => {
     return (
 
         <div>
-            <Head>
-                <title>{getTitle([type.labelPlural])}</title>
-            </Head>
+            <PageMeta 
+                title={getTitle([type.labelPlural])}
+                description={lang.event__description}
+            />
             <PageHeader
                 bg={"bg-primary-lighter"}
                 textColor={"text-white"}
                 title={"Consulter les événement"}
-                subTitle={"Sous-titre pertinent [...]"}
-                description="Les événements qui sont listé peuvent être [...]"
+                subTitle={""}
+                description="Les événements présentés sur AVNU sont gérés par des organisations et se caractérisent par leur aspect numérique. À la différence des projets, ceux-ci sont particulièrement éphémères et ne s'étalent que sur une courte période."
             >
                 <Breadcrumbs className={"pt-2"} route={AppRoutes.events} getLabelGenerator={getLabelGenerator} />
             </PageHeader>

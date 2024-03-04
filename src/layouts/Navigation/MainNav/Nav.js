@@ -122,7 +122,7 @@ const Nav = ( {menuState, setMenuState} ) => {
                             </section>
 
                             <section className={`${styles["nav-section"]}`}>
-                                <Button className="fs-3 h2" text_color="dark" href="/">Espace membre</Button>
+                                <Button className="fs-3 h2" text_color="dark" href="/compte">Espace membre</Button>
                                 <ul className={`${styles["button-list"]}`}>
                                     { auth.user.isLoggedIn ? 
                                     <>

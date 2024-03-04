@@ -1,5 +1,6 @@
 import Login from '@/auth/components/Forms/Login/Login'
 import PageMeta from "@/src/common/PageMeta/PageMeta";
+import {lang} from "@/common/Data/GlobalConstants";
 
 
 const LoginPage = () => {
@@ -7,8 +8,8 @@ const LoginPage = () => {
     return (
         <>
             <PageMeta 
-                title={"Connexion - AVNU"}
-                description={"Connectez-vous à AVNU afin de pouvoir, vous aussi, contribuer à la base de données."}
+                title={lang.compte__connexion__title}
+                description={lang.compte__connexion__description}
             />
             <Login/>
         </>

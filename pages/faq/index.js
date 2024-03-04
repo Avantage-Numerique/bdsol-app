@@ -1,5 +1,7 @@
 import {useCallback, useState} from "react";
 import Link from 'next/link';
+import PageMeta from "@/src/common/PageMeta/PageMeta";
+import {lang} from "@/src/common/Data/GlobalConstants";
 
 //Components
 import PageHeader from "@/src/layouts/Header/PageHeader";
@@ -66,6 +68,10 @@ const FAQ = () => {
 
     return (
         <>
+            <PageMeta 
+                title={lang.faq__title}
+                description={lang.faq__description}
+            />
             <PageHeader
                 bg={"bg-primary-lighter"}
                 textColor={"text-white"}

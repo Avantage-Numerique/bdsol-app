@@ -2,6 +2,7 @@ import React from "react";
 
 //components
 import Button from "@/src/common/FormElements/Button/Button"
+import PageMeta from "@/src/common/PageMeta/PageMeta";
 
 //Context
 import {useAuth} from '@/auth/context/auth-context'
@@ -45,7 +46,10 @@ const Index = () => {
 
     return (
         <div className={`${styles["contribution-page"]}`}>
-
+            <PageMeta 
+                title={lang.contribute__title}
+                description={lang.contribute__description}
+            />
             <PageHeader
                 title="Contribuer en ajoutant une entité"
                 subtitleColor="primary"

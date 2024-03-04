@@ -3,6 +3,7 @@ import React, {useCallback, useContext, useEffect, useState} from 'react'
 //components
 import PageHeader from "@/src/layouts/Header/PageHeader";
 import Spinner from '@/src/common/widgets/spinner/Spinner'
+import PageMeta from "@/src/common/PageMeta/PageMeta";
 
 
 //Costum hooks
@@ -72,9 +73,10 @@ const PlacesPage = () => {
     return (
 
         <div>
-            <Head>
-                <title>{getTitle([type.labelPlural])}</title>
-            </Head>
+            <PageMeta 
+                title={getTitle([type.labelPlural])}
+                description={lang.places__description}
+            />
             <PageHeader
                 bg={"bg-primary-lighter"}
                 textColor={"text-white"}

@@ -2,6 +2,8 @@ import PageHeader from "@/layouts/Header/PageHeader";
 import React from "react";
 import {appConfig} from "@/src/configs/AppConfig";
 import {RouteLink} from "@/common/Components/RouteLink";
+import PageMeta from "@/src/common/PageMeta/PageMeta";
+import {lang} from "@/src/common/Data/GlobalConstants";
 
 
 const TermsOfService = () => {
@@ -17,6 +19,10 @@ const TermsOfService = () => {
      */
     return (
         <div className={"legal-page page-terms-of-use"}>
+            <PageMeta 
+                title={lang.terms_conditions_use__title}
+                description={lang.terms_conditions_use__description}
+            />
             <PageHeader
                 bg={"bg-primary-lighter"}
                 textColor={"text-white"}

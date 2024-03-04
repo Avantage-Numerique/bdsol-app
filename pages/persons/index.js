@@ -26,7 +26,6 @@ import {getType, TYPE_PERSON} from "@/DataTypes/Entity/Types";
 
 const PersonsPage = () => {
     
-
     const [ personList, setPersonList ] = useState([]);
 
     //Import the authentication context to make sure the user is well connected
@@ -74,9 +73,10 @@ const PersonsPage = () => {
     return (
 
         <div>
-            <Head>
-                <title>{getTitle([type.labelPlural])}</title>
-            </Head>
+            <PageMeta 
+                title={getTitle([type.labelPlural])}
+                description={lang.persons__description}
+            />
             <PageHeader
                 bg={"bg-primary-lighter"}
                 textColor={"text-white"}

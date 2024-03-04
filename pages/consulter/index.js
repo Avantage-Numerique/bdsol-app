@@ -10,7 +10,8 @@ import {clientSideExternalApiRequest} from "@/src/hooks/http-hook";
 import EntitiesGrid from "@/src/DataTypes/Entity/layouts/EntitiesGrid";
 import Icon from "@/src/common/widgets/Icon/Icon";
 //import Pagination from "@/src/common/Components/Pagination";
-
+import PageMeta from "@/src/common/PageMeta/PageMeta";
+import {lang} from "@/common/Data/GlobalConstants";
 
 
 const ConsultData = () => {
@@ -75,6 +76,10 @@ const ConsultData = () => {
 
     return (
         <div>
+            <PageMeta 
+                title={lang.consult__title}
+                description={lang.consult__description}
+            />
             <PageHeader
                 bg={"bg-primary-light"}
                 textColor={"text-white"}

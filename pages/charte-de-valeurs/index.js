@@ -1,6 +1,7 @@
 import {appConfig} from "@/src/configs/AppConfig";
 import PageHeader from "@/layouts/Header/PageHeader";
 import PageMeta from "@/src/common/PageMeta/PageMeta";
+import {lang} from "@/common/Data/GlobalConstants";
 
 import { RouteLink } from "@/src/common/Components/RouteLink";
 import React from "react";
@@ -13,16 +14,16 @@ const ValuesChart = () => {
     //Style setup in layouts/static
 
     /**
-     * idée :
-     * - Ajouter des tips sur les mots clés avec définitions défini en haut.
-     * - Ajouter un Table des matière navigable.
+     *   idée :
+     *   - Ajouter des tips sur les mots clés avec définitions défini en haut.
+     *   - Ajouter un Table des matière navigable.
      */
     return (
         <div className={"legal-page page-terms-of-use"}>
             {/* Page head element  */}
             <PageMeta 
-                title={"Charte de valeurs - AVNU"}
-                description={"Découvrez notre Charte de valeurs, un guide en constante évolution et essentiel pour le bon fonctionnement de la Plateforme."}
+                title={lang.charterOfValues__title}
+                description={lang.charterOfValues__description}
             />
             <PageHeader
                 bg={"bg-primary-lighter"}

@@ -9,7 +9,6 @@ import PageMeta from "@/src/common/PageMeta/PageMeta";
 
 //Styling 
 import styles from './index_categories.module.scss';
-import Head from "next/head";
 import {getTitle} from "@/DataTypes/MetaData/MetaTitle";
 import {getType, TYPE_TAXONOMY} from "@/DataTypes/Entity/Types";
 import Link from "next/link";
@@ -112,7 +111,7 @@ const TaxonomiesCategoryPage = () => {
             {/* Page head element  */}
             <PageMeta 
                 title={getTitle([type.labelPlural])}
-                description={"Découvrez les différentes catégories utilisées pour classifier nos données : domaines, technologies, compétences, types d'équipement."}
+                description={lang.categories__description}
             />
 
             <PageHeader title={`Toutes les catégories`}>

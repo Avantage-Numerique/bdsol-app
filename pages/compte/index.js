@@ -31,8 +31,8 @@ const accountPage = ({ user }) => {
     return (
         <div className={"account-page pb-3"}>
             <PageMeta 
-                title={"Espace membre - AVNU"}
-                description={"Explorez votre espace membre : suivez l'historique de vos modifications, modifiez vos informations personnelles ou obtenez des astuces de navigation."}
+                title={lang.compte__title}
+                description={lang.compte__description}
                 preventIndexation
             />
             <PageHeader title={`${lang.memberSpaceWelcome}, ${user && (user.username)}`} />
@@ -69,7 +69,6 @@ const accountPage = ({ user }) => {
                                     <Button size="slim" className="mt-1 mb-1" key="help" onClick={() => setLeftMenu("help")}>Aide</Button>
                                     <Button size="slim" href={"/contribuer"} className={"btn-block"}>Contribuer à la base de donnée</Button>
                                     <Button size="slim" color="white" outline="danger" className="mt-1 mb-1" key="logout" onClick={logout}>Se déconnecter</Button>
-
                                 </div>
                             </div>
                         )}

@@ -6,6 +6,8 @@ import Input from '@/src/common/FormElements/Input/Input'
 import Button from '@/src/common/FormElements/Button/Button'
 import {MessageContext} from '@/src/common/UserNotifications/Message/Context/Message-Context'
 import PageMeta from "@/src/common/PageMeta/PageMeta";
+import {lang} from "@/common/Data/GlobalConstants";
+
 
 const confirmationForm = () => {
 
@@ -37,7 +39,7 @@ const confirmationForm = () => {
     return (
         <div>
             <PageMeta 
-                title={"En attente de confirmation"}
+                title={lang.compte__toConfirme__title}
                 preventIndexation
             />
             <div className="border-bottom my-4"></div>

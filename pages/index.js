@@ -115,10 +115,8 @@ const HomePage = ({}) => {
 
             {/* Page head element  */}
             <PageMeta 
-                //title  : Let the default kick in
-                //title={lang.index__title}
-                //description={lang.index__description}
-                //description  : Let the default kick in
+                title={lang.index__title}
+                //No description because we are using the default value
                 keywords={lang.appDefaultKeywords}
                 structuredData={schema}
             />
