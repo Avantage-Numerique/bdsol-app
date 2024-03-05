@@ -17,8 +17,6 @@ import CookieBanner from "@/common/widgets/CookieBanner/CookieBanner";
 import React from "react";
 
 function MyApp({Component, pageProps, user, serverCookiesChoices}) {
-
-    console.log("MyApp", serverCookiesChoices);
     /**
      * Main app render.
      */
