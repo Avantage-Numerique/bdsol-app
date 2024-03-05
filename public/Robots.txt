@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: 
+Disallow: contribuer/
+Sitemap: https://avnu.ca/sitemap.xml
