@@ -17,6 +17,9 @@ const cookies = {
     "cookieMessageThanks": `Vous avez sélectionné vos préférences pour les miettes (cookies) d'${appConfig.name}`,
     "cookieMessageNeedAnswer": `Il faut absolument que tu choisisses un niveau de miettes (cookies). Même si on utilise aucun cookie intersite.`,
     "cookieMessageNeedAuthCookie": `Il faut absolument accepter les cookies de connexion pour continuer.`,
+    "cookieDisabled": `${appConfig.name} a besoin d'enregistrer des cookies pour fonctionner. Il faut activer les cookies dans votre navigateur.`,
+    "cookieNoThirdParty": `${appConfig.name} n'utilise pas de cookie tiers.`,
+    "cookieDisabledButtonLabel": "Compris",
 }
 /*
     choiceMade:false,
