@@ -7,7 +7,6 @@ import {RouteLink} from "@/common/Components/RouteLink";
 import {allCookiesAccepted, basicOnlyCookiesAccepted, noCookiesAccepted} from "@/common/Cookies/cookiesChoices";
 import {appConfig} from "@/src/configs/AppConfig";
 import {useAuth} from '@/auth/context/auth-context';
-import {csSaveCookieChoices} from "@/common/Cookies/clientSideSaveCookiesChoices";
 import Image from "next/image";
 
 
