@@ -12,7 +12,11 @@ import PageMeta from "@/src/common/PageMeta/PageMeta";
 
 //Entities
 //Costum hooks
-import {externalApiRequest, useHttpClient} from '@/src/hooks/http-hook';
+import {
+    externalApiRequest,
+    clientSideExternalApiRequest,
+    useHttpClient
+} from '@/src/hooks/http-hook';
 
 //Context
 import {MessageContext} from '@/src/common/UserNotifications/Message/Context/Message-Context';
@@ -63,7 +67,7 @@ const HomePage = ({}) => {
     const fetchHomeFeed = async () => {
 
         setIsLoading(true);//bypass the sendRequest setting of isLoading, because of all these promises here.
-        const homePageEntities = await externalApiRequest(
+        const homePageEntities = await clientSideExternalApiRequest(
             `/search/homepage`,
             { method: 'GET' }
         );
