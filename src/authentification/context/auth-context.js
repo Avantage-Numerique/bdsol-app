@@ -96,7 +96,6 @@ export function AuthProvider({fromSessionUser, appMode, acceptedCookies, childre
         setUser(logOutResponse.user);
     }
 
-
     useApi(setApiUp);
 
     return (
