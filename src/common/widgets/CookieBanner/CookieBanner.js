@@ -18,10 +18,6 @@ export default function CookieBanner(props) {
 
     const [closingAnimationFinished, setClosingAnimationFinished] = useState(false);
 
-    const saveCookieChoices = async (choices) => {
-        await csSaveCookieChoices(choices);
-    };
-
     const onAcceptAllCookies = useCallback(() => {
         return auth.saveCookieChoices({...allCookiesAccepted});
     }, []);

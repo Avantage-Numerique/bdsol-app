@@ -5,15 +5,21 @@ import {lang} from "@/common/Data/GlobalConstants";
 import Button from "@/FormElements/Button/Button";
 import {changeCookieChoices} from "@/common/Cookies/cookiesChoices";
 import Image from 'next/image';
+import fetchInternalApi from "@/src/api/fetchInternalApi";
 
 const CookiesParams = () => {
 
     const auth = useAuth();
 
-    const changeChoices = useCallback(() => {
+    const changeChoices = useCallback(async () => {
         const resetedCookiesChoices = changeCookieChoices(auth.cookiesChoices);
+
+        const logOutResponse = await fetchInternalApi("/api/logout", JSON.stringify({}));
+        auth.setUser(logOutResponse.user);
+
         auth.saveCookieChoices({...resetedCookiesChoices});
         auth.setChoiceHasToBeMade(true);
+        //logout
     }, []);
 
     //the cookie contains these values too, use this array to show only the other

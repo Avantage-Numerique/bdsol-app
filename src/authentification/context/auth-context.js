@@ -3,6 +3,7 @@ import useApi from '@/src/hooks/useApi';
 import defaultCookiesChoices from "@/src/common/Cookies/cookiesChoices";
 
 import {csSaveCookieChoices} from "@/common/Cookies/clientSideSaveCookiesChoices";
+import fetchInternalApi from "@/src/api/fetchInternalApi";
 
 export const defaultSessionData = {
     isPending: false,
@@ -84,7 +85,16 @@ export function AuthProvider({fromSessionUser, appMode, acceptedCookies, childre
     const saveCookieChoices = async (choices) => {
         await csSaveCookieChoices(choices);
         setCookiesChoices(choices);
+
+        if (!choices.auth) {
+            await logOutUser();
+        }
     };
+
+    const logOutUser = async () => {
+        const logOutResponse = await fetchInternalApi("/api/logout", JSON.stringify({}));
+        setUser(logOutResponse.user);
+    }
 
 
     useApi(setApiUp);
@@ -93,6 +103,7 @@ export function AuthProvider({fromSessionUser, appMode, acceptedCookies, childre
         <AuthContext.Provider value={{
             user: user,
             setUser: setUser,
+            logOutUser: logOutUser,
             loading: loading,
             setLoading: setLoading,
             apiUp : apiUp,
