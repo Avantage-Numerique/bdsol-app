@@ -1,8 +1,7 @@
 import React from 'react'
-import { useRouter } from 'next/router';
+import {useRouter} from 'next/router';
 
 import Head from 'next/head';
-import SanitizedInnerHtml from '@/src/utils/SanitizedInnerHtml';
 import {lang} from "@/common/Data/GlobalConstants";
 import {appUrl} from "@/src/helpers/url";
 import DOMPurify from 'isomorphic-dompurify';

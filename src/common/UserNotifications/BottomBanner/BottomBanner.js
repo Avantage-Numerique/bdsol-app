@@ -13,6 +13,7 @@ export default function BottomBanner(props) {
         title,
         bannerButtons,
         children,
+        Thumb,
         onCloseCallback
     } = props;
 
@@ -58,27 +59,42 @@ export default function BottomBanner(props) {
         if (action) action();//check if action is a callback.
     }
 
+    const thumbColWidth = Thumb ? 3 : 0;
+    const contentColWidth = 12 - thumbColWidth;
+
     return (
         <>
             {/* Only display the element if the state says it so */}
             { displayState &&
                 <dialog open className={`bg-primary-lighter ${fadeOutClass && styles["close"]} ${styles["bottom-banner"]}`}>
-                    <div className="maxWidthPageContainer">
-                        <h2>{title}</h2>
-                        <div className={`${styles["bottom-banner__text-container"]}`}>
-                            {children}
-                        </div>
-                        
-                        <div className={`${styles["bottom-banner__buttons-container"]} d-flex`}>
-                            {bannerButtons && bannerButtons.length > 0 &&
-                                bannerButtons.map((button, index) => {
-                                    return (
-                                        <div className={"me-2"} key={`bottomBannerButtonContainer${index}`}>
-                                            <Button key={`bottomBanner${index}`} onClick={() => close(button.action)} outline={button.outline}>{button.label}</Button>
-                                        </div>
-                                    )
-                                })
+                    <div className="container">
+                        <div className={"row"}>
+                            {Thumb &&
+                                <div className={`col-${thumbColWidth} d-flex justify-content-center align-items-center`}>
+                                    <Thumb/>
+                                </div>
                             }
+                            <div className={`col-${contentColWidth}`}>
+                                {title && <h2>{title}</h2>}
+                                {children &&
+                                    <div className={`${styles["bottom-banner__text-container"]}`}>
+                                        {children}
+                                    </div>
+                                }
+
+                                {bannerButtons && bannerButtons.length > 0 &&
+                                    <div className={`${styles["bottom-banner__buttons-container"]} d-flex`}>
+                                        {bannerButtons.map((button, index) => {
+                                            return (
+                                                <div className={"me-2"} key={`bottomBannerButtonContainer${index}`}>
+                                                    <Button key={`bottomBanner${index}`} onClick={() => close(button.action)} outline={button.outline}>{button.label}</Button>
+                                                </div>
+                                            )
+                                        })
+                                        }
+                                    </div>
+                                }
+                            </div>
                         </div>
                     </div>
                 </dialog>

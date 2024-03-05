@@ -1,6 +1,5 @@
 //Styles
 import styles from './SingleBaseHeader.module.scss';
-import {getType, TYPE_DEFAULT} from '@/src/DataTypes/Entity/Types';
 
 //Component
 import Button from '@/src/common/FormElements/Button/Button';
@@ -11,16 +10,15 @@ import Icon from "@/common/widgets/Icon/Icon";
 //Auth
 import {useAuth} from '@/src/authentification/context/auth-context';
 import {lang} from "@/common/Data/GlobalConstants";
-import React from "react";
+import React, {useContext} from "react";
 
 //Hook
-import { useRootModal } from '@/src/hooks/useModal/useRootModal';
-import { useFormUtils } from '@/src/hooks/useFormUtils/useFormUtils';
-import { useHttpClient } from '@/src/hooks/http-hook';
-import { useContext } from 'react';
+import {useRootModal} from '@/src/hooks/useModal/useRootModal';
+import {useFormUtils} from '@/src/hooks/useFormUtils/useFormUtils';
+import {useHttpClient} from '@/src/hooks/http-hook';
 
 //Context
-import { MessageContext } from '@/src/common/UserNotifications/Message/Context/Message-Context';
+import {MessageContext} from '@/src/common/UserNotifications/Message/Context/Message-Context';
 
 
 /**

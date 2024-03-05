@@ -1,9 +1,9 @@
-import React, {useCallback, useContext, useEffect, useRef, useState} from 'react';
+import React, {useCallback, useContext, useEffect, useState} from 'react';
 import Router from 'next/router';
 
 //Custom hooks
 import {useFormUtils} from '@/src/hooks/useFormUtils/useFormUtils'
-import { useRootModal } from '@/src/hooks/useModal/useRootModal';
+import {useRootModal} from '@/src/hooks/useModal/useRootModal';
 
 //components
 import Button from '@/FormElements/Button/Button'
@@ -15,7 +15,6 @@ import RichTextarea from '@/src/common/FormElements/RichTextArea/RichTextarea';
 import {SingleEntityMeta} from '@/src/DataTypes/Meta/components/SingleEntityMeta';
 import SingleBase from '@/src/DataTypes/common/layouts/single/SingleBase';
 import UpdateTeams from '@/src/DataTypes/Organisation/components/forms/UpdateTeams/UpdateTeams';
-import CreateTaxonomyForm from '@/src/DataTypes/Taxonomy/components/Forms/CreateTaxonomy/CreateTaxonomyForm';
 import SingleInfo from "@/src/DataTypes/common/layouts/SingleInfo/SingleInfo";
 import SingleSaveEntityReminder from '@/src/DataTypes/common/layouts/SingleSaveEntityReminder/SingleSaveEntityReminder';
 
@@ -32,7 +31,7 @@ import UpdateScheduleBudget from '@/src/DataTypes/Project/component/forms/Update
 import UpdateSponsor from '@/src/DataTypes/Project/component/forms/UpdateSponsor';
 import Icon from "@/common/widgets/Icon/Icon";
 import MainImageDisplay from "@/DataTypes/common/layouts/single/defaultSections/MainImageDisplay/MainImageDisplay";
-import {TYPE_TAXONOMY, TYPE_EQUIPMENT} from '@/src/DataTypes/Entity/Types';
+import {TYPE_EQUIPMENT, TYPE_TAXONOMY} from '@/src/DataTypes/Entity/Types';
 import SubmitEntity from "@/DataTypes/common/Forms/SingleEdit/SubmitEntity";
 import UpdateSocialHandles from '@/src/DataTypes/common/Forms/UpdateSocialHandles/UpdateSocialHandles';
 

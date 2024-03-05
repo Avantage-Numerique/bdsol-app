@@ -7,7 +7,7 @@ import {RouteLink} from "@/common/Components/RouteLink";
 import {allCookiesAccepted, basicOnlyCookiesAccepted, noCookiesAccepted} from "@/common/Cookies/cookiesChoices";
 import {appConfig} from "@/src/configs/AppConfig";
 import {useAuth} from '@/auth/context/auth-context';
-import {csSaveCookieChoices} from "@/common/Cookies/clientSideSaveCookiesChoices";
+import Image from "next/image";
 
 
 export default function CookieBanner(props) {
@@ -16,10 +16,6 @@ export default function CookieBanner(props) {
     const auth = useAuth();
 
     const [closingAnimationFinished, setClosingAnimationFinished] = useState(false);
-
-    const saveCookieChoices = async (choices) => {
-        await csSaveCookieChoices(choices);
-    };
 
     const onAcceptAllCookies = useCallback(() => {
         return auth.saveCookieChoices({...allCookiesAccepted});
@@ -37,13 +33,19 @@ export default function CookieBanner(props) {
         auth.setChoiceHasToBeMade(false);
     }, []);
 
-
     return (
         <>
             {auth.choiceHasToBeMade &&
                 <BottomBanner
                     buttonText={lang.cookieBannerAcceptButtonLabel}
                     title={lang.cookieBannerTitle}
+                    Thumb={() => {
+                        return (
+                            <Image src={"/general_images/avnu-cookies-thumb.png"} alt={"Cookies non paramétré"}
+                                   width={226} height={116}/>
+                            )
+                        }
+                    }
                     bannerButtons={[
                         {label:lang.cookieBannerAcceptButtonLabel, action:onAcceptAllCookies, outline:"success"},
                         {label:lang.cookieBannerAcceptBasicOnlyLabel, action:onConnectionOnlyCookies, outline:"secondary"},
@@ -51,8 +53,11 @@ export default function CookieBanner(props) {
                     ]}
                     onCloseCallback={onCloseAnimationFinished}
                 >
-                    <p>Consultez notre politique de gestion de cookie dans notre <RouteLink routeName={"confidentialityPolicy"} uriSuffix={"#usage-cookies"} />.</p>
-                    <p>{lang.cookieBannerContent} Si vous choisissez aucun, vous ne pourrez pas vous connecter à {appConfig.name}</p>
+
+                    <p>Consultez notre politique de gestion de cookie dans notre <RouteLink
+                        routeName={"confidentialityPolicy"} uriSuffix={"#usage-cookies"}/>.</p>
+                    <p>{lang.cookieBannerContent} Si vous choisissez aucun, vous ne pourrez pas vous
+                        connecter à {appConfig.name}</p>
                 </BottomBanner>
             }
         </>

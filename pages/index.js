@@ -16,7 +16,6 @@ import {externalApiRequest, useHttpClient} from '@/src/hooks/http-hook';
 
 //Context
 import {MessageContext} from '@/src/common/UserNotifications/Message/Context/Message-Context';
-import {appUrl} from "@/src/helpers/url";
 import {getType} from "@/DataTypes/Entity/Types";
 
 //Images

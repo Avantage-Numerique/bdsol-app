@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { useHttpClient } from '@/src/hooks/http-hook';
+import {useEffect, useState} from 'react';
+import {useHttpClient} from '@/src/hooks/http-hook';
 
 //Styling
 import styles from './SelectLicence.module.scss'

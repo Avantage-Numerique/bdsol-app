@@ -5,9 +5,8 @@ import Select2 from '@/src/common/FormElements/Select2/Select2';
 import Button from "@/FormElements/Button/Button"
 import Input from '@/src/common/FormElements/Input/Input';
 import Repeater from '@/src/common/FormElements/Repeater/Repeater';
-import { TYPE_TAXONOMY } from '@/src/DataTypes/Entity/Types';
-import { lang } from '@/src/common/Data/GlobalConstants';
-
+import {TYPE_TAXONOMY} from '@/src/DataTypes/Entity/Types';
+import {lang} from '@/src/common/Data/GlobalConstants';
 
 
 const UpdateSkillGroup = ({parentEntity, name, formTools, ...props}) => {

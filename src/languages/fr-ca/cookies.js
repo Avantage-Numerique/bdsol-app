@@ -13,6 +13,10 @@ const cookies = {
     "cookieStats":"Les cookies pour les statistiques",
     "cookieAuth":"Les cookies d'authentification",
     "cookieThird":"Les cookies de partie tier",
+    "cookieChangeChoice": "Changer mon choix",
+    "cookieMessageThanks": `Vous avez sélectionné vos préférences pour les miettes (cookies) d'${appConfig.name}`,
+    "cookieMessageNeedAnswer": `Il faut absolument que tu choisisses un niveau de miettes (cookies). Même si on utilise aucun cookie intersite.`,
+    "cookieMessageNeedAuthCookie": `Il faut absolument accepter les cookies de connexion pour continuer.`,
 }
 /*
     choiceMade:false,

@@ -3,7 +3,7 @@ import React, {useCallback, useContext, useEffect, useState} from "react";
 import Router from "next/router";
 
 //hooks
-import { useRootModal } from "@/src/hooks/useModal/useRootModal";
+import {useRootModal} from "@/src/hooks/useModal/useRootModal";
 
 //Utils, context
 import {useAuth} from "@/src/authentification/context/auth-context";
@@ -30,7 +30,6 @@ import UpdateSchedule from "../../Forms/Schedule/UpdateSchedule";
 import UpdateTeams from "@/src/DataTypes/Organisation/components/forms/UpdateTeams/UpdateTeams";
 import {TYPE_EVENT, TYPE_PLACE, TYPE_TAXONOMY} from "@/src/DataTypes/Entity/Types";
 import SelectFetch from "@/src/common/FormElements/Select/SelectFetch";
-import CreatePhotoGallery from "@/src/DataTypes/Media/components/forms/CreatePhotoGallery/CreatePhotoGallery";
 import {apiDateToDateInput, apiDateToTimeInput, dateTimeStringToUTC} from "@/common/DateManager/Parse";
 import SubmitEntity from "@/DataTypes/common/Forms/SingleEdit/SubmitEntity";
 import UpdateSocialHandles from "@/src/DataTypes/common/Forms/UpdateSocialHandles/UpdateSocialHandles";

@@ -6,9 +6,9 @@ import SelectFetch from "@/src/common/FormElements/Select/SelectFetch";
 import Button from '@/src/common/FormElements/Button/Button';
 
 //Utils
-import { lang } from "@/src/common/Data/GlobalConstants";
-import { useEffect } from "react";
-import { getDateFromIsoString } from "@/src/utils/DateHelper";
+import {lang} from "@/src/common/Data/GlobalConstants";
+import {useEffect} from "react";
+import {getDateFromIsoString} from "@/src/utils/DateHelper";
 
 /**
  * @param {string} name Name of formState value

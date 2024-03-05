@@ -31,10 +31,10 @@ export const externalApiRequest = async (path, params = {}) => {
 
     // build the header array
     const headerParams = {
-            ...defaultHeaders,
-            ...jsonHeaders,
-            ...headers
-        };
+        ...defaultHeaders,
+        ...jsonHeaders,
+        ...headers
+    };
 
     params.additionnalFetchParams = params.additionnalFetchParams ?? {};
 

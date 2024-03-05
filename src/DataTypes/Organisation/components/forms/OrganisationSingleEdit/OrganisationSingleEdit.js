@@ -1,5 +1,4 @@
-import React, {useCallback, useContext, useEffect, useRef, useState} from 'react';
-import Link from 'next/link'
+import React, {useCallback, useContext, useEffect, useState} from 'react';
 import Router from 'next/router';
 
 //Context
@@ -8,7 +7,7 @@ import {MessageContext} from '@/src/common/UserNotifications/Message/Context/Mes
 //Hooks
 import {useAuth} from '@/auth/context/auth-context';
 import {useFormUtils} from '@/src/hooks/useFormUtils/useFormUtils';
-import { useRootModal } from '@/src/hooks/useModal/useRootModal';
+import {useRootModal} from '@/src/hooks/useModal/useRootModal';
 
 //Component
 import Select2 from '@/src/common/FormElements/Select2/Select2';

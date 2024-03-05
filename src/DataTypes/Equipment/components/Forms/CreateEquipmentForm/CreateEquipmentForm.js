@@ -10,11 +10,11 @@ import Select2 from '@/src/common/FormElements/Select2/Select2'
 
 //Context
 import {useAuth} from "@/src/authentification/context/auth-context";
-import { lang } from '@/src/common/Data/GlobalConstants';
+import {lang} from '@/src/common/Data/GlobalConstants';
 
 //FormData
 import {getDefaultCreateEntityMeta} from "@/src/DataTypes/Meta/EntityMeta";
-import { TYPE_TAXONOMY } from '@/src/DataTypes/Entity/Types';
+import {TYPE_TAXONOMY} from '@/src/DataTypes/Entity/Types';
 
 
 const CreateEquipmentForm = ({ onPositiveResponse, initValues }) => {

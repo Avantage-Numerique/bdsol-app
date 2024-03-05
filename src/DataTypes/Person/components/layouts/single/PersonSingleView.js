@@ -8,7 +8,6 @@ import SingleInfo from "@/DataTypes/common/layouts/SingleInfo/SingleInfo";
 import SingleBaseProgressBar
     from '@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseProgressBar/SingleBaseProgressBar'
 //Styling
-import styles from './PersonSingle.module.scss'
 
 //Utils
 import SanitizedInnerHtml from '@/src/utils/SanitizedInnerHtml';

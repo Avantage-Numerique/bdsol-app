@@ -1,4 +1,3 @@
-
 //Importing the form
 import Register from '@/auth/components/Forms/Register/Register'
 import PageMeta from "@/src/common/PageMeta/PageMeta";
@@ -6,6 +5,7 @@ import {lang} from "@/common/Data/GlobalConstants";
 
 //styling
 import styles from './inscription.module.scss'
+
 const RegisterPage = () => {
 
     return (

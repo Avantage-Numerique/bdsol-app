@@ -3,7 +3,7 @@ import PageHeader from "@/layouts/Header/PageHeader";
 import PageMeta from "@/src/common/PageMeta/PageMeta";
 import {lang} from "@/common/Data/GlobalConstants";
 
-import { RouteLink } from "@/src/common/Components/RouteLink";
+import {RouteLink} from "@/src/common/Components/RouteLink";
 import React from "react";
 
 
