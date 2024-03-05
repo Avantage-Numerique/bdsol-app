@@ -6,21 +6,22 @@
 */
 
 import {createContext, useEffect, useRef, useState} from "react";
-import Head from 'next/head'
+import Head from 'next/head';
+import sanitizedString from "@/src/utils/SanitizedString";
 
 //Context
 import {MessageContext} from '@/src/common/UserNotifications/Message/Context/Message-Context'
 
 //components
-import Footer from '@/layouts/Footer/Footer'
-import Header from '@/layouts/Header/Header'
-import Message from '@/src/common/UserNotifications/Message/Message'
+import Footer from '@/layouts/Footer/Footer';
+import Header from '@/layouts/Header/Header';
+import Message from '@/src/common/UserNotifications/Message/Message';
 
 //Styling
-import styles from './Layout.module.scss'
+import styles from './Layout.module.scss';
 
 //Hooks
-import {useModalController} from '@/src/hooks/useModal/ModalsController/ModalsController'
+import {useModalController} from '@/src/hooks/useModal/ModalsController/ModalsController';
 import {useRouter} from "next/router";
 
 export const ModalContext = createContext({});
@@ -57,7 +58,7 @@ const Layout = ( {children} ) => {
         {
             setMessages([...messages, {
                     positive:false,
-                    text:router.query.msg,
+                    text:sanitizedString(router.query.msg),
                     creationTime: getCurrentTime()
                 }
             ])
