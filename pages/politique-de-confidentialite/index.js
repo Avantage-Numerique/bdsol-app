@@ -5,6 +5,7 @@ import {RouteLink} from "@/common/Components/RouteLink";
 import {lang} from "@/src/common/Data/GlobalConstants";
 import Button from "@/FormElements/Button/Button";
 import AppRoutes from "@/src/Routing/AppRoutes";
+import PageMeta from "@/common/PageMeta/PageMeta";
 
 
 const PolitiqueDutilisationDesDonnees = () => {
