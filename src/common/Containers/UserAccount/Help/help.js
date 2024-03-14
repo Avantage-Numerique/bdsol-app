@@ -1,4 +1,3 @@
-
 //Styling
 import styles from './help.module.scss'
 
@@ -10,7 +9,7 @@ const Help = () => {
             <h3>Pour faciliter votre navigation</h3>
             <h4>Dans la section, en haut de l'écran :</h4>
             <ul>
-                <li>Le logo <strong>Avantage Numérique</strong> vous ramènera à la page d'accueil.</li>
+                <li>Le logo <strong>Avnu</strong> vous ramènera à la page d'accueil.</li>
                 <li>Au milieu se trouve une <strong>barre de recherche</strong>, permettant de rechercher des rapidement dans la base de donnée.</li>
                 <li>Totalement à droite, le bouton fait de <strong>3 lignes horizontales</strong> vous ouvre un menu qui facilitera la navigation vers les différentes pages du site.</li>
             </ul>

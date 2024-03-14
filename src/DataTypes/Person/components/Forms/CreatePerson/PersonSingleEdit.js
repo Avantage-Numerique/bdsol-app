@@ -1,9 +1,9 @@
-import React, {useCallback, useContext, useEffect, useRef, useState} from 'react'
+import React, {useCallback, useContext, useEffect, useState} from 'react'
 import Router from 'next/router'
 
 //Custom hooks
 import {useFormUtils} from '@/src/hooks/useFormUtils/useFormUtils'
-import { useRootModal } from '@/src/hooks/useModal/useRootModal'
+import {useRootModal} from '@/src/hooks/useModal/useRootModal'
 
 //components
 import Button from '@/FormElements/Button/Button'
@@ -282,7 +282,7 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props}) => {
 
     const fullWidthContent = (
         <SingleInfo
-            title={"Biographie / description"}
+            title={lang.about}
         >
             <RichTextarea
                 className="my-3"
@@ -295,19 +295,21 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props}) => {
 
     const contentColumnLeft = (
         <SingleInfo
-            title={"Éditez vos groupes de compétences"}
+            title={lang.skillsAndTechnologies}
         >
             <UpdateSkillGroup
                 parentEntity={props.data}
                 formTools={formTools}
                 name="occupations"
+                labelInput={lang.organisationOffer}
+                labelSelect={lang.organisationSkillsAssociated}
             />
         </SingleInfo>
     )
 
     const contentColumnRight = (
         <SingleInfo 
-            title={lang.domainsSingleLabel} 
+            title={lang.Domains} 
         >
             <Select2
                 name="domains"

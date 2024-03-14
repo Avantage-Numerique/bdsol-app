@@ -3,6 +3,9 @@ import PageHeader from "@/layouts/Header/PageHeader";
 import React from "react";
 import {RouteLink} from "@/common/Components/RouteLink";
 import {lang} from "@/src/common/Data/GlobalConstants";
+import Button from "@/FormElements/Button/Button";
+import AppRoutes from "@/src/Routing/AppRoutes";
+import PageMeta from "@/common/PageMeta/PageMeta";
 
 
 const PolitiqueDutilisationDesDonnees = () => {
@@ -211,6 +214,7 @@ const PolitiqueDutilisationDesDonnees = () => {
 
                         <h3>Désactivation des Cookies auxquels vous avez consenti</h3>
                         <p>À l’exception des Cookies strictement nécessaires, nous ne placerons de Cookies sur votre appareil que si vous y consentez, et ces Cookies seront conservés pendant une période maximale de 13 mois à partir du moment où ils sont installés sur votre appareil. À la fin de cette période, votre consentement sera à nouveau requis. Vous pouvez également gérer vos Cookies en modifiant les paramètres de votre navigateur ou de votre appareil. Pour plus de détails sur la façon de configurer votre navigateur, veuillez consulter le centre d’aide de Chrome, Safari, Firefox, Internet Explorer, Edge ou Opera. Toutefois, si vous choisissez de refuser les Cookies, certaines pages ou sections de notre Plateforme pourraient ne pas s’afficher correctement ou certaines fonctionnalités pourraient ne plus être disponibles.</p>
+                        <Button outline={"secondary"} href={AppRoutes.paramsCookies.asPath}>Changer vos paramètres de cookies</Button>
                     </div>
                 </div>
 

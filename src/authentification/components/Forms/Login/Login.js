@@ -2,6 +2,8 @@ import React, {useContext, useEffect} from 'react';
 
 //Context
 import {useAuth} from "@/src/authentification/context/auth-context";
+import Router from 'next/router';
+import AppRoutes from "@/src/Routing/AppRoutes";
 import {MessageContext} from '@/src/common/UserNotifications/Message/Context/Message-Context';
 
 //Custom hooks
@@ -16,7 +18,7 @@ import Spinner from '@/src/common/widgets/spinner/Spinner';
 
 //Styling
 import styles from './Login.module.scss';
-import Router from 'next/router'
+import {lang} from "@/common/Data/GlobalConstants";
 
 const Login = () => {
 
@@ -27,15 +29,26 @@ const Login = () => {
     //Extract the functions inside the session hook
     const { login, isLoading } = useSessionHook();
 
+    //  First of all, verify if the user chose auth cookies as OK
+    useEffect(() => {
+        if(!auth.cookiesChoices.auth) {
+            Router.push({
+                pathname: AppRoutes.paramsCookies.asPath,
+                query: { msg: lang.cookieMessageNeedAuthCookie },
+            });
+        }
+    }, [auth.cookiesChoices.auth])
+
     /*
         First of all, verify if the user is logged in.
         If he isn't, then redirect him in the account page
     */
     useEffect(() => {
-          if(auth.user.isLoggedIn) {
-            Router.push('/compte')
-          }
+        if(auth.user.isLoggedIn) {
+            Router.push(AppRoutes.account.asPath)
+        }
     }, [auth.isLoggedIn])
+
 
 
     const [formState, formTools] = useForm(
@@ -126,7 +139,6 @@ const Login = () => {
                             Vous avez oublié votre mot de passe ou votre nom d'utilisateur ?
                         </p>
                         <Button className="fs-6" text_color="secondary" href="/compte/reinitialiser">Réinitialiser votre mot de passe ou récupérer votre nom d'utilisateur.</Button>
-                
                     </div>
                 </div>
             </form>

@@ -7,7 +7,7 @@ import AppRoutes from "@/src/Routing/AppRoutes";
 import Button from '@/src/common/FormElements/Button/Button';
 import PageMeta from "@/src/common/PageMeta/PageMeta";
 
-//Styling 
+//Styling
 import styles from './index_categories.module.scss';
 import {getTitle} from "@/DataTypes/MetaData/MetaTitle";
 import {getType, TYPE_TAXONOMY} from "@/DataTypes/Entity/Types";

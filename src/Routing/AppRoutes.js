@@ -56,7 +56,6 @@ const AppRoutesRaw = {
     },
 
     /**************
-     * 
      *  Categorie
      * 
      */
@@ -216,6 +215,7 @@ const AppRoutesRaw = {
             mediaType: "main-image"
         }
     },
+
     /*************
      *  Equipment
      ***/
@@ -258,10 +258,34 @@ const AppRoutesRaw = {
         asPath: "/a-propos"
     },
 
+    /*********
+     *  Account relative routes
+     */
     account: {
         label: "Votre compte",
         pathname: "/compte",
         asPath: "/compte",
+        needAuth: true
+    },
+
+    connection: {
+        label: "Se connecter",
+        pathname: "/compte/connexion",
+        asPath: "/compte/connexion",
+        needAuth: false
+    },
+
+    toConfirm: {
+        label: "À confirmer",
+        pathname: "/compte/a-confirmer",
+        asPath: "/compte/a-confirmer",
+        needAuth: true
+    },
+
+    confirmed: {
+        label: "À confirmer",
+        pathname: "/compte/confirme",
+        asPath: "/compte/confirme",
         needAuth: true
     },
 
@@ -347,9 +371,13 @@ const AppRoutes = new Routes(AppRoutesRaw);
  * @property projectCreate {Route}
  * @property events {Route}
  * @property apropos {Route}
- * @property compte {Route}
+ * @property account {Route}
+ * @property connection {Route}
+ * @property toConfirm {Route}
+ * @property confirmed {Route}
  * @property contribuer {Route}
  * @property error404 {Route}
+ * @property paramsCookies {Route}
  * @type {Routes}
  */
 export default AppRoutes;

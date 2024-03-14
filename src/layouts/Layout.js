@@ -5,24 +5,24 @@
 
 */
 
-import {createContext, useRef, useState} from "react";
-import Head from 'next/head'
+import {createContext, useEffect, useRef, useState} from "react";
+import Head from 'next/head';
+import sanitizedString from "@/src/utils/SanitizedString";
 
 //Context
 import {MessageContext} from '@/src/common/UserNotifications/Message/Context/Message-Context'
 
 //components
-import Footer from '@/layouts/Footer/Footer'
-import Header from '@/layouts/Header/Header'
-import AccountNav from '@/layouts/Navigation/AccountNav/AccountNav'
-import Message from '@/src/common/UserNotifications/Message/Message'
+import Footer from '@/layouts/Footer/Footer';
+import Header from '@/layouts/Header/Header';
+import Message from '@/src/common/UserNotifications/Message/Message';
 
 //Styling
-import styles from './Layout.module.scss'
+import styles from './Layout.module.scss';
 
 //Hooks
-import {useModalController} from '@/src/hooks/useModal/ModalsController/ModalsController'
-import {appUrl} from "@/src/helpers/url";
+import {useModalController} from '@/src/hooks/useModal/ModalsController/ModalsController';
+import {useRouter} from "next/router";
 
 export const ModalContext = createContext({});
 
@@ -51,6 +51,21 @@ const Layout = ( {children} ) => {
         }])
     }
 
+    //  Catch if uri contains a msg query vars an display it in a toast alert.
+    const router = useRouter();
+    useEffect(() => {
+        if(router.query?.msg && router.query?.msg !== "")
+        {
+            setMessages([...messages, {
+                    positive:false,
+                    text:sanitizedString(router.query.msg),
+                    creationTime: getCurrentTime()
+                }
+            ])
+        }
+    }, [router.query]);
+
+
     return (
         <>
             <Head>
@@ -78,8 +93,6 @@ const Layout = ( {children} ) => {
                 <meta property="og:type" content="website" />
                 <meta property="og:site_name" content="AVNU" />
                 <meta property="og:locale" content="fr_CA" />
-
-
             </Head>
 
             <div id={styles.layout}>
@@ -119,7 +132,7 @@ const Layout = ( {children} ) => {
                     {/* Display the messages */}
                     { messages.map(message => (
                         <Message 
-                            key={ "login-message-" + message.creationTime } 
+                            key={ "toast-message-" + message.creationTime }
                             positiveReview={ message.positive } 
                             clean={() => { setMessages(
                                 prevState => prevState.filter(i => i !== message)

@@ -1,7 +1,7 @@
 import {useEffect} from 'react';
 
 //Hooks
-import { useValidation } from '@/src/hooks/useValidation/useValidation';
+import {useValidation} from '@/src/hooks/useValidation/useValidation';
 
 //components
 import Tip from '@/common/FormElements/Tip/Tip';

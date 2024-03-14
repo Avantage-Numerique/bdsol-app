@@ -65,7 +65,7 @@ const UpdateTeams = ({name, formTools, parentEntity, ...props}) => {
                         <div className="col-12 col-lg-6">
                             <Input 
                                 name="role"
-                                label="Role"
+                                label="Rôle"
                                 placeholder="Rôle dans l'équipe"
                                 validationRules={[
                                     {name: "ONE_OF_MANY_REQUIRED", dependencies: [

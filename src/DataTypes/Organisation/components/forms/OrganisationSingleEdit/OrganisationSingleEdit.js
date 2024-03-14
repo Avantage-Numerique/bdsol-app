@@ -1,5 +1,4 @@
-import React, {useCallback, useContext, useEffect, useRef, useState} from 'react';
-import Link from 'next/link'
+import React, {useCallback, useContext, useEffect, useState} from 'react';
 import Router from 'next/router';
 
 //Context
@@ -8,7 +7,7 @@ import {MessageContext} from '@/src/common/UserNotifications/Message/Context/Mes
 //Hooks
 import {useAuth} from '@/auth/context/auth-context';
 import {useFormUtils} from '@/src/hooks/useFormUtils/useFormUtils';
-import { useRootModal } from '@/src/hooks/useModal/useRootModal';
+import {useRootModal} from '@/src/hooks/useModal/useRootModal';
 
 //Component
 import Select2 from '@/src/common/FormElements/Select2/Select2';
@@ -297,7 +296,7 @@ const OrganisationSingleEdit = (props) => {
     
     const fullWidthContent = (
         <SingleInfo
-            title="Description"
+            title={lang.about}
             classNameTitle="mb-0"
         >
             <RichTextarea
@@ -311,18 +310,20 @@ const OrganisationSingleEdit = (props) => {
     const contentColumnLeft = (
         <>
             <SingleInfo
-                title="Éditez les groupes d'offres de services"
+                title={lang.organisationOffer}
             >
                 <UpdateSkillGroup
                     parentEntity={props.data}
                     formTools={formTools}
                     name="offers"
+                    labelInput={lang.organisationSkills}
+                    labelSelect={lang.organisationSkillsAssociated}
                 />
             </SingleInfo>
             
             { /* team */ }
             <SingleInfo
-                title="Éditez les membres de l'équipe"
+                title="Membres de l'équipe"
             >
                 <UpdateTeams
                     name="team"
@@ -332,7 +333,7 @@ const OrganisationSingleEdit = (props) => {
             </SingleInfo>
             { /* Equipment */}
             <SingleInfo
-                title={lang.EditEquipment}
+                title={lang.Equipments}
             >
                 <SelectEquipment 
                     name="equipment"

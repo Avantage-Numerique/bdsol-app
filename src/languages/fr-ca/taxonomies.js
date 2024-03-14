@@ -44,10 +44,10 @@ const taxonomies = {
 
     //  Domains
 
-    "Domains": "Domaines",
-    "Domain": "Domaine",
-    "domains": "domaines",
-    "domain": "domaine",
+    "Domains": "Secteur d'activités",
+    "Domain": "Secteur d'activité",
+    "domains": "secteur d'activités",
+    "domain": "secteur d'activité",
 
     "domainsInputPlaceholder": "Art, informatique, communication, [...]",
     "domainsSingleLabel": "Les domaines",

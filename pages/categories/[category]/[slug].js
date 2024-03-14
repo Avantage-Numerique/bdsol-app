@@ -11,11 +11,9 @@ import Icon from "@/common/widgets/Icon/Icon";
 import AppRoutes from "@/src/Routing/AppRoutes";
 import {Breadcrumbs} from "@/common/Breadcrumbs/Breadcrumbs";
 import EntitiesGrid from "@/DataTypes/Entity/layouts/EntitiesGrid";
-import Head from "next/head";
 import {getTitle} from "@/DataTypes/MetaData/MetaTitle";
 import {getType, TYPE_TAXONOMY} from "@/DataTypes/Entity/Types";
 import PageMeta from "@/src/common/PageMeta/PageMeta";
-
 
 
 export async function getServerSideProps(context) {

@@ -121,7 +121,7 @@ const CreateEventForm = ({ onPositiveResponse, initValues }) => {
                 ]}
             />    
             <div className="d-flex justify-content-end">
-                <Button disabled={!formState.isValid} type="button" onClick={submitHandler}>Créer</Button>
+                <Button disabled={!formState.isValid} type="button" onClick={submitHandler}>{lang.continue}</Button>
             </div>
         </form>
     )

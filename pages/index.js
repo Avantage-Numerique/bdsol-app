@@ -12,11 +12,14 @@ import PageMeta from "@/src/common/PageMeta/PageMeta";
 
 //Entities
 //Costum hooks
-import {externalApiRequest, useHttpClient} from '@/src/hooks/http-hook';
+import {
+    externalApiRequest,
+    clientSideExternalApiRequest,
+    useHttpClient
+} from '@/src/hooks/http-hook';
 
 //Context
 import {MessageContext} from '@/src/common/UserNotifications/Message/Context/Message-Context';
-import {appUrl} from "@/src/helpers/url";
 import {getType} from "@/DataTypes/Entity/Types";
 
 //Images
@@ -64,7 +67,7 @@ const HomePage = ({}) => {
     const fetchHomeFeed = async () => {
 
         setIsLoading(true);//bypass the sendRequest setting of isLoading, because of all these promises here.
-        const homePageEntities = await externalApiRequest(
+        const homePageEntities = await clientSideExternalApiRequest(
             `/search/homepage`,
             { method: 'GET' }
         );
@@ -212,8 +215,8 @@ const HomePage = ({}) => {
                 </figure>
                 <div className="container position-relative">
                     <div className='row home-page__section-inner-y-padding'>
-                            <h2 className="text-center">Pas encore de compte ?</h2>
-                            <p className="text-center my-2">Vous en aurez besoin afin de vous aussi ajouter des données.</p>
+                            <h2 className="text-center">Envie d’ajouter des données ?</h2>
+                            <p className="text-center my-2">Vous aussi, contribuez à la plateforme en vous créant un compte utilisateur·rice. C’est simple et gratuit !<br/>Vous pourrez alors ajouter ou modifier des fiches à propos des ressources technologiques de votre territoire. </p>
                             <div className="d-flex justify-content-center my-4">
                                 <Button className="px-4" color="primary" href="/compte/inscription">C'est par ici !</Button>
                             </div>

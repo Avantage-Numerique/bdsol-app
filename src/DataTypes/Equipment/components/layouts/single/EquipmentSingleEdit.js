@@ -3,7 +3,7 @@ import Router from 'next/router'
 
 //Custom hooks
 import {useFormUtils} from '@/src/hooks/useFormUtils/useFormUtils'
-import { useRootModal } from '@/src/hooks/useModal/useRootModal'
+import {useRootModal} from '@/src/hooks/useModal/useRootModal'
 
 //components
 import Button from '@/FormElements/Button/Button'

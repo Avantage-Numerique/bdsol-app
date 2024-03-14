@@ -66,9 +66,9 @@ const Index = () => {
                 description={lang.contribute__description}
             />
             <PageHeader
-                title="Contribuer en ajoutant une entité"
+                title="Contribuer à la base de donnée"
                 subtitleColor="primary"
-                description="Vous pouvez créer ces différents types de données."
+                description="Vous pouvez ajouter une personne, une organisations, un projet, un événement, un équipement ou une catégorie."
                 custom_FullWidthContent={FullWidthImg}
             />
 

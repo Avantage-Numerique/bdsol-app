@@ -10,11 +10,11 @@ import Select2 from '@/src/common/FormElements/Select2/Select2'
 
 //Context
 import {useAuth} from "@/src/authentification/context/auth-context";
-import { lang } from '@/src/common/Data/GlobalConstants';
+import {lang} from '@/src/common/Data/GlobalConstants';
 
 //FormData
 import {getDefaultCreateEntityMeta} from "@/src/DataTypes/Meta/EntityMeta";
-import { TYPE_TAXONOMY } from '@/src/DataTypes/Entity/Types';
+import {TYPE_TAXONOMY} from '@/src/DataTypes/Entity/Types';
 
 
 const CreateEquipmentForm = ({ onPositiveResponse, initValues }) => {
@@ -112,7 +112,7 @@ const CreateEquipmentForm = ({ onPositiveResponse, initValues }) => {
                 />
             </div>
             <div className="d-flex justify-content-end">
-                <Button disabled={!formState.isValid} type="button" onClick={submitHandler}>Créer</Button>
+                <Button disabled={!formState.isValid} type="button" onClick={submitHandler}>{lang.continue}</Button>
             </div>
         </form> 
     );

@@ -17,7 +17,6 @@ import CookieBanner from "@/common/widgets/CookieBanner/CookieBanner";
 import React from "react";
 
 function MyApp({Component, pageProps, user, serverCookiesChoices}) {
-
     /**
      * Main app render.
      */
@@ -60,7 +59,7 @@ MyApp.getInitialProps = async (context) => {
         if (cookies?.avnuCookies) {
             cookiesChoices = JSON.parse(cookies.avnuCookies);
         }
-
+        //if cookies auth is accepted follow with session creation.
         if (cookiesChoices?.auth) {
 
             const savedInSessionUser = session.user ?? {};

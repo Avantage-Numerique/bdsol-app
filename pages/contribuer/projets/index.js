@@ -41,7 +41,7 @@ const PersonSingleEditPage = () => {
                         <header className={`d-flex justify-content-between align-items-start`}>
                             <div className="d-flex flex-column">
                                 <h3 className="text-primary">Ajouter un projet</h3>
-                                <p>Entrez les informations de base d'une entité "Projet". Vous pourrez l'éditer de manière détaillée par la suite.</p>
+                                <p>Entrez les informations de base d'un Projet. Vous pourrez l'éditer de manière détaillée par la suite.</p>
                             </div>
                             <Button 
                                 onClick={() => {
@@ -49,7 +49,7 @@ const PersonSingleEditPage = () => {
                                     Router.push(`/contribuer/`)
                                     )
                                 }}
-                            >Fermer</Button>
+                            >{lang.cancel}</Button>
                         </header>   
                         <CreateProjectForm onPositiveResponse={(response) => {
                             //Create a model for the response

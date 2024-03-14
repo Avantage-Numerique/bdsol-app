@@ -12,7 +12,7 @@ import Input from '@/src/common/FormElements/Input/Input'
 import Button from '@/src/common/FormElements/Button/Button'
 import Spinner from '@/src/common/widgets/spinner/Spinner'
 import {MessageContext} from '@/src/common/UserNotifications/Message/Context/Message-Context'
-
+import { RouteLink } from '@/src/common/Components/RouteLink'
 
 const Register = () => {
 
@@ -215,7 +215,7 @@ const Register = () => {
                         onClick={() => {setIsTOSAccepted(!isTOSAccepted)}}
                         checked={isTOSAccepted}
                     />
-                    <span className="form-check-label col-8">J'accepte les <a className="text-primary" target="_blank" href="/app/pages/termes-et-conditions-dutilisation">termes et conditions d'utilisation</a></span>
+                    <span className="form-check-label col-8">J'accepte les <RouteLink target="_blank" routeName={"termOfUse"}/></span>
                 </div>
 
                 <div className="col-12">

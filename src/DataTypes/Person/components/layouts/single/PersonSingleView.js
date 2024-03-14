@@ -8,7 +8,6 @@ import SingleInfo from "@/DataTypes/common/layouts/SingleInfo/SingleInfo";
 import SingleBaseProgressBar
     from '@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseProgressBar/SingleBaseProgressBar'
 //Styling
-import styles from './PersonSingle.module.scss'
 
 //Utils
 import SanitizedInnerHtml from '@/src/utils/SanitizedInnerHtml';
@@ -86,7 +85,7 @@ const PersonSingleView = ({ data }) => {
         <>
             {description !== '' &&
                 <SingleInfo
-                    title={"Présentation"}
+                    title={lang.about}
                     NAMessage="Aucune description n'est disponible pour le moment"
                     //cardLayout
                 >
@@ -103,8 +102,8 @@ const PersonSingleView = ({ data }) => {
     const ContentColumnLeft = (
         <>
             <SingleInfo
-                title={"Occupations"}
-                NAMessage="Aucune occupation n'est disponible pour le moment"
+                title={lang.skillsAndTechnologies}
+                NAMessage="Aucune compétence et techonologie n'est disponible pour le moment"
                 NAComponent={(
                     <div>
                         <p className="mb-2">Exemple : </p>
@@ -160,7 +159,7 @@ const PersonSingleView = ({ data }) => {
         <>
             {domains.length > 0 &&
                 <SingleInfo 
-                    title={lang.domainsSingleLabel} 
+                    title={lang.Domains} 
                     cardLayout
                 >
 

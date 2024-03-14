@@ -13,7 +13,7 @@ const projects = {
     "projectContactPointPlaceholder": "Email address, phone number, etc...",
 
     "producer": "Producer",
-    "inCharge": "Entity in charge",
+    "inCharge": "Organisation in charge",
     "timelineAndBudget": "Timeline and budget",
     "projectContext": "Project context",
     "projectContact": "Contact",

@@ -1,8 +1,8 @@
-import { useState } from "react";
+import {useState} from "react";
 import Button from "@/src/common/FormElements/Button/Button";
-import { RouteLink } from "@/src/common/Components/RouteLink";
+import {RouteLink} from "@/src/common/Components/RouteLink";
 import Icon from "@/src/common/widgets/Icon/Icon";
-import { lang } from "@/src/common/Data/GlobalConstants";
+import {lang} from "@/src/common/Data/GlobalConstants";
 
 
 const SingleSaveEntityReminder = ({ submitHandler, closeModal, ...props}) => {

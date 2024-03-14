@@ -1,8 +1,8 @@
-import React, { useContext, useEffect } from 'react'
+import React, {useContext, useEffect} from 'react'
 import Router from 'next/router'
 
 //Custom hooks
-import { useFormUtils } from '@/src/hooks/useFormUtils/useFormUtils'
+import {useFormUtils} from '@/src/hooks/useFormUtils/useFormUtils'
 
 //components
 import Button from '@/src/common/FormElements/Button/Button'
@@ -12,11 +12,11 @@ import Select from '@/src/common/FormElements/Select/Select'
 
 //Contexts
 import {AuthContext, useAuth} from '@/auth/context/auth-context'
-import { MessageContext } from '@/src/common/UserNotifications/Message/Context/Message-Context'
+import {MessageContext} from '@/src/common/UserNotifications/Message/Context/Message-Context'
 
 //Styling
 import styles from './CreateTaxonomyForm.module.scss'
-import { lang } from '@/src/common/Data/GlobalConstants'
+import {lang} from '@/src/common/Data/GlobalConstants'
 import Select2 from '@/src/common/FormElements/Select2/Select2'
 import {getDefaultCreateEntityMeta} from "@/src/DataTypes/Meta/EntityMeta";
 
