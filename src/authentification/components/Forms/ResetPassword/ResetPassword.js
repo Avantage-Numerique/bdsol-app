@@ -49,7 +49,7 @@ const ResetPassword = () => {
                 "/reset-password",
                 { body: JSON.stringify({data: { email: formState.inputs.email.value }})}
             );
-
+3
             msg.addMessage({
                 text: "Un email sera envoyé s'il est associé à un compte.",
                 positive: true
@@ -59,9 +59,8 @@ const ResetPassword = () => {
 
     return (
         <section className={`header-less-page  ${styles.resetPassword}`}>
-            <form className="bg-primary-lighter rounded form-box-shadow">
+            <form onSubmit={submitHandler} className="bg-primary-lighter rounded form-box-shadow">
                 <div className={"d-flex flex-column"}>
-
                     <h3 className="text-dark-light mb-4">Réinitialiser votre mot de passe ou récupérer votre nom d'utilisateur.</h3>
                     <p>Entrer l'adresse courriel associé à votre compte.</p>
                     <FormUI />
@@ -76,7 +75,7 @@ const ResetPassword = () => {
                         formTools={formTools}
                     />
                     <div className="mt-3">
-                        <Button type="button" onClick={submitHandler} disabled={!formState.isValid}>Soumettre</Button>
+                        <Button disabled={!formState.isValid}>Soumettre</Button>
                     </div>
                     <p>*Si vous n'avez pas reçu le courriel, vérifier vos courriel indésirable, sinon veuillez attendre 5 minutes avant de soumettre à nouveau.</p>
                 </div>

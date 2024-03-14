@@ -27,7 +27,7 @@ const CreatePlaceForm = ({ onPositiveResponse, initValues }) => {
     const { FormUI, submitRequest, formState, formTools } = useFormUtils(
         {
             name: {
-                value: initValues.name ?? "",
+                value: initValues?.name || "",
                 isValid: true
             },
             description: {

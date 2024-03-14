@@ -3,7 +3,7 @@
 
     section {
         .contribution-page__menu {
-            padding-bottom: 5vh;
+
             button {
                 padding: 1rem;
                 width: 100%;
@@ -13,11 +13,79 @@
             }
         }
     }
+}
 
-    .entity-icon{
-        padding-left: 0.5rem;
+.contribution-page__article-container {
+    padding-top: clamp(2rem, 5vh, 4rem);
+}
+
+.header--background-img {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+
+    img {
+        position: absolute;
+        right: 0px;
+        bottom: 0px;
+        height: 80%;
+        width: auto;
+        transform: scaleX(-1);
     }
 }
+
+.contribution-page__entity {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    .contribution-page__entity__content {
+
+        --inner-padding: 0.75rem; 
+
+        width: 100%;
+        background-color: $primary-light;
+        border-radius: $border-radius;
+        overflow: hidden;
+
+        header {
+            background-color: $primary;
+            padding: var(--inner-padding);
+            color: $primary-darker;
+            display: flex;
+            align-items: center;
+
+            > * {
+                font-size: 1.15rem;
+                margin: 0px;
+            }
+
+            .entity-icon{
+                font-size: 0.9rem;
+                padding: 0.5rem;
+                border-radius: 100%;
+                background-color: $primary-light;
+                margin-right: 0.5rem;
+            }
+        }
+        section {
+            padding: var(--inner-padding);
+            font-size: 0.9rem;
+            p { margin: 0.5rem; }
+        }
+    }
+
+    .contribution-page__entity__cta {
+        margin-top: 1rem;
+        margin-bottom: $spacing-sm;
+        font-size: 0.9rem;
+    }
+
+}
+
+
 
 /* On screens that are 600px or more, set the background color to blue */
 @media screen and (min-width: 600px) {
