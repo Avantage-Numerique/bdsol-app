@@ -10,14 +10,14 @@ const equipment = {
 
     "EditEquipment": "Éditez les équipements",
     "equipmentType":"Type d'équipement",
-    "label": "Nom court",
+    "label": "Nom du produit",
     "description": "Description",
     "brand": "Marque",
     "modelName": "Modèle",
     "url": "Hyperlien",
     "Quantity": "Quantité",
     "Qty": "Qte",
-    "productInformations": "Informations sur le prduit",
+    "productInformations": "Détails du produit",
 
     "equipmentUsed": "Équipements utilisés",
     "technologiesUsed": "Technologies utilisées",

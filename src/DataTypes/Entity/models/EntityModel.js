@@ -33,7 +33,7 @@ class EntityModel {
         this.type = raw?.type ?? TYPE_DEFAULT;
         this.Type = getType(this.type);
         this.title = raw?.title ?? "no title set";
-        this.description = raw?.description ?? "no description set";
+        this.description = raw?.description ?? "";
         this.badge = raw?.badge ?? "";//contextual description of the entity. Often define in a single view.
 
         this.shortDescription = removeHtml(this.description);

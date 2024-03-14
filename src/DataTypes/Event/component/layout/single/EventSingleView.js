@@ -119,10 +119,10 @@ const EventSingleView = ({data}) => {
             <div className="row">
                 <div className="col col-md-6">   
                     <SingleInfo 
-                        title="Entités responsables"
+                        title="Organisations responsables"
                     >
                         <SingleInfo 
-                            title={lang.inCharge}
+                            title={lang.entityInCharge}
                             isSubtitle
                         >
                             {model.entityInCharge && 
@@ -135,7 +135,7 @@ const EventSingleView = ({data}) => {
                         </SingleInfo> 
                         
                         <SingleInfo 
-                            title={lang.eventOrganizer}
+                            title={lang.producer}
                             isSubtitle
                         >
                             {model.organizer && 
@@ -151,7 +151,7 @@ const EventSingleView = ({data}) => {
                 <div className="col col-md-6">
                     {/* location */}
                     <SingleInfo 
-                        title="Emplacement"
+                        title={lang.location}
                         displayCondition={(location?.length > 0)} 
                     >
                         <EntitiesTagGrid 
@@ -165,7 +165,7 @@ const EventSingleView = ({data}) => {
             </div>
             <div className="row mt-4">
                 <SingleInfo 
-                    title={lang.organisationDescription} 
+                    title={lang.about} 
                     NAMessage="Aucune description n'est disponible pour le moment."
                 >
                     {
@@ -237,7 +237,7 @@ const EventSingleView = ({data}) => {
             >
                 {/* skills */}
                 <SingleInfo 
-                    title={lang.eventSkills}
+                    title={lang.skillsAndTechnologies}
                     isSubtitle
                     displayCondition={skills?.length > 0}
                 >
@@ -246,7 +246,7 @@ const EventSingleView = ({data}) => {
 
                 {/* domains */}
                 <SingleInfo 
-                    title={lang.domainsSingleLabel} 
+                    title={lang.Domains} 
                     displayCondition={domains?.length > 0}
                     isSubtitle
                 >

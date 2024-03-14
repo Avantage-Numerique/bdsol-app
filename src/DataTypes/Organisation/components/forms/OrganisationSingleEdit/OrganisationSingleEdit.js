@@ -296,7 +296,7 @@ const OrganisationSingleEdit = (props) => {
     
     const fullWidthContent = (
         <SingleInfo
-            title="Description"
+            title={lang.about}
             classNameTitle="mb-0"
         >
             <RichTextarea
@@ -310,18 +310,20 @@ const OrganisationSingleEdit = (props) => {
     const contentColumnLeft = (
         <>
             <SingleInfo
-                title="Éditez les groupes d'offres de services"
+                title={lang.organisationOffer}
             >
                 <UpdateSkillGroup
                     parentEntity={props.data}
                     formTools={formTools}
                     name="offers"
+                    labelInput={lang.organisationSkills}
+                    labelSelect={lang.organisationSkillsAssociated}
                 />
             </SingleInfo>
             
             { /* team */ }
             <SingleInfo
-                title="Éditez les membres de l'équipe"
+                title="Membres de l'équipe"
             >
                 <UpdateTeams
                     name="team"
@@ -331,7 +333,7 @@ const OrganisationSingleEdit = (props) => {
             </SingleInfo>
             { /* Equipment */}
             <SingleInfo
-                title={lang.EditEquipment}
+                title={lang.Equipments}
             >
                 <SelectEquipment 
                     name="equipment"

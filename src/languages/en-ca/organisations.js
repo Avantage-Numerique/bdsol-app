@@ -19,7 +19,9 @@ const organisations = {
     "organisationUploadMediaMainImage": "You will be able to upload an image from that organization's page. This image will represent this organization and will be displayed in its file and in the pages that list it.",
 
     "organisationDescription": "Presentation",
-    "organisationSkills": "Offered services",
+    "organisationSkills": "Services",
+    "organisationOffer" : "Offer",
+    "organisationSkillsAssociated": "Skills associated",
 
     "organisationPlace": "Location",
     "organisationPlaces": "Locations",

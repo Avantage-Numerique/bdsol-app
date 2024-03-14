@@ -24,7 +24,11 @@ const base = {
     "metadatas": "métadonnées",
     "knowMore": "En savoir plus",
     "aboutUs": "À propos",
+    "about": "À propos",
     "contributeButtonLabel": "Proposer des modifications",
+    "cancel": "Annuler",
+    "continue" : "Poursuivre",
+
 
     // App
 
@@ -78,6 +82,8 @@ const base = {
     "submitModification": "Soumettre les modifications",
 
 
+    //Taxonomies related
+    "skillsAndTechnologies" : "Compétences et technologies",
 
     // SINGLE
 

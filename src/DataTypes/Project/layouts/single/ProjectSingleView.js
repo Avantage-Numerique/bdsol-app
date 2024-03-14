@@ -108,7 +108,7 @@ const ProjectSingleView = ({ data }) => {
                     <div className="mt-4">
                         {entityInCharge &&
                             <p className="text-white">
-                                <span className={"badge bg-secondary"}>{lang.inCharge}</span> <EntityLink data={entityInCharge} />
+                                <span className={"badge bg-secondary"}>{lang.entityInCharge}</span> <EntityLink data={entityInCharge} />
                             </p>
                         }
                         {producer &&
@@ -129,7 +129,7 @@ const ProjectSingleView = ({ data }) => {
     const FullWidthContent = (
         <>
             <SingleInfo 
-                title={lang.organisationDescription} 
+                title={lang.about} 
                 NAMessage="Aucune description n'est disponible pour le moment."
             >
                 {
@@ -209,7 +209,7 @@ const ProjectSingleView = ({ data }) => {
             
             {/* Equipments */}
             <SingleInfo 
-                title={lang.Equipments} 
+                title={lang.equipmentUsed} 
                 cardLayout
             >
                 {equipment && 
@@ -240,7 +240,7 @@ const ProjectSingleView = ({ data }) => {
 
             {/* Skills */}
             <SingleInfo
-                title={lang.projectSkills}
+                title={lang.skillsAndTechnologies}
                 displayCondition={skills?.length > 0}
                 isSubtitle
             >
@@ -249,7 +249,7 @@ const ProjectSingleView = ({ data }) => {
             
             {/* Domains */}
             <SingleInfo 
-                title={lang.domainsSingleLabel} 
+                title={lang.Domains} 
                 displayCondition={domains?.length > 0}
                 isSubtitle
             >

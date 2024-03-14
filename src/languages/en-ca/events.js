@@ -8,7 +8,7 @@ const events = {
     "addEventButtonLabel": "Add an event",
     "eventName":"Event name",
     "eventAlternateName": "Alternate name",
-    "entityInCharge":"Organization in charge",
+    "entityInCharge":"Creator",
     "eventOrganizer":"Organizer",
     "selectEventType":"Select an event type",
     "hyperlink": "Hyperlink",
@@ -26,6 +26,7 @@ const events = {
     "attendees": "Attendees",
     "eventSkills": "Skills linked to this event",
     "activityName":"Activity name",
+    "location": "Location",
 
     "photoGallery": "Photo gallery",
     "addPhotoGallery": "Ajouter une image",

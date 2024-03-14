@@ -9,7 +9,7 @@ import {TYPE_TAXONOMY} from '@/src/DataTypes/Entity/Types';
 import {lang} from '@/src/common/Data/GlobalConstants';
 
 
-const UpdateSkillGroup = ({parentEntity, name, formTools, ...props}) => {
+const UpdateSkillGroup = ({parentEntity, name, formTools, labelInput, labelSelect, ...props}) => {
 
     return (
         <div className='px-4 border-start'>
@@ -35,13 +35,13 @@ const UpdateSkillGroup = ({parentEntity, name, formTools, ...props}) => {
                     <section className="row col">
                         <Input
                             className="col-12 col-lg-6"
-                            label={lang.skillGroupName}
+                            label={labelInput ?? "Nom du groupe"}
                             name="groupName"
                         />
                         <div className="col-12 col-lg-6">
                             <Select2
                                 name="skills"
-                                label="Compétences qui la compose"
+                                label={labelSelect ?? "Compétences associées"}
                                 formTools={formTools}
                                 creatable={true}
                                 modalType={TYPE_TAXONOMY}

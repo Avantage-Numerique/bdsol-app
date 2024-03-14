@@ -18,7 +18,7 @@ const Index = () => {
                 title={lang.faq__about__title}
                 description={lang.faq__about__description}
             />
-            <PageHeader title={`Qu'est-ce que la BDSOL ?`}/>
+            <PageHeader title={`Avnu, c’est quoi ?`}/>
 
             <div className={"container home-page__main content"}>
                 <div className={"row"}>
