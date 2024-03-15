@@ -1,3 +1,4 @@
+import { memo } from 'react'
 //Styles
 import styles from './SingleBaseHeader.module.scss';
 
@@ -21,6 +22,35 @@ import {useHttpClient} from '@/src/hooks/http-hook';
 import {MessageContext} from '@/src/common/UserNotifications/Message/Context/Message-Context';
 
 
+//Memoize the image to prevent rerendering
+const ImageComponent = memo(
+    ({mainImage}) => {
+        const MainImage = () => (
+            <>
+                { mainImage && mainImage.url !== "" && !mainImage.isDefault &&
+                    <a href={`/medias/${mainImage._id}`}
+                        className={`fs-4 w-100 h-100 position-absolute d-flex align-items-center justify-content-center p-1 ${styles["profile-picture--modification-opt"]} main-image-link`}>
+                        <Icon iconName={"eye"} /> {lang.see}
+                    </a>
+                }
+            </>
+        )
+
+        return (
+            <div className="col-12 col-sm d-flex flex-grow-0 align-items-end">
+                {/* Base styling doesn't move down the picture since its not overflowing the container. A bit tricky with bootstrap grid so we need two components to apply different classes */}
+                {/* Base format (small screens) */}
+                <MediaFigure model={mainImage} className={`d-sm-none main-image-container no-bottom-margin ${!mainImage.isDefault ? "overflow-hidden shadow" : (styles["default-drop-shadow"] + " default-img ")}`} imgClassName={"main-image"}>
+                    <MainImage />
+                </MediaFigure>
+                {/* SM format and more */}
+                <MediaFigure model={mainImage} className={`d-none d-sm-block main-image-container ${!mainImage.isDefault ? "overflow-hidden shadow" : (styles["default-drop-shadow"] + " default-img ")}`} imgClassName={"main-image"}>
+                    <MainImage />
+                </MediaFigure>
+            </div>
+        )
+    }
+)
 /**
  * @param {object} mainImage mainImage data object
  * @param {object} entity used for mainImageForm
@@ -50,17 +80,6 @@ const SingleBaseHeader = (props) => {
 
     const auth = useAuth();
     const isUpdateMode = className?.includes("mode-update");
-
-    const MainImage = () => (
-        <>
-            { mainImage && mainImage.url !== "" && !mainImage.isDefault &&
-                <a href={`/medias/${mainImage._id}`}
-                    className={`fs-4 w-100 h-100 position-absolute d-flex align-items-center justify-content-center p-1 ${styles["profile-picture--modification-opt"]} main-image-link`}>
-                    <Icon iconName={"eye"} /> {lang.see}
-                </a>
-            }
-        </>
-    )
 
     //Modal hook
     const modalReportEntity = useRootModal();
@@ -135,17 +154,7 @@ const SingleBaseHeader = (props) => {
             <div className="d-flex justify-content-end">
                 <button type="button" className="fs-3" onClick={modalReportEntity.displayModal}><Icon iconName="flag"/></button>
             </div>
-            <div className="col-12 col-sm d-flex flex-grow-0 align-items-end">
-                {/* Base styling doesn't move down the picture since its not overflowing the container. A bit tricky with bootstrap grid so we need two components to apply different classes */}
-                {/* Base format (small screens) */}
-                <MediaFigure model={mainImage} className={`d-sm-none main-image-container no-bottom-margin ${!mainImage.isDefault ? "overflow-hidden shadow" : (styles["default-drop-shadow"] + " default-img ")}`} imgClassName={"main-image"}>
-                    <MainImage />
-                </MediaFigure>
-                {/* SM format and more */}
-                <MediaFigure model={mainImage} className={`d-none d-sm-block main-image-container ${!mainImage.isDefault ? "overflow-hidden shadow" : (styles["default-drop-shadow"] + " default-img ")}`} imgClassName={"main-image"}>
-                    <MainImage />
-                </MediaFigure>
-            </div>
+            <ImageComponent mainImage={mainImage} />
             <div className="col-12 col-sm flex-grow-1 d-flex flex-column">
                 <div className="d-flex flex-column text-dark">
                     { /* title */ }
