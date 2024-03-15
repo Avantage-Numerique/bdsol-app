@@ -27,7 +27,7 @@ const PlaceSingleEditPage = () => {
     useEffect(() => displayModal(), [])
 
     return (
-        <div className="container py-4">
+        <div className="container">
                 {/* Empty single edit, only to display in the background */}
                 <PlaceSingleEdit data={{}} />
                 {/* Loading spinner */}
