@@ -1,8 +1,10 @@
 import React from "react";
+import Image from 'next/image'
 
 //components
 import Button from "@/src/common/FormElements/Button/Button"
 import PageMeta from "@/src/common/PageMeta/PageMeta";
+import Icon from "@/common/widgets/Icon/Icon";
 
 //Context
 import {useAuth} from '@/auth/context/auth-context'
@@ -21,7 +23,10 @@ import Organisation from "@/DataTypes/Organisation/models/Organisation";
 import Project from "@/DataTypes/Project/models/Project";
 import Event from "@/src/DataTypes/Event/models/Event";
 import Equipment from "@/src/DataTypes/Equipment/models/Equipment";
+import Place from "@/src/DataTypes/Place/models/Place";
 
+//Img
+import headerImg from '@/public/general_images/Fusée_Planetes_Poitilles2.svg'
 
 const Index = () => {
 
@@ -41,7 +46,17 @@ const Index = () => {
             model = new Event({})
         if(type == "TYPE_EQUIPMENT")
             model = new Equipment({})
+        if(type == "TYPE_PLACE")
+            model = new Place({})
         return model.createRoute.asPath;
+    }
+
+    const FullWidthImg = () => {
+        return (
+            <figure className={`d-none d-md-block ${styles["header--background-img"]}`}>
+                <Image src={headerImg} alt="Trajet de la fusée d'AVNU" />
+            </figure>
+        )
     }
 
     return (
@@ -51,9 +66,10 @@ const Index = () => {
                 description={lang.contribute__description}
             />
             <PageHeader
-                title="Contribuer en ajoutant une entité"
+                title="Contribuer à la base de donnée"
                 subtitleColor="primary"
-                description="Vous pouvez créer ces différents types de données."
+                description="Vous pouvez ajouter une personne, une organisations, un projet, un événement, un équipement ou une catégorie."
+                custom_FullWidthContent={FullWidthImg}
             />
 
             <div className={`${styles["contribution-page__menu"]}`}>
@@ -68,38 +84,127 @@ const Index = () => {
                         </div>
                     }
 
-                    <div className='row pt-5 pb-3'>
-                        <div className="col">
-                            <h2 className="col-12">Ajouter une : </h2>
-                        </div>
-                    </div>
-
-                    <div className='row pb-5'>
-                        <div className="col-12 d-flex gap-2 gap-sm-3 gap-mg-4 gap-lg-5 flex-wrap">
-                            <Button href={getCreateEntityPath("TYPE_PERSON")} disabled={!auth.user.isLoggedIn}>
-                                {lang.Person}
-                                <i style={{fontSize: "0.9rem"}}className={`${Person.icon} ${styles["entity-icon"]}`} />
+                    <div className={`row pb-5 g-4 ${styles["contribution-page__article-container"]}`}>
+                        <article className={`${styles["contribution-page__entity"]} col-12 col-sm-6 col-md-4`}>
+                            <div className={`${styles["contribution-page__entity__content"]}`}>
+                                <header>
+                                    <i className={`${Person.icon} ${styles["entity-icon"]}`} />
+                                    <h4>{lang.Person}</h4>
+                                </header>
+                                <section>
+                                    <p>Personne, professionnelle ou amatrice, ayant des compétences en technologies ou œuvrant dans le numérique et offrant des services technologiques.</p>
+                                </section>
+                            </div>
+                            <Button 
+                                size="slim" 
+                                className={`px-3 py-0 ${styles["contribution-page__entity__cta"]}`} 
+                                color="secondary"
+                                href={getCreateEntityPath("TYPE_PERSON")} 
+                                disabled={!auth.user.isLoggedIn}
+                            >
+                                <Icon iconName={"plus"} className="text-secondary-darker" /> Ajouter une {lang.Person}
                             </Button>
-                            <Button href={getCreateEntityPath("TYPE_ORGANISATION")} disabled={!auth.user.isLoggedIn}>
-                                {lang.Organisation}
-                                <i className={`${Organisation.icon} ${styles["entity-icon"]}`} />
+                        </article>
+                        <article className={`${styles["contribution-page__entity"]} col-12 col-sm-6 col-md-4`}>
+                            <div className={`${styles["contribution-page__entity__content"]}`}>
+                                <header>
+                                    <i className={`${Organisation.icon} ${styles["entity-icon"]}`} />
+                                    <h4>{lang.Organisation}</h4>
+                                </header>
+                                <section>
+                                    <p>Organisation, entreprise, collectif ou regroupement œuvrant dans le numérique, ou dont les technologies numériques sont incluses, et offrant des services technologiques.</p>
+                                </section>
+                            </div>
+                            <Button 
+                                size="slim" 
+                                className={`px-3 py-0 ${styles["contribution-page__entity__cta"]}`} 
+                                color="secondary"
+                                href={getCreateEntityPath("TYPE_ORGANISATION")} 
+                                disabled={!auth.user.isLoggedIn}
+                            >
+                                <Icon iconName={"plus"} className="text-secondary-darker" /> Ajouter une {lang.Organisation}
                             </Button>
-                            <Button href="/contribuer/categorie" disabled={!auth.user.isLoggedIn}>
-                                {lang.Taxonomy}
+                        </article>
+                        <article className={`${styles["contribution-page__entity"]} col-12 col-sm-6 col-md-4`}>
+                            <div className={`${styles["contribution-page__entity__content"]}`}>
+                                <header>
+                                    <i className={`${Project.icon} ${styles["entity-icon"]}`} />
+                                    <h4>{lang.Project}</h4>
+                                </header>
+                                <section>
+                                    <p>Projet réalisé par un ou plusieurs individus et incluant une ou plusieurs dimensions numériques.</p>
+                                </section>
+                            </div>
+                            <Button 
+                                size="slim" 
+                                className={`px-3 py-0 ${styles["contribution-page__entity__cta"]}`} 
+                                color="secondary"
+                                href={getCreateEntityPath("TYPE_PROJECT")} 
+                                disabled={!auth.user.isLoggedIn}
+                            >
+                                <Icon iconName={"plus"} className="text-secondary-darker" /> Ajouter un {lang.Project}
                             </Button>
-                            <Button href={getCreateEntityPath("TYPE_PROJECT")} disabled={!auth.user.isLoggedIn}>
-                                {lang.Project}
-                                <i className={`${Project.icon} ${styles["entity-icon"]}`} />
+                        </article>
+                        <article className={`${styles["contribution-page__entity"]} col-12 col-sm-6 col-md-4`}>
+                            <div className={`${styles["contribution-page__entity__content"]}`}>
+                                <header>
+                                    <i className={`${Event.icon} ${styles["entity-icon"]}`} />
+                                    <h4>{lang.Event}</h4>
+                                </header>
+                                <section>
+                                    <p>Événement comprenant un aspect numérique ou lié à un projet numérique (lancement, exposition, etc.)</p>
+                                </section>
+                            </div>
+                            <Button 
+                                size="slim" 
+                                className={`px-3 py-0 ${styles["contribution-page__entity__cta"]}`} 
+                                color="secondary"
+                                href={getCreateEntityPath("TYPE_EVENT")} 
+                                disabled={!auth.user.isLoggedIn}
+                            >
+                                <Icon iconName={"plus"} className="text-secondary-darker" /> Ajouter un {lang.Event}
                             </Button>
-                            <Button href={getCreateEntityPath("TYPE_EVENT")} disabled={!auth.user.isLoggedIn}>
-                                {lang.Event}
-                                <i className={`${Event.icon} ${styles["entity-icon"]}`} />
+                        </article>
+                        <article className={`${styles["contribution-page__entity"]} col-12 col-sm-6 col-md-4`}>
+                            <div className={`${styles["contribution-page__entity__content"]}`}>
+                                <header>
+                                    <i className={`${Equipment.icon} ${styles["entity-icon"]}`} />
+                                    <h4>{lang.Equipment}</h4>
+                                </header>
+                                <section>
+                                    <p>Équipement numérique possédé par un individu ou une organisation et qu'il est possible d'emprunter, de louer ou d'échanger en service.</p>
+                                </section>
+                            </div>
+                            <Button 
+                                size="slim" 
+                                className={`px-3 py-0 ${styles["contribution-page__entity__cta"]}`} 
+                                color="secondary"
+                                href={getCreateEntityPath("TYPE_EQUIPMENT")} 
+                                disabled={!auth.user.isLoggedIn}
+                            >
+                                <Icon iconName={"plus"} className="text-secondary-darker" /> Ajouter un {lang.Equipment}
                             </Button>
-                            <Button href={getCreateEntityPath("TYPE_EQUIPMENT")} disabled={!auth.user.isLoggedIn}>
-                                {lang.Equipment}
-                                <i className={`${Equipment.icon} ${styles["entity-icon"]}`} />
+                        </article>
+                        <article className={`${styles["contribution-page__entity"]} col-12 col-sm-6 col-md-4`}>
+                            <div className={`${styles["contribution-page__entity__content"]}`}>
+                                <header>
+                                    <i className={`${Place.icon} ${styles["entity-icon"]}`} />
+                                    <h4>{lang.Place}</h4>
+                                </header>
+                                <section>
+                                    <p>Lieu comprenant un aspect numérique ou offrant la possibilité d'accueillir des projets en lien avec le numérique.</p>
+                                </section>
+                            </div>
+                            <Button 
+                                size="slim" 
+                                className={`px-3 py-0 ${styles["contribution-page__entity__cta"]}`} 
+                                color="secondary"
+                                href={getCreateEntityPath("TYPE_PLACE")} 
+                                disabled={!auth.user.isLoggedIn}
+                            >
+                                <Icon iconName={"plus"} className="text-secondary-darker" /> Ajouter un {lang.Place}
                             </Button>
-                        </div>
+                        </article>
                     </div>
                 </div>
             </div>

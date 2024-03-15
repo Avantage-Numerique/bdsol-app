@@ -13,6 +13,7 @@ import {withSessionSsr} from "@/auth/session/handlers/withSession";
 import {ssrCanAccess} from "@/auth/permissions/ssrCanAccess";
 import Router from "next/router";
 import CreateEventForm from '@/src/DataTypes/Event/component/Forms/CreateEvent/CreateEventForm';
+import { lang } from '@/src/common/Data/GlobalConstants';
 
 //Model
 import Event from '@/src/DataTypes/Event/models/Event';
@@ -42,7 +43,7 @@ const EventSingleEditPage = () => {
                         <header className={`d-flex justify-content-between align-items-start`}>
                             <div className="d-flex flex-column">
                                 <h3 className="text-primary">Ajouter un événement</h3>
-                                <p>Entrez les informations de base d'une entité "Événement". Vous pourrez l'éditer de manière détaillée par la suite.</p>
+                                <p>Entrez les informations de base d'un événement. Vous pourrez l'éditer de manière détaillée par la suite.</p>
                             </div>
                             <Button 
                                 onClick={() => {
@@ -50,7 +51,7 @@ const EventSingleEditPage = () => {
                                     Router.push(`/contribuer/`)
                                     )
                                 }}
-                            >Fermer</Button>
+                            >{lang.cancel}</Button>
                         </header>
                         <CreateEventForm
                             onPositiveResponse={(response) => {

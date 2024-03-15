@@ -92,7 +92,7 @@ const OrganisationSingleView = ({ data }) => {
 
     const FullWidthContent = (
         <SingleInfo 
-            title={lang.organisationDescription} 
+            title={lang.about} 
             NAMessage="Aucune description n'est disponible pour le moment."
         >
             {
@@ -108,7 +108,7 @@ const OrganisationSingleView = ({ data }) => {
         <>
             {/* Offers */}
             <SingleInfo
-                title={lang.organisationSkills}
+                title={lang.skillsAndTechnologies}
                 NAMessage="Aucun service n'est inscrit pour cette organisation."
                 cardLayout
             >
@@ -212,7 +212,7 @@ const OrganisationSingleView = ({ data }) => {
             
             {/* Domains */}
             <SingleInfo
-                title={lang.domainsSingleLabel}
+                title={lang.Domains}
                 NAMessage="Aucun secteur d'activité n'est précisé pour le moment." 
                 displayCondition={domains.length > 0}
                 cardLayout

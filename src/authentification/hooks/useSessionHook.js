@@ -3,6 +3,7 @@ import {useAuth} from '@/auth/context/auth-context'
 import {MessageContext} from '@/src/common/UserNotifications/Message/Context/Message-Context'
 import {lang} from "@/src/common/Data/GlobalConstants";
 import fetchInternalApi from "@/src/api/fetchInternalApi";
+import AppRoutes from '@/src/Routing/AppRoutes';
 import Router from 'next/router';
 
 /**

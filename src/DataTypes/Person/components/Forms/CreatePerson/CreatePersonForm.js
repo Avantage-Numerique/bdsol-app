@@ -16,6 +16,7 @@ import styles from './CreatePersonForm.module.scss'
 
 //FormData
 import {getDefaultCreateEntityMeta} from "@/src/DataTypes/Meta/EntityMeta";
+import { lang } from '@/src/common/Data/GlobalConstants'
 
 
 const CreatePersonForm = ({ onPositiveResponse }) => {
@@ -120,7 +121,7 @@ const CreatePersonForm = ({ onPositiveResponse }) => {
             />
             </div>
             <div className="d-flex justify-content-end">
-                <Button disabled={!formState.isValid} type="button" onClick={submitHandler}>Créer</Button>
+                <Button disabled={!formState.isValid} type="button" onClick={submitHandler}>{lang.continue}</Button>
             </div>
         </form> 
     );

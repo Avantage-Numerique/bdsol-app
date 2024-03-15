@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 
 //Component 
-import ProjectSingleEdit from '@/src/DataTypes/Project/layouts/single/ProjectSingleEdit'
-import CreateProjectForm from '@/DataTypes/Project/component/forms/CreateProjectForm'
+import PlaceSingleEdit from '@/src/DataTypes/Place/components/layouts/single/PlaceSingleEdit';
+import CreatePlaceForm from '@/DataTypes/Place/components/forms/CreatePlaceForm/CreatePlaceForm';
 import Spinner from '@/src/common/widgets/spinner/Spinner';
 import Button from '@/src/common/FormElements/Button/Button'
 
@@ -14,10 +14,10 @@ import {lang} from "@/src/common/Data/GlobalConstants";
 import {withSessionSsr} from "@/auth/session/handlers/withSession";
 import {ssrCanAccess} from "@/auth/permissions/ssrCanAccess";
 import Router from "next/router";
-import Project from '@/src/DataTypes/Project/models/Project';
+import Place from '@/src/DataTypes/Place/models/Place';
 
 
-const PersonSingleEditPage = () => {
+const PlaceSingleEditPage = () => {
 
     //Modal hook
     const { modal, Modal, displayModal, closeModal } = useModal() 
@@ -27,9 +27,9 @@ const PersonSingleEditPage = () => {
     useEffect(() => displayModal(), [])
 
     return (
-        <div className="container py-4">
+        <div className="container">
                 {/* Empty single edit, only to display in the background */}
-                <ProjectSingleEdit data={{}} />
+                <PlaceSingleEdit data={{}} />
                 {/* Loading spinner */}
                 {isLoading && <Spinner fixed />}
                 {/* Modal with the form in it*/}
@@ -38,10 +38,10 @@ const PersonSingleEditPage = () => {
                         coloredBackground
                         darkColorButton
                     >
-                        <header className={`d-flex justify-content-between align-items-start`}>
+                        <header className={`d-flex justify-content-between align-items-start mb-4`}>
                             <div className="d-flex flex-column">
-                                <h3 className="text-primary">Ajouter un projet</h3>
-                                <p>Entrez les informations de base d'un Projet. Vous pourrez l'éditer de manière détaillée par la suite.</p>
+                                <h3 className="text-secondary-darker">Ajouter un lieu</h3>
+                                <p>Entrez les informations de base d'une entité "Lieu". Vous pourrez l'éditer de manière détaillée par la suite.</p>
                             </div>
                             <Button 
                                 onClick={() => {
@@ -49,11 +49,11 @@ const PersonSingleEditPage = () => {
                                     Router.push(`/contribuer/`)
                                     )
                                 }}
-                            >{lang.cancel}</Button>
+                            >Fermer</Button>
                         </header>   
-                        <CreateProjectForm onPositiveResponse={(response) => {
+                        <CreatePlaceForm onPositiveResponse={(response) => {
                             //Create a model for the response
-                            const model = new Project(response.data);
+                            const model = new Place(response.data);
 
                             //Execute the redirection
                             Router.push( model.singleEditLink )
@@ -69,4 +69,4 @@ const PersonSingleEditPage = () => {
 
 export const getServerSideProps = withSessionSsr(ssrCanAccess);
 
-export default PersonSingleEditPage
+export default PlaceSingleEditPage

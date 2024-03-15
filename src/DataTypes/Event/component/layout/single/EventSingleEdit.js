@@ -429,10 +429,10 @@ const EventSingleEdit = ({data}, ...props) => {
                 <div className="col col-md-6">
 
                     <SingleInfo 
-                        title="Entités responsables"
+                        title="Organisations responsables"
                     >
                         <SingleInfo 
-                            title={lang.inCharge}
+                            title={lang.entityInCharge}
                             isSubtitle
                         >
                             {/* entityInCharge */}
@@ -447,7 +447,7 @@ const EventSingleEdit = ({data}, ...props) => {
                             />
                         </SingleInfo> 
                         <SingleInfo 
-                            title={lang.eventOrganizer}
+                            title={lang.producer}
                             isSubtitle
                         >
                             {/* organizer */}
@@ -467,7 +467,7 @@ const EventSingleEdit = ({data}, ...props) => {
                 <div className="col col-md-6">
                     {/* location */}
                     <SingleInfo 
-                        title="Emplacement (par adresse)"
+                        title={lang.location}
                     >
                         <Select2
                             name="location"
@@ -485,7 +485,7 @@ const EventSingleEdit = ({data}, ...props) => {
 
             </div>
             <div className="row">
-                <SingleInfo title={lang.description} className={"col"}>
+                <SingleInfo title={lang.about} className={"col"}>
                     {/* Description */}
                     <RichTextarea
                         name="description"
@@ -580,7 +580,7 @@ const EventSingleEdit = ({data}, ...props) => {
             >
                 {/* skills */}
                 <SingleInfo 
-                    title={lang.eventSkills}
+                    title={lang.skillsAndTechnologies}
                     isSubtitle
                 >
                     <Select2
@@ -599,7 +599,7 @@ const EventSingleEdit = ({data}, ...props) => {
 
                 {/* domains */}
                 <SingleInfo 
-                    title={lang.domainsSingleLabel} 
+                    title={lang.Domains} 
                     isSubtitle
                 >
                     <Select2

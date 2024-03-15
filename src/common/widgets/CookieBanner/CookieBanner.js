@@ -64,7 +64,7 @@ export default function CookieBanner(props) {
                     >
                         <p>Consultez notre politique de gestion de cookie dans notre <RouteLink
                             routeName={"confidentialityPolicy"} uriSuffix={"#usage-cookies"}/>.</p>
-                        <p>{lang.cookieBannerContent} Si vous choisissez aucun, vous ne pourrez pas vous
+                        <p>{lang.cookieBannerContent} Si vous n'en choisissez aucun, vous ne pourrez pas vous
                             connecter à {appConfig.name}</p>
                     </BottomBanner>
                 :

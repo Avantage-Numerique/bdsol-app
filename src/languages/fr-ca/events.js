@@ -8,7 +8,7 @@ const events = {
     "addEventButtonLabel": "Ajouter un événement",
     "eventName":"Nom de l'événement",
     "eventAlternateName":"Nom alternatif",
-    "entityInCharge":"Organisation en charge",
+    "entityInCharge":"Créateur / Créatrice",
     "eventOrganizer":"Organisateur",
     "selectEventType":"Sélectionnez un type d'événement",
     "hyperlink": "Hyperlien",
@@ -26,11 +26,12 @@ const events = {
     "attendees": "Participants",
     "eventSkills": "Compétences liées à l'événement",
     "activityName": "Nom de l'activité",
+    "location": "Emplacement",
 
     "photoGallery": "Galerie photo",
     "addPhotoGallery": "Ajouter une image",
 
-    "scheduleFieldDescription" : "L'horaire sera automatiquement classé par jour, basé sur la date du départ de l'étape.",
+    "scheduleFieldDescription" : "L'horaire sera affiché en ordre chronologique.",
 
     "iconOfEvent": "Icône représentant un événement",
 

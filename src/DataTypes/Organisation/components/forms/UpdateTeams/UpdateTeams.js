@@ -54,25 +54,15 @@ const UpdateTeams = ({name, formTools, parentEntity, ...props}) => {
                                 searchField={"firstName"}
                                 selectField={"fullname"}
                                 validationRules={[
-                                    {name: "REQUIRED"},
-                                    {name: "ONE_OF_MANY_REQUIRED", dependencies: [
-                                            {value: state => state.inputs["role"].value, listenerValue: state => state.inputs["role"].isValid}
-                                        ]
-                                    }
+                                    {name: "REQUIRED"}
                                 ]}
                             />
                         </div>
                         <div className="col-12 col-lg-6">
                             <Input 
                                 name="role"
-                                label="Role"
+                                label="Rôle"
                                 placeholder="Rôle dans l'équipe"
-                                validationRules={[
-                                    {name: "ONE_OF_MANY_REQUIRED", dependencies: [
-                                        {value: state => state.inputs["member"].value, listenerValue: state => state.inputs["member"].isValid}
-                                    ]
-                                }
-                                ]}
                             />
                         </div>
                     </div>

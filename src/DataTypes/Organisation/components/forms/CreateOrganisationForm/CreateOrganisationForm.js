@@ -13,6 +13,7 @@ import { useAuth } from "@/src/authentification/context/auth-context";
 
 //FormData
 import {getDefaultCreateEntityMeta} from "@/src/DataTypes/Meta/EntityMeta";
+import { lang } from '@/src/common/Data/GlobalConstants'
 
 /**
  * @param {function} onPositiveResponse : Additionnal function to be executed if the submit response is positive
@@ -83,7 +84,7 @@ const CreateOrganisationForm = ({ onPositiveResponse }) => {
                     formTools={formTools}
                 />
             <div className="d-flex justify-content-end">
-                <Button disabled={!formState.isValid} type="button" onClick={submitHandler}>Créer</Button>
+                <Button disabled={!formState.isValid} type="button" onClick={submitHandler}>{lang.continue}</Button>
             </div>
         </form>
     )

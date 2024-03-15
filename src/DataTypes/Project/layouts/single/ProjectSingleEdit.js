@@ -315,7 +315,7 @@ const ProjectSingleEdit = (props) => {
             />
             <Select2
                 name="entityInCharge"
-                label="Organisation en charge"
+                label={lang.entityInCharge}
                 formTools={formTools}
                 creatable={false}
                 isMulti={false}
@@ -366,7 +366,7 @@ const ProjectSingleEdit = (props) => {
 
     const fullWidthContent = (
             <SingleInfo
-                title="Description"
+                title={lang.about}
             >
                 <RichTextarea
                     name="description"
@@ -389,7 +389,7 @@ const ProjectSingleEdit = (props) => {
             </SingleInfo>
             { /* team */ }
             <SingleInfo
-                title="Éditez les membres de l'équipe"
+                title="Membres de l'équipe"
             >
                 <UpdateTeams
                     name="team"
@@ -443,7 +443,7 @@ const ProjectSingleEdit = (props) => {
             <SingleInfo>
                 <Select2
                     name="skills"
-                    label="Compétences liées au projet"
+                    label={lang.skillsAndTechnologies}
                     formTools={formTools}
                     creatable={true}
                     modalType={TYPE_TAXONOMY}

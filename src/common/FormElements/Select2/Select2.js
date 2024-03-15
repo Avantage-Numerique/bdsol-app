@@ -62,7 +62,6 @@ const Select2 = ({ name, formTools, ...props }) => {
     const [optionsList, setOptionList] = useState(props.optionsList ?? []);
     const [inputValue, setInputValue] = useState("");
     const [value, setValue] = useState(null);
-    useEffect(() => console.log("inputValue", "value", inputValue, value), [inputValue, value])
 
     //Extract root modal 
     const { Modal, displayModal, closeModal, modalInitValues } = useRootModal();

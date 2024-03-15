@@ -99,7 +99,7 @@ const Nav = ( {menuState, setMenuState} ) => {
                             </section>
 
                             <section className={`${styles["nav-section"]}`}>
-                                <Button className="fs-3 h2" text_color="dark" href="/categories">Toutes les catégories</Button>
+                                <Button className="fs-3 h2" text_color="dark" href="/categories">Filtrer les données par catégories</Button>
                             </section>
                         </div>
                         <div className="col">

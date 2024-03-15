@@ -282,7 +282,7 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props}) => {
 
     const fullWidthContent = (
         <SingleInfo
-            title={"Biographie / description"}
+            title={lang.about}
         >
             <RichTextarea
                 className="my-3"
@@ -295,19 +295,21 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props}) => {
 
     const contentColumnLeft = (
         <SingleInfo
-            title={"Éditez vos groupes de compétences"}
+            title={lang.skillsAndTechnologies}
         >
             <UpdateSkillGroup
                 parentEntity={props.data}
                 formTools={formTools}
                 name="occupations"
+                labelInput={lang.expertiseField}
+                labelSelect={lang.skillsAndTechnologiesAssociated}
             />
         </SingleInfo>
     )
 
     const contentColumnRight = (
         <SingleInfo 
-            title={lang.domainsSingleLabel} 
+            title={lang.Domains} 
         >
             <Select2
                 name="domains"

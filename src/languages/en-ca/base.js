@@ -16,6 +16,9 @@ export const base = {
     "on": "on",
     "title": "title",
     "subTitle": "subtitle",
+    "cancel" : "Cancel",
+    "continue": "Continue",
+    "about": "About",
 
     // App
 
@@ -129,6 +132,7 @@ export const base = {
     "taxonomyCreateWhenDoNotExistDirective": "The new element of category you add here will be available directly in the form after.",
 
     "backToTaxonomyIndexBtnLabel": "Back to all categories",
+    "skillsAndTechnologies" : "Skills and techonologies",
 
     //Specific taxonomy
 

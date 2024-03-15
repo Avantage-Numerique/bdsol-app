@@ -13,6 +13,7 @@ import {ssrCanAccess} from "@/auth/permissions/ssrCanAccess";
 import Router from "next/router";
 import EquipmentSingleEdit from '@/src/DataTypes/Equipment/components/layouts/single/EquipmentSingleEdit';
 import CreateEquipmentForm from '@/src/DataTypes/Equipment/components/Forms/CreateEquipmentForm/CreateEquipmentForm';
+import { lang } from '@/src/common/Data/GlobalConstants';
 
 //Model
 import Equipment from '@/src/DataTypes/Equipment/models/Equipment';
@@ -42,7 +43,7 @@ const EquipmentSingleEditPage = () => {
                         <header className={`d-flex justify-content-between align-items-start`}>
                             <div className="d-flex flex-column">
                                 <h3 className="text-primary">Ajouter un équipement</h3>
-                                <p>Entrez les informations de base d'une entité "Équipement". Vous pourrez l'éditer de manière détaillée par la suite.</p>
+                                <p>Entrez les informations de base d'un équipement. Vous pourrez l'éditer de manière détaillée par la suite.</p>
                             </div>
                             <Button 
                                 onClick={() => {
@@ -50,7 +51,7 @@ const EquipmentSingleEditPage = () => {
                                     Router.push(`/contribuer/`)
                                     )
                                 }}
-                            >Fermer</Button>
+                            >{lang.cancel}</Button>
                         </header>
                         <CreateEquipmentForm
                             onPositiveResponse={(response) => {
