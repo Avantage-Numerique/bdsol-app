@@ -301,8 +301,8 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props}) => {
                 parentEntity={props.data}
                 formTools={formTools}
                 name="occupations"
-                labelInput={lang.organisationOffer}
-                labelSelect={lang.organisationSkillsAssociated}
+                labelInput={lang.expertiseField}
+                labelSelect={lang.skillsAndTechnologiesAssociated}
             />
         </SingleInfo>
     )

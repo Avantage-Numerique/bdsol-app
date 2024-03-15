@@ -21,6 +21,8 @@ const SelectLicence = ({name, formTools, ...props}) => {
     } = formTools;
 
     const [licences, setLicences] = useState([])
+
+    useEffect( () => {console.log("formstate licence", formState.inputs[name])}, [formState])
     
     //Fetch licence list on load
     useEffect(() => {
@@ -68,12 +70,16 @@ const SelectLicence = ({name, formTools, ...props}) => {
                 label="Licence"
                 options={licences}
                 formTools={formTools}
+                noValueText="Aucune sélection"
                 tip={
                     {
                         header : "Recommandations",
                         body: "Nous recommandons, lorsque possible, de rendre les données disponibles dans le cadre de la licence libre et ouverte Creative Commons CC BY-NC-SA 4.0"
                     }
                 }
+                validationRules={[
+                    {name: "REQUIRED"}
+                ]}
             />
             <small>{
                 formState.inputs[name].value &&

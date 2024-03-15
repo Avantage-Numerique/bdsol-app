@@ -13,6 +13,9 @@ const persons = {
     "nicknameLabel": "Surnom&nbsp;:&nbsp;",
     "catchphrase": "Phrase d'accroche",
     "addPersonButtonLabel": "Ajouter une personne",
+    "expertiseField": "Champ d'expertise",
+    "skillsAndTechnologiesAssociated": "Compétences et technologies associées",
+
 
 
     // CreatePersonForm.js

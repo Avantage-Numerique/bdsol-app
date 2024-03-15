@@ -62,7 +62,7 @@ const CreateMediaForm = (props) => {
                 isValid:  true
             },
             licence: {
-                value: licence ?? "copyright",
+                value: licence ?? "",
                 isValid: true
             },
             description: {
@@ -274,7 +274,7 @@ const CreateMediaForm = (props) => {
                                 }
                             />
 
-                            <Input 
+                            <Input
                                 name="title"
                                 label="Titre de l'image"
                                 formTools={formTools}
