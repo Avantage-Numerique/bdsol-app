@@ -33,7 +33,6 @@ const SingleBase = (props) => {
         contentColumnLeft,
         contentColumnRight,
         footer,
-
         singlePageBottom,
         model
     } = props;

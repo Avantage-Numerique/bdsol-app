@@ -54,7 +54,14 @@ const SearchBar = ({small, ...props}) => {
                 border: 0
             },
             //backgroundColor: 'white'
-        })
+        }),
+        placeholder: (provided, state) => ({
+            ...provided,
+            whiteSpace: 'nowrap',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            // Ajoutez d'autres styles si nécessaire
+          }),
     }
 
     const inputHandler = formTools.inputHandler;
