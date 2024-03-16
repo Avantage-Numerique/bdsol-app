@@ -114,6 +114,10 @@ const Register = () => {
                     'POST',
                     newUser
                 );
+                msg.addMessage({
+                    text: "Soumission de création de compte effectuée",
+                    positive: true
+                })
 
             } else {
 
