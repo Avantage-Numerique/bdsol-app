@@ -226,6 +226,7 @@ const PlaceSingleView = ({ data }) => {
                 contentColumnRight={contentColumnRight}
                 footer={Footer}
                 singlePageBottom={SinglePageBottom}
+                model={model}
 
             />
         </>
