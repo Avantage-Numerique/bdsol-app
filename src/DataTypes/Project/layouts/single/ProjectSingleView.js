@@ -19,7 +19,6 @@ import {lang} from "@/common/Data/GlobalConstants";
 import {clientSideExternalApiRequest} from "@/src/hooks/http-hook";
 import {removeTagsFromString} from '@/src/helpers/html'
 
-
 //styling 
 import styles from "./ProjectSingleView.module.scss"
 import {haveAValidValue} from "@/src/helpers/obj";

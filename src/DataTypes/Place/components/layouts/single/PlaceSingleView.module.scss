@@ -1,0 +1,14 @@
+/* <ul> element */
+.main-coordinate-list {
+    .coordinate {
+        display: flex;
+        flex-wrap: wrap;
+        .coordinate__title {
+            font-weight: 600;
+            margin-right: 0.75rem;
+        }
+        .coordinate__data {
+
+        }
+    }
+}

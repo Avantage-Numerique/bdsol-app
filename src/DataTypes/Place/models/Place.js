@@ -17,7 +17,8 @@ class Place extends EntityModel {
 
         super(raw);
 
-        this.title = this.getBreadCrumbTitle(raw);
+        this.title = raw.name;
+        this.breadcrumbTitle = this.getBreadCrumbTitle(raw);
         this.description = raw.description ?? "";
         this.mainImage = !raw.mainImage || raw.mainImage === "" || !raw.mainImage ? {
             url: "/entity-icones/L-format/png/Icone-GrandFormat-Lieu.png",

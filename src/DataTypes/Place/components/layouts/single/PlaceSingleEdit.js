@@ -178,7 +178,7 @@ const PlaceSingleEdit = ({ positiveRequestActions, ...props}) => {
             <Input 
                 name="name"
                 label={lang.name}
-                formClassName="discrete-without-focus form-text-white"
+                formClassName="discrete-without-focus form-text-white h2"
                 validationRules={[
                     {name: "REQUIRED"}
                 ]}
@@ -210,63 +210,72 @@ const PlaceSingleEdit = ({ positiveRequestActions, ...props}) => {
         >
         </SingleBaseHeader>
     );
+    
     const fullWidthContent = (
-        <div className="row">
+        <SingleInfo
+            title={lang.about}
+        >
             {/* Description */}
             <RichTextarea
-                className="mb-3 mt-2"
                 name="description"
-                label={lang.description}
                 formTools={formTools}
             />
-        </div>
+        </SingleInfo>
     )
     const contentColumnLeft = (
         <>
-            {/* address */}
-            <Input
-                className="mb-3"
-                name="address"
-                label={lang.address}
-                placeholder={lang.placeAddressPlaceholder}
-                formTools={formTools}
-            />
-            {/* city */}
-            <Input
-                className="mb-3"
-                name="city"
-                label={lang.city}
-                placeholder={lang.placeCityPlaceholder}
-                formTools={formTools}
-            />
-            {/* postalCode */}
-            <Input
-                className="mb-3"
-                name="postalCode"
-                label={lang.postalCode}
-                placeholder={lang.placePostalCodePlaceholder}
-                formTools={formTools}
-            />
-            {/* province */}
-            <Input
-                className="mb-3"
-                name="province"
-                label={lang.province}
-                placeholder={lang.placeProvincePlaceholder}
-                formTools={formTools}
-            />
-            {/* country */}
-            <Input
-                className="mb-3"
-                name="country"
-                label={lang.country}
-                placeholder={lang.placeCountryPlaceholder}
-                formTools={formTools}
-            />
+            <SingleInfo
+                title="Coordonnées"
+            >
+                {/* address */}
+                <Input
+                    className="mb-3"
+                    name="address"
+                    label={lang.address}
+                    placeholder={lang.placeAddressPlaceholder}
+                    formTools={formTools}
+                />
+                {/* city */}
+                <Input
+                    className="mb-3"
+                    name="city"
+                    label={lang.city}
+                    placeholder={lang.placeCityPlaceholder}
+                    formTools={formTools}
+                />
+                {/* postalCode */}
+                <Input
+                    className="mb-3"
+                    name="postalCode"
+                    label={lang.postalCode}
+                    placeholder={lang.placePostalCodePlaceholder}
+                    formTools={formTools}
+                />
+                {/* province */}
+                <Input
+                    className="mb-3"
+                    name="province"
+                    label={lang.province}
+                    placeholder={lang.placeProvincePlaceholder}
+                    formTools={formTools}
+                />
+                {/* country */}
+                <Input
+                    className="mb-3"
+                    name="country"
+                    label={lang.country}
+                    placeholder={lang.placeCountryPlaceholder}
+                    formTools={formTools}
+                />
+            </SingleInfo>
+
         </>
     )
     const contentColumnRight = (
-        <>
+        <SingleInfo
+            title="Informations supplémentaires"
+            cardLayout
+        >
             {/* mrc */}
             <Input
                 className="mb-3"
@@ -299,7 +308,7 @@ const PlaceSingleEdit = ({ positiveRequestActions, ...props}) => {
                 placeholder={lang.placeLatitudePlaceholder}
                 formTools={formTools}
             />
-        </>
+        </SingleInfo>
     )
     {/*********** Footer section ***********/}
     const Footer = (

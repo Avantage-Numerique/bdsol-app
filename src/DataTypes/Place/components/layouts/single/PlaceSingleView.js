@@ -12,7 +12,12 @@ import SanitizedInnerHtml from "@/src/utils/SanitizedInnerHtml";
 import SingleInfo from "@/src/DataTypes/common/layouts/SingleInfo/SingleInfo";
 import {SingleEntityMeta} from "@/src/DataTypes/Meta/components/SingleEntityMeta";
 import Head from "next/head";
+import SingleBaseProgressBar from '@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseProgressBar/SingleBaseProgressBar'
+import {removeTagsFromString} from '@/src/helpers/html'
 
+
+//Styling
+import styles from "./PlaceSingleView.module.scss"
 
 const PlaceSingleView = ({ data }) => {
 
@@ -21,7 +26,7 @@ const PlaceSingleView = ({ data }) => {
     const getLabelGenerator = useCallback((param, query) => {
         return {
             "lieux": lang.Places,
-            "slug": model.title
+            "slug": model.breadcrumbTitle
         }[param];
     }, []);
 
@@ -35,14 +40,10 @@ const PlaceSingleView = ({ data }) => {
             subtitle={(
                 <div className="d-text mt-4">
                     {model.address &&
-                        <p className="text-white">
-                            <span className={"badge bg-secondary"}>{model.address}</span>
-                        </p>
+                        <i><p className="text-white fs-4 mb-0">{model.address}{(model.address && model.city) && <span>,</span>}</p></i>
                     }
                     {model.city &&
-                        <p className="text-white">
-                            <span className={"badge bg-secondary"}>{model.city}</span>
-                        </p>
+                        <i><p className="text-white fs-4">{model.city}</p></i>
                     }
                 </div>
             )}
@@ -52,159 +53,180 @@ const PlaceSingleView = ({ data }) => {
             buttonLink={model.singleEditLink}
         />
     )
-    const fullWidthContent = (
-        <div>
-            {/* description */}
-            {
-                model.description && model.description !== "" &&
-                <SingleInfo title={lang.description}>
-                    <SanitizedInnerHtml>{model.description}</SanitizedInnerHtml>
-                </SingleInfo>
-            }
-        </div>
-    )
-    const contentColumnLeft = (
-        <div>
-            {/* address x2 (in subtitle) */}
-                {
-                    model.address &&
-                    <div className="row">
-                        <div className="col-2">
-                            {lang.address}
-                            
 
-                        </div>
-                        <div className="col-8">
-                            {model.address}
-                        </div>
-                    </div>
-                }
-            {/* city x2 (in subtitle) */}
+    const FullWidthContent = (
+        <>
+            <SingleInfo 
+                title={lang.about} 
+                NAMessage="Aucune description n'est disponible pour le moment."
+            >
                 {
-                    model.city &&
-                    <div className="row">
-                        <div className="col-2">
-                            {lang.city}
-                        </div>
-                        <div className="col-8">
-                            {model.city}
-                        </div>
-                    </div>
+                    <SanitizedInnerHtml>
+                        {model.description}
+                    </SanitizedInnerHtml>
                 }
-            {/* postalCode */}
-                {
-                    model.postalCode &&
-                    <div className="row">
-                        <div className="col-2">
-                            {lang.postalCode}
-                        </div>
-                        <div className="col-8">
-                            {model.postalCode}
-                        </div>
+            </SingleInfo>
+        </>
+    );
+
+    const contentColumnLeft = (
+        <SingleInfo
+            title="Coordonnées"
+            cardLayout
+        >
+            <ul className={`${styles["main-coordinate-list"]}`}>
+                {/* address x2 (in subtitle) */}
+                <li className={`${styles["coordinate"]}`}>
+                    <div className={`${styles["coordinate__title"]}`}>
+                        {lang.address} :
                     </div>
-                }
-            {/* province */}
-                {
-                    model.province &&
-                    <div className="row">
-                        <div className="col-2">
-                            {lang.province}
-                        </div>
-                        <div className="col-8">
-                            {model.province}
-                        </div>
+                    <div className={`${styles["coordinate__data"]}`}>
+                        {model.address ? model.address : " - "}
                     </div>
-                }            
-            {/* country */}
-                {
-                    model.country &&
-                    <div className="row">
-                        <div className="col-2">
-                            {lang.country}
-                        </div>
-                        <div className="col-8">
-                            {model.country}
-                        </div>
+                </li>
+
+                {/* city x2 (in subtitle) */}
+                <li className={`${styles["coordinate"]}`}>
+                    <div className={`${styles["coordinate__title"]}`}>
+                        {lang.city} :
                     </div>
-                }
-        </div>
+                    <div className={`${styles["coordinate__data"]}`}>
+                        {model.city ? model.city : " - "}
+                    </div>
+                </li>
+
+                {/* postalCode */}
+                <li className={`${styles["coordinate"]}`}>
+                    <div className={`${styles["coordinate__title"]}`}>
+                        {lang.postalCode} :
+                    </div>
+                    <div className={`${styles["coordinate__data"]}`}>
+                        {model.postalCode ? model.postalCode : " - "}
+                    </div>
+                </li>
+
+                {/* province */}
+                <li className={`${styles["coordinate"]}`}>
+                    <div className={`${styles["coordinate__title"]}`}>
+                        {lang.province} :
+                    </div>
+                    <div className={`${styles["coordinate__data"]}`}>
+                        {model.province ? model.province : " - "}
+                    </div>
+                </li>
+            
+                {/* country */}
+                <li className={`${styles["coordinate"]}`}>
+                    <div className={`${styles["coordinate__title"]}`}>
+                        {lang.country} :
+                    </div>
+                    <div className={`${styles["coordinate__data"]}`}>
+                        {model.country ? model.country : " - "}
+                    </div>
+                </li>
+
+            </ul>
+        </SingleInfo>
     )
-    const contentColumnRight = (
-        <div>
-            {/* mrc */}
-                {
-                    model.mrc &&
-                    <div className="row">
-                        <div className="col-3">
-                            {lang.mrc}
-                        </div>
-                        <div className="col-8">
-                            {model.mrc}
-                        </div>
+    const contentColumnRight = (    
+        <SingleInfo
+            title="Informations supplémentaires"
+            cardLayout
+        >
+            <ul className={`${styles["main-coordinate-list"]}`}>
+                {/* mrc */}
+                <li className={`${styles["coordinate"]}`}>
+                    <div className={`${styles["coordinate__title"]}`}>
+                        {lang.mrc} :
                     </div>
-                }
-            {/* region */}
-                {
-                    model.region &&
-                    <div className="row">
-                        <div className="col-3">
-                            {lang.region}
-                        </div>
-                        <div className="col-8">
-                            {model.region}
-                        </div>
+                    <div className={`${styles["coordinate__data"]}`}>
+                        {model.mrc ? model.mrc : " - "}
                     </div>
-                }
-            {/* longitude */}
-                {
-                    model.longitude &&
-                    <div className="row">
-                        <div className="col-3">
-                            {lang.longitude}
-                        </div>
-                        <div className="col-8">
-                            {model.longitude}
-                        </div>
+                </li>
+
+                {/* region */}
+                <li className={`${styles["coordinate"]}`}>
+                    <div className={`${styles["coordinate__title"]}`}>
+                        {lang.region} :
                     </div>
-                }
-            {/* latitude */}
-                {
-                    model.latitude &&
-                    <div className="row">
-                        <div className="col-3">
-                            {lang.latitude}
-                        </div>
-                        <div className="col-8">
-                            {model.latitude}
-                        </div>
+                    <div className={`${styles["coordinate__data"]}`}>
+                        {model.region ? model.region : " - "}
                     </div>
-                }
-        </div>
+                </li>
+
+                {/* longitude */}
+                <li className={`${styles["coordinate"]}`}>
+                    <div className={`${styles["coordinate__title"]}`}>
+                        {lang.longitude} :
+                    </div>
+                    <div className={`${styles["coordinate__data"]}`}>
+                        {model.longitude ? model.longitude : " - "}
+                    </div>
+                </li>
+
+                {/* latitude */}
+                <li className={`${styles["coordinate"]}`}>
+                    <div className={`${styles["coordinate__title"]}`}>
+                        {lang.latitude} :
+                    </div>
+                    <div className={`${styles["coordinate__data"]}`}>
+                        {model.latitude ? model.latitude : " - "}
+                    </div>
+                </li>
+            </ul>
+        </SingleInfo>
     )
-    const footer = (
-        <div>
+
+
+    {/*********** Footer section ***********/}
+    const Footer = (
+        <>
             {
                 (model.createdAt || model.updatedAt || model.meta) &&
-                <SingleEntityMeta
-                    createdAt={model.createdAt}
-                    updatedAt={model.updatedAt}
-                    meta={model.meta} />
+                <SingleInfo 
+                    title={lang.entityMetadata} 
+                    className="border-top pt-3"
+                >
+                    {/*********** Entity data ***********/}
+                    <SingleEntityMeta createdAt={model.createdAt} updatedAt={model.updatedAt} meta={model.meta} />
+                </SingleInfo>
             }
-        </div>
+        </>
+    )
+
+    {/*********** Bottom section ***********/}
+    const SinglePageBottom = (
+        <SingleBaseProgressBar 
+            dataList={[
+                {data: model.title},
+                {data: model.address},
+                {data: model.city},
+                {data: model.description, validationFunction: (value => removeTagsFromString(value) ? true : false)},
+                {data: model.postalCode},
+                {data: model.province},
+                {data: model.country},
+                {data: model.mrc},
+                {data: model.region},
+                {data: model.longitude},
+                {data: model.latitude},
+                {data: model.mainImage.isDefault, validationFunction: ((value) => !value)}, 
+            ]}
+            buttonText={lang.contributeButtonLabel}
+            buttonLink={model.singleEditLink}
+        />
     )
 
     return (
         <>
-            <Head>
-                <title>{getTitle([model.title, model.Type.label])}</title>
-            </Head>
             <SingleBase
                 breadCrumb={breadCrumb}
                 header={header}
-                fullWidthContent={fullWidthContent}
+                fullWidthContent={FullWidthContent}
                 contentColumnLeft={contentColumnLeft}
                 contentColumnRight={contentColumnRight}
-                footer={footer}
+                footer={Footer}
+                singlePageBottom={SinglePageBottom}
+
             />
         </>
     )
