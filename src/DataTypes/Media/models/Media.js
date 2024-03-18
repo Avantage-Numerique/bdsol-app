@@ -31,6 +31,8 @@ class Media extends EntityModel {
         this.licence = raw?.licence ?? "";
         this.type = raw?.type === TYPE_MEDIA ? TYPE_MEDIA : TYPE_DEFAULT;//Wrong data sent here.
 
+        this.mainImageModel = this;
+
         //need a better flow for value for this. the first return false.
         //this.associatedEntity = getModelFromType(raw.entityId?.type, raw.entityId);
         
