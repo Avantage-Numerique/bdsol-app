@@ -1,3 +1,4 @@
+import React, {useEffect} from "react";
 import {getIronSession} from "iron-session";
 import App from "next/app";
 import {appDefaultSessionOptions} from "@/src/authentification/session/Session";
@@ -5,18 +6,33 @@ import {AuthProvider} from '@/src/authentification/context/auth-context';
 import Layout from '@/src/layouts/Layout';
 import {getVisitorDataFromContext} from "@/src/authentification/context/visitor-context";
 import {verifyToken} from "@/auth/callbacks/verify-token.callback";
+import CookieBanner from "@/common/widgets/CookieBanner/CookieBanner";
 
+import {init} from "@socialgouv/matomo-next";
 /**
  * Import global SCSS files
  */
 import '@/styles/main.scss';
 
+
+const MATOMO_URL = process.env.NEXT_PUBLIC_MATOMO_URL;
+const MATOMO_SITE_ID = process.env.NEXT_PUBLIC_MATOMO_SITE_ID;
+
 // Extends basic Javascript for the project.
-import "@/src/helpers/ExtendedString";
-import CookieBanner from "@/common/widgets/CookieBanner/CookieBanner";
-import React from "react";
+// import "@/src/helpers/ExtendedString";
 
 function MyApp({Component, pageProps, user, serverCookiesChoices}) {
+
+    useEffect(() => {
+        init(
+            {
+                url: MATOMO_URL,
+                siteId: MATOMO_SITE_ID,
+                //excludeUrlsPatterns: [/^\/login.php/, /\?token=.+/],
+                //disableCookies: true,
+            }
+        );
+    }, []);
     /**
      * Main app render.
      */
