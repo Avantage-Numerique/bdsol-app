@@ -114,7 +114,7 @@ const CreateTaxonomyForm = ({name, category, initValues, onPositiveResponse, ...
         submitRequest(
             `/taxonomies/${submitUri}`,
             'POST',
-            formDat
+            formData
         );
     }
 
