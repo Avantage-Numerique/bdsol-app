@@ -97,7 +97,7 @@ const EquipmentSingleView = ({ data }) => {
     const ContentColumnRight = (
         <>
             <SingleInfo 
-                title={lang.url}
+                title={lang.externalLinks}
                 cardLayout
                 displayCondition={model?.url.length > 0}
                 NAMessage="Aucun hyperlien n'est disponible pour le moment."

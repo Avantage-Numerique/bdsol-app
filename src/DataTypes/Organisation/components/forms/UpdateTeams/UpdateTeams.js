@@ -47,7 +47,7 @@ const UpdateTeams = ({name, formTools, parentEntity, ...props}) => {
                         <div className="col-12 col-lg-6">
                             <Select2
                                 name="member"
-                                label={lang.teamMembers}
+                                label={lang.teamMember}
                                 creatable={false}
                                 isMulti={false}
                                 fetch={"/persons/list"}
@@ -61,8 +61,8 @@ const UpdateTeams = ({name, formTools, parentEntity, ...props}) => {
                         <div className="col-12 col-lg-6">
                             <Input 
                                 name="role"
-                                label="Rôle"
-                                placeholder="Rôle dans l'équipe"
+                                label={lang.roleInTeam}
+                                //placeholder="Rôle dans l'équipe"
                             />
                         </div>
                     </div>

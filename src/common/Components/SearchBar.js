@@ -167,7 +167,7 @@ const SearchBar = ({small, ...props}) => {
                     ref={selectRef}
                     styles={styling}
                     instanceId={"SearchBar-layout"}
-                    placeholder={"Rechercher des personnes, organisations, projets ..."}
+                    placeholder={"Rechercher une personne, un projet, un équipement, etc."}
                     value={value}
                     options={optionList}
                     inputValue={inputValue}

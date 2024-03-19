@@ -40,7 +40,7 @@ const UpdateSocialHandles = ({parentEntity, name, formTools, ...props}) => {
                     <section className="row col">
                         <Input
                             className="col-12"
-                            label={"Nom"}
+                            label={"Description du lien"}
                             name="label"
                             validationRules={[
                                 {name: "REQUIRED"}

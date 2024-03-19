@@ -269,7 +269,7 @@ const Select2 = ({ name, formTools, ...props }) => {
             }}
         />
     )
-    const EventDescription = (<p>L'événement que vous ajoutez sera directement intégrée à votre formulaire.</p>)
+    const EventDescription = (<p>L'événement que vous ajoutez sera directement intégré à votre formulaire.</p>)
     const PlaceModalForm = (
         <CreatePlaceForm
             initValues={ modalInitValues ?? {}}
@@ -282,7 +282,7 @@ const Select2 = ({ name, formTools, ...props }) => {
             }}
         />
     )
-    const PlaceDescription = (<p>Le lieu que vous ajoutez sera directement intégrée à votre formulaire.</p>)
+    const PlaceDescription = (<p>Le lieu que vous ajoutez sera directement intégré à votre formulaire.</p>)
     const EquipmentModalForm = (
         <CreateEquipmentForm
             initValues={ modalInitValues ?? {}}
@@ -295,7 +295,7 @@ const Select2 = ({ name, formTools, ...props }) => {
         }}
         />
     )
-    const EquipmentDescription = (<p>L'équipement que vous ajoutez sera directement intégrée à votre formulaire.</p>)
+    const EquipmentDescription = (<p>L'équipement que vous ajoutez sera directement intégré à votre formulaire.</p>)
 
     const createModal = () => {
         const modals = new Map();

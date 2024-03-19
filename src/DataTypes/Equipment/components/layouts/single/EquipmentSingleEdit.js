@@ -224,7 +224,7 @@ const EquipmentSingleEdit = ({ positiveRequestActions, ...props}) => {
 
     const contentColumnRight = (
         <SingleInfo
-            title={lang.url}
+            title={lang.externalLinks}
             cardLayout
         >
             <UpdateSocialHandles

@@ -258,14 +258,14 @@ const EventSingleView = ({data}) => {
                 
                 {/* Url */}
                 <SocialHandleDisplay 
-                    title={lang.url} 
+                    title={lang.externalLinks} 
                     url={model?.url}
                     className={`${appConfig.spacing.singleSectionSpacingClass}`}
                 />
                 
                 {/* contactPoint */}
                 <SingleInfo 
-                    title={lang.contactPoint}
+                    title={lang.contactInformations}
                     isSubtitle
                 >
                     { contactPoint && contactPoint }

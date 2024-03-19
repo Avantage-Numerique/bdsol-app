@@ -25,6 +25,7 @@ import {useSessionHook} from '@/auth/hooks/useSessionHook'
 
 //Utils
 import {lang} from "@/src/common/Data/GlobalConstants";
+import AppRoutes from '@/src/Routing/AppRoutes'
 
 const Nav = ( {menuState, setMenuState} ) => {
 
@@ -74,72 +75,72 @@ const Nav = ( {menuState, setMenuState} ) => {
                     <div className={`row ${styles["limited-width"]}`}>
                         <div className="col">
                             <section className={`${styles["nav-section"]}`}>
-                                <Button className={`fs-3 h2`} text_color="dark" href="/consulter">Consulter les données</Button>
+                                <Button className={`fs-3 h2`} text_color="dark" href={AppRoutes.consult.asPath}>Consulter les données</Button>
                             </section>
 
                             <section className={`${styles["nav-section"]}`}>
-                                <Button className="fs-3 h2" text_color="dark" href="/contribuer">Ajouter des données</Button>
+                                <Button className="fs-3 h2" text_color="dark" href={AppRoutes.contribute.asPath}>Ajouter des données</Button>
                                 <ul className={`${styles["button-list"]}`}>
                                     <li>
-                                        <Button text_color="dark" href="/contribuer/organisations"><i className={`${Organisation.icon} ${styles["entity-icon"]}`} />Ajouter une organisation</Button>
+                                        <Button text_color="dark" href={AppRoutes.organisationsCreate.asPath}><i className={`${Organisation.icon} ${styles["entity-icon"]}`} />Ajouter une organisation</Button>
                                     </li>
                                     <li>
-                                        <Button text_color="dark" href="/contribuer/personnes"><i className={`${Person.icon} ${styles["entity-icon"]}`} />Ajouter une personne</Button>
+                                        <Button text_color="dark" href={AppRoutes.personCreate.asPath}><i className={`${Person.icon} ${styles["entity-icon"]}`} />Ajouter une personne</Button>
                                     </li>
                                     <li>
-                                        <Button text_color="dark" href="/contribuer/projets"><i className={`${Project.icon} ${styles["entity-icon"]}`} />Ajouter un projet</Button>
+                                        <Button text_color="dark" href={AppRoutes.projectCreate.asPath}><i className={`${Project.icon} ${styles["entity-icon"]}`} />Ajouter un projet</Button>
                                     </li>
                                     <li>
-                                        <Button text_color="dark" href="/contribuer/evenements"><i className={`${Event.icon} ${styles["entity-icon"]}`} />Ajouter un événement</Button>
+                                        <Button text_color="dark" href={AppRoutes.eventCreate.asPath}><i className={`${Event.icon} ${styles["entity-icon"]}`} />Ajouter un événement</Button>
                                     </li>
                                     <li>
-                                        <Button text_color="dark" href="/contribuer/equipements"><i className={`${Equipment.icon} ${styles["entity-icon"]}`} />Ajouter un équipement</Button>
+                                        <Button text_color="dark" href={AppRoutes.equipmentCreate.asPath}><i className={`${Equipment.icon} ${styles["entity-icon"]}`} />Ajouter un équipement</Button>
                                     </li>
                                 </ul>
                             </section>
 
                             <section className={`${styles["nav-section"]}`}>
-                                <Button className="fs-3 h2" text_color="dark" href="/categories">Filtrer les données par catégories</Button>
+                                <Button className="fs-3 h2" text_color="dark" href={AppRoutes.categories.asPath}>Filtrer les données par catégories</Button>
                             </section>
                         </div>
                         <div className="col">
                             <section className={`${styles["nav-section"]}`}>
-                                <Button className="fs-3 h2" text_color="dark" href="/">À propos</Button>
+                                <Button className="fs-3 h2" text_color="dark" href={AppRoutes.about.asPath}>À propos</Button>
                                 <ul className={`${styles["button-list"]}`}>
                                     <li>
-                                        <Button text_color="dark" href="/">En savoir plus sur le projet AVNU</Button>
+                                        <Button text_color="dark" href={AppRoutes.about.asPath}>En savoir plus sur le projet AVNU</Button>
                                     </li>
                                     <li>
-                                        <Button text_color="dark" href="https://avantagenumerique.org/notre-equipe/" external={true}>Notre équipe</Button>
+                                        <Button text_color="dark" href={AppRoutes.about.asPath+"#equipe"}>Notre équipe</Button>
                                     </li>
                                     <li>
-                                        <Button text_color="dark" href="/nous-joindre">Nous joindre</Button>
+                                        <Button text_color="dark" href={AppRoutes.contact.asPath}>Nous joindre</Button>
                                     </li>
                                     <li>
-                                        <Button text_color="dark" href="/faq">FAQ</Button>
+                                        <Button text_color="dark" href={AppRoutes.faq.asPath}>FAQ</Button>
                                     </li>
                                 </ul>
                             </section>
 
                             <section className={`${styles["nav-section"]}`}>
-                                <Button className="fs-3 h2" text_color="dark" href="/compte">Espace membre</Button>
+                                <div className="fs-3 h2" text_color="dark">Espace membre</div>
                                 <ul className={`${styles["button-list"]}`}>
                                     { auth.user.isLoggedIn ? 
                                     <>
                                         <li>
-                                            <Button href="/compte" text_color="dark">Mon profil</Button>
+                                            <Button href={AppRoutes.account.asPath} text_color="dark">Mon profil</Button>
                                         </li>
                                         <li>
                                             <Button onClick={logout} text_color="dark">{lang.menuLabelToDisconnect}</Button>
                                         </li>
                                     </> 
-                                    : 
+                                    :
                                     <> 
                                         <li>
-                                            <Button href="/compte/connexion" text_color="dark">{lang.menuLabelConnect}</Button>
+                                            <Button href={AppRoutes.connection.asPath} text_color="dark">{lang.menuLabelConnect}</Button>
                                         </li>
                                         <li>
-                                            <Button href="/compte/inscription" text_color="dark">{lang.menuLabelCreateAccount}</Button>
+                                            <Button href={AppRoutes.register.asPath} text_color="dark">{lang.menuLabelCreateAccount}</Button>
                                         </li>
                                     </>
                                     }

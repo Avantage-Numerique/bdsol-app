@@ -25,7 +25,8 @@ const confirmationForm = () => {
     //Possibilities of removing email input and ajust formState to the user that just registered if it's the case
     const resendToken = async () => {
 
-        const apiResponse = await clientSideExternalApiRequest("/verify-account/resend",
+        const apiResponse = await clientSideExternalApiRequest(
+            "/verify-account/resend",
             {
                 body: JSON.stringify({data: { email: formState.inputs.email.value }}),
             })

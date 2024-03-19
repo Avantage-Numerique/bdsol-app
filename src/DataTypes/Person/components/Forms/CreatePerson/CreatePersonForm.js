@@ -116,7 +116,7 @@ const CreatePersonForm = ({ onPositiveResponse }) => {
                <RichTextarea 
                 className="my-3"
                 name="description"
-                label="Biographie / description"
+                label={lang.about}
                 formTools={formTools}
             />
             </div>

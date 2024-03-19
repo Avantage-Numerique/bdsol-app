@@ -137,7 +137,7 @@ const OrganisationSingleView = ({ data }) => {
             
             {/* Projects */}
             <SingleInfo 
-                title={`${lang.plural(lang.inChargeOfProject, lang.inChargeOfProjects, projects.length)}`} 
+                title={`${lang.plural(lang.Project, lang.Projects, projects.length)}`} 
                 displayCondition={projects.length > 0}
                 cardLayout
             >
@@ -155,7 +155,7 @@ const OrganisationSingleView = ({ data }) => {
             
             {/* Equipment */}
             <SingleInfo 
-                title={lang.Equipments}
+                title={lang.EquipmentsOwned}
                 displayCondition={equipment && equipment.length > 0}
                 cardLayout
             >
@@ -237,7 +237,7 @@ const OrganisationSingleView = ({ data }) => {
             {/* Url */}
             { model && model?.url &&
                 <SocialHandleDisplay
-                    title={lang.url}
+                    title={lang.externalLinks}
                     url={model?.url}
                 />
             }

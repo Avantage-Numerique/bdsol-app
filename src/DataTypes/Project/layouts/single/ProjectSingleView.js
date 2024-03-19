@@ -260,7 +260,7 @@ const ProjectSingleView = ({ data }) => {
             
             {/* Contact */}            
             <SingleInfo
-                title={lang.projectContact}
+                title={lang.contactInformations}
                 isSubtitle                
             >
                 { contactPoint &&
@@ -272,7 +272,7 @@ const ProjectSingleView = ({ data }) => {
             
             {/*url*/}
             <SocialHandleDisplay 
-                title={lang.url} 
+                title={lang.externalLinks} 
                 url={model?.url}
                 className={`${appConfig.spacing.singleSectionSpacingClass}`}
             />

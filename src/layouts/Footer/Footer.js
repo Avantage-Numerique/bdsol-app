@@ -24,7 +24,7 @@ const Footer = () => {
                 </div>
                 {/* Presentation of Avantage Numerique */}
                 <div className={`row`}>
-                    <p className="text-center mb-0">est une initiative du hub</p>
+                    <p className="text-center mb-0">Un projet développé avec amour par</p>
                 </div>
                 <div className={`row justify-content-center ${styles["secondary-logo--container"]}`}>
                     <div className="d-flex justify-content-center ">
@@ -33,7 +33,6 @@ const Footer = () => {
                             <img alt="Logo avantage numérique" src="/logos/logo_Avantage_Numérique.svg"/>
                         </a>
                     </div>
-                    et du Petit Théâtre du Vieu Noranda.
                 </div>
                 {/* Utils and legal links */}
                 <div className={`row d-flex flex-column`}>

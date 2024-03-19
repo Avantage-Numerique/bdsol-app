@@ -11,7 +11,7 @@ const persons = {
     "contactLabel": "Contact&nbsp;:&nbsp;",
     "nickname": "surnom",
     "nicknameLabel": "Surnom&nbsp;:&nbsp;",
-    "catchphrase": "Phrase d'accroche",
+    "catchphrase": "Profile headline",
     "addPersonButtonLabel": "Ajouter une personne",
     "expertiseField": "Expertise Field",
     "skillsAndTechnologiesAssociated": "Skills and technologies associated",
@@ -23,6 +23,14 @@ const persons = {
     "formPersonInstructions": "",
     "personUploadMediaMainImage": "Vous pourrez téléverser une image à partir de la page de cette personne. Cette image représentera cette personne et sera affiché dans sa fiche et dans les pages qui la liste.",
 
+    "memberOfOrganisations": "Member of organisations",
+    "memberOfOrganisation": "Member of organisation",
+
+    "memberOfProjects": "Member of projects",
+    "memberOfProject": "Member of project",
+
+    "attendThisEvent": "J'ai participé à cet événement",
+    "attendTheseEvents": "J'ai participé à ces événements",
     "iconOfPerson": "Icon representing a person",
 }
 

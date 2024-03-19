@@ -10,6 +10,7 @@ const organisations = {
 
     "singleDescriptionLabel": "Présentation",
     "bestContactPointLabel": "Meilleur moyen pour les contacter : ",
+    "roleInTeam": "Rôle dans l'équipe",
 
 
     //  CreateOrganisationForm.js
@@ -29,8 +30,8 @@ const organisations = {
 
     "organisationContact": "Contact",
 
-    "inChargeOfProject": "En charge du projet",
-    "inChargeOfProjects": "En charge des projets",
+    "projectCreated": "Projet créé",
+    "projectsCreated": "Projets créés",
 
     "organizerOfEvent": "A organisé cet événement",
     "organizerOfEvents": "A organisé ces événements",
