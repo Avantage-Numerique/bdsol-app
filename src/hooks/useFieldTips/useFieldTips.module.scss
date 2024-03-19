@@ -1,0 +1,10 @@
+.info-button {
+    .icon{
+        color: $dark;
+        border-radius: 100%;
+        transition: 0.3s ease;
+        &:hover {
+            background-color: rgba(128, 128, 128, 0.163);
+        }
+    }
+}

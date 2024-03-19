@@ -15,6 +15,7 @@ import {useHttpClient} from "@/src/hooks/http-hook";
 import useDebounce from '@/src/hooks/useDebounce'
 import {useRootModal} from '@/src/hooks/useModal/useRootModal'
 import {useValidation} from '@/src/hooks/useValidation/useValidation';
+import {useFieldTips} from '@/src/hooks/useFieldTips/useFieldTips';
 
 //Modal component
 import {
@@ -75,6 +76,8 @@ const Select2 = ({ name, formTools, ...props }) => {
 
     //Extract validator message
     const { validate, RequirementsBadges, dependencyCallingValidation } = useValidation( props.validationRules, formState )
+    //Tooltip
+    const {TipPopOver, TipButton} = useFieldTips(props.tip);
 
     useEffect(() => {
         inputHandler(
@@ -156,11 +159,14 @@ const Select2 = ({ name, formTools, ...props }) => {
     }
 
     const label = props.label ? 
-        (
+        (   
+            <>
             <div className="d-flex justify-content-between pb-1">
                 <label htmlFor={name}>{props.label}</label>
-                {props.tooltip && <Tip header={props.tooltip?.header} body={props.tooltip?.body}/>}
+                {props.tip && <TipButton title="Détails" />}
             </div>
+            <TipPopOver />
+            </>
         ) :
         (<></>);
 

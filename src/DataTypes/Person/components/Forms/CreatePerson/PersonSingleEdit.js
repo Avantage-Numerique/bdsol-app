@@ -299,7 +299,7 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props}) => {
         >
             <UpdateSkillGroup
                 parentEntity={props.data}
-                formTools={formTools}
+                formTools={formTools}  
                 name="occupations"
                 labelInput={lang.expertiseField}
                 labelSelect={lang.skillsAndTechnologiesAssociated}
@@ -318,7 +318,6 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props}) => {
                 creatable={true}
                 modalType={TYPE_TAXONOMY}
                 isMulti={true}
-
                 fetch={"/taxonomies/list"}
                 requestData={{category:"domains", name:""}}
                 searchField={"name"}

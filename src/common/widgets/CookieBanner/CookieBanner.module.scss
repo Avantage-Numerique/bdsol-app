@@ -1,0 +1,10 @@
+.cookie-baner__img {
+    max-height: clamp(5rem, 15vh, 8rem);
+    width: auto;
+}
+
+@media screen and (min-width: 768px) {
+    .cookie-baner__img {
+        max-height: 50vh;
+    }
+}

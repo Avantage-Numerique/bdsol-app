@@ -13,7 +13,7 @@
     left: 0;
     z-index: 500;
     border: 0;
-
+    box-shadow: 2px 1px 15px -2px rgb(183 183 183);
     /* Fade in animation when the element appear*/
     animation: slideIn $animation-duration $bezier-ease-in-out forwards;
 

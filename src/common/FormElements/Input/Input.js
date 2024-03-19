@@ -2,9 +2,8 @@ import {useEffect, useRef} from 'react';
 
 //Hooks
 import {useValidation} from '@/src/hooks/useValidation/useValidation';
+import {useFieldTips} from '@/src/hooks/useFieldTips/useFieldTips';
 
-//components
-import Tip from '@/common/FormElements/Tip/Tip';
 
 //Styling
 import styles from './Input.module.scss';
@@ -32,6 +31,7 @@ const Input = ({name, formTools, ...props}) => {
     } = formTools;
 
     const { validate, RequirementsBadges, ValidationErrorMessages, dependencyCallingValidation } = useValidation( props.validationRules, formState )
+    const {TipPopOver, TipButton} = useFieldTips(props.tip);
 
 
     const currentState = formState.inputs[name];
@@ -83,9 +83,10 @@ const Input = ({name, formTools, ...props}) => {
                 </label>
                 {
                     props.tip &&
-                    <Tip {...props.tip}/>
+                    <TipButton title="Détails" />
                 }
             </div>
+            <TipPopOver />
 
             <div 
                 //tabIndex="0"  Would allow the complete field to be focused, not only the input. But that would alos make two focusable elements by field

@@ -9,6 +9,8 @@ import {appConfig} from "@/src/configs/AppConfig";
 import {useAuth} from '@/auth/context/auth-context';
 import Image from "next/image";
 
+//Style
+import styles from "./CookieBanner.module.scss"
 
 export default function CookieBanner(props) {
 
@@ -50,8 +52,14 @@ export default function CookieBanner(props) {
                         title={lang.cookieBannerTitle}
                         Thumb={() => {
                             return (
-                                <Image src={"/general_images/avnu-cookies-thumb.png"} alt={"Cookies non paramétré"}
-                                       width={226} height={116}/>
+                                <Image
+                                    src={"/general_images/avnu-cookies-thumb.png"} 
+                                    alt={"Cookies non paramétré"}
+                                    className={`${styles["cookie-baner__img"]}`}
+                                    width={226} 
+                                    height={116}
+                                    className="px-2"
+                                />
                                 )
                             }
                         }
@@ -73,8 +81,13 @@ export default function CookieBanner(props) {
                     title={lang.cookieDisabled}
                     Thumb={() => {
                         return (
-                            <Image src={"/general_images/avnu-cookies-thumb.png"} alt={"Cookies non paramétrés"}
-                                   width={226} height={116}/>
+                            <Image 
+                                src={"/general_images/avnu-cookies-thumb.png"} 
+                                alt={"Cookies non paramétrés"}
+                                width={226} 
+                                height={116}
+                                className="px-2"
+                            />
                         )
                     }
                     }
