@@ -86,7 +86,7 @@ export const useSessionHook = () => {
                         text: response.text,
                         positive: response.positive
                     });
-                } 
+                }
 
                 if(response.positive) {
                     //If user not verified, redirect to aconfirmer
