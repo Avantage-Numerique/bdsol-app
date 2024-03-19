@@ -4,6 +4,7 @@ const equipment = {
     "Equipment":"Equipment",
     "equipments":"equipment",
     "Equipments":"Equipment",
+    "EquipmentsOwned": "Équipements owned by the organisation",
 
     "productInformations": "Product details",
     "EditEquipment": "Edit the equipment",    
@@ -14,7 +15,6 @@ const equipment = {
     "description": "Description",
     "brand": "Brand",
     "modelName": "Model",
-    "url": "Hyperlink",
     "Quantity": "Quantity",
     "Qty": "Qty",
 

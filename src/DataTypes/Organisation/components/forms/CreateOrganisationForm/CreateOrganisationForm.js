@@ -80,7 +80,7 @@ const CreateOrganisationForm = ({ onPositiveResponse }) => {
                 <RichTextarea 
                     className="my-1"
                     name="description"
-                    label="Présentation / description"
+                    label={lang.about}
                     formTools={formTools}
                 />
             <div className="d-flex justify-content-end">

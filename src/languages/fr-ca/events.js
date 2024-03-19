@@ -8,10 +8,9 @@ const events = {
     "addEventButtonLabel": "Ajouter un événement",
     "eventName":"Nom de l'événement",
     "eventAlternateName":"Nom alternatif",
-    "entityInCharge":"Créateur / Créatrice",
+    "entityInCharge":"Créateur·rice",
     "eventOrganizer":"Organisateur",
-    "selectEventType":"Sélectionnez un type d'événement",
-    "hyperlink": "Hyperlien",
+    "selectEventType":"Type d'événement",
     "contactPoint": "Pour nous contacter",
     "eventType": "Type d'événement",
     "eventFormat": "Format de l'événement",
@@ -22,8 +21,8 @@ const events = {
     "hour": "Heure",
     "endDate": "Date de fin",
     "endTime": "Heure de fin",
-    "subEvents": "Sous-Événements",
-    "attendees": "Participants",
+    "subEvents": "Événements associés",
+    "attendees": "Participant·es",
     "eventSkills": "Compétences liées à l'événement",
     "activityName": "Nom de l'activité",
     "location": "Emplacement",
@@ -31,7 +30,7 @@ const events = {
     "photoGallery": "Galerie photo",
     "addPhotoGallery": "Ajouter une image",
 
-    "scheduleFieldDescription" : "L'horaire sera affiché en ordre chronologique.",
+    "scheduleFieldDescription" : "L'horaire sera affiché chronologiquement.",
 
     "iconOfEvent": "Icône représentant un événement",
 

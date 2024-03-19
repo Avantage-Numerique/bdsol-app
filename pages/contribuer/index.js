@@ -66,9 +66,9 @@ const Index = () => {
                 description={lang.contribute__description}
             />
             <PageHeader
-                title="Contribuer à la base de donnée"
+                title="Contribuer à la base de données"
                 subtitleColor="primary"
-                description="Vous pouvez ajouter une personne, une organisations, un projet, un événement, un équipement ou une catégorie."
+                description="Vous pouvez ajouter une personne, une organisation, un projet, un événement ou un équipement."
                 custom_FullWidthContent={FullWidthImg}
             />
 
@@ -152,7 +152,7 @@ const Index = () => {
                                     <h4>{lang.Event}</h4>
                                 </header>
                                 <section>
-                                    <p>Événement comprenant un aspect numérique ou lié à un projet numérique (lancement, exposition, etc.)</p>
+                                    <p>Événement comprenant un aspect numérique ou lié à un projet numérique.</p>
                                 </section>
                             </div>
                             <Button 
@@ -185,6 +185,7 @@ const Index = () => {
                                 <Icon iconName={"plus"} className="text-secondary-darker" /> Ajouter un {lang.Equipment}
                             </Button>
                         </article>
+                        {/*
                         <article className={`${styles["contribution-page__entity"]} col-12 col-sm-6 col-md-4`}>
                             <div className={`${styles["contribution-page__entity__content"]}`}>
                                 <header>
@@ -205,6 +206,7 @@ const Index = () => {
                                 <Icon iconName={"plus"} className="text-secondary-darker" /> Ajouter un {lang.Place}
                             </Button>
                         </article>
+                        */}
                     </div>
                 </div>
             </div>

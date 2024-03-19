@@ -43,7 +43,7 @@ const EquipmentSingleEditPage = () => {
                         <header className={`d-flex justify-content-between align-items-start`}>
                             <div className="d-flex flex-column">
                                 <h3 className="text-primary">Ajouter un équipement</h3>
-                                <p>Entrez les informations de base d'un équipement. Vous pourrez l'éditer de manière détaillée par la suite.</p>
+                                <p>Entrez les informations principales d'un équipement. Vous pourrez les éditer de manière détaillée par la suite.</p>
                             </div>
                             <Button 
                                 onClick={() => {

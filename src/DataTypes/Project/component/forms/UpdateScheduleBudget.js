@@ -59,7 +59,7 @@ const UpdateScheduleBudget = ({name, formTools, ...props}) => {
                         <Input
                             className="col-12 col-md-6"
                             name="eta"
-                            label="Lapse de temps avant la complétion"
+                            label={lang.duration}
                             formTools={formTools}
                         />
                         
@@ -103,7 +103,7 @@ const UpdateScheduleBudget = ({name, formTools, ...props}) => {
                                         <SelectFetch 
                                             className="col-12 col-md-6 col-lg-4"
                                             name="eta"
-                                            label="Temps de complétion"
+                                            label={lang.duration}
                                             formTools={formTools}
                                             noValueText={lang.noSelectedOption}
                                             fetchOption="timeframeeta-enum"
