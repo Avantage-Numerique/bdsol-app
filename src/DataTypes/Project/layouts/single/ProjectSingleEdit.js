@@ -327,9 +327,9 @@ const ProjectSingleEdit = (props) => {
             {/* Producer */}
             <Select2
                 name="producer"
-                label="Producteur"
+                label={lang.producer}
                 formTools={formTools}
-                tooltip={{header:"Producteur", body:"Un producteur a une forme d'autorité sur le projet et participe à son financement."}}
+                tooltip={{header:"Producteur·rice", body:"Un·e producteur·rice a une forme d'autorité sur le projet et participe à son financement."}}
                 creatable={false}
                 isMulti={false}
 
@@ -379,7 +379,7 @@ const ProjectSingleEdit = (props) => {
         <>
             {/* Sponsor */}
             <SingleInfo
-                title="Partenaires"
+                title={lang.sponsors}
             >
                 <UpdateSponsor
                     name="sponsor"
@@ -434,7 +434,7 @@ const ProjectSingleEdit = (props) => {
             <div className="mb-3">
                 <SelectFetch
                     name="context"
-                    label="Choisissez un contexte"
+                    label={lang.projectContext}
                     formTools={formTools}
                     noValueText={lang.noSelectedOption}
                     fetchOption="context-enum"
@@ -471,17 +471,17 @@ const ProjectSingleEdit = (props) => {
             <SingleInfo>
                 <Input
                     name="contactPoint"
-                    label={lang.projectContactPointLabel}
+                    label={lang.contactInformations}
                     tip={{
                         header: lang.projectContactPointTipTitle,
                         body: lang.projectContactPointTipContent
                     }}
-                    placeholder={lang.projectContactPointPlaceholder}
+                    placeholder="Courriel, téléphone, etc..."
                     formTools={formTools}
                 />
             </SingleInfo>
             <SingleInfo
-                title={lang.url}
+                title={lang.externalLinks}
                 isSubtitle
             >
                 { /* Url */}

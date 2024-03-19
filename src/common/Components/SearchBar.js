@@ -54,7 +54,14 @@ const SearchBar = ({small, ...props}) => {
                 border: 0
             },
             //backgroundColor: 'white'
-        })
+        }),
+        placeholder: (provided, state) => ({
+            ...provided,
+            whiteSpace: 'nowrap',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            // Ajoutez d'autres styles si nécessaire
+          }),
     }
 
     const inputHandler = formTools.inputHandler;
@@ -160,7 +167,7 @@ const SearchBar = ({small, ...props}) => {
                     ref={selectRef}
                     styles={styling}
                     instanceId={"SearchBar-layout"}
-                    placeholder={"Rechercher des personnes, organisations, projets ..."}
+                    placeholder={"Rechercher une personne, un projet, un équipement, etc."}
                     value={value}
                     options={optionList}
                     inputValue={inputValue}

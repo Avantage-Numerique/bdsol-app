@@ -28,6 +28,11 @@ const base = {
     "contributeButtonLabel": "Proposer des modifications",
     "cancel": "Annuler",
     "continue" : "Poursuivre",
+    "url":"Adresse URL",
+    "hyperlink":"Hyperlien",
+    "hyperlinks":"Hyperliens",
+    "externalLinks": "Liens externes",
+    "contactInformations": "Informations de contact",
 
 
     // App
@@ -42,7 +47,7 @@ const base = {
     //  HomePage
 
     "homePageTitle": "L'outil d'exploration des ressources technologiques du Croissant boréal",
-    "homePageDescription": "Retrouvez en quelques clics les organismes, projets, personnes, équipements et événements en lien avec le numérique sur votre territoire.",
+    "homePageDescription": "Retrouvez en quelques clics les organisations, projets, personnes, équipements et événements en lien avec le numérique sur votre territoire.",
     "actualities": "Actualités",
     "allData": "Toutes les données",
     "menu": "Menu",
@@ -94,6 +99,7 @@ const base = {
 
     "noTeamMemberSetMessage": "Personne n'est inscrit comme membre de l'équipe de cette organisation.",
     "teamMembers": "Membres de l'équipe",
+    "teamMember": "Membre de l'équipe",
 
     //  NAV
 

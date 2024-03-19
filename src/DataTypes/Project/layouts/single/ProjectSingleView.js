@@ -19,7 +19,6 @@ import {lang} from "@/common/Data/GlobalConstants";
 import {clientSideExternalApiRequest} from "@/src/hooks/http-hook";
 import {removeTagsFromString} from '@/src/helpers/html'
 
-
 //styling 
 import styles from "./ProjectSingleView.module.scss"
 import {haveAValidValue} from "@/src/helpers/obj";
@@ -261,7 +260,7 @@ const ProjectSingleView = ({ data }) => {
             
             {/* Contact */}            
             <SingleInfo
-                title={lang.projectContact}
+                title={lang.contactInformations}
                 isSubtitle                
             >
                 { contactPoint &&
@@ -273,7 +272,7 @@ const ProjectSingleView = ({ data }) => {
             
             {/*url*/}
             <SocialHandleDisplay 
-                title={lang.url} 
+                title={lang.externalLinks} 
                 url={model?.url}
                 className={`${appConfig.spacing.singleSectionSpacingClass}`}
             />

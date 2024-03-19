@@ -617,7 +617,7 @@ const EventSingleEdit = ({data}, ...props) => {
                 
                 {/* Url */}
                 <SingleInfo 
-                    title={lang.hyperlink}
+                    title={lang.externalLinks}
                     isSubtitle
                 >
                     <UpdateSocialHandles
@@ -630,7 +630,7 @@ const EventSingleEdit = ({data}, ...props) => {
 
                 {/* contactPoint */}
                 <SingleInfo 
-                    title={lang.projectContactPointLabel}
+                    title={lang.contactInformations}
                     isSubtitle
                     tooltip={{
                         header: lang.projectContactPointTipTitle,

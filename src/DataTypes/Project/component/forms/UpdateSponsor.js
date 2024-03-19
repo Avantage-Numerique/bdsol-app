@@ -43,7 +43,7 @@ const UpdateSponsor = ({name, formTools, ...props}) => {
                             <div className="col-12 col-lg-6">
                                 <Select2
                                     name="entity"
-                                    label="Partenaire"
+                                    label={lang.organisationSponsor}
                                     formTools={formTools}
                                     creatable={false}
                                     isMulti={false}
@@ -59,7 +59,7 @@ const UpdateSponsor = ({name, formTools, ...props}) => {
                             <div className="col-12 col-lg-6">
                                 <Input
                                     name="name"
-                                    label="Titre"
+                                    label={lang.description}
                                     formTools={formTools}
                                 />
                             </div>

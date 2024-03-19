@@ -99,7 +99,7 @@ const CreateProjectForm = ({ onPositiveResponse, initValues }) => {
             <Select2
                 name="entityInCharge"
                 className="my-1"
-                label="Organisation en charge"
+                label={lang.entityInCharge}
                 formTools={formTools}
                 creatable={false}
                 isMulti={false}

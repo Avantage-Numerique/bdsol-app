@@ -19,6 +19,7 @@ export const base = {
     "cancel" : "Cancel",
     "continue": "Continue",
     "about": "About",
+    "contactInformations": "Contact informations",
 
     // App
 
@@ -101,6 +102,9 @@ export const base = {
     "persons": "people",
     "url": "url",
     "urlLabel": "Url&nbsp;:&nbsp;",
+    "hyperlink":"Hyperlink",
+    "hyperlinks":"Hyperlinks",
+    "externalLinks": "Liens externes",
     "contact": "contact",
     "contactLabel": "Contact&nbsp;:&nbsp;",
     "nickname": "nickname",
@@ -116,6 +120,7 @@ export const base = {
     "organisation": "organisation",
     "organisations": "organisations",
     "teamMembers": "Team members",
+    "teamMember": "Team member",
     "fondationDate": "Fondation date",
 
     "singleDescriptionLabel": "Presentation",

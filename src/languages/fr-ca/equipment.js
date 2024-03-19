@@ -4,6 +4,7 @@ const equipment = {
     "Equipment":"Équipement",
     "equipments":"équipements",
     "Equipments":"Équipements",
+    "EquipmentsOwned": "Équipements possédés par l'organisation",
 
     "allEquipmentTitle": "Consulter les équipements",
     "allEquipmentDescription" : "Les équipements listés peuvent être liés à des organisations, des projets ou d'autre entité du milieu culturel.",
@@ -14,7 +15,6 @@ const equipment = {
     "description": "Description",
     "brand": "Marque",
     "modelName": "Modèle",
-    "url": "Hyperlien",
     "Quantity": "Quantité",
     "Qty": "Qte",
     "productInformations": "Détails du produit",

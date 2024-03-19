@@ -21,6 +21,10 @@ const projects = {
     "projectLink": "Hyperlink",
     "projectPartners": "Partners",
     "projectDescription": "Presentation",
+    "sponsor": "Sponsor",
+    "sponsors": "Sponsors",
+    "organisationSponsor": "Sponsoring organisation",
+    "duration": "Duration",
 
     "projectsSteps": "Project stages",
 

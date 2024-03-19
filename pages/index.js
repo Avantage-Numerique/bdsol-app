@@ -143,7 +143,7 @@ const HomePage = ({}) => {
                 <div className="row gx-5">
                     <div className="d-flex flex-column align-items-center">
                         <h2 className="mt-4 text-center">Ajouts récents à la base de données</h2>
-                        <p className="mb-4 text-center">Cliquez sur les différents profils afin d'obtenir plus d'informations sur ces ressources.</p>
+                        <p className="mb-4 text-center">Cliquez sur les différentes fiches afin d'obtenir plus d'informations sur ces ressources.</p>
                         <div className="home-page__feed-section container py-4 position-relative">
                             {/* Loading state : If loading is on and there is no feed */}
                             {
@@ -201,7 +201,8 @@ const HomePage = ({}) => {
                             </div>
                             <div className="d-flex flex-column align-items-start mt-3">
                                 <Button className="px-4 mt-2" href={AppRoutes.about.asPath}>En savoir plus sur l'initiative</Button>
-                                <Button className="mt-3" href="https://avantagenumerique.org/" external={true} text_color="dark">Découvrir Avantage Numérique</Button>
+                                {//<Button className="mt-3" href="https://avantagenumerique.org/" external={true} text_color="dark">Découvrir Avantage Numérique</Button>
+                                }
                             </div>
                         </div>
                     </div>

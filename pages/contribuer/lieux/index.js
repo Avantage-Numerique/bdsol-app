@@ -41,7 +41,7 @@ const PlaceSingleEditPage = () => {
                         <header className={`d-flex justify-content-between align-items-start mb-4`}>
                             <div className="d-flex flex-column">
                                 <h3 className="text-secondary-darker">Ajouter un lieu</h3>
-                                <p>Entrez les informations de base d'une entité "Lieu". Vous pourrez l'éditer de manière détaillée par la suite.</p>
+                                <p>Entrez les informations principales d'un lieu. Vous pourrez les éditer de manière détaillée par la suite.</p>
                             </div>
                             <Button 
                                 onClick={() => {
@@ -49,7 +49,7 @@ const PlaceSingleEditPage = () => {
                                     Router.push(`/contribuer/`)
                                     )
                                 }}
-                            >Fermer</Button>
+                            >{lang.cancel}</Button>
                         </header>   
                         <CreatePlaceForm onPositiveResponse={(response) => {
                             //Create a model for the response

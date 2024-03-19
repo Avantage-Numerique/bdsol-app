@@ -265,7 +265,6 @@ const OrganisationSingleEdit = (props) => {
     const subtitle = (
         <Input
             name="catchphrase"
-            placeholder={lang.catchphrase}
             formClassName="discrete-without-focus form-text-white"
             label={lang.catchphrase}
             formTools={formTools}
@@ -333,7 +332,7 @@ const OrganisationSingleEdit = (props) => {
             </SingleInfo>
             { /* Equipment */}
             <SingleInfo
-                title={lang.Equipments}
+                title={lang.EquipmentsOwned}
             >
                 <SelectEquipment 
                     name="equipment"
@@ -352,7 +351,7 @@ const OrganisationSingleEdit = (props) => {
                 <SingleInfo>
                     <Select2
                         name="location"
-                        label="Emplacement (par addresse)"
+                        label={lang.location}
                         formTools={formTools}
                         creatable={true}
                         modalType={TYPE_PLACE}
@@ -366,12 +365,12 @@ const OrganisationSingleEdit = (props) => {
                 <SingleInfo>
                     <Input
                         name="contactPoint"
-                        label="Information de contact"
+                        label={lang.contactInformations}
                         tip={{
-                            header: "À noter",
-                            body: "Cette information vise à offrir une option pour rejoindre un représentant de l'organisation."
+                            header: lang.projectContactPointTipTitle,
+                            body: lang.projectContactPointTipContent
                         }}
-                        placeholder="Adresse courriel, numéro de téléphone, etc..."
+                        placeholder="Courriel, téléphone, etc..."
                         formTools={formTools}
                     />
                 </SingleInfo>
@@ -402,7 +401,7 @@ const OrganisationSingleEdit = (props) => {
                 </SingleInfo>
 
                 <SingleInfo
-                    title={lang.url}
+                    title={lang.externalLinks}
                     isSubtitle
                 >
                     { /* Url */}
