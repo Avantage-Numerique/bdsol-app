@@ -255,7 +255,8 @@ const AppRoutesRaw = {
     about: {
         label: "À propos",
         pathname: "/a-propos",
-        asPath: "/a-propos"
+        asPath: "/a-propos",
+        teamAsPath:"/a-propos#equipe"
     },
 
     /*********
@@ -266,6 +267,13 @@ const AppRoutesRaw = {
         pathname: "/compte",
         asPath: "/compte",
         needAuth: true
+    },
+
+    register: {
+        label: "Se connecter",
+        pathname: "/compte/inscription",
+        asPath: "/compte/inscription",
+        needAuth: false
     },
 
     connection: {
@@ -287,6 +295,13 @@ const AppRoutesRaw = {
         pathname: "/compte/confirme",
         asPath: "/compte/confirme",
         needAuth: true
+    },
+
+    consult: {
+        label: "Consulter",
+        pathname: "/consulter",
+        asPath: "/consulter",
+        needAuth: false
     },
 
     contribute: {

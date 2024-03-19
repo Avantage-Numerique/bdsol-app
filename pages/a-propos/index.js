@@ -126,7 +126,7 @@ const Index = () => {
                             </p>
                         </div>
                     </div>
-                    <div className={"row"}>
+                    <div className={"row"} id="equipe">
                         <div className={"col"}>
                             <h3>Équipe</h3>
                             <ul>
