@@ -1,5 +1,5 @@
 import Button from "@/src/common/FormElements/Button/Button";
-import {externalApiRequest} from "@/src/hooks/http-hook";
+import { clientSideExternalApiRequest, externalApiRequest } from "@/src/hooks/http-hook";
 import PageHeader from "@/src/layouts/Header/PageHeader";
 import Router from "next/router";
 import {useContext} from "react";
@@ -40,10 +40,11 @@ const forgottenPasswordReset = props => {
         }
         else
         {
-            const apiResponse = await externalApiRequest(
+            const apiResponse = await clientSideExternalApiRequest(
             "/reset-password/"+props.token,
-            { body: JSON.stringify({data: { password: formState.inputs.password.value }})}
-            );
+            {
+                body: JSON.stringify({data: { password: formState.inputs.password.value }})
+            });
             if(apiResponse.error){
                 if(apiResponse.code === 200){
                     msg.addMessage({ 
