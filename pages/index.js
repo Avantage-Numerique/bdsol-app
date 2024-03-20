@@ -158,7 +158,7 @@ const HomePage = ({}) => {
                             {/*  Show the feed in the EntitiesGrid component. It manages an empty list in it, but it make it more readable to show it here too */}
                             {
                                 feedList.length > 0 && !isLoading &&
-                                <EntitiesGrid className={"row home-page__feed-section--container row-cols-1 row-cols-sm-2 row-cols-xl-3"} columnClass={"col g-4"} feed={feedList}/>
+                                <EntitiesGrid className={"row home-page__feed-section--container row-cols-1 row-cols-sm-2 row-cols-xl-3"} columnClass={"col-12 col-sm-6 col-md-4 g-4"} feed={feedList}/>
                             }
                         </div>
                         <div className="py-4 my-4">

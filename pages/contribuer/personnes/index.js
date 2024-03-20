@@ -28,7 +28,7 @@ const PersonSingleEditPage = () => {
     useEffect(() => displayModal(), [])
 
     return (
-        <div className="container py-4">
+        <div className="container">
                 {/* Empty single edit in the background */}
                 <PersonSingleEdit data={{}} />
                 {/* Loading state while waiting for rederection */}
