@@ -98,7 +98,7 @@ const SearchResults = () => {
                 <h3>{resultMessage}</h3>
                 {
                     filteredList?.length > 0 ?
-                    <EntitiesGrid className={"row"} columnClass={"col g-3 col-md-4"} feed={filteredList.filter(el => el.type !== "Taxonomy")}></EntitiesGrid>
+                    <EntitiesGrid className={"row"} feed={filteredList.filter(el => el.type !== "Taxonomy")}></EntitiesGrid>
                     :
                     <div>Aucune entité trouvée, réessayer avec d'autre critère de recherche</div>
                 }
@@ -122,7 +122,7 @@ const SearchResults = () => {
                 }
                 {
                     nearTaxonomyObject?.linkedEntityToNearestTaxonomy.length > 0 ?
-                        <EntitiesGrid className={"row"} columnClass={"col g-3 col-md-4"} feed={nearTaxonomyObject.linkedEntityToNearestTaxonomy}></EntitiesGrid>
+                        <EntitiesGrid className={"row"}  feed={nearTaxonomyObject.linkedEntityToNearestTaxonomy}></EntitiesGrid>
                         :
                         <p>Aucune entité est liée à cette catégorie</p>
                 }

@@ -91,9 +91,9 @@ const ConsultData = () => {
                 <section className="bg-greyBg">
                     <div className="container py-4">
                         <h3><Icon iconName="filter"/>Filtrer par type de données</h3>
-                        <div className="d-flex flex-wrap justify-content-center">
+                        <div style={{gap: "1rem"}} className="d-flex flex-wrap justify-content-center">
                             <Button
-                                className="mx-2 rounded flex-grow-1"
+                                className="mx-1 rounded flex-grow-1"
                                 color={filterState === "all" ? "secondary" : null}
                                 outline={filterState === "all" ? null : "secondary"}
                                 text_color_over="dark"
@@ -102,7 +102,7 @@ const ConsultData = () => {
                             >
                                 Tous les types
                             </Button>
-                            <Button className="mx-2 rounded flex-grow-1"
+                            <Button className="mx-1 rounded flex-grow-1"
                                 color={filterState === "Person" ? "secondary" : null}
                                 outline={filterState === "Person" ? null : "secondary"}
                                 text_color_over="dark"
@@ -111,7 +111,7 @@ const ConsultData = () => {
                             >
                                 Personnes
                             </Button>
-                            <Button className="mx-2 rounded flex-grow-1"
+                            <Button className="mx-1 rounded flex-grow-1"
                                 color={filterState === "Organisation" ? "secondary" : null}
                                 outline={filterState === "Organisation" ? null : "secondary"}
                                 text_color_over="dark"
@@ -120,7 +120,7 @@ const ConsultData = () => {
                             >
                                 Organisations
                             </Button>
-                            <Button className="mx-2 rounded flex-grow-1"
+                            <Button className="mx-1 rounded flex-grow-1"
                                 color={filterState === "Project" ? "secondary" : null}
                                 outline={filterState === "Project" ? null : "secondary"}
                                 text_color_over="dark"
@@ -129,7 +129,7 @@ const ConsultData = () => {
                             >
                                 Projets
                             </Button>
-                            <Button className="mx-2 rounded flex-grow-1"
+                            <Button className="mx-1 rounded flex-grow-1"
                                 color={filterState === "Event" ? "secondary" : null}
                                 outline={filterState === "Event" ? null : "secondary"}
                                 text_color_over="dark"
@@ -138,7 +138,7 @@ const ConsultData = () => {
                             >
                                 Événements
                             </Button>
-                            <Button className="mx-2 rounded flex-grow-1"
+                            <Button className="mx-1 rounded flex-grow-1"
                                 color={filterState === "Equipment" ? "secondary" : null}
                                 outline={filterState === "Equipment" ? null : "secondary"}
                                 text_color_over="dark"
@@ -216,7 +216,7 @@ const ConsultData = () => {
                     {/* Entities list section */}
                     {
                         entityList?.length > 0 ?
-                        <EntitiesGrid className={"row"} columnClass={"col g-3 col-md-4"} feed={entityList.filter(el => el.type !== "Taxonomy")}></EntitiesGrid>
+                        <EntitiesGrid className={"row"} columnClass={"col-12 col-sm-6 col-lg-4 col-xl-3 g-4 "} feed={entityList.filter(el => el.type !== "Taxonomy")}></EntitiesGrid>
                         :
                         <div>Aucune entité, peut-être que notre petit canard fait une sieste.</div>
                     }

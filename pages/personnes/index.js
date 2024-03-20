@@ -118,7 +118,7 @@ const PersonsPage = () => {
                             {/*  Show the feed in the EntitiesGrid component. It manages an empty list in it, but it make it more readable to show it here too */}
                             {
                                 personList.length > 0 && !isLoading &&
-                                <EntitiesGrid className="position-relative row row-cols-1 row-cols-sm-2 row-cols-xl-3" columnClass={"col g-3"} feed={personList}/>
+                                <EntitiesGrid className="position-relative row row-cols-1 row-cols-sm-2 row-cols-xl-3" feed={personList}/>
                             }
                         </section>
 

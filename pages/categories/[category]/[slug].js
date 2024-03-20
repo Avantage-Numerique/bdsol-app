@@ -114,7 +114,7 @@ const TaxonomiesSinglePage = (props) => {
             </PageHeader>
 
             {/*  Show the feed in the EntitiesGrid component. It manages an empty list in it, but it make it more readable to show it here too */}
-            <EntitiesGrid className="row row-cols-1 row-cols-sm-2 row-cols-xl-3" columnClass={"col g-3"} feed={data}/>
+            <EntitiesGrid className="row row-cols-1 row-cols-sm-2 row-cols-xl-3" columnClass={"col-12 col-sm-6 col-lg-4 col-xl-3 g-4"} feed={data}/>
 
             <Modal {...props}>
                 <header className={`d-flex justify-content-end`}>
