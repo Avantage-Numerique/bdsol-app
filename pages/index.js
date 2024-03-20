@@ -52,14 +52,8 @@ const HomePageHeaderBgImg = () => {
 
 const HomePage = ({}) => {
 
-    //Import the authentication context to make sure the user is well connected
-    //const auth = useAuth();
-
     //Holds the state the organisations
     const [feedList, setFeedList] = useState([]);
-
-    //Import message context 
-    const msg = useContext(MessageContext);
 
     //Extract the functions inside useHttpClient
     const {isLoading, sendRequest, setIsLoading} = useHttpClient();
@@ -83,10 +77,8 @@ const HomePage = ({}) => {
 
     //Function to return the path to the page of creation of an entity, depending on location
     const getCreateEntityPath = (type) => {
-
         //Get the model by type
         let targetType = getType(type);
-
         //type.model is undefined at init, so checking if it's set ? If not set it.
         if (typeof targetType.model === "undefined") {
             const ModelClass = targetType.modelClass;
@@ -110,7 +102,7 @@ const HomePage = ({}) => {
             '@type': 'Organization',
             name: lang.appDefaultProducer,//"Avantage Numérique",
             description: lang.appDefaultDescription,//"Avantage numérique est un hub virtuel, physique et mobile qui dessert les secteurs de la culture, des affaires et du savoir. Il vise le développement de l’écosystème créatif, entrepreneurial et technologique du Croissant boréal.",
-            mainEntityOfPage: "https://avantagenumerique.org/"
+            mainEntityOfPage: "https://avnu.ca/"
         }
     }
 
