@@ -26,6 +26,7 @@ import {useSessionHook} from '@/auth/hooks/useSessionHook'
 //Utils
 import {lang} from "@/src/common/Data/GlobalConstants";
 import AppRoutes from '@/src/Routing/AppRoutes'
+import MainNavButton from "@/layouts/Navigation/MainNav/MainNavButton";
 
 const Nav = ( {menuState, setMenuState} ) => {
 
@@ -39,8 +40,21 @@ const Nav = ( {menuState, setMenuState} ) => {
     //When the page change, close the menu
     useEffect(() => {
         //Verify the the menu is open. If it is, then close it
-        if (menuState){ setMenuState(false) }
+        if (menuState){
+            setMenuState(false);
+        }
     }, [router.asPath]);
+
+    /**
+     * Handle all the MainNavButton, check if we've click the current pagge. And force the close menu state.
+     * The use Effect still applies.
+     * @param path
+     */
+    const navLinkHandler = (path) => {
+        if (router.asPath === path) {
+            setMenuState(false);
+        }
+    };
 
     const toggleScrollableBody = () => {
         if(menuState === undefined)
@@ -75,49 +89,49 @@ const Nav = ( {menuState, setMenuState} ) => {
                     <div className={`row ${styles["limited-width"]}`}>
                         <div className="col">
                             <section className={`${styles["nav-section"]}`}>
-                                <Button className={`fs-3 h2`} text_color="dark" href={AppRoutes.consult.asPath}>Consulter les données</Button>
+                                <MainNavButton className="fs-3 h2" route={AppRoutes.consult} handler={navLinkHandler} label={"Consulter les données"} />
                             </section>
 
                             <section className={`${styles["nav-section"]}`}>
-                                <Button className="fs-3 h2" text_color="dark" href={AppRoutes.contribute.asPath}>Ajouter des données</Button>
+                                <MainNavButton className="fs-3 h2" route={AppRoutes.contribute} handler={navLinkHandler} label={"Ajouter des données"} />
                                 <ul className={`${styles["button-list"]}`}>
                                     <li>
-                                        <Button text_color="dark" href={AppRoutes.organisationsCreate.asPath}><i className={`${Organisation.icon} ${styles["entity-icon"]}`} />Ajouter une organisation</Button>
+                                        <MainNavButton route={AppRoutes.organisationsCreate} iconClassName={`${Organisation.icon} ${styles["entity-icon"]}`} handler={navLinkHandler} />
                                     </li>
                                     <li>
-                                        <Button text_color="dark" href={AppRoutes.personCreate.asPath}><i className={`${Person.icon} ${styles["entity-icon"]}`} />Ajouter une personne</Button>
+                                        <MainNavButton route={AppRoutes.personCreate} iconClassName={`${Person.icon} ${styles["entity-icon"]}`} handler={navLinkHandler} />
                                     </li>
                                     <li>
-                                        <Button text_color="dark" href={AppRoutes.projectCreate.asPath}><i className={`${Project.icon} ${styles["entity-icon"]}`} />Ajouter un projet</Button>
+                                        <MainNavButton route={AppRoutes.projectCreate} iconClassName={`${Project.icon} ${styles["entity-icon"]}`} handler={navLinkHandler} />
                                     </li>
                                     <li>
-                                        <Button text_color="dark" href={AppRoutes.eventCreate.asPath}><i className={`${Event.icon} ${styles["entity-icon"]}`} />Ajouter un événement</Button>
+                                        <MainNavButton route={AppRoutes.eventCreate} iconClassName={`${Event.icon} ${styles["entity-icon"]}`} handler={navLinkHandler} />
                                     </li>
                                     <li>
-                                        <Button text_color="dark" href={AppRoutes.equipmentCreate.asPath}><i className={`${Equipment.icon} ${styles["entity-icon"]}`} />Ajouter un équipement</Button>
+                                        <MainNavButton route={AppRoutes.equipmentCreate} iconClassName={`${Equipment.icon} ${styles["entity-icon"]}`} handler={navLinkHandler} />
                                     </li>
                                 </ul>
                             </section>
 
                             <section className={`${styles["nav-section"]}`}>
-                                <Button className="fs-3 h2" text_color="dark" href={AppRoutes.categories.asPath}>Filtrer les données par catégories</Button>
+                                <MainNavButton className="fs-3 h2" route={AppRoutes.categories} handler={navLinkHandler} label={"Filtrer les données par catégories"} />
                             </section>
                         </div>
                         <div className="col">
                             <section className={`${styles["nav-section"]}`}>
-                                <Button className="fs-3 h2" text_color="dark" href={AppRoutes.about.asPath}>À propos</Button>
+                                <MainNavButton className="fs-3 h2" route={AppRoutes.about} handler={navLinkHandler} />
                                 <ul className={`${styles["button-list"]}`}>
                                     <li>
-                                        <Button text_color="dark" href={AppRoutes.about.asPath}>En savoir plus sur le projet AVNU</Button>
+                                        <MainNavButton route={AppRoutes.about} handler={navLinkHandler} label={"En savoir plus sur le projet AVNU"} />
                                     </li>
                                     <li>
-                                        <Button text_color="dark" href={AppRoutes.about.asPath+"#equipe"}>Notre équipe</Button>
+                                        <MainNavButton route={AppRoutes.about} suffix="#equipe" handler={navLinkHandler} label={"Notre équipe"} />
                                     </li>
                                     <li>
-                                        <Button text_color="dark" href={AppRoutes.contact.asPath}>Nous joindre</Button>
+                                        <MainNavButton route={AppRoutes.contact} handler={navLinkHandler} />
                                     </li>
                                     <li>
-                                        <Button text_color="dark" href={AppRoutes.faq.asPath}>FAQ</Button>
+                                        <MainNavButton route={AppRoutes.faq} handler={navLinkHandler} />
                                     </li>
                                 </ul>
                             </section>
@@ -128,7 +142,7 @@ const Nav = ( {menuState, setMenuState} ) => {
                                     { auth.user.isLoggedIn ? 
                                     <>
                                         <li>
-                                            <Button href={AppRoutes.account.asPath} text_color="dark">Mon profil</Button>
+                                            <MainNavButton route={AppRoutes.account} handler={navLinkHandler} label={"Mon profil"} />
                                         </li>
                                         <li>
                                             <Button onClick={logout} text_color="dark">{lang.menuLabelToDisconnect}</Button>
@@ -137,10 +151,10 @@ const Nav = ( {menuState, setMenuState} ) => {
                                     :
                                     <> 
                                         <li>
-                                            <Button href={AppRoutes.connection.asPath} text_color="dark">{lang.menuLabelConnect}</Button>
+                                            <MainNavButton route={AppRoutes.connection} handler={navLinkHandler} />
                                         </li>
                                         <li>
-                                            <Button href={AppRoutes.register.asPath} text_color="dark">{lang.menuLabelCreateAccount}</Button>
+                                            <MainNavButton route={AppRoutes.register} handler={navLinkHandler} />
                                         </li>
                                     </>
                                     }

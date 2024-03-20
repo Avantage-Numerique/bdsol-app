@@ -70,6 +70,7 @@ const Button = (props) => {
                 className={`${classesString} ${props.disabled ? "disabled" : ""}`}
                 aria-disabled={props.disabled ? "true" : "false"}
                 role={"button"}
+                onClick={props.onClick}
             >
                 {props.children}
             </Link>
