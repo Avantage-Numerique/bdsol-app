@@ -20,7 +20,11 @@ const EventSimple = ({ model }) => {
     }
 
     return (
-        <EntitySimple model={model} className={`${styles["event-simple"]}`} BottomLineContent={BottomLineContent} />
+        <EntitySimple 
+            model={model} 
+            className={`${styles["event-simple"]}`} 
+            BottomLineContent={BottomLineContent} 
+        />
     )
 }
 

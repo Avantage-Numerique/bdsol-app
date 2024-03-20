@@ -97,14 +97,12 @@ const EntitySimple = (props) => {
             <header className={`d-flex mb-2 justify-content-between ${styles["simple-abstract__content__header"]}`}>
                 {/* Main name of the entity */}
                 <div className={"w-100 d-flex flex-column justify-content-center align-items-center"}>
-                    <Link href={model.singleLink} title={title}>
-                        <h3 className={`w-100 m-0 text-center
-                            ${styles["simple-abstract__content__title"]}
-                            ${styles["simple-abstract__content_ellipsis"]}
-                        `}>
-                            {model.title}
-                        </h3>
-                    </Link>
+                    <h3 className={`w-100 m-0 text-center
+                        ${styles["simple-abstract__content__title"]}
+                        ${styles["simple-abstract__content_ellipsis"]}
+                    `}>
+                        {model.title}
+                    </h3>
                 </div>
                 {/* model.singleLink && <KebabButton href={model.singleLink} /> */}
             </header>
@@ -149,16 +147,17 @@ const EntitySimple = (props) => {
 
     return (
         <Tag className={`${className} rounded ${styles["simple-abstract"]}`}>
-
-            {/* SECTION 1/2 : HeaderDefault */}
-            <header className={`${styles["simple-abstract__header"]}`}>
-                {/* Override the display of the normal visual if there is the overRidingHeader is defined */}
-                { Header ? Header : HeaderDefault }
-            </header>
-            {/* SECTION 2/2 : Main content */}
-            <section className={`${styles["simple-abstract__content"]}`}>
-                { Content ? Content : ContentDefault }
-            </section>
+            <Link href={model.singleLink} title={title}>
+                {/* SECTION 1/2 : HeaderDefault */}
+                <header className={`${styles["simple-abstract__header"]}`}>
+                    {/* Override the display of the normal visual if there is the overRidingHeader is defined */}
+                    { Header ? Header : HeaderDefault }
+                </header>
+                {/* SECTION 2/2 : Main content */}
+                <section className={`${styles["simple-abstract__content"]}`}>
+                    { Content ? Content : ContentDefault }
+                </section>
+            </Link>
         </Tag>
     )
 }
