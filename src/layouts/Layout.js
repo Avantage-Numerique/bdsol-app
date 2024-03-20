@@ -56,8 +56,9 @@ const Layout = ( {children} ) => {
     useEffect(() => {
         if(router.query?.msg && router.query?.msg !== "")
         {
+            const positive = router.query?.msgPositive === "true";
             setMessages([...messages, {
-                    positive:false,
+                    positive:positive,
                     text:sanitizedString(router.query.msg),
                     creationTime: getCurrentTime()
                 }
