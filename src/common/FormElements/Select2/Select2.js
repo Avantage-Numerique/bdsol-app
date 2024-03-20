@@ -209,6 +209,7 @@ const Select2 = ({ name, formTools, ...props }) => {
             inputValueSetter={setInputValue}
             value={value}
             valueSetter={setValue}
+            onTouch={onTouch}
         />);
 
 
