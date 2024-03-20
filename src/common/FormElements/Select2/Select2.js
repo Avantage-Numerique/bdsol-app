@@ -334,7 +334,6 @@ const Select2 = ({ name, formTools, ...props }) => {
         return descriptions.get(props.modalType);
     }
 
-    console.log("Is valid", currentState.isValid, "is touched", currentState.isTouched)
     return (
         <>
             {label} 

@@ -95,7 +95,6 @@ const initiateValidator = selectedRules => {
 }
 
 export const useValidation = ( setOfRules, formState ) => {
-    console.log("Form state", formState)
     const [validator, setValidator] = useState(initiateValidator( setOfRules || [] ))
     //Bool that is set to go on and off to trigger rerendering in dependent components
     const [triggerDependencies, setTriggerDependencies] = useState(false)  
