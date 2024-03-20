@@ -191,13 +191,18 @@ const EventSingleView = ({data}) => {
             </SingleInfo>
 
             {/* subEvents */}
-            <SingleInfo 
+            {
+                /*Commented for populate loop trouble
+
+                <SingleInfo 
                 title={lang.subEvents}
                 displayCondition={subEvents && subEvents.length > 0}
                 cardLayout
-            >
-                <EntitiesTagGrid feed={subEvents} />
-            </SingleInfo>
+                >
+                    <EntitiesTagGrid feed={subEvents} />
+                </SingleInfo>
+                */
+            }
 
             {/* team */}
             <SingleInfo
@@ -330,7 +335,7 @@ const EventSingleView = ({data}) => {
                 {data: description, validationFunction: (value => removeTagsFromString(value) ? true : false)},
                 {data: model.mainImage.isDefault, validationFunction: ((value) => !value)}, 
                 {data: schedule},
-                {data: subEvents},
+                //{data: subEvents},
                 {data: sortedTeam},
                 {data: skills},
                 {data: domains},
