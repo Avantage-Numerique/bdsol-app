@@ -24,6 +24,9 @@ const nextConfig = {
         IS_PRODUCTION: process.env.NODE_ENV === "production",
         IS_DEV: process.env.NODE_ENV === "development",
 
+        NEXT_PUBLIC_MATOMO_URL: process.env.NEXT_PUBLIC_MATOMO_URL,
+        NEXT_PUBLIC_MATOMO_SITE_ID: process.env.NEXT_PUBLIC_MATOMO_SITE_ID,
+
         APP_PROTOCOLE: process.env.APP_PROTOCOLE ?? "http://",
         APP_BASE_URL: process.env.APP_BASE_URL ?? "localhost",
         APP_PORT: process.env.APP_PORT ?? 3000,
@@ -107,7 +110,8 @@ const nextConfig = {
         // Warning: This allows production builds to successfully complete even if
         // your project has ESLint errors.
         ignoreDuringBuilds: true
-    }
+    },
+    experimental: { esmExternals: true }
 }
 
 module.exports = nextConfig;

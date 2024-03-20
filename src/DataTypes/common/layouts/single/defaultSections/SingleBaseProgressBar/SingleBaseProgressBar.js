@@ -67,7 +67,6 @@ const SingleBaseProgressBar = props => {
     //Authentication context
     const auth = useAuth();
 
-
     return (
         <section className={`d-flex flex-column align-items-center ${styles['progress-bar']}`}>
             {dataList && dataList.length > 0 && <strong><p>Profil rempli à {calculOfProgress(dataList)}%</p></strong>}

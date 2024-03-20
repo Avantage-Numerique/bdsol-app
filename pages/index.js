@@ -22,10 +22,10 @@ import {
 import {MessageContext} from '@/src/common/UserNotifications/Message/Context/Message-Context';
 import {getType} from "@/DataTypes/Entity/Types";
 
-//Images
+//Images 
 import backgroundImg from '@/public/general_images/Fusee_Pointilles1.svg'
 import AvantageNumeriqueLogo from '@/public/logos/logo_Avantage_Numérique.svg';
-import organizationPresentationImg from '@/public/general_images/shutterstock_514412107.jpg'
+import organizationPresentationImg from '@/public/general_images/residenceUQAT2024_7-réduit.jpg'
 import shipAndPlanetsImg from '@/public/general_images/Fusée_Planetes_Poitilles2.svg'
 import AppRoutes from '@/src/Routing/AppRoutes';
 
@@ -52,14 +52,8 @@ const HomePageHeaderBgImg = () => {
 
 const HomePage = ({}) => {
 
-    //Import the authentication context to make sure the user is well connected
-    //const auth = useAuth();
-
     //Holds the state the organisations
     const [feedList, setFeedList] = useState([]);
-
-    //Import message context 
-    const msg = useContext(MessageContext);
 
     //Extract the functions inside useHttpClient
     const {isLoading, sendRequest, setIsLoading} = useHttpClient();
@@ -83,10 +77,8 @@ const HomePage = ({}) => {
 
     //Function to return the path to the page of creation of an entity, depending on location
     const getCreateEntityPath = (type) => {
-
         //Get the model by type
         let targetType = getType(type);
-
         //type.model is undefined at init, so checking if it's set ? If not set it.
         if (typeof targetType.model === "undefined") {
             const ModelClass = targetType.modelClass;
@@ -110,7 +102,7 @@ const HomePage = ({}) => {
             '@type': 'Organization',
             name: lang.appDefaultProducer,//"Avantage Numérique",
             description: lang.appDefaultDescription,//"Avantage numérique est un hub virtuel, physique et mobile qui dessert les secteurs de la culture, des affaires et du savoir. Il vise le développement de l’écosystème créatif, entrepreneurial et technologique du Croissant boréal.",
-            mainEntityOfPage: "https://avantagenumerique.org/"
+            mainEntityOfPage: "https://avnu.ca/"
         }
     }
 
@@ -152,7 +144,7 @@ const HomePage = ({}) => {
                                     <div>
                                         <Spinner reverse/>
                                     </div>
-                                    <p><strong>{lang.loadingData}</strong></p>
+                                    <p className="text-center"><strong>{lang.loadingData}</strong></p>
                                 </div>
                             }
 
@@ -166,7 +158,7 @@ const HomePage = ({}) => {
                             {/*  Show the feed in the EntitiesGrid component. It manages an empty list in it, but it make it more readable to show it here too */}
                             {
                                 feedList.length > 0 && !isLoading &&
-                                <EntitiesGrid className={"row home-page__feed-section--container row-cols-1 row-cols-sm-2 row-cols-xl-3"} columnClass={"col g-3"} feed={feedList}/>
+                                <EntitiesGrid className={"row home-page__feed-section--container row-cols-1 row-cols-sm-2 row-cols-xl-3"} columnClass={"col g-4"} feed={feedList}/>
                             }
                         </div>
                         <div className="py-4 my-4">
@@ -179,9 +171,9 @@ const HomePage = ({}) => {
             {/* Organization presentation*/}
             <section className="home-page__full-width-section bg-secondary-lighter mt-4">
                 <div className="container">
-                    <div className='row justify-content-around align-items-center home-page__section-inner-y-padding'>
-                        <div style={{aspectRatio: "1 / 1", maxHeight: "50vw"}} className="col-12 col-md-6 col-lg-4 order-2 order-md-1 p-2">
-                            <Image className="w-100 h-100 object-fit-cover" priority={false} src={organizationPresentationImg} alt="Présentation de l'organisation"/>
+                    <div className='row justify-content-around home-page__section-inner-y-padding'>
+                        <div style={{minHeight: "20rem"}} className="position-relative flex-grow-1 col-12 col-md-6 col-lg-4 order-2 order-md-1 p-2">
+                            <Image className="position-absolute w-100 h-100 object-fit-cover top-0 start-0"  priority={false} src={organizationPresentationImg} alt="Présentation de l'organisation"/>
                         </div>
                         <div style={{maxWidth: "60ch"}} className="col-12 order-1 order-md-2 col-md-6 col-lg-8 p-4 flex-column align-items-start">
                             <h2 className="mb-4">AVNU, c'est quoi?</h2>

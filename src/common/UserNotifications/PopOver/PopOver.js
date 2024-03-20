@@ -1,4 +1,4 @@
-import {useRef, useEffect} from 'react'
+import React, { useRef, useEffect, useState } from 'react';
 
 //Styling
 import styles from './PopOver.module.scss'
@@ -46,10 +46,8 @@ const PopOver = props => {
 
     //Display the component with its native function when the component is redendered
     useEffect(() => {
-
         if(!componentRef.current.hasAttribute("open"))
             componentRef.current.show()
-
     }, [])
 
     return (
@@ -84,3 +82,4 @@ const PopOver = props => {
 }
 
 export default PopOver
+

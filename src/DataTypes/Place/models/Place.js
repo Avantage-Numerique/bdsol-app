@@ -28,7 +28,6 @@ class Place extends EntityModel {
         } : raw.mainImage;
 
         this.mainImageModel = new Media(this.mainImage);
-
         this.mainImage.src = this.mainImageModel.src;
 
         this.type = TYPE_PLACE;

@@ -2,6 +2,7 @@ import {lang} from "@/common/Data/GlobalConstants";
 import Tip from "@/common/FormElements/Tip/Tip";
 
 import styles from './SingleInfo.module.scss'
+import {useFieldTips} from '@/src/hooks/useFieldTips/useFieldTips';
 
 /**
  *
@@ -30,11 +31,13 @@ const SingleInfo = props => {
         className, 
         classNameTitle, 
         children, 
-        tooltip, 
+        tooltip,
         cardLayout,
         displayCondition = true,
         isSubtitle = false
     } = props;
+
+    const {TipPopOver, TipButton} = useFieldTips(props.tooltip);
 
     //Set the title Tag
     const TitleTag = isSubtitle ? "h3" : "h2";
@@ -67,9 +70,10 @@ const SingleInfo = props => {
                 {(title || tooltip) &&
                     <header className='d-flex'>
                         <TitleTag className={`text-dark flex-grow-1 ${titleClass} ${isSubtitle ? styles["subtitle"] : styles["title"]} ${classNameTitle}`}>{title}</TitleTag>
-                        {tooltip && <Tip header={tooltip?.header} body={tooltip?.body}/>}
+                        {tooltip && <TipButton title="Besoin de précisions ?" />}
                     </header>
                 }
+                <TipPopOver />
                 <div>
                     {isFilled && children}
                     {!isFilled && <DefaultNotAvailableDisplay />}

@@ -18,6 +18,7 @@ import {MessageContext} from "@/src/common/UserNotifications/Message/Context/Mes
 import {lang} from "@/src/common/Data/GlobalConstants";
 import logo from '@/public/AVNU_Branding/AVNU-LogoComplet-RVB.png'
 import {appConfig} from "@/src/configs/AppConfig";
+import {ExternalLink} from "@/common/Components/ExternalLink";
 
 const NousJoindre = () => {
 
@@ -102,7 +103,8 @@ const NousJoindre = () => {
                 <section className="col-12 col-md-6 mt-2">
                     <h3 className="fs-3">Contactez-nous par courriel</h3>
                     <p>Nous vous répondrons le plus rapidement possible.</p>
-                    <p>Pour le faire depuis votre propre boîte de courrier électronique, <Button text_color="secondary-darker" href={"mailto:"+appConfig.support.email}>c'est par ici!</Button></p>
+                    <p>Pour le faire <ExternalLink href={"mailto:"+appConfig.support.email}>depuis votre propre boîte de courrier électronique</ExternalLink></p>
+
                     <Input
                         className="py-1"
                         name="name"
@@ -127,7 +129,9 @@ const NousJoindre = () => {
                         ]}
                         formTools={formTools}
                     />
-                    <Button type="button" disabled={!formState.isValid} onClick={sendContactUsMessage}>{lang.sendMessage}</Button>
+                    <div className={"py-1"}>
+                        <Button type="button" disabled={!formState.isValid} onClick={sendContactUsMessage}>{lang.sendMessage}</Button>
+                    </div>
                 </section>
 
             </section>

@@ -181,10 +181,11 @@ const EventSingleEdit = ({data}, ...props) => {
                 value: domains ?? [],
                 isValid: true
             },
-            subEvents: {
+            //Commented for populate loop trouble
+            /* subEvents: {
                 value: subEvents ?? [],
                 isValid: true
-            },
+            }, */
             location: {
                 value: location ? location : [],
                 isValid: true
@@ -260,8 +261,9 @@ const EventSingleEdit = ({data}, ...props) => {
                         subMeta: { order: singleSchedule.order }
                     }
                 }),
-                subEvents: formState.inputs.subEvents.value?.length > 0 ?
-                    formState.inputs.subEvents.value.map( (selectedSubEvent) => { return selectedSubEvent.value }) : [],
+                //Commented for populate loop trouble
+                //subEvents: formState.inputs.subEvents.value?.length > 0 ?
+                    //formState.inputs.subEvents.value.map( (selectedSubEvent) => { return selectedSubEvent.value }) : [],
                 attendees: formState.inputs.attendees.value?.length > 0 ?
                     formState.inputs.attendees.value.map( (selectedAttendee) => { return selectedAttendee.value }) : [],
                 skills: formState.inputs.skills?.value?.length > 0 ?
@@ -523,22 +525,27 @@ const EventSingleEdit = ({data}, ...props) => {
             </SingleInfo>
 
             {/* subEvents */}
-            <SingleInfo 
-                title={lang.subEvents}
-            >
-                <Select2
-                    name="subEvents"
-                    className="my-2"
-                    formTools={formTools}
-                    creatable={true}
-                    modalType={TYPE_EVENT}
-                    isMulti={true}
-                    fetch={"/events/list"}
-                    requestData={ _id ? {_id:"ne:"+_id} : {}}
-                    searchField={"name"}
-                    selectField={"name"}
-                />
-            </SingleInfo>
+            {
+                //Commented for populate loop trouble
+                /*
+                <SingleInfo 
+                    title={lang.subEvents}
+                >
+                    <Select2
+                        name="subEvents"
+                        className="my-2"
+                        formTools={formTools}
+                        creatable={true}
+                        modalType={TYPE_EVENT}
+                        isMulti={true}
+                        fetch={"/events/list"}
+                        requestData={ _id ? {_id:"ne:"+_id} : {}}
+                        searchField={"name"}
+                        selectField={"name"}
+                    />
+                </SingleInfo>
+                */
+            }
 
             {/* team */}
             <SingleInfo

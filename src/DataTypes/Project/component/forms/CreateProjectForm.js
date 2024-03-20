@@ -62,7 +62,7 @@ const CreateProjectForm = ({ onPositiveResponse, initValues }) => {
             "data": {
                 name: formState.inputs.name.value,
                 entityInCharge: formState.inputs.entityInCharge?.value?.value,
-                context: formState.inputs.context.value,
+                context: formState.inputs.context.value !== "" ? formState.inputs.context.value : undefined,
                 meta: getDefaultCreateEntityMeta(auth.user),
             }
         }
@@ -92,7 +92,7 @@ const CreateProjectForm = ({ onPositiveResponse, initValues }) => {
                 label="Choisissez un contexte"
                 className="my-1"
                 formTools={formTools}
-                validationRules={[{name: "REQUIRED"}]}
+                //validationRules={[{name: "REQUIRED"}]}
                 noValueText={lang.noSelectedOption}
                 fetchOption="context-enum"
             />

@@ -1,4 +1,5 @@
 import Routes from "@/src/Routing/Routes";
+import {lang} from "@/common/Data/GlobalConstants";
 
 /*
 
@@ -255,7 +256,8 @@ const AppRoutesRaw = {
     about: {
         label: "À propos",
         pathname: "/a-propos",
-        asPath: "/a-propos"
+        asPath: "/a-propos",
+        teamAsPath:"/a-propos#equipe"
     },
 
     /*********
@@ -268,8 +270,15 @@ const AppRoutesRaw = {
         needAuth: true
     },
 
+    register: {
+        label: lang.menuLabelCreateAccount,
+        pathname: "/compte/inscription",
+        asPath: "/compte/inscription",
+        needAuth: false
+    },
+
     connection: {
-        label: "Se connecter",
+        label: lang.menuLabelConnect,
         pathname: "/compte/connexion",
         asPath: "/compte/connexion",
         needAuth: false
@@ -287,6 +296,13 @@ const AppRoutesRaw = {
         pathname: "/compte/confirme",
         asPath: "/compte/confirme",
         needAuth: true
+    },
+
+    consult: {
+        label: "Consulter",
+        pathname: "/consulter",
+        asPath: "/consulter",
+        needAuth: false
     },
 
     contribute: {
@@ -356,12 +372,14 @@ const AppRoutes = new Routes(AppRoutesRaw);
 
 /**
  * @property accueil {Route}
+ * @property about {Route}
  * @property persons {Route}
  * @property personSingle {Route}
  * @property personSingleMedia {Route}
  * @property categories {Route}
  * @property categorySingle {Route}
  * @property organisations {Route}
+ * @property organisationsCreate {Route}
  * @property organisationSingle {Route}
  * @property organisationSingleMedia {Route}
  * @property projects {Route}
@@ -373,11 +391,16 @@ const AppRoutes = new Routes(AppRoutesRaw);
  * @property apropos {Route}
  * @property account {Route}
  * @property connection {Route}
+ * @property register {Route}
  * @property toConfirm {Route}
  * @property confirmed {Route}
  * @property contribuer {Route}
  * @property error404 {Route}
  * @property paramsCookies {Route}
+ * @property contribute {Route}
+ * @property consult {Route}
+ * @property contact {Route}
+ * @property faq {Route}
  * @type {Routes}
  */
 export default AppRoutes;
