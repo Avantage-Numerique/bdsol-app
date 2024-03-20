@@ -74,6 +74,8 @@ const Index = () => {
                                 pour pouvoir à votre tour ajouter ou modifier des données
                             </li>
                         </ul>
+                    </div>
+                    <div id="a-quoi-ca-sert">
                         <h3>À quoi ça sert ?</h3>
                         <p>
                             La plateforme Avnu est parcourable librement et gratuitement par les utilisateurs·trices qui souhaitent se renseigner sur les ressources technologiques proposées dans le Croissant Boréal. Elle permet par exemple de :
@@ -100,7 +102,7 @@ const Index = () => {
                         </ul>
                     </div>
                 </div>
-                <div id="caracteristique" className={"row"}>
+                <div id="gouvernance-des-donnees" className={"row"}>
                     <div className={"col"}>
                         <h3>Utilisation et gouvernance des données</h3>
                         <p>
@@ -117,7 +119,6 @@ const Index = () => {
                             </a>
                             , un hub virtuel, physique et mobile qui dessert les secteurs de la culture, des affaires et du savoir. Le hub vise le développement de l’écosystème créatif, entrepreneurial et technologique du Croissant boréal. Il rassemble des organisations et des individus·es qui s’activent, autour de chantiers collaboratifs et de projets innovants, pour le développement de leurs milieux. Il est soutenu par une <RouteLink routeName={"valuesChart"}/> qui guide l’ensemble des actions réalisées dans un esprit de codéveloppement et d’innovation ouverte.
                         </p>
-                    
                     <div className={"row"} id="equipe">
                         <div className={"col"}>
                             <h3>Notre belle équipe</h3>
