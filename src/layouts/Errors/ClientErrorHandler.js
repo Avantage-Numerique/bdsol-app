@@ -26,7 +26,7 @@ class ClientErrorHandler extends React.Component {
         //   in ErrorBoundary (created by App)
         //   in div (created by App)
         //   in App
-        console.log(error, info.componentStack);
+        console.error(error, info.componentStack);
     }
 
     render() {

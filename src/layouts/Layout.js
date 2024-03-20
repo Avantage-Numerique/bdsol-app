@@ -98,7 +98,6 @@ const Layout = ( {children} ) => {
 
             <div id={styles.layout}>
                 <Header />
-               {/*  <AccountNav menuState={menuState} setMenuState={setMenuState} /> */}
                 
                 {/* Defining contextes to be passed along children */}
                 <ModalContext.Provider value={{modalTools: modalTools}}>

@@ -22,7 +22,7 @@ const SelectLicence = ({name, formTools, ...props}) => {
 
     const [licences, setLicences] = useState([])
 
-    useEffect( () => {console.log("formstate licence", formState.inputs[name])}, [formState])
+    //useEffect( () => {console.log("formstate licence", formState.inputs[name])}, [formState])//commented reactivate to tests.
     
     //Fetch licence list on load
     useEffect(() => {
