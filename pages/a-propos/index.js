@@ -7,6 +7,9 @@ import Link from "next/link";
 import {lang} from "@/src/common/Data/GlobalConstants";
 import AppRoutes from "@/src/Routing/AppRoutes";
 
+//Styling
+import styles from './aPropos.module.scss';
+
 /**
  * Really basic page with plain text. This could be dry with an entry or some sort of markdown file.
  * @return {JSX.Element}
@@ -23,8 +26,8 @@ const Index = () => {
             />
             <PageHeader title={`Avnu, c’est quoi ?`}/>
 
-            <div className={"container home-page__main content"}>
-                <div className={"row"}>
+            <div className={"container home-page__main content py-4"}>
+                <div className={"row py-2"}>
                     <div className={"col"}>
                         <h3>Un outil d’exploration des ressources technologiques du Croissant boréal</h3>
                         <p className={pClass}>
@@ -41,14 +44,14 @@ const Index = () => {
                         </p>
                     </div>
                 </div>
-                <div id="caracteristique" className={"row"}>
+                <div className={"row py-2"}>
                     <div className={"col"}>
                         <h3>Comment ça fonctionne ?</h3>
                         <p>
                             En tant qu’utilisateur·rice de la plateforme, vous pouvez :
                         </p>
                         <ul>
-                            <li>
+                            <li className={`${styles["page-list"]}`}>
                                 <a href={AppRoutes.consult.asPath}
                                     target="_self">
                                     Consulter et trier les données
@@ -56,7 +59,7 @@ const Index = () => {
                                 &nbsp;
                                 déjà existantes sur la plateforme (personnes, organisations, équipements, événements et projets)
                             </li>
-                            <li>
+                            <li className={`${styles["page-list"]}`}>
                                 Vous
                                 &nbsp;
                                 <a href={AppRoutes.register.asPath}
@@ -74,39 +77,46 @@ const Index = () => {
                                 pour pouvoir à votre tour ajouter ou modifier des données
                             </li>
                         </ul>
+                    </div>
+                </div>
+                <div className={"row py-2"}>
+                    <div className={"col"}>
                         <h3>À quoi ça sert ?</h3>
                         <p>
                             La plateforme Avnu est parcourable librement et gratuitement par les utilisateurs·trices qui souhaitent se renseigner sur les ressources technologiques proposées dans le Croissant Boréal. Elle permet par exemple de :
                         </p>
                         <ul>
-                            <li>
+                            <li className={`${styles["page-list"]}`}>
                                 <strong>Trouver une personne ayant les compétences</strong> dans un domaine, dans une technologie ou avec un équipement, afin de réaliser un projet technocréatif.
                             </li>
-                            <li>
+                            <li className={`${styles["page-list"]}`}>
                                 <strong>Se renseigner sur les espaces et les équipements</strong> permettant de réaliser un projet précis.
                             </li>
-                            <li>
+                            <li className={`${styles["page-list"]}`}>
                                 <strong>Découvrir les compétences nécessaires</strong> pour accomplir un type de projet ou pour l’utilisation d’un équipement.
                             </li>
-                            <li>
+                            <li className={`${styles["page-list"]}`}>
                                 <strong>Partager des solutions</strong> et des marches à suivre pour répondre à des problèmes techniques.
                             </li>
-                            <li>
+                            <li className={`${styles["page-list"]}`}>
                                 <strong>Améliorer la découvrabilité</strong> d’un projet ou d’un organisme.
                             </li>
-                            <li>
+                            <li className={`${styles["page-list"]}`}>
                                 <strong>Promouvoir</strong> des œuvres, des formations, des travaux, des projets et des organisations.
                             </li>
                         </ul>
                     </div>
                 </div>
-                <div id="caracteristique" className={"row"}>
+                <div className={"row py-2"}>
                     <div className={"col"}>
                         <h3>Utilisation et gouvernance des données</h3>
                         <p>
                             Dans un objectif de partage et de collaboration, nous faisons en sorte que les données entrées et diffusées sur la plateforme soient le plus ouvertes possible. Tout le monde a la possibilité d’ajouter de nouvelles données et de modifier celles déjà présentes sur la plateforme. La manière dont nous gérons les données est décrite en détail dans notre <RouteLink routeName={"confidentialityPolicy"}/>.
                         </p>
                     </div>
+                </div>
+                <div className={"row py-2"}>
+                    <div className={"col"}>
                         <h3>Un projet développé avec amour par Avantage numérique</h3>
                         <p>
                             Avnu est développé par
@@ -117,8 +127,10 @@ const Index = () => {
                             </a>
                             , un hub virtuel, physique et mobile qui dessert les secteurs de la culture, des affaires et du savoir. Le hub vise le développement de l’écosystème créatif, entrepreneurial et technologique du Croissant boréal. Il rassemble des organisations et des individus·es qui s’activent, autour de chantiers collaboratifs et de projets innovants, pour le développement de leurs milieux. Il est soutenu par une <RouteLink routeName={"valuesChart"}/> qui guide l’ensemble des actions réalisées dans un esprit de codéveloppement et d’innovation ouverte.
                         </p>
-                    
-                    <div className={"row"} id="equipe">
+                    </div>
+                </div>
+                <div className={"row py-2"} id="equipe">
+                    <div>
                         <div className={"col"}>
                             <h3>Notre belle équipe</h3>
                             <ul>
