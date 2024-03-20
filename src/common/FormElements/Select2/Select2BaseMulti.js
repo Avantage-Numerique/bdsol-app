@@ -23,6 +23,22 @@ const Select2BaseMulti = ({name, ...props}) => {
 
 
     const selectRef = useRef();
+
+    let colourStyles = selectStyle(); // Vos styles personnalisés existants
+    const customStyles = {
+        ...colourStyles,
+        control: (provided, state) => ({
+          ...provided,
+          backgroundColor: 'transparent', // Définir la couleur de fond sur transparent
+          border: 'none', // Retirer le bord
+          outline: 'none',
+        }),
+        'css-gwukah-control': {
+          backgroundColor: 'transparent', // Définir la couleur de fond sur transparent pour la classe css-gwukah-control
+          border: 'none', // Retirer le bord pour la classe css-gwukah-control
+          outline: 'none', 
+        }
+      };
     
     //Creatable Section
     const filterCreate = (option, searchText) => {
@@ -53,7 +69,6 @@ const Select2BaseMulti = ({name, ...props}) => {
         selectRef.current.setValue(selectRef.current.state.focusedOption, "set-value")
     }
     const animatedComponents = makeAnimated();
-    const colourStyles = selectStyle(); //From our styling factory
     
     //Reset component
     const resetSelectComponent = () => {
@@ -82,7 +97,8 @@ const Select2BaseMulti = ({name, ...props}) => {
 
             //Style, utils
             components={animatedComponents}
-            styles={colourStyles}
+            styles={customStyles}
+            onBlur={props.onTouch}
 
             //Creatable Section
             formatCreateLabel={(val)=> lang.createOptionLabel + val}

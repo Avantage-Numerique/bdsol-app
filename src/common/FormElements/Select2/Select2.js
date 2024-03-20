@@ -74,6 +74,17 @@ const Select2 = ({ name, formTools, ...props }) => {
         inputTouched
     } = formTools;
 
+    const currentState = formState.inputs[name];
+
+    const onTouch = event => {
+        inputHandler(
+            name,
+            value,
+            props.validationRules ? validate(value) : true
+        )
+        inputTouched(name)
+    }
+
     //Extract validator message
     const { validate, RequirementsBadges, dependencyCallingValidation } = useValidation( props.validationRules, formState )
     //Tooltip
@@ -183,6 +194,7 @@ const Select2 = ({ name, formTools, ...props }) => {
             inputValueSetter={setInputValue}
             value={value}
             valueSetter={setValue}
+            onTouch={onTouch}
         />):
         (<Select2BaseSingle
             name={name}
@@ -321,14 +333,21 @@ const Select2 = ({ name, formTools, ...props }) => {
         return descriptions.get(props.modalType);
     }
 
+    console.log("Is valid", currentState.isValid, "is touched", currentState.isTouched)
     return (
         <>
             {label} 
             
-            <div className="
-                    form-element
-                    form-element--color-validation
-                ">
+            <div 
+                //tabIndex="0"  Would allow the complete field to be focused, not only the input. But that would alos make two focusable elements by field
+                data-testid="field-container"
+                className={`
+                form-element
+                form-element--color-validation
+                ${props.disabled ? "bg-greyBg" : ""}
+                ${props.formClassName && props.formClassName}
+                ${!currentState.isValid && currentState.isTouched && "control--invalid"}
+            `}>
                     {select}
                     <RequirementsBadges addUlPadding />
             </div>
