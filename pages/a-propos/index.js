@@ -49,29 +49,10 @@ const Index = () => {
                         </p>
                         <ul>
                             <li>
-                                <a href={AppRoutes.consult.asPath}
-                                    target="_self">
-                                    Consulter et trier les données
-                                </a>
-                                &nbsp;
-                                déjà existantes sur la plateforme (personnes, organisations, équipements, événements et projets)
+                                <RouteLink routeName="consult" label="Consulter et trier les données"/> déjà existantes sur la plateforme (personnes, organisations, équipements, événements et projets)
                             </li>
                             <li>
-                                Vous
-                                &nbsp;
-                                <a href={AppRoutes.register.asPath}
-                                    target="_self">
-                                    créer un compte
-                                </a>
-                                &nbsp;
-                                ou vous 
-                                &nbsp;
-                                <a href={AppRoutes.connection.asPath}
-                                    target="_self">
-                                    connecter
-                                </a>
-                                &nbsp;
-                                pour pouvoir à votre tour ajouter ou modifier des données
+                                Vous <RouteLink routeName="register" label="créer un compte"/> ou vous <RouteLink routeName="connection" label="connecter"/> pour pouvoir à votre tour ajouter ou modifier des données
                             </li>
                         </ul>
                     </div>
@@ -126,7 +107,7 @@ const Index = () => {
                                 <li>
                                     <p className={pClass}>
                                         <strong>Simon Descôteaux –</strong> Product owner <br/>
-                                        simon.descoteaux@avantagenumerique.org<br/>
+                                        simondesc11@gmail.com<br/>
                                         –
                                     </p>
                                 </li>
