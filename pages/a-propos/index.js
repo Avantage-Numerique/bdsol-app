@@ -2,7 +2,10 @@
 import PageHeader from "@/layouts/Header/PageHeader";
 import React from "react";
 import PageMeta from "@/src/common/PageMeta/PageMeta";
+import { RouteLink } from "@/src/common/Components/RouteLink";
+import Link from "next/link";
 import {lang} from "@/src/common/Data/GlobalConstants";
+import AppRoutes from "@/src/Routing/AppRoutes";
 
 /**
  * Really basic page with plain text. This could be dry with an entry or some sort of markdown file.
@@ -23,112 +26,101 @@ const Index = () => {
             <div className={"container home-page__main content"}>
                 <div className={"row"}>
                     <div className={"col"}>
-                        <h3>Un projet en développement</h3>
+                        <h3>Un outil d’exploration des ressources technologiques du Croissant boréal</h3>
                         <p className={pClass}>
-                            Avantage Numérique travaille actuellement sur l’intégration d’une base de données à son hub virtuel. Elle a pour objectif de recenser et de géolocaliser les talents, les compétences, les équipements et les initiatives technocréatives dans le <a href="https://avantagenumerique.org/le-croissant-boreal/" target="_blank">Croissant Boréal</a> (Abitibi-Témiscamingue, nord de l’Ontario francophone, Nord-du-Québec). La mise en ligne de cet outil augmentera la découvrabilité, la visibilité, ainsi que la transmission des savoirs relatifs aux technologies sur le territoire.
+                            Avnu est une plateforme web <strong>gratuite</strong> et <strong>collaborative</strong> qui vise à documenter les ressources technologiques du
+                            &nbsp;
+                            <a href="https://avantagenumerique.org/le-croissant-boreal/"
+                                target="_blank">
+                                Croissant boréal
+                            </a>
+                            &nbsp;
+                            (Abitibi-Témiscamingue, nord de l’Ontario francophone et Baie-James). Dans un objectif de transmission des savoirs et d’apprentissage collectif, cette <strong>base de données ouvertes</strong> se veut être un outil pour répertorier les activités technocréatives locales.
+                            <br/><br/>
+                            Que vous soyez un·e professionnel·le du numérique ou simplement un·e curieux·se des nouvelles technologies, ce portail en ligne vous permettra de géolocaliser les <strong>organisations</strong>, les <strong>équipements</strong>, les <strong>projets</strong>, les <strong>ressources humaines</strong> et les <strong>événements</strong> qui vous aideront à réaliser votre projet technocréatif.
                         </p>
                     </div>
                 </div>
                 <div id="caracteristique" className={"row"}>
                     <div className={"col"}>
-                        <h3>Quelles sont les caractéristiques de cette base de données ?</h3>
+                        <h3>Comment ça fonctionne ?</h3>
+                        <p>
+                            En tant qu’utilisateur·rice de la plateforme, vous pouvez :
+                        </p>
                         <ul>
                             <li>
-                                Les données sont <strong>structurées :</strong> elles sont prédéfinies et formatées
-                                selon une structure précise, et ce dans le but d’être compréhensible par les
-                                ordinateurs.
+                                <a href={AppRoutes.consult.asPath}
+                                    target="_self">
+                                    Consulter et trier les données
+                                </a>
+                                &nbsp;
+                                déjà existantes sur la plateforme (personnes, organisations, équipements, événements et projets)
                             </li>
                             <li>
-                                Les données sont <strong>ouvertes :</strong> elles sont accessibles et, suivant la
-                                politique de gestion de données établie, elles peuvent être utilisées librement par
-                                les usager·ères.
+                                Vous
+                                &nbsp;
+                                <a href={AppRoutes.register.asPath}
+                                    target="_self">
+                                    créer un compte
+                                </a>
+                                &nbsp;
+                                ou vous 
+                                &nbsp;
+                                <a href={AppRoutes.connection.asPath}
+                                    target="_self">
+                                    connecter
+                                </a>
+                                &nbsp;
+                                pour pouvoir à votre tour ajouter ou modifier des données
+                            </li>
+                        </ul>
+                        <h3>À quoi ça sert ?</h3>
+                        <p>
+                            La plateforme Avnu est parcourable librement et gratuitement par les utilisateurs·trices qui souhaitent se renseigner sur les ressources technologiques proposées dans le Croissant Boréal. Elle permet par exemple de :
+                        </p>
+                        <ul>
+                            <li>
+                                <strong>Trouver une personne ayant les compétences</strong> dans un domaine, dans une technologie ou avec un équipement, afin de réaliser un projet technocréatif.
                             </li>
                             <li>
-                                Les données sont <strong>liées :</strong> la base de données est consultable par
-                                d’autres bases de données qui partagent la même structure et les mêmes règles
-                                d’écriture afin d’être en mesure d’échanger librement de l’information.
+                                <strong>Se renseigner sur les espaces et les équipements</strong> permettant de réaliser un projet précis.
+                            </li>
+                            <li>
+                                <strong>Découvrir les compétences nécessaires</strong> pour accomplir un type de projet ou pour l’utilisation d’un équipement.
+                            </li>
+                            <li>
+                                <strong>Partager des solutions</strong> et des marches à suivre pour répondre à des problèmes techniques.
+                            </li>
+                            <li>
+                                <strong>Améliorer la découvrabilité</strong> d’un projet ou d’un organisme.
+                            </li>
+                            <li>
+                                <strong>Promouvoir</strong> des œuvres, des formations, des travaux, des projets et des organisations.
                             </li>
                         </ul>
                     </div>
                 </div>
-                <div className={"row"}>
-                    <div id="a-quoi-va-servir-la-base-de-donnees" className={"col"}>
-                        <h3>À quoi va servir la base de données ?</h3>
-                        <p className={pClass}>
-                            Une fois mise en place, la base de données pourra être parcourue librement par les
-                            utilisateur·trices souhaitant se renseigner sur les ressources technologiques proposées dans
-                            le Croissant Boréal. Elle permettra par exemple de :
+                <div id="caracteristique" className={"row"}>
+                    <div className={"col"}>
+                        <h3>Utilisation et gouvernance des données</h3>
+                        <p>
+                            Dans un objectif de partage et de collaboration, nous faisons en sorte que les données entrées et diffusées sur la plateforme soient le plus ouvertes possible. Tout le monde a la possibilité d’ajouter de nouvelles données et de modifier celles déjà présentes sur la plateforme. La manière dont nous gérons les données est décrite en détail dans notre <RouteLink routeName={"confidentialityPolicy"}/>.
                         </p>
-                        <ul>
-                            <li>
-                                <strong>Trouver une personne ayant les compétences</strong> dans un domaine, dans
-                                une technologie ou avec un équipement, afin de réaliser un projet technocréatif.
-                            </li>
-                            <li>
-                                <strong>Se renseigner sur les espaces et les équipements</strong> permettant de
-                                réaliser un projet précis.
-                            </li>
-                            <li>
-                                <strong>Découvrir les compétences nécessaires</strong> pour accomplir un type de
-                                projet ou pour l’utilisation d’un équipement.
-                            </li>
-                            <li>
-                                <strong>Partager des solutions</strong> et des marches à suivre pour répondre à des
-                                problèmes techniques.
-                            </li>
-                            <li>
-                                <strong>Améliorer la
-                                    &nbsp;
-                                        <a href="https://avantagenumerique.org/2020/07/quest-ce-que-la-decouvrabilite/"
-                                           target="_blank">
-                                            découvrabilité
-                                        </a>
-                                    &nbsp;
-                                </strong>
-                                d’un projet ou d’un organisme.
-                            </li>
-                            <li>
-                                <strong>Promouvoir</strong> des œuvres, des formations, des travaux, des projets et
-                                des organisations.
-                            </li>
-                        </ul>
                     </div>
-                    <div id="qui-pourra-utiliser-la-base-de-donnees" className={"row"}>
-                        <div className={"col"}>
-                            <h3>Qui pourra utiliser la base de données ?</h3>
-                            <p className={pClass}>La base de données est destinée à un public large comprenant autant
-                                les professionnel·les du numérique que les personnes en quête d’apprentissage. Elle
-                                sera libre d’accès pour tous·tes les usager·ères souhaitant en apprendre davantage
-                                sur les ressources technologiques du Croissant Boréal.</p>
-                        </div>
-                    </div>
-                    <div className={"row"}>
-                        <div className={"col"}>
-                            <h3>Formulaire d’intégration de données à la version bêta de la base
-                                de données</h3>
-                            <p className={pClass}>Bien que la base de données soit pour l’instant inaccessible
-                                publiquement, il sera bientôt possible d’intégrer à sa version bêta des informations
-                                grâce à un formulaire. Les renseignements collectés seront ainsi ajoutés à la base
-                                de données et directement exploitables lorsque cette dernière sera mise en ligne. Il
-                                sera possible par la suite de les modifier et de les compléter.</p>
-                            <h3 id="gouvernance-des-donnees">Utilisation et gouvernance des données</h3>
-                            <p className={pClass}>L’équipe travaille actuellement sur l’établissement d’une
-                                gouvernance des données. Toute information entrée dans le formulaire sera sous la
-                                licence CC0
-                                
-                                    (<a href="https://creativecommons.org/share-your-work/public-domain/cc0/"
-                                       target="_blank">
-                                        Creative Commons 0
-                                    </a>)
-                                de manière temporaire. Cette licence affirme que les informations sont entièrement
-                                libres de droit et appartiennent au domaine public. Éventuellement, lorsqu’une
-                                politique de gouvernance sera établie, une licence plus restrictive sera choisie.
-                            </p>
-                        </div>
-                    </div>
+                        <h3>Un projet développé avec amour par Avantage numérique</h3>
+                        <p>
+                            Avnu est développé par
+                            &nbsp;
+                            <a href="https://avantagenumerique.org/"
+                                target="_blank">
+                                Avantage numérique
+                            </a>
+                            , un hub virtuel, physique et mobile qui dessert les secteurs de la culture, des affaires et du savoir. Le hub vise le développement de l’écosystème créatif, entrepreneurial et technologique du Croissant boréal. Il rassemble des organisations et des individus·es qui s’activent, autour de chantiers collaboratifs et de projets innovants, pour le développement de leurs milieux. Il est soutenu par une <RouteLink routeName={"valuesChart"}/> qui guide l’ensemble des actions réalisées dans un esprit de codéveloppement et d’innovation ouverte.
+                        </p>
+                    
                     <div className={"row"} id="equipe">
                         <div className={"col"}>
-                            <h3>Équipe</h3>
+                            <h3>Notre belle équipe</h3>
                             <ul>
                                 <li>
                                     <p className={pClass}>
@@ -139,51 +131,30 @@ const Index = () => {
                                 </li>
                                 <li>
                                     <p className={pClass}>
-                                        <strong>Marc-André Martin –</strong> Production et architecture technique de
-                                        l’application et de la base de données ouvertes et liées – Mamarmite <br/>
-                                        marc.andre.martin@avantagenumerique.org<br/>
+                                        <strong>Marc-André Martin (Mamarmite) –</strong> Production et architecture technique de
+                                        l’application et de la base de données – Mamarmite <br/>
+                                        marcandre@mamarmite.com<br/>
                                         –
                                     </p>
                                 </li>
                                 <li>
                                     <p className={pClass}>
                                         <strong>Vincent Poirier Ruel –</strong> Développement de la base de
-                                        donnée<br/>
-                                        vincentpruel@avantagenumerique.org<br/>
+                                        données<br/>
+                                        vincentp.ruel@gmail.com<br/>
                                         –
                                     </p>
                                 </li>
                                 <li>
                                     <p className={pClass}>
-                                        <strong>Frédéric Rivard –</strong> Développement de la base de donnée<br/>
+                                        <strong>Frédéric Rivard –</strong> Développement de la base de données<br/>
                                         sonofapancak@protonmail.com<br/>
                                         –
                                     </p>
                                 </li>
                                 <li>
                                     <p className={pClass}>
-                                        <strong>Olivier Ross –</strong> Développement de la base de donnée<br/>
-                                        olivier@hub01.org<br/>
-                                        –
-                                    </p>
-                                </li>
-                                <li>
-                                    <p className={pClass}>
-                                        <strong>Rémi Barbalat –</strong> Développement de la base de donnée<br/>
-                                        remi@hub01.org<br/>
-                                        –
-                                    </p>
-                                </li>
-                                <li>
-                                    <p className={pClass}>
-                                        <strong>Nicolas Trudeau –</strong> Développement de la base de donnée<br/>
-                                        nicolas@hub01.org<br/>
-                                        –
-                                    </p>
-                                </li>
-                                <li>
-                                    <p className={pClass}>
-                                        <strong>Jeanne Lebigre –</strong> Lien avec la communauté<br/>
+                                        <strong>Jeanne Perrin –</strong> Lien avec la communauté<br/>
                                         jeanne.perrin@petittheatre.org<br/>
                                         –
                                     </p>
@@ -192,7 +163,7 @@ const Index = () => {
 
                             <p className={pClass}>
                                 <strong>Nos experts conseils :</strong>
-                                Viêt Cao et Christian Roy<br/>
+                                Viêt Cao (SynapseC), Jules Gaudin (Robic) et Christian Roy (A10s inc.)<br/>
                             </p>
                             <p className={pClass}>
                                 <i>Initiative financée par le Conseil des Arts du Canada et le Ministère de la
