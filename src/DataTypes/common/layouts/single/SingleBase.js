@@ -50,8 +50,7 @@ const SingleBase = (props) => {
             />
             
             <div>
-                
-
+            
                 { /* Header */ }
                 <header className={`${styles["header-base"]} ${styles["full-width-container"]} position-relative`}>
                     <div className="container">

@@ -20,8 +20,6 @@ const EquipmentSingleView = ({ data }) => {
 
     const model = new Equipment(data);
 
-    const sectionClassSpacing = appConfig.spacing.singleSectionSpacingClass;
-
     /* Needed for breadCrumb generator */
     const getLabelGenerator = useCallback((param, query) => {
         return {
@@ -39,8 +37,8 @@ const EquipmentSingleView = ({ data }) => {
     }
     const title = (
         <>
-            <SanitizedInnerHtml tag={"h5"} className="text-white">{`${model.equipmentType.name}`}</SanitizedInnerHtml>
-            <SanitizedInnerHtml tag={"h3"} className="text-white">{`${model.title}`}</SanitizedInnerHtml>
+            <SanitizedInnerHtml removeQlEditorClass tag={"h5"} className="text-white">{`${model.equipmentType.name}`}</SanitizedInnerHtml>
+            <SanitizedInnerHtml removeQlEditorClass tag={"h3"} className="text-white">{`${model.title}`}</SanitizedInnerHtml>
         </>)
     const subtitle = (<></>)
     const Header = (
@@ -58,6 +56,8 @@ const EquipmentSingleView = ({ data }) => {
         <>
             <SingleInfo
                 cardLayout
+                displayCondition={(model.brand || model.modelName)}
+                NAMessage="Aucun modèle ou marque n'est associé à ce produit."
                 title={lang.productInformations}
             >
                 
