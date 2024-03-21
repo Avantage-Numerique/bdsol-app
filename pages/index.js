@@ -35,7 +35,6 @@ const HomePageHeaderBgImg = () => {
     const localFigureStyling = {
         bottom: "-5vh",
         zIndex: "1",
-        minWidth: "30rem"
     }
 
     const localImgStyling = {
@@ -132,7 +131,7 @@ const HomePage = ({}) => {
             />
             <section className="container home-page__main p-0">
                 {/* Display of 6 latest entities*/}
-                <div className="row gx-5">
+                <div className="row">
                     <div className="d-flex flex-column align-items-center">
                         <h2 className="mt-4 text-center">Ajouts récents à la base de données</h2>
                         <p className="mb-4 text-center">Cliquez sur les différentes fiches afin d'obtenir plus d'informations sur ces ressources.</p>
@@ -202,7 +201,7 @@ const HomePage = ({}) => {
             </section>
 
             {/* Account section */}
-            <section className="home-page__full-width-section position-relative">
+            <section className="home-page__full-width-section position-relative my-4">
                 <figure className="position-absolute top-0 bottom-0 start-0 end-0">
                     <Image className="h-75 d-none d-md-block w-auto position-absolute end-0 top-0" src={shipAndPlanetsImg} alt="Fusée d'AVNU se déplaçant entre les planètes dans l'espace." />
                 </figure>
