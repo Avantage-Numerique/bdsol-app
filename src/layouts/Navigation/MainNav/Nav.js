@@ -27,6 +27,7 @@ import {useSessionHook} from '@/auth/hooks/useSessionHook'
 import {lang} from "@/src/common/Data/GlobalConstants";
 import AppRoutes from '@/src/Routing/AppRoutes'
 import MainNavButton from "@/layouts/Navigation/MainNav/MainNavButton";
+import SearchBar from "@/common/Components/SearchBar";
 
 const Nav = ( {menuState, setMenuState} ) => {
 
@@ -89,37 +90,54 @@ const Nav = ( {menuState, setMenuState} ) => {
                     <div className={`row ${styles["limited-width"]}`}>
                         <div className="col">
                             <section className={`${styles["nav-section"]}`}>
-                                <MainNavButton className="fs-3 h2" route={AppRoutes.consult} handler={navLinkHandler} label={"Consulter les données"} />
+                                <SearchBar id="searchbar-layout" clearAfterSearch="true" small/>
                             </section>
 
                             <section className={`${styles["nav-section"]}`}>
-                                <MainNavButton className="fs-3 h2" route={AppRoutes.contribute} handler={navLinkHandler} label={"Ajouter des données"} />
+                                <MainNavButton className="fs-3 h2" route={AppRoutes.consult} handler={navLinkHandler}
+                                               label={"Consulter les données"}/>
+                            </section>
+
+                            <section className={`${styles["nav-section"]}`}>
+                                <MainNavButton className="fs-3 h2" route={AppRoutes.contribute} handler={navLinkHandler}
+                                               label={"Ajouter des données"}/>
                                 <ul className={`${styles["button-list"]}`}>
                                     <li>
-                                        <MainNavButton route={AppRoutes.organisationsCreate} iconClassName={`${Organisation.icon} ${styles["entity-icon"]}`} handler={navLinkHandler} />
+                                        <MainNavButton route={AppRoutes.organisationsCreate}
+                                                       iconClassName={`${Organisation.icon} ${styles["entity-icon"]}`}
+                                                       handler={navLinkHandler}/>
                                     </li>
                                     <li>
-                                        <MainNavButton route={AppRoutes.personCreate} iconClassName={`${Person.icon} ${styles["entity-icon"]}`} handler={navLinkHandler} />
+                                        <MainNavButton route={AppRoutes.personCreate}
+                                                       iconClassName={`${Person.icon} ${styles["entity-icon"]}`}
+                                                       handler={navLinkHandler}/>
                                     </li>
                                     <li>
-                                        <MainNavButton route={AppRoutes.projectCreate} iconClassName={`${Project.icon} ${styles["entity-icon"]}`} handler={navLinkHandler} />
+                                        <MainNavButton route={AppRoutes.projectCreate}
+                                                       iconClassName={`${Project.icon} ${styles["entity-icon"]}`}
+                                                       handler={navLinkHandler}/>
                                     </li>
                                     <li>
-                                        <MainNavButton route={AppRoutes.eventCreate} iconClassName={`${Event.icon} ${styles["entity-icon"]}`} handler={navLinkHandler} />
+                                        <MainNavButton route={AppRoutes.eventCreate}
+                                                       iconClassName={`${Event.icon} ${styles["entity-icon"]}`}
+                                                       handler={navLinkHandler}/>
                                     </li>
                                     <li>
-                                        <MainNavButton route={AppRoutes.equipmentCreate} iconClassName={`${Equipment.icon} ${styles["entity-icon"]}`} handler={navLinkHandler} />
+                                        <MainNavButton route={AppRoutes.equipmentCreate}
+                                                       iconClassName={`${Equipment.icon} ${styles["entity-icon"]}`}
+                                                       handler={navLinkHandler}/>
                                     </li>
                                 </ul>
                             </section>
 
                             <section className={`${styles["nav-section"]}`}>
-                                <MainNavButton className="fs-3 h2" route={AppRoutes.categories} handler={navLinkHandler} label={"Filtrer les données par catégories"} />
+                                <MainNavButton className="fs-3 h2" route={AppRoutes.categories} handler={navLinkHandler}
+                                               label={"Filtrer les données par catégories"}/>
                             </section>
                         </div>
                         <div className="col">
                             <section className={`${styles["nav-section"]}`}>
-                                <MainNavButton className="fs-3 h2" route={AppRoutes.about} handler={navLinkHandler} />
+                                <MainNavButton className="fs-3 h2" route={AppRoutes.about} handler={navLinkHandler}/>
                                 <ul className={`${styles["button-list"]}`}>
                                     <li>
                                         <MainNavButton route={AppRoutes.about} handler={navLinkHandler} label={"En savoir plus sur le projet AVNU"} />

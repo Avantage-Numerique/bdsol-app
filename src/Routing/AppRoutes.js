@@ -201,7 +201,7 @@ const AppRoutesRaw = {
         asPath: "/contribuer/lieux/[slug]"
     },
     placeCreate : {
-        label: "Ajouter un événement",
+        label: "Ajouter un lieux",
         pathname: "/contribuer/lieux",
         asPath: "/contribuer/lieux"
     },
@@ -236,7 +236,7 @@ const AppRoutesRaw = {
         asPath: "/contribuer/equipements/[slug]"
     },
     equipmentCreate : {
-        label: "Ajouter un événement",
+        label: "Ajouter un équipement",
         pathname: "/contribuer/equipements",
         asPath: "/contribuer/equipements"
     },
