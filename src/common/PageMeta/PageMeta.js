@@ -55,7 +55,7 @@ const PageMeta = (props) => {
     const defaultImgWidth = "1200"
     const defaultImgHeight = "630"
 
-    const displayedImg = props.imageFromApi || (appUrl(props.image) || appUrl(defaultImg))
+    const displayedImg = props.imageFromApi || (props.image && appUrl(props.image) || appUrl(defaultImg));
 
     return (
         <Head>
