@@ -44,7 +44,7 @@ const rules_settings = {
     },
     TYPE_EMAIL: { 
         renderMessage: (() => "Ce champ doit être une adresse courriel valide"),
-        validationMethod: (value => /^[\w+\-.]+@([\w-]+\.)+[\w-]{2,10}$/.test(value)),// /* /^[\w-\.]+@([\w-]+\.)+[\w-]{2,10}$/ */
+        validationMethod: (value => /^[\w+\-.]+@([\w-]+\.)+[\w-]{2,20}$/.test(value)),//    longuest domain found is 14 long : .cancerresearch
 
         renderBadge: (() => `Format courriel`)
     },
