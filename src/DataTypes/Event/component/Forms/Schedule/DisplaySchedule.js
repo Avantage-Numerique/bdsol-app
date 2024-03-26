@@ -36,9 +36,8 @@ const DisplaySchedule = ({feed}, ...props) => {
 
 
     const DateSchedule = ({feed}) => {
-        // list-group-flush
         return (
-            <ol className={"list-group"}>
+            <ol className={"list-group"} key={`displayDateScheduleOl${Math.floor(Math.random()*1000)}`}>
                 {
                     feed.length > 0 ?
                         feed.map((step, i) => {
@@ -64,9 +63,8 @@ const DisplaySchedule = ({feed}, ...props) => {
         )
     }
 
-
     return (
-        <div className={`${props.className ?? ""}`}>
+        <div className={`${props.className ?? ""}`} key={`displayDateScheduleOl${Math.floor(Math.random()*1000)}`}>
             {
                 parsedFeed.feedDates.length > 0 ?
                     parsedFeed.feedDates.map((date, i) => {
@@ -74,14 +72,14 @@ const DisplaySchedule = ({feed}, ...props) => {
                         const currentFeed = parsedFeed.feed[key] ?? [];
 
                         return (
-                            <>
+                            <div key={`displayDateScheduleOlContainer${Math.floor(Math.random() * 1000)}`}>
                                 <p key={key + "subtitle"} className={`pt-3`}>
                                     <strong>{lang.capitalize("the")} {formatDate(date, lang.humanDateFormat)}</strong>
                                 </p>
-                                { currentFeed.length > 0 &&
-                                    <DateSchedule feed={currentFeed} />
+                                {currentFeed.length > 0 &&
+                                    <DateSchedule feed={currentFeed} key={key + "DateSchedule"}/>
                                 }
-                            </>
+                            </div>
                         )
                     })
                     :

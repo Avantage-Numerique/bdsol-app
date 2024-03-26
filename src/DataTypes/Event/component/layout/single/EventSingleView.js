@@ -330,7 +330,7 @@ const EventSingleView = ({data}) => {
                 {data: model.entityInCharge},
                 {data: model.organizer},
                 {data: location},
-                {data: description, validationFunction: (value => removeTagsFromString(value) ? true : false)},
+                {data: description, validationFunction: (value => !removeTagsFromString(value))},
                 {data: model.mainImage.isDefault, validationFunction: ((value) => !value)}, 
                 {data: schedule},
                 //{data: subEvents},
@@ -340,9 +340,7 @@ const EventSingleView = ({data}) => {
                 {data: url},
                 {data: contactPoint},
                 {data: eventType},
-                {data: eventFormat},
-
-
+                {data: eventFormat}
             ]}
             buttonText={lang.contributeButtonLabel}
             buttonLink={model.singleEditLink}
