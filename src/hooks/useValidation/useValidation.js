@@ -4,7 +4,7 @@
     V.P.R. - 18/10/2022
 
 */
-import {useState, useEffect} from 'react'
+import {useEffect, useState} from 'react'
 import {lang} from "@/common/Data/GlobalConstants";
 
 const isValuePositive = value => {
@@ -44,7 +44,8 @@ const rules_settings = {
     },
     TYPE_EMAIL: { 
         renderMessage: (() => "Ce champ doit être une adresse courriel valide"),
-        validationMethod: (value => /^[\w-\.]+@([\w-]+\.)+[\w-]{2,5}$/.test(value)),
+        validationMethod: (value => /^[\w+\-.]+@([\w-]+\.)+[\w-]{2,10}$/.test(value)),// /* /^[\w-\.]+@([\w-]+\.)+[\w-]{2,10}$/ */
+
         renderBadge: (() => `Format courriel`)
     },
     TYPE_ALPHANUMERIC: {
