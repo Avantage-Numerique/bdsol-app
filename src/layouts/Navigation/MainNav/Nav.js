@@ -87,11 +87,15 @@ const Nav = ( {menuState, setMenuState} ) => {
                     <Image className={`position-absolute ${styles["bg-img"]}`} src={organizationPresentationImg} alt={"Fusée avec le canard d'AVNU qui se déplace dans l'espace."} /> 
                 </figure>
                 <div className={`container ${styles["main-section"]}`}>
-                    <div className={`row ${styles["limited-width"]}`}>
+                    <div className={`row ${styles["limited-width"]} d-md-none`}>
                         <div className="col">
-                            <section className={`${styles["nav-section"]}`}>
+                            <section className={`${styles["nav-section"]} search-bar-main-nav`}>
                                 <SearchBar id="searchbar-layout" clearAfterSearch="true" small/>
                             </section>
+                        </div>
+                    </div>
+                    <div className={`row ${styles["limited-width"]}`}>
+                        <div className="col">
 
                             <section className={`${styles["nav-section"]}`}>
                                 <MainNavButton className="fs-3 h2" route={AppRoutes.consult} handler={navLinkHandler}

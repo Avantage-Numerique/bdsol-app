@@ -52,7 +52,7 @@ const SocialHandleDisplay = ({ url, title, className }) => {
         (orderedUrls.length > 0) &&
             <SingleInfo title={title} className={className}>
                 {
-                    orderedUrls.map( (singleUrl) => <SingleSocialHandle data={singleUrl} key={("url_" + singleUrl.url)} />)
+                    orderedUrls.map( (singleUrl, i) => <SingleSocialHandle data={singleUrl} key={("url_" + singleUrl.url+i)} />)
                 }
             </SingleInfo>
         

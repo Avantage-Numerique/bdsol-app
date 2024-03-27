@@ -6,8 +6,8 @@ import SingleBaseHeader from "@/src/DataTypes/common/layouts/single/defaultSecti
 import SingleInfo from "@/src/DataTypes/common/layouts/SingleInfo/SingleInfo";
 import EntitiesTagGrid from "@/src/DataTypes/Entity/layouts/EntitiesTagGrid";
 import SearchTag from "@/src/common/Components/SearchTag";
-import {ExternalLink} from "@/src/common/Components/ExternalLink";
-import SingleBaseProgressBar from '@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseProgressBar/SingleBaseProgressBar'
+import SingleBaseProgressBar
+    from '@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseProgressBar/SingleBaseProgressBar'
 import SocialHandleDisplay from '@/src/DataTypes/common/layouts/SocialHandlesViews/SocialHandleDisplay'
 //Utils
 import Head from "next/head";
@@ -20,11 +20,9 @@ import DisplaySchedule from "../../Forms/Schedule/DisplaySchedule";
 import {removeTagsFromString} from '@/src/helpers/html'
 
 
-
 //Hooks
 import {dateManager} from '@/common/DateManager/DateManager'
 import {clientSideExternalApiRequest} from "@/src/hooks/http-hook";
-import EntityLink from "@/DataTypes/Entity/layouts/EntityLink";
 import {appConfig} from "@/src/configs/AppConfig";
 
 
@@ -102,7 +100,7 @@ const EventSingleView = ({data}) => {
                     <h4 className="text-white">{model.alternateName ? model.alternateName : ""}</h4>
                     {/*Date*/}
                     <SingleInfo displayCondition={(startDate && endDate)}>
-                                <TimeIntervalSentence tag="h2" className="text-decoration-underline" />
+                        <TimeIntervalSentence tag="h2" className="text-decoration-underline" />
                     </SingleInfo>
                 </div>
             )}
@@ -282,7 +280,7 @@ const EventSingleView = ({data}) => {
                         title={lang.eventType}
                     >
                     {(eventType?.length > 0) &&
-                        <ul className="d-flex mb-0 mt-1">
+                        <ul className="d-flex flex-wrap mb-0 mt-1">
                             {eventType.map( type => (
                                 <li className="badge bg-primary-light text-dark me-1 mb-1" key={`${type.name}`}>
                                     {type.name}
@@ -332,7 +330,7 @@ const EventSingleView = ({data}) => {
                 {data: model.entityInCharge},
                 {data: model.organizer},
                 {data: location},
-                {data: description, validationFunction: (value => removeTagsFromString(value) ? true : false)},
+                {data: description, validationFunction: (value => !removeTagsFromString(value))},
                 {data: model.mainImage.isDefault, validationFunction: ((value) => !value)}, 
                 {data: schedule},
                 //{data: subEvents},
@@ -342,9 +340,7 @@ const EventSingleView = ({data}) => {
                 {data: url},
                 {data: contactPoint},
                 {data: eventType},
-                {data: eventFormat},
-
-
+                {data: eventFormat}
             ]}
             buttonText={lang.contributeButtonLabel}
             buttonLink={model.singleEditLink}
