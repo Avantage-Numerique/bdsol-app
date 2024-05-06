@@ -5,8 +5,8 @@ import SingleBase from "@/src/DataTypes/common/layouts/single/SingleBase"
 import SingleBaseHeader from "@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseHeader"
 import SearchTag from '@/src/common/Components/SearchTag';
 import SingleInfo from "@/DataTypes/common/layouts/SingleInfo/SingleInfo";
-import SingleBaseProgressBar
-    from '@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseProgressBar/SingleBaseProgressBar'
+import SingleBaseProgressBar from '@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseProgressBar/SingleBaseProgressBar'
+import SocialHandleDisplay from '@/src/DataTypes/common/layouts/SocialHandlesViews/SocialHandleDisplay';
 //Styling
 
 //Utils
@@ -17,6 +17,7 @@ import Person from "@/DataTypes/Person/models/Person";
 import EntitiesTagGrid from "@/DataTypes/Entity/layouts/EntitiesTagGrid";
 import {SkillGroup} from "@/DataTypes/common/layouts/skillsGroup/SkillGroup";
 import {removeTagsFromString} from '@/src/helpers/html'
+import { ContactPointView } from '@/src/DataTypes/common/layouts/ContactPointView/ContactPointView';
 
 
 const PersonSingleView = ({ data }) => {
@@ -38,7 +39,9 @@ const PersonSingleView = ({ data }) => {
         mainImage,
         organisations,
         projects,
-        events
+        events,
+        contactPoint,
+        url
     } = data;
 
     //To display occupations in the proper order
@@ -157,6 +160,15 @@ const PersonSingleView = ({ data }) => {
 
     const ContentColumnRight = (
         <>
+            {/* Contact information */}
+            <SingleInfo 
+                title={lang.organisationContact} 
+                cardLayout
+            >
+                <ContactPointView
+                    contact={model.contactPoint}
+                />
+            </SingleInfo>
             {domains.length > 0 &&
                 <SingleInfo 
                     title={lang.Domains} 
@@ -169,6 +181,13 @@ const PersonSingleView = ({ data }) => {
                         listProperty={"domain"}
                     />
                 </SingleInfo>
+            }
+            {/* Url */}
+            { model && model?.url &&
+                <SocialHandleDisplay
+                    title={lang.externalLinks}
+                    url={model?.url}
+                />
             }
         </>
     )

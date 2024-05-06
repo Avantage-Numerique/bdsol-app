@@ -133,10 +133,16 @@ const base = {
 
     //Button
     "apply" : "Appliquer",
+    "report": "Signaler",
 
     //Contact us
     "message": "Message",
     "email": "Adresse courriel",
-    "sendMessage": "Envoyer le message"
+    "sendMessage": "Envoyer le message",
+
+    //contactPoint
+    "website": "Site internet",
+    "phoneNumber": "Téléphone",
+    "phoneExtension": "Poste"
 }
 exports.base = base;

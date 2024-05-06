@@ -14,6 +14,7 @@ import Select2 from '@/src/common/FormElements/Select2/Select2'
 import {SingleEntityMeta} from '@/src/DataTypes/Meta/components/SingleEntityMeta'
 import SingleInfo from "@/DataTypes/common/layouts/SingleInfo/SingleInfo";
 import SingleSaveEntityReminder from '@/src/DataTypes/common/layouts/SingleSaveEntityReminder/SingleSaveEntityReminder'
+import UpdateSocialHandles from '@/src/DataTypes/common/Forms/UpdateSocialHandles/UpdateSocialHandles'
 
 //Context
 import {useAuth} from "@/src/authentification/context/auth-context";
@@ -30,6 +31,7 @@ import Icon from "@/common/widgets/Icon/Icon";
 import MainImageDisplay from "@/DataTypes/common/layouts/single/defaultSections/MainImageDisplay/MainImageDisplay";
 import {TYPE_TAXONOMY} from '@/src/DataTypes/Entity/Types'
 import SubmitEntity from "@/DataTypes/common/Forms/SingleEdit/SubmitEntity";
+import UpdateContactPoint from '@/src/DataTypes/common/Forms/UpdateContactPoint/UpdateContactPoint'
 
 
 const PersonSingleEdit = ({ positiveRequestActions, ...props}) => {
@@ -50,7 +52,8 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props}) => {
         type,
         fullName,
         createdAt,
-        equipment,
+        contactPoint,
+        url,
         updatedAt
     } = props?.data;
 
@@ -142,7 +145,15 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props}) => {
             domains: {
                 value: domains ?? [],
                 isValid: true
-            }
+            },
+            contactPoint: {
+                value: contactPoint ?? "",
+                isValid: true
+            },
+            url: {
+                value: url ?? [],
+                isValid: true
+            },
         },
         //Pass a set of rules to execute a valid response of an api request
         {
@@ -180,6 +191,14 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props}) => {
                         }
                     })
                     : [],
+                contactPoint: formState.inputs.contactPoint.value,
+                url: formState.inputs.url.value.map(function(singleUrl){
+                    return {
+                        label: singleUrl.value.label.value,
+                        url: singleUrl.value.url.value,
+                        subMeta: { order : singleUrl.order }
+                    }
+                }),
                 meta: getDefaultUpdateEntityMeta(auth.user, model.meta.requestedBy),
             }
         };
@@ -308,22 +327,42 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props}) => {
     )
 
     const contentColumnRight = (
-        <SingleInfo 
-            title={lang.Domains} 
-        >
-            <Select2
-                name="domains"
-                //label={lang.Domains}
-                formTools={formTools}
-                creatable={true}
-                modalType={TYPE_TAXONOMY}
-                isMulti={true}
-                fetch={"/taxonomies/list"}
-                requestData={{category:"domains", name:""}}
-                searchField={"name"}
-                selectField={"domains"}
-            />
-        </SingleInfo>
+        <>
+            <SingleInfo title={lang.contactInformations}>
+                <UpdateContactPoint
+                    formTools={formTools}
+                    name="contactPoint"
+                    model={model}
+                />
+
+            </SingleInfo>
+            <SingleInfo title={lang.Domains}>
+                <Select2
+                    name="domains"
+                    //label={lang.Domains}
+                    formTools={formTools}
+                    creatable={true}
+                    modalType={TYPE_TAXONOMY}
+                    isMulti={true}
+                    fetch={"/taxonomies/list"}
+                    requestData={{category:"domains", name:""}}
+                    searchField={"name"}
+                    selectField={"domains"}
+                />
+            </SingleInfo>
+
+            <SingleInfo
+                title={lang.externalLinks}
+            >
+                { /* Url */}
+                <UpdateSocialHandles
+                    name="url"
+                    label={lang.url}
+                    parentEntity={model}
+                    formTools={formTools}
+                />
+            </SingleInfo>
+        </>
     )
 
     const Footer = (

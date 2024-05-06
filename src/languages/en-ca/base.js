@@ -221,9 +221,15 @@ export const base = {
 
     //Button
     "apply" : "Apply",
+    "report": "Report",
 
     //Contact us
     "message": "Message",
     "email": "Email address",
-    "sendMessage": "Send message"
+    "sendMessage": "Send message",
+
+    //contactPoint
+    "website": "Website",
+    "phoneNumber": "Phone",
+    "phoneExtension": "Extension"
 }
