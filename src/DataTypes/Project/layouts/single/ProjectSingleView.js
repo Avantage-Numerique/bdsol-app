@@ -9,6 +9,7 @@ import SocialHandleDisplay from '@/src/DataTypes/common/layouts/SocialHandlesVie
 import EntitiesTagGrid from "@/DataTypes/Entity/layouts/EntitiesTagGrid";
 import EntityLink from "@/DataTypes/Entity/layouts/EntityLink";
 import SingleBaseProgressBar from '@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseProgressBar/SingleBaseProgressBar'
+import { ContactPointView } from '@/src/DataTypes/common/layouts/ContactPointView/ContactPointView';
 
 //Utils
 import SanitizedInnerHtml from '@/src/utils/SanitizedInnerHtml';
@@ -224,59 +225,54 @@ const ProjectSingleView = ({ data }) => {
     )
 
     const ContentColumnRight = (
-        <SingleInfo
-            title="Informations supplémentaires"
-            cardLayout
-        >
-            {context !== "" &&
+        <>
+            {/* Contact information */}
+            <SingleInfo title={lang.organisationContact} cardLayout>
+                <ContactPointView contact={model.contactPoint}/>
+            </SingleInfo>
+
+            <SingleInfo
+                title="Informations supplémentaires"
+                cardLayout
+            >
+                {context !== "" &&
+                    <SingleInfo
+                        title={lang.projectContext}
+                        isSubtitle
+                    >
+                        {allEnumState?.[context] ?? context}
+                    </SingleInfo>
+                }
+
+                {/* Skills */}
                 <SingleInfo
-                    title={lang.projectContext}
+                    title={lang.skillsAndTechnologies}
+                    displayCondition={skills?.length > 0}
                     isSubtitle
                 >
-                    {allEnumState?.[context] ?? context}
+                    <SearchTag list={skills} />
                 </SingleInfo>
-            }
-
-            {/* Skills */}
-            <SingleInfo
-                title={lang.skillsAndTechnologies}
-                displayCondition={skills?.length > 0}
-                isSubtitle
-            >
-                <SearchTag list={skills} />
-            </SingleInfo>
-            
-            {/* Domains */}
-            <SingleInfo 
-                title={lang.Domains} 
-                displayCondition={domains?.length > 0}
-                isSubtitle
-            >
-                <SearchTag
-                    list={domains}
-                    listProperty={"domain"}
+                
+                {/* Domains */}
+                <SingleInfo 
+                    title={lang.Domains} 
+                    displayCondition={domains?.length > 0}
+                    isSubtitle
+                >
+                    <SearchTag
+                        list={domains}
+                        listProperty={"domain"}
+                    />
+                </SingleInfo>
+                
+                {/*url*/}
+                <SocialHandleDisplay 
+                    title={lang.externalLinks} 
+                    url={model?.url}
+                    className={`${appConfig.spacing.singleSectionSpacingClass}`}
                 />
             </SingleInfo>
-            
-            {/* Contact */}            
-            <SingleInfo
-                title={lang.contactInformations}
-                isSubtitle                
-            >
-                { contactPoint &&
-                <SanitizedInnerHtml>
-                    {contactPoint}
-                </SanitizedInnerHtml>
-                }
-            </SingleInfo>
-            
-            {/*url*/}
-            <SocialHandleDisplay 
-                title={lang.externalLinks} 
-                url={model?.url}
-                className={`${appConfig.spacing.singleSectionSpacingClass}`}
-            />
-        </SingleInfo>
+        </>
     )
 
     {/*********** Footer section ***********/}

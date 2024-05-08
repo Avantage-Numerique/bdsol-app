@@ -8,6 +8,7 @@ import SanitizedInnerHtml from '@/src/utils/SanitizedInnerHtml';
 import SearchTag from '@/src/common/Components/SearchTag';
 import SingleBaseProgressBar
     from '@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseProgressBar/SingleBaseProgressBar'
+import { ContactPointView } from '@/src/DataTypes/common/layouts/ContactPointView/ContactPointView';
 
 
 //Utils
@@ -191,6 +192,12 @@ const OrganisationSingleView = ({ data }) => {
 
     const ContentColumnRight = (
         <>
+            
+            {/* Contact information */}
+            <SingleInfo title={lang.organisationContact} cardLayout>
+                <ContactPointView contact={model.contactPoint}/>
+            </SingleInfo>
+            
             {/* Location */}
             {location &&
                 <SingleInfo
@@ -201,14 +208,6 @@ const OrganisationSingleView = ({ data }) => {
                     <EntitiesTagGrid feed={location} subBadgeProperty={"address"} columnClass={"col-12"} />
                 </SingleInfo>
             }
-            
-            {/* Contact information */}
-            <SingleInfo 
-                title={lang.organisationContact} 
-                cardLayout
-            >
-                {contactPoint}
-            </SingleInfo>
             
             {/* Domains */}
             <SingleInfo

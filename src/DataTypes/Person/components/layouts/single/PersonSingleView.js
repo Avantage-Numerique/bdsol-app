@@ -161,14 +161,10 @@ const PersonSingleView = ({ data }) => {
     const ContentColumnRight = (
         <>
             {/* Contact information */}
-            <SingleInfo 
-                title={lang.organisationContact} 
-                cardLayout
-            >
-                <ContactPointView
-                    contact={model.contactPoint}
-                />
+            <SingleInfo title={lang.organisationContact} cardLayout>
+                <ContactPointView contact={model.contactPoint}/>
             </SingleInfo>
+            
             {domains.length > 0 &&
                 <SingleInfo 
                     title={lang.Domains} 

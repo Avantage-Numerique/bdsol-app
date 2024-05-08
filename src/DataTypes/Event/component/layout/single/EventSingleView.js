@@ -9,6 +9,8 @@ import SearchTag from "@/src/common/Components/SearchTag";
 import SingleBaseProgressBar
     from '@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseProgressBar/SingleBaseProgressBar'
 import SocialHandleDisplay from '@/src/DataTypes/common/layouts/SocialHandlesViews/SocialHandleDisplay'
+import { ContactPointView } from "@/src/DataTypes/common/layouts/ContactPointView/ContactPointView";
+
 //Utils
 import Head from "next/head";
 import SanitizedInnerHtml from '@/src/utils/SanitizedInnerHtml';
@@ -234,6 +236,12 @@ const EventSingleView = ({data}) => {
     )
 
     const contentColumnRight = (
+        <>
+            {/* Contact information */}
+            <SingleInfo title={lang.organisationContact} cardLayout>
+                <ContactPointView contact={model.contactPoint}/>
+            </SingleInfo>
+
             <SingleInfo 
                 title={"Informations supplémentaires"}
                 cardLayout
@@ -265,14 +273,6 @@ const EventSingleView = ({data}) => {
                     url={model?.url}
                     className={`${appConfig.spacing.singleSectionSpacingClass}`}
                 />
-                
-                {/* contactPoint */}
-                <SingleInfo 
-                    title={lang.contactInformations}
-                    isSubtitle
-                >
-                    { contactPoint && contactPoint }
-                </SingleInfo>
 
                 {/*eventType */}
                 <SingleInfo 
@@ -300,7 +300,8 @@ const EventSingleView = ({data}) => {
                     }
                 </SingleInfo>
                 
-            </SingleInfo>   
+            </SingleInfo>
+        </>
 
     )
 

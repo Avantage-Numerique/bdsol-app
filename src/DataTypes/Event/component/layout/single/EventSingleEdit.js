@@ -34,6 +34,7 @@ import {apiDateToDateInput, apiDateToTimeInput, dateTimeStringToUTC} from "@/com
 import SubmitEntity from "@/DataTypes/common/Forms/SingleEdit/SubmitEntity";
 import UpdateSocialHandles from "@/src/DataTypes/common/Forms/UpdateSocialHandles/UpdateSocialHandles";
 import SingleSaveEntityReminder from "@/src/DataTypes/common/layouts/SingleSaveEntityReminder/SingleSaveEntityReminder";
+import UpdateContactPoint from "@/src/DataTypes/common/Forms/UpdateContactPoint/UpdateContactPoint";
 
 const EventSingleEdit = ({data}, ...props) => {
 
@@ -166,7 +167,7 @@ const EventSingleEdit = ({data}, ...props) => {
                 isValid: true
             },
             contactPoint: {
-                value: contactPoint ?? "",
+                value: contactPoint ?? {tel:{num:"", ext:""},email:{address:""},website:{url:""} },
                 isValid: true
             },
             attendees: {
@@ -581,6 +582,13 @@ const EventSingleEdit = ({data}, ...props) => {
 
     const contentColumnRight = (
         <>
+            <SingleInfo title={lang.contactInformations}>
+                <UpdateContactPoint
+                    formTools={formTools}
+                    name="contactPoint"
+                    model={model}
+                />
+            </SingleInfo>
             <SingleInfo
                 title={"Informations supplémentaires"}
                 className="py-3"
@@ -634,23 +642,6 @@ const EventSingleEdit = ({data}, ...props) => {
                         formTools={formTools}
                 />
                 </SingleInfo>
-
-                {/* contactPoint */}
-                <SingleInfo 
-                    title={lang.contactInformations}
-                    isSubtitle
-                    tooltip={{
-                        header: lang.projectContactPointTipTitle,
-                        body: lang.projectContactPointTipContent
-                    }}
-                >
-                    <Input
-                        name="contactPoint"
-                        placeholder={lang.projectContactPointPlaceholder}
-                        formTools={formTools}
-                    />
-                </SingleInfo>
-
 
                 {/*eventType */}
                 <SingleInfo 

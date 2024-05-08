@@ -1,7 +1,9 @@
 import { lang } from "@/src/common/Data/GlobalConstants";
 
 const ContactPointView = ({contact, ...props}) => {
-    const {tel, email, website} = contact;
+    const tel = contact?.tel ?? {num:"", ext:""};
+    const email = contact?.email ?? {address:""};
+    const website = contact?.website ?? {url:""};
 
     const telSection = tel.num !== "" && (
         <article className={`d-flex flex-column p-2 mb-2`}>

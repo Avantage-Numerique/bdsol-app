@@ -147,7 +147,7 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props}) => {
                 isValid: true
             },
             contactPoint: {
-                value: contactPoint ?? "",
+                value: contactPoint ?? {tel:{num:"", ext:""},email:{address:""},website:{url:""} },
                 isValid: true
             },
             url: {
@@ -334,8 +334,8 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props}) => {
                     name="contactPoint"
                     model={model}
                 />
-
             </SingleInfo>
+
             <SingleInfo title={lang.Domains}>
                 <Select2
                     name="domains"
