@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react';
+import React, {useEffect, useState} from 'react';
 import Link from "next/link";
 
 //components
@@ -59,21 +59,23 @@ const OrganisationSingleView = ({ data }) => {
     const sortedOffers = offers?.[0]?.subMeta?.order ? offers.sort((a,b) => a.subMeta.order - b.subMeta.order) : offers;
     const sortedTeam = team?.[0]?.subMeta?.order ? team.sort((a,b) => a.subMeta.order - b.subMeta.order) : team;
 
-    /* Needed for breadCrumb generator */
-    const getLabelGenerator = useCallback((param, query) => {
-        return {
-            "organisations": lang.Organisations,
-            "slug": name        
-        }[param];
-    }, []);
+    const orgLabels = {
+        "organisations": lang.Organisations,
+        "slug": name
+    };
 
-    /****************************
-     *  Sections
-     ***************************/
-    const breadCrumb = {
+    const [breadCrumb, setBreadCrumb] = useState({
         route: model.singleRoute,
-        getLabelGenerator: getLabelGenerator
-    }
+        labels: orgLabels,
+    });
+
+    useEffect(() => {
+        setBreadCrumb({
+            route: model.singleRoute,
+            labels: orgLabels,
+        })
+    }, [name]);
+
 
     const Header = (
         <SingleBaseHeader
@@ -191,7 +193,6 @@ const OrganisationSingleView = ({ data }) => {
 
     const ContentColumnRight = (
         <>
-            {/* Location */}
             {location &&
                 <SingleInfo
                     displayCondition={location?.length > 0}
@@ -282,9 +283,6 @@ const OrganisationSingleView = ({ data }) => {
         </>
     )
 
-    {/**************************
-    *   Elements returned as props of the SingleBase
-    */}
     return (
         <>
             <SingleBase 

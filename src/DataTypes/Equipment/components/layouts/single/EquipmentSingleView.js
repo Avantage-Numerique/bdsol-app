@@ -1,18 +1,18 @@
-import React, {useCallback} from 'react';
+import React, {useEffect, useState} from 'react';
 
 //components
 import SingleBase from "@/src/DataTypes/common/layouts/single/SingleBase"
 import SingleBaseHeader from "@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseHeader"
 import SingleInfo from "@/DataTypes/common/layouts/SingleInfo/SingleInfo";
 import SocialHandleDisplay from '@/DataTypes/common/layouts/SocialHandlesViews/SocialHandleDisplay'
-import SingleBaseProgressBar from '@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseProgressBar/SingleBaseProgressBar'
+import SingleBaseProgressBar
+    from '@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseProgressBar/SingleBaseProgressBar'
 
 //Utils
 import SanitizedInnerHtml from '@/src/utils/SanitizedInnerHtml';
 import {SingleEntityMeta} from "@/src/DataTypes/Meta/components/SingleEntityMeta";
 import {lang} from "@/common/Data/GlobalConstants";
 import Equipment from '../../../models/Equipment';
-import {appConfig} from "@/src/configs/AppConfig";
 import EntitiesTagGrid from "@/DataTypes/Entity/layouts/EntitiesTagGrid";
 
 
@@ -21,20 +21,44 @@ const EquipmentSingleView = ({ data }) => {
     const model = new Equipment(data);
 
     /* Needed for breadCrumb generator */
-    const getLabelGenerator = useCallback((param, query) => {
+    /*const getLabelGenerator = useCallback((param, query) => {
         return {
             "equipement": lang.Equipment,
             "slug": model.title
         }[param];
     }, []);
 
-    /****************************
-     *  Sections
-     ***************************/
+
     const breadCrumb = {
         route: model.singleRoute,
         getLabelGenerator: getLabelGenerator
     }
+
+    */
+
+
+
+    const equipmentLabels = {
+        "equipement": lang.Equipment,
+        "slug": model.title
+    };
+
+    const [breadCrumb, setBreadCrumb] = useState({
+        route: model.singleRoute,
+        labels: equipmentLabels,
+    });
+
+    useEffect(() => {
+        setBreadCrumb({
+            route: model.singleRoute,
+            labels: equipmentLabels,
+        })
+    }, [name]);
+
+    /****************************
+     *  Sections
+     ***************************/
+
     const title = (
         <>
             <SanitizedInnerHtml removeQlEditorClass tag={"h5"} className="text-white">{`${model.equipmentType.name}`}</SanitizedInnerHtml>

@@ -4,7 +4,6 @@ import styles from './SingleBase.module.scss';
 //Component
 import SingleBaseHeader from './defaultSections/SingleBaseHeader';
 import {Breadcrumbs} from "@/common/Breadcrumbs/Breadcrumbs";
-import Head from "next/head";
 import React from "react";
 import {getTitle} from "@/DataTypes/MetaData/MetaTitle";
 import {removeTagsFromString} from "@/src/helpers/html";
@@ -62,7 +61,7 @@ const SingleBase = (props) => {
                 {  breadCrumb &&
                     <div className="row pt-sm-4 mt-sm-4">
                         <div className="col-12 pt-4 mt-4">
-                            <Breadcrumbs className={"pt-4"} route={breadCrumb.route} getLabelGenerator={breadCrumb.getLabelGenerator || undefined} getHrefGenerator={breadCrumb.getHrefGenerator || undefined} />
+                            <Breadcrumbs className={"pt-4"} labels={breadCrumb.labels} route={breadCrumb.route} getLabelGenerator={breadCrumb.getLabelGenerator || undefined} getHrefGenerator={breadCrumb.getHrefGenerator || undefined} />
                         </div>
                     </div>
                 }

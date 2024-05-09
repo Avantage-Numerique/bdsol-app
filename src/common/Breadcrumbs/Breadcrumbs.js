@@ -1,10 +1,11 @@
 import {useRouter} from "next/router";
-import {useEffect, useMemo, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 import {lang} from "@/common/Data/GlobalConstants";
 import Link from "next/link";
 
 const _defaultGetHrefGenerator = (pathParts, replaceWith) => pathParts;
 const _defaultGetLabelGenerator = path => path;
+
 
 /**
  * Generate each crumbs based of the Router URL (as a path).
@@ -35,24 +36,33 @@ const replacePathParts = (pathParts, replaceWith) => {
     return pathParts;
 }
 
+
 /**
  * Implémentation 1 : https://dev.to/dan_starner/building-dynamic-breadcrumbs-in-nextjs-17oa
  * @param getHrefGenerator {function}
  * @param getLabelGenerator {function}
  * @param route {object}
+ * @param labels {object}
  * @param className {string} pass the class name to this via the parent.
  * @constructor
  */
 const Breadcrumbs = ({
             getHrefGenerator = _defaultGetHrefGenerator,
             getLabelGenerator = _defaultGetLabelGenerator,
+            labels,
             route = undefined,
             className=""}) => {
 
     const router = useRouter();
 
-    const breadcrumbs = useMemo(
-        function generateBreadcrumbs() {
+    const labelGenerator = (param, query) => {
+        if (labels) {
+            return labels[param] ?? "??";
+        }
+        return "?";
+    };
+
+    const breadcrumbs = useCallback( () => {
 
             let asPathNestedRoutes,
                 asPathReplacementNestedRoutes,
@@ -82,10 +92,10 @@ const Breadcrumbs = ({
                         const param = pathnameNestedRoutes[idx].replace("[", "").replace("]", "");
 
                         const href = "/" + asPathNestedRoutes.slice(0, idx + 1).join("/");
-
                         return {
                             href,
-                            text: getLabelGenerator(param, router.query)
+                            text: labelGenerator(param, router.query),
+                            labels: labels
                         };
                     }
                     return "no string in subpath";
@@ -104,23 +114,55 @@ const Breadcrumbs = ({
             router.pathname,
             router.query,
             route,
+            labels,
             getLabelGenerator,
             getHrefGenerator]
     );
 
+    const crumbs = breadcrumbs();
+    console.log("CRUMBS", crumbs);
     return (
         <nav className={className} aria-label="breadcrumb">
             <ol className="breadcrumb">
-                {breadcrumbs.map((crumb, idx) => (
-                    <Crumb {...crumb} key={idx} last={idx === breadcrumbs.length - 1}/>
-                ))}
+                {crumbs.map((crumb, idx) => {
+                        return (
+                            <Crumb {...crumb} key={idx} last={idx === crumbs.length - 1}/>
+                        )
+                    }
+                )}
             </ol>
         </nav>
     );
 }
 
+const Crumb = ({labels, text, href, last = false}) => {//text: defaultText,
 
-const Crumb = ({text: defaultText, textGenerator, href, last = false}) => {
+    const generateText = useCallback((generator) => {
+        if (Boolean(generator) && typeof generator === "function") {
+            return generator();
+        }
+        return "-";
+    });
+
+    if (last) {
+        return (
+            <li className="breadcrumb-item d-flex" aria-current="page">
+                <div className="text-primary-darker py-0 px-1 bg-primary-light rounded-1" dangerouslySetInnerHTML={{ __html: text }}></div>
+            </li>
+        )
+    }
+
+    return (
+        <li className="breadcrumb-item d-flex mb-1">
+            <Link href={href} className="text-decoration-underline link-underline-secondary-darker link-underline-opacity-0 link-underline-opacity-75-hover bg-">
+                <div className="text-secondary-darker py-0 px-1 bg-secondary-light rounded-1" dangerouslySetInnerHTML={{ __html: text }}></div>
+            </Link>
+        </li>
+    );
+}
+
+
+const CrumbOld = ({text:defaultText, textGenerator, href, last = false}) => {//text: defaultText,
 
     const [text, setText] = useState(defaultText);
 
