@@ -90,6 +90,39 @@ const OrganisationSingleEdit = (props) => {
     }, [setCurrentModel]);
 
 
+    /*
+    const getLabelGenerator = useCallback((param, query) => {
+        return {
+            "contribuer": lang.menuContributeLabel,
+            "organisations": lang.Organisations,
+            "slug": model.name ?? "-"
+        }[param];
+    }, []);
+
+    const breadCrumb = {
+        route: model.singleEditRoute,
+        getLabelGenerator: getLabelGenerator
+    }*/
+
+    const breadcrumbLabels = {
+        "contribuer": lang.menuContributeLabel,
+        "organisations": lang.Organisations,
+        "slug": model.name ?? "-"
+    };
+
+    const [breadCrumb, setBreadCrumb] = useState({
+        route: model.singleRoute,
+        labels: breadcrumbLabels,
+    });
+
+    useEffect(() => {
+        setBreadCrumb({
+            route: model.singleRoute,
+            labels: breadcrumbLabels,
+        })
+    }, [name]);
+
+
     //Modal hook
     const modalSaveEntityReminder = useRootModal();
 
@@ -233,22 +266,9 @@ const OrganisationSingleEdit = (props) => {
         );
     }
 
-    /* Needed for breadCrumb generator */
-    const getLabelGenerator = useCallback((param, query) => {
-        return {
-            "contribuer": lang.menuContributeLabel,
-            "organisations": lang.Organisations,
-            "slug": model.name ?? "-"
-        }[param];
-    }, []);
-
     /*****************************
      *  Sections
      ***************************/
-    const breadCrumb = {
-        route: model.singleEditRoute,
-        getLabelGenerator: getLabelGenerator
-    }
 
     const title = (
         <Input 
