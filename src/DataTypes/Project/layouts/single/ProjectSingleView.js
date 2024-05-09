@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 
 //components
 import SingleBaseHeader from "@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseHeader"
@@ -8,7 +8,8 @@ import SearchTag from '@/src/common/Components/SearchTag';
 import SocialHandleDisplay from '@/src/DataTypes/common/layouts/SocialHandlesViews/SocialHandleDisplay';
 import EntitiesTagGrid from "@/DataTypes/Entity/layouts/EntitiesTagGrid";
 import EntityLink from "@/DataTypes/Entity/layouts/EntityLink";
-import SingleBaseProgressBar from '@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseProgressBar/SingleBaseProgressBar'
+import SingleBaseProgressBar
+    from '@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseProgressBar/SingleBaseProgressBar'
 
 //Utils
 import SanitizedInnerHtml from '@/src/utils/SanitizedInnerHtml';
@@ -19,7 +20,7 @@ import {lang} from "@/common/Data/GlobalConstants";
 import {clientSideExternalApiRequest} from "@/src/hooks/http-hook";
 import {removeTagsFromString} from '@/src/helpers/html'
 
-//styling 
+//styling
 import styles from "./ProjectSingleView.module.scss"
 import {haveAValidValue} from "@/src/helpers/obj";
 import {appConfig} from "@/src/configs/AppConfig";
@@ -59,12 +60,36 @@ const ProjectSingleView = ({ data }) => {
     const sortedTeam = team?.[0]?.subMeta?.order ? team.sort((a,b) => a.subMeta.order - b.subMeta.order) : team;
 
     /* Needed for breadCrumb generator */
-    const getLabelGenerator = useCallback((param, query) => {
+    /*const getLabelGenerator = useCallback((param, query) => {
         return {
             "projets": lang.Projects,
             "slug": name       
         }[param];
     }, []);
+
+    const breadCrumb = {
+        route: model.singleRoute,
+        getLabelGenerator: getLabelGenerator
+    }*/
+
+
+    const breadcrumbLabels = {
+        "projets": lang.Projects,
+        "slug": name
+    };
+
+    const [breadCrumb, setBreadCrumb] = useState({
+        route: model.singleRoute,
+        labels: breadcrumbLabels,
+    });
+
+    useEffect(() => {
+        setBreadCrumb({
+            route: model.singleRoute,
+            labels: breadcrumbLabels,
+        });
+    }, [name]);
+
 
     const [allEnumState, setAllEnumState] = useState(undefined);
     useEffect( () => {
@@ -93,10 +118,6 @@ const ProjectSingleView = ({ data }) => {
     /****************************
      *  Sections
      ***************************/
-    const breadCrumb = {
-        route: model.singleRoute,
-        getLabelGenerator: getLabelGenerator
-    }
 
     const Header = (
         <SingleBaseHeader 

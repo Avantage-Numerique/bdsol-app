@@ -21,39 +21,23 @@ const EquipmentSingleView = ({ data }) => {
     const model = new Equipment(data);
 
     /* Needed for breadCrumb generator */
-    /*const getLabelGenerator = useCallback((param, query) => {
-        return {
-            "equipement": lang.Equipment,
-            "slug": model.title
-        }[param];
-    }, []);
 
-
-    const breadCrumb = {
-        route: model.singleRoute,
-        getLabelGenerator: getLabelGenerator
-    }
-
-    */
-
-
-
-    const equipmentLabels = {
+    const breadcrumbLabels = {
         "equipement": lang.Equipment,
         "slug": model.title
     };
 
     const [breadCrumb, setBreadCrumb] = useState({
         route: model.singleRoute,
-        labels: equipmentLabels,
+        labels: breadcrumbLabels,
     });
 
     useEffect(() => {
         setBreadCrumb({
             route: model.singleRoute,
-            labels: equipmentLabels,
+            labels: breadcrumbLabels,
         })
-    }, [name]);
+    }, [model.title]);
 
     /****************************
      *  Sections

@@ -59,20 +59,20 @@ const OrganisationSingleView = ({ data }) => {
     const sortedOffers = offers?.[0]?.subMeta?.order ? offers.sort((a,b) => a.subMeta.order - b.subMeta.order) : offers;
     const sortedTeam = team?.[0]?.subMeta?.order ? team.sort((a,b) => a.subMeta.order - b.subMeta.order) : team;
 
-    const orgLabels = {
+    const breadcrumbLabels = {
         "organisations": lang.Organisations,
         "slug": name
     };
 
     const [breadCrumb, setBreadCrumb] = useState({
         route: model.singleRoute,
-        labels: orgLabels,
+        labels: breadcrumbLabels,
     });
 
     useEffect(() => {
         setBreadCrumb({
             route: model.singleRoute,
-            labels: orgLabels,
+            labels: breadcrumbLabels,
         })
     }, [name]);
 

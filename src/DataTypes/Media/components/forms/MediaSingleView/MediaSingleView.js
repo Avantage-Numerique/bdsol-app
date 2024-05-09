@@ -66,32 +66,32 @@ const MediaSingleView = ({data}, ...props) => {
             "organisations": "organisations",
             "projects": "projects",
             "events":"events",
-            "medias": "medias"
+            "medias": "medias",
+            "lieux": "lieux"
         };
     }, []);
 
-    const getLabelGenerator = useCallback((param, query) => {
-        return {
-            "id": () => data?.title ?? "title must be set",
-            "slug": () => data?.title ?? "title must be set",
-            "person.slug": () => associatedEntityModel.title ?? "Personne",
-            "organisation.slug": () => associatedEntityModel.title ?? "Organisation",
+
+    const breadCrumb = {
+        route: associatedEntityModel.singleMediaRoute,
+        labels: {
+            "id": data?.title && data?.title !== "" ? data?.title : "title must be set",
+            "slug": data?.title && data?.title !== "" ? data?.title : "title must be set",
+            "person.slug": associatedEntityModel.title ?? "Personne",
+            "organisation.slug": associatedEntityModel.title ?? "Organisation",
             "project.slug": associatedEntityModel.title ?? "Projet",
             "event.slug": associatedEntityModel.title ?? "Événement",
             "equipment.slug": associatedEntityModel.title ?? "Équipement",
             "place.slug": associatedEntityModel.title ?? "Lieu",
-            "personnes": () => "Personnes",
-            "equipement": () => "Équipements",
-            "organisations": () => "Organisations",
-            "projets": () => "Projets",
-            "evenements": () => "Événements",
-            "medias": () => "Média"
-        }[param];
-    }, []);
-
-    const breadCrumb = {
-        route: associatedEntityModel.singleMediaRoute,
-        getLabelGenerator: getLabelGenerator,
+            "personnes": "Personnes",
+            "equipement": "Équipements",
+            "organisations": "Organisations",
+            "projets": "Projets",
+            "evenements": "Événements",
+            "lieux": "Lieux",
+            "medias": "Média"
+        },
+        //getLabelGenerator: getLabelGenerator,
         getHrefGenerator: getHrefGenerator
     }
 

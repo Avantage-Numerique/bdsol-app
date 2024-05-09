@@ -1,8 +1,7 @@
-import {useCallback} from "react";
+import {useEffect, useState} from "react";
 
 //Utils
 import {lang} from "@/src/common/Data/GlobalConstants";
-import {getTitle} from "@/src/DataTypes/MetaData/MetaTitle";
 
 //Component
 import SingleBase from "@/src/DataTypes/common/layouts/single/SingleBase";
@@ -11,8 +10,8 @@ import Place from "../../../models/Place";
 import SanitizedInnerHtml from "@/src/utils/SanitizedInnerHtml";
 import SingleInfo from "@/src/DataTypes/common/layouts/SingleInfo/SingleInfo";
 import {SingleEntityMeta} from "@/src/DataTypes/Meta/components/SingleEntityMeta";
-import Head from "next/head";
-import SingleBaseProgressBar from '@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseProgressBar/SingleBaseProgressBar'
+import SingleBaseProgressBar
+    from '@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseProgressBar/SingleBaseProgressBar'
 import {removeTagsFromString} from '@/src/helpers/html'
 
 
@@ -23,17 +22,24 @@ const PlaceSingleView = ({ data }) => {
 
     const model = new Place(data)
 
-    const getLabelGenerator = useCallback((param, query) => {
-        return {
-            "lieux": lang.Places,
-            "slug": model.breadcrumbTitle
-        }[param];
-    }, []);
+    const breadcrumbLabels = {
+        "lieux": lang.Places,
+        "slug": model.breadcrumbTitle
+    };
 
-    const breadCrumb = {
+    const [breadCrumb, setBreadCrumb] = useState({
         route: model.singleRoute,
-        getLabelGenerator: getLabelGenerator
-    }
+        labels: breadcrumbLabels,
+    });
+
+    useEffect(() => {
+        setBreadCrumb({
+            route: model.singleRoute,
+            labels: breadcrumbLabels,
+        });
+    }, [model.title]);
+
+
     const header = (
         <SingleBaseHeader 
             title={(<SanitizedInnerHtml tag={"h1"} className="text-white">{`${model.title}`}</SanitizedInnerHtml>)}
@@ -227,7 +233,6 @@ const PlaceSingleView = ({ data }) => {
                 footer={Footer}
                 singlePageBottom={SinglePageBottom}
                 model={model}
-
             />
         </>
     )

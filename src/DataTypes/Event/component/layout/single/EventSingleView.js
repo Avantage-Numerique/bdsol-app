@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 
 //Components
 import SingleBase from "@/src/DataTypes/common/layouts/single/SingleBase";
@@ -77,20 +77,25 @@ const EventSingleView = ({data}) => {
         getEventFormatEnum();
     }, [])
 
-    const getLabelGenerator = useCallback((param, query) => {
-        return {
-            "evenements": lang.Events,
-            "slug": model.title        
-        }[param];
-    }, []);
 
-    const breadCrumb = {
+    const breadcrumbLabels = {
+        "evenements": lang.Events,
+        "slug": model.title
+    };
+
+    const [breadCrumb, setBreadCrumb] = useState({
         route: model.singleRoute,
-        getLabelGenerator: getLabelGenerator
-    }
+        labels: breadcrumbLabels,
+    });
+
+    useEffect(() => {
+        setBreadCrumb({
+            route: model.singleRoute,
+            labels: breadcrumbLabels,
+        })
+    }, [name]);
 
     const { TimeTag, TimeIntervalSentence } = dateManager(startDate, endDate);
-
 
     const header = (
         <SingleBaseHeader 
