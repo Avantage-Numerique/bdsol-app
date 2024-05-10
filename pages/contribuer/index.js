@@ -89,9 +89,8 @@ const Index = () => {
                                     <p>Personne, professionnelle ou amatrice, ayant des compétences en technologies ou œuvrant dans le numérique et offrant des services technologiques.</p>
                                 </section>
                             </div>
-                            <Button 
-                                size="slim" 
-                                className={`px-3 py-0 ${styles["contribution-page__entity__cta"]}`} 
+                            <Button
+                                className={`${styles["contribution-page__entity__cta"]}`}
                                 color="secondary"
                                 href={getCreateEntityPath(TYPE_PERSON)}
                                 disabled={!auth.user.isLoggedIn}
@@ -109,9 +108,8 @@ const Index = () => {
                                     <p>Organisation, entreprise, collectif ou regroupement œuvrant dans le numérique, ou dont les technologies numériques sont incluses, et offrant des services technologiques.</p>
                                 </section>
                             </div>
-                            <Button 
-                                size="slim" 
-                                className={`px-3 py-0 ${styles["contribution-page__entity__cta"]}`} 
+                            <Button
+                                className={`${styles["contribution-page__entity__cta"]}`}
                                 color="secondary"
                                 href={getCreateEntityPath(TYPE_ORGANISATION)}
                                 disabled={!auth.user.isLoggedIn}
@@ -129,9 +127,8 @@ const Index = () => {
                                     <p>Projet réalisé par un ou plusieurs individus et incluant une ou plusieurs dimensions numériques.</p>
                                 </section>
                             </div>
-                            <Button 
-                                size="slim" 
-                                className={`px-3 py-0 ${styles["contribution-page__entity__cta"]}`} 
+                            <Button
+                                className={`${styles["contribution-page__entity__cta"]}`}
                                 color="secondary"
                                 href={getCreateEntityPath(TYPE_PROJECT)}
                                 disabled={!auth.user.isLoggedIn}
@@ -149,9 +146,8 @@ const Index = () => {
                                     <p>Événement comprenant un aspect numérique ou lié à un projet numérique.</p>
                                 </section>
                             </div>
-                            <Button 
-                                size="slim" 
-                                className={`px-3 py-0 ${styles["contribution-page__entity__cta"]}`} 
+                            <Button
+                                className={`${styles["contribution-page__entity__cta"]}`}
                                 color="secondary"
                                 href={getCreateEntityPath(TYPE_EVENT)}
                                 disabled={!auth.user.isLoggedIn}
@@ -169,9 +165,8 @@ const Index = () => {
                                     <p>Équipement numérique possédé par un individu ou une organisation et qu'il est possible d'emprunter, de louer ou d'échanger en service.</p>
                                 </section>
                             </div>
-                            <Button 
-                                size="slim" 
-                                className={`px-3 py-0 ${styles["contribution-page__entity__cta"]}`} 
+                            <Button
+                                className={`${styles["contribution-page__entity__cta"]}`}
                                 color="secondary"
                                 href={getCreateEntityPath(TYPE_EQUIPMENT)}
                                 disabled={!auth.user.isLoggedIn}
@@ -190,9 +185,8 @@ const Index = () => {
                                     <p>Lieu comprenant un aspect numérique ou offrant la possibilité d'accueillir des projets en lien avec le numérique.</p>
                                 </section>
                             </div>
-                            <Button 
-                                size="slim" 
-                                className={`px-3 py-0 ${styles["contribution-page__entity__cta"]}`} 
+                            <Button
+                                className={`${styles["contribution-page__entity__cta"]}`}
                                 color="secondary"
                                 href={getCreateEntityPath(TYPE_PLACE)}
                                 disabled={!auth.user.isLoggedIn}
