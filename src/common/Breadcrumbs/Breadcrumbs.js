@@ -120,7 +120,7 @@ const Breadcrumbs = ({
     );
 
     const crumbs = breadcrumbs();
-    console.log("CRUMBS", crumbs);
+
     return (
         <nav className={className} aria-label="breadcrumb">
             <ol className="breadcrumb">
@@ -153,7 +153,7 @@ const Crumb = ({labels, text, href, last = false}) => {//text: defaultText,
     }
 
     return (
-        <li className="breadcrumb-item d-flex mb-1">
+        <li className="breadcrumb-item d-flex">
             <Link href={href} className="text-decoration-underline link-underline-secondary-darker link-underline-opacity-0 link-underline-opacity-75-hover bg-">
                 <div className="text-secondary-darker py-0 px-1 bg-secondary-light rounded-1" dangerouslySetInnerHTML={{ __html: text }}></div>
             </Link>
@@ -162,7 +162,7 @@ const Crumb = ({labels, text, href, last = false}) => {//text: defaultText,
 }
 
 
-const CrumbOld = ({text:defaultText, textGenerator, href, last = false}) => {//text: defaultText,
+const Deprecated_Crumb = ({text:defaultText, textGenerator, href, last = false}) => {//text: defaultText,
 
     const [text, setText] = useState(defaultText);
 
