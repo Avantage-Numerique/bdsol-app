@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react';
+import React, {useEffect, useState} from 'react';
 import Link from "next/link";
 
 //components
@@ -8,7 +8,7 @@ import SanitizedInnerHtml from '@/src/utils/SanitizedInnerHtml';
 import SearchTag from '@/src/common/Components/SearchTag';
 import SingleBaseProgressBar
     from '@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseProgressBar/SingleBaseProgressBar'
-import { ContactPointView } from '@/src/DataTypes/common/layouts/ContactPointView/ContactPointView';
+import {ContactPointView} from '@/src/DataTypes/common/layouts/ContactPointView/ContactPointView';
 
 
 //Utils
@@ -60,21 +60,20 @@ const OrganisationSingleView = ({ data }) => {
     const sortedOffers = offers?.[0]?.subMeta?.order ? offers.sort((a,b) => a.subMeta.order - b.subMeta.order) : offers;
     const sortedTeam = team?.[0]?.subMeta?.order ? team.sort((a,b) => a.subMeta.order - b.subMeta.order) : team;
 
+
     const breadcrumbLabels = {
         "organisations": lang.Organisations,
         "slug": name
     };
 
-    const [breadCrumb, setBreadCrumb] = useState({
+    const breadcrumbsRoutes = {
         route: model.singleRoute,
         labels: breadcrumbLabels,
-    });
+    }
 
+    const [breadCrumb, setBreadCrumb] = useState(breadcrumbsRoutes);
     useEffect(() => {
-        setBreadCrumb({
-            route: model.singleRoute,
-            labels: breadcrumbLabels,
-        })
+        setBreadCrumb(breadcrumbsRoutes)
     }, [name]);
 
 
@@ -210,14 +209,6 @@ const OrganisationSingleView = ({ data }) => {
                     <EntitiesTagGrid feed={location} subBadgeProperty={"address"} columnClass={"col-12"} />
                 </SingleInfo>
             }
-            
-            {/* Contact information */}
-            <SingleInfo 
-                title={lang.organisationContact} 
-                cardLayout
-            >
-                {contactPoint}
-            </SingleInfo>
             
             {/* Domains */}
             <SingleInfo
