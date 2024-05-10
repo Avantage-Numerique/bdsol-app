@@ -8,7 +8,7 @@ import Icon from "@/common/widgets/Icon/Icon";
 
 //Context
 import {useAuth} from '@/auth/context/auth-context'
-import { lang } from "@/src/common/Data/GlobalConstants";
+import {lang} from "@/src/common/Data/GlobalConstants";
 
 //styling
 import styles from './contribution-page.module.scss'
@@ -23,10 +23,17 @@ import Organisation from "@/DataTypes/Organisation/models/Organisation";
 import Project from "@/DataTypes/Project/models/Project";
 import Event from "@/src/DataTypes/Event/models/Event";
 import Equipment from "@/src/DataTypes/Equipment/models/Equipment";
-import Place from "@/src/DataTypes/Place/models/Place";
 
 //Img
 import headerImg from '@/public/general_images/Fusée_Planetes_Poitilles2.svg'
+import {
+    getModelFromType,
+    TYPE_EQUIPMENT,
+    TYPE_EVENT,
+    TYPE_ORGANISATION,
+    TYPE_PERSON,
+    TYPE_PROJECT
+} from "@/DataTypes/Entity/Types";
 
 const Index = () => {
 
@@ -34,20 +41,7 @@ const Index = () => {
 
     //Function to return the path to the page of creation of an entity, depending on location
     const getCreateEntityPath = (type) => {
-        let model;
-        //@todo need DRY and verification for using "TYPE_PERSON", TYPE_ is a constant with a string value of the type.
-        if(type == "TYPE_PERSON")
-            model = new Person({})
-        if(type == "TYPE_ORGANISATION")
-            model = new Organisation({})
-        if(type == "TYPE_PROJECT")
-            model = new Project({})
-        if(type == "TYPE_EVENT")
-            model = new Event({})
-        if(type == "TYPE_EQUIPMENT")
-            model = new Equipment({})
-        if(type == "TYPE_PLACE")
-            model = new Place({})
+        const model = getModelFromType(type, {});
         return model.createRoute.asPath;
     }
 
@@ -99,7 +93,7 @@ const Index = () => {
                                 size="slim" 
                                 className={`px-3 py-0 ${styles["contribution-page__entity__cta"]}`} 
                                 color="secondary"
-                                href={getCreateEntityPath("TYPE_PERSON")} 
+                                href={getCreateEntityPath(TYPE_PERSON)}
                                 disabled={!auth.user.isLoggedIn}
                             >
                                 <Icon iconName={"plus"} className="text-secondary-darker" /> Ajouter une {lang.Person}
@@ -119,7 +113,7 @@ const Index = () => {
                                 size="slim" 
                                 className={`px-3 py-0 ${styles["contribution-page__entity__cta"]}`} 
                                 color="secondary"
-                                href={getCreateEntityPath("TYPE_ORGANISATION")} 
+                                href={getCreateEntityPath(TYPE_ORGANISATION)}
                                 disabled={!auth.user.isLoggedIn}
                             >
                                 <Icon iconName={"plus"} className="text-secondary-darker" /> Ajouter une {lang.Organisation}
@@ -139,7 +133,7 @@ const Index = () => {
                                 size="slim" 
                                 className={`px-3 py-0 ${styles["contribution-page__entity__cta"]}`} 
                                 color="secondary"
-                                href={getCreateEntityPath("TYPE_PROJECT")} 
+                                href={getCreateEntityPath(TYPE_PROJECT)}
                                 disabled={!auth.user.isLoggedIn}
                             >
                                 <Icon iconName={"plus"} className="text-secondary-darker" /> Ajouter un {lang.Project}
@@ -159,7 +153,7 @@ const Index = () => {
                                 size="slim" 
                                 className={`px-3 py-0 ${styles["contribution-page__entity__cta"]}`} 
                                 color="secondary"
-                                href={getCreateEntityPath("TYPE_EVENT")} 
+                                href={getCreateEntityPath(TYPE_EVENT)}
                                 disabled={!auth.user.isLoggedIn}
                             >
                                 <Icon iconName={"plus"} className="text-secondary-darker" /> Ajouter un {lang.Event}
@@ -179,7 +173,7 @@ const Index = () => {
                                 size="slim" 
                                 className={`px-3 py-0 ${styles["contribution-page__entity__cta"]}`} 
                                 color="secondary"
-                                href={getCreateEntityPath("TYPE_EQUIPMENT")} 
+                                href={getCreateEntityPath(TYPE_EQUIPMENT)}
                                 disabled={!auth.user.isLoggedIn}
                             >
                                 <Icon iconName={"plus"} className="text-secondary-darker" /> Ajouter un {lang.Equipment}
@@ -200,7 +194,7 @@ const Index = () => {
                                 size="slim" 
                                 className={`px-3 py-0 ${styles["contribution-page__entity__cta"]}`} 
                                 color="secondary"
-                                href={getCreateEntityPath("TYPE_PLACE")} 
+                                href={getCreateEntityPath(TYPE_PLACE)}
                                 disabled={!auth.user.isLoggedIn}
                             >
                                 <Icon iconName={"plus"} className="text-secondary-darker" /> Ajouter un {lang.Place}
