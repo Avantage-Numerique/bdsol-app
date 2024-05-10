@@ -1,6 +1,6 @@
 import {externalApiRequest} from '@/src/hooks/http-hook';
 import PageHeader from "@/layouts/Header/PageHeader";
-import React, {useCallback} from "react";
+import React from "react";
 import {lang} from "@/common/Data/GlobalConstants";
 import CreateTaxonomyForm from "@/DataTypes/Taxonomy/components/Forms/CreateTaxonomy/CreateTaxonomyForm";
 import {useRootModal} from '@/src/hooks/useModal/useRootModal';
@@ -65,25 +65,14 @@ const TaxonomiesSinglePage = (props) => {
     }
     // < NEEDED FOR EDIT THE TAXONOMY
 
-
-    // > NEEDED for BREADCRUMBS
     const currentTaxonomy = category.find( el => taxonomy.category === el.value );
     const currentTitle = `${currentTaxonomy.label} ${'&mdash;'} ${taxonomy.name}`;
 
-    const getLabelGenerator = useCallback((param, query) => {
-        return {
-            "categories": "Toutes les catégories",
-            "category": currentTitle
-        }[param];
-    }, []);
-
-    const getHrefGenerator = useCallback(() => {
-        return {
-            "categories": "categories"
-        };
-    }, []);
-    //  < NEEDED for BREADCRUMBS
-
+    /* Needed for breadCrumb generator */
+    const breadcrumbLabels = {
+        "categories": "Toutes les catégories",
+        "category": currentTitle
+    };
 
     return (
         <div>
@@ -102,7 +91,7 @@ const TaxonomiesSinglePage = (props) => {
                 }}
                 description={taxonomy.description}
             >
-                <Breadcrumbs className={"pt-2"} route={AppRoutes.categorySingle} getLabelGenerator={getLabelGenerator} hrefGenerator={getHrefGenerator} />
+                <Breadcrumbs className={"pt-2"} route={AppRoutes.categorySingle} labels={breadcrumbLabels} />
 
                 <p className={"pt-2"}>
                     {auth.user.isLoggedIn &&

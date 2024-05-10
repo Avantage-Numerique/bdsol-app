@@ -1,16 +1,16 @@
-import { useCallback, useState, useEffect, useContext} from "react";
+import {useCallback, useContext, useEffect, useState} from "react";
 import Router from "next/router";
 
 //Utils
 import Place from "../../../models/Place";
-import { lang } from "@/src/common/Data/GlobalConstants";
-import { getDefaultUpdateEntityMeta } from "@/src/DataTypes/Meta/EntityMeta";
+import {lang} from "@/src/common/Data/GlobalConstants";
+import {getDefaultUpdateEntityMeta} from "@/src/DataTypes/Meta/EntityMeta";
 import {replacePathname} from "@/src/helpers/url";
 
 //hooks
-import { MessageContext } from "@/src/common/UserNotifications/Message/Context/Message-Context";
-import { useFormUtils } from "@/src/hooks/useFormUtils/useFormUtils";
-import { useAuth } from "@/src/authentification/context/auth-context";
+import {MessageContext} from "@/src/common/UserNotifications/Message/Context/Message-Context";
+import {useFormUtils} from "@/src/hooks/useFormUtils/useFormUtils";
+import {useAuth} from "@/src/authentification/context/auth-context";
 import {useRootModal} from '@/src/hooks/useModal/useRootModal';
 
 
@@ -160,18 +160,23 @@ const PlaceSingleEdit = ({ positiveRequestActions, ...props}) => {
         );
     }
 
-    const getLabelGenerator = useCallback((param, query) => {
-        return {
-            "contribuer": lang.menuContributeLabel,
-            "lieux": lang.Places,
-            "slug": model.name ?? '-'
-        }[param];
-    }, []);
 
-    const breadCrumb = {
+    const breadcrumbLabels = {
+        "contribuer": lang.menuContributeLabel,
+        "lieux": lang.Places,
+        "slug": model.name ?? '-'
+    };
+
+    const breadcrumbsRoutes = {
         route: model.singleEditRoute,
-        getLabelGenerator: getLabelGenerator
+        labels: breadcrumbLabels,
     }
+
+    const [breadCrumb, setBreadCrumb] = useState(breadcrumbsRoutes);
+    useEffect(() => {
+        setBreadCrumb(breadcrumbsRoutes)
+    }, [model.title]);
+
 
     const title = (
         <>

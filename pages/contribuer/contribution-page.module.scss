@@ -46,6 +46,7 @@
         --inner-padding: 0.75rem; 
 
         width: 100%;
+        min-height: 12rem;
         background-color: $primary-light;
         border-radius: $border-radius;
         overflow: hidden;
@@ -59,7 +60,7 @@
 
             > * {
                 font-size: 1.15rem;
-                margin: 0px;
+                margin: 0;
             }
 
             .entity-icon{
@@ -78,9 +79,8 @@
     }
 
     .contribution-page__entity__cta {
-        margin-top: 1rem;
-        margin-bottom: $spacing-sm;
-        font-size: 0.9rem;
+        margin: 1rem 0;
+        font-size: inherit;
     }
 
 }

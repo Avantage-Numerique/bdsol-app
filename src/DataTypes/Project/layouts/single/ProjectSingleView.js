@@ -20,7 +20,7 @@ import {lang} from "@/common/Data/GlobalConstants";
 import {clientSideExternalApiRequest} from "@/src/hooks/http-hook";
 import {removeTagsFromString} from '@/src/helpers/html'
 
-//styling 
+//styling
 import styles from "./ProjectSingleView.module.scss"
 import {haveAValidValue} from "@/src/helpers/obj";
 import {appConfig} from "@/src/configs/AppConfig";
@@ -60,12 +60,21 @@ const ProjectSingleView = ({ data }) => {
     const sortedTeam = team?.[0]?.subMeta?.order ? team.sort((a,b) => a.subMeta.order - b.subMeta.order) : team;
 
     /* Needed for breadCrumb generator */
-    const getLabelGenerator = useCallback((param, query) => {
-        return {
-            "projets": lang.Projects,
-            "slug": name       
-        }[param];
-    }, []);
+    const breadcrumbLabels = {
+        "projets": lang.Projects,
+        "slug": model.name ?? '-'
+    };
+
+    const breadcrumbsRoutes = {
+        route: model.singleRoute,
+        labels: breadcrumbLabels,
+    }
+
+    const [breadCrumb, setBreadCrumb] = useState(breadcrumbsRoutes);
+    useEffect(() => {
+        setBreadCrumb(breadcrumbsRoutes)
+    }, [model.title]);
+
 
     const [allEnumState, setAllEnumState] = useState(undefined);
     useEffect( () => {
@@ -94,10 +103,6 @@ const ProjectSingleView = ({ data }) => {
     /****************************
      *  Sections
      ***************************/
-    const breadCrumb = {
-        route: model.singleRoute,
-        getLabelGenerator: getLabelGenerator
-    }
 
     const Header = (
         <SingleBaseHeader 
@@ -252,10 +257,10 @@ const ProjectSingleView = ({ data }) => {
                 >
                     <SearchTag list={skills} />
                 </SingleInfo>
-                
+
                 {/* Domains */}
-                <SingleInfo 
-                    title={lang.Domains} 
+                <SingleInfo
+                    title={lang.Domains}
                     displayCondition={domains?.length > 0}
                     isSubtitle
                 >
@@ -264,10 +269,10 @@ const ProjectSingleView = ({ data }) => {
                         listProperty={"domain"}
                     />
                 </SingleInfo>
-                
+
                 {/*url*/}
-                <SocialHandleDisplay 
-                    title={lang.externalLinks} 
+                <SocialHandleDisplay
+                    title={lang.externalLinks}
                     url={model?.url}
                     className={`${appConfig.spacing.singleSectionSpacingClass}`}
                 />

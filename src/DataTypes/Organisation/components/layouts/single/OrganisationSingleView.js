@@ -60,21 +60,23 @@ const OrganisationSingleView = ({ data }) => {
     const sortedOffers = offers?.[0]?.subMeta?.order ? offers.sort((a,b) => a.subMeta.order - b.subMeta.order) : offers;
     const sortedTeam = team?.[0]?.subMeta?.order ? team.sort((a,b) => a.subMeta.order - b.subMeta.order) : team;
 
-    /* Needed for breadCrumb generator */
-    const getLabelGenerator = useCallback((param, query) => {
-        return {
-            "organisations": lang.Organisations,
-            "slug": name        
-        }[param];
-    }, []);
+    const breadcrumbLabels = {
+        "organisations": lang.Organisations,
+        "slug": name
+    };
 
-    /****************************
-     *  Sections
-     ***************************/
-    const breadCrumb = {
+    const [breadCrumb, setBreadCrumb] = useState({
         route: model.singleRoute,
-        getLabelGenerator: getLabelGenerator
-    }
+        labels: breadcrumbLabels,
+    });
+
+    useEffect(() => {
+        setBreadCrumb({
+            route: model.singleRoute,
+            labels: breadcrumbLabels,
+        })
+    }, [name]);
+
 
     const Header = (
         <SingleBaseHeader
@@ -192,12 +194,12 @@ const OrganisationSingleView = ({ data }) => {
 
     const ContentColumnRight = (
         <>
-            
+
             {/* Contact information */}
             <SingleInfo title={lang.organisationContact} cardLayout>
                 <ContactPointView contact={model.contactPoint}/>
             </SingleInfo>
-            
+
             {/* Location */}
             {location &&
                 <SingleInfo
@@ -208,6 +210,14 @@ const OrganisationSingleView = ({ data }) => {
                     <EntitiesTagGrid feed={location} subBadgeProperty={"address"} columnClass={"col-12"} />
                 </SingleInfo>
             }
+            
+            {/* Contact information */}
+            <SingleInfo 
+                title={lang.organisationContact} 
+                cardLayout
+            >
+                {contactPoint}
+            </SingleInfo>
             
             {/* Domains */}
             <SingleInfo

@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react';
+import React, {useEffect, useState} from 'react';
 
 //components
 import SingleBase from "@/src/DataTypes/common/layouts/single/SingleBase"
@@ -8,7 +8,6 @@ import SingleInfo from "@/DataTypes/common/layouts/SingleInfo/SingleInfo";
 import SingleBaseProgressBar from '@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseProgressBar/SingleBaseProgressBar'
 import SocialHandleDisplay from '@/src/DataTypes/common/layouts/SocialHandlesViews/SocialHandleDisplay';
 //Styling
-
 //Utils
 import SanitizedInnerHtml from '@/src/utils/SanitizedInnerHtml';
 import {SingleEntityMeta} from "@/src/DataTypes/Meta/components/SingleEntityMeta";
@@ -50,20 +49,40 @@ const PersonSingleView = ({ data }) => {
     const model = new Person(data);
 
     /* Needed for breadCrumb generator */
-    const getLabelGenerator = useCallback((param, query) => {
+    /*const getLabelGenerator = useCallback((param, query) => {
         return {
             "personnes": lang.Persons,
             "slug": `${firstName} ${lastName}`        
         }[param];
     }, []);
 
-    /****************************
-     *  Sections
-     ***************************/
     const breadCrumb = {
         route: model.singleRoute,
         getLabelGenerator: getLabelGenerator
-    }
+    }*/
+
+    const breadcrumbLabels = {
+        "personnes": lang.Persons,
+        "slug": `${firstName} ${lastName}`
+    };
+
+    const [breadCrumb, setBreadCrumb] = useState({
+        route: model.singleRoute,
+        labels: breadcrumbLabels,
+    });
+
+    useEffect(() => {
+        setBreadCrumb({
+            route: model.singleRoute,
+            labels: breadcrumbLabels,
+        });
+    }, [firstName]);
+
+
+
+    /****************************
+     *  Sections
+     ***************************/
 
     const Header = (
         <SingleBaseHeader

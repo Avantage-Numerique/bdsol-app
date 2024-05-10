@@ -210,14 +210,22 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props}) => {
         );
     }
 
-    /* Needed for breadCrumb generator */
-    const getLabelGenerator = useCallback((param, query) => {
-        return {
-            "contribuer": lang.menuContributeLabel,
-            "personnes": lang.Persons,
-            "slug": `${model.firstName ?? ""} ${model.lastName ?? "-"}`
-        }[param];
-    }, []);
+
+    const breadcrumbLabels = {
+        "contribuer": lang.menuContributeLabel,
+        "personnes": lang.Persons,
+        "slug": `${model.firstName ?? ""} ${model.lastName ?? "-"}`
+    };
+
+    const breadcrumbsRoutes = {
+        route: model.singleEditRoute,
+        labels: breadcrumbLabels,
+    }
+
+    const [breadCrumb, setBreadCrumb] = useState(breadcrumbsRoutes);
+    useEffect(() => {
+        setBreadCrumb(breadcrumbsRoutes)
+    }, [model.title]);
 
     /*****************************
      * 
@@ -226,10 +234,6 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props}) => {
      * 
      * 
      ***************************/
-    const breadCrumb = {
-        route: model.singleEditRoute,
-        getLabelGenerator: getLabelGenerator
-    }
 
     const title = (
         <div className="row">
@@ -394,6 +398,7 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props}) => {
                 contentColumnRight={contentColumnRight}
                 footer={Footer}
                 singlePageBottom={SinglePageBottom}
+                model={model}
             />
             <modalSaveEntityReminder.Modal>
                 <SingleSaveEntityReminder

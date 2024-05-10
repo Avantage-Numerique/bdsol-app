@@ -141,7 +141,7 @@ const EquipmentSingleEdit = ({ positiveRequestActions, ...props}) => {
     }
 
     /* Needed for breadCrumb generator */
-    const getLabelGenerator = useCallback((param, query) => {
+    /*const getLabelGenerator = useCallback((param, query) => {
         return {
             "contribuer": lang.menuContributeLabel,
             "equipements": lang.Equipments,
@@ -152,7 +152,25 @@ const EquipmentSingleEdit = ({ positiveRequestActions, ...props}) => {
     const breadCrumb = {
         route: model.singleEditRoute,
         getLabelGenerator: getLabelGenerator
+    }*/
+
+
+    const breadcrumbLabels = {
+        "contribuer": lang.menuContributeLabel,
+        "equipements": lang.Equipments,
+        "slug": `${model.title ?? '-'}`
+    };
+
+    const breadcrumbsRoutes = {
+        route: model.singleEditRoute,
+        labels: breadcrumbLabels,
     }
+
+    const [breadCrumb, setBreadCrumb] = useState(breadcrumbsRoutes);
+    useEffect(() => {
+        setBreadCrumb(breadcrumbsRoutes)
+    }, [model.title]);
+
 
     const title = (
         <div>
@@ -256,6 +274,7 @@ const EquipmentSingleEdit = ({ positiveRequestActions, ...props}) => {
         <SubmitEntity submitHandler={modalSaveEntityReminder.displayModal} formState={formState} />
     )
 
+    console.log("EQUIPEMENT", breadCrumb);
     return (
         <>
             <SingleBase

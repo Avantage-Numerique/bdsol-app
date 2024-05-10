@@ -275,25 +275,22 @@ const ProjectSingleEdit = (props) => {
     }
 
     /* Needed for breadCrumb generator */
-    const getLabelGenerator = useCallback((param, query) => {
-        return {
-            "contribuer": lang.menuContributeLabel,
-            "projets": lang.Projects,
-            "slug": model.name ?? "-"
-        }[param];
-    }, []);
+    const breadcrumbLabels = {
+        "contribuer": lang.menuContributeLabel,
+        "projets": lang.Projects,
+        "slug": model.name ?? '-'
+    };
 
-    /*****************************
-     * 
-     * 
-     *  Sections
-     * 
-     * 
-     ***************************/
-    const breadCrumb = {
+    const breadcrumbsRoutes = {
         route: model.singleEditRoute,
-        getLabelGenerator: getLabelGenerator
+        labels: breadcrumbLabels,
     }
+
+    const [breadCrumb, setBreadCrumb] = useState(breadcrumbsRoutes);
+    useEffect(() => {
+        setBreadCrumb(breadcrumbsRoutes)
+    }, [model.title]);
+
 
     const title = (
         <Input 
@@ -529,6 +526,7 @@ const ProjectSingleEdit = (props) => {
                 contentColumnRight={contentColumnRight}
                 singlePageBottom={SinglePageBottom}
                 footer={Footer}
+                model={model}
             />
             <modalSaveEntityReminder.Modal>
                 <SingleSaveEntityReminder
@@ -536,7 +534,6 @@ const ProjectSingleEdit = (props) => {
                     closeModal={modalSaveEntityReminder.closeModal}
                 />
             </modalSaveEntityReminder.Modal>
-
         </>
     )
 }

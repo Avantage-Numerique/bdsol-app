@@ -27,7 +27,7 @@ const SingleSaveEntityReminder = ({ submitHandler, closeModal, ...props}) => {
                     onClick={() => setAgreedReminder(!agreedReminder)}
                     checked={agreedReminder}
                 />
-                <label for="checkboxReminder" className="form-check-label col-8">En cochant cette case, vous confirmez détenir les droits ou autrement avoir les autorisations ou licences nécessaires pour partager ces données.</label>
+                <label htmlFor="checkboxReminder" className="form-check-label col-8">En cochant cette case, vous confirmez détenir les droits ou autrement avoir les autorisations ou licences nécessaires pour partager ces données.</label>
             </div>
             <Button className='fs-6' size="slim" color="success" disabled={!agreedReminder} onClick={submitHandler}>
                 <Icon iconName={"save"} />&nbsp;{lang.capitalize("save")}
