@@ -1,5 +1,5 @@
 import {useHttpClient} from "@/src/hooks/http-hook";
-import React, {useCallback, useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import PageHeader from "@/src/layouts/Header/PageHeader";
 import {lang} from "@/common/Data/GlobalConstants";
 import {Breadcrumbs} from "@/common/Breadcrumbs/Breadcrumbs";
@@ -100,11 +100,11 @@ const TaxonomiesCategoryPage = () => {
         )
     }
 
-    const getLabelGenerator = useCallback((param, query) => {
-        return {
-            "categories": "Toutes les catégories",
-        }[param];
-    }, []);
+
+    /* Needed for breadCrumb generator */
+    const breadcrumbLabels = {
+        "categories": "Toutes les catégories",
+    };
 
     return (
         <div>          
@@ -115,7 +115,7 @@ const TaxonomiesCategoryPage = () => {
             />
 
             <PageHeader title={`Toutes les catégories`}>
-                <Breadcrumbs className={"pt-2"} route={AppRoutes.categories} getLabelGenerator={getLabelGenerator} />
+                <Breadcrumbs className={"pt-2"} labels={breadcrumbLabels} route={AppRoutes.categories} />
             </PageHeader>
                 {/* Page inner menu */}
                 <menu className="gap-1 gap-sm-2 gap-md-3 d-flex flex-wrap p-0 justify-content-center">

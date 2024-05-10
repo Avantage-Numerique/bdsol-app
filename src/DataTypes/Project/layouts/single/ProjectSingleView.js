@@ -60,35 +60,20 @@ const ProjectSingleView = ({ data }) => {
     const sortedTeam = team?.[0]?.subMeta?.order ? team.sort((a,b) => a.subMeta.order - b.subMeta.order) : team;
 
     /* Needed for breadCrumb generator */
-    /*const getLabelGenerator = useCallback((param, query) => {
-        return {
-            "projets": lang.Projects,
-            "slug": name       
-        }[param];
-    }, []);
-
-    const breadCrumb = {
-        route: model.singleRoute,
-        getLabelGenerator: getLabelGenerator
-    }*/
-
-
     const breadcrumbLabels = {
         "projets": lang.Projects,
-        "slug": name
+        "slug": model.name ?? '-'
     };
 
-    const [breadCrumb, setBreadCrumb] = useState({
+    const breadcrumbsRoutes = {
         route: model.singleRoute,
         labels: breadcrumbLabels,
-    });
+    }
 
+    const [breadCrumb, setBreadCrumb] = useState(breadcrumbsRoutes);
     useEffect(() => {
-        setBreadCrumb({
-            route: model.singleRoute,
-            labels: breadcrumbLabels,
-        });
-    }, [name]);
+        setBreadCrumb(breadcrumbsRoutes)
+    }, [model.title]);
 
 
     const [allEnumState, setAllEnumState] = useState(undefined);

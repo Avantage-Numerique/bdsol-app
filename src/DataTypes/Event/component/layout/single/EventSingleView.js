@@ -77,22 +77,23 @@ const EventSingleView = ({data}) => {
     }, [])
 
 
+
+    /* Needed for breadCrumb generator */
     const breadcrumbLabels = {
         "evenements": lang.Events,
         "slug": model.title
     };
 
-    const [breadCrumb, setBreadCrumb] = useState({
+    const breadcrumbsRoutes = {
         route: model.singleRoute,
         labels: breadcrumbLabels,
-    });
+    }
 
+    const [breadCrumb, setBreadCrumb] = useState(breadcrumbsRoutes);
     useEffect(() => {
-        setBreadCrumb({
-            route: model.singleRoute,
-            labels: breadcrumbLabels,
-        })
+        setBreadCrumb(breadcrumbsRoutes)
     }, [name]);
+
 
     const { TimeTag, TimeIntervalSentence } = dateManager(startDate, endDate);
 

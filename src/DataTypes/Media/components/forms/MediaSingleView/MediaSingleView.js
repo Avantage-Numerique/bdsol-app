@@ -1,5 +1,5 @@
 //React
-import React, {useCallback} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 
 //Utils
 import {getModelFromType, getType} from "@/DataTypes/Entity/Types";
@@ -52,6 +52,8 @@ const MediaSingleView = ({data}, ...props) => {
 
     const associatedEntityType = getType(data.entityId.type, true);
     const associatedEntityModel = getModelFromType(data.entityId.type, data.entityId);
+
+
     /* Needed for breadCrumb generator */
     const getHrefGenerator = useCallback(() => {
         return {
@@ -71,29 +73,36 @@ const MediaSingleView = ({data}, ...props) => {
         };
     }, []);
 
+    /* Needed for breadCrumb generator */
+    const breadcrumbLabels = {
+        "id": data?.title && data?.title !== "" ? data?.title : "title must be set",
+        "slug": data?.title && data?.title !== "" ? data?.title : "title must be set",
+        "person.slug": associatedEntityModel.title ?? "Personne",
+        "organisation.slug": associatedEntityModel.title ?? "Organisation",
+        "project.slug": associatedEntityModel.title ?? "Projet",
+        "event.slug": associatedEntityModel.title ?? "Événement",
+        "equipment.slug": associatedEntityModel.title ?? "Équipement",
+        "place.slug": associatedEntityModel.title ?? "Lieu",
+        "personnes": "Personnes",
+        "equipement": "Équipements",
+        "organisations": "Organisations",
+        "projets": "Projets",
+        "evenements": "Événements",
+        "lieux": "Lieux",
+        "medias": "Média"
+    };
 
-    const breadCrumb = {
+    const breadcrumbsRoutes = {
         route: associatedEntityModel.singleMediaRoute,
-        labels: {
-            "id": data?.title && data?.title !== "" ? data?.title : "title must be set",
-            "slug": data?.title && data?.title !== "" ? data?.title : "title must be set",
-            "person.slug": associatedEntityModel.title ?? "Personne",
-            "organisation.slug": associatedEntityModel.title ?? "Organisation",
-            "project.slug": associatedEntityModel.title ?? "Projet",
-            "event.slug": associatedEntityModel.title ?? "Événement",
-            "equipment.slug": associatedEntityModel.title ?? "Équipement",
-            "place.slug": associatedEntityModel.title ?? "Lieu",
-            "personnes": "Personnes",
-            "equipement": "Équipements",
-            "organisations": "Organisations",
-            "projets": "Projets",
-            "evenements": "Événements",
-            "lieux": "Lieux",
-            "medias": "Média"
-        },
-        //getLabelGenerator: getLabelGenerator,
+        labels: breadcrumbLabels,
         getHrefGenerator: getHrefGenerator
     }
+
+    const [breadCrumb, setBreadCrumb] = useState(breadcrumbsRoutes);
+    useEffect(() => {
+        setBreadCrumb(breadcrumbsRoutes)
+    }, [title]);
+
 
     const header = (
         <SingleBaseHeader

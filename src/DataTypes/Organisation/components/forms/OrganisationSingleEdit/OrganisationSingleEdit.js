@@ -90,37 +90,21 @@ const OrganisationSingleEdit = (props) => {
     }, [setCurrentModel]);
 
 
-    /*
-    const getLabelGenerator = useCallback((param, query) => {
-        return {
-            "contribuer": lang.menuContributeLabel,
-            "organisations": lang.Organisations,
-            "slug": model.name ?? "-"
-        }[param];
-    }, []);
-
-    const breadCrumb = {
-        route: model.singleEditRoute,
-        getLabelGenerator: getLabelGenerator
-    }*/
-
     const breadcrumbLabels = {
         "contribuer": lang.menuContributeLabel,
         "organisations": lang.Organisations,
-        "slug": model.name ?? "-"
+        "slug": `${model.name ?? '-'}`
     };
 
-    const [breadCrumb, setBreadCrumb] = useState({
-        route: model.singleRoute,
+    const breadcrumbsRoutes = {
+        route: model.singleEditRoute,
         labels: breadcrumbLabels,
-    });
+    }
 
+    const [breadCrumb, setBreadCrumb] = useState(breadcrumbsRoutes);
     useEffect(() => {
-        setBreadCrumb({
-            route: model.singleRoute,
-            labels: breadcrumbLabels,
-        })
-    }, [name]);
+        setBreadCrumb(breadcrumbsRoutes)
+    }, [model.title]);
 
 
     //Modal hook
@@ -467,6 +451,7 @@ const OrganisationSingleEdit = (props) => {
                 contentColumnRight={contentColumnRight}
                 footer={Footer}
                 singlePageBottom={SinglePageBottom}
+                model={model}
             />
             <modalSaveEntityReminder.Modal>
                 <SingleSaveEntityReminder

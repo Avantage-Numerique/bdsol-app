@@ -155,23 +155,22 @@ const EquipmentSingleEdit = ({ positiveRequestActions, ...props}) => {
     }*/
 
 
-    const equipmentLabels = {
+    const breadcrumbLabels = {
         "contribuer": lang.menuContributeLabel,
         "equipements": lang.Equipments,
         "slug": `${model.title ?? '-'}`
     };
 
-    const [breadCrumb, setBreadCrumb] = useState({
-        route: model.singleRoute,
-        labels: equipmentLabels,
-    });
+    const breadcrumbsRoutes = {
+        route: model.singleEditRoute,
+        labels: breadcrumbLabels,
+    }
 
+    const [breadCrumb, setBreadCrumb] = useState(breadcrumbsRoutes);
     useEffect(() => {
-        setBreadCrumb({
-            route: model.singleRoute,
-            labels: equipmentLabels,
-        })
-    }, [name]);
+        setBreadCrumb(breadcrumbsRoutes)
+    }, [model.title]);
+
 
     const title = (
         <div>
