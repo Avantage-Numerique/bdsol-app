@@ -36,7 +36,8 @@ const SingleBase = (props) => {
         model
     } = props;
 
-    const imageSrc = model ? model.mainImageModel.src : "";//model.type === "Media" ? model.mainImage.src : model.mainImage.url;
+    const imageSrc = model ? model.mainImageModel.src : "";
+
     return (
         <>
           

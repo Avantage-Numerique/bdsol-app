@@ -10,11 +10,9 @@ import SingleBaseProgressBar
     from '@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseProgressBar/SingleBaseProgressBar'
 import SocialHandleDisplay from '@/src/DataTypes/common/layouts/SocialHandlesViews/SocialHandleDisplay'
 //Utils
-import Head from "next/head";
 import SanitizedInnerHtml from '@/src/utils/SanitizedInnerHtml';
 import {lang} from "@/src/common/Data/GlobalConstants";
 import {SingleEntityMeta} from "@/src/DataTypes/Meta/components/SingleEntityMeta";
-import {getTitle} from "@/DataTypes/MetaData/MetaTitle";
 import Event from "../../../models/Event";
 import DisplaySchedule from "../../Forms/Schedule/DisplaySchedule";
 import {removeTagsFromString} from '@/src/helpers/html'
@@ -59,6 +57,7 @@ const EventSingleView = ({data}) => {
 
 
     const model = new Event(data);
+
     const [formatEnumState, setFormatEnumState] = useState(undefined);
 
     /******* Sorted lists ********/
@@ -351,12 +350,9 @@ const EventSingleView = ({data}) => {
             buttonLink={model.singleEditLink}
         />
     )
-    
+
     return (
         <>
-            <Head>
-                <title>{getTitle([model.title, model.Type.label])}</title>
-            </Head>
             <SingleBase
                 breadCrumb={breadCrumb}
                 header={header}              
@@ -365,6 +361,7 @@ const EventSingleView = ({data}) => {
                 contentColumnRight={contentColumnRight}
                 footer={Footer}
                 singlePageBottom={SinglePageBottom}
+                model={model}
             />
         </>
     )
