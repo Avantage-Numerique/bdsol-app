@@ -182,7 +182,7 @@ const PlaceSingleEdit = ({ positiveRequestActions, ...props}) => {
         <>
             <Input 
                 name="name"
-                label={lang.name}
+                label={lang.name+lang.required}
                 formClassName="discrete-without-focus form-text-white h2"
                 validationRules={[
                     {name: "REQUIRED"}

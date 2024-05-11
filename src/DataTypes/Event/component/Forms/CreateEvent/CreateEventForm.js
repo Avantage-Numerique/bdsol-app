@@ -80,7 +80,7 @@ const CreateEventForm = ({ onPositiveResponse, initValues }) => {
             <Input 
                 name="name"
                 className="my-1"
-                label={lang.eventName}
+                label={lang.eventName+lang.required}
                 formTools={formTools}
                 validationRules={[
                     {name: "REQUIRED"}
@@ -101,7 +101,7 @@ const CreateEventForm = ({ onPositiveResponse, initValues }) => {
                 name="startDate"
                 className="my-1"
                 type="date"
-                label={lang.startDate}
+                label={lang.startDate+lang.required}
                 formTools={formTools}
                 validationRules={[
                     {name: "REQUIRED"}
@@ -111,7 +111,7 @@ const CreateEventForm = ({ onPositiveResponse, initValues }) => {
                 name="endDate"
                 className="my-1"
                 type="date"
-                label={lang.endDate}
+                label={lang.endDate+lang.required}
                 formTools={formTools}
                 validationRules={[
                     {name: "REQUIRED"},

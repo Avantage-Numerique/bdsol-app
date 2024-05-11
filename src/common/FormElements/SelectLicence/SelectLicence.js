@@ -8,6 +8,7 @@ import styles from './SelectLicence.module.scss'
 import Select from '@/FormElements/Select/Select';
 import Button from '@/src/common/FormElements/Button/Button'
 import HtmlTagsRemover from '@/src/utils/HtmlTagsRemover';
+import { lang } from '../../Data/GlobalConstants';
 
 
 const SelectLicence = ({name, formTools, ...props}) => {
@@ -67,7 +68,7 @@ const SelectLicence = ({name, formTools, ...props}) => {
         <>
             <Select 
                 name="licence"
-                label="Licence"
+                label={"Licence"+lang.required}
                 options={licences}
                 formTools={formTools}
                 noValueText="Aucune sélection"

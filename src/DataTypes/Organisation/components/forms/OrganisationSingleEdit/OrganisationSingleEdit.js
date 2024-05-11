@@ -259,7 +259,7 @@ const OrganisationSingleEdit = (props) => {
         <Input 
             name="name"
             placeholder="Nom de l'organisation"
-            label="Nom de l'organisation"
+            label={"Nom de l'organisation"+lang.required}
             formClassName="discrete-without-focus form-text-white"
             validationRules={[
                 {name: "REQUIRED"}

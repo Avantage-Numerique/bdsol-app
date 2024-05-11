@@ -9,7 +9,6 @@ import {useRootModal} from '@/src/hooks/useModal/useRootModal'
 import Button from '@/FormElements/Button/Button'
 import Input from '@/FormElements/Input/Input'
 import RichTextarea from '@/FormElements/RichTextArea/RichTextarea'
-import {lang} from "@/src/common/Data/GlobalConstants";
 import Select2 from '@/src/common/FormElements/Select2/Select2'
 import {SingleEntityMeta} from '@/src/DataTypes/Meta/components/SingleEntityMeta'
 import SingleInfo from "@/DataTypes/common/layouts/SingleInfo/SingleInfo";
@@ -19,6 +18,7 @@ import UpdateSocialHandles from '@/src/DataTypes/common/Forms/UpdateSocialHandle
 //Context
 import {useAuth} from "@/src/authentification/context/auth-context";
 import {MessageContext} from '@/src/common/UserNotifications/Message/Context/Message-Context';
+import { lang } from '@/src/common/Data/GlobalConstants'
 
 //FormData
 import {getDefaultUpdateEntityMeta} from "@/src/DataTypes/Meta/EntityMeta";
@@ -239,7 +239,7 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props}) => {
         <div className="row">
             <Input 
                 name="firstName"
-                label="Prénom"
+                label={"Prénom"+lang.required}
                 className="col-12 col-sm-6 col-md-4"
                 formClassName="discrete-without-focus form-text-white"
                 validationRules={[
@@ -251,7 +251,7 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props}) => {
 
             <Input 
                 name="lastName"
-                label="Nom"
+                label={"Nom"+lang.required}
                 className="col-12 col-sm-6 col-md-4"
                 formClassName="discrete-without-focus form-text-white"
                 validationRules={[

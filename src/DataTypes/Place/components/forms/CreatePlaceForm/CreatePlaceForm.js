@@ -121,7 +121,7 @@ const CreatePlaceForm = ({ onPositiveResponse, initValues }) => {
             <FormUI />
             <Input 
                 name="name"
-                label={lang.name}
+                label={lang.name+lang.required}
                 className="col-12 col-md-6"
                 validationRules={[{name: "REQUIRED"}]}
                 errorText="Cette information est requise"

@@ -81,7 +81,7 @@ const CreateProjectForm = ({ onPositiveResponse, initValues }) => {
             <Input 
                 name="name"
                 className="my-1"
-                label="Nom du projet"
+                label={"Nom du projet"+lang.required}
                 formTools={formTools}
                 validationRules={[
                     {name: "REQUIRED"}

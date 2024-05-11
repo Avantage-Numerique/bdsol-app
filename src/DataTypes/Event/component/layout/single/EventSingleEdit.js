@@ -322,7 +322,7 @@ const EventSingleEdit = ({data}, ...props) => {
         <>
             <Input 
                 name="name"
-                label={lang.eventName}
+                label={lang.eventName+lang.required}
                 className="col-12 col-md-6"
                 formClassName="discrete-without-focus form-text-white"
                 validationRules={[
@@ -354,7 +354,7 @@ const EventSingleEdit = ({data}, ...props) => {
                                 className="col-7"
                                 formClassName="discrete-without-focus form-text-white "
                                 name="startDate"
-                                label={lang.date}
+                                label={lang.date+lang.required}
                                 type="date"
                                 formTools={formTools}
                                 validationRules={[
@@ -379,7 +379,7 @@ const EventSingleEdit = ({data}, ...props) => {
                             <Input name="endDate"
                                 className="col-7"
                                 formClassName="discrete-without-focus form-text-white "
-                                label={lang.date}
+                                label={lang.date+lang.required}
                                 type="date"
                                 formTools={formTools}
                                 validationRules={[

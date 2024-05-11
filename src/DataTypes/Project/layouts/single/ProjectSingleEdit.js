@@ -295,7 +295,7 @@ const ProjectSingleEdit = (props) => {
     const title = (
         <Input 
             name="name"
-            label="Nom du projet"
+            label={"Nom du projet"+lang.required}
             formTools={formTools}
             formClassName="discrete-without-focus form-text-white"
             validationRules={[

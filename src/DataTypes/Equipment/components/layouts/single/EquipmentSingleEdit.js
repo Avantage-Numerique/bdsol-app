@@ -176,7 +176,7 @@ const EquipmentSingleEdit = ({ positiveRequestActions, ...props}) => {
         <div>
             <Select2
                 name="equipmentType"
-                label={lang.equipmentType}
+                label={lang.equipmentType+lang.required}
                 formTools={formTools}
                 creatable={true}
                 modalType={TYPE_TAXONOMY}
@@ -187,10 +187,13 @@ const EquipmentSingleEdit = ({ positiveRequestActions, ...props}) => {
                 requestData={{category:"equipmentType", name:""}}
                 searchField={"name"}
                 selectField={"name"}
+                validationRules={[
+                    {name: "REQUIRED"}
+                ]}
             />
             <Input
                 name="label"
-                label={lang.label}
+                label={lang.label+lang.required}
                 formClassName="discrete-without-focus form-text-white"
                 formTools={formTools}
                 placeholder={lang.labelPlaceholder}
@@ -267,14 +270,12 @@ const EquipmentSingleEdit = ({ positiveRequestActions, ...props}) => {
             }
         </>
     )
-
     
     {/*********** Submit section ***********/}
     const SinglePageBottom = (
         <SubmitEntity submitHandler={modalSaveEntityReminder.displayModal} formState={formState} />
     )
 
-    console.log("EQUIPEMENT", breadCrumb);
     return (
         <>
             <SingleBase

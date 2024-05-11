@@ -47,7 +47,7 @@ const UpdateTeams = ({name, formTools, parentEntity, ...props}) => {
                         <div className="col-12 col-lg-6">
                             <Select2
                                 name="member"
-                                label={lang.teamMember}
+                                label={lang.teamMember+lang.required}
                                 creatable={false}
                                 isMulti={false}
                                 fetch={"/persons/list"}

@@ -85,6 +85,7 @@ const base = {
     "formNotValid": "Attention. Le formulaire envoyé est invalide. Assurez-vous que tous les champs requis sont bien remplis.",
     "submit": "Soumettre",
     "submitModification": "Soumettre les modifications",
+    "required": "*",
 
 
     //Taxonomies related

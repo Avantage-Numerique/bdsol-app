@@ -94,7 +94,7 @@ const UpdateScheduleBudget = ({name, formTools, ...props}) => {
                                         <Input
                                             className="col-12 col-lg-4"
                                             name="step"
-                                            label="Nom de l'étape"
+                                            label={"Nom de l'étape"+lang.required}
                                             formTools={formTools}
                                             validationRules={[
                                                 {name: "REQUIRED"}
