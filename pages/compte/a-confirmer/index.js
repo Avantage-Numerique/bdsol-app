@@ -68,7 +68,7 @@ const AConfirmer = () => {
         <section className='py-4 d-flex justify-content-center'>
             <AuthenticationMessage 
                 header="En attente de confirmation" 
-                message="Vous devriez recevoir un courriel de confirmation sous peu. Une fois que vous aurez confirmé votre identité, vous pourrez vous connecter à votre compte."
+                message="S'il s'agit de votre première connexion, vous devriez recevoir un courriel de confirmation sous peu. Une fois que vous aurez confirmé votre identité, vous pourrez vous connecter à votre compte. Sinon, veuillez taper votre courriel ci-dessous."
                 Added_content={confirmationForm}
             />
         </section>

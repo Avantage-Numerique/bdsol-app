@@ -20,34 +20,46 @@ const Account = () => {
                 value: '',
                 isValid: false
             },
+            newPassword2: {
+                value: '',
+                isValid: false
+            },
         },
         {
             displayResMessage: true,     //Display a message to the user to confirm the succes
         });
 
     const sendChangePassword = async () => {
-        const apiResponse = await sendRequest(
-            "/change-password",
-            'POST',
-            JSON.stringify({data: { oldPassword: formState.inputs.oldPassword.value, newPassword: formState.inputs.newPassword.value }}),
-            {'Content-Type': 'application/json'}
-        );
-        
-        if(apiResponse.error){
+        if(formState.inputs.newPassword.value === formState.inputs.newPassword2.value){
+            const apiResponse = await sendRequest(
+                "/change-password",
+                'POST',
+                JSON.stringify({data: { oldPassword: formState.inputs.oldPassword.value, newPassword: formState.inputs.newPassword.value }}),
+                {'Content-Type': 'application/json'}
+            );
+            
+            if(apiResponse.error){
+                msg.addMessage({ 
+                    text: "Mot de passe actuel incorrect",
+                    positive: false
+                })
+            }
+            else{
+                msg.addMessage({ 
+                    text: "Mot de passe modifié avec succès",
+                    positive: true
+                });
+                formState.inputs.oldPassword.value = "";
+                formState.inputs.newPassword.value = "";
+                setSubMenu("account");
+            }
+        }
+        else {
             msg.addMessage({ 
-                text: "Mot de passe incorrect",
-                positive: false
+                text: "Les nouveau mots de passe entrés ne concordent pas. Veuillez les écrire à nouveau.",
+                positive: false 
             })
         }
-        else{
-            msg.addMessage({ 
-                text: "Mot de passe modifié avec succès",
-                positive: true
-            });
-            formState.inputs.oldPassword.value = "";
-            formState.inputs.newPassword.value = "";
-            setSubMenu("account");
-        }   
     }
 
 
@@ -71,6 +83,17 @@ const Account = () => {
                 name="newPassword"
                 type="password"
                 label="Nouveau mot de passe"
+                validationRules={[
+                    {name: "REQUIRED"},
+                    {name: "MIN_LENGTH", specification: 8}
+                ]}
+                errorText="Veuillez entrer un mot de passe valide"
+                formTools={formTools}
+            />
+            <Input
+                name="newPassword2"
+                type="password"
+                label="Retapez le nouveau mot de passe"
                 validationRules={[
                     {name: "REQUIRED"},
                     {name: "MIN_LENGTH", specification: 8}
