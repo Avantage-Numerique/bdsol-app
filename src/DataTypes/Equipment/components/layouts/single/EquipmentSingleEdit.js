@@ -140,21 +140,6 @@ const EquipmentSingleEdit = ({ positiveRequestActions, ...props}) => {
         );
     }
 
-    /* Needed for breadCrumb generator */
-    /*const getLabelGenerator = useCallback((param, query) => {
-        return {
-            "contribuer": lang.menuContributeLabel,
-            "equipements": lang.Equipments,
-            "slug": `${model.title ?? '-'}`
-        }[param];
-    }, []);
-
-    const breadCrumb = {
-        route: model.singleEditRoute,
-        getLabelGenerator: getLabelGenerator
-    }*/
-
-
     const breadcrumbLabels = {
         "contribuer": lang.menuContributeLabel,
         "equipements": lang.Equipments,
@@ -285,6 +270,7 @@ const EquipmentSingleEdit = ({ positiveRequestActions, ...props}) => {
                 contentColumnRight={contentColumnRight}
                 footer={footer}
                 singlePageBottom={SinglePageBottom}
+                model={model}
             />
             <modalSaveEntityReminder.Modal>
                 <SingleSaveEntityReminder
@@ -292,7 +278,6 @@ const EquipmentSingleEdit = ({ positiveRequestActions, ...props}) => {
                     closeModal={modalSaveEntityReminder.closeModal}
                 />
             </modalSaveEntityReminder.Modal>
-
         </>
     );
 }
