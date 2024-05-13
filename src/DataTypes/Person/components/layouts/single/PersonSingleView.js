@@ -1,14 +1,11 @@
 import React, {useEffect, useState} from 'react';
-
-//components
 import SingleBase from "@/src/DataTypes/common/layouts/single/SingleBase"
 import SingleBaseHeader from "@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseHeader"
 import SearchTag from '@/src/common/Components/SearchTag';
 import SingleInfo from "@/DataTypes/common/layouts/SingleInfo/SingleInfo";
-import SingleBaseProgressBar from '@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseProgressBar/SingleBaseProgressBar'
+import SingleBaseProgressBar
+    from '@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseProgressBar/SingleBaseProgressBar'
 import SocialHandleDisplay from '@/src/DataTypes/common/layouts/SocialHandlesViews/SocialHandleDisplay';
-//Styling
-//Utils
 import SanitizedInnerHtml from '@/src/utils/SanitizedInnerHtml';
 import {SingleEntityMeta} from "@/src/DataTypes/Meta/components/SingleEntityMeta";
 import {lang} from "@/common/Data/GlobalConstants";
@@ -16,7 +13,7 @@ import Person from "@/DataTypes/Person/models/Person";
 import EntitiesTagGrid from "@/DataTypes/Entity/layouts/EntitiesTagGrid";
 import {SkillGroup} from "@/DataTypes/common/layouts/skillsGroup/SkillGroup";
 import {removeTagsFromString} from '@/src/helpers/html'
-import { ContactPointView } from '@/src/DataTypes/common/layouts/ContactPointView/ContactPointView';
+import {ContactPointView} from '@/src/DataTypes/common/layouts/ContactPointView/ContactPointView';
 
 
 const PersonSingleView = ({ data }) => {
@@ -164,13 +161,13 @@ const PersonSingleView = ({ data }) => {
             }
 
             {organisations.length > 0 &&
-                <SingleInfo title={`${lang.plural(lang.memberOfOrganisation, lang.memberOfOrganisations, organisations.length)}`}>
+                <SingleInfo title={`${lang.plural(lang.memberOfOrganisation, lang.memberOfOrganisations, organisations.length)}`} cardLayout>
                     <EntitiesTagGrid feed={organisations}/>
                 </SingleInfo>
             }
 
             {events.length > 0 &&
-                <SingleInfo title={`${lang.plural(lang.attendThisEvent, lang.attendTheseEvents, events.length)}`}>
+                <SingleInfo title={`${lang.plural(lang.attendThisEvent, lang.attendTheseEvents, events.length)}`} cardLayout>
                     <EntitiesTagGrid feed={events}/>
                 </SingleInfo>
             }
