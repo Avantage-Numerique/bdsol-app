@@ -1,7 +1,4 @@
 import React from 'react';
-
-//components
-//Styling
 import styles from './EntitySimple.module.scss';
 import MediaFigure from "@/DataTypes/Media/layouts/MediaFigure";
 import {getType} from "@/DataTypes/Entity/Types";
@@ -50,6 +47,7 @@ const EntitySimple = (props) => {
     const appType = getType(model.type);
     //Verify is a bottom line is available to be displayed
     const isBottomLine = (BottomLineContent || model.simgleList);
+
     /**
      * Defininf the default header fo the EntitySimple to be overwrite with Header
      * @type {JSX.Element}
@@ -73,6 +71,7 @@ const EntitySimple = (props) => {
                         addGradientOver={true}
                         link={model.singleLink}
                         linkTitle={title}
+                        addLinkTag={false}
                     >
                         {!model.mainImage.isDefault && <div className={`${styles["figure-overlay"]} position-absolute w-100 h-100 no-pointer-events dark-transparent-gradient`}></div> }
                     </MediaFigure>
@@ -92,6 +91,14 @@ const EntitySimple = (props) => {
      *
      *
      */
+
+    const maxWidthCaracters = 30;
+    const totalTags = model.simgleList?.length;
+    let maxTags = 2;
+    let restOfTags = totalTags - maxTags;
+    let tagShowedLength = 0;
+    let totalCaracters = 0;
+
     const ContentDefault = (
         <>
             <header className={`d-flex mb-2 justify-content-between ${styles["simple-abstract__content__header"]}`}>
@@ -128,12 +135,29 @@ const EntitySimple = (props) => {
                     //<p className={`mb-0 ${styles["simple-abstract__content__description"]}`}>Aucune description</p>
                 }
                 {/* List of tags */}
-                { !BottomLineContent && model.simgleList && 
-                <ul className={`d-flex mb-0 ${styles["simple-abstract__content__tagList"]}`}>
+                { !BottomLineContent && model.simgleList &&
+                <ul className={`d-flex mb-0 ${styles["simple-abstract__content__tagList"]} justify-content-center`}>
                     {model.simgleList.length > 0 &&
-                        model.simgleList.map(tag => (
-                            <li key={tag} title={tag} className="rounded bg-general-tag">{tag}</li>
-                        ))
+                        model.simgleList.map((tag, index) => {
+                            let Tag = (<></>);
+                            console.log("begining", totalCaracters, "index", index, "maxTags", maxTags, "restOfTags", restOfTags, "tagShowedLength", tagShowedLength);
+                            if (index < maxTags) {
+                                totalCaracters += tag.length;
+                                console.log("rendering tag", totalCaracters, "index", index, "maxTags", maxTags, "restOfTags", restOfTags, "tagShowedLength", tagShowedLength);
+                                Tag = (
+                                    <li key={tag} title={tag} className="rounded bg-general-tag">{tag}</li>
+                                )
+                            }
+                            if (totalCaracters >= maxWidthCaracters && tagShowedLength !== 0) {
+                                maxTags = index;
+                                restOfTags = totalTags - index;
+                                tagShowedLength = index;
+                            }
+                            return Tag;
+                        })
+                    }
+                    {totalTags > maxTags &&
+                        <li key={"tagListRest"} title={`+${restOfTags}`} className="rounded bg-general-tag last-tag"><span title={`+${restOfTags}`}>&hellip;</span></li>
                     }
                 </ul>
                 }
