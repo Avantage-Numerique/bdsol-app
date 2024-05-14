@@ -86,7 +86,7 @@ const Index = () => {
                                     <h4>{lang.Person}</h4>
                                 </header>
                                 <section>
-                                    <p>Personne, professionnelle ou amatrice, ayant des compétences en technologies ou œuvrant dans le numérique et offrant des services technologiques.</p>
+                                    <p>{lang.PersonsDefinition}</p>
                                 </section>
                             </div>
                             <Button
@@ -105,7 +105,7 @@ const Index = () => {
                                     <h4>{lang.Organisation}</h4>
                                 </header>
                                 <section>
-                                    <p>Organisation, entreprise, collectif ou regroupement œuvrant dans le numérique, ou dont les technologies numériques sont incluses, et offrant des services technologiques.</p>
+                                    <p>{lang.OrganisationsDefinition}</p>
                                 </section>
                             </div>
                             <Button
@@ -124,7 +124,7 @@ const Index = () => {
                                     <h4>{lang.Project}</h4>
                                 </header>
                                 <section>
-                                    <p>Projet réalisé par un ou plusieurs individus et incluant une ou plusieurs dimensions numériques.</p>
+                                    <p>{lang.ProjectsDefinition}</p>
                                 </section>
                             </div>
                             <Button
@@ -143,7 +143,7 @@ const Index = () => {
                                     <h4>{lang.Event}</h4>
                                 </header>
                                 <section>
-                                    <p>Événement comprenant un aspect numérique ou lié à un projet numérique.</p>
+                                    <p>{lang.EventsDefinition}</p>
                                 </section>
                             </div>
                             <Button
@@ -162,7 +162,7 @@ const Index = () => {
                                     <h4>{lang.Equipment}</h4>
                                 </header>
                                 <section>
-                                    <p>Équipement numérique possédé par un individu ou une organisation et qu'il est possible d'emprunter, de louer ou d'échanger en service.</p>
+                                    <p>{lang.EquipmentsDefinition}</p>
                                 </section>
                             </div>
                             <Button
@@ -182,7 +182,7 @@ const Index = () => {
                                     <h4>{lang.Place}</h4>
                                 </header>
                                 <section>
-                                    <p>Lieu comprenant un aspect numérique ou offrant la possibilité d'accueillir des projets en lien avec le numérique.</p>
+                                    <p>{lang.PlacesDefinition}</p>
                                 </section>
                             </div>
                             <Button

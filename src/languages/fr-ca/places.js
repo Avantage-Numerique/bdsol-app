@@ -1,4 +1,7 @@
 const places = {
+
+    "PlacesDefinition":"Lieu comprenant un aspect numérique ou offrant la possibilité d'accueillir des projets en lien avec le numérique.",
+
     //Place
     "Place": "Lieu",
     "Places": "Lieux",

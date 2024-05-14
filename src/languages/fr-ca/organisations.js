@@ -1,5 +1,7 @@
 const organisations = {
 
+    "OrganisationsDefinition": "Organisation, entreprise, collectif ou regroupement œuvrant dans le numérique, ou dont les technologies numériques sont incluses, et offrant des services technologiques.",
+
     //  Organisations
 
     "Organisation": "Organisation",
