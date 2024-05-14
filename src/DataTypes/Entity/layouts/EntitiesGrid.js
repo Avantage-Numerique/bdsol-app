@@ -13,7 +13,7 @@ import {getModelFromType} from "@/DataTypes/Entity/Types";
 const EntitiesGrid = ({feed, className, columnClass}) => {
     const ContainerTag = "div";
 
-    const colContainerClass = columnClass ?? "col-12 col-sm-6 col-lg-4 col-xl-3 g-4";
+    const colContainerClass = columnClass ?? "g-4";//"col-12 col-sm-6 col-lg-4 col-xl-3 g-4";
 
     const getKeyString = useCallback((prefix, model, index) => {
         const sep = "-";

@@ -51,14 +51,16 @@ class Person extends EntityModel {
 
         //Set the simple list based on the nature of the component
         let list = []
-        if(raw?.occupations)
-            raw.occupations.forEach(occ => {
+        if(raw?.occupations) {
+            const orderedOccupation = raw.occupations.length > 0 && raw.occupations[0].subMeta?.order ? raw.occupations.sort((a,b) => a.subMeta.order - b.subMeta.order) : raw.occupations;
+            orderedOccupation.forEach(occ => {
                 if(occ.groupName){
                     list.push(occ.groupName)
                 } else {
                     occ.skills.forEach(skill => list.push(skill.name))
                 }
             });
+        }
         this.simpleEditList(list) 
 
     }
