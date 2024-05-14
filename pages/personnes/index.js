@@ -125,7 +125,7 @@ const PersonsPage = () => {
 
                         {/* Aside section */}
                         <aside className="col col-12 col-md-3">
-                            <div className="my-4">
+                            <div className="my-4 d-flex flex-column">
                                 <Button 
                                     disabled={!auth.user.isLoggedIn}
                                     href="/contribuer/personnes" 
@@ -139,7 +139,6 @@ const PersonsPage = () => {
                                         Notez que vous devez être <b className="text-primary">connecté</b> pour pouvoir ajouter des entitées à la base de données.
                                     </p>
                                 }
-                            </div>
                                 {   !auth.user.isLoggedIn &&
                                     <>
                                         <hr/>
@@ -149,7 +148,7 @@ const PersonsPage = () => {
                                         >Se connecter</Button>
                                     </>
                                 }
-                            
+                            </div>
                         </aside>
 
                     </div>

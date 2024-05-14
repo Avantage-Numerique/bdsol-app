@@ -122,21 +122,19 @@ const EventsPage = () => {
 
                         {/* Aside section */}
                         <aside className="col col-12 col-md-3">
-                            <div className="my-4">
+                            <div className="my-4 d-flex flex-column">
                                 <Button 
                                     disabled={!auth.user.isLoggedIn}
                                     href="/contribuer/evenements" 
                                     size="reg-100">
                                     {lang.addEventButtonLabel}
                                 </Button>
-
                                 {
                                     !auth.user.isLoggedIn &&
                                     <p className="mt-2">
                                         Notez que vous devez être <b className="text-primary">connecté</b> pour pouvoir ajouter des entitées à la base de données.
                                     </p>
                                 }
-                            </div>
                                 {   !auth.user.isLoggedIn &&
                                     <>
                                         <hr/>
@@ -146,7 +144,7 @@ const EventsPage = () => {
                                         >Se connecter</Button>
                                     </>
                                 }
-                            
+                            </div>
                         </aside>
 
                     </div>

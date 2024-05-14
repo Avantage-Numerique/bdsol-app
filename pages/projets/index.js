@@ -118,7 +118,7 @@ const ProjectsPage = () => {
 
                     {/* Aside section */}
                     <aside className="col col-12 col-md-3">
-                        <div className="my-4">
+                        <div className="my-4 d-flex flex-column">
 
                             <Button
                                 disabled={!auth.user.isLoggedIn}
@@ -133,19 +133,16 @@ const ProjectsPage = () => {
                                     Notez que vous devez être <b className="text-primary">connecté</b> pour pouvoir ajouter des entitées à la base de données.
                                 </p>
                             }
-                        </div>
-                        <hr />
                             {   !auth.user.isLoggedIn &&
-
                                 <>
-                                <Button
-                                    size="reg-100"
-                                    href="/compte/connexion"
-                                >Se connecter</Button>
-
-                                <hr />
+                                    <hr/>
+                                    <Button
+                                        size="reg-100"
+                                        href="/compte/connexion"
+                                    >Se connecter</Button>
                                 </>
                             }
+                        </div>
                     </aside>
 
                 </div>
