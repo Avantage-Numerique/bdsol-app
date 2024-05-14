@@ -1,4 +1,4 @@
-import React, {useCallback, useContext, useEffect, useState} from 'react'
+import React, {useContext, useEffect, useState} from 'react'
 
 //components
 import PageHeader from "@/src/layouts/Header/PageHeader";
@@ -19,7 +19,6 @@ import {Breadcrumbs} from "@/common/Breadcrumbs/Breadcrumbs";
 import AppRoutes from "@/src/Routing/AppRoutes";
 import EntitiesGrid from "@/DataTypes/Entity/layouts/EntitiesGrid";
 import {getTitle} from "@/DataTypes/MetaData/MetaTitle";
-import Head from "next/head";
 import {getType, TYPE_EQUIPMENT} from "@/DataTypes/Entity/Types";
 
 
@@ -64,11 +63,10 @@ const EquipmentPage = () => {
 
     useEffect(() => { fetchData() }, [])
 
-    const getLabelGenerator = useCallback((param, query) => {
-        return {
-            "equipement": type.labelPlural,
-        }[param];
-    }, []);
+
+    const breadcrumbsLabels = {
+        "equipement": type.labelPlural,
+    }
 
     return (
 
@@ -83,7 +81,7 @@ const EquipmentPage = () => {
                 title={lang.allEquipmentTitle}
                 description={lang.allEquipmentDescription}
             >
-                <Breadcrumbs className={"pt-2"} route={AppRoutes.equipment} getLabelGenerator={getLabelGenerator} />
+                <Breadcrumbs className={"pt-2"} route={AppRoutes.equipment} labels={breadcrumbsLabels} />
             </PageHeader>
 
                 <div className="container">

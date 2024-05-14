@@ -1,4 +1,4 @@
-import React, {useCallback, useContext, useEffect, useState} from 'react'
+import React, {useContext, useEffect, useState} from 'react'
 
 //components
 import PageHeader from "@/src/layouts/Header/PageHeader";
@@ -62,11 +62,9 @@ const ProjectsPage = () => {
 
     useEffect(() => { fetchData() }, [])
 
-    const getLabelGenerator = useCallback((param, query) => {
-        return {
-            "projets": "Tous les Projets",
-        }[param];
-    }, []);
+    const breadcrumbsLabels = {
+        "projets": "Tous les Projets",
+    }
 
     return (
         <div>
@@ -80,7 +78,7 @@ const ProjectsPage = () => {
                 htmlTitle={"Consulter les projets"}
                 subTitle={"Vous trouverez ici une liste des projets produits par les technocréatifs.ves du Croissant boréal."}
             >
-                <Breadcrumbs className={"pt-2"} route={AppRoutes.projects} getLabelGenerator={getLabelGenerator} />
+                <Breadcrumbs className={"pt-2"} route={AppRoutes.projects} labels={breadcrumbsLabels} />
             </PageHeader>
 
             <div className="container">
