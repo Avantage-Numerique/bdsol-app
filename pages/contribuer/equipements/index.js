@@ -29,7 +29,7 @@ const EquipmentSingleEditPage = () => {
     useEffect(() => displayModal(), [])
 
     return (
-        <div className="container py-4">
+        <div className="container">
                 {/* Empty single edit in the background */}
                 <EquipmentSingleEdit data={{}} />
                 {/* Loading state while waiting for rederection */}

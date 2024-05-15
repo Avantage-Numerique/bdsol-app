@@ -86,6 +86,8 @@ const base = {
     "submit": "Soumettre",
     "submitModification": "Soumettre les modifications",
     "required": "*",
+    "consult": "Consulter",
+    "contribute": "Ajouter",
 
 
     //Taxonomies related
