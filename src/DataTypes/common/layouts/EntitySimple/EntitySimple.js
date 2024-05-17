@@ -154,7 +154,7 @@ const EntitySimple = (props) => {
                                 {/* setup variable to avoid rendering all new tags if the lenght is too much. To optimize we need to use a loop for (in/of) and use break/continue. */}
                                 if ((totalCaracters >= maxWidthCaracters || willNextTotalCaractersTotalBust) && tagRenderedLength === -1) {
                                     maxTags = index;
-                                    restOfTags = totalTags - (index+1);
+                                    restOfTags = totalTags - index;
                                     tagRenderedLength = index;
                                 }
                                 return Tag;
