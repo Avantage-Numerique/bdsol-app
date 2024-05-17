@@ -60,7 +60,7 @@ const nextConfig = {
         COOKIE_PRIVATE_KEY: process.env.COOKIE_PRIVATE_KEY ?? 'private key not set',
         COOKIE_MAX_AGE: process.env.COOKIE_MAX_AGE ?? 86600,
 
-        PING_INTERVAL: process.env.PING_INTERVAL ?? 10000,
+        PING_INTERVAL: process.env.PING_INTERVAL ?? 5,//in minutes
 
         //ontology : This would be deprecated soon.
         API_ONTOLOGY_HOST_NAME: process.env.API_ONTOLOGY_HOST_NAME,
