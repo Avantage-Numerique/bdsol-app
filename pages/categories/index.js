@@ -6,12 +6,9 @@ import {Breadcrumbs} from "@/common/Breadcrumbs/Breadcrumbs";
 import AppRoutes from "@/src/Routing/AppRoutes";
 import Button from '@/src/common/FormElements/Button/Button';
 import PageMeta from "@/src/common/PageMeta/PageMeta";
-
-//Styling
-import styles from './index_categories.module.scss';
 import {getTitle} from "@/DataTypes/MetaData/MetaTitle";
 import {getType, TYPE_TAXONOMY} from "@/DataTypes/Entity/Types";
-import Link from "next/link";
+import TaxonomySimple from "@/DataTypes/Taxonomy/components/layout/simple/TaxonomySimple";
 
 const TaxonomiesCategoryPage = () => {
 
@@ -78,23 +75,10 @@ const TaxonomiesCategoryPage = () => {
         });
         return (
             list.map( (elem) => 
-                <div
+                <div key={elem.slug}
                     className="col-6 col-sm-4 col-md-3 p-1 p-md-2 d-flex"
-                    key={elem.slug}
                 >
-                    <Link 
-                        className={`border d-flex justify-content-between align-items-center w-100 p-1 p-md-2 rounded ${styles["list-tag"]}`}
-                        href={`/categories/${elem.category}/${elem.slug}`}
-                    >
-                        
-                            <span>{elem.name}</span>
-                            {
-                                elem.meta?.count > 0 ?
-                            <span className={"badge bg-primary"}>{elem.meta?.count}</span>
-                            :
-                            ""}
-                    
-                    </Link>
+                    <TaxonomySimple taxonomy={elem} />
                 </div>
             )
         )
