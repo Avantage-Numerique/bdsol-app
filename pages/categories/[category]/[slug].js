@@ -84,7 +84,8 @@ const TaxonomiesSinglePage = (props) => {
                 bg={"bg-primary-lighter"}
                 colFullWidth
                 textColor={"text-white"}
-                htmlTitle={currentTitle}
+                title={taxonomy.name}
+                subTitle={lang.capitalize(lang[taxonomy.category])}
                 tags={{
                     list:taxonomy.domains,
                     listProperty: "domain"

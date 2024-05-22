@@ -26,14 +26,14 @@ const places = {
     //Placeholders
     //"placeNamePlaceholder" : "",
     //"placeDescriptionPlaceholder" : "",
-    "placeAddressPlaceholder" : "112, 7e rue",
-    "placeCityPlaceholder" : "Rouyn-Noranda",
-    "placePostalCodePlaceholder" : "J9X 1Z9",
+    "placeAddressPlaceholder" : "123, rue",
+    "placeCityPlaceholder" : "",
+    "placePostalCodePlaceholder" : "",
     "placeProvincePlaceholder" : "Québec",
     "placeCountryPlaceholder" : "Canada",
-    "placeMrcPlaceholder" : "Rouyn-Noranda",
-    "placeRegionPlaceholder" : "Abitibi-Témiscamingue",
-    "placeLongitudePlaceholder" : "-79.01617691031343",
-    "placeLatitudePlaceholder" : "48.247340572238066",
+    "placeMrcPlaceholder" : "",
+    "placeRegionPlaceholder" : "",
+    "placeLongitudePlaceholder" : "-79.0161",
+    "placeLatitudePlaceholder" : "48.2473",
 }
 exports.places = places
