@@ -365,6 +365,13 @@ const AppRoutesRaw = {
         pathname: "/parametres/cookies",
         asPath: "/parametres/cookies",
         needAuth: false,
+    },
+
+    versions: {
+        label: "Versions",
+        pathname: "/versions",
+        asPath: "/versions",
+        needAuth: false,
     }
 }
 
