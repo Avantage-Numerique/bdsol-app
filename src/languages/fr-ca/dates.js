@@ -3,6 +3,7 @@ const dates = {
     "fullHumanTimeFormat": "H \'h\' mm",
     "humanDateFormat": "EEEE d MMM",
     "humanDateMonthFormat": "d MMM",
+    "humanDateMonthYearFormat": "d MMM yyyy",
     "dateFormat": "yyyy-LL-dd",
     "timeFormat": "H 'h' mm",
     "dayFormat": "dd",
