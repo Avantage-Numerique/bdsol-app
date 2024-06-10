@@ -313,7 +313,7 @@ const AppRoutesRaw = {
     },
  
     error404: {
-        label: "Error 404",
+        label: "Erreur 404",
         pathname: "/404",
         asPath: "/404"
     },
@@ -365,6 +365,13 @@ const AppRoutesRaw = {
         pathname: "/parametres/cookies",
         asPath: "/parametres/cookies",
         needAuth: false,
+    },
+
+    versions: {
+        label: "Versions",
+        pathname: "/versions",
+        asPath: "/versions",
+        needAuth: false,
     }
 }
 
@@ -401,6 +408,7 @@ const AppRoutes = new Routes(AppRoutesRaw);
  * @property consult {Route}
  * @property contact {Route}
  * @property faq {Route}
+ * @property equipment {Route}
  * @type {Routes}
  */
 export default AppRoutes;

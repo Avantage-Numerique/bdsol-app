@@ -1,4 +1,4 @@
-import React, {useCallback, useContext, useEffect, useState} from 'react'
+import React, {useContext, useEffect, useState} from 'react'
 
 //components
 import PageHeader from "@/src/layouts/Header/PageHeader";
@@ -19,7 +19,6 @@ import {lang} from "@/src/common/Data/GlobalConstants";
 import {Breadcrumbs} from "@/common/Breadcrumbs/Breadcrumbs";
 import AppRoutes from "@/src/Routing/AppRoutes";
 import EntitiesGrid from "@/DataTypes/Entity/layouts/EntitiesGrid";
-import Head from "next/head";
 import {getTitle} from "@/DataTypes/MetaData/MetaTitle";
 import {getType, TYPE_ORGANISATION} from "@/DataTypes/Entity/Types";
 
@@ -65,11 +64,9 @@ const OrganisationsPage = () => {
     useEffect(() => { fetchData() }, [])
 
 
-    const getLabelGenerator = useCallback((param, query) => {
-        return {
-            "organisations": "Organisations",
-        }[param];
-    }, []);
+    const breadcrumbsLabels = {
+        "organisations": "Organisations",
+    }
 
     return (
         <div>
@@ -83,7 +80,7 @@ const OrganisationsPage = () => {
                 htmlTitle={"Consulter les organisations"}
                 subTitle={"Les organisations présentées ici travaillent avec les technologies numériques et se trouvent sur le territoire du Croissant boréal."}
             >
-                <Breadcrumbs className={"pt-2"} route={AppRoutes.organisations} getLabelGenerator={getLabelGenerator} />
+                <Breadcrumbs className={"pt-2"} route={AppRoutes.organisations} labels={breadcrumbsLabels} />
             </PageHeader>
 
             <div className="container">
@@ -123,7 +120,7 @@ const OrganisationsPage = () => {
 
                     {/* Aside section */}
                     <aside className="col col-12 col-md-3">
-                        <div className="my-4">
+                        <div className="my-4 d-flex flex-column">
                             <Button
                                 disabled={!auth.user.isLoggedIn}
                                 href="/contribuer/organisations"
@@ -137,19 +134,16 @@ const OrganisationsPage = () => {
                                     Notez que vous devez être <b className="text-primary">connecté</b> pour pouvoir ajouter des entitées à la base de données.
                                 </p>
                             }
-                        </div>
-                        <hr />
                             {   !auth.user.isLoggedIn &&
-
                                 <>
-                                <Button
-                                    size="reg-100"
-                                    href="/compte/connexion"
-                                >Se connecter</Button>
-
-                                <hr />
+                                    <hr />
+                                    <Button
+                                        size="reg-100"
+                                        href="/compte/connexion"
+                                    >Se connecter</Button>
                                 </>
                             }
+                        </div>
                     </aside>
 
                 </div>

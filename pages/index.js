@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Image from 'next/image'
 
 import {lang} from "@/src/common/Data/GlobalConstants";
@@ -12,17 +12,12 @@ import PageMeta from "@/src/common/PageMeta/PageMeta";
 
 //Entities
 //Costum hooks
-import {
-    externalApiRequest,
-    clientSideExternalApiRequest,
-    useHttpClient
-} from '@/src/hooks/http-hook';
+import {clientSideExternalApiRequest, useHttpClient} from '@/src/hooks/http-hook';
 
 //Context
-import {MessageContext} from '@/src/common/UserNotifications/Message/Context/Message-Context';
 import {getType} from "@/DataTypes/Entity/Types";
 
-//Images 
+//Images
 import backgroundImg from '@/public/general_images/Fusee_Pointilles1.svg'
 import AvantageNumeriqueLogo from '@/public/logos/logo_Avantage_Numérique.svg';
 import organizationPresentationImg from '@/public/general_images/residenceUQAT2024_7-réduit.jpg'
@@ -161,7 +156,7 @@ const HomePage = ({}) => {
                             }
                         </div>
                         <div className="py-4 my-4">
-                            <Button className="px-4" href="/consulter"> Voir toutes les données </Button>
+                            <Button className="px-4" href={AppRoutes.consult.pathname}>Voir toutes les données</Button>
                         </div>
                     </div>
                 </div>

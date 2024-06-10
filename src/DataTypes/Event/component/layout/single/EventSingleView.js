@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 
 //Components
 import SingleBase from "@/src/DataTypes/common/layouts/single/SingleBase";
@@ -9,12 +9,12 @@ import SearchTag from "@/src/common/Components/SearchTag";
 import SingleBaseProgressBar
     from '@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseProgressBar/SingleBaseProgressBar'
 import SocialHandleDisplay from '@/src/DataTypes/common/layouts/SocialHandlesViews/SocialHandleDisplay'
+import { ContactPointView } from "@/src/DataTypes/common/layouts/ContactPointView/ContactPointView";
+
 //Utils
-import Head from "next/head";
 import SanitizedInnerHtml from '@/src/utils/SanitizedInnerHtml';
 import {lang} from "@/src/common/Data/GlobalConstants";
 import {SingleEntityMeta} from "@/src/DataTypes/Meta/components/SingleEntityMeta";
-import {getTitle} from "@/DataTypes/MetaData/MetaTitle";
 import Event from "../../../models/Event";
 import DisplaySchedule from "../../Forms/Schedule/DisplaySchedule";
 import {removeTagsFromString} from '@/src/helpers/html'
@@ -59,6 +59,7 @@ const EventSingleView = ({data}) => {
 
 
     const model = new Event(data);
+
     const [formatEnumState, setFormatEnumState] = useState(undefined);
 
     /******* Sorted lists ********/
@@ -77,20 +78,26 @@ const EventSingleView = ({data}) => {
         getEventFormatEnum();
     }, [])
 
-    const getLabelGenerator = useCallback((param, query) => {
-        return {
-            "evenements": lang.Events,
-            "slug": model.title        
-        }[param];
-    }, []);
 
-    const breadCrumb = {
+
+    /* Needed for breadCrumb generator */
+    const breadcrumbLabels = {
+        "evenements": lang.Events,
+        "slug": model.title
+    };
+
+    const breadcrumbsRoutes = {
         route: model.singleRoute,
-        getLabelGenerator: getLabelGenerator
+        labels: breadcrumbLabels,
     }
 
-    const { TimeTag, TimeIntervalSentence } = dateManager(startDate, endDate);
+    const [breadCrumb, setBreadCrumb] = useState(breadcrumbsRoutes);
+    useEffect(() => {
+        setBreadCrumb(breadcrumbsRoutes)
+    }, [name]);
 
+
+    const { TimeTag, TimeIntervalSentence } = dateManager(startDate, endDate);
 
     const header = (
         <SingleBaseHeader 
@@ -234,6 +241,12 @@ const EventSingleView = ({data}) => {
     )
 
     const contentColumnRight = (
+        <>
+            {/* Contact information */}
+            <SingleInfo title={lang.organisationContact} cardLayout>
+                <ContactPointView contact={model.contactPoint}/>
+            </SingleInfo>
+
             <SingleInfo 
                 title={"Informations supplémentaires"}
                 cardLayout
@@ -265,14 +278,6 @@ const EventSingleView = ({data}) => {
                     url={model?.url}
                     className={`${appConfig.spacing.singleSectionSpacingClass}`}
                 />
-                
-                {/* contactPoint */}
-                <SingleInfo 
-                    title={lang.contactInformations}
-                    isSubtitle
-                >
-                    { contactPoint && contactPoint }
-                </SingleInfo>
 
                 {/*eventType */}
                 <SingleInfo 
@@ -300,7 +305,8 @@ const EventSingleView = ({data}) => {
                     }
                 </SingleInfo>
                 
-            </SingleInfo>   
+            </SingleInfo>
+        </>
 
     )
 
@@ -346,12 +352,9 @@ const EventSingleView = ({data}) => {
             buttonLink={model.singleEditLink}
         />
     )
-    
+
     return (
         <>
-            <Head>
-                <title>{getTitle([model.title, model.Type.label])}</title>
-            </Head>
             <SingleBase
                 breadCrumb={breadCrumb}
                 header={header}              
@@ -360,6 +363,7 @@ const EventSingleView = ({data}) => {
                 contentColumnRight={contentColumnRight}
                 footer={Footer}
                 singlePageBottom={SinglePageBottom}
+                model={model}
             />
         </>
     )

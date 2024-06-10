@@ -25,6 +25,7 @@ import UpdateTeams from '../UpdateTeams/UpdateTeams';
 import SelectEquipment from '@/src/DataTypes/Equipment/components/layouts/SelectEquipment/SelectEquipment';
 import UpdateSocialHandles from '@/src/DataTypes/common/Forms/UpdateSocialHandles/UpdateSocialHandles';
 import SingleSaveEntityReminder from '@/src/DataTypes/common/layouts/SingleSaveEntityReminder/SingleSaveEntityReminder';
+import UpdateContactPoint from '@/src/DataTypes/common/Forms/UpdateContactPoint/UpdateContactPoint';
 
 //Utils
 import Organisation from '@/src/DataTypes/Organisation/models/Organisation';
@@ -90,6 +91,23 @@ const OrganisationSingleEdit = (props) => {
     }, [setCurrentModel]);
 
 
+    const breadcrumbLabels = {
+        "contribuer": lang.menuContributeLabel,
+        "organisations": lang.Organisations,
+        "slug": `${model.name ?? '-'}`
+    };
+
+    const breadcrumbsRoutes = {
+        route: model.singleEditRoute,
+        labels: breadcrumbLabels,
+    }
+
+    const [breadCrumb, setBreadCrumb] = useState(breadcrumbsRoutes);
+    useEffect(() => {
+        setBreadCrumb(breadcrumbsRoutes)
+    }, [model.title]);
+
+
     //Modal hook
     const modalSaveEntityReminder = useRootModal();
 
@@ -129,7 +147,7 @@ const OrganisationSingleEdit = (props) => {
             isValid: true
         },
         contactPoint: {
-            value: contactPoint ?? '',
+            value: contactPoint ?? {tel:{num:"", ext:""},email:{address:""},website:{url:""} },
             isValid: true
         },
         fondationDate: {
@@ -233,28 +251,15 @@ const OrganisationSingleEdit = (props) => {
         );
     }
 
-    /* Needed for breadCrumb generator */
-    const getLabelGenerator = useCallback((param, query) => {
-        return {
-            "contribuer": lang.menuContributeLabel,
-            "organisations": lang.Organisations,
-            "slug": model.name ?? "-"
-        }[param];
-    }, []);
-
     /*****************************
      *  Sections
      ***************************/
-    const breadCrumb = {
-        route: model.singleEditRoute,
-        getLabelGenerator: getLabelGenerator
-    }
 
     const title = (
         <Input 
             name="name"
             placeholder="Nom de l'organisation"
-            label="Nom de l'organisation"
+            label={"Nom de l'organisation"+lang.required}
             formClassName="discrete-without-focus form-text-white"
             validationRules={[
                 {name: "REQUIRED"}
@@ -344,6 +349,15 @@ const OrganisationSingleEdit = (props) => {
     );
 
     const contentColumnRight = (
+        <>
+            <SingleInfo title={lang.contactInformations}>
+                <UpdateContactPoint
+                    formTools={formTools}
+                    name="contactPoint"
+                    model={model}
+                />
+            </SingleInfo>
+
             <SingleInfo
                 title="Informations supplémentaires"
                 cardLayout
@@ -362,18 +376,7 @@ const OrganisationSingleEdit = (props) => {
                         //selectField={"address"}
                     />
                 </SingleInfo>
-                <SingleInfo>
-                    <Input
-                        name="contactPoint"
-                        label={lang.contactInformations}
-                        tip={{
-                            header: lang.projectContactPointTipTitle,
-                            body: lang.projectContactPointTipContent
-                        }}
-                        placeholder="Courriel, téléphone, etc..."
-                        formTools={formTools}
-                    />
-                </SingleInfo>
+
                 <SingleInfo>
                     <Select2
                         name="domains"
@@ -413,6 +416,7 @@ const OrganisationSingleEdit = (props) => {
                     />
                 </SingleInfo>
             </SingleInfo>
+        </>
 
     );
 
@@ -447,6 +451,7 @@ const OrganisationSingleEdit = (props) => {
                 contentColumnRight={contentColumnRight}
                 footer={Footer}
                 singlePageBottom={SinglePageBottom}
+                model={model}
             />
             <modalSaveEntityReminder.Modal>
                 <SingleSaveEntityReminder

@@ -17,6 +17,11 @@ import SingleBase from '@/src/DataTypes/common/layouts/single/SingleBase';
 import UpdateTeams from '@/src/DataTypes/Organisation/components/forms/UpdateTeams/UpdateTeams';
 import SingleInfo from "@/src/DataTypes/common/layouts/SingleInfo/SingleInfo";
 import SingleSaveEntityReminder from '@/src/DataTypes/common/layouts/SingleSaveEntityReminder/SingleSaveEntityReminder';
+import UpdateSocialHandles from '@/src/DataTypes/common/Forms/UpdateSocialHandles/UpdateSocialHandles';
+import UpdateContactPoint from '@/src/DataTypes/common/Forms/UpdateContactPoint/UpdateContactPoint';
+import UpdateScheduleBudget from '@/src/DataTypes/Project/component/forms/UpdateScheduleBudget';
+import UpdateSponsor from '@/src/DataTypes/Project/component/forms/UpdateSponsor';
+import SubmitEntity from "@/DataTypes/common/Forms/SingleEdit/SubmitEntity";
 
 //Utils
 import {lang} from "@/src/common/Data/GlobalConstants";
@@ -27,13 +32,9 @@ import {replacePathname} from "@/src/helpers/url";
 //Context
 import {useAuth} from "@/src/authentification/context/auth-context";
 import {MessageContext} from '@/src/common/UserNotifications/Message/Context/Message-Context';
-import UpdateScheduleBudget from '@/src/DataTypes/Project/component/forms/UpdateScheduleBudget';
-import UpdateSponsor from '@/src/DataTypes/Project/component/forms/UpdateSponsor';
 import Icon from "@/common/widgets/Icon/Icon";
 import MainImageDisplay from "@/DataTypes/common/layouts/single/defaultSections/MainImageDisplay/MainImageDisplay";
 import {TYPE_EQUIPMENT, TYPE_TAXONOMY} from '@/src/DataTypes/Entity/Types';
-import SubmitEntity from "@/DataTypes/common/Forms/SingleEdit/SubmitEntity";
-import UpdateSocialHandles from '@/src/DataTypes/common/Forms/UpdateSocialHandles/UpdateSocialHandles';
 
 const ProjectSingleEdit = (props) => {
 
@@ -131,7 +132,7 @@ const ProjectSingleEdit = (props) => {
                 isValid: true
             },
             contactPoint: {
-                value: contactPoint ?? "",
+                value: contactPoint ?? {tel:{num:"", ext:""},email:{address:""},website:{url:""} },
                 isValid: true
             },
             location: {
@@ -274,30 +275,27 @@ const ProjectSingleEdit = (props) => {
     }
 
     /* Needed for breadCrumb generator */
-    const getLabelGenerator = useCallback((param, query) => {
-        return {
-            "contribuer": lang.menuContributeLabel,
-            "projets": lang.Projects,
-            "slug": model.name ?? "-"
-        }[param];
-    }, []);
+    const breadcrumbLabels = {
+        "contribuer": lang.menuContributeLabel,
+        "projets": lang.Projects,
+        "slug": model.name ?? '-'
+    };
 
-    /*****************************
-     * 
-     * 
-     *  Sections
-     * 
-     * 
-     ***************************/
-    const breadCrumb = {
+    const breadcrumbsRoutes = {
         route: model.singleEditRoute,
-        getLabelGenerator: getLabelGenerator
+        labels: breadcrumbLabels,
     }
+
+    const [breadCrumb, setBreadCrumb] = useState(breadcrumbsRoutes);
+    useEffect(() => {
+        setBreadCrumb(breadcrumbsRoutes)
+    }, [model.title]);
+
 
     const title = (
         <Input 
             name="name"
-            label="Nom du projet"
+            label={"Nom du projet"+lang.required}
             formTools={formTools}
             formClassName="discrete-without-focus form-text-white"
             validationRules={[
@@ -426,74 +424,74 @@ const ProjectSingleEdit = (props) => {
         </>
     );
     const contentColumnRight = (
-        <SingleInfo
-            title="Informations supplémentaires"
-            cardLayout
-        >
-            {/* Context */}
-            <div className="mb-3">
-                <SelectFetch
-                    name="context"
-                    label={lang.projectContext}
+        <>
+            <SingleInfo title={lang.contactInformations}>
+                <UpdateContactPoint
                     formTools={formTools}
-                    noValueText={lang.noSelectedOption}
-                    fetchOption="context-enum"
-                />
-            </div>
-            <SingleInfo>
-                <Select2
-                    name="skills"
-                    label={lang.skillsAndTechnologies}
-                    formTools={formTools}
-                    creatable={true}
-                    modalType={TYPE_TAXONOMY}
-                    isMulti={true}
-                    fetch={"/taxonomies/group/skills"}
-                    searchField={"name"}
-                    selectField={"name"}
-                />
-            </SingleInfo>
-            <SingleInfo>
-                <Select2
-                    name="domains"
-                    label={lang.Domains}
-                    formTools={formTools}
-                    creatable={true}
-                    modalType={TYPE_TAXONOMY}
-                    isMulti={true}
-
-                    fetch={"/taxonomies/list"}
-                    requestData={{category:"domains", name:""}}
-                    searchField={"name"}
-                    selectField={"domains"}
-                />
-            </SingleInfo>
-            <SingleInfo>
-                <Input
                     name="contactPoint"
-                    label={lang.contactInformations}
-                    tip={{
-                        header: lang.projectContactPointTipTitle,
-                        body: lang.projectContactPointTipContent
-                    }}
-                    placeholder="Courriel, téléphone, etc..."
-                    formTools={formTools}
+                    model={model}
                 />
             </SingleInfo>
+
             <SingleInfo
-                title={lang.externalLinks}
-                isSubtitle
+                title="Informations supplémentaires"
+                cardLayout
             >
-                { /* Url */}
-                <UpdateSocialHandles
-                    name="url"
-                    label={lang.url}
-                    parentEntity={model}
-                    formTools={formTools}
-                />
+                {/* Context */}
+                <div className="mb-3">
+                    <SelectFetch
+                        name="context"
+                        label={lang.projectContext}
+                        formTools={formTools}
+                        noValueText={lang.noSelectedOption}
+                        fetchOption="context-enum"
+                    />
+                </div>
+                <SingleInfo>
+                    <Select2
+                        name="skills"
+                        label={lang.skillsAndTechnologies}
+                        formTools={formTools}
+                        creatable={true}
+                        modalType={TYPE_TAXONOMY}
+                        isMulti={true}
+                        fetch={"/taxonomies/group/skills"}
+                        searchField={"name"}
+                        selectField={"name"}
+                    />
+                </SingleInfo>
+
+                <SingleInfo>
+                    <Select2
+                        name="domains"
+                        label={lang.Domains}
+                        formTools={formTools}
+                        creatable={true}
+                        modalType={TYPE_TAXONOMY}
+                        isMulti={true}
+
+                        fetch={"/taxonomies/list"}
+                        requestData={{category:"domains", name:""}}
+                        searchField={"name"}
+                        selectField={"domains"}
+                    />
+                </SingleInfo>
+
+                <SingleInfo
+                    title={lang.externalLinks}
+                    isSubtitle
+                >
+                    { /* Url */}
+                    <UpdateSocialHandles
+                        name="url"
+                        label={lang.url}
+                        parentEntity={model}
+                        formTools={formTools}
+                    />
+                </SingleInfo>
+            
             </SingleInfo>
-         
-        </SingleInfo>
+        </>
     );
 
 
@@ -528,6 +526,7 @@ const ProjectSingleEdit = (props) => {
                 contentColumnRight={contentColumnRight}
                 singlePageBottom={SinglePageBottom}
                 footer={Footer}
+                model={model}
             />
             <modalSaveEntityReminder.Modal>
                 <SingleSaveEntityReminder
@@ -535,7 +534,6 @@ const ProjectSingleEdit = (props) => {
                     closeModal={modalSaveEntityReminder.closeModal}
                 />
             </modalSaveEntityReminder.Modal>
-
         </>
     )
 }

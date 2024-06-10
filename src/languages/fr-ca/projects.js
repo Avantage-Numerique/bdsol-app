@@ -1,5 +1,7 @@
 const projects = {
 
+    "ProjectsDefinition": "Projet réalisé par un ou plusieurs individus et incluant une ou plusieurs dimensions numériques.",
+
     "Project": "Projet",
     "Projects": "Projets",
     "project": "projet",

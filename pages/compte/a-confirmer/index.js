@@ -35,6 +35,12 @@ const confirmationForm = () => {
             text: "Un email de confirmation a été envoyé s'il s'agit d'un courriel associé à un compte",
             positive: true
         });
+        formState.inputs.email.value = "";
+    }
+
+    function submitEnterKey(event) {
+        if (event.key == "Enter")
+            resendToken();
     }
 
     return (
@@ -55,6 +61,7 @@ const confirmationForm = () => {
                     {name: "TYPE_EMAIL"}
                 ]}
                 formTools={formTools}
+                onKeyUp={(e) => submitEnterKey(e)}
             />
             <Button type="button" onClick={resendToken}>Envoyer un nouveau lien de confirmation</Button>
             <small><p className="mt-2">*Noter qu'il y a un délai de 5 minutes pour un envoi vers une même adresse courriel</p></small>
@@ -68,7 +75,7 @@ const AConfirmer = () => {
         <section className='py-4 d-flex justify-content-center'>
             <AuthenticationMessage 
                 header="En attente de confirmation" 
-                message="Vous devriez recevoir un courriel de confirmation sous peu. Une fois que vous aurez confirmé votre identité, vous pourrez vous connecter à votre compte."
+                message="S'il s'agit de votre première connexion, vous devriez recevoir un courriel de confirmation sous peu. Une fois que vous aurez confirmé votre identité, vous pourrez vous connecter à votre compte. Sinon, veuillez taper votre courriel ci-dessous."
                 Added_content={confirmationForm}
             />
         </section>

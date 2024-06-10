@@ -4,7 +4,6 @@ import EntityModel from "@/DataTypes/Entity/models/EntityModel";
 import AppRoutes from "@/src/Routing/AppRoutes";
 import {TYPE_PERSON} from "@/DataTypes/Entity/Types";
 import Media from "@/DataTypes/Media/models/Media";
-import {lang} from "@/common/Data/GlobalConstants";
 
 
 class Person extends EntityModel {
@@ -18,7 +17,7 @@ class Person extends EntityModel {
 
         super(raw);
 
-        this.title = raw.firstName + " " + raw.lastName ?? "";
+        this.title = (raw.firstName !== "" && raw.lastName) ? raw.firstName + " " + raw.lastName : "";
         this.description = raw.description ?? "";
         this.mainImage = !raw.mainImage || raw.mainImage === "" || !raw.mainImage ? {
             url: "/entity-icones/L-format/png/Icone-GrandFormat-Personne.png",
@@ -52,14 +51,16 @@ class Person extends EntityModel {
 
         //Set the simple list based on the nature of the component
         let list = []
-        if(raw?.occupations)
-            raw.occupations.forEach(occ => {
+        if(raw?.occupations) {
+            const orderedOccupation = raw.occupations.length > 0 && raw.occupations[0].subMeta?.order ? raw.occupations.sort((a,b) => a.subMeta.order - b.subMeta.order) : raw.occupations;
+            orderedOccupation.forEach(occ => {
                 if(occ.groupName){
                     list.push(occ.groupName)
                 } else {
                     occ.skills.forEach(skill => list.push(skill.name))
                 }
             });
+        }
         this.simpleEditList(list) 
 
     }

@@ -28,12 +28,13 @@ import Select2 from "@/src/common/FormElements/Select2/Select2";
 import RichTextarea from "@/src/common/FormElements/RichTextArea/RichTextarea";
 import UpdateSchedule from "../../Forms/Schedule/UpdateSchedule";
 import UpdateTeams from "@/src/DataTypes/Organisation/components/forms/UpdateTeams/UpdateTeams";
-import {TYPE_EVENT, TYPE_PLACE, TYPE_TAXONOMY} from "@/src/DataTypes/Entity/Types";
+import {TYPE_PLACE, TYPE_TAXONOMY} from "@/src/DataTypes/Entity/Types";
 import SelectFetch from "@/src/common/FormElements/Select/SelectFetch";
 import {apiDateToDateInput, apiDateToTimeInput, dateTimeStringToUTC} from "@/common/DateManager/Parse";
 import SubmitEntity from "@/DataTypes/common/Forms/SingleEdit/SubmitEntity";
 import UpdateSocialHandles from "@/src/DataTypes/common/Forms/UpdateSocialHandles/UpdateSocialHandles";
 import SingleSaveEntityReminder from "@/src/DataTypes/common/layouts/SingleSaveEntityReminder/SingleSaveEntityReminder";
+import UpdateContactPoint from "@/src/DataTypes/common/Forms/UpdateContactPoint/UpdateContactPoint";
 
 const EventSingleEdit = ({data}, ...props) => {
 
@@ -120,7 +121,6 @@ const EventSingleEdit = ({data}, ...props) => {
                 value: alternateName ?? "",
                 isValid: false
             },
-
             url: {
                 value: url ?? [],
                 isValid: true
@@ -166,7 +166,7 @@ const EventSingleEdit = ({data}, ...props) => {
                 isValid: true
             },
             contactPoint: {
-                value: contactPoint ?? "",
+                value: contactPoint ?? {tel:{num:"", ext:""},email:{address:""},website:{url:""} },
                 isValid: true
             },
             attendees: {
@@ -301,24 +301,28 @@ const EventSingleEdit = ({data}, ...props) => {
     }
 
     /* Needed for breadCrumb generator */
-    const getLabelGenerator = useCallback((param, query) => {
-        return {
-            "contribuer": lang.menuContributeLabel,
-            "evenements": lang.Events,
-            "slug": `${model.name ?? '-'}`
-        }[param];
-    }, []);
+    const breadcrumbLabels = {
+        "contribuer": lang.menuContributeLabel,
+        "evenements": lang.Events,
+        "slug": `${model.name ?? '-'}`
+    };
 
-    const breadCrumb = {
+    const breadcrumbsRoutes = {
         route: model.singleEditRoute,
-        getLabelGenerator: getLabelGenerator
+        labels: breadcrumbLabels,
     }
+
+    const [breadCrumb, setBreadCrumb] = useState(breadcrumbsRoutes);
+    useEffect(() => {
+        setBreadCrumb(breadcrumbsRoutes)
+    }, [model.title]);
+
 
     const title = (
         <>
             <Input 
                 name="name"
-                label={lang.eventName}
+                label={lang.eventName+lang.required}
                 className="col-12 col-md-6"
                 formClassName="discrete-without-focus form-text-white"
                 validationRules={[
@@ -350,7 +354,7 @@ const EventSingleEdit = ({data}, ...props) => {
                                 className="col-7"
                                 formClassName="discrete-without-focus form-text-white "
                                 name="startDate"
-                                label={lang.date}
+                                label={lang.date+lang.required}
                                 type="date"
                                 formTools={formTools}
                                 validationRules={[
@@ -372,11 +376,10 @@ const EventSingleEdit = ({data}, ...props) => {
                     <div style={{backgroundColor: "#4f4f4f1c"}} className="col-12 col-sm-5 col-lg-4 rounded-1 mb-2 px-2 py-2">
                         <h5 className="m-0 mb-1 text-dark-light">Fin</h5>
                         <div className="row p-0">
-                            <Input
+                            <Input name="endDate"
                                 className="col-7"
                                 formClassName="discrete-without-focus form-text-white "
-                                name="endDate"
-                                label={lang.date}
+                                label={lang.date+lang.required}
                                 type="date"
                                 formTools={formTools}
                                 validationRules={[
@@ -581,6 +584,13 @@ const EventSingleEdit = ({data}, ...props) => {
 
     const contentColumnRight = (
         <>
+            <SingleInfo title={lang.contactInformations}>
+                <UpdateContactPoint
+                    formTools={formTools}
+                    name="contactPoint"
+                    model={model}
+                />
+            </SingleInfo>
             <SingleInfo
                 title={"Informations supplémentaires"}
                 className="py-3"
@@ -634,23 +644,6 @@ const EventSingleEdit = ({data}, ...props) => {
                         formTools={formTools}
                 />
                 </SingleInfo>
-
-                {/* contactPoint */}
-                <SingleInfo 
-                    title={lang.contactInformations}
-                    isSubtitle
-                    tooltip={{
-                        header: lang.projectContactPointTipTitle,
-                        body: lang.projectContactPointTipContent
-                    }}
-                >
-                    <Input
-                        name="contactPoint"
-                        placeholder={lang.projectContactPointPlaceholder}
-                        formTools={formTools}
-                    />
-                </SingleInfo>
-
 
                 {/*eventType */}
                 <SingleInfo 
@@ -721,6 +714,7 @@ const EventSingleEdit = ({data}, ...props) => {
                 contentColumnRight={contentColumnRight}
                 footer={Footer}
                 singlePageBottom={SinglePageBottom}
+                model={model}
             />
             <modalSaveEntityReminder.Modal>
                 <SingleSaveEntityReminder

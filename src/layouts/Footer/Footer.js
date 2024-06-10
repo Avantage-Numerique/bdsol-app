@@ -89,7 +89,7 @@ const Footer = () => {
                 <div className={`row`}>
                     <div className={"col-12 pt-5"}>
                         <p className={"m-0 ps-5 opacity-25 text-right"}>
-                            <small>{appConfig.name} v.{nextConfig.env.VERSION} ({auth.mode})</small>
+                            <RouteLink routeName={"versions"} label={`${appConfig.name} v.${nextConfig.env.VERSION}`} /> ({auth.mode})
                         </p>
                     </div>
                 </div>

@@ -1,6 +1,6 @@
 import {externalApiRequest} from '@/src/hooks/http-hook';
 import PageHeader from "@/layouts/Header/PageHeader";
-import React, {useCallback} from "react";
+import React from "react";
 import {lang} from "@/common/Data/GlobalConstants";
 import CreateTaxonomyForm from "@/DataTypes/Taxonomy/components/Forms/CreateTaxonomy/CreateTaxonomyForm";
 import {useRootModal} from '@/src/hooks/useModal/useRootModal';
@@ -65,25 +65,14 @@ const TaxonomiesSinglePage = (props) => {
     }
     // < NEEDED FOR EDIT THE TAXONOMY
 
-
-    // > NEEDED for BREADCRUMBS
     const currentTaxonomy = category.find( el => taxonomy.category === el.value );
     const currentTitle = `${currentTaxonomy.label} ${'&mdash;'} ${taxonomy.name}`;
 
-    const getLabelGenerator = useCallback((param, query) => {
-        return {
-            "categories": "Toutes les catégories",
-            "category": currentTitle
-        }[param];
-    }, []);
-
-    const getHrefGenerator = useCallback(() => {
-        return {
-            "categories": "categories"
-        };
-    }, []);
-    //  < NEEDED for BREADCRUMBS
-
+    /* Needed for breadCrumb generator */
+    const breadcrumbLabels = {
+        "categories": "Toutes les catégories",
+        "category": currentTitle
+    };
 
     return (
         <div>
@@ -95,14 +84,15 @@ const TaxonomiesSinglePage = (props) => {
                 bg={"bg-primary-lighter"}
                 colFullWidth
                 textColor={"text-white"}
-                htmlTitle={currentTitle}
+                title={taxonomy.name}
+                subTitle={lang.capitalize(lang[taxonomy.category])}
                 tags={{
                     list:taxonomy.domains,
                     listProperty: "domain"
                 }}
                 description={taxonomy.description}
             >
-                <Breadcrumbs className={"pt-2"} route={AppRoutes.categorySingle} getLabelGenerator={getLabelGenerator} hrefGenerator={getHrefGenerator} />
+                <Breadcrumbs className={"pt-2"} route={AppRoutes.categorySingle} labels={breadcrumbLabels} />
 
                 <p className={"pt-2"}>
                     {auth.user.isLoggedIn &&
@@ -114,7 +104,12 @@ const TaxonomiesSinglePage = (props) => {
             </PageHeader>
 
             {/*  Show the feed in the EntitiesGrid component. It manages an empty list in it, but it make it more readable to show it here too */}
-            <EntitiesGrid className="row row-cols-1 row-cols-sm-2 row-cols-xl-3" columnClass={"col-12 col-sm-6 col-lg-4 col-xl-3 g-4"} feed={data}/>
+            <EntitiesGrid
+                className="row row-cols-1 row-cols-sm-2 row-cols-xl-3"
+                columnClass={"col-12 col-sm-6 col-lg-4 col-xl-3 g-4"}
+                feed={data}
+                noResult={"Aucune entité n’a été lié à cette catégorie pour le moment"}
+            />
 
             <Modal {...props}>
                 <header className={`d-flex justify-content-end`}>

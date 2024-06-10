@@ -3,7 +3,6 @@ import OrganisationSimple from "@/DataTypes/Organisation/components/layouts/simp
 import Media from "@/DataTypes/Media/models/Media";
 import {TYPE_ORGANISATION} from "@/DataTypes/Entity/Types";
 import AppRoutes from "@/src/Routing/AppRoutes";
-import {lang} from "@/common/Data/GlobalConstants";
 
 class Organisation extends EntityModel {
 
@@ -46,14 +45,18 @@ class Organisation extends EntityModel {
         this.setProperties(raw);
         //Set the simple list based on the nature of the component
         let list = []
-        if(raw?.offers)
-            raw.offers.forEach(offer => {
+        if(raw?.offers) {
+
+            const orderedOffers = raw.offers.length > 0 && raw.offers[0].subMeta?.order ? raw.offers.sort((a,b) => a.subMeta.order - b.subMeta.order) : raw.offers;
+            orderedOffers.forEach(offer => {
                 if(offer.groupName){
                     list.push(offer.groupName)
                 } else {
                     offer.skills.forEach(skill => list.push(skill.name))
                 }
             });
+        }
+
         this.simpleEditList(list)
     }
 

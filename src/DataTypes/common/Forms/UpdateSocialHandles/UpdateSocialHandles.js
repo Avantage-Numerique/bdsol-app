@@ -40,7 +40,7 @@ const UpdateSocialHandles = ({parentEntity, name, formTools, ...props}) => {
                     <section className="row col">
                         <Input
                             className="col-12"
-                            label={"Description du lien"}
+                            label={"Description du lien"+lang.required}
                             name="label"
                             validationRules={[
                                 {name: "REQUIRED"}
@@ -49,7 +49,7 @@ const UpdateSocialHandles = ({parentEntity, name, formTools, ...props}) => {
                         <Input
                             className="col-12"
                             name="url"
-                            label={lang.url}
+                            label={lang.url+lang.required}
                             type="url"
                             //pattern="^https?:\/\/[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$"
                             placeholder="Exemple : https://siteWeb.com"

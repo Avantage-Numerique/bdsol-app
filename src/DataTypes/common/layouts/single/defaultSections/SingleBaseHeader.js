@@ -154,7 +154,7 @@ const SingleBaseHeader = (props) => {
             <div className="d-flex justify-content-end">
                 <button type="button" className="fs-3" onClick={modalReportEntity.displayModal}><Icon iconName="flag"/></button>
             </div>
-            <ImageComponent mainImage={mainImage} />
+            {mainImage && <ImageComponent mainImage={mainImage} />}
             <div className="col-12 col-sm flex-grow-1 d-flex flex-column">
                 <div className="d-flex flex-column text-dark">
                     { /* title */ }

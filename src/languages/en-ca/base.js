@@ -74,6 +74,9 @@ export const base = {
 
     "formNotValid": "Warning. The form send is invalid. Make sure that all fields required are correctly filled.",
     "submit": "Submit",
+    "required": "*",
+    "consult": "Consult",
+    "contribute": "Contribute",
 
 
     // CreatePersonForm.js
@@ -221,9 +224,15 @@ export const base = {
 
     //Button
     "apply" : "Apply",
+    "report": "Report",
 
     //Contact us
     "message": "Message",
     "email": "Email address",
-    "sendMessage": "Send message"
+    "sendMessage": "Send message",
+
+    //contactPoint
+    "website": "Website",
+    "phoneNumber": "Phone",
+    "phoneExtension": "Extension"
 }

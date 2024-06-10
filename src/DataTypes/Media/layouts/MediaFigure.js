@@ -23,7 +23,8 @@ const MediaFigure = (props) => {
         children,
         baseSrc,
         link,
-        linkTitle
+        linkTitle,
+        addLinkTag
     } = props;
 
     // defaults
@@ -31,6 +32,8 @@ const MediaFigure = (props) => {
 
     baseSrc = baseSrc ?? model?.baseSrc;
     baseSrc = baseSrc ?? `${process.env.NEXT_PUBLIC_API_URL}`;
+
+    const addLink = addLinkTag !== undefined ? addLinkTag : true;
 
     const Image = () => {
         return (
@@ -47,7 +50,7 @@ const MediaFigure = (props) => {
             {model &&
                 <figure className={`${styles["mediaFigure"]} ${className}`}>
                     {/* If a link is added to the component, add a link tag to the image*/}
-                    {props.link ? 
+                    {props.link && addLink ?
                         <Link href={link} title={linkTitle || ""}>
                             <Image />
                         </Link>

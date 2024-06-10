@@ -1,7 +1,4 @@
 import React from 'react';
-
-//components
-//Styling
 import styles from './EntitySimple.module.scss';
 import MediaFigure from "@/DataTypes/Media/layouts/MediaFigure";
 import {getType} from "@/DataTypes/Entity/Types";
@@ -50,6 +47,7 @@ const EntitySimple = (props) => {
     const appType = getType(model.type);
     //Verify is a bottom line is available to be displayed
     const isBottomLine = (BottomLineContent || model.simgleList);
+
     /**
      * Defininf the default header fo the EntitySimple to be overwrite with Header
      * @type {JSX.Element}
@@ -73,6 +71,7 @@ const EntitySimple = (props) => {
                         addGradientOver={true}
                         link={model.singleLink}
                         linkTitle={title}
+                        addLinkTag={false}
                     >
                         {!model.mainImage.isDefault && <div className={`${styles["figure-overlay"]} position-absolute w-100 h-100 no-pointer-events dark-transparent-gradient`}></div> }
                     </MediaFigure>
@@ -92,6 +91,14 @@ const EntitySimple = (props) => {
      *
      *
      */
+
+    const maxWidthCaracters = 30;
+    const totalTags = model.simgleList?.length;
+    let maxTags = 2;
+    let restOfTags = totalTags - maxTags;
+    let tagRenderedLength = -1;
+    let totalCaracters = 0;
+
     const ContentDefault = (
         <>
             <header className={`d-flex mb-2 justify-content-between ${styles["simple-abstract__content__header"]}`}>
@@ -112,7 +119,6 @@ const EntitySimple = (props) => {
                 flex-column
                 ${styles["simple-abstract__sub-section"]}
             `}>
-                {/* Description */}
                 {description &&
                     <HtmlTagsRemover 
                         tag="p"
@@ -125,17 +131,39 @@ const EntitySimple = (props) => {
                         `}>
                         {description}
                     </HtmlTagsRemover>
-                    //<p className={`mb-0 ${styles["simple-abstract__content__description"]}`}>Aucune description</p>
                 }
-                {/* List of tags */}
-                { !BottomLineContent && model.simgleList && 
-                <ul className={`d-flex mb-0 ${styles["simple-abstract__content__tagList"]}`}>
-                    {model.simgleList.length > 0 &&
-                        model.simgleList.map(tag => (
-                            <li key={tag} title={tag} className="rounded bg-general-tag">{tag}</li>
-                        ))
-                    }
-                </ul>
+
+                { !BottomLineContent && model.simgleList &&
+
+                    <ul className={`d-flex mb-0 ${styles["simple-abstract__content__tagList"]} justify-content-center`}>
+                        {model.simgleList.length > 0 &&
+                            model.simgleList.map((tag, index) => {
+                                let Tag;
+                                if (index < maxTags) {
+                                    totalCaracters += tag.length;
+                                    Tag = (
+                                        <li key={tag} title={tag} className="rounded bg-general-tag">{tag}</li>
+                                    )
+                                }
+                                {/* Check if the next elements with bust the maxWidthCaracters for length of the occupations/offers */}
+                                const nextIndex = index+1;
+                                const isLast = nextIndex >= model.simgleList.length;
+                                const nextTag = !isLast ? model.simgleList[nextIndex] : null;
+                                const willNextTotalCaractersTotalBust = totalCaracters + nextTag?.length  >= maxWidthCaracters;
+
+                                {/* setup variable to avoid rendering all new tags if the lenght is too much. To optimize we need to use a loop for (in/of) and use break/continue. */}
+                                if ((totalCaracters >= maxWidthCaracters || willNextTotalCaractersTotalBust) && tagRenderedLength === -1) {
+                                    maxTags = index;
+                                    restOfTags = totalTags - index;
+                                    tagRenderedLength = index;
+                                }
+                                return Tag;
+                            })
+                        }
+                        {totalTags > maxTags &&
+                            <li key={"tagListRest"} title={`+${restOfTags}`} className="rounded bg-general-tag last-tag"><span title={`+${restOfTags}`}>&hellip;</span></li>
+                        }
+                    </ul>
                 }
                 {/* Overwrite buttom line content */}
                 { BottomLineContent && 

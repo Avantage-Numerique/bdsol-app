@@ -116,6 +116,7 @@ const Input = ({name, formTools, ...props}) => {
                     pattern={props.pattern ?? undefined}
                     min={props.min ?? undefined}
                     max={props.max ?? undefined}
+                    onKeyUp={props.onKeyUp ?? undefined}
                 />
 
                 <RequirementsBadges addUlPadding /> 

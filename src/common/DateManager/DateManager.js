@@ -120,7 +120,7 @@ export const dateManager = (time1, time2 = null) => {
                 {!isSameDay && !isSameMonth && isSameYear &&
                     <>
                         {wp && lang.capitalize("from")} 
-                        <TimeTag date={time.startTime} format={time.humanDateMonthFormat} /> 
+                        <TimeTag date={time.startTime} format={time.humanDateMonthFormat} />
                         {wp ? ` ${lang.to}` : " -"}&nbsp;
                         <TimeTag date={time.endTime} format={lang.humanDateMonthFormat} />
                         ({formatDate(time.startTime, lang.yearFormat)})
@@ -130,20 +130,20 @@ export const dateManager = (time1, time2 = null) => {
                 {!isSameDay && isSameMonth && isSameYear &&
                     <>
                         {wp && lang.capitalize("from")} 
-                        <TimeTag date={time.startTime} format={lang.humanDateMonthFormat} /> 
-                        {showHour && (<TimeTag date={time.startTime} format={lang.hourMinuteFormat} />)}
+                        <TimeTag date={time.startTime} format={lang.humanDateMonthFormat} />
+                        {showHour && (<TimeTag date={time.startTime} format={lang.timeFormat} />)}
                         {wp ? ` ${lang.to}` : " -"}&nbsp;
-                        <TimeTag date={time.endTime} format={lang.humanDateMonthFormat} /> 
-                        {showHour && (<TimeTag date={time.endTime} format={lang.hourMinuteFormat} />)}
+                        <TimeTag date={time.endTime} format={lang.humanDateMonthFormat} />
+                        {showHour && (<TimeTag date={time.endTime} format={lang.timeFormat} />)}
                         ({formatDate(time.startTime, lang.yearFormat)})
                     </>
                 }
                 {/* Multi years */}
                 {!isSameDay && !isSameMonth && !isSameYear &&
                     <>
-                        {wp && lang.capitalize("from")} <TimeTag date={time.startTime} format={lang.humanDateMonthFormat} />
+                        {wp && lang.capitalize("from")} <TimeTag date={time.startTime} format={lang.humanDateMonthYearFormat} />
                         {wp ? ` ${lang.to}` : " -"}&nbsp;
-                        <TimeTag date={time.endTime} format={lang.humanDateMonthFormat} />
+                        <TimeTag date={time.endTime} format={lang.humanDateMonthYearFormat} />
                     </>
                 }
             </Tag>

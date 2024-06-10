@@ -20,7 +20,6 @@ export const TYPE_DEFAULT = TYPE_ABSTRACT;
 export const TYPE_NOTSET = "undefined";
 
 
-
 class Type {
     constructor(values) {
         this.slug = values.slug;

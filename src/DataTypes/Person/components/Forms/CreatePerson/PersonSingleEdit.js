@@ -9,15 +9,16 @@ import {useRootModal} from '@/src/hooks/useModal/useRootModal'
 import Button from '@/FormElements/Button/Button'
 import Input from '@/FormElements/Input/Input'
 import RichTextarea from '@/FormElements/RichTextArea/RichTextarea'
-import {lang} from "@/src/common/Data/GlobalConstants";
 import Select2 from '@/src/common/FormElements/Select2/Select2'
 import {SingleEntityMeta} from '@/src/DataTypes/Meta/components/SingleEntityMeta'
 import SingleInfo from "@/DataTypes/common/layouts/SingleInfo/SingleInfo";
 import SingleSaveEntityReminder from '@/src/DataTypes/common/layouts/SingleSaveEntityReminder/SingleSaveEntityReminder'
+import UpdateSocialHandles from '@/src/DataTypes/common/Forms/UpdateSocialHandles/UpdateSocialHandles'
 
 //Context
 import {useAuth} from "@/src/authentification/context/auth-context";
 import {MessageContext} from '@/src/common/UserNotifications/Message/Context/Message-Context';
+import { lang } from '@/src/common/Data/GlobalConstants'
 
 //FormData
 import {getDefaultUpdateEntityMeta} from "@/src/DataTypes/Meta/EntityMeta";
@@ -30,6 +31,7 @@ import Icon from "@/common/widgets/Icon/Icon";
 import MainImageDisplay from "@/DataTypes/common/layouts/single/defaultSections/MainImageDisplay/MainImageDisplay";
 import {TYPE_TAXONOMY} from '@/src/DataTypes/Entity/Types'
 import SubmitEntity from "@/DataTypes/common/Forms/SingleEdit/SubmitEntity";
+import UpdateContactPoint from '@/src/DataTypes/common/Forms/UpdateContactPoint/UpdateContactPoint'
 
 
 const PersonSingleEdit = ({ positiveRequestActions, ...props}) => {
@@ -50,7 +52,8 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props}) => {
         type,
         fullName,
         createdAt,
-        equipment,
+        contactPoint,
+        url,
         updatedAt
     } = props?.data;
 
@@ -142,7 +145,15 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props}) => {
             domains: {
                 value: domains ?? [],
                 isValid: true
-            }
+            },
+            contactPoint: {
+                value: contactPoint ?? {tel:{num:"", ext:""},email:{address:""},website:{url:""} },
+                isValid: true
+            },
+            url: {
+                value: url ?? [],
+                isValid: true
+            },
         },
         //Pass a set of rules to execute a valid response of an api request
         {
@@ -180,6 +191,14 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props}) => {
                         }
                     })
                     : [],
+                contactPoint: formState.inputs.contactPoint.value,
+                url: formState.inputs.url.value.map(function(singleUrl){
+                    return {
+                        label: singleUrl.value.label.value,
+                        url: singleUrl.value.url.value,
+                        subMeta: { order : singleUrl.order }
+                    }
+                }),
                 meta: getDefaultUpdateEntityMeta(auth.user, model.meta.requestedBy),
             }
         };
@@ -191,14 +210,22 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props}) => {
         );
     }
 
-    /* Needed for breadCrumb generator */
-    const getLabelGenerator = useCallback((param, query) => {
-        return {
-            "contribuer": lang.menuContributeLabel,
-            "personnes": lang.Persons,
-            "slug": `${model.firstName ?? ""} ${model.lastName ?? "-"}`
-        }[param];
-    }, []);
+
+    const breadcrumbLabels = {
+        "contribuer": lang.menuContributeLabel,
+        "personnes": lang.Persons,
+        "slug": `${model.firstName ?? ""} ${model.lastName ?? "-"}`
+    };
+
+    const breadcrumbsRoutes = {
+        route: model.singleEditRoute,
+        labels: breadcrumbLabels,
+    }
+
+    const [breadCrumb, setBreadCrumb] = useState(breadcrumbsRoutes);
+    useEffect(() => {
+        setBreadCrumb(breadcrumbsRoutes)
+    }, [model.title]);
 
     /*****************************
      * 
@@ -207,16 +234,12 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props}) => {
      * 
      * 
      ***************************/
-    const breadCrumb = {
-        route: model.singleEditRoute,
-        getLabelGenerator: getLabelGenerator
-    }
 
     const title = (
         <div className="row">
             <Input 
                 name="firstName"
-                label="Prénom"
+                label={"Prénom"+lang.required}
                 className="col-12 col-sm-6 col-md-4"
                 formClassName="discrete-without-focus form-text-white"
                 validationRules={[
@@ -228,7 +251,7 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props}) => {
 
             <Input 
                 name="lastName"
-                label="Nom"
+                label={"Nom"+lang.required}
                 className="col-12 col-sm-6 col-md-4"
                 formClassName="discrete-without-focus form-text-white"
                 validationRules={[
@@ -308,22 +331,42 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props}) => {
     )
 
     const contentColumnRight = (
-        <SingleInfo 
-            title={lang.Domains} 
-        >
-            <Select2
-                name="domains"
-                //label={lang.Domains}
-                formTools={formTools}
-                creatable={true}
-                modalType={TYPE_TAXONOMY}
-                isMulti={true}
-                fetch={"/taxonomies/list"}
-                requestData={{category:"domains", name:""}}
-                searchField={"name"}
-                selectField={"domains"}
-            />
-        </SingleInfo>
+        <>
+            <SingleInfo title={lang.contactInformations}>
+                <UpdateContactPoint
+                    formTools={formTools}
+                    name="contactPoint"
+                    model={model}
+                />
+            </SingleInfo>
+
+            <SingleInfo title={lang.Domains}>
+                <Select2
+                    name="domains"
+                    //label={lang.Domains}
+                    formTools={formTools}
+                    creatable={true}
+                    modalType={TYPE_TAXONOMY}
+                    isMulti={true}
+                    fetch={"/taxonomies/list"}
+                    requestData={{category:"domains", name:""}}
+                    searchField={"name"}
+                    selectField={"domains"}
+                />
+            </SingleInfo>
+
+            <SingleInfo
+                title={lang.externalLinks}
+            >
+                { /* Url */}
+                <UpdateSocialHandles
+                    name="url"
+                    label={lang.url}
+                    parentEntity={model}
+                    formTools={formTools}
+                />
+            </SingleInfo>
+        </>
     )
 
     const Footer = (
@@ -355,6 +398,7 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props}) => {
                 contentColumnRight={contentColumnRight}
                 footer={Footer}
                 singlePageBottom={SinglePageBottom}
+                model={model}
             />
             <modalSaveEntityReminder.Modal>
                 <SingleSaveEntityReminder

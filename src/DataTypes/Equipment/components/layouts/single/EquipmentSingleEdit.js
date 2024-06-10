@@ -140,25 +140,28 @@ const EquipmentSingleEdit = ({ positiveRequestActions, ...props}) => {
         );
     }
 
-    /* Needed for breadCrumb generator */
-    const getLabelGenerator = useCallback((param, query) => {
-        return {
-            "contribuer": lang.menuContributeLabel,
-            "equipements": lang.Equipments,
-            "slug": `${model.title ?? '-'}`
-        }[param];
-    }, []);
+    const breadcrumbLabels = {
+        "contribuer": lang.menuContributeLabel,
+        "equipements": lang.Equipments,
+        "slug": `${model.title ?? '-'}`
+    };
 
-    const breadCrumb = {
+    const breadcrumbsRoutes = {
         route: model.singleEditRoute,
-        getLabelGenerator: getLabelGenerator
+        labels: breadcrumbLabels,
     }
+
+    const [breadCrumb, setBreadCrumb] = useState(breadcrumbsRoutes);
+    useEffect(() => {
+        setBreadCrumb(breadcrumbsRoutes)
+    }, [model.title]);
+
 
     const title = (
         <div>
             <Select2
                 name="equipmentType"
-                label={lang.equipmentType}
+                label={lang.equipmentType+lang.required}
                 formTools={formTools}
                 creatable={true}
                 modalType={TYPE_TAXONOMY}
@@ -169,10 +172,13 @@ const EquipmentSingleEdit = ({ positiveRequestActions, ...props}) => {
                 requestData={{category:"equipmentType", name:""}}
                 searchField={"name"}
                 selectField={"name"}
+                validationRules={[
+                    {name: "REQUIRED"}
+                ]}
             />
             <Input
                 name="label"
-                label={lang.label}
+                label={lang.label+lang.required}
                 formClassName="discrete-without-focus form-text-white"
                 formTools={formTools}
                 placeholder={lang.labelPlaceholder}
@@ -249,7 +255,6 @@ const EquipmentSingleEdit = ({ positiveRequestActions, ...props}) => {
             }
         </>
     )
-
     
     {/*********** Submit section ***********/}
     const SinglePageBottom = (
@@ -265,6 +270,7 @@ const EquipmentSingleEdit = ({ positiveRequestActions, ...props}) => {
                 contentColumnRight={contentColumnRight}
                 footer={footer}
                 singlePageBottom={SinglePageBottom}
+                model={model}
             />
             <modalSaveEntityReminder.Modal>
                 <SingleSaveEntityReminder
@@ -272,7 +278,6 @@ const EquipmentSingleEdit = ({ positiveRequestActions, ...props}) => {
                     closeModal={modalSaveEntityReminder.closeModal}
                 />
             </modalSaveEntityReminder.Modal>
-
         </>
     );
 }

@@ -1,15 +1,11 @@
-import React, {useCallback} from 'react';
-
-//components
+import React, {useEffect, useState} from 'react';
 import SingleBase from "@/src/DataTypes/common/layouts/single/SingleBase"
 import SingleBaseHeader from "@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseHeader"
 import SearchTag from '@/src/common/Components/SearchTag';
 import SingleInfo from "@/DataTypes/common/layouts/SingleInfo/SingleInfo";
 import SingleBaseProgressBar
     from '@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseProgressBar/SingleBaseProgressBar'
-//Styling
-
-//Utils
+import SocialHandleDisplay from '@/src/DataTypes/common/layouts/SocialHandlesViews/SocialHandleDisplay';
 import SanitizedInnerHtml from '@/src/utils/SanitizedInnerHtml';
 import {SingleEntityMeta} from "@/src/DataTypes/Meta/components/SingleEntityMeta";
 import {lang} from "@/common/Data/GlobalConstants";
@@ -17,6 +13,7 @@ import Person from "@/DataTypes/Person/models/Person";
 import EntitiesTagGrid from "@/DataTypes/Entity/layouts/EntitiesTagGrid";
 import {SkillGroup} from "@/DataTypes/common/layouts/skillsGroup/SkillGroup";
 import {removeTagsFromString} from '@/src/helpers/html'
+import {ContactPointView} from '@/src/DataTypes/common/layouts/ContactPointView/ContactPointView';
 
 
 const PersonSingleView = ({ data }) => {
@@ -38,7 +35,9 @@ const PersonSingleView = ({ data }) => {
         mainImage,
         organisations,
         projects,
-        events
+        events,
+        contactPoint,
+        url
     } = data;
 
     //To display occupations in the proper order
@@ -47,20 +46,40 @@ const PersonSingleView = ({ data }) => {
     const model = new Person(data);
 
     /* Needed for breadCrumb generator */
-    const getLabelGenerator = useCallback((param, query) => {
+    /*const getLabelGenerator = useCallback((param, query) => {
         return {
             "personnes": lang.Persons,
             "slug": `${firstName} ${lastName}`        
         }[param];
     }, []);
 
-    /****************************
-     *  Sections
-     ***************************/
     const breadCrumb = {
         route: model.singleRoute,
         getLabelGenerator: getLabelGenerator
-    }
+    }*/
+
+    const breadcrumbLabels = {
+        "personnes": lang.Persons,
+        "slug": `${firstName} ${lastName}`
+    };
+
+    const [breadCrumb, setBreadCrumb] = useState({
+        route: model.singleRoute,
+        labels: breadcrumbLabels,
+    });
+
+    useEffect(() => {
+        setBreadCrumb({
+            route: model.singleRoute,
+            labels: breadcrumbLabels,
+        });
+    }, [firstName]);
+
+
+
+    /****************************
+     *  Sections
+     ***************************/
 
     const Header = (
         <SingleBaseHeader
@@ -142,13 +161,13 @@ const PersonSingleView = ({ data }) => {
             }
 
             {organisations.length > 0 &&
-                <SingleInfo title={`${lang.plural(lang.memberOfOrganisation, lang.memberOfOrganisations, organisations.length)}`}>
+                <SingleInfo title={`${lang.plural(lang.memberOfOrganisation, lang.memberOfOrganisations, organisations.length)}`} cardLayout>
                     <EntitiesTagGrid feed={organisations}/>
                 </SingleInfo>
             }
 
             {events.length > 0 &&
-                <SingleInfo title={`${lang.plural(lang.attendThisEvent, lang.attendTheseEvents, events.length)}`}>
+                <SingleInfo title={`${lang.plural(lang.attendThisEvent, lang.attendTheseEvents, events.length)}`} cardLayout>
                     <EntitiesTagGrid feed={events}/>
                 </SingleInfo>
             }
@@ -157,6 +176,11 @@ const PersonSingleView = ({ data }) => {
 
     const ContentColumnRight = (
         <>
+            {/* Contact information */}
+            <SingleInfo title={lang.organisationContact} cardLayout>
+                <ContactPointView contact={model.contactPoint}/>
+            </SingleInfo>
+            
             {domains.length > 0 &&
                 <SingleInfo 
                     title={lang.Domains} 
@@ -169,6 +193,13 @@ const PersonSingleView = ({ data }) => {
                         listProperty={"domain"}
                     />
                 </SingleInfo>
+            }
+            {/* Url */}
+            { model && model?.url &&
+                <SocialHandleDisplay
+                    title={lang.externalLinks}
+                    url={model?.url}
+                />
             }
         </>
     )

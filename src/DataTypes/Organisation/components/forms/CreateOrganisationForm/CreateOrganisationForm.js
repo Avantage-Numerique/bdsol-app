@@ -71,7 +71,7 @@ const CreateOrganisationForm = ({ onPositiveResponse }) => {
             <FormUI />
                 <Input 
                     name="name"
-                    label="Nom"
+                    label={"Nom"+lang.required}
                     className="my-1"
                     validationRules={[{name: "REQUIRED"}]}
                     errorText="Cette information est requise"

@@ -1,5 +1,6 @@
 const persons = {
     //  Personnes
+    "PersonsDefinition":"Personne, professionnelle ou amatrice, ayant des compétences en technologies ou œuvrant dans le numérique et offrant des services technologiques.",
 
     "Person": "Personne",
     "Persons": "Personnes",

@@ -8,7 +8,7 @@ import Icon from "@/common/widgets/Icon/Icon";
 
 //Context
 import {useAuth} from '@/auth/context/auth-context'
-import { lang } from "@/src/common/Data/GlobalConstants";
+import {lang} from "@/src/common/Data/GlobalConstants";
 
 //styling
 import styles from './contribution-page.module.scss'
@@ -23,10 +23,17 @@ import Organisation from "@/DataTypes/Organisation/models/Organisation";
 import Project from "@/DataTypes/Project/models/Project";
 import Event from "@/src/DataTypes/Event/models/Event";
 import Equipment from "@/src/DataTypes/Equipment/models/Equipment";
-import Place from "@/src/DataTypes/Place/models/Place";
 
 //Img
 import headerImg from '@/public/general_images/Fusée_Planetes_Poitilles2.svg'
+import {
+    getModelFromType,
+    TYPE_EQUIPMENT,
+    TYPE_EVENT,
+    TYPE_ORGANISATION,
+    TYPE_PERSON,
+    TYPE_PROJECT
+} from "@/DataTypes/Entity/Types";
 
 const Index = () => {
 
@@ -34,20 +41,7 @@ const Index = () => {
 
     //Function to return the path to the page of creation of an entity, depending on location
     const getCreateEntityPath = (type) => {
-        let model;
-        //@todo need DRY and verification for using "TYPE_PERSON", TYPE_ is a constant with a string value of the type.
-        if(type == "TYPE_PERSON")
-            model = new Person({})
-        if(type == "TYPE_ORGANISATION")
-            model = new Organisation({})
-        if(type == "TYPE_PROJECT")
-            model = new Project({})
-        if(type == "TYPE_EVENT")
-            model = new Event({})
-        if(type == "TYPE_EQUIPMENT")
-            model = new Equipment({})
-        if(type == "TYPE_PLACE")
-            model = new Place({})
+        const model = getModelFromType(type, {});
         return model.createRoute.asPath;
     }
 
@@ -92,14 +86,13 @@ const Index = () => {
                                     <h4>{lang.Person}</h4>
                                 </header>
                                 <section>
-                                    <p>Personne, professionnelle ou amatrice, ayant des compétences en technologies ou œuvrant dans le numérique et offrant des services technologiques.</p>
+                                    <p>{lang.PersonsDefinition}</p>
                                 </section>
                             </div>
-                            <Button 
-                                size="slim" 
-                                className={`px-3 py-0 ${styles["contribution-page__entity__cta"]}`} 
+                            <Button
+                                className={`${styles["contribution-page__entity__cta"]}`}
                                 color="secondary"
-                                href={getCreateEntityPath("TYPE_PERSON")} 
+                                href={getCreateEntityPath(TYPE_PERSON)}
                                 disabled={!auth.user.isLoggedIn}
                             >
                                 <Icon iconName={"plus"} className="text-secondary-darker" /> Ajouter une {lang.Person}
@@ -112,14 +105,13 @@ const Index = () => {
                                     <h4>{lang.Organisation}</h4>
                                 </header>
                                 <section>
-                                    <p>Organisation, entreprise, collectif ou regroupement œuvrant dans le numérique, ou dont les technologies numériques sont incluses, et offrant des services technologiques.</p>
+                                    <p>{lang.OrganisationsDefinition}</p>
                                 </section>
                             </div>
-                            <Button 
-                                size="slim" 
-                                className={`px-3 py-0 ${styles["contribution-page__entity__cta"]}`} 
+                            <Button
+                                className={`${styles["contribution-page__entity__cta"]}`}
                                 color="secondary"
-                                href={getCreateEntityPath("TYPE_ORGANISATION")} 
+                                href={getCreateEntityPath(TYPE_ORGANISATION)}
                                 disabled={!auth.user.isLoggedIn}
                             >
                                 <Icon iconName={"plus"} className="text-secondary-darker" /> Ajouter une {lang.Organisation}
@@ -132,14 +124,13 @@ const Index = () => {
                                     <h4>{lang.Project}</h4>
                                 </header>
                                 <section>
-                                    <p>Projet réalisé par un ou plusieurs individus et incluant une ou plusieurs dimensions numériques.</p>
+                                    <p>{lang.ProjectsDefinition}</p>
                                 </section>
                             </div>
-                            <Button 
-                                size="slim" 
-                                className={`px-3 py-0 ${styles["contribution-page__entity__cta"]}`} 
+                            <Button
+                                className={`${styles["contribution-page__entity__cta"]}`}
                                 color="secondary"
-                                href={getCreateEntityPath("TYPE_PROJECT")} 
+                                href={getCreateEntityPath(TYPE_PROJECT)}
                                 disabled={!auth.user.isLoggedIn}
                             >
                                 <Icon iconName={"plus"} className="text-secondary-darker" /> Ajouter un {lang.Project}
@@ -152,14 +143,13 @@ const Index = () => {
                                     <h4>{lang.Event}</h4>
                                 </header>
                                 <section>
-                                    <p>Événement comprenant un aspect numérique ou lié à un projet numérique.</p>
+                                    <p>{lang.EventsDefinition}</p>
                                 </section>
                             </div>
-                            <Button 
-                                size="slim" 
-                                className={`px-3 py-0 ${styles["contribution-page__entity__cta"]}`} 
+                            <Button
+                                className={`${styles["contribution-page__entity__cta"]}`}
                                 color="secondary"
-                                href={getCreateEntityPath("TYPE_EVENT")} 
+                                href={getCreateEntityPath(TYPE_EVENT)}
                                 disabled={!auth.user.isLoggedIn}
                             >
                                 <Icon iconName={"plus"} className="text-secondary-darker" /> Ajouter un {lang.Event}
@@ -172,14 +162,13 @@ const Index = () => {
                                     <h4>{lang.Equipment}</h4>
                                 </header>
                                 <section>
-                                    <p>Équipement numérique possédé par un individu ou une organisation et qu'il est possible d'emprunter, de louer ou d'échanger en service.</p>
+                                    <p>{lang.EquipmentsDefinition}</p>
                                 </section>
                             </div>
-                            <Button 
-                                size="slim" 
-                                className={`px-3 py-0 ${styles["contribution-page__entity__cta"]}`} 
+                            <Button
+                                className={`${styles["contribution-page__entity__cta"]}`}
                                 color="secondary"
-                                href={getCreateEntityPath("TYPE_EQUIPMENT")} 
+                                href={getCreateEntityPath(TYPE_EQUIPMENT)}
                                 disabled={!auth.user.isLoggedIn}
                             >
                                 <Icon iconName={"plus"} className="text-secondary-darker" /> Ajouter un {lang.Equipment}
@@ -193,14 +182,13 @@ const Index = () => {
                                     <h4>{lang.Place}</h4>
                                 </header>
                                 <section>
-                                    <p>Lieu comprenant un aspect numérique ou offrant la possibilité d'accueillir des projets en lien avec le numérique.</p>
+                                    <p>{lang.PlacesDefinition}</p>
                                 </section>
                             </div>
-                            <Button 
-                                size="slim" 
-                                className={`px-3 py-0 ${styles["contribution-page__entity__cta"]}`} 
+                            <Button
+                                className={`${styles["contribution-page__entity__cta"]}`}
                                 color="secondary"
-                                href={getCreateEntityPath("TYPE_PLACE")} 
+                                href={getCreateEntityPath(TYPE_PLACE)}
                                 disabled={!auth.user.isLoggedIn}
                             >
                                 <Icon iconName={"plus"} className="text-secondary-darker" /> Ajouter un {lang.Place}
