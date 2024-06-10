@@ -6,7 +6,7 @@ import {lang} from "@/src/common/Data/GlobalConstants";
 import Version from "@/src/versions/Version";
 
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
     let versionsList = [];
     versionsList.push(
         {
