@@ -10,63 +10,39 @@ export async function getServerSideProps() {
     let versionsList = [];
     versionsList.push(
         {
-            label: "Première version",
-            value: "1.0.0",
-            description: "Mise en ligne le 23 mars 2024, nous avons fait X, Y et Z.",
-            notes: [
+            "label": "Mise en ligne d'AVNU pour le lancement",
+            "value": "0.9.9",
+            "date": "2024-03-23",
+            "description": "Mise en ligne le 23 mars 2024. Le lancement a eu lieux au Cabaret de la Dernière chance à la fin du Forum avantage numérique.",
+            "link": "https://github.com/avantage-numerique/bdsol-api",
+            "notes": [
                 {
-                    "value": "C'est pas de ma faute"
+                    "value": "Structure de l'ontotologie modifiable et fonctionnalités de consultation pour pour les Personnes, Organisations, Projets, Événements, Équipements et Lieux."
                 },
                 {
-                    "value": "Awesome man"
+                    "value": "Branding et intégration de la maquette web pour la version 1 d'AVNU."
                 },
                 {
-                    "value": "This is not this"
+                    "value": "Système de connexion via l'API."
                 },
                 {
-                    "value": "This is a sub note with another tag than default",
-                    "tag": "h4"
+                    "value": "Équipe",
+                    "tag": "strong"
                 },
                 {
-                    "value": "1- Sub note under h3 - 1"
+                    "value": "Vincent P. Ruel, Intégration et front-end"
                 },
                 {
-                    "value": "2- Sub note under h3 - 2"
-                }
-            ]
-        },
-        {
-            label: "Première version",
-            value: "1.0.3",
-            description: "Mise en ligne le 23 mars 2024, nous avons fait X, Y et Z.",
-            notes: [
-                {
-                    "value": "C'est pas de ma faute"
+                    "value": "Frédéric Rivard, Backend et front-end"
                 },
                 {
-                    "value": "Awesome man"
-                }
-            ]
-        },
-        {
-            label: "Première version",
-            value: "1.0.4",
-            description: "Mise en ligne le 23 mars 2024, nous avons fait X, Y et Z.",
-            notes: []
-        },
-        {
-            label: "Première version",
-            value: "1.0.5",
-            description: "Mise en ligne le 23 mars 2024, nous avons fait X, Y et Z.",
-            notes: [
-                {
-                    "value": "C'est pas de ma faute"
+                    "value": "Marc-André Martin, Backend, front-end et responsable du développement"
                 },
                 {
-                    "value": "Awesome man"
+                    "value": "Simon Descoteau, coordination et gestion du produits"
                 },
                 {
-                    "value": "This is not this"
+                    "value": "Jeanne Perrin web design et UX"
                 }
             ]
         }
@@ -108,7 +84,7 @@ const VersionIndex = (props) => {
                         const version = new Version(versionRaw);
                         const isLast = index === versions.versions.length-1
                         return (
-                            <div className={`row ${!isLast ? "border-bottom" : ""} pb-5`}>
+                            <div className={`row ${!isLast ? "border-bottom" : ""} pb-5`} key={`versionRow${index}`}>
                                 <div className={"col"}>
                                     {version.render()}
                                 </div>
