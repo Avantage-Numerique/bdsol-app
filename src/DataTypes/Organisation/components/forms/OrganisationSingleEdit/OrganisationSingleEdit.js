@@ -36,6 +36,7 @@ import Icon from "@/common/widgets/Icon/Icon";
 import {TYPE_PLACE, TYPE_TAXONOMY} from '@/src/DataTypes/Entity/Types';
 import SubmitEntity from "@/DataTypes/common/Forms/SingleEdit/SubmitEntity";
 import {apiDateToDateInput, dateTimeStringToUTC} from "@/common/DateManager/Parse";
+import Select from '@/src/common/FormElements/Select/Select';
 
 
 const OrganisationSingleEdit = (props) => {
@@ -177,6 +178,10 @@ const OrganisationSingleEdit = (props) => {
         equipment: {
             value: equipment ?? [],
             isValid: true
+        },
+        region: {
+            value: model.region ?? "",
+            isValid: true
         }
     }, {
             displayResMessage: true,     //Display a message to the user to confirm the succes
@@ -239,6 +244,7 @@ const OrganisationSingleEdit = (props) => {
                         return singlePlace.value
                     })
                     : [],
+                region: formState.inputs.region.value,
                 meta: getDefaultUpdateEntityMeta(auth.user, model.meta.requestedBy)
             }
         };
@@ -362,6 +368,21 @@ const OrganisationSingleEdit = (props) => {
                 title="Informations supplémentaires"
                 cardLayout
             >
+                <SingleInfo>
+                    <Select 
+                        name="region"
+                        label="Région"
+                        formTools={formTools}
+                        noValueText="Choisissez une région"
+                        options={[
+                            {label: "Autre", value: "other"},
+                            {label: "Abitibi-Témiscamingue", value: "abitibi-temiscamingue"},
+                            {label: "Nord de l'Ontario", value: "north Ontario"},
+                            {label: "Baies-James", value: "baies-james"}
+                        ]}
+                        //defaultValue="Autre"
+                    />
+                </SingleInfo>
                 <SingleInfo>
                     <Select2
                         name="location"

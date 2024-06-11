@@ -14,6 +14,7 @@ import {SingleEntityMeta} from '@/src/DataTypes/Meta/components/SingleEntityMeta
 import SingleInfo from "@/DataTypes/common/layouts/SingleInfo/SingleInfo";
 import SingleSaveEntityReminder from '@/src/DataTypes/common/layouts/SingleSaveEntityReminder/SingleSaveEntityReminder'
 import UpdateSocialHandles from '@/src/DataTypes/common/Forms/UpdateSocialHandles/UpdateSocialHandles'
+import Select from '@/src/common/FormElements/Select/Select'
 
 //Context
 import {useAuth} from "@/src/authentification/context/auth-context";
@@ -154,6 +155,10 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props}) => {
                 value: url ?? [],
                 isValid: true
             },
+            region: {
+                value: model.region ?? "",
+                isValid: true
+            }
         },
         //Pass a set of rules to execute a valid response of an api request
         {
@@ -199,6 +204,7 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props}) => {
                         subMeta: { order : singleUrl.order }
                     }
                 }),
+                region: formState.inputs.region.value,
                 meta: getDefaultUpdateEntityMeta(auth.user, model.meta.requestedBy),
             }
         };
@@ -337,6 +343,21 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props}) => {
                     formTools={formTools}
                     name="contactPoint"
                     model={model}
+                />
+            </SingleInfo>
+            <SingleInfo>
+                <Select 
+                    name="region"
+                    label="Région"
+                    formTools={formTools}
+                    noValueText="Choisissez une région"
+                    options={[
+                        {label: "Autre", value: "other"},
+                        {label: "Abitibi-Témiscamingue", value: "abitibi-temiscamingue"},
+                        {label: "Nord de l'Ontario", value: "north Ontario"},
+                        {label: "Baies-James", value: "baies-james"}
+                    ]}
+                    //defaultValue="Autre"
                 />
             </SingleInfo>
 

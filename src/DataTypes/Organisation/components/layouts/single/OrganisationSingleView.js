@@ -79,7 +79,12 @@ const OrganisationSingleView = ({ data }) => {
 
     const Header = (
         <SingleBaseHeader
-            title={(<h1>{`${model.title}`}</h1>)}
+            title={(
+            <>
+                <h1>{`${model.title}`}</h1>
+                {/* <div>{(model?.badges !== undefined && model.badges.length > 0) ? model.badges : "No-badge"}+</div>
+                <div>{(model?.region !== undefined && model.region !== "") ? model.region : "No-region"}</div> */}
+            </>)}
             subtitle={(
                 <div className="d-text">
                     <h4>{catchphrase}</h4>

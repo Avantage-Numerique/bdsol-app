@@ -87,6 +87,8 @@ const PersonSingleView = ({ data }) => {
                 <div className="d-flex flex-wrap justify-content-start align-items-end">
                     <h1 style={{lineHeight: "1em"}} className="me-2 mb-0">{`${model.title}`}</h1>
                     <p className=" mb-0 fs-4">{model.nickname ? "(" + model.nickname + ")" : ""}</p>
+                    {/* <div>{(model?.badges !== undefined && model.badges.length > 0) ? model.badges : "No-badge"}+</div>
+                    <div>{(model?.region !== undefined && model.region !== "") ? model.region : "No-region"}</div> */}
                 </div>
             )}
 
