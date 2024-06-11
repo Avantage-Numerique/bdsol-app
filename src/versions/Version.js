@@ -1,5 +1,6 @@
 import VersionNote from "@/src/versions/VersionNote";
 import nextConfig from "@/next.config";
+import {ExternalLink} from "@/common/Components/ExternalLink";
 
 /**
  * @property label {string}
@@ -13,12 +14,14 @@ export default class Version {
     value;
     notes=[];
     description= "";
+    link= "";
     slug = "";
 
     constructor(data) {
         this.label = data.label ?? "";
         this.value = data.value ?? "0";
         this.notes = data.notes ?? [];
+        this.link = data.link ?? "";
         this.isCurrent = nextConfig.env.VERSION === data.value;
         this.description = data.description ?? "";
         this.slug = "";
@@ -48,14 +51,17 @@ export default class Version {
                     <p>{this.description}</p>
                 }
                 {this.notes.length > 0 &&
-                    <>
+                    <div>
                         {
                             this.notes.map((noteRaw, index) => {
                                 const note = new VersionNote(index, noteRaw);
                                 return (note.render())
                             })
                         }
-                    </>
+                    </div>
+                }
+                {this.link !== "" &&
+                    <p className={"py-3"}><ExternalLink href={this.link} >Voir sur github</ExternalLink></p>
                 }
             </div>
         )
