@@ -46,19 +46,6 @@ const PersonSingleView = ({ data }) => {
 
     const model = new Person(data);
 
-    /* Needed for breadCrumb generator */
-    /*const getLabelGenerator = useCallback((param, query) => {
-        return {
-            "personnes": lang.Persons,
-            "slug": `${firstName} ${lastName}`        
-        }[param];
-    }, []);
-
-    const breadCrumb = {
-        route: model.singleRoute,
-        getLabelGenerator: getLabelGenerator
-    }*/
-
     const breadcrumbLabels = {
         "personnes": lang.Persons,
         "slug": `${firstName} ${lastName}`
