@@ -10,6 +10,7 @@ class VersionNote {
         this.value = params.value;
         this.link = params.link ?? "";
         this.tag = params.tag ?? "li";
+        this.classes = params.additionnalClasses ?? "";
     }
 
     /**
@@ -39,7 +40,7 @@ class VersionNote {
         }
         const Tag = this.tag;
         return (
-            <Tag key={`note${this.value}${this.index}`}>{this.value}</Tag>
+            <Tag className={this.classes} key={`note${this.value}${this.index}`} dangerouslySetInnerHTML={ { __html: this.value } }></Tag>
         )
     }
 }
