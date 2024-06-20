@@ -146,6 +146,9 @@ const base = {
     //contactPoint
     "website": "Site internet",
     "phoneNumber": "Téléphone",
-    "phoneExtension": "Poste"
+    "phoneExtension": "Poste",
+
+    //Badges
+    "badges" : "Badges"
 }
 exports.base = base;

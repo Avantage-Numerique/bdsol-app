@@ -9,6 +9,7 @@ import SearchTag from '@/src/common/Components/SearchTag';
 import SingleBaseProgressBar
     from '@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseProgressBar/SingleBaseProgressBar'
 import {ContactPointView} from '@/src/DataTypes/common/layouts/ContactPointView/ContactPointView';
+import BadgesSection from '@/src/DataTypes/Badges/BadgesSection';
 
 
 //Utils
@@ -198,6 +199,8 @@ const OrganisationSingleView = ({ data }) => {
 
     const ContentColumnRight = (
         <>
+            {/* Badges */}
+            <BadgesSection badges={model.badges}/>
 
             {/* Contact information */}
             <SingleInfo title={lang.organisationContact} cardLayout>

@@ -14,6 +14,7 @@ import EntitiesTagGrid from "@/DataTypes/Entity/layouts/EntitiesTagGrid";
 import {SkillGroup} from "@/DataTypes/common/layouts/skillsGroup/SkillGroup";
 import {removeTagsFromString} from '@/src/helpers/html'
 import {ContactPointView} from '@/src/DataTypes/common/layouts/ContactPointView/ContactPointView';
+import BadgesSection from '@/src/DataTypes/Badges/BadgesSection';
 
 
 const PersonSingleView = ({ data }) => {
@@ -178,6 +179,9 @@ const PersonSingleView = ({ data }) => {
 
     const ContentColumnRight = (
         <>
+            {/* Badges */}
+            <BadgesSection badges={model.badges}/>
+
             {/* Contact information */}
             <SingleInfo title={lang.organisationContact} cardLayout>
                 <ContactPointView contact={model.contactPoint}/>

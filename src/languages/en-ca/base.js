@@ -234,5 +234,8 @@ export const base = {
     //contactPoint
     "website": "Website",
     "phoneNumber": "Phone",
-    "phoneExtension": "Extension"
+    "phoneExtension": "Extension",
+
+    //Badges
+    "badges": "Badges"
 }

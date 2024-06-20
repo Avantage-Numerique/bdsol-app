@@ -348,9 +348,15 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props}) => {
             <SingleInfo>
                 <Select 
                     name="region"
-                    label="Région"
+                    label="Faites-vous partie du croissant boréal?"
                     formTools={formTools}
                     noValueText="Choisissez une région"
+                    tip={
+                        {
+                            header : "Badge",
+                            body: "Ce champs permet d'obtenir le badge 'Croissant Boréal' qui indique que vous faites partie de celui-ci."
+                        }
+                    }
                     options={[
                         {label: "Autre", value: "other"},
                         {label: "Abitibi-Témiscamingue", value: "abitibi-temiscamingue"},
