@@ -13,9 +13,10 @@ import Icon from "@/src/common/widgets/Icon/Icon";
 import PageMeta from "@/src/common/PageMeta/PageMeta";
 import {lang} from "@/common/Data/GlobalConstants";
 import Spinner from "@/common/widgets/spinner/Spinner";
+import { getBadgesInfo } from "@/src/DataTypes/Badges/BadgesSection";
 
 
-const ConsultData = () => {
+const ConsultData = (props) => {
 
     const [entityList, setEntityList] = useState([]);
     const [filterState, setFilterState] = useState("all");//For multi choice, it need to be an array at first render
@@ -230,7 +231,12 @@ const ConsultData = () => {
                     {/* Entities list section */}
                     {
                         entityList?.length > 0 &&
-                        <EntitiesGrid className={"row"} columnClass={"col-12 col-sm-6 col-lg-4 col-xl-3 g-4 "} feed={entityList.filter(el => el.type !== "Taxonomy")}></EntitiesGrid>
+                        <EntitiesGrid
+                            className={"row"}
+                            columnClass={"col-12 col-sm-6 col-lg-4 col-xl-3 g-4 "}
+                            feed={entityList.filter(el => el.type !== "Taxonomy")}
+                            badgesInfo={props.badgesInfo}
+                        />
                     }
                     {
                         !isLoading && entityList?.length <= 0 &&
@@ -241,4 +247,14 @@ const ConsultData = () => {
         </div>
     )
 }
-export default ConsultData
+export default ConsultData;
+
+
+export async function getStaticProps() {
+    const badgeInfo = await getBadgesInfo();
+    return {
+        props: {
+            badgesInfo : badgeInfo
+        }
+    }
+}

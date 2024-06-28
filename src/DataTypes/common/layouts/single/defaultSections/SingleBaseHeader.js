@@ -1,4 +1,4 @@
-import React, {memo, useContext} from 'react'
+import React, {memo, useContext, useEffect, useRef, useState} from 'react'
 //Styles
 import styles from './SingleBaseHeader.module.scss';
 
@@ -19,11 +19,12 @@ import {useHttpClient} from '@/src/hooks/http-hook';
 
 //Context
 import {MessageContext} from '@/src/common/UserNotifications/Message/Context/Message-Context';
+import { getBadgesInfo } from '@/src/DataTypes/Badges/BadgesSection';
 
 
 //Memoize the image to prevent rerendering
 const ImageComponent = memo(
-    ({mainImage}) => {
+    ({mainImage, badges}) => {
         const InnerLink = () => (
             <>
                 { mainImage && mainImage.url !== "" && !mainImage.isDefault &&
@@ -35,6 +36,17 @@ const ImageComponent = memo(
             </>
         )
 
+        const [badgeToShowState, setBadgeToShowState] = useState(undefined);
+        useEffect( () => {
+            async function fetchBadge(){
+                //If badges array exist in entity and is > 0 length fetch badges info
+                if(badges !== undefined && Array.isArray(badges) && badges.length > 0 ){
+                    const badgesInfo = await getBadgesInfo();
+                    setBadgeToShowState(badgesInfo[badges[0]]);
+                }
+            }
+            fetchBadge();
+        }, [])
 
         return (
             <div className="col-12 col-sm d-flex flex-grow-0 align-items-end position-relative">
@@ -51,9 +63,14 @@ const ImageComponent = memo(
                              imgClassName={"main-image"}>
                     <InnerLink/>
                 </MediaFigure>
-                <div className={"position-absolute top-100 start-100 translate-middle"} style={{marginLeft: "-20px"}}>
-                    <img src={"/badges-icons/badge-croissant-boreal.svg"} alt={"badge cb"} width="40px" height="40px"/>
-                </div>
+                {
+                    badgeToShowState !== undefined && 
+                    (
+                        <div className={"position-absolute top-100 start-100 translate-middle"} style={{marginLeft: "-20px"}}>
+                            <img src={badgeToShowState?.iconPath} alt={badgeToShowState?.iconAlt ?? "Badge"} width="40px" height="40px"/>
+                        </div>
+                    )
+                }
             </div>
         )
     }
@@ -161,7 +178,7 @@ const SingleBaseHeader = (props) => {
             <div className="d-flex justify-content-end">
                 <button type="button" className="fs-3" onClick={modalReportEntity.displayModal}><Icon iconName="flag"/></button>
             </div>
-            {mainImage && <ImageComponent mainImage={mainImage} />}
+            {mainImage && <ImageComponent mainImage={mainImage} badges={entity?.badges} />}
             <div className="col-12 col-sm flex-grow-1 d-flex flex-column">
                 <div className="d-flex flex-column text-dark">
                     { title || <h1 className='mt-4 ms-4'>{lang.title}</h1> }

@@ -8,10 +8,11 @@ import {getModelFromType} from "@/DataTypes/Entity/Types";
  * @param noResult Text to replace default if feed is empty. 
  * @param className {string} change the container class with className.
  * @param columnClass {string} add the container of the component simple of the entities with this class.
+ * @param badgesInfo {object} badges informations to display badges from entity.badges.
  * @return {JSX.Element}
  * @constructor
  */
-const EntitiesGrid = ({feed, className, columnClass, noResult}) => {
+const EntitiesGrid = ({feed, className, columnClass, noResult, badgesInfo}) => {
     const ContainerTag = "div";
 
     const colContainerClass = columnClass ?? "g-4";//"col-12 col-sm-6 col-lg-4 col-xl-3 g-4";
@@ -33,7 +34,12 @@ const EntitiesGrid = ({feed, className, columnClass, noResult}) => {
                         const SimpleComponent = model.simpleComponent;
                         return (
                             <div style={customStyling} className={`${colContainerClass}`} key={getKeyString("container", model, index)}>
-                                <SimpleComponent data={entity} model={model} key={getKeyString("simple", model, index)} />
+                                <SimpleComponent
+                                    data={entity}
+                                    model={model}
+                                    key={getKeyString("simple", model, index)}
+                                    badgesInfo={badgesInfo}
+                                    />
                             </div>
                         )
                     }

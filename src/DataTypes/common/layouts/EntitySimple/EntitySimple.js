@@ -1,4 +1,4 @@
-import React from 'react';
+import { useEffect, useState } from 'react';
 import styles from './EntitySimple.module.scss';
 import MediaFigure from "@/DataTypes/Media/layouts/MediaFigure";
 import {getType} from "@/DataTypes/Entity/Types";
@@ -46,10 +46,19 @@ const EntitySimple = (props) => {
     const showEntityType = props.showEntityType ?? true;
     const appType = getType(model.type);
     //Verify is a bottom line is available to be displayed
-    const isBottomLine = (BottomLineContent || model.simgleList);
+    const isBottomLine = (BottomLineContent || model.singleList);
+
+    //Set up badges
+    const [badgeToShowState, setBadgeToShowState] = useState(undefined);
+    //If props.badgesInfo exist, badges array exist in entity and is > 0 length fetch badges info
+    useEffect( () => {
+        if( props.badgesInfo !== undefined && model.badges !== undefined && Array.isArray(model.badges) && model.badges.length > 0){
+            setBadgeToShowState(props.badgesInfo[model.badges[0]]);
+        }
+    }, [props.badgesInfo])
 
     /**
-     * Defininf the default header fo the EntitySimple to be overwrite with Header
+     * Defining the default header fo the EntitySimple to be overwrite with Header
      * @type {JSX.Element}
      */
     const HeaderDefault = (
@@ -75,6 +84,14 @@ const EntitySimple = (props) => {
                     >
                         {!model.mainImage.isDefault && <div className={`${styles["figure-overlay"]} position-absolute w-100 h-100 no-pointer-events dark-transparent-gradient`}></div> }
                     </MediaFigure>
+                    {
+                        badgeToShowState !== undefined && 
+                        (
+                            <div className={"position-absolute top-100 start-100 translate-middle"} style={{marginLeft: "-105px", paddingBottom: "70px"}}>
+                                <img src={badgeToShowState?.iconPath} alt={badgeToShowState?.iconAlt ?? "Badge"} width="40px" height="40px"/>
+                            </div>
+                        )
+                    }
                 </div>
             }
             {/* Display over the entity the type of image 
@@ -93,7 +110,7 @@ const EntitySimple = (props) => {
      */
 
     const maxWidthCaracters = 30;
-    const totalTags = model.simgleList?.length;
+    const totalTags = model.singleList?.length;
     let maxTags = 2;
     let restOfTags = totalTags - maxTags;
     let tagRenderedLength = -1;
@@ -133,11 +150,11 @@ const EntitySimple = (props) => {
                     </HtmlTagsRemover>
                 }
 
-                { !BottomLineContent && model.simgleList &&
+                { !BottomLineContent && model.singleList &&
 
                     <ul className={`d-flex mb-0 ${styles["simple-abstract__content__tagList"]} justify-content-center`}>
-                        {model.simgleList.length > 0 &&
-                            model.simgleList.map((tag, index) => {
+                        {model.singleList.length > 0 &&
+                            model.singleList.map((tag, index) => {
                                 let Tag;
                                 if (index < maxTags) {
                                     totalCaracters += tag.length;
@@ -147,8 +164,8 @@ const EntitySimple = (props) => {
                                 }
                                 {/* Check if the next elements with bust the maxWidthCaracters for length of the occupations/offers */}
                                 const nextIndex = index+1;
-                                const isLast = nextIndex >= model.simgleList.length;
-                                const nextTag = !isLast ? model.simgleList[nextIndex] : null;
+                                const isLast = nextIndex >= model.singleList.length;
+                                const nextTag = !isLast ? model.singleList[nextIndex] : null;
                                 const willNextTotalCaractersTotalBust = totalCaracters + nextTag?.length  >= maxWidthCaracters;
 
                                 {/* setup variable to avoid rendering all new tags if the lenght is too much. To optimize we need to use a loop for (in/of) and use break/continue. */}

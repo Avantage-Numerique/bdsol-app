@@ -16,15 +16,12 @@ const BadgesSection = ({badges,...props}) => {
     const [showBadgesState, setShowBadgesState] = useState(<></>)
 
     useEffect( () => {
-        const getBadgesInfo = async () => {
-            const apiResponse = await clientSideExternalApiRequest(
-                '/info/badges',
-                { method: 'GET' }
-            );
-            setBadgesInfoState(apiResponse);
+        async function fetchBadge(){
+            const res = await getBadgesInfo();
+            setBadgesInfoState(res);
+            UpdateShowBadges();
         }
-        getBadgesInfo();
-        UpdateShowBadges();
+        fetchBadge();
     }, [])
     
     const UpdateShowBadges = (selected, isAlreadySelected=false) => {
@@ -73,3 +70,12 @@ const BadgesSection = ({badges,...props}) => {
 }
 
 export default BadgesSection;
+
+
+export const getBadgesInfo = async () => {
+    const apiResponse = await clientSideExternalApiRequest(
+        '/info/badges',
+        { method: 'GET' }
+    );
+    return apiResponse
+}
