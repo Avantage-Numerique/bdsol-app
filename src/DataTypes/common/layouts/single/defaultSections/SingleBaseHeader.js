@@ -132,6 +132,10 @@ const SingleBaseHeader = (props) => {
             reportedEntityType: {
                 value: entity.type,
                 isValid: true
+            },
+            reportedEntitySlug: {
+                value: entity.slug,
+                isValid: true
             }
         },
         { displayResMessage: true }
@@ -146,6 +150,7 @@ const SingleBaseHeader = (props) => {
                     data: {
                         reportedEntityId: entity._id,
                         reportedEntityType: entity.type,
+                        reportedEntitySlug: entity.slug,
                         userId: auth.user.id,
                         message: formState.inputs.message.value,
                     }
