@@ -13,7 +13,7 @@ import Icon from "@/src/common/widgets/Icon/Icon";
 import PageMeta from "@/src/common/PageMeta/PageMeta";
 import {lang} from "@/common/Data/GlobalConstants";
 import Spinner from "@/common/widgets/spinner/Spinner";
-import { getBadgesInfo } from "@/src/DataTypes/Badges/BadgesSection";
+import {getBadgesInfo} from "@/src/DataTypes/Badges/BadgesSection";
 
 
 const ConsultData = (props) => {
@@ -250,7 +250,7 @@ const ConsultData = (props) => {
 export default ConsultData;
 
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
     const badgeInfo = await getBadgesInfo();
     return {
         props: {

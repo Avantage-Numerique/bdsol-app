@@ -23,7 +23,7 @@ import AvantageNumeriqueLogo from '@/public/logos/logo_Avantage_Numérique.svg';
 import organizationPresentationImg from '@/public/general_images/residenceUQAT2024_7-réduit.jpg'
 import shipAndPlanetsImg from '@/public/general_images/Fusée_Planetes_Poitilles2.svg'
 import AppRoutes from '@/src/Routing/AppRoutes';
-import { getBadgesInfo } from '@/src/DataTypes/Badges/BadgesSection';
+import {getBadgesInfo} from '@/src/DataTypes/Badges/BadgesSection';
 
 //Background image for the page header
 const HomePageHeaderBgImg = () => {
@@ -218,7 +218,7 @@ const HomePage = (props) => {
 export default HomePage;
 
 //Load badges Info
-export async function getStaticProps() {
+export async function getServerSideProps() {
     const badgeInfo = await getBadgesInfo();
     return {
         props: {
