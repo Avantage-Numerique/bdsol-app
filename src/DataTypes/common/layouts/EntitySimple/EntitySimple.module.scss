@@ -33,16 +33,15 @@
             overflow: hidden;
             .figure-overlay {
                 @include transition();
-                opacity: 1;
+                opacity: .7;
             }
             .simple-abstract__header__figure__img {
-
                 @include transition($transition-simple-base);
                 width: 100%;
                 height: 100%;
                 object-fit: cover;
-
             }
+
             /* If default image, change the styling */
             &.img-contained { 
                 overflow: visible;
@@ -58,19 +57,23 @@
 
 
     &:hover {
-
+        $simple-hover-scale-ratio:101%;
         box-shadow: $default-box-shadow-over;
-        transform: scale(99%);
+        transform: scale($simple-hover-scale-ratio);
         .simple-abstract__header {
             .simple-abstract__header__figure {
-                .figure-overlay {
-                    opacity: 0.4;
-                }
+                //.figure-overlay {
+                //    opacity: 0.4;
+                //}
 
                 .simple-abstract__header__figure__img {
-                    transform: scale(101%);
+                    transform: scale($simple-hover-scale-ratio+1);
                 }
             }
+        }
+        .simple-abstract__content,
+        .simple-abstract__content_ellipsis {
+            transform: scale($simple-hover-scale-ratio);
         }
     }
     /* Content's styling */
@@ -136,8 +139,6 @@
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
-
-
 
         /* If browser support allows it, then display the second line with ellipsis */
         @supports (-webkit-line-clamp: var(--description-allowed-lines)) {
