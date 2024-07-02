@@ -1,6 +1,7 @@
 import {useHttpClient} from "@/src/hooks/http-hook";
 import React, {useEffect, useState} from "react";
 import {lang} from "@/common/Data/GlobalConstants";
+import Button from "../Button/Button";
 import Link from "next/link";
 
 const LicenceDisplay = ({licenceKey, ...props}) => {
@@ -45,9 +46,9 @@ const LicenceDisplay = ({licenceKey, ...props}) => {
                     </div>
                     <div className={"pt-2"}>
                         <Link href={"/faq/licences"} title={lang.licenceDetails}>
-                            <button className="btn btn-sm btn-outline-light">
+                            <Button className="btn btn-sm">
                                 {lang.licenceDetails}
-                            </button>
+                            </Button>
                         </Link>
                     </div>
                 </div>

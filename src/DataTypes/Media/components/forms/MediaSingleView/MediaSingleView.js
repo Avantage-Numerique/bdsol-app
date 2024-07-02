@@ -111,9 +111,6 @@ const MediaSingleView = ({data}, ...props) => {
             subtitle={(
                 <div className="d-text text-white">
                     <div>
-                        <span className={`${styles["quick-section__single-info"]}`}>{lang.filename}{lang.colon}</span>{fileName + '.' + extension}
-                    </div>
-                    <div>
                         <strong>{lang.licence}{lang.colon}</strong>
                         <LicenceDisplay licenceKey={licence ?? {} }/>
                     </div>
