@@ -66,6 +66,8 @@ const FAQ = () => {
         }[param];
     }, []);
 
+    const breadcrumbsLabels = {faq:"FAQ"}
+
     return (
         <>
             <PageMeta 
@@ -77,7 +79,7 @@ const FAQ = () => {
                 textColor={"text-white"}
                 title={"FAQ"}
             >
-                <Breadcrumbs className={"pt-2"} route={AppRoutes.faq} getLabelGenerator={getLabelGenerator} />
+                <Breadcrumbs className={"pt-2"} route={AppRoutes.faq} labels={breadcrumbsLabels} getLabelGenerator={getLabelGenerator} />
             </PageHeader>
             <section className="my-4">
                 <h2 className="my-4">Besoin de plus de précisions sur un sujet ?</h2>

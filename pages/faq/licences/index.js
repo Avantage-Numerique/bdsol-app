@@ -28,14 +28,19 @@ const Licences = (props) => {
         }[param];
     }, []);
 
+    const breadcrumbsLabels = {
+        "faq": "FAQ",
+        "licences": "Licences"
+    }
+
     return (
         <div className="content">
-            <PageMeta 
+            <PageMeta
                 title={lang.faq__licences__title}
                 description={lang.faq__licences__description}
             />
             <PageHeader title="Précision sur les licences et droits d'auteurs">
-                <Breadcrumbs className={"pt-2"} route={AppRoutes.licences} getLabelGenerator={getLabelGenerator} />
+                <Breadcrumbs className={"pt-2"} route={AppRoutes.licences} labels={breadcrumbsLabels} getLabelGenerator={getLabelGenerator} />
             </PageHeader>
             <section id="faq-licence-definition" className={"row"}>
                 <div className={"col"}>
