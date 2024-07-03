@@ -326,7 +326,7 @@ const AppRoutesRaw = {
     },
 
     licences: {
-        label: "Licences",
+        label: lang.LicencesRouteLabel,
         pathname: "/faq/licences",
         asPath: "/faq/licences",
         needAuth: false,
@@ -409,6 +409,7 @@ const AppRoutes = new Routes(AppRoutesRaw);
  * @property contact {Route}
  * @property faq {Route}
  * @property equipment {Route}
+ * @property licences {Route}
  * @type {Routes}
  */
 export default AppRoutes;

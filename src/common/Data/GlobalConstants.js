@@ -23,7 +23,8 @@ export const lang = StringDictionary.getInstance([
     "cookies",
     "pageMeta",
     "versions",
-    "moderation"
+    "moderation",
+    "licences"
 ]);
 
 export const now = new Date();
