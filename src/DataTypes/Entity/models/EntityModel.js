@@ -40,7 +40,7 @@ class EntityModel {
         this.shortDescription = this.shortDescription.substring(0,this.shortLenght) + (this.shortDescription.length > this.shortLenght ? "..." : "");
         this.mainImage = raw?.mainImage ?? {url:"", alt:""};
 
-        this.simgleList;
+        this.singleList;
 
         //  Routes associated with single base, single and contribute uri.
         this.repertoryRoute = raw?.repertoryRoute ?? "";
@@ -242,7 +242,7 @@ class EntityModel {
      * @param value {Array}
      */
     simpleEditList(value) {
-        this.simgleList = value
+        this.singleList = value
     }
 
     //  --- UTILS ---

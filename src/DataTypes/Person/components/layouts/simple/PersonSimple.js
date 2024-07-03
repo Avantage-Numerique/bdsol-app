@@ -3,9 +3,9 @@ import React from "react"
 /***  Local styling ***/
 import EntitySimple from "@/DataTypes/common/layouts/EntitySimple/EntitySimple";
 
-const PersonSimple = ({ model }) => {
+const PersonSimple = ({ model, ...props }) => {
     return (
-        <EntitySimple model={model} />
+        <EntitySimple {...props} model={model} />
     )
 }
 

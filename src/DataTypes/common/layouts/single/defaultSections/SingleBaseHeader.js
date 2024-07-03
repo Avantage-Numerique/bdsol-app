@@ -1,4 +1,4 @@
-import { memo } from 'react'
+import React, {memo, useContext, useEffect, useRef, useState} from 'react'
 //Styles
 import styles from './SingleBaseHeader.module.scss';
 
@@ -11,7 +11,6 @@ import Icon from "@/common/widgets/Icon/Icon";
 //Auth
 import {useAuth} from '@/src/authentification/context/auth-context';
 import {lang} from "@/common/Data/GlobalConstants";
-import React, {useContext} from "react";
 
 //Hook
 import {useRootModal} from '@/src/hooks/useModal/useRootModal';
@@ -20,12 +19,13 @@ import {useHttpClient} from '@/src/hooks/http-hook';
 
 //Context
 import {MessageContext} from '@/src/common/UserNotifications/Message/Context/Message-Context';
+import { getBadgesInfo } from '@/src/DataTypes/Badges/BadgesSection';
 
 
 //Memoize the image to prevent rerendering
 const ImageComponent = memo(
-    ({mainImage}) => {
-        const MainImage = () => (
+    ({mainImage, badges}) => {
+        const InnerLink = () => (
             <>
                 { mainImage && mainImage.url !== "" && !mainImage.isDefault &&
                     <a href={`/medias/${mainImage._id}`}
@@ -36,17 +36,41 @@ const ImageComponent = memo(
             </>
         )
 
+        const [badgeToShowState, setBadgeToShowState] = useState(undefined);
+        useEffect( () => {
+            async function fetchBadge(){
+                //If badges array exist in entity and is > 0 length fetch badges info
+                if(badges !== undefined && Array.isArray(badges) && badges.length > 0 ){
+                    const badgesInfo = await getBadgesInfo();
+                    setBadgeToShowState(badgesInfo[badges[0]]);
+                }
+            }
+            fetchBadge();
+        }, [])
+
         return (
-            <div className="col-12 col-sm d-flex flex-grow-0 align-items-end">
+            <div className="col-12 col-sm d-flex flex-grow-0 align-items-end position-relative">
                 {/* Base styling doesn't move down the picture since its not overflowing the container. A bit tricky with bootstrap grid so we need two components to apply different classes */}
                 {/* Base format (small screens) */}
-                <MediaFigure model={mainImage} className={`d-sm-none main-image-container no-bottom-margin ${!mainImage.isDefault ? "overflow-hidden shadow" : (styles["default-drop-shadow"] + " default-img ")}`} imgClassName={"main-image"}>
-                    <MainImage />
+                <MediaFigure model={mainImage}
+                             className={`d-sm-none main-image-container no-bottom-margin ${!mainImage.isDefault ? "overflow-hidden shadow" : (styles["default-drop-shadow"] + " default-img ")}`}
+                             imgClassName={"main-image"}>
+                    <InnerLink/>
                 </MediaFigure>
                 {/* SM format and more */}
-                <MediaFigure model={mainImage} className={`d-none d-sm-block main-image-container ${!mainImage.isDefault ? "overflow-hidden shadow" : (styles["default-drop-shadow"] + " default-img ")}`} imgClassName={"main-image"}>
-                    <MainImage />
+                <MediaFigure model={mainImage}
+                             className={`d-none d-sm-block main-image-container ${!mainImage.isDefault ? "overflow-hidden shadow" : (styles["default-drop-shadow"] + " default-img ")}`}
+                             imgClassName={"main-image"}>
+                    <InnerLink/>
                 </MediaFigure>
+                {
+                    badgeToShowState !== undefined && 
+                    (
+                        <div className={"position-absolute top-100 start-100 translate-middle"} style={{marginLeft: "-20px"}}>
+                            <img src={badgeToShowState?.iconPath} alt={badgeToShowState?.iconAlt ?? "Badge"} width="40px" height="40px"/>
+                        </div>
+                    )
+                }
             </div>
         )
     }
@@ -108,6 +132,10 @@ const SingleBaseHeader = (props) => {
             reportedEntityType: {
                 value: entity.type,
                 isValid: true
+            },
+            reportedEntitySlug: {
+                value: entity.slug,
+                isValid: true
             }
         },
         { displayResMessage: true }
@@ -122,6 +150,7 @@ const SingleBaseHeader = (props) => {
                     data: {
                         reportedEntityId: entity._id,
                         reportedEntityType: entity.type,
+                        reportedEntitySlug: entity.slug,
                         userId: auth.user.id,
                         message: formState.inputs.message.value,
                     }
@@ -132,13 +161,13 @@ const SingleBaseHeader = (props) => {
         
         if(apiResponse.error){
             msg.addMessage({ 
-                text: "Échec du signalement",
+                text: lang.reportingError,
                 positive: false
             })
         }
         else{
             msg.addMessage({ 
-                text: "Signalement effectué",
+                text: lang.reportingSuccess,
                 positive: true
             });
             //formState.inputs.name.value = "";
@@ -154,14 +183,11 @@ const SingleBaseHeader = (props) => {
             <div className="d-flex justify-content-end">
                 <button type="button" className="fs-3" onClick={modalReportEntity.displayModal}><Icon iconName="flag"/></button>
             </div>
-            {mainImage && <ImageComponent mainImage={mainImage} />}
+            {mainImage && <ImageComponent mainImage={mainImage} badges={entity?.badges} />}
             <div className="col-12 col-sm flex-grow-1 d-flex flex-column">
                 <div className="d-flex flex-column text-dark">
-                    { /* title */ }
                     { title || <h1 className='mt-4 ms-4'>{lang.title}</h1> }
-                    { /* subtitle */ }
                     { subtitle || <h3 className='ms-4'>{lang.subTitle}</h3> }
-                    { /* Buttons when small screen */}
                     <div className="d-sm-none mt-2">
                         {buttonSection && buttonSection}
                     </div>
@@ -195,8 +221,8 @@ const SingleBaseHeader = (props) => {
             <modalReportEntity.Modal>
                 <div>
                     <header className={`d-flex mb-4 align-items-center`}>
-                        <b className="col-10">Signaler cette entité</b>
-                        <Button className="col-2" onClick={modalReportEntity.closeModal}>Fermer</Button>
+                        <strong className="col-10">{lang.reportBtnLabel}</strong>
+                        <Button className="col-2" onClick={modalReportEntity.closeModal}>{lang.close}</Button>
                     </header>
                     <RichTextarea
                         className="py-1"

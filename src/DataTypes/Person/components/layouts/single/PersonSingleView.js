@@ -14,6 +14,7 @@ import EntitiesTagGrid from "@/DataTypes/Entity/layouts/EntitiesTagGrid";
 import {SkillGroup} from "@/DataTypes/common/layouts/skillsGroup/SkillGroup";
 import {removeTagsFromString} from '@/src/helpers/html'
 import {ContactPointView} from '@/src/DataTypes/common/layouts/ContactPointView/ContactPointView';
+import BadgesSection from '@/src/DataTypes/Badges/BadgesSection';
 
 
 const PersonSingleView = ({ data }) => {
@@ -45,19 +46,6 @@ const PersonSingleView = ({ data }) => {
 
     const model = new Person(data);
 
-    /* Needed for breadCrumb generator */
-    /*const getLabelGenerator = useCallback((param, query) => {
-        return {
-            "personnes": lang.Persons,
-            "slug": `${firstName} ${lastName}`        
-        }[param];
-    }, []);
-
-    const breadCrumb = {
-        route: model.singleRoute,
-        getLabelGenerator: getLabelGenerator
-    }*/
-
     const breadcrumbLabels = {
         "personnes": lang.Persons,
         "slug": `${firstName} ${lastName}`
@@ -87,8 +75,6 @@ const PersonSingleView = ({ data }) => {
                 <div className="d-flex flex-wrap justify-content-start align-items-end">
                     <h1 style={{lineHeight: "1em"}} className="me-2 mb-0">{`${model.title}`}</h1>
                     <p className=" mb-0 fs-4">{model.nickname ? "(" + model.nickname + ")" : ""}</p>
-                    {/* <div>{(model?.badges !== undefined && model.badges.length > 0) ? model.badges : "No-badge"}+</div>
-                    <div>{(model?.region !== undefined && model.region !== "") ? model.region : "No-region"}</div> */}
                 </div>
             )}
 
@@ -178,6 +164,9 @@ const PersonSingleView = ({ data }) => {
 
     const ContentColumnRight = (
         <>
+            {/* Badges */}
+            <BadgesSection badges={model.badges}/>
+
             {/* Contact information */}
             <SingleInfo title={lang.organisationContact} cardLayout>
                 <ContactPointView contact={model.contactPoint}/>

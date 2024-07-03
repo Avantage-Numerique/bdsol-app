@@ -52,7 +52,7 @@ export const getSessionFromData = (userData) => {
 /**
  * Builder les headers d'array pour réduire
  * @param user {object}
- * @param withAuthentification {boolean}ç
+ * @param withAuthentification {boolean}
  * @return {object}
  */
 export const getUserHeadersFromUserSession = (user, withAuthentification= false) => {

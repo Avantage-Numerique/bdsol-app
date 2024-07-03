@@ -16,6 +16,7 @@ import LicenceDisplay from "@/src/common/FormElements/SelectLicence/LicenceDispl
 import SanitizedInnerHtml from "@/src/utils/SanitizedInnerHtml";
 import {SingleEntityMeta} from "@/src/DataTypes/Meta/components/SingleEntityMeta";
 import Media from "@/DataTypes/Media/models/Media";
+import {RouteLink} from "@/common/Components/RouteLink";
 
 
 const SingleInfoLayout = ({ title, NAMessage="-", children }) => {
@@ -110,13 +111,7 @@ const MediaSingleView = ({data}, ...props) => {
             title={(<SanitizedInnerHtml tag={"h1"} className="text-white">{`${title}`}</SanitizedInnerHtml>)}
             subtitle={(
                 <div className="d-text text-white">
-                    <div>
-                        <span className={`${styles["quick-section__single-info"]}`}>{lang.filename}{lang.colon}</span>{fileName + '.' + extension}
-                    </div>
-                    <div>
-                        <strong>{lang.licence}{lang.colon}</strong>
-                        <LicenceDisplay licenceKey={licence ?? {} }/>
-                    </div>
+                    <LicenceDisplay licenceKey={licence ?? {} }/>
                 </div>
             )}
             entity={data}
@@ -144,8 +139,12 @@ const MediaSingleView = ({data}, ...props) => {
             </SingleInfoLayout>
 
             <SingleInfoLayout
-                title={lang.associatedTo + associatedEntityType.inSentencePrefix + associatedEntityType.label}>
-                <EntityTag model={associatedEntityModel} />
+                title={lang.associatedTo.capitalize() + associatedEntityType.inSentencePrefix + associatedEntityType.label}>
+                <EntityTag model={associatedEntityModel}/>
+            </SingleInfoLayout>
+
+            <SingleInfoLayout title={lang.licenceMediaMoreDetails}>
+                <RouteLink routeName={"licences"} className="btn btn-sm btn-secondary px-4" />
             </SingleInfoLayout>
         </>
     );

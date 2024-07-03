@@ -14,7 +14,7 @@ import Select2 from '@/src/common/FormElements/Select2/Select2';
 import Button from '@/src/common/FormElements/Button/Button';
 import Input from '@/src/common/FormElements/Input/Input';
 import RichTextarea from '@/src/common/FormElements/RichTextArea/RichTextarea';
-
+import Select from '@/src/common/FormElements/Select/Select';
 import {getDefaultUpdateEntityMeta} from "@/src/DataTypes/Meta/EntityMeta";
 import SingleBase from '@/src/DataTypes/common/layouts/single/SingleBase';
 import SingleBaseHeader from '@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseHeader';
@@ -36,7 +36,6 @@ import Icon from "@/common/widgets/Icon/Icon";
 import {TYPE_PLACE, TYPE_TAXONOMY} from '@/src/DataTypes/Entity/Types';
 import SubmitEntity from "@/DataTypes/common/Forms/SingleEdit/SubmitEntity";
 import {apiDateToDateInput, dateTimeStringToUTC} from "@/common/DateManager/Parse";
-import Select from '@/src/common/FormElements/Select/Select';
 
 
 const OrganisationSingleEdit = (props) => {
@@ -368,21 +367,25 @@ const OrganisationSingleEdit = (props) => {
                 title="Informations supplémentaires"
                 cardLayout
             >
-                <SingleInfo>
-                    <Select 
-                        name="region"
-                        label="Région"
-                        formTools={formTools}
-                        noValueText="Choisissez une région"
-                        options={[
-                            {label: "Autre", value: "other"},
-                            {label: "Abitibi-Témiscamingue", value: "abitibi-temiscamingue"},
-                            {label: "Nord de l'Ontario", value: "north Ontario"},
-                            {label: "Baies-James", value: "baies-james"}
-                        ]}
-                        //defaultValue="Autre"
-                    />
-                </SingleInfo>
+                <Select 
+                    name="region"
+                    label="Faites-vous partie du croissant boréal?"
+                    formTools={formTools}
+                    noValueText="Choisissez une région"
+                    tip={
+                        {
+                            header : "Badge",
+                            body: "Ce champs permet d'obtenir le badge 'Croissant Boréal' qui indique que vous faites partie de celui-ci."
+                        }
+                    }
+                    options={[
+                        {label: "Autre", value: "other"},
+                        {label: "Abitibi-Témiscamingue", value: "abitibi-temiscamingue"},
+                        {label: "Nord de l'Ontario", value: "north Ontario"},
+                        {label: "Baies-James", value: "baies-james"}
+                    ]}
+                    //defaultValue="Autre"
+                />
                 <SingleInfo>
                     <Select2
                         name="location"

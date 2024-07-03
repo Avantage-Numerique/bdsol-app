@@ -93,15 +93,18 @@ const SingleBase = (props) => {
                 }
 
                 {/* Page bottom : CTA + progress */}
-                <section className={`${styles["full-width-container"]} position-relative bg-primary-lighter`}>
-                    <div className="container">
-                        <div className="row">
-                            <div className="d-flex justify-content-center align-items-center py-4">
-                                {singlePageBottom}
+                {
+                    singlePageBottom &&
+                    <section className={`${styles["full-width-container"]} position-relative bg-primary-lighter`}>
+                        <div className="container">
+                            <div className="row">
+                                <div className="d-flex justify-content-center align-items-center py-4">
+                                    {singlePageBottom}
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </section>
+                    </section>
+                }
 
             </div>
         </>
