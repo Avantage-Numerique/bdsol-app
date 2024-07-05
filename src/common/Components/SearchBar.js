@@ -148,15 +148,17 @@ const SearchBar = ({small, ...props}) => {
 
     const submitHandler = async event => {
         event?.preventDefault();
-        await router.push({
-            pathname: "/searchResults",
-            query: {searchIndex: inputValue},
-        });
-        setValue(null)
-        setInputValue('');
-
-        //Re-init the var to allow search on click and on tab
-        setTimeout( () => blockSubmitSlug.current = false, 500 )
+        if(inputValue !== undefined && inputValue !== null && inputValue.trim() !== ''){
+            await router.push({
+                pathname: "/searchResults",
+                query: {searchIndex: inputValue},
+            });
+            setValue(null)
+            setInputValue('');
+    
+            //Re-init the var to allow search on click and on tab
+            setTimeout( () => blockSubmitSlug.current = false, 500 )
+        }
     }
 
 
