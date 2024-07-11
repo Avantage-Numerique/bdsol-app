@@ -51,6 +51,7 @@ import CreateEquipmentForm from "@/src/DataTypes/Equipment/components/Forms/Crea
  * @param {object} requestData : param to always pass during request (e.g. category : "skills" to only access skills taxonomy)
  * @param {string} searchField : name of the property to search in the database from select2 input (e.g. "name", "firstName")
  * @param {string} selectField : String that allow ApiEntityModel to know what to return as a select option from the data of formState (domains, offers, fullName)
+ * @param {Array} allowedCategories : array containing the string values of the categories that should be allowed on taxonomy form 
  * Note : Works best if "type" is in the formState data, else it goes to switch case default and exceptions need to be handled
  * @param {function} createOptionFunction : function that handles the create (modal pop-up ...) if undefined, create default 
  */
@@ -247,6 +248,7 @@ const Select2 = ({ name, formTools, ...props }) => {
             name={name ?? ''}   //Prefilled value
             initValues={ modalInitValues ?? {} }
             category={props.requestData?.category}
+            allowedCategories={props.allowedCategories}
             onPositiveResponse={(response) => {
                 const optionCreated = ApiEntityModel.getSelectOption(response.data)
                 addSelectedValue(...optionCreated)

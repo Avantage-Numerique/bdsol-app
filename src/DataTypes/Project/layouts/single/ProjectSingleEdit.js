@@ -454,6 +454,7 @@ const ProjectSingleEdit = (props) => {
                         formTools={formTools}
                         creatable={true}
                         modalType={TYPE_TAXONOMY}
+                        allowedCategories={["skills", "technologies"]}
                         isMulti={true}
                         fetch={"/taxonomies/group/skills"}
                         searchField={"name"}
@@ -468,6 +469,7 @@ const ProjectSingleEdit = (props) => {
                         formTools={formTools}
                         creatable={true}
                         modalType={TYPE_TAXONOMY}
+                        allowedCategories={["domains"]}
                         isMulti={true}
 
                         fetch={"/taxonomies/list"}
