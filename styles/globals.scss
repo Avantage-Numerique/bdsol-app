@@ -3,52 +3,63 @@
 */
 
 :root {
-  /* Maximum width the content of the page can take */
-  --max-width-page-content: 85rem;
-  /* Header's height.  */
-  --headersHeight : 6em;
-
+    /* Maximum width the content of the page can take */
+    --max-width-page-content: 85rem;
+    /* Header's height.  */
+    --headersHeight: 6em;
+    --picture-size: #{$picture-size};
 }
 
 
 body {
-  overflow-x:hidden;
+    overflow-x: hidden;
 }
+
 //To hide the scroll bar when the menu is open
 body.menu-open {
-  overflow: hidden;
+    overflow: hidden;
 }
 
-h1, h2, h3, h4 { 
-  line-height: 1.3em;
+h1, h2, h3, h4 {
+    line-height: 1.3em;
 }
 
-h1, h2 { 
-  font-weight: 700;
+h1, h2 {
+    font-weight: 700;
 }
 
-h3 { 
-  font-weight: 600;
- }
+h3 {
+    font-weight: 600;
+}
 
 
-.cursorPointer { cursor: pointer; }
+.cursorPointer {
+    cursor: pointer;
+}
 
 /**
 *   Remove de the bullet
 */
-li { list-style-type: none;} /* TODO should use Bootstrap's "list-unstyled" class on <ul> */
+li {
+    list-style-type: none;
+}
+
+/* TODO should use Bootstrap's "list-unstyled" class on <ul> */
 
 /*
   Remove automatic padding
 */
-ul {padding: 0;} /* TODO switch to Bootstrap's vertical nav component */
+ul {
+    padding: 0;
+}
+
+/* TODO switch to Bootstrap's vertical nav component */
 
 /*
  Override some default styling of the input element 
 */
 label {
-  color:  $mild-dark;
+    color: $mild-dark;
 }
 
 .content {
@@ -56,6 +67,7 @@ label {
         color: $primary;
         @include transition();
         text-decoration: none;
+
         &:hover {
             color: $primary-light;
             text-decoration: underline;

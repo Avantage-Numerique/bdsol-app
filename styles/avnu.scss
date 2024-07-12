@@ -1,0 +1,9 @@
+$picture-size: clamp(8rem, 20vw, 12rem);
+$single-mainimage-margin-xs: 1rem;
+$single-mainimage-margin-sm: calc(-0.30 * #{$picture-size});
+
+
+/*
+    SIMPLE TEMPLATE
+ */
+$simple-default-padding: clamp(0.75rem, 2vw, 1.5rem);

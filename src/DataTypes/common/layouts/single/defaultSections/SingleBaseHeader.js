@@ -1,4 +1,4 @@
-import React, {memo, useContext, useEffect, useRef, useState} from 'react'
+import React, {memo, useContext, useEffect, useState} from 'react'
 //Styles
 import styles from './SingleBaseHeader.module.scss';
 
@@ -19,7 +19,7 @@ import {useHttpClient} from '@/src/hooks/http-hook';
 
 //Context
 import {MessageContext} from '@/src/common/UserNotifications/Message/Context/Message-Context';
-import { getBadgesInfo } from '@/src/DataTypes/Badges/BadgesSection';
+import {getBadgesInfo} from '@/src/DataTypes/Badges/BadgesSection';
 
 
 //Memoize the image to prevent rerendering
@@ -48,29 +48,28 @@ const ImageComponent = memo(
             fetchBadge();
         }, [])
 
+
+
         return (
-            <div className="col-12 col-sm d-flex flex-grow-0 align-items-end position-relative">
+            <div className="col col-sm d-flex flex-grow-0 align-items-end position-relative">
                 {/* Base styling doesn't move down the picture since its not overflowing the container. A bit tricky with bootstrap grid so we need two components to apply different classes */}
-                {/* Base format (small screens) */}
-                <MediaFigure model={mainImage}
-                             className={`d-sm-none main-image-container no-bottom-margin ${!mainImage.isDefault ? "overflow-hidden shadow" : (styles["default-drop-shadow"] + " default-img ")}`}
-                             imgClassName={"main-image"}>
-                    <InnerLink/>
-                </MediaFigure>
-                {/* SM format and more */}
-                <MediaFigure model={mainImage}
-                             className={`d-none d-sm-block main-image-container ${!mainImage.isDefault ? "overflow-hidden shadow" : (styles["default-drop-shadow"] + " default-img ")}`}
-                             imgClassName={"main-image"}>
-                    <InnerLink/>
-                </MediaFigure>
-                {
-                    badgeToShowState !== undefined && 
-                    (
-                        <div className={"position-absolute top-100 start-100 translate-middle"} style={{marginLeft: "-20px"}}>
-                            <img src={badgeToShowState?.iconPath} alt={badgeToShowState?.iconAlt ?? "Badge"} width="40px" height="40px"/>
-                        </div>
-                    )
-                }
+                {/* Base format (small screens) removed no-bottom-margin*/}
+                <div className={`position-relative ${styles["single-base-header__main-image__container"]}`}>
+                    {/* SM format and more */}
+                    <MediaFigure model={mainImage}
+                                 className={`main-image-container ${styles["single-base-header__main-image__container__figure"]} ${!mainImage.isDefault ? "overflow-hidden shadow" : (styles["default-drop-shadow"] + " default-img ")}`}
+                                 imgClassName={"main-image"}>
+                        <InnerLink/>
+                    </MediaFigure>
+                    {
+                        badgeToShowState !== undefined &&
+                        (
+                            <div className={"position-absolute bottom-0 end-0"}>
+                                <img src={badgeToShowState?.iconPath} alt={badgeToShowState?.iconAlt ?? "Badge"} width="40px" height="40px"/>
+                            </div>
+                        )
+                    }
+                </div>
             </div>
         )
     }

@@ -22,3 +22,19 @@
     filter: drop-shadow(0.15rem 0.15rem 0.1rem rgba(41, 41, 41, 0.4901960784));
 }
 
+
+.single-base-header__main-image__container {
+    --margin-bottom: #{$single-mainimage-margin-xs};//mobile first
+    margin-bottom: var(--margin-bottom);
+
+    .single-base-header__main-image__container__figure {
+
+    }
+
+    @include media-breakpoint-up(sm) {
+        --margin-bottom: #{$single-mainimage-margin-sm};
+        .single-base-header__main-image__container__figure {
+
+        }
+    }
+}
