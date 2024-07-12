@@ -408,6 +408,7 @@ const OrganisationSingleEdit = (props) => {
                         formTools={formTools}
                         creatable={true}
                         modalType={TYPE_TAXONOMY}
+                        allowedCategories={["domains"]}
                         isMulti={true}
 
                         placeholder={lang.domainsInputPlaceholder}

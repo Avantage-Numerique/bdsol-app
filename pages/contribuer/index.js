@@ -25,7 +25,7 @@ import Event from "@/src/DataTypes/Event/models/Event";
 import Equipment from "@/src/DataTypes/Equipment/models/Equipment";
 
 //Img
-import headerImg from '@/public/general_images/Fusée_Planetes_Poitilles2.svg'
+import headerImg from '@/public/general_images/Fusée_Planetes_Pointilles2.svg'
 import {
     getModelFromType,
     TYPE_EQUIPMENT,

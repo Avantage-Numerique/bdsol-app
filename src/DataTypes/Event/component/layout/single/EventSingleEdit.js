@@ -605,6 +605,7 @@ const EventSingleEdit = ({data}, ...props) => {
                         formTools={formTools}
                         creatable={true}
                         modalType={TYPE_TAXONOMY}
+                        allowedCategories={["skills", "technologies"]}
                         isMulti={true}
                         requestData={{name:""}}
                         fetch={"/taxonomies/group/skills"}
@@ -624,6 +625,7 @@ const EventSingleEdit = ({data}, ...props) => {
                         formTools={formTools}
                         creatable={true}
                         modalType={TYPE_TAXONOMY}
+                        allowedCategories={["domains"]}
                         isMulti={true}
                         fetch={"/taxonomies/list"}
                         requestData={{category:"domains", name:""}}

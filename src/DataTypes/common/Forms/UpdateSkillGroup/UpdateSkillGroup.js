@@ -45,6 +45,7 @@ const UpdateSkillGroup = ({parentEntity, name, formTools, labelInput, labelSelec
                                 formTools={formTools}
                                 creatable={true}
                                 modalType={TYPE_TAXONOMY}
+                                allowedCategories={["skills", "technologies"]}
                                 isMulti={true}
                                 createOptionFunction={props.createOptionFunction}
 

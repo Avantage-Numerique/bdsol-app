@@ -16,12 +16,13 @@ import {clientSideExternalApiRequest, useHttpClient} from '@/src/hooks/http-hook
 
 //Context
 import {getType} from "@/DataTypes/Entity/Types";
+import { useAuth } from '@/src/authentification/context/auth-context';
 
 //Images
 import backgroundImg from '@/public/general_images/Fusee_Pointilles1.svg'
 import AvantageNumeriqueLogo from '@/public/logos/logo_Avantage_Numérique.svg';
 import organizationPresentationImg from '@/public/general_images/residenceUQAT2024_7-réduit.jpg'
-import shipAndPlanetsImg from '@/public/general_images/Fusée_Planetes_Poitilles2.svg'
+import shipAndPlanetsImg from '@/public/general_images/Fusée_Planetes_Pointilles2.svg'
 import AppRoutes from '@/src/Routing/AppRoutes';
 import {getBadgesInfo} from '@/src/DataTypes/Badges/BadgesSection';
 
@@ -46,6 +47,9 @@ const HomePageHeaderBgImg = () => {
 }
 
 const HomePage = (props) => {
+
+    //Know when user is logged in for CTA "Envie d'ajouter des données ?"
+    const auth = useAuth();
 
     //Holds the state the organisations
     const [feedList, setFeedList] = useState([]);
@@ -206,7 +210,10 @@ const HomePage = (props) => {
                             <h2 className="text-center">Envie d’ajouter des données ?</h2>
                             <p className="text-center my-2">Vous aussi, contribuez à la plateforme en vous créant un compte utilisateur·rice. C’est simple et gratuit !<br/>Vous pourrez alors ajouter ou modifier des fiches à propos des ressources technologiques de votre territoire. </p>
                             <div className="d-flex justify-content-center my-4">
-                                <Button className="px-4" color="primary" href="/compte/inscription">C'est par ici !</Button>
+                                <Button
+                                    className="px-4"
+                                    color="primary"
+                                    href={auth?.user?.isLoggedIn ? AppRoutes.contribute.asPath : AppRoutes.register.asPath}>C'est par ici !</Button>
                             </div>
                     </div>
                 </div>

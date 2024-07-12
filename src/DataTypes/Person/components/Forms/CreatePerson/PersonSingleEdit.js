@@ -374,6 +374,7 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props}) => {
                     formTools={formTools}
                     creatable={true}
                     modalType={TYPE_TAXONOMY}
+                    allowedCategories={["domains"]}
                     isMulti={true}
                     fetch={"/taxonomies/list"}
                     requestData={{category:"domains", name:""}}

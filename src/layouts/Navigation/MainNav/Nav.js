@@ -10,7 +10,7 @@ import Button from '@/src/common/FormElements/Button/Button'
 
 //Styling
 import styles from './Nav.module.scss'
-import organizationPresentationImg from '@/public/general_images/Fusée_Planetes_Poitilles2_90deg.svg'
+import organizationPresentationImg from '@/public/general_images/Fusée_Planetes_Pointilles2_90deg.svg'
 
 //Entities
 import Person from "@/DataTypes/Person/models/Person";

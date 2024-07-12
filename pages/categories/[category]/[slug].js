@@ -75,7 +75,7 @@ const TaxonomiesSinglePage = (props) => {
     };
 
     return (
-        <div>
+        <div className='mb-4'>
             {/* Page head element  */}
             <PageMeta 
                 title={getTitle([taxonomy.name, currentTaxonomy.label, type.labelPlural])}
@@ -112,7 +112,11 @@ const TaxonomiesSinglePage = (props) => {
             />
 
             <Modal {...props}>
-                <header className={`d-flex justify-content-end`}>
+                <header className={`d-flex justify-content-between align-items-start`}>
+                    <div className="d-flex flex-column">
+                        <h3 className="text-primary">Modifier : {taxonomy.name}</h3>
+                        <p>Entrer les modifications à apporter à cette catégorie</p>
+                    </div>
                     <Button onClick={() => closeModal()}>Fermer</Button>
                 </header>
                 <div className={`my-4 border-bottom`}></div>
