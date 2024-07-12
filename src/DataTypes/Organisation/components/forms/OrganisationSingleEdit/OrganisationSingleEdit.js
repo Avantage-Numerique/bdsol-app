@@ -281,14 +281,16 @@ const OrganisationSingleEdit = (props) => {
         />);
     
     const ctaHeaderSection = (
-        <div className="d-flex flex-wrap align-items-end gap-2 gap-md-3 gap-lg-4">
+        <div className="d-flex flex-wrap align-items-end justify-content-between gap-2 gap-md-3 gap-lg-4">
             <MainImageDisplay buttonClasses="fs-6" mainImage={currentMainImage} entity={currentModel} setter={updateModelMainImage} />
-            <Button className='fs-6' size="slim" color="success" disabled={!formState.isValid} onClick={modalSaveEntityReminder.displayModal}>
-                <Icon iconName={"save"} />&nbsp;{lang.capitalize("save")}
-            </Button>
-            <Button className='fs-6' size="slim" color="primary-light" href={model.singleLink}>
-                <Icon iconName={"times"} />&nbsp;{lang.capitalize("CancelChanges")}
-            </Button>
+            <div className="d-flex flex-wrap align-items-end justify-content-between gap-2 gap-md-3 gap-lg-4">
+                <Button className='fs-6' size="slim" color="success" disabled={!formState.isValid} onClick={modalSaveEntityReminder.displayModal}>
+                    <Icon iconName={"save"} />&nbsp;{lang.capitalize("save")}
+                </Button>
+                <Button className='fs-6' size="slim" color="primary-light" href={model.singleLink}>
+                    <Icon iconName={"times"} />&nbsp;{lang.Cancel}
+                </Button>
+            </div>
         </div>
     );
 

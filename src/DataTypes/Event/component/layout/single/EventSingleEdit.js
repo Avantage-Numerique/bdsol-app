@@ -406,22 +406,26 @@ const EventSingleEdit = ({data}, ...props) => {
         </>);
 
         const ctaHeaderSection = (
-            <div className="d-flex flex-wrap align-items-end gap-2 gap-md-3 gap-lg-4">
-                <MainImageDisplay buttonClasses="fs-6" mainImage={currentMainImage} entity={currentModel} setter={updateModelMainImage} />
-                <Button className='fs-6' size="slim" color="success" disabled={!formState.isValid} onClick={modalSaveEntityReminder.displayModal}>
-                    <Icon iconName={"save"} />&nbsp;{lang.capitalize("save")}
-                </Button>
-                <Button className='fs-6' size="slim" color="primary-light" href={model.singleLink}>
-                    <Icon iconName={"times"} />&nbsp;{lang.capitalize("CancelChanges")}
-                </Button>
+            <div className="d-flex flex-wrap align-items-end justify-content-between gap-2 gap-md-3 gap-lg-4">
+                <MainImageDisplay buttonClasses="fs-6" mainImage={currentMainImage} entity={currentModel}
+                                  setter={updateModelMainImage}/>
+                <div className="d-flex flex-wrap align-items-end justify-content-between gap-2 gap-md-3 gap-lg-4">
+                    <Button className='fs-6' size="slim" color="success" disabled={!formState.isValid}
+                            onClick={modalSaveEntityReminder.displayModal}>
+                        <Icon iconName={"save"}/>&nbsp;{lang.capitalize("save")}
+                    </Button>
+                    <Button className='fs-6' size="slim" color="primary-light" href={model.singleLink}>
+                        <Icon iconName={"times"}/>&nbsp;{lang.Cancel}
+                    </Button>
+                </div>
             </div>
         )
-    
-    const header = ( 
+
+    const header = (
         <SingleBaseHeader
             className={"mode-update"}
-            title={title} 
-            subtitle={subtitle} 
+            title={title}
+            subtitle={subtitle}
             mainImage={currentMainImage}
             buttonSection={ctaHeaderSection}
             entity={model}
@@ -433,10 +437,10 @@ const EventSingleEdit = ({data}, ...props) => {
             <div className="row">
                 <div className="col col-md-6">
 
-                    <SingleInfo 
+                    <SingleInfo
                         title="Organisations responsables"
                     >
-                        <SingleInfo 
+                        <SingleInfo
                             title={lang.entityInCharge}
                             isSubtitle
                         >
