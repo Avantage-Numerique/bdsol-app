@@ -187,7 +187,7 @@ const SingleBaseHeader = (props) => {
                 <div className="d-flex flex-column text-dark">
                     { title || <h1 className='mt-4 ms-4'>{lang.title}</h1> }
                     { subtitle || <h3 className='ms-4'>{lang.subTitle}</h3> }
-                    <div className="mt-2 d-sm-none d-grid grid-column">
+                    <div className="mt-2 d-sm-none">
                         {buttonSection && buttonSection}
                     </div>
                 </div>
@@ -196,7 +196,7 @@ const SingleBaseHeader = (props) => {
                 <div style={{height: "1rem"}} className="position-relative flex-grow-1 d-flex align-items-end">
                     <div className={`${styles["over-flowing-button-section"]} ${isUpdateMode && styles["edition-mode"]} d-flex justify-content-end w-100`}>
                         {buttonSection &&
-                            <div className="d-none d-sm-block">
+                            <div className="d-none d-sm-block w-100">
                                 {buttonSection}
                             </div>
                         }
