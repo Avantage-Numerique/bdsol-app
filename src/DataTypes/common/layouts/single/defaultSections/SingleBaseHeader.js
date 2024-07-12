@@ -187,28 +187,29 @@ const SingleBaseHeader = (props) => {
                 <div className="d-flex flex-column text-dark">
                     { title || <h1 className='mt-4 ms-4'>{lang.title}</h1> }
                     { subtitle || <h3 className='ms-4'>{lang.subTitle}</h3> }
-                    <div className="d-sm-none mt-2">
+                    <div className="mt-2 d-sm-none d-grid grid-column">
                         {buttonSection && buttonSection}
                     </div>
                 </div>
                 { /* btnToggleViewEdit */ }
                 {/* If a button section is declared, use it */}
                 <div style={{height: "1rem"}} className="position-relative flex-grow-1 d-flex align-items-end">
-                    <div className={`${styles["over-flowing-button-section"]} ${isUpdateMode && styles["edition-mode"]} d-flex justify-content-evenly w-100`}>
-                        {/* Empty div to allow the button to take the second third of the width */}
-                        <div></div>
-                        <div className="d-none d-sm-block">
-                            {buttonSection && buttonSection}
-                        </div>
+                    <div className={`${styles["over-flowing-button-section"]} ${isUpdateMode && styles["edition-mode"]} d-flex justify-content-end w-100`}>
+                        {buttonSection &&
+                            <div className="d-none d-sm-block">
+                                {buttonSection}
+                            </div>
+                        }
                         {/* If the is no button section and there is a single button declared, display it */}
                         {!buttonSection && buttonText && buttonLink ?
                             (auth.user.isLoggedIn ?
                                 <Button className={`shadow`} href={buttonLink}>{buttonText}</Button>
                                 :
-                                <Button className={`shadow`} href="/compte/connexion">{buttonText}</Button>)
-                                :
-                                <></>
-                            }
+                                <Button className={`shadow`} href="/compte/connexion">{buttonText}</Button>
+                            )
+                            :
+                            <></>
+                        }
                     </div>
                 </div>
             </div>
