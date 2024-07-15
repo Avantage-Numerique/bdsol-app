@@ -3,7 +3,7 @@ import Router from "next/router";
 
 //Utils
 import Place from "../../../models/Place";
-import {lang} from "@/src/common/Data/GlobalConstants";
+import {lang, modes} from "@/src/common/Data/GlobalConstants";
 import {getDefaultUpdateEntityMeta} from "@/src/DataTypes/Meta/EntityMeta";
 import {replacePathname} from "@/src/helpers/url";
 
@@ -216,6 +216,7 @@ const PlaceSingleEdit = ({ positiveRequestActions, ...props}) => {
             mainImage={currentMainImage}
             buttonSection={ctaHeaderSection}
             entity={model}
+            mode={modes.CONTRIBUTING}
         >
         </SingleBaseHeader>
     );

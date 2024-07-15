@@ -30,7 +30,7 @@ import UpdateContactPoint from '@/src/DataTypes/common/Forms/UpdateContactPoint/
 //Utils
 import Organisation from '@/src/DataTypes/Organisation/models/Organisation';
 import {replacePathname} from "@/src/helpers/url";
-import {lang} from "@/src/common/Data/GlobalConstants";
+import {lang, modes} from "@/src/common/Data/GlobalConstants";
 import MainImageDisplay from "@/DataTypes/common/layouts/single/defaultSections/MainImageDisplay/MainImageDisplay";
 import Icon from "@/common/widgets/Icon/Icon";
 import {TYPE_PLACE, TYPE_TAXONOMY} from '@/src/DataTypes/Entity/Types';
@@ -302,6 +302,7 @@ const OrganisationSingleEdit = (props) => {
             mainImage={currentMainImage}
             buttonSection={ctaHeaderSection}
             entity={model}
+            mode={modes.CONTRIBUTING}
         />
     );
     

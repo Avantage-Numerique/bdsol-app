@@ -40,7 +40,6 @@ const SingleBase = (props) => {
 
     return (
         <>
-          
             <PageMeta 
                 title={getTitle([model?.meta.title, model?.Type.label]) || ""}
                 description={removeTagsFromString(model?.meta.description) || ""}

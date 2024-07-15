@@ -28,3 +28,8 @@ export const lang = StringDictionary.getInstance([
 ]);
 
 export const now = new Date();
+
+export const modes = {
+    CONSULTING: "consulting",
+    CONTRIBUTING: "contributing"
+}

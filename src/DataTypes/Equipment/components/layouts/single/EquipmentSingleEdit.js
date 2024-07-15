@@ -8,7 +8,7 @@ import {useRootModal} from '@/src/hooks/useModal/useRootModal'
 //components
 import Button from '@/FormElements/Button/Button'
 import Input from '@/FormElements/Input/Input'
-import {lang} from "@/src/common/Data/GlobalConstants";
+import {lang, modes} from "@/src/common/Data/GlobalConstants";
 import Select2 from '@/src/common/FormElements/Select2/Select2'
 import {SingleEntityMeta} from '@/src/DataTypes/Meta/components/SingleEntityMeta'
 import SingleInfo from "@/src/DataTypes/common/layouts/SingleInfo/SingleInfo";
@@ -210,6 +210,7 @@ const EquipmentSingleEdit = ({ positiveRequestActions, ...props}) => {
             mainImage={currentMainImage}
             buttonSection={ctaHeaderSection}
             entity={model}
+            mode={modes.CONTRIBUTING}
         />
     );
 

@@ -9,7 +9,7 @@ import {useRootModal} from "@/src/hooks/useModal/useRootModal";
 import {useAuth} from "@/src/authentification/context/auth-context";
 import {MessageContext} from "@/src/common/UserNotifications/Message/Context/Message-Context";
 import {useFormUtils} from "@/src/hooks/useFormUtils/useFormUtils";
-import {lang} from "@/src/common/Data/GlobalConstants";
+import {lang, modes} from "@/src/common/Data/GlobalConstants";
 import {getDefaultUpdateEntityMeta} from "@/src/DataTypes/Meta/EntityMeta";
 import {replacePathname} from "@/src/helpers/url";
 import {SingleEntityMeta} from '@/src/DataTypes/Meta/components/SingleEntityMeta';
@@ -429,6 +429,7 @@ const EventSingleEdit = ({data}, ...props) => {
             mainImage={currentMainImage}
             buttonSection={ctaHeaderSection}
             entity={model}
+            mode={modes.CONTRIBUTING}
         />
     );
 

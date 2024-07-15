@@ -10,7 +10,7 @@ import Icon from "@/common/widgets/Icon/Icon";
 
 //Auth
 import {useAuth} from '@/src/authentification/context/auth-context';
-import {lang} from "@/common/Data/GlobalConstants";
+import {lang, modes} from "@/common/Data/GlobalConstants";
 
 //Hook
 import {useRootModal} from '@/src/hooks/useModal/useRootModal';
@@ -20,18 +20,21 @@ import {useHttpClient} from '@/src/hooks/http-hook';
 //Context
 import {MessageContext} from '@/src/common/UserNotifications/Message/Context/Message-Context';
 import {getBadgesInfo} from '@/src/DataTypes/Badges/BadgesSection';
+import Link from "next/link";
 
 
 //Memoize the image to prevent rerendering
 const ImageComponent = memo(
-    ({mainImage, badges}) => {
+    ({mainImage, badges, activeInnerLink="true"}) => {
+
+        const addInnerLink = activeInnerLink === "true";
         const InnerLink = () => (
             <>
                 { mainImage && mainImage.url !== "" && !mainImage.isDefault &&
-                    <a href={`/medias/${mainImage._id}`}
+                    <Link href={`/medias/${mainImage._id}`}
                         className={`fs-4 w-100 h-100 position-absolute d-flex align-items-center justify-content-center p-1 ${styles["profile-picture--modification-opt"]} main-image-link`}>
                         <Icon iconName={"eye"} /> {lang.see}
-                    </a>
+                    </Link>
                 }
             </>
         )
@@ -49,7 +52,6 @@ const ImageComponent = memo(
         }, [])
 
 
-
         return (
             <div className="col col-sm d-flex flex-grow-0 align-items-end position-relative">
                 {/* Base styling doesn't move down the picture since its not overflowing the container. A bit tricky with bootstrap grid so we need two components to apply different classes */}
@@ -59,7 +61,7 @@ const ImageComponent = memo(
                     <MediaFigure model={mainImage}
                                  className={`main-image-container ${styles["single-base-header__main-image__container__figure"]} ${!mainImage.isDefault ? "overflow-hidden shadow" : (styles["default-drop-shadow"] + " default-img ")}`}
                                  imgClassName={"main-image"}>
-                        <InnerLink/>
+                        {addInnerLink && <InnerLink/>}
                     </MediaFigure>
                     {
                         badgeToShowState !== undefined &&
@@ -89,6 +91,7 @@ const ImageComponent = memo(
 const SingleBaseHeader = (props) => {
 
     const {
+        mode,
         mainImage,
         entity,
         title,
@@ -108,6 +111,15 @@ const SingleBaseHeader = (props) => {
     const modalReportEntity = useRootModal();
     const {sendRequest} = useHttpClient();
     const msg = useContext(MessageContext);
+
+    //no need for state, it's more a before rending modes.
+    const modeContributing = {
+        imageComponentActivateLink: "false"
+    }
+    const modeConsulting = {
+        imageComponentActivateLink: "true"
+    }
+    const currentMode = mode === modes.CONTRIBUTING ? modeContributing : modeConsulting;
 
     //Main modal form
     const { FormUI, submitRequest, formState, formTools } = useFormUtils(
@@ -176,13 +188,15 @@ const SingleBaseHeader = (props) => {
         }  
     }
 
+    const buttonSectionLink = !auth.user.isLoggedIn ? "/compte/connexion" : buttonLink;
+
     //Removed from colomn, it's more useful to use the justify or align from start or end.
     return (
-        <section className={`row ms-0  ${styles["content-padding-top"]} ${props.className}`}>
+        <section className={`row ${styles["content-padding-top"]} ${props.className}`}>
             <div className="d-flex justify-content-end">
                 <button type="button" className="fs-3" onClick={modalReportEntity.displayModal}><Icon iconName="flag"/></button>
             </div>
-            {mainImage && <ImageComponent mainImage={mainImage} badges={entity?.badges} />}
+            {mainImage && <ImageComponent mainImage={mainImage} badges={entity?.badges} activeInnerLink={currentMode.imageComponentActivateLink} />}
             <div className="col-12 col-sm flex-grow-1 d-flex flex-column">
                 <div className="d-flex flex-column text-dark">
                     { title || <h1 className='mt-4 ms-4'>{lang.title}</h1> }
@@ -201,14 +215,8 @@ const SingleBaseHeader = (props) => {
                             </div>
                         }
                         {/* If the is no button section and there is a single button declared, display it */}
-                        {!buttonSection && buttonText && buttonLink ?
-                            (auth.user.isLoggedIn ?
-                                <Button className={`shadow`} href={buttonLink}>{buttonText}</Button>
-                                :
-                                <Button className={`shadow`} href="/compte/connexion">{buttonText}</Button>
-                            )
-                            :
-                            <></>
+                        {!buttonSection && buttonText && buttonSectionLink &&
+                            <Button className={`shadow d-block`} href={buttonSectionLink}>{buttonText}</Button>
                         }
                     </div>
                 </div>

@@ -24,7 +24,7 @@ import UpdateSponsor from '@/src/DataTypes/Project/component/forms/UpdateSponsor
 import SubmitEntity from "@/DataTypes/common/Forms/SingleEdit/SubmitEntity";
 
 //Utils
-import {lang} from "@/src/common/Data/GlobalConstants";
+import {lang, modes} from "@/src/common/Data/GlobalConstants";
 import {getDefaultUpdateEntityMeta} from "@/src/DataTypes/Meta/EntityMeta";
 import Project from "@/DataTypes/Project/models/Project";
 import {replacePathname} from "@/src/helpers/url";
@@ -362,6 +362,7 @@ const ProjectSingleEdit = (props) => {
             mainImage={currentMainImage}
             buttonSection={ctaHeaderSection}
             entity={model}
+            mode={modes.CONTRIBUTING}
         />
     );
 
