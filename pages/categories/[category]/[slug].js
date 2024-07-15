@@ -42,7 +42,7 @@ export async function getServerSideProps(context) {
 const TaxonomiesSinglePage = (props) => {
     const category = [
         {label: "Compétence", value: "skills"},
-        {label: "Domaine", value: "domains"},
+        {label: "Secteur d'activité", value: "domains"},
         {label: "Technologie", value: "technologies"},
         {label: lang.equipmentType, value: "equipmentType"}
     ]

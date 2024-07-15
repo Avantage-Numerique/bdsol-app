@@ -7,8 +7,9 @@ import EntitiesGrid from "@/src/DataTypes/Entity/layouts/EntitiesGrid";
 import Button from "@/src/common/FormElements/Button/Button";
 import Icon from "@/src/common/widgets/Icon/Icon";
 import { lang } from "@/src/common/Data/GlobalConstants";
+import { getBadgesInfo } from "@/src/DataTypes/Badges/BadgesSection";
 
-const SearchResults = () => {
+const SearchResults = (props) => {
 
     const [searchList, setSearchList] = useState([]);
     const router = useRouter();
@@ -98,7 +99,7 @@ const SearchResults = () => {
                 <h3>{resultMessage}</h3>
                 {
                     filteredList?.length > 0 ?
-                    <EntitiesGrid className={"row"} feed={filteredList.filter(el => el.type !== "Taxonomy")}></EntitiesGrid>
+                    <EntitiesGrid className={"row"} feed={filteredList.filter(el => el.type !== "Taxonomy")} badgesInfo={props.badgesInfo}></EntitiesGrid>
                     :
                     <div>Aucune entité trouvée, réessayer avec d'autre critère de recherche</div>
                 }
@@ -122,7 +123,7 @@ const SearchResults = () => {
                 }
                 {
                     nearTaxonomyObject?.linkedEntityToNearestTaxonomy.length > 0 ?
-                        <EntitiesGrid className={"row"}  feed={nearTaxonomyObject.linkedEntityToNearestTaxonomy}></EntitiesGrid>
+                        <EntitiesGrid className={"row"} feed={nearTaxonomyObject.linkedEntityToNearestTaxonomy} badgesInfo={props.badgesInfo}></EntitiesGrid>
                         :
                         <p>Aucune entité est liée à cette catégorie</p>
                 }
@@ -268,6 +269,16 @@ const SearchResults = () => {
             
         </div>
     )
+}
+
+//Load badges Info
+export async function getServerSideProps() {
+    const badgeInfo = await getBadgesInfo();
+    return {
+        props: {
+            badgesInfo : badgeInfo
+        }
+    }
 }
 
 export default SearchResults
