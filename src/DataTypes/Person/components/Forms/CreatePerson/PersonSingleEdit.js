@@ -1,38 +1,38 @@
-import React, {useCallback, useContext, useEffect, useState} from 'react'
-import Router from 'next/router'
+import React, {useCallback, useContext, useEffect, useState} from 'react';
+import Router from 'next/router';
 
 //Custom hooks
-import {useFormUtils} from '@/src/hooks/useFormUtils/useFormUtils'
-import {useRootModal} from '@/src/hooks/useModal/useRootModal'
+import {useFormUtils} from '@/src/hooks/useFormUtils/useFormUtils';
+import {useRootModal} from '@/src/hooks/useModal/useRootModal';
 
 //components
-import Button from '@/FormElements/Button/Button'
-import Input from '@/FormElements/Input/Input'
-import RichTextarea from '@/FormElements/RichTextArea/RichTextarea'
-import Select2 from '@/src/common/FormElements/Select2/Select2'
-import {SingleEntityMeta} from '@/src/DataTypes/Meta/components/SingleEntityMeta'
+import Button from '@/FormElements/Button/Button';
+import Input from '@/FormElements/Input/Input';
+import RichTextarea from '@/FormElements/RichTextArea/RichTextarea';
+import Select2 from '@/src/common/FormElements/Select2/Select2';
+import {SingleEntityMeta} from '@/src/DataTypes/Meta/components/SingleEntityMeta';
 import SingleInfo from "@/DataTypes/common/layouts/SingleInfo/SingleInfo";
-import SingleSaveEntityReminder from '@/src/DataTypes/common/layouts/SingleSaveEntityReminder/SingleSaveEntityReminder'
-import UpdateSocialHandles from '@/src/DataTypes/common/Forms/UpdateSocialHandles/UpdateSocialHandles'
-import Select from '@/src/common/FormElements/Select/Select'
+import SingleSaveEntityReminder from '@/src/DataTypes/common/layouts/SingleSaveEntityReminder/SingleSaveEntityReminder';
+import UpdateSocialHandles from '@/src/DataTypes/common/Forms/UpdateSocialHandles/UpdateSocialHandles';
+import Select from '@/src/common/FormElements/Select/Select';
 
 //Context
 import {useAuth} from "@/src/authentification/context/auth-context";
 import {MessageContext} from '@/src/common/UserNotifications/Message/Context/Message-Context';
-import { lang } from '@/src/common/Data/GlobalConstants'
+import {lang, modes} from '@/src/common/Data/GlobalConstants';
 
 //FormData
 import {getDefaultUpdateEntityMeta} from "@/src/DataTypes/Meta/EntityMeta";
-import SingleBaseHeader from '@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseHeader'
-import SingleBase from '@/src/DataTypes/common/layouts/single/SingleBase'
-import UpdateSkillGroup from '@/src/DataTypes/common/Forms/UpdateSkillGroup/UpdateSkillGroup'
+import SingleBaseHeader from '@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseHeader';
+import SingleBase from '@/src/DataTypes/common/layouts/single/SingleBase';
+import UpdateSkillGroup from '@/src/DataTypes/common/Forms/UpdateSkillGroup/UpdateSkillGroup';
 import Person from "@/DataTypes/Person/models/Person";
 import {replacePathname} from "@/src/helpers/url";
 import Icon from "@/common/widgets/Icon/Icon";
 import MainImageDisplay from "@/DataTypes/common/layouts/single/defaultSections/MainImageDisplay/MainImageDisplay";
-import {TYPE_TAXONOMY} from '@/src/DataTypes/Entity/Types'
+import {TYPE_TAXONOMY} from '@/src/DataTypes/Entity/Types';
 import SubmitEntity from "@/DataTypes/common/Forms/SingleEdit/SubmitEntity";
-import UpdateContactPoint from '@/src/DataTypes/common/Forms/UpdateContactPoint/UpdateContactPoint'
+import UpdateContactPoint from '@/src/DataTypes/common/Forms/UpdateContactPoint/UpdateContactPoint';
 
 
 const PersonSingleEdit = ({ positiveRequestActions, ...props}) => {
@@ -286,14 +286,16 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props}) => {
     );
     
     const ctaHeaderSection = (
-        <div className="d-flex flex-wrap align-items-end gap-2 gap-md-3 gap-lg-4">
+        <div className="d-flex flex-wrap align-items-end justify-content-between gap-2 gap-md-3 gap-lg-4">
             <MainImageDisplay buttonClasses="fs-6" mainImage={currentMainImage} entity={currentModel} setter={updateModelMainImage} />
-            <Button className='fs-6' size="slim" color="success" disabled={!formState.isValid} onClick={modalSaveEntityReminder.displayModal}>
-                <Icon iconName={"save"} />&nbsp;{lang.capitalize("save")}
-            </Button>
-            <Button className='fs-6' size="slim" color="primary-light" href={model.singleLink}>
-                <Icon iconName={"times"} />&nbsp;{lang.capitalize("CancelChanges")}
-            </Button>
+            <div className="d-flex flex-wrap align-items-end justify-content-between gap-2 gap-md-3 gap-lg-4">
+                <Button className='fs-6' size="slim" color="success" disabled={!formState.isValid} onClick={modalSaveEntityReminder.displayModal}>
+                    <Icon iconName={"save"} />&nbsp;{lang.capitalize("save")}
+                </Button>
+                <Button className='fs-6' size="slim" color="primary-light" href={model.singleLink}>
+                    <Icon iconName={"times"} />&nbsp;{lang.Cancel}
+                </Button>
+            </div>
         </div>
     )
 
@@ -305,6 +307,7 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props}) => {
             mainImage={currentMainImage}
             buttonSection={ctaHeaderSection}
             entity={model}
+            mode={modes.CONTRIBUTING}
         >
         </SingleBaseHeader>
     );

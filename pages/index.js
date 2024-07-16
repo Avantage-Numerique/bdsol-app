@@ -16,7 +16,7 @@ import {clientSideExternalApiRequest, useHttpClient} from '@/src/hooks/http-hook
 
 //Context
 import {getType} from "@/DataTypes/Entity/Types";
-import { useAuth } from '@/src/authentification/context/auth-context';
+import {useAuth} from '@/src/authentification/context/auth-context';
 
 //Images
 import backgroundImg from '@/public/general_images/Fusee_Pointilles1.svg'
@@ -226,6 +226,7 @@ export default HomePage;
 
 //Load badges Info
 export async function getServerSideProps() {
+
     const badgeInfo = await getBadgesInfo();
     return {
         props: {

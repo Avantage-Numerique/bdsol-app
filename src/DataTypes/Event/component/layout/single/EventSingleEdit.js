@@ -9,7 +9,7 @@ import {useRootModal} from "@/src/hooks/useModal/useRootModal";
 import {useAuth} from "@/src/authentification/context/auth-context";
 import {MessageContext} from "@/src/common/UserNotifications/Message/Context/Message-Context";
 import {useFormUtils} from "@/src/hooks/useFormUtils/useFormUtils";
-import {lang} from "@/src/common/Data/GlobalConstants";
+import {lang, modes} from "@/src/common/Data/GlobalConstants";
 import {getDefaultUpdateEntityMeta} from "@/src/DataTypes/Meta/EntityMeta";
 import {replacePathname} from "@/src/helpers/url";
 import {SingleEntityMeta} from '@/src/DataTypes/Meta/components/SingleEntityMeta';
@@ -406,25 +406,30 @@ const EventSingleEdit = ({data}, ...props) => {
         </>);
 
         const ctaHeaderSection = (
-            <div className="d-flex flex-wrap align-items-end gap-2 gap-md-3 gap-lg-4">
-                <MainImageDisplay buttonClasses="fs-6" mainImage={currentMainImage} entity={currentModel} setter={updateModelMainImage} />
-                <Button className='fs-6' size="slim" color="success" disabled={!formState.isValid} onClick={modalSaveEntityReminder.displayModal}>
-                    <Icon iconName={"save"} />&nbsp;{lang.capitalize("save")}
-                </Button>
-                <Button className='fs-6' size="slim" color="primary-light" href={model.singleLink}>
-                    <Icon iconName={"times"} />&nbsp;{lang.capitalize("CancelChanges")}
-                </Button>
+            <div className="d-flex flex-wrap align-items-end justify-content-between gap-2 gap-md-3 gap-lg-4">
+                <MainImageDisplay buttonClasses="fs-6" mainImage={currentMainImage} entity={currentModel}
+                                  setter={updateModelMainImage}/>
+                <div className="d-flex flex-wrap align-items-end justify-content-between gap-2 gap-md-3 gap-lg-4">
+                    <Button className='fs-6' size="slim" color="success" disabled={!formState.isValid}
+                            onClick={modalSaveEntityReminder.displayModal}>
+                        <Icon iconName={"save"}/>&nbsp;{lang.capitalize("save")}
+                    </Button>
+                    <Button className='fs-6' size="slim" color="primary-light" href={model.singleLink}>
+                        <Icon iconName={"times"}/>&nbsp;{lang.Cancel}
+                    </Button>
+                </div>
             </div>
         )
-    
-    const header = ( 
+
+    const header = (
         <SingleBaseHeader
             className={"mode-update"}
-            title={title} 
-            subtitle={subtitle} 
+            title={title}
+            subtitle={subtitle}
             mainImage={currentMainImage}
             buttonSection={ctaHeaderSection}
             entity={model}
+            mode={modes.CONTRIBUTING}
         />
     );
 
@@ -433,10 +438,10 @@ const EventSingleEdit = ({data}, ...props) => {
             <div className="row">
                 <div className="col col-md-6">
 
-                    <SingleInfo 
+                    <SingleInfo
                         title="Organisations responsables"
                     >
-                        <SingleInfo 
+                        <SingleInfo
                             title={lang.entityInCharge}
                             isSubtitle
                         >

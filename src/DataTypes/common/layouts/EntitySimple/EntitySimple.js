@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import {useEffect, useState} from 'react';
 import styles from './EntitySimple.module.scss';
 import MediaFigure from "@/DataTypes/Media/layouts/MediaFigure";
 import {getType} from "@/DataTypes/Entity/Types";
@@ -73,25 +73,28 @@ const EntitySimple = (props) => {
             {/* Image representing the entity */}
             { model.mainImage &&
                 <div className="d-flex justify-content-center w-100 mt-4">
-                    <MediaFigure
-                        model={model.mainImage}
-                        className={`${styles["simple-abstract__header__figure"]} t-0 ${model.mainImage.isDefault && (styles["img-contained"] + " py-3")}`}
-                        imgClassName={`${styles["simple-abstract__header__figure__img"]}`}
-                        addGradientOver={true}
-                        link={model.singleLink}
-                        linkTitle={title}
-                        addLinkTag={false}
-                    >
-                        {!model.mainImage.isDefault && <div className={`${styles["figure-overlay"]} position-absolute w-100 h-100 no-pointer-events dark-transparent-gradient`}></div> }
-                    </MediaFigure>
-                    {
-                        badgeToShowState !== undefined && 
-                        (
-                            <div className={"position-absolute top-100 start-100 translate-middle"} style={{marginLeft: "-105px", paddingBottom: "70px"}}>
-                                <img src={badgeToShowState?.iconPath} alt={badgeToShowState?.iconAlt ?? "Badge"} width="40px" height="40px"/>
-                            </div>
-                        )
-                    }
+                    <div className={`${styles["simple-abstract__header__figure__container"]}`}>
+                        <MediaFigure
+                            model={model.mainImage}
+                            className={`${styles["simple-abstract__header__figure"]} t-0 ${model.mainImage.isDefault && (styles["img-contained"] + " py-3")}`}
+                            imgClassName={`${styles["simple-abstract__header__figure__img"]}`}
+                            addGradientOver={true}
+                            link={model.singleLink}
+                            linkTitle={title}
+                            addLinkTag={false}
+                        >
+                            {!model.mainImage.isDefault && <div className={`${styles["figure-overlay"]} position-absolute w-100 h-100 no-pointer-events dark-transparent-gradient`}></div> }
+                        </MediaFigure>
+
+                        {
+                            badgeToShowState !== undefined &&
+                            (
+                                <div className={`position-absolute bottom-0 end-0 ${styles["simple-abstract__header__badge"]} `}>
+                                    <img src={badgeToShowState?.iconPath} alt={badgeToShowState?.iconAlt ?? "Badge"} width="40px" height="40px"/>
+                                </div>
+                            )
+                        }
+                    </div>
                 </div>
             }
             {/* Display over the entity the type of image 
@@ -105,16 +108,13 @@ const EntitySimple = (props) => {
     /**
      * Defining the ContenDefault layout for the EntitySimple, TO be overwrite with Content.
      * @type {JSX.Element}
-     *
-     *
      */
-
     const maxWidthCaracters = 30;
     const totalTags = model.singleList?.length;
     let maxTags = 2;
     let restOfTags = totalTags - maxTags;
     let tagRenderedLength = -1;
-    let totalCaracters = 0;
+    let totalCharacters = 0;
 
     const ContentDefault = (
         <>
@@ -157,7 +157,7 @@ const EntitySimple = (props) => {
                             model.singleList.map((tag, index) => {
                                 let Tag;
                                 if (index < maxTags) {
-                                    totalCaracters += tag.length;
+                                    totalCharacters += tag.length;
                                     Tag = (
                                         <li key={tag} title={tag} className="rounded bg-general-tag">{tag}</li>
                                     )
@@ -166,10 +166,10 @@ const EntitySimple = (props) => {
                                 const nextIndex = index+1;
                                 const isLast = nextIndex >= model.singleList.length;
                                 const nextTag = !isLast ? model.singleList[nextIndex] : null;
-                                const willNextTotalCaractersTotalBust = totalCaracters + nextTag?.length  >= maxWidthCaracters;
+                                const willNextTotalCaractersTotalBust = totalCharacters + nextTag?.length  >= maxWidthCaracters;
 
                                 {/* setup variable to avoid rendering all new tags if the lenght is too much. To optimize we need to use a loop for (in/of) and use break/continue. */}
-                                if ((totalCaracters >= maxWidthCaracters || willNextTotalCaractersTotalBust) && tagRenderedLength === -1) {
+                                if ((totalCharacters >= maxWidthCaracters || willNextTotalCaractersTotalBust) && tagRenderedLength === -1) {
                                     maxTags = index;
                                     restOfTags = totalTags - index;
                                     tagRenderedLength = index;

@@ -24,7 +24,7 @@ import UpdateSponsor from '@/src/DataTypes/Project/component/forms/UpdateSponsor
 import SubmitEntity from "@/DataTypes/common/Forms/SingleEdit/SubmitEntity";
 
 //Utils
-import {lang} from "@/src/common/Data/GlobalConstants";
+import {lang, modes} from "@/src/common/Data/GlobalConstants";
 import {getDefaultUpdateEntityMeta} from "@/src/DataTypes/Meta/EntityMeta";
 import Project from "@/DataTypes/Project/models/Project";
 import {replacePathname} from "@/src/helpers/url";
@@ -94,9 +94,9 @@ const ProjectSingleEdit = (props) => {
     */
     useEffect(() => {
         if(!auth.user.isLoggedIn) {
-            msg.addMessage({ 
+            msg.addMessage({
                 text: lang.needToBeConnectedToAccess,
-                positive: false 
+                positive: false
             })
             Router.push('/compte/connexion')
         }
@@ -201,9 +201,9 @@ const ProjectSingleEdit = (props) => {
         }
     )
     const submitHandler = async event => {
-        
+
         event.preventDefault();
-        
+
         const formData = {
             "data": {
                 id: _id,
@@ -265,7 +265,7 @@ const ProjectSingleEdit = (props) => {
                 meta: getDefaultUpdateEntityMeta(auth.user, model.meta.requestedBy),
             }
         }
-        
+
         //Add data to the formData
         submitRequest(
             "/projects/update",
@@ -293,7 +293,7 @@ const ProjectSingleEdit = (props) => {
 
 
     const title = (
-        <Input 
+        <Input
             name="name"
             label={"Nom du projet"+lang.required}
             formTools={formTools}
@@ -305,9 +305,9 @@ const ProjectSingleEdit = (props) => {
 
     const subtitle = (
         <>
-            <Input 
+            <Input
                 name="alternateName"
-                label="Nom alternatif"        
+                label="Nom alternatif"
                 formClassName="discrete-without-focus form-text-white"
                 formTools={formTools}
             />
@@ -340,14 +340,17 @@ const ProjectSingleEdit = (props) => {
 
 
     const ctaHeaderSection = (
-        <div className="d-flex flex-wrap align-items-end gap-2 gap-md-3 gap-lg-4">
-            <MainImageDisplay buttonClasses="fs-6" mainImage={currentMainImage} entity={currentModel} setter={updateModelMainImage} />
-            <Button className='fs-6' size="slim" color="success" disabled={!formState.isValid} onClick={modalSaveEntityReminder.displayModal}>
-                <Icon iconName={"save"} />&nbsp;{lang.capitalize("save")}
-            </Button>
-            <Button className='fs-6' size="slim" color="primary-light" href={model.singleLink}>
-                <Icon iconName={"times"} />&nbsp;{lang.capitalize("CancelChanges")}
-            </Button>
+        <div className="d-flex flex-wrap align-items-end justify-content-between gap-2 gap-md-3 gap-lg-4">
+            <MainImageDisplay buttonClasses="fs-6" mainImage={currentMainImage} entity={currentModel} setter={updateModelMainImage}/>
+            <div className="d-flex flex-wrap align-items-end justify-content-between gap-2 gap-md-3 gap-lg-4">
+                <Button className='fs-6' size="slim" color="success" disabled={!formState.isValid}
+                        onClick={modalSaveEntityReminder.displayModal}>
+                    <Icon iconName={"save"}/>&nbsp;{lang.capitalize("save")}
+                </Button>
+                <Button className='fs-6' size="slim" color="primary-light" href={model.singleLink}>
+                    <Icon iconName={"times"}/>&nbsp;{lang.Cancel}
+                </Button>
+            </div>
         </div>
     )
 
@@ -359,18 +362,19 @@ const ProjectSingleEdit = (props) => {
             mainImage={currentMainImage}
             buttonSection={ctaHeaderSection}
             entity={model}
+            mode={modes.CONTRIBUTING}
         />
     );
 
     const fullWidthContent = (
-            <SingleInfo
-                title={lang.about}
-            >
-                <RichTextarea
-                    name="description"
-                    formTools={formTools}
-                />
-            </SingleInfo>
+        <SingleInfo
+            title={lang.about}
+        >
+            <RichTextarea
+                name="description"
+                formTools={formTools}
+            />
+        </SingleInfo>
     );
 
     const contentColumnLeft = (
@@ -406,7 +410,7 @@ const ProjectSingleEdit = (props) => {
                     parentEntity={props.data}
                 />
             </SingleInfo>
-            { /* Update the equipment list */ }         
+            { /* Update the equipment list */ }
             <SingleInfo
                 title={lang.equipmentUsed}
             >
@@ -491,7 +495,7 @@ const ProjectSingleEdit = (props) => {
                         formTools={formTools}
                     />
                 </SingleInfo>
-            
+
             </SingleInfo>
         </>
     );
@@ -502,8 +506,8 @@ const ProjectSingleEdit = (props) => {
         <>
             {
                 (createdAt || updatedAt || meta) &&
-                <SingleInfo 
-                    title={lang.entityMetadata} 
+                <SingleInfo
+                    title={lang.entityMetadata}
                     className="border-top pt-3"
                 >
                     {/*********** Entity data ***********/}

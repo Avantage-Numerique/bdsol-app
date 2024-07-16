@@ -8,7 +8,7 @@ import {useRootModal} from '@/src/hooks/useModal/useRootModal'
 //components
 import Button from '@/FormElements/Button/Button'
 import Input from '@/FormElements/Input/Input'
-import {lang} from "@/src/common/Data/GlobalConstants";
+import {lang, modes} from "@/src/common/Data/GlobalConstants";
 import Select2 from '@/src/common/FormElements/Select2/Select2'
 import {SingleEntityMeta} from '@/src/DataTypes/Meta/components/SingleEntityMeta'
 import SingleInfo from "@/src/DataTypes/common/layouts/SingleInfo/SingleInfo";
@@ -188,25 +188,29 @@ const EquipmentSingleEdit = ({ positiveRequestActions, ...props}) => {
     const subtitle = (<></>);
     
     const ctaHeaderSection = (
-        <div className="d-flex flex-wrap align-items-end gap-2 gap-md-3 gap-lg-4">
-            <MainImageDisplay buttonClasses="fs-6" mainImage={currentMainImage} entity={currentModel} setter={updateModelMainImage} />
-            <Button className='fs-6' size="slim" color="success" disabled={!formState.isValid} onClick={modalSaveEntityReminder.displayModal}>
-                <Icon iconName={"save"} />&nbsp;{lang.capitalize("save")}
-            </Button>
-            <Button className='fs-6' size="slim" color="primary-light" href={model.singleLink}>
-                <Icon iconName={"times"} />&nbsp;{lang.capitalize("CancelChanges")}
-            </Button>
+        <div className="d-flex flex-wrap align-items-end justify-content-between gap-2 gap-md-3 gap-lg-4">
+            <MainImageDisplay buttonClasses="fs-6" mainImage={currentMainImage} entity={currentModel} setter={updateModelMainImage}/>
+            <div className="d-flex flex-wrap align-items-end justify-content-between gap-2 gap-md-3 gap-lg-4">
+                <Button className='fs-6' size="slim" color="success" disabled={!formState.isValid}
+                        onClick={modalSaveEntityReminder.displayModal}>
+                    <Icon iconName={"save"}/>&nbsp;{lang.capitalize("save")}
+                </Button>
+                <Button className='fs-6' size="slim" color="primary-light" href={model.singleLink}>
+                    <Icon iconName={"times"}/>&nbsp;{lang.Cancel}
+                </Button>
+            </div>
         </div>
     )
 
-    const header = ( 
+    const header = (
         <SingleBaseHeader
             className={"mode-update"}
-            title={title} 
-            subtitle={subtitle} 
+            title={title}
+            subtitle={subtitle}
             mainImage={currentMainImage}
             buttonSection={ctaHeaderSection}
             entity={model}
+            mode={modes.CONTRIBUTING}
         />
     );
 
@@ -233,7 +237,7 @@ const EquipmentSingleEdit = ({ positiveRequestActions, ...props}) => {
             title={lang.externalLinks}
             cardLayout
         >
-            <UpdateSocialHandles
+        <UpdateSocialHandles
                 name="url"
                 parentEntity={model}
                 formTools={formTools}

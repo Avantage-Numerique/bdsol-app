@@ -1,9 +1,9 @@
-import {useCallback, useContext, useEffect, useState} from "react";
+import React, {useCallback, useContext, useEffect, useState} from "react";
 import Router from "next/router";
 
 //Utils
 import Place from "../../../models/Place";
-import {lang} from "@/src/common/Data/GlobalConstants";
+import {lang, modes} from "@/src/common/Data/GlobalConstants";
 import {getDefaultUpdateEntityMeta} from "@/src/DataTypes/Meta/EntityMeta";
 import {replacePathname} from "@/src/helpers/url";
 
@@ -193,18 +193,22 @@ const PlaceSingleEdit = ({ positiveRequestActions, ...props}) => {
     );
 
     const ctaHeaderSection = (
-        <div className="d-flex flex-wrap align-items-end gap-2 gap-md-3 gap-lg-4">
-            <MainImageDisplay buttonClasses="fs-6" mainImage={currentMainImage} entity={currentModel} setter={updateModelMainImage} />
-            <Button className='fs-6' size="slim" color="success" disabled={!formState.isValid} onClick={modalSaveEntityReminder.displayModal}>
-                <Icon iconName={"save"} />&nbsp;{lang.capitalize("save")}
-            </Button>
-            <Button className='fs-6' size="slim" color="primary-light" href={model.singleLink}>
-                <Icon iconName={"times"} />&nbsp;{lang.capitalize("CancelChanges")}
-            </Button>
+        <div className="d-flex flex-wrap align-items-end justify-content-between gap-2 gap-md-3 gap-lg-4">
+            <MainImageDisplay buttonClasses="fs-6" mainImage={currentMainImage} entity={currentModel}
+                              setter={updateModelMainImage}/>
+            <div className="d-flex flex-wrap align-items-end justify-content-between gap-2 gap-md-3 gap-lg-4">
+                <Button className='fs-6' size="slim" color="success" disabled={!formState.isValid}
+                        onClick={modalSaveEntityReminder.displayModal}>
+                    <Icon iconName={"save"}/>&nbsp;{lang.capitalize("save")}
+                </Button>
+                <Button className='fs-6' size="slim" color="primary-light" href={model.singleLink}>
+                    <Icon iconName={"times"}/>&nbsp;{lang.Cancel}
+                </Button>
+            </div>
         </div>
     )
 
-    const header = ( 
+    const header = (
         <SingleBaseHeader
             className={"mode-update"}
             title={title} 
@@ -212,6 +216,7 @@ const PlaceSingleEdit = ({ positiveRequestActions, ...props}) => {
             mainImage={currentMainImage}
             buttonSection={ctaHeaderSection}
             entity={model}
+            mode={modes.CONTRIBUTING}
         >
         </SingleBaseHeader>
     );

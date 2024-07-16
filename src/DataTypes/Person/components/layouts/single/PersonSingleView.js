@@ -77,7 +77,6 @@ const PersonSingleView = ({ data }) => {
                     <p className=" mb-0 fs-4">{model.nickname ? "(" + model.nickname + ")" : ""}</p>
                 </div>
             )}
-
             subtitle={(
                 <i className="mt-2 fw-semibold"><blockquote className="text-dark">{catchphrase}</blockquote></i>
             )}
@@ -96,7 +95,7 @@ const PersonSingleView = ({ data }) => {
                     NAMessage="Aucune description n'est disponible pour le moment"
                     //cardLayout
                 >
-                    {   removeTagsFromString(description) &&
+                    { removeTagsFromString(description) &&
                         <SanitizedInnerHtml>
                             {description}
                         </SanitizedInnerHtml>
@@ -161,11 +160,11 @@ const PersonSingleView = ({ data }) => {
             }
         </>
     )
-
+    const entityLabelForBadge = model?.firstName ? model.lastName ? model.firstName + ' ' + model.lastName : model.firstName : model.lastName;
     const ContentColumnRight = (
         <>
             {/* Badges */}
-            <BadgesSection badges={model.badges}/>
+            <BadgesSection badges={model.badges} entityLabel={entityLabelForBadge}/>
 
             {/* Contact information */}
             <SingleInfo title={lang.organisationContact} cardLayout>

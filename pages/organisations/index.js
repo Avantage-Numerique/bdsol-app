@@ -21,9 +21,10 @@ import AppRoutes from "@/src/Routing/AppRoutes";
 import EntitiesGrid from "@/DataTypes/Entity/layouts/EntitiesGrid";
 import {getTitle} from "@/DataTypes/MetaData/MetaTitle";
 import {getType, TYPE_ORGANISATION} from "@/DataTypes/Entity/Types";
+import { getBadgesInfo } from '@/src/DataTypes/Badges/BadgesSection';
 
 
-const OrganisationsPage = () => {
+const OrganisationsPage = (props) => {
 
     const [ orgList, setOrgList ] = useState([]);
 
@@ -114,7 +115,7 @@ const OrganisationsPage = () => {
                         {/*  Show the feed in the EntitiesGrid component. It manages an empty list in it, but it make it more readable to show it here too */}
                         {
                             orgList.length > 0 && !isLoading &&
-                            <EntitiesGrid className="position-relative row row-cols-1 row-cols-sm-2 row-cols-xl-3" feed={orgList}/>
+                            <EntitiesGrid className="position-relative row row-cols-1 row-cols-sm-2 row-cols-xl-3" feed={orgList} badgesInfo={props.badgesInfo}/>
                         }
                     </section>
 
@@ -150,6 +151,16 @@ const OrganisationsPage = () => {
             </div>
         </div>
     )
+}
+
+//Load badges Info
+export async function getServerSideProps() {
+    const badgeInfo = await getBadgesInfo();
+    return {
+        props: {
+            badgesInfo : badgeInfo
+        }
+    }
 }
 
 export default OrganisationsPage
