@@ -131,8 +131,6 @@ const SearchResults = (props) => {
         )
     }
 
-    //useEffect( () => console.log(nearTaxonomyObject?.linkedEntityToNearestTaxonomy?.length, "searchList : ", searchList?.length || 0 ))
-    //useEffect( () => console.log(searchList))
     return (
         <div>
             <PageHeader

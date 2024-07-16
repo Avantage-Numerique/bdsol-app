@@ -200,7 +200,7 @@ const OrganisationSingleView = ({ data }) => {
     const ContentColumnRight = (
         <>
             {/* Badges */}
-            <BadgesSection badges={model.badges}/>
+            <BadgesSection badges={model.badges} entityLabel={model.name}/>
 
             {/* Contact information */}
             <SingleInfo title={lang.organisationContact} cardLayout>

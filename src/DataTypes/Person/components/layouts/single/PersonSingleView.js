@@ -160,11 +160,11 @@ const PersonSingleView = ({ data }) => {
             }
         </>
     )
-
+    const entityLabelForBadge = model?.firstName ? model.lastName ? model.firstName + ' ' + model.lastName : model.firstName : model.lastName;
     const ContentColumnRight = (
         <>
             {/* Badges */}
-            <BadgesSection badges={model.badges}/>
+            <BadgesSection badges={model.badges} entityLabel={entityLabelForBadge}/>
 
             {/* Contact information */}
             <SingleInfo title={lang.organisationContact} cardLayout>

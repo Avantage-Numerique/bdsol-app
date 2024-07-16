@@ -2,10 +2,10 @@ import {useEffect, useState} from "react";
 import SingleInfo from "../common/layouts/SingleInfo/SingleInfo";
 import {lang} from "@/src/common/Data/GlobalConstants";
 import {clientSideExternalApiRequest} from '@/src/hooks/http-hook';
+import Tip from "@/src/common/FormElements/Tip/Tip";
 
+const BadgesSection = ({badges, entityLabel, ...props}) => {
 
-const BadgesSection = ({badges,...props}) => {
-    
     //Check wether badges exist and is not empty
     if(badges === undefined || (Array.isArray(badges) && badges.length < 1) ){
         return (<></>)
@@ -24,7 +24,7 @@ const BadgesSection = ({badges,...props}) => {
         fetchBadge();
     }, [])
     
-    const UpdateShowBadges = (selected, isAlreadySelected=false) => {
+    const UpdateShowBadges = (selected) => {
         //Populate badgeArray for each badge earned by entity
         const badgesArray = [];
         badges.forEach(elem => {
@@ -35,22 +35,18 @@ const BadgesSection = ({badges,...props}) => {
 
         const tempShowBadge = [];
         badgesArray.forEach( (elem, index) => {
-            const isSelected = elem.name === selected?.name && isAlreadySelected;
+            const tip =
+            {
+                header: "Détails du badge",
+                body: entityLabel ? entityLabel + ' ' + elem.description : elem.description.charAt(0).toUpperCase() + elem.description.slice(1)
+            }
             tempShowBadge.push(
-                <ul className="list-group list-group-flush d-inline-flex" key={elem.name+"-"+index}>
-                    <li className={"list-group-item p-0"} onClick={() => UpdateShowBadges(elem, !isAlreadySelected)}>
-                        <button className="btn btn-none" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                    <li className={"d-flex align-items-start list-group-item p-0"}>
                             <img className="" width="40px" height="40px" src={elem.iconPath} alt={elem.iconAlt}/>
                             <span className="mx-2">{elem?.label ?? "Badge"}</span>
-                        </button>
-                        {
-                            isSelected &&
-                            <div className={"px-4"}>
-                                {elem.description}
-                            </div>
-                        }
+                            <Tip className="" {...tip }/>
+                            
                     </li>
-                </ul>
             )
         })
         setShowBadgesState(tempShowBadge);
@@ -65,7 +61,9 @@ const BadgesSection = ({badges,...props}) => {
     return (
         <div className="">
             <SingleInfo title={lang.badges}>
-                {showBadgesState}
+                <ul>
+                    {showBadgesState}
+                </ul>
             </SingleInfo>
         </div>
     )
