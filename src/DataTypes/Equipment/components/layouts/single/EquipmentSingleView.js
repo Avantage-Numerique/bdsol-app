@@ -1,18 +1,18 @@
-import React, {useCallback} from 'react';
+import React, {useEffect, useState} from 'react';
 
 //components
 import SingleBase from "@/src/DataTypes/common/layouts/single/SingleBase"
 import SingleBaseHeader from "@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseHeader"
 import SingleInfo from "@/DataTypes/common/layouts/SingleInfo/SingleInfo";
 import SocialHandleDisplay from '@/DataTypes/common/layouts/SocialHandlesViews/SocialHandleDisplay'
-import SingleBaseProgressBar from '@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseProgressBar/SingleBaseProgressBar'
+import SingleBaseProgressBar
+    from '@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseProgressBar/SingleBaseProgressBar'
 
 //Utils
 import SanitizedInnerHtml from '@/src/utils/SanitizedInnerHtml';
 import {SingleEntityMeta} from "@/src/DataTypes/Meta/components/SingleEntityMeta";
 import {lang} from "@/common/Data/GlobalConstants";
 import Equipment from '../../../models/Equipment';
-import {appConfig} from "@/src/configs/AppConfig";
 import EntitiesTagGrid from "@/DataTypes/Entity/layouts/EntitiesTagGrid";
 
 
@@ -20,27 +20,33 @@ const EquipmentSingleView = ({ data }) => {
 
     const model = new Equipment(data);
 
-    const sectionClassSpacing = appConfig.spacing.singleSectionSpacingClass;
-
     /* Needed for breadCrumb generator */
-    const getLabelGenerator = useCallback((param, query) => {
-        return {
-            "equipement": lang.Equipment,
-            "slug": model.title
-        }[param];
-    }, []);
+
+    const breadcrumbLabels = {
+        "equipement": lang.Equipment,
+        "slug": model.title
+    };
+
+    const [breadCrumb, setBreadCrumb] = useState({
+        route: model.singleRoute,
+        labels: breadcrumbLabels,
+    });
+
+    useEffect(() => {
+        setBreadCrumb({
+            route: model.singleRoute,
+            labels: breadcrumbLabels,
+        })
+    }, [model.title]);
 
     /****************************
      *  Sections
      ***************************/
-    const breadCrumb = {
-        route: model.singleRoute,
-        getLabelGenerator: getLabelGenerator
-    }
+
     const title = (
         <>
-            <SanitizedInnerHtml tag={"h5"} className="text-white">{`${model.equipmentType.name}`}</SanitizedInnerHtml>
-            <SanitizedInnerHtml tag={"h3"} className="text-white">{`${model.title}`}</SanitizedInnerHtml>
+            <SanitizedInnerHtml removeQlEditorClass tag={"h5"} className="text-white">{`${model.equipmentType.name}`}</SanitizedInnerHtml>
+            <SanitizedInnerHtml removeQlEditorClass tag={"h3"} className="text-white">{`${model.title}`}</SanitizedInnerHtml>
         </>)
     const subtitle = (<></>)
     const Header = (
@@ -58,6 +64,8 @@ const EquipmentSingleView = ({ data }) => {
         <>
             <SingleInfo
                 cardLayout
+                displayCondition={(model.brand || model.modelName)}
+                NAMessage="Aucun modèle ou marque n'est associé à ce produit."
                 title={lang.productInformations}
             >
                 

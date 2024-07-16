@@ -1,16 +1,16 @@
-import { useCallback, useState, useEffect, useContext} from "react";
+import React, {useCallback, useContext, useEffect, useState} from "react";
 import Router from "next/router";
 
 //Utils
 import Place from "../../../models/Place";
-import { lang } from "@/src/common/Data/GlobalConstants";
-import { getDefaultUpdateEntityMeta } from "@/src/DataTypes/Meta/EntityMeta";
+import {lang, modes} from "@/src/common/Data/GlobalConstants";
+import {getDefaultUpdateEntityMeta} from "@/src/DataTypes/Meta/EntityMeta";
 import {replacePathname} from "@/src/helpers/url";
 
 //hooks
-import { MessageContext } from "@/src/common/UserNotifications/Message/Context/Message-Context";
-import { useFormUtils } from "@/src/hooks/useFormUtils/useFormUtils";
-import { useAuth } from "@/src/authentification/context/auth-context";
+import {MessageContext} from "@/src/common/UserNotifications/Message/Context/Message-Context";
+import {useFormUtils} from "@/src/hooks/useFormUtils/useFormUtils";
+import {useAuth} from "@/src/authentification/context/auth-context";
 import {useRootModal} from '@/src/hooks/useModal/useRootModal';
 
 
@@ -160,24 +160,29 @@ const PlaceSingleEdit = ({ positiveRequestActions, ...props}) => {
         );
     }
 
-    const getLabelGenerator = useCallback((param, query) => {
-        return {
-            "contribuer": lang.menuContributeLabel,
-            "lieux": lang.Places,
-            "slug": model.name ?? '-'
-        }[param];
-    }, []);
 
-    const breadCrumb = {
+    const breadcrumbLabels = {
+        "contribuer": lang.menuContributeLabel,
+        "lieux": lang.Places,
+        "slug": model.name ?? '-'
+    };
+
+    const breadcrumbsRoutes = {
         route: model.singleEditRoute,
-        getLabelGenerator: getLabelGenerator
+        labels: breadcrumbLabels,
     }
+
+    const [breadCrumb, setBreadCrumb] = useState(breadcrumbsRoutes);
+    useEffect(() => {
+        setBreadCrumb(breadcrumbsRoutes)
+    }, [model.title]);
+
 
     const title = (
         <>
             <Input 
                 name="name"
-                label={lang.name}
+                label={lang.name+lang.required}
                 formClassName="discrete-without-focus form-text-white h2"
                 validationRules={[
                     {name: "REQUIRED"}
@@ -188,18 +193,22 @@ const PlaceSingleEdit = ({ positiveRequestActions, ...props}) => {
     );
 
     const ctaHeaderSection = (
-        <div className="d-flex flex-wrap align-items-end gap-2 gap-md-3 gap-lg-4">
-            <MainImageDisplay buttonClasses="fs-6" mainImage={currentMainImage} entity={currentModel} setter={updateModelMainImage} />
-            <Button className='fs-6' size="slim" color="success" disabled={!formState.isValid} onClick={modalSaveEntityReminder.displayModal}>
-                <Icon iconName={"save"} />&nbsp;{lang.capitalize("save")}
-            </Button>
-            <Button className='fs-6' size="slim" color="primary-light" href={model.singleLink}>
-                <Icon iconName={"times"} />&nbsp;{lang.capitalize("CancelChanges")}
-            </Button>
+        <div className="d-flex flex-wrap align-items-end justify-content-between gap-2 gap-md-3 gap-lg-4">
+            <MainImageDisplay buttonClasses="fs-6" mainImage={currentMainImage} entity={currentModel}
+                              setter={updateModelMainImage}/>
+            <div className="d-flex flex-wrap align-items-end justify-content-between gap-2 gap-md-3 gap-lg-4">
+                <Button className='fs-6' size="slim" color="success" disabled={!formState.isValid}
+                        onClick={modalSaveEntityReminder.displayModal}>
+                    <Icon iconName={"save"}/>&nbsp;{lang.capitalize("save")}
+                </Button>
+                <Button className='fs-6' size="slim" color="primary-light" href={model.singleLink}>
+                    <Icon iconName={"times"}/>&nbsp;{lang.Cancel}
+                </Button>
+            </div>
         </div>
     )
 
-    const header = ( 
+    const header = (
         <SingleBaseHeader
             className={"mode-update"}
             title={title} 
@@ -207,6 +216,7 @@ const PlaceSingleEdit = ({ positiveRequestActions, ...props}) => {
             mainImage={currentMainImage}
             buttonSection={ctaHeaderSection}
             entity={model}
+            mode={modes.CONTRIBUTING}
         >
         </SingleBaseHeader>
     );

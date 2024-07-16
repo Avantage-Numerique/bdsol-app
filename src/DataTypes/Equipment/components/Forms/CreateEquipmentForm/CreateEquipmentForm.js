@@ -82,7 +82,7 @@ const CreateEquipmentForm = ({ onPositiveResponse, initValues }) => {
             <div>
                 <Select2
                     name="equipmentType"
-                    label={lang.equipmentType}
+                    label={lang.equipmentType+lang.required}
                     formTools={formTools}
                     creatable={true}
                     modalType={TYPE_TAXONOMY}
@@ -96,7 +96,7 @@ const CreateEquipmentForm = ({ onPositiveResponse, initValues }) => {
                 />
                 <Input  
                     name="label"
-                    label={lang.label}
+                    label={lang.label+lang.required}
                     formTools={formTools}
                     placeholder={lang.labelPlaceholder}
                 />
@@ -111,6 +111,7 @@ const CreateEquipmentForm = ({ onPositiveResponse, initValues }) => {
                     formTools={formTools}
                 />
             </div>
+            <div>Suite à la création de l'équipement et de votre fiche, nous vous suggérons d'aller voir la fiche de l'équipement afin d'ajouter des liens vers des pages internet de celui-ci.</div>
             <div className="d-flex justify-content-end">
                 <Button disabled={!formState.isValid} type="button" onClick={submitHandler}>{lang.continue}</Button>
             </div>

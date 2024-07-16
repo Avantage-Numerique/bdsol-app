@@ -5,6 +5,7 @@ import Head from 'next/head';
 import {lang} from "@/common/Data/GlobalConstants";
 import {appUrl} from "@/src/helpers/url";
 import DOMPurify from 'isomorphic-dompurify';
+import {truncate} from "@/src/helpers/str";
 
 const lengthValidator = (text, recommandation, tagName="") => {
 
@@ -41,13 +42,18 @@ const PageMeta = (props) => {
     const router = useRouter();
     const currentAddress = props.canonical || appUrl(router.pathname)
 
+    const descriptionLengthRecommandation = 500;
+    const titleLengthRecommandation = 200;
+
     //If those two aren't filled, the default values are going to be injected instead.
     const defaultPageTitle = lang.appDefaultName
     const defaultPageDescription = lang.appDefaultDescription
 
+    const metaDescription = truncate((props.description ?? defaultPageDescription), descriptionLengthRecommandation);
+
     //Og Values 
-    const displayedOgTitle = lengthValidator((props.ogTitle || (props.title || defaultPageTitle)), 65, "og:title")
-    const displayedOgDescription = lengthValidator((props.ogDescription || (props.description || defaultPageDescription)), 160, "og:description")
+    const displayedOgTitle = truncate((props.ogTitle || (props.title || defaultPageTitle)), titleLengthRecommandation);//lengthValidator((props.ogTitle || (props.title || defaultPageTitle)), titleLengthRecommandation, "og:title")
+    const displayedOgDescription = truncate((props.ogDescription || (props.description || defaultPageDescription)), descriptionLengthRecommandation);//lengthValidator((props.ogDescription || (props.description || defaultPageDescription)), descriptionLengthRecommandation, "og:description")
 
     //Default image for social media. The same by default for both
     const defaultImg = "/meta-images/Avnu---Open-Graph.jpg";
@@ -55,14 +61,14 @@ const PageMeta = (props) => {
     const defaultImgWidth = "1200"
     const defaultImgHeight = "630"
 
-    const displayedImg = props.imageFromApi || (appUrl(props.image) || appUrl(defaultImg))
+    const displayedImg = props.imageFromApi || (props.image && appUrl(props.image) || appUrl(defaultImg));
 
     return (
         <Head>
             <title>{lengthValidator((props.title || defaultPageTitle), 65, "Title")}</title>
 
             {/* Keywords and description to evaluate */}
-            <meta name="description" content={lengthValidator((props.description ?? defaultPageDescription), 160, "Description")}/>  
+            <meta name="description" content={metaDescription}/>
             {props.keywords && <meta name="keywords" content={props.keywords}/>}
             {props.preventIndexation ? 
                 <meta name="robots" content="noindex, nofollow" /> : 

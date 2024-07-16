@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import {useEffect} from 'react';
 import {pingExternalApi} from "@/src/api/external/callbacks/pingExternalApi";
 
 export default function useApi(connectedSetter) {
@@ -8,6 +8,6 @@ export default function useApi(connectedSetter) {
     }
     useEffect( () => {
         pingApi();
-        setInterval( async () => pingApi(), Number(process.env.PING_INTERVAL));
+        setInterval( async () => pingApi(), Number(process.env.PING_INTERVAL)*1000*60);
     }, []);
 }

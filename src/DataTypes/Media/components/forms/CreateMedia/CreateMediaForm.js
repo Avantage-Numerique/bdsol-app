@@ -205,7 +205,7 @@ const CreateMediaForm = (props) => {
             <div className="d-flex w-100">
                 <div className="row w-100 gx-3">
                     {/* Column one */}
-                    <div className={`col-6 ${styles["image-column"]}`}>
+                    <div className={`col-12 col-md-6 ${styles["image-column"]}`}>
                         {isNewFile &&
                             <LargeFileInput 
                                 name={mediaField}
@@ -243,10 +243,9 @@ const CreateMediaForm = (props) => {
                     </div>
 
                     {/* Column two */}
-                    <div className={`col-6 ${styles["fields-column"]}`}>
-
+                    <div className={`col-12 col-md-6 ${styles["fields-column"]}`}>
                         <nav className={`container mb-2 ${styles["form-inner-nav"]}`}>
-                            <p className="mb-0 d-flex justify-content-center">Informations</p>
+                            <h4 className="mb-1 d-flex justify-content-center text--dark fs-5">Informations</h4>
                             <div className="row">
                                 <button aria-current={ formPage === 0 ? "page" : ""} className={`${styles["form-inner-nav__button"]} col fs-6`} type="button" onClick={() => setFormPage(0)}>
                                     De base
@@ -261,8 +260,12 @@ const CreateMediaForm = (props) => {
                         <div>
                             Média associé à 
                             {/************  Waiting for the tag components ************/}
-                            <EntityTag model={entity} addButton={false} addType={false} />
-
+                            <EntityTag 
+                                model={entity} 
+                                addButton={false} 
+                                addType={false}
+                                className="mt-1 mb-2"
+                            />
                             <SelectLicence
                                 formTools={formTools}
                                 name="licence"
@@ -273,7 +276,6 @@ const CreateMediaForm = (props) => {
                                     }
                                 }
                             />
-
                             <Input
                                 name="title"
                                 label="Titre de l'image"
@@ -306,7 +308,7 @@ const CreateMediaForm = (props) => {
                                 > Soumettre
                                 </Button>
                                 {!isNewFile &&
-                                    <button onClick={submitDelete} type="button" className="text-danger fs-5"><u>Supprimer l'image</u></button>
+                                    <Button text_color="danger" onClick={submitDelete} type="button" className="fs-6"><u>Supprimer l'image</u></Button>
                                 }
                         </div>
                     </div>

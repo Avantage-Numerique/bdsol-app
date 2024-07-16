@@ -47,7 +47,7 @@ const SelectEquipment = ({name, formTools, parentEntity, ...props}) => {
                         <div className="col-9">
                             <Select2
                                 name="equipment"
-                                label={lang.Equipment}
+                                label={lang.Equipment+lang.required}
                                 creatable
                                 fetch={"/equipment/list"}
                                 searchField={"label"}
@@ -62,7 +62,7 @@ const SelectEquipment = ({name, formTools, parentEntity, ...props}) => {
                             className="col-3"
                             name="qty"
                             type="number"
-                            label={lang.Quantity}
+                            label={lang.Quantity+lang.required}
                             default={1}
                             validationRules={[
                                 {name: "REQUIRED"}

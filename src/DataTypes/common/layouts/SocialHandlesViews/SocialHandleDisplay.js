@@ -20,15 +20,8 @@ const SingleSocialHandle = ( {data} ) => {
         <div className={`p-1 ${styles["single-social-hangle"]}`}>
             {
                 data.url === `${data.url}` && data.label === `${data.label}` &&
-                <ExternalLink href={data.url} className="d-flex flex-column" target='blank'>
-                    {/* Label section */}
-                    <div className="d-flex">
-                        <p className="m-0 fw-semibold text-truncate">{data.label}</p>
-                    </div>
-                    {/* Display link */}
-                    <small>
-                        <p className={`m-0 text-truncate text-secondary ${styles["single-social-hangle__link"]}`}>{data.url}</p>
-                    </small>
+                <ExternalLink href={data.url} title={data.url} target='_blank'>
+                    <span>{data.label}</span>
                 </ExternalLink>
             }
         </div>
@@ -52,7 +45,7 @@ const SocialHandleDisplay = ({ url, title, className }) => {
         (orderedUrls.length > 0) &&
             <SingleInfo title={title} className={className}>
                 {
-                    orderedUrls.map( (singleUrl) => <SingleSocialHandle data={singleUrl} key={("url_" + singleUrl.url)} />)
+                    orderedUrls.map( (singleUrl, i) => <SingleSocialHandle data={singleUrl} key={("url_" + singleUrl.url+i)} />)
                 }
             </SingleInfo>
         

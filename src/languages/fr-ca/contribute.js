@@ -2,6 +2,7 @@ const contribute = {
     "save": "Enregistrer",
     "visualize": "Visualiser",
     "modify": "Modifier",
+    "Cancel": "Annuler",
     "CancelChanges": "Annuler les changements",
 
     //messages

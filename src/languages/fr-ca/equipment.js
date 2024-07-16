@@ -1,5 +1,7 @@
 const equipment = {
 
+    "EquipmentsDefinition":"Équipement numérique possédé par un individu ou une organisation et qu'il est possible d'emprunter, de louer ou d'échanger en service.",
+
     "equipment":"équipement",
     "Equipment":"Équipement",
     "equipments":"équipements",

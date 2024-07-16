@@ -37,7 +37,7 @@ export const useSessionHook = () => {
 
                 if(response.positive) {
                     //auth.login(response.data.user);
-                    await Router.push(response.redirectUri);
+                    await Router.push(`${response.redirectUri}?msg=${lang.disconnected}&msgPositive=true`);
                 } else {
                     msg.addMessage({
                         text: response.text,

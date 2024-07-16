@@ -27,7 +27,7 @@ const PersonSingleEditPage = () => {
     useEffect(() => displayModal(), [])
 
     return (
-        <div className="container py-4">
+        <div className="container">
                 {/* Empty single edit, only to display in the background */}
                 <ProjectSingleEdit data={{}} />
                 {/* Loading spinner */}

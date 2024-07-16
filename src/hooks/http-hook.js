@@ -13,8 +13,8 @@ export const externalApiRequest = async (path, params = {}) => {
 
     params.isBodyJson = params.isBodyJson === undefined ? true : params.isBodyJson;//par défault tout est JSON
 
-    const baseApiRoute = params.origin === "browser" ? process.env.NEXT_PUBLIC_API_URL : process.env.FROMSERVER_API_URL,
-        baseAppRoute = params.origin === "browser" ? process.env.NEXT_PUBLIC_APP_URL : process.env.FROMSERVER_APP_URL;
+    const baseApiRoute = params.origin === "browser" ? process.env.API_URL : process.env.FROMSERVER_API_URL,
+        baseAppRoute = params.origin === "browser" ? process.env.APP_URL : process.env.FROMSERVER_APP_URL;
 
     const defaultHeaders = { 'Origin': baseAppRoute },
         jsonHeaders = params.isBodyJson ? {'Content-Type': 'application/json'} : {};

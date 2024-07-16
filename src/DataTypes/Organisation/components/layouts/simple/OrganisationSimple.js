@@ -3,10 +3,10 @@ import React from "react"
 import styles from './OrganisationSimple.module.scss'
 import EntitySimple from "@/DataTypes/common/layouts/EntitySimple/EntitySimple";
 
-const OrganisationSimple = ({ model }) => {
+const OrganisationSimple = ({ model, ...props }) => {
 
     return (
-        <EntitySimple model={model} className={`${styles["org-simple"]}`} />
+        <EntitySimple {...props}model={model} className={`${styles["org-simple"]}`} />
     )
 }
 

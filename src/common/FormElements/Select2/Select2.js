@@ -15,6 +15,7 @@ import {useHttpClient} from "@/src/hooks/http-hook";
 import useDebounce from '@/src/hooks/useDebounce'
 import {useRootModal} from '@/src/hooks/useModal/useRootModal'
 import {useValidation} from '@/src/hooks/useValidation/useValidation';
+import {useFieldTips} from '@/src/hooks/useFieldTips/useFieldTips';
 
 //Modal component
 import {
@@ -50,6 +51,7 @@ import CreateEquipmentForm from "@/src/DataTypes/Equipment/components/Forms/Crea
  * @param {object} requestData : param to always pass during request (e.g. category : "skills" to only access skills taxonomy)
  * @param {string} searchField : name of the property to search in the database from select2 input (e.g. "name", "firstName")
  * @param {string} selectField : String that allow ApiEntityModel to know what to return as a select option from the data of formState (domains, offers, fullName)
+ * @param {Array} allowedCategories : array containing the string values of the categories that should be allowed on taxonomy form 
  * Note : Works best if "type" is in the formState data, else it goes to switch case default and exceptions need to be handled
  * @param {function} createOptionFunction : function that handles the create (modal pop-up ...) if undefined, create default 
  */
@@ -73,8 +75,21 @@ const Select2 = ({ name, formTools, ...props }) => {
         inputTouched
     } = formTools;
 
+    const currentState = formState.inputs[name];
+
+    const onTouch = event => {
+        inputHandler(
+            name,
+            value,
+            props.validationRules ? validate(value) : true
+        )
+        inputTouched(name)
+    }
+
     //Extract validator message
     const { validate, RequirementsBadges, dependencyCallingValidation } = useValidation( props.validationRules, formState )
+    //Tooltip
+    const {TipPopOver, TipButton} = useFieldTips(props.tip);
 
     useEffect(() => {
         inputHandler(
@@ -156,11 +171,14 @@ const Select2 = ({ name, formTools, ...props }) => {
     }
 
     const label = props.label ? 
-        (
+        (   
+            <>
             <div className="d-flex justify-content-between pb-1">
                 <label htmlFor={name}>{props.label}</label>
-                {props.tooltip && <Tip header={props.tooltip?.header} body={props.tooltip?.body}/>}
+                {props.tip && <TipButton title="Détails" />}
             </div>
+            <TipPopOver />
+            </>
         ) :
         (<></>);
 
@@ -177,6 +195,7 @@ const Select2 = ({ name, formTools, ...props }) => {
             inputValueSetter={setInputValue}
             value={value}
             valueSetter={setValue}
+            onTouch={onTouch}
         />):
         (<Select2BaseSingle
             name={name}
@@ -191,6 +210,7 @@ const Select2 = ({ name, formTools, ...props }) => {
             inputValueSetter={setInputValue}
             value={value}
             valueSetter={setValue}
+            onTouch={onTouch}
         />);
 
 
@@ -228,6 +248,7 @@ const Select2 = ({ name, formTools, ...props }) => {
             name={name ?? ''}   //Prefilled value
             initValues={ modalInitValues ?? {} }
             category={props.requestData?.category}
+            allowedCategories={props.allowedCategories}
             onPositiveResponse={(response) => {
                 const optionCreated = ApiEntityModel.getSelectOption(response.data)
                 addSelectedValue(...optionCreated)
@@ -319,10 +340,16 @@ const Select2 = ({ name, formTools, ...props }) => {
         <>
             {label} 
             
-            <div className="
-                    form-element
-                    form-element--color-validation
-                ">
+            <div 
+                //tabIndex="0"  Would allow the complete field to be focused, not only the input. But that would alos make two focusable elements by field
+                data-testid="field-container"
+                className={`
+                form-element
+                form-element--color-validation
+                ${props.disabled ? "bg-greyBg" : ""}
+                ${props.formClassName && props.formClassName}
+                ${!currentState.isValid && currentState.isTouched && "control--invalid"}
+            `}>
                     {select}
                     <RequirementsBadges addUlPadding />
             </div>

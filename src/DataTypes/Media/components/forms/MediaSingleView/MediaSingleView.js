@@ -1,5 +1,5 @@
 //React
-import React, {useCallback} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 
 //Utils
 import {getModelFromType, getType} from "@/DataTypes/Entity/Types";
@@ -16,6 +16,7 @@ import LicenceDisplay from "@/src/common/FormElements/SelectLicence/LicenceDispl
 import SanitizedInnerHtml from "@/src/utils/SanitizedInnerHtml";
 import {SingleEntityMeta} from "@/src/DataTypes/Meta/components/SingleEntityMeta";
 import Media from "@/DataTypes/Media/models/Media";
+import {RouteLink} from "@/common/Components/RouteLink";
 
 
 const SingleInfoLayout = ({ title, NAMessage="-", children }) => {
@@ -52,6 +53,8 @@ const MediaSingleView = ({data}, ...props) => {
 
     const associatedEntityType = getType(data.entityId.type, true);
     const associatedEntityModel = getModelFromType(data.entityId.type, data.entityId);
+
+
     /* Needed for breadCrumb generator */
     const getHrefGenerator = useCallback(() => {
         return {
@@ -66,49 +69,49 @@ const MediaSingleView = ({data}, ...props) => {
             "organisations": "organisations",
             "projects": "projects",
             "events":"events",
-            "medias": "medias"
+            "medias": "medias",
+            "lieux": "lieux"
         };
     }, []);
 
-    const getLabelGenerator = useCallback((param, query) => {
-        return {
-            "id": () => data?.title ?? "title must be set",
-            "slug": () => data?.title ?? "title must be set",
-            "person.slug": () => associatedEntityModel.title ?? "Personne",
-            "organisation.slug": () => associatedEntityModel.title ?? "Organisation",
-            "project.slug": associatedEntityModel.title ?? "Projet",
-            "event.slug": associatedEntityModel.title ?? "Événement",
-            "equipment.slug": associatedEntityModel.title ?? "Équipement",
-            "place.slug": associatedEntityModel.title ?? "Lieu",
-            "personnes": () => "Personnes",
-            "equipement": () => "Équipements",
-            "organisations": () => "Organisations",
-            "projets": () => "Projets",
-            "evenements": () => "Événements",
-            "medias": () => "Média"
-        }[param];
-    }, []);
+    /* Needed for breadCrumb generator */
+    const breadcrumbLabels = {
+        "id": data?.title && data?.title !== "" ? data?.title : "title must be set",
+        "slug": data?.title && data?.title !== "" ? data?.title : "title must be set",
+        "person.slug": associatedEntityModel.title ?? "Personne",
+        "organisation.slug": associatedEntityModel.title ?? "Organisation",
+        "project.slug": associatedEntityModel.title ?? "Projet",
+        "event.slug": associatedEntityModel.title ?? "Événement",
+        "equipment.slug": associatedEntityModel.title ?? "Équipement",
+        "place.slug": associatedEntityModel.title ?? "Lieu",
+        "personnes": "Personnes",
+        "equipement": "Équipements",
+        "organisations": "Organisations",
+        "projets": "Projets",
+        "evenements": "Événements",
+        "lieux": "Lieux",
+        "medias": "Média"
+    };
 
-    const breadCrumb = {
+    const breadcrumbsRoutes = {
         route: associatedEntityModel.singleMediaRoute,
-        getLabelGenerator: getLabelGenerator,
+        labels: breadcrumbLabels,
         getHrefGenerator: getHrefGenerator
     }
+
+    const [breadCrumb, setBreadCrumb] = useState(breadcrumbsRoutes);
+    useEffect(() => {
+        setBreadCrumb(breadcrumbsRoutes)
+    }, [title]);
+
 
     const header = (
         <SingleBaseHeader
             className={"mode-public"}
             title={(<SanitizedInnerHtml tag={"h1"} className="text-white">{`${title}`}</SanitizedInnerHtml>)}
-            mainImage={model}
             subtitle={(
                 <div className="d-text text-white">
-                    <div>
-                        <span className={`${styles["quick-section__single-info"]}`}>{lang.filename}{lang.colon}</span>{fileName + '.' + extension}
-                    </div>
-                    <div>
-                        <strong>{lang.licence}{lang.colon}</strong>
-                        <LicenceDisplay licenceKey={licence ?? {} }/>
-                    </div>
+                    <LicenceDisplay licenceKey={licence ?? {} }/>
                 </div>
             )}
             entity={data}
@@ -136,8 +139,12 @@ const MediaSingleView = ({data}, ...props) => {
             </SingleInfoLayout>
 
             <SingleInfoLayout
-                title={lang.associatedTo + associatedEntityType.inSentencePrefix + associatedEntityType.label}>
-                <EntityTag model={associatedEntityModel} />
+                title={lang.associatedTo.capitalize() + associatedEntityType.inSentencePrefix + associatedEntityType.label}>
+                <EntityTag model={associatedEntityModel}/>
+            </SingleInfoLayout>
+
+            <SingleInfoLayout title={lang.licenceMediaMoreDetails}>
+                <RouteLink routeName={"licences"} className="btn btn-sm btn-secondary px-4" />
             </SingleInfoLayout>
         </>
     );

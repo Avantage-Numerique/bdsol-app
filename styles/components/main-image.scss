@@ -1,56 +1,69 @@
 
 .main-image-container {
 
-  --picture-size: clamp(8rem, 20vw, 12rem);
-  --margin-bottom: calc(-0.30*var(--picture-size));
+    //moved to :root --picture-size: #{$picture-size};
+    //--margin-bottom: 1rem;//mobile first approach//calc(-0.30 * var(--picture-size));
 
-  position:relative;
-  margin-bottom: var(--margin-bottom);
-  width: var(--picture-size);
-  height: var(--picture-size);
-  border-radius: 50%;
-
-  &.no-bottom-margin {
-    --margin-bottom: 1rem;
-  }
-
-  &.default-img {
-    //Make it a tiny bit less overflowing if its the default picture
-    --margin-bottom: calc(-0.20*var(--picture-size));
-    img {
-      object-fit: contain !important; 
-      object-position: center bottom;
-     }
-     &.no-bottom-margin {
-      --margin-bottom: 1rem;
-    }
-  }
-
-  .main-image {
-    bottom: 0;
-    position: absolute;
+    position: relative;
+    //take that to the single scope : singleBaseHeader //margin-bottom: var(--margin-bottom);
     width: var(--picture-size);
-    height:  var(--picture-size);
-    object-fit: cover;
-    //box-shadow: $default-box-shadow;
-  }
+    height: var(--picture-size);
+    border-radius: 50%;
 
-  .edit-image-button {
-    opacity: 0.8;
-    position: absolute;
-    right: -1rem;
-    bottom : calc(0px - var(--margin-bottom) - 1rem);
-    &:hover { opacity: 1; }
-  }
-
-  .main-image-link {
-    background-color: rgba($dark, 0%);
-    color: rgba($light, 5%);
-    @include transition();
-    &:hover {
-      background-color: rgba($dark, 15%);
-      color: rgba($light, 90%);
+    &.no-overlap-image {
+        --margin-bottom: #{$single-mainimage-margin-xs};
     }
-  }
-}
 
+    &.overlap-image-over {
+        --margin-bottom: #{$single-mainimage-margin-sm};
+    }
+
+    &.default-img {
+        //Make it a tiny bit less overflowing if its the default picture
+        //--margin-bottom: calc(-0.20 * var(--picture-size));
+
+        img {
+            object-fit: contain !important;
+            object-position: center bottom;
+        }
+
+        &.no-overlap-image {
+            --margin-bottom: 1rem;
+        }
+
+        &.overlap-image-over {
+            --margin-bottom: calc(-0.30 * var(--picture-size));
+        }
+    }
+
+    .main-image {
+        bottom: 0;
+        position: absolute;
+        width: var(--picture-size);
+        height: var(--picture-size);
+        object-fit: cover;
+        //box-shadow: $default-box-shadow;
+    }
+
+    .edit-image-button {
+        opacity: 0.8;
+        position: absolute;
+        right: -1rem;
+        bottom: calc(0px - var(--margin-bottom) - 1rem);
+
+        &:hover {
+            opacity: 1;
+        }
+    }
+
+    .main-image-link {
+        background-color: rgba($dark, 0%);
+        color: rgba($light, 5%);
+        @include transition();
+
+        &:hover {
+            background-color: rgba($dark, 15%);
+            color: rgba($light, 90%);
+        }
+    }
+}

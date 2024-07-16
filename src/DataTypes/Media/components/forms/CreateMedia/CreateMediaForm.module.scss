@@ -1,7 +1,7 @@
 .create-media-form {
 
     .image-column {
-        min-height: 14rem;
+        min-height: 20rem;
         display: grid;
         grid-template-rows: 1fr auto;
 
@@ -14,12 +14,15 @@
     .fields-column {
 
         .form-inner-nav {
-
             border-bottom: 0.05rem solid rgb(199, 199, 199);
 
             .form-inner-nav__button {
+                &:hover {
+                    background-color: rgba(128, 128, 128, 0.095);
+                }
                 &[aria-current="page"] {
-                    border-bottom: 0.2rem solid rgb(213, 213, 255);
+                    background-color: $secondary-darker;
+                    color: white;
                 }
             }
         }

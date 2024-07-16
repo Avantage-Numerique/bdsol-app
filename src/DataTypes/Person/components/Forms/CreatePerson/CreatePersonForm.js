@@ -10,13 +10,13 @@ import RichTextarea from '@/FormElements/RichTextArea/RichTextarea'
 
 //Context
 import {useAuth} from "@/src/authentification/context/auth-context";
+import { lang } from '@/src/common/Data/GlobalConstants'
 
 //Styling
 import styles from './CreatePersonForm.module.scss'
 
 //FormData
 import {getDefaultCreateEntityMeta} from "@/src/DataTypes/Meta/EntityMeta";
-import { lang } from '@/src/common/Data/GlobalConstants'
 
 
 const CreatePersonForm = ({ onPositiveResponse }) => {
@@ -87,7 +87,7 @@ const CreatePersonForm = ({ onPositiveResponse }) => {
             <div className="row">
                 <Input 
                     name="firstName"
-                    label="Prénom"
+                    label={"Prénom"+lang.required}
                     className="col-12 col-md-6"
                     validationRules={[{name: "REQUIRED"}]}
                     errorText="Cette information est requise"
@@ -96,7 +96,7 @@ const CreatePersonForm = ({ onPositiveResponse }) => {
 
                 <Input 
                     name="lastName"
-                    label="Nom"
+                    label={"Nom"+lang.required}
                     className="col-12 col-md-6"
                     validationRules={[{name: "REQUIRED"}]}
                     errorText="Cette information est requise"

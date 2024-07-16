@@ -1,35 +1,38 @@
-import React, {useCallback, useContext, useEffect, useState} from 'react'
-import Router from 'next/router'
+import React, {useCallback, useContext, useEffect, useState} from 'react';
+import Router from 'next/router';
 
 //Custom hooks
-import {useFormUtils} from '@/src/hooks/useFormUtils/useFormUtils'
-import {useRootModal} from '@/src/hooks/useModal/useRootModal'
+import {useFormUtils} from '@/src/hooks/useFormUtils/useFormUtils';
+import {useRootModal} from '@/src/hooks/useModal/useRootModal';
 
 //components
-import Button from '@/FormElements/Button/Button'
-import Input from '@/FormElements/Input/Input'
-import RichTextarea from '@/FormElements/RichTextArea/RichTextarea'
-import {lang} from "@/src/common/Data/GlobalConstants";
-import Select2 from '@/src/common/FormElements/Select2/Select2'
-import {SingleEntityMeta} from '@/src/DataTypes/Meta/components/SingleEntityMeta'
+import Button from '@/FormElements/Button/Button';
+import Input from '@/FormElements/Input/Input';
+import RichTextarea from '@/FormElements/RichTextArea/RichTextarea';
+import Select2 from '@/src/common/FormElements/Select2/Select2';
+import {SingleEntityMeta} from '@/src/DataTypes/Meta/components/SingleEntityMeta';
 import SingleInfo from "@/DataTypes/common/layouts/SingleInfo/SingleInfo";
-import SingleSaveEntityReminder from '@/src/DataTypes/common/layouts/SingleSaveEntityReminder/SingleSaveEntityReminder'
+import SingleSaveEntityReminder from '@/src/DataTypes/common/layouts/SingleSaveEntityReminder/SingleSaveEntityReminder';
+import UpdateSocialHandles from '@/src/DataTypes/common/Forms/UpdateSocialHandles/UpdateSocialHandles';
+import Select from '@/src/common/FormElements/Select/Select';
 
 //Context
 import {useAuth} from "@/src/authentification/context/auth-context";
 import {MessageContext} from '@/src/common/UserNotifications/Message/Context/Message-Context';
+import {lang, modes} from '@/src/common/Data/GlobalConstants';
 
 //FormData
 import {getDefaultUpdateEntityMeta} from "@/src/DataTypes/Meta/EntityMeta";
-import SingleBaseHeader from '@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseHeader'
-import SingleBase from '@/src/DataTypes/common/layouts/single/SingleBase'
-import UpdateSkillGroup from '@/src/DataTypes/common/Forms/UpdateSkillGroup/UpdateSkillGroup'
+import SingleBaseHeader from '@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseHeader';
+import SingleBase from '@/src/DataTypes/common/layouts/single/SingleBase';
+import UpdateSkillGroup from '@/src/DataTypes/common/Forms/UpdateSkillGroup/UpdateSkillGroup';
 import Person from "@/DataTypes/Person/models/Person";
 import {replacePathname} from "@/src/helpers/url";
 import Icon from "@/common/widgets/Icon/Icon";
 import MainImageDisplay from "@/DataTypes/common/layouts/single/defaultSections/MainImageDisplay/MainImageDisplay";
-import {TYPE_TAXONOMY} from '@/src/DataTypes/Entity/Types'
+import {TYPE_TAXONOMY} from '@/src/DataTypes/Entity/Types';
 import SubmitEntity from "@/DataTypes/common/Forms/SingleEdit/SubmitEntity";
+import UpdateContactPoint from '@/src/DataTypes/common/Forms/UpdateContactPoint/UpdateContactPoint';
 
 
 const PersonSingleEdit = ({ positiveRequestActions, ...props}) => {
@@ -50,7 +53,8 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props}) => {
         type,
         fullName,
         createdAt,
-        equipment,
+        contactPoint,
+        url,
         updatedAt
     } = props?.data;
 
@@ -142,6 +146,18 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props}) => {
             domains: {
                 value: domains ?? [],
                 isValid: true
+            },
+            contactPoint: {
+                value: contactPoint ?? {tel:{num:"", ext:""},email:{address:""},website:{url:""} },
+                isValid: true
+            },
+            url: {
+                value: url ?? [],
+                isValid: true
+            },
+            region: {
+                value: model.region ?? "",
+                isValid: true
             }
         },
         //Pass a set of rules to execute a valid response of an api request
@@ -180,6 +196,15 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props}) => {
                         }
                     })
                     : [],
+                contactPoint: formState.inputs.contactPoint.value,
+                url: formState.inputs.url.value.map(function(singleUrl){
+                    return {
+                        label: singleUrl.value.label.value,
+                        url: singleUrl.value.url.value,
+                        subMeta: { order : singleUrl.order }
+                    }
+                }),
+                region: formState.inputs.region.value,
                 meta: getDefaultUpdateEntityMeta(auth.user, model.meta.requestedBy),
             }
         };
@@ -191,14 +216,22 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props}) => {
         );
     }
 
-    /* Needed for breadCrumb generator */
-    const getLabelGenerator = useCallback((param, query) => {
-        return {
-            "contribuer": lang.menuContributeLabel,
-            "personnes": lang.Persons,
-            "slug": `${model.firstName ?? ""} ${model.lastName ?? "-"}`
-        }[param];
-    }, []);
+
+    const breadcrumbLabels = {
+        "contribuer": lang.menuContributeLabel,
+        "personnes": lang.Persons,
+        "slug": `${model.firstName ?? ""} ${model.lastName ?? "-"}`
+    };
+
+    const breadcrumbsRoutes = {
+        route: model.singleEditRoute,
+        labels: breadcrumbLabels,
+    }
+
+    const [breadCrumb, setBreadCrumb] = useState(breadcrumbsRoutes);
+    useEffect(() => {
+        setBreadCrumb(breadcrumbsRoutes)
+    }, [model.title]);
 
     /*****************************
      * 
@@ -207,16 +240,12 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props}) => {
      * 
      * 
      ***************************/
-    const breadCrumb = {
-        route: model.singleEditRoute,
-        getLabelGenerator: getLabelGenerator
-    }
 
     const title = (
         <div className="row">
             <Input 
                 name="firstName"
-                label="Prénom"
+                label={"Prénom"+lang.required}
                 className="col-12 col-sm-6 col-md-4"
                 formClassName="discrete-without-focus form-text-white"
                 validationRules={[
@@ -228,7 +257,7 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props}) => {
 
             <Input 
                 name="lastName"
-                label="Nom"
+                label={"Nom"+lang.required}
                 className="col-12 col-sm-6 col-md-4"
                 formClassName="discrete-without-focus form-text-white"
                 validationRules={[
@@ -257,14 +286,16 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props}) => {
     );
     
     const ctaHeaderSection = (
-        <div className="d-flex flex-wrap align-items-end gap-2 gap-md-3 gap-lg-4">
+        <div className="d-flex flex-wrap align-items-end justify-content-between gap-2 gap-md-3 gap-lg-4">
             <MainImageDisplay buttonClasses="fs-6" mainImage={currentMainImage} entity={currentModel} setter={updateModelMainImage} />
-            <Button className='fs-6' size="slim" color="success" disabled={!formState.isValid} onClick={modalSaveEntityReminder.displayModal}>
-                <Icon iconName={"save"} />&nbsp;{lang.capitalize("save")}
-            </Button>
-            <Button className='fs-6' size="slim" color="primary-light" href={model.singleLink}>
-                <Icon iconName={"times"} />&nbsp;{lang.capitalize("CancelChanges")}
-            </Button>
+            <div className="d-flex flex-wrap align-items-end justify-content-between gap-2 gap-md-3 gap-lg-4">
+                <Button className='fs-6' size="slim" color="success" disabled={!formState.isValid} onClick={modalSaveEntityReminder.displayModal}>
+                    <Icon iconName={"save"} />&nbsp;{lang.capitalize("save")}
+                </Button>
+                <Button className='fs-6' size="slim" color="primary-light" href={model.singleLink}>
+                    <Icon iconName={"times"} />&nbsp;{lang.Cancel}
+                </Button>
+            </div>
         </div>
     )
 
@@ -276,6 +307,7 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props}) => {
             mainImage={currentMainImage}
             buttonSection={ctaHeaderSection}
             entity={model}
+            mode={modes.CONTRIBUTING}
         >
         </SingleBaseHeader>
     );
@@ -299,7 +331,7 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props}) => {
         >
             <UpdateSkillGroup
                 parentEntity={props.data}
-                formTools={formTools}
+                formTools={formTools}  
                 name="occupations"
                 labelInput={lang.expertiseField}
                 labelSelect={lang.skillsAndTechnologiesAssociated}
@@ -308,23 +340,64 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props}) => {
     )
 
     const contentColumnRight = (
-        <SingleInfo 
-            title={lang.Domains} 
-        >
-            <Select2
-                name="domains"
-                //label={lang.Domains}
-                formTools={formTools}
-                creatable={true}
-                modalType={TYPE_TAXONOMY}
-                isMulti={true}
+        <>
+            <SingleInfo title={lang.contactInformations}>
+                <UpdateContactPoint
+                    formTools={formTools}
+                    name="contactPoint"
+                    model={model}
+                />
+            </SingleInfo>
+            <SingleInfo>
+                <Select 
+                    name="region"
+                    label="Faites-vous partie du croissant boréal?"
+                    formTools={formTools}
+                    noValueText="Choisissez une région"
+                    tip={
+                        {
+                            header : "Badge",
+                            body: "Ce champs permet d'obtenir le badge 'Croissant Boréal' qui indique que vous faites partie de celui-ci."
+                        }
+                    }
+                    options={[
+                        {label: "Autre", value: "other"},
+                        {label: "Abitibi-Témiscamingue", value: "abitibi-temiscamingue"},
+                        {label: "Nord de l'Ontario", value: "north Ontario"},
+                        {label: "Baies-James", value: "baies-james"}
+                    ]}
+                    //defaultValue="Autre"
+                />
+            </SingleInfo>
 
-                fetch={"/taxonomies/list"}
-                requestData={{category:"domains", name:""}}
-                searchField={"name"}
-                selectField={"domains"}
-            />
-        </SingleInfo>
+            <SingleInfo title={lang.Domains}>
+                <Select2
+                    name="domains"
+                    //label={lang.Domains}
+                    formTools={formTools}
+                    creatable={true}
+                    modalType={TYPE_TAXONOMY}
+                    allowedCategories={["domains"]}
+                    isMulti={true}
+                    fetch={"/taxonomies/list"}
+                    requestData={{category:"domains", name:""}}
+                    searchField={"name"}
+                    selectField={"domains"}
+                />
+            </SingleInfo>
+
+            <SingleInfo
+                title={lang.externalLinks}
+            >
+                { /* Url */}
+                <UpdateSocialHandles
+                    name="url"
+                    label={lang.url}
+                    parentEntity={model}
+                    formTools={formTools}
+                />
+            </SingleInfo>
+        </>
     )
 
     const Footer = (
@@ -356,6 +429,7 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props}) => {
                 contentColumnRight={contentColumnRight}
                 footer={Footer}
                 singlePageBottom={SinglePageBottom}
+                model={model}
             />
             <modalSaveEntityReminder.Modal>
                 <SingleSaveEntityReminder

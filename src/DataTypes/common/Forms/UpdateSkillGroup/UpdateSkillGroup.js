@@ -6,7 +6,7 @@ import Button from "@/FormElements/Button/Button"
 import Input from '@/src/common/FormElements/Input/Input';
 import Repeater from '@/src/common/FormElements/Repeater/Repeater';
 import {TYPE_TAXONOMY} from '@/src/DataTypes/Entity/Types';
-import {lang} from '@/src/common/Data/GlobalConstants';
+import { lang } from '@/src/common/Data/GlobalConstants';
 
 
 const UpdateSkillGroup = ({parentEntity, name, formTools, labelInput, labelSelect, ...props}) => {
@@ -41,10 +41,11 @@ const UpdateSkillGroup = ({parentEntity, name, formTools, labelInput, labelSelec
                         <div className="col-12 col-lg-6">
                             <Select2
                                 name="skills"
-                                label={labelSelect ?? "Compétences associées"}
+                                label={labelSelect ? labelSelect+lang.required : "Compétences associées"+lang.required}
                                 formTools={formTools}
                                 creatable={true}
                                 modalType={TYPE_TAXONOMY}
+                                allowedCategories={["skills", "technologies"]}
                                 isMulti={true}
                                 createOptionFunction={props.createOptionFunction}
 

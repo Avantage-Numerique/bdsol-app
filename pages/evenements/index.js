@@ -1,4 +1,4 @@
-import React, {useCallback, useContext, useEffect, useState} from 'react'
+import React, {useContext, useEffect, useState} from 'react'
 
 //components
 import PageHeader from "@/src/layouts/Header/PageHeader";
@@ -63,11 +63,10 @@ const EventsPage = () => {
 
     useEffect(() => { fetchData() }, [])
 
-    const getLabelGenerator = useCallback((param, query) => {
-        return {
-            "evenements": type.labelPlural,
-        }[param];
-    }, []);
+
+    const breadcrumbsLabels = {
+        "evenements": type.labelPlural,
+    }
 
     return (
 
@@ -83,7 +82,7 @@ const EventsPage = () => {
                 subTitle={""}
                 description="Les événements présentés sur AVNU sont gérés par des organisations et se caractérisent par leur aspect numérique. À la différence des projets, ceux-ci sont particulièrement éphémères et ne s'étalent que sur une courte période."
             >
-                <Breadcrumbs className={"pt-2"} route={AppRoutes.events} getLabelGenerator={getLabelGenerator} />
+                <Breadcrumbs className={"pt-2"} route={AppRoutes.events} labels={breadcrumbsLabels} />
             </PageHeader>
 
                 <div className="container">
@@ -117,27 +116,25 @@ const EventsPage = () => {
                             {/*  Show the feed in the EntitiesGrid component. It manages an empty list in it, but it make it more readable to show it here too */}
                             {
                                 eventList.length > 0 && !isLoading &&
-                                <EntitiesGrid className="position-relative row row-cols-1 row-cols-sm-2 row-cols-xl-3" columnClass={"col g-3"} feed={eventList}/>
+                                <EntitiesGrid className="position-relative row row-cols-1 row-cols-sm-2 row-cols-xl-3" feed={eventList}/>
                             }
                         </section>
 
                         {/* Aside section */}
                         <aside className="col col-12 col-md-3">
-                            <div className="my-4">
+                            <div className="my-4 d-flex flex-column">
                                 <Button 
                                     disabled={!auth.user.isLoggedIn}
                                     href="/contribuer/evenements" 
                                     size="reg-100">
                                     {lang.addEventButtonLabel}
                                 </Button>
-
                                 {
                                     !auth.user.isLoggedIn &&
                                     <p className="mt-2">
                                         Notez que vous devez être <b className="text-primary">connecté</b> pour pouvoir ajouter des entitées à la base de données.
                                     </p>
                                 }
-                            </div>
                                 {   !auth.user.isLoggedIn &&
                                     <>
                                         <hr/>
@@ -147,7 +144,7 @@ const EventsPage = () => {
                                         >Se connecter</Button>
                                     </>
                                 }
-                            
+                            </div>
                         </aside>
 
                     </div>

@@ -37,6 +37,19 @@ const PageHeader = (props) => {
             <div className="container">
                 <div className={`row justify-content-between align-items-center ${reverseWrap}`}>
 
+                    {props.imageRight &&
+                        <div className={`col-12 col-md-${asideColNumberXs} ${styles['stacking-context-reg']}`}>
+                            {props.image &&
+                                <img
+                                    className={"img-fluid"}
+                                    src={props.image}
+                                    alt={(props.imageAlt ?? props.title)}
+                                />
+                            }
+                            {/* If the custom_RightColElement prop is define, then inject it */}
+                            {props.custom_RightColElement && <props.custom_RightColElement/>}
+                        </div>
+                    }
                     <div className={`${!props.colFullWidth && styles['header-left-col--max-width']} ${styles['stacking-context-front']} ${props.leftColClassName} col-12 col-md-${colNumberXs} d-flex flex-column justify-content-center position-relative`}>
                         {historyBack &&
                         <div className={"d-flex justify-content-end"}>
@@ -87,21 +100,23 @@ const PageHeader = (props) => {
                         {/* If the custom_LeftColContent prop is define, then inject it */}
                         {props.custom_LeftColContent && <props.custom_LeftColContent />}
                     </div>
-                    <div className={`col-12 col-md-${asideColNumberXs} ${styles['stacking-context-reg']}`}>
-                        {props.image &&
+                    {!props.imageRight &&
+                        <div className={`col-12 col-md-${asideColNumberXs} ${styles['stacking-context-reg']}`}>
+                            {props.image &&
                                 <img
                                     className={"img-fluid"}
                                     src={props.image}
                                     alt={(props.imageAlt ?? props.title)}
                                 />
-                        }
-                        {/* If the custom_RightColElement prop is define, then inject it */}
-                        {props.custom_RightColElement && <props.custom_RightColElement />}
-                    </div>
+                            }
+                            {/* If the custom_RightColElement prop is define, then inject it */}
+                            {props.custom_RightColElement && <props.custom_RightColElement/>}
+                        </div>
+                    }
                 </div>
             </div>
             {/* If the custom_FullWidthContent prop is define, then inject it */}
-            {props.custom_FullWidthContent && <props.custom_FullWidthContent />}
+            {props.custom_FullWidthContent && <props.custom_FullWidthContent/>}
         </header>
     )
 }

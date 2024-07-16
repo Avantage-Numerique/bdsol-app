@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 
 //Components
 import SingleBase from "@/src/DataTypes/common/layouts/single/SingleBase";
@@ -6,25 +6,23 @@ import SingleBaseHeader from "@/src/DataTypes/common/layouts/single/defaultSecti
 import SingleInfo from "@/src/DataTypes/common/layouts/SingleInfo/SingleInfo";
 import EntitiesTagGrid from "@/src/DataTypes/Entity/layouts/EntitiesTagGrid";
 import SearchTag from "@/src/common/Components/SearchTag";
-import {ExternalLink} from "@/src/common/Components/ExternalLink";
-import SingleBaseProgressBar from '@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseProgressBar/SingleBaseProgressBar'
+import SingleBaseProgressBar
+    from '@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseProgressBar/SingleBaseProgressBar'
 import SocialHandleDisplay from '@/src/DataTypes/common/layouts/SocialHandlesViews/SocialHandleDisplay'
+import { ContactPointView } from "@/src/DataTypes/common/layouts/ContactPointView/ContactPointView";
+
 //Utils
-import Head from "next/head";
 import SanitizedInnerHtml from '@/src/utils/SanitizedInnerHtml';
 import {lang} from "@/src/common/Data/GlobalConstants";
 import {SingleEntityMeta} from "@/src/DataTypes/Meta/components/SingleEntityMeta";
-import {getTitle} from "@/DataTypes/MetaData/MetaTitle";
 import Event from "../../../models/Event";
 import DisplaySchedule from "../../Forms/Schedule/DisplaySchedule";
 import {removeTagsFromString} from '@/src/helpers/html'
 
 
-
 //Hooks
 import {dateManager} from '@/common/DateManager/DateManager'
 import {clientSideExternalApiRequest} from "@/src/hooks/http-hook";
-import EntityLink from "@/DataTypes/Entity/layouts/EntityLink";
 import {appConfig} from "@/src/configs/AppConfig";
 
 
@@ -61,6 +59,7 @@ const EventSingleView = ({data}) => {
 
 
     const model = new Event(data);
+
     const [formatEnumState, setFormatEnumState] = useState(undefined);
 
     /******* Sorted lists ********/
@@ -79,20 +78,26 @@ const EventSingleView = ({data}) => {
         getEventFormatEnum();
     }, [])
 
-    const getLabelGenerator = useCallback((param, query) => {
-        return {
-            "evenements": lang.Events,
-            "slug": model.title        
-        }[param];
-    }, []);
 
-    const breadCrumb = {
+
+    /* Needed for breadCrumb generator */
+    const breadcrumbLabels = {
+        "evenements": lang.Events,
+        "slug": model.title
+    };
+
+    const breadcrumbsRoutes = {
         route: model.singleRoute,
-        getLabelGenerator: getLabelGenerator
+        labels: breadcrumbLabels,
     }
 
-    const { TimeTag, TimeIntervalSentence } = dateManager(startDate, endDate);
+    const [breadCrumb, setBreadCrumb] = useState(breadcrumbsRoutes);
+    useEffect(() => {
+        setBreadCrumb(breadcrumbsRoutes)
+    }, [name]);
 
+
+    const { TimeTag, TimeIntervalSentence } = dateManager(startDate, endDate);
 
     const header = (
         <SingleBaseHeader 
@@ -102,7 +107,7 @@ const EventSingleView = ({data}) => {
                     <h4 className="text-white">{model.alternateName ? model.alternateName : ""}</h4>
                     {/*Date*/}
                     <SingleInfo displayCondition={(startDate && endDate)}>
-                                <TimeIntervalSentence tag="h2" className="text-decoration-underline" />
+                        <TimeIntervalSentence tag="h2" className="text-decoration-underline" />
                     </SingleInfo>
                 </div>
             )}
@@ -191,13 +196,18 @@ const EventSingleView = ({data}) => {
             </SingleInfo>
 
             {/* subEvents */}
-            <SingleInfo 
+            {
+                /*Commented for populate loop trouble
+
+                <SingleInfo 
                 title={lang.subEvents}
                 displayCondition={subEvents && subEvents.length > 0}
                 cardLayout
-            >
-                <EntitiesTagGrid feed={subEvents} />
-            </SingleInfo>
+                >
+                    <EntitiesTagGrid feed={subEvents} />
+                </SingleInfo>
+                */
+            }
 
             {/* team */}
             <SingleInfo
@@ -231,6 +241,12 @@ const EventSingleView = ({data}) => {
     )
 
     const contentColumnRight = (
+        <>
+            {/* Contact information */}
+            <SingleInfo title={lang.organisationContact} cardLayout>
+                <ContactPointView contact={model.contactPoint}/>
+            </SingleInfo>
+
             <SingleInfo 
                 title={"Informations supplémentaires"}
                 cardLayout
@@ -262,14 +278,6 @@ const EventSingleView = ({data}) => {
                     url={model?.url}
                     className={`${appConfig.spacing.singleSectionSpacingClass}`}
                 />
-                
-                {/* contactPoint */}
-                <SingleInfo 
-                    title={lang.contactInformations}
-                    isSubtitle
-                >
-                    { contactPoint && contactPoint }
-                </SingleInfo>
 
                 {/*eventType */}
                 <SingleInfo 
@@ -277,7 +285,7 @@ const EventSingleView = ({data}) => {
                         title={lang.eventType}
                     >
                     {(eventType?.length > 0) &&
-                        <ul className="d-flex mb-0 mt-1">
+                        <ul className="d-flex flex-wrap mb-0 mt-1">
                             {eventType.map( type => (
                                 <li className="badge bg-primary-light text-dark me-1 mb-1" key={`${type.name}`}>
                                     {type.name}
@@ -297,7 +305,8 @@ const EventSingleView = ({data}) => {
                     }
                 </SingleInfo>
                 
-            </SingleInfo>   
+            </SingleInfo>
+        </>
 
     )
 
@@ -327,30 +336,25 @@ const EventSingleView = ({data}) => {
                 {data: model.entityInCharge},
                 {data: model.organizer},
                 {data: location},
-                {data: description, validationFunction: (value => removeTagsFromString(value) ? true : false)},
+                {data: description, validationFunction: (value => !removeTagsFromString(value))},
                 {data: model.mainImage.isDefault, validationFunction: ((value) => !value)}, 
                 {data: schedule},
-                {data: subEvents},
+                //{data: subEvents},
                 {data: sortedTeam},
                 {data: skills},
                 {data: domains},
                 {data: url},
                 {data: contactPoint},
                 {data: eventType},
-                {data: eventFormat},
-
-
+                {data: eventFormat}
             ]}
             buttonText={lang.contributeButtonLabel}
             buttonLink={model.singleEditLink}
         />
     )
-    
+
     return (
         <>
-            <Head>
-                <title>{getTitle([model.title, model.Type.label])}</title>
-            </Head>
             <SingleBase
                 breadCrumb={breadCrumb}
                 header={header}              
@@ -359,6 +363,7 @@ const EventSingleView = ({data}) => {
                 contentColumnRight={contentColumnRight}
                 footer={Footer}
                 singlePageBottom={SinglePageBottom}
+                model={model}
             />
         </>
     )

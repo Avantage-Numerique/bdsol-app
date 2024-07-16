@@ -8,7 +8,7 @@ import {useRootModal} from '@/src/hooks/useModal/useRootModal'
 //components
 import Button from '@/FormElements/Button/Button'
 import Input from '@/FormElements/Input/Input'
-import {lang} from "@/src/common/Data/GlobalConstants";
+import {lang, modes} from "@/src/common/Data/GlobalConstants";
 import Select2 from '@/src/common/FormElements/Select2/Select2'
 import {SingleEntityMeta} from '@/src/DataTypes/Meta/components/SingleEntityMeta'
 import SingleInfo from "@/src/DataTypes/common/layouts/SingleInfo/SingleInfo";
@@ -140,25 +140,28 @@ const EquipmentSingleEdit = ({ positiveRequestActions, ...props}) => {
         );
     }
 
-    /* Needed for breadCrumb generator */
-    const getLabelGenerator = useCallback((param, query) => {
-        return {
-            "contribuer": lang.menuContributeLabel,
-            "equipements": lang.Equipments,
-            "slug": `${model.title ?? '-'}`
-        }[param];
-    }, []);
+    const breadcrumbLabels = {
+        "contribuer": lang.menuContributeLabel,
+        "equipements": lang.Equipments,
+        "slug": `${model.title ?? '-'}`
+    };
 
-    const breadCrumb = {
+    const breadcrumbsRoutes = {
         route: model.singleEditRoute,
-        getLabelGenerator: getLabelGenerator
+        labels: breadcrumbLabels,
     }
+
+    const [breadCrumb, setBreadCrumb] = useState(breadcrumbsRoutes);
+    useEffect(() => {
+        setBreadCrumb(breadcrumbsRoutes)
+    }, [model.title]);
+
 
     const title = (
         <div>
             <Select2
                 name="equipmentType"
-                label={lang.equipmentType}
+                label={lang.equipmentType+lang.required}
                 formTools={formTools}
                 creatable={true}
                 modalType={TYPE_TAXONOMY}
@@ -169,10 +172,13 @@ const EquipmentSingleEdit = ({ positiveRequestActions, ...props}) => {
                 requestData={{category:"equipmentType", name:""}}
                 searchField={"name"}
                 selectField={"name"}
+                validationRules={[
+                    {name: "REQUIRED"}
+                ]}
             />
             <Input
                 name="label"
-                label={lang.label}
+                label={lang.label+lang.required}
                 formClassName="discrete-without-focus form-text-white"
                 formTools={formTools}
                 placeholder={lang.labelPlaceholder}
@@ -182,25 +188,29 @@ const EquipmentSingleEdit = ({ positiveRequestActions, ...props}) => {
     const subtitle = (<></>);
     
     const ctaHeaderSection = (
-        <div className="d-flex flex-wrap align-items-end gap-2 gap-md-3 gap-lg-4">
-            <MainImageDisplay buttonClasses="fs-6" mainImage={currentMainImage} entity={currentModel} setter={updateModelMainImage} />
-            <Button className='fs-6' size="slim" color="success" disabled={!formState.isValid} onClick={modalSaveEntityReminder.displayModal}>
-                <Icon iconName={"save"} />&nbsp;{lang.capitalize("save")}
-            </Button>
-            <Button className='fs-6' size="slim" color="primary-light" href={model.singleLink}>
-                <Icon iconName={"times"} />&nbsp;{lang.capitalize("CancelChanges")}
-            </Button>
+        <div className="d-flex flex-wrap align-items-end justify-content-between gap-2 gap-md-3 gap-lg-4">
+            <MainImageDisplay buttonClasses="fs-6" mainImage={currentMainImage} entity={currentModel} setter={updateModelMainImage}/>
+            <div className="d-flex flex-wrap align-items-end justify-content-between gap-2 gap-md-3 gap-lg-4">
+                <Button className='fs-6' size="slim" color="success" disabled={!formState.isValid}
+                        onClick={modalSaveEntityReminder.displayModal}>
+                    <Icon iconName={"save"}/>&nbsp;{lang.capitalize("save")}
+                </Button>
+                <Button className='fs-6' size="slim" color="primary-light" href={model.singleLink}>
+                    <Icon iconName={"times"}/>&nbsp;{lang.Cancel}
+                </Button>
+            </div>
         </div>
     )
 
-    const header = ( 
+    const header = (
         <SingleBaseHeader
             className={"mode-update"}
-            title={title} 
-            subtitle={subtitle} 
+            title={title}
+            subtitle={subtitle}
             mainImage={currentMainImage}
             buttonSection={ctaHeaderSection}
             entity={model}
+            mode={modes.CONTRIBUTING}
         />
     );
 
@@ -227,7 +237,7 @@ const EquipmentSingleEdit = ({ positiveRequestActions, ...props}) => {
             title={lang.externalLinks}
             cardLayout
         >
-            <UpdateSocialHandles
+        <UpdateSocialHandles
                 name="url"
                 parentEntity={model}
                 formTools={formTools}
@@ -249,7 +259,6 @@ const EquipmentSingleEdit = ({ positiveRequestActions, ...props}) => {
             }
         </>
     )
-
     
     {/*********** Submit section ***********/}
     const SinglePageBottom = (
@@ -265,6 +274,7 @@ const EquipmentSingleEdit = ({ positiveRequestActions, ...props}) => {
                 contentColumnRight={contentColumnRight}
                 footer={footer}
                 singlePageBottom={SinglePageBottom}
+                model={model}
             />
             <modalSaveEntityReminder.Modal>
                 <SingleSaveEntityReminder
@@ -272,7 +282,6 @@ const EquipmentSingleEdit = ({ positiveRequestActions, ...props}) => {
                     closeModal={modalSaveEntityReminder.closeModal}
                 />
             </modalSaveEntityReminder.Modal>
-
         </>
     );
 }

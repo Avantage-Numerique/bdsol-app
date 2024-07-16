@@ -21,7 +21,15 @@ export const lang = StringDictionary.getInstance([
     "errors",
     "messages",
     "cookies",
-    "pageMeta"
+    "pageMeta",
+    "versions",
+    "moderation",
+    "licences"
 ]);
 
 export const now = new Date();
+
+export const modes = {
+    CONSULTING: "consulting",
+    CONTRIBUTING: "contributing"
+}

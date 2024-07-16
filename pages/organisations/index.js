@@ -1,4 +1,4 @@
-import React, {useCallback, useContext, useEffect, useState} from 'react'
+import React, {useContext, useEffect, useState} from 'react'
 
 //components
 import PageHeader from "@/src/layouts/Header/PageHeader";
@@ -19,12 +19,12 @@ import {lang} from "@/src/common/Data/GlobalConstants";
 import {Breadcrumbs} from "@/common/Breadcrumbs/Breadcrumbs";
 import AppRoutes from "@/src/Routing/AppRoutes";
 import EntitiesGrid from "@/DataTypes/Entity/layouts/EntitiesGrid";
-import Head from "next/head";
 import {getTitle} from "@/DataTypes/MetaData/MetaTitle";
 import {getType, TYPE_ORGANISATION} from "@/DataTypes/Entity/Types";
+import { getBadgesInfo } from '@/src/DataTypes/Badges/BadgesSection';
 
 
-const OrganisationsPage = () => {
+const OrganisationsPage = (props) => {
 
     const [ orgList, setOrgList ] = useState([]);
 
@@ -65,11 +65,9 @@ const OrganisationsPage = () => {
     useEffect(() => { fetchData() }, [])
 
 
-    const getLabelGenerator = useCallback((param, query) => {
-        return {
-            "organisations": "Organisations",
-        }[param];
-    }, []);
+    const breadcrumbsLabels = {
+        "organisations": "Organisations",
+    }
 
     return (
         <div>
@@ -83,7 +81,7 @@ const OrganisationsPage = () => {
                 htmlTitle={"Consulter les organisations"}
                 subTitle={"Les organisations présentées ici travaillent avec les technologies numériques et se trouvent sur le territoire du Croissant boréal."}
             >
-                <Breadcrumbs className={"pt-2"} route={AppRoutes.organisations} getLabelGenerator={getLabelGenerator} />
+                <Breadcrumbs className={"pt-2"} route={AppRoutes.organisations} labels={breadcrumbsLabels} />
             </PageHeader>
 
             <div className="container">
@@ -117,13 +115,13 @@ const OrganisationsPage = () => {
                         {/*  Show the feed in the EntitiesGrid component. It manages an empty list in it, but it make it more readable to show it here too */}
                         {
                             orgList.length > 0 && !isLoading &&
-                            <EntitiesGrid className="position-relative row row-cols-1 row-cols-sm-2 row-cols-xl-3" columnClass={"col g-3"} feed={orgList}/>
+                            <EntitiesGrid className="position-relative row row-cols-1 row-cols-sm-2 row-cols-xl-3" feed={orgList} badgesInfo={props.badgesInfo}/>
                         }
                     </section>
 
                     {/* Aside section */}
                     <aside className="col col-12 col-md-3">
-                        <div className="my-4">
+                        <div className="my-4 d-flex flex-column">
                             <Button
                                 disabled={!auth.user.isLoggedIn}
                                 href="/contribuer/organisations"
@@ -137,25 +135,32 @@ const OrganisationsPage = () => {
                                     Notez que vous devez être <b className="text-primary">connecté</b> pour pouvoir ajouter des entitées à la base de données.
                                 </p>
                             }
-                        </div>
-                        <hr />
                             {   !auth.user.isLoggedIn &&
-
                                 <>
-                                <Button
-                                    size="reg-100"
-                                    href="/compte/connexion"
-                                >Se connecter</Button>
-
-                                <hr />
+                                    <hr />
+                                    <Button
+                                        size="reg-100"
+                                        href="/compte/connexion"
+                                    >Se connecter</Button>
                                 </>
                             }
+                        </div>
                     </aside>
 
                 </div>
             </div>
         </div>
     )
+}
+
+//Load badges Info
+export async function getServerSideProps() {
+    const badgeInfo = await getBadgesInfo();
+    return {
+        props: {
+            badgesInfo : badgeInfo
+        }
+    }
 }
 
 export default OrganisationsPage

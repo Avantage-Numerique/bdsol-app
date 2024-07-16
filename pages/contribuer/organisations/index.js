@@ -30,7 +30,7 @@ const CreateOrganisationPage = () => {
     useEffect(() => displayModal(), [])
 
     return (
-        <div className="container py-4">
+        <div className="container">
             <OrganisationSingleEdit  data={{}}  />
             {isLoading && <Spinner fixed />}
             {/* Modal containing the form */}
@@ -41,7 +41,7 @@ const CreateOrganisationPage = () => {
                     >
                         <header className={`d-flex justify-content-between align-items-start`}>
                             <div className="d-flex flex-column">
-                                <h3 className="text-primary">Ajouter une organisation</h3>
+                                <h3 className="text-secondary-darker">Ajouter une organisation</h3>
                                 <p>Entrez les informations principales d'une organisation. Vous pourrez les éditer de manière détaillée par la suite.</p>
                             </div>
                             <Button 

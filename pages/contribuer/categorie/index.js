@@ -37,7 +37,7 @@ const CreateTaxonomyPage = () => {
             >
                 <HeaderRightSection />
             </PageHeader>
-            <section className="container py-4">
+            <section className="container">
                 <div className="row justify-content-center ">
                     <div className="col col-md-8 col-xl-7">            
                         <SanitizedInnerHtml 

@@ -1,4 +1,4 @@
-import React, {useContext, useEffect} from 'react'
+import React, {useContext, useEffect, useState} from 'react'
 import Router from 'next/router'
 
 //Custom hooks
@@ -127,6 +127,32 @@ const CreateTaxonomyForm = ({name, category, initValues, onPositiveResponse, ...
         domainQuery._id = `ne:${initValues._id}`;
     }
 
+    const staticCategoryOptions = {
+        skills : {label: "Compétence", value: "skills"},
+        technologies : {label: "Technologie", value: "technologies"},
+        domains : {label: "Domaine", value: "domains"},
+        equipmentType : {label: "Type d'équipement", value: "equipmentType"}
+    }
+    
+    const [categoryOptions, setCategoryOptions] = useState([])
+    useEffect( () => {
+        const tempOptions = [];
+        if(props.allowedCategories !== undefined){
+            if(Array.isArray(props.allowedCategories)){
+                props.allowedCategories.forEach(elem => {
+                    if(staticCategoryOptions?.[elem] !== undefined)
+                        tempOptions.push(staticCategoryOptions[elem])
+                })
+            }
+        }
+        else { 
+            for(let key in staticCategoryOptions){
+                tempOptions.push(staticCategoryOptions[key])
+            }
+        }
+        setCategoryOptions(tempOptions)
+    }, [props.allowedCategories])
+
     //Prevent from displaying is the user is not logged in or if the app doesn't know the authentication state yet
     if(auth.user.isLoggedIn)
     return (
@@ -139,12 +165,7 @@ const CreateTaxonomyForm = ({name, category, initValues, onPositiveResponse, ...
                     label="Type de catégorie"
                     formTools={formTools}
                     noValueText="Choisissez une catégorie"
-                    options={[
-                        {label: "Compétence", value: "skills"},
-                        {label: "Technologie", value: "technologies"},
-                        {label: "Domaine", value: "domains"},
-                        {label: "Type d'équipement", value: "equipmentType"}
-                    ]}
+                    options={categoryOptions}
                     validationRules={[
                         {name: "REQUIRED"}
                     ]}

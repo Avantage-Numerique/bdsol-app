@@ -56,8 +56,9 @@ const Layout = ( {children} ) => {
     useEffect(() => {
         if(router.query?.msg && router.query?.msg !== "")
         {
+            const positive = router.query?.msgPositive === "true";
             setMessages([...messages, {
-                    positive:false,
+                    positive:positive,
                     text:sanitizedString(router.query.msg),
                     creationTime: getCurrentTime()
                 }
@@ -97,7 +98,6 @@ const Layout = ( {children} ) => {
 
             <div id={styles.layout}>
                 <Header />
-               {/*  <AccountNav menuState={menuState} setMenuState={setMenuState} /> */}
                 
                 {/* Defining contextes to be passed along children */}
                 <ModalContext.Provider value={{modalTools: modalTools}}>
@@ -116,15 +116,6 @@ const Layout = ( {children} ) => {
                     </MessageContext.Provider>
                 </ModalContext.Provider>
                 <Footer />
-
-
-                {/*  Commented out but still there if it was to be used for another purpose like the accepting cookie ?
-                    <BottomBanner 
-                        title="Chers et chères visiteurs"
-                        para1="Travail en cours, les données ne seront pas pérennes, gardez toujours vos données en local. Nous tentons d'améliorer l'expérience dans l'application, mais elle peut changé de version en version. Merci de nous partagez votre opinons et vos observations."
-                        buttonText="J'ai compris"
-                    />
-                */}
                 
                 {/* Section where the common messages and alerts to the user are made */}
                 <div className={`${styles["message-section"]}`}>
@@ -146,14 +137,12 @@ const Layout = ( {children} ) => {
                 </div>
 
                 {/* Afficher le modal */}
-                <div ref={modalContainer} id="modal-rot">
+                <div ref={modalContainer} id="modal-rot" >
                     {/* state containing every  */}
-                
                 </div>
             </div>
         </>
-    )   
-
+    )
 }
 
 export default Layout;

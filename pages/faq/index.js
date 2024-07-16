@@ -66,6 +66,8 @@ const FAQ = () => {
         }[param];
     }, []);
 
+    const breadcrumbsLabels = {faq:"FAQ"}
+
     return (
         <>
             <PageMeta 
@@ -77,7 +79,7 @@ const FAQ = () => {
                 textColor={"text-white"}
                 title={"FAQ"}
             >
-                <Breadcrumbs className={"pt-2"} route={AppRoutes.faq} getLabelGenerator={getLabelGenerator} />
+                <Breadcrumbs className={"pt-2"} route={AppRoutes.faq} labels={breadcrumbsLabels} getLabelGenerator={getLabelGenerator} />
             </PageHeader>
             <section className="my-4">
                 <h2 className="my-4">Besoin de plus de précisions sur un sujet ?</h2>
@@ -114,24 +116,24 @@ const FAQ = () => {
                         close={() => setActiveSubjectIndex(false)}
                         rows={[
                             {
-                                name: "Qu'est-ce que la BDSOL?",
+                                name: "Avnu, c’est quoi ?",
                                 link: AppRoutes.about.asPath,
                                 tag: "a-propos"
                             },
                             {
-                                name: "À quoi va servir la base de données ?",
+                                name: "À quoi ça sert ?",
                                 link: AppRoutes.about.asPath,
-                                tag: "a-quoi-va-servir-la-base-de-donnees"
-                            },
-                            {
-                                name: "Qui pourra utiliser la base de données ?",
-                                link: AppRoutes.about.asPath,
-                                tag: "qui-pourra-utiliser-la-base-de-donnees"
+                                tag: "a-quoi-ca-sert"
                             },
                             {
                                 name: "Utilisation et gouvernance des données",
                                 link: AppRoutes.about.asPath,
                                 tag: "gouvernance-des-donnees"
+                            },
+                            {
+                                name: "Notre belle équipe",
+                                link: AppRoutes.about.asPath,
+                                tag: "equipe"
                             },
                         ]}
                     />

@@ -2,7 +2,7 @@ import {useEffect, useRef, useState} from 'react';
 import {clientSideExternalApiRequest} from '@/src/hooks/http-hook';
 import {useFormUtils} from '@/src/hooks/useFormUtils/useFormUtils';
 import useDebounce from '@/src/hooks/useDebounce';
-import Router, {useRouter} from 'next/router';
+import {useRouter} from 'next/router';
 import Icon from "@/common/widgets/Icon/Icon";
 import Select from 'react-select';
 import {getType} from '@/src/DataTypes/Entity/Types';
@@ -99,13 +99,16 @@ const SearchBar = ({small, ...props}) => {
         let nearTaxoToEntityArray = [];
         if(nearestTaxonomyResponse?.data?.nearestTaxonomy)
             nearTaxoToEntityArray.push(nearestTaxonomyResponse.data.nearestTaxonomy)
+
         if(nearestTaxonomyResponse?.data?.linkedEntityToNearestTaxonomy)
             nearTaxoToEntityArray.push(...nearestTaxonomyResponse.data.linkedEntityToNearestTaxonomy)
+
         setNearestTaxonomyObject(nearTaxoToEntityArray)
     }
 
     //Request Debounce
     const debouncedRequest = useDebounce(formState.inputs.searchIndex.value, 200);
+
     //Update the list of options to display
     useEffect(() => {
         //If not the first render, fetch
@@ -130,12 +133,12 @@ const SearchBar = ({small, ...props}) => {
     const submitSelectedItem = (selected, action) => {
         const typeUrl = getType(selected.type).slug
         if(selected.type === "Taxonomy"){
-            Router.push({
+            router.push({
                 pathname: "/"+typeUrl+"/"+selected.category+"/"+selected.slug,
             });
         }
         else{
-            Router.push({
+            router.push({
                 pathname: "/"+typeUrl+"/"+selected.slug,
             });
         }
@@ -145,15 +148,17 @@ const SearchBar = ({small, ...props}) => {
 
     const submitHandler = async event => {
         event?.preventDefault();
-        await Router.push({
-            pathname: "/searchResults",
-            query: {searchIndex: inputValue},
-        });
-        setValue(null)
-        setInputValue('');
-
-        //Re-init the var to allow search on click and on tab
-        setTimeout( () => blockSubmitSlug.current = false, 500 )
+        if(inputValue !== undefined && inputValue !== null && inputValue.trim() !== ''){
+            await router.push({
+                pathname: "/searchResults",
+                query: {searchIndex: inputValue},
+            });
+            setValue(null)
+            setInputValue('');
+    
+            //Re-init the var to allow search on click and on tab
+            setTimeout( () => blockSubmitSlug.current = false, 500 )
+        }
     }
 
 

@@ -4,7 +4,7 @@
     V.P.R. - 18/10/2022
 
 */
-import {useState, useEffect} from 'react'
+import {useEffect, useState} from 'react'
 import {lang} from "@/common/Data/GlobalConstants";
 
 const isValuePositive = value => {
@@ -44,7 +44,8 @@ const rules_settings = {
     },
     TYPE_EMAIL: { 
         renderMessage: (() => "Ce champ doit être une adresse courriel valide"),
-        validationMethod: (value => /^[\w-\.]+@([\w-]+\.)+[\w-]{2,5}$/.test(value)),
+        validationMethod: (value => /^[\w+\-.]+@([\w-]+\.)+[\w-]{2,20}$/.test(value)),//    longuest domain found is 14 long : .cancerresearch
+
         renderBadge: (() => `Format courriel`)
     },
     TYPE_ALPHANUMERIC: {
@@ -95,7 +96,6 @@ const initiateValidator = selectedRules => {
 }
 
 export const useValidation = ( setOfRules, formState ) => {
-
     const [validator, setValidator] = useState(initiateValidator( setOfRules || [] ))
     //Bool that is set to go on and off to trigger rerendering in dependent components
     const [triggerDependencies, setTriggerDependencies] = useState(false)  

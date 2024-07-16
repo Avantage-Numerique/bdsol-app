@@ -24,6 +24,9 @@ const nextConfig = {
         IS_PRODUCTION: process.env.NODE_ENV === "production",
         IS_DEV: process.env.NODE_ENV === "development",
 
+        NEXT_PUBLIC_MATOMO_URL: process.env.NEXT_PUBLIC_MATOMO_URL,
+        NEXT_PUBLIC_MATOMO_SITE_ID: process.env.NEXT_PUBLIC_MATOMO_SITE_ID,
+
         APP_PROTOCOLE: process.env.APP_PROTOCOLE ?? "http://",
         APP_BASE_URL: process.env.APP_BASE_URL ?? "localhost",
         APP_PORT: process.env.APP_PORT ?? 3000,
@@ -54,10 +57,10 @@ const nextConfig = {
         LANGUAGE: process.env.LANGUAGE ?? "fr-CA",
 
         APP_COOKIE_NAME: process.env.APP_BASE_URL + '/avnuConnexion',
-        COOKIE_PRIVATE_KEY: process.env.COOKIE_PRIVATE_KEY ?? 'private key not set',
+        COOKIE_PRIVATE_KEY: process.env.COOKIE_PRIVATE_KEY ?? 'This should be changed, the private key is not set yet !',
         COOKIE_MAX_AGE: process.env.COOKIE_MAX_AGE ?? 86600,
 
-        PING_INTERVAL: process.env.PING_INTERVAL ?? 10000,
+        PING_INTERVAL: process.env.PING_INTERVAL ?? 5,//in minutes
 
         //ontology : This would be deprecated soon.
         API_ONTOLOGY_HOST_NAME: process.env.API_ONTOLOGY_HOST_NAME,
@@ -107,7 +110,8 @@ const nextConfig = {
         // Warning: This allows production builds to successfully complete even if
         // your project has ESLint errors.
         ignoreDuringBuilds: true
-    }
+    },
+    experimental: { esmExternals: true }
 }
 
 module.exports = nextConfig;

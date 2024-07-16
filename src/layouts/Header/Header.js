@@ -1,9 +1,8 @@
-
-import { useEffect, useState } from 'react'
-import Image from "next/image"; 
+import {useEffect, useState} from 'react'
+import Image from "next/image";
 import Link from 'next/link';
 
-//Components 
+//Components
 import HamburgerButton from '@/src/common/FormElements/HamburgerButton/HamburgerButton';
 import ConnectionBanner from "@/src/layouts/ConnexionBanner/ConnectionBanner";
 import SearchBar from '@/src/common/Components/SearchBar';
@@ -13,13 +12,13 @@ import Button from "@/FormElements/Button/Button";
 //Contextes
 import {useAuth} from '@/auth/context/auth-context';
 
-//Utils 
+//Utils
 import {lang} from "@/common/Data/GlobalConstants";
 
 //Styling
 import styles from './Header.module.scss'
 import logo from '@/public/AVNU_Branding/AVNU-LogoReduit-RVB.png'
-
+import AppRoutes from "@/src/Routing/AppRoutes";
 
 
 const Header = (props) => {
@@ -49,6 +48,7 @@ const Header = (props) => {
     });
 
     return (
+
         <header className={`main-nav ${styles.header} ${!windowScrollTop && styles["scroll-inner-page"]}`}>
             <Nav menuState={menuState} setMenuState={setMenuState} />
 
@@ -80,10 +80,10 @@ const Header = (props) => {
                             { !auth.user.isLoggedIn &&
                                 <ul className={`nav flex-nowrap align-items-center h-100`} onClick={ () => setMenuState(false) }>
                                     <li>
-                                        <a href="/compte/inscription" className={"nav-link text-black d-none d-md-block text-nowrap"}>{lang.menuSubscribeLabel}</a>
+                                        <a href={AppRoutes.register.asPath} className={"nav-link text-black d-none d-md-block text-nowrap"}>{lang.menuSubscribeLabel}</a>
                                     </li>
                                     <li>
-                                        <a href="/compte/connexion" className={`nav-link text-black text-nowrap`}>{lang.menuConnectLabel}</a>
+                                        <a href={AppRoutes.connection.asPath} className={`nav-link text-black text-nowrap`}>{lang.menuConnectLabel}</a>
                                     </li>
                                 </ul>
                             }
@@ -92,9 +92,9 @@ const Header = (props) => {
                                     <Button
                                         size="slim"
                                         className="rounded shadow-sm"
-                                        href="/contribuer"
+                                        href={AppRoutes.contribute.asPath}
                                     >
-                                        Contribuer
+                                        {AppRoutes.contribute.label}
                                     </Button>
                                 </div>
                             }

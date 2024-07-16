@@ -1,4 +1,5 @@
 import Routes from "@/src/Routing/Routes";
+import {lang} from "@/common/Data/GlobalConstants";
 
 /*
 
@@ -200,7 +201,7 @@ const AppRoutesRaw = {
         asPath: "/contribuer/lieux/[slug]"
     },
     placeCreate : {
-        label: "Ajouter un événement",
+        label: "Ajouter un lieux",
         pathname: "/contribuer/lieux",
         asPath: "/contribuer/lieux"
     },
@@ -235,7 +236,7 @@ const AppRoutesRaw = {
         asPath: "/contribuer/equipements/[slug]"
     },
     equipmentCreate : {
-        label: "Ajouter un événement",
+        label: "Ajouter un équipement",
         pathname: "/contribuer/equipements",
         asPath: "/contribuer/equipements"
     },
@@ -255,7 +256,8 @@ const AppRoutesRaw = {
     about: {
         label: "À propos",
         pathname: "/a-propos",
-        asPath: "/a-propos"
+        asPath: "/a-propos",
+        teamAsPath:"/a-propos#equipe"
     },
 
     /*********
@@ -268,8 +270,15 @@ const AppRoutesRaw = {
         needAuth: true
     },
 
+    register: {
+        label: lang.menuLabelCreateAccount,
+        pathname: "/compte/inscription",
+        asPath: "/compte/inscription",
+        needAuth: false
+    },
+
     connection: {
-        label: "Se connecter",
+        label: lang.menuLabelConnect,
         pathname: "/compte/connexion",
         asPath: "/compte/connexion",
         needAuth: false
@@ -289,6 +298,13 @@ const AppRoutesRaw = {
         needAuth: true
     },
 
+    consult: {
+        label: "Consulter",
+        pathname: "/consulter",
+        asPath: "/consulter",
+        needAuth: false
+    },
+
     contribute: {
         label: "Contribuer",
         pathname: "/contribuer",
@@ -297,7 +313,7 @@ const AppRoutesRaw = {
     },
  
     error404: {
-        label: "Error 404",
+        label: "Erreur 404",
         pathname: "/404",
         asPath: "/404"
     },
@@ -310,7 +326,7 @@ const AppRoutesRaw = {
     },
 
     licences: {
-        label: "Licences",
+        label: lang.LicencesRouteLabel,
         pathname: "/faq/licences",
         asPath: "/faq/licences",
         needAuth: false,
@@ -349,6 +365,13 @@ const AppRoutesRaw = {
         pathname: "/parametres/cookies",
         asPath: "/parametres/cookies",
         needAuth: false,
+    },
+
+    versions: {
+        label: "Versions",
+        pathname: "/versions",
+        asPath: "/versions",
+        needAuth: false,
     }
 }
 
@@ -356,12 +379,14 @@ const AppRoutes = new Routes(AppRoutesRaw);
 
 /**
  * @property accueil {Route}
+ * @property about {Route}
  * @property persons {Route}
  * @property personSingle {Route}
  * @property personSingleMedia {Route}
  * @property categories {Route}
  * @property categorySingle {Route}
  * @property organisations {Route}
+ * @property organisationsCreate {Route}
  * @property organisationSingle {Route}
  * @property organisationSingleMedia {Route}
  * @property projects {Route}
@@ -373,11 +398,18 @@ const AppRoutes = new Routes(AppRoutesRaw);
  * @property apropos {Route}
  * @property account {Route}
  * @property connection {Route}
+ * @property register {Route}
  * @property toConfirm {Route}
  * @property confirmed {Route}
  * @property contribuer {Route}
  * @property error404 {Route}
  * @property paramsCookies {Route}
+ * @property contribute {Route}
+ * @property consult {Route}
+ * @property contact {Route}
+ * @property faq {Route}
+ * @property equipment {Route}
+ * @property licences {Route}
  * @type {Routes}
  */
 export default AppRoutes;

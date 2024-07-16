@@ -42,13 +42,6 @@ export const useRootModal = ( prefilledValues, modalProps = {} ) => {
 
     /*******   Utils function   *******/
     const displayModal = (newEnteredValues = {}, callback) => {
-        /*
-            newEnteredValues shaping exemple : 
-            {
-                lastName: "Boudreau",
-                firstName: "Walter"
-            }
-        */
         setModal(prev => ({
             ...modal,
             display: true,

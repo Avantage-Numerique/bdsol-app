@@ -17,9 +17,14 @@ import SingleBase from '@/src/DataTypes/common/layouts/single/SingleBase';
 import UpdateTeams from '@/src/DataTypes/Organisation/components/forms/UpdateTeams/UpdateTeams';
 import SingleInfo from "@/src/DataTypes/common/layouts/SingleInfo/SingleInfo";
 import SingleSaveEntityReminder from '@/src/DataTypes/common/layouts/SingleSaveEntityReminder/SingleSaveEntityReminder';
+import UpdateSocialHandles from '@/src/DataTypes/common/Forms/UpdateSocialHandles/UpdateSocialHandles';
+import UpdateContactPoint from '@/src/DataTypes/common/Forms/UpdateContactPoint/UpdateContactPoint';
+import UpdateScheduleBudget from '@/src/DataTypes/Project/component/forms/UpdateScheduleBudget';
+import UpdateSponsor from '@/src/DataTypes/Project/component/forms/UpdateSponsor';
+import SubmitEntity from "@/DataTypes/common/Forms/SingleEdit/SubmitEntity";
 
 //Utils
-import {lang} from "@/src/common/Data/GlobalConstants";
+import {lang, modes} from "@/src/common/Data/GlobalConstants";
 import {getDefaultUpdateEntityMeta} from "@/src/DataTypes/Meta/EntityMeta";
 import Project from "@/DataTypes/Project/models/Project";
 import {replacePathname} from "@/src/helpers/url";
@@ -27,13 +32,9 @@ import {replacePathname} from "@/src/helpers/url";
 //Context
 import {useAuth} from "@/src/authentification/context/auth-context";
 import {MessageContext} from '@/src/common/UserNotifications/Message/Context/Message-Context';
-import UpdateScheduleBudget from '@/src/DataTypes/Project/component/forms/UpdateScheduleBudget';
-import UpdateSponsor from '@/src/DataTypes/Project/component/forms/UpdateSponsor';
 import Icon from "@/common/widgets/Icon/Icon";
 import MainImageDisplay from "@/DataTypes/common/layouts/single/defaultSections/MainImageDisplay/MainImageDisplay";
 import {TYPE_EQUIPMENT, TYPE_TAXONOMY} from '@/src/DataTypes/Entity/Types';
-import SubmitEntity from "@/DataTypes/common/Forms/SingleEdit/SubmitEntity";
-import UpdateSocialHandles from '@/src/DataTypes/common/Forms/UpdateSocialHandles/UpdateSocialHandles';
 
 const ProjectSingleEdit = (props) => {
 
@@ -93,9 +94,9 @@ const ProjectSingleEdit = (props) => {
     */
     useEffect(() => {
         if(!auth.user.isLoggedIn) {
-            msg.addMessage({ 
+            msg.addMessage({
                 text: lang.needToBeConnectedToAccess,
-                positive: false 
+                positive: false
             })
             Router.push('/compte/connexion')
         }
@@ -131,7 +132,7 @@ const ProjectSingleEdit = (props) => {
                 isValid: true
             },
             contactPoint: {
-                value: contactPoint ?? "",
+                value: contactPoint ?? {tel:{num:"", ext:""},email:{address:""},website:{url:""} },
                 isValid: true
             },
             location: {
@@ -200,9 +201,9 @@ const ProjectSingleEdit = (props) => {
         }
     )
     const submitHandler = async event => {
-        
+
         event.preventDefault();
-        
+
         const formData = {
             "data": {
                 id: _id,
@@ -264,7 +265,7 @@ const ProjectSingleEdit = (props) => {
                 meta: getDefaultUpdateEntityMeta(auth.user, model.meta.requestedBy),
             }
         }
-        
+
         //Add data to the formData
         submitRequest(
             "/projects/update",
@@ -274,30 +275,27 @@ const ProjectSingleEdit = (props) => {
     }
 
     /* Needed for breadCrumb generator */
-    const getLabelGenerator = useCallback((param, query) => {
-        return {
-            "contribuer": lang.menuContributeLabel,
-            "projets": lang.Projects,
-            "slug": model.name ?? "-"
-        }[param];
-    }, []);
+    const breadcrumbLabels = {
+        "contribuer": lang.menuContributeLabel,
+        "projets": lang.Projects,
+        "slug": model.name ?? '-'
+    };
 
-    /*****************************
-     * 
-     * 
-     *  Sections
-     * 
-     * 
-     ***************************/
-    const breadCrumb = {
+    const breadcrumbsRoutes = {
         route: model.singleEditRoute,
-        getLabelGenerator: getLabelGenerator
+        labels: breadcrumbLabels,
     }
 
+    const [breadCrumb, setBreadCrumb] = useState(breadcrumbsRoutes);
+    useEffect(() => {
+        setBreadCrumb(breadcrumbsRoutes)
+    }, [model.title]);
+
+
     const title = (
-        <Input 
+        <Input
             name="name"
-            label="Nom du projet"
+            label={"Nom du projet"+lang.required}
             formTools={formTools}
             formClassName="discrete-without-focus form-text-white"
             validationRules={[
@@ -307,9 +305,9 @@ const ProjectSingleEdit = (props) => {
 
     const subtitle = (
         <>
-            <Input 
+            <Input
                 name="alternateName"
-                label="Nom alternatif"        
+                label="Nom alternatif"
                 formClassName="discrete-without-focus form-text-white"
                 formTools={formTools}
             />
@@ -342,14 +340,17 @@ const ProjectSingleEdit = (props) => {
 
 
     const ctaHeaderSection = (
-        <div className="d-flex flex-wrap align-items-end gap-2 gap-md-3 gap-lg-4">
-            <MainImageDisplay buttonClasses="fs-6" mainImage={currentMainImage} entity={currentModel} setter={updateModelMainImage} />
-            <Button className='fs-6' size="slim" color="success" disabled={!formState.isValid} onClick={modalSaveEntityReminder.displayModal}>
-                <Icon iconName={"save"} />&nbsp;{lang.capitalize("save")}
-            </Button>
-            <Button className='fs-6' size="slim" color="primary-light" href={model.singleLink}>
-                <Icon iconName={"times"} />&nbsp;{lang.capitalize("CancelChanges")}
-            </Button>
+        <div className="d-flex flex-wrap align-items-end justify-content-between gap-2 gap-md-3 gap-lg-4">
+            <MainImageDisplay buttonClasses="fs-6" mainImage={currentMainImage} entity={currentModel} setter={updateModelMainImage}/>
+            <div className="d-flex flex-wrap align-items-end justify-content-between gap-2 gap-md-3 gap-lg-4">
+                <Button className='fs-6' size="slim" color="success" disabled={!formState.isValid}
+                        onClick={modalSaveEntityReminder.displayModal}>
+                    <Icon iconName={"save"}/>&nbsp;{lang.capitalize("save")}
+                </Button>
+                <Button className='fs-6' size="slim" color="primary-light" href={model.singleLink}>
+                    <Icon iconName={"times"}/>&nbsp;{lang.Cancel}
+                </Button>
+            </div>
         </div>
     )
 
@@ -361,18 +362,19 @@ const ProjectSingleEdit = (props) => {
             mainImage={currentMainImage}
             buttonSection={ctaHeaderSection}
             entity={model}
+            mode={modes.CONTRIBUTING}
         />
     );
 
     const fullWidthContent = (
-            <SingleInfo
-                title={lang.about}
-            >
-                <RichTextarea
-                    name="description"
-                    formTools={formTools}
-                />
-            </SingleInfo>
+        <SingleInfo
+            title={lang.about}
+        >
+            <RichTextarea
+                name="description"
+                formTools={formTools}
+            />
+        </SingleInfo>
     );
 
     const contentColumnLeft = (
@@ -408,7 +410,7 @@ const ProjectSingleEdit = (props) => {
                     parentEntity={props.data}
                 />
             </SingleInfo>
-            { /* Update the equipment list */ }         
+            { /* Update the equipment list */ }
             <SingleInfo
                 title={lang.equipmentUsed}
             >
@@ -426,74 +428,76 @@ const ProjectSingleEdit = (props) => {
         </>
     );
     const contentColumnRight = (
-        <SingleInfo
-            title="Informations supplémentaires"
-            cardLayout
-        >
-            {/* Context */}
-            <div className="mb-3">
-                <SelectFetch
-                    name="context"
-                    label={lang.projectContext}
+        <>
+            <SingleInfo title={lang.contactInformations}>
+                <UpdateContactPoint
                     formTools={formTools}
-                    noValueText={lang.noSelectedOption}
-                    fetchOption="context-enum"
-                />
-            </div>
-            <SingleInfo>
-                <Select2
-                    name="skills"
-                    label={lang.skillsAndTechnologies}
-                    formTools={formTools}
-                    creatable={true}
-                    modalType={TYPE_TAXONOMY}
-                    isMulti={true}
-                    fetch={"/taxonomies/group/skills"}
-                    searchField={"name"}
-                    selectField={"name"}
-                />
-            </SingleInfo>
-            <SingleInfo>
-                <Select2
-                    name="domains"
-                    label={lang.Domains}
-                    formTools={formTools}
-                    creatable={true}
-                    modalType={TYPE_TAXONOMY}
-                    isMulti={true}
-
-                    fetch={"/taxonomies/list"}
-                    requestData={{category:"domains", name:""}}
-                    searchField={"name"}
-                    selectField={"domains"}
-                />
-            </SingleInfo>
-            <SingleInfo>
-                <Input
                     name="contactPoint"
-                    label={lang.contactInformations}
-                    tip={{
-                        header: lang.projectContactPointTipTitle,
-                        body: lang.projectContactPointTipContent
-                    }}
-                    placeholder="Courriel, téléphone, etc..."
-                    formTools={formTools}
+                    model={model}
                 />
             </SingleInfo>
+
             <SingleInfo
-                title={lang.externalLinks}
-                isSubtitle
+                title="Informations supplémentaires"
+                cardLayout
             >
-                { /* Url */}
-                <UpdateSocialHandles
-                    name="url"
-                    label={lang.url}
-                    parentEntity={model}
-                    formTools={formTools}
-                />
+                {/* Context */}
+                <div className="mb-3">
+                    <SelectFetch
+                        name="context"
+                        label={lang.projectContext}
+                        formTools={formTools}
+                        noValueText={lang.noSelectedOption}
+                        fetchOption="context-enum"
+                    />
+                </div>
+                <SingleInfo>
+                    <Select2
+                        name="skills"
+                        label={lang.skillsAndTechnologies}
+                        formTools={formTools}
+                        creatable={true}
+                        modalType={TYPE_TAXONOMY}
+                        allowedCategories={["skills", "technologies"]}
+                        isMulti={true}
+                        fetch={"/taxonomies/group/skills"}
+                        searchField={"name"}
+                        selectField={"name"}
+                    />
+                </SingleInfo>
+
+                <SingleInfo>
+                    <Select2
+                        name="domains"
+                        label={lang.Domains}
+                        formTools={formTools}
+                        creatable={true}
+                        modalType={TYPE_TAXONOMY}
+                        allowedCategories={["domains"]}
+                        isMulti={true}
+
+                        fetch={"/taxonomies/list"}
+                        requestData={{category:"domains", name:""}}
+                        searchField={"name"}
+                        selectField={"domains"}
+                    />
+                </SingleInfo>
+
+                <SingleInfo
+                    title={lang.externalLinks}
+                    isSubtitle
+                >
+                    { /* Url */}
+                    <UpdateSocialHandles
+                        name="url"
+                        label={lang.url}
+                        parentEntity={model}
+                        formTools={formTools}
+                    />
+                </SingleInfo>
+
             </SingleInfo>
-         
-        </SingleInfo>
+        </>
     );
 
 
@@ -502,8 +506,8 @@ const ProjectSingleEdit = (props) => {
         <>
             {
                 (createdAt || updatedAt || meta) &&
-                <SingleInfo 
-                    title={lang.entityMetadata} 
+                <SingleInfo
+                    title={lang.entityMetadata}
                     className="border-top pt-3"
                 >
                     {/*********** Entity data ***********/}
@@ -528,6 +532,7 @@ const ProjectSingleEdit = (props) => {
                 contentColumnRight={contentColumnRight}
                 singlePageBottom={SinglePageBottom}
                 footer={Footer}
+                model={model}
             />
             <modalSaveEntityReminder.Modal>
                 <SingleSaveEntityReminder
@@ -535,7 +540,6 @@ const ProjectSingleEdit = (props) => {
                     closeModal={modalSaveEntityReminder.closeModal}
                 />
             </modalSaveEntityReminder.Modal>
-
         </>
     )
 }

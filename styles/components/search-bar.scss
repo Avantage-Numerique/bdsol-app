@@ -1,5 +1,15 @@
+.search-bar-main-nav {
+    .search-bar {
+        max-width: 100% !important;
+    }
+}
+
 .search-bar {
     max-width: 60ch;
+
+    &.no-width-restriction {
+        max-width: 100%;
+    }
 
     .input-group {
 

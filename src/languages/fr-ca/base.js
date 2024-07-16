@@ -85,6 +85,9 @@ const base = {
     "formNotValid": "Attention. Le formulaire envoyé est invalide. Assurez-vous que tous les champs requis sont bien remplis.",
     "submit": "Soumettre",
     "submitModification": "Soumettre les modifications",
+    "required": "*",
+    "consult": "Consulter",
+    "contribute": "Ajouter",
 
 
     //Taxonomies related
@@ -133,10 +136,19 @@ const base = {
 
     //Button
     "apply" : "Appliquer",
+    "report": "Signaler",
 
     //Contact us
     "message": "Message",
     "email": "Adresse courriel",
-    "sendMessage": "Envoyer le message"
+    "sendMessage": "Envoyer le message",
+
+    //contactPoint
+    "website": "Site internet",
+    "phoneNumber": "Téléphone",
+    "phoneExtension": "Poste",
+
+    //Badges
+    "badges" : "Badges"
 }
 exports.base = base;

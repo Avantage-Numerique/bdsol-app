@@ -7,8 +7,9 @@ import EntitiesGrid from "@/src/DataTypes/Entity/layouts/EntitiesGrid";
 import Button from "@/src/common/FormElements/Button/Button";
 import Icon from "@/src/common/widgets/Icon/Icon";
 import { lang } from "@/src/common/Data/GlobalConstants";
+import { getBadgesInfo } from "@/src/DataTypes/Badges/BadgesSection";
 
-const SearchResults = () => {
+const SearchResults = (props) => {
 
     const [searchList, setSearchList] = useState([]);
     const router = useRouter();
@@ -98,7 +99,7 @@ const SearchResults = () => {
                 <h3>{resultMessage}</h3>
                 {
                     filteredList?.length > 0 ?
-                    <EntitiesGrid className={"row"} columnClass={"col g-3 col-md-4"} feed={filteredList.filter(el => el.type !== "Taxonomy")}></EntitiesGrid>
+                    <EntitiesGrid className={"row"} feed={filteredList.filter(el => el.type !== "Taxonomy")} badgesInfo={props.badgesInfo}></EntitiesGrid>
                     :
                     <div>Aucune entité trouvée, réessayer avec d'autre critère de recherche</div>
                 }
@@ -122,7 +123,7 @@ const SearchResults = () => {
                 }
                 {
                     nearTaxonomyObject?.linkedEntityToNearestTaxonomy.length > 0 ?
-                        <EntitiesGrid className={"row"} columnClass={"col g-3 col-md-4"} feed={nearTaxonomyObject.linkedEntityToNearestTaxonomy}></EntitiesGrid>
+                        <EntitiesGrid className={"row"} feed={nearTaxonomyObject.linkedEntityToNearestTaxonomy} badgesInfo={props.badgesInfo}></EntitiesGrid>
                         :
                         <p>Aucune entité est liée à cette catégorie</p>
                 }
@@ -130,8 +131,6 @@ const SearchResults = () => {
         )
     }
 
-    //useEffect( () => console.log(nearTaxonomyObject?.linkedEntityToNearestTaxonomy?.length, "searchList : ", searchList?.length || 0 ))
-    //useEffect( () => console.log(searchList))
     return (
         <div>
             <PageHeader
@@ -143,79 +142,93 @@ const SearchResults = () => {
             </PageHeader>
             <section className="bg-greyBg" style={{ width:"100vw", marginLeft:"calc(50% - 50vw)"}}>
                 <div className="container py-4">
-                    <h3><Icon iconName="filter"/>Filtrer par type de données</h3>
-                    <div className="d-flex flex-wrap justify-content-center">
-                        <Button
-                            className="mx-2 rounded flex-grow-1"
-                            color={filter.includes("linkedTaxonomy") ? "secondary" : null}
-                            outline={filter.includes("linkedTaxonomy") ? null : "secondary"}
-                            text_color_over="dark"
-                            onClick={() => updateFilterState("linkedTaxonomy")}
-                            id="filter-btn-linkedTaxonomy"
-                        >
-                            {"Entités liées suggérées (" + (nearTaxonomyObject?.linkedEntityToNearestTaxonomy?.length.toString() ?? "0") + ")"}
-                        </Button>
-                        <Button
-                            className="mx-2 rounded flex-grow-1"
-                            color={filter.length == 0 ? "secondary" : null}
-                            outline={filter.length == 0 ? null : "secondary"}
-                            text_color_over="dark"
-                            onClick={() => updateFilterState("all")}
-                            id="filter-btn-all"
-                        >
-                            {"Tous les types (" + ((nearTaxonomyObject?.linkedEntityToNearestTaxonomy?.length || 0) + (searchList.filter(elem => elem.type != "Taxonomy").length || 0)) + ")"}
-                        </Button>
-                        <Button className="mx-2 rounded flex-grow-1"
-                            color={filter.includes("Person") ? "secondary" : null}
-                            outline={filter.includes("Person") ? null : "secondary"}
-                            text_color_over="dark"
-                            onClick={() => updateFilterState("Person")}
-                            id="filter-btn-person"
-                        >
-                            {"Personnes (" + (searchList.filter( (el) => {return el.type === "Person"}).length.toString() ?? "0") + ")"}
-                        </Button>
-                        <Button className="mx-2 rounded flex-grow-1"
-                            color={filter.includes("Organisation") ? "secondary" : null}
-                            outline={filter.includes("Organisation") ? null : "secondary"}
-                            text_color_over="dark"
-                            onClick={() => updateFilterState("Organisation")}
-                            id="filter-btn-organisation"
-                        >
-                            {"Organisations (" + (searchList.filter( (el) => {return el.type === "Organisation"}).length.toString() ?? "0") + ")"}
-                        </Button>
-                        <Button className="mx-2 rounded flex-grow-1"
-                            color={filter.includes("Project") ? "secondary" : null}
-                            outline={filter.includes("Project") ? null : "secondary"}
-                            text_color_over="dark"
-                            onClick={() => updateFilterState("Project")}
-                            id="filter-btn-project"
-                        >
-                            {"Projets (" + (searchList.filter( (el) => {return el.type === "Project"}).length.toString() ?? "0") + ")"}
-                        </Button>
-                        <Button className="mx-2 rounded flex-grow-1"
-                            color={filter.includes("Event") ? "secondary" : null}
-                            outline={filter.includes("Event") ? null : "secondary"}
-                            text_color_over="dark"
-                            onClick={() => updateFilterState("Event")}
-                            id="filter-btn-event"
-                        >
-                            {"Événements (" + (searchList.filter( (el) => {return el.type === "Event"}).length.toString() ?? "0") + ")"}
-                        </Button>
-                        <Button className="mx-2 rounded flex-grow-1"
-                            color={filter.includes("Equipment") ? "secondary" : null}
-                            outline={filter.includes("Equipment") ? null : "secondary"}
-                            text_color_over="dark"
-                            onClick={() => updateFilterState("Equipment")}
-                            id="filter-btn-equipment"
-                        >
-                            {"Équipement (" + (searchList.filter( (el) => {return el.type === "Equipment"}).length.toString() ?? "0") + ")"}
-                        </Button>
+                    <div className="row">
+                        <div className="col-12">
+                            <h3><Icon iconName="filter"/>Filtrer par type de données</h3>
+                            <div style={{gap: "1rem"}} className="d-flex flex-wrap justify-content-center">
+                                <Button
+                                    className="mx-2 rounded flex-grow-1"
+                                    color={filter.includes("linkedTaxonomy") ? "secondary" : null}
+                                    outline={filter.includes("linkedTaxonomy") ? null : "secondary"}
+                                    text_color_over="dark"
+                                    onClick={() => updateFilterState("linkedTaxonomy")}
+                                    id="filter-btn-linkedTaxonomy"
+                                >
+                                    {"Entités liées suggérées (" + (nearTaxonomyObject?.linkedEntityToNearestTaxonomy?.length.toString() ?? "0") + ")"}
+                                </Button>
+                                <Button
+                                    className="mx-2 rounded flex-grow-1"
+                                    color={filter.length == 0 ? "secondary" : null}
+                                    outline={filter.length == 0 ? null : "secondary"}
+                                    text_color_over="dark"
+                                    onClick={() => updateFilterState("all")}
+                                    id="filter-btn-all"
+                                >
+                                    {"Tous les types (" + ((nearTaxonomyObject?.linkedEntityToNearestTaxonomy?.length || 0) + (searchList.filter(elem => elem.type != "Taxonomy").length || 0)) + ")"}
+                                </Button>
+                                <Button className="mx-2 rounded flex-grow-1"
+                                        color={filter.includes("Person") ? "secondary" : null}
+                                        outline={filter.includes("Person") ? null : "secondary"}
+                                        text_color_over="dark"
+                                        onClick={() => updateFilterState("Person")}
+                                        id="filter-btn-person"
+                                >
+                                    {"Personnes (" + (searchList.filter((el) => {
+                                        return el.type === "Person"
+                                    }).length.toString() ?? "0") + ")"}
+                                </Button>
+                                <Button className="mx-2 rounded flex-grow-1"
+                                        color={filter.includes("Organisation") ? "secondary" : null}
+                                        outline={filter.includes("Organisation") ? null : "secondary"}
+                                        text_color_over="dark"
+                                        onClick={() => updateFilterState("Organisation")}
+                                        id="filter-btn-organisation"
+                                >
+                                    {"Organisations (" + (searchList.filter((el) => {
+                                        return el.type === "Organisation"
+                                    }).length.toString() ?? "0") + ")"}
+                                </Button>
+                                <Button className="mx-2 rounded flex-grow-1"
+                                        color={filter.includes("Project") ? "secondary" : null}
+                                        outline={filter.includes("Project") ? null : "secondary"}
+                                        text_color_over="dark"
+                                        onClick={() => updateFilterState("Project")}
+                                        id="filter-btn-project"
+                                >
+                                    {"Projets (" + (searchList.filter((el) => {
+                                        return el.type === "Project"
+                                    }).length.toString() ?? "0") + ")"}
+                                </Button>
+                                <Button className="mx-2 rounded flex-grow-1"
+                                        color={filter.includes("Event") ? "secondary" : null}
+                                        outline={filter.includes("Event") ? null : "secondary"}
+                                        text_color_over="dark"
+                                        onClick={() => updateFilterState("Event")}
+                                        id="filter-btn-event"
+                                >
+                                    {"Événements (" + (searchList.filter((el) => {
+                                        return el.type === "Event"
+                                    }).length.toString() ?? "0") + ")"}
+                                </Button>
+                                <Button className="mx-2 rounded flex-grow-1"
+                                        color={filter.includes("Equipment") ? "secondary" : null}
+                                        outline={filter.includes("Equipment") ? null : "secondary"}
+                                        text_color_over="dark"
+                                        onClick={() => updateFilterState("Equipment")}
+                                        id="filter-btn-equipment"
+                                >
+                                    {"Équipement (" + (searchList.filter((el) => {
+                                        return el.type === "Equipment"
+                                    }).length.toString() ?? "0") + ")"}
+                                </Button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
             <div className="row py-4">
 
-                <div className="col-3 py-4">
+            <div className="col-12 col-md-3 py-4">
                     <div>
                         {
                             nearTaxonomyObject?.otherNearbyTaxonomy?.length > 0 &&
@@ -234,7 +247,7 @@ const SearchResults = () => {
                     </div>
                 </div>
 
-                <div className="row col-9">
+                <div className="row col-12 col-md-9">
                     {/* If filter set to all results */}
                     {
                         filter.length === 0 ?
@@ -254,6 +267,16 @@ const SearchResults = () => {
             
         </div>
     )
+}
+
+//Load badges Info
+export async function getServerSideProps() {
+    const badgeInfo = await getBadgesInfo();
+    return {
+        props: {
+            badgesInfo : badgeInfo
+        }
+    }
 }
 
 export default SearchResults

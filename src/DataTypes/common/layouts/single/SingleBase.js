@@ -4,7 +4,6 @@ import styles from './SingleBase.module.scss';
 //Component
 import SingleBaseHeader from './defaultSections/SingleBaseHeader';
 import {Breadcrumbs} from "@/common/Breadcrumbs/Breadcrumbs";
-import Head from "next/head";
 import React from "react";
 import {getTitle} from "@/DataTypes/MetaData/MetaTitle";
 import {removeTagsFromString} from "@/src/helpers/html";
@@ -37,10 +36,10 @@ const SingleBase = (props) => {
         model
     } = props;
 
-    const imageSrc = model ? model.mainImageModel.src : "";//model.type === "Media" ? model.mainImage.src : model.mainImage.url;
+    const imageSrc = model ? model.mainImageModel.src : "";
+
     return (
         <>
-          
             <PageMeta 
                 title={getTitle([model?.meta.title, model?.Type.label]) || ""}
                 description={removeTagsFromString(model?.meta.description) || ""}
@@ -50,8 +49,7 @@ const SingleBase = (props) => {
             />
             
             <div>
-                
-
+            
                 { /* Header */ }
                 <header className={`${styles["header-base"]} ${styles["full-width-container"]} position-relative`}>
                     <div className="container">
@@ -63,7 +61,7 @@ const SingleBase = (props) => {
                 {  breadCrumb &&
                     <div className="row pt-sm-4 mt-sm-4">
                         <div className="col-12 pt-4 mt-4">
-                            <Breadcrumbs className={"pt-4"} route={breadCrumb.route} getLabelGenerator={breadCrumb.getLabelGenerator || undefined} getHrefGenerator={breadCrumb.getHrefGenerator || undefined} />
+                            <Breadcrumbs className={"pt-4"} labels={breadCrumb.labels} route={breadCrumb.route} getLabelGenerator={breadCrumb.getLabelGenerator || undefined} getHrefGenerator={breadCrumb.getHrefGenerator || undefined} />
                         </div>
                     </div>
                 }
@@ -94,15 +92,18 @@ const SingleBase = (props) => {
                 }
 
                 {/* Page bottom : CTA + progress */}
-                <section className={`${styles["full-width-container"]} position-relative bg-primary-lighter`}>
-                    <div className="container">
-                        <div className="row">
-                            <div className="d-flex justify-content-center align-items-center py-4">
-                                {singlePageBottom}
+                {
+                    singlePageBottom &&
+                    <section className={`${styles["full-width-container"]} position-relative bg-primary-lighter`}>
+                        <div className="container">
+                            <div className="row">
+                                <div className="d-flex justify-content-center align-items-center py-4">
+                                    {singlePageBottom}
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </section>
+                    </section>
+                }
 
             </div>
         </>

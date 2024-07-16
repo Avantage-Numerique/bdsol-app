@@ -20,7 +20,6 @@ export const TYPE_DEFAULT = TYPE_ABSTRACT;
 export const TYPE_NOTSET = "undefined";
 
 
-
 class Type {
     constructor(values) {
         this.slug = values.slug;
@@ -67,7 +66,7 @@ TYPES.set(TYPE_PROJECT, new Type({
     icon:"project-diagram"
 }));
 TYPES.set(TYPE_PERSON, new Type({
-    slug:"persons",
+    slug:"personnes",
     label: "Personne",
     labelPlural: "Personnes",
     modelClass: Person,
@@ -98,7 +97,7 @@ TYPES.set(TYPE_TAXONOMY, new Type({
 }));
 
 TYPES.set(TYPE_EVENT, new Type({
-    slug:"events",
+    slug:"evenements",
     label: "Événement",
     labelPlural: "Événements",
     modelClass: Event,
@@ -119,7 +118,7 @@ TYPES.set(TYPE_PLACE, new Type({
 }))
 
 TYPES.set(TYPE_EQUIPMENT, new Type({
-    slug:"equipment",
+    slug:"equipement",
     label: "Équipement",
     labelPlural: "Équipements",
     modelClass: Equipment,

@@ -1,4 +1,4 @@
-import {useEffect, useRef, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 
 //Component
 import PageHeader from "@/layouts/Header/PageHeader";
@@ -6,21 +6,25 @@ import Button from "@/src/common/FormElements/Button/Button";
 
 //hooks
 //Utils
-import {clientSideExternalApiRequest} from "@/src/hooks/http-hook";
+import {clientSideExternalApiRequest, useHttpClient} from "@/src/hooks/http-hook";
 import EntitiesGrid from "@/src/DataTypes/Entity/layouts/EntitiesGrid";
 import Icon from "@/src/common/widgets/Icon/Icon";
 //import Pagination from "@/src/common/Components/Pagination";
 import PageMeta from "@/src/common/PageMeta/PageMeta";
 import {lang} from "@/common/Data/GlobalConstants";
+import Spinner from "@/common/widgets/spinner/Spinner";
+import {getBadgesInfo} from "@/src/DataTypes/Badges/BadgesSection";
 
 
-const ConsultData = () => {
+const ConsultData = (props) => {
 
     const [entityList, setEntityList] = useState([]);
     const [filterState, setFilterState] = useState("all");//For multi choice, it need to be an array at first render
     const [showApplyBtn, setShowApplyBtn] = useState(false);
     const [skipNumber, setSkipNumber] = useState(0);
     const resetPagination = useRef(0)
+
+    const {isLoading, setIsLoading} = useHttpClient();
 
     //Multi choice filter (as in searchResult page)
     //To reimplement => checkboxes are checked={filterState.includes("Person")}, checkbox for all filter : checked={filterState.length === 0}
@@ -59,24 +63,27 @@ const ConsultData = () => {
             displayResMessage: true
         }
     ) */
-    const getListResponses = () => {
+    const getListResponses = async () => {
         if(filterState === "all")
-            return clientSideExternalApiRequest("/search/?searchIndex=", { method: 'GET'});
+            return await clientSideExternalApiRequest("/search/?searchIndex=", { method: 'GET'});
         else
-            return clientSideExternalApiRequest("/search/type", { method: 'POST', body: JSON.stringify({data : {type: filterState, skip:skipNumber}})});
+            return await clientSideExternalApiRequest("/search/type", { method: 'POST', body: JSON.stringify({data : {type: filterState, skip:skipNumber}})});
     }
+
     async function sendApiListRequest(){
+        setIsLoading(true);
         const res = await getListResponses();
         const list = res.data;
         setEntityList(list);
         setShowApplyBtn(false);
+        setIsLoading(false);
     }
     //First render fetch
     useEffect(()=>{ sendApiListRequest() }, [filterState, skipNumber])
 
     return (
         <div>
-            <PageMeta 
+            <PageMeta
                 title={lang.consult__title}
                 description={lang.consult__description}
             />
@@ -91,9 +98,9 @@ const ConsultData = () => {
                 <section className="bg-greyBg">
                     <div className="container py-4">
                         <h3><Icon iconName="filter"/>Filtrer par type de données</h3>
-                        <div className="d-flex flex-wrap justify-content-center">
+                        <div style={{gap: "1rem"}} className="d-flex flex-wrap justify-content-center">
                             <Button
-                                className="mx-2 rounded flex-grow-1"
+                                className="mx-1 rounded flex-grow-1"
                                 color={filterState === "all" ? "secondary" : null}
                                 outline={filterState === "all" ? null : "secondary"}
                                 text_color_over="dark"
@@ -102,7 +109,7 @@ const ConsultData = () => {
                             >
                                 Tous les types
                             </Button>
-                            <Button className="mx-2 rounded flex-grow-1"
+                            <Button className="mx-1 rounded flex-grow-1"
                                 color={filterState === "Person" ? "secondary" : null}
                                 outline={filterState === "Person" ? null : "secondary"}
                                 text_color_over="dark"
@@ -111,7 +118,7 @@ const ConsultData = () => {
                             >
                                 Personnes
                             </Button>
-                            <Button className="mx-2 rounded flex-grow-1"
+                            <Button className="mx-1 rounded flex-grow-1"
                                 color={filterState === "Organisation" ? "secondary" : null}
                                 outline={filterState === "Organisation" ? null : "secondary"}
                                 text_color_over="dark"
@@ -120,7 +127,7 @@ const ConsultData = () => {
                             >
                                 Organisations
                             </Button>
-                            <Button className="mx-2 rounded flex-grow-1"
+                            <Button className="mx-1 rounded flex-grow-1"
                                 color={filterState === "Project" ? "secondary" : null}
                                 outline={filterState === "Project" ? null : "secondary"}
                                 text_color_over="dark"
@@ -129,7 +136,7 @@ const ConsultData = () => {
                             >
                                 Projets
                             </Button>
-                            <Button className="mx-2 rounded flex-grow-1"
+                            <Button className="mx-1 rounded flex-grow-1"
                                 color={filterState === "Event" ? "secondary" : null}
                                 outline={filterState === "Event" ? null : "secondary"}
                                 text_color_over="dark"
@@ -138,7 +145,7 @@ const ConsultData = () => {
                             >
                                 Événements
                             </Button>
-                            <Button className="mx-2 rounded flex-grow-1"
+                            <Button className="mx-1 rounded flex-grow-1"
                                 color={filterState === "Equipment" ? "secondary" : null}
                                 outline={filterState === "Equipment" ? null : "secondary"}
                                 text_color_over="dark"
@@ -164,7 +171,7 @@ const ConsultData = () => {
                                     formTools={formTools}
                                     creatable={false}
                                     isMulti={true}
-                                    
+
                                     fetch={"/taxonomies/list"}
                                     requestData={{ category: "domains" }}
                                     searchField={"name"}
@@ -178,7 +185,7 @@ const ConsultData = () => {
                                     formTools={formTools}
                                     creatable={false}
                                     isMulti={true}
-                                    
+
                                     fetch={"/taxonomies/list"}
                                     requestData={{ category: "technologies" }}
                                     searchField={"name"}
@@ -192,7 +199,7 @@ const ConsultData = () => {
                                     formTools={formTools}
                                     creatable={false}
                                     isMulti={true}
-                                    
+
                                     fetch={"/taxonomies/list"}
                                     requestData={{ category: "skills" }}
                                     searchField={"name"}
@@ -212,17 +219,42 @@ const ConsultData = () => {
                 reset={resetPagination}
                 setSkipNumber={setSkipNumber}
             >*/}
-                <div className="py-4">
+                <div className="py-4 position-relative">
+                    {isLoading &&
+                        <div className={"home-page__feed-section--spinner-container"}>
+                            <div>
+                                <Spinner reverse/>
+                            </div>
+                            <p className="text-center"><strong>{lang.loadingData}</strong></p>
+                        </div>
+                    }
                     {/* Entities list section */}
                     {
-                        entityList?.length > 0 ?
-                        <EntitiesGrid className={"row"} columnClass={"col g-3 col-md-4"} feed={entityList.filter(el => el.type !== "Taxonomy")}></EntitiesGrid>
-                        :
-                        <div>Aucune entité, peut-être que notre petit canard fait une sieste.</div>
+                        entityList?.length > 0 &&
+                        <EntitiesGrid
+                            className={"row"}
+                            columnClass={"col-12 col-sm-6 col-lg-4 col-xl-3 g-4 "}
+                            feed={entityList.filter(el => el.type !== "Taxonomy")}
+                            badgesInfo={props.badgesInfo}
+                        />
+                    }
+                    {
+                        !isLoading && entityList?.length <= 0 &&
+                        <div>{lang.listNoResult}</div>
                     }
                 </div>
             {/*</Pagination>*/}
         </div>
     )
 }
-export default ConsultData
+export default ConsultData;
+
+
+export async function getServerSideProps() {
+    const badgeInfo = await getBadgesInfo();
+    return {
+        props: {
+            badgesInfo : badgeInfo
+        }
+    }
+}

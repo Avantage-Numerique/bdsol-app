@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react';
+import React, {useEffect, useState} from 'react';
 import Link from "next/link";
 
 //components
@@ -8,6 +8,8 @@ import SanitizedInnerHtml from '@/src/utils/SanitizedInnerHtml';
 import SearchTag from '@/src/common/Components/SearchTag';
 import SingleBaseProgressBar
     from '@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseProgressBar/SingleBaseProgressBar'
+import {ContactPointView} from '@/src/DataTypes/common/layouts/ContactPointView/ContactPointView';
+import BadgesSection from '@/src/DataTypes/Badges/BadgesSection';
 
 
 //Utils
@@ -59,25 +61,31 @@ const OrganisationSingleView = ({ data }) => {
     const sortedOffers = offers?.[0]?.subMeta?.order ? offers.sort((a,b) => a.subMeta.order - b.subMeta.order) : offers;
     const sortedTeam = team?.[0]?.subMeta?.order ? team.sort((a,b) => a.subMeta.order - b.subMeta.order) : team;
 
-    /* Needed for breadCrumb generator */
-    const getLabelGenerator = useCallback((param, query) => {
-        return {
-            "organisations": lang.Organisations,
-            "slug": name        
-        }[param];
-    }, []);
 
-    /****************************
-     *  Sections
-     ***************************/
-    const breadCrumb = {
+    const breadcrumbLabels = {
+        "organisations": lang.Organisations,
+        "slug": name
+    };
+
+    const breadcrumbsRoutes = {
         route: model.singleRoute,
-        getLabelGenerator: getLabelGenerator
+        labels: breadcrumbLabels,
     }
+
+    const [breadCrumb, setBreadCrumb] = useState(breadcrumbsRoutes);
+    useEffect(() => {
+        setBreadCrumb(breadcrumbsRoutes)
+    }, [name]);
+
 
     const Header = (
         <SingleBaseHeader
-            title={(<h1>{`${model.title}`}</h1>)}
+            title={(
+            <>
+                <h1>{`${model.title}`}</h1>
+                {/* <div>{(model?.badges !== undefined && model.badges.length > 0) ? model.badges : "No-badge"}+</div>
+                <div>{(model?.region !== undefined && model.region !== "") ? model.region : "No-region"}</div> */}
+            </>)}
             subtitle={(
                 <div className="d-text">
                     <h4>{catchphrase}</h4>
@@ -191,6 +199,14 @@ const OrganisationSingleView = ({ data }) => {
 
     const ContentColumnRight = (
         <>
+            {/* Badges */}
+            <BadgesSection badges={model.badges} entityLabel={model.name}/>
+
+            {/* Contact information */}
+            <SingleInfo title={lang.organisationContact} cardLayout>
+                <ContactPointView contact={model.contactPoint}/>
+            </SingleInfo>
+
             {/* Location */}
             {location &&
                 <SingleInfo
@@ -201,14 +217,6 @@ const OrganisationSingleView = ({ data }) => {
                     <EntitiesTagGrid feed={location} subBadgeProperty={"address"} columnClass={"col-12"} />
                 </SingleInfo>
             }
-            
-            {/* Contact information */}
-            <SingleInfo 
-                title={lang.organisationContact} 
-                cardLayout
-            >
-                {contactPoint}
-            </SingleInfo>
             
             {/* Domains */}
             <SingleInfo

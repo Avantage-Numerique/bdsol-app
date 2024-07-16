@@ -2,10 +2,8 @@ import {useEffect, useState} from 'react'
 
 //components
 import Button from '@/src/common/FormElements/Button/Button'
-
 //Styling
 import styles from './BottomBanner.module.scss'
-
 
 export default function BottomBanner(props) {
 
@@ -22,9 +20,8 @@ export default function BottomBanner(props) {
     const animationDuration = 1000;
 
     //Only call once
-    useEffect(() => {
-
-        //Call the function to display the element by changing the state
+    useEffect(() => {       
+         //Call the function to display the element by changing the state
         setTimeout(display, animationDuration);
 
     }, [])
@@ -70,24 +67,23 @@ export default function BottomBanner(props) {
                     <div className="container">
                         <div className={"row"}>
                             {Thumb &&
-                                <div className={`col-${thumbColWidth} d-flex justify-content-center align-items-center`}>
+                                <div className={`col-md-${thumbColWidth} d-flex justify-content-center align-items-center`}>
                                     <Thumb/>
                                 </div>
                             }
-                            <div className={`col-${contentColWidth}`}>
+                            <div className={`col-md-${contentColWidth}`}>
                                 {title && <h2>{title}</h2>}
                                 {children &&
                                     <div className={`${styles["bottom-banner__text-container"]}`}>
                                         {children}
                                     </div>
                                 }
-
                                 {bannerButtons && bannerButtons.length > 0 &&
-                                    <div className={`${styles["bottom-banner__buttons-container"]} d-flex`}>
+                                    <div className={`${styles["bottom-banner__buttons-container"]} g-2 row`}>
                                         {bannerButtons.map((button, index) => {
                                             return (
-                                                <div className={"me-2"} key={`bottomBannerButtonContainer${index}`}>
-                                                    <Button key={`bottomBanner${index}`} onClick={() => close(button.action)} outline={button.outline}>{button.label}</Button>
+                                                <div className={"col-12 col-md-auto"} key={`bottomBannerButtonContainer${index}`}>
+                                                    <Button key={`bottomBanner${index}`} className="w-100 p-1" onClick={() => close(button.action)} color={button.outline}>{button.label}</Button>
                                                 </div>
                                             )
                                         })
