@@ -41,7 +41,7 @@ const BadgesSection = ({badges, entityLabel, ...props}) => {
                 body: entityLabel ? entityLabel + ' ' + elem.description : elem.description.charAt(0).toUpperCase() + elem.description.slice(1)
             }
             tempShowBadge.push(
-                    <li className={"d-flex align-items-center justify-content-start list-group-item p-0"}>
+                    <li key={`badge-${index}`} className={"d-flex align-items-center justify-content-start list-group-item p-0"}>
                             <img className="" width="40px" height="40px" src={elem.iconPath} alt={elem.iconAlt}/>
                             <span className="mx-2">{elem?.label ?? "Badge"}</span>
                             <Tip className="" {...tip }/>
