@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 import SingleInfo from "../common/layouts/SingleInfo/SingleInfo";
-import {lang} from "@/src/common/Data/GlobalConstants";
+import {externalApiCache, lang} from "@/src/common/Data/GlobalConstants";
 import {clientSideExternalApiRequest} from '@/src/hooks/http-hook';
 import Tip from "@/src/common/FormElements/Tip/Tip";
 
@@ -72,8 +72,12 @@ export default BadgesSection;
 
 
 export const getBadgesInfo = async () => {
-    return await clientSideExternalApiRequest(
-        '/info/badges',
-        { method: 'GET' }
-    );
+    if (!externalApiCache.has("badgesInfo)")) {
+        const badges = await clientSideExternalApiRequest(
+            '/info/badges',
+            { method: 'GET' }
+        );
+        externalApiCache.set("badgesInfo", badges);
+    }
+    return externalApiCache.get("badgesInfo");
 }
