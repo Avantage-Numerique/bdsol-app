@@ -123,7 +123,7 @@ const HomePage = (props) => {
                 subTitle={lang.homePageDescription}
                 description=""
                 image={"/general_images/CroissantBoreal.png"}
-                imgAlt={"Carte du croissant boréal"} 
+                imgAlt={"Carte du Croissant boréal"} 
                 leftColClassName="py-4"
                 key={"pageHeaderHomePage"} 
                 custom_FullWidthContent={HomePageHeaderBgImg}

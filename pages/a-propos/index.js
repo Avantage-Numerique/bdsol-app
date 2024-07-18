@@ -64,7 +64,7 @@ const Index = () => {
                     <div className={"col"}>
                         <h3>À quoi ça sert ?</h3>
                         <p>
-                            La plateforme Avnu est parcourable librement et gratuitement par les utilisateurs·trices qui souhaitent se renseigner sur les ressources technologiques proposées dans le Croissant Boréal. Elle permet par exemple de :
+                            La plateforme Avnu est parcourable librement et gratuitement par les utilisateurs·trices qui souhaitent se renseigner sur les ressources technologiques proposées dans le Croissant boréal. Elle permet par exemple de :
                         </p>
                         <ul>
                             <li className={`${styles["page-list"]}`}>

@@ -38,7 +38,7 @@ const base = {
     // App
 
     "appDefaultName": "AVNU | La base de données d'Avantage Numérique",
-    "appDefaultDescription": "La base de données qui recense et géolocalise les talents, les compétences, les équipements et les initiatives technocréatives dans le Croissant Boréal.",
+    "appDefaultDescription": "La base de données qui recense et géolocalise les talents, les compétences, les équipements et les initiatives technocréatives dans le Croissant boréal.",
     "appDefaultKeywords": "ontologie, classe, propriété, base de données, technologie, créateurs, communauté",
     "appDefaultProducer": "Avantage Numérique",
     "appProducerDefaultDescription": "Avantage numérique est un hub virtuel, physique et mobile qui dessert les secteurs de la culture, des affaires et du savoir. Il vise le développement de l’écosystème créatif, entrepreneurial et technologique du Croissant boréal.",
@@ -88,6 +88,7 @@ const base = {
     "required": "*",
     "consult": "Consulter",
     "contribute": "Ajouter",
+    "onNavigationBlockWithoutSave": "Des modifications n'ont pas été sauvegardées. Voulez-vous vraiment quitter?",
 
 
     //Taxonomies related
