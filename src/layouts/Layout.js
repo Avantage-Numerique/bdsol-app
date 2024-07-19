@@ -70,40 +70,42 @@ const Layout = ( {children} ) => {
     return (
         <>
             <Head>
-                <meta charSet="UTF-8" />
-                <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+                <meta charSet="UTF-8"/>
+                <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
                 <meta httpEquiv="X-UA-Compatible" content="ie=edge"/>
-                <meta name="language" content="fr" />  {/* Static for now */}
+                <meta name="language" content="fr"/>
+                {/* Static for now */}
 
-                {/* For IE 11 or earlier */} 
+                {/* For IE 11 or earlier */}
                 {/* No support for PNG favicons with 16x16 or 32x32 sizes, so use the ICO format */}
-                <link rel="icon" type="image/x-icon" href="/AVNU_Branding/favicon/favicon.ico" />
+                <link rel="icon" type="image/x-icon" href="/favicon/favicon.ico"/>
 
-                {/* For modern browsers */}
-                <link rel="icon" type="image/png" sizes="16x16" href="/AVNU_Branding/favicon/favicon-16x16.png" />
-                <link rel="icon" type="image/png" sizes="32x32" href="/AVNU_Branding/favicon/favicon-32x32.png" />
-                <link rel="apple-touch-icon" sizes="180x180" href="/AVNU_Branding/favicon/apple-touch-icon.png" />
-
-                {/* For Android Chrome */}
-                <link rel="icon" type="image/png" sizes="192x192" href="/AVNU_Branding/favicon/android-chrome-192x192.png" />
-                <link rel="icon" type="image/png" sizes="512x512" href="/AVNU_Branding/favicon/android-chrome-512x512.png" />
-
-                <meta name="theme-color" content="#000" />
+                <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png"/>
+                <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png"/>
+                <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png"/>
+                <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png"/>
+                <link rel="icon" type="image/png" sizes="192x192" href="/favicon/android-chrome-192x192.png"/>
+                <link rel="icon" type="image/png" sizes="512x512" href="/favicon/android-chrome-512x512.png"/>
+                <link rel="manifest" href="/favicon/site.webmanifest"/>
+                <link rel="mask-icon" href="/favicon/safari-pinned-tab.svg" color="#5bbad5"/>
+                <meta name="msapplication-TileColor" content="#da532c"/>
+                <meta name="theme-color" content="#ffffff"/>
+                <meta name="theme-color" content="#ffffff"/>
 
                 {/* General social medias meta tags */}
-                <meta property="og:type" content="website" />
-                <meta property="og:site_name" content="AVNU" />
-                <meta property="og:locale" content="fr_CA" />
+                <meta property="og:type" content="website"/>
+                <meta property="og:site_name" content="AVNU"/>
+                <meta property="og:locale" content="fr_CA"/>
             </Head>
 
             <div id={styles.layout}>
-                <Header />
-                
+                <Header/>
+
                 {/* Defining contextes to be passed along children */}
                 <ModalContext.Provider value={{modalTools: modalTools}}>
-                    <MessageContext.Provider value={{ addMessage: addMessage }}>
-                    
-                    <main className={`${styles["main-container-min-height"]} container`}>
+                    <MessageContext.Provider value={{addMessage: addMessage}}>
+
+                        <main className={`${styles["main-container-min-height"]} container`}>
                         <div className="row">
                             <div className="col">
 
