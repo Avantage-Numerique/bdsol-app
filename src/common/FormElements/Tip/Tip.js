@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 
 //components
 import PopOver from '@/src/common/UserNotifications/PopOver/PopOver'
@@ -7,15 +7,14 @@ import PopOver from '@/src/common/UserNotifications/PopOver/PopOver'
 import styles from './tip.module.scss'
 
 
-
 const Tip = (props) => {
 
     const [popOverDisplay, setPopOverDisplay] = useState(false);
-
+    const dontBasePositionOnButton = props.dontBasePositionOnButton === true;
 
     return (
         <>
-            <div className="position-relative">
+            <div className={`${dontBasePositionOnButton ? "" : "position-relative"}`}>
                 <button type="button"
                         /* data-bs-toggle="popover" */
                         onClick={() => setPopOverDisplay(prev => !prev)}
