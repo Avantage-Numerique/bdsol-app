@@ -7,7 +7,6 @@ class Caching {
 
     constructor() {
         this.cacheObjects = {};
-        console.log("Caching initiated");
     }
 
     /**
@@ -38,7 +37,6 @@ class Caching {
      * @return {boolean}
      */
     has(key) {
-        console.log("has", key, (key in this.cacheObjects), "have a value", typeof this.cacheObjects[key]);
         return (key in this.cacheObjects);
     }
 
