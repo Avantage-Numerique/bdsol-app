@@ -20,7 +20,6 @@
     display: flex;
 
     .tag {
-        background-color: grey;
         border-radius: 50%;
         height: var(--height);
         width: var(--height);  
@@ -43,7 +42,7 @@
         border-radius: 0 1rem 1rem 0;
         color: var(--color);
 
-        transform: translateX(calc(-2 * (var(--padding-left) / 3)));
+        transform: translateX((-2 * calc(var(--padding-left) / 3)));
 
         display: flex;
         align-items: center;
