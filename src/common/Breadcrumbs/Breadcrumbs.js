@@ -146,15 +146,15 @@ const Crumb = ({labels, text, href, last = false}) => {//text: defaultText,
 
     if (last) {
         return (
-            <li className="breadcrumb-item d-flex" aria-current="page">
+            <li className="breadcrumb-item d-flex pb-3" aria-current="page">
                 <div className="text-primary-darker py-0 px-1 bg-primary-light rounded-1" dangerouslySetInnerHTML={{ __html: text }}></div>
             </li>
         )
     }
 
     return (
-        <li className="breadcrumb-item d-flex">
-            <Link href={href} className="text-decoration-underline link-underline-secondary-darker link-underline-opacity-0 link-underline-opacity-75-hover bg-">
+        <li className="breadcrumb-item d-flex pb-3">
+            <Link href={href} className="text-decoration-underline link-underline-secondary-darker link-underline-opacity-0 link-underline-opacity-75-hover">
                 <div className="text-secondary-darker py-0 px-1 bg-secondary-light rounded-1" dangerouslySetInnerHTML={{ __html: text }}></div>
             </Link>
         </li>
