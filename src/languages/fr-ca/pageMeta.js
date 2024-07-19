@@ -2,7 +2,7 @@
 const pageMeta = {
     /* Index page */
     "index__title": "Accueil | AVNU - La base de données d'Avantage Numérique",
-    "index__description": "AVNU est une base de données qui a pour objectif de recenser et de géolocaliser les talents, les compétences, les équipements et les initiatives technocréatives dans le Croissant Boréal (Abitibi-Témiscamingue, nord de l’Ontario francophone, Nord-du-Québec). ", 
+    "index__description": "AVNU est une base de données qui a pour objectif de recenser et de géolocaliser les talents, les compétences, les équipements et les initiatives technocréatives dans le Croissant boréal (Abitibi-Témiscamingue, nord de l’Ontario francophone, Nord-du-Québec). ", 
 
     /* /categories */
     "categories__description": "Découvrez les différentes catégories utilisées pour classifier nos données : domaines, technologies, compétences, types d'équipement.",
@@ -34,7 +34,7 @@ const pageMeta = {
 
     /* /consulter */
     "consult__title": "Consulter les données",
-    "consult__description": "Découvrez les multiples entités répertoriées sur le territoire du Croissant Boréal : personnes, organisations, projets, événements et équipements.",
+    "consult__description": "Découvrez les multiples entités répertoriées sur le territoire du Croissant boréal : personnes, organisations, projets, événements et équipements.",
 
     /* /contribuer */
     "contribute__title": "Contribuer à la base de données",
@@ -50,7 +50,7 @@ const pageMeta = {
     "organisations__description": "Les organisations répertoriées travaillent avec les technologies numériques et sont situées dans la région du Croissant boréal.",
     
     /* /persons */
-    "persons__description": "Créateurs, experts, propriétaires d'équipement, promoteurs d'initiatives numériques et autres contribuent au développement des technologies dans le Croissant Boréal.",
+    "persons__description": "Créateurs, experts, propriétaires d'équipement, promoteurs d'initiatives numériques et autres contribuent au développement des technologies dans le Croissant boréal.",
    
     /* /projects */
     "projects__description": "Découvrez tous les projets à caractère numérique répertoriés sur AVNU.",
@@ -61,7 +61,7 @@ const pageMeta = {
 
     /* /FAQ/about */
     "faq__about__title": "À propos",
-    "faq__about__description": "Découvrez AVNU : une base de données cartographiant les talents numériques et les initiatives dans le Croissant Boréal. Améliorez la découvrabilité, la visibilité et la transmission des connaissances dans la région.",
+    "faq__about__description": "Découvrez AVNU : une base de données cartographiant les talents numériques et les initiatives dans le Croissant boréal. Améliorez la découvrabilité, la visibilité et la transmission des connaissances dans la région.",
     
     /* /FAQ/licences */
     "faq__licences__title": "Licences",

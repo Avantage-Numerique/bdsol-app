@@ -372,13 +372,13 @@ const OrganisationSingleEdit = (props) => {
             >
                 <Select 
                     name="region"
-                    label="Faites-vous partie du croissant boréal?"
+                    label="Faites-vous partie du Croissant boréal?"
                     formTools={formTools}
                     noValueText="Choisissez une région"
                     tip={
                         {
                             header : "Badge",
-                            body: "Ce champs permet d'obtenir le badge 'Croissant Boréal' qui indique que vous faites partie de celui-ci."
+                            body: "Ce champs permet d'obtenir le badge 'Croissant boréal' qui indique que vous faites partie de celui-ci."
                         }
                     }
                     options={[

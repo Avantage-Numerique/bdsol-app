@@ -69,7 +69,7 @@ const NousJoindre = () => {
         }
         else{
             msg.addMessage({ 
-                text: "Message envoyé avec succès, merci de vos commentaire!",
+                text: "Message envoyé avec succès, merci de vos commentaires!",
                 positive: true
             });
             formState.inputs.name.value = "";

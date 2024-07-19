@@ -77,7 +77,6 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props}) => {
         setCurrentModel(model);
     }, [setCurrentModel]);
 
-
     //Modal hook
     const modalSaveEntityReminder = useRootModal();
 
@@ -351,13 +350,13 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props}) => {
             <SingleInfo>
                 <Select 
                     name="region"
-                    label="Faites-vous partie du croissant boréal?"
+                    label="Faites-vous partie du Croissant boréal?"
                     formTools={formTools}
                     noValueText="Choisissez une région"
                     tip={
                         {
                             header : "Badge",
-                            body: "Ce champs permet d'obtenir le badge 'Croissant Boréal' qui indique que vous faites partie de celui-ci."
+                            body: "Ce champs permet d'obtenir le badge 'Croissant boréal' qui indique que vous faites partie de celui-ci."
                         }
                     }
                     options={[

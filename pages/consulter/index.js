@@ -97,7 +97,7 @@ const ConsultData = (props) => {
                 {/* Filter type section */}
                 <section className="bg-greyBg">
                     <div className="container py-4">
-                        <h3><Icon iconName="filter"/>Filtrer par type de données</h3>
+                        <h3><Icon iconName="filter"/>Filtres</h3>
                         <div style={{gap: "1rem"}} className="d-flex flex-wrap justify-content-center">
                             <Button
                                 className="mx-1 rounded flex-grow-1"
