@@ -23,6 +23,7 @@ import styles from './Layout.module.scss';
 //Hooks
 import {useModalController} from '@/src/hooks/useModal/ModalsController/ModalsController';
 import {useRouter} from "next/router";
+import nextConfig from "@/next.config";
 
 export const ModalContext = createContext({});
 
@@ -51,6 +52,12 @@ const Layout = ( {children} ) => {
         }])
     }
 
+    const metaAssetsPath = (asset, addVersion=true) => {
+        const assetsVersions = nextConfig.env.VERSION;
+        const basePath = "/favicon/";
+        return `${basePath}${asset}${addVersion ? `?v=${assetsVersions}`:''}`;
+    }
+
     //  Catch if uri contains a msg query vars an display it in a toast alert.
     const router = useRouter();
     useEffect(() => {
@@ -67,6 +74,7 @@ const Layout = ( {children} ) => {
     }, [router.query]);
 
 
+
     return (
         <>
             <Head>
@@ -78,18 +86,17 @@ const Layout = ( {children} ) => {
 
                 {/* For IE 11 or earlier */}
                 {/* No support for PNG favicons with 16x16 or 32x32 sizes, so use the ICO format */}
-                <link rel="icon" type="image/x-icon" href="/favicon/favicon.ico"/>
+                <link rel="icon" type="image/x-icon" href={metaAssetsPath("favicon.ico")} />
 
-                <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png"/>
-                <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png"/>
-                <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png"/>
-                <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png"/>
-                <link rel="icon" type="image/png" sizes="192x192" href="/favicon/android-chrome-192x192.png"/>
-                <link rel="icon" type="image/png" sizes="512x512" href="/favicon/android-chrome-512x512.png"/>
-                <link rel="manifest" href="/favicon/site.webmanifest"/>
-                <link rel="mask-icon" href="/favicon/safari-pinned-tab.svg" color="#5bbad5"/>
+                <link rel="apple-touch-icon" sizes="180x180" href={metaAssetsPath("apple-touch-icon.png")} />
+                <link rel="icon" type="image/png" sizes="32x32" href={metaAssetsPath("favicon-32x32.png")} />
+                <link rel="icon" type="image/png" sizes="16x16" href={metaAssetsPath("favicon-16x16.png")} />
+                <link rel="apple-touch-icon" sizes="180x180" href={metaAssetsPath("apple-touch-icon.png")} />
+                <link rel="icon" type="image/png" sizes="192x192" href={metaAssetsPath("android-chrome-192x192.png")} />
+                <link rel="icon" type="image/png" sizes="512x512" href={metaAssetsPath("android-chrome-512x512.png")} />
+                <link rel="manifest" href={metaAssetsPath("site.webmanifest")} />
+                <link rel="mask-icon" href={metaAssetsPath("safari-pinned-tab.svg")}  color="#5bbad5"/>
                 <meta name="msapplication-TileColor" content="#da532c"/>
-                <meta name="theme-color" content="#ffffff"/>
                 <meta name="theme-color" content="#ffffff"/>
 
                 {/* General social medias meta tags */}
