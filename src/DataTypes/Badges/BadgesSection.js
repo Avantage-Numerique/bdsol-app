@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 import SingleInfo from "../common/layouts/SingleInfo/SingleInfo";
 import {externalApiCache, lang} from "@/src/common/Data/GlobalConstants";
-import {clientSideExternalApiRequest} from '@/src/hooks/http-hook';
+import {clientSideExternalApiRequest, externalApiRequest} from '@/src/hooks/http-hook';
 import Tip from "@/src/common/FormElements/Tip/Tip";
 
 const BadgesSection = ({badges, entityLabel, ...props}) => {
@@ -70,13 +70,31 @@ const BadgesSection = ({badges, entityLabel, ...props}) => {
 
 export default BadgesSection;
 
-
-export const getBadgesInfo = async () => {
+/**
+ * Getter of the data from API about the badges supported. Called with GET Method
+ * @param fromServer {boolean} is the called is made from the server or from the client.
+ * @return {Promise<*|null>}
+ */
+export const getBadgesInfo = async (fromServer=false) => {
     if (!externalApiCache.has("badgesInfo)")) {
-        const badges = await clientSideExternalApiRequest(
-            '/info/badges',
-            { method: 'GET' }
-        );
+        let badges;
+        const badgeFetchConfig = {
+            path: "/info/badges",
+            params: { method: 'GET' }
+        };
+        if (fromServer) {
+            badges = await externalApiRequest(
+                badgeFetchConfig.path,
+                badgeFetchConfig.params
+            );
+        }
+        if (!fromServer) {
+            badges = await clientSideExternalApiRequest(
+                badgeFetchConfig.path,
+                badgeFetchConfig.params
+            );
+        }
+
         externalApiCache.set("badgesInfo", badges);
     }
     return externalApiCache.get("badgesInfo");

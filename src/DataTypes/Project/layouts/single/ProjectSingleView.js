@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 
 //components
 import SingleBaseHeader from "@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseHeader"
@@ -8,8 +8,9 @@ import SearchTag from '@/src/common/Components/SearchTag';
 import SocialHandleDisplay from '@/src/DataTypes/common/layouts/SocialHandlesViews/SocialHandleDisplay';
 import EntitiesTagGrid from "@/DataTypes/Entity/layouts/EntitiesTagGrid";
 import EntityLink from "@/DataTypes/Entity/layouts/EntityLink";
-import SingleBaseProgressBar from '@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseProgressBar/SingleBaseProgressBar'
-import { ContactPointView } from '@/src/DataTypes/common/layouts/ContactPointView/ContactPointView';
+import SingleBaseProgressBar
+    from '@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseProgressBar/SingleBaseProgressBar'
+import {ContactPointView} from '@/src/DataTypes/common/layouts/ContactPointView/ContactPointView';
 
 //Utils
 import SanitizedInnerHtml from '@/src/utils/SanitizedInnerHtml';
@@ -164,7 +165,7 @@ const ProjectSingleView = ({ data }) => {
                     displayCondition={sortedTeam.length > 0}
                     cardLayout
             >
-                <EntitiesTagGrid feed={sortedTeam} regularFlexWrapping subEntityProperty={"member"} subBadgeProperty={"role"} noneMessage={"Aucun membre de l'équipe spécifiés"} />
+                <EntitiesTagGrid feed={sortedTeam} subEntityProperty={"member"} subBadgeProperty={"role"} noneMessage={"Aucun membre de l'équipe spécifiés"} />
             </SingleInfo>
             
             {/* schedule budget */}
@@ -218,8 +219,7 @@ const ProjectSingleView = ({ data }) => {
                 cardLayout
             >
                 {equipment && 
-                    <EntitiesTagGrid 
-                        regularFlexWrapping 
+                    <EntitiesTagGrid
                         feed={equipment} 
                         noneMessage={""} 
                     />

@@ -38,7 +38,7 @@ const Licences = (props) => {
     const pageSpacing = appConfig.spacing.pagesContentSpacing;
 
     return (
-        <div className="content">
+        <div className="content faq-licence-content">
             <PageMeta
                 title={lang.faq__licences__title}
                 description={lang.faq__licences__description}
@@ -209,7 +209,7 @@ const Licences = (props) => {
                 </section>
                 <section id="faq-licence-accronymes" className={"row pb-3"}>
                     <div className={"col"}>
-                        <h3 className={"pb-3 pt-4"}>Définition des accronymes utilisés <InPageLink name={"definitions-accronymes"} /></h3>
+                        <h3 className={"pb-3 pt-4 position-relative"}>Définition des accronymes utilisés <InPageLink name={"definitions-accronymes"} /></h3>
                         <ul>
                             <li>
                                 <h4><InPageLink name={"domaine-public"} />
@@ -271,7 +271,7 @@ const Licences = (props) => {
                             </li>
                         </ul>
 
-                        <blockquote className={"mt-5 py-2 px-4 bg-primary-lighter"}>Sources :
+                        <blockquote className={"mt-5 py-3 px-4 bg-primary-lighter"}>Sources :
                             &nbsp;
                             <ExternalLink href="https://creativecommons.org/about/cclicenses/" title="creative commons (cc)">
                                 <img src={"/icones/cc.svg"} alt={"CC"} className={"pe-2"}/>

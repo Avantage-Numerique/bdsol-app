@@ -21,7 +21,7 @@ import AppRoutes from "@/src/Routing/AppRoutes";
 import EntitiesGrid from "@/DataTypes/Entity/layouts/EntitiesGrid";
 import {getTitle} from "@/DataTypes/MetaData/MetaTitle";
 import {getType, TYPE_PERSON} from "@/DataTypes/Entity/Types";
-import { getBadgesInfo } from '@/src/DataTypes/Badges/BadgesSection';
+import {getBadgesInfo} from '@/src/DataTypes/Badges/BadgesSection';
 
 
 const PersonsPage = (props) => {
@@ -163,7 +163,7 @@ const PersonsPage = (props) => {
 
 //Load badges Info
 export async function getServerSideProps() {
-    const badgeInfo = await getBadgesInfo();
+    const badgeInfo = await getBadgesInfo(true);
     return {
         props: {
             badgesInfo : badgeInfo

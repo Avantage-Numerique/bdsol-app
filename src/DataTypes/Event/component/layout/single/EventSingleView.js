@@ -9,7 +9,7 @@ import SearchTag from "@/src/common/Components/SearchTag";
 import SingleBaseProgressBar
     from '@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseProgressBar/SingleBaseProgressBar'
 import SocialHandleDisplay from '@/src/DataTypes/common/layouts/SocialHandlesViews/SocialHandleDisplay'
-import { ContactPointView } from "@/src/DataTypes/common/layouts/ContactPointView/ContactPointView";
+import {ContactPointView} from "@/src/DataTypes/common/layouts/ContactPointView/ContactPointView";
 
 //Utils
 import SanitizedInnerHtml from '@/src/utils/SanitizedInnerHtml';
@@ -231,8 +231,7 @@ const EventSingleView = ({data}) => {
                 displayCondition={attendees?.length > 0}
                 cardLayout
             >
-                <EntitiesTagGrid 
-                    regularFlexWrapping
+                <EntitiesTagGrid
                     feed={attendees} 
                     className="mb-0"
                 />
