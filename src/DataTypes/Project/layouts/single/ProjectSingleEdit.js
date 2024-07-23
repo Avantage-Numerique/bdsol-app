@@ -89,6 +89,10 @@ const ProjectSingleEdit = (props) => {
 
     //Import message context 
     const msg = useContext(MessageContext);
+
+    //Save intention for SingleBeforeUnloadReminder
+    const [saveIntentionState, setSaveIntentionState] = useState(false);
+    
     /*
     First of all, verify if the user is logged in.
     If he isn't, then redirect him in the connexion page
@@ -345,7 +349,8 @@ const ProjectSingleEdit = (props) => {
             <MainImageDisplay buttonClasses="fs-6" mainImage={currentMainImage} entity={currentModel} setter={updateModelMainImage}/>
             <div className="d-flex flex-wrap align-items-end justify-content-between gap-2 gap-md-3 gap-lg-4">
                 <Button className='fs-6' size="slim" color="success" disabled={!formState.isValid}
-                        onClick={modalSaveEntityReminder.displayModal}>
+                    onClick={() => {setSaveIntentionState(true);modalSaveEntityReminder.displayModal()}}
+                >
                     <Icon iconName={"save"}/>&nbsp;{lang.capitalize("save")}
                 </Button>
                 <Button className='fs-6' size="slim" color="primary-light" href={model.singleLink}>
@@ -520,12 +525,12 @@ const ProjectSingleEdit = (props) => {
 
     {/*********** Submit section ***********/}
     const SinglePageBottom = (
-        <SubmitEntity submitHandler={modalSaveEntityReminder.displayModal} formState={formState} />
+        <SubmitEntity submitHandler={() => {setSaveIntentionState(true); modalSaveEntityReminder.displayModal()}} formState={formState} />
     )
 
     return (
         <>
-            <SingleBeforeUnloadReminder formTools={formTools}/>
+            <SingleBeforeUnloadReminder formTools={formTools} saveIntention={saveIntentionState}/>
             <SingleBase
                 breadCrumb={breadCrumb}
                 header={header}
@@ -539,7 +544,7 @@ const ProjectSingleEdit = (props) => {
             <modalSaveEntityReminder.Modal>
                 <SingleSaveEntityReminder
                     submitHandler={submitHandler}
-                    closeModal={modalSaveEntityReminder.closeModal}
+                    closeModal={() => {modalSaveEntityReminder.closeModal(); setSaveIntentionState(false)}}
                 />
             </modalSaveEntityReminder.Modal>
         </>

@@ -3,7 +3,13 @@ import { useRouter } from "next/router";
 import { lang } from "@/src/common/Data/GlobalConstants";
 
 // Prompt the user if they try and leave with unsaved changes
-const SingleBeforeUnloadReminder = ({formTools, ...props}) => {
+/**
+ * 
+ * @param {object} formTools To check wether something has changed and prompt user
+ * @param {boolean} saveIntention State which should change on user opening SingleSaveEntityReminder to disable listeners
+ *  true if modal is opened, false if modal is closed
+ */
+const SingleBeforeUnloadReminder = ({formTools, saveIntention, ...props}) => {
     const router = useRouter();
     
     const initFormStateInputs = useRef(0);
@@ -23,10 +29,6 @@ const SingleBeforeUnloadReminder = ({formTools, ...props}) => {
             unsavedChanges.current = JSON.stringify(initFormStateInputs.current) !== JSON.stringify(formTools.formState.inputs) 
         else
             unsavedChanges.current = false;
-
-        console.log("UnsavedChanges", unsavedChanges.current);
-        console.log("stringify init", JSON.stringify(initFormStateInputs.current))
-        console.log("stringify current", JSON.stringify(formTools.formState.inputs))
         
         //Set event listener on routeChange and beforeUnload
         const warningText = lang.onNavigationBlockWithoutSave;
@@ -47,15 +49,22 @@ const SingleBeforeUnloadReminder = ({formTools, ...props}) => {
                 throw 'routeChange aborted.';
         };
 
-        window.addEventListener('beforeunload', handleWindowClose);
-        router.events.on('routeChangeStart', handleBrowseAway);
+        //If intention is to save, disable the listener else enable listeners
+        if(saveIntention) {
+            window.removeEventListener('beforeunload', handleWindowClose);
+            router.events.off('routeChangeStart', handleBrowseAway);
+        }
+        else {
+            window.addEventListener('beforeunload', handleWindowClose);
+            router.events.on('routeChangeStart', handleBrowseAway);
+        }
 
         return () => {
             window.removeEventListener('beforeunload', handleWindowClose);
             router.events.off('routeChangeStart', handleBrowseAway);
-        };
+        }
 
-    }, [formTools.formState.inputs, initFormStateInputs]);
+    }, [formTools.formState.inputs, saveIntention /*, initFormStateInputs*/]);
 
 }
 
