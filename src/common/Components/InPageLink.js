@@ -21,7 +21,7 @@ const InPageLink = (props) => {
                 <a className={`in-page-link ${props.className ?? ''}`} href={link} name={`${props.name}`}>
                     {showIcon && <Icon iconName={"share"} className={"text-decoration-none ps-1"}/>}
                 </a>
-                {showTarget && <span iconName={"share"} className={"in-page-link-target"}>&nbsp;</span>}
+                {showTarget && <span className={"in-page-link-target"}>&nbsp;</span>}
             </div>
         )
     }
