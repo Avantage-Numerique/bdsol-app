@@ -38,7 +38,7 @@
 
         padding: var(--general-padding-y) var(--general-padding-x) ;
         padding-left: calc(var(--padding-left) + var(--general-padding-y));
-        background: radial-gradient(var(--padding-left) 75% at left, transparent 100%, var(--background-color) 51%);
+        background: radial-gradient(var(--padding-left) 75% at left, transparent 100%, var(--background-color) 51%, var(--background-color) 0%);
         border-radius: 0 1rem 1rem 0;
         color: var(--color);
 
