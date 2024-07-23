@@ -2,13 +2,6 @@
     Legacy global styles applicable to every pages waiting to be refactored or adapted to Bootstrap
 */
 
-/*:root {
-    //Common border radius through the website
-  --commonRadius: 1.5em;
-}
-
-.commonRadius { border-radius: var(--commonRadius); } //only used in the documentation page, do we need this?
-*/
 
 /*
 *
@@ -22,9 +15,7 @@ h6 {
     font-weight: $font-weight-bold;
 }
 
-a {
-    color: inherit;
-}
+a { color: inherit; }
 
 
 /*

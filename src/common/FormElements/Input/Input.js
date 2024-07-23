@@ -1,10 +1,9 @@
 import {useEffect, useRef} from 'react';
 
 //Hooks
-import { useValidation } from '@/src/hooks/useValidation/useValidation';
+import {useValidation} from '@/src/hooks/useValidation/useValidation';
+import {useFieldTips} from '@/src/hooks/useFieldTips/useFieldTips';
 
-//components
-import Tip from '@/common/FormElements/Tip/Tip';
 
 //Styling
 import styles from './Input.module.scss';
@@ -22,8 +21,6 @@ import styles from './Input.module.scss';
 
 
 const Input = ({name, formTools, ...props}) => {
-
-    const { validate, RequirementsBadges, ValidationErrorMessages } = useValidation( props.validationRules )
     /*
         Access the differents form tools 
     */
@@ -32,6 +29,10 @@ const Input = ({name, formTools, ...props}) => {
         inputHandler,
         inputTouched
     } = formTools;
+
+    const { validate, RequirementsBadges, ValidationErrorMessages, dependencyCallingValidation } = useValidation( props.validationRules, formState )
+    const {TipPopOver, TipButton} = useFieldTips(props.tip);
+
 
     const currentState = formState.inputs[name];
 
@@ -52,6 +53,15 @@ const Input = ({name, formTools, ...props}) => {
             event.target.value,
             props.validationRules ? validate(event.target.value) : true
         )
+        if (typeof props.onChangeInput === 'function') {
+            //if the component got an onChange method sets. Trigger it.
+            props.onChangeInput(event);
+        }
+    }
+
+    const onTouch = event => {
+        updateValue(event)
+        inputTouched(name)
     }
 
     useEffect(() => {
@@ -60,7 +70,7 @@ const Input = ({name, formTools, ...props}) => {
             fieldRef.current.value,
             props.validationRules ? validate(fieldRef.current.value) : true
         )
-    }, [])
+    }, [dependencyCallingValidation])
 
  
     return (
@@ -73,9 +83,10 @@ const Input = ({name, formTools, ...props}) => {
                 </label>
                 {
                     props.tip &&
-                    <Tip {...props.tip}/>
+                    <TipButton title="Détails" />
                 }
             </div>
+            <TipPopOver />
 
             <div 
                 //tabIndex="0"  Would allow the complete field to be focused, not only the input. But that would alos make two focusable elements by field
@@ -83,6 +94,7 @@ const Input = ({name, formTools, ...props}) => {
                 className={`
                 form-element
                 form-element--color-validation
+                ${props.disabled ? "bg-greyBg" : ""}
                 ${props.formClassName && props.formClassName}
                 ${styles["input-component__field-container"]}
                 ${!currentState.isValid && currentState.isTouched && "control--invalid"}
@@ -92,16 +104,20 @@ const Input = ({name, formTools, ...props}) => {
                     className="w-100 border-0 form-element--field-padding --place-holder-color-primary"
                     name={ name }
                     id={ name }
+                    disabled={props.disabled ? true : false}
                     //If there is a state attached to the component, make it a controlled components where the value depends on the state
                     list={props.list ? props.list : null}
                     value={ currentState ? currentState.value : null }
                     type={props.type ? props.type : "text"}
                     placeholder={props.placeholder}
                     onChange={updateValue}
-                    onBlur={() => inputTouched(name)}
+                    onBlur={onTouch}
                     autoComplete={props.type === "password" ? "on" : undefined}
                     pattern={props.pattern ?? undefined}
-                /> 
+                    min={props.min ?? undefined}
+                    max={props.max ?? undefined}
+                    onKeyUp={props.onKeyUp ?? undefined}
+                />
 
                 <RequirementsBadges addUlPadding /> 
             </div>

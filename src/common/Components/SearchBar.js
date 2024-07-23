@@ -1,11 +1,11 @@
-import {useState, useEffect, useRef} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import {clientSideExternalApiRequest} from '@/src/hooks/http-hook';
 import {useFormUtils} from '@/src/hooks/useFormUtils/useFormUtils';
 import useDebounce from '@/src/hooks/useDebounce';
-import Router, {useRouter} from 'next/router';
+import {useRouter} from 'next/router';
 import Icon from "@/common/widgets/Icon/Icon";
 import Select from 'react-select';
-import { getType } from '@/src/DataTypes/Entity/Types';
+import {getType} from '@/src/DataTypes/Entity/Types';
 
 //Component
 //import Input from "../FormElements/Input/Input";
@@ -40,6 +40,29 @@ const SearchBar = ({small, ...props}) => {
             }
         },
     );
+
+    //Simple styling to remove the border
+    const styling = {
+        //simplifed the no border
+        control: (styles, state) => ({
+            ...styles,
+            border: 0,
+            borderRadius: "1.5rem",
+            // This line disable the blue border
+            boxShadow: 0,
+            '&:hover': {
+                border: 0
+            },
+            //backgroundColor: 'white'
+        }),
+        placeholder: (provided, state) => ({
+            ...provided,
+            whiteSpace: 'nowrap',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            // Ajoutez d'autres styles si nécessaire
+          }),
+    }
 
     const inputHandler = formTools.inputHandler;
 
@@ -76,13 +99,16 @@ const SearchBar = ({small, ...props}) => {
         let nearTaxoToEntityArray = [];
         if(nearestTaxonomyResponse?.data?.nearestTaxonomy)
             nearTaxoToEntityArray.push(nearestTaxonomyResponse.data.nearestTaxonomy)
+
         if(nearestTaxonomyResponse?.data?.linkedEntityToNearestTaxonomy)
             nearTaxoToEntityArray.push(...nearestTaxonomyResponse.data.linkedEntityToNearestTaxonomy)
+
         setNearestTaxonomyObject(nearTaxoToEntityArray)
     }
 
     //Request Debounce
     const debouncedRequest = useDebounce(formState.inputs.searchIndex.value, 200);
+
     //Update the list of options to display
     useEffect(() => {
         //If not the first render, fetch
@@ -107,12 +133,12 @@ const SearchBar = ({small, ...props}) => {
     const submitSelectedItem = (selected, action) => {
         const typeUrl = getType(selected.type).slug
         if(selected.type === "Taxonomy"){
-            Router.push({
+            router.push({
                 pathname: "/"+typeUrl+"/"+selected.category+"/"+selected.slug,
             });
         }
         else{
-            Router.push({
+            router.push({
                 pathname: "/"+typeUrl+"/"+selected.slug,
             });
         }
@@ -122,30 +148,31 @@ const SearchBar = ({small, ...props}) => {
 
     const submitHandler = async event => {
         event?.preventDefault();
-        await Router.push({
-            pathname: "/searchResults",
-            query: {searchIndex: inputValue},
-        });
-        setValue(null)
-        setInputValue('');
-
-        //Re-init the var to allow search on click and on tab
-        setTimeout( () => blockSubmitSlug.current = false, 500 )
+        if(inputValue !== undefined && inputValue !== null && inputValue.trim() !== ''){
+            await router.push({
+                pathname: "/searchResults",
+                query: {searchIndex: inputValue},
+            });
+            setValue(null)
+            setInputValue('');
+    
+            //Re-init the var to allow search on click and on tab
+            setTimeout( () => blockSubmitSlug.current = false, 500 )
+        }
     }
+
+
 
     return (
         <form onSubmit={submitHandler} className={`search-bar ${small && "small-searchBar w-100"}`}>
-            <div className="input-group my-2 ">
-                <button type="submit" className="btn btn-outline-light">
-                    <Icon iconName="search" />
-                </button>
-            
+            <div className="input-group my-2 bg-white">
                 <Select
-                    className={"form-control px-3 py-2"}
+                    className={"form-control ms-2 p-0 border-0 rounded"}
                     key={"SearchBar-layout"}
                     ref={selectRef}
+                    styles={styling}
                     instanceId={"SearchBar-layout"}
-                    placeholder={"Rechercher"}
+                    placeholder={"Rechercher une personne, un projet, un équipement, etc."}
                     value={value}
                     options={optionList}
                     inputValue={inputValue}
@@ -163,8 +190,12 @@ const SearchBar = ({small, ...props}) => {
                             Appuyez sur la touche <Icon iconName={"keyboard"} /> <code>Entrer</code> pour rechercher avec cette valeur quand même.
                         </p>
                     )}
+                    components={{ DropdownIndicator:() => null, IndicatorSeparator:() => null }}
                     filterOption={(option, searchText) => {return true}}
                 />
+                <button type="submit" className="p-1 btn">
+                    <Icon iconName="search" />
+                </button>
             </div>
         </form>
     )

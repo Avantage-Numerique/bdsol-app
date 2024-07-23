@@ -5,7 +5,7 @@ const base = {
 
     "historyBack": "Retour à la page précédente",
     "see": "Voir",
-    "noResult": "Aucune donnée ¯\\_(ツ)_/¯ pour l'instant.",
+    "noResult": "Aucune donnée pour l'instant.",
     "maybeABackendProblem": "On a peut-être un problème en arrière plan.",
     "loadingData": "Chargement des données",
     "back": "Retour",
@@ -14,17 +14,31 @@ const base = {
     "colon": " : ",
     "by": "par",
     "on": "le",
+    "from": "du",
+    "to": "au",
+    "hourTo": "à",
+    "the": "le",
     "title":"titre",
     "subTitle": "sous-titre",
     "infoNotAvailable": "Information non disponible",
     "metadatas": "métadonnées",
+    "knowMore": "En savoir plus",
+    "aboutUs": "À propos",
+    "about": "À propos",
+    "contributeButtonLabel": "Proposer des modifications",
+    "cancel": "Annuler",
+    "continue" : "Poursuivre",
+    "url":"Adresse URL",
+    "hyperlink":"Hyperlien",
+    "hyperlinks":"Hyperliens",
+    "externalLinks": "Liens externes",
+    "contactInformations": "Informations de contact",
 
-    // Status
 
     // App
 
-    "appDefaultName": "BDSOL d'Avantage Numérique",
-    "appDefaultDescription": "Base de donnée ouverte et liée crée par Avantage Numérique et qui recense les techno-créatifs sur le territoire du Croissant boréal.",
+    "appDefaultName": "AVNU | La base de données d'Avantage Numérique",
+    "appDefaultDescription": "La base de données qui recense et géolocalise les talents, les compétences, les équipements et les initiatives technocréatives dans le Croissant boréal.",
     "appDefaultKeywords": "ontologie, classe, propriété, base de données, technologie, créateurs, communauté",
     "appDefaultProducer": "Avantage Numérique",
     "appProducerDefaultDescription": "Avantage numérique est un hub virtuel, physique et mobile qui dessert les secteurs de la culture, des affaires et du savoir. Il vise le développement de l’écosystème créatif, entrepreneurial et technologique du Croissant boréal.",
@@ -32,8 +46,8 @@ const base = {
 
     //  HomePage
 
-    "homePageTitle": "Techno-créatifs·ves dans le croissant boréal",
-    "homePageDescription": "Nom de code : Base de données structurée ouverte et liée d'Avantage Numérique.",
+    "homePageTitle": "L'outil d'exploration des ressources technologiques du Croissant boréal",
+    "homePageDescription": "Retrouvez en quelques clics les organisations, projets, personnes, équipements et événements en lien avec le numérique sur votre territoire.",
     "actualities": "Actualités",
     "allData": "Toutes les données",
     "menu": "Menu",
@@ -61,7 +75,7 @@ const base = {
 
     //  DataType/common/commonFormFeatures/commonFormFeatures.js
     "needAuthToContribute": "Vous devez être connecté pour pouvoir contribuer à la base de données.",
-
+    "authInvitationToContribute": "Connectez-vous pour pouvoir contribuer à la base de données.",
     // http-hook
 
     "fetchErrorMessage": "Une erreur est survenue et le serveur ne semble pas répondre. Assurez-vous d'avoir une connexion internet.",
@@ -71,8 +85,14 @@ const base = {
     "formNotValid": "Attention. Le formulaire envoyé est invalide. Assurez-vous que tous les champs requis sont bien remplis.",
     "submit": "Soumettre",
     "submitModification": "Soumettre les modifications",
+    "required": "*",
+    "consult": "Consulter",
+    "contribute": "Ajouter",
+    "onNavigationBlockWithoutSave": "Des modifications n'ont pas été sauvegardées. Voulez-vous vraiment quitter?",
 
 
+    //Taxonomies related
+    "skillsAndTechnologies" : "Compétences et technologies",
 
     // SINGLE
 
@@ -82,6 +102,8 @@ const base = {
     //  TEAMS
 
     "noTeamMemberSetMessage": "Personne n'est inscrit comme membre de l'équipe de cette organisation.",
+    "teamMembers": "Membres de l'équipe",
+    "teamMember": "Membre de l'équipe",
 
     //  NAV
 
@@ -112,5 +134,22 @@ const base = {
 
     //Select2
     "createOptionLabel" : "Créer : ",
+
+    //Button
+    "apply" : "Appliquer",
+    "report": "Signaler",
+
+    //Contact us
+    "message": "Message",
+    "email": "Adresse courriel",
+    "sendMessage": "Envoyer le message",
+
+    //contactPoint
+    "website": "Site internet",
+    "phoneNumber": "Téléphone",
+    "phoneExtension": "Poste",
+
+    //Badges
+    "badges" : "Badges"
 }
 exports.base = base;

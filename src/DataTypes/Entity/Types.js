@@ -3,6 +3,9 @@ import Organisation from "@/DataTypes/Organisation/models/Organisation";
 import Project from "@/DataTypes/Project/models/Project";
 import EntityModel from "@/DataTypes/Entity/models/EntityModel";
 import Media from "../Media/models/Media";
+import Event from "../Event/models/Event";
+import Place from "../Place/models/Place";
+import Equipment from "../Equipment/models/Equipment";
 
 export const TYPE_ABSTRACT = "Entity";
 export const TYPE_ORGANISATION = "Organisation";
@@ -10,9 +13,11 @@ export const TYPE_TAXONOMY = "Taxonomy"
 export const TYPE_PROJECT = "Project";
 export const TYPE_PERSON = "Person";
 export const TYPE_MEDIA = "Media";
+export const TYPE_EVENT = "Event";
+export const TYPE_PLACE = "Place";
+export const TYPE_EQUIPMENT = "Equipment";
 export const TYPE_DEFAULT = TYPE_ABSTRACT;
 export const TYPE_NOTSET = "undefined";
-
 
 
 class Type {
@@ -21,6 +26,7 @@ class Type {
         this.label = values.label;
         this.labelPlural = values.labelPlural;
         this.modelClass = values.modelClass;
+        this.model = values.model;
         this.icon = values.icon;
         this.inSentencePrefix = values.inSentencePrefix;
         this.defaultMainImage = values.defaultMainImage
@@ -34,6 +40,7 @@ TYPES.set(TYPE_MEDIA, new Type({
     label: "Média",
     labelPlural: "Médias",
     modelClass: Media,
+    model: undefined,
     inSentencePrefix: " un ",
     defaultMainImage: "",
     icon:"file"
@@ -43,6 +50,7 @@ TYPES.set(TYPE_ORGANISATION, new Type({
     label: "Organisation",
     labelPlural: "Organisations",
     modelClass: Organisation,
+    model: undefined,
     inSentencePrefix: " une ",
     defaultMainImage: "/general_images/organisation-default.png",
     icon:"users"
@@ -52,15 +60,17 @@ TYPES.set(TYPE_PROJECT, new Type({
     label: "Projet",
     labelPlural: "Projets",
     modelClass: Project,
+    model: undefined,
     inSentencePrefix: " un ",
     defaultMainImage: "/general_images/project-default.png",
     icon:"project-diagram"
 }));
 TYPES.set(TYPE_PERSON, new Type({
-    slug:"persons",
+    slug:"personnes",
     label: "Personne",
     labelPlural: "Personnes",
     modelClass: Person,
+    model: undefined,
     inSentencePrefix: " une ",
     defaultMainImage: "/general_images/person-default.png",
     icon:"user"
@@ -70,6 +80,7 @@ TYPES.set(TYPE_ABSTRACT, new Type({
     label: "Entité",
     labelPlural: "Entités",
     modelClass: EntityModel,
+    model: undefined,
     inSentencePrefix: " une ",
     defaultMainImage: "/general_images/person-default.png",
     icon:"book"
@@ -79,16 +90,49 @@ TYPES.set(TYPE_TAXONOMY, new Type({
     label: "Catégorie",
     labelPlural: "Catégories",
     modelClass: EntityModel,
+    model: undefined,
     inSentencePrefix: " une ",
     defaultMainImage: "/general_images/project-default.png",
     icon:"tag"
 }));
+
+TYPES.set(TYPE_EVENT, new Type({
+    slug:"evenements",
+    label: "Événement",
+    labelPlural: "Événements",
+    modelClass: Event,
+    model: undefined,
+    inSentencePrefix: " un ",
+    defaultMainImage: "/general_images/event-default.png",
+    icon: "calendar"
+}))
+
+TYPES.set(TYPE_PLACE, new Type({
+    slug:"place",
+    label: "Lieu",
+    labelPlural: "Lieux",
+    modelClass: Place,
+    inSentencePrefix: " un ",
+    defaultMainImage: "/general_images/place-default.png",
+    icon: "map-marker"
+}))
+
+TYPES.set(TYPE_EQUIPMENT, new Type({
+    slug:"equipement",
+    label: "Équipement",
+    labelPlural: "Équipements",
+    modelClass: Equipment,
+    inSentencePrefix: " un ",
+    defaultMainImage: "/general_images/equipment-default.png",
+    icon: "cube"
+}))
 
 TYPES.set(TYPE_NOTSET, new Type({
     slug:"undefined",
     label: "undefined",
     labelPlural: "undefined",
     modelClass: "undefined",
+    model: "undefined",
     inSentencePrefix: "",
     defaultMainImage: "/general_images/person-default.png",
     icon:"hourglass-end"

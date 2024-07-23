@@ -1,19 +1,20 @@
-import React, {useCallback} from 'react';
-
-//components
+import React, {useEffect, useState} from 'react';
 import SingleBase from "@/src/DataTypes/common/layouts/single/SingleBase"
 import SingleBaseHeader from "@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseHeader"
 import SearchTag from '@/src/common/Components/SearchTag';
 import SingleInfo from "@/DataTypes/common/layouts/SingleInfo/SingleInfo";
-
-//Styling
-import styles from './PersonSingle.module.scss'
-
-//Utils
+import SingleBaseProgressBar
+    from '@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseProgressBar/SingleBaseProgressBar'
+import SocialHandleDisplay from '@/src/DataTypes/common/layouts/SocialHandlesViews/SocialHandleDisplay';
 import SanitizedInnerHtml from '@/src/utils/SanitizedInnerHtml';
-import {SingleEntityStatus} from "@/DataTypes/Status/components/SingleEntityStatus";
+import {SingleEntityMeta} from "@/src/DataTypes/Meta/components/SingleEntityMeta";
 import {lang} from "@/common/Data/GlobalConstants";
 import Person from "@/DataTypes/Person/models/Person";
+import EntitiesTagGrid from "@/DataTypes/Entity/layouts/EntitiesTagGrid";
+import {SkillGroup} from "@/DataTypes/common/layouts/skillsGroup/SkillGroup";
+import {removeTagsFromString} from '@/src/helpers/html'
+import {ContactPointView} from '@/src/DataTypes/common/layouts/ContactPointView/ContactPointView';
+import BadgesSection from '@/src/DataTypes/Badges/BadgesSection';
 
 
 const PersonSingleView = ({ data }) => {
@@ -31,80 +32,57 @@ const PersonSingleView = ({ data }) => {
         catchphrase,
         createdAt,
         updatedAt,
-        status,
-        mainImage
+        meta,
+        mainImage,
+        organisations,
+        projects,
+        events,
+        contactPoint,
+        url
     } = data;
 
-    
+    //To display occupations in the proper order
+    const sortedOccupations = occupations?.[0]?.subMeta?.order ? occupations.sort((a,b) => a.subMeta.order - b.subMeta.order) : occupations;
+
     const model = new Person(data);
 
-    //Edit the skills list
-    const SkillsList = ({occupations}) => {
-        //Extract every skill objects from the occupations
-        const arrayOfSkillObjects = occupations.map(occ => occ.skills);
-        //Extract the values of those objects
-        const arrayOfSkills = arrayOfSkillObjects ? arrayOfSkillObjects.flat(1) : [];
-        //Only keep single instances
-        let arrayUniqueBy_id = [...new Map(arrayOfSkills.map(item => [item["_id"], item])).values()];
-        //Sort the array before returning the value
-        arrayUniqueBy_id.sort((a, b) => {
-            const nameA = a.name.toUpperCase(); // ignore upper and lowercase
-            const nameB = b.name.toUpperCase(); // ignore upper and lowercase
-            if (nameA < nameB) {
-              return -1;
-            }
-            if (nameA > nameB) {
-              return 1;
-            }
-            // names must be equal
-            return 0;
-          });
-        return (
-            <SearchTag
-                list={arrayUniqueBy_id}
-            />
-        );   
-    }
+    const breadcrumbLabels = {
+        "personnes": lang.Persons,
+        "slug": `${firstName} ${lastName}`
+    };
 
-    const OccupationGroup = ({occupationName, skillList}) => {
-        return (
-            <article className={`d-flex flex-column p-2 mb-2 ${styles["occupation-group"]}`}>
-                <h5 className="text-dark mb-0">{occupationName}</h5>
-                    <SearchTag
-                        list={skillList}
-                    />                    
-            </article>
-        )
-    }
+    const [breadCrumb, setBreadCrumb] = useState({
+        route: model.singleRoute,
+        labels: breadcrumbLabels,
+    });
 
-    /* Needed for breadCrumb generator */
-    const getLabelGenerator = useCallback((param, query) => {
-        return {
-            "persons": lang.Persons,
-            "slug": `${firstName} ${lastName}`        
-        }[param];
-    }, []);
+    useEffect(() => {
+        setBreadCrumb({
+            route: model.singleRoute,
+            labels: breadcrumbLabels,
+        });
+    }, [firstName]);
+
+
 
     /****************************
      *  Sections
      ***************************/
-    const breadCrumb = {
-        route: model.singleRoute,
-        getLabelGenerator: getLabelGenerator
-    }
 
     const Header = (
         <SingleBaseHeader
-            title={(<SanitizedInnerHtml tag={"h1"} className="text-white">{`${model.title}`}</SanitizedInnerHtml>)}
-            subtitle={(
-                <div className="d-text">
-                    <h4 className="text-white">{nickname}</h4>
-                    <i><blockquote className="text-white">{catchphrase}</blockquote></i>
+            title={(
+                <div className="d-flex flex-wrap justify-content-start align-items-end">
+                    <h1 style={{lineHeight: "1em"}} className="me-2 mb-0">{`${model.title}`}</h1>
+                    <p className=" mb-0 fs-4">{model.nickname ? "(" + model.nickname + ")" : ""}</p>
                 </div>
+            )}
+            subtitle={(
+                <i className="mt-2 fw-semibold"><blockquote className="text-dark">{catchphrase}</blockquote></i>
             )}
             mainImage={model.mainImage}
             entity={model}
-            buttonText="Proposer des modifications"
+            buttonText={lang.contributeButtonLabel}
             buttonLink={model.singleEditLink}
         />
     )
@@ -113,10 +91,11 @@ const PersonSingleView = ({ data }) => {
         <>
             {description !== '' &&
                 <SingleInfo
-                    title={"Présentation"}
+                    title={lang.about}
                     NAMessage="Aucune description n'est disponible pour le moment"
-                    className={"mb-3 mt-3"}>
-                    {description &&
+                    //cardLayout
+                >
+                    { removeTagsFromString(description) &&
                         <SanitizedInnerHtml>
                             {description}
                         </SanitizedInnerHtml>
@@ -128,49 +107,123 @@ const PersonSingleView = ({ data }) => {
 
     const ContentColumnLeft = (
         <>
-            { occupations.length > 0 &&
-                <SingleInfo
-                    title={"Occupations"}
-                    NAMessage="Aucune occupation n'est disponible pour le moment"
-                    className={"mb-3 mt-3"}
+            <SingleInfo
+                title={lang.skillsAndTechnologies}
+                NAMessage="Aucune compétence et techonologie n'est disponible pour le moment"
+                NAComponent={(
+                    <div>
+                        <p className="mb-2">Exemple : </p>
+                        <div className="ms-2">
+                            <h5 className="text-dark">Programmeur·euse</h5>
+                            <ul className="d-flex flex-wrap gap-2 mb-0">
+                                <li className="rounded badge py-1 text-dark mb-1 px-2 bg-primary-light"><small>WordPress</small></li>
+                                <li className="rounded badge py-1 text-dark mb-1 px-2 bg-primary-light"><small>MySQL</small></li>
+                                <li className="rounded badge py-1 text-dark mb-1 px-2 bg-primary-light"><small>UX Design</small></li>
+                            </ul>
+                        </div>
+                    </div>
+                )}
+                cardLayout
+            >
+                {/* Display the different groups of occupations */}
+                { sortedOccupations && sortedOccupations?.length > 0 &&
+                    sortedOccupations.map(occ => (
+                        <SkillGroup
+                            label={occ.groupName}
+                            skills={occ.skills}
+                            key={occ.groupName}
+                        />
+                    ))
+                }
+            </SingleInfo>
+            
+            {/* Show linked entities as tag */}
+            {projects.length > 0 &&
+                <SingleInfo 
+                    title={`${lang.plural(lang.memberOfProject, lang.memberOfProjects, projects.length)}`} 
+                    cardLayout
                 >
-                    {/* Display the different groups of occupations */}
-                    { occupations && occupations.length > 0 &&
-                        occupations.map(occ => (
-                            <OccupationGroup
-                                occupationName={occ.groupName}
-                                skillList={occ.skills}
-                                key={occ.groupName}
-                            />
-                        ))
-                    }
+                    <EntitiesTagGrid feed={projects} />
+                </SingleInfo>
+            }
+
+            {organisations.length > 0 &&
+                <SingleInfo title={`${lang.plural(lang.memberOfOrganisation, lang.memberOfOrganisations, organisations.length)}`} cardLayout>
+                    <EntitiesTagGrid feed={organisations}/>
+                </SingleInfo>
+            }
+
+            {events.length > 0 &&
+                <SingleInfo title={`${lang.plural(lang.attendThisEvent, lang.attendTheseEvents, events.length)}`} cardLayout>
+                    <EntitiesTagGrid feed={events}/>
                 </SingleInfo>
             }
         </>
     )
-
+    const entityLabelForBadge = model?.firstName ? model.lastName ? model.firstName + ' ' + model.lastName : model.firstName : model.lastName;
     const ContentColumnRight = (
         <>
-        {domains.length > 0 &&
-            <SingleInfo title={lang.domainsSingleLabel} className={"mb-3"}>
+            {/* Badges */}
+            <BadgesSection badges={model.badges} entityLabel={entityLabelForBadge}/>
 
-                {/*********** Domains ***********/}
-                <SearchTag
-                    className="row"
-                    list={domains}
-                    listProperty={"domain"}
-                />
+            {/* Contact information */}
+            <SingleInfo title={lang.organisationContact} cardLayout>
+                <ContactPointView contact={model.contactPoint}/>
             </SingleInfo>
-        }
+            
+            {domains.length > 0 &&
+                <SingleInfo 
+                    title={lang.Domains} 
+                    cardLayout
+                >
+
+                    {/*********** Domains ***********/}
+                    <SearchTag
+                        list={domains}
+                        listProperty={"domain"}
+                    />
+                </SingleInfo>
+            }
+            {/* Url */}
+            { model && model?.url &&
+                <SocialHandleDisplay
+                    title={lang.externalLinks}
+                    url={model?.url}
+                />
+            }
         </>
     )
 
     const Footer = (
         <>
             {
-                (createdAt || updatedAt || status) &&
-                <SingleEntityStatus createdAt={createdAt} updatedAt={updatedAt} status={status} />
+                (createdAt || updatedAt || meta) &&
+                <SingleInfo 
+                    title={lang.entityMetadata} 
+                    className="border-top pt-3"
+                >
+                    {/*********** Entity data ***********/}
+                    <SingleEntityMeta createdAt={createdAt} updatedAt={updatedAt} meta={meta} />
+                </SingleInfo>
             }
+        </>
+    )
+
+    const SinglePageBottom = (
+        <>
+            <SingleBaseProgressBar 
+                dataList={[
+                    {data: (firstName + " " + lastName) || ""},
+                    {data: nickname},
+                    {data: description},
+                    {data: occupations},
+                    {data: domains},
+                    {data: catchphrase},
+                    {data: model.mainImage.isDefault, validationFunction: ((value) => !value)},
+                ]}
+                buttonText={lang.contributeButtonLabel}
+                buttonLink={model.singleEditLink}
+            />
         </>
     )
 
@@ -186,8 +239,10 @@ const PersonSingleView = ({ data }) => {
                 contentColumnLeft={ContentColumnLeft}
                 contentColumnRight={ContentColumnRight}
                 footer={Footer}
+                singlePageBottom={SinglePageBottom}
                 model={model}
             />
+            
         </>
     )
 }

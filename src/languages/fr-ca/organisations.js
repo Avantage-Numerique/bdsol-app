@@ -1,16 +1,18 @@
 const organisations = {
 
+    "OrganisationsDefinition": "Organisation, entreprise, collectif ou regroupement œuvrant dans le numérique, ou dont les technologies numériques sont incluses, et offrant des services technologiques.",
+
     //  Organisations
 
     "Organisation": "Organisation",
     "Organisations": "Organisations",
     "organisation": "organisation",
     "organisations": "organisations",
-    "teamMembers": "Membres de l'organisation",
     "fondationDate": "Date de fondation",
 
     "singleDescriptionLabel": "Présentation",
     "bestContactPointLabel": "Meilleur moyen pour les contacter : ",
+    "roleInTeam": "Rôle dans l'équipe",
 
 
     //  CreateOrganisationForm.js
@@ -19,6 +21,24 @@ const organisations = {
     "formOrganisationInstructions": "Super formulaire",
     "organisationUploadMediaMainImage": "Vous pourrez téléverser une image à partir de la page de cette organisation. Cette image représentera cette organisation et sera affiché dans sa fiche et dans les pages qui la liste.",
 
+    "organisationDescription": "Présentation",
+    "organisationSkills": "Service offert",
+    "organisationOffer" : "Offres de service",
+    "organisationSkillsAssociated": "Compétences associées",
+
+
+    "organisationPlace": "Emplacement",
+    "organisationPlaces": "Emplacements",
+
+    "organisationContact": "Contact",
+
+    "projectCreated": "Projet créé",
+    "projectsCreated": "Projets créés",
+
+    "organizerOfEvent": "A organisé cet événement",
+    "organizerOfEvents": "A organisé ces événements",
+
+    "iconOfOrganization": "Icône représentant une organisation",
 }
 
 exports.organisations = organisations;

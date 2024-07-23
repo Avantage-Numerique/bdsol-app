@@ -1,8 +1,6 @@
 import React from 'react'
 
-import {
-    externalApiRequest
-} from '@/src/hooks/http-hook';
+import {externalApiRequest} from '@/src/hooks/http-hook';
 
 
 //components
@@ -15,10 +13,8 @@ import AppRoutes from "@/src/Routing/AppRoutes";
 const SingleOrganisationPage = props => {
 
     return (
-        <div className={`single-container single-organisation`}>
-            <div className="maxWidthPageContainer">
-                <OrganisationSingleView data={props} route={AppRoutes.organisationSingle} />
-            </div>
+        <div className={`single-organisation`}>
+            <OrganisationSingleView data={props} route={AppRoutes.organisationSingle} />
         </div>
     )
 }
@@ -37,7 +33,7 @@ export async function organisationSlugProps(context) {
             headers: getUserHeadersFromUserSession(context.req.session.user)
         });
         
-    if(response.data._id == undefined)
+    if(typeof response.data._id === "undefined")
         return { notFound: true };
 
     return { props: response.data };

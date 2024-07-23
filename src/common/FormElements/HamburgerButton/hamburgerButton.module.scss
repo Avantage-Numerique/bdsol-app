@@ -25,7 +25,7 @@
         .menu_btn__burger {
             width: inherit;
             height: 4px;
-            background:#ffffff;
+            background: var(--bs-black);
             box-shadow: 0 2px 5px rgba(255,101,47,.2);
             transition: all .4s ease-in-out;
         }
@@ -37,7 +37,7 @@
             right: 0;
             width: inherit;
             height: 4px;
-            background: #ffffff;
+            background: var(--bs-black);
             box-shadow: 0 2px 5px rgba(255,101,47,.2);
             transition: all .4s ease-in-out;
         }

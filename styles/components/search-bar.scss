@@ -1,5 +1,25 @@
+.search-bar-main-nav {
+    .search-bar {
+        max-width: 100% !important;
+    }
+}
+
 .search-bar {
+    max-width: 60ch;
+
+    &.no-width-restriction {
+        max-width: 100%;
+    }
+
     .input-group {
+
+        outline: 0.1rem solid rgb(233, 233, 233);
+        &:focus-within {
+            outline: 0.1rem solid $secondary-light;
+        }
+
+        border-radius: $border-radius; 
+
         button {
             min-width: 4rem;
             font-size: 1.1rem;

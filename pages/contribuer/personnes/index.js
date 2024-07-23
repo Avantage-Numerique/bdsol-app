@@ -14,6 +14,7 @@ import {lang} from "@/src/common/Data/GlobalConstants";
 import {withSessionSsr} from "@/auth/session/handlers/withSession";
 import {ssrCanAccess} from "@/auth/permissions/ssrCanAccess";
 import Router from "next/router";
+import Person from '@/src/DataTypes/Person/models/Person';
 
 
 const PersonSingleEditPage = () => {
@@ -27,7 +28,7 @@ const PersonSingleEditPage = () => {
     useEffect(() => displayModal(), [])
 
     return (
-        <div className="container py-4">
+        <div className="container">
                 {/* Empty single edit in the background */}
                 <PersonSingleEdit data={{}} />
                 {/* Loading state while waiting for rederection */}
@@ -40,18 +41,23 @@ const PersonSingleEditPage = () => {
                     >
                         <header className={`d-flex justify-content-between align-items-start`}>
                             <div className="d-flex flex-column">
-                                <h3 className="text-primary">Ajouter une Personne</h3>
-                                <p>Entrez les informations de base d'une entité "Personne". Vous pourrez l'éditer de manière détaillée par la suite.</p>
+                                <h3 className="text-primary">Ajouter une personne</h3>
+                                <p>Entrez les informations principales d'une personne. Vous pourrez les éditer de manière détaillée par la suite.</p>
                             </div>
-                            <Button 
+                            <Button
                                 onClick={() => {
                                     closeModal(
                                     Router.push(`/contribuer/`)
                                     )
                                 }}
-                            >Fermer</Button>
+                            >{lang.cancel}</Button>
                         </header>
-                        <CreatePersonForm onPositiveResponse={() => {
+                        <CreatePersonForm onPositiveResponse={(response) => {
+                            //Create a model for the response
+                            const model = new Person(response.data);
+
+                            //Execute the redirection
+                            Router.push( model.singleEditLink )
                             closeModal()
                             setIsLoading(true)
                         }}/>

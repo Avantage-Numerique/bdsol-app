@@ -3,94 +3,160 @@
     01Hub - 08/08/2022
 */
 
-$primary-text-emphasis-dark:#0f0f0f;
-
 //colors
 $blue: #455ae6; // Avantage numérique's mainBlue (and blue1)
 $blue2: #4d64ff; // Avantage numérique's mainBlue (and blue2)
 $blue3: #4dc4ff; // Avantage numérique's mainBlue (and blue3)
 $blue4: #5f71ea; // Avantage numérique's mainBlue (and blue4)
-$bluelight: #8dc6e2;
-$green-light:  #adc9b0; //Light green
-$green:  #7ba076;
-$green-dark:  #364637; //Darkgreen
-$pink: #c881ca;
-$pink-100: lighten($pink, 80%);
-$red: #dd5c5c;  // Avantage numérique's red
-$yellow: #FAFA10;
-$red-light: #ff9e9e;  // Avantage numérique's red
+
 $purple-light: #b2b2eb;
 $purple-lighter: lighten($purple-light, 10%);
-$blue-extralight: #ebeefd;
 
 $grey: #bbbfd7;
-$light-grey-bg: #f2f2f2;
-$mild-dark: #606060; // Avantage numérique's input labels
-$dark: #292929;
+$light-grey-bg: #f5f5f5;
+//$dark: #292929;
 $light: lighten($grey, 30%);
-$white: #FEFEFE;
-$black: #010101;
 
-//Taxonomies colors
-$green-accepted: green;
-$yellow-pending: $yellow;
+
+
+$yellow-pending: #FAFA10;
 $red-rejected: $red;
-$grey-deprecated: $mild-dark;
-$occupations:#38D0EB;//0.647
-$skills: #38EB89;//0.647
-$domains:#EB3889;//0.647
+//$occupations:#38D0EB;//0.647
+//$skills: #38EB89;//0.647
+//$domains:#EB3889;//0.647
 $abilities:#E9A511;//0.647
-$general-tag: $grey;
-$bg-general-tag: rgba($grey, 30%);
+//$general-tag: $grey;
 
+
+/**************************************************
+***************************************************
+****** UPDATED COLORS
+******
+******/
+
+
+/*********** Primary ***********/
+$primary: #F09664;
+//Its Shades
+$primary_1: #F6AE85;
+$primary_2: #F9C3A3;
+$primary_3: #FCD8C3;
+$primary_4: #FDECE1;
+$primary_5: #FBF7F5;
+$primary_6: #ECDCD1;
+$primary_7: #D9BAA4;
+$primary_8: #A65D36;
+
+$primary-light:  $primary_3;
+$primary-lighter: $primary_5;
+$primary-dark: $primary_6;
+$primary-darker: $primary_8;
+
+/*********** Secondary ***********/
+$secondary: #6EC8CD;
+//Its Shades
+$secondary_1: #89D5D8;
+$secondary_2: #A7DFE2;
+$secondary_3: #C4EAEB;
+$secondary_4: #E2F4F5;
+$secondary_5: #D7E5E6;
+$secondary_6: #AFCCCD;
+$secondary_7: #87B2B4;
+$secondary_8: #377E81;
+
+$secondary-light:  $secondary_2;
+$secondary-lighter:  $secondary_4;
+$secondary-dark:  $secondary_7;
+$secondary-darker:  $secondary_8;
+
+
+/*********** Other colors ***********/
+$black: #1F1F2E;
+$dark: lighten($black, 10%);
+$mild-dark: lighten($black, 30%);
+$grey: lighten($black, 40%);
+$light: $secondary_4;
+
+//Red
+$red: #D74B32;
+$lighten_red: lighten($red, 20%);
+$darken_red: darken($red, 10%);
+
+//Green
+$green: #AAD287;
+$lighten_green: lighten($green, 10%);
+$darken_green: darken($green, 10%);
+
+/********** Specific variables for components **********/
+$green-accepted: $darken_green;
+//$yellow-pending: #FAFA10;      TO DO
+$red-rejected: $red;
+$occupations:$secondary_7;//0.647
+$skills: $darken_green;//0.647
+$domains: $red;
+//$abilities:#E9A511;//0.647     TO DO
 
 //Inputs variables
-$selected-input: $blue;
-
-// scss-docs-start theme-color-variables
-$primary:       $blue;
-$primarylight:  $purple-light;
-$primaryextratlight:  $blue-extralight;
-$primarydark:  darken($blue, 10%);
-$secondary: $grey;
-$secondarylight:  lighten($secondary,10%);
+$selected-input: $secondary_7;
 
 $theme-colors:(
-    "primary": $blue,
-    "primarylight": $purple-light,
-    "primaryextratlight": $primaryextratlight,
-    "secondary": $secondary,
-    "secondarylight": $secondarylight,
+    //"primary": $blue,
+    //"primarylight": $purple-light,
     "purplelight": $purple-light,
     "purplelighter": $purple-lighter,
-    "pink": $pink,
-    "pink-100": $pink-100,
+    //"pink": $pink,
+    //"pink-100": $pink-100,
     "blue2": $blue2,   // Avantage numérique's altBlue (and blue2) rgb(77, 100, 255)
     "blue3": $blue3,   // Avantage numérique's blue3 rgb(77, 196, 255)
     "blue4": $blue4,   // Avantage numérique's blue4 rgb(95, 113, 234)
-    "danger": $red-light,
-    "dark": $dark,
-    "light": $light,
-    "white":$white,
-    "black":$black,
-    "greyBg": $light-grey-bg,
-    "blueExtralight": $blue-extralight,
-
-    "success": $green,
-    "successlighter": $green-light,
-    "successDarker": $green-dark,
     
+    "light": $light,
+    
+
     //Taxonomies
     "accepted":$green-accepted,
     "pending":$yellow-pending,
     "rejected":$red-rejected,
-    "deprecated":$grey-deprecated,
     "occupations":$occupations,
     "skills":$skills,
     "domains":$domains,
     "abilities":$abilities,
-    "general-tag":$general-tag,
-    
+
+    /**************************************************
+    ***************************************************
+    ****** UPDATED Themes
+    ******
+    ******/
+    "greyBg": $light-grey-bg,
+
+
+    //PRIMARY 
+    "primary": $primary,
+    "primary-light": $primary-light,
+    "primary-lighter": $primary-lighter,
+    "primary-dark": $primary-dark,
+    "primary-darker": $primary-darker,
+
+    //SECONDARY 
+    "secondary": $secondary,
+    "secondary-light": $secondary-light,
+    "secondary-lighter": $secondary-lighter,
+    "secondary-dark": $secondary-dark,
+    "secondary-darker": $secondary-darker,
+    //GENERIC COLORS
+    "dark": $dark,
+    "dark-light": lighten($dark, 15%),
+    "dark-lighter": lighten($dark, 30%),
+    "black": $black,
+    'mild-dark': $mild-dark,
+    "white": white,
+    //SPECIFIC TO COMPONENTS
+    "general-tag":$primary_2,
+    //SITUATIONAL
+    "success": $green,
+    "successlighter": $lighten_green,
+    "successDarker": $darken_green,
+    "danger": $lighten_red,
 );
 
 $main-image-bg-color: $light;
@@ -100,39 +166,47 @@ $body-color: $dark;
 $min-contrast-ratio: 4.5;
 
 //fonts
-$font-size-root: 16px;//moved from 14px to 16px font base size.
+$font-size-root: 15px;//moved from 14px to 16px font base size.
 
-$font-family-sans-serif:      'SuisseIntl','Helvetica Neue','Helvetica','Arial',sans-serif;
+$font-family-sans-serif:      'Poppins','Helvetica Neue','Helvetica','Arial',sans-serif;
+$font-icons: 'iconly';
 
-$font-weight-lighter:         lighter;
+$font-weight-lighter:         200;
 $font-weight-light:           300;
 $font-weight-normal:          400;
 $font-weight-semibold:        600;
 $font-weight-bold:            700;
-$font-weight-bolder:          bolder;
+$font-weight-bolder:          800;
 
 $line-height-base: 1.4;
 
-$headings-font-family: 'SuisseIntl','Helvetica Neue','Helvetica','Arial',sans-serif;
+$headings-font-family: 'Poppins','Helvetica Neue','Helvetica','Arial',sans-serif;
 $headings-line-height: 1.1;
 $headings-font-weight: 600;
 
-$h1-font-size:                min(10vw, 4rem) !default; //older brower 4rem              ///original      $font-size-base * 2.5 !default;
-$h2-font-size:                min(8vw, 2.5rem) !default;
-$h3-font-size:                1.75rem !default;
-$h4-font-size:                1.1rem !default;
+$h1-font-size:                min(10vw, 2.6rem) !default; 
+$h2-font-size:                min(8vw, 2.2rem) !default;
+$h3-font-size:                1.65rem !default;
+$h4-font-size:                1.2rem !default;
 $h5-font-size:                1rem !default;
 $h6-font-size:                0.8rem !default; //this is smaller than regular text
 
 
 $link-decoration: none;
 
+/* 
+    GLOBAL SPACINGS
+*/
+$spacing-sm: 2.35rem;
+$spacing-md: 3rem;
+$spacing-lg: 6.5rem;
+$spacing-xl: 15rem;
 
 /*
     BORDER
  */
 
-$border-radius: 0.5em;
+$border-radius: 1em;
 $border-width: 0.15rem;
 //to-do; transpose value from rem to em (only one button radius is used in the app for now.
 // $border-radius-sm:            .25rem !default;
@@ -148,7 +222,7 @@ $border-width: 0.15rem;
 
 $btn-padding-x-lg: 4rem;
 $btn-padding-y-lg: 2rem;
-$btn-font-size-lg: 1rem;
+$btn-font-size-lg: 1.5rem;
 $btn-border-radius-lg: $border-radius;
 
 $image-border-color: rgb(231, 231, 231);
@@ -160,11 +234,11 @@ $border-light: $image-border-width solid $image-border-color;
         SHADOW
  */
 
-//$default-box-shadow: 1px 1px 4px 2px rgba(0,0,0,0.15);
-$default-box-shadow: 1.1px 2.4px 8.5px rgba(0, 0, 0, 0.048),
-4.7px 10.4px 17.5px rgba(0, 0, 0, 0.051);
+$default-box-shadow:  1.1px 2.4px 4.2px rgba(0, 0, 0, 0.139);
 
-$default-box-shadow-over: 1.1px 2.4px 4.2px rgba(0, 0, 0, 0.09);
+$default-box-shadow-over: 1.1px 2.4px 8.5px rgba(0, 0, 0, 0.085),
+4.7px 10.4px 17.5px rgba(0, 0, 0, 0.085);
+
 
 $top-box-shadow: 0px 0px 1.7px rgba(0, 0, 0, 0.026),
 0px 0px 3.6px rgba(0, 0, 0, 0.032),
@@ -198,11 +272,21 @@ $badge-border-radius:               $border-radius;
     INPUT
  */
 $input-border-radius: $border-radius;
-
+$input-base-bg-color: #f9f9f9;
 
 /*
     TRANSITION
  */
+
+/*
+    Single sections
+    Based on the default bootstrap gutter
+*/
+$single-infos-padding-y: $grid-gutter-width;
+$single-infos-margin-y: calc(0.5 * $grid-gutter-width);
+
+
+
 
 $transition-default-time: 100ms;
 $transition-default-property: all;
@@ -241,16 +325,8 @@ $breadcrumb-padding-x:              0;
 $breadcrumb-item-padding-x:         .5rem;
 $breadcrumb-margin-bottom:          1rem;
 $breadcrumb-bg:                     null;
-$breadcrumb-divider-color:          $secondary;
-$breadcrumb-active-color:           $secondary;
-$breadcrumb-divider:                quote("/");
-$breadcrumb-divider-flipped:        quote("/");
+$breadcrumb-divider-color:          $secondary-darker;
+$breadcrumb-active-color:           $secondary-darker;
+$breadcrumb-divider:                quote(">");
+$breadcrumb-divider-flipped:        quote(">");
 $breadcrumb-border-radius:          $border-radius;
-
-
-
-/*
-    SIMPLE TEMPLATE
- */
-$simple-default-padding: 0.75rem;
-

@@ -14,6 +14,7 @@ import {lang} from "@/src/common/Data/GlobalConstants";
 import {withSessionSsr} from "@/auth/session/handlers/withSession";
 import {ssrCanAccess} from "@/auth/permissions/ssrCanAccess";
 import Router from "next/router";
+import Project from '@/src/DataTypes/Project/models/Project';
 
 
 const PersonSingleEditPage = () => {
@@ -26,7 +27,7 @@ const PersonSingleEditPage = () => {
     useEffect(() => displayModal(), [])
 
     return (
-        <div className="container py-4">
+        <div className="container">
                 {/* Empty single edit, only to display in the background */}
                 <ProjectSingleEdit data={{}} />
                 {/* Loading spinner */}
@@ -39,8 +40,8 @@ const PersonSingleEditPage = () => {
                     >
                         <header className={`d-flex justify-content-between align-items-start`}>
                             <div className="d-flex flex-column">
-                                <h3 className="text-primary">Ajouter un Projet</h3>
-                                <p>Entrez les informations de base d'une entité "Projet". Vous pourrez l'éditer de manière détaillée par la suite.</p>
+                                <h3 className="text-primary">Ajouter un projet</h3>
+                                <p>Entrez les informations principales d'un projet. Vous pourrez les éditer de manière détaillée par la suite.</p>
                             </div>
                             <Button 
                                 onClick={() => {
@@ -48,9 +49,14 @@ const PersonSingleEditPage = () => {
                                     Router.push(`/contribuer/`)
                                     )
                                 }}
-                            >Fermer</Button>
+                            >{lang.cancel}</Button>
                         </header>   
-                        <CreateProjectForm onPositiveResponse={() => {
+                        <CreateProjectForm onPositiveResponse={(response) => {
+                            //Create a model for the response
+                            const model = new Project(response.data);
+
+                            //Execute the redirection
+                            Router.push( model.singleEditLink )
                             closeModal()
                             setIsLoading(true)
                         }}/>

@@ -4,7 +4,7 @@ import chroma from 'chroma-js';
 export const defaultColor = "black";
 
 export const colorDict = {
-    skills: "red",
+    skills: "teal",
     occupations:"blue",
     technologies:"green",
     domains:"purple"
@@ -19,6 +19,9 @@ export const getColor = (data, chromatise=false) => {
         color = defaultColor;
     }
     if (data.type === "Organisation"){
+        color = defaultColor;
+    }
+    if (data.type == "Event"){
         color = defaultColor;
     }
     return chromatise ? chroma(color) : color;

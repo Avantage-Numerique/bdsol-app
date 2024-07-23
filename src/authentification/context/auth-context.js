@@ -1,5 +1,9 @@
 import {createContext, useContext, useState} from 'react';
 import useApi from '@/src/hooks/useApi';
+import defaultCookiesChoices from "@/src/common/Cookies/cookiesChoices";
+
+import {csSaveCookieChoices} from "@/common/Cookies/clientSideSaveCookiesChoices";
+import fetchInternalApi from "@/src/api/fetchInternalApi";
 
 export const defaultSessionData = {
     isPending: false,
@@ -13,7 +17,8 @@ export const defaultSessionData = {
     createdAt: null,
     ip: null,
     browser: null,
-    language: null
+    language: null,
+    verify:{ isVerified: false }
 };
 
 /**
@@ -38,6 +43,7 @@ export const getSessionFromData = (userData) => {
             ip: userData.ip ?? null,
             browser: userData.browser ?? null,
             language: userData.language ?? null,
+            verify: userData.verify ?? { isVerified: false }
         }
     }
     return defaultSessionData;
@@ -46,7 +52,7 @@ export const getSessionFromData = (userData) => {
 /**
  * Builder les headers d'array pour réduire
  * @param user {object}
- * @param withAuthentification {boolean}ç
+ * @param withAuthentification {boolean}
  * @return {object}
  */
 export const getUserHeadersFromUserSession = (user, withAuthentification= false) => {
@@ -66,21 +72,49 @@ export const getUserHeadersFromUserSession = (user, withAuthentification= false)
 
 const AuthContext = createContext({});
 
-export function AuthProvider({fromSessionUser, children}) {
+export function AuthProvider({fromSessionUser, appMode, acceptedCookies, children}) {
 
     const [user, setUser] = useState(fromSessionUser ?? {...defaultSessionData} );
     const [loading, setLoading] = useState(true);
     const [apiUp, setApiUp] = useState(true);
+    const [mode, setMode] = useState(appMode);
+
+    const [cookiesChoices, setCookiesChoices] = useState(acceptedCookies ?? defaultCookiesChoices)
+    const [choiceHasToBeMade, setChoiceHasToBeMade] = useState(!acceptedCookies?.choiceMade ?? true);
+
+    const saveCookieChoices = async (choices) => {
+        await csSaveCookieChoices(choices);
+        setCookiesChoices(choices);
+
+        if (!choices.auth) {
+            await logOutUser();
+        }
+    };
+
+    const logOutUser = async () => {
+        const logOutResponse = await fetchInternalApi("/api/logout", JSON.stringify({}));
+        setUser(logOutResponse.user);
+    }
+
     useApi(setApiUp);
 
     return (
         <AuthContext.Provider value={{
             user: user,
             setUser: setUser,
+            logOutUser: logOutUser,
             loading: loading,
             setLoading: setLoading,
             apiUp : apiUp,
-            setApiUp : setApiUp
+            setApiUp : setApiUp,
+            mode: mode,
+            setMode: setMode,
+            cookiesChoices: cookiesChoices,
+            setCookiesChoices: setCookiesChoices,
+            saveCookieChoices: saveCookieChoices,
+            choiceHasToBeMade: choiceHasToBeMade,
+            setChoiceHasToBeMade: setChoiceHasToBeMade,
+
         }}>
             {children}
         </AuthContext.Provider>

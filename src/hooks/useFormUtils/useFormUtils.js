@@ -16,12 +16,8 @@ import { useHttpClient } from '../http-hook'
 import { useForm } from '../form-hook'
 import { MessageContext } from '@/src/common/UserNotifications/Message/Context/Message-Context'
 
-
 //Form UI styling
 import styles from './formUI.module.scss'
-import {getDefaultUpdateEntityStatus} from "@/DataTypes/Status/EntityStatus";
-
-
 
 export const useFormUtils = ( initialState, actions ) => {
 
@@ -60,11 +56,11 @@ export const useFormUtils = ( initialState, actions ) => {
     const [formState, formTools, clearFormData, updateManyFields] = useForm(initialState);
 
     const submitRequest = async (route, type, data, header = { 'Content-Type': 'application/json' }, params={isBodyJson:true}) => {
-
+        let response;
         if(formState.isValid){
 
             //Send the request with the specialized hook
-            const response = await sendRequest (
+            response = await sendRequest (
                 route,
                 type,
                 data,
@@ -114,29 +110,9 @@ export const useFormUtils = ( initialState, actions ) => {
             //Prevent the form to be submitted since it's not valid.
             //Inform the user
             setInnerMessage("Attention. Le formulaire envoyé n'est pas valide. Assurez-vous que tous les champs sont bien remplis.")
-            
         }
+        return response;
     }
-
-
-    /**
-     * Helper to transmute data to help with select that use data from outside and need to adapt it
-     * @param params
-     * @return {*[]}
-     */
-    const transmuteTaxonomyTargetInput = useCallback((params) => {
-        const {inputs, fieldName, user} = params;
-        const transmutedData = [];
-
-        inputs.value.forEach( (inputValue) => {
-            transmutedData.push({
-                [fieldName]: inputValue[fieldName]._id,
-                status: getDefaultUpdateEntityStatus(user)
-            })
-        });
-        return transmutedData;
-    }, []);
-
 
     //Import message context 
     const msg = useContext(MessageContext);
@@ -175,7 +151,6 @@ export const useFormUtils = ( initialState, actions ) => {
         formTools, 
         requestResponse,
         clearFormData,
-        transmuteTaxonomyTargetInput,
         updateManyFields
     }
 

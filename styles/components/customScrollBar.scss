@@ -11,7 +11,7 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #8b94c0;
+  background: $primary_1;
   border-radius: 0.5rem;
   background-clip: padding-box;
   border: 0.15rem solid rgba(255, 255, 255, 0);
@@ -19,14 +19,14 @@
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #6f7bc7;
+  background: $primary;
   background-clip: padding-box;
   border: 0.15rem solid rgba(255, 255, 255, 0);
 }
 
-@supports (scrollbar-color: #caccd4 #555B78) {
+@supports (scrollbar-color: #caccd4 $primary_1) {
   * {
-    scrollbar-color:#caccd4 #555B78;
+    scrollbar-color:#caccd4 $primary_1;
     scrollbar-width: thin;
   }
 }

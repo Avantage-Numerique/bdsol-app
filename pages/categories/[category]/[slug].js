@@ -1,9 +1,9 @@
 import {externalApiRequest} from '@/src/hooks/http-hook';
 import PageHeader from "@/layouts/Header/PageHeader";
-import React, {useCallback} from "react";
+import React from "react";
 import {lang} from "@/common/Data/GlobalConstants";
 import CreateTaxonomyForm from "@/DataTypes/Taxonomy/components/Forms/CreateTaxonomy/CreateTaxonomyForm";
-import {useModal} from "@/src/hooks/useModal/useModal";
+import {useRootModal} from '@/src/hooks/useModal/useRootModal';
 import Router, {useRouter} from "next/router";
 import Button from "@/FormElements/Button/Button";
 import {useAuth} from "@/auth/context/auth-context";
@@ -11,10 +11,10 @@ import Icon from "@/common/widgets/Icon/Icon";
 import AppRoutes from "@/src/Routing/AppRoutes";
 import {Breadcrumbs} from "@/common/Breadcrumbs/Breadcrumbs";
 import EntitiesGrid from "@/DataTypes/Entity/layouts/EntitiesGrid";
-import Head from "next/head";
 import {getTitle} from "@/DataTypes/MetaData/MetaTitle";
 import {getType, TYPE_TAXONOMY} from "@/DataTypes/Entity/Types";
-
+import PageMeta from "@/src/common/PageMeta/PageMeta";
+import {getBadgesInfo} from "@/DataTypes/Badges/BadgesSection";
 
 export async function getServerSideProps(context) {
     const { slug, category } = context.params;
@@ -30,22 +30,24 @@ export async function getServerSideProps(context) {
             method: 'GET',
         });
 
+    const badgesInfo = await getBadgesInfo(true);
+
     if(typeof taxonomy.data._id === 'undefined' || entities.data._id)
         return { notFound: true };
-
     return { props: {
             taxonomy: taxonomy.data,
-            data: entities.data
+            data: entities.data,
+            badgesInfo: badgesInfo
         } };
 }
 
 
 const TaxonomiesSinglePage = (props) => {
-
     const category = [
         {label: "Compétence", value: "skills"},
-        {label: "Domaine", value: "domains"},
-        {label: "Technologie", value: "technologies"}
+        {label: "Secteur d'activité", value: "domains"},
+        {label: "Technologie", value: "technologies"},
+        {label: lang.equipmentType, value: "equipmentType"}
     ]
 
     const {data, taxonomy} = props;
@@ -55,79 +57,49 @@ const TaxonomiesSinglePage = (props) => {
     const auth = useAuth();
     const router = useRouter();
     const closingModalBaseURI = router.asPath;
-    const {displayModal, modal, closeModal, Modal} = useModal();
 
-    const ModalComponent = CreateTaxonomyForm;
-    const modalComponentParams = {
-        uri:"update"
-    };
+    //Extract root modal 
+    const { Modal, displayModal, closeModal, modalInitValues } = useRootModal();
 
     const type = getType(TYPE_TAXONOMY);
-
-    const redirectOnClosingHandler = (requestResponse, closingCallback, targetSlug) => {
-        let redirectUrl = "";
-
-        if (closingModalBaseURI !== undefined) {    //Add the baseURI
-            redirectUrl += `${closingModalBaseURI}`;
-        }
-
-        if (targetSlug !== undefined) {             //Add the slug if it's set
-            redirectUrl += `${targetSlug}`;
-        }
-
-        if (redirectUrl !== "") {
-            Router.push(`${redirectUrl}`);
-            closingCallback();
-        } else {
-            throw(new Error("Un problème est survenu."));
-        }
-    }
 
     const displayUpdateForm = () => {
         displayModal();
     }
     // < NEEDED FOR EDIT THE TAXONOMY
 
-
-    // > NEEDED for BREADCRUMBS
     const currentTaxonomy = category.find( el => taxonomy.category === el.value );
     const currentTitle = `${currentTaxonomy.label} ${'&mdash;'} ${taxonomy.name}`;
 
-    const getLabelGenerator = useCallback((param, query) => {
-        return {
-            "categories": "Toutes les catégories",
-            "category": currentTitle
-        }[param];
-    }, []);
-
-    const getHrefGenerator = useCallback(() => {
-        return {
-            "categories": "categories"
-        };
-    }, []);
-    //  < NEEDED for BREADCRUMBS
-
+    /* Needed for breadCrumb generator */
+    const breadcrumbLabels = {
+        "categories": "Toutes les catégories",
+        "category": currentTitle
+    };
 
     return (
-        <div>
-            <Head>
-                <title>{getTitle([taxonomy.name, currentTaxonomy.label, type.labelPlural])}</title>
-            </Head>
+        <div className='mb-4'>
+            {/* Page head element  */}
+            <PageMeta 
+                title={getTitle([taxonomy.name, currentTaxonomy.label, type.labelPlural])}
+            />
             <PageHeader
-                bg={"bg-purplelighter"}
+                bg={"bg-primary-lighter"}
+                colFullWidth
                 textColor={"text-white"}
-                htmlTitle={currentTitle}
+                title={taxonomy.name}
+                subTitle={lang.capitalize(lang[taxonomy.category])}
                 tags={{
                     list:taxonomy.domains,
                     listProperty: "domain"
                 }}
                 description={taxonomy.description}
             >
-                <Breadcrumbs className={"pt-2"} route={AppRoutes.categorySingle} getLabelGenerator={getLabelGenerator} hrefGenerator={getHrefGenerator} />
+                <Breadcrumbs className={"pt-2"} route={AppRoutes.categorySingle} labels={breadcrumbLabels} />
 
                 <p className={"pt-2"}>
                     {auth.user.isLoggedIn &&
-                        <Button outline={"light"} color="light" onClick={displayUpdateForm}>
+                        <Button onClick={displayUpdateForm}>
                             <Icon iconName={"edit"} /> {lang.proposeContentChangeLabel}
                         </Button>
                     }
@@ -135,27 +107,37 @@ const TaxonomiesSinglePage = (props) => {
             </PageHeader>
 
             {/*  Show the feed in the EntitiesGrid component. It manages an empty list in it, but it make it more readable to show it here too */}
-            <EntitiesGrid className="row row-cols-1 row-cols-sm-2 row-cols-xl-3" columnClass={"col g-3"} feed={data}/>
+            <EntitiesGrid
+                className="row row-cols-1 row-cols-sm-2 row-cols-xl-3"
+                columnClass={"col-12 col-sm-6 col-lg-4 col-xl-3 g-4"}
+                feed={data}
+                noResult={"Aucune entité n’a été lié à cette catégorie pour le moment"}
+                badgesInfo={props.badgesInfo}
+            />
 
-            {
-                modal.display &&
-                <Modal
-                    className={`taxonomy-form-modal`}
-                    coloredBackground
-                    darkColorButton
-                    closingFunction={closeModal}
-                >
-                    <ModalComponent
-                        initValues={taxonomy}
-                        positiveRequestActions={{
-                            callbackFunction: requestResponse => {  //CallbackFunction is one of the four behaviors the useFormUtils hook can apply when a request return a positive answer
-                                redirectOnClosingHandler(requestResponse, closeModal);
-                            }
-                        }}
-                        {...modalComponentParams}
-                    />
-                </Modal>
-            }
+            <Modal {...props}>
+                <header className={`d-flex justify-content-between align-items-start`}>
+                    <div className="d-flex flex-column">
+                        <h3 className="text-primary">Modifier : {taxonomy.name}</h3>
+                        <p>Entrer les modifications à apporter à cette catégorie</p>
+                    </div>
+                    <Button onClick={() => closeModal()}>Fermer</Button>
+                </header>
+                <div className={`my-4 border-bottom`}></div>
+
+                <CreateTaxonomyForm
+                    {...props}
+                    uri="update"
+                    name={taxonomy.name ?? ''}   //Prefilled value
+                    initValues={ taxonomy ?? {} }
+                    category={props.requestData?.category}
+                    onPositiveResponse={(requestResponse) => {
+                        Router.push(`/categories/${requestResponse.data.category}/${requestResponse.data.slug}`);
+                        closeModal();
+                    }}
+                    
+                />
+            </Modal>
         </div>
     )
 }

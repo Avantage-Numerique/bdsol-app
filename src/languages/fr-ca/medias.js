@@ -2,7 +2,7 @@ const medias = {
 
     "seeImage": "voir l'image",
     "updateImage": "modifier l'image",
-    "addImage": "définir une image principale",
+    "addImage": "définir une image",
 
     "addMainImage": "ajouter une image principale",
     "modifyMainImage": "modifier une image principale",

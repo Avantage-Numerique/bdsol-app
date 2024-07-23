@@ -1,5 +1,4 @@
 import React from 'react'
-import Router from 'next/router'
 
 //Custom hooks
 import { useFormUtils } from '@/src/hooks/useFormUtils/useFormUtils'
@@ -13,13 +12,8 @@ import RichTextarea from '@/FormElements/RichTextArea/RichTextarea'
 import { useAuth } from "@/src/authentification/context/auth-context";
 
 //FormData
-import {getDefaultCreateEntityStatus} from "@/DataTypes/Status/EntityStatus";
-
-//Utils
-import {replacePathname} from "@/src/helpers/url";
-
-//Model
-import Organisation from "@/DataTypes/Organisation/models/Organisation"
+import {getDefaultCreateEntityMeta} from "@/src/DataTypes/Meta/EntityMeta";
+import { lang } from '@/src/common/Data/GlobalConstants'
 
 /**
  * @param {function} onPositiveResponse : Additionnal function to be executed if the submit response is positive
@@ -37,10 +31,6 @@ const CreateOrganisationForm = ({ onPositiveResponse }) => {
                 value: "",
                 isValid: false
             },
-            url: {
-                value: "",
-                isValid: true
-            },
             description: {
                 value: "",
                 isValid: true
@@ -51,13 +41,7 @@ const CreateOrganisationForm = ({ onPositiveResponse }) => {
             displayResMessage: true,     //Display a message to the user to confirm the succes
             callbackFunction: (response) => {
                 //Execute additionnal function from parent component
-                if(onPositiveResponse) onPositiveResponse()
-                //Create a model for the response
-                const model = new Organisation(response.data);
-                //Redirection link to the edit page
-                const link = "/"+replacePathname(model.singleEditRoute.pathname, {slug: model.slug});
-                //Execute the redirection
-                Router.push( link )
+                if(onPositiveResponse) onPositiveResponse(response)
             }
         }
     );
@@ -70,9 +54,8 @@ const CreateOrganisationForm = ({ onPositiveResponse }) => {
         const formData = {
             data: {
                 name: formState.inputs.name.value,
-                url:  formState.inputs.url.value,
                 description: formState.inputs.description.value,
-                status: getDefaultCreateEntityStatus(auth.user),
+                meta: getDefaultCreateEntityMeta(auth.user),
             }
         };
 
@@ -88,29 +71,20 @@ const CreateOrganisationForm = ({ onPositiveResponse }) => {
             <FormUI />
                 <Input 
                     name="name"
-                    label="Nom"
+                    label={"Nom"+lang.required}
                     className="my-1"
                     validationRules={[{name: "REQUIRED"}]}
                     errorText="Cette information est requise"
                     formTools={formTools}
                 />
-                <Input  
-                    name="url"
-                    label="Hyperlien"
-                    type="url"
-                    className="my-1"
-                    pattern="^https?:\/\/[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$"
-                    placeholder="Exemple : https://siteWeb.com"
-                    formTools={formTools}
-                />
                 <RichTextarea 
                     className="my-1"
                     name="description"
-                    label="Présentation / description"
+                    label={lang.about}
                     formTools={formTools}
                 />
             <div className="d-flex justify-content-end">
-                <Button disabled={!formState.isValid} type="button" onClick={submitHandler}>Créer</Button>
+                <Button disabled={!formState.isValid} type="button" onClick={submitHandler}>{lang.continue}</Button>
             </div>
         </form>
     )

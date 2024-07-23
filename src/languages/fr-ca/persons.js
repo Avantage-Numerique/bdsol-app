@@ -1,18 +1,20 @@
 const persons = {
     //  Personnes
+    "PersonsDefinition":"Personne, professionnelle ou amatrice, ayant des compétences en technologies ou œuvrant dans le numérique et offrant des services technologiques.",
 
     "Person": "Personne",
     "Persons": "Personnes",
     "person": "personne",
     "persons": "personnes",
-    "url": "url",
-    "urlLabel": "Url&nbsp;:&nbsp;",
     "contact": "contact",
     "contactLabel": "Contact&nbsp;:&nbsp;",
     "nickname": "surnom",
     "nicknameLabel": "Surnom&nbsp;:&nbsp;",
-    "catchphrase": "Phrase d'accroche",
+    "catchphrase": "Titre du profil",
     "addPersonButtonLabel": "Ajouter une personne",
+    "expertiseField": "Champ d'expertise",
+    "skillsAndTechnologiesAssociated": "Compétences et technologies associées",
+
 
 
     // CreatePersonForm.js
@@ -21,6 +23,16 @@ const persons = {
     "formPersonInstructions": "",
     "personUploadMediaMainImage": "Vous pourrez téléverser une image à partir de la page de cette personne. Cette image représentera cette personne et sera affiché dans sa fiche et dans les pages qui la liste.",
 
+    "memberOfOrganisations": "Membre des organisations",
+    "memberOfOrganisation": "Membre de l'organisation",
+
+    "memberOfProjects": "Membre des projets",
+    "memberOfProject": "Membre du projet",
+
+    "attendThisEvent": "J'ai participé à cet événement",
+    "attendTheseEvents": "J'ai participé à ces événements",
+    
+    "iconOfPerson": "Icône représentant une personne",
 }
 
 exports.persons = persons;

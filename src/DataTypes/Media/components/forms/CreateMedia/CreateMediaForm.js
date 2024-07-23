@@ -13,7 +13,7 @@ import LargeFileInput from '@/FormElements/LargeFileInput/LargeFileInput'
 
 //Context
 import {useAuth} from "@/src/authentification/context/auth-context";
-import {getDefaultCreateEntityStatus} from "@/DataTypes/Status/EntityStatus";
+import {getDefaultCreateEntityMeta} from "@/src/DataTypes/Meta/EntityMeta";
 
 //Styling
 import styles from "./CreateMediaForm.module.scss";
@@ -24,13 +24,13 @@ import {getDefaultImageByEntityType} from "@/src/helpers/images";
 
 const CreateMediaForm = (props) => {
     
+    const mediaField = props.mediaField ?? 'mainImage'
     const {
         initValues,
         positiveRequestActions,
         entity
     } = props;
 
-    //For now, we assume the it is always going to be mainImage
     const {
         alt,
         description,
@@ -57,12 +57,12 @@ const CreateMediaForm = (props) => {
     //Main form functionalities
     const {FormUI, submitRequest, formState, formTools, clearFormData, updateManyFields} = useFormUtils(
         {
-            mainImage: {
+            [mediaField]: {
                 value: "",
                 isValid:  true
             },
             licence: {
-                value: licence ?? "copyright",
+                value: licence ?? "",
                 isValid: true
             },
             description: {
@@ -95,7 +95,7 @@ const CreateMediaForm = (props) => {
     useEffect(() => {
         if(!isNewFile){
             updateManyFields({
-                mainImage: "", 
+                [mediaField]: "", 
                 licence: licence ?? "copyright",
                 description: description ?? '',
                 alt: alt ?? '',
@@ -136,13 +136,13 @@ const CreateMediaForm = (props) => {
                 "description": formState.inputs.description.value,
                 "licence": formState.inputs.licence.value ?? undefined,
                 "fileType": "image",
-                "mediaField": "mainImage",
+                "mediaField": mediaField,
                 "entityType": entity.type,
                 "entityId": entity._id,
-                "status": getDefaultCreateEntityStatus(auth.user)
+                "meta": getDefaultCreateEntityMeta(auth.user)
             }
             //Add the image to the form data object
-            rawFromData.append("mainImage", formState.inputs.mainImage.value);
+            rawFromData.append(mediaField, formState.inputs[mediaField].value);
             //Add the field values
             rawFromData.append("data", JSON.stringify(formData));
 
@@ -163,7 +163,7 @@ const CreateMediaForm = (props) => {
 
             const formData = {
                 "data": {
-                    "id": entity.mainImage._id,
+                    "id": entity[mediaField]._id,
                     "title": formState.inputs.title.value,
                     "alt": formState.inputs.alt.value,
                     "description": formState.inputs.description.value,
@@ -205,12 +205,16 @@ const CreateMediaForm = (props) => {
             <div className="d-flex w-100">
                 <div className="row w-100 gx-3">
                     {/* Column one */}
-                    <div className={`col-6 ${styles["image-column"]}`}>
+                    <div className={`col-12 col-md-6 ${styles["image-column"]}`}>
                         {isNewFile &&
                             <LargeFileInput 
-                                name="mainImage"
+                                name={mediaField}
                                 label="Fichier"
                                 formTools={formTools}
+                                validationRules={[
+                                    {name: "REQUIRED"},
+                                    {name: "FILE_MAX_SIZE", specification: 1},
+                                ]}
                             />
                         }
                         {!isNewFile &&
@@ -239,10 +243,9 @@ const CreateMediaForm = (props) => {
                     </div>
 
                     {/* Column two */}
-                    <div className={`col-6 ${styles["fields-column"]}`}>
-
+                    <div className={`col-12 col-md-6 ${styles["fields-column"]}`}>
                         <nav className={`container mb-2 ${styles["form-inner-nav"]}`}>
-                            <p className="mb-0 d-flex justify-content-center">Informations</p>
+                            <h4 className="mb-1 d-flex justify-content-center text--dark fs-5">Informations</h4>
                             <div className="row">
                                 <button aria-current={ formPage === 0 ? "page" : ""} className={`${styles["form-inner-nav__button"]} col fs-6`} type="button" onClick={() => setFormPage(0)}>
                                     De base
@@ -257,14 +260,23 @@ const CreateMediaForm = (props) => {
                         <div>
                             Média associé à 
                             {/************  Waiting for the tag components ************/}
-                            <EntityTag model={entity} addButton={false} addType={false} />
-
+                            <EntityTag 
+                                model={entity} 
+                                addButton={false} 
+                                addType={false}
+                                className="mt-1 mb-2"
+                            />
                             <SelectLicence
                                 formTools={formTools}
                                 name="licence"
+                                tooltip={
+                                    {
+                                        header : "Recommandations",
+                                        body: "Nous recommandons, lorsque possible, de rendre les données disponibles dans le cadre de la licence libre et ouverte Creative Commons CC BY-NC-SA 4.0"
+                                    }
+                                }
                             />
-
-                            <Input 
+                            <Input
                                 name="title"
                                 label="Titre de l'image"
                                 formTools={formTools}
@@ -290,13 +302,13 @@ const CreateMediaForm = (props) => {
                         }
                         <div className="mt-2 d-flex gap-2 flex-wrap">
                                 <Button
-                                    disabled={entity.mainImage?._id == undefined && formState.inputs.mainImage.value == ""}
+                                    disabled={entity?.[mediaField]?._id == undefined && (formState.inputs[mediaField].value == "" || formState.inputs[mediaField].value == undefined)}
                                     onClick={submitHandler}
                                     size="slim"
                                 > Soumettre
                                 </Button>
                                 {!isNewFile &&
-                                    <button onClick={submitDelete} type="button" className="text-danger fs-5"><u>Supprimer l'image</u></button>
+                                    <Button text_color="danger" onClick={submitDelete} type="button" className="fs-6"><u>Supprimer l'image</u></Button>
                                 }
                         </div>
                     </div>

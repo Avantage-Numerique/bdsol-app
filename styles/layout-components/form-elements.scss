@@ -19,7 +19,7 @@
 
         position: relative;
 
-        background-color:  $light;
+        background-color:  $input-base-bg-color;
         border: var(--default-border);
         border-radius: 0.25rem;
 
@@ -48,10 +48,7 @@
                 transition: all 300ms ease;
 
                 &:focus-within {
-                        /*  VARIABLE NOT WORKING YET
-                        background-color: lighten($purple-lighter, 5%);
-                        border: 0.1rem solid $purple-lighter;
-                        */
+
                         background-color: lighten($selected-input, 32%);
                         border: 0.1rem solid lighten($selected-input, 15%);
                         &.form-text-white {color: var(--bs-gray-700)};
@@ -62,8 +59,9 @@
                         border: 0.1rem solid $danger;
                         background-color: lighten($danger, 10%);
                         */
-                        border: 0.1rem solid #dd5c5cb9;
-                        background-color: #dd5c5c23;
+                        border: 0.1rem solid #{lighten($lighten_red, 10%)};
+                        //background-color: #dd5c5c23;
+                        background-color: #{lighten($red, 40%)}
                 }
         }  
 
@@ -91,8 +89,10 @@
                         /* Variables BOOTSTRAP to define */
                         &.badge--validation-succes {
                                 --badge--color: rgb(54, 70, 55);
-                                --badge--bg-color:  rgb(192, 216, 194);
-                                --badge--border-color:  rgb(155, 173, 155);
+                                //--badge--bg-color:  rgb(192, 216, 194);
+                                --badge--bg-color:  #{lighten($green, 20%)};
+                                //--badge--border-color:  rgb(155, 173, 155);
+                                --badge--border-color: #{$darken_green};
                         }       
                 }
         }
@@ -164,4 +164,8 @@
                         margin-right: 0.25rem;
                 }
         }
+}
+
+.form-box-shadow {
+        box-shadow: $default-box-shadow;
 }

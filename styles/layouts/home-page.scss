@@ -4,18 +4,16 @@
 
 .home-page {
 
-    padding-bottom: 7rem;
-
-
     > .home-page__main {
 
-        > div {
+        > .row {
 
             margin-top: 5vh;
 
             /*Section one  : FEED SECTION  */
 
-            > .home-page__feed-section {
+            .home-page__feed-section {
+                max-width: 100ch;
 
                 /* Section with a news feed */
                 .home-page__feed-section--container{
@@ -103,4 +101,14 @@
             }
         }
     }
+}
+
+.home-page__full-width-section {
+    margin-left: calc(50% - 50vw);
+    width: 100vw;
+}
+
+.home-page__section-inner-y-padding {
+    padding-top: clamp(2rem, 7vw, 5rem);
+    padding-bottom: clamp(2rem, 7vw, 5rem);
 }

@@ -12,7 +12,7 @@ import Select2 from '@/FormElements/Select2/Select2'
 
 //Utils
 import {lang} from "@/src/common/Data/GlobalConstants";
-import {getDefaultCreateEntityStatus} from "@/DataTypes/Status/EntityStatus";
+import {getDefaultCreateEntityMeta} from "@/src/DataTypes/Meta/EntityMeta";
 import {replacePathname} from "@/src/helpers/url";
 
 //Context
@@ -25,7 +25,7 @@ import Project from "@/src/DataTypes/Project/models/Project"
 /**
  * @param {function} onPositiveResponse : Additionnal function to be executed if the submit response is positive
  */
-const CreateProjectForm = ({ onPositiveResponse }) => {
+const CreateProjectForm = ({ onPositiveResponse, initValues }) => {
 
     //Authentication ref
     const auth = useAuth();
@@ -33,15 +33,15 @@ const CreateProjectForm = ({ onPositiveResponse }) => {
     const { FormUI, submitRequest, formState, formTools } = useFormUtils(
         {
             name: {
-                value: "",
+                value: initValues?.name ?? "",
                 isValid: true
             },
             entityInCharge: {
-                value: "",
+                value: initValues?.entityInCharge ?? "",
                 isValid: true
             },
             context: {
-                value: "",
+                value: initValues?.context ?? "",
                 isValid: true
             }
         },//Pass a set of rules to execute a valid response of an api request
@@ -49,15 +49,7 @@ const CreateProjectForm = ({ onPositiveResponse }) => {
             displayResMessage: true,     //Display a message to the user to confirm the succes
             callbackFunction: (response) => {
                 //Execute additionnal function from parent component
-                if(onPositiveResponse) onPositiveResponse();
-
-                //Create a model for the response
-                const model = new Project(response.data);
-
-                //Redirection link to the edit page
-                const link = "/"+replacePathname(model.singleEditRoute.pathname, {slug: model.slug});
-                //Execute the redirection
-                Router.push( link )
+                if(onPositiveResponse) onPositiveResponse(response);
             }
         }
     );
@@ -70,8 +62,8 @@ const CreateProjectForm = ({ onPositiveResponse }) => {
             "data": {
                 name: formState.inputs.name.value,
                 entityInCharge: formState.inputs.entityInCharge?.value?.value,
-                context: formState.inputs.context.value,
-                status: getDefaultCreateEntityStatus(auth.user),
+                context: formState.inputs.context.value !== "" ? formState.inputs.context.value : undefined,
+                meta: getDefaultCreateEntityMeta(auth.user),
             }
         }
         
@@ -89,7 +81,7 @@ const CreateProjectForm = ({ onPositiveResponse }) => {
             <Input 
                 name="name"
                 className="my-1"
-                label="Nom du projet"
+                label={"Nom du projet"+lang.required}
                 formTools={formTools}
                 validationRules={[
                     {name: "REQUIRED"}
@@ -100,14 +92,14 @@ const CreateProjectForm = ({ onPositiveResponse }) => {
                 label="Choisissez un contexte"
                 className="my-1"
                 formTools={formTools}
-                validationRules={[{name: "REQUIRED"}]}
+                //validationRules={[{name: "REQUIRED"}]}
                 noValueText={lang.noSelectedOption}
                 fetchOption="context-enum"
             />
             <Select2
                 name="entityInCharge"
                 className="my-1"
-                label="Organisation en charge"
+                label={lang.entityInCharge}
                 formTools={formTools}
                 creatable={false}
                 isMulti={false}
@@ -116,7 +108,7 @@ const CreateProjectForm = ({ onPositiveResponse }) => {
                 selectField={"name"}
             />
             <div className="d-flex justify-content-end">
-                <Button disabled={!formState.isValid} type="button" onClick={submitHandler}>Créer</Button>
+                <Button disabled={!formState.isValid} type="button" onClick={submitHandler}>{lang.continue}</Button>
             </div>
         </form>
     )

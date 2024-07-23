@@ -4,6 +4,7 @@ import dynamic from 'next/dynamic'
 
 //Hooks
 import { useValidation } from '@/src/hooks/useValidation/useValidation';
+import {useFieldTips} from '@/src/hooks/useFieldTips/useFieldTips';
 
 //Styling
 import styles from './RichTextarea.module.scss'
@@ -14,10 +15,6 @@ const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
 
 const RichTextarea = ({name, formTools, ...props}) => {
-
-    //Extract the validator methods and utilities
-    const { validate, RequirementsBadges, ValidationErrorMessages } = useValidation( props.validationRules )
-
     //Create a unique ID to link the custom tool bar to the quill element. 
     //In a useRef because it must not be affected by component rerendering
     const toolbarId = useRef(`rich-text-tool-bar-${Math.floor(Math.random() * 10000000)}`)
@@ -37,13 +34,18 @@ const RichTextarea = ({name, formTools, ...props}) => {
         inputTouched
     } = formTools;
 
+    const {TipPopOver, TipButton} = useFieldTips(props.tip);
+
+    //Extract the validator methods and utilities
+    const { validate, RequirementsBadges, ValidationErrorMessages, rerenderToggled } = useValidation( props.validationRules, formState )
+
     const currentState = formState.inputs[name];
 
     const updateValue = (value, delta, source, editor) => {
         inputHandler(
             name,
             value,
-            props.validationRules ? validate(editor.getText()) : true
+            props.validationRules ? validate(editor.getText(), formState) : true
         )
     }
 
@@ -60,11 +62,16 @@ const RichTextarea = ({name, formTools, ...props}) => {
                     {props.label}
                 </label>
             }
+            {
+                props.tip &&
+                <TipButton title="Détails" />
+            }
             {props.labelNote &&
                 <blockquote>
                 * Note : {props.labelNote}
                 </blockquote>
             }
+            <TipPopOver />
 
             <div className={` ${styles["rich-textarea__quill"]} `} > 
                 

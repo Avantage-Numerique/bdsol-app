@@ -1,10 +1,10 @@
-import React, {useCallback, useContext, useEffect, useState} from 'react'
+import React, {useContext, useEffect, useState} from 'react'
 
 //components
 import PageHeader from "@/src/layouts/Header/PageHeader";
 import Button from '@/src/common/FormElements/Button/Button'
 import Spinner from '@/src/common/widgets/spinner/Spinner'
-
+import PageMeta from "@/src/common/PageMeta/PageMeta";
 
 //Costum hooks
 import {useHttpClient} from '@/src/hooks/http-hook';
@@ -18,7 +18,6 @@ import {lang} from "@/src/common/Data/GlobalConstants";
 import {Breadcrumbs} from "@/common/Breadcrumbs/Breadcrumbs";
 import AppRoutes from "@/src/Routing/AppRoutes";
 import EntitiesGrid from "@/DataTypes/Entity/layouts/EntitiesGrid";
-import Head from "next/head";
 import {getTitle} from "@/DataTypes/MetaData/MetaTitle";
 import {getType, TYPE_PROJECT} from "@/DataTypes/Entity/Types";
 
@@ -63,24 +62,23 @@ const ProjectsPage = () => {
 
     useEffect(() => { fetchData() }, [])
 
-    const getLabelGenerator = useCallback((param, query) => {
-        return {
-            "projets": "Tous les Projets",
-        }[param];
-    }, []);
+    const breadcrumbsLabels = {
+        "projets": "Tous les Projets",
+    }
 
     return (
         <div>
-            <Head>
-                <title>{getTitle([type.labelPlural])}</title>
-            </Head>
+            <PageMeta 
+                title={getTitle([type.labelPlural])}
+                description={lang.projects__description}
+            />
             <PageHeader
-                bg={"bg-purplelighter"}
+                bg={"bg-primary-lighter"}
                 textColor={"text-white"}
                 htmlTitle={"Consulter les projets"}
                 subTitle={"Vous trouverez ici une liste des projets produits par les technocréatifs.ves du Croissant boréal."}
             >
-                <Breadcrumbs className={"pt-2"} route={AppRoutes.projects} getLabelGenerator={getLabelGenerator} />
+                <Breadcrumbs className={"pt-2"} route={AppRoutes.projects} labels={breadcrumbsLabels} />
             </PageHeader>
 
             <div className="container">
@@ -114,13 +112,13 @@ const ProjectsPage = () => {
                         {/*  Show the feed in the EntitiesGrid component. It manages an empty list in it, but it make it more readable to show it here too */}
                         {
                             projectList.length > 0 && !isLoading &&
-                            <EntitiesGrid className="position-relative row row-cols-1 row-cols-sm-2 row-cols-xl-3" columnClass={"col g-3"} feed={projectList}/>
+                            <EntitiesGrid className="position-relative row row-cols-1 row-cols-sm-2 row-cols-xl-3" feed={projectList}/>
                         }
                     </section>
 
                     {/* Aside section */}
                     <aside className="col col-12 col-md-3">
-                        <div className="my-4">
+                        <div className="my-4 d-flex flex-column">
 
                             <Button
                                 disabled={!auth.user.isLoggedIn}
@@ -135,19 +133,16 @@ const ProjectsPage = () => {
                                     Notez que vous devez être <b className="text-primary">connecté</b> pour pouvoir ajouter des entitées à la base de données.
                                 </p>
                             }
-                        </div>
-                        <hr />
                             {   !auth.user.isLoggedIn &&
-
                                 <>
-                                <Button
-                                    size="reg-100"
-                                    href="/compte/connexion"
-                                >Se connecter</Button>
-
-                                <hr />
+                                    <hr/>
+                                    <Button
+                                        size="reg-100"
+                                        href="/compte/connexion"
+                                    >Se connecter</Button>
                                 </>
                             }
+                        </div>
                     </aside>
 
                 </div>

@@ -1,5 +1,5 @@
 //React
-import React, {useCallback} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 
 //Utils
 import {getModelFromType, getType} from "@/DataTypes/Entity/Types";
@@ -14,10 +14,9 @@ import SingleBaseHeader from "@/src/DataTypes/common/layouts/single/defaultSecti
 import EntityTag from "@/src/DataTypes/Entity/layouts/EntityTag";
 import LicenceDisplay from "@/src/common/FormElements/SelectLicence/LicenceDisplay";
 import SanitizedInnerHtml from "@/src/utils/SanitizedInnerHtml";
-import {SingleEntityStatus} from "@/src/DataTypes/Status/components/SingleEntityStatus";
-import Head from "next/head";
-import {getTitle} from "@/DataTypes/MetaData/MetaTitle";
+import {SingleEntityMeta} from "@/src/DataTypes/Meta/components/SingleEntityMeta";
 import Media from "@/DataTypes/Media/models/Media";
+import {RouteLink} from "@/common/Components/RouteLink";
 
 
 const SingleInfoLayout = ({ title, NAMessage="-", children }) => {
@@ -46,7 +45,7 @@ const MediaSingleView = ({data}, ...props) => {
         extension,
         createdAt,
         updatedAt,
-        status
+        meta
     } = data;
 
     const baseSrc = `${process.env.NEXT_PUBLIC_API_URL}`;
@@ -54,6 +53,8 @@ const MediaSingleView = ({data}, ...props) => {
 
     const associatedEntityType = getType(data.entityId.type, true);
     const associatedEntityModel = getModelFromType(data.entityId.type, data.entityId);
+
+
     /* Needed for breadCrumb generator */
     const getHrefGenerator = useCallback(() => {
         return {
@@ -61,32 +62,48 @@ const MediaSingleView = ({data}, ...props) => {
             "[person.slug]": associatedEntityModel.slug ?? "no-set",
             "[organisation.slug]": associatedEntityModel.slug ?? "no-set",
             "[project.slug]": associatedEntityModel.slug ?? "no-set",
+            "[event.slug]": associatedEntityModel.slug ?? "no-set",
+            "[equipment.slug]": associatedEntityModel.slug ?? "no-set",
+            "[place.slug]": associatedEntityModel.slug ?? "no-set",
             "persons": "persons",
             "organisations": "organisations",
             "projects": "projects",
-            "medias": "medias"
+            "events":"events",
+            "medias": "medias",
+            "lieux": "lieux"
         };
     }, []);
 
-    const getLabelGenerator = useCallback((param, query) => {
-        return {
-            "id": () => data?.title ?? "title must be set",
-            "slug": () => data?.title ?? "title must be set",
-            "person.slug": () => associatedEntityModel.title ?? "Personne",
-            "organisation.slug": () => associatedEntityModel.title ?? "Organisation",
-            "project.slug": associatedEntityModel.title ?? "Projet",
-            "persons": () => "Personnes",
-            "organisations": () => "Organisations",
-            "projets": () => "Projets",
-            "medias": () => "Média"
-        }[param];
-    }, []);
+    /* Needed for breadCrumb generator */
+    const breadcrumbLabels = {
+        "id": data?.title && data?.title !== "" ? data?.title : "title must be set",
+        "slug": data?.title && data?.title !== "" ? data?.title : "title must be set",
+        "person.slug": associatedEntityModel.title ?? "Personne",
+        "organisation.slug": associatedEntityModel.title ?? "Organisation",
+        "project.slug": associatedEntityModel.title ?? "Projet",
+        "event.slug": associatedEntityModel.title ?? "Événement",
+        "equipment.slug": associatedEntityModel.title ?? "Équipement",
+        "place.slug": associatedEntityModel.title ?? "Lieu",
+        "personnes": "Personnes",
+        "equipement": "Équipements",
+        "organisations": "Organisations",
+        "projets": "Projets",
+        "evenements": "Événements",
+        "lieux": "Lieux",
+        "medias": "Média"
+    };
 
-    const breadCrumb = {
+    const breadcrumbsRoutes = {
         route: associatedEntityModel.singleMediaRoute,
-        getLabelGenerator: getLabelGenerator,
+        labels: breadcrumbLabels,
         getHrefGenerator: getHrefGenerator
     }
+
+    const [breadCrumb, setBreadCrumb] = useState(breadcrumbsRoutes);
+    useEffect(() => {
+        setBreadCrumb(breadcrumbsRoutes)
+    }, [title]);
+
 
     const header = (
         <SingleBaseHeader
@@ -94,13 +111,7 @@ const MediaSingleView = ({data}, ...props) => {
             title={(<SanitizedInnerHtml tag={"h1"} className="text-white">{`${title}`}</SanitizedInnerHtml>)}
             subtitle={(
                 <div className="d-text text-white">
-                    <div>
-                        <span className={`${styles["quick-section__single-info"]}`}>{lang.filename}{lang.colon}</span>{fileName + '.' + extension}
-                    </div>
-                    <div>
-                        <strong>{lang.licence}{lang.colon}</strong>
-                        <LicenceDisplay licenceKey={licence ?? {} }/>
-                    </div>
+                    <LicenceDisplay licenceKey={licence ?? {} }/>
                 </div>
             )}
             entity={data}
@@ -128,8 +139,12 @@ const MediaSingleView = ({data}, ...props) => {
             </SingleInfoLayout>
 
             <SingleInfoLayout
-                title={lang.associatedTo + associatedEntityType.inSentencePrefix + associatedEntityType.label}>
-                <EntityTag model={associatedEntityModel} />
+                title={lang.associatedTo.capitalize() + associatedEntityType.inSentencePrefix + associatedEntityType.label}>
+                <EntityTag model={associatedEntityModel}/>
+            </SingleInfoLayout>
+
+            <SingleInfoLayout title={lang.licenceMediaMoreDetails}>
+                <RouteLink routeName={"licences"} className="btn btn-sm btn-secondary px-4" />
             </SingleInfoLayout>
         </>
     );
@@ -146,17 +161,14 @@ const MediaSingleView = ({data}, ...props) => {
                 <SanitizedInnerHtml tag={"span"}>{description}</SanitizedInnerHtml>
             </SingleInfoLayout>
             {
-                (createdAt || updatedAt || status) &&
-                <SingleEntityStatus className="border-bottom py-4" createdAt={createdAt} updatedAt={updatedAt} status={status} />
+                (createdAt || updatedAt || meta) &&
+                <SingleEntityMeta createdAt={createdAt} updatedAt={updatedAt} meta={meta} />
             }
         </>
     );
 
     return (
         <>
-            <Head>
-                <title>{getTitle([`${lang.mainImage} ${lang.associatedTo} ${associatedEntityModel.title}`, associatedEntityModel.Type.label])}</title>
-            </Head>
             <SingleBase
                 breadCrumb={breadCrumb}
                 header={header}

@@ -11,12 +11,6 @@
     width: min(35rem, 95%);
 
     form {
-        padding: 2rem;
-        border: 1px solid $secondary;
         h3 { margin-top: 0; }
-
-        > *:not(button) {
-            //width: 50%;
-        }
     }
 }

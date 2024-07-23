@@ -16,7 +16,7 @@ import Icon from "@/common/widgets/Icon/Icon";
 
 
 //{ mainImage, entity, editable}
-const MainImageDisplay = ({ mainImage, entity, setter }) => {
+const MainImageDisplay = ({ mainImage, entity, setter, buttonClasses }) => {
 
     const {displayModal, modal, closeModal, Modal} = useModal();
 
@@ -29,11 +29,11 @@ const MainImageDisplay = ({ mainImage, entity, setter }) => {
     return (
         <>
             <div className={`${styles["edit-image-button"]}`}>
-                <button className={"btn btn-primary"} onClick={() => displayModal()} title={haveMainImage ? lang.updateImage : lang.addImage}>
+                <Button size="slim" color="secondary" className={buttonClasses || ""} onClick={() => displayModal()} title={haveMainImage ? lang.updateImage : lang.addImage}>
                     <Icon iconName={"edit"} /> { mainImage.isDefault === true ?
                     lang.capitalize("addImage") : lang.capitalize("updateImage")
                 }
-                </button>
+                </Button>
             </div>
 
             {/******** Img Modal Display *********/}
@@ -52,6 +52,7 @@ const MainImageDisplay = ({ mainImage, entity, setter }) => {
                     <CreateMediaForm
                         initValues={mainImage}
                         entity={entity}
+                        mediaField="mainImage"
                         positiveRequestActions={{//CallbackFunction is one of the four behaviors the useFormUtils hook can apply when a request return a positive answer
                             callbackFunction: (requestResponse) => {
                                 refreshImage(requestResponse);

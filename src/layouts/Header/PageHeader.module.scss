@@ -1,12 +1,15 @@
 .page-header {
 
     padding: 8vh 4vw;
+    padding-top: calc(8vh + var(--headersHeight));
     width: 100vw;
     margin-left: calc(50% - 50vw);
+    isolation: isolate;
+    
+    .header-left-col--max-width { max-width: 60ch; }
 
-    h1 {
-        font-size: min(8vw, 3.2rem);
-    }
+    .stacking-context-front { z-index: 2; }
+    .stacking-context-reg { z-index: 0; }
 
 }
 

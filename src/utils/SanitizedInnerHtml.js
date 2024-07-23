@@ -1,3 +1,4 @@
+import React from 'react'
 import DOMPurify from 'isomorphic-dompurify';
 
 /*
@@ -7,35 +8,28 @@ import DOMPurify from 'isomorphic-dompurify';
 
     It centralize the use of dangerouslySetInnerHTML
 
-
 */
 
-export const SanitizedInnerHtml = ( {tag, type, className, children} ) => {
-
+const SanitizedInnerHtml = ( {tag, type, className, children, removeQlEditorClass} ) => {
     //Cleaning machine
     const cleanedData = DOMPurify.sanitize( children );
-    const typeProps = type ? {type: type} : {};
-    const Wrapper = tag ?? "div";
-    if (className) typeProps.className = className;
+    //Set the wrapper
+    const Wrapper = tag || "div";
+    //Initialize the object
+    let typeProps = {};
+    if(type && (tag === "script")) 
+        typeProps["type"] = type
 
-    //If the desired tag is a script tag
-    // if(tag === "script")
-    //     return (
-    //         <Wrapper {...typeProps}
-    //             dangerouslySetInnerHTML={{
-    //             __html: DOMPurify.sanitize(cleanedData)
-    //             }}
-    //         />
-    //     )
-
+    if(tag != "script"){
+        typeProps.className = "";
+        if (className) typeProps.className += className;
+        if (!removeQlEditorClass) typeProps.className += " ql-editor p-0 ";
+    }
+    
     //By default
     return (
-        <Wrapper {...typeProps}
-            dangerouslySetInnerHTML={{
-                __html: DOMPurify.sanitize(cleanedData)
-            }}
-        />
-    )
+        <Wrapper {...typeProps} dangerouslySetInnerHTML={{__html: cleanedData}} />
+    ) 
 
 }
 

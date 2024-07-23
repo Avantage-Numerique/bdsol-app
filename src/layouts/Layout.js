@@ -5,43 +5,29 @@
 
 */
 
-import {createContext, useRef, useState} from "react";
-import Head from 'next/head'
+import {createContext, useEffect, useRef, useState} from "react";
+import Head from 'next/head';
+import sanitizedString from "@/src/utils/SanitizedString";
 
 //Context
 import {MessageContext} from '@/src/common/UserNotifications/Message/Context/Message-Context'
 
 //components
-import Footer from '@/layouts/Footer/Footer'
-import Header from '@/layouts/Header/Header'
-import Nav from '@/layouts/Navigation/MainNav/Nav'
-import AccountNav from '@/layouts/Navigation/AccountNav/AccountNav'
-import Message from '@/src/common/UserNotifications/Message/Message'
+import Footer from '@/layouts/Footer/Footer';
+import Header from '@/layouts/Header/Header';
+import Message from '@/src/common/UserNotifications/Message/Message';
 
 //Styling
-import styles from './Layout.module.scss'
-import {FeedbackWidget} from "@/src/common/Feedbacks/components/feedback-widget";
+import styles from './Layout.module.scss';
 
 //Hooks
-import {useModalController} from '@/src/hooks/useModal/ModalsController/ModalsController'
-import {appUrl} from "@/src/helpers/url";
+import {useModalController} from '@/src/hooks/useModal/ModalsController/ModalsController';
+import {useRouter} from "next/router";
+import nextConfig from "@/next.config";
 
 export const ModalContext = createContext({});
 
 const Layout = ( {children} ) => {
-
-    /*
-        State manager to manage the situation of the two menus. (Main menu and  account menu)
-        Listen in the header component and update in the nav component.
-
-        Three menu states possible : 
-        0 : close
-        1 : Main menu open
-        2 : Account menu open
-    */
-
-    //Navigation menus in the header
-    const [menuState, setMenuState] = useState(0);
 
     //Modal container referenve
     const modalContainer = useRef();
@@ -66,52 +52,67 @@ const Layout = ( {children} ) => {
         }])
     }
 
+    const metaAssetsPath = (asset, addVersion=true) => {
+        const assetsVersions = nextConfig.env.VERSION;
+        const basePath = "/favicon/";
+        return `${basePath}${asset}${addVersion ? `?v=${assetsVersions}`:''}`;
+    }
+
+    //  Catch if uri contains a msg query vars an display it in a toast alert.
+    const router = useRouter();
+    useEffect(() => {
+        if(router.query?.msg && router.query?.msg !== "")
+        {
+            const positive = router.query?.msgPositive === "true";
+            setMessages([...messages, {
+                    positive:positive,
+                    text:sanitizedString(router.query.msg),
+                    creationTime: getCurrentTime()
+                }
+            ])
+        }
+    }, [router.query]);
+
+
+
     return (
         <>
             <Head>
-                <meta charSet="UTF-8" />
-                <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+                <meta charSet="UTF-8"/>
+                <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
                 <meta httpEquiv="X-UA-Compatible" content="ie=edge"/>
-                <meta name="robots" content="index, follow" />
+                <meta name="language" content="fr"/>
+                {/* Static for now */}
 
-                {/* Icone to appear on the top of the page */}
-                <link rel="icon" href={appUrl("/icones/cropped-Frame-10-32x32.png")} sizes="32x32" />
-                <link rel="icon" href={appUrl("/icones/cropped-Frame-10-192x192.png")} sizes="192x192" />
-                <link rel="apple-touch-icon" href={appUrl("/icones/cropped-Frame-10-180x180.png")} />
-                <meta name="msapplication-TileImage" content={appUrl("/icones/cropped-Frame-10-270x270.png")} />
+                {/* For IE 11 or earlier */}
+                {/* No support for PNG favicons with 16x16 or 32x32 sizes, so use the ICO format */}
+                <link rel="icon" type="image/x-icon" href={metaAssetsPath("favicon.ico")} />
 
-                <meta name="theme-color" content="#000" />
+                <link rel="apple-touch-icon" sizes="180x180" href={metaAssetsPath("apple-touch-icon.png")} />
+                <link rel="icon" type="image/png" sizes="32x32" href={metaAssetsPath("favicon-32x32.png")} />
+                <link rel="icon" type="image/png" sizes="16x16" href={metaAssetsPath("favicon-16x16.png")} />
+                <link rel="apple-touch-icon" sizes="180x180" href={metaAssetsPath("apple-touch-icon.png")} />
+                <link rel="icon" type="image/png" sizes="192x192" href={metaAssetsPath("android-chrome-192x192.png")} />
+                <link rel="icon" type="image/png" sizes="512x512" href={metaAssetsPath("android-chrome-512x512.png")} />
+                <link rel="manifest" href={metaAssetsPath("site.webmanifest")} />
+                <link rel="mask-icon" href={metaAssetsPath("safari-pinned-tab.svg")}  color="#5bbad5"/>
+                <meta name="msapplication-TileColor" content="#da532c"/>
+                <meta name="theme-color" content="#ffffff"/>
 
                 {/* General social medias meta tags */}
-                <meta property="og:type" content="website" />{/*article*/}
-
-                <meta name="twitter:label1" content="Written by" />
-                <meta name="twitter:data1" content="Author's user" />
-                <meta name="twitter:label2" content="Reading time" />
-                <meta name="twitter:data2" content="3 minutes (static value)" />
-
-                <meta property="article:section" content="Technology" />
-                <meta property="article:tag" content="data" />
-                <meta property="article:tag" content="teachnocreatif" />
-
-                {/* Fonts 
-                    <link rel="preconnect" href="https://fonts.googleapis.com" />
-                    <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
-                    <link href="https://fonts.googleapis.com/css2?family=Yeseva+One&display=swap" rel="stylesheet" />
-                    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet" />
-                */}
+                <meta property="og:type" content="website"/>
+                <meta property="og:site_name" content="AVNU"/>
+                <meta property="og:locale" content="fr_CA"/>
             </Head>
 
             <div id={styles.layout}>
-                <Header menuState={menuState} setMenuState={setMenuState} />
-                <Nav menuState={menuState} setMenuState={setMenuState} />
-                <AccountNav menuState={menuState} setMenuState={setMenuState} />
-                
+                <Header/>
+
                 {/* Defining contextes to be passed along children */}
                 <ModalContext.Provider value={{modalTools: modalTools}}>
-                    <MessageContext.Provider value={{ addMessage: addMessage }}>
-                    
-                    <main className={`${styles["main-container-min-height"]} container`}>
+                    <MessageContext.Provider value={{addMessage: addMessage}}>
+
+                        <main className={`${styles["main-container-min-height"]} container`}>
                         <div className="row">
                             <div className="col">
 
@@ -124,15 +125,6 @@ const Layout = ( {children} ) => {
                     </MessageContext.Provider>
                 </ModalContext.Provider>
                 <Footer />
-
-
-                {/*  Commented out but still there if it was to be used for another purpose 
-                    <BottomBanner 
-                        title="Chers et chères visiteurs"
-                        para1="Travail en cours, les données ne seront pas pérennes, gardez toujours vos données en local. Nous tentons d'améliorer l'expérience dans l'application, mais elle peut changé de version en version. Merci de nous partagez votre opinons et vos observations."
-                        buttonText="J'ai compris"
-                    />
-                */}
                 
                 {/* Section where the common messages and alerts to the user are made */}
                 <div className={`${styles["message-section"]}`}>
@@ -140,7 +132,7 @@ const Layout = ( {children} ) => {
                     {/* Display the messages */}
                     { messages.map(message => (
                         <Message 
-                            key={ "login-message-" + message.creationTime } 
+                            key={ "toast-message-" + message.creationTime }
                             positiveReview={ message.positive } 
                             clean={() => { setMessages(
                                 prevState => prevState.filter(i => i !== message)
@@ -154,15 +146,12 @@ const Layout = ( {children} ) => {
                 </div>
 
                 {/* Afficher le modal */}
-                <div ref={modalContainer} id="modal-rot">
+                <div ref={modalContainer} id="modal-rot" >
                     {/* state containing every  */}
-                
                 </div>
             </div>
-            <FeedbackWidget />
         </>
-    )   
-
+    )
 }
 
 export default Layout;

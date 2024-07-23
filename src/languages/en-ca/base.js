@@ -16,11 +16,15 @@ export const base = {
     "on": "on",
     "title": "title",
     "subTitle": "subtitle",
+    "cancel" : "Cancel",
+    "continue": "Continue",
+    "about": "About",
+    "contactInformations": "Contact informations",
 
     // App
 
-    "appDefaultName": "BDSOL Avantage Numérique",
-    "appDefaultDescription": "Open and linked database created by Avantage Numérique, which identify techno-creatives people and project that are part of the Croissant Boréal (boreal crescent).",
+    "appDefaultName": "AVNU | By Avantage Numérique",
+    "appDefaultDescription": "The database that compiles and geolocates talents, skills, equipment, and technocreative initiatives in the Boreal crescent (Croissant boréal).",
     "appDefaultKeywords": "Ontology, class, property, database, technology, creator, community",
     "appDefaultProducer": "Avantage Numérique",
     "appProducerDefaultDescription": "Avantage numérique is a virtual, physical and mobile hub which deserve cultural, business and knowledge sector. It's goal is to help the growth of the creative, entrepreneurial and technologic ecosystem of Croissant boréal.",
@@ -28,8 +32,8 @@ export const base = {
 
     //  HomePage
 
-    "homePageTitle": "Explore techno-creative actors of Croissant boréal",
-    "homePageDescription": "Code name : Open and linked database of Avantage Numérique.",
+    "homePageTitle": 'The perfect tool to explore the "Croissant boréal" technological resources',
+    "homePageDescription": "In just a few clicks, find organizations, projects, people, equipment and events related to the digital in your territory.",
     "actualities": "Actualities",
     "menu": "Menu",
 
@@ -60,6 +64,7 @@ export const base = {
 
     //  DataType/common/commonFormFeatures/commonFormFeatures.js
     "needAuthToContribute": "You need to be connected in order to add data to the database.",
+    "authInvitationToContribute": "Log in to be able to contribute to the database.",
 
     // http-hook
 
@@ -69,6 +74,10 @@ export const base = {
 
     "formNotValid": "Warning. The form send is invalid. Make sure that all fields required are correctly filled.",
     "submit": "Submit",
+    "required": "*",
+    "consult": "Consult",
+    "contribute": "Contribute",
+    "onNavigationBlockWithoutSave": "There is some unsaved changes, are you sure you want to leave?",
 
 
     // CreatePersonForm.js
@@ -97,6 +106,9 @@ export const base = {
     "persons": "people",
     "url": "url",
     "urlLabel": "Url&nbsp;:&nbsp;",
+    "hyperlink":"Hyperlink",
+    "hyperlinks":"Hyperlinks",
+    "externalLinks": "Liens externes",
     "contact": "contact",
     "contactLabel": "Contact&nbsp;:&nbsp;",
     "nickname": "nickname",
@@ -111,13 +123,12 @@ export const base = {
     "Organisations": "Organisations",
     "organisation": "organisation",
     "organisations": "organisations",
-    "teamMembers": "Members of organisation",
+    "teamMembers": "Team members",
+    "teamMember": "Team member",
     "fondationDate": "Fondation date",
 
     "singleDescriptionLabel": "Presentation",
     "bestContactPointLabel": "Best way to contact : ",
-
-
 
     //  Taxonomy
 
@@ -130,6 +141,7 @@ export const base = {
     "taxonomyCreateWhenDoNotExistDirective": "The new element of category you add here will be available directly in the form after.",
 
     "backToTaxonomyIndexBtnLabel": "Back to all categories",
+    "skillsAndTechnologies" : "Skills and techonologies",
 
     //Specific taxonomy
 
@@ -142,6 +154,8 @@ export const base = {
     "Skill": "Skill",
     "skills": "skills",
     "skill": "skill",
+
+    "skillGroupName": "Skill group label",
 
     //  Occupations
 
@@ -207,6 +221,22 @@ export const base = {
     "noSelectedOption": "No selection",
 
     //Select2
-    "createOptionLabel" : "Create : "
+    "createOptionLabel" : "Create : ",
 
+    //Button
+    "apply" : "Apply",
+    "report": "Report",
+
+    //Contact us
+    "message": "Message",
+    "email": "Email address",
+    "sendMessage": "Send message",
+
+    //contactPoint
+    "website": "Website",
+    "phoneNumber": "Phone",
+    "phoneExtension": "Extension",
+
+    //Badges
+    "badges": "Badges"
 }

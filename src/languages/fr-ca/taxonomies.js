@@ -23,6 +23,7 @@ const taxonomies = {
     "Skill": "Compétence",
     "skills": "compétences",
     "skill": "compétence",
+    "skillGroupName": "Nom du groupe de compétence",
 
     //  Occupations
 
@@ -43,10 +44,10 @@ const taxonomies = {
 
     //  Domains
 
-    "Domains": "Domaines",
-    "Domain": "Domaine",
-    "domains": "domaines",
-    "domain": "domaine",
+    "Domains": "Secteurs d'activité",
+    "Domain": "Secteur d'activité",
+    "domains": "secteurs d'activité",
+    "domain": "secteur d'activité",
 
     "domainsInputPlaceholder": "Art, informatique, communication, [...]",
     "domainsSingleLabel": "Les domaines",

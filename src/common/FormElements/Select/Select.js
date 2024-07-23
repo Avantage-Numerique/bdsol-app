@@ -1,10 +1,8 @@
 import {useEffect} from 'react';
 
 //Hooks
-import { useValidation } from '@/src/hooks/useValidation/useValidation';
-
-//components
-import Tip from '@/common/FormElements/Tip/Tip';
+import {useValidation} from '@/src/hooks/useValidation/useValidation';
+import {useFieldTips} from '@/src/hooks/useFieldTips/useFieldTips';
 
 //Styling
 import styles from './Select.module.scss';
@@ -34,8 +32,7 @@ const Select = props => {
         validationRules //Object - containing the rules that are going to be verify every time we submit
     } = props;
 
-    //Destructure functionalities from validation hook
-    const { validate, RequirementsBadges, ValidationErrorMessages } = useValidation( props.validationRules )
+    const {TipPopOver, TipButton} = useFieldTips(tip);
 
     /* Access the differents form tools */
     const {
@@ -45,6 +42,9 @@ const Select = props => {
     } = formTools;
 
     const currentState = formState.inputs[name];
+
+    //Destructure functionalities from validation hook
+    const { validate, RequirementsBadges, ValidationErrorMessages, dependencyCallingValidation } = useValidation( props.validationRules, formState )
 
     const updateValue = event => {
         inputHandler(
@@ -68,27 +68,24 @@ const Select = props => {
             valueToUpdate,
             props.validationRules ? validate(valueToUpdate) : true
         )
-    }, [])  
+    }, [dependencyCallingValidation])  
  
     return (
         <div className={`
             ${className}
             ${styles["select-component"]}
         `}>  
-            <div className={`${styles["select-component__label-container"]}`} >
+            <div className={`${styles["select-component__label-container"]} d-flex justify-content-between pb-1`} >
+                {label && 
                 <label 
                     htmlFor={name}
                 >
-                    {label && label}
+                    {label}
                 </label>
-                {
-                    tip &&
-                    <Tip 
-                        {...tip}
-                    />
                 }
+                {tip && <TipButton title="Détails" />}
             </div>
-
+            <TipPopOver />
             <div 
                 //tabIndex="0"  Would allow the complete field to be focused, not only the input. But that would alos make two focusable elements by field
                 className={`

@@ -1,8 +1,10 @@
-import React from 'react'
 import {useAuth} from '@/auth/context/auth-context'
 
-//Custom hooks
-import { useForm } from '@/src/hooks/form-hook'
+//Custom hooks / Context
+import { useFormUtils } from '@/src/hooks/useFormUtils/useFormUtils'
+import { useContext } from 'react'
+import { MessageContext } from '@/src/common/UserNotifications/Message/Context/Message-Context'
+
 
 //Form components
 import Input from '@/src/common/FormElements/Input/Input'
@@ -10,94 +12,74 @@ import Button from '@/src/common/FormElements/Button/Button'
 
 //Styling
 import styles from './ResetPassword.module.scss'
+import { clientSideExternalApiRequest } from '@/src/hooks/http-hook'
 
 const ResetPassword = () => {
 
-    const [formState, formTools] = useForm(
-        {
-        email: {
-            value: '',
-            isValid: false
-        }
-    }, 
-    false)
+    const msg = useContext(MessageContext);
 
+    const { FormUI, submitRequest, formState, formTools } = useFormUtils(
+        {
+            email: {
+                value: '',
+                isValid: false
+        }
+    },
+    {
+        displayResMessage: true,     //Display a message to the user to confirm the succes
+    });
 
     //Import the authentication context to make sure the user is well connected
     const auth = useAuth();
 
-
     //Submit the form
-    const authSubmitHandler = async event => {
+    const submitHandler = async event => {
 
         event.preventDefault();
 
-        if(auth.isLoggedIn){
-
+        if(auth.user.isLoggedIn){
             //Display a message to let the user know that he is already logged in
-
-        } else {
-
-            try{
-
-                /*const response = await fetch('https://api.avantagenumerique.org/o/v1', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        email:  event.target.email.value
-                    })
-                });
-
-                const responseData = await response.json();
-
-                //If 400 or 500 type of response, throw an error
-                if(!response.ok){
-                    throw new Error(responseData.message);
-                }
-                
-                auth.login(responseData.token);*/
-
-
-            } catch(err){
-                throw err;
-            }
+            msg.addMessage({ 
+                text: "Vous êtes présentement connecté",
+                positive: true
+            })
         }
-        
+        else {
+            const apiResponse = await clientSideExternalApiRequest(
+                "/reset-password",
+                { body: JSON.stringify({data: { email: formState.inputs.email.value }})}
+            );
+3
+            msg.addMessage({
+                text: "Un email sera envoyé s'il est associé à un compte.",
+                positive: true
+            })
+        }  
     }
-/*
-    const inputHandler = useCallback((id, value, isValid) => {
-        dispatch({type: 'INPUT_CHANGE', value: value, isValid: isValid, inputId: id})
-    })
-*/
+
     return (
-        <section className={styles.resetPassword}>
-
-            <form onSubmit={authSubmitHandler}>
+        <section className={`header-less-page  ${styles.resetPassword}`}>
+            <form onSubmit={submitHandler} className="bg-primary-lighter rounded form-box-shadow">
                 <div className={"d-flex flex-column"}>
-
-                    <h3 className="text-primary">Réinitialiser votre mot de passe</h3>
-                    <p>Entrer une adresse courriel pour récupérer votre mot de passe.</p>
-
+                    <h3 className="text-dark-light mb-4">Réinitialiser votre mot de passe ou récupérer votre nom d'utilisateur.</h3>
+                    <p>Entrer l'adresse courriel associé à votre compte.</p>
+                    <FormUI />
                     <Input
                         name="email"
                         type="email"
                         label="Adresse courriel"
                         validationRules={[
-                            {name: "REQUIRED"}
+                            {name: "REQUIRED"},
+                            {name: "TYPE_EMAIL"}
                         ]}
-                        errorText="Veuillez entrer une adresse courriel valide"
                         formTools={formTools}
-                        className={"pb-3"}
                     />
-                    <div>
-                        <Button type="submit" disabled={!formState.isValid}>Soumettre</Button>
+                    <div className="mt-3">
+                        <Button disabled={!formState.isValid}>Soumettre</Button>
                     </div>
+                    <p>*Si vous n'avez pas reçu le courriel, vérifier vos courriel indésirable, sinon veuillez attendre 5 minutes avant de soumettre à nouveau.</p>
                 </div>
             </form>
-
-            
         </section>
     )
 

@@ -15,11 +15,7 @@ import PersonSingleEdit from '@/DataTypes/Person/components/Forms/CreatePerson/P
 const SinglePersonEditPage = props => {
 
     return (
-        <div className={`single-container single-person`}>
-            <div className="maxWidthPageContainer">
-                <PersonSingleEdit data={props} route={AppRoutes.projectSingle} />
-            </div>
-        </div>
+        <PersonSingleEdit data={props} route={AppRoutes.personSingle} />
     )
 }
     

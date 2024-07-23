@@ -1,18 +1,31 @@
-import React, {useCallback} from 'react';
+import React, {useEffect, useState} from 'react';
+import Link from "next/link";
 
 //components
 import SingleBaseHeader from "@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseHeader"
 import SingleBase from "@/src/DataTypes/common/layouts/single/SingleBase"
 import SanitizedInnerHtml from '@/src/utils/SanitizedInnerHtml';
 import SearchTag from '@/src/common/Components/SearchTag';
+import SingleBaseProgressBar
+    from '@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseProgressBar/SingleBaseProgressBar'
+import {ContactPointView} from '@/src/DataTypes/common/layouts/ContactPointView/ContactPointView';
+import BadgesSection from '@/src/DataTypes/Badges/BadgesSection';
+
 
 //Utils
 import Organisation from '@/src/DataTypes/Organisation/models/Organisation';
+import Equipment from '@/src/DataTypes/Equipment/models/Equipment';
 import {lang} from "@/common/Data/GlobalConstants";
 import SingleInfo from "@/DataTypes/common/layouts/SingleInfo/SingleInfo";
-import {SingleEntityStatus} from "@/DataTypes/Status/components/SingleEntityStatus";
+import {SingleEntityMeta} from "@/src/DataTypes/Meta/components/SingleEntityMeta";
 import EntitiesTagGrid from "@/DataTypes/Entity/layouts/EntitiesTagGrid";
-import {ExternalLink} from "@/common/Components/ExternalLink";
+import {dateManager} from "@/common/DateManager/DateManager";
+import {SkillGroup} from "@/DataTypes/common/layouts/skillsGroup/SkillGroup";
+import {removeTagsFromString} from '@/src/helpers/html'
+
+//Styles
+import styles from './OrganisationSingleView.module.scss';
+import SocialHandleDisplay from '@/src/DataTypes/common/layouts/SocialHandlesViews/SocialHandleDisplay';
 
 const OrganisationSingleView = ({ data }) => {
 
@@ -29,118 +42,212 @@ const OrganisationSingleView = ({ data }) => {
         offers,
         domains,
         //slug,
-        //status,
         team,
         updatedAt,
         url,
-        status,
+        location,
+        meta,
+        projects,
+        events,
+        equipment,
         //__v,
         //_id
     } = data;
 
+
     const model = new Organisation(data);
 
-    /* Needed for breadCrumb generator */
-    const getLabelGenerator = useCallback((param, query) => {
-        return {
-            "organisations": lang.Organisations,
-            "slug": name        
-        }[param];
-    }, []);
+    /******* Sorted lists ********/
+    const sortedOffers = offers?.[0]?.subMeta?.order ? offers.sort((a,b) => a.subMeta.order - b.subMeta.order) : offers;
+    const sortedTeam = team?.[0]?.subMeta?.order ? team.sort((a,b) => a.subMeta.order - b.subMeta.order) : team;
 
-    /****************************
-     *  Sections
-     ***************************/
-    const breadCrumb = {
+
+    const breadcrumbLabels = {
+        "organisations": lang.Organisations,
+        "slug": name
+    };
+
+    const breadcrumbsRoutes = {
         route: model.singleRoute,
-        getLabelGenerator: getLabelGenerator
+        labels: breadcrumbLabels,
     }
+
+    const [breadCrumb, setBreadCrumb] = useState(breadcrumbsRoutes);
+    useEffect(() => {
+        setBreadCrumb(breadcrumbsRoutes)
+    }, [name]);
+
 
     const Header = (
         <SingleBaseHeader
-            className={"mode-public"}
-            title={(<SanitizedInnerHtml tag={"h1"} className="text-white">{`${model.title}`}</SanitizedInnerHtml>)}
+            title={(
+            <>
+                <h1>{`${model.title}`}</h1>
+                {/* <div>{(model?.badges !== undefined && model.badges.length > 0) ? model.badges : "No-badge"}+</div>
+                <div>{(model?.region !== undefined && model.region !== "") ? model.region : "No-region"}</div> */}
+            </>)}
             subtitle={(
                 <div className="d-text">
-                    <h4 className="text-white">{catchphrase}</h4>
+                    <h4>{catchphrase}</h4>
                 </div>
             )}
             mainImage={model.mainImage}
             entity={model}
-            buttonText="Proposer des modifications"
+            buttonText={lang.contributeButtonLabel}
             buttonLink={model.singleEditLink}
         />
     )
 
     const FullWidthContent = (
-        <>
-            {description !== "" &&
-                <SingleInfo title={"Présentation"} className={"mb-3 mt-4"}>
-                    <SanitizedInnerHtml>
-                        {description}
-                    </SanitizedInnerHtml>
-                </SingleInfo>
+        <SingleInfo 
+            title={lang.about} 
+            NAMessage="Aucune description n'est disponible pour le moment."
+        >
+            {
+                removeTagsFromString(description) && 
+                <SanitizedInnerHtml>
+                    {description}
+                </SanitizedInnerHtml>
             }
-        </>
+        </SingleInfo>
     )
-
+    const { TimeTag } = dateManager(fondationDate);
     const ContentColumnLeft = (
         <>
-            { offers.length > 0 &&
-                <SingleInfo
-                    title="Services offerts"
-                    NAMessage="Aucun service n'est inscrit pour cette organisation."
-                    className="mb-4"
-                    classNameH4="my-3"
-                >
-                    { offers?.length > 0 && offers.map(offer => (
-                        <article key={offer.groupName} className={`d-flex flex-column p-2 mb-2 skill-group bg-light`}>
-                            <h5 className="text-dark mb-1 group-name">{offer.groupName}</h5>
-                                <SearchTag
-                                    className="row"
-                                    list={offer.skills}
-                                />
-                        </article>
-                    ))}
-                </SingleInfo>
-            }
-            {team.length > 0 &&
-                <SingleInfo title={lang.teamMembers} className={"mb-3"}>
-                    <EntitiesTagGrid feed={team} subEntityProperty={"member"} subBadgeProperty={"role"} noneMessage={lang.noTeamMemberSetMessage} />
-                </SingleInfo>
-            }
-            { url &&
-                <SingleInfo title={"Lien URL"} className={"mb-3"}>
-                    <p>
-                        <ExternalLink href={url} title={`${model.title}`}>
-                            {url}
-                        </ExternalLink>
-                    </p>
-                </SingleInfo>
-            }
+            {/* Offers */}
+            <SingleInfo
+                title={lang.skillsAndTechnologies}
+                NAMessage="Aucun service n'est inscrit pour cette organisation."
+                cardLayout
+            >
+                { sortedOffers?.length > 0 && sortedOffers.map(offer => (
+                    <SkillGroup
+                        label={offer.groupName}
+                        skills={offer.skills}
+                        key={offer.groupName}
+                    />
+                ))}
+            </SingleInfo>
+            
+            {/* Team */}
+            <SingleInfo 
+                title={lang.teamMembers}
+                displayCondition={sortedTeam.length > 0}
+                cardLayout
+            >
+                <EntitiesTagGrid 
+                    feed={sortedTeam} 
+                    subEntityProperty={"member"} 
+                    subBadgeProperty={"role"} 
+                    noneMessage={lang.noTeamMemberSetMessage} 
+                />
+            </SingleInfo>
+            
+            {/* Projects */}
+            <SingleInfo 
+                title={`${lang.plural(lang.Project, lang.Projects, projects.length)}`} 
+                displayCondition={projects.length > 0}
+                cardLayout
+            >
+                <EntitiesTagGrid feed={projects} />
+            </SingleInfo>
+            
+            {/* Events */}
+            <SingleInfo 
+                title={`${lang.plural(lang.organizerOfEvent, lang.organizerOfEvents, events.length)}`}
+                displayCondition={events.length > 0}
+                cardLayout
+            >
+                <EntitiesTagGrid feed={events} />
+            </SingleInfo>
+            
+            {/* Equipment */}
+            <SingleInfo 
+                title={lang.EquipmentsOwned}
+                displayCondition={equipment && equipment.length > 0}
+                cardLayout
+            >
+                <ul className={`container mt-2 mb-0 ${styles["equipment-container"]}`}>
+                    <li className="row mb-2">
+                        <div className="d-flex">
+                            <div className={`text-secondary-darker ${styles["equipment-row__qty"]}`}>{lang.Qty}</div>
+                            <div className={`col text-secondary-darker`}>{lang.label}</div>
+                            <div className="col text-secondary-darker">{lang.modelName}</div>
+                            <div className="col text-secondary-darker">{lang.brand}</div>
+                        </div>
+                    </li>
+                    {equipment && equipment.map((equip, index) => {
+                        const equipmentModel = new Equipment(equip.equipment);
+                        return (
+                            <li className={` ${styles["equipment-row"]} row rounded py-2 mt-2`} key={`orgEquip${index}`}>
+                                <Link href={equipmentModel.singleLink} title={equipmentModel.name}>
+                                    <div className="d-flex">
+                                        <div className={`${styles["equipment-row__qty"]} text-center`}>{equip.qty}</div>
+                                        <div className={`col ${styles["equipment-row__name"]}`}>{equipmentModel.label}</div>
+                                        <div className="col">{equipmentModel.modelName}</div>
+                                        <div className="col">{equipmentModel.brand}</div>
+                                    </div>
+                                </Link>
+                            </li>
+                        )
+                    })}
+                </ul>
+            </SingleInfo>
+            
         </>
     )
 
     const ContentColumnRight = (
-        <> 
-            { domains.length > 0 &&
+        <>
+            {/* Badges */}
+            <BadgesSection badges={model.badges} entityLabel={model.name}/>
+
+            {/* Contact information */}
+            <SingleInfo title={lang.organisationContact} cardLayout>
+                <ContactPointView contact={model.contactPoint}/>
+            </SingleInfo>
+
+            {/* Location */}
+            {location &&
                 <SingleInfo
-                    title={lang.domainsSingleLabel}
-                    className={"mb-3"}
-                    NAMessage="Aucun domaine d'activité n'est précisé pour le moment." >
-                    {domains &&
-                        <SearchTag
-                            className="row"
-                            list={domains}
-                            listProperty={"domain"}
-                        />
-                    }
+                    displayCondition={location?.length > 0}
+                    title={lang.plural(lang.organisationPlace, lang.organisationPlaces, location?.length)}
+                    cardLayout
+                >
+                    <EntitiesTagGrid feed={location} subBadgeProperty={"address"} columnClass={"col-12"} />
                 </SingleInfo>
             }
-            { contactPoint &&
-                <SingleInfo title={"Contact"} className={"mb-3"}>
-                    {contactPoint}
-                </SingleInfo>
+            
+            {/* Domains */}
+            <SingleInfo
+                title={lang.Domains}
+                NAMessage="Aucun secteur d'activité n'est précisé pour le moment." 
+                displayCondition={domains.length > 0}
+                cardLayout
+            >
+                {domains &&
+                    <SearchTag
+                        list={domains}
+                        listProperty={"domain"}
+                    />
+                }
+            </SingleInfo>
+            
+            {/* Fondation date */}
+            <SingleInfo
+                title={lang.fondationDate}
+                displayCondition={fondationDate ? true : false}
+                cardLayout
+            >
+                <TimeTag date={fondationDate} format={lang.fullHumanDateFormat} />
+            </SingleInfo>
+
+            {/* Url */}
+            { model && model?.url &&
+                <SocialHandleDisplay
+                    title={lang.externalLinks}
+                    url={model?.url}
+                />
             }
         </>
     )
@@ -148,12 +255,38 @@ const OrganisationSingleView = ({ data }) => {
     const Footer = (
         <>
             {
-                (createdAt || updatedAt || status) &&
-                <SingleEntityStatus  
-                    createdAt={createdAt} 
-                    updatedAt={updatedAt} 
-                    status={status} />
+                (createdAt || updatedAt || meta) &&
+                <SingleInfo 
+                    title={lang.entityMetadata} 
+                    className="border-top pt-3"
+                >
+                    {/*********** Entity data ***********/}
+                    <SingleEntityMeta createdAt={createdAt} updatedAt={updatedAt} meta={meta} />
+                </SingleInfo>
             }
+        </>
+    )
+
+    const SinglePageBottom = (
+        <>
+            <SingleBaseProgressBar 
+                dataList={[
+                    {data: name},
+                    {data: catchphrase},
+                    {data: description, validationFunction: (value => removeTagsFromString(value) ? true : false)},
+                    {data: sortedOffers},
+                    {data: sortedTeam},
+                    {data: location},
+                    {data: contactPoint},
+                    {data: equipment},
+                    {data: domains},
+                    {data: fondationDate},
+                    {data: url},
+                    {data: model.mainImage.isDefault, validationFunction: ((value) => !value)},
+                ]}
+                buttonText={lang.contributeButtonLabel}
+                buttonLink={model.singleEditLink}
+            />
         </>
     )
 
@@ -169,6 +302,7 @@ const OrganisationSingleView = ({ data }) => {
                 contentColumnLeft={ContentColumnLeft}
                 contentColumnRight={ContentColumnRight}
                 footer={Footer}
+                singlePageBottom={SinglePageBottom}
                 model={model}
             />
         </>

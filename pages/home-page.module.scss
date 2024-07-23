@@ -12,11 +12,9 @@
         > div {
 
             margin-top: 5vh;
-
             /*Section one  : FEED SECTION  */
 
             > .home-page__feed-section {
-
                 /* Section with a news feed */
                 .home-page__feed-section--container{
 
@@ -55,13 +53,10 @@
                 */
 
                 /* Rapid access to connection button  */
-                .aside__connection-option {
-                    > button { width: 100%; }
-                }
+                .aside__connection-option { > button { width: 100%; } }
 
                 /* Account options : register */
                 .aside__register-option {
-
                     > div {
                         border-radius: 0.5rem;
                         padding: 1rem;
@@ -71,16 +66,13 @@
                             width: 100%;
                             border: 0.15rem white solid;
                         }
-
                     }
-
                 }
 
                 /* Rapid options to access of edit the database */
                 .aside__db-edit-options {
 
                     .db-edit-options__button-set {
-
                         margin-top: 0.5rem;
                         display: flex;
 
@@ -96,7 +88,6 @@
                         line-height: 1;
                         margin-top: 1rem;
                     }
-
                     > button {
                         width: 100%;
                         margin-top: 1rem;

@@ -1,13 +1,14 @@
 import {useCallback, useState} from "react";
 import Link from 'next/link';
+import PageMeta from "@/src/common/PageMeta/PageMeta";
+import {lang} from "@/src/common/Data/GlobalConstants";
 
 //Components
 import PageHeader from "@/src/layouts/Header/PageHeader";
-import Button from "@/src/common/FormElements/Button/Button";
 import Icon from "@/src/common/widgets/Icon/Icon"
 
 //Utils
-import { Breadcrumbs } from "@/src/common/Breadcrumbs/Breadcrumbs";
+import {Breadcrumbs} from "@/src/common/Breadcrumbs/Breadcrumbs";
 import AppRoutes from "@/src/Routing/AppRoutes";
 
 //styling
@@ -25,7 +26,7 @@ const SubjectRow = props => {
     } = props;
 
     //Variable reloaded for every state change and saying if the current is active of not
-    const isActive = index == activeSubjectIndex;
+    const isActive = index === activeSubjectIndex;
 
     return (
         <li className={`list-group-item ${styles["pointer"]} ${!isActive && styles["background-hover"]}`}>
@@ -65,14 +66,20 @@ const FAQ = () => {
         }[param];
     }, []);
 
+    const breadcrumbsLabels = {faq:"FAQ"}
+
     return (
         <>
+            <PageMeta 
+                title={lang.faq__title}
+                description={lang.faq__description}
+            />
             <PageHeader
-                bg={"bg-purplelighter"}
+                bg={"bg-primary-lighter"}
                 textColor={"text-white"}
                 title={"FAQ"}
             >
-                <Breadcrumbs className={"pt-2"} route={AppRoutes.faq} getLabelGenerator={getLabelGenerator} />
+                <Breadcrumbs className={"pt-2"} route={AppRoutes.faq} labels={breadcrumbsLabels} getLabelGenerator={getLabelGenerator} />
             </PageHeader>
             <section className="my-4">
                 <h2 className="my-4">Besoin de plus de précisions sur un sujet ?</h2>
@@ -86,17 +93,17 @@ const FAQ = () => {
                         rows={[
                             {
                                 name: "Qu'est-ce qu'une licence?",
-                                link: "/faq/licences",
+                                link: AppRoutes.licences.asPath,
                                 tag: "faq-licence-definition"
                             },
                             {
                                 name: "Licences supportées par la BDSOL",
-                                link: "/faq/licences",
+                                link: AppRoutes.licences.asPath,
                                 tag: "faq-licences-supportees"                                
                             },
                             {
                                 name: "Définition des accronymes utilisés",
-                                link: "/faq/licences",
+                                link: AppRoutes.licences.asPath,
                                 tag: "faq-licence-accronymes"                                
                             }
                         ]}
@@ -109,24 +116,48 @@ const FAQ = () => {
                         close={() => setActiveSubjectIndex(false)}
                         rows={[
                             {
-                                name: "Qu'est-ce que la BDSOL?",
-                                link: "/faq/a-propos",
+                                name: "Avnu, c’est quoi ?",
+                                link: AppRoutes.about.asPath,
                                 tag: "a-propos"
                             },
                             {
-                                name: "À quoi va servir la base de données ?",
-                                link: "/faq/a-propos",
-                                tag: "a-quoi-va-servir-la-base-de-donnees"
-                            },
-                            {
-                                name: "Qui pourra utiliser la base de données ?",
-                                link: "/faq/a-propos",
-                                tag: "qui-pourra-utiliser-la-base-de-donnees"
+                                name: "À quoi ça sert ?",
+                                link: AppRoutes.about.asPath,
+                                tag: "a-quoi-ca-sert"
                             },
                             {
                                 name: "Utilisation et gouvernance des données",
-                                link: "/faq/a-propos",
+                                link: AppRoutes.about.asPath,
                                 tag: "gouvernance-des-donnees"
+                            },
+                            {
+                                name: "Notre belle équipe",
+                                link: AppRoutes.about.asPath,
+                                tag: "equipe"
+                            },
+                        ]}
+                    />
+                    <SubjectRow
+                        index={3}
+                        subject="Documents légaux"
+                        activeSubjectIndex={activeSubjectIndex}
+                        setActiveSubject={() => setActiveSubjectIndex(3)}
+                        close={() => setActiveSubjectIndex(false)}
+                        rows={[
+                            {
+                                name: "Charte de valeurs",
+                                link: AppRoutes.valuesChart.asPath,
+                                tag: ""
+                            },
+                            {
+                                name: "Politique d'utilisation des données",
+                                link: AppRoutes.confidentialityPolicy.asPath,
+                                tag: ""
+                            },
+                            {
+                                name: "Termes et conditions d'utilisation",
+                                link: AppRoutes.termOfUse.asPath,
+                                tag: ""
                             },
                         ]}
                     />

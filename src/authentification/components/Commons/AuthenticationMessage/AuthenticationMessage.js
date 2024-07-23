@@ -2,17 +2,20 @@ import React from 'react'
 
 import styles from './AuthenticationMessage.module.scss'
 
-const AuthenticationMessage = ({header, message}) => {
+const AuthenticationMessage = ({header, message, Added_content}) => {
 
     return (
-        <article className={styles.authenticationMessage}>
+        <article className={`header-less-page bg-primary-lighter rounded form-box-shadow ${styles.authenticationMessage}`}>
 
-            <header className="col-12">
-                <h2 className="text-primary">{header}</h2>
+            <header className="">
+                <h2 className="text-dark-light mb-4">{header}</h2>
             </header>
-            <p className="col-12">
+            <p className="m-0">
                 {message}
             </p>
+            {Added_content && 
+                <Added_content />
+            }
         </article>
     );
 }

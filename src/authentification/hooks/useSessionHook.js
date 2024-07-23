@@ -1,9 +1,9 @@
-import { useContext, useState } from 'react'
+import {useContext, useState} from 'react'
 import {useAuth} from '@/auth/context/auth-context'
-import { MessageContext } from '@/src/common/UserNotifications/Message/Context/Message-Context'
-import { useHttpClient } from '@/src/hooks/http-hook'
+import {MessageContext} from '@/src/common/UserNotifications/Message/Context/Message-Context'
 import {lang} from "@/src/common/Data/GlobalConstants";
 import fetchInternalApi from "@/src/api/fetchInternalApi";
+import AppRoutes from '@/src/Routing/AppRoutes';
 import Router from 'next/router';
 
 /**
@@ -37,7 +37,7 @@ export const useSessionHook = () => {
 
                 if(response.positive) {
                     //auth.login(response.data.user);
-                    await Router.push(response.redirectUri);
+                    await Router.push(`${response.redirectUri}?msg=${lang.disconnected}&msgPositive=true`);
                 } else {
                     msg.addMessage({
                         text: response.text,
@@ -89,8 +89,13 @@ export const useSessionHook = () => {
                 } 
 
                 if(response.positive) {
-                    //auth.login(response.data.user);
-                    await Router.push(response.redirectUri);
+                    //If user not verified, redirect to aconfirmer
+                    if(response.user.verify?.isVerified !== true)
+                        Router.push(AppRoutes.toConfirm.asPath);
+                    else{
+                        //auth.login(response.data.user);
+                        await Router.push(response.redirectUri);
+                    }
                 } 
 
                 //End the loading process

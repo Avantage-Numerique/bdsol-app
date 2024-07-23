@@ -1,90 +1,43 @@
 /*
-
         Styling for the bottom-banner component 
         V.P.R - 18/04/2022
-
+        M-A. M - 2024-02-15
 */
 
-
 .bottom-banner {
-    
-    background-color: var(--bs-primary);
+    $animation-duration: 500ms;
     padding: 2rem;
     position: fixed;
     width: 100%;
-    bottom: 0rem;
-    left: 0rem;
+    bottom: 0;
+    left: 0;
     z-index: 500;
-    color: white;
     border: 0;
-
+    box-shadow: 2px 1px 15px -2px rgb(183 183 183);
     /* Fade in animation when the element appear*/
-    -webkit-animation: slideIn 0.7s ease-out forwards;
-    -moz-animation: slideIn 0.7s ease-out forwards;
-    -ms-animation: slideIn 0.7s ease-out forwards;
-    -o-animation: slideIn 0.7s ease-out forwards;
-    animation: slideIn 0.7s ease-out forwards;
+    animation: slideIn $animation-duration $bezier-ease-in-out forwards;
 
     &.close {
         /* Fade out animation when the element have to be closed*/
-        -webkit-animation: slideOut 0.7s ease-out forwards;
-        -moz-animation: slideOut 0.7s ease-out forwards;
-        -ms-animation: slideOut 0.7s ease-out forwards;
-        -o-animation: slideOut 0.7s ease-out forwards;
-        animation: slideOut 0.7s ease-out forwards;
-    }
-
-    h2 { margin: 0px; }
-
-    .bottom-banner__text-container {
-        max-width: 100ch;
-        float: left;
+        animation: slideOut $animation-duration $bezier-ease-out forwards;
     }
 
     .bottom-banner__buttons-container {
 
-        /* TEMPORARY */
-        /*
-            The button component has to be corrected
-        */
-        button {
-            background-color: rgba(255, 255, 255, .8);
-            color: var(--bs-primary);
-            font-weight: bold;
-            padding: 0.75rem 2rem;
-            transition: 0.3s;
-            &:hover {
-                background-color: rgba(255, 255, 255, 1);
-            }
-        }
     }
 }
 
 /*
-
     Fade in animation
-
 */
-@-webkit-keyframes slideIn {
-    from { -webkit-transform: translateY(100%); }
-    to { -webkit-transform: translateY(0%); }
-}
-
 @keyframes slideIn {
     from { transform: translateY(100%); }
     to { transform: translateY(0%); }
 }
 
 /*
-
     Fade out animation
-
 */
-@-webkit-keyframes slideOut {
-    from { -webkit-transform: translateY(0%); }
-    to { -webkit-transform: translateY(100%); }
-}
-
 @keyframes slideOut {
     from { transform: translateY(0%); }
     to { transform: translateY(100%); }

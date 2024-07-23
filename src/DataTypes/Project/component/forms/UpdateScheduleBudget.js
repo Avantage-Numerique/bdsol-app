@@ -3,11 +3,12 @@ import Input from "@/src/common/FormElements/Input/Input";
 import Repeater from "@/src/common/FormElements/Repeater/Repeater";
 import SingleInfo from "@/src/DataTypes/common/layouts/SingleInfo/SingleInfo";
 import SelectFetch from "@/src/common/FormElements/Select/SelectFetch";
+import Button from '@/src/common/FormElements/Button/Button';
 
 //Utils
-import { lang } from "@/src/common/Data/GlobalConstants";
-import { useEffect } from "react";
-import { getDateFromIsoString } from "@/src/utils/DateHelper";
+import {lang} from "@/src/common/Data/GlobalConstants";
+import {useEffect} from "react";
+import {getDateFromIsoString} from "@/src/utils/DateHelper";
 
 /**
  * @param {string} name Name of formState value
@@ -24,13 +25,8 @@ const UpdateScheduleBudget = ({name, formTools, ...props}) => {
     }, [])
 
     return (
-        <>
-            <SingleInfo
-                title={props.label}
-                className="py-3"
-            >
+        <div className="px-4 border-start">
                 <div className="d-flex">
-                    <div className="ps-4 border-start"></div>
                     <div className="w-100 row">
                         <Input
                             className="col-12 col-md-6"
@@ -63,17 +59,20 @@ const UpdateScheduleBudget = ({name, formTools, ...props}) => {
                         <Input
                             className="col-12 col-md-6"
                             name="eta"
-                            label="Lapse de temps avant la complétion"
+                            label={lang.duration}
                             formTools={formTools}
                         />
                         
                         <SingleInfo
                             title="Les étapes du projet"
-                            className="py-3"
+                            className="pt-3"
+                            isSubtitle
                         >
                             <Repeater
                                 formTools={formTools}
                                 name="timeframe"
+                                sortable
+                                className="bg-greyBg"
                                 formInitStructure={{
                                     step: {
                                         value: "",
@@ -90,12 +89,12 @@ const UpdateScheduleBudget = ({name, formTools, ...props}) => {
                                 }}
                                 initValues={props.parentEntity?.scheduleBudget?.timeframe ?? []}
                             >
-                                <div className="my-2 bg-greyBg rounded-1">
+                                <div className="my-2">
                                     <section className="row my-2 align-items-end">
                                         <Input
                                             className="col-12 col-lg-4"
                                             name="step"
-                                            label="Nom de l'étape"
+                                            label={"Nom de l'étape"+lang.required}
                                             formTools={formTools}
                                             validationRules={[
                                                 {name: "REQUIRED"}
@@ -104,13 +103,13 @@ const UpdateScheduleBudget = ({name, formTools, ...props}) => {
                                         <SelectFetch 
                                             className="col-12 col-md-6 col-lg-4"
                                             name="eta"
-                                            label="Temps de complétion"
+                                            label={lang.duration}
                                             formTools={formTools}
                                             noValueText={lang.noSelectedOption}
                                             fetchOption="timeframeeta-enum"
-                                            validationRules={[
+                                            /* validationRules={[
                                                 {name: "REQUIRED"}
-                                            ]}
+                                            ]} */
                                             
                                         />
                                         <SelectFetch 
@@ -120,29 +119,29 @@ const UpdateScheduleBudget = ({name, formTools, ...props}) => {
                                             formTools={formTools}
                                             noValueText={lang.noSelectedOption}
                                             fetchOption="budgetrange-enum"
-                                            validationRules={[
+/*                                             validationRules={[
                                                 {name: "REQUIRED"}
-                                            ]}
+                                            ]} */
                                         />
                                     
                                     </section>
 
                                     <div className="cold mb-2 d-flex justify-content-end">
-                                        <button 
-                                            repeaterDeleteElem={true}
+                                        <Button 
+                                            repeaterDeleteElem
                                             type="button" 
-                                            className="btn underlined-button text-danger py-1">
-                                                Supprimer l'étape
-                                        </button>
+                                            color="danger" 
+                                            size="slim"
+                                        >
+                                            Supprimer l'étape
+                                        </Button>
                                     </div>
                                 </div>
                             </Repeater>
                         </SingleInfo>
                     </div>
-                    <div className="ps-4"></div>
                 </div>
-            </SingleInfo>
-        </>
+        </div>
     )
 
 }

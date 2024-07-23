@@ -20,7 +20,7 @@ const ConnectionBanner = () => {
         {
             setTimeout(() => {
                 setShowBanner(false);
-            }, (100000));
+            }, (10000));
         }
         //If api is down
         else

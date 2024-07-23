@@ -1,7 +1,6 @@
 import {useHttpClient} from "@/src/hooks/http-hook";
 import React, {useEffect, useState} from "react";
-import {lang} from "@/common/Data/GlobalConstants";
-import Link from "next/link";
+import {RouteLink} from "@/common/Components/RouteLink";
 
 const LicenceDisplay = ({licenceKey, ...props}) => {
 
@@ -32,23 +31,16 @@ const LicenceDisplay = ({licenceKey, ...props}) => {
                 <div className={"pt-2"}>
                     <div className="d-flex">
                         <div>
-                            <a href={licences[licenceKey].source} target="_blank">
+                            <RouteLink routeName={"licences"} uriSuffix={`#${licences[licenceKey].slug}`}>
                                 <img src={licences[licenceKey].image} alt={licences[licenceKey].label} />
                                 <span className={"ps-2"}>{licences[licenceKey].label}</span>
-                            </a>
+                            </RouteLink>
                         </div>
                         <div>
                             <p>
                                 {licences[licenceKey].description}
                             </p>
                         </div>
-                    </div>
-                    <div className={"pt-2"}>
-                        <Link href={"/faq/licences"} title={lang.licenceDetails}>
-                            <button className="btn btn-sm btn-outline-light">
-                                {lang.licenceDetails}
-                            </button>
-                        </Link>
                     </div>
                 </div>
             }

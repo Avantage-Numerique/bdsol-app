@@ -1,11 +1,13 @@
 
-
 .simple-abstract {
 
+    //Number of lines allowed to be displayed in the description
+    --description-allowed-lines: 2;
+    --text-line-height: 1.2;       //To convert into em
     --simple-abstract--padding: #{$simple-default-padding};
 
     box-shadow: $default-box-shadow;//1px 1px 4px 2px rgba(0,0,0,0.15);
-    background-color: $light;
+    background-color: $primary-lighter;
     overflow: hidden;
     $transition-simple-base: $transition-default-property $transition-default-time $bezier-ease-in;
     @include transition($transition-simple-base);
@@ -13,49 +15,80 @@
 
     /* Header's styling */
     .simple-abstract__header {
+        padding: var(--simple-abstract--padding);
         position: relative;
-        height: 10rem;
         @include transition($transition-simple-base);
 
         .entity-type {
             @include transition();
             padding: var(--simple-abstract--padding);
         }
-        .simple-abstract__header__figure {
+        .simple-abstract__header__figure__container {
+            $simple-figure-width: clamp(6rem, 40%, 8rem);
             position: relative;
+            width: #{$simple-figure-width};
+            aspect-ratio: 1 / 1;
             @include transition();
 
-            overflow: hidden;
-            .figure-overlay {
-                @include transition();
-                opacity: 1;
+            .simple-abstract__header__badge {
+                margin-bottom: -3%;
+                margin-right: -3%;
             }
-            .simple-abstract__header__figure__img {
 
-                @include transition($transition-simple-base);
-                position: absolute;
+            .simple-abstract__header__figure {
+                position: relative;
                 width: 100%;
-                height: 100%;
-                object-fit: cover;
+                aspect-ratio: 1 / 1;
+                border-radius: 100%;
+                @include transition();
+
+                overflow: hidden;
+
+                .figure-overlay {
+                    @include transition();
+                    opacity: .7;
+                }
+
+                .simple-abstract__header__figure__img {
+                    @include transition($transition-simple-base);
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                }
+
+                /* If default image, change the styling */
+                &.img-contained {
+                    overflow: visible;
+
+                    //aspect-ratio: 5 / 3;
+                    .simple-abstract__header__figure__img {
+                        object-fit: contain;
+                        filter: drop-shadow(0.15rem 0.15rem 0.1rem #2929297d)
+                    }
+                }
             }
         }
     }
 
 
     &:hover {
-
+        $simple-hover-scale-ratio:101%;
         box-shadow: $default-box-shadow-over;
-        transform: scale(99%);
+        transform: scale($simple-hover-scale-ratio);
         .simple-abstract__header {
             .simple-abstract__header__figure {
-                .figure-overlay {
-                    opacity: 0.4;
-                }
+                //.figure-overlay {
+                //    opacity: 0.4;
+                //}
 
                 .simple-abstract__header__figure__img {
-                    transform: scale(101%);
+                    transform: scale($simple-hover-scale-ratio+1);
                 }
             }
+        }
+        .simple-abstract__content,
+        .simple-abstract__content_ellipsis {
+            transform: scale($simple-hover-scale-ratio);
         }
     }
     /* Content's styling */
@@ -66,41 +99,74 @@
 
         .simple-abstract__content__header{
             height: calc(2 * var(--single-title-font-size));
+
+            a { width: fit-content; }
         }
 
         .simple-abstract__content__title{
-            font-size: var(--single-title-font-size); 
+            font-size: var(--single-title-font-size);
             line-height: var(--single-title-font-size);
             max-height: 100%;
+            --single-title-font-size: 1.25rem;
+            height: calc(2 * var(--single-title-font-size));
         }
         .simple-abstract__content__description { 
             font-size: 0.9rem; 
             line-height: var(--single-title-font-size);
             height: calc(2 * var(--single-title-font-size));
         }
-        .simple-abstract__content__tagList { 
+        .simple-abstract__content__tagList {
             gap: calc(var(--simple-abstract--padding) * 0.5);
+
             li {
-                padding: 0.1rem 0.4rem;
-                background-color: $gray-200;
+                padding: 0.2rem 0.5rem;
+            }
+        }
+        .simple-abstract__sub-section {
+            height: 5.5rem;
+
+            .simple-abstract__content__description {
+                font-size: 0.9rem;
+                line-height: 1.3em;
+                height: calc(1.2 * var(--description-allowed-lines))
+            }
+            .simple-abstract__content__tagList {
+                gap: calc(var(--simple-abstract--padding) * 0.5);
+                li {
+                    &:first-child {
+                        min-width: 6ch;
+                        max-width: 100%;
+                    }
+                    //min-width: 6ch;
+                    font-size: 0.8rem;
+                    padding: 0.1rem 0.4rem;
+                    background-color: transparent;
+                    overflow: hidden;
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
+                }
             }
         }
     }
 
     .simple-abstract__content_ellipsis {
+
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
 
         /* If browser support allows it, then display the second line with ellipsis */
-        @supports (-webkit-line-clamp: 2) {
+        @supports (-webkit-line-clamp: var(--description-allowed-lines)) {
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: initial;
             display: -webkit-box;
-            -webkit-line-clamp: 2;
+            -webkit-line-clamp: var(--description-allowed-lines);
             -webkit-box-orient: vertical;
         }
+
+        //Update the number of lines displayed to 3
+        &.simple-abstract__content_ellipsis--3lines { --description-allowed-lines: 5; }
     }
 
 }
@@ -113,4 +179,3 @@
     opacity: 1;
     @include transition();
 }
-

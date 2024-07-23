@@ -15,6 +15,7 @@ import {withSessionSsr} from "@/auth/session/handlers/withSession";
 import {ssrCanAccess} from "@/auth/permissions/ssrCanAccess";
 import {lang} from "@/src/common/Data/GlobalConstants";
 import Router from "next/router";
+import Organisation from "@/src/DataTypes/Organisation/models/Organisation";
 
 
 
@@ -29,7 +30,7 @@ const CreateOrganisationPage = () => {
     useEffect(() => displayModal(), [])
 
     return (
-        <div className="container py-4">
+        <div className="container">
             <OrganisationSingleEdit  data={{}}  />
             {isLoading && <Spinner fixed />}
             {/* Modal containing the form */}
@@ -40,8 +41,8 @@ const CreateOrganisationPage = () => {
                     >
                         <header className={`d-flex justify-content-between align-items-start`}>
                             <div className="d-flex flex-column">
-                                <h3 className="text-primary">Ajouter une Organisation</h3>
-                                <p>Entrez les informations de base d'une entité "Organisation". Vous pourrez l'éditer de manière détaillée par la suite.</p>
+                                <h3 className="text-secondary-darker">Ajouter une organisation</h3>
+                                <p>Entrez les informations principales d'une organisation. Vous pourrez les éditer de manière détaillée par la suite.</p>
                             </div>
                             <Button 
                                 onClick={() => {
@@ -49,9 +50,14 @@ const CreateOrganisationPage = () => {
                                     Router.push(`/contribuer/`)
                                     )
                                 }}
-                            >Fermer</Button>
+                            >{lang.cancel}</Button>
                         </header>   
-                        <CreateOrganisationForm onPositiveResponse={() => {
+                        <CreateOrganisationForm onPositiveResponse={(response) => {
+                            //Create a model for the response
+                            const model = new Organisation(response.data);
+
+                            //Execute the redirection
+                            Router.push( model.singleEditLink )
                             closeModal()
                             setIsLoading(true)
                         }} />

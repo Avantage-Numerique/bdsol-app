@@ -2,10 +2,8 @@ import React from 'react';
 import DOMPurify from 'isomorphic-dompurify';
 
 /*
-
     This component is used to remove the styling applied by Rich Text Editors
     to leave us only with a text string
-
 */
 
 const removeTagsFromString = ( value ) => {

@@ -1,16 +1,14 @@
 import {useHttpClient} from "@/src/hooks/http-hook";
-import React, {useCallback, useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import PageHeader from "@/src/layouts/Header/PageHeader";
 import {lang} from "@/common/Data/GlobalConstants";
 import {Breadcrumbs} from "@/common/Breadcrumbs/Breadcrumbs";
 import AppRoutes from "@/src/Routing/AppRoutes";
-
-//Styling 
-import styles from './index_categories.module.scss';
-import Head from "next/head";
+import Button from '@/src/common/FormElements/Button/Button';
+import PageMeta from "@/src/common/PageMeta/PageMeta";
 import {getTitle} from "@/DataTypes/MetaData/MetaTitle";
 import {getType, TYPE_TAXONOMY} from "@/DataTypes/Entity/Types";
-import Link from "next/link";
+import TaxonomySimple from "@/DataTypes/Taxonomy/components/layout/simple/TaxonomySimple";
 
 const TaxonomiesCategoryPage = () => {
 
@@ -21,6 +19,7 @@ const TaxonomiesCategoryPage = () => {
         {value:"domains", label: lang.Domains},
         {value:"technologies", label: lang.Technologies},
         {value:"skills", label: lang.Skills},
+        {value:"equipmentType", label: lang.equipmentType}
     ];
     const type = getType(TYPE_TAXONOMY);
     
@@ -63,54 +62,57 @@ const TaxonomiesCategoryPage = () => {
             return (
                 <div>Liste introuvable ou vide</div>
             )
+        
+        //Sort by alphabetical order so its possible for a user to find something :) 
+        list.sort((a, b) => {
+            if (a.slug < b.slug) {
+                return -1;
+            } else if (a.slug > b.slug) {
+                return 1;
+            } else {
+                return 0;
+            }
+        });
         return (
             list.map( (elem) => 
-                <div
-                    className="col-6 col-sm-4 col-md-3 p-sm-1 p-md-2 d-flex"
+                <div key={elem.slug}
+                    className="col-6 col-sm-4 col-md-3 p-1 p-md-2 d-flex"
                 >
-                    <Link href={`/categories/${elem.category}/${elem.slug}`}>
-                        <a
-                            key={elem.slug}
-                            className={`border d-flex justify-content-between align-items-center w-100 p-sm-1 p-md-2 rounded ${styles["list-tag"]}`}
-                            href={`/categories/${elem.category}/${elem.slug}`}
-                        >
-                            <span>{elem.name}</span>
-                            {
-                                elem.meta?.count > 0 ?
-                            <span className={"badge bg-primary"}>{elem.meta?.count}</span>
-                            :
-                            ""}
-                        </a>
-                    </Link>
+                    <TaxonomySimple taxonomy={elem} />
                 </div>
             )
         )
     }
 
-    const getLabelGenerator = useCallback((param, query) => {
-        return {
-            "categories": "Toutes les catégories",
-        }[param];
-    }, []);
+
+    /* Needed for breadCrumb generator */
+    const breadcrumbLabels = {
+        "categories": "Toutes les catégories",
+    };
 
     return (
-        <div>
-            <Head>
-                <title>{getTitle([type.labelPlural])}</title>
-            </Head>
+        <div>          
+            {/* Page head element  */}
+            <PageMeta 
+                title={getTitle([type.labelPlural])}
+                description={lang.categories__description}
+            />
+
             <PageHeader title={`Toutes les catégories`}>
-                <Breadcrumbs className={"pt-2"} route={AppRoutes.categories} getLabelGenerator={getLabelGenerator} />
+                <Breadcrumbs className={"pt-2"} labels={breadcrumbLabels} route={AppRoutes.categories} />
             </PageHeader>
                 {/* Page inner menu */}
-                <menu className="nav nav-pills nav-fill gap-5">
+                <menu className="gap-1 gap-sm-2 gap-md-3 d-flex flex-wrap p-0 justify-content-center">
                     {
                         categoryList.map((elem) =>
-                            <div key={elem.label+"-categoryMenuBtn"} className="nav-item">
-                                <button key={elem.label+"-categoryMenuBtn"} onClick={() => setTaxonomyMenu(elem.value)}
-                                    className={`btn btn-outline-primary border nav-link ${elem.value === taxonomyMenu ? "active" : ""}`}>
-                                    {elem.label}
-                                </button>
-                            </div>
+                            <Button 
+                                size="slim"
+                                key={elem.label+"-categoryMenuBtn"} 
+                                onClick={() => setTaxonomyMenu(elem.value)}
+                                className={`px-1 px-sm-2 px-md-4 ${elem.value === taxonomyMenu ? "active" : ""}`}
+                            >
+                                {elem.label}
+                            </Button>
                         )
                     }
                 </menu>

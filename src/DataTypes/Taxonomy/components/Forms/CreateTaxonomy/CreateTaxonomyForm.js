@@ -1,8 +1,8 @@
-import React, { useContext, useEffect } from 'react'
+import React, {useContext, useEffect, useState} from 'react'
 import Router from 'next/router'
 
 //Custom hooks
-import { useFormUtils } from '@/src/hooks/useFormUtils/useFormUtils'
+import {useFormUtils} from '@/src/hooks/useFormUtils/useFormUtils'
 
 //components
 import Button from '@/src/common/FormElements/Button/Button'
@@ -12,38 +12,22 @@ import Select from '@/src/common/FormElements/Select/Select'
 
 //Contexts
 import {AuthContext, useAuth} from '@/auth/context/auth-context'
-import { MessageContext } from '@/src/common/UserNotifications/Message/Context/Message-Context'
+import {MessageContext} from '@/src/common/UserNotifications/Message/Context/Message-Context'
 
 //Styling
 import styles from './CreateTaxonomyForm.module.scss'
-import { lang } from '@/src/common/Data/GlobalConstants'
+import {lang} from '@/src/common/Data/GlobalConstants'
 import Select2 from '@/src/common/FormElements/Select2/Select2'
-import {getDefaultCreateEntityStatus} from "@/DataTypes/Status/EntityStatus";
-import {useModal} from "@/src/hooks/useModal/useModal";
+import {getDefaultCreateEntityMeta} from "@/src/DataTypes/Meta/EntityMeta";
 
 
-const CreateTaxonomyForm = ({name, category, initValues, positiveRequestActions, ...props}) => {
+const CreateTaxonomyForm = ({name, category, initValues, onPositiveResponse, ...props}) => {
 
-    console.log("Init values", initValues)
     const submitUri = props.uri ?? "create";
-
-    /*
-        Could be a great idea for every form in the application to have the possibility 
-        to recieve initial values passed as props with the exact corresponding field name
-        Ex : name
-
-        V.P.R.
-
-        yessss 8-)
-
-        M-A.M.
-    */
 
     const auth = useAuth();
 
     const msg = useContext(MessageContext);
-
-    const modal = useModal();
 
     /*
     First of all, verify if the user is logged in.
@@ -79,17 +63,21 @@ const CreateTaxonomyForm = ({name, category, initValues, positiveRequestActions,
                 value: initValues?.domains ?? [],
                 isValid: true
             },
-            "status.message": {
+            "meta.message": {
                 value: '',
                 isValid: true
             }
 
         },
         //Pass a set of rules to execute a valid response of an api request
-        positiveRequestActions || {
-            clearForm: true,            //Clear the form
-            displayResMessage: true     //Display a message to the user to confirm the succes
-        }         
+        {
+            displayResMessage: true,     //Display a message to the user to confirm the success
+            clearForm: true,
+            callbackFunction: (response) => {
+                //Execute additionnal function from parent component
+                if(onPositiveResponse) onPositiveResponse(response);
+            }
+        }
     )
 
     //Submit the form
@@ -112,11 +100,10 @@ const CreateTaxonomyForm = ({name, category, initValues, positiveRequestActions,
                 "domains": formState.inputs.domains.value ? formState.inputs.domains.value.map( (singleDomain) => {
                     return {
                         domain: singleDomain.value,
-                        status: getDefaultCreateEntityStatus(auth.user)
                     }
                 }): [],
                 /*"source": formState.inputs.source.value,*/
-                "status": getDefaultCreateEntityStatus(auth.user)
+                "meta": getDefaultCreateEntityMeta(auth.user)
             }
         };
 
@@ -140,6 +127,32 @@ const CreateTaxonomyForm = ({name, category, initValues, positiveRequestActions,
         domainQuery._id = `ne:${initValues._id}`;
     }
 
+    const staticCategoryOptions = {
+        skills : {label: "Compétence", value: "skills"},
+        technologies : {label: "Technologie", value: "technologies"},
+        domains : {label: "Domaine", value: "domains"},
+        equipmentType : {label: "Type d'équipement", value: "equipmentType"}
+    }
+    
+    const [categoryOptions, setCategoryOptions] = useState([])
+    useEffect( () => {
+        const tempOptions = [];
+        if(props.allowedCategories !== undefined){
+            if(Array.isArray(props.allowedCategories)){
+                props.allowedCategories.forEach(elem => {
+                    if(staticCategoryOptions?.[elem] !== undefined)
+                        tempOptions.push(staticCategoryOptions[elem])
+                })
+            }
+        }
+        else { 
+            for(let key in staticCategoryOptions){
+                tempOptions.push(staticCategoryOptions[key])
+            }
+        }
+        setCategoryOptions(tempOptions)
+    }, [props.allowedCategories])
+
     //Prevent from displaying is the user is not logged in or if the app doesn't know the authentication state yet
     if(auth.user.isLoggedIn)
     return (
@@ -152,11 +165,7 @@ const CreateTaxonomyForm = ({name, category, initValues, positiveRequestActions,
                     label="Type de catégorie"
                     formTools={formTools}
                     noValueText="Choisissez une catégorie"
-                    options={[
-                        {label: "Compétence", value: "skills"},
-                        {label: "Technologie", value: "technologies"},
-                        {label: "Domaine", value: "domains"},
-                    ]}
+                    options={categoryOptions}
                     validationRules={[
                         {name: "REQUIRED"}
                     ]}
@@ -179,7 +188,7 @@ const CreateTaxonomyForm = ({name, category, initValues, positiveRequestActions,
                 />
 
                 <RichTextarea
-                    name="status.message"
+                    name="meta.message"
                     label="Dites nous en quelques mots la raison de l'ajout de cette catégorie"
                     labelNote="Cette information restera privée. Elle nous permet seulement de mieux comprendre la demande d'ajout."
                     placeholder="Je préfère cette appellation pour décrire mon activité professionnelle plutôt qu'une autre [...]"
@@ -200,7 +209,7 @@ const CreateTaxonomyForm = ({name, category, initValues, positiveRequestActions,
                 />
 
                 <div className="col-12">
-                    <Button type="submit" disabled={!formState.isValid}>Soumettre</Button>
+                    <Button type="button" onClick={submitHandler} disabled={!formState.isValid}>Soumettre</Button>
                 </div>
 
             </form>

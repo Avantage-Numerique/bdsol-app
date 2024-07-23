@@ -1,111 +1,72 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
+import Image from 'next/image'
 
-import DOMPurify from 'isomorphic-dompurify';
-import Head from 'next/head';
 import {lang} from "@/src/common/Data/GlobalConstants";
 
 //components
 import Button from '@/src/common/FormElements/Button/Button'
 import Spinner from '@/src/common/widgets/spinner/Spinner'
-import {sortDescBy} from "@/src/common/Data/Sorting/Sort";
 import PageHeader from "@/src/layouts/Header/PageHeader";
 import EntitiesGrid from "@/DataTypes/Entity/layouts/EntitiesGrid";
+import PageMeta from "@/src/common/PageMeta/PageMeta";
 
 //Entities
-import Person from "@/DataTypes/Person/models/Person";
-import Organisation from "@/DataTypes/Organisation/models/Organisation";
-import Project from "@/DataTypes/Project/models/Project";
-
 //Costum hooks
-import {useHttpClient} from '@/src/hooks/http-hook';
+import {clientSideExternalApiRequest, useHttpClient} from '@/src/hooks/http-hook';
 
 //Context
-import {MessageContext} from '@/src/common/UserNotifications/Message/Context/Message-Context';
+import {getType} from "@/DataTypes/Entity/Types";
 import {useAuth} from '@/src/authentification/context/auth-context';
-import SanitizedInnerHtml from "@/src/utils/SanitizedInnerHtml";
-import {appUrl} from "@/src/helpers/url";
 
-//Styling
-//import styles from './home-page.module.scss'
+//Images
+import backgroundImg from '@/public/general_images/Fusee_Pointilles1.svg'
+import AvantageNumeriqueLogo from '@/public/logos/logo_Avantage_Numérique.svg';
+import organizationPresentationImg from '@/public/general_images/residenceUQAT2024_7-réduit.jpg'
+import shipAndPlanetsImg from '@/public/general_images/Fusée_Planetes_Pointilles2.svg'
+import AppRoutes from '@/src/Routing/AppRoutes';
+import {getBadgesInfo} from '@/src/DataTypes/Badges/BadgesSection';
 
-const HomePage = ({}) => {
+//Background image for the page header
+const HomePageHeaderBgImg = () => {
 
-    //Import the authentication context to make sure the user is well connected
+    const localFigureStyling = {
+        bottom: "-5vh",
+        zIndex: "1",
+    }
+
+    const localImgStyling = {
+        objectFit: "contain",
+        objectPosition: "15% bottom",
+        minWidth: "80rem",
+    }
+    return (
+        <figure style={localFigureStyling} className="position-absolute start-0 w-100 h-100 overflow-hidden">
+            <Image src={backgroundImg} style={localImgStyling} className="w-100 h-auto position-absolute start-0 bottom-0" alt="Trajet de la fusée d'Avantage Numérique" />
+        </figure>
+    )
+}
+
+const HomePage = (props) => {
+
+    //Know when user is logged in for CTA "Envie d'ajouter des données ?"
     const auth = useAuth();
 
     //Holds the state the organisations
     const [feedList, setFeedList] = useState([]);
 
-    //Import message context 
-    const msg = useContext(MessageContext);
-
     //Extract the functions inside useHttpClient
-    const {isLoading, sendRequest} = useHttpClient();
+    const {isLoading, sendRequest, setIsLoading} = useHttpClient();
 
     const fetchHomeFeed = async () => {
 
+        setIsLoading(true);//bypass the sendRequest setting of isLoading, because of all these promises here.
+        const homePageEntities = await clientSideExternalApiRequest(
+            `/search/homepage`,
+            { method: 'GET' }
+        );
+        setFeedList(homePageEntities.data)
 
-        const listQuery = {"sort": "desc"};//{"sort": {"updatedAt": -1}}; //{};//
-        const defaultHeader = {'Content-Type': 'application/json'};
-        const entities = [
-            {
-                path:"/organisations/list",
-                queryParams: listQuery,
-                result: {}
-            },
-            {
-                path:"/persons/list",
-                queryParams: listQuery,
-                result: {}
-            },
-            {
-                path:"/projects/list",
-                queryParams: listQuery,
-                result: {}
-            }
-        ];
-
-        let haveError = false;
-        let feed = [];
-
-        const feedPromises = entities.map(async (query) => {
-
-            const currentResult = sendRequest(
-                query.path,
-                'POST',
-                JSON.stringify({"data": query.queryParams}),
-                defaultHeader
-            );
-            query.result = currentResult;
-
-            haveError = !haveError && !currentResult.error;
-            return currentResult;
-
-        });
-
-        Promise.all(feedPromises).then((entitiesResults) => {
-
-            entitiesResults.map(async (result) => {
-
-                //populate the feed if the current request return a success (!error)
-                if (!result.error && result?.data?.length > 0) {
-                    feed = [...feed, ...result.data];
-                }
-
-                //Show a message if the query return and error.
-                if (result.error) {
-                    msg.addMessage({
-                        text: result.message,
-                        positive: false
-                    });
-                }
-
-                if (feed.length > 0 && haveError) {
-                    feed.sort(sortDescBy('createdAt'));//   Sort and mixed both collection the data to display the new elements before
-                    setFeedList(feed); //   Finaly, update the state to display the result
-                }
-            });
-        });
+        setIsLoading(false);//when all finishes, set this to false.
     }
 
     //Fetch the data 
@@ -115,15 +76,15 @@ const HomePage = ({}) => {
 
     //Function to return the path to the page of creation of an entity, depending on location
     const getCreateEntityPath = (type) => {
-        //@todo need DRY and verification for using "TYPE_PERSON", TYPE_ is a constant with a string value of the type.
-        let model;// = getModelFromType(type, {});
-        if(type == "TYPE_PERSON")
-            model = new Person({})
-        if(type == "TYPE_ORGANISATION")
-            model = new Organisation({})
-        if(type == "TYPE_PROJECT")
-            model = new Project({})
-        return model.createRoute.asPath;
+        //Get the model by type
+        let targetType = getType(type);
+        //type.model is undefined at init, so checking if it's set ? If not set it.
+        if (typeof targetType.model === "undefined") {
+            const ModelClass = targetType.modelClass;
+            targetType.model = new ModelClass({});
+        }
+        //returning the asPath from the createRoute.
+        return targetType.model.createRoute.asPath;
     }
 
     /****************************
@@ -140,7 +101,7 @@ const HomePage = ({}) => {
             '@type': 'Organization',
             name: lang.appDefaultProducer,//"Avantage Numérique",
             description: lang.appDefaultDescription,//"Avantage numérique est un hub virtuel, physique et mobile qui dessert les secteurs de la culture, des affaires et du savoir. Il vise le développement de l’écosystème créatif, entrepreneurial et technologique du Croissant boréal.",
-            mainEntityOfPage: "https://avantagenumerique.org/"
+            mainEntityOfPage: "https://avnu.ca/"
         }
     }
 
@@ -148,206 +109,129 @@ const HomePage = ({}) => {
         <div className={"home-page"}>
 
             {/* Page head element  */}
-            <Head>
-                <title>{lang.appDefaultName}</title>
-
-                {/* Keywords and description to evaluate */}
-                <meta name="description"
-                      content={lang.appDefaultDescription}/>
-                <meta name="keywords"
-                      content={lang.appDefaultKeywords}/>
-
-                {/* social media meta tag */}
-                <meta property="og:title" content={lang.appDefaultName}/>
-                <meta property="og:description" content={lang.appDefaultDescription}/>
-                <meta property="og:url" content={appUrl()} />
-                <meta property="og:site_name" content="BDSOL avantage numérique" />
-                <meta property="og:locale" content="fr_CA" />
-
-                <meta name="twitter:title" content={lang.appDefaultName}/>
-                <meta name="twitter:description" content={lang.appDefaultDescription}/>
-
-                <meta property="og:image" content={appUrl("/meta-images/show_screen_shot.jpg")} />
-                <meta property="og:image:alt" content="Public assistant à une performance qui contient des nouvelles technologies." />
-                <meta property="og:image:width" content="2560" />
-                <meta property="og:image:height" content="1345" />
-                <meta property="og:locale" content="fr_CA" />
-
-                <meta name="twitter:card" content="summary_large_image"/>
-                <meta name="twitter:image" content={appUrl("/meta-images/show_screen_shot.jpg")} />
-                <meta name="twitter:image:alt" content="Public assistant à une performance qui contient des nouvelles technologies."/>
-                <meta name="twitter:image:width" content="2560" />
-                <meta name="twitter:image:height" content="1345" />
-
-                {/* To add when the domain will be selected ....
-                    <link rel="canonical" href="https://avantagenumerique.org/">  */}
-
-                {/* Structured data */}
-                <script
-                    type='application/ld+json'
-                    dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(JSON.stringify(schema))}}
-                />
-            </Head>
+            <PageMeta 
+                title={lang.index__title}
+                //No description because we are using the default value
+                keywords={lang.appDefaultKeywords}
+                structuredData={schema}
+            />
 
             <PageHeader
-                bg={"bg-primaryextratlight"}
+                bg={"bg-primary-lighter"}
                 textColor={"text-white"}
                 title={lang.homePageTitle}
                 subTitle={lang.homePageDescription}
                 description=""
-                image={"/general_images/Croissant-Boreal@3x-1440x1440.png"}
-                imgAlt={"Carte du croissant boréal"} key={"pageHeaderHomePage"} />
-
-
-            <div className="container home-page__main p-0">
-                <div className="row gx-5">
-                    <div className="col col-12 col-md-9 position-relative">
-                        <section className="home-page__feed-section">
-                            <div className={"d-flex justify-content-between content-header"}>
-                                <h2>{lang.allData}</h2>
-                            </div>
-                            <hr />
+                image={"/general_images/CroissantBoreal.png"}
+                imgAlt={"Carte du Croissant boréal"} 
+                leftColClassName="py-4"
+                key={"pageHeaderHomePage"} 
+                custom_FullWidthContent={HomePageHeaderBgImg}
+                reverseWrap
+            />
+            <section className="container home-page__main p-0">
+                {/* Display of 6 latest entities*/}
+                <div className="row">
+                    <div className="d-flex flex-column align-items-center">
+                        <h2 className="mt-4 text-center">Ajouts récents à la base de données</h2>
+                        <p className="mb-4 text-center">Cliquez sur les différentes fiches afin d'obtenir plus d'informations sur ces ressources.</p>
+                        <div className="home-page__feed-section container py-4 position-relative">
+                            {/* Loading state : If loading is on and there is no feed */}
                             {
-                                <>
-                                    {/* Loading state : If loading is on and there is no feed */}
-                                    {
-                                        isLoading &&
-                                        <div className={"home-page__feed-section--spinner-container"}>
-                                            <div>
-                                                <Spinner reverse/>
-                                            </div>
-                                            <p><strong>Chargement des données</strong></p>
-                                        </div>
-                                    }
-
-                                    {/* If there is no loading state and no feed, go on that by default */}
-                                    {
-                                        feedList.length === 0 && !isLoading &&
-                                        <div>
-                                            <h5>{lang.noResult}</h5>
-                                        </div>
-                                    }
-                                    {/*  Show the feed in the EntitiesGrid component. It manages an empty list in it, but it make it more readable to show it here too */}
-                                    {
-                                        feedList.length > 0 && !isLoading &&
-                                        <EntitiesGrid className={"row home-page__feed-section--container row-cols-1 row-cols-sm-2 row-cols-xl-3"} columnClass={"col g-3"} feed={feedList}/>
-                                    }
-                                </>
+                                isLoading &&
+                                <div className={"home-page__feed-section--spinner-container"}>
+                                    <div>
+                                        <Spinner reverse/>
+                                    </div>
+                                    <p className="text-center"><strong>{lang.loadingData}</strong></p>
+                                </div>
                             }
-                        </section>
-                    </div>
-                    <aside className="col col-12 col-md-3">
-                        <div>
-                            {/* If user is not connected, offer the option to connect itself*/}
 
-                            {auth.user.isLoggedIn ?
-                                <div className={"d-flex flex-column content-header"}>
-                                    <Button color="white" outline="primary" href="/contribuer">Ajouter une donnée</Button>
+                            {/* If there is no loading state and no feed, go on that by default */}
+                            {
+                                feedList.length === 0 && !isLoading &&
+                                <div>
+                                    <h5 className="text-center">{lang.noResult}</h5>
                                 </div>
-                                :
-                                <section className="d-grid content-header">
-                                    <Button color="primary" href="/compte/connexion">Se connecter</Button>
-                                </section>
                             }
-                            <hr />
-                            {!auth.user.isLoggedIn &&
-                            <section className={"aside__register-option py-2"}>
-                                <div className="bg-primary text-white d-flex flex-column">
-                                    <h4>Pas encore de compte ?</h4>
-                                    <p>Vous en aurez besoin afin de vous aussi contribuer aux données</p>
-                                    <Button color="light" outline="light" href="/compte/inscription">C'est par ici !</Button>
-                                </div>
-                                <hr />
-                            </section>
+                            {/*  Show the feed in the EntitiesGrid component. It manages an empty list in it, but it make it more readable to show it here too */}
+                            {
+                                feedList.length > 0 && !isLoading &&
+                                <EntitiesGrid className={"row home-page__feed-section--container row-cols-1 row-cols-sm-2 row-cols-xl-3"} columnClass={"col-12 col-sm-6 col-md-4 g-4"} feed={feedList} badgesInfo={props.badgesInfo}/>
                             }
-                            
-                            {/*Rapid options to access of edit the database*/}
-                            <section className={"aside__db-edit-options"}>
-
-                                {/*<div className={"db-edit-options__button-set"}>
-                                    <Button 
-                                        disabled 
-                                        size="slim" 
-                                    >{lang.Events}</Button>
-                                    <Button 
-                                        disabled     
-                                        size="slim" 
-                                    >+</Button>
-                                </div>*/}
-
-                                <div className={"db-edit-options__button-set"}>
-                                    <Button 
-                                        href="/persons/"
-                                        size="slim" 
-                                        color="primary"
-                                        slim>
-                                        {lang.Persons}</Button>
-                                    <Button
-                                        color="primary"
-                                        size="slim"
-                                        disabled={!auth.user.isLoggedIn}
-                                        href={getCreateEntityPath("TYPE_PERSON")}
-                                    >+</Button>
-                                </div>
-
-                                <div className={"db-edit-options__button-set"}>
-                                    <Button 
-                                        href="/organisations/"
-                                        color="primary" 
-                                        size="slim" 
-                                    >{lang.Organisations}</Button>
-                                    <Button
-                                        color="primary"
-                                        size="slim"
-                                        disabled={!auth.user.isLoggedIn}
-                                        href={getCreateEntityPath("TYPE_ORGANISATION")}
-                                    >+</Button>
-                                </div>
-
-                                <div className={"db-edit-options__button-set"}>
-                                    <Button href="/projets" color="primary" size="slim">{lang.Projects}</Button>
-                                    <Button
-                                        color="primary"
-                                        size="slim"
-                                        disabled={!auth.user.isLoggedIn}
-                                        href={getCreateEntityPath("TYPE_PROJECT")}
-                                    >+</Button>
-                                </div>
-
-                                <div className={"db-edit-options__button-set"}>
-                                    <Button href="/categories" color="primary" size="slim">{lang.Taxonomies}</Button>
-                                    <Button
-                                        color="primary"
-                                        size="slim"
-                                        disabled={!auth.user.isLoggedIn}
-                                        href="/contribuer/categorie"
-                                    >+</Button>
-                                </div>
-
-                                <hr/>
-                                <SanitizedInnerHtml tag={"p"}>
-                                    {lang.projectInDev}
-                                </SanitizedInnerHtml>
-                            </section>
-                            <hr />
-
-                            {/*
-                                Section : More informations about the project
-                            */}
-                            <section className={"d-flex flex-column"}>
-                                <h4>À propos</h4>
-                                <p>
-                                    La base de données structurées, ouvertes et liées (BDSOL) est le cœur du hub virtuel d’Avantage numérique.
-                                    Elle vise à recenser et géolocaliser les talents, les compétences, les ressources, les initiatives technocréatives à travers le territoire du Croissant Boréal.
-                                </p>
-                                <Button classes="mt-3" color="white" outline="primary" href="/faq/a-propos">En savoir plus</Button>
-                            </section>
                         </div>
-                    </aside>
+                        <div className="py-4 my-4">
+                            <Button className="px-4" href={AppRoutes.consult.pathname}>Voir toutes les données</Button>
+                        </div>
+                    </div>
                 </div>
-            </div>
+            </section>
+            
+            {/* Organization presentation*/}
+            <section className="home-page__full-width-section bg-secondary-lighter mt-4">
+                <div className="container">
+                    <div className='row justify-content-around home-page__section-inner-y-padding'>
+                        <div style={{minHeight: "20rem"}} className="position-relative flex-grow-1 col-12 col-md-6 col-lg-4 order-2 order-md-1 p-2">
+                            <Image className="position-absolute w-100 h-100 object-fit-cover top-0 start-0"  priority={false} src={organizationPresentationImg} alt="Présentation de l'organisation"/>
+                        </div>
+                        <div style={{maxWidth: "60ch"}} className="col-12 order-1 order-md-2 col-md-6 col-lg-8 p-4 flex-column align-items-start">
+                            <h2 className="mb-4">AVNU, c'est quoi?</h2>
+                            <p className="mt-4">    
+                                AVNU est une base de données qui a pour objectif de recenser et de
+                                géolocaliser les talents, les ressources et les initiatives numériques en
+                                lien avec le territoire du Croissant boréal. En naviguant sur son interface,
+                                vous pourrez découvrir les personnes, les organismes, les projets, les
+                                équipements et les événements qui répondent à vos besoins
+                                technologiques.
+                            </p>
+                            <div className="d-flex flex-wrap">
+                                <p>Le projet AVNU est développé par le hub &nbsp;</p>
+                                <a href="https://avantagenumerique.org/">
+                                    <Image alt="Logo avantage numérique" className="w-auto" style={{height: "1.25rem"}} src={AvantageNumeriqueLogo} />
+                                </a> 
+                            </div>
+                            <div className="d-flex flex-column align-items-start mt-3">
+                                <Button className="px-4 mt-2" href={AppRoutes.about.asPath}>En savoir plus sur l'initiative</Button>
+                                {//<Button className="mt-3" href="https://avantagenumerique.org/" external={true} text_color="dark">Découvrir Avantage Numérique</Button>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* Account section */}
+            <section className="home-page__full-width-section position-relative my-4">
+                <figure className="position-absolute top-0 bottom-0 start-0 end-0">
+                    <Image className="h-75 d-none d-md-block w-auto position-absolute end-0 top-0" src={shipAndPlanetsImg} alt="Fusée d'AVNU se déplaçant entre les planètes dans l'espace." />
+                </figure>
+                <div className="container position-relative">
+                    <div className='row home-page__section-inner-y-padding'>
+                            <h2 className="text-center">Envie d’ajouter des données ?</h2>
+                            <p className="text-center my-2">Vous aussi, contribuez à la plateforme en vous créant un compte utilisateur·rice. C’est simple et gratuit !<br/>Vous pourrez alors ajouter ou modifier des fiches à propos des ressources technologiques de votre territoire. </p>
+                            <div className="d-flex justify-content-center my-4">
+                                <Button
+                                    className="px-4"
+                                    color="primary"
+                                    href={auth?.user?.isLoggedIn ? AppRoutes.contribute.asPath : AppRoutes.register.asPath}>C'est par ici !</Button>
+                            </div>
+                    </div>
+                </div>
+            </section>
         </div>
     )
 }
 
 export default HomePage;
+
+//Load badges Info
+export async function getServerSideProps() {
+
+    const badgeInfo = await getBadgesInfo(true);
+    return {
+        props: {
+            badgesInfo : badgeInfo
+        }
+    }
+}
+

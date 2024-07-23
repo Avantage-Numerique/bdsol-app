@@ -15,10 +15,8 @@ import ProjectSingleEdit from '@/src/DataTypes/Project/layouts/single/ProjectSin
 const SingleProjectPage = props => {
 
     return (
-        <div className={`single-container single-organisation`}>
-            <div className="maxWidthPageContainer">
-                <ProjectSingleEdit data={props} route={AppRoutes.projectSingle} />
-            </div>
+        <div className={`single-organisation`}>
+            <ProjectSingleEdit data={props} route={AppRoutes.projectSingle} />
         </div>
     )
 }

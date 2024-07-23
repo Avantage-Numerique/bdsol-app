@@ -1,4 +1,5 @@
 @import './custom.scss';
+@import './avnu.scss';
 @import './fonts';
 
 //Cherry picking of packages' styles.
@@ -31,8 +32,10 @@
 @import './components/main-image.scss';
 @import './components/link.scss';
 @import './components/utils.scss';
+@import './components/breadcrumb.scss';
+@import './components/badges.scss';
 
 @import './layouts/default';
+@import './layouts/page-layouts.scss';
 @import './layouts/home-page';
-@import './layouts/auth-pages';
-@import './layouts/single';
+@import './layouts/static';

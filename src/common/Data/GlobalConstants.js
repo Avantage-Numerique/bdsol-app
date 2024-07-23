@@ -1,4 +1,5 @@
 import StringDictionary from "@/src/languages/StringDictionary";
+import Caching from "@/common/Data/Caching";
 
 /**
  * All the constant that can be loaded and use in lots of file, that don't need to be fetch.
@@ -6,8 +7,9 @@ import StringDictionary from "@/src/languages/StringDictionary";
 
 export const lang = StringDictionary.getInstance([
     "base",
+    "dates",
     "validation",
-    "status",
+    "meta",
     "contribute",
     "medias",
     "organisations",
@@ -15,8 +17,22 @@ export const lang = StringDictionary.getInstance([
     "projects",
     "taxonomies",
     "events",
+    "places",
+    "equipment",
     "errors",
     "messages",
+    "cookies",
+    "pageMeta",
+    "versions",
+    "moderation",
+    "licences"
 ]);
 
 export const now = new Date();
+
+export const modes = {
+    CONSULTING: "consulting",
+    CONTRIBUTING: "contributing"
+}
+
+export const externalApiCache = new Caching();

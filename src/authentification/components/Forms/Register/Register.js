@@ -1,24 +1,22 @@
-import React, { useContext,useEffect } from 'react'
+import React, {useContext, useEffect, useState} from 'react'
 import Router from 'next/router'
 
 //Custom hooks
-import { useHttpClient } from '@/src/hooks/http-hook'
-import { useSessionHook } from '@/auth/hooks/useSessionHook'
-import { useAuth } from '@/auth/context/auth-context'
-import { useFormUtils } from '@/src/hooks/useFormUtils/useFormUtils'
+import {useHttpClient} from '@/src/hooks/http-hook'
+import {useSessionHook} from '@/auth/hooks/useSessionHook'
+import {useAuth} from '@/auth/context/auth-context'
+import {useFormUtils} from '@/src/hooks/useFormUtils/useFormUtils'
 
 //Form components
 import Input from '@/src/common/FormElements/Input/Input'
 import Button from '@/src/common/FormElements/Button/Button'
 import Spinner from '@/src/common/widgets/spinner/Spinner'
-import { MessageContext } from '@/src/common/UserNotifications/Message/Context/Message-Context'
-
-
-//Styling
-import styles from './Register.module.scss'
+import {MessageContext} from '@/src/common/UserNotifications/Message/Context/Message-Context'
+import { RouteLink } from '@/src/common/Components/RouteLink'
 
 const Register = () => {
 
+    const [isTOSAccepted, setIsTOSAccepted] = useState(false)
     //State that hold the form data
     const { FormUI, submitRequest, formState, formTools } = useFormUtils(
 
@@ -105,16 +103,23 @@ const Register = () => {
                         "password": formState.inputs.password.value,
                         "avatar": formState.inputs.avatar.value,
                         "firstName": formState.inputs.firstName.value,
-                        "lastName": formState.inputs.lastName.value
+                        "lastName": formState.inputs.lastName.value,
+                        "tos": { accepted: isTOSAccepted}
                     }
                 };
 
                 //Send the request with the specialized hook
-                submitRequest(
+                const registerRes = await submitRequest(
                     "/register",
                     'POST',
                     newUser
                 );
+                if(!registerRes.error){
+                    msg.addMessage({
+                        text: "Soumission de création de compte effectuée",
+                        positive: true
+                    })
+                }
 
             } else {
 
@@ -139,16 +144,15 @@ const Register = () => {
 
             { isLoading && <Spinner />}
 
-            <form className={`${styles["registration-form"]} auth-form-container`} onSubmit={submitHandler}>
+            <form className="bg-primary-lighter rounded form-box-shadow p-4" onSubmit={submitHandler}>
 
-                <h3 className="text-primary">Création de compte</h3>
+                <h3 className="text-dark-light mb-4">Création de compte</h3>
                 <FormUI />
 
                 <Input
                     name="username"
                     type="text"
                     label="Nom d'utilisateur"
-                    placeholder="Visible par tous"
                     validationRules={[
                         {name: "REQUIRED"},
                         {name: "TYPE_ALPHANUMERIC"},
@@ -183,7 +187,6 @@ const Register = () => {
                         {name: "REQUIRED"},
                         {name: "TYPE_EMAIL"}
                     ]}
-                    errorText="Veuillez entrer une adresse courriel valide"
                     formTools={formTools}
                 /> 
 
@@ -195,24 +198,34 @@ const Register = () => {
                         {name: "REQUIRED"},
                         {name: "MIN_LENGTH", specification: 8}
                     ]}
-                    errorText="Veuillez entrer un mot de passe valide"
                     formTools={formTools}
-                /> 
+                />
 
                 <Input
                     name="password2"
                     type="password"
-                    label="Confirmation du mot de passe "
+                    label="Confirmation du mot de passe"
                     validationRules={[
                         {name: "REQUIRED"},
                         {name: "MIN_LENGTH", specification: 8}
                     ]}
-                    errorText="Veuillez entrer un mot de passe valide"
                     formTools={formTools}
-                />   
+                />
+
+                <div className="py-2 row form-check flex-nowrap d-flex no-wrap">
+                    <input
+                        readOnly
+                        className="form-check-input col-4"
+                        role="button"
+                        type="checkbox"
+                        onClick={() => {setIsTOSAccepted(!isTOSAccepted)}}
+                        checked={isTOSAccepted}
+                    />
+                    <span className="form-check-label col-8">J'accepte les <RouteLink target="_blank" routeName={"termOfUse"}/></span>
+                </div>
 
                 <div className="col-12">
-                    <Button type="submit" disabled={!formState.isValid}>Soumettre</Button>
+                    <Button type="submit" disabled={(!(formState.isValid) || !isTOSAccepted)}>Soumettre</Button>
                 </div>
             </form>
             

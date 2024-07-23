@@ -33,12 +33,14 @@ class EntityModel {
         this.type = raw?.type ?? TYPE_DEFAULT;
         this.Type = getType(this.type);
         this.title = raw?.title ?? "no title set";
-        this.description = raw?.description ?? "no description set";
+        this.description = raw?.description ?? "";
         this.badge = raw?.badge ?? "";//contextual description of the entity. Often define in a single view.
 
         this.shortDescription = removeHtml(this.description);
         this.shortDescription = this.shortDescription.substring(0,this.shortLenght) + (this.shortDescription.length > this.shortLenght ? "..." : "");
         this.mainImage = raw?.mainImage ?? {url:"", alt:""};
+
+        this.singleList;
 
         //  Routes associated with single base, single and contribute uri.
         this.repertoryRoute = raw?.repertoryRoute ?? "";
@@ -65,8 +67,6 @@ class EntityModel {
         this.tagComponent = raw?.tagComponent ?? EntityTag;
         this.singleComponent = raw?.singleComponent ?? undefined;
     }
-
-
     //  --- GETTER / SETTER ---
 
     /**
@@ -237,7 +237,13 @@ class EntityModel {
         this.contributeURI = value.pathname;
         return this._contributeRoute = value;
     }
-
+    /**
+     * Update the simple list to be displayed
+     * @param value {Array}
+     */
+    simpleEditList(value) {
+        this.singleList = value
+    }
 
     //  --- UTILS ---
 

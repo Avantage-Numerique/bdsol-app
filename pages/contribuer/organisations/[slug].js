@@ -15,10 +15,8 @@ import OrganisationSingleEdit from '@/src/DataTypes/Organisation/components/form
 const OrganisationSingleEditPage = props => {
 
     return (
-        <div className={`single-container single-organisation`}>
-            <div className="maxWidthPageContainer">
-                <OrganisationSingleEdit data={props} route={AppRoutes.organisationSingle} />
-            </div>
+        <div className={`single-organisation`}>
+            <OrganisationSingleEdit data={props} route={AppRoutes.organisationSingle} />
         </div>
     )
 }

@@ -4,6 +4,7 @@ import ProjectSingleView from "@/DataTypes/Project/layouts/single/ProjectSingleV
 import {TYPE_PROJECT} from "@/DataTypes/Entity/Types";
 import Media from "@/DataTypes/Media/models/Media";
 import AppRoutes from "@/src/Routing/AppRoutes";
+import {lang} from "@/common/Data/GlobalConstants";
 
 
 class Project extends EntityModel {
@@ -15,7 +16,7 @@ class Project extends EntityModel {
         this.title = raw.name ?? "";
         this.description = raw.description ?? "";
         this.mainImage = !raw.mainImage || raw.mainImage === "" ? {
-            url: "/general_images/default-project.png",
+            url: "/entity-icones/L-format/png/Icone-GrandFormat-Projet.png",
             alt: raw.name,
             baseSrc: `${process.env.NEXT_PUBLIC_APP_URL}`,
             isDefault: true
@@ -24,10 +25,12 @@ class Project extends EntityModel {
         this.mainImageModel = new Media(this.mainImage);
         this.mainImage.src = this.mainImageModel.src;
 
+        //Class name of the icon entity
+        this.icon = "icon-project_tiny_icon";
+
         this.type = TYPE_PROJECT;
 
-        this.meta.title = this.title;
-        this.meta.description = this.description;
+        this.meta = {title: this.title, description: this.description, ...raw.meta};
 
         //this.taxonomies = new Map();
         //this.taxonomies.set("domains", raw.domains);
@@ -49,6 +52,11 @@ class Project extends EntityModel {
         //sets all the rest as a this[key] = raw[key] value.
         this.setProperties(raw);
     }
+    
+    /****** Static values *********/
+
+    //Icon class to represent the type
+    static icon = "icon-project_tiny_icon";
 }
 
 export default Project;

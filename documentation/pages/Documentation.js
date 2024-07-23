@@ -36,7 +36,7 @@ const Documentation = ( {documentation} ) => {
       about: {
         "@context": "http://schema.org/",
         "@type": "Dataset",
-        description: "Ontologie d'Avantage Numérique destinée à être utilitée dans une base de données ouverte et liée, dans le but de regrouper les techno-créatifs présents sur le territoire du croissant boréal.",
+        description: "Ontologie d'Avantage Numérique destinée à être utilitée dans une base de données ouverte et liée, dans le but de regrouper les techno-créatifs présents sur le territoire du Croissant boréal.",
         name: "Ontologie - Avantage Numérique",
         creator: {
           '@context': 'http://schema.org',
@@ -134,10 +134,12 @@ const Documentation = ( {documentation} ) => {
       {/* General header of the page */}
       <header className="bg-blue2">
         <section className="text-white col-12">
-          <h1>Préparez vos données pour vous connecter au <br/><span className="text-dark">croissant boréal</span></h1>
+          <h1>Préparez vos données pour vous connecter au <br/><span className="text-dark">Croissant boréal</span></h1>
 
           {/* SVG still to integrate and animate. This version is only temporary */}
           {/* @TODO : Warning du path, peut-être implémenté : https://nextjs.org/docs/basic-features/static-file-serving ?*/}
+          {/*           
+            Using old pictures that don't match the current styling. They have been deleted
           <figure>
             <img className={styles.mainIllustration} alt="Illustrations représentant Avantage Numérique." src="\index_main_background.png"/>
             <div>
@@ -149,7 +151,7 @@ const Documentation = ( {documentation} ) => {
             <div>
               <img className={styles.illustration_circle} alt="Illustrations représentant Avantage Numérique." src="\index_main_background-circle3.png"/>
             </div>
-          </figure>
+          </figure> */}
         </section>
     
     

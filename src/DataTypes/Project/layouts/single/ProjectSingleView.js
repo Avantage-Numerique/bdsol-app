@@ -1,21 +1,30 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 
 //components
 import SingleBaseHeader from "@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseHeader"
 import SingleBase from "@/src/DataTypes/common/layouts/single/SingleBase"
 import SingleInfo from "@/DataTypes/common/layouts/SingleInfo/SingleInfo";
 import SearchTag from '@/src/common/Components/SearchTag';
+import SocialHandleDisplay from '@/src/DataTypes/common/layouts/SocialHandlesViews/SocialHandleDisplay';
+import EntitiesTagGrid from "@/DataTypes/Entity/layouts/EntitiesTagGrid";
+import EntityLink from "@/DataTypes/Entity/layouts/EntityLink";
+import SingleBaseProgressBar
+    from '@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseProgressBar/SingleBaseProgressBar'
+import {ContactPointView} from '@/src/DataTypes/common/layouts/ContactPointView/ContactPointView';
 
 //Utils
 import SanitizedInnerHtml from '@/src/utils/SanitizedInnerHtml';
-import {SingleEntityStatus} from "@/DataTypes/Status/components/SingleEntityStatus";
+import {SingleEntityMeta} from "@/src/DataTypes/Meta/components/SingleEntityMeta";
 import {getDateFromIsoString} from "@/src/utils/DateHelper";
 import Project from "@/DataTypes/Project/models/Project";
 import {lang} from "@/common/Data/GlobalConstants";
 import {clientSideExternalApiRequest} from "@/src/hooks/http-hook";
-import EntitiesTagGrid from "@/DataTypes/Entity/layouts/EntitiesTagGrid";
-import {ExternalLink} from "@/common/Components/ExternalLink";
+import {removeTagsFromString} from '@/src/helpers/html'
 
+//styling
+import styles from "./ProjectSingleView.module.scss"
+import {haveAValidValue} from "@/src/helpers/obj";
+import {appConfig} from "@/src/configs/AppConfig";
 
 const ProjectSingleView = ({ data }) => {
 
@@ -32,25 +41,41 @@ const ProjectSingleView = ({ data }) => {
         location,
         team,
         mainImage,
+        equipment,
         sponsor,
         scheduleBudget,
         skills,
         domains,
         context,
-        status,
+        meta,
         createdAt,
         updatedAt
     } = data;
 
     const model = new Project(data);
 
+    const sectionClassSpacing = appConfig.spacing.singleSectionSpacingClass;
+
+    /******* Sorted lists ********/
+    const sortedSponsors = sponsor?.[0]?.subMeta?.order ? sponsor.sort((a,b) => a.subMeta.order - b.subMeta.order) : sponsor;
+    const sortedTeam = team?.[0]?.subMeta?.order ? team.sort((a,b) => a.subMeta.order - b.subMeta.order) : team;
+
     /* Needed for breadCrumb generator */
-    const getLabelGenerator = useCallback((param, query) => {
-        return {
-            "projets": lang.Projects,
-            "slug": name       
-        }[param];
-    }, []);
+    const breadcrumbLabels = {
+        "projets": lang.Projects,
+        "slug": model.name ?? '-'
+    };
+
+    const breadcrumbsRoutes = {
+        route: model.singleRoute,
+        labels: breadcrumbLabels,
+    }
+
+    const [breadCrumb, setBreadCrumb] = useState(breadcrumbsRoutes);
+    useEffect(() => {
+        setBreadCrumb(breadcrumbsRoutes)
+    }, [model.title]);
+
 
     const [allEnumState, setAllEnumState] = useState(undefined);
     useEffect( () => {
@@ -79,10 +104,6 @@ const ProjectSingleView = ({ data }) => {
     /****************************
      *  Sections
      ***************************/
-    const breadCrumb = {
-        route: model.singleRoute,
-        getLabelGenerator: getLabelGenerator
-    }
 
     const Header = (
         <SingleBaseHeader 
@@ -91,8 +112,16 @@ const ProjectSingleView = ({ data }) => {
                 <div className="d-text">
                     <h4 className="text-white">{alternateName}</h4>
                     <div className="mt-4">
-                        <p className="text-white m-0">Entité en charge : {entityInCharge ? entityInCharge.name : "Aucune"}</p>
-                        <p className="text-white">Producteur : {producer ? producer.name : "Aucun"}</p>
+                        {entityInCharge &&
+                            <p className="text-white">
+                                <span className={"badge bg-secondary"}>{lang.entityInCharge}</span> <EntityLink data={entityInCharge} />
+                            </p>
+                        }
+                        {producer &&
+                            <p className="text-white">
+                                <span className={"badge bg-secondary"}>{lang.producer}</span> <EntityLink data={producer} />
+                            </p>
+                        }
                     </div>
                 </div>
             )}
@@ -105,129 +134,191 @@ const ProjectSingleView = ({ data }) => {
 
     const FullWidthContent = (
         <>
-            { description !== "" &&
-                <SingleInfo title={"Présentation"} className={"mb-3 mt-3"}>
+            <SingleInfo 
+                title={lang.about} 
+                NAMessage="Aucune description n'est disponible pour le moment."
+            >
+                {
+                    removeTagsFromString(description) && 
                     <SanitizedInnerHtml>
                         {description}
                     </SanitizedInnerHtml>
-                </SingleInfo>
-            }
-            {sponsor.length > 0 &&
-                <SingleInfo title="Partenaires">
-                    <EntitiesTagGrid feed={sponsor} />
-                </SingleInfo>
-            }
+                }
+            </SingleInfo>
         </>
-    )
+    );
 
     const ContentColumnLeft = (
         <>
-            {team.length > 0 &&
-                <SingleInfo
-                    title="Membre de l'équipe"
-                    className="mb-3"
-                >
-                    <EntitiesTagGrid feed={team} subEntityProperty={"member"} subBadgeProperty={"role"} noneMessage={"Aucun membre de l'équipe spécifiés"} />
-                </SingleInfo>
-            }
+            {/* Partners */}
+            <SingleInfo 
+                title={lang.projectPartners} 
+                displayCondition={sortedSponsors.length > 0}
+                cardLayout
+            >
+                <EntitiesTagGrid feed={sortedSponsors} subEntityProperty={"entity"} subBadgeProperty={"name"} />
+            </SingleInfo>
+            
+            {/* Team */}
+            <SingleInfo
+                    title={lang.teamMembers}
+                    displayCondition={sortedTeam.length > 0}
+                    cardLayout
+            >
+                <EntitiesTagGrid feed={sortedTeam} subEntityProperty={"member"} subBadgeProperty={"role"} noneMessage={"Aucun membre de l'équipe spécifiés"} />
+            </SingleInfo>
+            
+            {/* schedule budget */}
+            <SingleInfo
+                title={lang.timelineAndBudget}
+                cardLayout
+                displayCondition={scheduleBudget && haveAValidValue(scheduleBudget)}
+            >
+                <section className={`${styles["budget"]}`}>
+                    <div className="container my-2">
+                        <div className="row">
+                            <BudgetCard title="Date de début" data={scheduleBudget?.startDate} />
+                            <BudgetCard title="Date estimée de fin" data={scheduleBudget?.endDateEstimate} />
+                            <BudgetCard title="Date de fin" data={scheduleBudget?.completionDate} />
+                            <BudgetCard title="Budget total" data={scheduleBudget?.estimatedTotalBudget} isDate={false} />
+                            <BudgetCard title="Temps avant la complétion" data={scheduleBudget?.eta} isDate={false} />
+                        </div>
+                    </div>
 
-            { scheduleBudget &&
-                <SingleInfo
-                    title="Échéancier et budget"
-                    className="mb-3"
-                >
-                    <section className='ps-4 border-start'>
-                        {scheduleBudget?.startDate && <div key="startDate">Date de début : {getDateFromIsoString(scheduleBudget.startDate)}</div>}
-                        {scheduleBudget?.endDateEstimate && <div key="endDateEstimate">Date estimée de fin : {getDateFromIsoString(scheduleBudget.endDateEstimate)}</div>}
-                        {scheduleBudget?.completionDate && <div key="completionDate">Date de fin : {getDateFromIsoString(scheduleBudget.completionDate)}</div>}
-                        {scheduleBudget?.estimatedTotalBudget && <div key="estimatedTotalBudget">Budget total : {scheduleBudget.estimatedTotalBudget}$</div>}
-                        {scheduleBudget?.eta && <div key="eta">Lapse de temps avant la complétion : {scheduleBudget.eta}</div>}
-                        {scheduleBudget?.timeframe?.length > 0 &&
-                            <ul key="timeframe-container">
-                                    Échéancier : {
+                    {scheduleBudget?.timeframe?.length > 0 && 
+                        <>
+                            <h5 className="mt-4 text-dark">{lang.projectsSteps}</h5>
+                            <ul 
+                                key="timeframe-container" 
+                                className={`container rounded overflow-hidden shadow-sm`}
+                            >
+                                {/* Table's header */}
+                                <BudgetStep header />
+                                {
                                     scheduleBudget.timeframe.map( (singleTimeframe, index) => {
                                         return (
-                                            <li key={`timeframe-${singleTimeframe._id}`} className={`border-start p-2 ${(index % 2 === 0) && "bg-greyBg"}`}>
-                                                {singleTimeframe?.step ? <h5 className="text-successDarker m-0">{singleTimeframe.step}</h5> : <></> }
-                                                <div className="d-flex flex-wrap gap-4">
-                                                    {singleTimeframe?.eta ? <div key={"timeframe-eta-"+index}>Durée : {allEnumState?.[singleTimeframe.eta] ?? singleTimeframe.eta}</div> : <></> }
-                                                    {singleTimeframe?.budgetRange ? <div key={"timeframe-budgetRange-"+index}>Budget : {allEnumState?.[singleTimeframe.budgetRange] ?? singleTimeframe.budgetRange}</div> : <></> }
-                                                </div>
-                                            </li>
+                                            <BudgetStep 
+                                                key={`timeframe-${singleTimeframe._id}`}
+                                                index={index}
+                                                step={singleTimeframe.step}
+                                                duration= {allEnumState?.[singleTimeframe.eta] ?? singleTimeframe.eta}
+                                                costs={allEnumState?.[singleTimeframe.budgetRange] ?? singleTimeframe.budgetRange}
+                                            />
                                         )
-                                    }
-                            )}</ul>
-                        }
-                    </section>
-                </SingleInfo>
-            }
+                                    })
+                                }
+                            </ul>
+                        </>
+                    }
+                </section>
+            </SingleInfo>
+            
+            {/* Equipments */}
+            <SingleInfo 
+                title={lang.equipmentUsed} 
+                cardLayout
+            >
+                {equipment && 
+                    <EntitiesTagGrid
+                        feed={equipment} 
+                        noneMessage={""} 
+                    />
+                }
+            </SingleInfo>
 
-            {url &&
-                <SingleInfo title="Hyperlien" className={"pb-4"}>
-                    <ExternalLink href={url}>{url}</ExternalLink>
-                </SingleInfo>
-            }
         </>
     )
 
     const ContentColumnRight = (
         <>
-            {context !== "" &&
-                <SingleInfo
-                    title="Contexte du projet"
-                    className="mb-3"
-                >
-                    {allEnumState?.[context] ?? context}
-                </SingleInfo>
-            }
+            {/* Contact information */}
+            <SingleInfo title={lang.organisationContact} cardLayout>
+                <ContactPointView contact={model.contactPoint}/>
+            </SingleInfo>
 
-            { skills?.length > 0 &&
-                <SingleInfo
-                    title="Compétences liées au projet"
-                    className="mb-3"
-                >
-                    <>
-                        <SearchTag
-                            className="row"
-                            list={skills}
-                        />
-                    </>
-                </SingleInfo>
-            }
+            <SingleInfo
+                title="Informations supplémentaires"
+                cardLayout
+            >
+                {context !== "" &&
+                    <SingleInfo
+                        title={lang.projectContext}
+                        isSubtitle
+                    >
+                        {allEnumState?.[context] ?? context}
+                    </SingleInfo>
+                }
 
-            { domains?.length > 0 &&
-                <SingleInfo title={lang.domainsSingleLabel} className={"mb-3"}>
+                {/* Skills */}
+                <SingleInfo
+                    title={lang.skillsAndTechnologies}
+                    displayCondition={skills?.length > 0}
+                    isSubtitle
+                >
+                    <SearchTag list={skills} />
+                </SingleInfo>
+
+                {/* Domains */}
+                <SingleInfo
+                    title={lang.Domains}
+                    displayCondition={domains?.length > 0}
+                    isSubtitle
+                >
                     <SearchTag
-                        className="row"
                         list={domains}
                         listProperty={"domain"}
                     />
                 </SingleInfo>
-            }
 
-            { contactPoint &&
-                <SingleInfo
-                    title={"Contact"}
-                    className={"mb-3"}>
-                    <SanitizedInnerHtml>
-                        {contactPoint}
-                    </SanitizedInnerHtml>
+                {/*url*/}
+                <SocialHandleDisplay
+                    title={lang.externalLinks}
+                    url={model?.url}
+                    className={`${appConfig.spacing.singleSectionSpacingClass}`}
+                />
+            </SingleInfo>
+        </>
+    )
+
+    {/*********** Footer section ***********/}
+    const Footer = (
+        <>
+            {
+                (createdAt || updatedAt || meta) &&
+                <SingleInfo 
+                    title={lang.entityMetadata} 
+                    className="border-top pt-3"
+                >
+                    {/*********** Entity data ***********/}
+                    <SingleEntityMeta createdAt={createdAt} updatedAt={updatedAt} meta={meta} />
                 </SingleInfo>
             }
         </>
     )
 
-    const Footer = (
-        <>
-            {
-                (createdAt || updatedAt || status) &&
-                <SingleEntityStatus
-                    createdAt={createdAt} 
-                    updatedAt={updatedAt} 
-                    status={status} 
-                />
-            }
-        </>
+    {/*********** Bottom section ***********/}
+    const SinglePageBottom = (
+        <SingleBaseProgressBar 
+            dataList={[
+                {data: model.title},
+                {data: alternateName},
+                {data: entityInCharge},
+                {data: producer},
+                {data: description, validationFunction: (value => removeTagsFromString(value) ? true : false)},
+                {data: sortedSponsors},
+                {data: sortedTeam},
+                {data: scheduleBudget, validationFunction: ((value) => value && haveAValidValue(value))},
+                {data: equipment},
+                {data: context},
+                {data: skills},
+                {data: domains},
+                {data: contactPoint},
+                {data: model?.url},
+                {data: model.mainImage.isDefault, validationFunction: ((value) => !value)}, 
+            ]}
+            buttonText={lang.contributeButtonLabel}
+            buttonLink={model.singleEditLink}
+        />
     )
 
     return (
@@ -239,6 +330,7 @@ const ProjectSingleView = ({ data }) => {
                 contentColumnLeft={ContentColumnLeft}
                 contentColumnRight={ContentColumnRight}
                 footer={Footer}
+                singlePageBottom={SinglePageBottom}
                 model={model}
             />
         </>
@@ -246,3 +338,55 @@ const ProjectSingleView = ({ data }) => {
 }
 
 export default ProjectSingleView
+
+/********************************
+ * 
+ * 
+ *      Other functions and components
+ * 
+ */
+
+ //Line component for the budget steps
+ function BudgetStep(props){
+    //Deconstruct props
+    const {
+        header = false,
+        index,
+        step = " - ",
+        duration = " - ",
+        costs = " - "
+    } = props; 
+
+    const Tag = header ? "h6" : "p";
+    const bg_color = header ? "bg-secondary-light" : ((index % 2 === 0) ? "bg-greyBg" : "")
+
+    return (
+        <li className={`${bg_color} row`}>
+            <Tag className="col col-flex-1 my-2">{header ? "Étape" : step}</Tag>
+            <Tag className="col flex-1 my-2">{header ? "Durée" : duration}</Tag>
+            <Tag className="col flex-1 my-2">{header ? "Coûts" : costs}</Tag>
+        </li>
+     )
+ }
+
+ function BudgetCard(props){
+
+    const {
+        title,
+        data,               //Main value to be displayed
+        isDate = true,      //By default, considered has holding a date
+        col = "col-6",
+    } = props;
+
+    const style = {"border": "0.15rem dashed"}
+
+    if(title && data)
+        return (
+            <div className={`${col} g-3`}>
+                <div style={style} className="bg-greyBg py-3 px-3 rounded border-secondary">
+                    <h6 className="text-grey mb-1">{title}</h6>
+                    <p className="mb-0">{isDate ? getDateFromIsoString(data) : data}</p>
+                </div>
+            </div>
+        )
+ }

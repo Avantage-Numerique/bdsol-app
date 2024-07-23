@@ -14,30 +14,42 @@
     height: var(--headersHeight);
     display: flex;
     flex-direction: column;
+    position: fixed;
+    top: 0px; 
+    left: 0px;
+    right: 0px;
+    z-index: $zindex-fixed;
+    transition: 0.3s ease-out; 
 
     &.account-bar {
         height: calc(var(--headersHeight) + 2rem);
+        .navButton { top: 2rem; }
+    }
 
-        .navButton {
-            top: 2rem;
-        }
+    &.scroll-inner-page {
+        background-color: $primary_2;
+        height: 4em;
     }
 
     /* Title container where is putted the logo */
     .header__content {
         width: 100%;
-        height: var(--headersHeight);
 
         img {
             cursor: pointer;
             width: 100%;
             max-width: 236px;
             height: 100%;
+            max-height: 2rem;
             object-fit: contain;
             object-position: left center;
         }
     }
 
+    .item-displayed-in-menu {
+        position: relative;
+        z-index: $zindex-fixed;        
+    }
 
     .searchbar-menu-container {
         position: relative;
@@ -64,9 +76,7 @@
             align-items: center;
             color: white;
 
-            a {
-                margin: 1rem;
-            }
+            a { margin: 1rem; }
         }
 
         .contribute-menu-container {
@@ -90,13 +100,8 @@
                 -o-transition: opacity 200ms;
                 transition: opacity 200ms;
 
-                &:hover {
-                    opacity: 1;
-                }
-
-                svg {
-                    width: 100%;
-                }
+                &:hover { opacity: 1; }
+                svg { width: 100%; }
             }
         }
     }
@@ -112,18 +117,9 @@
             height: var(--headersHeight);
             width: 100%;
             fill: white;
-
-            &:hover {
-                opacity: 1;
-            }
-
-            svg {
-                width: 100%;
-            }
-
-            .user-img {
-                object-fit: cover;
-            }
+            &:hover { opacity: 1; }
+            svg { width: 100%; }
+            .user-img { object-fit: cover; }
         }
     }
 
@@ -132,7 +128,8 @@
         /* Align the hamburger menu in the center */
         display: flex;
         align-content: center;
-        height: 5em;
+        height: 100%;
         width: 7vw;
+        min-width: 5rem;
     }
 }

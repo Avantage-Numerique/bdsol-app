@@ -39,7 +39,7 @@ const ArrowButton = ( { ...props } ) => {
     classList.push('rounded-circle');
     classList.push(`${styles.xButton}`);
     classList.push(props.color ? `btn-${props.color}` : `btn-${btnColor}` );
-    classList.push(props.outline ? `btn-custom-outline-${btnColor} btn-outline-${props.outline}` : '');
+    classList.push(props.outline ? `btn-outline-${btnColor} btn-outline-${props.outline}` : '');
     classList.push(`btn-arrow-svg-${arrowColor}`);
     classList.push(`btn-arrow-svg-custom-outline-hover-${btnColor}`)
     classList.push(props.classes);

@@ -28,9 +28,15 @@ const Select2BaseSingle = ({name, ...props}) => {
             border: state.isFocused ? 0 : 0,
             // This line disable the blue border
             boxShadow: state.isFocused ? 0 : 0,
+            backgroundColor: 'transparent',
             '&:hover': {
                border: state.isFocused ? 0 : 0
             },
+            'css-gwukah-control': {
+                backgroundColor: 'transparent', // Définir la couleur de fond sur transparent pour la classe css-gwukah-control
+                border: 'none', // Retirer le bord pour la classe css-gwukah-control
+                outline: 'none', 
+              }
             //backgroundColor: 'white' 
         })
     }
@@ -85,13 +91,14 @@ const Select2BaseSingle = ({name, ...props}) => {
 
             onChange={(val) => props.valueSetter(val)}
             onInputChange={(val) => {
-                val.slice(-1) === ',' ?
+                /* val.slice(-1) === ',' ?
                 setValueWithComma()
-                :
+                : */
                 props.inputValueSetter(val)
             }}
 
             styles={styling}
+            onBlur={props.onTouch}
 
             //Creatable Section
             formatCreateLabel={(val)=> lang.createOptionLabel + val}

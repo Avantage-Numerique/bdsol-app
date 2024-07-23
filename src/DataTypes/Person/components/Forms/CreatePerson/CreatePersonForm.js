@@ -1,5 +1,4 @@
 import React from 'react'
-import Router from 'next/router'
 
 //Custom hooks
 import {useFormUtils} from '@/src/hooks/useFormUtils/useFormUtils'
@@ -11,15 +10,14 @@ import RichTextarea from '@/FormElements/RichTextArea/RichTextarea'
 
 //Context
 import {useAuth} from "@/src/authentification/context/auth-context";
+import { lang } from '@/src/common/Data/GlobalConstants'
 
 //Styling
 import styles from './CreatePersonForm.module.scss'
 
 //FormData
-import {getDefaultCreateEntityStatus} from "@/DataTypes/Status/EntityStatus";
+import {getDefaultCreateEntityMeta} from "@/src/DataTypes/Meta/EntityMeta";
 
-import Person from "@/DataTypes/Person/models/Person";
-import {replacePathname} from "@/src/helpers/url";
 
 const CreatePersonForm = ({ onPositiveResponse }) => {
     
@@ -27,7 +25,6 @@ const CreatePersonForm = ({ onPositiveResponse }) => {
     const auth = useAuth();
 
     //Main form functionalities
-    //not used : transmuteTaxonomyTargetInput
     const { FormUI, submitRequest, formState, formTools } = useFormUtils(
         {
             firstName: {
@@ -52,13 +49,7 @@ const CreatePersonForm = ({ onPositiveResponse }) => {
             displayResMessage: true,     //Display a message to the user to confirm the succes
             callbackFunction: (response) => {
                 //Execute additionnal function from parent component
-                if(onPositiveResponse) onPositiveResponse()
-                //Create a model for the response
-                const model = new Person(response.data);
-                //Redirection link to the edit page
-                const link = "/"+replacePathname(model.singleEditRoute.pathname, {slug: model.slug});
-                //Execute the redirection
-                Router.push( link )
+                if(onPositiveResponse) onPositiveResponse(response)
             }
         }
     );
@@ -75,7 +66,7 @@ const CreatePersonForm = ({ onPositiveResponse }) => {
                 firstName:  formState.inputs.firstName.value,
                 nickname: formState.inputs.nickName.value,
                 description: formState.inputs.description.value,
-                status: getDefaultCreateEntityStatus(auth.user),
+                meta: getDefaultCreateEntityMeta(auth.user),
             }
         };
 
@@ -96,7 +87,7 @@ const CreatePersonForm = ({ onPositiveResponse }) => {
             <div className="row">
                 <Input 
                     name="firstName"
-                    label="Prénom"
+                    label={"Prénom"+lang.required}
                     className="col-12 col-md-6"
                     validationRules={[{name: "REQUIRED"}]}
                     errorText="Cette information est requise"
@@ -105,7 +96,7 @@ const CreatePersonForm = ({ onPositiveResponse }) => {
 
                 <Input 
                     name="lastName"
-                    label="Nom"
+                    label={"Nom"+lang.required}
                     className="col-12 col-md-6"
                     validationRules={[{name: "REQUIRED"}]}
                     errorText="Cette information est requise"
@@ -125,12 +116,12 @@ const CreatePersonForm = ({ onPositiveResponse }) => {
                <RichTextarea 
                 className="my-3"
                 name="description"
-                label="Biographie / description"
+                label={lang.about}
                 formTools={formTools}
             />
             </div>
             <div className="d-flex justify-content-end">
-                <Button disabled={!formState.isValid} type="button" onClick={submitHandler}>Créer</Button>
+                <Button disabled={!formState.isValid} type="button" onClick={submitHandler}>{lang.continue}</Button>
             </div>
         </form> 
     );

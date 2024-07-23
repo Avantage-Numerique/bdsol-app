@@ -1,0 +1,62 @@
+/*
+        Styling specific for the pop over 
+*/
+
+.pop-over {
+
+    
+    /* Opacity for into animation */
+    opacity: 0;
+
+    /* Position over other elements */
+    z-index: 4;
+
+    /* Dimensions */
+    width: min(40ch, 100%);        /* Temporary */
+    max-width: 90vw;    /* Temporary */
+    border-radius: 0.5rem;
+    
+    /* Shadow arround the dialog box */
+    -webkit-filter: drop-shadow(0.1rem 0.1rem 0.1rem grey);
+            filter: drop-shadow(0.1rem 0.1rem 0.1rem grey);
+
+    animation: dialogFadeIn 0.3s ease forwards;
+
+    /* Prevent from floating in the middle by default */
+    margin: unset;
+    left: 0;
+
+    /***********   
+    
+            Positionning classes 
+            
+    ***************/
+
+    header {
+        display: grid;
+        grid-template-columns: auto 1rem;
+    }
+
+    /* Small pointer positionning */
+    .pointing-corner {
+       background-color: white; 
+       position: absolute;
+       height: 1rem;
+       width: 1rem;
+       border-width: 1px 1px 0px 0px;
+       top: -0.35rem;
+       border-radius: 0.1rem;
+    }
+}
+
+
+@keyframes dialogFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(10px); /* Mouvement initial vers le bas */
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0); /* Retour à la position initiale */
+  }
+}
