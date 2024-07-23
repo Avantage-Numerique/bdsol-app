@@ -12,7 +12,7 @@
   display: block;
   position: absolute;
   top: -6rem;
-  visibility: hidden;
+  //visibility: hidden;
   left: 0;
   @include transition();
 
@@ -24,6 +24,16 @@
   }
   @include media-breakpoint-up(xl) {
     top: -6rem;
+  }
+
+  &:target {
+    background-color: $primary;
+    width: 1em;
+    height: 1em;
+    left: -1.5em;
+    top:1em;
+    border-radius: 50%;
+    transform: translate(-50%,-50%);
   }
 
   /*&::before {
