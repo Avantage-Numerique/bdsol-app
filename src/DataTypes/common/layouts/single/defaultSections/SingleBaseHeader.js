@@ -150,7 +150,7 @@ const SingleBaseHeader = (props) => {
             }
         },
         { displayResMessage: true }
-    )
+    );
 
     const sendReportEntity = async () => {
         const apiResponse = await sendRequest(
@@ -216,7 +216,7 @@ const SingleBaseHeader = (props) => {
                         }
                         {/* If the is no button section and there is a single button declared, display it */}
                         {!buttonSection && buttonText && buttonSectionLink &&
-                            <Button className={`shadow d-block`} href={buttonSectionLink}>{buttonText}</Button>
+                            <Button className={`btn-contribute shadow d-block`} href={buttonSectionLink}>{buttonText}</Button>
                         }
                     </div>
                 </div>
@@ -246,7 +246,6 @@ const SingleBaseHeader = (props) => {
             </modalReportEntity.Modal>
         </section>
     )
-
 }
 
 export default SingleBaseHeader;

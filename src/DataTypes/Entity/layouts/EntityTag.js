@@ -2,7 +2,6 @@ import {getType} from "@/DataTypes/Entity/Types";
 
 import React from "react";
 import styles from "./EntityTag.module.scss";
-import Icon from "@/common/widgets/Icon/Icon";
 import Link from "next/link";
 import TypeTag from '@/DataTypes/common/layouts/TypeTag/TypeTag'
 
@@ -43,7 +42,7 @@ const EntityTag = (props) => {
     return (
         <>
             {model &&
-                <article className={`rounded-2 p-0 pe-3 position-relative d-flex ${styles["entity-tag"]} ${className}`}>
+                <article className={`rounded-2 position-relative d-flex ${styles["entity-tag"]} ${className}`}>
                         {/* Image section -- left */}
                         {model.mainImageModel &&
                             <figure className="m-0">

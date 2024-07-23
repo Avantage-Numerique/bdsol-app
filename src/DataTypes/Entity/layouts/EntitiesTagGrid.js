@@ -26,7 +26,8 @@ const EntitiesTagGrid = ({feed, className, columnClass, subEntityProperty, subBa
     subBadgeProperty = subBadgeProperty ?? '';
     noneMessage = noneMessage ?? lang.noResult;
 
-    const nbColumnsMd = numberOfCols ?? 2;
+    const nbColumnsLg = numberOfCols ?? 2;
+    const nbColumnsMd = numberOfCols ?? 1;
     const mdColumnMobile = 1;
     const columnsTotal = 12;
     const feedLength = feed.length;
@@ -34,8 +35,9 @@ const EntitiesTagGrid = ({feed, className, columnClass, subEntityProperty, subBa
 
     const mobileClasses = `col-${Math.floor(columnsTotal/mdColumnMobile)}`;
     const tabletClasses = `col-md-${Math.floor(columnsTotal/nbColumnsMd)}`;
+    const largeClasses = `col-lg-${Math.floor(columnsTotal/nbColumnsLg)}`;
 
-    const colContainerClass = columnClass ?? `${mobileClasses} ${tabletClasses}`;
+    const colContainerClass = columnClass ?? `${mobileClasses} ${tabletClasses} ${largeClasses}`;
 
     const forcedType = forceType ?? false;
 
@@ -48,7 +50,7 @@ const EntitiesTagGrid = ({feed, className, columnClass, subEntityProperty, subBa
     const style = {paddingTop: "1rem"}
 
     return (
-        <ContainerTag style={style} className={`${regularFlexWrapping ? "d-flex flex-wrap justify-content-start" : "row"}  gap-2 gap-lg-3 ${className ?? ""}`}>
+        <ContainerTag style={style} className={`${regularFlexWrapping ? "d-flex flex-wrap justify-content-start" : "row"} ${className ?? ""}`}>
             {
                 (Array.isArray(feed) && feedLength > 0) ?
                     feed.map((entity, index) => {
@@ -58,13 +60,13 @@ const EntitiesTagGrid = ({feed, className, columnClass, subEntityProperty, subBa
 
                         const model = getModelFromType(type, rawData);
 
-                        const isLastRow = index >= (feedLength - nbColumnsMd);
-                        const spacingClasses = !isLastRow ? 'pb-4' : '';
+                        //const isLastRow = index >= (feedLength - nbColumnsMd);
+                        //const spacingClasses = !isLastRow ? 'pb-4' : '';
                         if (model) {
                             model.badge = entity[subBadgeProperty] ?? "";
                             const TagComponent = model.tagComponent;
                             return (
-                                <li className={`d-flex flex-wrap justify-content-start ${!regularFlexWrapping && colContainerClass} ${spacingClasses}`} key={getKeyString("container", model, index)}>
+                                <li className={`d-flex flex-wrap justify-content-start ${!regularFlexWrapping && colContainerClass} pb-4`} key={getKeyString("container", model, index)}>
                                     <TagComponent model={model} key={getKeyString("tag", model, index)} className={"w-100"} />
                                 </li>
                             )

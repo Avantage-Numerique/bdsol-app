@@ -112,3 +112,11 @@ fieldset:disabled .btn :not(.btn-check) + .btn:disabled:hover,
         background: none;
     }
 }
+
+.btn-contribute {
+    width: 100%;
+
+    @include media-breakpoint-up(md) {
+        width: auto;
+    }
+}
