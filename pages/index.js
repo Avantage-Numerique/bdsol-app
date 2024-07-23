@@ -227,7 +227,7 @@ export default HomePage;
 //Load badges Info
 export async function getServerSideProps() {
 
-    const badgeInfo = await getBadgesInfo();
+    const badgeInfo = await getBadgesInfo(true);
     return {
         props: {
             badgesInfo : badgeInfo

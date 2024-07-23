@@ -30,7 +30,7 @@ export async function getServerSideProps(context) {
             method: 'GET',
         });
 
-    const badgesInfo = await getBadgesInfo();
+    const badgesInfo = await getBadgesInfo(true);
 
     if(typeof taxonomy.data._id === 'undefined' || entities.data._id)
         return { notFound: true };

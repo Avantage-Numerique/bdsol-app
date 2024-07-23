@@ -251,7 +251,7 @@ export default ConsultData;
 
 
 export async function getServerSideProps() {
-    const badgeInfo = await getBadgesInfo();
+    const badgeInfo = await getBadgesInfo(true);
     return {
         props: {
             badgesInfo : badgeInfo
