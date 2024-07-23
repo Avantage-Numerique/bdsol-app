@@ -28,6 +28,7 @@ import {lang, modes} from "@/src/common/Data/GlobalConstants";
 import {getDefaultUpdateEntityMeta} from "@/src/DataTypes/Meta/EntityMeta";
 import Project from "@/DataTypes/Project/models/Project";
 import {replacePathname} from "@/src/helpers/url";
+import SingleBeforeUnloadReminder from '@/src/DataTypes/common/layouts/SingleSaveEntityReminder/SingleBeforeUnloadReminder';
 
 //Context
 import {useAuth} from "@/src/authentification/context/auth-context";
@@ -524,6 +525,7 @@ const ProjectSingleEdit = (props) => {
 
     return (
         <>
+            <SingleBeforeUnloadReminder formTools={formTools}/>
             <SingleBase
                 breadCrumb={breadCrumb}
                 header={header}

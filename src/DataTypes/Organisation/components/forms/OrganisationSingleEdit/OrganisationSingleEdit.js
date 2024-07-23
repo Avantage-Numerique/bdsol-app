@@ -36,6 +36,7 @@ import Icon from "@/common/widgets/Icon/Icon";
 import {TYPE_PLACE, TYPE_TAXONOMY} from '@/src/DataTypes/Entity/Types';
 import SubmitEntity from "@/DataTypes/common/Forms/SingleEdit/SubmitEntity";
 import {apiDateToDateInput, dateTimeStringToUTC} from "@/common/DateManager/Parse";
+import SingleBeforeUnloadReminder from '@/src/DataTypes/common/layouts/SingleSaveEntityReminder/SingleBeforeUnloadReminder';
 
 
 const OrganisationSingleEdit = (props) => {
@@ -471,6 +472,7 @@ const OrganisationSingleEdit = (props) => {
 
     return (
         <>
+            <SingleBeforeUnloadReminder formTools={formTools}/>
             <SingleBase
                 breadCrumb={breadCrumb}
                 header={header}

@@ -1,9 +1,10 @@
 import React, {useCallback, useContext, useEffect, useState} from 'react';
-import Router from 'next/router';
+import Router, { useRouter } from 'next/router';
 
 //Custom hooks
 import {useFormUtils} from '@/src/hooks/useFormUtils/useFormUtils';
 import {useRootModal} from '@/src/hooks/useModal/useRootModal';
+import SingleBeforeUnloadReminder from '@/src/DataTypes/common/layouts/SingleSaveEntityReminder/SingleBeforeUnloadReminder';
 
 //components
 import Button from '@/FormElements/Button/Button';
@@ -62,7 +63,6 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props}) => {
     let model = new Person(props.data);
 
     //  STATES
-
     const [currentMainImage, setCurrentMainImage] = useState(model.mainImage);
     const [currentModel, setCurrentModel] = useState(model);
 
@@ -420,6 +420,7 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props}) => {
 
     return (
         <>
+            <SingleBeforeUnloadReminder formTools={formTools}/>
             <SingleBase
                 breadCrumb={breadCrumb}
                 header={header}

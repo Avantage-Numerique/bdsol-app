@@ -29,6 +29,7 @@ import {TYPE_TAXONOMY} from '@/src/DataTypes/Entity/Types';
 import SubmitEntity from "@/DataTypes/common/Forms/SingleEdit/SubmitEntity";
 import Equipment from '../../../models/Equipment';
 import UpdateSocialHandles from '../../../../common/Forms/UpdateSocialHandles/UpdateSocialHandles';
+import SingleBeforeUnloadReminder from '@/src/DataTypes/common/layouts/SingleSaveEntityReminder/SingleBeforeUnloadReminder'
 
 
 const EquipmentSingleEdit = ({ positiveRequestActions, ...props}) => {
@@ -267,6 +268,7 @@ const EquipmentSingleEdit = ({ positiveRequestActions, ...props}) => {
 
     return (
         <>
+            <SingleBeforeUnloadReminder formTools={formTools}/>
             <SingleBase
                 breadCrumb={breadCrumb}
                 header={header}

@@ -13,6 +13,7 @@ import {lang, modes} from "@/src/common/Data/GlobalConstants";
 import {getDefaultUpdateEntityMeta} from "@/src/DataTypes/Meta/EntityMeta";
 import {replacePathname} from "@/src/helpers/url";
 import {SingleEntityMeta} from '@/src/DataTypes/Meta/components/SingleEntityMeta';
+import SingleBeforeUnloadReminder from "@/src/DataTypes/common/layouts/SingleSaveEntityReminder/SingleBeforeUnloadReminder";
 
 
 //Component
@@ -713,6 +714,7 @@ const EventSingleEdit = ({data}, ...props) => {
 
     return (
         <>
+            <SingleBeforeUnloadReminder formTools={formTools}/>
             <SingleBase
                 breadCrumb={breadCrumb}
                 header={header}
