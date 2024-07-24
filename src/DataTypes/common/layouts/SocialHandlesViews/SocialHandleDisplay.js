@@ -17,7 +17,7 @@ import styles from './SocialHandleDisplay.module.scss';
 const SingleSocialHandle = ( {data} ) => {
 
     return (
-        <div className={`p-1 ${styles["single-social-hangle"]}`}>
+        <div className={`p-1 ${styles["single-social-handle"]} text-break`}>
             {
                 data.url === `${data.url}` && data.label === `${data.label}` &&
                 <ExternalLink href={data.url} title={data.url} target='_blank'>
