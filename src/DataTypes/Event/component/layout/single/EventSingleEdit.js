@@ -234,6 +234,7 @@ const EventSingleEdit = ({data}, ...props) => {
         const formData = {
             data: {
                 id: _id,
+                name: formState.inputs.name.value,
                 alternateName: formState.inputs.alternateName.value,
                 entityInCharge: formState.inputs.entityInCharge.value?.value ?? null,
                 organizer: formState.inputs.organizer.value?.value ?? null,

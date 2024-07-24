@@ -24,7 +24,7 @@ export const base = {
     // App
 
     "appDefaultName": "AVNU | By Avantage Numérique",
-    "appDefaultDescription": "The database that compiles and geolocates talents, skills, equipment, and technocreative initiatives in the Boreal Crescent (Croissant Boréal).",
+    "appDefaultDescription": "The database that compiles and geolocates talents, skills, equipment, and technocreative initiatives in the Boreal crescent (Croissant boréal).",
     "appDefaultKeywords": "Ontology, class, property, database, technology, creator, community",
     "appDefaultProducer": "Avantage Numérique",
     "appProducerDefaultDescription": "Avantage numérique is a virtual, physical and mobile hub which deserve cultural, business and knowledge sector. It's goal is to help the growth of the creative, entrepreneurial and technologic ecosystem of Croissant boréal.",
@@ -77,6 +77,7 @@ export const base = {
     "required": "*",
     "consult": "Consult",
     "contribute": "Contribute",
+    "onNavigationBlockWithoutSave": "There is some unsaved changes, are you sure you want to leave?",
 
 
     // CreatePersonForm.js

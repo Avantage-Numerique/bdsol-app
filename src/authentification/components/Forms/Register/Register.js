@@ -109,15 +109,17 @@ const Register = () => {
                 };
 
                 //Send the request with the specialized hook
-                submitRequest(
+                const registerRes = await submitRequest(
                     "/register",
                     'POST',
                     newUser
                 );
-                msg.addMessage({
-                    text: "Soumission de création de compte effectuée",
-                    positive: true
-                })
+                if(!registerRes.error){
+                    msg.addMessage({
+                        text: "Soumission de création de compte effectuée",
+                        positive: true
+                    })
+                }
 
             } else {
 

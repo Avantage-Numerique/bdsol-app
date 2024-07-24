@@ -1,4 +1,5 @@
-import { lang } from "@/src/common/Data/GlobalConstants";
+import {lang} from "@/src/common/Data/GlobalConstants";
+import {ExternalLink} from "@/common/Components/ExternalLink";
 
 const ContactPointView = ({contact, ...props}) => {
     const tel = contact?.tel ?? {num:"", ext:""};
@@ -15,13 +16,13 @@ const ContactPointView = ({contact, ...props}) => {
     const emailAddressSection = email.address !== "" && (
         <article className={`d-flex flex-column p-2 mb-2`}>
             <h5 className="text-dark mb-2">{lang.email}</h5>
-            <a href={"mailto:"+email.address}>{email.address}</a>
+            <ExternalLink href={"mailto:"+email.address}>{email.address}</ExternalLink>
         </article>
     )
     const websiteUrlSection = website.url !== "" && (
-        <article className={`d-flex flex-column p-2 mb-2`}>
+        <article className={`d-flex flex-column p-2 mb-2 text-break`}>
             <h5 className="text-dark mb-2">{lang.website}</h5>
-            <a href={website.url}>{website.url}</a>
+            <ExternalLink href={website.url}>{website.url}</ExternalLink>
         </article>
     )
     return (

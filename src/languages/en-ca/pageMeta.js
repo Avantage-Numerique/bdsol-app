@@ -2,7 +2,7 @@
 const pageMeta = {
     /* Index page */
     "index__title": "Home | AVNU - The Avantage Numérique Database",
-    "index__description": "AVNU is a database that aims to catalog and geolocate talents, skills, equipment, and technocreative initiatives in the Boreal Crescent (Abitibi-Témiscamingue, northern francophone Ontario, Nord-du-Québec).", 
+    "index__description": "AVNU is a database that aims to catalog and geolocate talents, skills, equipment, and technocreative initiatives in the Boreal crescent (Abitibi-Témiscamingue, northern francophone Ontario, Nord-du-Québec).", 
 
     /* /categories */
     "categories__description": "Explore the various categories used to classify our data: domains, technologies, skills, equipment types.",
@@ -34,7 +34,7 @@ const pageMeta = {
 
     /* /consulter */
     "consult__title": "Consult the data",
-    "consult__description": "Explore the various entities listed in the territory of the Boreal Crescent: individuals, organizations, projects, events, and facilities.",
+    "consult__description": "Explore the various entities listed in the territory of the Boreal crescent: individuals, organizations, projects, events, and facilities.",
 
     /* /contribuer */
     "contribute__title": "Contribute to the database",
@@ -47,10 +47,10 @@ const pageMeta = {
     "event__description": "Managed by organizations, the events on AVNU stand out for their digital nature.",
 
     /* /organisations */
-    "organisations__description": "The listed organizations work with digital technologies and are located in the Boreal Crescent region.",
+    "organisations__description": "The listed organizations work with digital technologies and are located in the Boreal crescent region.",
     
     /* /persons */
-    "persons__description": "Persons can be digital creators, experts, equipment owners, promoters, and anyone keen to contribute to digital tech in the Croissant Boréal.",
+    "persons__description": "Persons can be digital creators, experts, equipment owners, promoters, and anyone keen to contribute to digital tech in the Croissant boréal.",
     
     /* /projects */
     "projects__description": "Discover all the digital projects listed on AVNU.",
@@ -61,7 +61,7 @@ const pageMeta = {
 
      /* /FAQ/about */
      "faq__about__title": "About",
-     "faq__about__description": "Explore AVNU: a database mapping digital talents and initiatives in the Boreal Crescent. Enhance discoverability, visibility, and knowledge transmission in the region.",
+     "faq__about__description": "Explore AVNU: a database mapping digital talents and initiatives in the Boreal crescent. Enhance discoverability, visibility, and knowledge transmission in the region.",
      
     /* /FAQ/licences */
     "faq__licences__title": "Licenses",

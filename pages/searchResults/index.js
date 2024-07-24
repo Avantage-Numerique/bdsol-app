@@ -6,8 +6,8 @@ import PageHeader from "@/layouts/Header/PageHeader";
 import EntitiesGrid from "@/src/DataTypes/Entity/layouts/EntitiesGrid";
 import Button from "@/src/common/FormElements/Button/Button";
 import Icon from "@/src/common/widgets/Icon/Icon";
-import { lang } from "@/src/common/Data/GlobalConstants";
-import { getBadgesInfo } from "@/src/DataTypes/Badges/BadgesSection";
+import {lang} from "@/src/common/Data/GlobalConstants";
+import {getBadgesInfo} from "@/src/DataTypes/Badges/BadgesSection";
 
 const SearchResults = (props) => {
 
@@ -158,13 +158,13 @@ const SearchResults = (props) => {
                                 </Button>
                                 <Button
                                     className="mx-2 rounded flex-grow-1"
-                                    color={filter.length == 0 ? "secondary" : null}
-                                    outline={filter.length == 0 ? null : "secondary"}
+                                    color={filter.length === 0 ? "secondary" : null}
+                                    outline={filter.length === 0 ? null : "secondary"}
                                     text_color_over="dark"
                                     onClick={() => updateFilterState("all")}
                                     id="filter-btn-all"
                                 >
-                                    {"Tous les types (" + ((nearTaxonomyObject?.linkedEntityToNearestTaxonomy?.length || 0) + (searchList.filter(elem => elem.type != "Taxonomy").length || 0)) + ")"}
+                                    {"Tous les types (" + ((nearTaxonomyObject?.linkedEntityToNearestTaxonomy?.length || 0) + (searchList.filter(elem => elem.type !== "Taxonomy").length || 0)) + ")"}
                                 </Button>
                                 <Button className="mx-2 rounded flex-grow-1"
                                         color={filter.includes("Person") ? "secondary" : null}
@@ -271,7 +271,7 @@ const SearchResults = (props) => {
 
 //Load badges Info
 export async function getServerSideProps() {
-    const badgeInfo = await getBadgesInfo();
+    const badgeInfo = await getBadgesInfo(true);
     return {
         props: {
             badgesInfo : badgeInfo

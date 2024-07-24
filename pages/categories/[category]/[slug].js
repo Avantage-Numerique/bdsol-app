@@ -14,7 +14,7 @@ import EntitiesGrid from "@/DataTypes/Entity/layouts/EntitiesGrid";
 import {getTitle} from "@/DataTypes/MetaData/MetaTitle";
 import {getType, TYPE_TAXONOMY} from "@/DataTypes/Entity/Types";
 import PageMeta from "@/src/common/PageMeta/PageMeta";
-
+import {getBadgesInfo} from "@/DataTypes/Badges/BadgesSection";
 
 export async function getServerSideProps(context) {
     const { slug, category } = context.params;
@@ -30,11 +30,14 @@ export async function getServerSideProps(context) {
             method: 'GET',
         });
 
+    const badgesInfo = await getBadgesInfo(true);
+
     if(typeof taxonomy.data._id === 'undefined' || entities.data._id)
         return { notFound: true };
     return { props: {
             taxonomy: taxonomy.data,
-            data: entities.data
+            data: entities.data,
+            badgesInfo: badgesInfo
         } };
 }
 
@@ -109,6 +112,7 @@ const TaxonomiesSinglePage = (props) => {
                 columnClass={"col-12 col-sm-6 col-lg-4 col-xl-3 g-4"}
                 feed={data}
                 noResult={"Aucune entité n’a été lié à cette catégorie pour le moment"}
+                badgesInfo={props.badgesInfo}
             />
 
             <Modal {...props}>

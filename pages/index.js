@@ -16,7 +16,7 @@ import {clientSideExternalApiRequest, useHttpClient} from '@/src/hooks/http-hook
 
 //Context
 import {getType} from "@/DataTypes/Entity/Types";
-import { useAuth } from '@/src/authentification/context/auth-context';
+import {useAuth} from '@/src/authentification/context/auth-context';
 
 //Images
 import backgroundImg from '@/public/general_images/Fusee_Pointilles1.svg'
@@ -123,7 +123,7 @@ const HomePage = (props) => {
                 subTitle={lang.homePageDescription}
                 description=""
                 image={"/general_images/CroissantBoreal.png"}
-                imgAlt={"Carte du croissant boréal"} 
+                imgAlt={"Carte du Croissant boréal"} 
                 leftColClassName="py-4"
                 key={"pageHeaderHomePage"} 
                 custom_FullWidthContent={HomePageHeaderBgImg}
@@ -226,7 +226,8 @@ export default HomePage;
 
 //Load badges Info
 export async function getServerSideProps() {
-    const badgeInfo = await getBadgesInfo();
+
+    const badgeInfo = await getBadgesInfo(true);
     return {
         props: {
             badgesInfo : badgeInfo

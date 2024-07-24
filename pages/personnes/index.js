@@ -21,7 +21,7 @@ import AppRoutes from "@/src/Routing/AppRoutes";
 import EntitiesGrid from "@/DataTypes/Entity/layouts/EntitiesGrid";
 import {getTitle} from "@/DataTypes/MetaData/MetaTitle";
 import {getType, TYPE_PERSON} from "@/DataTypes/Entity/Types";
-import { getBadgesInfo } from '@/src/DataTypes/Badges/BadgesSection';
+import {getBadgesInfo} from '@/src/DataTypes/Badges/BadgesSection';
 
 
 const PersonsPage = (props) => {
@@ -84,7 +84,7 @@ const PersonsPage = (props) => {
                 textColor={"text-white"}
                 title={"Consulter les personnes"}
                 subTitle={"Qu'elles proviennent du milieu du savoir, de la culture ou des affaires..."}
-                description="Les personnes listées ci-dessous peuvent être: des créateurs.trices numériques, des individus possédant une expertise ou de l'équipement spécialisé, des promoteurs d'initiatives numériques, ou toutes autres personnes intéressées à prendre part, d'une façon ou d'une autre, au développement des technologies numériques sur le territoire du Croissant Boréal."
+                description="Les personnes listées ci-dessous peuvent être: des créateurs.trices numériques, des individus possédant une expertise ou de l'équipement spécialisé, des promoteurs d'initiatives numériques, ou toutes autres personnes intéressées à prendre part, d'une façon ou d'une autre, au développement des technologies numériques sur le territoire du Croissant boréal."
             >
                 <Breadcrumbs className={"pt-2"} route={AppRoutes.persons} labels={breadcrumbsLabels} />
             </PageHeader>
@@ -163,7 +163,7 @@ const PersonsPage = (props) => {
 
 //Load badges Info
 export async function getServerSideProps() {
-    const badgeInfo = await getBadgesInfo();
+    const badgeInfo = await getBadgesInfo(true);
     return {
         props: {
             badgesInfo : badgeInfo
