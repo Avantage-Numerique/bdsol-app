@@ -1,13 +1,40 @@
 .equipment-container {
-    
+
+    //Small screen
     .equipment-row {
         background-color: lighten($secondary-dark, 15%);
-        cursor: pointer;
         transition: 0.3s ease-out;
-        
         &:hover { background-color: $secondary-dark; }
+
+        div {
+            border-bottom: 2px solid;
+            border-bottom-color: darken($secondary-dark, 15%);
+        }
     }
-    .equipment-row__qty { width: 4ch; }
+    .responsive-list {
+        display : block;
+    }
+
+    //Large screen
+    @include media-breakpoint-up(lg){
+        .equipment-row {
+            background-color: lighten($secondary-dark, 15%);
+            cursor: pointer;
+            transition: 0.3s ease-out;
+            &:hover { background-color: $secondary-dark; }
+
+            div {
+                border-bottom: none;
+            }
+        }
+        .responsive-list {
+            display: flex;
+        }
+        .equipment-row__qty { width: 4ch; padding-left: 0.6rem; }
+    }
+
+    .equipment-row-qty-label { width: 4ch;}
+    
 
 
 }

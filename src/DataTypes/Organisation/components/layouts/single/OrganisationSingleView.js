@@ -47,8 +47,10 @@ const OrganisationSingleView = ({ data }) => {
         url,
         location,
         meta,
-        projects,
+        creatorOfProjects,
+        projectsPartner,
         events,
+        creatorOfEvents,
         equipment,
         //__v,
         //_id
@@ -130,7 +132,7 @@ const OrganisationSingleView = ({ data }) => {
             </SingleInfo>
             
             {/* Team */}
-            <SingleInfo 
+            <SingleInfo
                 title={lang.teamMembers}
                 displayCondition={sortedTeam.length > 0}
                 cardLayout
@@ -143,17 +145,36 @@ const OrganisationSingleView = ({ data }) => {
                 />
             </SingleInfo>
             
-            {/* Projects */}
-            <SingleInfo 
-                title={`${lang.plural(lang.Project, lang.Projects, projects.length)}`} 
-                displayCondition={projects.length > 0}
+            {/* Creator of Projects */}
+            <SingleInfo
+                title={`${lang.plural(lang.projectCreated, lang.projectsCreated, creatorOfProjects.length)}`}
+                displayCondition={creatorOfProjects.length > 0}
                 cardLayout
             >
-                <EntitiesTagGrid feed={projects} />
+                <EntitiesTagGrid feed={creatorOfProjects} />
+            </SingleInfo>
+
+            {/* Project partner */}
+            <SingleInfo
+                title={`${lang.plural(lang.projectPartner, lang.projectsPartner, projectsPartner.length)}`}
+                displayCondition={projectsPartner?.length > 0}
+                cardLayout
+            >
+                {console.log(projectsPartner)}
+                <EntitiesTagGrid feed={projectsPartner} />                
             </SingleInfo>
             
-            {/* Events */}
-            <SingleInfo 
+            {/* CreatorOfEvents */}
+            <SingleInfo
+                title={`${lang.plural(lang.creatorOfEvent, lang.creatorOfEvents, creatorOfEvents.length)}`}
+                displayCondition={creatorOfEvents.length > 0}
+                cardLayout
+            >
+                <EntitiesTagGrid feed={creatorOfEvents} />
+            </SingleInfo>
+
+            {/* Events organizer */}
+            <SingleInfo
                 title={`${lang.plural(lang.organizerOfEvent, lang.organizerOfEvents, events.length)}`}
                 displayCondition={events.length > 0}
                 cardLayout
@@ -162,7 +183,7 @@ const OrganisationSingleView = ({ data }) => {
             </SingleInfo>
             
             {/* Equipment */}
-            <SingleInfo 
+            <SingleInfo
                 title={lang.EquipmentsOwned}
                 displayCondition={equipment && equipment.length > 0}
                 cardLayout
@@ -170,7 +191,7 @@ const OrganisationSingleView = ({ data }) => {
                 <ul className={`container mt-2 mb-0 ${styles["equipment-container"]}`}>
                     <li className="row mb-2">
                         <div className="d-flex">
-                            <div className={`text-secondary-darker ${styles["equipment-row__qty"]}`}>{lang.Qty}</div>
+                            <div className={`text-secondary-darker ${styles["equipment-row-qty-label"]}`}>{lang.Qty}</div>
                             <div className={`col text-secondary-darker`}>{lang.label}</div>
                             <div className="col text-secondary-darker">{lang.modelName}</div>
                             <div className="col text-secondary-darker">{lang.brand}</div>
@@ -181,12 +202,12 @@ const OrganisationSingleView = ({ data }) => {
                         return (
                             <li className={` ${styles["equipment-row"]} row rounded py-2 mt-2`} key={`orgEquip${index}`}>
                                 <Link href={equipmentModel.singleLink} title={equipmentModel.name}>
-                                    <div className="d-flex">
-                                        <div className={`${styles["equipment-row__qty"]} text-center`}>{equip.qty}</div>
+                                    <span className={` ${styles["responsive-list"]}`}>
+                                        <div className={`${styles["equipment-row__qty"]}`}>{equip.qty}</div>
                                         <div className={`col ${styles["equipment-row__name"]}`}>{equipmentModel.label}</div>
                                         <div className="col">{equipmentModel.modelName}</div>
                                         <div className="col">{equipmentModel.brand}</div>
-                                    </div>
+                                    </span>
                                 </Link>
                             </li>
                         )
