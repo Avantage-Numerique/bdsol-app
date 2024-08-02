@@ -1,6 +1,6 @@
 import {Matomo} from "@/src/monitoring/Matomo";
 
-const useWebStats = (cookiesParams) => {
+const useWebStats = () => {
     return Matomo.instance();
 }
 

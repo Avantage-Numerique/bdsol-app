@@ -245,7 +245,7 @@ const SearchResults = (props) => {
                                 <ul>
                                     { nearTaxonomyObject.otherNearbyTaxonomy.slice(0,8).map( (nearTaxo, index) => {
                                         return (
-                                            <li key={"nearTaxoList-"+nearTaxo._id}>
+                                            <li key={index+"nearTaxoList-"+nearTaxo._id}>
                                                 <a href={`/categories/${nearTaxo?.category}/${nearTaxo?.slug}`}>{nearTaxo.name}</a>
                                             </li>)
                                     })}
