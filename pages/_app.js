@@ -7,31 +7,23 @@ import Layout from '@/src/layouts/Layout';
 import {getVisitorDataFromContext} from "@/src/authentification/context/visitor-context";
 import {verifyToken} from "@/auth/callbacks/verify-token.callback";
 import CookieBanner from "@/common/widgets/CookieBanner/CookieBanner";
-
-import {init} from "@socialgouv/matomo-next";
 /**
  * Import global SCSS files
  */
 import '@/styles/main.scss';
+import useWebStats from "@/src/monitoring/hooks/useWebStats";
 
-
-const MATOMO_URL = process.env.NEXT_PUBLIC_MATOMO_URL;
-const MATOMO_SITE_ID = process.env.NEXT_PUBLIC_MATOMO_SITE_ID;
 
 // Extends basic Javascript for the project.
 // import "@/src/helpers/ExtendedString";
 
 function MyApp({Component, pageProps, user, serverCookiesChoices}) {
 
+    const webStats = useWebStats();
+    const cookieCHoices = serverCookiesChoices
+    console.log("APP", serverCookiesChoices);
     useEffect(() => {
-        init(
-            {
-                url: MATOMO_URL,
-                siteId: MATOMO_SITE_ID,
-                //excludeUrlsPatterns: [/^\/login.php/, /\?token=.+/],
-                //disableCookies: true,
-            }
-        );
+        webStats.init(cookieCHoices);
     }, []);
     /**
      * Main app render.
