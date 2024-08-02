@@ -29,15 +29,21 @@ class Matomo {
 
     init(applicationCookiesParams) {
         this.cookieChoices = applicationCookiesParams;
-        init(
-            {
-                url: this.url,
-                siteId: this.id,
-                //onRouteChangeComplete: this.onRouteChangeComplete,
-                //excludeUrlsPatterns: [/^\/login.php/, /\?token=.+/],
-                disableCookies: this.cookieChoices?.stats === true,
-            }
-        );
+        if (this.url && this.id) {
+            init(
+                {
+                    url: this.url,
+                    siteId: this.id,
+                    //onRouteChangeComplete: this.onRouteChangeComplete,
+                    //excludeUrlsPatterns: [/^\/login.php/, /\?token=.+/],
+                    disableCookies: this.cookieChoices?.stats === true,
+                }
+            );
+            return;
+        }
+        let message = this.url === undefined ? "L'url pour les statistiques sur matomo n'est pas défini" : "";
+        message += this.id === undefined ? "L'identifiant pour les statistique sur matomo n'est pas défini" : "";
+        console.erreur(message);
     }
 
     set cookieChoices(cookiesChoices) {
