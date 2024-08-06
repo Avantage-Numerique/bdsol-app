@@ -37,6 +37,8 @@ const organisations = {
 
     "organizerOfEvent": "A organisé cet événement",
     "organizerOfEvents": "A organisé ces événements",
+    "creatorOfEvents": "A créé ces événements",
+    "creatorOfEvent": "A créé cet événement",
 
     "iconOfOrganization": "Icône représentant une organisation",
 }
