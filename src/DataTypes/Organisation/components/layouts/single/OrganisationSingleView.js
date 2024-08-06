@@ -148,7 +148,7 @@ const OrganisationSingleView = ({ data }) => {
             {/* Creator of Projects */}
             <SingleInfo
                 title={`${lang.plural(lang.projectCreated, lang.projectsCreated, creatorOfProjects.length)}`}
-                displayCondition={creatorOfProjects.length > 0}
+                displayCondition={creatorOfProjects?.length > 0}
                 cardLayout
             >
                 <EntitiesTagGrid feed={creatorOfProjects} />
@@ -167,7 +167,7 @@ const OrganisationSingleView = ({ data }) => {
             {/* CreatorOfEvents */}
             <SingleInfo
                 title={`${lang.plural(lang.creatorOfEvent, lang.creatorOfEvents, creatorOfEvents.length)}`}
-                displayCondition={creatorOfEvents.length > 0}
+                displayCondition={creatorOfEvents?.length > 0}
                 cardLayout
             >
                 <EntitiesTagGrid feed={creatorOfEvents} />
@@ -176,7 +176,7 @@ const OrganisationSingleView = ({ data }) => {
             {/* Events organizer */}
             <SingleInfo
                 title={`${lang.plural(lang.organizerOfEvent, lang.organizerOfEvents, events.length)}`}
-                displayCondition={events.length > 0}
+                displayCondition={events?.length > 0}
                 cardLayout
             >
                 <EntitiesTagGrid feed={events} />
@@ -190,7 +190,7 @@ const OrganisationSingleView = ({ data }) => {
             >
                 <ul className={`container mt-2 mb-0 ${styles["equipment-container"]}`}>
                     <li className="row mb-2">
-                        <div className="d-flex">
+                        <div className={`d-flex ${styles["column-labels"]}`}>
                             <div className={`text-secondary-darker ${styles["equipment-row-qty-label"]}`}>{lang.Qty}</div>
                             <div className={`col text-secondary-darker`}>{lang.label}</div>
                             <div className="col text-secondary-darker">{lang.modelName}</div>
@@ -205,8 +205,8 @@ const OrganisationSingleView = ({ data }) => {
                                     <span className={` ${styles["responsive-list"]}`}>
                                         <div className={`${styles["equipment-row__qty"]}`}>{equip.qty}</div>
                                         <div className={`col ${styles["equipment-row__name"]}`}>{equipmentModel.label}</div>
-                                        <div className="col">{equipmentModel.modelName}</div>
-                                        <div className="col">{equipmentModel.brand}</div>
+                                        <div className={`col ${styles["equipment-row__modelName"]}`}>{equipmentModel.modelName}</div>
+                                        <div className={`col ${styles["equipment-row__brand"]}`}>{equipmentModel.brand}</div>
                                     </span>
                                 </Link>
                             </li>
