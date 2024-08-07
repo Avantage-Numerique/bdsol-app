@@ -60,9 +60,9 @@ const OrganisationSingleView = ({ data }) => {
     const model = new Organisation(data);
 
     /******* Sorted lists ********/
-    const sortedOffers = offers?.[0]?.subMeta?.order ? offers.sort((a,b) => a.subMeta.order - b.subMeta.order) : offers;
-    const sortedTeam = team?.[0]?.subMeta?.order ? team.sort((a,b) => a.subMeta.order - b.subMeta.order) : team;
-
+    const sortedOffers = offers?.[0]?.subMeta?.order !== undefined ? offers.sort((a,b) => a.subMeta.order - b.subMeta.order) : offers;
+    const sortedTeam = team?.[0]?.subMeta?.order !== undefined ? team.sort((a,b) => a.subMeta.order - b.subMeta.order) : team;
+    const sortedEquipment = equipment?.[0]?.subMeta?.order !== undefined ? equipment.sort((a, b) => a?.subMeta?.order - b?.subMeta?.order) : equipment;
 
     const breadcrumbLabels = {
         "organisations": lang.Organisations,
@@ -78,7 +78,6 @@ const OrganisationSingleView = ({ data }) => {
     useEffect(() => {
         setBreadCrumb(breadcrumbsRoutes)
     }, [name]);
-
 
     const Header = (
         <SingleBaseHeader
@@ -160,7 +159,6 @@ const OrganisationSingleView = ({ data }) => {
                 displayCondition={projectsPartner?.length > 0}
                 cardLayout
             >
-                {console.log(projectsPartner)}
                 <EntitiesTagGrid feed={projectsPartner} />                
             </SingleInfo>
             
@@ -185,7 +183,7 @@ const OrganisationSingleView = ({ data }) => {
             {/* Equipment */}
             <SingleInfo
                 title={lang.EquipmentsOwned}
-                displayCondition={equipment && equipment.length > 0}
+                displayCondition={sortedEquipment && sortedEquipment.length > 0}
                 cardLayout
             >
                 <ul className={`container mt-2 mb-0 ${styles["equipment-container"]}`}>
@@ -197,7 +195,7 @@ const OrganisationSingleView = ({ data }) => {
                             <div className="col text-secondary-darker">{lang.brand}</div>
                         </div>
                     </li>
-                    {equipment && equipment.map((equip, index) => {
+                    {sortedEquipment && sortedEquipment.map((equip, index) => {
                         const equipmentModel = new Equipment(equip.equipment);
                         return (
                             <li className={` ${styles["equipment-row"]} row rounded py-2 mt-2`} key={`orgEquip${index}`}>

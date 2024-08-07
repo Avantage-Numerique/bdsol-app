@@ -57,8 +57,8 @@ const ProjectSingleView = ({ data }) => {
     const sectionClassSpacing = appConfig.spacing.singleSectionSpacingClass;
 
     /******* Sorted lists ********/
-    const sortedSponsors = sponsor?.[0]?.subMeta?.order ? sponsor.sort((a,b) => a.subMeta.order - b.subMeta.order) : sponsor;
-    const sortedTeam = team?.[0]?.subMeta?.order ? team.sort((a,b) => a.subMeta.order - b.subMeta.order) : team;
+    const sortedSponsors = sponsor?.[0]?.subMeta?.order !== undefined ? sponsor.sort((a,b) => a.subMeta.order - b.subMeta.order) : sponsor;
+    const sortedTeam = team?.[0]?.subMeta?.order !== undefined ? team.sort((a,b) => a.subMeta.order - b.subMeta.order) : team;
 
     /* Needed for breadCrumb generator */
     const breadcrumbLabels = {
