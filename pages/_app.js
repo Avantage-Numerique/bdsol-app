@@ -1,3 +1,4 @@
+import React, {useEffect} from "react";
 import {getIronSession} from "iron-session";
 import App from "next/app";
 import {appDefaultSessionOptions} from "@/src/authentification/session/Session";
@@ -5,18 +6,25 @@ import {AuthProvider} from '@/src/authentification/context/auth-context';
 import Layout from '@/src/layouts/Layout';
 import {getVisitorDataFromContext} from "@/src/authentification/context/visitor-context";
 import {verifyToken} from "@/auth/callbacks/verify-token.callback";
-
+import CookieBanner from "@/common/widgets/CookieBanner/CookieBanner";
 /**
  * Import global SCSS files
  */
 import '@/styles/main.scss';
+import useWebStats from "@/src/monitoring/hooks/useWebStats";
+
 
 // Extends basic Javascript for the project.
-import "@/src/helpers/ExtendedString";
-import CookieBanner from "@/common/widgets/CookieBanner/CookieBanner";
-import React from "react";
+// import "@/src/helpers/ExtendedString";
 
 function MyApp({Component, pageProps, user, serverCookiesChoices}) {
+
+    const webStats = useWebStats();
+    const cookieCHoices = serverCookiesChoices;
+
+    useEffect(() => {
+        webStats.init(cookieCHoices);
+    }, []);
     /**
      * Main app render.
      */

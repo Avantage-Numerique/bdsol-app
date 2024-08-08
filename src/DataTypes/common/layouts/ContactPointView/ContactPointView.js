@@ -20,7 +20,7 @@ const ContactPointView = ({contact, ...props}) => {
         </article>
     )
     const websiteUrlSection = website.url !== "" && (
-        <article className={`d-flex flex-column p-2 mb-2`}>
+        <article className={`d-flex flex-column p-2 mb-2 text-break`}>
             <h5 className="text-dark mb-2">{lang.website}</h5>
             <ExternalLink href={website.url}>{website.url}</ExternalLink>
         </article>

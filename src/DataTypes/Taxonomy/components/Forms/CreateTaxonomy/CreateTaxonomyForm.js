@@ -130,7 +130,7 @@ const CreateTaxonomyForm = ({name, category, initValues, onPositiveResponse, ...
     const staticCategoryOptions = {
         skills : {label: "Compétence", value: "skills"},
         technologies : {label: "Technologie", value: "technologies"},
-        domains : {label: "Domaine", value: "domains"},
+        domains : {label: "Secteur d'activité", value: "domains"},
         equipmentType : {label: "Type d'équipement", value: "equipmentType"}
     }
     
@@ -197,7 +197,7 @@ const CreateTaxonomyForm = ({name, category, initValues, onPositiveResponse, ...
 
                 <Select2
                     name="domains"
-                    label={lang.Domains}
+                    label={lang.parentDomains}
                     formTools={formTools}
                     creatable={false}
                     isMulti={true}

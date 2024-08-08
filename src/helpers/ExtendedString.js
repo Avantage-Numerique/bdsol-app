@@ -7,3 +7,11 @@ if (typeof String.prototype.capitalize !== 'function') {
         enumerable: false
     });
 }
+if (typeof String.prototype.startWidth !== 'function') {
+    Object.defineProperty(String.prototype, 'startWidth', {
+        value: function (needle) {
+            return this.substring(0, needle.length) === needle;
+        },
+        enumerable: false
+    });
+}

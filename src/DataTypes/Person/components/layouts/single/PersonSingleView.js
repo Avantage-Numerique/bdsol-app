@@ -42,8 +42,7 @@ const PersonSingleView = ({ data }) => {
     } = data;
 
     //To display occupations in the proper order
-    const sortedOccupations = occupations?.[0]?.subMeta?.order ? occupations.sort((a,b) => a.subMeta.order - b.subMeta.order) : occupations;
-
+    const sortedOccupations = occupations?.[0]?.subMeta?.order !== undefined ? occupations.sort((a,b) => a.subMeta.order - b.subMeta.order) : occupations;
     const model = new Person(data);
 
     const breadcrumbLabels = {

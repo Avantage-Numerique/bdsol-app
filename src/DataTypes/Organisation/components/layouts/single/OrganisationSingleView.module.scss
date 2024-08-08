@@ -1,13 +1,64 @@
 .equipment-container {
-    
-    .equipment-row {
-        background-color: lighten($secondary-dark, 15%);
-        cursor: pointer;
-        transition: 0.3s ease-out;
-        
-        &:hover { background-color: $secondary-dark; }
+
+    //Small screen
+    @include media-breakpoint-down(lg){
+        .column-labels {
+            position: absolute;
+            visibility: hidden;
+        }
+        .equipment-row {
+            background-color: lighten($secondary-dark, 15%);
+            transition: 0.3s ease-out;
+            &:hover { background-color: $secondary-dark; }
+
+            div {
+                border-bottom: 2px solid;
+                border-bottom-color: darken($secondary-dark, 15%);
+            }
+            .equipment-row__qty::before {
+                content: "Qte : ";
+            }
+            .equipment-row__name::before {
+                content: "Nom : ";
+            }
+            .equipment-row__modelName::before {
+                content: "Modèle : ";
+            }
+            .equipment-row__brand::before {
+                content: "Marque : ";
+            }
+            .equipment-row__brand {
+                border-bottom: none;
+            }
+        }
+        .responsive-list {
+            display : block;
+        }
     }
-    .equipment-row__qty { width: 4ch; }
+
+    //Large screen
+    @include media-breakpoint-up(lg){
+        .equipment-row {
+            background-color: lighten($secondary-dark, 15%);
+            cursor: pointer;
+            transition: 0.3s ease-out;
+            &:hover { background-color: $secondary-dark; }
+
+            div {
+                border-bottom: none;
+            }
+        }
+        .responsive-list {
+            display: flex;
+        }
+        //.equipment-row__name
+        //.equipment-row__modelName
+        //.equipment-last__brand
+        .equipment-row__qty { width: 4ch; padding-left: 0.6rem; }
+    }
+
+    .equipment-row-qty-label { width: 4ch;}
+    
 
 
 }

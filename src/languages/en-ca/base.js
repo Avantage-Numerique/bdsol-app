@@ -179,6 +179,7 @@ export const base = {
     "Domain": "Domain",
     "domains": "domains",
     "domain": "domaine",
+    "parentDomains": "Parent domains",
 
     "domainsInputPlaceholder": "Art, information technology, communication, [...]",
     "domainsSingleLabel": "Domains",
