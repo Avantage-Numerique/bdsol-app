@@ -20,8 +20,8 @@ import useWebStats from "@/src/monitoring/hooks/useWebStats";
 function MyApp({Component, pageProps, user, serverCookiesChoices}) {
 
     const webStats = useWebStats();
-    const cookieCHoices = serverCookiesChoices
-    console.log("APP", serverCookiesChoices);
+    const cookieCHoices = serverCookiesChoices;
+
     useEffect(() => {
         webStats.init(cookieCHoices);
     }, []);
