@@ -3,7 +3,7 @@ import PageHeader from "@/layouts/Header/PageHeader";
 import {useAuth} from "@/auth/context/auth-context";
 import {lang} from "@/common/Data/GlobalConstants";
 import Button from "@/FormElements/Button/Button";
-import {changeCookieChoices} from "@/common/Cookies/cookiesChoices";
+import {changeCookieChoices, cookiesExplanations} from "@/common/Cookies/cookiesChoices";
 import Image from 'next/image';
 import fetchInternalApi from "@/src/api/fetchInternalApi";
 
@@ -65,22 +65,37 @@ const CookiesParams = () => {
                     <div className={"col-12"}>
                         <ul className={"list-group"}>
                             {Object.keys(auth.cookiesChoices).map((key, index) => {
+
                                 if (!skipChoicesProperties.includes(key)) {
                                     return (
                                         <li className={"list-group-item d-flex justify-content-between align-items-center"}
                                             key={`cookiesChoices${index}`}>
-                                            <p className={"fs-4 m-0 py-1"}>
-                                                {lang[`cookie${key.capitalize()}`]}
-                                            </p>
-                                            <div>
-                                                <label className={`me-2 text-${auth.cookiesChoices[key] === true ? "success" : "danger"}`}>{auth.cookiesChoices[key] === true ? lang.cookiePositive : lang.cookieNegative}</label>
-                                                <span className={`badge text-bg-${auth.cookiesChoices[key] === true ? "success" : "danger"} m-0`}>&nbsp;</span>
+                                            <div className={"pe-5"}>
+                                                <p className={"fs-4 m-0 pt-1"}>
+                                                    {lang[`cookie${key.capitalize()}`]}
+                                                </p>
+                                                <p className={"m-0 pb-1"}>{cookiesExplanations[key]}</p>
+                                            </div>
+                                            <div className={"w-25 text-end"}>
+                                                <label
+                                                    className={`me-2 text-${auth.cookiesChoices[key] === true ? "success" : "danger"}`}>{auth.cookiesChoices[key] === true ? lang.cookiePositive : lang.cookieNegative}</label>
+                                                <span
+                                                    className={`badge text-bg-${auth.cookiesChoices[key] === true ? "success" : "danger"} m-0`}>&nbsp;</span>
                                             </div>
                                         </li>
                                     );
                                 }
                             })
                             }
+
+                            <li className={"list-group-item d-flex justify-content-between align-items-center disabled"}
+                                key={`cookiesChoices123third`}>
+                                <div className={"pe-5"}>
+                                    <p className={"fs-4 m-0 pt-1"}>
+                                        {cookiesExplanations.third}
+                                    </p>
+                                </div>
+                            </li>
                         </ul>
                     </div>
                 </div>

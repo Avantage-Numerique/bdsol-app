@@ -20,6 +20,10 @@ const cookies = {
     "cookieDisabled": `${appConfig.name} a besoin d'enregistrer des cookies pour fonctionner. Il faut activer les cookies dans votre navigateur.`,
     "cookieNoThirdParty": `${appConfig.name} n'utilise pas de cookie tiers.`,
     "cookieDisabledButtonLabel": "Compris",
+    "cookieExplainAll":"",
+    "cookieExplainStats":`Nous recueillons des statistiques anonymisées sur l'utilisation de la plateforme. Les pages visitées, les recherches effectuées dans ${appConfig.name}, les endroits où tu as quitter la plateforme.`,
+    "cookieExplainAuth":`Sans lui tu ne peux pas contribuer à ${appConfig.name}. On en a besoin pour être en mesure de t'identifier et que ton navigateur se souvienne que tu es connecté.`,
+    "cookieExplainThird":`On ne suit pas les cookies tiers dans ${appConfig.name}. Aucun. Et on ne planifie pas le faire.`,
 }
 /*
     choiceMade:false,

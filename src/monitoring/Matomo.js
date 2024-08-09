@@ -36,7 +36,7 @@ class Matomo {
                     siteId: this.id,
                     //onRouteChangeComplete: this.onRouteChangeComplete,
                     //excludeUrlsPatterns: [/^\/login.php/, /\?token=.+/],
-                    disableCookies: this.cookieChoices?.stats === true,
+                    disableCookies: this.cookieChoices?.stats === false,
                 }
             );
             return;
@@ -55,6 +55,10 @@ class Matomo {
 
     push(stats) {
         push(stats);
+    }
+
+    onRouteChangeStart(path) {
+
     }
 
     onRouteChangeComplete(path) {
