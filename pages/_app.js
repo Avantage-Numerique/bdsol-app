@@ -7,15 +7,10 @@ import Layout from '@/src/layouts/Layout';
 import {getVisitorDataFromContext} from "@/src/authentification/context/visitor-context";
 import {verifyToken} from "@/auth/callbacks/verify-token.callback";
 import CookieBanner from "@/common/widgets/CookieBanner/CookieBanner";
-/**
- * Import global SCSS files
- */
-import '@/styles/main.scss';
 import useWebStats from "@/src/monitoring/hooks/useWebStats";
+import "@/src/helpers/ExtendedString";
 
-
-// Extends basic Javascript for the project.
-// import "@/src/helpers/ExtendedString";
+import '@/styles/main.scss';
 
 function MyApp({Component, pageProps, user, serverCookiesChoices}) {
 
