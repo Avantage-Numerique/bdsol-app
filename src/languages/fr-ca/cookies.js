@@ -14,6 +14,7 @@ const cookies = {
     "cookieAuth":"Les cookies d'authentification",
     "cookieThird":"Les cookies de partie tier",
     "cookieChangeChoice": "Changer mon choix",
+    "cookieMakeYourChoice": "Faire mon choix",
     "cookieMessageThanks": `Vous avez sélectionné vos préférences pour les miettes (cookies) d'${appConfig.name}`,
     "cookieMessageNeedAnswer": `Il faut absolument que tu choisisses un niveau de miettes (cookies). Même si on utilise aucun cookie intersite.`,
     "cookieMessageNeedAuthCookie": `Il faut absolument accepter les cookies de connexion pour continuer.`,
@@ -21,9 +22,9 @@ const cookies = {
     "cookieNoThirdParty": `${appConfig.name} n'utilise pas de cookie tiers.`,
     "cookieDisabledButtonLabel": "Compris",
     "cookieExplainAll":"",
-    "cookieExplainStats":`Nous recueillons des statistiques anonymisées sur l'utilisation de la plateforme. Les pages visitées, les recherches effectuées dans ${appConfig.name}, les endroits où tu as quitter la plateforme.`,
+    "cookieExplainStats":`Nous recueillons des statistiques anonymisées sur l'utilisation de la plateforme. Les pages visitées, les recherches effectuées dans ${appConfig.name}, les endroits où tu as quitter la plateforme. Avec l'outil Matomo.`,
     "cookieExplainAuth":`Sans lui tu ne peux pas contribuer à ${appConfig.name}. On en a besoin pour être en mesure de t'identifier et que ton navigateur se souvienne que tu es connecté.`,
-    "cookieExplainThird":`On ne suit pas les cookies tiers dans ${appConfig.name}. Aucun. Et on ne planifie pas le faire.`,
+    "cookieExplainThird":`On ne suit pas les cookies tiers dans ${appConfig.name}. Aucun. Et on ne planifie pas de le faire.`,
 }
 /*
     choiceMade:false,
