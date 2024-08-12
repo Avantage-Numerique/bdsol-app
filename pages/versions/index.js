@@ -10,6 +10,36 @@ export async function getServerSideProps() {
     let versionsList = [];
     versionsList.push(
         {
+            "label": "Ajout du tracking avec Matomo et amélioration dans l'interface",
+            "value": "1.0.1",
+            "date": "2024-08-20",
+            "description": "Ajout du suivi anonyme pour Matomo et la gestion de consentement relié à la bannière de cookie. Avec des ajouts de liaison de données pour les créateurs d'événements et partenaire de projet.",
+            "notes": [
+                {
+                    "value": "Matomo est maintenant actif pour les utilisateurs qui acceptent de partager leur utilisation dans la plateforme."
+                },
+                {
+                    "value": "Ajustement du visuel de la page des paramètres de cookies pour aider à la lecture. Surtout pour un utilisateur qui veut se connecter, mais qui n'a pas accepté les cookies de connexion."
+                },
+                {
+                    "value": "Ajout des partenaires de projets et des créateurs d'événements dans la fiche organisations."
+                },
+                {
+                    "value": "<strong>Équipe</strong>",
+                    "additionnalClasses": "pt-3 pb-2"
+                },
+                {
+                    "value": "<strong>Frédéric Rivard</strong>, Backend et front-end"
+                },
+                {
+                    "value": "<strong>Marc-André Martin</strong>, Backend, front-end et responsable du développement"
+                },
+                {
+                    "value": "<strong>Jeanne Perrin</strong> web design et UX"
+                }
+            ]
+        },
+        {
             "label": "Badge du CB et informations de contact",
             "value": "1.0.0",
             "date": "2024-06-28",
