@@ -107,7 +107,12 @@ const SearchResults = (props) => {
                 <h3>{resultMessage}</h3>
                 {
                     searchCount > 0 ?
-                    <EntitiesGrid className={"row"} feed={filteredList.filter(el => el.type !== "Taxonomy")} badgesInfo={props.badgesInfo}></EntitiesGrid>
+                    <EntitiesGrid
+                        className={"row"}
+                        feed={filteredList.filter(el => el.type !== "Taxonomy")}
+                        badgesInfo={props.badgesInfo}
+                        columnClass={"col-12 col-sm-6 col-lg-4 g-4 "}
+                    ></EntitiesGrid>
                     :
                     <div>Aucune entité trouvée, réessayer avec d'autre critère de recherche</div>
                 }
