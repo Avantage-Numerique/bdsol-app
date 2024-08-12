@@ -7,23 +7,18 @@ import Layout from '@/src/layouts/Layout';
 import {getVisitorDataFromContext} from "@/src/authentification/context/visitor-context";
 import {verifyToken} from "@/auth/callbacks/verify-token.callback";
 import CookieBanner from "@/common/widgets/CookieBanner/CookieBanner";
-/**
- * Import global SCSS files
- */
-import '@/styles/main.scss';
 import useWebStats from "@/src/monitoring/hooks/useWebStats";
+import "@/src/helpers/ExtendedString";
 
+import '@/styles/main.scss';
 
-// Extends basic Javascript for the project.
-// import "@/src/helpers/ExtendedString";
-
-function MyApp({Component, pageProps, user, serverCookiesChoices}) {
+function AVNU({Component, pageProps, user, serverCookiesChoices}) {
 
     const webStats = useWebStats();
-    const cookieCHoices = serverCookiesChoices;
+    const cookieChoices = serverCookiesChoices;
 
     useEffect(() => {
-        webStats.init(cookieCHoices);
+        webStats.init(cookieChoices);
     }, []);
     /**
      * Main app render.
@@ -47,7 +42,7 @@ function MyApp({Component, pageProps, user, serverCookiesChoices}) {
  * @return {Promise<{pageProps: {visitor: {ip: string, browser: string}}}>}
  * @inheritDoc https://nextjs.org/docs/api-reference/data-fetching/get-initial-props
  */
-MyApp.getInitialProps = async (context) => {
+AVNU.getInitialProps = async (context) => {
 
     const appProps = await App.getInitialProps(context);
     if (context.ctx.req && context.ctx.res) {
@@ -118,4 +113,4 @@ MyApp.getInitialProps = async (context) => {
 }
 
 //it isn't call in _app : noMyApp.getServerSideProps or I didn't declare it the good way.
-export default MyApp;
+export default AVNU;
