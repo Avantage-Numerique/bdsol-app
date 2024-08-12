@@ -152,7 +152,7 @@ const Repeater = props => {
     const auth = useAuth();
 
     //Extract the needed elements from the formtools
-    const { inputHandler } = formTools;
+    const { inputHandler, inputTouched } = formTools;
     
     //State to manage the values of every iterations of the repeater
     let initIteration = {};

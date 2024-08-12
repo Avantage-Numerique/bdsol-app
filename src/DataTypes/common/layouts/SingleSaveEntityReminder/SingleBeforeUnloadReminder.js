@@ -11,30 +11,13 @@ import { lang } from "@/src/common/Data/GlobalConstants";
  */
 const SingleBeforeUnloadReminder = ({formTools, saveIntention, ...props}) => {
     const router = useRouter();
-    
-    const initFormStateInputs = useRef(0);
-    const unsavedChanges = useRef(false);
-    
-    //SetTimeout soo that formTools has time to update fields and stop changing and set initFormStateInputs
-    useEffect( () => {
-        const timer = setTimeout(() => {
-            initFormStateInputs.current = formTools.formState.inputs;
-        }, 1000);
-        return () => clearTimeout(timer);
-    }, [])
 
     useEffect(() => {
-        //If initFormStateInputs has been updated check for unsavedChanges, else no unsavedChanges
-        if(initFormStateInputs.current != 0)
-            unsavedChanges.current = JSON.stringify(initFormStateInputs.current) !== JSON.stringify(formTools.formState.inputs) 
-        else
-            unsavedChanges.current = false;
-        
         //Set event listener on routeChange and beforeUnload
         const warningText = lang.onNavigationBlockWithoutSave;
         const handleWindowClose = (e) => {
             //If changes haven't occured, just procced as normal
-            if (!unsavedChanges.current) return;
+            if (!formTools.formState.hasAnyInputBeenTouched) return;
 
             e.preventDefault();
             return (e.returnValue = warningText);
@@ -42,7 +25,7 @@ const SingleBeforeUnloadReminder = ({formTools, saveIntention, ...props}) => {
 
         const handleBrowseAway = () => {
             //If changes haven't occured, just procced as normal
-            if (!unsavedChanges.current) return;
+            if (!formTools.formState.hasAnyInputBeenTouched) return;
 
             if (window.confirm(warningText)) return;
                 router.events.emit('routeChangeError');

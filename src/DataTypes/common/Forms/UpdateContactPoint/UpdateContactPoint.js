@@ -36,7 +36,7 @@ const UpdateContactPoint = ({model, name, formTools, ...props}) => {
     )
     
     //Update the main form state
-    const { inputHandler } = formTools;
+    const { inputHandler, inputTouched } = formTools;
     useEffect( () => {
         inputHandler(name,
             {
