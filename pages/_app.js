@@ -15,10 +15,10 @@ import '@/styles/main.scss';
 function AVNU({Component, pageProps, user, serverCookiesChoices}) {
 
     const webStats = useWebStats();
-    const cookieCHoices = serverCookiesChoices;
+    const cookieChoices = serverCookiesChoices;
 
     useEffect(() => {
-        webStats.init(cookieCHoices);
+        webStats.init(cookieChoices);
     }, []);
     /**
      * Main app render.
