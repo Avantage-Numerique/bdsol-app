@@ -270,7 +270,7 @@ const OrganisationSingleView = ({ data }) => {
             }
         </>
     )
-
+    console.log("ORG footer, metas", meta);
     const Footer = (
         <>
             {
@@ -279,7 +279,6 @@ const OrganisationSingleView = ({ data }) => {
                     title={lang.entityMetadata} 
                     className="border-top pt-3"
                 >
-                    {/*********** Entity data ***********/}
                     <SingleEntityMeta createdAt={createdAt} updatedAt={updatedAt} meta={meta} />
                 </SingleInfo>
             }
