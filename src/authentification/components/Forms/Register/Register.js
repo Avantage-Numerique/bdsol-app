@@ -12,7 +12,7 @@ import Input from '@/src/common/FormElements/Input/Input'
 import Button from '@/src/common/FormElements/Button/Button'
 import Spinner from '@/src/common/widgets/spinner/Spinner'
 import {MessageContext} from '@/src/common/UserNotifications/Message/Context/Message-Context'
-import { RouteLink } from '@/src/common/Components/RouteLink'
+import {RouteLink} from '@/src/common/Components/RouteLink'
 
 const Register = () => {
 
@@ -104,6 +104,7 @@ const Register = () => {
                         "avatar": formState.inputs.avatar.value,
                         "firstName": formState.inputs.firstName.value,
                         "lastName": formState.inputs.lastName.value,
+                        "name": formState.inputs.firstName.value + " " + formState.inputs.lastName.value,//that ways, should be handle by the api.//kept that way because of the future, user may want to update this on their account.
                         "tos": { accepted: isTOSAccepted}
                     }
                 };
