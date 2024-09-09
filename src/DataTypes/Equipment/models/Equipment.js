@@ -31,6 +31,7 @@ class Equipment extends EntityModel {
         this.icon = "icon-equipment";
 
         this.meta = {title: this.title, description: this.description, ...raw.meta};
+        this.setUsersMetas();
 
         params.showMeta = params.showMeta ?? true;
         params.showStatus = params.showStatus ?? true;
