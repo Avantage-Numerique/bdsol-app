@@ -5,7 +5,6 @@ import {TYPE_EVENT} from "@/DataTypes/Entity/Types";
 import Media from "@/DataTypes/Media/models/Media";
 import AppRoutes from "@/src/Routing/AppRoutes";
 import EventSimple from "../component/layout/simple/EventSimple";
-import {lang} from "@/common/Data/GlobalConstants";
 
 
 class Event extends EntityModel {
@@ -31,6 +30,7 @@ class Event extends EntityModel {
 
 
         this.meta = {title: this.title, description: this.description, ...raw.meta};
+        this.setUsersMetas();
 
         //this.taxonomies = new Map();
         //this.taxonomies.set("domains", raw.domains);

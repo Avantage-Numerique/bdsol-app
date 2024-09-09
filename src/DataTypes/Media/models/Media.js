@@ -37,6 +37,7 @@ class Media extends EntityModel {
         //this.associatedEntity = getModelFromType(raw.entityId?.type, raw.entityId);
         
         this.meta = {title: this.title, description: this.description, ...raw.meta};
+        this.setUsersMetas();
 
         //this.taxonomies = new Map();
         //this.taxonomies.set("domains", raw.domains);

@@ -258,6 +258,16 @@ class EntityModel {
         return appUrl(this.singleLink);//`${nextConfig.env.APP_URL}${this.singleLink}`;
     }
 
+    setUsersMetas() {
+
+        if (this.meta.requestedBy && typeof this.meta.requestedBy === "object" && (this.meta.requestedBy?.name === "" || !this.meta.requestedBy?.name)) {
+            this.meta.requestedBy.name = this.meta.requestedBy?.firstName + " " + this.meta.requestedBy?.lastName;
+        }
+        if (this.meta.lastModifiedBy && typeof this.meta.lastModifiedBy === "object" && (this.meta.lastModifiedBy?.name === "" || !this.meta.lastModifiedBy?.name)) {
+            this.meta.lastModifiedBy.name = this.meta.lastModifiedBy?.firstName + " " + this.meta.lastModifiedBy?.lastName;
+        }
+    }
+
     /**
      * Declare all the model property to be accessible to it.
      * @param raw {object} the raw data to declare property from.

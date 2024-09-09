@@ -4,7 +4,6 @@ import ProjectSingleView from "@/DataTypes/Project/layouts/single/ProjectSingleV
 import {TYPE_PROJECT} from "@/DataTypes/Entity/Types";
 import Media from "@/DataTypes/Media/models/Media";
 import AppRoutes from "@/src/Routing/AppRoutes";
-import {lang} from "@/common/Data/GlobalConstants";
 
 
 class Project extends EntityModel {
@@ -31,6 +30,7 @@ class Project extends EntityModel {
         this.type = TYPE_PROJECT;
 
         this.meta = {title: this.title, description: this.description, ...raw.meta};
+        this.setUsersMetas();
 
         //this.taxonomies = new Map();
         //this.taxonomies.set("domains", raw.domains);
