@@ -129,9 +129,6 @@ const PageMeta = (props) => {
                 type='application/ld+json'
                 dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(JSON.stringify(props.structuredData))}}
             />
-
-    
-
         </Head>
     )
 }

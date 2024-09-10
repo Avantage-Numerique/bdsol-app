@@ -20,6 +20,8 @@ export const base = {
     "continue": "Continue",
     "about": "About",
     "contactInformations": "Contact informations",
+    "anonyme": "anonym",
+    "parAvnu": "by AVNU",
 
     // App
 

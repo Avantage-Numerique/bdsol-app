@@ -63,7 +63,6 @@ const PersonSingleView = ({ data }) => {
     }, [firstName]);
 
 
-
     /****************************
      *  Sections
      ***************************/
@@ -201,7 +200,6 @@ const PersonSingleView = ({ data }) => {
                     title={lang.entityMetadata} 
                     className="border-top pt-3"
                 >
-                    {/*********** Entity data ***********/}
                     <SingleEntityMeta createdAt={createdAt} updatedAt={updatedAt} meta={meta} />
                 </SingleInfo>
             }

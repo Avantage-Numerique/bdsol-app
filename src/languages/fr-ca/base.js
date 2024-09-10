@@ -33,7 +33,8 @@ const base = {
     "hyperlinks":"Hyperliens",
     "externalLinks": "Liens externes",
     "contactInformations": "Informations de contact",
-
+    "anonyme": "anonyme",
+    "parAvnu": "par AVNU",
 
     // App
 
