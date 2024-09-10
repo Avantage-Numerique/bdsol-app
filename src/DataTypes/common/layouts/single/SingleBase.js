@@ -104,7 +104,6 @@ const SingleBase = (props) => {
                         </div>
                     </section>
                 }
-
             </div>
         </>
     )

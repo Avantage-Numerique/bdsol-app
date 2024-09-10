@@ -2,6 +2,7 @@ import {getType, TYPE_DEFAULT} from "@/DataTypes/Entity/Types";
 import {removeHtml} from "@/src/helpers/str";
 import {appUrl, replacePathname} from "@/src/helpers/url";
 import EntityTag from "@/DataTypes/Entity/layouts/EntityTag";
+import {lang} from "@/src/common/Data/GlobalConstants";
 
 /**
  * The abstract model for all the entities.
@@ -259,12 +260,23 @@ class EntityModel {
     }
 
     setUsersMetas() {
+        this.setUsersMetasOn(this.meta.requestedBy);
+        this.setUsersMetasOn(this.meta.lastModifiedBy);
+        console.log(this.title, "setUsersMetas", this.meta);
+    }
 
-        if (this.meta.requestedBy && typeof this.meta.requestedBy === "object" && (this.meta.requestedBy?.name === "" || !this.meta.requestedBy?.name)) {
-            this.meta.requestedBy.name = this.meta.requestedBy?.firstName + " " + this.meta.requestedBy?.lastName;
-        }
-        if (this.meta.lastModifiedBy && typeof this.meta.lastModifiedBy === "object" && (this.meta.lastModifiedBy?.name === "" || !this.meta.lastModifiedBy?.name)) {
-            this.meta.lastModifiedBy.name = this.meta.lastModifiedBy?.firstName + " " + this.meta.lastModifiedBy?.lastName;
+    setUsersMetasOn(targetUserData) {
+        if (targetUserData &&
+            typeof targetUserData === "object" &&
+            (targetUserData.name === "" || !targetUserData.name))
+        {
+            targetUserData.name = lang.anonyme;
+            if (targetUserData.firstName && targetUserData.firstName !== "") {
+                targetUserData.name += targetUserData.firstName + " " + targetUserData.lastName;
+            }
+            if (targetUserData.lastName && targetUserData.lastName !== "") {
+                targetUserData.name += targetUserData.firstName + " " + targetUserData.lastName;
+            }
         }
     }
 
