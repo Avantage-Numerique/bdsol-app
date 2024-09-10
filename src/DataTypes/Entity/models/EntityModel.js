@@ -262,7 +262,6 @@ class EntityModel {
     setUsersMetas() {
         this.setUsersMetasOn(this.meta.requestedBy);
         this.setUsersMetasOn(this.meta.lastModifiedBy);
-        console.log(this.title, "setUsersMetas", this.meta);
     }
 
     setUsersMetasOn(targetUserData) {
