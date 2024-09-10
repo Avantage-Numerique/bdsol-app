@@ -272,10 +272,12 @@ class EntityModel {
         {
             targetUserData.name = lang.anonyme;
             if (targetUserData.firstName && targetUserData.firstName !== "") {
-                targetUserData.name += targetUserData.firstName + " " + targetUserData.lastName;
+                targetUserData.name = targetUserData.name === lang.anonyme ? "" : targetUserData.name;
+                targetUserData.name += targetUserData.firstName + " ";
             }
             if (targetUserData.lastName && targetUserData.lastName !== "") {
-                targetUserData.name += targetUserData.firstName + " " + targetUserData.lastName;
+                targetUserData.name = targetUserData.name === lang.anonyme ? "" : targetUserData.name;
+                targetUserData.name += targetUserData.lastName;
             }
         }
     }
