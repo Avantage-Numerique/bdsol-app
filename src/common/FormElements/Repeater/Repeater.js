@@ -139,8 +139,8 @@ const Repeater = props => {
                                 //                  - repeaterDeleteElem : if true, an onClick event is going to be added to delete this iteration
                                 //                  - name : if defined and if it fits the values passed in the form init structure, it is going to receive the sub formTools for this specific iteration
         formInitStructure,      // - [object] :Structure of the form for every instance of the repeated element
-                                // -           CAREFUL => the names in the formInitstructure must reflect the names of the fields entered has children
-        formTools,              // - [formTools obj] : FormTools of the main form. Give us acces to the hole form data
+                                // -           CAREFUL => the names in the formInitstructure must reflect the names of the fields entered as children
+        formTools,              // - [formTools obj] : FormTools of the main form. Give us acces to the whole form data
         name,                   // - [string] : Name to refer to the repeater in the main form State
         initValues,             // - [array] : Expected to be an array of object where each object contains the values for one iteration of this repeater 
         //formReturnStructure   //
@@ -176,7 +176,7 @@ const Repeater = props => {
         const arrayOfIterationsValues = iterations ? Object.values(iterations) : [];
         //Loop through it to look at every children
         arrayOfIterationsValues.forEach(ite => {
-            //If only one isn't valid, the hole feild becomes invalid
+            //If only one isn't valid, the whole field becomes invalid
             if(!ite.isValid)
                 isValid = false;
             /*
@@ -249,6 +249,7 @@ const Repeater = props => {
             
     };
 
+    const updateCountRef = useRef(0);
     //Update the content of a single iteration in the state
     function updateIterationValue(key, value, isValid) {
         //Previous is important! Otherwise, it doesn't update properly
@@ -260,6 +261,14 @@ const Repeater = props => {
                 isValid: isValid
             }
         }))
+
+        //Each iterations inside repeater update 3 times for initialisation
+        //If counter reach 1 more than 3 update * iterationCount, touch is triggered
+        if(updateCountRef.current > Object.keys(iterations).length * 3 - 1){
+            inputTouched(name)
+        }
+        console.log("update count", updateCountRef.current)
+        updateCountRef.current = updateCountRef.current + 1;
     }
     //Add a new iteration to the state
     function addNewIteration(){
