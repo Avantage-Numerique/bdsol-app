@@ -52,7 +52,7 @@ const RepeaterSingleIteration = ({children, formInitSubStructure, iterationKey, 
         const {formState, formTools} = useFormUtils(formInitSubStructure);
         // update the value
         useEffect(() => {
-            updateIterationValue(iterationKey, formState.inputs, formState.isValid)
+            updateIterationValue(iterationKey, formState.inputs, formState.isValid, formState.hasAnyInputBeenTouched)
         }, [formState])
         //Return the children with the recursive function
         return iterateOverChildren(children, formInitSubStructure, formTools, deleteIterationByKey);
@@ -249,9 +249,9 @@ const Repeater = props => {
             
     };
 
-    const updateCountRef = useRef(0);
+    //const updateCountRef = useRef(0);
     //Update the content of a single iteration in the state
-    function updateIterationValue(key, value, isValid) {
+    function updateIterationValue(key, value, isValid, hasAnyInputBeenTouched) {
         //Previous is important! Otherwise, it doesn't update properly
         setIterations(prev => ({
             ...prev,
@@ -262,13 +262,16 @@ const Repeater = props => {
             }
         }))
 
+        if(hasAnyInputBeenTouched){
+            inputTouched(name);
+        }
+
         //Each iterations inside repeater update 3 times for initialisation
         //If counter reach 1 more than 3 update * iterationCount, touch is triggered
-        if(updateCountRef.current > Object.keys(iterations).length * 3 - 1){
+        /* if(updateCountRef.current > Object.keys(iterations).length * 3 - 1){
             inputTouched(name)
         }
-        console.log("update count", updateCountRef.current)
-        updateCountRef.current = updateCountRef.current + 1;
+        updateCountRef.current = updateCountRef.current + 1; */
     }
     //Add a new iteration to the state
     function addNewIteration(){
@@ -277,6 +280,7 @@ const Repeater = props => {
             ...iterations,
             ...newValue
         })
+        inputTouched(name);
     }
     //Delete an iteration from the state
     const deleteIterationByKey = ( key ) => {
@@ -295,6 +299,7 @@ const Repeater = props => {
         })
         //update the state
         setIterations(updatedIterations);
+        inputTouched(name);
     }
 
     //Create a new Id and make sure its not gonna be in double

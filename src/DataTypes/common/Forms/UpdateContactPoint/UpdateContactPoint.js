@@ -10,7 +10,6 @@ import { useFormUtils } from '@/src/hooks/useFormUtils/useFormUtils';
 
 const UpdateContactPoint = ({model, name, formTools, ...props}) => {
 
-    const updateCountRef = useRef(0);
     const contactFormUtils = useFormUtils(
         {
             tel: {
@@ -54,11 +53,10 @@ const UpdateContactPoint = ({model, name, formTools, ...props}) => {
 
             }, true)
 
-        //If updated more than twice, touch is triggered (formState update a couple time at initialising)
-        if(updateCountRef.current > 2){
+        //Update touch input if sub-form has been touched
+        if(contactFormUtils.formState.hasAnyInputBeenTouched){
             inputTouched(name)
         }
-        updateCountRef.current = updateCountRef.current + 1;
     },[contactFormUtils.formState.inputs])
 
     return (
