@@ -249,7 +249,6 @@ const Repeater = props => {
             
     };
 
-    //const updateCountRef = useRef(0);
     //Update the content of a single iteration in the state
     function updateIterationValue(key, value, isValid, hasAnyInputBeenTouched) {
         //Previous is important! Otherwise, it doesn't update properly
@@ -265,13 +264,6 @@ const Repeater = props => {
         if(hasAnyInputBeenTouched){
             inputTouched(name);
         }
-
-        //Each iterations inside repeater update 3 times for initialisation
-        //If counter reach 1 more than 3 update * iterationCount, touch is triggered
-        /* if(updateCountRef.current > Object.keys(iterations).length * 3 - 1){
-            inputTouched(name)
-        }
-        updateCountRef.current = updateCountRef.current + 1; */
     }
     //Add a new iteration to the state
     function addNewIteration(){
