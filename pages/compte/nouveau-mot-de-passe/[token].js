@@ -1,12 +1,13 @@
 import Button from "@/src/common/FormElements/Button/Button";
-import { clientSideExternalApiRequest, externalApiRequest } from "@/src/hooks/http-hook";
+import { clientSideExternalApiRequest } from "@/src/hooks/http-hook";
 import PageHeader from "@/src/layouts/Header/PageHeader";
-import Router from "next/router";
-import {useContext} from "react";
+import Router, { useRouter } from "next/router";
+import {useContext, useState, useEffect} from "react";
 import {MessageContext} from "@/src/common/UserNotifications/Message/Context/Message-Context";
 import {useFormUtils} from "@/src/hooks/useFormUtils/useFormUtils";
 import Input from "@/src/common/FormElements/Input/Input";
 import PageMeta from "@/src/common/PageMeta/PageMeta";
+import AppRoutes from "@/src/Routing/AppRoutes";
 
 
 /**
@@ -29,6 +30,17 @@ const forgottenPasswordReset = props => {
             },
         }, { displayResMessage: true}
     )
+
+    //Check whether token is valid or expired to facilitate UX and change UI
+    const [tokenIsValidState, setTokenIsValidState] = useState(true);
+    const router = useRouter();
+    useEffect(() => {
+        async function checkTokenExistAndUnexpired() {
+            const res = await clientSideExternalApiRequest("/reset-password/"+props.token, { method: 'GET'});
+            setTokenIsValidState(!res.error)
+        }
+        checkTokenExistAndUnexpired();
+    }, [router.asPath])
 
     const sendNewPassword = async () => {
         //Make sure that the two passwords matches
@@ -84,38 +96,51 @@ const forgottenPasswordReset = props => {
                 title={"Nouveau mot de passe"}
                 preventIndexation
             />
-            <form>
-                <PageHeader
-                    bg={"bg-primary-lighter"}
-                    textColor={"text-white"}
-                    htmlTitle={"Réinitialiser votre mot de passe"}
-                    //description={"Page de confirmation"}
-                />
-                <Input
-                    name="password"
-                    type="password"
-                    label="Mot de passe"
-                    validationRules={[
-                        {name: "REQUIRED"},
-                        {name: "MIN_LENGTH", specification: 8}
-                    ]}
-                    errorText="Veuillez entrer un mot de passe valide"
-                    formTools={formTools}
-                />
+            <PageHeader
+                bg={"bg-primary-lighter"}
+                textColor={"text-white"}
+                htmlTitle={"Réinitialiser votre mot de passe"}
+                //description={"Page de confirmation"}
+            />
+            {   //Token is not valid show error and redirect button
+                !tokenIsValidState &&
+                <>
+                        <h2>Ce lien est erroné ou n'est plus valide</h2>
+                        <Button onClick={() => { Router.push(AppRoutes.resetPassword.asPath) }}>
+                            Renvoyer un lien de nouveau mot de passe
+                        </Button>
+                </>
+            }
+            {   //Token is valid, show form to proceed with changing password
+                tokenIsValidState && (
+                <form>
+                    <Input
+                        name="password"
+                        type="password"
+                        label="Mot de passe"
+                        validationRules={[
+                            {name: "REQUIRED"},
+                            {name: "MIN_LENGTH", specification: 8}
+                        ]}
+                        errorText="Veuillez entrer un mot de passe valide"
+                        formTools={formTools}
+                    />
 
-                <Input
-                    name="password2"
-                    type="password"
-                    label="Confirmation du mot de passe"
-                    validationRules={[
-                        {name: "REQUIRED"},
-                        {name: "MIN_LENGTH", specification: 8}
-                    ]}
-                    errorText="Veuillez entrer un mot de passe valide"
-                    formTools={formTools}
-                />
-                <Button type="button" disabled={!formState.isValid} onClick={sendNewPassword}>Changer mon mot de passe</Button>
-            </form>
+                    <Input
+                        name="password2"
+                        type="password"
+                        label="Confirmation du mot de passe"
+                        validationRules={[
+                            {name: "REQUIRED"},
+                            {name: "MIN_LENGTH", specification: 8}
+                        ]}
+                        errorText="Veuillez entrer un mot de passe valide"
+                        formTools={formTools}
+                    />
+                    <Button type="button" disabled={!formState.isValid} onClick={sendNewPassword}>Changer mon mot de passe</Button>
+                </form>
+            )}
+            
         </>
     )
 }
