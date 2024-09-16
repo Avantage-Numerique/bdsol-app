@@ -26,6 +26,7 @@ import SingleInfo from "@/DataTypes/common/layouts/SingleInfo/SingleInfo";
 import Button from '@/FormElements/Button/Button'
 import Icon from "@/common/widgets/Icon/Icon";
 import SingleSaveEntityReminder from '@/src/DataTypes/common/layouts/SingleSaveEntityReminder/SingleSaveEntityReminder';
+import SingleBeforeUnloadReminder from "@/src/DataTypes/common/layouts/SingleSaveEntityReminder/SingleBeforeUnloadReminder";
 
 
 const PlaceSingleEdit = ({ positiveRequestActions, ...props}) => {
@@ -44,6 +45,9 @@ const PlaceSingleEdit = ({ positiveRequestActions, ...props}) => {
 
     //Import message context 
     const msg = useContext(MessageContext);
+
+    //Save intention for SingleBeforeUnloadReminder
+    const [saveIntentionState, setSaveIntentionState] = useState(false);
 
     const [currentMainImage, setCurrentMainImage] = useState(model.mainImage);
     const [currentModel, setCurrentModel] = useState(model);
@@ -198,7 +202,8 @@ const PlaceSingleEdit = ({ positiveRequestActions, ...props}) => {
                               setter={updateModelMainImage}/>
             <div className="d-flex flex-wrap align-items-end justify-content-between gap-2 gap-md-3 gap-lg-4">
                 <Button className='fs-6' size="slim" color="success" disabled={!formState.isValid}
-                        onClick={modalSaveEntityReminder.displayModal}>
+                    onClick={() => {setSaveIntentionState(true);modalSaveEntityReminder.displayModal()}}
+                >
                     <Icon iconName={"save"}/>&nbsp;{lang.capitalize("save")}
                 </Button>
                 <Button className='fs-6' size="slim" color="primary-light" href={model.singleLink}>
@@ -338,12 +343,13 @@ const PlaceSingleEdit = ({ positiveRequestActions, ...props}) => {
 
     {/*********** Submit section ***********/}
     const SinglePageBottom = (
-        <SubmitEntity submitHandler={modalSaveEntityReminder.displayModal} formState={formState} />
+        <SubmitEntity submitHandler={() => {setSaveIntentionState(true); modalSaveEntityReminder.displayModal()}} formState={formState} />
     )
     
 
     return (
         <>
+            <SingleBeforeUnloadReminder formTools={formTools} saveIntention={saveIntentionState}/>
             <SingleBase
                 breadCrumb={breadCrumb}
                 header={header}
@@ -356,7 +362,7 @@ const PlaceSingleEdit = ({ positiveRequestActions, ...props}) => {
             <modalSaveEntityReminder.Modal>
                 <SingleSaveEntityReminder
                     submitHandler={submitHandler}
-                    closeModal={modalSaveEntityReminder.closeModal}
+                    closeModal={() => {modalSaveEntityReminder.closeModal(); setSaveIntentionState(false)}}
                 />
             </modalSaveEntityReminder.Modal>
         </>

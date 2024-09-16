@@ -51,7 +51,8 @@ const Select = props => {
             name,
             event.target.value,
             props.validationRules ? validate(event.target.value) : true
-        )
+        );
+        inputTouched(name);
     }
 
     /* On mount, evaluate the initial value to see if it respect the validation */
@@ -67,7 +68,7 @@ const Select = props => {
             name,
             valueToUpdate,
             props.validationRules ? validate(valueToUpdate) : true
-        )
+        );
     }, [dependencyCallingValidation])  
  
     return (

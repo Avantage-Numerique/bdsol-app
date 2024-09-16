@@ -52,7 +52,7 @@ const RepeaterSingleIteration = ({children, formInitSubStructure, iterationKey, 
         const {formState, formTools} = useFormUtils(formInitSubStructure);
         // update the value
         useEffect(() => {
-            updateIterationValue(iterationKey, formState.inputs, formState.isValid)
+            updateIterationValue(iterationKey, formState.inputs, formState.isValid, formState.hasAnyInputBeenTouched)
         }, [formState])
         //Return the children with the recursive function
         return iterateOverChildren(children, formInitSubStructure, formTools, deleteIterationByKey);
@@ -139,8 +139,8 @@ const Repeater = props => {
                                 //                  - repeaterDeleteElem : if true, an onClick event is going to be added to delete this iteration
                                 //                  - name : if defined and if it fits the values passed in the form init structure, it is going to receive the sub formTools for this specific iteration
         formInitStructure,      // - [object] :Structure of the form for every instance of the repeated element
-                                // -           CAREFUL => the names in the formInitstructure must reflect the names of the fields entered has children
-        formTools,              // - [formTools obj] : FormTools of the main form. Give us acces to the hole form data
+                                // -           CAREFUL => the names in the formInitstructure must reflect the names of the fields entered as children
+        formTools,              // - [formTools obj] : FormTools of the main form. Give us acces to the whole form data
         name,                   // - [string] : Name to refer to the repeater in the main form State
         initValues,             // - [array] : Expected to be an array of object where each object contains the values for one iteration of this repeater 
         //formReturnStructure   //
@@ -152,7 +152,7 @@ const Repeater = props => {
     const auth = useAuth();
 
     //Extract the needed elements from the formtools
-    const { inputHandler } = formTools;
+    const { inputHandler, inputTouched } = formTools;
     
     //State to manage the values of every iterations of the repeater
     let initIteration = {};
@@ -176,7 +176,7 @@ const Repeater = props => {
         const arrayOfIterationsValues = iterations ? Object.values(iterations) : [];
         //Loop through it to look at every children
         arrayOfIterationsValues.forEach(ite => {
-            //If only one isn't valid, the hole feild becomes invalid
+            //If only one isn't valid, the whole field becomes invalid
             if(!ite.isValid)
                 isValid = false;
             /*
@@ -250,7 +250,7 @@ const Repeater = props => {
     };
 
     //Update the content of a single iteration in the state
-    function updateIterationValue(key, value, isValid) {
+    function updateIterationValue(key, value, isValid, hasAnyInputBeenTouched) {
         //Previous is important! Otherwise, it doesn't update properly
         setIterations(prev => ({
             ...prev,
@@ -260,6 +260,10 @@ const Repeater = props => {
                 isValid: isValid
             }
         }))
+
+        if(hasAnyInputBeenTouched){
+            inputTouched(name);
+        }
     }
     //Add a new iteration to the state
     function addNewIteration(){
@@ -268,6 +272,7 @@ const Repeater = props => {
             ...iterations,
             ...newValue
         })
+        inputTouched(name);
     }
     //Delete an iteration from the state
     const deleteIterationByKey = ( key ) => {
@@ -286,6 +291,7 @@ const Repeater = props => {
         })
         //update the state
         setIterations(updatedIterations);
+        inputTouched(name);
     }
 
     //Create a new Id and make sure its not gonna be in double

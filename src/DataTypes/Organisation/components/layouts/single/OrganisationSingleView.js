@@ -270,7 +270,7 @@ const OrganisationSingleView = ({ data }) => {
             }
         </>
     )
-    console.log("ORG footer, metas", meta);
+
     const Footer = (
         <>
             {
