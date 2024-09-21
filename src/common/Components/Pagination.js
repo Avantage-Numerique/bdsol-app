@@ -2,10 +2,13 @@ import { useEffect, useState } from "react"
 
 
 /**
- * @param {number} totalCount How many item total wants to be displayed 
- * @param {number} length how many item per page
- * @param {number} reset reset currentPage number upon change
- * @param {stateSetter} setSkipNumber Setter for how many item should be skipped in request (for parent)
+ * Basic pagination component. It sets a list of number, on top and below the children
+ * indicating # of pages. Upon reset, currentPage = 1
+ * 
+ * @param {number} totalCount How many total item to paginate (if this exceed 6 page, the display will update accordingly)
+ * @param {number} length how many item per page should be displayed
+ * @param {number} reset reset currentPage to 1 and skip to 0 upon change (UseState + 1)
+ * @param {stateSetter} setSkipNumber Set how many item should be skipped in the request for currentPage
  *   
  * */
 const Pagination = ({children, totalCount, length, setSkipNumber, reset, ...props}) => {
@@ -13,10 +16,13 @@ const Pagination = ({children, totalCount, length, setSkipNumber, reset, ...prop
     const [currentPage, setCurrentPage] = useState(1);
     const pageCount = Math.ceil(totalCount / length)
 
-    useEffect( () => { setSkipNumber((currentPage - 1)*length); }, [currentPage])
+    useEffect( () => {
+        if(currentPage != 1)
+        setSkipNumber((currentPage - 1)*length);
+    }, [currentPage])
 
     //If parent set reset to another number, it resets page to 1
-    useEffect( () => { setCurrentPage(1); }, [reset])
+    useEffect( () => { setSkipNumber(0); setCurrentPage(1); }, [reset])
 
     const nextPage = () => {
         if(currentPage < pageCount)
@@ -33,8 +39,15 @@ const Pagination = ({children, totalCount, length, setSkipNumber, reset, ...prop
         
         const paginationNumber = [];
         for( let i = 1; i <= pageCount; i++){
+            if(i < 9){
+                paginationNumber.push((
+                    <button className="px-4" onClick={() => setCurrentPage(i)} disabled={currentPage == i}>{i}</button>
+                ))
+            }
+        }
+        if(pageCount > 9){
             paginationNumber.push((
-                <button className="px-4"onClick={() => setCurrentPage(i)} disabled={currentPage == i}>{i}</button>
+                <button className="px-4" onClick={() => setCurrentPage(currentPage + 1)}>...</button>
             ))
         }
         return (<div>{paginationNumber}</div>);

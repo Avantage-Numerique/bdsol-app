@@ -9,7 +9,7 @@ import Button from "@/src/common/FormElements/Button/Button";
 import {clientSideExternalApiRequest, useHttpClient} from "@/src/hooks/http-hook";
 import EntitiesGrid from "@/src/DataTypes/Entity/layouts/EntitiesGrid";
 import Icon from "@/src/common/widgets/Icon/Icon";
-//import Pagination from "@/src/common/Components/Pagination";
+import Pagination from "@/src/common/Components/Pagination";
 import PageMeta from "@/src/common/PageMeta/PageMeta";
 import {lang} from "@/common/Data/GlobalConstants";
 import Spinner from "@/common/widgets/spinner/Spinner";
@@ -20,9 +20,9 @@ const ConsultData = (props) => {
 
     const [entityList, setEntityList] = useState([]);
     const [filterState, setFilterState] = useState("all");//For multi choice, it need to be an array at first render
-    const [showApplyBtn, setShowApplyBtn] = useState(false);
+    //const [showApplyBtn, setShowApplyBtn] = useState(false);
     const [skipNumber, setSkipNumber] = useState(0);
-    const resetPagination = useRef(0)
+    const [resetPagination, setResetPagination] = useState(0)
 
     const {isLoading, setIsLoading} = useHttpClient();
 
@@ -67,7 +67,7 @@ const ConsultData = (props) => {
         if(filterState === "all")
             return await clientSideExternalApiRequest("/search/?searchIndex=", { method: 'GET'});
         else
-            return await clientSideExternalApiRequest("/search/type", { method: 'POST', body: JSON.stringify({data : {type: filterState, skip:skipNumber}})});
+            return await clientSideExternalApiRequest("/search/type", { method: 'POST', body: JSON.stringify({data : {type: filterState, skip:skipNumber, limit:4}})});
     }
 
     async function sendApiListRequest(){
@@ -75,11 +75,59 @@ const ConsultData = (props) => {
         const res = await getListResponses();
         const list = res.data;
         setEntityList(list);
-        setShowApplyBtn(false);
+        //setShowApplyBtn(false);
         setIsLoading(false);
     }
     //First render fetch
-    useEffect(()=>{ sendApiListRequest() }, [filterState, skipNumber])
+    useEffect(()=>{ sendApiListRequest(); }, [filterState, skipNumber])
+    useEffect(()=>{ setResetPagination(resetPagination + 1); }, [filterState])
+
+    const entityFilter = () => {
+        const entityTypeList = ["Person", "Organisation", "Project", "Event", "Equipment"]
+        const buttonList = [];
+        entityTypeList.forEach(type => {
+            buttonList.push(
+                <Button className="mx-1 rounded flex-grow-1"
+                    color={filterState === type ? "secondary" : null}
+                    outline={filterState === type ? null : "secondary"}
+                    text_color_over="dark"
+                    onClick={() => setFilterState(type)}
+                    id={"filter-btn-"+type}
+                >
+                    {lang[type]}
+                </Button>
+
+            )
+        });
+        return buttonList;
+    }
+
+    const entityGrid = (
+        <div className="py-4 position-relative">
+            {isLoading &&
+                <div className={"home-page__feed-section--spinner-container"}>
+                    <div>
+                        <Spinner reverse/>
+                    </div>
+                    <p className="text-center"><strong>{lang.loadingData}</strong></p>
+                </div>
+            }
+            {/* Entities list section */}
+            {
+                entityList?.length > 0 &&
+                <EntitiesGrid
+                    className={"row"}
+                    columnClass={"col-12 col-sm-6 col-lg-4 col-xl-3 g-4 "}
+                    feed={entityList.filter(el => el.type !== "Taxonomy")}
+                    badgesInfo={props.badgesInfo}
+                />
+            }
+            {
+                !isLoading && entityList?.length <= 0 &&
+                <div>{lang.listNoResult}</div>
+            }
+        </div>
+    )
 
     return (
         <div>
@@ -109,51 +157,7 @@ const ConsultData = (props) => {
                             >
                                 Tous les types
                             </Button>
-                            <Button className="mx-1 rounded flex-grow-1"
-                                color={filterState === "Person" ? "secondary" : null}
-                                outline={filterState === "Person" ? null : "secondary"}
-                                text_color_over="dark"
-                                onClick={() => setFilterState("Person")}
-                                id="filter-btn-person"
-                            >
-                                Personnes
-                            </Button>
-                            <Button className="mx-1 rounded flex-grow-1"
-                                color={filterState === "Organisation" ? "secondary" : null}
-                                outline={filterState === "Organisation" ? null : "secondary"}
-                                text_color_over="dark"
-                                onClick={() => setFilterState("Organisation")}
-                                id="filter-btn-organisation"
-                            >
-                                Organisations
-                            </Button>
-                            <Button className="mx-1 rounded flex-grow-1"
-                                color={filterState === "Project" ? "secondary" : null}
-                                outline={filterState === "Project" ? null : "secondary"}
-                                text_color_over="dark"
-                                onClick={() => setFilterState("Project")}
-                                id="filter-btn-project"
-                            >
-                                Projets
-                            </Button>
-                            <Button className="mx-1 rounded flex-grow-1"
-                                color={filterState === "Event" ? "secondary" : null}
-                                outline={filterState === "Event" ? null : "secondary"}
-                                text_color_over="dark"
-                                onClick={() => setFilterState("Event")}
-                                id="filter-btn-event"
-                            >
-                                Événements
-                            </Button>
-                            <Button className="mx-1 rounded flex-grow-1"
-                                color={filterState === "Equipment" ? "secondary" : null}
-                                outline={filterState === "Equipment" ? null : "secondary"}
-                                text_color_over="dark"
-                                onClick={() => setFilterState("Equipment")}
-                                id="filter-btn-equipment"
-                            >
-                                Équipements
-                            </Button>
+                            {entityFilter()}
                         </div>
 
                     </div>
@@ -213,37 +217,21 @@ const ConsultData = (props) => {
                     {/*</div>
                 </section>*/}
             </section>
-            {/*<Pagination
-                totalCount={125}
-                length={18}
-                reset={resetPagination}
-                setSkipNumber={setSkipNumber}
-            >*/}
-                <div className="py-4 position-relative">
-                    {isLoading &&
-                        <div className={"home-page__feed-section--spinner-container"}>
-                            <div>
-                                <Spinner reverse/>
-                            </div>
-                            <p className="text-center"><strong>{lang.loadingData}</strong></p>
-                        </div>
-                    }
-                    {/* Entities list section */}
-                    {
-                        entityList?.length > 0 &&
-                        <EntitiesGrid
-                            className={"row"}
-                            columnClass={"col-12 col-sm-6 col-lg-4 col-xl-3 g-4 "}
-                            feed={entityList.filter(el => el.type !== "Taxonomy")}
-                            badgesInfo={props.badgesInfo}
-                        />
-                    }
-                    {
-                        !isLoading && entityList?.length <= 0 &&
-                        <div>{lang.listNoResult}</div>
-                    }
-                </div>
-            {/*</Pagination>*/}
+            { /* remove pagination if "all type" is selected (v1) */}
+            {filterState !== "all" ?
+                (
+                <Pagination
+                    totalCount={250}
+                    length={4}
+                    reset={resetPagination}
+                    setSkipNumber={setSkipNumber}
+                >
+                    {entityGrid}
+                </Pagination>
+                )
+                :
+                entityGrid
+            }
         </div>
     )
 }
