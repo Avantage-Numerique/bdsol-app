@@ -32,23 +32,72 @@ const Pagination = ({children, totalCount, length, setSkipNumber, reset, ...prop
     }
 
     const pageNumbers = () => {
+        //If 1 or 0 page ( 1 )
         if(pageCount < 2)
             return (<button onClick={() => setCurrentPage(1)} disabled={true}>1</button>)
         
-        const paginationNumber = [];
-        for( let i = 1; i <= pageCount; i++){
-            if(i < 6){
+        //If 5 page or less ( 1, 2, 3, 4, 5, "..." )
+        if(pageCount < 6 || currentPage < 3){
+            const paginationNumber = [];
+            for( let i = 1; i <= pageCount; i++){
+                if(i < 6)
+                    paginationNumber.push((
+                        <button className="px-4" key={"btn-pagination-currentPage-"+i} onClick={() => setCurrentPage(i)} disabled={currentPage == i}>{i}</button>
+                    ))
+            }
+            if(pageCount > 5)
                 paginationNumber.push((
-                    <button className="px-4" key={"btn-pagination-currentPage-"+i} onClick={() => setCurrentPage(i)} disabled={currentPage == i}>{i}</button>
+                    <button className="px-4" key={"btn-pagination-next-dots"} onClick={() => setCurrentPage(6)}>...</button>
+                ))
+            return <div>{paginationNumber}</div>
+        }
+
+        //If 6 page or more ( "...", x-2, x-1, x, x+1, x+2, "..." )
+        if(pageCount >= 6){
+            const paginationNumber = [];
+            for( let i = currentPage - 2; i <= currentPage + 2; i++){
+                if(i <= pageCount) {
+                    paginationNumber.push((
+                        <button className="px-4" key={"btn-pagination-currentPage-"+i} onClick={() => setCurrentPage(i)} disabled={currentPage == i}>{i}</button>
+                    ))
+                }
+            }
+            //if not at last 3 pages, Add dots to show that there is more page than what we show
+            if(currentPage + 3 <= pageCount){
+                paginationNumber.push((
+                    <button className="px-4" key={"btn-pagination-next-dots"} onClick={() => setCurrentPage(currentPage + 3)}>...</button>
                 ))
             }
+            //If at the last 2 page, show more lower pages
+            else {
+                if(currentPage + 1 == pageCount || currentPage == pageCount){
+                    paginationNumber.unshift((
+                    <button className="px-4" key={"btn-pagination-currentPage-"+(currentPage-3)} onClick={() => setCurrentPage(currentPage-3)} disabled={currentPage == currentPage-3}>{currentPage-3}</button>
+                    ));
+                }
+                if(currentPage == pageCount){
+                    paginationNumber.unshift((
+                        <button className="px-4" key={"btn-pagination-currentPage-"+(currentPage-4)} onClick={() => setCurrentPage(currentPage-4)} disabled={currentPage == currentPage-4}>{currentPage-4}</button>
+                    ));
+                }
+            }
+            //if current page is bigger than 3, adds dots to show that there is more page than what we show "prev"
+            if(currentPage > 3){
+                //Offset for onClick to handle correctly for last 2 pages.
+                let offset = 3;
+                if(currentPage + 1 == pageCount)
+                    offset = 4;
+                if(currentPage == pageCount)
+                    offset = 5;
+
+                paginationNumber.unshift((
+                    <button className="px-4" key={"btn-pagination-prev-dots"} onClick={() => setCurrentPage(currentPage - offset)}>...</button>
+                ))
+
+            }
+
+            return (<div>{paginationNumber}</div>);
         }
-        if(pageCount >= 6){
-            paginationNumber.push((
-                <button className="px-4" key={"btn-pagination-dots"} onClick={() => setCurrentPage(currentPage + 1)}>...</button>
-            ))
-        }
-        return (<div>{paginationNumber}</div>);
     }
 
     const pageNumbersComponent = (
