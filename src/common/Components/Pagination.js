@@ -16,13 +16,11 @@ const Pagination = ({children, totalCount, length, setSkipNumber, reset, ...prop
     const [currentPage, setCurrentPage] = useState(1);
     const pageCount = Math.ceil(totalCount / length)
 
-    useEffect( () => {
-        if(currentPage != 1)
-        setSkipNumber((currentPage - 1)*length);
-    }, [currentPage])
-
+    //Set skip when page change
+    useEffect( () => { setSkipNumber((currentPage - 1)*length); }, [currentPage])
+    
     //If parent set reset to another number, it resets page to 1
-    useEffect( () => { setSkipNumber(0); setCurrentPage(1); }, [reset])
+    useEffect( () => { setCurrentPage(1); }, [reset])
 
     const nextPage = () => {
         if(currentPage < pageCount)
@@ -39,15 +37,15 @@ const Pagination = ({children, totalCount, length, setSkipNumber, reset, ...prop
         
         const paginationNumber = [];
         for( let i = 1; i <= pageCount; i++){
-            if(i < 9){
+            if(i < 6){
                 paginationNumber.push((
-                    <button className="px-4" onClick={() => setCurrentPage(i)} disabled={currentPage == i}>{i}</button>
+                    <button className="px-4" key={"btn-pagination-currentPage-"+i} onClick={() => setCurrentPage(i)} disabled={currentPage == i}>{i}</button>
                 ))
             }
         }
-        if(pageCount > 9){
+        if(pageCount >= 6){
             paginationNumber.push((
-                <button className="px-4" onClick={() => setCurrentPage(currentPage + 1)}>...</button>
+                <button className="px-4" key={"btn-pagination-dots"} onClick={() => setCurrentPage(currentPage + 1)}>...</button>
             ))
         }
         return (<div>{paginationNumber}</div>);

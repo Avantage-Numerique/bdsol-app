@@ -23,7 +23,7 @@ const ConsultData = (props) => {
     //const [showApplyBtn, setShowApplyBtn] = useState(false);
     const [skipNumber, setSkipNumber] = useState(0);
     const [resetPagination, setResetPagination] = useState(0)
-
+    const [paginationMeta, setPaginationMeta] = useState({});
     const {isLoading, setIsLoading} = useHttpClient();
 
     //Multi choice filter (as in searchResult page)
@@ -67,7 +67,7 @@ const ConsultData = (props) => {
         if(filterState === "all")
             return await clientSideExternalApiRequest("/search/?searchIndex=", { method: 'GET'});
         else
-            return await clientSideExternalApiRequest("/search/type", { method: 'POST', body: JSON.stringify({data : {type: filterState, skip:skipNumber, limit:4}})});
+            return await clientSideExternalApiRequest("/search/type", { method: 'POST', body: JSON.stringify({data : {type: filterState, skip:skipNumber, limit:2}})});
     }
 
     async function sendApiListRequest(){
@@ -75,6 +75,7 @@ const ConsultData = (props) => {
         const res = await getListResponses();
         const list = res.data;
         setEntityList(list);
+        setPaginationMeta(res?.meta?.pagination);
         //setShowApplyBtn(false);
         setIsLoading(false);
     }
@@ -85,7 +86,7 @@ const ConsultData = (props) => {
     const entityFilter = () => {
         const entityTypeList = ["Person", "Organisation", "Project", "Event", "Equipment"]
         const buttonList = [];
-        entityTypeList.forEach(type => {
+        entityTypeList.forEach((type, index) => {
             buttonList.push(
                 <Button className="mx-1 rounded flex-grow-1"
                     color={filterState === type ? "secondary" : null}
@@ -93,6 +94,7 @@ const ConsultData = (props) => {
                     text_color_over="dark"
                     onClick={() => setFilterState(type)}
                     id={"filter-btn-"+type}
+                    key={"filter-btn-"+type+index}
                 >
                     {lang[type]}
                 </Button>
@@ -221,8 +223,8 @@ const ConsultData = (props) => {
             {filterState !== "all" ?
                 (
                 <Pagination
-                    totalCount={250}
-                    length={4}
+                    totalCount={paginationMeta?.count ?? 1}
+                    length={paginationMeta?.limit ?? 1}
                     reset={resetPagination}
                     setSkipNumber={setSkipNumber}
                 >
