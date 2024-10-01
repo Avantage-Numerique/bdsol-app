@@ -14,17 +14,21 @@ import { useEffect, useState } from "react"
 const Pagination = ({children, totalCount, length, setSkipNumber, reset, ...props}) => {
 
     const [currentPage, setCurrentPage] = useState(1);
+    const [endMessage, setEndMessage] = useState(undefined);
     const pageCount = Math.ceil(totalCount / length)
 
     //Set skip when page change
     useEffect( () => { setSkipNumber((currentPage - 1)*length); }, [currentPage])
     
     //If parent set reset to another number, it resets page to 1
-    useEffect( () => { setCurrentPage(1); }, [reset])
+    useEffect( () => { setCurrentPage(1); setEndMessage(undefined); }, [reset])
 
     const nextPage = () => {
         if(currentPage < pageCount)
             setCurrentPage(currentPage + 1)
+        else
+            setEndMessage("Whoa!? Un visiteur? Bravo, tu as atteint la fin du défilement 'infini'! >:D")
+
     }
     const previousPage = () => {
         if(currentPage > 1)
@@ -115,7 +119,7 @@ const Pagination = ({children, totalCount, length, setSkipNumber, reset, ...prop
             {children}
             {/* Bottom number section for pages*/}
             {pageNumbersComponent}
-
+            {endMessage ?? <div>{endMessage}</div>}
         </div>
     )
 }
