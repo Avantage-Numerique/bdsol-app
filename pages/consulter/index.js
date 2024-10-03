@@ -19,7 +19,7 @@ import {getBadgesInfo} from "@/src/DataTypes/Badges/BadgesSection";
 const ConsultData = (props) => {
 
     const [entityList, setEntityList] = useState([]);
-    const [filterState, setFilterState] = useState("all");//For multi choice, it need to be an array at first render
+    const [filterState, setFilterState] = useState("Person");//For multi choice, it need to be an array at first render
     //const [showApplyBtn, setShowApplyBtn] = useState(false);
     const [skipNumber, setSkipNumber] = useState(0);
     const [resetPagination, setResetPagination] = useState(0)
@@ -74,11 +74,36 @@ const ConsultData = (props) => {
         setIsLoading(true);
         const res = await getListResponses();
         const list = res.data;
-        setEntityList(list);
-        setPaginationMeta(res?.meta?.pagination);
+        setEntityList(list); //If not loadMore
+        //setEntityList([...entityList, ...list]); //If loadMore
+        const paginationMetaObj =
+        {
+            count: res?.meta?.pagination?.count,
+            skipped: res?.meta?.pagination?.skipped,
+            limit: res?.meta?.pagination?.limit,
+            type: res?.meta?.pagination?.type
+        };
+        setPaginationMeta(paginationMetaObj);
         //setShowApplyBtn(false);
         setIsLoading(false);
     }
+
+    async function resetEntityListAndRequest(){
+        setIsLoading(true);
+        const res = await getListResponses();
+        //const list = res.data;
+        setEntityList(res.data);
+        const paginationMetaObj =
+        {
+            count: res?.meta?.pagination?.count,
+            skipped: res?.meta?.pagination?.skipped,
+            limit: res?.meta?.pagination?.limit,
+            type: res?.meta?.pagination?.type
+        };
+        setPaginationMeta(paginationMetaObj);
+        setIsLoading(false);
+    }
+
     //First render fetch
     useEffect(()=>{ sendApiListRequest(); }, [filterState, skipNumber])
     useEffect(()=>{ setResetPagination(resetPagination + 1); }, [filterState])
@@ -227,6 +252,7 @@ const ConsultData = (props) => {
                     length={paginationMeta?.limit ?? 1}
                     reset={resetPagination}
                     setSkipNumber={setSkipNumber}
+                    loadMore={false}
                 >
                     {entityGrid}
                 </Pagination>

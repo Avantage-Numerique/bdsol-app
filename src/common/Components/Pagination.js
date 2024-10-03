@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState, useRef, useCallback } from "react"
 
 
 /**
@@ -9,13 +9,26 @@ import { useEffect, useState } from "react"
  * @param {number} length how many item per page should be displayed
  * @param {number} reset reset currentPage to 1 and skip to 0 upon change (UseState + 1)
  * @param {stateSetter} setSkipNumber Set how many item should be skipped in the request for currentPage
+ * @param {boolean} loadMore true make the component go to nextPage if scrolled to the bottom of the page.
+ * Note for loadMore :
+ *      true ==> setEntityList([...entityList, ...list]);
+ *      false ==> setEntityList(list);
  *   
  * */
-const Pagination = ({children, totalCount, length, setSkipNumber, reset, ...props}) => {
+const Pagination = ({children, totalCount, length, setSkipNumber, reset, loadMore=false, ...props}) => {
 
+    //currentPage and pageCount
     const [currentPage, setCurrentPage] = useState(1);
+    const [pageCount, setPageCount] = useState(Math.ceil(totalCount / length))
+    useEffect( () => setPageCount(Math.ceil(totalCount / length)), [totalCount, length]);
+
+    //UseRef to handle onScroll (necessary because onScroll was triggering nextPage() with initial values)
+    const currentPageRef = useRef(1);
+    const pageCountRef = useRef(1);
+    useEffect( () => { currentPageRef.current = currentPage; }, [currentPage]);
+    useEffect( () => { pageCountRef.current = pageCount; }, [pageCount]);
+
     const [endMessage, setEndMessage] = useState(undefined);
-    const pageCount = Math.ceil(totalCount / length)
 
     //Set skip when page change
     useEffect( () => { setSkipNumber((currentPage - 1)*length); }, [currentPage])
@@ -24,11 +37,11 @@ const Pagination = ({children, totalCount, length, setSkipNumber, reset, ...prop
     useEffect( () => { setCurrentPage(1); setEndMessage(undefined); }, [reset])
 
     const nextPage = () => {
-        if(currentPage < pageCount)
-            setCurrentPage(currentPage + 1)
+        if(currentPageRef.current < pageCountRef.current){
+            setCurrentPage(prevPage => { return prevPage + 1;});
+        }
         else
             setEndMessage("Whoa!? Un visiteur? Bravo, tu as atteint la fin du défilement 'infini'! >:D")
-
     }
     const previousPage = () => {
         if(currentPage > 1)
@@ -103,6 +116,36 @@ const Pagination = ({children, totalCount, length, setSkipNumber, reset, ...prop
             return (<div>{paginationNumber}</div>);
         }
     }
+
+    
+    //LoadMore section
+    //const debouncedScroll = useDebounce(onScroll, 400); (couldn't make it work with our hook..)
+    function debounce(func, delay) {
+        let timeoutId;
+        return function (...args) {
+            if (timeoutId) {
+                clearTimeout(timeoutId);
+            }
+            timeoutId = setTimeout(() => {
+                func.apply(this, args);
+            }, delay);
+        };
+    }
+    const onScroll = useCallback(debounce(() => {
+        if (window.innerHeight + document.documentElement.scrollTop === document.scrollingElement.scrollHeight) {
+            console.log("Load more triggered");
+            nextPage();
+        }
+    }, 100), []);
+
+    useEffect( () => {
+        if(loadMore){
+            window.addEventListener('scroll', onScroll);
+            return () => {
+                window.removeEventListener('scroll', onScroll);
+            }
+        }
+    },[loadMore, onScroll])
 
     const pageNumbersComponent = (
         <div className="d-flex py-4 justify-content-center">
