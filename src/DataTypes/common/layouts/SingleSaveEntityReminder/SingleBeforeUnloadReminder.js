@@ -26,10 +26,10 @@ const SingleBeforeUnloadReminder = ({formTools, saveIntention, ...props}) => {
         const handleBrowseAway = () => {
             //If changes haven't occured, just procced as normal
             if (!formTools.formState.hasAnyInputBeenTouched) return;
-
             if (window.confirm(warningText)) return;
-                router.events.emit('routeChangeError');
-                throw 'routeChange aborted.';
+            
+            router.events.emit('routeChangeError');
+            throw 'routeChange aborted.';
         };
 
         //If intention is to save, disable the listener else enable listeners
