@@ -22,7 +22,8 @@ const ConsultData = (props) => {
     const [filterState, setFilterState] = useState("Person");//For multi choice, it need to be an array at first render
     //const [showApplyBtn, setShowApplyBtn] = useState(false);
     const [skipNumber, setSkipNumber] = useState(0);
-    const [resetPagination, setResetPagination] = useState(0)
+    const [resetPagination, setResetPagination] = useState(0);
+    const [clearList, setClearList] = useState(true)
     const [paginationMeta, setPaginationMeta] = useState({});
     const {isLoading, setIsLoading} = useHttpClient();
 
@@ -74,8 +75,13 @@ const ConsultData = (props) => {
         setIsLoading(true);
         const res = await getListResponses();
         const list = res.data;
-        setEntityList(list); //If not loadMore
-        //setEntityList([...entityList, ...list]); //If loadMore
+        if(clearList){
+            setEntityList(list); //If not loadMore or changing page/filter
+            setClearList(false);
+        }
+        else {
+            setEntityList([...entityList, ...list]); //If loadMore scroll
+        }
         const paginationMetaObj =
         {
             count: res?.meta?.pagination?.count,
@@ -88,25 +94,13 @@ const ConsultData = (props) => {
         setIsLoading(false);
     }
 
-    async function resetEntityListAndRequest(){
-        setIsLoading(true);
-        const res = await getListResponses();
-        //const list = res.data;
-        setEntityList(res.data);
-        const paginationMetaObj =
-        {
-            count: res?.meta?.pagination?.count,
-            skipped: res?.meta?.pagination?.skipped,
-            limit: res?.meta?.pagination?.limit,
-            type: res?.meta?.pagination?.type
-        };
-        setPaginationMeta(paginationMetaObj);
-        setIsLoading(false);
-    }
-
-    //First render fetch
-    useEffect(()=>{ sendApiListRequest(); }, [filterState, skipNumber])
-    useEffect(()=>{ setResetPagination(resetPagination + 1); }, [filterState])
+    //Fetchs and first fetch
+    useEffect(()=>{ sendApiListRequest(); }, [skipNumber])
+    useEffect(()=>{
+        setClearList(true);
+        setResetPagination( resetPagination + 1);
+        sendApiListRequest();
+    },[filterState])
 
     const entityFilter = () => {
         const entityTypeList = ["Person", "Organisation", "Project", "Event", "Equipment"]
@@ -251,8 +245,9 @@ const ConsultData = (props) => {
                     totalCount={paginationMeta?.count ?? 1}
                     length={paginationMeta?.limit ?? 1}
                     reset={resetPagination}
+                    setClearList={setClearList}
                     setSkipNumber={setSkipNumber}
-                    loadMore={false}
+                    loadMore={true}
                 >
                     {entityGrid}
                 </Pagination>

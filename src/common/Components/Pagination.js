@@ -7,7 +7,8 @@ import { useEffect, useState, useRef, useCallback } from "react"
  * 
  * @param {number} totalCount How many total item to paginate (if this exceed 6 page, the display will update accordingly)
  * @param {number} length how many item per page should be displayed
- * @param {number} reset reset currentPage to 1 and skip to 0 upon change (UseState + 1)
+ * @param {number} reset State that when updated, sets current page number to 1. ( setState( prev + 1) )
+ * @param {number} setClearList Tell parent that on the next fetch, the list need to be reset as new list (not to add more)
  * @param {stateSetter} setSkipNumber Set how many item should be skipped in the request for currentPage
  * @param {boolean} loadMore true make the component go to nextPage if scrolled to the bottom of the page.
  * Note for loadMore :
@@ -15,7 +16,7 @@ import { useEffect, useState, useRef, useCallback } from "react"
  *      false ==> setEntityList(list);
  *   
  * */
-const Pagination = ({children, totalCount, length, setSkipNumber, reset, loadMore=false, ...props}) => {
+const Pagination = ({children, totalCount, length, setSkipNumber, setClearList, loadMore=false, reset, ...props}) => {
 
     //currentPage and pageCount
     const [currentPage, setCurrentPage] = useState(1);
@@ -32,9 +33,9 @@ const Pagination = ({children, totalCount, length, setSkipNumber, reset, loadMor
 
     //Set skip when page change
     useEffect( () => { setSkipNumber((currentPage - 1)*length); }, [currentPage])
-    
-    //If parent set reset to another number, it resets page to 1
-    useEffect( () => { setCurrentPage(1); setEndMessage(undefined); }, [reset])
+
+    //Reset pagination
+    useEffect( () => { setCurrentPage(1); setEndMessage(undefined) }, [reset])
 
     const nextPage = () => {
         if(currentPageRef.current < pageCountRef.current){
@@ -44,8 +45,16 @@ const Pagination = ({children, totalCount, length, setSkipNumber, reset, loadMor
             setEndMessage("Whoa!? Un visiteur? Bravo, tu as atteint la fin du défilement 'infini'! >:D")
     }
     const previousPage = () => {
-        if(currentPage > 1)
-            setCurrentPage(currentPage - 1)
+        if(currentPage > 1){
+            setCurrentPage(currentPage - 1);
+            setClearList(true);
+        }
+    }
+
+    //Changes currentPage and clear entity list
+    const setPageNumber = (number) => {
+        setCurrentPage(number);
+        setClearList(true);
     }
 
     const pageNumbers = () => {
@@ -59,12 +68,12 @@ const Pagination = ({children, totalCount, length, setSkipNumber, reset, loadMor
             for( let i = 1; i <= pageCount; i++){
                 if(i < 6)
                     paginationNumber.push((
-                        <button className="px-4" key={"btn-pagination-currentPage-"+i} onClick={() => setCurrentPage(i)} disabled={currentPage == i}>{i}</button>
+                        <button className="px-4" key={"btn-pagination-currentPage-"+i} onClick={() => setPageNumber(i)} disabled={currentPage == i}>{i}</button>
                     ))
             }
             if(pageCount > 5)
                 paginationNumber.push((
-                    <button className="px-4" key={"btn-pagination-next-dots"} onClick={() => setCurrentPage(6)}>...</button>
+                    <button className="px-4" key={"btn-pagination-next-dots"} onClick={() => setPageNumber(6)}>...</button>
                 ))
             return <div>{paginationNumber}</div>
         }
@@ -75,26 +84,26 @@ const Pagination = ({children, totalCount, length, setSkipNumber, reset, loadMor
             for( let i = currentPage - 2; i <= currentPage + 2; i++){
                 if(i <= pageCount) {
                     paginationNumber.push((
-                        <button className="px-4" key={"btn-pagination-currentPage-"+i} onClick={() => setCurrentPage(i)} disabled={currentPage == i}>{i}</button>
+                        <button className="px-4" key={"btn-pagination-currentPage-"+i} onClick={() => setPageNumber(i)} disabled={currentPage == i}>{i}</button>
                     ))
                 }
             }
             //if not at last 3 pages, Add dots to show that there is more page than what we show
             if(currentPage + 3 <= pageCount){
                 paginationNumber.push((
-                    <button className="px-4" key={"btn-pagination-next-dots"} onClick={() => setCurrentPage(currentPage + 3)}>...</button>
+                    <button className="px-4" key={"btn-pagination-next-dots"} onClick={() => setPageNumber(currentPage + 3)}>...</button>
                 ))
             }
             //If at the last 2 page, show more lower pages
             else {
                 if(currentPage + 1 == pageCount || currentPage == pageCount){
                     paginationNumber.unshift((
-                    <button className="px-4" key={"btn-pagination-currentPage-"+(currentPage-3)} onClick={() => setCurrentPage(currentPage-3)} disabled={currentPage == currentPage-3}>{currentPage-3}</button>
+                    <button className="px-4" key={"btn-pagination-currentPage-"+(currentPage-3)} onClick={() => setPageNumber(currentPage-3)} disabled={currentPage == currentPage-3}>{currentPage-3}</button>
                     ));
                 }
                 if(currentPage == pageCount){
                     paginationNumber.unshift((
-                        <button className="px-4" key={"btn-pagination-currentPage-"+(currentPage-4)} onClick={() => setCurrentPage(currentPage-4)} disabled={currentPage == currentPage-4}>{currentPage-4}</button>
+                        <button className="px-4" key={"btn-pagination-currentPage-"+(currentPage-4)} onClick={() => setPageNumber(currentPage-4)} disabled={currentPage == currentPage-4}>{currentPage-4}</button>
                     ));
                 }
             }
@@ -108,7 +117,7 @@ const Pagination = ({children, totalCount, length, setSkipNumber, reset, loadMor
                     offset = 5;
 
                 paginationNumber.unshift((
-                    <button className="px-4" key={"btn-pagination-prev-dots"} onClick={() => setCurrentPage(currentPage - offset)}>...</button>
+                    <button className="px-4" key={"btn-pagination-prev-dots"} onClick={() => setPageNumber(currentPage - offset)}>...</button>
                 ))
 
             }
