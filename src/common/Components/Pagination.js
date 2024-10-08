@@ -47,14 +47,16 @@ const Pagination = ({children, totalCount, length, setSkipNumber, setClearList, 
     const previousPage = () => {
         if(currentPage > 1){
             setCurrentPage(currentPage - 1);
-            setClearList(true);
+            if(setClearList)
+                setClearList(true);
         }
     }
 
     //Changes currentPage and clear entity list
     const setPageNumber = (number) => {
         setCurrentPage(number);
-        setClearList(true);
+        if(setClearList)
+            setClearList(true);
     }
 
     const pageNumbers = () => {
