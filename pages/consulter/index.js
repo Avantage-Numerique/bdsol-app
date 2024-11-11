@@ -4,7 +4,6 @@ import React, {useEffect, useRef, useState} from "react";
 import PageHeader from "@/layouts/Header/PageHeader";
 import Button from "@/src/common/FormElements/Button/Button";
 
-//hooks
 //Utils
 import {clientSideExternalApiRequest, useHttpClient} from "@/src/hooks/http-hook";
 import EntitiesGrid from "@/src/DataTypes/Entity/layouts/EntitiesGrid";
@@ -20,10 +19,9 @@ const ConsultData = (props) => {
 
     const [entityList, setEntityList] = useState([]);
     const [filterState, setFilterState] = useState("Person");//For multi choice, it need to be an array at first render
-    //const [showApplyBtn, setShowApplyBtn] = useState(false);
     const [skipNumber, setSkipNumber] = useState(0);
-    const [resetPagination, setResetPagination] = useState(0);
-    const [clearList, setClearList] = useState(true)
+    const clearListRef = useRef(false);
+    const isFirstRenderRef = useRef(true);
     const [paginationMeta, setPaginationMeta] = useState({});
     const {isLoading, setIsLoading} = useHttpClient();
 
@@ -75,7 +73,7 @@ const ConsultData = (props) => {
         setIsLoading(true);
         const res = await getListResponses();
         const list = res.data;
-        if(clearList){
+        if(clearListRef.current){
             setEntityList(list); //If not loadMore or changing page/filter
             setClearList(false);
         }
@@ -87,19 +85,37 @@ const ConsultData = (props) => {
             count: res?.meta?.pagination?.count,
             skipped: res?.meta?.pagination?.skipped,
             limit: res?.meta?.pagination?.limit,
-            type: res?.meta?.pagination?.type
+            type: res?.meta?.pagination?.type,
+            pageCount: res?.meta?.pagination?.pageCount,
+            currentPage: res?.meta?.pagination?.currentPage
         };
         setPaginationMeta(paginationMetaObj);
         //setShowApplyBtn(false);
         setIsLoading(false);
     }
 
+    //ClearList setter
+    function setClearList(bool){
+        clearListRef.current = bool;
+    }
+
     //Fetchs and first fetch
-    useEffect(()=>{ sendApiListRequest(); }, [skipNumber])
-    useEffect(()=>{
+    useEffect(()=> { sendApiListRequest(); console.log("skipNumber trigg") }, [skipNumber])
+    useEffect(()=> {
+        //First render => ignore this use effect
+        if(isFirstRenderRef.current){
+            isFirstRenderRef.current = false;
+            return;
+        }
+            
         setClearList(true);
-        setResetPagination( resetPagination + 1);
-        sendApiListRequest();
+        //handles new request with the filter chosen
+        if(skipNumber == 0){
+            console.log("filterState trigg")
+            sendApiListRequest();
+        }
+        else
+            setSkipNumber(0);
     },[filterState])
 
     const entityFilter = () => {
@@ -242,9 +258,7 @@ const ConsultData = (props) => {
             {filterState !== "all" ?
                 (
                 <Pagination
-                    totalCount={paginationMeta?.count ?? 1}
-                    length={paginationMeta?.limit ?? 1}
-                    reset={resetPagination}
+                    paginationMeta={paginationMeta}
                     setClearList={setClearList}
                     setSkipNumber={setSkipNumber}
                     loadMore={true}
