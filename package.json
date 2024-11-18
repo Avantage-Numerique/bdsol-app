@@ -29,6 +29,7 @@
     "@fullhuman/postcss-purgecss": "^5.0.0",
     "@popperjs/core": "^2.11.6",
     "@shopify/draggable": "^1.0.0-beta.8",
+    "@socialgouv/matomo-next": "^1.9",
     "blotter": "^1.0.0",
     "bootstrap": "^5.3.0",
     "chroma-js": "^2.4.2",

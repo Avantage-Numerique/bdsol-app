@@ -47,6 +47,7 @@ const RichTextarea = ({name, formTools, ...props}) => {
             value,
             props.validationRules ? validate(editor.getText(), formState) : true
         )
+        inputTouched(name);
     }
 
     return (

@@ -65,7 +65,8 @@ const formReducer = (state, action) => {
                         ...state.inputs[action.inputId],
                         isTouched: true
                     }
-                }
+                },
+                hasAnyInputBeenTouched: true
             };
         }
 
@@ -98,7 +99,8 @@ export const useForm = (initialInputs) => {
     /* Global formstate => contains the value of all the inputs in the field */
     const [formState, dispatch] = useReducer(formReducer, {
         inputs: initialInputs,
-        isValid: false
+        isValid: false,
+        hasAnyInputBeenTouched: false
     });
 
     //Note that the inputid is actually the "name" of the input

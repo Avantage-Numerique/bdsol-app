@@ -33,6 +33,7 @@ class Person extends EntityModel {
         this.type = TYPE_PERSON;
 
         this.meta = {title: this.title, description: this.description, ...raw.meta};
+        this.setUsersMetas();
 
         params.showMeta = params.showMeta ?? true;
         params.showStatus = params.showStatus ?? true;

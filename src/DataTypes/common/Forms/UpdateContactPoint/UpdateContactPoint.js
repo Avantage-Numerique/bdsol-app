@@ -36,7 +36,7 @@ const UpdateContactPoint = ({model, name, formTools, ...props}) => {
     )
     
     //Update the main form state
-    const { inputHandler } = formTools;
+    const { inputHandler, inputTouched } = formTools;
     useEffect( () => {
         inputHandler(name,
             {
@@ -52,6 +52,11 @@ const UpdateContactPoint = ({model, name, formTools, ...props}) => {
                 },
 
             }, true)
+
+        //Update touch input if sub-form has been touched
+        if(contactFormUtils.formState.hasAnyInputBeenTouched){
+            inputTouched(name)
+        }
     },[contactFormUtils.formState.inputs])
 
     return (

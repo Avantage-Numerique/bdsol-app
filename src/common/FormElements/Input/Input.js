@@ -57,6 +57,7 @@ const Input = ({name, formTools, ...props}) => {
             //if the component got an onChange method sets. Trigger it.
             props.onChangeInput(event);
         }
+        inputTouched(name);
     }
 
     const onTouch = event => {
@@ -112,6 +113,7 @@ const Input = ({name, formTools, ...props}) => {
                     placeholder={props.placeholder}
                     onChange={updateValue}
                     onBlur={onTouch}
+                    //onTouchStart={onTouch} //Trigger SingleBeforeUnloadReminder onTouch without changes in field
                     autoComplete={props.type === "password" ? "on" : undefined}
                     pattern={props.pattern ?? undefined}
                     min={props.min ?? undefined}

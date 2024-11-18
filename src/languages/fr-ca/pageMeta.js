@@ -5,7 +5,7 @@ const pageMeta = {
     "index__description": "AVNU est une base de données qui a pour objectif de recenser et de géolocaliser les talents, les compétences, les équipements et les initiatives technocréatives dans le Croissant boréal (Abitibi-Témiscamingue, nord de l’Ontario francophone, Nord-du-Québec). ", 
 
     /* /categories */
-    "categories__description": "Découvrez les différentes catégories utilisées pour classifier nos données : domaines, technologies, compétences, types d'équipement.",
+    "categories__description": "Découvrez les différentes catégories utilisées pour classifier nos données : secteurs d'activité, technologies, compétences, types d'équipement.",
 
     /* /charte-de-valeurs */
     "charterOfValues__title": "Charte de valeurs - AVNU",

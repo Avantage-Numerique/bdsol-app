@@ -1,3 +1,4 @@
+import React, {useEffect} from "react";
 import {getIronSession} from "iron-session";
 import App from "next/app";
 import {appDefaultSessionOptions} from "@/src/authentification/session/Session";
@@ -5,18 +6,20 @@ import {AuthProvider} from '@/src/authentification/context/auth-context';
 import Layout from '@/src/layouts/Layout';
 import {getVisitorDataFromContext} from "@/src/authentification/context/visitor-context";
 import {verifyToken} from "@/auth/callbacks/verify-token.callback";
+import CookieBanner from "@/common/widgets/CookieBanner/CookieBanner";
+import useWebStats from "@/src/monitoring/hooks/useWebStats";
+import "@/src/helpers/ExtendedString";
 
-/**
- * Import global SCSS files
- */
 import '@/styles/main.scss';
 
-// Extends basic Javascript for the project.
-import "@/src/helpers/ExtendedString";
-import CookieBanner from "@/common/widgets/CookieBanner/CookieBanner";
-import React from "react";
+function AVNU({Component, pageProps, user, serverCookiesChoices}) {
 
-function MyApp({Component, pageProps, user, serverCookiesChoices}) {
+    const webStats = useWebStats();
+    const cookieChoices = serverCookiesChoices;
+
+    useEffect(() => {
+        webStats.init(cookieChoices);
+    }, []);
     /**
      * Main app render.
      */
@@ -39,7 +42,7 @@ function MyApp({Component, pageProps, user, serverCookiesChoices}) {
  * @return {Promise<{pageProps: {visitor: {ip: string, browser: string}}}>}
  * @inheritDoc https://nextjs.org/docs/api-reference/data-fetching/get-initial-props
  */
-MyApp.getInitialProps = async (context) => {
+AVNU.getInitialProps = async (context) => {
 
     const appProps = await App.getInitialProps(context);
     if (context.ctx.req && context.ctx.res) {
@@ -110,4 +113,4 @@ MyApp.getInitialProps = async (context) => {
 }
 
 //it isn't call in _app : noMyApp.getServerSideProps or I didn't declare it the good way.
-export default MyApp;
+export default AVNU;

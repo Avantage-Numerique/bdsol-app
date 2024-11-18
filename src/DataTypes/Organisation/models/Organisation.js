@@ -29,6 +29,7 @@ class Organisation extends EntityModel {
         //this.taxonomies.set("skills", raw.skills);
 
         this.meta = {title: this.title, description: this.description, ...raw.meta};
+        this.setUsersMetas();
 
         params.showMeta = params.showMeta ?? true;
         params.showStatus = params.showStatus ?? true;

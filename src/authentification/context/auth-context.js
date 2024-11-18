@@ -4,6 +4,7 @@ import defaultCookiesChoices from "@/src/common/Cookies/cookiesChoices";
 
 import {csSaveCookieChoices} from "@/common/Cookies/clientSideSaveCookiesChoices";
 import fetchInternalApi from "@/src/api/fetchInternalApi";
+import useWebStats from "@/src/monitoring/hooks/useWebStats";
 
 export const defaultSessionData = {
     isPending: false,
@@ -81,11 +82,11 @@ export function AuthProvider({fromSessionUser, appMode, acceptedCookies, childre
 
     const [cookiesChoices, setCookiesChoices] = useState(acceptedCookies ?? defaultCookiesChoices)
     const [choiceHasToBeMade, setChoiceHasToBeMade] = useState(!acceptedCookies?.choiceMade ?? true);
-
+    const webStats = useWebStats();
     const saveCookieChoices = async (choices) => {
         await csSaveCookieChoices(choices);
         setCookiesChoices(choices);
-
+        webStats.init(choices);
         if (!choices.auth) {
             await logOutUser();
         }

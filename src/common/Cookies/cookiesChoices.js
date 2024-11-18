@@ -1,3 +1,5 @@
+import {lang} from "@/common/Data/GlobalConstants";
+
 /**
  * Default and choices for cookies
  * @type {{all: boolean, third: boolean, stats: boolean, auth: boolean}}
@@ -32,6 +34,14 @@ export const noCookiesAccepted = {
     stats:false,
     auth:false,
     third:false//no plan of adding that.
+}
+
+export const cookiesExplanations = {
+    choiceMade:"",
+    all:lang.cookieExplainAll,
+    stats:lang.cookieExplainStats,
+    auth:lang.cookieExplainAuth,
+    third:lang.cookieExplainThird//no plan of adding that.
 }
 
 export const changeCookieChoices = (choices) => {

@@ -1,13 +1,8 @@
-/*
-    Overrides default variables of React-Bootstrap to fit the custom style
-    01Hub - 08/08/2022
-*/
 
-//colors
-$blue: #455ae6; // Avantage numérique's mainBlue (and blue1)
-$blue2: #4d64ff; // Avantage numérique's mainBlue (and blue2)
-$blue3: #4dc4ff; // Avantage numérique's mainBlue (and blue3)
-$blue4: #5f71ea; // Avantage numérique's mainBlue (and blue4)
+$blue: #455ae6;
+$blue2: #4d64ff;
+$blue3: #4dc4ff;
+$blue4: #5f71ea;
 
 $purple-light: #b2b2eb;
 $purple-lighter: lighten($purple-light, 10%);
@@ -16,26 +11,12 @@ $grey: #bbbfd7;
 $light-grey-bg: #f5f5f5;
 //$dark: #292929;
 $light: lighten($grey, 30%);
-
-
+$yellow: #ffd849;
 
 $yellow-pending: #FAFA10;
 $red-rejected: $red;
-//$occupations:#38D0EB;//0.647
-//$skills: #38EB89;//0.647
-//$domains:#EB3889;//0.647
-$abilities:#E9A511;//0.647
-//$general-tag: $grey;
+$abilities: #E9A511;
 
-
-/**************************************************
-***************************************************
-****** UPDATED COLORS
-******
-******/
-
-
-/*********** Primary ***********/
 $primary: #F09664;
 //Its Shades
 $primary_1: #F6AE85;
@@ -47,12 +28,11 @@ $primary_6: #ECDCD1;
 $primary_7: #D9BAA4;
 $primary_8: #A65D36;
 
-$primary-light:  $primary_3;
+$primary-light: $primary_3;
 $primary-lighter: $primary_5;
 $primary-dark: $primary_6;
 $primary-darker: $primary_8;
 
-/*********** Secondary ***********/
 $secondary: #6EC8CD;
 //Its Shades
 $secondary_1: #89D5D8;
@@ -64,11 +44,13 @@ $secondary_6: #AFCCCD;
 $secondary_7: #87B2B4;
 $secondary_8: #377E81;
 
-$secondary-light:  $secondary_2;
-$secondary-lighter:  $secondary_4;
-$secondary-dark:  $secondary_7;
-$secondary-darker:  $secondary_8;
+$secondary-light: $secondary_2;
+$secondary-lighter: $secondary_4;
+$secondary-dark: $secondary_7;
+$secondary-darker: $secondary_8;
 
+$info: $yellow;
+$info-light: lighten($yellow, 15%);
 
 /*********** Other colors ***********/
 $black: #1F1F2E;
@@ -77,43 +59,28 @@ $mild-dark: lighten($black, 30%);
 $grey: lighten($black, 40%);
 $light: $secondary_4;
 
-//Red
 $red: #D74B32;
 $lighten_red: lighten($red, 20%);
 $darken_red: darken($red, 10%);
 
-//Green
 $green: #AAD287;
 $lighten_green: lighten($green, 10%);
 $darken_green: darken($green, 10%);
 
-/********** Specific variables for components **********/
 $green-accepted: $darken_green;
-//$yellow-pending: #FAFA10;      TO DO
 $red-rejected: $red;
-$occupations:$secondary_7;//0.647
-$skills: $darken_green;//0.647
+$occupations: $secondary_7;
+$skills: $darken_green;
 $domains: $red;
-//$abilities:#E9A511;//0.647     TO DO
 
-//Inputs variables
 $selected-input: $secondary_7;
 
-$theme-colors:(
-    //"primary": $blue,
-    //"primarylight": $purple-light,
+$theme-colors: (
     "purplelight": $purple-light,
     "purplelighter": $purple-lighter,
-    //"pink": $pink,
-    //"pink-100": $pink-100,
-    "blue2": $blue2,   // Avantage numérique's altBlue (and blue2) rgb(77, 100, 255)
-    "blue3": $blue3,   // Avantage numérique's blue3 rgb(77, 196, 255)
-    "blue4": $blue4,   // Avantage numérique's blue4 rgb(95, 113, 234)
-    
-    "light": $light,
-    
-
-    //Taxonomies
+    "blue2": $blue2,
+    "blue3": $blue3,
+    "blue4": $blue4,
     "accepted":$green-accepted,
     "pending":$yellow-pending,
     "rejected":$red-rejected,
@@ -121,42 +88,28 @@ $theme-colors:(
     "skills":$skills,
     "domains":$domains,
     "abilities":$abilities,
-
-    /**************************************************
-    ***************************************************
-    ****** UPDATED Themes
-    ******
-    ******/
     "greyBg": $light-grey-bg,
-
-
-    //PRIMARY 
     "primary": $primary,
     "primary-light": $primary-light,
     "primary-lighter": $primary-lighter,
     "primary-dark": $primary-dark,
     "primary-darker": $primary-darker,
-
-    //SECONDARY 
     "secondary": $secondary,
     "secondary-light": $secondary-light,
     "secondary-lighter": $secondary-lighter,
     "secondary-dark": $secondary-dark,
     "secondary-darker": $secondary-darker,
-    //GENERIC COLORS
     "dark": $dark,
     "dark-light": lighten($dark, 15%),
     "dark-lighter": lighten($dark, 30%),
-    "black": $black,
+    "light": $light,
     'mild-dark': $mild-dark,
     "white": white,
-    //SPECIFIC TO COMPONENTS
     "general-tag":$primary_2,
-    //SITUATIONAL
     "success": $green,
-    "successlighter": $lighten_green,
-    "successDarker": $darken_green,
     "danger": $lighten_red,
+    "info": $info,
+    "warning": $warning,
 );
 
 $main-image-bg-color: $light;
@@ -166,31 +119,30 @@ $body-color: $dark;
 $min-contrast-ratio: 4.5;
 
 //fonts
-$font-size-root: 15px;//moved from 14px to 16px font base size.
+$font-size-root: 15px; //moved from 14px to 16px font base size.
 
-$font-family-sans-serif:      'Poppins','Helvetica Neue','Helvetica','Arial',sans-serif;
+$font-family-sans-serif: 'Poppins', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
 $font-icons: 'iconly';
 
-$font-weight-lighter:         200;
-$font-weight-light:           300;
-$font-weight-normal:          400;
-$font-weight-semibold:        600;
-$font-weight-bold:            700;
-$font-weight-bolder:          800;
+$font-weight-lighter: 200;
+$font-weight-light: 300;
+$font-weight-normal: 400;
+$font-weight-semibold: 600;
+$font-weight-bold: 700;
+$font-weight-bolder: 800;
 
 $line-height-base: 1.4;
 
-$headings-font-family: 'Poppins','Helvetica Neue','Helvetica','Arial',sans-serif;
+$headings-font-family: 'Poppins', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
 $headings-line-height: 1.1;
 $headings-font-weight: 600;
 
-$h1-font-size:                min(10vw, 2.6rem) !default; 
-$h2-font-size:                min(8vw, 2.2rem) !default;
-$h3-font-size:                1.65rem !default;
-$h4-font-size:                1.2rem !default;
-$h5-font-size:                1rem !default;
-$h6-font-size:                0.8rem !default; //this is smaller than regular text
-
+$h1-font-size: min(10vw, 2.6rem) !default;
+$h2-font-size: min(8vw, 2.2rem) !default;
+$h3-font-size: 1.65rem !default;
+$h4-font-size: 1.2rem !default;
+$h5-font-size: 1rem !default;
+$h6-font-size: 0.8rem !default; //this is smaller than regular text
 
 $link-decoration: none;
 
@@ -230,11 +182,9 @@ $image-border-width: $border-width;
 $border-light: $image-border-width solid $image-border-color;
 
 
-/**
-        SHADOW
- */
+/** SHADOW */
 
-$default-box-shadow:  1.1px 2.4px 4.2px rgba(0, 0, 0, 0.139);
+$default-box-shadow: 1.1px 2.4px 4.2px rgba(0, 0, 0, 0.139);
 
 $default-box-shadow-over: 1.1px 2.4px 8.5px rgba(0, 0, 0, 0.085),
 4.7px 10.4px 17.5px rgba(0, 0, 0, 0.085);
@@ -245,15 +195,14 @@ $top-box-shadow: 0px 0px 1.7px rgba(0, 0, 0, 0.026),
 0px 0px 6.1px rgba(0, 0, 0, 0.036),
 0px 0px 10.4px rgba(0, 0, 0, 0.039),
 0px 0px 19.6px rgba(0, 0, 0, 0.045),
-0px 0px 74px rgba(0, 0, 0, 0.07)
-;
+0px 0px 74px rgba(0, 0, 0, 0.07);
 
 /*
     nav
 */
 
-$nav-tabs-border-color:             $primary;
-$nav-tabs-border-width:             $border-width;
+$nav-tabs-border-color: $primary;
+$nav-tabs-border-width: $border-width;
 
 
 /*
@@ -261,12 +210,12 @@ $nav-tabs-border-width:             $border-width;
  */
 
 // scss-docs-start badge-variables
-$badge-font-size:                   .75em;
-$badge-font-weight:                 $font-weight-normal;
-$badge-color:                       $white;
-$badge-padding-y:                   .35em;
-$badge-padding-x:                   .65em;
-$badge-border-radius:               $border-radius;
+$badge-font-size: .75em;
+$badge-font-weight: $font-weight-normal;
+$badge-color: $white;
+$badge-padding-y: .35em;
+$badge-padding-x: .65em;
+$badge-border-radius: $border-radius;
 
 /*
     INPUT
@@ -286,8 +235,6 @@ $single-infos-padding-y: $grid-gutter-width;
 $single-infos-margin-y: calc(0.5 * $grid-gutter-width);
 
 
-
-
 $transition-default-time: 100ms;
 $transition-default-property: all;
 
@@ -297,7 +244,7 @@ $bezier-ease-in: cubic-bezier(0.42, 0, 1, 1);
 $bezier-ease-in-out: cubic-bezier(0.42, 0, 0.58, 1);
 $bezier-ease: cubic-bezier(0.25, 0.1, 0.25, 1);
 $bezier-linear: cubic-bezier(0, 0, 1, 1);
-$bezier-translation: cubic-bezier(.54, -0.09,.5, 1.13);
+$bezier-translation: cubic-bezier(.54, -0.09, .5, 1.13);
 
 $transition-ease-out: $transition-default-property $transition-default-time $bezier-ease-out;
 $transition-ease-in: $transition-default-property $transition-default-time $bezier-ease-in;
@@ -307,9 +254,9 @@ $transition-linear: $transition-default-property $transition-default-time $bezie
 $transition-translation: $transition-default-property $transition-default-time $bezier-translation;
 
 $transition-default: $transition-default-property $transition-default-time $bezier-default;
-$transition-base:        $transition-ease;
-$transition-base-slow:        $transition-default-property $transition-default-time*2 $bezier-ease-in-out;
-$transition-base-quick:        $transition-default-property $transition-default-time/2 $bezier-ease-in-out;
+$transition-base: $transition-ease;
+$transition-base-slow: $transition-default-property $transition-default-time*2 $bezier-ease-in-out;
+$transition-base-quick: $transition-default-property $transition-default-time/2 $bezier-ease-in-out;
 
 $transition-fade: opacity 0.15s $bezier-default;
 $transition-collapse: height 0.35s $bezier-ease-in-out;
@@ -319,14 +266,48 @@ $transition-collapse-hori: width 0.35s $bezier-ease-in-out;
 /*
     BREADCRUMBS
  */
-$breadcrumb-font-size:              null;
-$breadcrumb-padding-y:              0;
-$breadcrumb-padding-x:              0;
-$breadcrumb-item-padding-x:         .5rem;
-$breadcrumb-margin-bottom:          1rem;
-$breadcrumb-bg:                     null;
-$breadcrumb-divider-color:          $secondary-darker;
-$breadcrumb-active-color:           $secondary-darker;
-$breadcrumb-divider:                quote(">");
-$breadcrumb-divider-flipped:        quote(">");
-$breadcrumb-border-radius:          $border-radius;
+$breadcrumb-font-size: null;
+$breadcrumb-padding-y: 0;
+$breadcrumb-padding-x: 0;
+$breadcrumb-item-padding-x: .5rem;
+$breadcrumb-margin-bottom: 1rem;
+$breadcrumb-bg: null;
+$breadcrumb-divider-color: $secondary-darker;
+$breadcrumb-active-color: $secondary-darker;
+$breadcrumb-divider: quote(">");
+$breadcrumb-divider-flipped: quote(">");
+$breadcrumb-border-radius: $border-radius;
+
+
+// scss-docs-start theme-bg-subtle-variables
+$primary-bg-subtle:       tint-color($primary, 80%);
+$secondary-bg-subtle:     tint-color($secondary, 80%);
+$success-bg-subtle:       tint-color($success, 80%);
+$info-bg-subtle:          tint-color($info, 80%);
+$warning-bg-subtle:       tint-color($warning, 80%);
+$danger-bg-subtle:        tint-color($danger, 80%);
+$light-bg-subtle:         mix($gray-100, $white);
+$dark-bg-subtle:          $gray-400;
+// scss-docs-end theme-bg-subtle-variables
+
+// scss-docs-start theme-border-subtle-variables
+$primary-border-subtle:   tint-color($primary, 60%);
+$secondary-border-subtle: tint-color($secondary, 60%);
+$success-border-subtle:   tint-color($success, 60%);
+$info-border-subtle:      tint-color($info, 60%);
+$warning-border-subtle:   tint-color($warning, 60%);
+$danger-border-subtle:    tint-color($danger, 60%);
+$light-border-subtle:     $gray-200;
+$dark-border-subtle:      $gray-500;
+// scss-docs-end theme-border-subtle-variables
+
+// scss-docs-start theme-text-variables
+$primary-text-emphasis:   shade-color($primary, 60%);
+$secondary-text-emphasis: shade-color($secondary, 60%);
+$success-text-emphasis:   shade-color($success, 60%);
+$info-text-emphasis:      shade-color($info, 60%);
+$warning-text-emphasis:   shade-color($warning, 60%);
+$danger-text-emphasis:    shade-color($danger, 60%);
+$light-text-emphasis:     $gray-700;
+$dark-text-emphasis:      $gray-700;
+// scss-docs-end theme-text-variables

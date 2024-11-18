@@ -2,6 +2,7 @@ import {getType, TYPE_DEFAULT} from "@/DataTypes/Entity/Types";
 import {removeHtml} from "@/src/helpers/str";
 import {appUrl, replacePathname} from "@/src/helpers/url";
 import EntityTag from "@/DataTypes/Entity/layouts/EntityTag";
+import {lang} from "@/src/common/Data/GlobalConstants";
 
 /**
  * The abstract model for all the entities.
@@ -256,6 +257,28 @@ class EntityModel {
 
     get fullSingleLinkUrl() {
         return appUrl(this.singleLink);//`${nextConfig.env.APP_URL}${this.singleLink}`;
+    }
+
+    setUsersMetas() {
+        this.setUsersMetasOn(this.meta.requestedBy);
+        this.setUsersMetasOn(this.meta.lastModifiedBy);
+    }
+
+    setUsersMetasOn(targetUserData) {
+        if (targetUserData &&
+            typeof targetUserData === "object" &&
+            (targetUserData.name === "" || !targetUserData.name))
+        {
+            targetUserData.name = lang.anonyme;
+            if (targetUserData.firstName && targetUserData.firstName !== "") {
+                targetUserData.name = targetUserData.name === lang.anonyme ? "" : targetUserData.name;
+                targetUserData.name += targetUserData.firstName + " ";
+            }
+            if (targetUserData.lastName && targetUserData.lastName !== "") {
+                targetUserData.name = targetUserData.name === lang.anonyme ? "" : targetUserData.name;
+                targetUserData.name += targetUserData.lastName;
+            }
+        }
     }
 
     /**

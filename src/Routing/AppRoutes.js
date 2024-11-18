@@ -277,6 +277,13 @@ const AppRoutesRaw = {
         needAuth: false
     },
 
+    resetPassword: {
+        label: "Réinitialiser",
+        pathname: "/compte/reinitialiser",
+        asPath: "/compte/reinitialiser",
+        needAuth: false
+    },
+
     connection: {
         label: lang.menuLabelConnect,
         pathname: "/compte/connexion",

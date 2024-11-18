@@ -36,6 +36,7 @@ import Icon from "@/common/widgets/Icon/Icon";
 import {TYPE_PLACE, TYPE_TAXONOMY} from '@/src/DataTypes/Entity/Types';
 import SubmitEntity from "@/DataTypes/common/Forms/SingleEdit/SubmitEntity";
 import {apiDateToDateInput, dateTimeStringToUTC} from "@/common/DateManager/Parse";
+import SingleBeforeUnloadReminder from '@/src/DataTypes/common/layouts/SingleSaveEntityReminder/SingleBeforeUnloadReminder';
 
 
 const OrganisationSingleEdit = (props) => {
@@ -116,6 +117,9 @@ const OrganisationSingleEdit = (props) => {
 
     //Import message context 
     const msg = useContext(MessageContext);
+
+    //Save intention for SingleBeforeUnloadReminder
+    const [saveIntentionState, setSaveIntentionState] = useState(false);
 
     /*
     First of all, verify if the user is logged in.
@@ -284,7 +288,9 @@ const OrganisationSingleEdit = (props) => {
         <div className="d-flex flex-wrap align-items-end justify-content-between gap-2 gap-md-3 gap-lg-4">
             <MainImageDisplay buttonClasses="fs-6" mainImage={currentMainImage} entity={currentModel} setter={updateModelMainImage} />
             <div className="d-flex flex-wrap align-items-end justify-content-between gap-2 gap-md-3 gap-lg-4">
-                <Button className='fs-6' size="slim" color="success" disabled={!formState.isValid} onClick={modalSaveEntityReminder.displayModal}>
+                <Button className='fs-6' size="slim" color="success" disabled={!formState.isValid}
+                    onClick={() => {setSaveIntentionState(true);modalSaveEntityReminder.displayModal()}}
+                >
                     <Icon iconName={"save"} />&nbsp;{lang.capitalize("save")}
                 </Button>
                 <Button className='fs-6' size="slim" color="primary-light" href={model.singleLink}>
@@ -465,12 +471,13 @@ const OrganisationSingleEdit = (props) => {
 
 
     const SinglePageBottom = (
-        <SubmitEntity submitHandler={modalSaveEntityReminder.displayModal} formState={formState} />
+        <SubmitEntity submitHandler={() => {setSaveIntentionState(true); modalSaveEntityReminder.displayModal()}} formState={formState} />
     )
 
 
     return (
         <>
+            <SingleBeforeUnloadReminder formTools={formTools} saveIntention={saveIntentionState}/>
             <SingleBase
                 breadCrumb={breadCrumb}
                 header={header}
@@ -484,7 +491,7 @@ const OrganisationSingleEdit = (props) => {
             <modalSaveEntityReminder.Modal>
                 <SingleSaveEntityReminder
                     submitHandler={submitHandler}
-                    closeModal={modalSaveEntityReminder.closeModal}
+                    closeModal={() => {modalSaveEntityReminder.closeModal(); setSaveIntentionState(false)}}
                 />
             </modalSaveEntityReminder.Modal>
         </>

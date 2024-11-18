@@ -8,6 +8,7 @@ import Button from "@/src/common/FormElements/Button/Button";
 import Icon from "@/src/common/widgets/Icon/Icon";
 import {lang} from "@/src/common/Data/GlobalConstants";
 import {getBadgesInfo} from "@/src/DataTypes/Badges/BadgesSection";
+import useWebStats from "@/src/monitoring/hooks/useWebStats";
 
 const SearchResults = (props) => {
 
@@ -17,7 +18,7 @@ const SearchResults = (props) => {
     const [filter, setFilter] = useState([])
     const [nearTaxonomyObject, setNearestTaxonomyObject] = useState(undefined)
 
-
+    const webStats = useWebStats();
     const updateFilterState = (filterType) => {
         if(filterType === "all")
             setFilter([]);
@@ -37,11 +38,15 @@ const SearchResults = (props) => {
         async function searchRequest() {
 
             let response = [];
-            if(router.query.searchIndex){
-                response = await getResultsRouteResponse(router.query.searchIndex);
-                const nearTaxonomy = await getNearestTaxonomyToSearchIndex(router.query.searchIndex)
-                setNearestTaxonomyObject(nearTaxonomy.data)
-                setSearchMessage("par texte")
+            const searchIndex = router.query.searchIndex;
+            if(searchIndex){
+                response = await getResultsRouteResponse(searchIndex);
+                const nearTaxonomy = await getNearestTaxonomyToSearchIndex(searchIndex);
+                setNearestTaxonomyObject(nearTaxonomy.data);
+                setSearchMessage("par texte");
+
+                const totalSearchRequestResults = response.data?.length ?? 0;
+                webStats.push(['trackSiteSearch', searchIndex, (nearTaxonomy?.nearestTaxonomy?.name ?? undefined), totalSearchRequestResults]);
             }
             
             if(router.query.linkId){
@@ -53,11 +58,12 @@ const SearchResults = (props) => {
                 response = await getEntityTypeResponse(router.query.entityType);
                 setSearchMessage("par type d'entité");
             }
+
             setSearchList(response.data);
         }
         searchRequest();
     }, [router.asPath])
-    
+
     const getResultsRouteResponse = (searchIndex) => {
         return clientSideExternalApiRequest("/search/?searchIndex="+searchIndex, { method: 'GET'});
     }
@@ -93,13 +99,20 @@ const SearchResults = (props) => {
             }
             filteredList = filteredList.filter( (el) => { return el.type === entityType })
         }
+        const searchCount = filteredList?.length;
+
 
         return (
             <div className="py-4">
                 <h3>{resultMessage}</h3>
                 {
-                    filteredList?.length > 0 ?
-                    <EntitiesGrid className={"row"} feed={filteredList.filter(el => el.type !== "Taxonomy")} badgesInfo={props.badgesInfo}></EntitiesGrid>
+                    searchCount > 0 ?
+                    <EntitiesGrid
+                        className={"row"}
+                        feed={filteredList.filter(el => el.type !== "Taxonomy")}
+                        badgesInfo={props.badgesInfo}
+                        columnClass={"col-12 col-sm-6 col-lg-4 g-4 "}
+                    ></EntitiesGrid>
                     :
                     <div>Aucune entité trouvée, réessayer avec d'autre critère de recherche</div>
                 }
@@ -237,7 +250,7 @@ const SearchResults = (props) => {
                                 <ul>
                                     { nearTaxonomyObject.otherNearbyTaxonomy.slice(0,8).map( (nearTaxo, index) => {
                                         return (
-                                            <li key={"nearTaxoList-"+nearTaxo._id}>
+                                            <li key={index+"nearTaxoList-"+nearTaxo._id}>
                                                 <a href={`/categories/${nearTaxo?.category}/${nearTaxo?.slug}`}>{nearTaxo.name}</a>
                                             </li>)
                                     })}

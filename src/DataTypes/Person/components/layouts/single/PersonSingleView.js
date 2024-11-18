@@ -42,8 +42,7 @@ const PersonSingleView = ({ data }) => {
     } = data;
 
     //To display occupations in the proper order
-    const sortedOccupations = occupations?.[0]?.subMeta?.order ? occupations.sort((a,b) => a.subMeta.order - b.subMeta.order) : occupations;
-
+    const sortedOccupations = occupations?.[0]?.subMeta?.order !== undefined ? occupations.sort((a,b) => a.subMeta.order - b.subMeta.order) : occupations;
     const model = new Person(data);
 
     const breadcrumbLabels = {
@@ -62,7 +61,6 @@ const PersonSingleView = ({ data }) => {
             labels: breadcrumbLabels,
         });
     }, [firstName]);
-
 
 
     /****************************
@@ -202,7 +200,6 @@ const PersonSingleView = ({ data }) => {
                     title={lang.entityMetadata} 
                     className="border-top pt-3"
                 >
-                    {/*********** Entity data ***********/}
                     <SingleEntityMeta createdAt={createdAt} updatedAt={updatedAt} meta={meta} />
                 </SingleInfo>
             }
