@@ -32,7 +32,7 @@ const Pagination = ({children, paginationMeta, setSkipNumber, setClearList, load
 
     //Set skip when page change
     function setPageNumber(pageNumber, clearList=false){
-        setSkipNumber(paginationRef.current.limit * (pageNumber - 1))
+        setSkipNumber(paginationRef.current.limit * (pageNumber - 1));
         if(clearList && setClearList)
             setClearList(true);
     }

@@ -1,8 +1,11 @@
-import React, {useEffect, useRef, useState} from "react";
 
 //Component
 import PageHeader from "@/layouts/Header/PageHeader";
 import Button from "@/src/common/FormElements/Button/Button";
+
+//Hook
+import {useEffect, useRef, useState} from "react";
+import { useRouter } from "next/router";
 
 //Utils
 import {clientSideExternalApiRequest, useHttpClient} from "@/src/hooks/http-hook";
@@ -17,56 +20,37 @@ import {getBadgesInfo} from "@/src/DataTypes/Badges/BadgesSection";
 
 const ConsultData = (props) => {
 
+    const entityPerPage = 2;
+    const router = useRouter();
     const [entityList, setEntityList] = useState([]);
-    const [filterState, setFilterState] = useState("Person");//For multi choice, it need to be an array at first render
-    const [skipNumber, setSkipNumber] = useState(0);
+    const [filterState, setFilterState] = useState(router?.query?.filtre ?? "all");//For multi choice, it need to be an array at first render
+    const [skipNumber, setSkipNumber] = useState(router?.query?.page ? (router.query.page - 1) * entityPerPage : 0);
     const clearListRef = useRef(false);
     const isFirstRenderRef = useRef(true);
     const [paginationMeta, setPaginationMeta] = useState({});
     const {isLoading, setIsLoading} = useHttpClient();
 
-    //Multi choice filter (as in searchResult page)
-    //To reimplement => checkboxes are checked={filterState.includes("Person")}, checkbox for all filter : checked={filterState.length === 0}
-    /*const updateFilterState = (filterType) => {
-        if(filterType === "all")
-            setFilterState([]);
-        else {
-            const filter = [...filterState]
-            //If already in array remove it else push in front
-            if(filter.includes(filterType))
-                setFilterState(filterState.filter( (el) => { return el !== filterType}));
-            else {
-                filter.unshift(filterType);
-                setFilterState(filter)
-            }
-        }
-        setShowApplyBtn(true)
-    } */
+    const entityTypeList = ["Person", "Organisation", "Project", "Event", "Equipment"]
 
-    /* const { FormUI, submitRequest, formState, formTools } = useFormUtils(
-        {
-            domains: {
-                value: [],
-                isValid: false
-            },
-            technologies: {
-                value: [],
-                isValid: true
-            },
-            skills: {
-                value: [],
-                isValid: true
-            },
-        },
-        {
-            displayResMessage: true
+    useEffect( () => {
+        //router.query.filtre = filterState;
+        //router.query.page = paginationMeta.currentPage;
+        if(entityTypeList.includes(filterState) || filterState == "all"){
+            const tempFilterLabel = filterState == "all" ? "Tous" : lang[filterState]
+            router.push({
+                pathname: '/consulter',
+                search: '?filtre='+tempFilterLabel+"&page="+paginationMeta.currentPage,
+              }, undefined, { shallow: true })
+
         }
-    ) */
+    }, [filterState, paginationMeta])
+
+
     const getListResponses = async () => {
         if(filterState === "all")
             return await clientSideExternalApiRequest("/search/?searchIndex=", { method: 'GET'});
         else
-            return await clientSideExternalApiRequest("/search/type", { method: 'POST', body: JSON.stringify({data : {type: filterState, skip:skipNumber, limit:2}})});
+            return await clientSideExternalApiRequest("/search/type", { method: 'POST', body: JSON.stringify({data : {type: filterState, skip:skipNumber, limit:entityPerPage}})});
     }
 
     async function sendApiListRequest(){
@@ -100,7 +84,7 @@ const ConsultData = (props) => {
     }
 
     //Fetchs and first fetch
-    useEffect(()=> { sendApiListRequest(); console.log("skipNumber trigg") }, [skipNumber])
+    useEffect(()=> { sendApiListRequest(); }, [skipNumber])
     useEffect(()=> {
         //First render => ignore this use effect
         if(isFirstRenderRef.current){
@@ -110,16 +94,13 @@ const ConsultData = (props) => {
             
         setClearList(true);
         //handles new request with the filter chosen
-        if(skipNumber == 0){
-            console.log("filterState trigg")
+        if(skipNumber == 0)
             sendApiListRequest();
-        }
         else
             setSkipNumber(0);
     },[filterState])
 
     const entityFilter = () => {
-        const entityTypeList = ["Person", "Organisation", "Project", "Event", "Equipment"]
         const buttonList = [];
         entityTypeList.forEach((type, index) => {
             buttonList.push(
@@ -199,64 +180,7 @@ const ConsultData = (props) => {
 
                     </div>
                 </section>
-                {/* Filter taxonomy section */}
-                {/*
-                <section className="bg-greyBg">
-                    <div className="container py-4">
-                        <h3><Icon iconName="filter"/>Filtrer par catégories <Button className="mx-4" href="/categories">Voir toute les catégories</Button></h3>
-                        <div className="row d-flex justify-content-center">
-                            <div className="col-4">
-                                <p className="mb-1 fw-semibold">Secteur d'activité</p>
-                                <Select2
-                                    name="domains"
-                                    formTools={formTools}
-                                    creatable={false}
-                                    isMulti={true}
-
-                                    fetch={"/taxonomies/list"}
-                                    requestData={{ category: "domains" }}
-                                    searchField={"name"}
-                                    selectField={"name"}
-                                />
-                            </div>
-                            <div className="col-4">
-                                <p className="mb-1 fw-semibold">Technologies utilisées</p>
-                                <Select2
-                                    name="technologies"
-                                    formTools={formTools}
-                                    creatable={false}
-                                    isMulti={true}
-
-                                    fetch={"/taxonomies/list"}
-                                    requestData={{ category: "technologies" }}
-                                    searchField={"name"}
-                                    selectField={"name"}
-                                />
-                            </div>
-                            <div className="col-4">
-                                <p className="mb-1 fw-semibold">Compétences mise en oeuvre</p>
-                                <Select2
-                                    name="skills"
-                                    formTools={formTools}
-                                    creatable={false}
-                                    isMulti={true}
-
-                                    fetch={"/taxonomies/list"}
-                                    requestData={{ category: "skills" }}
-                                    searchField={"name"}
-                                    selectField={"name"}
-                                />
-                            </div>
-                        </div>
-                        {/* <div>
-                            <Button disabled={!showApplyBtn} onClick={sendApiListRequest}>{lang.apply}</Button>
-                        </div> */}
-                    {/*</div>
-                </section>*/}
             </section>
-            { /* remove pagination if "all type" is selected (v1) */}
-            {filterState !== "all" ?
-                (
                 <Pagination
                     paginationMeta={paginationMeta}
                     setClearList={setClearList}
@@ -265,10 +189,6 @@ const ConsultData = (props) => {
                 >
                     {entityGrid}
                 </Pagination>
-                )
-                :
-                entityGrid
-            }
         </div>
     )
 }
