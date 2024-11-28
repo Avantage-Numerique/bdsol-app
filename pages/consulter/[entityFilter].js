@@ -1,12 +1,11 @@
-
 //Component
 import PageHeader from "@/layouts/Header/PageHeader";
 import Button from "@/src/common/FormElements/Button/Button";
 
 //Hook
 import {useEffect, useRef, useState} from "react";
-import { useRouter } from "next/router";
-import { withSessionSsr } from "@/src/authentification/session/handlers/withSession";
+import {useRouter} from "next/router";
+import {withSessionSsr} from "@/src/authentification/session/handlers/withSession";
 
 //Utils
 import {clientSideExternalApiRequest, useHttpClient} from "@/src/hooks/http-hook";
@@ -63,7 +62,7 @@ const ConsultData = (props) => {
 
     const getListResponses = async () => {
         if(filterState === "all")
-            return await clientSideExternalApiRequest("/search/?searchIndex=", { method: 'GET'});
+            return await clientSideExternalApiRequest("/search/all", { method: 'POST', body: JSON.stringify({data : {skip:skipNumber, limit:entityPerPage}})});
         else
             return await clientSideExternalApiRequest("/search/type", { method: 'POST', body: JSON.stringify({data : {type: filterState, skip:skipNumber, limit:entityPerPage}})});
     }
@@ -129,7 +128,6 @@ const ConsultData = (props) => {
                 >
                     {lang[type]}
                 </Button>
-
             )
         });
         return buttonList;

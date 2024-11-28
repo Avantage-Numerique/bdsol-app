@@ -157,10 +157,12 @@ const EntitySimple = (props) => {
                             model.singleList.map((tag, index) => {
                                 let Tag;
                                 if (index < maxTags) {
-                                    totalCharacters += tag.length;
-                                    Tag = (
-                                        <li key={tag} title={tag} className="rounded bg-general-tag">{tag}</li>
-                                    )
+                                    if (tag) {
+                                        totalCharacters += tag.length ?? 0;
+                                        Tag = (
+                                            <li key={tag} title={tag} className="rounded bg-general-tag">{tag}</li>
+                                        );
+                                    }
                                 }
                                 {/* Check if the next elements with bust the maxWidthCaracters for length of the occupations/offers */}
                                 const nextIndex = index+1;

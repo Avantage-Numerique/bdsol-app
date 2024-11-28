@@ -23,7 +23,8 @@ const EquipmentSingleView = ({ data }) => {
     /* Needed for breadCrumb generator */
 
     const breadcrumbLabels = {
-        "equipement": lang.Equipment,
+        "equipements": lang.Equipments,
+        "consulter": lang.consultTitle,
         "slug": model.title
     };
 
