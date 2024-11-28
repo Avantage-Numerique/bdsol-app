@@ -1,15 +1,15 @@
-import { useEffect } from 'react';
-import { useRouter } from 'next/router';
+import {useEffect} from 'react';
+import {useRouter} from 'next/router';
 
 const ConsultRedirect = () => {
-  const router = useRouter();
+    const router = useRouter();
 
-  useEffect(() => {
-    // Redirect
-    router.push('/consulter/tous');
-  }, [router]);
+    useEffect(() => {
+        // Redirect
+        router.push('/consulter/tous');
+    }, [router]);
 
-  return null;
+    return null;
 };
 
 export default ConsultRedirect;
