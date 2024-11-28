@@ -83,6 +83,7 @@ const EventSingleView = ({data}) => {
     /* Needed for breadCrumb generator */
     const breadcrumbLabels = {
         "evenements": lang.Events,
+        "consulter": lang.consultTitle,
         "slug": model.title
     };
 
