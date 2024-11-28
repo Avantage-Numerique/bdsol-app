@@ -50,109 +50,79 @@ const Pagination = ({children, paginationMeta, setSkipNumber, setClearList, load
         }
     }
 
-    const pageNumbers = () => {
-        //If 1 or 0 page ( 1 )
-        if(paginationMeta.pageCount < 2)
+    //Form the structure of numbers to display as available pages < 1 ... 4 5 6 ... 10 >
+    //"showCount" default 2, how many number to show left and to show right from current page.
+    const pageNumbers = (showCount = 2) => {
+        //If paginationMeta is undefined
+        if(paginationMeta?.pageCount == undefined)
             return (<button onClick={() => setPageNumber(1, true)} disabled={true}>1</button>)
-        
-        //If 5 page or less ( 1, 2, 3, 4, 5, "..." )
-        if(paginationMeta.pageCount < 6 || paginationMeta.currentPage < 3){
-            const paginationNumber = [];
-            for( let i = 1; i <= paginationMeta.pageCount; i++){
-                if(i < 6)
-                    paginationNumber.push((
-                        <button className="px-4" key={"btn-pagination-currentPage-"+i} onClick={() => setPageNumber(i, true)} disabled={paginationMeta.currentPage == i}>{i}</button>
-                    ))
-            }
-            if(paginationMeta.pageCount > 5)
-                paginationNumber.push((
-                    <button className="px-4" key={"btn-pagination-next-dots"} onClick={() => setPageNumber(6, true)}>...</button>
-                ))
-            return <div>{paginationNumber}</div>
+
+        //Add current page number to the array ==> ( [ currentPage ] )
+        const numberArray = [];
+        numberArray.push(paginationMeta?.currentPage ?? 1)
+
+        //Iteration through adding left and right if possible until showCount = 0 ==> ( [ ? currentPage ? ])
+        let tempShowCount = showCount;
+        while(tempShowCount > 0){
+            tempShowCount--;
+            //if possible add left
+            if(numberArray[0] - 1 > 1 )
+                numberArray.unshift(numberArray[0] - 1);
+            
+            //if possible add right
+            if(numberArray[numberArray.length - 1] + 1 < paginationMeta.pageCount)
+                numberArray.push(numberArray[numberArray.length - 1] + 1);
         }
 
-        //If 6 page or more ( "...", x-2, x-1, x, x+1, x+2, "..." )
-        if(paginationMeta.pageCount >= 6){
-            const paginationNumber = [];
-            for( let i = paginationMeta.currentPage - 2; i <= paginationMeta.currentPage + 2; i++){
-                if(i <= paginationMeta.pageCount) {
-                    paginationNumber.push((
+        //Check if you can add "..." on left and right. Also if not, check to add first and last page.
+        //Left check for "..."
+        if(numberArray[0] - 1 > 1)
+            numberArray.unshift(1, "...");
+        else
+            //Add firstPage?
+            if(numberArray[0] - 1 == 1)
+                numberArray.unshift(1);
+
+        //Right check for "..."
+        if(numberArray[numberArray.length - 1] + 1 < paginationMeta.pageCount)
+            numberArray.push("...", paginationMeta.pageCount);
+        else
+            //Add last page?
+            if(numberArray[numberArray.length - 1] + 1 == paginationMeta.pageCount)
+                numberArray.push(paginationMeta.pageCount);
+
+        //Cycle through numberArray to create each component in paginationNumber.
+        const paginationNumber = [];
+        numberArray.forEach((currentLabel, index) => {
+            switch(currentLabel){
+                case "...":
+                    paginationNumber.push(
                         <button
                             className="px-4"
-                            key={"btn-pagination-currentPage-"+i}
-                            onClick={() => setPageNumber(i, true)}
-                            disabled={paginationMeta.currentPage == i}
+                            key={"btn-pagination-dots"+index}
+                            disabled={true}
                         >
-                            {i}
+                            ...
                         </button>
-                    ))
-                }
-            }
-            //if not at last 3 pages, Add dots to show that there is more page than what we show
-            if(paginationMeta.currentPage + 3 <= paginationMeta.pageCount){
-                paginationNumber.push((
-                    <button
-                        className="px-4"
-                        key={"btn-pagination-next-dots"}
-                        onClick={() => setPageNumber(paginationMeta.currentPage + 3, true)}
-                    >
-                        ...
-                    </button>
-                ))
-            }
-            //If at the last 2 page, show more lower pages
-            else {
-                if(paginationMeta.currentPage + 1 == paginationMeta.pageCount || paginationMeta.currentPage == paginationMeta.pageCount){
-                    paginationNumber.unshift((
+                    )
+                    break;
+                default: 
+                    paginationNumber.push(
                         <button
                             className="px-4"
-                            key={"btn-pagination-currentPage-"+(paginationMeta.currentPage-3)}
-                            onClick={() => setPageNumber(paginationMeta.currentPage - 3, true)}
-                            disabled={paginationMeta.currentPage == paginationMeta.currentPage-3}
-                        >
-                            {paginationMeta.currentPage-3}
+                            key={"btn-pagination-page-"+currentLabel}
+                            onClick={() => setPageNumber(parseInt(currentLabel), currentLabel + 1 == paginationMeta.currentPage + 1 ? false : true)}
+                            disabled={currentLabel == paginationMeta.currentPage ? true : false}>
+                                {currentLabel}
                         </button>
-                    ));
-                }
-                if(paginationMeta.currentPage == paginationMeta.pageCount){
-                    paginationNumber.unshift((
-                        <button
-                            className="px-4"
-                            key={"btn-pagination-currentPage-"+(paginationMeta.currentPage-4)}
-                            onClick={() => setPageNumber(paginationMeta.currentPage - 4, true)}
-                            disabled={paginationMeta.currentPage == paginationMeta.currentPage-4}
-                        >
-                            {paginationMeta.currentPage-4}
-                        </button>
-                    ));
-                }
+                    );
             }
-            //if current page is bigger than 3, adds dots to show that there is more page than what we show "prev"
-            if(paginationMeta.currentPage > 3){
-                //Offset for onClick to handle correctly for last 2 pages.
-                let offset = 3;
-                if(paginationMeta.currentPage + 1 == paginationMeta.pageCount)
-                    offset = 4;
-                if(paginationMeta.currentPage == paginationMeta.pageCount)
-                    offset = 5;
+        });
 
-                paginationNumber.unshift((
-                    <button
-                        className="px-4"
-                        key={"btn-pagination-prev-dots"}
-                        onClick={() => setPageNumber(paginationMeta.currentPage - offset, true)}
-                    >
-                        ...
-                    </button>
-                ))
-
-            }
-
-            return (<div>{paginationNumber}</div>);
-        }
+        //Return component array to display.
+        return (<div>{paginationNumber}</div>);
     }
 
-    
     //LoadMore section
     //const debouncedScroll = useDebounce(onScroll, 400); (couldn't make it work with our hook..)
     function debounce(func, delay) {
@@ -168,7 +138,6 @@ const Pagination = ({children, paginationMeta, setSkipNumber, setClearList, load
     }
     const onScroll = useCallback(debounce(() => {
         if (window.innerHeight + document.documentElement.scrollTop === document.scrollingElement.scrollHeight) {
-            //console.log("Load more triggered");
             nextPage();
         }
     }, 100), []);
@@ -185,7 +154,7 @@ const Pagination = ({children, paginationMeta, setSkipNumber, setClearList, load
     const pageNumbersComponent = (
         <div className="d-flex py-4 justify-content-center">
             <button className="px-4" onClick={() => previousPage()}>{"<"}</button>
-            {pageNumbers()}
+            {pageNumbers(2)}
             <button className="px-4" onClick={() => nextPage()}>{">"}</button>
         </div>
     )
