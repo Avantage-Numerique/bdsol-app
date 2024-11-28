@@ -62,7 +62,7 @@ const ConsultData = (props) => {
 
     const getListResponses = async () => {
         if(filterState === "all")
-            return await clientSideExternalApiRequest("/search/all", { method: 'GET'});
+            return await clientSideExternalApiRequest("/search/all", { method: 'POST', body: JSON.stringify({data : {skip:skipNumber, limit:entityPerPage}})});
         else
             return await clientSideExternalApiRequest("/search/type", { method: 'POST', body: JSON.stringify({data : {type: filterState, skip:skipNumber, limit:entityPerPage}})});
     }
