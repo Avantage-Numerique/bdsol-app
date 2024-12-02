@@ -11,7 +11,7 @@ import {withSessionSsr} from "@/src/authentification/session/handlers/withSessio
 import {clientSideExternalApiRequest, useHttpClient} from "@/src/hooks/http-hook";
 import EntitiesGrid from "@/src/DataTypes/Entity/layouts/EntitiesGrid";
 import Icon from "@/src/common/widgets/Icon/Icon";
-import Pagination from "@/src/common/Components/Pagination";
+import Pagination from "@/common/Pagination/Pagination";
 import PageMeta from "@/src/common/PageMeta/PageMeta";
 import {lang} from "@/common/Data/GlobalConstants";
 import Spinner from "@/common/widgets/spinner/Spinner";

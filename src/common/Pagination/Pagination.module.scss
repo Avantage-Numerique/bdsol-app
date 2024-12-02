@@ -1,0 +1,38 @@
+.btn-pagination {
+    width: 2em;
+    height: 2em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: $border-width $border-style $border-color;
+    border-radius: 0.8em;
+    padding: 0.2em;
+    margin: 0.2em;
+    @include transition();
+    &:hover {
+        background-color: $border-color;
+    }
+
+    &.current {
+        border: $border-width $border-style $secondary;
+        &:hover {
+            background-color: $secondary;
+        }
+    }
+}
+
+.btn-pagination-navigation {
+    width: 2em;
+    height: 2em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: $border-width $border-style transparent;
+    border-radius: 0.8em;
+    padding: 0.2em;
+    margin: 0.2em;
+    @include transition();
+    &:hover {
+        background-color: $border-color;
+    }
+}
