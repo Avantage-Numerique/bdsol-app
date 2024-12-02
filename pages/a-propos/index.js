@@ -2,13 +2,12 @@
 import PageHeader from "@/layouts/Header/PageHeader";
 import React from "react";
 import PageMeta from "@/src/common/PageMeta/PageMeta";
-import { RouteLink } from "@/src/common/Components/RouteLink";
-import Link from "next/link";
+import {RouteLink} from "@/src/common/Components/RouteLink";
 import {lang} from "@/src/common/Data/GlobalConstants";
-import AppRoutes from "@/src/Routing/AppRoutes";
 
 //Styling
 import styles from './aPropos.module.scss';
+import Icon from "@/common/widgets/Icon/Icon";
 
 /**
  * Really basic page with plain text. This could be dry with an entry or some sort of markdown file.
@@ -112,60 +111,65 @@ const Index = () => {
                 </div>
                 <div className={"row py-2"} id="equipe">
                     <div>
-                        <div className={"col"}>
-                            <h3>Notre belle équipe</h3>
+                        <div className={"col py-3"}>
+                            <h3 className={"pb-3"}>Notre belle équipe</h3>
                             <ul>
                                 <li>
+                                    <h4 className={"fs-5"}>Marc-André Martin (Mamarmite)</h4>
                                     <p className={pClass}>
-                                        <strong>Simon Descôteaux –</strong> Product owner <br/>
-                                        simondesc11@gmail.com<br/>
-                                        –
+                                        &mdash; Production et architecture technique
+                                        de l’application et de la base de données
                                     </p>
                                 </li>
                                 <li>
+                                    <h4 class={"fs-5"}>Frédéric Rivard</h4>
                                     <p className={pClass}>
-                                        <strong>Marc-André Martin (Mamarmite) –</strong> Production et architecture technique de
-                                        l’application et de la base de données – Mamarmite <br/>
-                                        marcandre@mamarmite.com<br/>
-                                        –
+                                        &mdash; Développement de la base de données
                                     </p>
                                 </li>
                                 <li>
+                                    <h4 className={"fs-5"}>Jeanne Perrin</h4>
                                     <p className={pClass}>
-                                        <strong>Vincent Poirier Ruel –</strong> Développement de la base de
-                                        données<br/>
-                                        vincentp.ruel@gmail.com<br/>
-                                        –
-                                    </p>
-                                </li>
-                                <li>
-                                    <p className={pClass}>
-                                        <strong>Frédéric Rivard –</strong> Développement de la base de données<br/>
-                                        sonofapancak@protonmail.com<br/>
-                                        –
-                                    </p>
-                                </li>
-                                <li>
-                                    <p className={pClass}>
-                                        <strong>Jeanne Perrin –</strong> Lien avec la communauté<br/>
-                                        jeanne.perrin@petittheatre.org<br/>
-                                        –
+                                        &mdash; Lien avec la communauté
                                     </p>
                                 </li>
                             </ul>
-
-                            <p className={pClass}>
-                                <strong>Nos experts conseils :</strong>
-                                Viêt Cao (SynapseC), Jules Gaudin (Robic) et Christian Roy (A10s inc.)<br/>
-                            </p>
-                            <p className={pClass}>
-                                <i>Initiative financée par le Conseil des Arts du Canada et le Ministère de la
-                                    Culture et des Communications du Québec.</i>
-                            </p>
+                        </div>
+                        <div className={"col py-3"}>
+                            <h3 className={"pb-3"}>Ancien·es membres de l'équipe (toujours dans nos cœurs) <Icon iconName={"grin-hearts"} /></h3>
+                            <ul>
+                                <li>
+                                    <h4 className={"fs-5"}>Simon Descôteaux (Jeux Nemesis)</h4>
+                                    <p className={pClass}>
+                                        &mdash; Gestionnaire de produit (Product owner) &mdash; 2021-2024
+                                    </p>
+                                </li>
+                                <li>
+                                    <h4 className={"fs-5"}>Vincent Poirier Ruel</h4>
+                                    <p className={pClass}>
+                                        &mdash; Développement de la base de données &mdash; 2021-2024
+                                    </p>
+                                </li>
+                            </ul>
+                        </div>
+                        <div className={"col py-3"}>
+                            <h3 className={"pb-2"}>Nos experts conseils</h3>
+                            <ul>
+                                <li>Viêt Cao (SynapseC)</li>
+                                <li>Jules Gaudin (Robic)</li>
+                                <li>Christian Roy (A10s inc.)</li>
+                            </ul>
+                        </div>
+                        <div className={"col"}>
+                            <blockquote className={`text-center`}>
+                                Initiative financée par le Conseil des Arts du Canada et le Ministère de la Culture et des Communications du Québec.
+                            </blockquote>
                         </div>
                     </div>
-                </div>{/* end row */}
-            </div>{/* end container */}
+                </div>
+                {/* end row */}
+            </div>
+            {/* end container */}
         </div>
     )
 }
