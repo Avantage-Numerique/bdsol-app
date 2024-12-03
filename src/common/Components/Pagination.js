@@ -50,7 +50,7 @@ const Pagination = ({children, paginationMeta, setSkipNumber, setClearList, load
         }
     }
 
-    //Form the structure of numbers to display as available pages < 1 ... 4 5 6 ... 10 >
+    //Form the structure of numbers to display as available pages < 1 ... 3 4 5 6 7 ... 10 >
     //"showCount" default 2, how many number to show left and to show right from current page.
     const pageNumbers = (showCount = 2) => {
         //If paginationMeta is undefined

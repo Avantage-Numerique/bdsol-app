@@ -23,8 +23,10 @@ const ConsultData = (props) => {
     const entityTypeList = ["Person", "Organisation", "Project", "Event", "Equipment"]
     const router = useRouter();
     const [entityList, setEntityList] = useState([]);
-    const [filterState, setFilterState] = useState(getFilterStateFromLabel(props.entityFilter) ?? "all");//For multi choice, it need to be an array at first render
-    const [skipNumber, setSkipNumber] = useState(router?.query?.page ? (router.query.page - 1) * entityPerPage : 0);
+    const [filterState, setFilterState] = useState(getFilterStateFromLabel(router?.query?.entityFilter) ?? "all");//For multi choice, it need to be an array at first render
+    const [skipNumber, setSkipNumber] = useState(
+        (router?.query?.page != undefined && parseInt(router.query.page) > 0 ) ?
+        (router.query.page - 1) * entityPerPage : 0);
     const clearListRef = useRef(false);
     const isFirstRenderRef = useRef(true);
     const [paginationMeta, setPaginationMeta] = useState({});
@@ -211,12 +213,10 @@ export default ConsultData;
 export const getServerSideProps = withSessionSsr(getContextAndBadge);
 
 export async function getContextAndBadge(context) {
-    const { entityFilter } = context.query;
     const badgeInfo = await getBadgesInfo(true);
     return {
         props: {
             badgesInfo : badgeInfo,
-            entityFilter: entityFilter
         }
     }
 }
