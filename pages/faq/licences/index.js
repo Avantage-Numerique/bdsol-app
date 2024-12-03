@@ -271,7 +271,7 @@ const Licences = (props) => {
                             </li>
                         </ul>
 
-                        <blockquote className={"mt-5 py-3 px-4 bg-primary-lighter"}>Sources :
+                        <blockquote className={"mt-5 bg-primary-lighter"}>Sources :
                             &nbsp;
                             <ExternalLink href="https://creativecommons.org/about/cclicenses/" title="creative commons (cc)">
                                 <img src={"/icones/cc.svg"} alt={"CC"} className={"pe-2"}/>

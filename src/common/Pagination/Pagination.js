@@ -1,4 +1,5 @@
-import { useEffect, useState, useRef, useCallback } from "react"
+import {useCallback, useEffect, useRef} from "react"
+import {PaginationButton} from "@/common/Pagination/PaginationButton";
 
 
 /**
@@ -55,7 +56,15 @@ const Pagination = ({children, paginationMeta, setSkipNumber, setClearList, load
     const pageNumbers = (showCount = 2) => {
         //If paginationMeta is undefined
         if(paginationMeta?.pageCount == undefined)
-            return (<button onClick={() => setPageNumber(1, true)} disabled={true}>1</button>)
+            return (
+                <PaginationButton
+                    label={1}
+                    pageNumber={1}
+                    className={""}
+                    clickMethod={setPageNumber}
+                    clearList={true}
+                    disabled={true} />
+            )
 
         //Add current page number to the array ==> ( [ currentPage ] )
         const numberArray = [];
@@ -93,34 +102,36 @@ const Pagination = ({children, paginationMeta, setSkipNumber, setClearList, load
 
         //Cycle through numberArray to create each component in paginationNumber.
         const paginationNumber = [];
-        numberArray.forEach((currentLabel, index) => {
-            switch(currentLabel){
+        numberArray.forEach((pageLabel, index) => {
+            switch(pageLabel){
                 case "...":
                     paginationNumber.push(
-                        <button
-                            className="px-4"
-                            key={"btn-pagination-dots"+index}
+                        <PaginationButton
+                            label={"..."}
+                            pageNumber={index}
+                            className={""}
                             disabled={true}
-                        >
-                            ...
-                        </button>
+                            isNavigation={true}
+                        />
                     )
                     break;
                 default: 
                     paginationNumber.push(
-                        <button
-                            className="px-4"
-                            key={"btn-pagination-page-"+currentLabel}
-                            onClick={() => setPageNumber(parseInt(currentLabel), currentLabel + 1 == paginationMeta.currentPage + 1 ? false : true)}
-                            disabled={currentLabel == paginationMeta.currentPage ? true : false}>
-                                {currentLabel}
-                        </button>
+                        <PaginationButton
+                            label={pageLabel}
+                            pageNumber={pageLabel}
+                            className={""}
+                            clickMethod={setPageNumber}
+                            clearList={!(pageLabel + 1 === paginationMeta.currentPage + 1)}
+                            disabled={pageLabel === paginationMeta.currentPage}
+                            isCurrent={paginationMeta?.currentPage === pageLabel}
+                        />
                     );
             }
         });
 
         //Return component array to display.
-        return (<div>{paginationNumber}</div>);
+        return (<div className={"d-flex justify-content-center"}>{paginationNumber}</div>);
     }
 
     //LoadMore section
@@ -153,9 +164,23 @@ const Pagination = ({children, paginationMeta, setSkipNumber, setClearList, load
 
     const pageNumbersComponent = (
         <div className="d-flex py-4 justify-content-center">
-            <button className="px-4" onClick={() => previousPage()}>{"<"}</button>
+            <PaginationButton
+                label={"angle-left"}
+                labelIsIconClass={true}
+                pageNumber={""}
+                className={""}
+                clickMethod={previousPage}
+                isNavigation={true}
+            />
             {pageNumbers(2)}
-            <button className="px-4" onClick={() => nextPage()}>{">"}</button>
+            <PaginationButton
+                label={"angle-right"}
+                labelIsIconClass={true}
+                pageNumber={""}
+                className={""}
+                clickMethod={nextPage}
+                isNavigation={true}
+            />
         </div>
     )
 

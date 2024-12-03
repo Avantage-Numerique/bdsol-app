@@ -7,7 +7,7 @@ const ExternalLink = (props) => {
     if (props.href !== '') {
         const link = props.href.includes("mailto:") ? props.href : forceHttps(props.href);
         return (
-            <div className={"display-inline-block"}>
+            <div className={"d-inline-block"}>
                 <a className={`external-link ${props.className ?? ''}`} href={link} target={"_blank"} title={`${props.title ?? ""}`}>
                     {props.children && props.children}
                 </a>

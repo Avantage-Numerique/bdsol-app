@@ -2,13 +2,13 @@
 import PageHeader from "@/layouts/Header/PageHeader";
 import React from "react";
 import PageMeta from "@/src/common/PageMeta/PageMeta";
-import { RouteLink } from "@/src/common/Components/RouteLink";
-import Link from "next/link";
+import {RouteLink} from "@/src/common/Components/RouteLink";
 import {lang} from "@/src/common/Data/GlobalConstants";
-import AppRoutes from "@/src/Routing/AppRoutes";
 
 //Styling
 import styles from './aPropos.module.scss';
+import Icon from "@/common/widgets/Icon/Icon";
+import {ExternalLink} from "@/common/Components/ExternalLink";
 
 /**
  * Really basic page with plain text. This could be dry with an entry or some sort of markdown file.
@@ -26,17 +26,12 @@ const Index = () => {
             />
             <PageHeader title={`Avnu, c’est quoi ?`}/>
 
-            <div className={"container home-page__main content py-4"}>
-                <div className={"row py-2"}>
+            <div className={"container home-page__main content"}>
+                <div className={"row py-4"}>
                     <div className={"col"}>
                         <h3>Un outil d’exploration des ressources technologiques du Croissant boréal</h3>
                         <p className={pClass}>
-                            Avnu est une plateforme web <strong>gratuite</strong> et <strong>collaborative</strong> qui vise à documenter les ressources technologiques du
-                            &nbsp;
-                            <a href="https://avantagenumerique.org/le-croissant-boreal/"
-                                target="_blank">
-                                Croissant boréal
-                            </a>
+                            Avnu est une plateforme web <strong>gratuite</strong> et <strong>collaborative</strong> qui vise à documenter les ressources technologiques du &nbsp;<ExternalLink href={"https://avantagenumerique.org/le-croissant-boreal/"}>Croissant boréal</ExternalLink>
                             &nbsp;
                             (Abitibi-Témiscamingue, nord de l’Ontario francophone et Baie-James). Dans un objectif de transmission des savoirs et d’apprentissage collectif, cette <strong>base de données ouvertes</strong> se veut être un outil pour répertorier les activités technocréatives locales.
                             <br/><br/>
@@ -44,7 +39,7 @@ const Index = () => {
                         </p>
                     </div>
                 </div>
-                <div className={"row py-2"}>
+                <div className={"row py-4"}>
                     <div className={"col"}>
                         <h3>Comment ça fonctionne ?</h3>
                         <p>
@@ -60,7 +55,7 @@ const Index = () => {
                         </ul>
                     </div>
                 </div>
-                <div className={"row py-2"}>
+                <div className={"row py-4"}>
                     <div className={"col"}>
                         <h3>À quoi ça sert ?</h3>
                         <p>
@@ -88,7 +83,7 @@ const Index = () => {
                         </ul>
                     </div>
                 </div>
-                <div id="gouvernance-des-donnees" className={"row py-2"}>
+                <div id="gouvernance-des-donnees" className={"row py-4"}>
                     <div className={"col"}>
                         <h3>Utilisation et gouvernance des données</h3>
                         <p>
@@ -96,76 +91,75 @@ const Index = () => {
                         </p>
                     </div>
                 </div>
-                <div className={"row py-2"}>
+                <div className={"row py-4"}>
                     <div className={"col"}>
-                        <h3>Un projet développé avec amour par Avantage numérique</h3>
+                        <h3>Un projet développé avec amour par <ExternalLink href={"https://avantagenumerique.org/"}>Avantage numérique</ExternalLink></h3>
                         <p>
-                            Avnu est développé par
-                            &nbsp;
-                            <a href="https://avantagenumerique.org/"
-                                target="_blank">
-                                Avantage numérique
-                            </a>
-                            , un hub virtuel, physique et mobile qui dessert les secteurs de la culture, des affaires et du savoir. Le hub vise le développement de l’écosystème créatif, entrepreneurial et technologique du Croissant boréal. Il rassemble des organisations et des individus·es qui s’activent, autour de chantiers collaboratifs et de projets innovants, pour le développement de leurs milieux. Il est soutenu par une <RouteLink routeName={"valuesChart"}/> qui guide l’ensemble des actions réalisées dans un esprit de codéveloppement et d’innovation ouverte.
+                            Avantage numérique c'est un hub virtuel, physique et mobile qui dessert les secteurs de la culture, des affaires et du savoir. Le hub vise le développement de l’écosystème créatif, entrepreneurial et technologique du Croissant boréal. Il rassemble des organisations et des individus·es qui s’activent, autour de chantiers collaboratifs et de projets innovants, pour le développement de leurs milieux. Il est soutenu par une <RouteLink routeName={"valuesChart"}/> qui guide l’ensemble des actions réalisées dans un esprit de codéveloppement et d’innovation ouverte.
                         </p>
                     </div>
                 </div>
                 <div className={"row py-2"} id="equipe">
                     <div>
-                        <div className={"col"}>
-                            <h3>Notre belle équipe</h3>
+                        <div className={"col py-3"}>
+                            <h3 className={"pb-3"}>Notre belle équipe</h3>
                             <ul>
                                 <li>
+                                    <h4 className={"fs-5"}>Marc-André Martin (Mamarmite)</h4>
                                     <p className={pClass}>
-                                        <strong>Simon Descôteaux –</strong> Product owner <br/>
-                                        simondesc11@gmail.com<br/>
-                                        –
+                                        &mdash; Production et architecture technique
+                                        de l’application et de la base de données
                                     </p>
                                 </li>
                                 <li>
+                                    <h4 class={"fs-5"}>Frédéric Rivard</h4>
                                     <p className={pClass}>
-                                        <strong>Marc-André Martin (Mamarmite) –</strong> Production et architecture technique de
-                                        l’application et de la base de données – Mamarmite <br/>
-                                        marcandre@mamarmite.com<br/>
-                                        –
+                                        &mdash; Développement de la base de données
                                     </p>
                                 </li>
                                 <li>
+                                    <h4 className={"fs-5"}>Jeanne Perrin</h4>
                                     <p className={pClass}>
-                                        <strong>Vincent Poirier Ruel –</strong> Développement de la base de
-                                        données<br/>
-                                        vincentp.ruel@gmail.com<br/>
-                                        –
-                                    </p>
-                                </li>
-                                <li>
-                                    <p className={pClass}>
-                                        <strong>Frédéric Rivard –</strong> Développement de la base de données<br/>
-                                        sonofapancak@protonmail.com<br/>
-                                        –
-                                    </p>
-                                </li>
-                                <li>
-                                    <p className={pClass}>
-                                        <strong>Jeanne Perrin –</strong> Lien avec la communauté<br/>
-                                        jeanne.perrin@petittheatre.org<br/>
-                                        –
+                                        &mdash; Lien avec la communauté
                                     </p>
                                 </li>
                             </ul>
-
-                            <p className={pClass}>
-                                <strong>Nos experts conseils :</strong>
-                                Viêt Cao (SynapseC), Jules Gaudin (Robic) et Christian Roy (A10s inc.)<br/>
-                            </p>
-                            <p className={pClass}>
-                                <i>Initiative financée par le Conseil des Arts du Canada et le Ministère de la
-                                    Culture et des Communications du Québec.</i>
-                            </p>
+                        </div>
+                        <div className={"col py-3"}>
+                            <h3 className={"pb-3"}>Ancien·es membres de l'équipe (toujours dans nos cœurs) <Icon iconName={"grin-hearts"} /></h3>
+                            <ul>
+                                <li>
+                                    <h4 className={"fs-5"}>Simon Descôteaux (Jeux Nemesis)</h4>
+                                    <p className={pClass}>
+                                        &mdash; Gestionnaire de produit (Product owner) &mdash; 2021-2024
+                                    </p>
+                                </li>
+                                <li>
+                                    <h4 className={"fs-5"}>Vincent Poirier Ruel</h4>
+                                    <p className={pClass}>
+                                        &mdash; Développement de la base de données &mdash; 2021-2024
+                                    </p>
+                                </li>
+                            </ul>
+                        </div>
+                        <div className={"col py-3"}>
+                            <h3 className={"pb-2"}>Nos experts conseils</h3>
+                            <ul>
+                                <li>Viêt Cao (SynapseC)</li>
+                                <li>Jules Gaudin (Robic)</li>
+                                <li>Christian Roy (A10s inc.)</li>
+                            </ul>
+                        </div>
+                        <div className={"col"}>
+                            <blockquote className={`text-center`}>
+                                Initiative financée par le Conseil des Arts du Canada et le Ministère de la Culture et des Communications du Québec.
+                            </blockquote>
                         </div>
                     </div>
-                </div>{/* end row */}
-            </div>{/* end container */}
+                </div>
+                {/* end row */}
+            </div>
+            {/* end container */}
         </div>
     )
 }

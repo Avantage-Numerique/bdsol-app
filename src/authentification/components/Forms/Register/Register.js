@@ -13,6 +13,8 @@ import Button from '@/src/common/FormElements/Button/Button'
 import Spinner from '@/src/common/widgets/spinner/Spinner'
 import {MessageContext} from '@/src/common/UserNotifications/Message/Context/Message-Context'
 import {RouteLink} from '@/src/common/Components/RouteLink'
+import AppRoutes from "@/src/Routing/AppRoutes";
+import {lang} from "@/common/Data/GlobalConstants";
 
 const Register = () => {
 
@@ -66,6 +68,17 @@ const Register = () => {
 
     //Extract the functions inside useHttpClient
     const {isLoading} = useHttpClient();
+
+
+    //  First of all, verify if the user chose auth cookies as OK
+    useEffect(() => {
+        if(!auth.cookiesChoices.auth) {
+            Router.push({
+                pathname: AppRoutes.paramsCookies.asPath,
+                query: { msg: lang.cookieMessageNeedAuthCookie },
+            });
+        }
+    }, [auth.cookiesChoices.auth])
 
     /*
         First of all, verify if the user is logged in.
