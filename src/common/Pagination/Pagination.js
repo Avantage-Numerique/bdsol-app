@@ -107,6 +107,7 @@ const Pagination = ({children, paginationMeta, setSkipNumber, setClearList, load
                 case "...":
                     paginationNumber.push(
                         <PaginationButton
+                            key={"pagination-btn-dots-"+index}
                             label={"..."}
                             pageNumber={index}
                             className={""}
@@ -118,6 +119,7 @@ const Pagination = ({children, paginationMeta, setSkipNumber, setClearList, load
                 default: 
                     paginationNumber.push(
                         <PaginationButton
+                            key={"pagination-btn-number-"+index}
                             label={pageLabel}
                             pageNumber={pageLabel}
                             className={""}
