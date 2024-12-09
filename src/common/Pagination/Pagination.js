@@ -42,6 +42,7 @@ const Pagination = ({children, paginationMeta, setSkipNumber, setClearList, load
             setPageNumber(paginationRef.current.currentPage + 1)
         }
     }
+
     const previousPage = () => {
         if(paginationMeta.currentPage > 1){
             setPageNumber(paginationMeta.currentPage - 1);
@@ -54,7 +55,7 @@ const Pagination = ({children, paginationMeta, setSkipNumber, setClearList, load
     //"showCount" default 2, how many number to show left and to show right from current page.
     const pageNumbers = (showCount = 2) => {
         //If paginationMeta is undefined
-        if(paginationMeta?.pageCount == undefined)
+        if(paginationMeta?.pageCount === undefined)
             return (
                 <PaginationButton
                     label={1}
@@ -88,7 +89,7 @@ const Pagination = ({children, paginationMeta, setSkipNumber, setClearList, load
             numberArray.unshift(1, "...");
         else
             //Add firstPage?
-            if(numberArray[0] - 1 == 1)
+            if(numberArray[0] - 1 === 1)
                 numberArray.unshift(1);
 
         //Right check for "..."
@@ -96,7 +97,7 @@ const Pagination = ({children, paginationMeta, setSkipNumber, setClearList, load
             numberArray.push("...", paginationMeta.pageCount);
         else
             //Add last page?
-            if(numberArray[numberArray.length - 1] + 1 == paginationMeta.pageCount)
+            if(numberArray[numberArray.length - 1] + 1 === paginationMeta.pageCount)
                 numberArray.push(paginationMeta.pageCount);
 
         //Cycle through numberArray to create each component in paginationNumber.

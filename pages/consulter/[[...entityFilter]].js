@@ -65,6 +65,7 @@ const ConsultData = (props) => {
 
 
     const getListResponses = async () => {
+        console.log("getListResponses", skipNumber, entityPerPage);
         if(filterState === "all")
             return await clientSideExternalApiRequest("/search/all", { method: 'POST', body: JSON.stringify({data : {skip:skipNumber, limit:entityPerPage}})});
         else
@@ -92,6 +93,7 @@ const ConsultData = (props) => {
             pageCount: res?.meta?.pagination?.pageCount,
             currentPage: res?.meta?.pagination?.currentPage
         };
+        console.log("consulter", paginationMetaObj)
         setPaginationMeta(paginationMetaObj);
         //setShowApplyBtn(false);
         setIsLoading(false);
@@ -113,7 +115,7 @@ const ConsultData = (props) => {
             
         setClearList(true);
         //handles new request with the filter chosen
-        if(skipNumber == 0)
+        if(skipNumber === 0)
             sendApiListRequest();
         else
             setSkipNumber(0);
