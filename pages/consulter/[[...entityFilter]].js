@@ -75,6 +75,7 @@ const ConsultData = (props) => {
         setIsLoading(true);
         const res = await getListResponses();
         const list = res.data;
+        console.log("sendApiListRequest", res);
         if(clearListRef.current){
             setEntityList(list); //If not loadMore or changing page/filter
             setClearList(false);
