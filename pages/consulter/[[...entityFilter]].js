@@ -33,7 +33,9 @@ const ConsultData = (props) => {
     const {isLoading, setIsLoading} = useHttpClient();
 
 
+    //param returnKey allow to switch from get value to get key
     function getFilterStateFromLabel(label, returnKey=false){
+        const sanitizedLabel = String(label);
         const labelToFilter =
         {
             "tous": "all",
@@ -44,8 +46,8 @@ const ConsultData = (props) => {
             "equipements": "Equipment"
         }
         if(returnKey)
-            return Object.keys(labelToFilter).find(key => labelToFilter[key] === label);
-        return labelToFilter?.[label];
+            return Object.keys(labelToFilter).find(key => labelToFilter[key] === sanitizedLabel);
+        return labelToFilter?.[sanitizedLabel];
     }
 
     useEffect( () => {

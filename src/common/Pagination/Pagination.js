@@ -6,8 +6,7 @@ import {PaginationButton} from "@/common/Pagination/PaginationButton";
  * Basic pagination component. It sets a list of number, on top and below the children
  * indicating # of pages.
  * 
- * @param {number} totalCount How many total item to paginate (if this exceed 6 page, the display will update accordingly)
- * @param {number} length how many item per page should be displayed
+ * @param {object} paginationMeta How many total item to paginate (if this exceed 6 page, the display will update accordingly)
  * @param {number} setClearList function that takes a bool as param, set if the list need to be reset or we can add to it.
  * @param {stateSetter} setSkipNumber Set how many item should be skipped in the request for currentPage
  * @param {boolean} loadMore true make the component go to nextPage if scrolled to the bottom of the page.
