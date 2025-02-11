@@ -17,6 +17,7 @@ import {lang} from "@/common/Data/GlobalConstants";
 import Spinner from "@/common/widgets/spinner/Spinner";
 import {getBadgesInfo} from "@/src/DataTypes/Badges/BadgesSection";
 import nextConfig from "@/next.config";
+import {LoadingStates} from "@/common/widgets/loading/LoadingStates";
 
 
 const ConsultData = (props) => {
@@ -31,7 +32,7 @@ const ConsultData = (props) => {
     const clearListRef = useRef(false);
     const isFirstRenderRef = useRef(true);
     const [paginationMeta, setPaginationMeta] = useState({});
-    const {isLoading, setIsLoading} = useHttpClient();
+    const {isLoading, setIsLoading, loadingState, setLoadingState} = useHttpClient();
 
 
     //param returnKey allow to switch from get value to get key
@@ -75,6 +76,7 @@ const ConsultData = (props) => {
 
     async function sendApiListRequest(){
         setIsLoading(true);
+        setLoadingState(LoadingStates.LOADING_STATE);
         const res = await getListResponses();
         const list = res.data;
 
@@ -92,11 +94,13 @@ const ConsultData = (props) => {
             limit: res?.meta?.pagination?.limit,
             type: res?.meta?.pagination?.type,
             pageCount: res?.meta?.pagination?.pageCount,
-            currentPage: res?.meta?.pagination?.currentPage
+            currentPage: res?.meta?.pagination?.currentPage,
+            currentCount: entityList.length ?? 0,
         };
         setPaginationMeta(paginationMetaObj);
         //setShowApplyBtn(false);
         setIsLoading(false);
+        setLoadingState(LoadingStates.LOADING_COMPLETE_STATE);
     }
 
     //ClearList setter
@@ -153,9 +157,7 @@ const ConsultData = (props) => {
                 />
             }
             {isLoading &&
-                <div className={"home-page__feed-section--spinner-container"}>
-                    <Spinner label={lang.loadingData} />
-                </div>
+                <Spinner label={loadingState.label} className={"bg-primary-lighter"} />
             }
             {
                 !isLoading && entityList?.length <= 0 &&
@@ -194,18 +196,17 @@ const ConsultData = (props) => {
                             </Button>
                             {entityFilter()}
                         </div>
-
                     </div>
                 </section>
             </section>
-                <Pagination
-                    paginationMeta={paginationMeta}
-                    setClearList={setClearList}
-                    setSkipNumber={setSkipNumber}
-                    loadMore={true}
-                >
-                    {entityGrid}
-                </Pagination>
+            <Pagination
+                paginationMeta={paginationMeta}
+                setClearList={setClearList}
+                setSkipNumber={setSkipNumber}
+                loadMore={true}
+            >
+                {entityGrid}
+            </Pagination>
         </div>
     )
 }

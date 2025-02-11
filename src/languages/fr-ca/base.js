@@ -8,6 +8,8 @@ const base = {
     "noResult": "Aucune donnée pour l'instant.",
     "maybeABackendProblem": "On a peut-être un problème en arrière plan.",
     "loadingData": "Chargement des données",
+    "loadingMoreData": "Chargement ...",
+    "loadingCompleted": "Chargement Terminé",
     "back": "Retour",
     "close": "Fermer",
     "noInfoAvailable": "Aucune information disponible.",

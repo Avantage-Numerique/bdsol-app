@@ -1,5 +1,6 @@
 import {useCallback, useEffect, useRef} from "react"
 import {PaginationButton} from "@/common/Pagination/PaginationButton";
+import nextConfig from "@/next.config";
 
 
 /**
@@ -22,10 +23,11 @@ const Pagination = ({children, paginationMeta, setSkipNumber, setClearList, load
     const paginationRef = useRef({
         count : paginationMeta?.count ?? 0,
         skipped: paginationMeta?.skipped ?? 0,
-        limit: paginationMeta?.limit ?? 1,
+        limit: paginationMeta?.limit ?? nextConfig.publicRuntimeConfig.pagination.limit,
         type : paginationMeta?.type ?? 'Person',
         pageCount : paginationMeta?.pageCount ?? 1,
         currentPage : paginationMeta?.currentPage ?? 1,
+        currentCount : paginationMeta?.currentCount ?? 0,
     });
 
     useEffect( () => { paginationRef.current = paginationMeta; }, [paginationMeta]);
@@ -164,36 +166,41 @@ const Pagination = ({children, paginationMeta, setSkipNumber, setClearList, load
         }
     },[loadMore, onScroll])
 
+    const showStats = true;
     const pageNumbersComponent = (
-        <div className="d-flex py-4 justify-content-center">
-            <PaginationButton
-                label={"angle-left"}
-                labelIsIconClass={true}
-                pageNumber={""}
-                className={""}
-                clickMethod={previousPage}
-                isNavigation={true}
-            />
-            {pageNumbers(2)}
-            <PaginationButton
-                label={"angle-right"}
-                labelIsIconClass={true}
-                pageNumber={""}
-                className={""}
-                clickMethod={nextPage}
-                isNavigation={true}
-            />
+        <div>
+            <div className="d-flex pt-4 justify-content-center">
+                <PaginationButton
+                    label={"angle-left"}
+                    labelIsIconClass={true}
+                    pageNumber={""}
+                    className={""}
+                    clickMethod={previousPage}
+                    isNavigation={true}
+                />
+                {pageNumbers(2)}
+                <PaginationButton
+                    label={"angle-right"}
+                    labelIsIconClass={true}
+                    pageNumber={""}
+                    className={""}
+                    clickMethod={nextPage}
+                    isNavigation={true}
+                />
+            </div>
+            {showStats &&
+                <div className="d-flex pt-2 pb-4 justify-content-center align-items-center text-secondary-light">
+                    <span>On affiche&nbsp;:&nbsp;</span>
+                    <span>{paginationRef.current.currentCount}&nbsp;/&nbsp;{paginationRef.current.count}</span><span>&nbsp;des éléments</span>
+                </div>
+            }
         </div>
     )
 
     return (
         <div className="container">
-            {/* Top number section for pages*/}
-            {pageNumbersComponent}
             {children}
-            {/* Bottom number section for pages*/}
             {pageNumbersComponent}
-            {/*endMessage ?? <div>{endMessage}</div>*/}
         </div>
     )
 }
