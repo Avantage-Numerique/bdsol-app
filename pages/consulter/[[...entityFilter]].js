@@ -16,10 +16,11 @@ import PageMeta from "@/src/common/PageMeta/PageMeta";
 import {lang} from "@/common/Data/GlobalConstants";
 import Spinner from "@/common/widgets/spinner/Spinner";
 import {getBadgesInfo} from "@/src/DataTypes/Badges/BadgesSection";
+import nextConfig from "@/next.config";
 
 
 const ConsultData = (props) => {
-    const entityPerPage = 2;
+    const entityPerPage = nextConfig.publicRuntimeConfig.pagination.limit;
     const entityTypeList = ["Person", "Organisation", "Project", "Event", "Equipment"]
     const router = useRouter();
     const [entityList, setEntityList] = useState([]);
