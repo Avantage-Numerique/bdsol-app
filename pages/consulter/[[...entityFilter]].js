@@ -66,7 +66,7 @@ const ConsultData = (props) => {
 
 
     const getListResponses = async () => {
-        console.log("getListResponses", skipNumber, entityPerPage);
+
         if(filterState === "all")
             return await clientSideExternalApiRequest("/search/all", { method: 'POST', body: JSON.stringify({data : {skip:skipNumber, limit:entityPerPage}})});
         else
@@ -142,14 +142,6 @@ const ConsultData = (props) => {
 
     const entityGrid = (
         <div className="py-4 position-relative">
-            {isLoading &&
-                <div className={"home-page__feed-section--spinner-container"}>
-                    <div>
-                        <Spinner reverse/>
-                    </div>
-                    <p className="text-center"><strong>{lang.loadingData}</strong></p>
-                </div>
-            }
             {/* Entities list section */}
             {
                 entityList?.length > 0 &&
@@ -159,6 +151,11 @@ const ConsultData = (props) => {
                     feed={entityList.filter(el => el.type !== "Taxonomy")}
                     badgesInfo={props.badgesInfo}
                 />
+            }
+            {isLoading &&
+                <div className={"home-page__feed-section--spinner-container"}>
+                    <Spinner label={lang.loadingData} />
+                </div>
             }
             {
                 !isLoading && entityList?.length <= 0 &&
