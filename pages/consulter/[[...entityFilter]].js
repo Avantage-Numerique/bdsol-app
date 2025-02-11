@@ -77,7 +77,7 @@ const ConsultData = (props) => {
         setIsLoading(true);
         const res = await getListResponses();
         const list = res.data;
-        console.log("sendApiListRequest", res);
+
         if(clearListRef.current){
             setEntityList(list); //If not loadMore or changing page/filter
             setClearList(false);
@@ -94,7 +94,6 @@ const ConsultData = (props) => {
             pageCount: res?.meta?.pagination?.pageCount,
             currentPage: res?.meta?.pagination?.currentPage
         };
-        console.log("consulter", paginationMetaObj)
         setPaginationMeta(paginationMetaObj);
         //setShowApplyBtn(false);
         setIsLoading(false);
