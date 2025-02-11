@@ -156,7 +156,7 @@ const Register = () => {
     return (
         <>
 
-            { isLoading && <Spinner />}
+            { isLoading && <Spinner className={"bg-secondary"} />}
 
             <form className="bg-primary-lighter rounded form-box-shadow p-4" onSubmit={submitHandler}>
 
