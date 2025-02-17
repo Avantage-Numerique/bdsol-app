@@ -55,7 +55,7 @@ const ConsultData = (props) => {
     useEffect( () => {
         //router.query.filtre = filterState;
         //router.query.page = paginationMeta.currentPage;
-        if(entityTypeList.includes(filterState) || filterState == "all"){
+        if(entityTypeList.includes(filterState) || filterState === "all"){
             const tempFilterLabel = getFilterStateFromLabel(filterState, true);
             router.push({
                 pathname: '/consulter/'+tempFilterLabel,
