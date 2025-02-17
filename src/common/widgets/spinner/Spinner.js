@@ -5,7 +5,6 @@ import AvnuLoading from "@/common/widgets/loading/AvnuLoading";
 const Spinner = ({ fixed, absolute, reverse, className, label }) => {
     return (
         <div className={`
-            rounded-2 
             ${styles["spinner__container"]} 
             ${className}
             ${fixed ? styles["spinner__container--fixed"] : ""}

@@ -76,7 +76,7 @@ export const useHttpClient = () => {
 
     //State that determine if the request is in progress
     const [isLoading, setIsLoading] = useState(false);
-    const [loadingState, setLoadingState] = useState(LoadingStates.DEFAULT_STATE);
+    const [currentLoadingState, setLoadingState] = useState(LoadingStates.DEFAULT);
 
     //Access the authentication context
     const auth = useAuth();
@@ -146,5 +146,5 @@ export const useHttpClient = () => {
         };
     }, []);
 
-    return {isLoading, setIsLoading, sendRequest};
+    return {isLoading, setIsLoading, sendRequest, setLoadingState, currentLoadingState};
 };

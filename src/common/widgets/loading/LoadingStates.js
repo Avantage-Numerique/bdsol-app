@@ -2,20 +2,26 @@ import {lang} from "@/common/Data/GlobalConstants";
 
 
 export class LoadingStates {
-    static DEFAULT_STATE = {
-        state: 0,
+
+    static DEFAULT_STATE = 0;
+    static LOADING_STATE = 1;
+    static LOADING_MORE_STATE = 2;
+    static LOADING_COMPLETE_STATE = 100;
+
+    static DEFAULT = {
+        state: LoadingStates.DEFAULT_STATE,
         label: lang.loadingData
     };
-    static LOADING_STATE = {
-        state: 1,
+    static LOADING = {
+        state: LoadingStates.LOADING_STATE,
         label: lang.loadingData
     };
-    static LOADINGMORE_STATE = {
-        state: 2,
+    static LOADING_MORE = {
+        state: LoadingStates.LOADING_MORE_STATE,
         label: lang.loadingMoreData
     };
-    static LOADING_COMPLETE_STATE = {
-        state: 99,
+    static LOADING_COMPLETE = {
+        state: LoadingStates.LOADING_COMPLETE_STATE,
         label: lang.loadingCompleted
     };
 }

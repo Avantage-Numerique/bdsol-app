@@ -32,7 +32,7 @@ const ConsultData = (props) => {
     const clearListRef = useRef(false);
     const isFirstRenderRef = useRef(true);
     const [paginationMeta, setPaginationMeta] = useState({});
-    const {isLoading, setIsLoading, loadingState, setLoadingState} = useHttpClient();
+    const {isLoading, setIsLoading, currentLoadingState, setLoadingState} = useHttpClient();
 
 
     //param returnKey allow to switch from get value to get key
@@ -76,16 +76,19 @@ const ConsultData = (props) => {
 
     async function sendApiListRequest(){
         setIsLoading(true);
-        setLoadingState(LoadingStates.LOADING_STATE);
+        setLoadingState(LoadingStates.LOADING);
         const res = await getListResponses();
         const list = res.data;
+        let totalCurrentCount = 0
 
         if(clearListRef.current){
             setEntityList(list); //If not loadMore or changing page/filter
             setClearList(false);
+            totalCurrentCount = list.length;
         }
         else {
             setEntityList([...entityList, ...list]); //If loadMore scroll
+            totalCurrentCount = list.length + entityList.length;//setEntityList happens after the function.
         }
         const paginationMetaObj =
         {
@@ -95,12 +98,12 @@ const ConsultData = (props) => {
             type: res?.meta?.pagination?.type,
             pageCount: res?.meta?.pagination?.pageCount,
             currentPage: res?.meta?.pagination?.currentPage,
-            currentCount: entityList.length ?? 0,
+            currentCount: totalCurrentCount,
         };
         setPaginationMeta(paginationMetaObj);
         //setShowApplyBtn(false);
         setIsLoading(false);
-        setLoadingState(LoadingStates.LOADING_COMPLETE_STATE);
+        setLoadingState(LoadingStates.LOADING_COMPLETE);
     }
 
     //ClearList setter
@@ -146,7 +149,10 @@ const ConsultData = (props) => {
 
     const entityGrid = (
         <div className="py-4 position-relative">
-            {/* Entities list section */}
+
+            {isLoading &&
+                <Spinner label={currentLoadingState.label} fixed={false} absolute={false} className={"rounded-2 bg-primary-lighter"} />
+            }
             {
                 entityList?.length > 0 &&
                 <EntitiesGrid
@@ -156,8 +162,8 @@ const ConsultData = (props) => {
                     badgesInfo={props.badgesInfo}
                 />
             }
-            {isLoading &&
-                <Spinner label={loadingState.label} className={"bg-primary-lighter"} />
+            {isLoading && currentLoadingState.state === LoadingStates.LOADING_MORE.state &&
+                <Spinner label={currentLoadingState.label} fixed={false} absolute={false} className={"rounded-2 bg-primary-lighter"} />
             }
             {
                 !isLoading && entityList?.length <= 0 &&

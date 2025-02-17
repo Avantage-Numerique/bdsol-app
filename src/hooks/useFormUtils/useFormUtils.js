@@ -121,6 +121,7 @@ export const useFormUtils = ( initialState, actions ) => {
 
         useEffect(() => {
             if(innerMessage)
+                //@todo move that to the use ScrollTo hook.
                 scroller.scrollTo(styles["data-form-message"], {
                     offset: -50,
                     duration: 800,

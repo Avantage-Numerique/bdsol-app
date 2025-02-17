@@ -7,9 +7,9 @@ const AvnuLoading = ({fixed, reverse}) => {
     return (
         <div className={`${styles["loader"]}`}>
             <span className={`${styles["trajet"]}`}></span>
-            <div class={`${styles["engine"]}`}>
-                <div class={`${styles["fire"]}`}></div>
-                <div class={`${styles["rocket"]}`}></div>
+            <div className={`${styles["engine"]}`}>
+                <div className={`${styles["fire"]}`}></div>
+                <div className={`${styles["rocket"]}`}></div>
             </div>
         </div>
     )

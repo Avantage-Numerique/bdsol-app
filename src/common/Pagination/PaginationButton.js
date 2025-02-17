@@ -5,7 +5,7 @@ import styles from "./Pagination.module.scss"
 import Icon from "@/common/widgets/Icon/Icon";
 
 /**
- *
+ * Button as a DRY to the pagination functionnalité and needs.
  * @param props
  * @param props.label
  * @param props.pageNumber

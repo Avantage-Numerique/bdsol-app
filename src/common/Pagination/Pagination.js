@@ -1,6 +1,7 @@
 import {useCallback, useEffect, useRef} from "react"
 import {PaginationButton} from "@/common/Pagination/PaginationButton";
 import nextConfig from "@/next.config";
+import useScrollTo from "@/src/hooks/useScrollTo";
 
 
 /**
@@ -18,6 +19,9 @@ import nextConfig from "@/next.config";
  * */
 const Pagination = ({children, paginationMeta, setSkipNumber, setClearList, loadMore=false, ...props}) => {
 
+
+    const {scrollToTop} = useScrollTo();
+
     //UseRef + useEffect update to handle onScrol
     //necessary, if not, onScroll triggers nextPage() with initial values
     const paginationRef = useRef({
@@ -32,6 +36,21 @@ const Pagination = ({children, paginationMeta, setSkipNumber, setClearList, load
 
     useEffect( () => { paginationRef.current = paginationMeta; }, [paginationMeta]);
 
+    const paginationButtonClickHandler = (pageNumber, clearList=false) => {
+        setPageNumber(pageNumber, clearList);
+        scrollToTop();
+    }
+
+    const paginationNextButtonClickHandler = () => {
+        nextPage();
+        scrollToTop();
+    }
+
+    const paginationPreviousButtonClickHandler = () => {
+        previousPage();
+        scrollToTop();
+    }
+
     //Set skip when page change
     function setPageNumber(pageNumber, clearList=false){
         setSkipNumber(paginationRef.current.limit * (pageNumber - 1));
@@ -41,7 +60,7 @@ const Pagination = ({children, paginationMeta, setSkipNumber, setClearList, load
 
     const nextPage = () => {
         if(paginationRef.current.currentPage < paginationRef.current.pageCount){
-            setPageNumber(paginationRef.current.currentPage + 1)
+            setPageNumber(paginationRef.current.currentPage + 1);
         }
     }
 
@@ -63,7 +82,7 @@ const Pagination = ({children, paginationMeta, setSkipNumber, setClearList, load
                     label={1}
                     pageNumber={1}
                     className={""}
-                    clickMethod={setPageNumber}
+                    clickMethod={paginationButtonClickHandler}
                     clearList={true}
                     disabled={true} />
             )
@@ -125,7 +144,7 @@ const Pagination = ({children, paginationMeta, setSkipNumber, setClearList, load
                             label={pageLabel}
                             pageNumber={pageLabel}
                             className={""}
-                            clickMethod={setPageNumber}
+                            clickMethod={paginationButtonClickHandler}
                             clearList={!(pageLabel + 1 === paginationMeta.currentPage + 1)}
                             disabled={pageLabel === paginationMeta.currentPage}
                             isCurrent={paginationMeta?.currentPage === pageLabel}
@@ -151,14 +170,20 @@ const Pagination = ({children, paginationMeta, setSkipNumber, setClearList, load
             }, delay);
         };
     }
+
+    /**
+     * Load more trigger
+     */
     const onScroll = useCallback(debounce(() => {
-        if (window.innerHeight + document.documentElement.scrollTop === document.scrollingElement.scrollHeight) {
-            nextPage();
+        if (typeof window !== "undefined" && typeof document !== "undefined") {
+            if (window.innerHeight + document.documentElement.scrollTop === document.scrollingElement.scrollHeight) {
+                nextPage();
+            }
         }
     }, 100), []);
 
     useEffect( () => {
-        if(loadMore){
+        if(typeof window !== "undefined" && loadMore){
             window.addEventListener('scroll', onScroll);
             return () => {
                 window.removeEventListener('scroll', onScroll);
@@ -167,15 +192,28 @@ const Pagination = ({children, paginationMeta, setSkipNumber, setClearList, load
     },[loadMore, onScroll])
 
     const showStats = true;
-    const pageNumbersComponent = (
+    const PaginationHeaderComponent = (
+        <header className="py-3">
+            <h5>
+                Page {paginationMeta.currentPage}
+            </h5>
+            {showStats &&
+                <p>
+                    <span>On affiche&nbsp;:&nbsp;</span>
+                    <span>{paginationMeta.currentCount}&nbsp;/&nbsp;{paginationMeta.count}</span><span>&nbsp;des éléments</span>
+                </p>
+            }
+        </header>
+    );
+    const PageNumbersComponent = (
         <div>
-            <div className="d-flex pt-4 justify-content-center">
+            <div className="d-flex py-4 justify-content-center">
                 <PaginationButton
                     label={"angle-left"}
                     labelIsIconClass={true}
                     pageNumber={""}
                     className={""}
-                    clickMethod={previousPage}
+                    clickMethod={paginationPreviousButtonClickHandler()}
                     isNavigation={true}
                 />
                 {pageNumbers(2)}
@@ -184,23 +222,18 @@ const Pagination = ({children, paginationMeta, setSkipNumber, setClearList, load
                     labelIsIconClass={true}
                     pageNumber={""}
                     className={""}
-                    clickMethod={nextPage}
+                    clickMethod={paginationNextButtonClickHandler}
                     isNavigation={true}
                 />
             </div>
-            {showStats &&
-                <div className="d-flex pt-2 pb-4 justify-content-center align-items-center text-secondary-light">
-                    <span>On affiche&nbsp;:&nbsp;</span>
-                    <span>{paginationRef.current.currentCount}&nbsp;/&nbsp;{paginationRef.current.count}</span><span>&nbsp;des éléments</span>
-                </div>
-            }
         </div>
     )
 
     return (
         <div className="container">
+            {PaginationHeaderComponent}
             {children}
-            {pageNumbersComponent}
+            {PageNumbersComponent}
         </div>
     )
 }
