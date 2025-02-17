@@ -4,8 +4,11 @@ import styles from './AvnuLoading.module.scss'
 
 const AvnuLoading = ({fixed, reverse}) => {
 
+    const fixedClasses = fixed ? "" : "";
+    const reversedClasses = reverse ? "" : "";
+
     return (
-        <div className={`${styles["loader"]}`}>
+        <div className={`${styles["loader"]} ${fixedClasses} ${reversedClasses}`}>
             <span className={`${styles["trajet"]}`}></span>
             <div className={`${styles["engine"]}`}>
                 <div className={`${styles["fire"]}`}></div>

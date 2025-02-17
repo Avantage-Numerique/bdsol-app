@@ -8,10 +8,12 @@ import useScrollTo from "@/src/hooks/useScrollTo";
  * Basic pagination component. It sets a list of number, on top and below the children
  * indicating # of pages.
  * 
+ * @param {object} children the children of pagination, for now must be an entitylist.
  * @param {object} paginationMeta How many total item to paginate (if this exceed 6 page, the display will update accordingly)
  * @param {number} setClearList function that takes a bool as param, set if the list need to be reset or we can add to it.
- * @param {stateSetter} setSkipNumber Set how many item should be skipped in the request for currentPage
+ * @param {callable} setSkipNumber Set how many item should be skipped in the request for currentPage
  * @param {boolean} loadMore true make the component go to nextPage if scrolled to the bottom of the page.
+ * @param {any} props all the rest of params can be passed to.
  * Note for loadMore :
  *      true ==> setEntityList([...entityList, ...list]);
  *      false ==> setEntityList(list);
@@ -213,7 +215,7 @@ const Pagination = ({children, paginationMeta, setSkipNumber, setClearList, load
                     labelIsIconClass={true}
                     pageNumber={""}
                     className={""}
-                    clickMethod={paginationPreviousButtonClickHandler()}
+                    clickMethod={paginationPreviousButtonClickHandler}
                     isNavigation={true}
                 />
                 {pageNumbers(2)}
