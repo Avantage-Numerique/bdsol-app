@@ -47,6 +47,7 @@ const PersonSingleView = ({ data }) => {
 
     const breadcrumbLabels = {
         "personnes": lang.Persons,
+        "consulter": lang.consultTitle,
         "slug": `${firstName} ${lastName}`
     };
 

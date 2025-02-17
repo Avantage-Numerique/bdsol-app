@@ -26,13 +26,15 @@ const AppRoutesRaw = {
      */
     persons : {
         label: "Toutes les personnes",
-        pathname: "/personnes",
-        asPath: "/personnes"
+        pathname: "/consulter/personnes",
+        asPath: "/consulter/personnes"
     },
     personSingle : {
         label: "Page d'une personne",
         pathname: "/personnes/[slug]",
         asPath: "/personnes/[slug]",
+        breadcrumbPathName: "/consulter/personnes/[slug]",
+        breadcrumbAsPath: "/consulter/personnes/[slug]",
     },
     personSingleMedia : {
         label: "Person",
@@ -82,13 +84,15 @@ const AppRoutesRaw = {
      ***/
     organisations : {
         label: "Toutes les organisations",
-        pathname: "/organisations",
-        asPath: "/organisations",
+        pathname: "/consulter/organisations",
+        asPath: "/consulter/organisations",
     },
     organisationSingle : {
         label: "Une organisation",
         pathname: "/organisations/[slug]",
-        asPath: "/organisations/[slug]"
+        asPath: "/organisations/[slug]",
+        breadcrumbPathName: "/consulter/organisations/[slug]",
+        breadcrumbAsPath: "/consulter/organisations/[slug]",
     },
     organisationSingleMedia : {
         label: "Média d'une organisation",
@@ -117,13 +121,15 @@ const AppRoutesRaw = {
      ***/
     projects : {
         label: "Tous les projets",
-        pathname: "/projets",
-        asPath: "/projets",
+        pathname: "/consulter/projets",
+        asPath: "/consulter/projets",
     },
     projectSingle : {
         label: "Un projet",
         pathname: "/projets/[slug]",
-        asPath: "/projets/[slug]"
+        asPath: "/projets/[slug]",
+        breadcrumbPathName: "/consulter/projets/[slug]",
+        breadcrumbAsPath: "/consulter/projets/[slug]",
     },
     projectSingleEdit : {
         label: "Modifier un projet",
@@ -152,13 +158,15 @@ const AppRoutesRaw = {
      ***/
     events : {
         label: "Tous les événement",
-        pathname: "/evenements",
-        asPath: "/evenements",
+        pathname: "/consulter/evenements",
+        asPath: "/consulter/evenements",
     },
     eventSingle : {
         label: "Un événement",
         pathname: "/evenements/[slug]",
-        asPath: "/evenements/[slug]"
+        asPath: "/evenements/[slug]",
+        breadcrumbPathName: "/consulter/evenements/[slug]",
+        breadcrumbAsPath: "/consulter/evenements/[slug]",
     },
     eventSingleEdit : {
         label: "Modifier un événement",
@@ -222,13 +230,15 @@ const AppRoutesRaw = {
      ***/
     equipment : {
         label: "Tous les équipements",
-        pathname: "/equipement",
-        asPath: "/equipement",
+        pathname: "/consulter/equipement",
+        asPath: "/consulter/equipement",
     },
     equipmentSingle : {
         label: "Un équipement",
-        pathname: "/equipement/[slug]",
-        asPath: "/equipement/[slug]"
+        pathname: "/equipements/[slug]",
+        asPath: "/equipements/[slug]",
+        breadcrumbPathName: "/consulter/equipements/[slug]",
+        breadcrumbAsPath: "/consulter/equipements/[slug]",
     },
     equipmentSingleEdit : {
         label: "Modifier un événement",

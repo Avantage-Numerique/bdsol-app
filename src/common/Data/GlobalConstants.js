@@ -11,6 +11,7 @@ export const lang = StringDictionary.getInstance([
     "validation",
     "meta",
     "contribute",
+    "consult",
     "medias",
     "organisations",
     "persons",

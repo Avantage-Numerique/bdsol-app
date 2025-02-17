@@ -63,6 +63,7 @@ const ProjectSingleView = ({ data }) => {
     /* Needed for breadCrumb generator */
     const breadcrumbLabels = {
         "projets": lang.Projects,
+        "consulter": lang.consultTitle,
         "slug": model.name ?? '-'
     };
 
@@ -355,10 +356,10 @@ export default ProjectSingleView
         step = " - ",
         duration = " - ",
         costs = " - "
-    } = props; 
+    } = props;
 
     const Tag = header ? "h6" : "p";
-    const bg_color = header ? "bg-secondary-light" : ((index % 2 === 0) ? "bg-greyBg" : "")
+    const bg_color = header ? "bg-secondary-light" : ((index % 2 === 0) ? "bg-greyBg" : "");
 
     return (
         <li className={`${bg_color} row`}>

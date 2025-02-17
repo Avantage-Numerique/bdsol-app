@@ -96,7 +96,7 @@ const Login = () => {
         <section className={`header-less-page ${styles.authPage}`}>
 
             {/* Spinner to display when the app is waiting for the api*/}
-            {isLoading && <Spinner />}
+            {isLoading && <Spinner fixed className={"bg-secondary"} />}
 
             <form onSubmit={authSubmitHandler} className="bg-primary-lighter rounded">
                 <div className={"d-flex flex-column"}>

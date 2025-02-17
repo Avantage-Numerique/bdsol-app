@@ -97,7 +97,11 @@ const nextConfig = {
             defaultFormat: "YYYY-MM-DD HH:MM:SS",
             defaultLanguage: "fr-CA"
         },
-        appUrl: process.env.APP_PROTOCOLE + "" + process.env.APP_BASE_URL + ":" + process.env.APP_PORT
+        appUrl: process.env.APP_PROTOCOLE + "" + process.env.APP_BASE_URL + ":" + process.env.APP_PORT,
+        pagination: {
+            limit: 20,
+            sort: -1,
+        }
     },
     sassOptions: {
         includePaths: [

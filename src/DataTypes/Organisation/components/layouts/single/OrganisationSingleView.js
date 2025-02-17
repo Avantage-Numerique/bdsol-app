@@ -66,6 +66,7 @@ const OrganisationSingleView = ({ data }) => {
 
     const breadcrumbLabels = {
         "organisations": lang.Organisations,
+        "consulter": lang.consultTitle,
         "slug": name
     };
 

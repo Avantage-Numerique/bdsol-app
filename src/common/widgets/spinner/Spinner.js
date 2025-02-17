@@ -1,32 +1,19 @@
-
-
-//Styling
 import styles from './Spinner.module.scss'
+import AvnuLoading from "@/common/widgets/loading/AvnuLoading";
 
 
-const Spinner = ({ fixed, reverse }) => {
-
+const Spinner = ({ fixed, absolute, reverse, className, label }) => {
     return (
-        <div 
-            data-testid="spinner"
-            className={`
-                ${styles["spinner__container"]}
-                ${reverse ? styles["spinner__container--reverse"] : ""}
-                ${fixed ? styles["spinner__container--fixed"] : ""}
-            `}
-        >
-            <div className={`${styles["spinner__elem"]}`}>
-                <div className={`${styles["lds-roller"]}`}>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                </div>
-            </div>   
+        <div className={`
+            ${styles["spinner__container"]} 
+            ${className}
+            ${fixed ? styles["spinner__container--fixed"] : ""}
+            ${absolute ? styles["spinner__container--absolute"] : ""}
+        `}>
+            <AvnuLoading fixed={fixed} reverse={reverse}/>
+            {label &&
+                <p className="text-center pt-5"><strong>{label}</strong></p>
+            }
         </div>
     )
 }

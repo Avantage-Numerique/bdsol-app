@@ -4,17 +4,17 @@
         Note that the form state itself is controled by form-Hook file
 */
 
-import React, { useState, useContext, useEffect, useCallback } from 'react'
-import { scroller } from 'react-scroll'
+import React, {useCallback, useContext, useEffect, useState} from 'react'
+import {scroller} from 'react-scroll'
 import Router from 'next/router'
 
 //components
 import Spinner from '@/src/common/widgets/spinner/Spinner'
 
 //Custom hooks
-import { useHttpClient } from '../http-hook'
-import { useForm } from '../form-hook'
-import { MessageContext } from '@/src/common/UserNotifications/Message/Context/Message-Context'
+import {useHttpClient} from '../http-hook'
+import {useForm} from '../form-hook'
+import {MessageContext} from '@/src/common/UserNotifications/Message/Context/Message-Context'
 
 //Form UI styling
 import styles from './formUI.module.scss'
@@ -121,6 +121,7 @@ export const useFormUtils = ( initialState, actions ) => {
 
         useEffect(() => {
             if(innerMessage)
+                //@todo move that to the use ScrollTo hook.
                 scroller.scrollTo(styles["data-form-message"], {
                     offset: -50,
                     duration: 800,
@@ -137,7 +138,7 @@ export const useFormUtils = ( initialState, actions ) => {
                         { innerMessage }
                     </div>
                 }
-                { isLoading && <Spinner fixed={fixedSpinner} /> }
+                { isLoading && <Spinner className={"bg-secondary"} fixed={fixedSpinner} /> }
             </>
         )
 

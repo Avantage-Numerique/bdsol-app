@@ -1,6 +1,7 @@
 import {useCallback, useEffect, useRef, useState} from 'react';
 import {getUserHeadersFromUserSession, useAuth} from '@/auth/context/auth-context'
 import {lang} from "@/src/common/Data/GlobalConstants";
+import {LoadingStates} from "@/common/widgets/loading/LoadingStates";
 
 /**
  * Fetch the external API with all the speficity of Server Side and Client side
@@ -75,6 +76,7 @@ export const useHttpClient = () => {
 
     //State that determine if the request is in progress
     const [isLoading, setIsLoading] = useState(false);
+    const [currentLoadingState, setLoadingState] = useState(LoadingStates.DEFAULT);
 
     //Access the authentication context
     const auth = useAuth();
@@ -144,5 +146,5 @@ export const useHttpClient = () => {
         };
     }, []);
 
-    return {isLoading, setIsLoading, sendRequest};
+    return {isLoading, setIsLoading, sendRequest, setLoadingState, currentLoadingState};
 };
