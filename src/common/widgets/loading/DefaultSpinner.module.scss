@@ -7,7 +7,7 @@
     width: 100%;
     height: 100%;
     background-color: opacify($secondary, 0.631);
-    z-index: $zindex-popover;
+    z-index: $zindex-tooltip;
 
     display: flex;
     justify-content: center;

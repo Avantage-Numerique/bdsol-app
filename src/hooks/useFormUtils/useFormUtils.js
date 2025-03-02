@@ -138,7 +138,7 @@ export const useFormUtils = ( initialState, actions ) => {
                         { innerMessage }
                     </div>
                 }
-                { isLoading && <Spinner className={"bg-secondary"} fixed={fixedSpinner} /> }
+                { isLoading && <Spinner className={"bg-primary-lighter"} fixed={fixedSpinner} /> }
             </>
         )
 
