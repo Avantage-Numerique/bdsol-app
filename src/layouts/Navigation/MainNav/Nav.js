@@ -28,6 +28,7 @@ import {lang} from "@/src/common/Data/GlobalConstants";
 import AppRoutes from '@/src/Routing/AppRoutes'
 import MainNavButton from "@/layouts/Navigation/MainNav/MainNavButton";
 import SearchBar from "@/common/Components/SearchBar";
+import Place from '@/src/DataTypes/Place/models/Place'
 
 const Nav = ( {menuState, setMenuState} ) => {
 
@@ -129,6 +130,11 @@ const Nav = ( {menuState, setMenuState} ) => {
                                     <li>
                                         <MainNavButton route={AppRoutes.equipmentCreate}
                                                        iconClassName={`${Equipment.icon} ${styles["entity-icon"]}`}
+                                                       handler={navLinkHandler}/>
+                                    </li>
+                                    <li>
+                                        <MainNavButton route={AppRoutes.placeCreate}
+                                                       iconClassName={`${Place.icon} ${styles["entity-icon"]}`}
                                                        handler={navLinkHandler}/>
                                     </li>
                                 </ul>

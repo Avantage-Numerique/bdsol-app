@@ -88,39 +88,39 @@ const PlaceSingleEdit = ({ positiveRequestActions, ...props}) => {
                 isValid: true,
             },
             address: {
-                value: model.address ?? "",
+                value: model?.location?.address ?? "",
                 isValid: true,
             },
             city: {
-                value: model.city ?? "",
+                value: model?.location?.city ?? "",
                 isValid: true,
             },
             region: {
-                value: model.region ?? "",
+                value: model?.location?.region ?? "",
                 isValid: true,
             },
             mrc: {
-                value: model.mrc ?? "",
+                value: model?.location?.mrc ?? "",
                 isValid: true,
             },
             province: {
-                value: model.province ?? "",
+                value: model?.location?.province ?? "",
                 isValid: true,
             },
             postalCode: {
-                value: model.postalCode ?? "",
+                value: model?.location?.postalCode ?? "",
                 isValid: true,
             },
             country: {
-                value: model.country ?? "",
+                value: model?.location?.country ?? "",
                 isValid: true,
             },
             latitude: {
-                value: model.latitude ?? "",
+                value: model?.location?.latitude ?? "",
                 isValid: true,
             },
             longitude: {
-                value: model.longitude ?? "",
+                value: model?.location?.longitude ?? "",
                 isValid: true,
             },
         },
@@ -143,15 +143,17 @@ const PlaceSingleEdit = ({ positiveRequestActions, ...props}) => {
                 id: model._id,
                 name: formState.inputs.name.value,
                 description: formState.inputs.description.value,
-                address: formState.inputs.address.value,
-                city: formState.inputs.city.value,
-                region: formState.inputs.region.value,
-                mrc: formState.inputs.mrc.value,
-                province: formState.inputs.province.value,
-                postalCode: formState.inputs.postalCode.value,
-                country: formState.inputs.country.value,
-                latitude: formState.inputs.latitude.value,
-                longitude: formState.inputs.longitude.value,
+                location: {
+                    address: formState.inputs.address.value,
+                    city: formState.inputs.city.value,
+                    region: formState.inputs.region.value,
+                    mrc: formState.inputs.mrc.value,
+                    province: formState.inputs.province.value,
+                    postalCode: formState.inputs.postalCode.value,
+                    country: formState.inputs.country.value,
+                    latitude: formState.inputs.latitude.value,
+                    longitude: formState.inputs.longitude.value,
+                },
                 meta: getDefaultUpdateEntityMeta(auth.user, model.meta.requestedBy)
             }
         };

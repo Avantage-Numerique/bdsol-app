@@ -45,7 +45,7 @@ const Licences = (props) => {
             />
             <PageHeader title={lang.licencesSingleTitle}>
                 <Breadcrumbs className={"pt-2"} route={AppRoutes.licences} labels={breadcrumbsLabels}
-                             getLabelGenerator={getLabelGenerator}/>
+                    getLabelGenerator={getLabelGenerator}/>
             </PageHeader>
             <div className={pageSpacing}>
                 <section id="faq-licence-definition" className={"row"}>

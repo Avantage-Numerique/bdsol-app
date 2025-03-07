@@ -405,7 +405,7 @@ const OrganisationSingleEdit = (props) => {
                         isMulti={true}
 
                         fetch={"/places/list"}
-                        searchField={["address", "name"]}
+                        searchField={["location.address", "name"]}
                         //selectField={"address"}
                     />
                 </SingleInfo>

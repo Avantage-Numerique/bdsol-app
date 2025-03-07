@@ -23,6 +23,7 @@ import Organisation from "@/DataTypes/Organisation/models/Organisation";
 import Project from "@/DataTypes/Project/models/Project";
 import Event from "@/src/DataTypes/Event/models/Event";
 import Equipment from "@/src/DataTypes/Equipment/models/Equipment";
+import Place from "@/src/DataTypes/Place/models/Place";
 
 //Img
 import headerImg from '@/public/general_images/Fusée_Planetes_Pointilles2.svg'
@@ -32,7 +33,8 @@ import {
     TYPE_EVENT,
     TYPE_ORGANISATION,
     TYPE_PERSON,
-    TYPE_PROJECT
+    TYPE_PROJECT,
+    TYPE_PLACE
 } from "@/DataTypes/Entity/Types";
 
 const Index = () => {
@@ -174,7 +176,6 @@ const Index = () => {
                                 <Icon iconName={"plus"} className="text-secondary-darker" /> Ajouter un {lang.Equipment}
                             </Button>
                         </article>
-                        {/*
                         <article className={`${styles["contribution-page__entity"]} col-12 col-sm-6 col-md-4`}>
                             <div className={`${styles["contribution-page__entity__content"]}`}>
                                 <header>
@@ -194,7 +195,6 @@ const Index = () => {
                                 <Icon iconName={"plus"} className="text-secondary-darker" /> Ajouter un {lang.Place}
                             </Button>
                         </article>
-                        */}
                     </div>
                 </div>
             </div>

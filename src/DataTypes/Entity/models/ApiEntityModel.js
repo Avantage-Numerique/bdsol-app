@@ -134,8 +134,8 @@ class ApiEntityModel {
     }
 
     static locationToSelectOptions(entity){
-        if(entity.address)
-            return [{ value: entity._id, label : entity.address + ', ' + entity.name}]
+        if(entity?.location?.address)
+            return [{ value: entity._id, label : entity.name + ', ' + entity.location.address}]
         else
             return [{ value: entity._id, label : entity.name}]
     }

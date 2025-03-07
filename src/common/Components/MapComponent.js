@@ -3,7 +3,7 @@ import Head from "next/head";
 
 /**
  * Used to diplay Leaflet map
- * markersCoordinate needs to be an array of objects, containing each "latitude" and "longitude" field.
+ * markersCoordinate needs to be an array of objects, containing each location object with "latitude" and "longitude" field.
  */
 const MapComponent = ({locationList, ...props}) => {
 
@@ -57,9 +57,9 @@ const MapComponent = ({locationList, ...props}) => {
     function addMarkers(locationArray){
         if(locationArray != undefined && Array.isArray(locationArray) && locationArray.length > 0){
             locationArray.forEach((elem) => {
-                if(elem?.latitude != undefined && typeof(elem.latitude) == "string" &&
-                elem?.longitude != undefined && typeof(elem.longitude) == "string")
-                addMarker(elem.latitude, elem.longitude, elem?.name)
+                if(elem?.location?.latitude != undefined && typeof(elem.location.latitude) == "string" &&
+                elem?.location?.longitude != undefined && typeof(elem.location.longitude) == "string")
+                addMarker(elem.location.latitude, elem.location.longitude, elem?.name)
             });
         }
     }

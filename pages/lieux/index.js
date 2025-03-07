@@ -71,6 +71,9 @@ const PlacesPage = () => {
         }[param];
     }, []);
 
+    const breadcrumbsLabels = {
+        "lieux": lang.Places
+    }
 
     return (
         <div>
@@ -84,7 +87,8 @@ const PlacesPage = () => {
                 title={"Consulter les lieux"}
                 description="Les lieux listés peuvent être liés à des événements, des organisations ou d'autre entité du milieu culturel."
             >
-                <Breadcrumbs className={"pt-2"} route={AppRoutes.places} getLabelGenerator={getLabelGenerator} />
+                <Breadcrumbs className={"pt-2"} route={AppRoutes.places} labels={breadcrumbsLabels}
+                    getLabelGenerator={getLabelGenerator} />
             </PageHeader>
                 <div className="container">
                 <MapComponent locationList={placeList}/>

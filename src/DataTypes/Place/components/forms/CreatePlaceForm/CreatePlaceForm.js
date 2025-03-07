@@ -91,15 +91,17 @@ const CreatePlaceForm = ({ onPositiveResponse, initValues }) => {
             "data": {
                 name: formState.inputs.name.value,
                 description: formState.inputs.description.value,
-                address: formState.inputs.address.value,
-                city: formState.inputs.city.value,
-                region: formState.inputs.region.value,
-                mrc: formState.inputs.mrc.value,
-                province: formState.inputs.province.value,
-                postalCode: formState.inputs.postalCode.value,
-                country: formState.inputs.country.value,
-                latitude: formState.inputs.latitude.value,
-                longitude: formState.inputs.longitude.value,
+                location: {
+                    address: formState.inputs.address.value,
+                    city: formState.inputs.city.value,
+                    region: formState.inputs.region.value,
+                    mrc: formState.inputs.mrc.value,
+                    province: formState.inputs.province.value,
+                    postalCode: formState.inputs.postalCode.value,
+                    country: formState.inputs.country.value,
+                    latitude: formState.inputs.latitude.value,
+                    longitude: formState.inputs.longitude.value,
+                },
                 meta: getDefaultCreateEntityMeta(auth.user)
             }
         };
