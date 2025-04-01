@@ -33,7 +33,7 @@ import CreateOrganisationForm
 import CreateTaxonomyForm from '@/DataTypes/Taxonomy/components/Forms/CreateTaxonomy/CreateTaxonomyForm';
 import CreateProjectForm from "@/src/DataTypes/Project/component/forms/CreateProjectForm";
 import CreateEventForm from "@/src/DataTypes/Event/component/Forms/CreateEvent/CreateEventForm";
-import CreatePlaceForm from "@/src/DataTypes/Place/components/forms/CreatePlaceForm/CreatePlaceForm";
+import CreatePlaceFormSelect2 from "@/src/DataTypes/Place/components/forms/CreatePlaceForm/CreatePlaceFormSelect2";
 import CreateEquipmentForm from "@/src/DataTypes/Equipment/components/Forms/CreateEquipmentForm/CreateEquipmentForm";
 
 
@@ -286,7 +286,7 @@ const Select2 = ({ name, formTools, ...props }) => {
     )
     const EventDescription = (<p>L'événement que vous ajoutez sera directement intégré à votre formulaire.</p>)
     const PlaceModalForm = (
-        <CreatePlaceForm
+        <CreatePlaceFormSelect2
             initValues={ modalInitValues ?? {}}
             onPositiveResponse={(response) => {
                     //Here could be a call back function to execute 

@@ -1,5 +1,4 @@
 import React from 'react'
-import Router from 'next/router'
 
 //Custom hooks
 import {useFormUtils} from '@/src/hooks/useFormUtils/useFormUtils'
@@ -17,8 +16,9 @@ import styles from './CreatePlaceForm.module.scss'
 //Utils
 import {getDefaultCreateEntityMeta} from "@/src/DataTypes/Meta/EntityMeta";
 import { lang } from '@/src/common/Data/GlobalConstants'
+import { isValid } from 'date-fns';
 
-const CreatePlaceForm = ({ onPositiveResponse, initValues }) => {
+const CreatePlaceFormSelect2 = ({ onPositiveResponse, initValues }) => {
     
     //Authentication ref
     const auth = useAuth();
@@ -69,7 +69,7 @@ const CreatePlaceForm = ({ onPositiveResponse, initValues }) => {
             longitude: {
                 value: "",
                 isValid: true
-            },
+            }
         },
         //Pass a set of rules to execute a valid response of an api request
         {
@@ -186,20 +186,20 @@ const CreatePlaceForm = ({ onPositiveResponse, initValues }) => {
                 placeholder={lang.placeRegionPlaceholder}
                 formTools={formTools}
             />
-            {/* longitude */}
-            <Input
-                className="mb-3"
-                name="longitude"
-                label={lang.longitude}
-                placeholder={lang.placeLongitudePlaceholder}
-                formTools={formTools}
-            />
             {/* latitude */}
             <Input
                 className="mb-3"
                 name="latitude"
                 label={lang.latitude}
                 placeholder={lang.placeLatitudePlaceholder}
+                formTools={formTools}
+            />
+            {/* longitude */}
+            <Input
+                className="mb-3"
+                name="longitude"
+                label={lang.longitude}
+                placeholder={lang.placeLongitudePlaceholder}
                 formTools={formTools}
             />
 
@@ -210,4 +210,4 @@ const CreatePlaceForm = ({ onPositiveResponse, initValues }) => {
     );
 }
 
-export default CreatePlaceForm
+export default CreatePlaceFormSelect2

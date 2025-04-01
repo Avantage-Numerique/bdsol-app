@@ -17,7 +17,7 @@ import Router from "next/router";
 import Project from '@/src/DataTypes/Project/models/Project';
 
 
-const PersonSingleEditPage = () => {
+const ProjectSingleEditPage = () => {
 
     //Modal hook
     const { modal, Modal, displayModal, closeModal } = useModal() 
@@ -69,4 +69,4 @@ const PersonSingleEditPage = () => {
 
 export const getServerSideProps = withSessionSsr(ssrCanAccess);
 
-export default PersonSingleEditPage
+export default ProjectSingleEditPage

@@ -3,9 +3,16 @@ import Head from "next/head";
 
 /**
  * Used to diplay Leaflet map
- * markersCoordinate needs to be an array of objects, containing each location object with "latitude" and "longitude" field.
+ * 
+ * Props :
+ * - className transfer className props to map
+ * - locationList locationList needs to be an array of objects, containing each location object with "latitude" and "longitude" field.
+ * - height in pixels for the size
+ * 
+ * - coordinatePopUp allows the map to be clickable and show latitude and longitude of click position.
+ * - setLatLon setter for latitude and longitude of clicked position.
  */
-const MapComponent = ({locationList, ...props}) => {
+const MapComponent = ({locationList, coordinatePopUp, ...props}) => {
 
     const [map, setMap] = useState(null);
     const [markers, setMarkers] = useState([]);
@@ -19,40 +26,45 @@ const MapComponent = ({locationList, ...props}) => {
         setMap(mapInstance);
 
         //Cleanup function to remove map on unmount ?
-        return () => {
-            mapInstance.remove();
-        }
-
+        return () => { mapInstance.remove(); }
     }, []);
 
     useEffect( () => {
-        //Marker for each location that has latitude and longitude
-        addMarkers(locationList);
-                
-    /*  var marker = L.marker([48.23, -79.0]).addTo(map);
-        var circle = L.circle([48.236, -79.023], {
-            color: 'red',
-            fillColor: '#f03',
-            fillOpacity: 0.09,
-            radius: 5500
-        }).addTo(map);
-        var polygon = L.polygon([
-            [48.28, -79.09],
-            [48.18, -79.09],
-            [48.18, -79.02]
-        ]).addTo(map);
-        circle.bindPopup("I am a circle.");
-        polygon.bindPopup("I am a polygon.");*/
-        
-        /* var popup = L.popup();
-        function onMapClick(e) {
-            popup
-                .setLatLng(e.latlng)
-                .setContent("You clicked the map at " + e.latlng.toString())
-                .openOn(map);
+        console.log("useEffect map update")
+        if(map){
+            //Marker for each location that has latitude and longitude
+            addMarkers(locationList);
+
+            //var marker = L.marker([48.23, -79.0]).addTo(map);
+            /*var circle = L.circle([48.236, -79.023], {
+                color: 'red',
+                fillColor: '#f03',
+                fillOpacity: 0.09,
+                radius: 5500
+            }).addTo(map);
+            var polygon = L.polygon([
+                [48.28, -79.09],
+                [48.18, -79.09],
+                [48.18, -79.02]
+            ]).addTo(map);
+            circle.bindPopup("I am a circle.");
+            polygon.bindPopup("I am a polygon.");*/
+            if(coordinatePopUp){
+                var popup = L.popup();
+                function onMapClick(e) {
+                    popup
+                        .setLatLng(e.latlng)
+                        .setContent(e.latlng.toString() + "<br/>" + "'Rechercher l'adresse' pour remplir automatiquement le formulaire.")
+                        .openOn(map);
+                    //if setLatLng exist, set the value with setter
+                    if(props.setLatLng){
+                        props.setLatLng(e.latlng)
+                    }
+                }
+                map.on('click', onMapClick);
+            }
         }
-        map.on('click', onMapClick); */
-    }, [locationList]);
+    }, [locationList, map]);
   
     function addMarkers(locationArray){
         if(locationArray != undefined && Array.isArray(locationArray) && locationArray.length > 0){
@@ -84,7 +96,7 @@ const MapComponent = ({locationList, ...props}) => {
                     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
                     crossorigin=""></script>
             </Head>
-            <div id="map" style={{ height: '700px'}}></div>
+            <div className={props.className} id="map" style={{ height: props.height ?? '700px'}}></div>
         </>
     );
 }
