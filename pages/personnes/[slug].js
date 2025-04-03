@@ -24,11 +24,13 @@ export const getServerSideProps = withSessionSsr(personSlugSSProps);
 export async function personSlugSSProps(context) {
     const { slug } = context.query;
 
+    const user = context.req.session?.user ?? null;
+
     const response = await externalApiRequest(
         `/persons/${slug}`,
         {
             method: 'GET',
-            headers: getUserHeadersFromUserSession(context.req.session.user)
+            headers: getUserHeadersFromUserSession(user)
         });
 
     if(typeof response.data._id === "undefined")

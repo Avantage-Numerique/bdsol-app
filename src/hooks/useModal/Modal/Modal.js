@@ -53,8 +53,8 @@ const Modal = props => {
                 ${!noDefaultWidth && styles["default-width"]}
                 ${coloredBackground && styles["transparent-background"]}
             `}
-            //onClick={event => console.log(event)}
-            //onChange={event => console.log(event)}
+            //onClick={event => console.logs(event)}
+            //onChange={event => console.logs(event)}
             onClose={event => {
                 // We call the showModal here, because on close of the file dialog, the dialog propagate the close event on all listening. And this modal listen and close.
                 // Only on chrome

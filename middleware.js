@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
-import {getIronSession} from "iron-session/edge";
-import {appDefaultSessionOptions} from "@/auth/session/Session";
+//import {getIronSession} from "iron-session/edge";
+//import {appDefaultSessionOptions} from "@/auth/session/Session";
 
 /**
  * Added in version 12.2 of nextjs, as for stable version.
@@ -25,7 +25,7 @@ export async function middleware(request) {
     // or maybe you want to destroy session:
     // await session.destroy();
 
-    //console.log("from middleware", user);
+    //console.logs("from middleware", user);
 
     // demo:
     //if (user?.admin !== "true") {

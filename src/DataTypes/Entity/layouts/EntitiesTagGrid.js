@@ -72,7 +72,7 @@ const EntitiesTagGrid = ({feed, className, columnClass, subEntityProperty, subBa
                             )
                         }
                         //If the model isn't valid on complet. It happen when a model isn't populated.
-                        console.error(lang.modelNotValid, rawData);//this is legit console log. Don't remove it unless you found a better way to handle this case <3
+                        console.error(lang.modelNotValid, rawData);//this is legit console logs. Don't remove it unless you found a better way to handle this case <3
                         return (
                             <li className={`flex-column ${colContainerClass} pb-4`} key={"not-valid"+index}>{lang.modelNotValid}</li>
                         )
