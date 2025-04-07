@@ -14,12 +14,17 @@ import {ssrCanAccess} from "@/auth/permissions/ssrCanAccess";
 import { useFormUtils } from '@/src/hooks/useFormUtils/useFormUtils';
 import { getDefaultCreateEntityMeta } from '@/src/DataTypes/Meta/EntityMeta';
 import { useAuth } from '@/src/authentification/context/auth-context';
+import Place from '@/src/DataTypes/Place/models/Place';
+import Router from "next/router";
+import {useRootModal} from '@/src/hooks/useModal/useRootModal'
 
 
 const PlaceSingleEditPage = () => {
 
     //Authentication ref
     const auth = useAuth();
+    //Modal
+    const { Modal, displayModal, closeModal, modalInitValues } = useRootModal();
 
     const [isNomatimDisable, setIsNomatimDisable] = useState(false);
     const { formState, formTools, submitRequest } = useFormUtils(
@@ -108,11 +113,15 @@ const PlaceSingleEditPage = () => {
         };
 
         //Send the request with the specialized hook
-        submitRequest(
+        const response = await submitRequest(
             `/places/create`,
             'POST',
             formData
         );
+
+        const model = new Place(response.data);
+        //Execute the redirection
+        Router.push( model.singleEditLink )
     }
 
     function updateFormFromNomatim(nomatimObject){
@@ -120,6 +129,9 @@ const PlaceSingleEditPage = () => {
         //If nomatim sent an house number and a road concat them
         if(nomatimObject?.address?.house_number != undefined && nomatimObject?.address?.road != undefined){
             concatAddress = nomatimObject.address.house_number + ", " + nomatimObject.address.road;
+        }
+        else {
+            concatAddress = nomatimObject?.address?.road ?? "" 
         }
         //Each field to update from nomatim search
         const updateObject = {
@@ -129,11 +141,10 @@ const PlaceSingleEditPage = () => {
             province: nomatimObject?.address?.state,
             postalCode: nomatimObject?.address?.postcode,
             country: nomatimObject?.address?.country,
-            latitude: nomatimObject?.lat,
-            longitude: nomatimObject?.lon,
+            latitude: formState.inputs.nomatimLatitude.value,
+            longitude: formState.inputs.nomatimLongitude.value,
         }
         Object.keys(updateObject).forEach( (key) => {
-            console.log("inputHandler update key : " + key + ", value : " + updateObject[key])
             if(updateObject[key] != undefined){
                 formTools.inputHandler(
                     key,
@@ -147,7 +158,6 @@ const PlaceSingleEditPage = () => {
     //On map click, register the latitude and longitude
     const [latLng, setLatLng] = useState(undefined);
     useEffect( () => {
-        console.log(latLng);
         formTools.inputHandler(
             "nomatimLatitude",
             latLng?.lat,
@@ -162,19 +172,15 @@ const PlaceSingleEditPage = () => {
 
 
     const [nomatimResult, setNomatimResult] = useState(undefined);
-    useEffect( () => { console.log(nomatimResult); }, [nomatimResult]);
 
     async function nomatimSearch(reverseGeoCoding=true){
-        console.log("Nomatim search function");
         if(!isNomatimDisable){
             setIsNomatimDisable(true);
             setTimeout(() => {
                 setIsNomatimDisable(false);
             }, 2000);
-            console.log("Allow nomatim search");
             //Check if lat and lng is set
             if(latLng?.lat == undefined && latLng?.lng == undefined){
-                console.log("lat or lng not set");
                 return;
             }
             const headers = {
@@ -189,15 +195,16 @@ const PlaceSingleEditPage = () => {
                     const nomatimResponse = await fetch(nomatimUrl, { headers });
                     if(!nomatimResponse.ok){
                         //message error
-                        console.log("Erreur de nomatim response not 'ok'")
+                        return;
                     }
                     const nomatimData = await nomatimResponse.json();
                     setNomatimResult(nomatimData);
-                    updateFormFromNomatim(nomatimData);
+                    //updateFormFromNomatim(nomatimData);
                 //}
                 //catch{
                     //console.log("Failed to send to nomatim")
                 //}
+                displayModal();
             }
         }
         else {
@@ -213,7 +220,7 @@ const PlaceSingleEditPage = () => {
                 bg={"bg-primary-light"}
                 textColor={"text-white"}
                 htmlTitle={"Créer un lieu"}
-                description="Ici gît la page de création de lieu [...]">
+                description="Lieu comprenant un aspect numérique ou offrant la possibilité d'accueillir des projets en lien avec le numérique.">
             </PageHeader>
             <div className="container py-4">
                 <div className="row">
@@ -227,24 +234,44 @@ const PlaceSingleEditPage = () => {
 
                     {/* map */}
                     <section className="row col-md-6">
-                        <div>Cliquer sur la carte pour trouver une latitude et longitude afin de remplir le formulaire par recherche</div>
+                        <div>Cliquer sur la carte pour trouver une latitude et longitude et remplir le formulaire par recherche.</div>
                         <div className='col-md-8 border-start'>
                             <Input
                                 name="nomatimLatitude"
-                                formClassName="discrete-without-focus form-text-white"
+                                disabled={true}
+                                formClassName="discrete-without-focus form-text-black"
                                 label={"Latitude"}
                                 formTools={formTools}
                             />
                             <Input
                                 name="nomatimLongitude"
-                                formClassName="discrete-without-focus form-text-white"
+                                disabled={true}
+                                formClassName="discrete-without-focus form-text-black"
                                 label={"Longitude"}
                                 formTools={formTools}
                             />
-                            <Button className="" disabled={isNomatimDisable} onClick={ () => nomatimSearch() }>Rechercher l'adresse</Button>
+                            <Button className="" disabled={isNomatimDisable || latLng == undefined} onClick={ () => nomatimSearch() }>Rechercher l'adresse</Button>
                         </div>
-                        <MapComponent className="" coordinatePopUp={true} setLatLng={setLatLng}/>
+                        <MapComponent className="" coordinatePopUp={true} coordinateMsg={"'Rechercher l'adresse' pour remplir automatiquement le formulaire."} setLatLng={setLatLng}/>
                     </section>
+                    <Modal>
+                        <header className={`d-flex justify-content-end`}>
+                            Voulez-vous complété le formulaire avec ces données ?
+                        <Button onClick={() => closeModal()}>Fermer</Button>
+                        </header>
+                        <ul>
+                            <li>{lang.address + ": " + (nomatimResult?.address?.house_number ?? "- ") + ", " + (nomatimResult?.address?.road ?? "-")}</li>
+                            <li>{lang.city + ": " + (nomatimResult?.address?.city ?? "-")}</li>
+                            <li>{lang.region + ": " + (nomatimResult?.address?.region ?? "-")}</li>
+                            <li>{lang.province + ": " + (nomatimResult?.address?.state ?? "-")}</li>
+                            <li>{lang.postalCode + ": " + (nomatimResult?.address?.postcode ?? "-")}</li>
+                            <li>{lang.country + ": " + (nomatimResult?.address?.country ?? "-")}</li>
+                            <li>{lang.latitude + ": " + (nomatimResult?.lat ?? "-")}</li>
+                            <li>{lang.longitude + ": " + (nomatimResult?.lon ?? "-")}</li>
+                        </ul>
+                        <Button onClick={() => { updateFormFromNomatim(nomatimResult); closeModal();}}>Compléter le formulaire</Button>
+                        <Button onClick={() => closeModal()}>Annuler</Button>
+                    </Modal>
                 </div>
             </div>
             

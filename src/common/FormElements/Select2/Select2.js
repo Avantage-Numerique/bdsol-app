@@ -363,8 +363,6 @@ const Select2 = ({ name, formTools, ...props }) => {
                 
                 <div className={`my-4 border-bottom`}></div>
                 {createModal()}
-                
-                
             </Modal>
         </>
     );

@@ -13,6 +13,7 @@ import {SingleEntityMeta} from "@/src/DataTypes/Meta/components/SingleEntityMeta
 import SingleBaseProgressBar
     from '@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseProgressBar/SingleBaseProgressBar'
 import {removeTagsFromString} from '@/src/helpers/html'
+import MapComponent from "@/src/common/Components/MapComponent";
 
 
 //Styling
@@ -76,111 +77,117 @@ const PlaceSingleView = ({ data }) => {
     );
 
     const contentColumnLeft = (
-        <SingleInfo
-            title="Coordonnées"
-            cardLayout
-        >
-            <ul className={`${styles["main-coordinate-list"]}`}>
-                {/* address x2 (in subtitle) */}
-                <li className={`${styles["coordinate"]}`}>
-                    <div className={`${styles["coordinate__title"]}`}>
-                        {lang.address} :
-                    </div>
-                    <div className={`${styles["coordinate__data"]}`}>
-                        {model?.location?.address ? model.location.address : " - "}
-                    </div>
-                </li>
+        <>
+            <SingleInfo
+                title="Coordonnées"
+                cardLayout
+            >
+                <ul className={`${styles["main-coordinate-list"]}`}>
+                    {/* address x2 (in subtitle) */}
+                    <li className={`${styles["coordinate"]}`}>
+                        <div className={`${styles["coordinate__title"]}`}>
+                            {lang.address} :
+                        </div>
+                        <div className={`${styles["coordinate__data"]}`}>
+                            {model?.location?.address ? model.location.address : " - "}
+                        </div>
+                    </li>
 
-                {/* city x2 (in subtitle) */}
-                <li className={`${styles["coordinate"]}`}>
-                    <div className={`${styles["coordinate__title"]}`}>
-                        {lang.city} :
-                    </div>
-                    <div className={`${styles["coordinate__data"]}`}>
-                        {model?.location?.city ? model.location.city : " - "}
-                    </div>
-                </li>
+                    {/* city x2 (in subtitle) */}
+                    <li className={`${styles["coordinate"]}`}>
+                        <div className={`${styles["coordinate__title"]}`}>
+                            {lang.city} :
+                        </div>
+                        <div className={`${styles["coordinate__data"]}`}>
+                            {model?.location?.city ? model.location.city : " - "}
+                        </div>
+                    </li>
 
-                {/* postalCode */}
-                <li className={`${styles["coordinate"]}`}>
-                    <div className={`${styles["coordinate__title"]}`}>
-                        {lang.postalCode} :
-                    </div>
-                    <div className={`${styles["coordinate__data"]}`}>
-                        {model?.location?.postalCode ? model.location.postalCode : " - "}
-                    </div>
-                </li>
+                    {/* postalCode */}
+                    <li className={`${styles["coordinate"]}`}>
+                        <div className={`${styles["coordinate__title"]}`}>
+                            {lang.postalCode} :
+                        </div>
+                        <div className={`${styles["coordinate__data"]}`}>
+                            {model?.location?.postalCode ? model.location.postalCode : " - "}
+                        </div>
+                    </li>
 
-                {/* province */}
-                <li className={`${styles["coordinate"]}`}>
-                    <div className={`${styles["coordinate__title"]}`}>
-                        {lang.province} :
-                    </div>
-                    <div className={`${styles["coordinate__data"]}`}>
-                        {model?.location?.province ? model.location.province : " - "}
-                    </div>
-                </li>
-            
-                {/* country */}
-                <li className={`${styles["coordinate"]}`}>
-                    <div className={`${styles["coordinate__title"]}`}>
-                        {lang.country} :
-                    </div>
-                    <div className={`${styles["coordinate__data"]}`}>
-                        {model?.location?.country ? model.location.country : " - "}
-                    </div>
-                </li>
+                    {/* province */}
+                    <li className={`${styles["coordinate"]}`}>
+                        <div className={`${styles["coordinate__title"]}`}>
+                            {lang.province} :
+                        </div>
+                        <div className={`${styles["coordinate__data"]}`}>
+                            {model?.location?.province ? model.location.province : " - "}
+                        </div>
+                    </li>
+                
+                    {/* country */}
+                    <li className={`${styles["coordinate"]}`}>
+                        <div className={`${styles["coordinate__title"]}`}>
+                            {lang.country} :
+                        </div>
+                        <div className={`${styles["coordinate__data"]}`}>
+                            {model?.location?.country ? model.location.country : " - "}
+                        </div>
+                    </li>
 
-            </ul>
-        </SingleInfo>
+                </ul>
+            </SingleInfo>
+            <SingleInfo
+                title="Informations supplémentaires"
+                cardLayout
+            >
+                <ul className={`${styles["main-coordinate-list"]}`}>
+                    {/* mrc */}
+                    <li className={`${styles["coordinate"]}`}>
+                        <div className={`${styles["coordinate__title"]}`}>
+                            {lang.mrc} :
+                        </div>
+                        <div className={`${styles["coordinate__data"]}`}>
+                            {model?.location?.mrc ? model.location.mrc : " - "}
+                        </div>
+                    </li>
+
+                    {/* region */}
+                    <li className={`${styles["coordinate"]}`}>
+                        <div className={`${styles["coordinate__title"]}`}>
+                            {lang.region} :
+                        </div>
+                        <div className={`${styles["coordinate__data"]}`}>
+                            {model?.location?.region ? model.location.region : " - "}
+                        </div>
+                    </li>
+
+                    {/* longitude */}
+                    <li className={`${styles["coordinate"]}`}>
+                        <div className={`${styles["coordinate__title"]}`}>
+                            {lang.longitude} :
+                        </div>
+                        <div className={`${styles["coordinate__data"]}`}>
+                            {model?.location?.longitude ? model.location.longitude : " - "}
+                        </div>
+                    </li>
+
+                    {/* latitude */}
+                    <li className={`${styles["coordinate"]}`}>
+                        <div className={`${styles["coordinate__title"]}`}>
+                            {lang.latitude} :
+                        </div>
+                        <div className={`${styles["coordinate__data"]}`}>
+                            {model?.location?.latitude ? model.location.latitude : " - "}
+                        </div>
+                    </li>
+                </ul>
+            </SingleInfo>
+        </>
     )
-    const contentColumnRight = (    
-        <SingleInfo
-            title="Informations supplémentaires"
-            cardLayout
-        >
-            <ul className={`${styles["main-coordinate-list"]}`}>
-                {/* mrc */}
-                <li className={`${styles["coordinate"]}`}>
-                    <div className={`${styles["coordinate__title"]}`}>
-                        {lang.mrc} :
-                    </div>
-                    <div className={`${styles["coordinate__data"]}`}>
-                        {model?.location?.mrc ? model.location.mrc : " - "}
-                    </div>
-                </li>
-
-                {/* region */}
-                <li className={`${styles["coordinate"]}`}>
-                    <div className={`${styles["coordinate__title"]}`}>
-                        {lang.region} :
-                    </div>
-                    <div className={`${styles["coordinate__data"]}`}>
-                        {model?.location?.region ? model.location.region : " - "}
-                    </div>
-                </li>
-
-                {/* longitude */}
-                <li className={`${styles["coordinate"]}`}>
-                    <div className={`${styles["coordinate__title"]}`}>
-                        {lang.longitude} :
-                    </div>
-                    <div className={`${styles["coordinate__data"]}`}>
-                        {model?.location?.longitude ? model.location.longitude : " - "}
-                    </div>
-                </li>
-
-                {/* latitude */}
-                <li className={`${styles["coordinate"]}`}>
-                    <div className={`${styles["coordinate__title"]}`}>
-                        {lang.latitude} :
-                    </div>
-                    <div className={`${styles["coordinate__data"]}`}>
-                        {model?.location?.latitude ? model.location.latitude : " - "}
-                    </div>
-                </li>
-            </ul>
-        </SingleInfo>
+    const contentColumnRight = (
+        <div>
+            <MapComponent height={"450px"} locationList={[model]} centerAt={[model.location.latitude, model.location.longitude]}/>
+            
+        </div>
     )
 
 

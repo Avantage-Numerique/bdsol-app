@@ -11,7 +11,7 @@ import {replacePathname} from "@/src/helpers/url";
 import {MessageContext} from "@/src/common/UserNotifications/Message/Context/Message-Context";
 import {useFormUtils} from "@/src/hooks/useFormUtils/useFormUtils";
 import {useAuth} from "@/src/authentification/context/auth-context";
-import {useRootModal} from '@/src/hooks/useModal/useRootModal';
+import { useRootModal } from "@/src/hooks/useModal/useRootModal";
 
 
 //Components
@@ -27,11 +27,14 @@ import Button from '@/FormElements/Button/Button'
 import Icon from "@/common/widgets/Icon/Icon";
 import SingleSaveEntityReminder from '@/src/DataTypes/common/layouts/SingleSaveEntityReminder/SingleSaveEntityReminder';
 import SingleBeforeUnloadReminder from "@/src/DataTypes/common/layouts/SingleSaveEntityReminder/SingleBeforeUnloadReminder";
+import MapComponent from "@/src/common/Components/MapComponent";
 
 
 const PlaceSingleEdit = ({ positiveRequestActions, ...props}) => {
 
     let model = new Place(props.data);
+
+    const [latLng, setLatLng] = useState("")
 
     //Extract data
     const {
@@ -325,6 +328,13 @@ const PlaceSingleEdit = ({ positiveRequestActions, ...props}) => {
                 placeholder={lang.placeLatitudePlaceholder}
                 formTools={formTools}
             />
+            <MapComponent
+                className=""
+                height="400px"
+                coordinatePopUp={true}
+                locationList={[model]}
+                centerAt={[model.location.latitude, model.location.longitude]}
+                setLatLng={setLatLng}/>
         </SingleInfo>
     )
     {/*********** Footer section ***********/}
