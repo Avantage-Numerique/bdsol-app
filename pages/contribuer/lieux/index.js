@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react'
+import dynamic from "next/dynamic";
+import Router from "next/router";
 
 //Component
 import PageHeader from '@/src/layouts/Header/PageHeader';
-import MapComponent from '@/src/common/Components/MapComponent';
 import Input from '@/src/common/FormElements/Input/Input';
 import CreatePlaceFormSingle from '@/src/DataTypes/Place/components/forms/CreatePlaceForm/CreatePlaceFormSingle';
 import Button from '@/src/common/FormElements/Button/Button';
@@ -15,7 +16,6 @@ import { useFormUtils } from '@/src/hooks/useFormUtils/useFormUtils';
 import { getDefaultCreateEntityMeta } from '@/src/DataTypes/Meta/EntityMeta';
 import { useAuth } from '@/src/authentification/context/auth-context';
 import Place from '@/src/DataTypes/Place/models/Place';
-import Router from "next/router";
 import {useRootModal} from '@/src/hooks/useModal/useRootModal'
 
 
@@ -214,6 +214,8 @@ const PlaceSingleEditPage = () => {
         
     }
 
+    const MapDynamicLoaded = dynamic(() => import('@/src/map/Map'), { ssr:false });
+
     return (
         <div className="container">
             <PageHeader
@@ -252,7 +254,8 @@ const PlaceSingleEditPage = () => {
                             />
                             <Button className="" disabled={isNomatimDisable || latLng == undefined} onClick={ () => nomatimSearch() }>Rechercher l'adresse</Button>
                         </div>
-                        <MapComponent className="" coordinatePopUp={true} coordinateMsg={"'Rechercher l'adresse' pour remplir automatiquement le formulaire."} setLatLng={setLatLng}/>
+
+                        <MapDynamicLoaded />
                     </section>
                     <Modal>
                         <header className={`d-flex justify-content-end`}>

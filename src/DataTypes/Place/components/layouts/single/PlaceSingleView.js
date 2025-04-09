@@ -13,7 +13,7 @@ import {SingleEntityMeta} from "@/src/DataTypes/Meta/components/SingleEntityMeta
 import SingleBaseProgressBar
     from '@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseProgressBar/SingleBaseProgressBar'
 import {removeTagsFromString} from '@/src/helpers/html'
-import MapComponent from "@/src/common/Components/MapComponent";
+import MapComponent from "@/src/map/MapComponent";
 
 
 //Styling

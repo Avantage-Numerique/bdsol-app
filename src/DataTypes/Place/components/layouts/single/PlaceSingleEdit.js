@@ -27,7 +27,7 @@ import Button from '@/FormElements/Button/Button'
 import Icon from "@/common/widgets/Icon/Icon";
 import SingleSaveEntityReminder from '@/src/DataTypes/common/layouts/SingleSaveEntityReminder/SingleSaveEntityReminder';
 import SingleBeforeUnloadReminder from "@/src/DataTypes/common/layouts/SingleSaveEntityReminder/SingleBeforeUnloadReminder";
-import MapComponent from "@/src/common/Components/MapComponent";
+import MapComponent from "@/src/map/MapComponent";
 
 
 const PlaceSingleEdit = ({ positiveRequestActions, ...props}) => {

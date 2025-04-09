@@ -4,7 +4,6 @@ import React, {useCallback, useContext, useEffect, useState} from 'react'
 import PageHeader from "@/src/layouts/Header/PageHeader";
 import Spinner from '@/src/common/widgets/spinner/Spinner'
 import PageMeta from "@/src/common/PageMeta/PageMeta";
-import MapComponent from '@/src/common/Components/MapComponent';
 
 //Costum hooks
 import {useHttpClient} from '@/src/hooks/http-hook';
@@ -74,7 +73,7 @@ const PlacesPage = () => {
     const breadcrumbsLabels = {
         "lieux": lang.Places
     }
-
+//<MapComponent locationList={placeList}/>
     return (
         <div>
             <PageMeta 
@@ -91,7 +90,7 @@ const PlacesPage = () => {
                     getLabelGenerator={getLabelGenerator} />
             </PageHeader>
                 <div className="container">
-                <MapComponent locationList={placeList}/>
+
                     <div className="row my-4 py-4">
 
                         {/* Feed section */}
