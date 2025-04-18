@@ -13,7 +13,7 @@ import {SingleEntityMeta} from "@/src/DataTypes/Meta/components/SingleEntityMeta
 import SingleBaseProgressBar
     from '@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseProgressBar/SingleBaseProgressBar'
 import {removeTagsFromString} from '@/src/helpers/html'
-import MapComponent from "@/src/map/MapComponent";
+import MapWrapper from "@/src/map/MapWrapper";
 
 
 //Styling
@@ -185,8 +185,7 @@ const PlaceSingleView = ({ data }) => {
     )
     const contentColumnRight = (
         <div>
-            <MapComponent height={"450px"} locationList={[model]} centerAt={[model.location.latitude, model.location.longitude]}/>
-            
+            <MapWrapper height={"450px"} locationList={[model]} centerAt={[model.location.latitude, model.location.longitude]}/>
         </div>
     )
 

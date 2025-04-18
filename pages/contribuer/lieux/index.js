@@ -17,7 +17,7 @@ import { getDefaultCreateEntityMeta } from '@/src/DataTypes/Meta/EntityMeta';
 import { useAuth } from '@/src/authentification/context/auth-context';
 import Place from '@/src/DataTypes/Place/models/Place';
 import {useRootModal} from '@/src/hooks/useModal/useRootModal'
-
+import MapWrapper from '@/src/map/MapWrapper';
 
 const PlaceSingleEditPage = () => {
 
@@ -156,7 +156,7 @@ const PlaceSingleEditPage = () => {
     }
 
     //On map click, register the latitude and longitude
-    const [latLng, setLatLng] = useState(undefined);
+    const [latLng, setLatLng] = useState(null);
     useEffect( () => {
         formTools.inputHandler(
             "nomatimLatitude",
@@ -213,9 +213,7 @@ const PlaceSingleEditPage = () => {
         }
         
     }
-
-    const MapDynamicLoaded = dynamic(() => import('@/src/map/Map'), { ssr:false });
-
+    const MapDynamicLoaded = dynamic(() => import('@/src/map/Map'), { ssr: false });
     return (
         <div className="container">
             <PageHeader
@@ -224,60 +222,58 @@ const PlaceSingleEditPage = () => {
                 htmlTitle={"Créer un lieu"}
                 description="Lieu comprenant un aspect numérique ou offrant la possibilité d'accueillir des projets en lien avec le numérique.">
             </PageHeader>
-            <div className="container py-4">
-                <div className="row">
-                    {/* Place inputs*/ }
-                    <section className="col-md-6">
-                        <CreatePlaceFormSingle formTools={formTools}/>
-                        <div className="d-flex justify-content-end">
-                            <Button disabled={!formTools.formState.isValid} type="button" onClick={submitHandler}>{lang.continue}</Button>
-                        </div>
-                    </section>
+                <div className="container py-4">
+                    <div className="row">
+                        {/* Place inputs*/ }
+                        <section className="col-md-6">
+                            <CreatePlaceFormSingle formTools={formTools}/>
+                            <div className="d-flex justify-content-end">
+                                <Button disabled={!formTools.formState.isValid} type="button" onClick={submitHandler}>{lang.continue}</Button>
+                            </div>
+                        </section>
 
-                    {/* map */}
-                    <section className="row col-md-6">
-                        <div>Cliquer sur la carte pour trouver une latitude et longitude et remplir le formulaire par recherche.</div>
-                        <div className='col-md-8 border-start'>
-                            <Input
-                                name="nomatimLatitude"
-                                disabled={true}
-                                formClassName="discrete-without-focus form-text-black"
-                                label={"Latitude"}
-                                formTools={formTools}
-                            />
-                            <Input
-                                name="nomatimLongitude"
-                                disabled={true}
-                                formClassName="discrete-without-focus form-text-black"
-                                label={"Longitude"}
-                                formTools={formTools}
-                            />
-                            <Button className="" disabled={isNomatimDisable || latLng == undefined} onClick={ () => nomatimSearch() }>Rechercher l'adresse</Button>
-                        </div>
-
-                        <MapDynamicLoaded />
-                    </section>
-                    <Modal>
-                        <header className={`d-flex justify-content-end`}>
-                            Voulez-vous complété le formulaire avec ces données ?
-                        <Button onClick={() => closeModal()}>Fermer</Button>
-                        </header>
-                        <ul>
-                            <li>{lang.address + ": " + (nomatimResult?.address?.house_number ?? "- ") + ", " + (nomatimResult?.address?.road ?? "-")}</li>
-                            <li>{lang.city + ": " + (nomatimResult?.address?.city ?? "-")}</li>
-                            <li>{lang.region + ": " + (nomatimResult?.address?.region ?? "-")}</li>
-                            <li>{lang.province + ": " + (nomatimResult?.address?.state ?? "-")}</li>
-                            <li>{lang.postalCode + ": " + (nomatimResult?.address?.postcode ?? "-")}</li>
-                            <li>{lang.country + ": " + (nomatimResult?.address?.country ?? "-")}</li>
-                            <li>{lang.latitude + ": " + (nomatimResult?.lat ?? "-")}</li>
-                            <li>{lang.longitude + ": " + (nomatimResult?.lon ?? "-")}</li>
-                        </ul>
-                        <Button onClick={() => { updateFormFromNomatim(nomatimResult); closeModal();}}>Compléter le formulaire</Button>
-                        <Button onClick={() => closeModal()}>Annuler</Button>
-                    </Modal>
+                        {/* map */}
+                        <section className="row col-md-6">
+                            <div>Cliquer sur la carte pour trouver une latitude et longitude et remplir le formulaire par recherche.</div>
+                            <div className='col-md-8 border-start'>
+                                <Input
+                                    name="nomatimLatitude"
+                                    disabled={true}
+                                    formClassName="discrete-without-focus form-text-black"
+                                    label={"Latitude"}
+                                    formTools={formTools}
+                                />
+                                <Input
+                                    name="nomatimLongitude"
+                                    disabled={true}
+                                    formClassName="discrete-without-focus form-text-black"
+                                    label={"Longitude"}
+                                    formTools={formTools}
+                                />
+                                <Button className="" disabled={isNomatimDisable || latLng == undefined} onClick={ () => nomatimSearch() }>Rechercher l'adresse</Button>
+                            </div>
+                            <MapWrapper setLatLng={setLatLng} coordinatePopUp={true}/>
+                        </section>
+                        <Modal>
+                            <header className={`d-flex justify-content-end`}>
+                                Voulez-vous complété le formulaire avec ces données ?
+                            <Button onClick={() => closeModal()}>Fermer</Button>
+                            </header>
+                            <ul>
+                                <li>{lang.address + ": " + (nomatimResult?.address?.house_number ?? "- ") + ", " + (nomatimResult?.address?.road ?? "-")}</li>
+                                <li>{lang.city + ": " + (nomatimResult?.address?.city ?? "-")}</li>
+                                <li>{lang.region + ": " + (nomatimResult?.address?.region ?? "-")}</li>
+                                <li>{lang.province + ": " + (nomatimResult?.address?.state ?? "-")}</li>
+                                <li>{lang.postalCode + ": " + (nomatimResult?.address?.postcode ?? "-")}</li>
+                                <li>{lang.country + ": " + (nomatimResult?.address?.country ?? "-")}</li>
+                                <li>{lang.latitude + ": " + (nomatimResult?.lat ?? "-")}</li>
+                                <li>{lang.longitude + ": " + (nomatimResult?.lon ?? "-")}</li>
+                            </ul>
+                            <Button onClick={() => { updateFormFromNomatim(nomatimResult); closeModal();}}>Compléter le formulaire</Button>
+                            <Button onClick={() => closeModal()}>Annuler</Button>
+                        </Modal>
+                    </div>
                 </div>
-            </div>
-            
             
         </div>
     )

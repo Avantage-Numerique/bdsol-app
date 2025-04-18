@@ -1,4 +1,4 @@
-import React, {useCallback, useContext, useEffect, useState} from "react";
+import React, {useCallback, useContext, useEffect, useState, useRef, useMemo} from "react";
 import Router from "next/router";
 
 //Utils
@@ -27,14 +27,12 @@ import Button from '@/FormElements/Button/Button'
 import Icon from "@/common/widgets/Icon/Icon";
 import SingleSaveEntityReminder from '@/src/DataTypes/common/layouts/SingleSaveEntityReminder/SingleSaveEntityReminder';
 import SingleBeforeUnloadReminder from "@/src/DataTypes/common/layouts/SingleSaveEntityReminder/SingleBeforeUnloadReminder";
-import MapComponent from "@/src/map/MapComponent";
+import MapWrapper from "@/src/map/MapWrapper";
 
 
 const PlaceSingleEdit = ({ positiveRequestActions, ...props}) => {
 
     let model = new Place(props.data);
-
-    const [latLng, setLatLng] = useState("")
 
     //Extract data
     const {
@@ -187,6 +185,42 @@ const PlaceSingleEdit = ({ positiveRequestActions, ...props}) => {
     }, [model.title]);
 
 
+    //Map setup section
+    const initialLocationRef = useRef(model?.location);
+
+    //Memoize props that are passed to the map
+    const centerAt = useMemo(() => {
+        return [initialLocationRef.current?.latitude, initialLocationRef.current?.longitude];
+    }, []);
+      
+    const locationList = useMemo(() => {
+    return [
+        {
+            name: model.name,
+            location: {
+                latitude : initialLocationRef.current.latitude,
+                longitude : initialLocationRef.current.longitude
+            }
+        }
+    ];
+    }, []);
+
+    //Map update latitude and longitude
+    const [latLng, setLatLng] = useState([model.location.latitude ?? "", model.location.longitude ?? ""]);
+    useEffect( () => {
+        formTools.inputHandler(
+            "latitude",
+            latLng?.lat,
+            true,
+        );
+        formTools.inputHandler(
+            "longitude",
+            latLng?.lng,
+            true,
+        );
+    },[latLng])
+
+
     const title = (
         <>
             <Input 
@@ -312,6 +346,14 @@ const PlaceSingleEdit = ({ positiveRequestActions, ...props}) => {
                 placeholder={lang.placeRegionPlaceholder}
                 formTools={formTools}
             />
+            {/* latitude */}
+            <Input
+                className="mb-3"
+                name="latitude"
+                label={lang.latitude}
+                placeholder={lang.placeLatitudePlaceholder}
+                formTools={formTools}
+                />
             {/* longitude */}
             <Input
                 className="mb-3"
@@ -320,21 +362,14 @@ const PlaceSingleEdit = ({ positiveRequestActions, ...props}) => {
                 placeholder={lang.placeLongitudePlaceholder}
                 formTools={formTools}
             />
-            {/* latitude */}
-            <Input
-                className="mb-3"
-                name="latitude"
-                label={lang.latitude}
-                placeholder={lang.placeLatitudePlaceholder}
-                formTools={formTools}
-            />
-            <MapComponent
+            <MapWrapper
                 className=""
-                height="400px"
+                height="300px"
                 coordinatePopUp={true}
-                locationList={[model]}
-                centerAt={[model.location.latitude, model.location.longitude]}
-                setLatLng={setLatLng}/>
+                locationList={locationList}
+                centerAt={centerAt}
+                setLatLng={setLatLng}
+            />
         </SingleInfo>
     )
     {/*********** Footer section ***********/}
@@ -342,8 +377,8 @@ const PlaceSingleEdit = ({ positiveRequestActions, ...props}) => {
         <>
             {
                 (createdAt || updatedAt || meta) &&
-                <SingleInfo 
-                    title={lang.entityMetadata} 
+                <SingleInfo
+                    title={lang.entityMetadata}
                     className="border-top pt-3"
                 >
                     {/*********** Entity data ***********/}
