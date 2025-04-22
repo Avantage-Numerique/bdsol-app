@@ -55,28 +55,28 @@ class Place extends EntityModel {
     getBreadCrumbTitle(raw){
         if(raw.address){
             if(raw.name)
-                return raw.address + ', ' + raw.name;
-            if(raw.city)
-                return raw.address + ', ' + raw.city;
-            if(raw.postalCode)
-                return raw.address + ', ' + raw.postalCode;
+                return raw.address + ', ' + raw.location.name;
+            if(raw?.location?.city)
+                return raw.address + ', ' + raw.location.city;
+            if(raw?.location?.postalCode)
+                return raw.address + ', ' + raw.location.postalCode;
             return raw.address //We probably don't want to only show address if there is no city or no postalcode
         }
         if(raw.name){
-            if(raw.city)
-                return raw.name + ', ' + raw.city
-            if(raw.postalCode)
-                return raw.name + ', ' + raw.postalCode
+            if(raw?.location?.city)
+                return raw.location.name + ', ' + raw.location.city
+            if(raw?.location?.postalCode)
+                return raw.location.name + ', ' + raw.location.postalCode
             return raw.name //We probably don't want to only show name alone (good for title to show on simple component)
         }
-        if(raw.postalCode){
-            if(raw.city)
-                return raw.postalCode + ', ' + raw.city
+        if(raw?.location?.postalCode){
+            if(raw?.location?.city)
+                return raw.location.postalCode + ', ' + raw.location.city
         }
-        if(raw.longitude && raw.latitude){
-            if(raw.city)
-                return raw.longitude + ', ' + raw.latitude + ', ' + raw.city
-            return raw.longitude + ', ' + raw.latitude
+        if(raw?.location?.longitude && raw?.location?.latitude){
+            if(raw?.location?.city)
+                return raw.location.longitude + ', ' + raw.location.latitude + ', ' + raw.location.city
+            return raw.location.longitude + ', ' + raw.location.latitude
         }
 
     }

@@ -68,6 +68,27 @@ const rules_settings = {
         validationMethod: ((value, dependencies) => !dependencies.some(dep => new Date(dep).getTime() > new Date(value).getTime())),
         renderBadge: (() => `Date ultérieure`)
     },
+
+    //Check for a float values with regex that are within -90 and 90
+    IS_VALID_LATITUDE: {
+        renderMessage: (() => `La latitude doit un nombre à virgule flottante compris entre -90 et 90`),
+        validationMethod: (value =>
+            value == "" ||
+            value.match(/^-?\d*(\.\d+)?$/) &&
+            parseFloat(value) >= -90 &&
+            parseFloat(value) <= 90),
+        renderBadge: (() => `Coordonnée valide`)
+    },
+    //Check for a float values with regex that are within -180 and 180
+    IS_VALID_LONGITUDE: {
+        renderMessage: (() => `La longitude doit un nombre à virgule flottante compris entre -180 et 180`),
+        validationMethod: (value =>
+            value == "" ||
+            value.match(/^-?\d*(\.\d+)?$/) &&
+            parseFloat(value) >= -180 &&
+            parseFloat(value) <= 180),
+        renderBadge: (() => `Coordonnée valide`)
+    },
 }
 
 const initiateValidator = selectedRules => {

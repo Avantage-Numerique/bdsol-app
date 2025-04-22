@@ -67,11 +67,11 @@ const PlaceSingleEditPage = () => {
             },
             latitude: {
                 value: "",
-                isValid: true
+                isValid: false
             },
             longitude: {
                 value: "",
-                isValid: true
+                isValid: false
             },
             nomatimLatitude: {
                 value: "",
@@ -213,7 +213,6 @@ const PlaceSingleEditPage = () => {
         }
         
     }
-    const MapDynamicLoaded = dynamic(() => import('@/src/map/Map'), { ssr: false });
     return (
         <div className="container">
             <PageHeader

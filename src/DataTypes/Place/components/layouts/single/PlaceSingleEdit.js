@@ -118,11 +118,11 @@ const PlaceSingleEdit = ({ positiveRequestActions, ...props}) => {
             },
             latitude: {
                 value: model?.location?.latitude ?? "",
-                isValid: true,
+                isValid: false,
             },
             longitude: {
                 value: model?.location?.longitude ?? "",
-                isValid: true,
+                isValid: false,
             },
         },
         //Pass a set of rules to execute a valid response of an api request
@@ -152,8 +152,8 @@ const PlaceSingleEdit = ({ positiveRequestActions, ...props}) => {
                     province: formState.inputs.province.value,
                     postalCode: formState.inputs.postalCode.value,
                     country: formState.inputs.country.value,
-                    latitude: formState.inputs.latitude.value,
-                    longitude: formState.inputs.longitude.value,
+                    latitude: formState.inputs.latitude.value !== "" ? formState.inputs.latitude.value : undefined,
+                    longitude: formState.inputs.longitude.value !== "" ? formState.inputs.longitude.value : undefined,
                 },
                 meta: getDefaultUpdateEntityMeta(auth.user, model.meta.requestedBy)
             }
@@ -186,11 +186,9 @@ const PlaceSingleEdit = ({ positiveRequestActions, ...props}) => {
 
 
     //Map setup section
-    const initialLocationRef = useRef(model?.location);
-
     //Memoize props that are passed to the map
     const centerAt = useMemo(() => {
-        return [initialLocationRef.current?.latitude, initialLocationRef.current?.longitude];
+        return [model.location.latitude, model.location.longitude];
     }, []);
       
     const locationList = useMemo(() => {
@@ -198,9 +196,10 @@ const PlaceSingleEdit = ({ positiveRequestActions, ...props}) => {
         {
             name: model.name,
             location: {
-                latitude : initialLocationRef.current.latitude,
-                longitude : initialLocationRef.current.longitude
-            }
+                latitude : model?.location?.latitude,
+                longitude : model?.location?.longitude
+            },
+            slug: model.slug
         }
     ];
     }, []);
@@ -353,7 +352,8 @@ const PlaceSingleEdit = ({ positiveRequestActions, ...props}) => {
                 label={lang.latitude}
                 placeholder={lang.placeLatitudePlaceholder}
                 formTools={formTools}
-                />
+                validationRules={[{name: "IS_VALID_LATITUDE"}]}
+            />
             {/* longitude */}
             <Input
                 className="mb-3"
@@ -361,6 +361,7 @@ const PlaceSingleEdit = ({ positiveRequestActions, ...props}) => {
                 label={lang.longitude}
                 placeholder={lang.placeLongitudePlaceholder}
                 formTools={formTools}
+                validationRules={[{name: "IS_VALID_LONGITUDE"}]}
             />
             <MapWrapper
                 className=""

@@ -8,7 +8,6 @@ const MapDynamicLoaded = dynamic(() => import('@/src/map/Map'), { ssr: false });
 const MapWrapper = (props) => {
   return (
     <MapDynamicLoaded
-      latLng={props?.latLng}
       setLatLng={props?.setLatLng}
       locationList={props?.locationList}
       coordinatePopUp={props?.coordinatePopUp}

@@ -185,7 +185,7 @@ const PlaceSingleView = ({ data }) => {
     )
     const contentColumnRight = (
         <div>
-            <MapWrapper height={"450px"} locationList={[model]} centerAt={[model.location.latitude, model.location.longitude]}/>
+            <MapWrapper height={"450px"} locationList={[model]} centerAt={[model?.location?.latitude, model?.location?.longitude]}/>
         </div>
     )
 

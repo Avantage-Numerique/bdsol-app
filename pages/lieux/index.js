@@ -18,8 +18,8 @@ import {Breadcrumbs} from "@/common/Breadcrumbs/Breadcrumbs";
 import AppRoutes from "@/src/Routing/AppRoutes";
 import EntitiesGrid from "@/DataTypes/Entity/layouts/EntitiesGrid";
 import {getTitle} from "@/DataTypes/MetaData/MetaTitle";
-import Head from "next/head";
 import {getType, TYPE_PLACE} from "@/DataTypes/Entity/Types";
+import MapWrapper from '@/src/map/MapWrapper';
 
 
 
@@ -73,12 +73,21 @@ const PlacesPage = () => {
     const breadcrumbsLabels = {
         "lieux": lang.Places
     }
-//<MapComponent locationList={placeList}/>
+
     return (
         <div>
             <PageMeta 
                 title={getTitle([type.labelPlural])}
                 description={lang.places__description}
+            />
+            <div className='my-4'>a</div>
+            <div className='my-4'>a</div>
+            <div className='my-4'>a</div>
+            <div className='my-4'>a</div>
+            <MapWrapper 
+                className=""
+                height="600px"
+                locationList={placeList}
             />
             <PageHeader
                 bg={"bg-primary-lighter"}

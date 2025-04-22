@@ -100,6 +100,7 @@ const CreatePlaceFormSingle = ({ formTools, ...props }) => {
                 label={lang.latitude}
                 placeholder={lang.placeLatitudePlaceholder}
                 formTools={formTools}
+                validationRules={[{name: "IS_VALID_LATITUDE"}]}
             />
             {/* longitude */}
             <Input
@@ -108,6 +109,7 @@ const CreatePlaceFormSingle = ({ formTools, ...props }) => {
                 label={lang.longitude}
                 placeholder={lang.placeLongitudePlaceholder}
                 formTools={formTools}
+                validationRules={[{name: "IS_VALID_LONGITUDE"}]}
             />
         </form> 
     );

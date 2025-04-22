@@ -1,10 +1,13 @@
-'use client'
-
-import dynamic from "next/dynamic";
-import 'leaflet/dist/leaflet.css';
 import {useEffect, useState} from "react";
-import cities from "@/common/Data/cities";
+
+//Map related
+import 'leaflet/dist/leaflet.css';
+import dynamic from "next/dynamic"
 import { useMapEvents } from "react-leaflet";
+import cities from "@/common/Data/cities";
+
+//Routing
+import AppRoutes from "../Routing/AppRoutes";
 
 /**
  * Used to diplay Leaflet map
@@ -34,8 +37,7 @@ const Map = ({coordinatePopUp, ...props}) => {
     if(typeof window === 'undefined'){
         return <></>
     }
-
-    const [clientSide, setClientSide] = useState(false);
+    //const [clientSide, setClientSide] = useState(false);
 
     const defaultCity = cities.rouyn;
 
@@ -125,29 +127,48 @@ const Map = ({coordinatePopUp, ...props}) => {
     function addMarkers(locationArray){
         let markersArray = [];
         if(locationArray != undefined && Array.isArray(locationArray) && locationArray.length > 0){
-            locationArray.forEach((elem) => {
+            locationArray.forEach((elem, index) => {
                 if(elem?.location?.latitude != undefined && typeof(elem.location.latitude) == "string" &&
                 elem?.location?.longitude != undefined && typeof(elem.location.longitude) == "string")
                 //Add marker to array
-                markersArray.push(addMarker(elem.location.latitude, elem.location.longitude, elem?.name))
+                markersArray.push(addMarker(elem.location.latitude, elem.location.longitude, elem?.name, elem.slug, index))
             });
         }
         return markersArray;
     }
-    function addMarker(lat, lon, name) {
+    function addMarker(lat, lon, name, slug, index){
         let displayName = name != undefined ? name : `Lieu à ${lat + ", " + lon}`
         return (
-            <Marker position={[lat,lon]}>
+            <Marker key={"map-marker-"+index} position={[lat,lon]}>
                 <Popup>
-                    {displayName}
+                    {
+                        slug ? <a href={AppRoutes.places.asPath + "/" + slug}>{displayName}</a>
+                        :
+                        <div>{displayName}</div>
+                    }
                 </Popup>
             </Marker>
         );
     }
 
+    //expected format : [lat, lon]
+    function isCoordinateValid(value){
+        if(
+            Array.isArray(value) &&
+            value.length == 2 &&
+            value[0].match(/^-?\d*(\.\d+)?$/) && value[0] >= -90 && value[0] <= 90 &&
+            value[1] !== undefined && value[0].match(/^-?\d*(\.\d+)?$/) && value[0] >= -90 && value[0] <= 90
+        )
+            return true;
+        else
+            return false;
+
+    }
+
     return (
         <div className={props.className} id="map" style={mapStyle}>
-            <MapContainer center={props?.centerAt ?? defaultCity.coords} zoom={defaultCity.zoom} scrollWheelZoom={false} style={{ height: "100%", width: "100%" }}>
+            <MapContainer
+                center={isCoordinateValid(props?.centerAt) ? props.centerAt : defaultCity.coords} zoom={defaultCity.zoom} scrollWheelZoom={false} style={{ height: "100%", width: "100%" }}>
                 <TileLayer
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
