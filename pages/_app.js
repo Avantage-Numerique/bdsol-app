@@ -51,7 +51,7 @@ AVNU.getInitialProps = async (context) => {
         const { req, res } = context.ctx;
 
         try {
-            console.log("options", appDefaultSessionOptions);
+            console.log("getInitialProps options", appDefaultSessionOptions);
             const session = await getIronSession(req, res, appDefaultSessionOptions);
             //const cookieChoices = await getIronSession(req, res, choicesSessionOptions);
 
@@ -65,7 +65,7 @@ AVNU.getInitialProps = async (context) => {
                 avnuCookies = JSON.parse(cookies.avnuCookies);
             }
 
-            console.log("session", session, "avnuCookies", avnuCookies);
+            console.log("getInitialProps session", session, "avnuCookies", avnuCookies);
             //if cookies auth is accepted follow with session creation.
             if (avnuCookies?.auth) {
 

@@ -7,7 +7,7 @@ import {lang} from "@/common/Data/GlobalConstants";
 
 export default withSessionRoute(loginRoute);
 
-async function loginRoute(req, res) {
+async function loginRoute(req, res, session) {
     //From uri and to Uri params in cookies ?
     // check if cookie are accepted.
     //if redirect with no can to api.
@@ -16,24 +16,24 @@ async function loginRoute(req, res) {
     const cookies = JSON.parse(req.cookies?.avnuCookies);
 
     if (cookies && cookies.auth === true) {
+        console.log("login, handler loginRoute session passed", session)
         const response = await externalApiRequest(
             "/login",
             {
                 body: JSON.stringify(req.body),
-                headers: getUserHeadersFromUserSession(req.session.user, false),
+                headers: getUserHeadersFromUserSession(session.user, false),
                 origin: "fromServer"
             }
         );
-
         const sessionUser = getSessionFromData(response.data.user);
         const visitor = getVisitorDataFromRequest(req);
 
-        req.session.user = {
+        session.user = {
             ...sessionUser,
             ...visitor
         };
 
-        await req.session.save();
+        await session.save();
 
         res.send({
             text: response.message,
