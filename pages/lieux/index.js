@@ -109,13 +109,13 @@ const PlacesPage = () => {
 
                                 {/* Loading state : If loading is on and there is no feed */}
                                 {
-                                        isLoading &&
-                                        <div className={"home-page__feed-section--spinner-container"}>
-                                            <div>
-                                                <Spinner reverse/>
-                                            </div>
-                                            <p><strong>{lang.loadingData}</strong></p>
+                                    isLoading &&
+                                    <div className={"home-page__feed-section--spinner-container"}>
+                                        <div>
+                                            <Spinner reverse/>
                                         </div>
+                                        <p><strong>{lang.loadingData}</strong></p>
+                                    </div>
                                 }
 
                                 {/* If there is no loading state and no feed, go on that by default */}

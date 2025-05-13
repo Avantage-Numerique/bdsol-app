@@ -53,20 +53,20 @@ class Place extends EntityModel {
     }
 
     getBreadCrumbTitle(raw){
-        if(raw.address){
-            if(raw.name)
-                return raw.address + ', ' + raw.location.name;
+        if(raw?.location?.address){
+            if(raw?.name)
+                return raw.location.address + ', ' + raw.name;
             if(raw?.location?.city)
-                return raw.address + ', ' + raw.location.city;
+                return raw.location.address + ', ' + raw.location.city;
             if(raw?.location?.postalCode)
-                return raw.address + ', ' + raw.location.postalCode;
-            return raw.address //We probably don't want to only show address if there is no city or no postalcode
+                return raw.location.address + ', ' + raw.location.postalCode;
+            return raw.location.address //We probably don't want to only show address if there is no city or no postalcode
         }
-        if(raw.name){
+        if(raw?.name){
             if(raw?.location?.city)
-                return raw.location.name + ', ' + raw.location.city
+                return raw.name + ', ' + raw.location.city
             if(raw?.location?.postalCode)
-                return raw.location.name + ', ' + raw.location.postalCode
+                return raw.name + ', ' + raw.location.postalCode
             return raw.name //We probably don't want to only show name alone (good for title to show on simple component)
         }
         if(raw?.location?.postalCode){

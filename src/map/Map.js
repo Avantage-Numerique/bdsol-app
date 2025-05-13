@@ -156,8 +156,8 @@ const Map = ({coordinatePopUp, ...props}) => {
         if(
             Array.isArray(value) &&
             value.length == 2 &&
-            value[0].match(/^-?\d*(\.\d+)?$/) && value[0] >= -90 && value[0] <= 90 &&
-            value[1] !== undefined && value[0].match(/^-?\d*(\.\d+)?$/) && value[0] >= -90 && value[0] <= 90
+            value[0] !== undefined && value[0].match(/^-?\d*(\.\d+)?$/) && value[0] >= -90 && value[0] <= 90 &&
+            value[1] !== undefined && value[1].match(/^-?\d*(\.\d+)?$/) && value[1] >= -180 && value[0] <= 180
         )
             return true;
         else

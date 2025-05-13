@@ -18,6 +18,7 @@ import { useAuth } from '@/src/authentification/context/auth-context';
 import Place from '@/src/DataTypes/Place/models/Place';
 import {useRootModal} from '@/src/hooks/useModal/useRootModal'
 import MapWrapper from '@/src/map/MapWrapper';
+import { isValid } from 'date-fns';
 
 const PlaceSingleEditPage = () => {
 
@@ -33,8 +34,8 @@ const PlaceSingleEditPage = () => {
                 value: "",
                 isValid: true
             },
-            description: {
-                value: "",
+            placeType: {
+                value: [],
                 isValid: true
             },
             address: {
@@ -95,7 +96,11 @@ const PlaceSingleEditPage = () => {
         const formData = {
             "data": {
                 name: formState.inputs.name.value,
-                description: formState.inputs.description.value,
+                placeType: formState.inputs.placeType.value.length > 0 ?
+                    formState.inputs.placeType.value.map( (elem) => {
+                        return elem.value
+                    })
+                    :[],
                 location: {
                     address: formState.inputs.address.value,
                     city: formState.inputs.city.value,

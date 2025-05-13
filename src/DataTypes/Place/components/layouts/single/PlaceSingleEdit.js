@@ -28,6 +28,8 @@ import Icon from "@/common/widgets/Icon/Icon";
 import SingleSaveEntityReminder from '@/src/DataTypes/common/layouts/SingleSaveEntityReminder/SingleSaveEntityReminder';
 import SingleBeforeUnloadReminder from "@/src/DataTypes/common/layouts/SingleSaveEntityReminder/SingleBeforeUnloadReminder";
 import MapWrapper from "@/src/map/MapWrapper";
+import Textarea from "@/src/common/FormElements/Textarea/Textarea";
+import Select2 from "@/src/common/FormElements/Select2/Select2";
 
 
 const PlaceSingleEdit = ({ positiveRequestActions, ...props}) => {
@@ -88,6 +90,10 @@ const PlaceSingleEdit = ({ positiveRequestActions, ...props}) => {
                 value: model.description ?? "",
                 isValid: true,
             },
+            shortDescription: {
+                value: model.shortDescription ?? "",
+                isValid: true,
+            },
             address: {
                 value: model?.location?.address ?? "",
                 isValid: true,
@@ -124,6 +130,10 @@ const PlaceSingleEdit = ({ positiveRequestActions, ...props}) => {
                 value: model?.location?.longitude ?? "",
                 isValid: false,
             },
+            placeType: {
+                value: model?.placeType ?? [],
+                isValid: true
+            }
         },
         //Pass a set of rules to execute a valid response of an api request
         {
@@ -143,7 +153,13 @@ const PlaceSingleEdit = ({ positiveRequestActions, ...props}) => {
             "data": {
                 id: model._id,
                 name: formState.inputs.name.value,
+                placeType: formState.inputs.placeType.value?.length > 0 ?
+                    formState.inputs.placeType.value.map( (elem) => {
+                        return elem.value
+                    })
+                    :[],
                 description: formState.inputs.description.value,
+                shortDescription: formState.inputs.shortDescription.value,
                 location: {
                     address: formState.inputs.address.value,
                     city: formState.inputs.city.value,
@@ -184,11 +200,10 @@ const PlaceSingleEdit = ({ positiveRequestActions, ...props}) => {
         setBreadCrumb(breadcrumbsRoutes)
     }, [model.title]);
 
-
     //Map setup section
     //Memoize props that are passed to the map
     const centerAt = useMemo(() => {
-        return [model.location.latitude, model.location.longitude];
+        return [model?.location?.latitude, model?.location?.longitude];
     }, []);
       
     const locationList = useMemo(() => {
@@ -205,7 +220,7 @@ const PlaceSingleEdit = ({ positiveRequestActions, ...props}) => {
     }, []);
 
     //Map update latitude and longitude
-    const [latLng, setLatLng] = useState([model.location.latitude ?? "", model.location.longitude ?? ""]);
+    const [latLng, setLatLng] = useState([model?.location?.latitude ?? "", model?.location?.longitude ?? ""]);
     useEffect( () => {
         formTools.inputHandler(
             "latitude",
@@ -265,15 +280,24 @@ const PlaceSingleEdit = ({ positiveRequestActions, ...props}) => {
     );
     
     const fullWidthContent = (
-        <SingleInfo
-            title={lang.about}
-        >
-            {/* Description */}
-            <RichTextarea
-                name="description"
+        <>
+            <SingleInfo
+                title={lang.about}
+            >
+                {/* Description */}
+                <RichTextarea
+                    name="description"
+                    formTools={formTools}
+                />
+
+            </SingleInfo>
+
+            <Textarea 
+                name="shortDescription"
+                label={lang.shortDescription}
                 formTools={formTools}
             />
-        </SingleInfo>
+        </>
     )
     const contentColumnLeft = (
         <>
@@ -345,6 +369,22 @@ const PlaceSingleEdit = ({ positiveRequestActions, ...props}) => {
                 placeholder={lang.placeRegionPlaceholder}
                 formTools={formTools}
             />
+
+            {/* placeType */}
+            <Select2
+                name="placeType"
+                label={lang.placeType}
+                formTools={formTools}
+                creatable={false}
+                //modalType={TYPE_TAXONOMY}
+                //allowedCategories={["placeType"]}
+                isMulti={true}
+
+                fetch={"/taxonomies/placeType"}
+                searchField={"name"}
+                selectField={"name"}
+            />
+
             {/* latitude */}
             <Input
                 className="mb-3"

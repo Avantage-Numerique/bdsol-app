@@ -301,6 +301,7 @@ const Select2 = ({ name, formTools, ...props }) => {
     const EquipmentModalForm = (
         <CreateEquipmentForm
             initValues={ modalInitValues ?? {}}
+            allowedCategories={props.allowedCategories}
             onPositiveResponse={(response) => {
                 //Here could be a call back function to execute 
                 const optionCreated = ApiEntityModel.getSelectOption(response.data)

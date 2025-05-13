@@ -13,6 +13,7 @@ const places = {
     //props
     "name" : "Nom du lieu",
     "description" : "Description du lieu",
+    "shortDescription": "Courte description",
     "address" : "Adresse",
     "city" : "Ville",
     "postalCode" : "Code postal",
@@ -22,6 +23,7 @@ const places = {
     "region" : "Région",
     "longitude" : "Longitude",
     "latitude" : "Latitude",
+    "placeType": "Type de lieu",
 
     //Placeholders
     //"placeNamePlaceholder" : "",

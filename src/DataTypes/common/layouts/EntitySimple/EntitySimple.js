@@ -41,7 +41,7 @@ const EntitySimple = (props) => {
 
     //content
     const title = model.title;
-    const description = model.shortDescription;
+    const description = model.shortenText(model.description);
     //params
     const showEntityType = props.showEntityType ?? true;
     const appType = getType(model.type);

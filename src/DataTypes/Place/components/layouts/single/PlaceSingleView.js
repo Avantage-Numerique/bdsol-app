@@ -14,6 +14,7 @@ import SingleBaseProgressBar
     from '@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseProgressBar/SingleBaseProgressBar'
 import {removeTagsFromString} from '@/src/helpers/html'
 import MapWrapper from "@/src/map/MapWrapper";
+import SearchTag from "@/src/common/Components/SearchTag";
 
 
 //Styling
@@ -72,6 +73,9 @@ const PlaceSingleView = ({ data }) => {
                         {model.description}
                     </SanitizedInnerHtml>
                 }
+            </SingleInfo>
+            <SingleInfo title={lang.shortDescription}>    
+                <div>{model.shortDescription}</div>
             </SingleInfo>
         </>
     );
@@ -185,6 +189,19 @@ const PlaceSingleView = ({ data }) => {
     )
     const contentColumnRight = (
         <div>
+            {/* placeType */}
+            <SingleInfo
+                title={lang.placeType}
+                NAMessage="Aucun type de lieu n'est précisé pour le moment." 
+                displayCondition={model.placeType.length > 0}
+                cardLayout
+            >
+                {model.placeType != [] &&
+                    <SearchTag
+                        list={model.placeType}
+                    />
+                }
+            </SingleInfo>
             <MapWrapper height={"450px"} locationList={[model]} centerAt={[model?.location?.latitude, model?.location?.longitude]}/>
         </div>
     )

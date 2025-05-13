@@ -1,20 +1,15 @@
 import React from 'react'
 
-//Custom hooks
-import {useFormUtils} from '@/src/hooks/useFormUtils/useFormUtils'
 
 //components
-import Button from '@/FormElements/Button/Button'
 import Input from '@/FormElements/Input/Input'
+import Select2 from '@/src/common/FormElements/Select2/Select2'
 
-//Context
-import {useAuth} from "@/src/authentification/context/auth-context";
 
 //Styling
 import styles from './CreatePlaceForm.module.scss'
 
 //Utils
-import {getDefaultCreateEntityMeta} from "@/src/DataTypes/Meta/EntityMeta";
 import { lang } from '@/src/common/Data/GlobalConstants'
 
 
@@ -35,6 +30,20 @@ const CreatePlaceFormSingle = ({ formTools, ...props }) => {
                 validationRules={[{name: "REQUIRED"}]}
                 errorText="Cette information est requise"
                 formTools={formTools}
+            />
+
+            <Select2
+                name="placeType"
+                label={lang.placeType}
+                formTools={formTools}
+                creatable={false}
+                //modalType={TYPE_TAXONOMY}
+                //allowedCategories={["placeType"]}
+                isMulti={true}
+
+                fetch={"/taxonomies/placeType"}
+                searchField={"name"}
+                selectField={"name"}
             />
 
             {/* address */}

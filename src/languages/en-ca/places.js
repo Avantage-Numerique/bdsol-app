@@ -8,6 +8,7 @@ const places = {
     //props
     "name" : "Place's Name",
     "description" : "Description",
+    "shortDescription": "Small description",
     "address" : "Address",
     "city" : "City",
     "postalCode" : "Postal code",
@@ -17,6 +18,8 @@ const places = {
     "region" : "Region",
     "longitude" : "Longitude",
     "latitude" : "Latitude",
+    "placeType": "Place type",
+
 
     //Placeholders
     //"placeNamePlaceholder" : "",

@@ -1,23 +1,26 @@
 import React from "react"
 
-import {useDateManager} from '@/common/DateManager/DateManagerMoment'
-
 /***  Local styling ***/
 import styles from './PlaceSimple.module.scss';
 import EntitySimple from "@/DataTypes/common/layouts/EntitySimple/EntitySimple";
 
 const PlaceSimple = ({ model }) => {
     const BottomLineContent = () => {
-        //Create an instance of the date manager and extract the right class
-        const { TimeTag } = useDateManager(model.startDate, model.endDate);
+
+        let bottomText = "";
+        if(model?.location?.address){
+            if(model?.location?.city)
+                bottomText = model.location.address + ", " + model.location.city;
+            else
+                bottomText = model.location.address;
+        }
 
         return (
-            <p className="mb-0 text--dark" style={{ fontSize: "0.90rem"}}>
-                <b>
-                    <TimeTag />
-                    {model.endDate && <><span> - </span><TimeTag endingDate /></>}
-                </b>
-            </p>
+            <div className="mb-0 text--dark" style={{ fontSize: "0.90rem"}}>
+                <div>
+                    {bottomText}
+                </div>
+            </div>
         )
     }
 

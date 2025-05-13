@@ -47,7 +47,8 @@ const TaxonomiesSinglePage = (props) => {
         {label: "Compétence", value: "skills"},
         {label: "Secteur d'activité", value: "domains"},
         {label: "Technologie", value: "technologies"},
-        {label: lang.equipmentType, value: "equipmentType"}
+        {label: lang.equipmentType, value: "equipmentType"},
+        {label: lang.placeType, value: "placeType"}
     ]
 
     const {data, taxonomy} = props;
@@ -87,7 +88,7 @@ const TaxonomiesSinglePage = (props) => {
                 bg={"bg-primary-lighter"}
                 colFullWidth
                 textColor={"text-white"}
-                title={taxonomy.name}
+                title={lang.capitalize(taxonomy.name)}
                 subTitle={lang.capitalize(lang[taxonomy.category])}
                 tags={{
                     list:taxonomy.domains,
@@ -99,7 +100,7 @@ const TaxonomiesSinglePage = (props) => {
 
                 <p className={"pt-2"}>
                     {auth.user.isLoggedIn &&
-                        <Button onClick={displayUpdateForm}>
+                        <Button onClick={displayUpdateForm} disabled={taxonomy.category == "placeType"}>
                             <Icon iconName={"edit"} /> {lang.proposeContentChangeLabel}
                         </Button>
                     }

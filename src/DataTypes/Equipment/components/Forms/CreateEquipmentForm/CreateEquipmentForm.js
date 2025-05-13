@@ -87,6 +87,7 @@ const CreateEquipmentForm = ({ onPositiveResponse, initValues }) => {
                     creatable={true}
                     modalType={TYPE_TAXONOMY}
                     isMulti={false}
+                    allowedCategories={["equipmentType"]}
 
                     placeholder={lang.equipmentTypePlaceholder}
                     fetch={"/taxonomies/list"}

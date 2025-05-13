@@ -37,8 +37,6 @@ class EntityModel {
         this.description = raw?.description ?? "";
         this.badge = raw?.badge ?? "";//contextual description of the entity. Often define in a single view.
 
-        this.shortDescription = removeHtml(this.description);
-        this.shortDescription = this.shortDescription.substring(0,this.shortLenght) + (this.shortDescription.length > this.shortLenght ? "..." : "");
         this.mainImage = raw?.mainImage ?? {url:"", alt:""};
 
         this.singleList;
@@ -68,6 +66,18 @@ class EntityModel {
         this.tagComponent = raw?.tagComponent ?? EntityTag;
         this.singleComponent = raw?.singleComponent ?? undefined;
     }
+
+    //Text shortener
+    shortenText(textToShorten, length=87){
+        if(textToShorten != undefined && typeof textToShorten == "string"){
+
+            let shortenedText = textToShorten;
+            shortenedText = removeHtml(shortenedText);
+            shortenedText = shortenedText.substring(0,length) + (shortenedText.length > length ? "..." : "");
+            return shortenedText;
+        }
+    }
+
     //  --- GETTER / SETTER ---
 
     /**
