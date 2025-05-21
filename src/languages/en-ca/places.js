@@ -20,6 +20,11 @@ const places = {
     "latitude" : "Latitude",
     "placeType": "Place type",
 
+    //Rooms
+    "room": "Room",
+    "rooms": "Rooms",
+    "roomName" : "Room's name",
+
 
     //Placeholders
     //"placeNamePlaceholder" : "",

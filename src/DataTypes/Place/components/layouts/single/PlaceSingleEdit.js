@@ -30,6 +30,7 @@ import SingleBeforeUnloadReminder from "@/src/DataTypes/common/layouts/SingleSav
 import MapWrapper from "@/src/map/MapWrapper";
 import Textarea from "@/src/common/FormElements/Textarea/Textarea";
 import Select2 from "@/src/common/FormElements/Select2/Select2";
+import UpdateRooms from "@/src/DataTypes/common/Forms/UpdateRooms/UpdateRooms";
 
 
 const PlaceSingleEdit = ({ positiveRequestActions, ...props}) => {
@@ -133,6 +134,10 @@ const PlaceSingleEdit = ({ positiveRequestActions, ...props}) => {
             placeType: {
                 value: model?.placeType ?? [],
                 isValid: true
+            },
+            rooms: {
+                value: model?.room ?? [],
+                isValid: true
             }
         },
         //Pass a set of rules to execute a valid response of an api request
@@ -158,6 +163,16 @@ const PlaceSingleEdit = ({ positiveRequestActions, ...props}) => {
                         return elem.value
                     })
                     :[],
+                rooms: formState.inputs.rooms.value.map(function(singleRoom){
+                    return {
+                        name: singleRoom.value.name.value,
+                        description: singleRoom.value.description.value,
+                        shortDescription: singleRoom.value.shortDescription.value,
+                        placeId: model.id,
+                        location: {address : singleRoom.value.location.value},
+                        subMeta: {order: singleRoom.order},
+                    }
+                }),
                 description: formState.inputs.description.value,
                 shortDescription: formState.inputs.shortDescription.value,
                 location: {
@@ -292,7 +307,7 @@ const PlaceSingleEdit = ({ positiveRequestActions, ...props}) => {
 
             </SingleInfo>
 
-            <Textarea 
+            <Textarea
                 name="shortDescription"
                 label={lang.shortDescription}
                 formTools={formTools}
@@ -344,6 +359,14 @@ const PlaceSingleEdit = ({ positiveRequestActions, ...props}) => {
                     placeholder={lang.placeCountryPlaceholder}
                     formTools={formTools}
                 />
+            </SingleInfo>
+            {/* rooms */}
+            <SingleInfo title={lang.rooms}>
+            <UpdateRooms
+                parentEntity={props.data}
+                formTools={formTools}
+                name="rooms"
+            />
             </SingleInfo>
 
         </>

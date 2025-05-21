@@ -25,6 +25,11 @@ const places = {
     "latitude" : "Latitude",
     "placeType": "Type de lieu",
 
+    //Rooms
+    "room": "Salle",
+    "rooms": "Salles",
+    "roomName" : "Nom de la salle",
+
     //Placeholders
     //"placeNamePlaceholder" : "",
     //"placeDescriptionPlaceholder" : "",
