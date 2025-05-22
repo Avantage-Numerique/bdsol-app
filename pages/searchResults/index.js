@@ -9,6 +9,7 @@ import Icon from "@/src/common/widgets/Icon/Icon";
 import {lang} from "@/src/common/Data/GlobalConstants";
 import {getBadgesInfo} from "@/src/DataTypes/Badges/BadgesSection";
 import useWebStats from "@/src/monitoring/hooks/useWebStats";
+import Spinner from "@/src/common/widgets/spinner/Spinner";
 
 const SearchResults = (props) => {
 
@@ -17,6 +18,7 @@ const SearchResults = (props) => {
     const [searchMessage, setSearchMessage] = useState("");
     const [filter, setFilter] = useState([])
     const [nearTaxonomyObject, setNearestTaxonomyObject] = useState(undefined)
+    const [isLoading, setIsLoading] = useState(false)
 
     const webStats = useWebStats();
     const updateFilterState = (filterType) => {
@@ -35,8 +37,8 @@ const SearchResults = (props) => {
     }
 
     useEffect(() => {
+        changeIsLoading(true);
         async function searchRequest() {
-
             let response = [];
             const searchIndex = router.query.searchIndex;
             if(searchIndex){
@@ -60,9 +62,14 @@ const SearchResults = (props) => {
             }
 
             setSearchList(response.data);
+            changeIsLoading(false);
         }
         searchRequest();
     }, [router.asPath])
+
+    function changeIsLoading(bool){
+        setIsLoading(bool)
+    }
 
     const getResultsRouteResponse = (searchIndex) => {
         return clientSideExternalApiRequest("/search/?searchIndex="+searchIndex, { method: 'GET'});
@@ -121,9 +128,32 @@ const SearchResults = (props) => {
     }
     
     const linkedEntityToTaxonomyComponent = () => {
+
+        let showLinkedTaxonomy = true;
+        let showLinkedEntity = true;
+
+        if (filter.includes("linkedTaxonomy")){
+            if (nearTaxonomyObject?.nearestTaxonomy == undefined){
+                showLinkedEntity = false;
+            }
+        }
+        else {
+            if(nearTaxonomyObject?.nearestTaxonomy == undefined){
+                showLinkedTaxonomy = false;
+                showLinkedEntity = false;
+            }
+            else {
+                if(nearTaxonomyObject?.linkedEntityToNearestTaxonomy.length == 0){
+                    showLinkedTaxonomy = false;
+                    showLinkedEntity = false;
+                }
+            }
+        }
+
         return (
             <div className="py-4">
                 {
+                    showLinkedTaxonomy && (
                     nearTaxonomyObject?.nearestTaxonomy ?
                         <h3>Entité reliée à la catégorie :
                             {
@@ -133,12 +163,15 @@ const SearchResults = (props) => {
                         </h3>
                     :
                     <h3>Aucune suggestion de catégorie pour la recherche "{router.query.searchIndex}"</h3>
+                    )
                 }
                 {
+                    showLinkedEntity && (
                     nearTaxonomyObject?.linkedEntityToNearestTaxonomy.length > 0 ?
                         <EntitiesGrid className={"row"} feed={nearTaxonomyObject.linkedEntityToNearestTaxonomy} badgesInfo={props.badgesInfo}></EntitiesGrid>
                         :
                         <p>Aucune entité est liée à cette catégorie</p>
+                    )
                 }
             </div>
         )
@@ -239,45 +272,62 @@ const SearchResults = (props) => {
                     </div>
                 </div>
             </section>
-            <div className="row py-4">
 
-            <div className="col-12 col-md-3 py-4">
+            {/* Result section*/}
+            <div>
+
+                {
+                    isLoading &&
                     <div>
-                        {
-                            nearTaxonomyObject?.otherNearbyTaxonomy?.length > 0 &&
-                            <>
-                                <h4>Vous cherchiez peut-être :</h4>
-                                <ul>
-                                    { nearTaxonomyObject.otherNearbyTaxonomy.slice(0,8).map( (nearTaxo, index) => {
-                                        return (
-                                            <li key={index+"nearTaxoList-"+nearTaxo._id}>
-                                                <a href={`/categories/${nearTaxo?.category}/${nearTaxo?.slug}`}>{nearTaxo.name}</a>
-                                            </li>)
-                                    })}
-                                </ul>
-                            </>
-                        }
+                        <div>
+                            <Spinner reverse/>
+                        </div>
+                        <p className="text-center"><strong>{lang.loadingData}</strong></p>
                     </div>
-                </div>
-
-                <div className="row col-12 col-md-9">
-                    {/* If filter set to all results */}
-                    {
-                        filter.length === 0 ?
-                        <div>
-                            {linkedEntityToTaxonomyComponent()}
-                            {researchResult()}
+                }
+                {
+                    !isLoading &&
+                    <div className="row py-4">
+                        <div className="col col-md-3 py-4">
+                            <div>
+                                {
+                                    nearTaxonomyObject?.otherNearbyTaxonomy?.length > 0 &&
+                                    <>
+                                        <h4>Vous cherchiez peut-être :</h4>
+                                        <ul>
+                                            { nearTaxonomyObject.otherNearbyTaxonomy.slice(0,8).map( (nearTaxo, index) => {
+                                                return (
+                                                    <li key={index+"nearTaxoList-"+nearTaxo._id}>
+                                                        <a href={`/categories/${nearTaxo?.category}/${nearTaxo?.slug}`}>{nearTaxo.name}</a>
+                                                    </li>)
+                                            })}
+                                        </ul>
+                                    </>
+                                }
+                            </div>
                         </div>
-                        :
-                        <div>
-                            {/* else show linkedTaxonomy or result by type */}
-                            { filter.map( (el) => { return <div key={el}>{researchResult(el, true)}</div> }) }                         
-                        </div>
-                    }
+                        <div className="col col-md-9">
+                            
+                            {/* If filter set to all results */}
+                            {
+                                !isLoading && (
+                                filter.length === 0 ?
+                                <div>
+                                    {linkedEntityToTaxonomyComponent()}
+                                    {researchResult()}
+                                </div>
+                                :
+                                <div>
+                                    {/* else show linkedTaxonomy or result by type */}
+                                    { filter.map( (el) => { return <div key={el}>{researchResult(el, true)}</div> }) }                         
+                                </div>
+                                )    
+                            }
 
-                </div>
+                        </div>
+                    </div>
+                }
             </div>
-            
         </div>
     )
 }
