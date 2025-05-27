@@ -128,10 +128,10 @@ const CreateTaxonomyForm = ({name, category, initValues, onPositiveResponse, ...
     }
 
     const staticCategoryOptions = {
-        skills : {label: "Compétence", value: "skills"},
-        technologies : {label: "Technologie", value: "technologies"},
-        domains : {label: "Secteur d'activité", value: "domains"},
-        equipmentType : {label: "Type d'équipement", value: "equipmentType"}
+        skills : {label: lang.Skill, value: "skills"},
+        technologies : {label: lang.Technology, value: "technologies"},
+        domains : {label: lang.Domain, value: "domains"},
+        equipmentType : {label: lang.EquipmentType, value: "equipmentType"}
     }
     
     const [categoryOptions, setCategoryOptions] = useState([])

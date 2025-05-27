@@ -14,10 +14,10 @@ const taxonomies = {
 
     //Specific taxonomy
 
-    "Technology": "Technologie",
-    "Technologies": "Technologies",
-    "technology": "technologie",
-    "technologies": "technologies",
+    "Technology": "Logiciel et technologie",
+    "Technologies": "Logiciels et technologies",
+    "technology": "logiciel et technologie",
+    "technologies": "logiciel et technologie",
 
     "Skills": "Compétences",
     "Skill": "Compétence",
