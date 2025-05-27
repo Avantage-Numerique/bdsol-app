@@ -119,7 +119,7 @@ const verifyAccount = props => {
                         <div>
                             <Spinner reverse/>
                         </div>
-                        <p className="text-center"><strong>{lang.loadingData}</strong></p>
+                        <p className="text-center"><strong>Vérification du compte</strong></p>
                     </div>
                 }
                 {
