@@ -61,9 +61,9 @@ const UpdateContactPoint = ({model, name, formTools, ...props}) => {
 
     return (
         <>
-            <div style={{ marginTop: '-20px' }}>
+            <div style={{ marginTop: '-16px' }}>
                 <span className="badge bg-danger">
-                    Ne saisissez pas d'informations privées.
+                    Veillez à saisir uniquement des informations professionnelles.
                 </span>
             </div>
             <div className="row">
