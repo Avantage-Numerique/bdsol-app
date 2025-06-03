@@ -288,25 +288,20 @@ const SearchResults = (props) => {
                 {
                     !isLoading &&
                     <div className="row py-4">
-                        <div className="col col-md-3 py-4">
-                            <div>
-                                {
-                                    nearTaxonomyObject?.otherNearbyTaxonomy?.length > 0 &&
-                                    <>
-                                        <h4>Vous cherchiez peut-être :</h4>
-                                        <ul>
-                                            { nearTaxonomyObject.otherNearbyTaxonomy.slice(0,8).map( (nearTaxo, index) => {
-                                                return (
-                                                    <li key={index+"nearTaxoList-"+nearTaxo._id}>
-                                                        <a href={`/categories/${nearTaxo?.category}/${nearTaxo?.slug}`}>{nearTaxo.name}</a>
-                                                    </li>)
-                                            })}
-                                        </ul>
-                                    </>
-                                }
+                        { nearTaxonomyObject?.otherNearbyTaxonomy?.length > 0 && (
+                            <div className="col col-md-3 py-4">
+                                <h4>Vous cherchiez peut-être :</h4>
+                                <ul>
+                                    { nearTaxonomyObject.otherNearbyTaxonomy.slice(0,8).map( (nearTaxo, index) => {
+                                        return (
+                                            <li key={index+"nearTaxoList-"+nearTaxo._id}>
+                                                <a href={`/categories/${nearTaxo?.category}/${nearTaxo?.slug}`}>{nearTaxo.name}</a>
+                                            </li>)
+                                    })}
+                                </ul>
                             </div>
-                        </div>
-                        <div className="col col-md-9">
+                        )}
+                        <div className={`col ${nearTaxonomyObject?.otherNearbyTaxonomy?.length > 0 ? 'col-md-9' : 'col-md-12'}`}>
                             
                             {/* If filter set to all results */}
                             {
