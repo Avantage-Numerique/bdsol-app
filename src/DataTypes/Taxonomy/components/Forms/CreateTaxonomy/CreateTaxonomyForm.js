@@ -19,6 +19,7 @@ import styles from './CreateTaxonomyForm.module.scss'
 import {lang} from '@/src/common/Data/GlobalConstants'
 import Select2 from '@/src/common/FormElements/Select2/Select2'
 import {getDefaultCreateEntityMeta} from "@/src/DataTypes/Meta/EntityMeta";
+import RadioButton from '@/src/common/FormElements/RadioButton/RadioButton'
 
 
 const CreateTaxonomyForm = ({name, category, initValues, onPositiveResponse, ...props}) => {
@@ -49,7 +50,7 @@ const CreateTaxonomyForm = ({name, category, initValues, onPositiveResponse, ...
         {
             category: {
                 value: initValues?.category ?? '',
-                isValid: true
+                isValid: false
             },
             name: {
                 value: initValues?.name ?? '',
@@ -160,22 +161,20 @@ const CreateTaxonomyForm = ({name, category, initValues, onPositiveResponse, ...
             <form onSubmit={submitHandler} className={`col-12 ${styles["create-taxonomy-form"]}`}>
                 <FormUI />
 
-                <Select 
-                    name="category"
-                    label="Type de catégorie"
-                    formTools={formTools}
-                    noValueText="Choisissez une catégorie"
-                    options={categoryOptions}
-                    validationRules={[
-                        {name: "REQUIRED"}
-                    ]}
-                    defaultValue={category}
-                />
-
                 <Input
                     name="name"
                     label="Nom"
                     formTools={formTools}
+                    validationRules={[
+                        {name: "REQUIRED"}
+                    ]}
+                />
+
+                <RadioButton
+                    name="category"
+                    label="Type de catégorie"
+                    formTools={formTools}
+                    options={categoryOptions}
                     validationRules={[
                         {name: "REQUIRED"}
                     ]}
