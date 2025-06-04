@@ -7,7 +7,7 @@ const SubmitEntity = ({ children, className, submitHandler, formState }) => {
 
     return (
         <div className={`d-flex flex-column ${className || ""}`}>
-            <Button disabled={!formState.isValid} onClick={submitHandler}>
+            <Button color="success" disabled={!formState.isValid} onClick={submitHandler}>
                 <Icon iconName={"save"} />&nbsp;{lang.submitModification}
             </Button>
             {

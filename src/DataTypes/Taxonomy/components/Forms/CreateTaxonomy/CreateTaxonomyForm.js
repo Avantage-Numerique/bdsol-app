@@ -8,7 +8,6 @@ import {useFormUtils} from '@/src/hooks/useFormUtils/useFormUtils'
 import Button from '@/src/common/FormElements/Button/Button'
 import Input from '@/src/common/FormElements/Input/Input'
 import RichTextarea from '@/src/common/FormElements/RichTextArea/RichTextarea'
-import Select from '@/src/common/FormElements/Select/Select'
 
 //Contexts
 import {AuthContext, useAuth} from '@/auth/context/auth-context'
@@ -172,7 +171,7 @@ const CreateTaxonomyForm = ({name, category, initValues, onPositiveResponse, ...
 
                 <RadioButton
                     name="category"
-                    label="Type de catégorie"
+                    //label="Type de catégorie"
                     formTools={formTools}
                     options={categoryOptions}
                     validationRules={[
@@ -183,14 +182,6 @@ const CreateTaxonomyForm = ({name, category, initValues, onPositiveResponse, ...
                 <Input
                     name="description"
                     label="Description"
-                    formTools={formTools}
-                />
-
-                <RichTextarea
-                    name="meta.message"
-                    label="Dites nous en quelques mots la raison de l'ajout de cette catégorie"
-                    labelNote="Cette information restera privée. Elle nous permet seulement de mieux comprendre la demande d'ajout."
-                    placeholder="Je préfère cette appellation pour décrire mon activité professionnelle plutôt qu'une autre [...]"
                     formTools={formTools}
                 />
 
@@ -207,8 +198,20 @@ const CreateTaxonomyForm = ({name, category, initValues, onPositiveResponse, ...
                     selectField={"domains"}
                 />
 
+                <RichTextarea
+                    name="meta.message"
+                    label="Dites nous en quelques mots la raison de l'ajout de cette catégorie"
+                    labelNote="Cette information restera privée. Elle nous permet seulement de mieux comprendre la demande d'ajout."
+                    placeholder="Je préfère cette appellation pour décrire mon activité professionnelle plutôt qu'une autre [...]"
+                    formTools={formTools}
+                />
+
                 <div className="col-12">
-                    <Button type="button" onClick={submitHandler} disabled={!formState.isValid}>Soumettre</Button>
+                    <Button className="me-4" color="success" type="button" onClick={submitHandler} disabled={!formState.isValid}>Soumettre</Button>
+                    {
+                        props?.closeModal && 
+                        <Button color="danger" type="button" onClick={props.closeModal()}>Annuler</Button>
+                    }
                 </div>
 
             </form>
