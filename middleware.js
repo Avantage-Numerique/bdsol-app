@@ -1,6 +1,10 @@
 import { NextResponse } from 'next/server';
-//import {getIronSession} from "iron-session/edge";
-//import {appDefaultSessionOptions} from "@/auth/session/Session";
+import { NextRequest } from 'next/server';
+import {getIronSession} from "iron-session";
+import {cookies, headers} from "next/headers";
+
+import {choicesSessionOptions, appDefaultSessionOptions, canSaveAuthCookie} from "@/auth/session/SessionOptions";
+import {getVisitorDataFromRequest} from "@/auth/context/visitor-context";
 
 /**
  * Added in version 12.2 of nextjs, as for stable version.
@@ -8,31 +12,62 @@ import { NextResponse } from 'next/server';
  * @return {NextResponse}
  */
 export async function middleware(request) {
+    const response = NextResponse.next();
+    // get the public data of current user and pass it down.
+    const visitor = await getVisitorDataFromRequest(request);
 
-    //const session = await getIronSession(request, response, appDefaultSessionOptions);
+    const publicSession = await getIronSession(
+        request,
+        response,
+        choicesSessionOptions
+    );
+    //console.log("middleware", "visitor", visitor, "auth", authSession, "public", publicSession);
+    //console.log("middleware", canSaveAuthCookie(publicSession));
 
-    // do anything with session here:
-    //const { user } = session;
-    //response.user = user;
+    // get the public data of current user and pass it down.
+    console.log("publicSession", publicSession, canSaveAuthCookie(publicSession));
+    // check the JWT
+    if (canSaveAuthCookie(publicSession)) {
 
-    // like mutate user:
-    // user.something = someOtherThing;
-    // or:
-    // session.user = someoneElse;
+        const authSession = await getIronSession(
+            request,
+            response,
+            appDefaultSessionOptions,
+        );
+    }
 
-    // uncomment next line to commit changes:
-    // await session.save();
-    // or maybe you want to destroy session:
-    // await session.destroy();
+    publicSession.user = {
+        ...visitor
+    }
+    await publicSession.save();
 
-    //console.logs("from middleware", user);
+    // Deterine if we passed it to app
+    // return props to app
 
-    // demo:
-    //if (user?.admin !== "true") {
-    //    // unauthorized to see pages inside admin/
-    //    return NextResponse.redirect(new URL('/unauthorized', req.url)) // redirect to /unauthorized page
-    //}
-    return NextResponse.next();
+    /*if (request.cookies.has('nextjs')) {
+
+    }*/
+    /*response.cookies.set({
+        name: choicesSessionOptions.cookieName,
+        value: {
+            session: {
+                user: {
+                    ...visitor
+                }
+            }
+        },
+        path: '/'
+    });*/
+    /*const response = NextResponse.next()
+    response.cookies.set('vercel', 'fast')
+    response.cookies.set({
+        name: 'vercel',
+        value: 'fast',
+        path: '/',
+    })*/
+
+    //NextResponse.redirect(new URL('/unauthorized', req.url))
+    return response;
 }
 
 // Where does this middleware would run

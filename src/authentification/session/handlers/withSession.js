@@ -1,6 +1,6 @@
 import {getIronSession} from "iron-session";//, withIronSessionApiRoute, withIronSessionSsr
 
-import {appDefaultSessionOptions} from "@/auth/session/Session";
+import {appDefaultSessionOptions} from "@/src/authentification/session/SessionOptions";
 
 export function withSessionRoute(handler) {
 

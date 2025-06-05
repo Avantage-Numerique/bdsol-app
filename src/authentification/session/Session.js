@@ -1,21 +1,16 @@
-export const appDefaultSessionOptions = {
-    cookieName: process.env.APP_COOKIE_NAME,
-    password: process.env.COOKIE_PRIVATE_KEY,
-    cookieOptions: {
-        secure: process.env.NODE_ENV === "production",//force HTTPS only in prod.
-        maxAge: process.env.COOKIE_MAX_AGE,
-        sameSite: "Strict",//https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie#strict
-        //domain: process.env.APP_BASE_URL//removed after reading that could be a problem if we add some CNAME in the future.
-    },
-};
+import 'server-only'
 
-export const choicesSessionOptions = {
-    cookieName: "avnuCookies",
-    password: process.env.COOKIE_PRIVATE_KEY,
-    cookieOptions: {
-        secure: process.env.NODE_ENV === "production",//force HTTPS only in prod.
-        maxAge: process.env.COOKIE_MAX_AGE,
-        sameSite: "Strict",//https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie#strict
-        //domain: process.env.APP_BASE_URL//removed after reading that could be a problem if we add some CNAME in the future.
-    },
-};
+import { cookies } from 'next/headers';
+import { getIronSession } from 'iron-session';
+
+async function getIronSessionData() {
+    const session = await getIronSession(cookies(), { password: "...", cookieName: "..." });
+    return session;
+}
+
+export const createSession = async () => {
+
+}
+export const updateSession = async () => {
+
+}

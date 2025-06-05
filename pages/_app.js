@@ -1,7 +1,11 @@
 import React, {useEffect} from "react";
 import App from "next/app";
 import {getIronSession} from "iron-session";
-import {appDefaultSessionOptions, choicesSessionOptions} from "@/src/authentification/session/Session";
+import {
+    appDefaultSessionOptions,
+    canSaveAuthCookie,
+    choicesSessionOptions
+} from "@/src/authentification/session/SessionOptions";
 import {AuthProvider} from '@/src/authentification/context/auth-context';
 import Layout from '@/src/layouts/Layout';
 import {getVisitorDataFromContext} from "@/src/authentification/context/visitor-context";
@@ -67,7 +71,8 @@ AVNU.getInitialProps = async (context) => {
 
             console.log("getInitialProps session", session, "avnuCookies", avnuCookies);
             //if cookies auth is accepted follow with session creation.
-            if (avnuCookies?.auth) {
+
+            if (canSaveAuthCookie(cookies.avnuCookies)) {
 
                 const savedInSessionUser = session.user ?? {};
 
@@ -75,7 +80,6 @@ AVNU.getInitialProps = async (context) => {
                     //verify and set if the token is verified by the API
                     const serverVerificationResponse = await verifyToken(session.user.token);
                     session.user.tokenVerified = session.user.isLoggedIn = !serverVerificationResponse.error && serverVerificationResponse.data.tokenVerified;
-
                 }
 
                 session.user = {
