@@ -85,6 +85,7 @@ const verifyAccount = props => {
                 setVerifyState(true);
             }
             else {
+                //API return error but status 200 when token is correct length or exist but is now expired
                 if(response.code === 200)
                     //Token expired
                     setVerifyState(false);
