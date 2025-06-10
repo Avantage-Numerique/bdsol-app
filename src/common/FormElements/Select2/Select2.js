@@ -335,7 +335,19 @@ const Select2 = ({ name, formTools, ...props }) => {
                     <b className="fs-5">Création : {lang[props.modalType]}</b>
                     <p className="me-4">{descriptions.get(props.modalType)} que vous ajoutez sera directement intégré à votre formulaire.</p>
                 </div>
-                <Button onClick={() => closeModal()}>X</Button>
+                <button
+                    onClick={closeModal}
+                    className="ms-3 mt-1 border-0 bg-transparent"
+                    style={{
+                        fontSize: '3rem',
+                        color: '#d9baa4',
+                        cursor: 'pointer',
+                        lineHeight: 1,
+                    }}
+                    aria-label="Fermer"
+                    >
+                    &times;
+                </button>
             </header>
         )
     }
