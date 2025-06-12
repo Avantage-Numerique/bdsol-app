@@ -7,7 +7,7 @@ const templatesEnum = {
 }
 
 const templates = new Map();
-templates.set(templatesEnum.default, {
+templates.set(templatesEnum.DEFAULT, {
         Component: DefaultTemplate,
         props: {}
     });

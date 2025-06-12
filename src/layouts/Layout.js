@@ -24,7 +24,7 @@ import styles from './Layout.module.scss';
 import {useModalController} from '@/src/hooks/useModal/ModalsController/ModalsController';
 import {useRouter} from "next/router";
 import nextConfig from "@/next.config";
-import {templates} from "@/layouts/Templates/TemplatesEnum";
+import {templates, templatesEnum} from "@/layouts/Templates/TemplatesEnum";
 
 export const ModalContext = createContext({});
 
@@ -45,7 +45,7 @@ const Layout = ( {children, pageProps} ) => {
         return d.getTime()
     }
 
-    const currentTemplate = pageProps.template ? templates[pageProps.template] : templates.default;
+    const currentTemplate = pageProps.template ? templates.get(pageProps.template) : templates.get(templatesEnum.DEFAULT);
 
     //const LayoutComponent = ContentTemplate ? ContentTemplate : DefaultTemplate;
     const TemplateRenderer = ({ Component, componentProps, children }) => {
