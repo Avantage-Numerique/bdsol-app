@@ -6,7 +6,7 @@ const DefaultTemplate = (props) => {
     const {children, className} = props;
 
     return (
-        <main className={`containe ${className}`}>
+        <main className={`container ${className}`}>
             <div className="row">
                 <div className="col">
                     { children }

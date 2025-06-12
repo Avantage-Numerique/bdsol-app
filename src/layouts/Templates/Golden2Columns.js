@@ -14,19 +14,19 @@ const Golden2Columns = (props) => {
 
     const MainContent = () => {
         return (
-            <div className={"col col-12 col-lg-7"}>
-                {children}
+            <div className={"col col-12 col-lg-7 d-flex justify-content-center align-items-center"}>
+                <div>
+                    {children}
+                </div>
             </div>
         );
     }
 
     return (
-        <main className={`container-fluid header-less-page ${className}`}>
-            <div className={"row"}>
-                <MainContent />
-                <Column1 />
-            </div>
-        </main>
+        <div className={`row ${className}`}>
+            <MainContent />
+            <Column1 />
+        </div>
     );
 }
 

@@ -45,9 +45,8 @@ const Layout = ( {children, pageProps} ) => {
         return d.getTime()
     }
 
+    // TEMPLATE Selection, set the tempalte vars in getStaticProps from the templatesEnum
     const currentTemplate = pageProps.template ? templates.get(pageProps.template) : templates.get(templatesEnum.DEFAULT);
-
-    //const LayoutComponent = ContentTemplate ? ContentTemplate : DefaultTemplate;
     const TemplateRenderer = ({ Component, componentProps, children }) => {
         return (
             <Component {...componentProps}>

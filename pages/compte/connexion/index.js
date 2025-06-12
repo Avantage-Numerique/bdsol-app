@@ -23,7 +23,7 @@ const LoginPage = () => {
 
     const Column = (
         <div className={"bg-primary"}>
-            <h2>COlummmmmm</h2>
+            <Login/>
         </div>
     )
 
@@ -33,7 +33,7 @@ const LoginPage = () => {
                 title={lang.compte__connexion__title}
                 description={lang.compte__connexion__description}
             />
-            <Login/>
+            <h1>LOGIN awesome d'AVNU 8-)</h1>
         </Golden2Columns>
     )
 
