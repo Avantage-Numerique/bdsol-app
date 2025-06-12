@@ -93,7 +93,7 @@ const Login = () => {
     }
 
     return (
-        <section className={`header-less-page ${styles.authPage}`}>
+        <section class={`${styles.authPage}`}>
 
             {/* Spinner to display when the app is waiting for the api*/}
             {isLoading && <Spinner fixed className={"bg-primary-lighter"} />}
