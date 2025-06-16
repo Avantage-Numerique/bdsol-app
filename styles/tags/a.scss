@@ -16,4 +16,19 @@ a.internal-link {
         text-decoration-thickness: 3px;
         text-underline-offset: 4px;
     }
+
+    &.no-decoration {
+        text-decoration: transparent;
+    }
+
+    &.internal-link-secondary {
+        color: $secondary;
+        @include transition();
+        &:hover {
+            color: $secondary-dark;
+            text-decoration-color: $secondary;
+            text-decoration-thickness: 3px;
+            text-underline-offset: 4px;
+        }
+    }
 }

@@ -2,30 +2,28 @@ const Golden2Columns = (props) => {
 
     // add parameters to set right or left oriented layout.
     // add fullwidth or contained parameter
-    const {children, columnContent, className} = props;
+    const {children, columnContent, className, contentClassName, columnClassName, style} = props;
 
-    const Column1 = () => {
+    const Column1 = ({columnClassName}) => {
         return (
-            <div className={"col col-12 col-lg-5"}>
+            <div className={`col w-62 ${columnClassName}`}>
                 {columnContent}
             </div>
         );
     }
 
-    const MainContent = () => {
+    const MainContent = ({contentClassName}) => {
         return (
-            <div className={"col col-12 col-lg-7 d-flex justify-content-center align-items-center"}>
-                <div>
-                    {children}
-                </div>
+            <div className={`col flex-md-column w-38 d-flex justify-content-center align-items-center ${contentClassName}`}>
+                {children}
             </div>
         );
     }
 
     return (
-        <div className={`row ${className}`}>
-            <MainContent />
-            <Column1 />
+        <div className={`row ${className}`} style={{...style}}>
+            <MainContent contentClassName={contentClassName} />
+            <Column1 columnClassName={columnClassName} />
         </div>
     );
 }
