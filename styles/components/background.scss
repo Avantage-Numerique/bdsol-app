@@ -5,3 +5,8 @@
 .bg-position-default {
   background-position: center center;
 }
+
+
+.gradient-sharp-diagonal {
+  background: linear-gradient(45deg, $primary 50%, $secondary 50%);
+}

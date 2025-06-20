@@ -93,7 +93,7 @@ const Login = () => {
     }
 
     return (
-        <section class={`${styles.authPage}`}>
+        <section className={`${styles.authPage}`}>
 
             {/* Spinner to display when the app is waiting for the api*/}
             {isLoading && <Spinner fixed className={"bg-primary-lighter"} />}
@@ -138,9 +138,6 @@ const Login = () => {
                         {lang.loginReinitPasswordTitle}
                     </p>
                     <RouteLink routeName={"resetPassword"} className={"internal-link no-decoration internal-link-secondary"} label={lang.loginReinitPasswordBtnLabel} />
-                    <p className={`pb-1 m-0`}>
-                        &nbsp;
-                    </p>
                 </div>
             </form>
             

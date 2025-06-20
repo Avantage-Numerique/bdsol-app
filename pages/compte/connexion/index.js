@@ -54,13 +54,13 @@ const LoginPage = () => {
 
     // style={{backgroundImage:'url(/general_images/fusee-planetes-pointilles2-90deg.svg)'}}
     return (
-        <Golden2Columns className={`${styles["login-background"]}`} columnContent={Column} contentClassName={"position-relative"} columnClassName={"bg-secondary"}>
+        <Golden2Columns className={`${styles["login-background"]}`} columnContent={Column} contentClassName={"position-relative"} columnClassName={"gradient-sharp-diagonal"}>
             <HeaderBgImg />
             <PageMeta 
                 title={lang.compte__connexion__title}
                 description={lang.compte__connexion__description}
             />
-            <div className={"row w-50 justify-content-center align-items-center"}>
+            <div className={"row w-100 w-md-75 w-lg-50 justify-content-center align-items-center"}>
                 <div className={"col-3"}><img src={"/AVNU_Branding/AVNU-LogoCanard-RVB.svg"} /></div>
                 <div className={"col-9"}>
                     <h1>Explorer le numérique<br/><span className={"text-secondary"}>Sur le territoire</span></h1>

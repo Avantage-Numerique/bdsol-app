@@ -6,7 +6,7 @@ const Golden2Columns = (props) => {
 
     const Column1 = ({columnClassName}) => {
         return (
-            <div className={`col w-62 ${columnClassName}`}>
+            <div className={`golden-grid-ordered__minor ${columnClassName}`}>
                 {columnContent}
             </div>
         );
@@ -14,14 +14,14 @@ const Golden2Columns = (props) => {
 
     const MainContent = ({contentClassName}) => {
         return (
-            <div className={`col flex-md-column w-38 d-flex justify-content-center align-items-center ${contentClassName}`}>
+            <div className={`golden-grid-ordered__major d-flex justify-content-center align-items-center ${contentClassName}`}>
                 {children}
             </div>
         );
     }
 
     return (
-        <div className={`row ${className}`} style={{...style}}>
+        <div className={`golden-layout golden-grid-ordered ${className}`} style={{...style}}>
             <MainContent contentClassName={contentClassName} />
             <Column1 columnClassName={columnClassName} />
         </div>

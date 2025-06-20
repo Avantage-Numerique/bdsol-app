@@ -2,6 +2,8 @@
 @import './avnu.scss';
 @import './fonts';
 
+@import "extend/width";
+
 //Cherry picking of packages' styles.
 @import './packages/bootstrap';//bootstrap style. docs : https://icons8.com/line-awesome
 @import './packages/line-awesome';//icon font
@@ -41,3 +43,4 @@
 @import './layouts/page-layouts.scss';
 @import './layouts/home-page';
 @import './layouts/static';
+@import './layouts/golden-grid';
