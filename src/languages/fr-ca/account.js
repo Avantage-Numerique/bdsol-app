@@ -1,6 +1,8 @@
 // /compte/*
 const account = {
     //  login
+    "loginAVNUTitle": "Explorer le numérique",
+    "loginAVNUSubTitle": "Sur le territoire",
     "loginTitle": "Connexion",
 
     "loginUserNameLabel": "Nom d'utilisateur",
