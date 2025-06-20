@@ -65,7 +65,7 @@ const LoginPage = () => {
                 <div className={"col-9"}>
                     <h1>{lang.loginAVNUTitle}<br/><span className={"text-secondary"}>{lang.loginAVNUSubTitle}</span></h1>
                     <div className={"pt-1"}>
-                        <SearchBar id="searchbar-layout-login" clearAfterSearch="true" small />
+                        <SearchBar id="searchbar-layout-login" className="high-attention" clearAfterSearch="true" small />
                     </div>
                 </div>
             </div>

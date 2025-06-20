@@ -17,7 +17,7 @@ import {getType} from '@/src/DataTypes/Entity/Types';
 Props :
     - id : isolate input/datalist with distinct ids
 */
-const SearchBar = ({small, ...props}) => {
+const SearchBar = ({small, className, ...props}) => {
 
     //List of options fetched by the api and suggested to the user
     const [selectResponse, setSelectResponse] = useState([]);
@@ -137,7 +137,7 @@ const SearchBar = ({small, ...props}) => {
                 pathname: "/"+typeUrl+"/"+selected.category+"/"+selected.slug,
             });
         }
-        else{
+        else {
             router.push({
                 pathname: "/"+typeUrl+"/"+selected.slug,
             });
@@ -164,7 +164,7 @@ const SearchBar = ({small, ...props}) => {
 
 
     return (
-        <form onSubmit={submitHandler} className={`search-bar ${small && "small-searchBar w-100"}`}>
+        <form onSubmit={submitHandler} className={`search-bar ${className} ${small && "small-searchBar w-100"}`}>
             <div className="input-group my-2 bg-white">
                 <Select
                     className={"form-control ms-2 p-0 border-0 rounded"}
@@ -183,7 +183,7 @@ const SearchBar = ({small, ...props}) => {
                         if(action.action === "select-option" && !blockSubmitSlug.current) { submitSelectedItem(val, action) }
                     }}
                     //Handle on Enter key to submit instead of select
-                    onKeyDown={ (event) => { if(event.key == "Enter") { blockSubmitSlug.current = true; submitHandler() } }}
+                    onKeyDown={ (event) => { if(event.key === "Enter") { blockSubmitSlug.current = true; submitHandler() } }}
                     noOptionsMessage={(val)=> (
                         <p className={"m-0 p-0"}>
                             Aucune suggestion trouvé avec la recherche <strong>{val.inputValue}</strong>.<br />
