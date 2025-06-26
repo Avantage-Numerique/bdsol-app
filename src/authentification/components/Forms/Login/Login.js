@@ -10,7 +10,6 @@ import {MessageContext} from '@/src/common/UserNotifications/Message/Context/Mes
 import {useForm} from '@/src/hooks/form-hook';
 import {useSessionHook} from '@/auth/hooks/useSessionHook';
 
-
 //Form components
 import Input from '@/src/common/FormElements/Input/Input';
 import Button from '@/src/common/FormElements/Button/Button';
@@ -19,6 +18,7 @@ import Spinner from '@/src/common/widgets/spinner/Spinner';
 //Styling
 import styles from './Login.module.scss';
 import {lang} from "@/common/Data/GlobalConstants";
+import {RouteLink} from "@/common/Components/RouteLink";
 
 const Login = () => {
 
@@ -93,23 +93,23 @@ const Login = () => {
     }
 
     return (
-        <section className={`header-less-page ${styles.authPage}`}>
+        <section className={`${styles.authPage}`}>
 
             {/* Spinner to display when the app is waiting for the api*/}
             {isLoading && <Spinner fixed className={"bg-primary-lighter"} />}
 
             <form onSubmit={authSubmitHandler} className="bg-primary-lighter rounded">
                 <div className={"d-flex flex-column"}>
-                    <h3 className="text-dark-light mb-4" >Connexion</h3>
+                    <h3 className="text-dark-light mb-4">Connexion</h3>
 
                     <Input
                         name="username"
                         type="text"
-                        label="Nom d'utilisateur"
+                        label={lang.loginUserNameLabel}
                         validationRules={[
                             {name: "REQUIRED"}
                         ]}
-                        errorText="Veuillez entrer un nom d'utilisateur valide"
+                        errorText={lang.loginUserNameErrorLabel}
                         formTools={formTools}
                         className={"pb-3"}
                     />
@@ -117,29 +117,27 @@ const Login = () => {
                     <Input
                         name="password"
                         type="password"
-                        label="Mot de passe"
+                        label={lang.loginPasswordLabel}
                         validationRules={[
                             {name: "REQUIRED"}
                         ]}
-                        errorText="Veuillez entrer un mot de passe valide"
+                        errorText={lang.loginPasswordErrorLabel}
                         formTools={formTools}
                         className={"pb-3"}
                     />
 
                     <div className={"pb-3"}>
-                        <Button type="submit" size="slim" disabled={!formState.isValid}>Me connecter</Button>
+                        <Button type="submit" size="slim" disabled={!formState.isValid}>{lang.loginCTAButtonLabel}</Button>
                     </div>
 
-                    <p className={`${styles.formRedirection} pb-1`}>
-                        <Button text_color="secondary" href="/compte/inscription"> Créez votre compte</Button>
+                    <p className={`${styles.formRedirection} pb-4`}>
+                        <RouteLink className={"internal-link no-decoration text-secondary"} routeName={"register"} />
                     </p>
-                    
-                    <div className="d-flex flex-wrap">
-                        <p className={`fs-6 ${styles.formRedirection}`}>
-                            Vous avez oublié votre mot de passe ou votre nom d'utilisateur ?
-                        </p>
-                        <Button className="fs-6" text_color="secondary" href="/compte/reinitialiser">Réinitialiser votre mot de passe ou récupérer votre nom d'utilisateur.</Button>
-                    </div>
+
+                    <p className={`pb-3 m-0`}>
+                        {lang.loginReinitPasswordTitle}
+                    </p>
+                    <RouteLink routeName={"resetPassword"} className={"internal-link no-decoration internal-link-secondary"} label={lang.loginReinitPasswordBtnLabel} />
                 </div>
             </form>
             

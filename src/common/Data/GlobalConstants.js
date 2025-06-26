@@ -6,6 +6,7 @@ import Caching from "@/common/Data/Caching";
  */
 
 export const lang = StringDictionary.getInstance([
+    "account",
     "base",
     "dates",
     "validation",
