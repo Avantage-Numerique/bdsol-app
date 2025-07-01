@@ -155,16 +155,14 @@ const ProjectSingleView = ({ data }) => {
             <SingleInfo 
                 title={lang.projectPartners} 
                 displayCondition={sortedSponsors.length > 0}
-                cardLayout
             >
                 <EntitiesTagGrid feed={sortedSponsors} subEntityProperty={"entity"} subBadgeProperty={"name"} />
             </SingleInfo>
             
             {/* Team */}
             <SingleInfo
-                    title={lang.teamMembers}
-                    displayCondition={sortedTeam.length > 0}
-                    cardLayout
+                title={lang.teamMembers}
+                displayCondition={sortedTeam.length > 0}
             >
                 <EntitiesTagGrid feed={sortedTeam} subEntityProperty={"member"} subBadgeProperty={"role"} noneMessage={"Aucun membre de l'équipe spécifiés"} />
             </SingleInfo>
@@ -172,7 +170,6 @@ const ProjectSingleView = ({ data }) => {
             {/* schedule budget */}
             <SingleInfo
                 title={lang.timelineAndBudget}
-                cardLayout
                 displayCondition={scheduleBudget && haveAValidValue(scheduleBudget)}
             >
                 <section className={`${styles["budget"]}`}>
@@ -215,10 +212,7 @@ const ProjectSingleView = ({ data }) => {
             </SingleInfo>
             
             {/* Equipments */}
-            <SingleInfo 
-                title={lang.equipmentUsed} 
-                cardLayout
-            >
+            <SingleInfo title={lang.equipmentUsed}>
                 {equipment && 
                     <EntitiesTagGrid
                         feed={equipment} 
@@ -233,14 +227,11 @@ const ProjectSingleView = ({ data }) => {
     const ContentColumnRight = (
         <>
             {/* Contact information */}
-            <SingleInfo title={lang.organisationContact} cardLayout>
+            <SingleInfo title={lang.organisationContact}>
                 <ContactPointView contact={model.contactPoint}/>
             </SingleInfo>
 
-            <SingleInfo
-                title="Informations supplémentaires"
-                cardLayout
-            >
+            <SingleInfo title="Informations supplémentaires">
                 {context !== "" &&
                     <SingleInfo
                         title={lang.projectContext}
@@ -288,7 +279,7 @@ const ProjectSingleView = ({ data }) => {
                 (createdAt || updatedAt || meta) &&
                 <SingleInfo 
                     title={lang.entityMetadata} 
-                    className="border-top pt-3"
+                    className="pt-3"
                 >
                     {/*********** Entity data ***********/}
                     <SingleEntityMeta createdAt={createdAt} updatedAt={updatedAt} meta={meta} />

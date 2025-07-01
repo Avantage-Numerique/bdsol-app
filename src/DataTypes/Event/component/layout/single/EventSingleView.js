@@ -107,7 +107,7 @@ const EventSingleView = ({data}) => {
                 <div className="d-text">
                     <h4 className="text-white">{model.alternateName ? model.alternateName : ""}</h4>
                     {/*Date*/}
-                    <SingleInfo displayCondition={(startDate && endDate)}>
+                    <SingleInfo displayCondition={(startDate && endDate)} noCardLayout>
                         <TimeIntervalSentence tag="h2" className="text-decoration-underline" />
                     </SingleInfo>
                 </div>
@@ -130,6 +130,7 @@ const EventSingleView = ({data}) => {
                         <SingleInfo 
                             title={lang.entityInCharge}
                             isSubtitle
+                            noCardLayout
                         >
                             {model.entityInCharge && 
                                 <EntitiesTagGrid 
@@ -191,7 +192,6 @@ const EventSingleView = ({data}) => {
             <SingleInfo 
                 title={lang.schedule} 
                 displayCondition={schedule && schedule.length > 0}
-                cardLayout 
             >
                 <DisplaySchedule feed={schedule}/>
             </SingleInfo>
@@ -203,7 +203,6 @@ const EventSingleView = ({data}) => {
                 <SingleInfo 
                 title={lang.subEvents}
                 displayCondition={subEvents && subEvents.length > 0}
-                cardLayout
                 >
                     <EntitiesTagGrid feed={subEvents} />
                 </SingleInfo>
@@ -214,7 +213,6 @@ const EventSingleView = ({data}) => {
             <SingleInfo
                 title={lang.teamMembers}
                 displayCondition={sortedTeam?.length > 0}
-                cardLayout
             >
                 <EntitiesTagGrid 
                     feed={sortedTeam} 
@@ -230,7 +228,6 @@ const EventSingleView = ({data}) => {
             <SingleInfo 
                 title={lang.attendees}
                 displayCondition={attendees?.length > 0}
-                cardLayout
             >
                 <EntitiesTagGrid
                     feed={attendees} 
@@ -243,14 +240,11 @@ const EventSingleView = ({data}) => {
     const contentColumnRight = (
         <>
             {/* Contact information */}
-            <SingleInfo title={lang.organisationContact} cardLayout>
+            <SingleInfo title={lang.organisationContact}>
                 <ContactPointView contact={model.contactPoint}/>
             </SingleInfo>
 
-            <SingleInfo 
-                title={"Informations supplémentaires"}
-                cardLayout
-            >
+            <SingleInfo title={"Informations supplémentaires"}>
                 {/* skills */}
                 <SingleInfo 
                     title={lang.skillsAndTechnologies}
@@ -317,7 +311,7 @@ const EventSingleView = ({data}) => {
                 (createdAt || updatedAt || meta) &&
                 <SingleInfo 
                     title={lang.entityMetadata} 
-                    className="border-top pt-3"
+                    className="pt-3"
                 >
                     {/*********** Entity data ***********/}
                     <SingleEntityMeta createdAt={createdAt} updatedAt={updatedAt} meta={meta} />

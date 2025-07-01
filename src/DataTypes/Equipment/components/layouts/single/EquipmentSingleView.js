@@ -64,7 +64,6 @@ const EquipmentSingleView = ({ data }) => {
     const ContentColumnLeft = (
         <>
             <SingleInfo
-                cardLayout
                 displayCondition={(model.brand || model.modelName)}
                 NAMessage="Aucun modèle ou marque n'est associé à ce produit."
                 title={lang.productInformations}
@@ -73,20 +72,23 @@ const EquipmentSingleView = ({ data }) => {
                 <SingleInfo 
                     title={lang.brand}
                     isSubtitle
-                >{model.brand && model.brand}
+                    noCardLayout
+                >
+                    {model.brand && model.brand}
                 </SingleInfo>
                 
                 <SingleInfo 
                     title={lang.modelName}
                     isSubtitle
-                    >{model.modelName && model.modelName}
+                    noCardLayout
+                >
+                    {model.modelName && model.modelName}
                 </SingleInfo>
                 
             </SingleInfo>
 
             <SingleInfo 
                 title={`${lang.plural(lang.ownByOrganisation, lang.ownByOrganisations, model.organisations.length)}`} 
-                cardLayout
                 displayCondition={model.organisations.length > 0}
             >
                 <EntitiesTagGrid feed={model.organisations}/>
@@ -94,7 +96,6 @@ const EquipmentSingleView = ({ data }) => {
             
             <SingleInfo 
                 title={`${lang.plural(lang.usedInProject, lang.usedInProjects, model.projects.length)}`} 
-                cardLayout
                 displayCondition={model.projects.length > 0}
             >
                 <EntitiesTagGrid feed={model.projects}/>
@@ -107,7 +108,6 @@ const EquipmentSingleView = ({ data }) => {
         <>
             <SingleInfo 
                 title={lang.externalLinks}
-                cardLayout
                 displayCondition={model?.url.length > 0}
                 NAMessage="Aucun hyperlien n'est disponible pour le moment."
             >
@@ -124,7 +124,7 @@ const EquipmentSingleView = ({ data }) => {
                 (model.createdAt || model.updatedAt || model.meta) &&
                 <SingleInfo 
                     title={lang.entityMetadata} 
-                    className="border-top pt-3"
+                    className="pt-3"
                 >
                     {/*********** Entity data ***********/}
                     <SingleEntityMeta createdAt={model.createdAt} updatedAt={model.updatedAt} meta={model.meta} />

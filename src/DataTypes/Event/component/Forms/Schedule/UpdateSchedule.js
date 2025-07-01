@@ -1,7 +1,6 @@
 import Repeater from "@/src/common/FormElements/Repeater/Repeater";
 import Input from "@/src/common/FormElements/Input/Input";
 import {lang} from "@/src/common/Data/GlobalConstants";
-import Button from "@/src/common/FormElements/Button/Button";
 
 const UpdateSchedule = ({name, formTools, schedule, ...props}) => {
 
@@ -14,7 +13,7 @@ const UpdateSchedule = ({name, formTools, schedule, ...props}) => {
     const maxTime = props.maxTime ?? undefined;
 
     return (
-        <div className="px-4 border-start">
+        <div className="px-4">
 
                 {props.description &&
                     <p>{props.description}</p>
@@ -111,16 +110,6 @@ const UpdateSchedule = ({name, formTools, schedule, ...props}) => {
                                 </div>
                             </div>
                         </section>
-
-                        <div className="cold mb-2 d-flex justify-content-end">
-                            <Button 
-                                repeaterDeleteElem
-                                type="button" 
-                                text_color="danger" 
-                            >
-                                Supprimer l'étape
-                            </Button>
-                        </div>
                     </div>
                 </Repeater>
             </div>

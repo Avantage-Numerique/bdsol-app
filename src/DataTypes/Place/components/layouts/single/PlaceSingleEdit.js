@@ -287,10 +287,7 @@ const PlaceSingleEdit = ({ positiveRequestActions, ...props}) => {
         </>
     )
     const contentColumnRight = (
-        <SingleInfo
-            title="Informations supplémentaires"
-            cardLayout
-        >
+        <SingleInfo title="Informations supplémentaires">
             {/* mrc */}
             <Input
                 className="mb-3"
@@ -332,7 +329,7 @@ const PlaceSingleEdit = ({ positiveRequestActions, ...props}) => {
                 (createdAt || updatedAt || meta) &&
                 <SingleInfo 
                     title={lang.entityMetadata} 
-                    className="border-top pt-3"
+                    className="pt-3"
                 >
                     {/*********** Entity data ***********/}
                     <SingleEntityMeta createdAt={createdAt} updatedAt={updatedAt} meta={meta} />

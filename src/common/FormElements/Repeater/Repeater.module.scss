@@ -1,3 +1,12 @@
+.repeater-container {
+    /*padding: 1rem;
+    border-radius: $border-radius;
+    padding: $single-infos-padding-y;
+    background-color: $primary-lighter;
+    border-radius: $border-radius;
+    border-left: 1em solid $secondary-light; */
+}
+
 .repeater {
 
     //Button to drag
@@ -13,8 +22,36 @@
         box-shadow: $default-box-shadow;
     }
     //Styling to make sure that the dropdown of any Select2 component is displayed in front of the siblings
+    .repeatable {
+        background-color: $white;
+    }
+    
     .repeatable:focus-within {
-        position:relative; 
+        position:relative;
         z-index: 10;
     }
+}
+
+.add-elem-to-repeater-button {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: $border-radius;
+    background-color: $white;
+    box-shadow: $default-box-shadow;
+    
+    padding: 1rem;
+    font-size: 4rem;
+    color: $primary_7;
+    @include transition();
+    border: $border-width solid $white;
+
+    &:hover,
+    &:focus:active {
+        background-color: $white;
+        border: $border-width solid $secondary-light;
+        color:$primary_7
+    }
+    
 }

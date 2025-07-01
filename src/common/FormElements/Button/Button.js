@@ -44,7 +44,7 @@ const Button = (props) => {
     if(props.text_color_hover)
         classList.push(`btn-text-hover-color-${props.text_color_hover}`);
     //Finaly, custom class names to add element or override specific ones
-    if (props.className) 
+    if (props.className)
         classList.push(props.className);
 
     //Generate a string with all classes 

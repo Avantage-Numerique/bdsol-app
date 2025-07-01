@@ -317,6 +317,7 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props}) => {
     const fullWidthContent = (
         <SingleInfo
             title={lang.about}
+            noCardLayout
         >
             <RichTextarea
                 className="my-3"
@@ -349,8 +350,7 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props}) => {
                     name="contactPoint"
                     model={model}
                 />
-            </SingleInfo>
-            <SingleInfo>
+
                 <Select 
                     name="region"
                     label="Faites-vous partie du Croissant boréal?"
@@ -388,9 +388,7 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props}) => {
                 />
             </SingleInfo>
 
-            <SingleInfo
-                title={lang.externalLinks}
-            >
+            <SingleInfo title={lang.externalLinks}>
                 { /* Url */}
                 <UpdateSocialHandles
                     name="url"
@@ -408,7 +406,7 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props}) => {
                 (createdAt || updatedAt || meta) &&
                 <SingleInfo 
                     title={lang.entityMetadata} 
-                    className="border-top pt-3"
+                    className="pt-3"
                 >
                     {/*********** Entity data ***********/}
                     <SingleEntityMeta createdAt={createdAt} updatedAt={updatedAt} meta={meta} />
@@ -418,7 +416,12 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props}) => {
     )
 
     const SinglePageBottom = (
-        <SubmitEntity submitHandler={() => {setSaveIntentionState(true); modalSaveEntityReminder.displayModal()}} formState={formState} />
+            <SubmitEntity
+                submitHandler={() => {setSaveIntentionState(true);
+                modalSaveEntityReminder.displayModal()}}
+                formState={formState}
+                singleLink={model.singleLink}
+            />
     )
 
     return (
