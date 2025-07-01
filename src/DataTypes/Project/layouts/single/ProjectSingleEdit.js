@@ -375,6 +375,7 @@ const ProjectSingleEdit = (props) => {
     const fullWidthContent = (
         <SingleInfo
             title={lang.about}
+            noCardLayout
         >
             <RichTextarea
                 name="description"
@@ -443,10 +444,7 @@ const ProjectSingleEdit = (props) => {
                 />
             </SingleInfo>
 
-            <SingleInfo
-                title="Informations supplémentaires"
-                cardLayout
-            >
+            <SingleInfo title="Informations supplémentaires">
                 {/* Context */}
                 <div className="mb-3">
                     <SelectFetch
@@ -457,41 +455,38 @@ const ProjectSingleEdit = (props) => {
                         fetchOption="context-enum"
                     />
                 </div>
-                <SingleInfo>
-                    <Select2
-                        name="skills"
-                        label={lang.skillsAndTechnologies}
-                        formTools={formTools}
-                        creatable={true}
-                        modalType={TYPE_TAXONOMY}
-                        allowedCategories={["skills", "technologies"]}
-                        isMulti={true}
-                        fetch={"/taxonomies/group/skills"}
-                        searchField={"name"}
-                        selectField={"name"}
-                    />
-                </SingleInfo>
+                <Select2
+                    name="skills"
+                    label={lang.skillsAndTechnologies}
+                    formTools={formTools}
+                    creatable={true}
+                    modalType={TYPE_TAXONOMY}
+                    allowedCategories={["skills", "technologies"]}
+                    isMulti={true}
+                    fetch={"/taxonomies/group/skills"}
+                    searchField={"name"}
+                    selectField={"name"}
+                />
 
-                <SingleInfo>
-                    <Select2
-                        name="domains"
-                        label={lang.Domains}
-                        formTools={formTools}
-                        creatable={true}
-                        modalType={TYPE_TAXONOMY}
-                        allowedCategories={["domains"]}
-                        isMulti={true}
+                <Select2
+                    name="domains"
+                    label={lang.Domains}
+                    formTools={formTools}
+                    creatable={true}
+                    modalType={TYPE_TAXONOMY}
+                    allowedCategories={["domains"]}
+                    isMulti={true}
 
-                        fetch={"/taxonomies/list"}
-                        requestData={{category:"domains", name:""}}
-                        searchField={"name"}
-                        selectField={"domains"}
-                    />
-                </SingleInfo>
+                    fetch={"/taxonomies/list"}
+                    requestData={{category:"domains", name:""}}
+                    searchField={"name"}
+                    selectField={"domains"}
+                />
 
                 <SingleInfo
                     title={lang.externalLinks}
                     isSubtitle
+                    noCardLayout
                 >
                     { /* Url */}
                     <UpdateSocialHandles
@@ -514,7 +509,7 @@ const ProjectSingleEdit = (props) => {
                 (createdAt || updatedAt || meta) &&
                 <SingleInfo
                     title={lang.entityMetadata}
-                    className="border-top pt-3"
+                    className="pt-3"
                 >
                     {/*********** Entity data ***********/}
                     <SingleEntityMeta createdAt={createdAt} updatedAt={updatedAt} meta={meta} />
@@ -525,7 +520,12 @@ const ProjectSingleEdit = (props) => {
 
     {/*********** Submit section ***********/}
     const SinglePageBottom = (
-        <SubmitEntity submitHandler={() => {setSaveIntentionState(true); modalSaveEntityReminder.displayModal()}} formState={formState} />
+        <SubmitEntity
+            submitHandler={() => {setSaveIntentionState(true);
+            modalSaveEntityReminder.displayModal()}}
+            formState={formState}
+            singleLink={model.singleLink}
+        />
     )
 
     return (

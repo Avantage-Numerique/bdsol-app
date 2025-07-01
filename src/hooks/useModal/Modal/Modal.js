@@ -53,7 +53,7 @@ const Modal = props => {
                 ${!noDefaultWidth && styles["default-width"]}
                 ${coloredBackground && styles["transparent-background"]}
             `}
-            style={{"background-color": '#fbf7f5'}}
+            //style={{"background-color": '#fbf7f5'}}
             //onClick={event => console.log(event)}
             //onChange={event => console.log(event)}
             onClose={event => {

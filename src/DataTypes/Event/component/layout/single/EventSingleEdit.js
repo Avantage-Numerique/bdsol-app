@@ -450,6 +450,7 @@ const EventSingleEdit = ({data}, ...props) => {
                         <SingleInfo
                             title={lang.entityInCharge}
                             isSubtitle
+                            noCardLayout
                         >
                             {/* entityInCharge */}
                             <Select2
@@ -465,6 +466,7 @@ const EventSingleEdit = ({data}, ...props) => {
                         <SingleInfo 
                             title={lang.producer}
                             isSubtitle
+                            noCardLayout
                         >
                             {/* organizer */}
                             <Select2
@@ -610,6 +612,7 @@ const EventSingleEdit = ({data}, ...props) => {
                 <SingleInfo 
                     title={lang.skillsAndTechnologies}
                     isSubtitle
+                    noCardLayout
                 >
                     <Select2
                         name="skills"
@@ -630,6 +633,7 @@ const EventSingleEdit = ({data}, ...props) => {
                 <SingleInfo 
                     title={lang.Domains} 
                     isSubtitle
+                    noCardLayout
                 >
                     <Select2
                         name="domains"
@@ -649,6 +653,7 @@ const EventSingleEdit = ({data}, ...props) => {
                 <SingleInfo 
                     title={lang.externalLinks}
                     isSubtitle
+                    noCardLayout
                 >
                     <UpdateSocialHandles
                         name="url"
@@ -660,9 +665,10 @@ const EventSingleEdit = ({data}, ...props) => {
 
                 {/*eventType */}
                 <SingleInfo 
-                        isSubtitle 
-                        title={lang.selectEventType}
-                    >
+                    isSubtitle 
+                    title={lang.selectEventType}
+                    noCardLayout
+                >
                     <Select2
                         name="eventType"
                         formTools={formTools}
@@ -679,6 +685,7 @@ const EventSingleEdit = ({data}, ...props) => {
                 <SingleInfo 
                     isSubtitle 
                     title={lang.eventFormat}
+                    noCardLayout
                 >
                     <SelectFetch 
                         name="eventFormat"
@@ -703,7 +710,7 @@ const EventSingleEdit = ({data}, ...props) => {
                 (createdAt || updatedAt || meta) &&
                 <SingleInfo 
                     title={lang.entityMetadata} 
-                    className="border-top pt-3"
+                    className="pt-3"
                 >
                     {/*********** Entity data ***********/}
                     <SingleEntityMeta createdAt={createdAt} updatedAt={updatedAt} meta={meta} />
@@ -714,7 +721,12 @@ const EventSingleEdit = ({data}, ...props) => {
 
     {/*********** Submit section ***********/}
     const SinglePageBottom = (
-        <SubmitEntity submitHandler={() => {setSaveIntentionState(true); modalSaveEntityReminder.displayModal()}} formState={formState} />
+        <SubmitEntity
+            submitHandler={() => {setSaveIntentionState(true);
+            modalSaveEntityReminder.displayModal()}}
+            formState={formState}
+            singleLink={model.singleLink}
+        />
     )
 
     return (

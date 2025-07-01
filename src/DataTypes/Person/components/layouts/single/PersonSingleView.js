@@ -87,21 +87,16 @@ const PersonSingleView = ({ data }) => {
     )
 
     const FullWidthContent = (
-        <>
-            {description !== '' &&
-                <SingleInfo
-                    title={lang.about}
-                    NAMessage="Aucune description n'est disponible pour le moment"
-                    //cardLayout
-                >
-                    { removeTagsFromString(description) &&
-                        <SanitizedInnerHtml>
-                            {description}
-                        </SanitizedInnerHtml>
-                    }
-                </SingleInfo>
+        <SingleInfo
+            title={lang.about}
+            NAMessage="Aucune description n'est disponible pour le moment"
+        >
+            { removeTagsFromString(description) &&
+                <SanitizedInnerHtml>
+                    {description}
+                </SanitizedInnerHtml>
             }
-        </>
+        </SingleInfo>
     )
 
     const ContentColumnLeft = (
@@ -122,7 +117,6 @@ const PersonSingleView = ({ data }) => {
                         </div>
                     </div>
                 )}
-                cardLayout
             >
                 {/* Display the different groups of occupations */}
                 { sortedOccupations && sortedOccupations?.length > 0 &&
@@ -138,22 +132,19 @@ const PersonSingleView = ({ data }) => {
             
             {/* Show linked entities as tag */}
             {projects.length > 0 &&
-                <SingleInfo 
-                    title={`${lang.plural(lang.memberOfProject, lang.memberOfProjects, projects.length)}`} 
-                    cardLayout
-                >
+                <SingleInfo title={`${lang.plural(lang.memberOfProject, lang.memberOfProjects, projects.length)}`}>
                     <EntitiesTagGrid feed={projects} />
                 </SingleInfo>
             }
 
             {organisations.length > 0 &&
-                <SingleInfo title={`${lang.plural(lang.memberOfOrganisation, lang.memberOfOrganisations, organisations.length)}`} cardLayout>
+                <SingleInfo title={`${lang.plural(lang.memberOfOrganisation, lang.memberOfOrganisations, organisations.length)}`}>
                     <EntitiesTagGrid feed={organisations}/>
                 </SingleInfo>
             }
 
             {events.length > 0 &&
-                <SingleInfo title={`${lang.plural(lang.attendThisEvent, lang.attendTheseEvents, events.length)}`} cardLayout>
+                <SingleInfo title={`${lang.plural(lang.attendThisEvent, lang.attendTheseEvents, events.length)}`}>
                     <EntitiesTagGrid feed={events}/>
                 </SingleInfo>
             }
@@ -166,15 +157,12 @@ const PersonSingleView = ({ data }) => {
             <BadgesSection badges={model.badges} entityLabel={entityLabelForBadge}/>
 
             {/* Contact information */}
-            <SingleInfo title={lang.organisationContact} cardLayout>
+            <SingleInfo title={lang.organisationContact}>
                 <ContactPointView contact={model.contactPoint}/>
             </SingleInfo>
             
             {domains.length > 0 &&
-                <SingleInfo 
-                    title={lang.Domains} 
-                    cardLayout
-                >
+                <SingleInfo title={lang.Domains}>
 
                     {/*********** Domains ***********/}
                     <SearchTag
@@ -197,9 +185,9 @@ const PersonSingleView = ({ data }) => {
         <>
             {
                 (createdAt || updatedAt || meta) &&
-                <SingleInfo 
+                <SingleInfo
                     title={lang.entityMetadata} 
-                    className="border-top pt-3"
+                    className="pt-3"
                 >
                     <SingleEntityMeta createdAt={createdAt} updatedAt={updatedAt} meta={meta} />
                 </SingleInfo>

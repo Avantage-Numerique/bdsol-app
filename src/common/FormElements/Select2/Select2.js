@@ -7,8 +7,6 @@ import ApiEntityModel from "@/src/DataTypes/Entity/models/ApiEntityModel";
 //Component
 import Select2BaseSingle from "./Select2BaseSingle";
 import Select2BaseMulti from "./Select2BaseMulti";
-import Tip from '@/common/FormElements/Tip/Tip';
-import Button from '@/src/common/FormElements/Button/Button';
 
 //Hook
 import {useHttpClient} from "@/src/hooks/http-hook";
@@ -36,6 +34,7 @@ import CreateEventForm from "@/src/DataTypes/Event/component/Forms/CreateEvent/C
 import CreatePlaceForm from "@/src/DataTypes/Place/components/forms/CreatePlaceForm/CreatePlaceForm";
 import CreateEquipmentForm from "@/src/DataTypes/Equipment/components/Forms/CreateEquipmentForm/CreateEquipmentForm";
 import { lang } from "../../Data/GlobalConstants";
+import Button from "../Button/Button";
 
 
 /**
@@ -335,19 +334,12 @@ const Select2 = ({ name, formTools, ...props }) => {
                     <b className="fs-5">Création : {lang[props.modalType]}</b>
                     <p className="me-4">{descriptions.get(props.modalType)} que vous ajoutez sera directement intégré à votre formulaire.</p>
                 </div>
-                <button
+                <Button
                     onClick={closeModal}
-                    className="ms-3 mt-1 border-0 bg-transparent"
-                    style={{
-                        fontSize: '3rem',
-                        color: '#d9baa4',
-                        cursor: 'pointer',
-                        lineHeight: 1,
-                    }}
-                    aria-label="Fermer"
-                    >
+                    className="btn-close"
+                >
                     &times;
-                </button>
+                </Button>
             </header>
         )
     }
