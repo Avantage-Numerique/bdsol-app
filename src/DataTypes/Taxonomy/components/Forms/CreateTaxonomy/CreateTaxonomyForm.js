@@ -10,7 +10,7 @@ import Input from '@/src/common/FormElements/Input/Input'
 import RichTextarea from '@/src/common/FormElements/RichTextArea/RichTextarea'
 
 //Contexts
-import {AuthContext, useAuth} from '@/auth/context/auth-context'
+import {useAuth} from '@/auth/context/auth-context'
 import {MessageContext} from '@/src/common/UserNotifications/Message/Context/Message-Context'
 
 //Styling
@@ -207,10 +207,10 @@ const CreateTaxonomyForm = ({name, category, initValues, onPositiveResponse, ...
                 />
 
                 <div className="col-12">
-                    <Button className="me-4" color="success" type="button" onClick={submitHandler} disabled={!formState.isValid}>Soumettre</Button>
+                    <Button className="me-4" color="success" type="button" onClick={submitHandler} disabled={!formState.isValid}>{lang.submit}</Button>
                     {
                         props?.closeModal && 
-                        <Button color="danger" type="button" onClick={props.closeModal()}>Annuler</Button>
+                        <Button color="danger" type="button" onClick={props.closeModal()}>{lang.cancel}</Button>
                     }
                 </div>
 

@@ -223,8 +223,9 @@ const Select2 = ({ name, formTools, ...props }) => {
                     addSelectedValue(...optionCreated)
                     //Close the modal 
                     closeModal()
-                
-            }}*/ //Commented because ApiEntityModel doesn't handle person yet since we don't use it at the moment
+            }}
+            closeModal={() => closeModal}        
+            */ //Commented because ApiEntityModel doesn't handle person yet since we don't use it at the moment
         />
     )
     const OrganisationModalForm = (
@@ -237,7 +238,9 @@ const Select2 = ({ name, formTools, ...props }) => {
                     //Close the modal 
                     closeModal()
                 
-            }}*/ //Commented because ApiEntityModel doesn't handle organisation yet since we don't use it at the moment
+            }}
+            closeModal={() => closeModal}        
+            */ //Commented because ApiEntityModel doesn't handle organisation yet since we don't use it at the moment
         />
     )
     const TaxonomyModalForm = (
@@ -266,7 +269,9 @@ const Select2 = ({ name, formTools, ...props }) => {
                     //Close the modal 
                     closeModal()
                 
-            }}*/ //Commented because ApiEntityModel doesn't handle project yet since we have no use for it at the moment
+            }}
+            closeModal={() => closeModal}        
+            */ //Commented because ApiEntityModel doesn't handle project yet since we have no use for it at the moment
         />    
     )
     const EventModalForm = (
@@ -279,6 +284,7 @@ const Select2 = ({ name, formTools, ...props }) => {
                     //Close the modal 
                     closeModal()
             }}
+            closeModal={() => closeModal}
         />
     )
     const PlaceModalForm = (
@@ -291,6 +297,7 @@ const Select2 = ({ name, formTools, ...props }) => {
                     //Close the modal 
                     closeModal()
             }}
+            closeModal={() => closeModal}
         />
     )
     const EquipmentModalForm = (
@@ -302,7 +309,8 @@ const Select2 = ({ name, formTools, ...props }) => {
                 addSelectedValue(...optionCreated)
                 //Close the modal 
                 closeModal()
-        }}
+            }}
+            closeModal={() => closeModal}
         />
     )
 

@@ -1,5 +1,4 @@
 import React from 'react'
-import Router from 'next/router'
 
 //Custom hooks
 import {useFormUtils} from '@/src/hooks/useFormUtils/useFormUtils'
@@ -18,7 +17,7 @@ import styles from './CreatePlaceForm.module.scss'
 import {getDefaultCreateEntityMeta} from "@/src/DataTypes/Meta/EntityMeta";
 import { lang } from '@/src/common/Data/GlobalConstants'
 
-const CreatePlaceForm = ({ onPositiveResponse, initValues }) => {
+const CreatePlaceForm = ({ onPositiveResponse, initValues, ...props }) => {
     
     //Authentication ref
     const auth = useAuth();
@@ -201,8 +200,12 @@ const CreatePlaceForm = ({ onPositiveResponse, initValues }) => {
                 formTools={formTools}
             />
 
-            <div className="d-flex justify-content-end">
-                <Button disabled={!formState.isValid} type="button" onClick={submitHandler}>{lang.continue}</Button>
+            <div className="col-12">
+                <Button className="me-4" color="success" type="button" onClick={submitHandler} disabled={!formState.isValid}>{lang.submit}</Button>
+                {
+                    props?.closeModal && 
+                    <Button color="danger" type="button" onClick={props.closeModal()}>{lang.cancel}</Button>
+                }
             </div>
         </form> 
     );
