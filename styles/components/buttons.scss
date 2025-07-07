@@ -120,3 +120,17 @@ fieldset:disabled .btn :not(.btn-check) + .btn:disabled:hover,
         width: auto;
     }
 }
+
+.btn-close {
+    background-color: transparent;
+    font-size: 3rem;
+    color: $primary_7;
+    border: none;
+    &:hover,
+    &:active,
+    &:focus,
+    &:focus:active {
+        background-color: transparent;
+        color: $primary_7;
+    }
+}

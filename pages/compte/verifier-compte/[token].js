@@ -1,20 +1,23 @@
 import Button from "@/src/common/FormElements/Button/Button";
 import {externalApiRequest} from "@/src/hooks/http-hook";
 import PageHeader from "@/src/layouts/Header/PageHeader";
-import Router from "next/router";
-import {useContext} from "react";
+import { useRouter } from "next/router";
+import {useContext, useEffect, useState} from "react";
 import {MessageContext} from "@/src/common/UserNotifications/Message/Context/Message-Context";
 import {useFormUtils} from "@/src/hooks/useFormUtils/useFormUtils";
 import Input from "@/src/common/FormElements/Input/Input";
 import PageMeta from "@/src/common/PageMeta/PageMeta";
+import Spinner from "@/src/common/widgets/spinner/Spinner";
+import { lang } from "@/src/common/Data/GlobalConstants";
 
 
-/**
- * @param {boolean} verifyState : true means got verified, false means token expired, null means token invalid
- */
 const verifyAccount = props => {
     //Import message context 
     const msg = useContext(MessageContext);
+
+    const [verifyState, setVerifyState] = useState(undefined);
+    const [isLoading, setIsLoading] = useState(false)
+    const router = useRouter();
 
     //Main form functionalities
     const { FormUI, submitRequest, formState, formTools } = useFormUtils(
@@ -62,9 +65,41 @@ const verifyAccount = props => {
                 text: "Un email de confirmation a été envoyé",
                 positive: true
             })
-            Router.push("/compte/a-confirmer")
+            Router.push("/compte/a-confirmer");
         }
     }
+
+
+    useEffect(() => {
+        if (!router.isReady) return; // wait for router
+        const { token } = router.query;
+        setIsLoading(true);
+        //Sends request to verifyAccount
+        async function verifyToken(){
+            const response = await externalApiRequest(
+                `/verify-account/${token}`,
+                { method: 'GET' }
+            );
+            if(!response.error && response.code === 200){
+                //If no error, then account got verified
+                setVerifyState(true);
+            }
+            else {
+                //API return error but status 200 when token is correct length or exist but is now expired
+                if(response.code === 200)
+                    //Token expired
+                    setVerifyState(false);
+    
+                else
+                    //Already verified account
+                    //Token is invalid (not right lenght or doesn't exists)
+                    setVerifyState(null);
+            }
+            setIsLoading(false);
+        }
+        verifyToken();
+    }, [router.isReady])
+
     
     return (
         <>
@@ -80,36 +115,52 @@ const verifyAccount = props => {
                     //description={"Page de confirmation"}
                 />
                 {
-                    props.verifyState == null &&
-                    <>
-                        <h2>Ce lien est erroné</h2>
-                        <div>Réessayer à nouveau</div>
-                    </>
+                    isLoading &&
+                    <div>
+                        <div>
+                            <Spinner reverse/>
+                        </div>
+                        <p className="text-center"><strong>Vérification du compte</strong></p>
+                    </div>
                 }
                 {
-                    props.verifyState === false &&
-                    <>
-                        <h2>Malheureusement, le lien a expiré...</h2>
-                        <div>Voulez-vous un nouveau lien de confirmation?</div>
-                        <Input 
-                            name="email"
-                            label="Adresse Courriel"
-                            formClassName="discrete-without-focus form-text-white h2"
-                            validationRules={[
-                                {name: "REQUIRED"}
-                            ]}
-                            formTools={formTools}
-                        />
-                        <Button type="button" onClick={resendToken}>Envoyer un nouveau lien de confirmation</Button>
-                    </>
+                    !isLoading && (
+                        verifyState === null &&
+                        <>
+                            <h2>Ce lien est erroné</h2>
+                            <div>Réessayer à nouveau</div>
+                        </>
+                    )
+
                 }
                 {
-                    props.verifyState === true &&
-                    <>
-                        <h2>Votre compte a bien été vérifié!</h2>
-                        <div>Vous pouvez maintenant vous connecter</div>
-                        <Button className="my-3" href="/compte/connexion">Se connecter</Button>
-                    </>
+                    !isLoading && (
+                        verifyState === false &&
+                        <>
+                            <h2>Malheureusement, le lien a expiré...</h2>
+                            <div>Voulez-vous un nouveau lien de confirmation?</div>
+                            <Input 
+                                name="email"
+                                label="Adresse Courriel"
+                                formClassName="discrete-without-focus form-text-white h2"
+                                validationRules={[
+                                    {name: "REQUIRED"}
+                                ]}
+                                formTools={formTools}
+                            />
+                            <Button type="button" onClick={resendToken}>Envoyer un nouveau lien de confirmation</Button>
+                        </>
+                    )
+                }
+                {
+                    !isLoading && (
+                        verifyState === true &&
+                        <>
+                            <h2>Votre compte a bien été vérifié!</h2>
+                            <div>Vous pouvez maintenant vous connecter</div>
+                            <Button className="my-3" href="/compte/connexion">Se connecter</Button>
+                        </>
+                    )
                 }
             </form>
         </>
@@ -117,32 +168,3 @@ const verifyAccount = props => {
 }
 
 export default verifyAccount;
-
-export async function getServerSideProps(context) {
-    const { token } = context.query;
-    let verifyState;
-    
-    //Sends request to verifyAccount
-    const response = await externalApiRequest(
-        `/verify-account/${token}`,
-        { method: 'GET' }
-    );
-
-    if(!response.error && response.code === 200){
-        //If no error, then account got verified
-        verifyState = true;
-    }
-    else {
-        if(response.code === 200)
-            verifyState = false;
-
-        else
-            //Already verified account
-            //Token is invalid (not right lenght or doesn't exists)
-            verifyState = null;
-    }
-
-    return {props: {verifyState : verifyState}}
-};
-
-

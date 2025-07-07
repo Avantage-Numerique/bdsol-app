@@ -1,11 +1,9 @@
 import React from 'react';
 
 //components
-import Button from "@/FormElements/Button/Button";
 import Input from '@/src/common/FormElements/Input/Input';
 import Select2 from '@/src/common/FormElements/Select2/Select2';
 import Repeater from '@/src/common/FormElements/Repeater/Repeater';
-import SingleInfo from "@/src/DataTypes/common/layouts/SingleInfo/SingleInfo";
 import {TYPE_EQUIPMENT} from "@/src/DataTypes/Entity/Types";
 
 
@@ -21,10 +19,10 @@ import {lang} from '@/src/common/Data/GlobalConstants';
  * @param {object} props          //rest of the props.
  * 
  */
-const SelectEquipment = ({name, formTools, parentEntity, ...props}) => {
+const UpdateEquipment = ({name, formTools, parentEntity, ...props}) => {
 
     return (
-        <div className='px-4 border-start'>
+        <div className='px-4'>
             <Repeater
                 formTools={formTools}
                 className="bg-greyBg"
@@ -69,20 +67,10 @@ const SelectEquipment = ({name, formTools, parentEntity, ...props}) => {
                             ]}
                         />
                     </div>
-                    <div className="col col-auto h-100 pt-1">
-                        <Button 
-                            repeaterDeleteElem
-                            type="button" 
-                            color="danger" 
-                            size="slim"
-                        >
-                            &#x2716;
-                        </Button>
-                    </div>
                 </div>
             </Repeater>
         </div>
     )
 }
 
-export default SelectEquipment
+export default UpdateEquipment

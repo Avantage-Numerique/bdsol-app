@@ -136,7 +136,7 @@ export const base = {
 
     "Taxonomy": "Category",
     "Taxonomies": "Categories",
-    "taxonomy": "catégory",
+    "taxonomy": "category",
     "taxonomies": "categories",
     "taxonomyExplications": "A category is used to classify, in a orderred system, relations between entities. Add a category to allow an entity to be linked to this category. e.g. link a <strong>person</strong> to an <strong>occupation</strong> or a <strong>skill</strong> and link an <strong>organisation</strong> to a <strong>offered service</strong> and more.",
 
@@ -147,10 +147,10 @@ export const base = {
 
     //Specific taxonomy
 
-    "Technology": "Technology",
-    "Technologies": "Technologies",
-    "technology": "technology",
-    "technologies": "technologies",
+    "Technology": "Software and technology",
+    "Technologies": "Softwares and Technologies",
+    "technology": "softward and technology",
+    "technologies": "softwares and technologies",
 
     "Skills": "Skills",
     "Skill": "Skill",

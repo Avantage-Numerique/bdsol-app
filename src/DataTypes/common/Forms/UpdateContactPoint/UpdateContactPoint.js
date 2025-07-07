@@ -61,6 +61,11 @@ const UpdateContactPoint = ({model, name, formTools, ...props}) => {
 
     return (
         <>
+            <div style={{ marginTop: '-16px' }}>
+                <span className="badge bg-danger">
+                    Veillez à saisir uniquement des informations professionnelles.
+                </span>
+            </div>
             <div className="row">
                 <Input
                     className="col py-2"

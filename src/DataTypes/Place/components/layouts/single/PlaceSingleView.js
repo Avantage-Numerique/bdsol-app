@@ -76,10 +76,7 @@ const PlaceSingleView = ({ data }) => {
     );
 
     const contentColumnLeft = (
-        <SingleInfo
-            title="Coordonnées"
-            cardLayout
-        >
+        <SingleInfo title="Coordonnées">
             <ul className={`${styles["main-coordinate-list"]}`}>
                 {/* address x2 (in subtitle) */}
                 <li className={`${styles["coordinate"]}`}>
@@ -135,10 +132,7 @@ const PlaceSingleView = ({ data }) => {
         </SingleInfo>
     )
     const contentColumnRight = (    
-        <SingleInfo
-            title="Informations supplémentaires"
-            cardLayout
-        >
+        <SingleInfo title="Informations supplémentaires">
             <ul className={`${styles["main-coordinate-list"]}`}>
                 {/* mrc */}
                 <li className={`${styles["coordinate"]}`}>
@@ -191,7 +185,7 @@ const PlaceSingleView = ({ data }) => {
                 (model.createdAt || model.updatedAt || model.meta) &&
                 <SingleInfo 
                     title={lang.entityMetadata} 
-                    className="border-top pt-3"
+                    className="pt-3"
                 >
                     {/*********** Entity data ***********/}
                     <SingleEntityMeta createdAt={model.createdAt} updatedAt={model.updatedAt} meta={model.meta} />
