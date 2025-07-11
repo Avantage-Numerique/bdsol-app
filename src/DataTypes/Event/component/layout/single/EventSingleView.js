@@ -163,7 +163,7 @@ const EventSingleView = ({data}) => {
                     >
                         <EntitiesTagGrid 
                             feed={location} 
-                            subBadgeProperty={"address"} 
+                            subTagProperty={"location.address"} 
                             numberOfCols={1}
                             className="mb-0"
                         />
@@ -218,7 +218,7 @@ const EventSingleView = ({data}) => {
                     feed={sortedTeam} 
                     regularFlexWrapping
                     subEntityProperty={"member"} 
-                    subBadgeProperty={"role"} 
+                    subTagProperty={"role"} 
                     noneMessage={"Aucun membre de l'équipe spécifiés"} 
                     className="mb-0"
                 />
