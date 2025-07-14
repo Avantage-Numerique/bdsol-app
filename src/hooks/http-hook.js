@@ -2,6 +2,7 @@ import {useCallback, useEffect, useRef, useState} from 'react';
 import {getUserHeadersFromUserSession, useAuth} from '@/auth/context/auth-context'
 import {lang} from "@/src/common/Data/GlobalConstants";
 import {LoadingStates} from "@/common/widgets/loading/LoadingStates";
+import {useLoading} from "@/src/hooks/useLoading";
 
 /**
  * Fetch the external API with all the speficity of Server Side and Client side
@@ -74,9 +75,11 @@ export const clientSideExternalApiRequest = async (path, params = {}) => {
 //Main hook function called for every request made to the database
 export const useHttpClient = () => {
 
+    const {isLoading, setIsLoading, currentLoadingState, setLoadingState} = useLoading();
+
     //State that determine if the request is in progress
-    const [isLoading, setIsLoading] = useState(false);
-    const [currentLoadingState, setLoadingState] = useState(LoadingStates.DEFAULT);
+    //const [isLoading, setIsLoading] = useState(false);
+    //const [currentLoadingState, setLoadingState] = useState(LoadingStates.DEFAULT);
 
     //Access the authentication context
     const auth = useAuth();
