@@ -143,7 +143,8 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props}) => {
             },
             occupations: {
                 value: occupations ?? [],
-                isValid: true
+                isValid: true,
+                invalidMsg: "Compétences et technologies"
             },
             domains: {
                 value: domains ?? [],
@@ -155,7 +156,8 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props}) => {
             },
             url: {
                 value: url ?? [],
-                isValid: true
+                isValid: true,
+                invalidMsg: "Liens externes"
             },
             region: {
                 value: model.region ?? "",

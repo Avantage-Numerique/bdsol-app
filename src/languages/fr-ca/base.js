@@ -107,6 +107,7 @@ const base = {
     "noTeamMemberSetMessage": "Personne n'est inscrit comme membre de l'équipe de cette organisation.",
     "teamMembers": "Membres de l'équipe",
     "teamMember": "Membre de l'équipe",
+    "team": "Équipe",
 
     //  NAV
 

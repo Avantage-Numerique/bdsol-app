@@ -140,7 +140,8 @@ const OrganisationSingleEdit = (props) => {
     {
         name: {
             value: name ?? '',
-            isValid: false
+            isValid: false,
+            invalidMsg: "Nom de l'organisation"
         },
         description: {
             value: description ?? '',
@@ -148,7 +149,8 @@ const OrganisationSingleEdit = (props) => {
         },
         url: {
             value: url ?? [],
-            isValid: true
+            isValid: true,
+            invalidMsg: "Liens externes"
         },
         contactPoint: {
             value: contactPoint ?? {tel:{num:"", ext:""},email:{address:""},website:{url:""} },
@@ -164,7 +166,8 @@ const OrganisationSingleEdit = (props) => {
         },
         offers: {
             value: offers ?? [],
-            isValid: true
+            isValid: true,
+            invalidMsg: "Offres de service",
         },
         domains: {
             value: domains ?? [],

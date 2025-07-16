@@ -119,7 +119,8 @@ const EventSingleEdit = ({data}, ...props) => {
         {
             name: {
                 value: name ?? "",
-                isValid: false
+                isValid: false,
+                invalidMsg: "Nom de l'événement"
             },
             alternateName: {
                 value: alternateName ?? "",
