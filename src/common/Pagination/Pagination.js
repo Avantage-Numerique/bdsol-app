@@ -193,20 +193,6 @@ const Pagination = ({children, paginationMeta, setSkipNumber, setClearList, load
         }
     },[loadMore, onScroll])
 
-    const showStats = true;
-    const PaginationHeaderComponent = (
-        <header className="py-3">
-            <h5>
-                Page {paginationMeta.currentPage}
-            </h5>
-            {showStats &&
-                <p>
-                    <span>On affiche&nbsp;:&nbsp;</span>
-                    <span>{paginationMeta.currentCount}&nbsp;/&nbsp;{paginationMeta.count}</span><span>&nbsp;des éléments</span>
-                </p>
-            }
-        </header>
-    );
     const PageNumbersComponent = (
         <div>
             <div className="d-flex py-4 justify-content-center">
@@ -230,6 +216,27 @@ const Pagination = ({children, paginationMeta, setSkipNumber, setClearList, load
             </div>
         </div>
     )
+
+    const showStats = true;
+    const PaginationHeaderComponent = (
+        <header className="py-3">
+
+            <div className={"d-flex justify-content-between align-baseline"}>
+                {showStats &&
+                    <div className={"d-flex w-50 align-items-center"}>
+                        <h5 className={"m-0"}>
+                            Page {paginationMeta.currentPage}
+                        </h5>
+                        <p className={"m-0 px-3"}>
+                            <span>{paginationMeta.currentCount}&nbsp;/&nbsp;{paginationMeta.count}</span><span>&nbsp;des éléments</span>
+                        </p>
+                    </div>
+                }
+                {PageNumbersComponent}
+            </div>
+
+        </header>
+    );
 
     return (
         <div className="container">

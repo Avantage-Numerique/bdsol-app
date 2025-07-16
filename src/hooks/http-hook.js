@@ -4,6 +4,9 @@ import {lang} from "@/src/common/Data/GlobalConstants";
 import {LoadingStates} from "@/common/widgets/loading/LoadingStates";
 import {useLoading} from "@/src/hooks/useLoading";
 
+const ORIGIN_BROWSER = "browser";
+const ORIGIN_SERVER = "server";
+
 /**
  * Fetch the external API with all the speficity of Server Side and Client side
  * Version 2 of sendExternalApiRequest. It used params intead of infinite function parameters.
@@ -15,8 +18,8 @@ export const externalApiRequest = async (path, params = {}) => {
 
     params.isBodyJson = params.isBodyJson === undefined ? true : params.isBodyJson;//par défault tout est JSON
 
-    const baseApiRoute = params.origin === "browser" ? process.env.API_URL : process.env.FROMSERVER_API_URL,
-        baseAppRoute = params.origin === "browser" ? process.env.APP_URL : process.env.FROMSERVER_APP_URL;
+    const baseApiRoute = params.origin === ORIGIN_BROWSER ? process.env.API_URL : process.env.FROMSERVER_API_URL,
+        baseAppRoute = params.origin === ORIGIN_BROWSER ? process.env.APP_URL : process.env.FROMSERVER_APP_URL;
 
     const defaultHeaders = { 'Origin': baseAppRoute },
         jsonHeaders = params.isBodyJson ? {'Content-Type': 'application/json'} : {};
@@ -66,7 +69,7 @@ export const externalApiRequest = async (path, params = {}) => {
  * @return {Promise<*>}
  */
 export const clientSideExternalApiRequest = async (path, params = {}) => {
-    params.origin = "browser";
+    params.origin = ORIGIN_BROWSER;
     return await externalApiRequest(path, params);
 }
 
@@ -151,3 +154,6 @@ export const useHttpClient = () => {
 
     return {isLoading, setIsLoading, sendRequest, setLoadingState, currentLoadingState};
 };
+
+
+export {ORIGIN_SERVER, ORIGIN_BROWSER};

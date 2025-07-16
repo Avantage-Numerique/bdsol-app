@@ -8,7 +8,13 @@ import {useRouter} from "next/router";
 import {withSessionSsr} from "@/src/authentification/session/handlers/withSession";
 
 //Utils
-import {clientSideExternalApiRequest, useHttpClient} from "@/src/hooks/http-hook";
+import {
+    clientSideExternalApiRequest,
+    externalApiRequest,
+    ORIGIN_BROWSER,
+    ORIGIN_SERVER,
+    useHttpClient
+} from "@/src/hooks/http-hook";
 import EntitiesGrid from "@/src/DataTypes/Entity/layouts/EntitiesGrid";
 import Icon from "@/src/common/widgets/Icon/Icon";
 import Pagination from "@/common/Pagination/Pagination";
@@ -21,31 +27,67 @@ import {LoadingStates} from "@/common/widgets/loading/LoadingStates";
 import {isDev} from "@/src/helpers/configHelper";
 import {Collapse} from "@/common/Components/Collapse";
 import {isIterable} from "@/src/helpers/obj";
-import {filters} from "@/src/filters/consultFilters";
+import {filters, filtersUrl} from "@/src/filters/consultFilters";
+import {capitalize} from "@/src/helpers/str";
+import {paginationConfig} from "@/src/configs/PaginationConfigs";
+import {searchByType, ssrSearchByType} from "@/src/hooks/useSearch";
 
 
 const ConsultData = (props) => {
 
+    //  # INIT SEQ
+        //set state list
+        //set state filters
+        //set pagination meta
+        //set init REF constants.
 
     const uriEntities = props.entityFilters;
     const uriQueries = props.allQueries;
 
-    const entityPerPage = nextConfig.publicRuntimeConfig.pagination.limit;
-    const entityTypeList = ["Person", "Organisation", "Project", "Event", "Equipment"];
-    const entityFiltersSlugs = ["personnes", "organisations", "projets", "evenements", "equipements"];
+    const entityPerPage = paginationConfig.pageSize;
     const router = useRouter();
-    const [entityList, setEntityList] = useState([]);
-    console.log(uriEntities[0]);
-    const [filterState, setFilterState] = useState(getFilterStateFromLabel(uriEntities[0], true) ?? "all");//For multi choice, it need to be an array at first render
-    const [skipNumber, setSkipNumber] = useState(
-        (uriQueries.queryPage != undefined && parseInt(uriQueries.queryPage) > 0 ) ?
-        (uriQueries.queryPage - 1) * entityPerPage : 0);
+
+    const [entityList, setEntityList] = useState(props.ssrData.data ?? []);
+    const [filterState, setFilterState] = useState(filters.get(uriEntities[0]) ?? "all");
+
     const clearListRef = useRef(false);
     const isFirstRenderRef = useRef(true);
-    const [paginationMeta, setPaginationMeta] = useState({});
+
+    /**
+     * Construct the pagination meta from target API return.
+     * @param pagination {Object}
+     * @param total {Number}
+     * @param setState {Boolean}
+     * @returns {{count, skipped: any, limit, type, pageCount: *, currentPage: (number|*), currentCount}}
+     */
+    const buildPaginationMeta = (pagination, total, setState=true) => {
+
+        const paginationMetaObj = {
+            count: pagination.count,
+            skipped: pagination.skipped,
+            limit: pagination.limit,
+            type: pagination.type,
+            pageCount: pagination.pageCount,
+            currentPage: pagination.currentPage,
+            currentCount: total,
+        };
+        if (setState) setPaginationMeta(paginationMetaObj);
+        return paginationMetaObj;
+    }
+
+    const [skipNumber, setSkipNumber] = useState(
+        (uriQueries.queryPage != undefined && parseInt(uriQueries.queryPage) > 0 ) ?
+            (uriQueries.queryPage - 1) * entityPerPage : 0);
+    const initPaginationMeta = buildPaginationMeta(props.ssrData.meta?.pagination ?? {}, props.ssrData?.data?.length ?? 0, false );
+    const [paginationMeta, setPaginationMeta] = useState(initPaginationMeta);
     const {isLoading, setIsLoading, currentLoadingState, setLoadingState} = useHttpClient();
 
-    //param returnKey allow to switch from get value to get key
+    /**
+     * @deprecated param returnKey allow to switch from get value to get key
+     * @param label
+     * @param returnKey
+     * @returns {*|string}
+     */
     function getFilterStateFromLabel(label, returnKey=false){
         const sanitizedLabel = String(label);
         const labelToFilter =
@@ -63,59 +105,36 @@ const ConsultData = (props) => {
     }
 
     const filtersRouteHandler = async (entityFilter, currentPage) => {
-        await router.push({
+        const routerParams = {
             pathname: '/consulter/'+entityFilter,
-            search: "?page="+currentPage,
-        })//, undefined, { shallow: true }
+        }
+        if (currentPage > 1) {
+            routerParams.search = `?page=${currentPage}`;
+        }
+
+        await router.push(routerParams)//, undefined, { shallow: true }
     }
 
     const btnFilterOnClickHandler = async (type) => {
-        const filterSlug = getFilterStateFromLabel(type, true);
         setFilterState(type);
-        await filtersRouteHandler(type, paginationMeta.currentPage);
+        await filtersRouteHandler(filtersUrl.get(type), paginationMeta.currentPage);
     }
 
-    /*useEffect( () => {
-        //router.query.filtre = filterState;
-        //router.query.page = paginationMeta.currentPage;
-        console.log("filterState", filterState);
-        if(entityTypeList.includes(filterState) || filterState === "all"){
-            const tempFilterLabel = getFilterStateFromLabel(filterState, true);
-            //router.push({
-            //    pathname: '/consulter/'+tempFilterLabel,
-            //    search: "?page="+paginationMeta.currentPage,
-            //  }, undefined, { shallow: true })
+    //Fetchs and first fetch
+    useEffect(()=> {
+        console.log("SkipNumber changed, so effect goes ?", skipNumber, isFirstRenderRef.current, "clear list ?", clearListRef.current);
+        if (!isFirstRenderRef.current) {
+            sendApiListRequest();
         }
-    }, [filterState, paginationMeta])*/
 
+    }, [skipNumber]);
 
-    const getListResponses = async () => {
-
-        if(filterState === "all")
-            return await clientSideExternalApiRequest("/search/all", { method: 'POST', body: JSON.stringify({data : {skip:skipNumber, limit:entityPerPage}})});
-        else
-            return await clientSideExternalApiRequest("/search/type", { method: 'POST', body: JSON.stringify({data : {type: filterState, skip:skipNumber, limit:entityPerPage}})});
-    }
-
-    const buildPaginationMeta = (pagination, total) => {
-
-        const paginationMetaObj = {
-            count: pagination.count,
-            skipped: pagination.skipped,
-            limit: pagination.limit,
-            type: pagination.type,
-            pageCount: pagination.pageCount,
-            currentPage: pagination.currentPage,
-            currentCount: total,
-        };
-        setPaginationMeta(paginationMetaObj);
-        return paginationMetaObj;
-    }
 
     async function sendApiListRequest(){
         setIsLoading(true);
         setLoadingState(LoadingStates.LOADING);
-        const res = await getListResponses();
+        const res = await searchByType(ORIGIN_BROWSER, filterState, {skip:skipNumber});
+        console.log("sendApiListRequest", res);
         const list = res.data;
         let newList;
 
@@ -132,7 +151,7 @@ const ConsultData = (props) => {
         setEntityList(newList);
         totalCurrentCount = newList.length;
 
-        buildPaginationMeta(res?.meta?.pagination, totalCurrentCount)
+        buildPaginationMeta(res?.meta?.pagination, totalCurrentCount);
 
         //setShowApplyBtn(false);
         setIsLoading(false);
@@ -144,27 +163,46 @@ const ConsultData = (props) => {
         clearListRef.current = bool;
     }
 
-    //Fetchs and first fetch
+
+    /*useEffect( () => {
+        //router.query.filtre = filterState;
+        //router.query.page = paginationMeta.currentPage;
+        console.log("filterState", filterState);
+        if(entityTypeList.includes(filterState) || filterState === "all"){
+            const tempFilterLabel = getFilterStateFromLabel(filterState, true);
+            //router.push({
+            //    pathname: '/consulter/'+tempFilterLabel,
+            //    search: "?page="+paginationMeta.currentPage,
+            //  }, undefined, { shallow: true })
+        }
+    }, [filterState, paginationMeta])
+
+
+    const getListResponses = async () => {
+
+        if(filterState === "all")
+            return await clientSideExternalApiRequest("/search/all", { method: 'POST', body: JSON.stringify({data : {skip:skipNumber, limit:entityPerPage}})});
+        else
+            return await clientSideExternalApiRequest("/search/type", { method: 'POST', body: JSON.stringify({data : {type: filterState, skip:skipNumber, limit:entityPerPage}})});
+    }
+*/
+
+
+
     useEffect(()=> {
-        sendApiListRequest();
-
-    }, [skipNumber]);
-
-    useEffect(()=> {
-
         //First render => ignore this use effect
         if(isFirstRenderRef.current){
             isFirstRenderRef.current = false;
             return;
         }
-            
         setClearList(true);
+        setSkipNumber(0);
         //handles new request with the filter chosen
-        if(skipNumber === 0)
+        /*if(skipNumber === 0)
             sendApiListRequest();
         else
-            setSkipNumber(0);
-    },[filterState])
+            setSkipNumber(0);*/
+    },[filterState]);
 
 
     const entityGrid = (
@@ -207,19 +245,32 @@ const ConsultData = (props) => {
                 {/* Filter type section */}
                 <section className="bg-greyBg">
                     <div className="container py-4">
-                        <h3><Icon iconName="filter"/>Filtres</h3>
-                        <div style={{gap: "1rem"}} className="d-flex flex-wrap justify-content-center">
-                            <Button
-                                className="mx-1 rounded flex-grow-1"
-                                color={filterState === "all" ? "secondary" : null}
-                                outline={filterState === "all" ? null : "secondary"}
-                                text_color_over="dark"
-                                onClick={() => btnFilterOnClickHandler('all')}
-                                id="filter-btn-all"
-                            >
-                                {lang.btnFilterLabelAll}
-                            </Button>
+                        <section className={"d-flex justify-content-between align-items-center"}>
+                            <h3><Icon iconName="filter"/>Filtres</h3>
+                            {isDev &&
+                                <Collapse btnLabel={"Filtres actifs"} btnIcon={"filter"} keyId={"filtersActivesCollapse"} show={true}>
+                                    <div className="d-flex flex-wrap justify-content-between my-3">
+                                        <div>
+                                            <span>filtre actifs&nbsp;:&nbsp;</span>
+                                            {uriEntities && uriEntities.length > 0 &&
+                                                uriEntities.map((entity, index) => {
+                                                    return (
+                                                        <span href={""} className={"badge text-bg-secondary"} key={entity+index}>
+                                                            {entity}
+                                                        </span>
+                                                    )
+                                                })
+                                            }
+                                        </div>
+                                        <div>
+                                            <span>State&nbsp;:&nbsp;</span><span>{filterState}</span>
+                                        </div>
+                                    </div>
+                                </Collapse>
+                            }
+                        </section>
 
+                        <div style={{gap: "1rem"}} className="d-flex flex-wrap justify-content-center">
                             {filters.size > 0 &&
                                 Array.from(filters).map(([slug, type]) => {
                                     return (
@@ -230,7 +281,7 @@ const ConsultData = (props) => {
                                                 onClick={() => btnFilterOnClickHandler(type)}
                                                 id={"filter-btn-"+type}
                                                 key={"filter-btn-"+type+slug}>
-                                            {lang[type]}
+                                            {lang["filter" + capitalize(type)]}
                                         </Button>
                                     )
                                 })
@@ -239,29 +290,6 @@ const ConsultData = (props) => {
                     </div>
                 </section>
             </section>
-            {isDev &&
-                <section className={"py-3"}>
-                    <Collapse btnLabel={"Filtres actifs"} keyId={"filtersActivesCollapse"} show={true}>
-                        <div className="d-flex flex-wrap justify-content-between my-3">
-                            <div>
-                                <span>filtre actifs&nbsp;:&nbsp;</span>
-                                {uriEntities && uriEntities.length > 0 &&
-                                    uriEntities.map((entity, index) => {
-                                        return (
-                                            <span href={""} className={"badge text-bg-secondary"} key={entity+index}>
-                                            {entity}
-                                        </span>
-                                        )
-                                    })
-                                }
-                            </div>
-                            <div>
-                                <span>State&nbsp;:&nbsp;</span><span>{filterState}</span>
-                            </div>
-                        </div>
-                    </Collapse>
-                </section>
-            }
             <Pagination
                 paginationMeta={paginationMeta}
                 setClearList={setClearList}
@@ -275,6 +303,8 @@ const ConsultData = (props) => {
 }
 export default ConsultData;
 
+
+
 /**
  * SSR function handling the main params and all the query before the first load of the page.
  * @param params {Array} with entityFilter
@@ -286,12 +316,20 @@ export default ConsultData;
 export const dynamicRouteHandler = async ({params, query, req, res }) => {
     const queryPage = query.page && parseInt(query.page) > 0 ? parseInt(query.page) : null;
     const badges = await getBadgesInfo(true);
-    console.log("-~+++==== SSR consulter ====+++~-", params, "query", query, "queryPage", queryPage, "badges", badges);
+    const entityTypesSlugs = params.entityFilter ?? ['tous'];
+    const targetEntityType = filters.get(entityTypesSlugs[0]);
+
+    console.log("-~+++==== SSR consulter ====+++~-", entityTypesSlugs, "entityTypesSlugs[0]", entityTypesSlugs[0]);
+
+    const ssrDataFirstLoad = await searchByType(ORIGIN_SERVER, targetEntityType);
+
+    console.log("-~+++==== SSR consulter ====+++~-", params, "query", query, "queryPage", queryPage, "ssrDataFirstLoad lgt", ssrDataFirstLoad);
     return {
         props: {
             pages: queryPage,
             entityFilters: params.entityFilter ?? ['tous'],
             allQueries: query,
+            ssrData: ssrDataFirstLoad,
             ...badges
         }
     }

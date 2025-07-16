@@ -13,3 +13,7 @@ export const truncate = (str, n, useWordBoundary) => {
         ? subString.slice(0, subString.lastIndexOf(" "))
         : subString) + "&hellip;";
 };
+
+export const capitalize = (str) => {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+}
