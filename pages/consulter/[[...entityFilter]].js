@@ -120,7 +120,7 @@ const ConsultData = (props) => {
         await filtersRouteHandler(filtersUrl.get(type), paginationMeta.currentPage);
     }
 
-    //Fetchs and first fetch
+
     useEffect(()=> {
         console.log("SkipNumber changed, so effect goes ?", skipNumber, isFirstRenderRef.current, "clear list ?", clearListRef.current);
         if (!isFirstRenderRef.current) {
@@ -128,6 +128,19 @@ const ConsultData = (props) => {
         }
 
     }, [skipNumber]);
+
+
+    useEffect(()=> {
+        console.log("paginationMeta changed", skipNumber, paginationMeta);
+        const routerParams = {
+            pathname: `/consulter/${filterState}`,
+        }
+        if (paginationMeta.currentPage > 1) {
+            routerParams.search = `?page=${paginationMeta.currentPage}`;
+            router.push(routerParams, undefined, { shallow: true })//
+        }
+
+    }, [paginationMeta]);
 
 
     async function sendApiListRequest(){
@@ -317,11 +330,15 @@ export const dynamicRouteHandler = async ({params, query, req, res }) => {
     const queryPage = query.page && parseInt(query.page) > 0 ? parseInt(query.page) : null;
     const badges = await getBadgesInfo(true);
     const entityTypesSlugs = params.entityFilter ?? ['tous'];
-    const targetEntityType = filters.get(entityTypesSlugs[0]);
+    const targetEntityType = filters.get(entityTypesSlugs[0])?? 'all';
+
+    const additionalParams = queryPage ? {
+        skip: queryPage
+    } : {};
 
     console.log("-~+++==== SSR consulter ====+++~-", entityTypesSlugs, "entityTypesSlugs[0]", entityTypesSlugs[0]);
 
-    const ssrDataFirstLoad = await searchByType(ORIGIN_SERVER, targetEntityType);
+    const ssrDataFirstLoad = await searchByType(ORIGIN_SERVER, targetEntityType, additionalParams);
 
     console.log("-~+++==== SSR consulter ====+++~-", params, "query", query, "queryPage", queryPage, "ssrDataFirstLoad lgt", ssrDataFirstLoad);
     return {
