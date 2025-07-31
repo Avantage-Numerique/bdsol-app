@@ -63,7 +63,21 @@ const EntitiesTagGrid = ({feed, className, columnClass, subEntityProperty, subTa
                         //const isLastRow = index >= (feedLength - nbColumnsMd);
                         //const spacingClasses = !isLastRow ? 'pb-4' : '';
                         if (model) {
-                            model.tag = entity[subTagProperty] ?? "";
+                            //Crawler for finding the field or subfield
+                            let tag = subTagProperty;
+                            if(tag != undefined && typeof tag == "string" && tag != ""){
+                                if(tag.split(".").length > 1){
+                                    let fieldPath = tag.split(".");
+                                    let tempTag = model;
+                                    fieldPath.forEach( elem => {
+                                        console.log(elem, tempTag, tempTag[elem])
+                                        tempTag = tempTag[elem];
+                                    });
+                                    model.tag = tempTag;
+                                }
+                                else
+                                    model.tag = tag ? entity[tag] : "";
+                            }
                             const TagComponent = model.tagComponent;
                             return (
                                 <li className={`d-flex flex-wrap justify-content-start ${!regularFlexWrapping && colContainerClass} pb-4`} key={getKeyString("container", model, index)}>

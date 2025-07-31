@@ -36,20 +36,6 @@ const EntityTag = (props) => {
     // defaults
     className = className ?? "";
 
-    if(tag != undefined && typeof tag == "string" && tag != ""){
-        if(tag.split(".").length > 1){
-            let fieldPath = tag.split(".");
-            let tempTag = model;
-            fieldPath.forEach( elem => {
-                console.log(elem, tempTag, tempTag[elem])
-                tempTag = tempTag[elem];
-            });
-            tag = tempTag;
-        }
-        else
-            tag = tag ?? "";
-    }
-
     //get height and width dynamicaly ?
     return (
         <>

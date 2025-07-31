@@ -226,7 +226,8 @@ const OrganisationSingleView = ({ data }) => {
                     displayCondition={location?.length > 0}
                     title={lang.plural(lang.organisationPlace, lang.organisationPlaces, location?.length)}
                 >
-                    <EntitiesTagGrid feed={location} subTagProperty={"location.address"} columnClass={"col-12"} />
+                    {console.log(location)}
+                    <EntitiesTagGrid feed={location} subTagProperty={"address"} columnClass={"col-12"} />
                 </SingleInfo>
             }
             
