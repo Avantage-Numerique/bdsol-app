@@ -117,36 +117,59 @@ const ConsultData = (props) => {
 
     const btnFilterOnClickHandler = async (type) => {
         setFilterState(type);
-        await filtersRouteHandler(filtersUrl.get(type), paginationMeta.currentPage);
+        const targetType = filtersUrl.get(type);
+        console.log("targetType", targetType);
+        await filtersRouteHandler(targetType, paginationMeta.currentPage);
+    }
+
+    /**
+     * Not async function on click handler of the pages button from pagination componenent but need to be call in this context.
+     * @param skip
+     */
+    const btnPageOnClickHandler = (skip) => {
+        setSkipNumber(skip);
+        sendApiListRequest(skip);
     }
 
 
-    useEffect(()=> {
+    /*useEffect(()=> {
         console.log("SkipNumber changed, so effect goes ?", skipNumber, isFirstRenderRef.current, "clear list ?", clearListRef.current);
         if (!isFirstRenderRef.current) {
             sendApiListRequest();
         }
 
-    }, [skipNumber]);
+    }, [skipNumber]);*/
 
+    function updatePageUrlInAddressBar() {
 
-    useEffect(()=> {
-        console.log("paginationMeta changed", skipNumber, paginationMeta);
+        console.log("updatePageUrlInAddressBar", skipNumber, paginationMeta);
         const routerParams = {
-            pathname: `/consulter/${filterState}`,
+            pathname: `/consulter/${filtersUrl.get(filterState)}`,
+        }
+        if (paginationMeta.currentPage > 1) {
+            routerParams.search = `?page=${paginationMeta.currentPage}`;
+            router.push(routerParams, undefined, { shallow: true })//
+        }
+    }
+
+    /*useEffect(()=> {
+        console.log("paginationMeta changed", skipNumber, paginationMeta);
+
+        const routerParams = {
+            pathname: `/consulter/${filtersUrl.get(filterState)}`,
         }
         if (paginationMeta.currentPage > 1) {
             routerParams.search = `?page=${paginationMeta.currentPage}`;
             router.push(routerParams, undefined, { shallow: true })//
         }
 
-    }, [paginationMeta]);
+    }, [paginationMeta]);*/
 
-
-    async function sendApiListRequest(){
+    async function sendApiListRequest(directSkipNumber=null){
         setIsLoading(true);
         setLoadingState(LoadingStates.LOADING);
-        const res = await searchByType(ORIGIN_BROWSER, filterState, {skip:skipNumber});
+        const targetSkip = directSkipNumber ?? skipNumber;
+        const res = await searchByType(ORIGIN_BROWSER, filterState, {skip:targetSkip});
         console.log("sendApiListRequest", res);
         const list = res.data;
         let newList;
@@ -201,7 +224,7 @@ const ConsultData = (props) => {
 */
 
 
-
+/*
     useEffect(()=> {
         //First render => ignore this use effect
         if(isFirstRenderRef.current){
@@ -211,11 +234,11 @@ const ConsultData = (props) => {
         setClearList(true);
         setSkipNumber(0);
         //handles new request with the filter chosen
-        /*if(skipNumber === 0)
+        if(skipNumber === 0)
             sendApiListRequest();
         else
-            setSkipNumber(0);*/
-    },[filterState]);
+            setSkipNumber(0);
+    },[filterState]);*/
 
 
     const entityGrid = (
@@ -307,6 +330,7 @@ const ConsultData = (props) => {
                 paginationMeta={paginationMeta}
                 setClearList={setClearList}
                 setSkipNumber={setSkipNumber}
+                pageBtnClickHandler={btnPageOnClickHandler}
                 loadMore={false}
             >
                 {entityGrid}
@@ -340,7 +364,7 @@ export const dynamicRouteHandler = async ({params, query, req, res }) => {
 
     const ssrDataFirstLoad = await searchByType(ORIGIN_SERVER, targetEntityType, additionalParams);
 
-    console.log("-~+++==== SSR consulter ====+++~-", params, "query", query, "queryPage", queryPage, "ssrDataFirstLoad lgt", ssrDataFirstLoad);
+    console.log("-~+++==== SSR consulter ====+++~-", params, "queryPage", queryPage, "ssrDataFirstLoad lgt", ssrDataFirstLoad.code);
     return {
         props: {
             pages: queryPage,

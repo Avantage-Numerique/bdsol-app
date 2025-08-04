@@ -12,6 +12,7 @@ import useScrollTo from "@/src/hooks/useScrollTo";
  * @param {object} paginationMeta How many total item to paginate (if this exceed 6 page, the display will update accordingly)
  * @param {number} setClearList function that takes a bool as param, set if the list need to be reset or we can add to it.
  * @param {callable} setSkipNumber Set how many item should be skipped in the request for currentPage
+ * @param {callable} pageBtnClickHandler On click btn handler to avoid using a useEffect on a state setter.
  * @param {boolean} loadMore true make the component go to nextPage if scrolled to the bottom of the page.
  * @param {any} props all the rest of params can be passed to.
  * Note for loadMore :
@@ -19,7 +20,7 @@ import useScrollTo from "@/src/hooks/useScrollTo";
  *      false ==> setEntityList(list);
  *   
  * */
-const Pagination = ({children, paginationMeta, setSkipNumber, setClearList, loadMore=false, ...props}) => {
+const Pagination = ({children, paginationMeta, setSkipNumber, setClearList, pageBtnClickHandler, loadMore=false, ...props}) => {
 
 
     const {scrollToTop} = useScrollTo();
@@ -55,7 +56,7 @@ const Pagination = ({children, paginationMeta, setSkipNumber, setClearList, load
 
     //Set skip when page change
     function setPageNumber(pageNumber, clearList=false){
-        setSkipNumber(paginationRef.current.limit * (pageNumber - 1));
+        pageBtnClickHandler(paginationRef.current.limit * (pageNumber - 1));
         if(clearList && setClearList)
             setClearList(true);
     }
