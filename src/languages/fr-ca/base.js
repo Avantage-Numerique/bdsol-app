@@ -37,6 +37,7 @@ const base = {
     "contactInformations": "Informations de contact",
     "anonyme": "anonyme",
     "parAvnu": "par AVNU",
+    "paginationInfoTitleLabel": "Page",
 
     // App
 

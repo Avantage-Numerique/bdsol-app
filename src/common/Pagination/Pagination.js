@@ -2,6 +2,7 @@ import {useCallback, useEffect, useRef} from "react"
 import {PaginationButton} from "@/common/Pagination/PaginationButton";
 import nextConfig from "@/next.config";
 import useScrollTo from "@/src/hooks/useScrollTo";
+import {lang} from "@/common/Data/GlobalConstants";
 
 
 /**
@@ -225,11 +226,17 @@ const Pagination = ({children, paginationMeta, setSkipNumber, setClearList, page
             <div className={"d-flex justify-content-between align-baseline"}>
                 {showStats &&
                     <div className={"d-flex w-50 align-items-center"}>
-                        <h5 className={"m-0"}>
-                            Page {paginationMeta.currentPage}
-                        </h5>
-                        <p className={"m-0 px-3"}>
-                            <span>{paginationMeta.currentCount}&nbsp;/&nbsp;{paginationMeta.count}</span><span>&nbsp;des éléments</span>
+                        <p className={"m-0 pe-1"}>
+                            {lang.paginationInfoTitle} {paginationMeta.currentPage}
+                        </p>
+                    </div>
+                }
+                {showStats &&
+                    <div className={"d-flex w-50 align-items-center"}>
+                        <p className={"m-0 px-3 w-25"}>
+                            <span>{paginationMeta.skipped+1} &mdash; {paginationMeta.skipped + paginationMeta.currentCount}</span>
+                            <span className={"px-1"}>sur</span>
+                            <span>{paginationMeta.count}</span>
                         </p>
                     </div>
                 }

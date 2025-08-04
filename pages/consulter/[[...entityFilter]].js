@@ -31,6 +31,7 @@ import {filters, filtersUrl} from "@/src/filters/consultFilters";
 import {capitalize} from "@/src/helpers/str";
 import {paginationConfig} from "@/src/configs/PaginationConfigs";
 import {searchByType, ssrSearchByType} from "@/src/hooks/useSearch";
+import {useSearchParams} from "next/navigation";
 
 
 const ConsultData = (props) => {
@@ -140,17 +141,64 @@ const ConsultData = (props) => {
 
     }, [skipNumber]);*/
 
-    function updatePageUrlInAddressBar() {
+    const noPlease= false;
+    useEffect(() => {
+        if (!skipNumber || skipNumber < 1) return;
+
+        const currentPageInURL = parseInt(router.query.page) || 1;
+
+        // Ne pas mettre à jour si la page dans l'URL est déjà la bonne
+        if (currentPageInURL === skipNumber) return;
+
+        const currentQuery = { ...router.query };
+
+        if (skipNumber === 1) {
+            delete currentQuery.page;
+        } else {
+            currentQuery.page = skipNumber.toString();
+        }
+
+        router.replace({
+            pathname: router.pathname,
+            query: currentQuery,
+        }, undefined, {
+            shallow: true,
+            scroll: false
+        });
+
+    }, [skipNumber, noPlease]);//, router.query.page, router
+
+    /*function updatePageUrlInAddressBar() {
 
         console.log("updatePageUrlInAddressBar", skipNumber, paginationMeta);
         const routerParams = {
             pathname: `/consulter/${filtersUrl.get(filterState)}`,
         }
+        // if current page === 1, remove the page params.
+        // if not add it with the shallow true.
         if (paginationMeta.currentPage > 1) {
             routerParams.search = `?page=${paginationMeta.currentPage}`;
-            router.push(routerParams, undefined, { shallow: true })//
+            router.push(routerParams, undefined, { shallow: true })
         }
-    }
+        //else {
+        //    routerParams.search = '';
+        //    router.push(routerParams, undefined, { shallow: true })
+        //}
+    }*/
+
+    useEffect(()=> {
+        //First render => ignore this use effect
+        if(isFirstRenderRef.current){
+            isFirstRenderRef.current = false;
+            return;
+        }
+    },[filterState]);
+/*
+    useEffect(()=> {
+        if (!isFirstRenderRef.current) {
+            //updatePageUrlInAddressBar();
+        }
+    }, [skipNumber]);*/
 
     /*useEffect(()=> {
         console.log("paginationMeta changed", skipNumber, paginationMeta);
@@ -170,7 +218,7 @@ const ConsultData = (props) => {
         setLoadingState(LoadingStates.LOADING);
         const targetSkip = directSkipNumber ?? skipNumber;
         const res = await searchByType(ORIGIN_BROWSER, filterState, {skip:targetSkip});
-        console.log("sendApiListRequest", res);
+
         const list = res.data;
         let newList;
 
@@ -354,13 +402,11 @@ export const dynamicRouteHandler = async ({params, query, req, res }) => {
     const queryPage = query.page && parseInt(query.page) > 0 ? parseInt(query.page) : null;
     const badges = await getBadgesInfo(true);
     const entityTypesSlugs = params.entityFilter ?? ['tous'];
-    const targetEntityType = filters.get(entityTypesSlugs[0])?? 'all';
+    const targetEntityType = filters.get(entityTypesSlugs[0]) ?? 'all';
 
     const additionalParams = queryPage ? {
-        skip: queryPage
+        skip: (queryPage-1) * paginationConfig.pageSize//need to adjust the skip to the db
     } : {};
-
-    console.log("-~+++==== SSR consulter ====+++~-", entityTypesSlugs, "entityTypesSlugs[0]", entityTypesSlugs[0]);
 
     const ssrDataFirstLoad = await searchByType(ORIGIN_SERVER, targetEntityType, additionalParams);
 
