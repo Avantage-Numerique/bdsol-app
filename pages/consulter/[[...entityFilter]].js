@@ -1,13 +1,7 @@
-//Component
-import PageHeader from "@/layouts/Header/PageHeader";
-import Button from "@/src/common/FormElements/Button/Button";
-
 //Hook
 import {useEffect, useRef, useState} from "react";
 import {useRouter} from "next/router";
 import {withSessionSsr} from "@/src/authentification/session/handlers/withSession";
-
-//Utils
 import {
     clientSideExternalApiRequest,
     externalApiRequest,
@@ -15,6 +9,12 @@ import {
     ORIGIN_SERVER,
     useHttpClient
 } from "@/src/hooks/http-hook";
+import {searchByType} from "@/src/hooks/useSearch";
+
+import {isIterable} from "@/src/helpers/obj";
+import {capitalize} from "@/src/helpers/str";
+import {isDev} from "@/src/helpers/configHelper";
+
 import EntitiesGrid from "@/src/DataTypes/Entity/layouts/EntitiesGrid";
 import Icon from "@/src/common/widgets/Icon/Icon";
 import Pagination from "@/common/Pagination/Pagination";
@@ -22,17 +22,12 @@ import PageMeta from "@/src/common/PageMeta/PageMeta";
 import {lang} from "@/common/Data/GlobalConstants";
 import Spinner from "@/common/widgets/spinner/Spinner";
 import {getBadgesInfo} from "@/src/DataTypes/Badges/BadgesSection";
-import nextConfig from "@/next.config";
 import {LoadingStates} from "@/common/widgets/loading/LoadingStates";
-import {isDev} from "@/src/helpers/configHelper";
 import {Collapse} from "@/common/Components/Collapse";
-import {isIterable} from "@/src/helpers/obj";
 import {filters, filtersUrl} from "@/src/filters/consultFilters";
-import {capitalize} from "@/src/helpers/str";
 import {paginationConfig} from "@/src/configs/PaginationConfigs";
-import {searchByType, ssrSearchByType} from "@/src/hooks/useSearch";
-import {useSearchParams} from "next/navigation";
-
+import PageHeader from "@/layouts/Header/PageHeader";
+import Button from "@/src/common/FormElements/Button/Button";
 
 const ConsultData = (props) => {
 
@@ -51,7 +46,7 @@ const ConsultData = (props) => {
     const [entityList, setEntityList] = useState(props.ssrData.data ?? []);
     const [filterState, setFilterState] = useState(filters.get(uriEntities[0]) ?? "all");
 
-    const clearListRef = useRef(false);
+    const clearListRef = useRef(true);//for now always shows only what is fetched.
     const isFirstRenderRef = useRef(true);
 
     /**
@@ -132,13 +127,11 @@ const ConsultData = (props) => {
         sendApiListRequest(skip);
     }
 
-
     /*useEffect(()=> {
         console.log("SkipNumber changed, so effect goes ?", skipNumber, isFirstRenderRef.current, "clear list ?", clearListRef.current);
         if (!isFirstRenderRef.current) {
             sendApiListRequest();
         }
-
     }, [skipNumber]);*/
 
     const noPlease= false;
@@ -146,19 +139,20 @@ const ConsultData = (props) => {
         if (!skipNumber || skipNumber < 1) return;
 
         const currentPageInURL = parseInt(router.query.page) || 1;
-
+        //need this ? `/consulter/${filtersUrl.get(filterState)}`,
         // Ne pas mettre à jour si la page dans l'URL est déjà la bonne
         if (currentPageInURL === skipNumber) return;
 
         const currentQuery = { ...router.query };
+        const currentPage = paginationMeta.pageCount;
 
-        if (skipNumber === 1) {
+        if (currentPage === 1) {
             delete currentQuery.page;
         } else {
-            currentQuery.page = skipNumber.toString();
+            currentQuery.page = currentPage.toString();
         }
 
-        router.replace({
+        router.push({
             pathname: router.pathname,
             query: currentQuery,
         }, undefined, {
@@ -166,7 +160,7 @@ const ConsultData = (props) => {
             scroll: false
         });
 
-    }, [skipNumber, noPlease]);//, router.query.page, router
+    }, [paginationMeta, noPlease]);//, router.query.page, router
 
     /*function updatePageUrlInAddressBar() {
 
@@ -231,7 +225,7 @@ const ConsultData = (props) => {
         else {
             newList = isIterable(list) ? [...entityList, ...list] : [...entityList];//if list is an object, put it in, or use only the entitylist
         }
-
+        console.log("cs fetch ", newList.length, res?.meta?.pagination)
         setEntityList(newList);
         totalCurrentCount = newList.length;
 
@@ -243,8 +237,8 @@ const ConsultData = (props) => {
     }
 
     //ClearList setter
-    function setClearList(bool){
-        clearListRef.current = bool;
+    function setClearList(clearing){
+        clearListRef.current = clearing;
     }
 
 

@@ -234,8 +234,8 @@ const Pagination = ({children, paginationMeta, setSkipNumber, setClearList, page
                 {showStats &&
                     <div className={"d-flex w-50 align-items-center"}>
                         <p className={"m-0 px-3 w-25"}>
-                            <span>{paginationMeta.skipped+1} &mdash; {paginationMeta.skipped + paginationMeta.currentCount}</span>
-                            <span className={"px-1"}>sur</span>
+                            <span>{paginationMeta.skipped+1}&nbsp;{lang.paginationInfoTitleTo}&nbsp;{paginationMeta.skipped + paginationMeta.currentCount}</span>
+                            <span className={"px-1"}>{lang.paginationInfoTitleOn}</span>
                             <span>{paginationMeta.count}</span>
                         </p>
                     </div>
