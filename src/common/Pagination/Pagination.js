@@ -12,7 +12,7 @@ import {lang} from "@/common/Data/GlobalConstants";
  * @param {object} children the children of pagination, for now must be an entitylist.
  * @param {object} paginationMeta How many total item to paginate (if this exceed 6 page, the display will update accordingly)
  * @param {number} setClearList function that takes a bool as param, set if the list need to be reset or we can add to it.
- * @param {callable} setSkipNumber Set how many item should be skipped in the request for currentPage
+ * @param {callable} setSkipNumber (deprecated we use full paginationMeta to manage that) Set how many item should be skipped in the request for currentPage
  * @param {callable} pageBtnClickHandler On click btn handler to avoid using a useEffect on a state setter.
  * @param {boolean} loadMore true make the component go to nextPage if scrolled to the bottom of the page.
  * @param {any} props all the rest of params can be passed to.
@@ -38,7 +38,7 @@ const Pagination = ({children, paginationMeta, setSkipNumber, setClearList, page
         currentCount : paginationMeta?.currentCount ?? 0,
     });
 
-    useEffect( () => { paginationRef.current = paginationMeta; }, [paginationMeta]);
+    //useEffect( () => { paginationRef.current = paginationMeta; }, [paginationMeta]);
 
     const paginationButtonClickHandler = (pageNumber, clearList=false) => {
         setPageNumber(pageNumber, clearList);
@@ -57,7 +57,7 @@ const Pagination = ({children, paginationMeta, setSkipNumber, setClearList, page
 
     //Set skip when page change
     function setPageNumber(pageNumber, clearList=false){
-        pageBtnClickHandler(paginationRef.current.limit * (pageNumber - 1));
+        pageBtnClickHandler(pageNumber);
         if(clearList && setClearList)
             setClearList(true);
     }

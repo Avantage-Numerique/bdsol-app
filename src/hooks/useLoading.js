@@ -1,11 +1,11 @@
 import {LoadingStates} from "@/common/widgets/loading/LoadingStates";
 import {useState} from "react";
 
-export const useLoading = () => {
+export const useLoading = (currentState=LoadingStates.DEFAULT) => {
 
     //State that determine if the request is in progress
     const [isLoading, setIsLoading] = useState(false);
-    const [currentLoadingState, setLoadingState] = useState(LoadingStates.DEFAULT);
+    const [currentLoadingState, setCurrentLoadingState] = useState(currentState);
 
-    return {isLoading, setIsLoading, setLoadingState, currentLoadingState};
+    return {isLoading, setIsLoading, setCurrentLoadingState, currentLoadingState};
 }

@@ -28,6 +28,7 @@ import {filters, filtersUrl} from "@/src/filters/consultFilters";
 import {paginationConfig} from "@/src/configs/PaginationConfigs";
 import PageHeader from "@/layouts/Header/PageHeader";
 import Button from "@/src/common/FormElements/Button/Button";
+import {useLoading} from "@/src/hooks/useLoading";
 
 const ConsultData = (props) => {
 
@@ -74,9 +75,12 @@ const ConsultData = (props) => {
     const [skipNumber, setSkipNumber] = useState(
         (uriQueries.queryPage != undefined && parseInt(uriQueries.queryPage) > 0 ) ?
             (uriQueries.queryPage - 1) * entityPerPage : 0);
+
     const initPaginationMeta = buildPaginationMeta(props.ssrData.meta?.pagination ?? {}, props.ssrData?.data?.length ?? 0, false );
     const [paginationMeta, setPaginationMeta] = useState(initPaginationMeta);
-    const {isLoading, setIsLoading, currentLoadingState, setLoadingState} = useHttpClient();
+    const {currentLoadingState, setCurrentLoadingState} = useLoading();
+
+    console.log("Rendering consult page", uriQueries, "init PaginationMeta", initPaginationMeta, "current Pagination meta", paginationMeta, "skipNumber", skipNumber);
 
     /**
      * @deprecated param returnKey allow to switch from get value to get key
@@ -104,7 +108,7 @@ const ConsultData = (props) => {
         const routerParams = {
             pathname: '/consulter/'+entityFilter,
         }
-        if (currentPage > 1) {
+        if (currentPage > 1 && entityFilter !== filterState) {
             routerParams.search = `?page=${currentPage}`;
         }
 
@@ -112,9 +116,10 @@ const ConsultData = (props) => {
     }
 
     const btnFilterOnClickHandler = async (type) => {
+        setCurrentLoadingState(LoadingStates.LOADING);
         setFilterState(type);
         const targetType = filtersUrl.get(type);
-        console.log("targetType", targetType);
+
         await filtersRouteHandler(targetType, paginationMeta.currentPage);
     }
 
@@ -123,8 +128,10 @@ const ConsultData = (props) => {
      * @param skip
      */
     const btnPageOnClickHandler = (skip) => {
-        setSkipNumber(skip);
-        sendApiListRequest(skip);
+        //setSkipNumber(skip);
+        //sendApiListRequest(skip);
+        setCurrentLoadingState(LoadingStates.LOADING);
+        filtersRouteHandler(filtersUrl.get(filterState), skip);
     }
 
     /*useEffect(()=> {
@@ -134,17 +141,22 @@ const ConsultData = (props) => {
         }
     }, [skipNumber]);*/
 
-    const noPlease= false;
-    useEffect(() => {
-        if (!skipNumber || skipNumber < 1) return;
+    /*useEffect(() => {
+        updatePageQueryInUrl(paginationMeta);
+    }, [paginationMeta]);*///, router.query.page, router
+
+    function updatePageQueryInUrl(updatedPaginationMeta) {
+        console.log("updatePageQueryInUrl", updatedPaginationMeta, 'skipNumber', skipNumber);
+        if (!updatedPaginationMeta) return;
+        if (!updatedPaginationMeta.currentPage || updatedPaginationMeta.currentPage < 1) return;
 
         const currentPageInURL = parseInt(router.query.page) || 1;
         //need this ? `/consulter/${filtersUrl.get(filterState)}`,
         // Ne pas mettre à jour si la page dans l'URL est déjà la bonne
-        if (currentPageInURL === skipNumber) return;
+        if (updatedPaginationMeta.currentPage === paginationMeta.currentPage) return;
 
         const currentQuery = { ...router.query };
-        const currentPage = paginationMeta.pageCount;
+        const currentPage = updatedPaginationMeta.currentPage;
 
         if (currentPage === 1) {
             delete currentQuery.page;
@@ -159,8 +171,7 @@ const ConsultData = (props) => {
             shallow: true,
             scroll: false
         });
-
-    }, [paginationMeta, noPlease]);//, router.query.page, router
+    }
 
     /*function updatePageUrlInAddressBar() {
 
@@ -208,9 +219,9 @@ const ConsultData = (props) => {
     }, [paginationMeta]);*/
 
     async function sendApiListRequest(directSkipNumber=null){
-        setIsLoading(true);
-        setLoadingState(LoadingStates.LOADING);
-        const targetSkip = directSkipNumber ?? skipNumber;
+        //setIsLoading(true);
+        setCurrentLoadingState(LoadingStates.LOADING);
+        const targetSkip = directSkipNumber ?? 0;
         const res = await searchByType(ORIGIN_BROWSER, filterState, {skip:targetSkip});
 
         const list = res.data;
@@ -229,11 +240,12 @@ const ConsultData = (props) => {
         setEntityList(newList);
         totalCurrentCount = newList.length;
 
-        buildPaginationMeta(res?.meta?.pagination, totalCurrentCount);
+        const currentPaginiationMeta = buildPaginationMeta(res?.meta?.pagination, totalCurrentCount);
+        //updatePageQueryInUrl(currentPaginiationMeta);
 
         //setShowApplyBtn(false);
-        setIsLoading(false);
-        setLoadingState(LoadingStates.LOADING_COMPLETE);
+        //setIsLoading(false);
+        setCurrentLoadingState(LoadingStates.LOADING_COMPLETE);
     }
 
     //ClearList setter
@@ -285,7 +297,7 @@ const ConsultData = (props) => {
 
     const entityGrid = (
         <div className="py-4 position-relative">
-            {isLoading &&
+            {currentLoadingState.state === LoadingStates.LOADING.state &&
                 <Spinner label={currentLoadingState.label} fixed={false} absolute={false} className={"rounded-2 bg-primary-lighter"} />
             }
             {
@@ -297,11 +309,12 @@ const ConsultData = (props) => {
                     badgesInfo={props.badgesInfo}
                 />
             }
-            {isLoading && currentLoadingState.state === LoadingStates.LOADING_MORE.state &&
+            {currentLoadingState.state === LoadingStates.LOADING_MORE.state &&
                 <Spinner label={currentLoadingState.label} fixed={false} absolute={false} className={"rounded-2 bg-primary-lighter"} />
             }
             {
-                !isLoading && entityList?.length <= 0 &&
+                (currentLoadingState.state === LoadingStates.LOADING_COMPLETE.state || currentLoadingState.state === LoadingStates.DEFAULT_STATE.state) &&
+                entityList?.length <= 0 &&
                 <div>{lang.listNoResult}</div>
             }
         </div>
@@ -327,7 +340,7 @@ const ConsultData = (props) => {
                             <h3><Icon iconName="filter"/>Filtres</h3>
                             {isDev &&
                                 <Collapse btnLabel={"Filtres actifs"} btnIcon={"filter"} keyId={"filtersActivesCollapse"} show={true}>
-                                    <div className="d-flex flex-wrap justify-content-between my-3">
+                                    <div className="d-flex flex-column justify-content-between my-3">
                                         <div>
                                             <span>filtre actifs&nbsp;:&nbsp;</span>
                                             {uriEntities && uriEntities.length > 0 &&
@@ -341,7 +354,10 @@ const ConsultData = (props) => {
                                             }
                                         </div>
                                         <div>
-                                            <span>State&nbsp;:&nbsp;</span><span>{filterState}</span>
+                                            <span>Filtre&nbsp;(état)&nbsp;:&nbsp;</span><span>{filterState}</span>
+                                        </div>
+                                        <div>
+                                            <span>Loading state&nbsp;:&nbsp;</span><span>{currentLoadingState.label}</span>
                                         </div>
                                     </div>
                                 </Collapse>
@@ -371,7 +387,6 @@ const ConsultData = (props) => {
             <Pagination
                 paginationMeta={paginationMeta}
                 setClearList={setClearList}
-                setSkipNumber={setSkipNumber}
                 pageBtnClickHandler={btnPageOnClickHandler}
                 loadMore={false}
             >
@@ -393,7 +408,7 @@ export default ConsultData;
  * @returns {Promise<{props: {pages: number, entityFilters: (*|string[]), allQueries: ({page}|*)}}>}
  */
 export const dynamicRouteHandler = async ({params, query, req, res }) => {
-    const queryPage = query.page && parseInt(query.page) > 0 ? parseInt(query.page) : null;
+    const queryPage = query.page && parseInt(query.page) > 0 ? parseInt(query.page) : 1;
     const badges = await getBadgesInfo(true);
     const entityTypesSlugs = params.entityFilter ?? ['tous'];
     const targetEntityType = filters.get(entityTypesSlugs[0]) ?? 'all';

@@ -10,7 +10,7 @@ export class LoadingStates {
 
     static DEFAULT = {
         state: LoadingStates.DEFAULT_STATE,
-        label: lang.loadingData
+        label: lang.loadingDefault
     };
     static LOADING = {
         state: LoadingStates.LOADING_STATE,
