@@ -247,7 +247,7 @@ const Pagination = ({children, paginationMeta, setSkipNumber, setClearList, page
                 <div className={"d-flex justify-content-center align-baseline"}>
                     {showStats &&
                         <div className={"d-flex w-50 align-items-center justify-content-center"}>
-                            <p className={"m-0 pe-1"}>
+                            <p className={"m-0 pe-1  py-4"}>
                                 {lang.paginationInfoTitleNoPage}
                             </p>
                         </div>

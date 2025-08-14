@@ -314,9 +314,9 @@ const ConsultData = (props) => {
                 <Spinner label={currentLoadingState.label} fixed={false} absolute={false} className={"rounded-2 bg-primary-lighter"} loadingState={currentLoadingState} />
             }
             {
-                (currentLoadingState.state === LoadingStates.LOADING_COMPLETE.state || currentLoadingState.state === LoadingStates.DEFAULT_STATE.state) &&
+                (currentLoadingState.state === LoadingStates.LOADING_COMPLETE.state || currentLoadingState.state === LoadingStates.DEFAULT.state) &&
                 entityList?.length <= 0 &&
-                <div>{lang.listNoResult}</div>
+                <div className={"alert alert-primary p-4 text-center"}>{lang.listNoResult}</div>
             }
         </div>
     )
