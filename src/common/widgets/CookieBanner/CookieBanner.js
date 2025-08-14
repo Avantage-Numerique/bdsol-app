@@ -64,9 +64,9 @@ export default function CookieBanner(props) {
                             }
                         }
                         bannerButtons={[
-                            {label:lang.cookieBannerAcceptButtonLabel, action:onAcceptAllCookies, outline:"success"},
+                            {label:lang.cookieBannerAcceptButtonLabel, action:onAcceptAllCookies, outline:"secondary"},
                             {label:lang.cookieBannerAcceptBasicOnlyLabel, action:onConnectionOnlyCookies, outline:"secondary"},
-                            {label:lang.cookieBannerDenyButtonLabel, action:onRefuseAllCookies, outline:"danger"}
+                            {label:lang.cookieBannerDenyButtonLabel, action:onRefuseAllCookies, outline:"secondary"}
                         ]}
                         onCloseCallback={onCloseAnimationFinished}
                     >
@@ -92,7 +92,7 @@ export default function CookieBanner(props) {
                     }
                     }
                     bannerButtons={[
-                        {label:lang.cookieDisabledButtonLabel, action:onRefuseAllCookies, outline:"danger"}
+                        {label:lang.cookieDisabledButtonLabel, action:onRefuseAllCookies, outline:"secondary"}
                     ]}
                     onCloseCallback={onCloseAnimationFinished}
                 >
