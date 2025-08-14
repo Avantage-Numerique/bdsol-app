@@ -108,7 +108,8 @@ const ConsultData = (props) => {
         const routerParams = {
             pathname: '/consulter/'+entityFilter,
         }
-        if (currentPage > 1 && entityFilter !== filterState) {
+
+        if (currentPage > 1 && filters.get(entityFilter) === filterState) {
             routerParams.search = `?page=${currentPage}`;
         }
 
@@ -298,7 +299,7 @@ const ConsultData = (props) => {
     const entityGrid = (
         <div className="py-4 position-relative">
             {currentLoadingState.state === LoadingStates.LOADING.state &&
-                <Spinner label={currentLoadingState.label} fixed={false} absolute={false} className={"rounded-2 bg-primary-lighter"} />
+                <Spinner label={currentLoadingState.label} fixed={false} absolute={false} className={"rounded-2 bg-primary-lighter"} loadingState={currentLoadingState} />
             }
             {
                 entityList?.length > 0 &&
@@ -310,7 +311,7 @@ const ConsultData = (props) => {
                 />
             }
             {currentLoadingState.state === LoadingStates.LOADING_MORE.state &&
-                <Spinner label={currentLoadingState.label} fixed={false} absolute={false} className={"rounded-2 bg-primary-lighter"} />
+                <Spinner label={currentLoadingState.label} fixed={false} absolute={false} className={"rounded-2 bg-primary-lighter"} loadingState={currentLoadingState} />
             }
             {
                 (currentLoadingState.state === LoadingStates.LOADING_COMPLETE.state || currentLoadingState.state === LoadingStates.DEFAULT_STATE.state) &&

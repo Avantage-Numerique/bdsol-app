@@ -1,5 +1,5 @@
 import {LoadingStates} from "@/common/widgets/loading/LoadingStates";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 
 export const useLoading = (currentState=LoadingStates.DEFAULT) => {
 

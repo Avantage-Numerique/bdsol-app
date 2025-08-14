@@ -6,6 +6,7 @@
     align-items: center;
     margin-top: 2rem;
     padding: 3rem;
+    @include transition();
 
     &.spinner__container--absolute {
         position: absolute;
@@ -24,6 +25,15 @@
         width: 100vw;
         height: 100vh;
         margin-top: 0;
+    }
+
+    &.spinner__container--animateIn {
+        opacity: 1;
+        padding-top:4rem;
+        padding-bottom: 4rem;
+    }
+    &.spinner__container--animateOut {
+        opacity: 0;
     }
 
 }

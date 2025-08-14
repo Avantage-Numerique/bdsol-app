@@ -222,35 +222,55 @@ const Pagination = ({children, paginationMeta, setSkipNumber, setClearList, page
     const showStats = true;
     const PaginationHeaderComponent = (
         <header className="py-3">
-
-            <div className={"d-flex justify-content-between align-baseline"}>
-                {showStats &&
-                    <div className={"d-flex w-50 align-items-center"}>
-                        <p className={"m-0 pe-1"}>
-                            {lang.paginationInfoTitle} {paginationMeta.currentPage}
-                        </p>
-                    </div>
-                }
-                {showStats &&
-                    <div className={"d-flex w-50 align-items-center"}>
-                        <p className={"m-0 px-3 w-25"}>
-                            <span>{paginationMeta.skipped+1}&nbsp;{lang.paginationInfoTitleTo}&nbsp;{paginationMeta.skipped + paginationMeta.currentCount}</span>
-                            <span className={"px-1"}>{lang.paginationInfoTitleOn}</span>
-                            <span>{paginationMeta.count}</span>
-                        </p>
-                    </div>
-                }
-                {PageNumbersComponent}
-            </div>
-
+            {paginationMeta.count > 0 &&
+                <div className={"d-flex justify-content-between align-baseline"}>
+                    {showStats &&
+                        <div className={"d-flex w-50 align-items-center"}>
+                            <p className={"m-0 pe-1"}>
+                                {lang.paginationInfoTitle} {paginationMeta.currentPage}
+                            </p>
+                        </div>
+                    }
+                    {showStats &&
+                        <div className={"d-flex w-50 align-items-center"}>
+                            <p className={"m-0 px-3 w-25"}>
+                                <span>{paginationMeta.skipped+1}&nbsp;{lang.paginationInfoTitleTo}&nbsp;{paginationMeta.skipped + paginationMeta.currentCount}</span>
+                                <span className={"px-1"}>{lang.paginationInfoTitleOn}</span>
+                                <span>{paginationMeta.count}</span>
+                            </p>
+                        </div>
+                    }
+                    {PageNumbersComponent}
+                </div>
+            }
+            {paginationMeta.count <= 0 &&
+                <div className={"d-flex justify-content-center align-baseline"}>
+                    {showStats &&
+                        <div className={"d-flex w-50 align-items-center justify-content-center"}>
+                            <p className={"m-0 pe-1"}>
+                                {lang.paginationInfoTitleNoPage}
+                            </p>
+                        </div>
+                    }
+                </div>
+            }
         </header>
+    );
+    const PaginationFooterComponent = (
+        <footer className="py-3">
+            {paginationMeta.count > 0 &&
+                <div className={"d-flex justify-content-center align-baseline"}>
+                    {PageNumbersComponent}
+                </div>
+            }
+        </footer>
     );
 
     return (
         <div className="container">
             {PaginationHeaderComponent}
             {children}
-            {PageNumbersComponent}
+            {PaginationFooterComponent}
         </div>
     )
 }
