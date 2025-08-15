@@ -103,6 +103,12 @@ const ConsultData = (props) => {
         return labelToFilter?.[sanitizedLabel];
     }
 
+    /**
+     * Utils to manage changes on the entityFilter, only used in btn filter on click handler.
+     * @param entityFilter
+     * @param currentPage
+     * @returns {Promise<void>}
+     */
     const filtersRouteHandler = async (entityFilter, currentPage) => {
         const routerParams = {
             pathname: '/consulter/'+entityFilter,
@@ -115,6 +121,11 @@ const ConsultData = (props) => {
         await router.push(routerParams)//, undefined, { shallow: true }
     }
 
+    /**
+     * On click handler passed to the buttons in the navigation.
+     * @param type
+     * @returns {Promise<void>}
+     */
     const btnFilterOnClickHandler = async (type) => {
         setCurrentLoadingState(LoadingStates.LOADING);
         setFilterState(type);
@@ -131,6 +142,10 @@ const ConsultData = (props) => {
         sendApiListRequest(Math.abs(targetPage-1) * paginationConfig.pageSize);
     }
 
+    /**
+     * Window pushState the current query to have an url change, but no react re-render shenanigans.
+     * @param updatedPaginationMeta
+     */
     function updateUrlQueryWithCurrentPage(updatedPaginationMeta) {
 
         if (!updatedPaginationMeta) return;
