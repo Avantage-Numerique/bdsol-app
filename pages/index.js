@@ -56,7 +56,7 @@ const HomePage = (props) => {
     const [feedList, setFeedList] = useState([]);
 
     //Extract the functions inside useHttpClient
-    const {isLoading, sendRequest, setIsLoading} = useHttpClient();
+    const {isLoading, setIsLoading} = useHttpClient();
 
     const fetchHomeFeed = async () => {
 

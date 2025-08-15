@@ -1,14 +1,11 @@
-import Image from 'next/image'
-
 import {lang} from "@/src/common/Data/GlobalConstants";
 
 import PageHeader from "@/src/layouts/Header/PageHeader";
 import PageMeta from "@/src/common/PageMeta/PageMeta";
 
-import BadgesSection, {getBadgesInfo} from '@/src/DataTypes/Badges/BadgesSection';
+import {getBadgesInfo} from '@/src/DataTypes/Badges/BadgesSection';
 import {ExternalLink} from "@/common/Components/ExternalLink";
 import React from "react";
-import Tip from "@/FormElements/Tip/Tip";
 
 
 const HomePage = (props) => {
