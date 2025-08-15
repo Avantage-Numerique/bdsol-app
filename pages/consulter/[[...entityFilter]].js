@@ -36,9 +36,6 @@ const ConsultData = (props) => {
         //set init REF constants.
 
     const uriEntities = props.entityFilters;
-    const uriQueries = props.allQueries;
-
-    const entityPerPage = paginationConfig.pageSize;
     const router = useRouter();
 
     const clearListRef = useRef(true);//for now always shows only what is fetched.
@@ -80,28 +77,6 @@ const ConsultData = (props) => {
         list : props.ssrData.data ?? [],
         paginationMeta: initPaginationMeta
     });
-
-    /**
-     * @deprecated param returnKey allow to switch from get value to get key
-     * @param label
-     * @param returnKey
-     * @returns {*|string}
-     */
-    function getFilterStateFromLabel(label, returnKey=false){
-        const sanitizedLabel = String(label);
-        const labelToFilter =
-        {
-            "tous": "all",
-            "personnes": "Person",
-            "organisations": "Organisation",
-            "projets": "Project",
-            "evenements": "Event",
-            "equipements": "Equipment"
-        }
-        if(returnKey)
-            return Object.keys(labelToFilter).find(key => labelToFilter[key] === sanitizedLabel);
-        return labelToFilter?.[sanitizedLabel];
-    }
 
     /**
      * Utils to manage changes on the entityFilter, only used in btn filter on click handler.
@@ -151,8 +126,6 @@ const ConsultData = (props) => {
         if (!updatedPaginationMeta) return;
         if (!updatedPaginationMeta.currentPage || updatedPaginationMeta.currentPage < 1) return;
 
-        const currentPageInURL = parseInt(router.query.page) || 1;
-
         // Ne pas mettre à jour si la page dans l'URL est déjà la bonne
         //if (updatedPaginationMeta.currentPage === paginationMeta.currentPage) return;
 
@@ -188,7 +161,6 @@ const ConsultData = (props) => {
         //First render => ignore this use effect
         if(isFirstRenderRef.current){
             isFirstRenderRef.current = false;
-            return;
         }
     },[filterState]);
 
@@ -206,8 +178,6 @@ const ConsultData = (props) => {
         const list = res.data;
         let newList;
 
-        let totalCurrentCount = 0;
-
         if (clearListRef.current){
             newList = list;
             //setClearList(false);//always set the list as is for now.
@@ -216,7 +186,7 @@ const ConsultData = (props) => {
             newList = isIterable(list) ? [...consultData.list, ...list] : [...consultData.list];//if list is an object, put it in, or use only the entitylist
         }
 
-        totalCurrentCount = newList.length;
+        const totalCurrentCount = newList.length;
         const currentPaginiationMeta = buildPaginationMeta(res?.meta?.pagination, totalCurrentCount);
 
         setConsultData({
@@ -291,7 +261,7 @@ const ConsultData = (props) => {
                                             {uriEntities && uriEntities.length > 0 &&
                                                 uriEntities.map((entity, index) => {
                                                     return (
-                                                        <span href={""} className={"badge text-bg-secondary"} key={entity+index}>
+                                                        <span className={"badge text-bg-secondary"} key={entity+index}>
                                                             {entity}
                                                         </span>
                                                     )
