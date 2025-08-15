@@ -3,11 +3,8 @@ import {useEffect, useRef, useState} from "react";
 import {useRouter} from "next/router";
 import {withSessionSsr} from "@/src/authentification/session/handlers/withSession";
 import {
-    clientSideExternalApiRequest,
-    externalApiRequest,
     ORIGIN_BROWSER,
-    ORIGIN_SERVER,
-    useHttpClient
+    ORIGIN_SERVER
 } from "@/src/hooks/http-hook";
 import {searchByType} from "@/src/hooks/useSearch";
 
@@ -44,8 +41,6 @@ const ConsultData = (props) => {
     const entityPerPage = paginationConfig.pageSize;
     const router = useRouter();
 
-    const [filterState, setFilterState] = useState(filters.get(uriEntities[0]) ?? "all");
-
     const clearListRef = useRef(true);//for now always shows only what is fetched.
     const isFirstRenderRef = useRef(true);
 
@@ -56,8 +51,7 @@ const ConsultData = (props) => {
      * @returns {{count, skipped: any, limit, type, pageCount: *, currentPage: (number|*), currentCount}}
      */
     const buildPaginationMeta = (pagination, total) => {
-
-        const paginationMetaObj = {
+        return {
             count: pagination.count,
             skipped: pagination.skipped,
             limit: pagination.limit,
@@ -66,10 +60,9 @@ const ConsultData = (props) => {
             currentPage: pagination.currentPage,
             currentCount: total,
         };
-        return paginationMetaObj;
     }
 
-    //React state doesnt force re-render when the value is directly set.
+    //React state doesnt force re-render when the value is directly set (not via the function.
     const initPaginationMeta = {
         count: props.ssrData.meta?.pagination.count,
         skipped: props.ssrData.meta?.pagination.skipped,
@@ -80,19 +73,14 @@ const ConsultData = (props) => {
         currentCount: props.ssrData?.data?.length ?? 0,
     };
 
-    /*const [skipNumber, setSkipNumber] = useState(
-        (uriQueries.queryPage != undefined && parseInt(uriQueries.queryPage) > 0 ) ?
-            (uriQueries.queryPage - 1) * entityPerPage : 0);
-
-    const [paginationMeta, setPaginationMeta] = useState(initPaginationMeta);*/
+    //States | Changing one will re-render the component and its children
+    const [filterState, setFilterState] = useState(filters.get(uriEntities[0]) ?? "all");
     const {currentLoadingState, setCurrentLoadingState} = useLoading();
-
-
     const [consultData, setConsultData] = useState({
         list : props.ssrData.data ?? [],
         paginationMeta: initPaginationMeta
     });
-    console.log("Rendering", consultData);
+
     /**
      * @deprecated param returnKey allow to switch from get value to get key
      * @param label
@@ -143,17 +131,6 @@ const ConsultData = (props) => {
         sendApiListRequest(Math.abs(targetPage-1) * paginationConfig.pageSize);
     }
 
-    /*useEffect(()=> {
-        console.log("SkipNumber changed, so effect goes ?", skipNumber, isFirstRenderRef.current, "clear list ?", clearListRef.current);
-        if (!isFirstRenderRef.current) {
-            sendApiListRequest();
-        }
-    }, [skipNumber]);*/
-
-    /*useEffect(() => {
-        updatePageQueryInUrl(paginationMeta);
-    }, [paginationMeta]);*///, router.query.page, router
-
     function updateUrlQueryWithCurrentPage(updatedPaginationMeta) {
 
         if (!updatedPaginationMeta) return;
@@ -174,8 +151,8 @@ const ConsultData = (props) => {
         } else {
             currentQuery.page = currentPage.toString();
         }
+
         const queryVars = new URLSearchParams(currentQuery);
-        console.log("updateUrlQueryWithCurrentPage", updatedPaginationMeta, 'currentQuery', currentQuery, "router.pathname", router.pathname);
         if (window)
             window.history.pushState({ page: currentPage }, '', `/consulter/${filtersUrl.get(filterState)}${queryVars.toString() !== "" ? "?" : ""}${queryVars.toString()}`);
 
@@ -189,24 +166,9 @@ const ConsultData = (props) => {
         });*/
     }
 
-    /*function updatePageUrlInAddressBar() {
-
-        console.log("updatePageUrlInAddressBar", skipNumber, paginationMeta);
-        const routerParams = {
-            pathname: `/consulter/${filtersUrl.get(filterState)}`,
-        }
-        // if current page === 1, remove the page params.
-        // if not add it with the shallow true.
-        if (paginationMeta.currentPage > 1) {
-            routerParams.search = `?page=${paginationMeta.currentPage}`;
-            router.push(routerParams, undefined, { shallow: true })
-        }
-        //else {
-        //    routerParams.search = '';
-        //    router.push(routerParams, undefined, { shallow: true })
-        //}
-    }*/
-
+    /**
+     * When a first render is done, we update the ref to know that the first occured. But with the optimisations of state change in the component, we don't need yet that ref.
+     */
     useEffect(()=> {
         //First render => ignore this use effect
         if(isFirstRenderRef.current){
@@ -214,26 +176,12 @@ const ConsultData = (props) => {
             return;
         }
     },[filterState]);
-/*
-    useEffect(()=> {
-        if (!isFirstRenderRef.current) {
-            //updatePageUrlInAddressBar();
-        }
-    }, [skipNumber]);*/
 
-    /*useEffect(()=> {
-        console.log("paginationMeta changed", skipNumber, paginationMeta);
-
-        const routerParams = {
-            pathname: `/consulter/${filtersUrl.get(filterState)}`,
-        }
-        if (paginationMeta.currentPage > 1) {
-            routerParams.search = `?page=${paginationMeta.currentPage}`;
-            router.push(routerParams, undefined, { shallow: true })//
-        }
-
-    }, [paginationMeta]);*/
-
+    /**
+     * Used in pagination to fetch on client side the new elements to feed the entitygrid. Change the consultData state to force the rerender.
+     * @param directSkipNumber
+     * @returns {Promise<void>}
+     */
     async function sendApiListRequest(directSkipNumber=null){
         //setIsLoading(true);
         setCurrentLoadingState(LoadingStates.LOADING);
@@ -245,8 +193,6 @@ const ConsultData = (props) => {
 
         let totalCurrentCount = 0;
 
-        console.log("sendApiListRequest skip", targetSkip, "filterState", filterState, "list", list.length)
-
         if (clearListRef.current){
             newList = list;
             //setClearList(false);//always set the list as is for now.
@@ -254,14 +200,9 @@ const ConsultData = (props) => {
         else {
             newList = isIterable(list) ? [...consultData.list, ...list] : [...consultData.list];//if list is an object, put it in, or use only the entitylist
         }
-        console.log("client side fetch ", newList.length, "clearing list ?", clearListRef.current);
-        //setEntityList(newList);
 
         totalCurrentCount = newList.length;
         const currentPaginiationMeta = buildPaginationMeta(res?.meta?.pagination, totalCurrentCount);
-
-        console.log("client side fetch currentPaginiationMeta", currentPaginiationMeta);
-        //setPaginationMeta(currentPaginiationMeta);
 
         setConsultData({
             list: newList,
@@ -270,7 +211,7 @@ const ConsultData = (props) => {
 
         updateUrlQueryWithCurrentPage(currentPaginiationMeta);
 
-        //setShowApplyBtn(false);
+        //setShowApplyBtn(false);//loadmore method. To be implemented later on.
         setCurrentLoadingState(LoadingStates.LOADING_COMPLETE);
     }
 
@@ -280,47 +221,10 @@ const ConsultData = (props) => {
     }
 
 
-    /*useEffect( () => {
-        //router.query.filtre = filterState;
-        //router.query.page = paginationMeta.currentPage;
-        console.log("filterState", filterState);
-        if(entityTypeList.includes(filterState) || filterState === "all"){
-            const tempFilterLabel = getFilterStateFromLabel(filterState, true);
-            //router.push({
-            //    pathname: '/consulter/'+tempFilterLabel,
-            //    search: "?page="+paginationMeta.currentPage,
-            //  }, undefined, { shallow: true })
-        }
-    }, [filterState, paginationMeta])
-
-
-    const getListResponses = async () => {
-
-        if(filterState === "all")
-            return await clientSideExternalApiRequest("/search/all", { method: 'POST', body: JSON.stringify({data : {skip:skipNumber, limit:entityPerPage}})});
-        else
-            return await clientSideExternalApiRequest("/search/type", { method: 'POST', body: JSON.stringify({data : {type: filterState, skip:skipNumber, limit:entityPerPage}})});
-    }
-*/
-
-
-/*
-    useEffect(()=> {
-        //First render => ignore this use effect
-        if(isFirstRenderRef.current){
-            isFirstRenderRef.current = false;
-            return;
-        }
-        setClearList(true);
-        setSkipNumber(0);
-        //handles new request with the filter chosen
-        if(skipNumber === 0)
-            sendApiListRequest();
-        else
-            setSkipNumber(0);
-    },[filterState]);*/
-
-
+    /**
+     * Grid of all the simple fetch and set in the consultData.list property.
+     * @type {JSX.Element}
+     */
     const entityGrid = (
         <div className="py-4 position-relative">
             {currentLoadingState.state === LoadingStates.LOADING.state &&
@@ -445,7 +349,6 @@ export const dynamicRouteHandler = async ({params, query, req, res }) => {
 
     const ssrDataFirstLoad = await searchByType(ORIGIN_SERVER, targetEntityType, additionalParams);
 
-    console.log("-~+++==== SSR consulter ====+++~-", params, "queryPage", queryPage, "ssrDataFirstLoad lgt", ssrDataFirstLoad.code);
     return {
         props: {
             pages: queryPage,
