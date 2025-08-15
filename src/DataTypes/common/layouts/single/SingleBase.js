@@ -87,7 +87,7 @@ const SingleBase = (props) => {
                 { /* Footer */ }
                 { footer &&
                     <footer className="row">
-                        { footer } 
+                        { footer }
                     </footer>
                 }
 

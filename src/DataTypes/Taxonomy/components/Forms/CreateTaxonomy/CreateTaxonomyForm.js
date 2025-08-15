@@ -8,10 +8,9 @@ import {useFormUtils} from '@/src/hooks/useFormUtils/useFormUtils'
 import Button from '@/src/common/FormElements/Button/Button'
 import Input from '@/src/common/FormElements/Input/Input'
 import RichTextarea from '@/src/common/FormElements/RichTextArea/RichTextarea'
-import Select from '@/src/common/FormElements/Select/Select'
 
 //Contexts
-import {AuthContext, useAuth} from '@/auth/context/auth-context'
+import {useAuth} from '@/auth/context/auth-context'
 import {MessageContext} from '@/src/common/UserNotifications/Message/Context/Message-Context'
 
 //Styling
@@ -19,6 +18,7 @@ import styles from './CreateTaxonomyForm.module.scss'
 import {lang} from '@/src/common/Data/GlobalConstants'
 import Select2 from '@/src/common/FormElements/Select2/Select2'
 import {getDefaultCreateEntityMeta} from "@/src/DataTypes/Meta/EntityMeta";
+import RadioButton from '@/src/common/FormElements/RadioButton/RadioButton'
 
 
 const CreateTaxonomyForm = ({name, category, initValues, onPositiveResponse, ...props}) => {
@@ -49,7 +49,7 @@ const CreateTaxonomyForm = ({name, category, initValues, onPositiveResponse, ...
         {
             category: {
                 value: initValues?.category ?? '',
-                isValid: true
+                isValid: false
             },
             name: {
                 value: initValues?.name ?? '',
@@ -128,10 +128,10 @@ const CreateTaxonomyForm = ({name, category, initValues, onPositiveResponse, ...
     }
 
     const staticCategoryOptions = {
-        skills : {label: "Compétence", value: "skills"},
-        technologies : {label: "Technologie", value: "technologies"},
-        domains : {label: "Secteur d'activité", value: "domains"},
-        equipmentType : {label: "Type d'équipement", value: "equipmentType"}
+        skills : {label: lang.Skill, value: "skills"},
+        technologies : {label: lang.Technology, value: "technologies"},
+        domains : {label: lang.Domain, value: "domains"},
+        equipmentType : {label: lang.EquipmentType, value: "equipmentType"}
     }
     
     const [categoryOptions, setCategoryOptions] = useState([])
@@ -160,18 +160,6 @@ const CreateTaxonomyForm = ({name, category, initValues, onPositiveResponse, ...
             <form onSubmit={submitHandler} className={`col-12 ${styles["create-taxonomy-form"]}`}>
                 <FormUI />
 
-                <Select 
-                    name="category"
-                    label="Type de catégorie"
-                    formTools={formTools}
-                    noValueText="Choisissez une catégorie"
-                    options={categoryOptions}
-                    validationRules={[
-                        {name: "REQUIRED"}
-                    ]}
-                    defaultValue={category}
-                />
-
                 <Input
                     name="name"
                     label="Nom"
@@ -181,17 +169,19 @@ const CreateTaxonomyForm = ({name, category, initValues, onPositiveResponse, ...
                     ]}
                 />
 
+                <RadioButton
+                    name="category"
+                    //label="Type de catégorie"
+                    formTools={formTools}
+                    options={categoryOptions}
+                    validationRules={[
+                        {name: "REQUIRED"}
+                    ]}
+                />
+
                 <Input
                     name="description"
                     label="Description"
-                    formTools={formTools}
-                />
-
-                <RichTextarea
-                    name="meta.message"
-                    label="Dites nous en quelques mots la raison de l'ajout de cette catégorie"
-                    labelNote="Cette information restera privée. Elle nous permet seulement de mieux comprendre la demande d'ajout."
-                    placeholder="Je préfère cette appellation pour décrire mon activité professionnelle plutôt qu'une autre [...]"
                     formTools={formTools}
                 />
 
@@ -208,8 +198,20 @@ const CreateTaxonomyForm = ({name, category, initValues, onPositiveResponse, ...
                     selectField={"domains"}
                 />
 
+                <RichTextarea
+                    name="meta.message"
+                    label="Dites nous en quelques mots la raison de l'ajout de cette catégorie"
+                    labelNote="Cette information restera privée. Elle nous permet seulement de mieux comprendre la demande d'ajout."
+                    placeholder="Je préfère cette appellation pour décrire mon activité professionnelle plutôt qu'une autre [...]"
+                    formTools={formTools}
+                />
+
                 <div className="col-12">
-                    <Button type="button" onClick={submitHandler} disabled={!formState.isValid}>Soumettre</Button>
+                    <Button className="me-4" color="success" type="button" onClick={submitHandler} disabled={!formState.isValid}>{lang.submit}</Button>
+                    {
+                        props?.closeModal && 
+                        <Button color="danger" type="button" onClick={props.closeModal()}>{lang.cancel}</Button>
+                    }
                 </div>
 
             </form>

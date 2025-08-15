@@ -68,7 +68,7 @@ const RichTextarea = ({name, formTools, ...props}) => {
                 <TipButton title="Détails" />
             }
             {props.labelNote &&
-                <blockquote>
+                <blockquote className='p-0'>
                 * Note : {props.labelNote}
                 </blockquote>
             }

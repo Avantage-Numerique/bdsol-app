@@ -24,10 +24,11 @@ import styles from './Layout.module.scss';
 import {useModalController} from '@/src/hooks/useModal/ModalsController/ModalsController';
 import {useRouter} from "next/router";
 import nextConfig from "@/next.config";
+import {templates, templatesEnum} from "@/layouts/Templates/TemplatesEnum";
 
 export const ModalContext = createContext({});
 
-const Layout = ( {children} ) => {
+const Layout = ( {children, pageProps} ) => {
 
     //Modal container referenve
     const modalContainer = useRef();
@@ -43,12 +44,22 @@ const Layout = ( {children} ) => {
         const d = new Date()
         return d.getTime()
     }
-    
+
+    // TEMPLATE Selection, set the tempalte vars in getStaticProps from the templatesEnum
+    const currentTemplate = pageProps.template ? templates.get(pageProps.template) : templates.get(templatesEnum.DEFAULT);
+    const TemplateRenderer = ({ Component, componentProps, children }) => {
+        return (
+            <Component {...componentProps}>
+                {children}
+            </Component>
+        )
+    }
+
     //Metthod called from other components to update the state
     const addMessage = (newMessage) => {
         setMessages([...messages, {
             ...newMessage,
-            creationTime: getCurrentTime()  
+            creationTime: getCurrentTime()
         }])
     }
 
@@ -111,17 +122,9 @@ const Layout = ( {children} ) => {
                 {/* Defining contextes to be passed along children */}
                 <ModalContext.Provider value={{modalTools: modalTools}}>
                     <MessageContext.Provider value={{addMessage: addMessage}}>
-
-                        <main className={`${styles["main-container-min-height"]} container`}>
-                        <div className="row">
-                            <div className="col">
-
-                                { children }
-
-                            </div>
-                        </div>
-                    </main>
-
+                        <TemplateRenderer Component={currentTemplate.Component} componentProps={currentTemplate.props}>
+                            { children }
+                        </TemplateRenderer>
                     </MessageContext.Provider>
                 </ModalContext.Provider>
                 <Footer />

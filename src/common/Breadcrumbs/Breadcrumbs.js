@@ -135,6 +135,15 @@ const Breadcrumbs = ({
     );
 }
 
+/**
+ * That target link that takes all the precises parameters to add the link and label.
+ * @param labels
+ * @param text
+ * @param href
+ * @param last
+ * @return {JSX.Element}
+ * @constructor
+ */
 const Crumb = ({labels, text, href, last = false}) => {//text: defaultText,
 
     const generateText = useCallback((generator) => {

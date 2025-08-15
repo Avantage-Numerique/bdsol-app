@@ -17,9 +17,11 @@ function AVNU({Component, pageProps, user, serverCookiesChoices}) {
     const webStats = useWebStats();
     const cookieChoices = serverCookiesChoices;
 
+
     useEffect(() => {
         webStats.init(cookieChoices);
     }, []);
+
     /**
      * Main app render.
      */
@@ -27,7 +29,7 @@ function AVNU({Component, pageProps, user, serverCookiesChoices}) {
         <>
             {/* Authentication context provided to all the subsequent elements */}
             <AuthProvider fromSessionUser={user} appMode={process.env.MODE} acceptedCookies={serverCookiesChoices}>
-                <Layout>
+                <Layout pageProps={pageProps}>
                     <Component {...pageProps} />
                     <CookieBanner />
                 </Layout>

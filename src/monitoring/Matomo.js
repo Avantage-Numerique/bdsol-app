@@ -48,7 +48,7 @@ class Matomo {
         }
         let message = this.url === undefined ? "L'url pour les statistiques sur matomo n'est pas défini" : "";
         message += this.id === undefined ? "L'identifiant pour les statistique sur matomo n'est pas défini" : "";
-        console.erreur(message);
+        console.error(message);
     }
 
     set cookieChoices(cookiesChoices) {

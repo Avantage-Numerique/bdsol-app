@@ -29,20 +29,19 @@ import styles from './Repeater.module.scss'
 //Recursive function to create the children with the proper values
 const iterateOverChildren = (children, formInitSubStructure, formTools, deleteIteration) => {
     return React.Children.map((children), (child) => {
-      // equal to (if (child == null || typeof child == 'string'))
-      if (!React.isValidElement(child)) return child;
+        // equal to (if (child == null || typeof child == 'string'))
+        if (!React.isValidElement(child)) return child;
 
-      //If this child has a name prop,
-      // and if the value is equal to one of the values declared for the formState, then it means it is a field and require a formtool
-      const newProps = Object.keys(formInitSubStructure).some(key => key === child.props?.name) ? {'formTools': formTools} : {};
-      const deleteButton = child.props?.repeaterDeleteElem ? {'onClick': () => deleteIteration()} : {};
+        //If this child has a name prop,
+        // and if the value is equal to one of the values declared for the formState, then it means it is a field and require a formtool
+        const newProps = Object.keys(formInitSubStructure).some(key => key === child.props?.name) ? {'formTools': formTools} : {};
 
-      return React.cloneElement(child, {
-        ...child.props,
-        ...newProps,
-        ...deleteButton,
-        // you can alse read child original className by child.props.className
-        children: iterateOverChildren(child.props.children, formInitSubStructure, formTools, deleteIteration)})
+        return React.cloneElement(child, {
+            ...child.props,
+            ...newProps,
+            // you can alse read child original className by child.props.className
+            children: iterateOverChildren(child.props.children, formInitSubStructure, formTools, deleteIteration)
+        })
     })
 };
 
@@ -54,8 +53,27 @@ const RepeaterSingleIteration = ({children, formInitSubStructure, iterationKey, 
         useEffect(() => {
             updateIterationValue(iterationKey, formState.inputs, formState.isValid, formState.hasAnyInputBeenTouched)
         }, [formState])
+
+        const deleteIterationButton = (
+            <Button
+                className="btn-close"
+                onClick={ () => deleteIterationByKey()}
+            >
+                    &times;
+            </Button>
+        )
+
         //Return the children with the recursive function
-        return iterateOverChildren(children, formInitSubStructure, formTools, deleteIterationByKey);
+        return (
+            <div className='row'>
+                <div className='col-11'>
+                    {iterateOverChildren(children, formInitSubStructure, formTools, deleteIterationByKey)}
+                </div>
+                <div className='d-flex col-1 align-items-start'>
+                    {deleteIterationButton}
+                </div>
+            </div>
+        )
 }
 
 //Iterations elements 
@@ -334,9 +352,9 @@ const Repeater = props => {
     );
 
     return (
-        <>  
+        <div className={`${styles["repeater-container"]}`}>  
             <section ref={containerRef} className={`${styles["repeater"]}`}>
-                <DndContext 
+                <DndContext
                     sensors={sensors} 
                     collisionDetection={closestCenter} 
                     onDragStart={({ active }) => {
@@ -369,10 +387,16 @@ const Repeater = props => {
             </section>
 
             {/* By default, there is an add button */}
-            <div className="my-2 d-flex justify-content-start p-0">
-                <Button type="button" size="slim" onClick={addNewIteration} className="m-0">Ajouter</Button>
+            <div className="d-flex justify-content-center align-items-center py-2">
+                <Button
+                    className={`${styles["add-elem-to-repeater-button"]}`}
+                    onClick={addNewIteration}
+                    color="$primary_7"
+                >
+                        <Icon iconName={"las la-plus"}/>
+                </Button>
             </div>
-        </>
+        </div>
     )
 
     /* Manage the reordering when the element is droped */

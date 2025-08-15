@@ -21,41 +21,48 @@ const FieldPopOver = props => {
     //Reference to the modal element to be able to call the native javascript functions
     const componentRef = useRef()
 
-    //Display the component with its native function when the component is redendered
+    //Handles the dynamic positioning of the tooltip
+    //Uses requestAnimationFrame to ensure measurements are taken after the dialog render and valid dimensions
     useEffect(() => {
-        //Calculate the left position of the pointer
-        if(componentRef?.current && buttonRef.current && containerRef.current){
-
-            //Data references
-            const containerX = containerRef.current.getBoundingClientRect();
-            const dialogX = componentRef.current.getBoundingClientRect();
-            const buttonX = buttonRef.current.getBoundingClientRect();
-            
-            if(containerX.width > 380) { //Hard coded value for now. 
-                const buttonDist = buttonX.left - containerX.left
-                if(buttonDist > dialogX.width){
-                    const translateXAdd = buttonDist - dialogX.width;
-                    setDialogTranslateX(translateXAdd)
-                    setPointerTranslateX(0.95 * dialogX.width)
-                    setReadyToDisplay(true)
+        if (componentRef?.current && buttonRef?.current && containerRef?.current) {
+    
+            // Show the dialog first so it gets rendered
+            if (!componentRef.current.hasAttribute("open")) {
+                componentRef.current.show();
+            }
+    
+            // Defer the calculation until next animation frame
+            requestAnimationFrame(() => {
+                const dialogEl = componentRef.current;
+                const buttonEl = buttonRef.current;
+                const containerEl = containerRef.current;
+    
+                const dialogRect = dialogEl.getBoundingClientRect();
+                const buttonRect = buttonEl.getBoundingClientRect();
+                const containerRect = containerEl.getBoundingClientRect();
+                const viewportWidth = window.innerWidth;
+    
+                let calculatedDialogX = 0;
+    
+                const desiredLeft = buttonRect.left + (buttonRect.width / 2) - (dialogRect.width / 2);
+    
+                if (desiredLeft < 8) {
+                    calculatedDialogX = 8 - containerRect.left;
+                } else if (desiredLeft + dialogRect.width > viewportWidth - 8) {
+                    calculatedDialogX = (viewportWidth - 8 - dialogRect.width) - containerRect.left;
                 } else {
-                    setPointerNormaly()
+                    calculatedDialogX = desiredLeft - containerRect.left;
                 }
-            } else {
-                setPointerNormaly()
-            }
-
-            function setPointerNormaly(){
-                const pointerModifier = Math.abs((buttonX.left + (buttonX.width / 2)) - (dialogX.left + 10));
-                setPointerTranslateX(pointerModifier)
-                setReadyToDisplay(true)
-            }
-
+    
+                const pointerCenterOffset = (buttonRect.left + buttonRect.width / 2) - desiredLeft;
+                const cappedPointerOffset = Math.max(10, Math.min(pointerCenterOffset, dialogRect.width - 10));
+        
+                setDialogTranslateX(calculatedDialogX);
+                setPointerTranslateX(cappedPointerOffset);
+                setReadyToDisplay(true);
+            });
         }
-
-        if(!componentRef.current.hasAttribute("open"))
-            componentRef.current.show()
-    }, [componentRef.current])
+    }, []);
 
     return (
             <dialog 

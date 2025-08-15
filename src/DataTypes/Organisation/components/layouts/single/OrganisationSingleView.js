@@ -66,6 +66,7 @@ const OrganisationSingleView = ({ data }) => {
 
     const breadcrumbLabels = {
         "organisations": lang.Organisations,
+        "consulter": lang.consultTitle,
         "slug": name
     };
 
@@ -119,7 +120,6 @@ const OrganisationSingleView = ({ data }) => {
             <SingleInfo
                 title={lang.skillsAndTechnologies}
                 NAMessage="Aucun service n'est inscrit pour cette organisation."
-                cardLayout
             >
                 { sortedOffers?.length > 0 && sortedOffers.map(offer => (
                     <SkillGroup
@@ -134,7 +134,6 @@ const OrganisationSingleView = ({ data }) => {
             <SingleInfo
                 title={lang.teamMembers}
                 displayCondition={sortedTeam.length > 0}
-                cardLayout
             >
                 <EntitiesTagGrid 
                     feed={sortedTeam} 
@@ -148,7 +147,6 @@ const OrganisationSingleView = ({ data }) => {
             <SingleInfo
                 title={`${lang.plural(lang.projectCreated, lang.projectsCreated, creatorOfProjects.length)}`}
                 displayCondition={creatorOfProjects?.length > 0}
-                cardLayout
             >
                 <EntitiesTagGrid feed={creatorOfProjects} />
             </SingleInfo>
@@ -157,7 +155,6 @@ const OrganisationSingleView = ({ data }) => {
             <SingleInfo
                 title={`${lang.plural(lang.projectPartner, lang.projectsPartner, projectsPartner.length)}`}
                 displayCondition={projectsPartner?.length > 0}
-                cardLayout
             >
                 <EntitiesTagGrid feed={projectsPartner} />                
             </SingleInfo>
@@ -166,7 +163,6 @@ const OrganisationSingleView = ({ data }) => {
             <SingleInfo
                 title={`${lang.plural(lang.creatorOfEvent, lang.creatorOfEvents, creatorOfEvents.length)}`}
                 displayCondition={creatorOfEvents?.length > 0}
-                cardLayout
             >
                 <EntitiesTagGrid feed={creatorOfEvents} />
             </SingleInfo>
@@ -175,7 +171,6 @@ const OrganisationSingleView = ({ data }) => {
             <SingleInfo
                 title={`${lang.plural(lang.organizerOfEvent, lang.organizerOfEvents, events.length)}`}
                 displayCondition={events?.length > 0}
-                cardLayout
             >
                 <EntitiesTagGrid feed={events} />
             </SingleInfo>
@@ -184,7 +179,6 @@ const OrganisationSingleView = ({ data }) => {
             <SingleInfo
                 title={lang.EquipmentsOwned}
                 displayCondition={sortedEquipment && sortedEquipment.length > 0}
-                cardLayout
             >
                 <ul className={`container mt-2 mb-0 ${styles["equipment-container"]}`}>
                     <li className="row mb-2">
@@ -222,7 +216,7 @@ const OrganisationSingleView = ({ data }) => {
             <BadgesSection badges={model.badges} entityLabel={model.name}/>
 
             {/* Contact information */}
-            <SingleInfo title={lang.organisationContact} cardLayout>
+            <SingleInfo title={lang.organisationContact}>
                 <ContactPointView contact={model.contactPoint}/>
             </SingleInfo>
 
@@ -231,7 +225,6 @@ const OrganisationSingleView = ({ data }) => {
                 <SingleInfo
                     displayCondition={location?.length > 0}
                     title={lang.plural(lang.organisationPlace, lang.organisationPlaces, location?.length)}
-                    cardLayout
                 >
                     <EntitiesTagGrid feed={location} subBadgeProperty={"address"} columnClass={"col-12"} />
                 </SingleInfo>
@@ -242,7 +235,6 @@ const OrganisationSingleView = ({ data }) => {
                 title={lang.Domains}
                 NAMessage="Aucun secteur d'activité n'est précisé pour le moment." 
                 displayCondition={domains.length > 0}
-                cardLayout
             >
                 {domains &&
                     <SearchTag
@@ -256,7 +248,6 @@ const OrganisationSingleView = ({ data }) => {
             <SingleInfo
                 title={lang.fondationDate}
                 displayCondition={fondationDate ? true : false}
-                cardLayout
             >
                 <TimeTag date={fondationDate} format={lang.fullHumanDateFormat} />
             </SingleInfo>
@@ -277,7 +268,7 @@ const OrganisationSingleView = ({ data }) => {
                 (createdAt || updatedAt || meta) &&
                 <SingleInfo 
                     title={lang.entityMetadata} 
-                    className="border-top pt-3"
+                    className="pt-3"
                 >
                     <SingleEntityMeta createdAt={createdAt} updatedAt={updatedAt} meta={meta} />
                 </SingleInfo>

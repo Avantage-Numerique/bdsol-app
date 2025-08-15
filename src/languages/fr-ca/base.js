@@ -7,7 +7,10 @@ const base = {
     "see": "Voir",
     "noResult": "Aucune donnée pour l'instant.",
     "maybeABackendProblem": "On a peut-être un problème en arrière plan.",
+    "loadingDefault": "Aucun chargement n'a été initié.",
     "loadingData": "Chargement des données",
+    "loadingMoreData": "Chargement ...",
+    "loadingCompleted": "Chargement Terminé",
     "back": "Retour",
     "close": "Fermer",
     "noInfoAvailable": "Aucune information disponible.",
@@ -35,6 +38,7 @@ const base = {
     "contactInformations": "Informations de contact",
     "anonyme": "anonyme",
     "parAvnu": "par AVNU",
+    "paginationInfoTitleLabel": "Page",
 
     // App
 
@@ -47,7 +51,9 @@ const base = {
 
     //  HomePage
 
-    "homePageTitle": "L'outil d'exploration des ressources technologiques du Croissant boréal",
+    "croissantBorealTitle": "Le Croissant boréal",
+    "croissantBorealDescription": "Secteur géographique regroupant les régions de l'Abitibi-Témiscamingue, du Nord-du-Québec et du Nord-Est de l'Ontario francophone.",
+    "homePageTitle": "Explorer les ressources technologiques francophones régionales et locales",
     "homePageDescription": "Retrouvez en quelques clics les organisations, projets, personnes, équipements et événements en lien avec le numérique sur votre territoire.",
     "actualities": "Actualités",
     "allData": "Toutes les données",
