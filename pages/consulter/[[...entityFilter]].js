@@ -80,11 +80,11 @@ const ConsultData = (props) => {
         currentCount: props.ssrData?.data?.length ?? 0,
     };
 
-    const [skipNumber, setSkipNumber] = useState(
+    /*const [skipNumber, setSkipNumber] = useState(
         (uriQueries.queryPage != undefined && parseInt(uriQueries.queryPage) > 0 ) ?
             (uriQueries.queryPage - 1) * entityPerPage : 0);
 
-    const [paginationMeta, setPaginationMeta] = useState(initPaginationMeta);
+    const [paginationMeta, setPaginationMeta] = useState(initPaginationMeta);*/
     const {currentLoadingState, setCurrentLoadingState} = useLoading();
 
 
@@ -160,21 +160,28 @@ const ConsultData = (props) => {
         if (!updatedPaginationMeta.currentPage || updatedPaginationMeta.currentPage < 1) return;
 
         const currentPageInURL = parseInt(router.query.page) || 1;
-        //need this ? `/consulter/${filtersUrl.get(filterState)}`,
+
         // Ne pas mettre à jour si la page dans l'URL est déjà la bonne
         //if (updatedPaginationMeta.currentPage === paginationMeta.currentPage) return;
 
         const currentQuery = { ...router.query };
         const currentPage = updatedPaginationMeta.currentPage;
 
+        delete currentQuery.entityFilter;//allways delete the base route that are manage with the router.
+
         if (currentPage === 1) {
             delete currentQuery.page;
         } else {
             currentQuery.page = currentPage.toString();
         }
+        const queryVars = new URLSearchParams(currentQuery);
         console.log("updateUrlQueryWithCurrentPage", updatedPaginationMeta, 'currentQuery', currentQuery, "router.pathname", router.pathname);
+        if (window)
+            window.history.pushState({ page: currentPage }, '', `/consulter/${filtersUrl.get(filterState)}${queryVars.toString() !== "" ? "?" : ""}${queryVars.toString()}`);
+
+        //using the router call a rerender an change the states. Even with shallow. An old discussion : https://github.com/vercel/next.js/discussions/18072
         /*router.push({
-            pathname: router.pathname,
+            pathname: router.pathname,//'/consulter/'+filtersUrl.get(filterState)
             query: currentQuery,
         }, undefined, {
             shallow: true,
