@@ -2,6 +2,7 @@ import {useCallback, useEffect, useRef} from "react"
 import {PaginationButton} from "@/common/Pagination/PaginationButton";
 import nextConfig from "@/next.config";
 import useScrollTo from "@/src/hooks/useScrollTo";
+import {lang} from "@/common/Data/GlobalConstants";
 
 
 /**
@@ -11,7 +12,8 @@ import useScrollTo from "@/src/hooks/useScrollTo";
  * @param {object} children the children of pagination, for now must be an entitylist.
  * @param {object} paginationMeta How many total item to paginate (if this exceed 6 page, the display will update accordingly)
  * @param {number} setClearList function that takes a bool as param, set if the list need to be reset or we can add to it.
- * @param {callable} setSkipNumber Set how many item should be skipped in the request for currentPage
+ * @param {callable} setSkipNumber (deprecated we use full paginationMeta to manage that) Set how many item should be skipped in the request for currentPage
+ * @param {callable} pageBtnClickHandler On click btn handler to avoid using a useEffect on a state setter.
  * @param {boolean} loadMore true make the component go to nextPage if scrolled to the bottom of the page.
  * @param {any} props all the rest of params can be passed to.
  * Note for loadMore :
@@ -19,7 +21,7 @@ import useScrollTo from "@/src/hooks/useScrollTo";
  *      false ==> setEntityList(list);
  *   
  * */
-const Pagination = ({children, paginationMeta, setSkipNumber, setClearList, loadMore=false, ...props}) => {
+const Pagination = ({children, paginationMeta, setSkipNumber, setClearList, pageBtnClickHandler, loadMore=false, ...props}) => {
 
 
     const {scrollToTop} = useScrollTo();
@@ -36,7 +38,7 @@ const Pagination = ({children, paginationMeta, setSkipNumber, setClearList, load
         currentCount : paginationMeta?.currentCount ?? 0,
     });
 
-    useEffect( () => { paginationRef.current = paginationMeta; }, [paginationMeta]);
+    //useEffect( () => { paginationRef.current = paginationMeta; }, [paginationMeta]);
 
     const paginationButtonClickHandler = (pageNumber, clearList=false) => {
         setPageNumber(pageNumber, clearList);
@@ -55,7 +57,7 @@ const Pagination = ({children, paginationMeta, setSkipNumber, setClearList, load
 
     //Set skip when page change
     function setPageNumber(pageNumber, clearList=false){
-        setSkipNumber(paginationRef.current.limit * (pageNumber - 1));
+        pageBtnClickHandler(pageNumber);
         if(clearList && setClearList)
             setClearList(true);
     }
@@ -193,20 +195,6 @@ const Pagination = ({children, paginationMeta, setSkipNumber, setClearList, load
         }
     },[loadMore, onScroll])
 
-    const showStats = true;
-    const PaginationHeaderComponent = (
-        <header className="py-3">
-            <h5>
-                Page {paginationMeta.currentPage}
-            </h5>
-            {showStats &&
-                <p>
-                    <span>On affiche&nbsp;:&nbsp;</span>
-                    <span>{paginationMeta.currentCount}&nbsp;/&nbsp;{paginationMeta.count}</span><span>&nbsp;des éléments</span>
-                </p>
-            }
-        </header>
-    );
     const PageNumbersComponent = (
         <div>
             <div className="d-flex py-4 justify-content-center">
@@ -231,11 +219,59 @@ const Pagination = ({children, paginationMeta, setSkipNumber, setClearList, load
         </div>
     )
 
+    const showStats = true;
+    const PaginationHeaderComponent = (
+        <header className="py-3">
+            {paginationMeta.count > 0 &&
+                <div className={"d-flex w-33 justify-content-center align-baseline"}>
+                    {false && showStats &&
+                        <div className={"d-flex w-50 align-items-center"}>
+                            <p className={"m-0 pe-1"}>
+                                {lang.paginationInfoTitle} {paginationMeta.currentPage}
+                            </p>
+                        </div>
+                    }
+                    {showStats &&
+                        <div className={"d-flex align-items-center"}>
+                            <p className={"m-0 px-3"}>
+                                <span>{lang.paginationInfoTitle} {paginationMeta.currentPage}</span><span className={"px-3"}>&mdash;</span>
+                                <span>{paginationMeta.skipped+1}&nbsp;{lang.paginationInfoTitleTo}&nbsp;{paginationMeta.skipped + paginationMeta.currentCount}</span>
+                                <span className={"px-1"}>{lang.paginationInfoTitleOn}</span>
+                                <span>{paginationMeta.count}</span>
+                            </p>
+                        </div>
+                    }
+                    {PageNumbersComponent}
+                </div>
+            }
+            {paginationMeta.count <= 0 &&
+                <div className={"d-flex w-33 justify-content-center align-baseline"}>
+                    {showStats &&
+                        <div className={"d-flex w-50 align-items-center justify-content-center"}>
+                            <p className={"m-0 pe-1  py-4"}>
+                                {lang.paginationInfoTitleNoPage}
+                            </p>
+                        </div>
+                    }
+                </div>
+            }
+        </header>
+    );
+    const PaginationFooterComponent = (
+        <footer className="py-3">
+            {paginationMeta.count > 0 &&
+                <div className={"d-flex justify-content-center align-baseline"}>
+                    {PageNumbersComponent}
+                </div>
+            }
+        </footer>
+    );
+
     return (
         <div className="container">
             {PaginationHeaderComponent}
             {children}
-            {PageNumbersComponent}
+            {PaginationFooterComponent}
         </div>
     )
 }

@@ -7,6 +7,7 @@ const base = {
     "see": "Voir",
     "noResult": "Aucune donnée pour l'instant.",
     "maybeABackendProblem": "On a peut-être un problème en arrière plan.",
+    "loadingDefault": "Aucun chargement n'a été initié.",
     "loadingData": "Chargement des données",
     "loadingMoreData": "Chargement ...",
     "loadingCompleted": "Chargement Terminé",
@@ -37,6 +38,7 @@ const base = {
     "contactInformations": "Informations de contact",
     "anonyme": "anonyme",
     "parAvnu": "par AVNU",
+    "paginationInfoTitleLabel": "Page",
 
     // App
 
