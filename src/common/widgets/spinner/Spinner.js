@@ -22,9 +22,6 @@ const Spinner = ({ fixed, absolute, reverse, className, label, loadingState }) =
             {label &&
                 <p className="text-center pt-5"><strong>{label}</strong></p>
             }
-            {loadingState &&
-                <p>currentLoadingState: {loadingState.label}</p>
-            }
         </div>
     )
 }

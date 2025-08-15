@@ -223,8 +223,8 @@ const Pagination = ({children, paginationMeta, setSkipNumber, setClearList, page
     const PaginationHeaderComponent = (
         <header className="py-3">
             {paginationMeta.count > 0 &&
-                <div className={"d-flex justify-content-between align-baseline"}>
-                    {showStats &&
+                <div className={"d-flex w-33 justify-content-center align-baseline"}>
+                    {false && showStats &&
                         <div className={"d-flex w-50 align-items-center"}>
                             <p className={"m-0 pe-1"}>
                                 {lang.paginationInfoTitle} {paginationMeta.currentPage}
@@ -232,8 +232,9 @@ const Pagination = ({children, paginationMeta, setSkipNumber, setClearList, page
                         </div>
                     }
                     {showStats &&
-                        <div className={"d-flex w-50 align-items-center"}>
-                            <p className={"m-0 px-3 w-25"}>
+                        <div className={"d-flex align-items-center"}>
+                            <p className={"m-0 px-3"}>
+                                <span>{lang.paginationInfoTitle} {paginationMeta.currentPage}</span><span className={"px-3"}>&mdash;</span>
                                 <span>{paginationMeta.skipped+1}&nbsp;{lang.paginationInfoTitleTo}&nbsp;{paginationMeta.skipped + paginationMeta.currentCount}</span>
                                 <span className={"px-1"}>{lang.paginationInfoTitleOn}</span>
                                 <span>{paginationMeta.count}</span>
@@ -244,7 +245,7 @@ const Pagination = ({children, paginationMeta, setSkipNumber, setClearList, page
                 </div>
             }
             {paginationMeta.count <= 0 &&
-                <div className={"d-flex justify-content-center align-baseline"}>
+                <div className={"d-flex w-33 justify-content-center align-baseline"}>
                     {showStats &&
                         <div className={"d-flex w-50 align-items-center justify-content-center"}>
                             <p className={"m-0 pe-1  py-4"}>

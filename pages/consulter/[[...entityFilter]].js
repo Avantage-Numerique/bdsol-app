@@ -44,7 +44,6 @@ const ConsultData = (props) => {
     const entityPerPage = paginationConfig.pageSize;
     const router = useRouter();
 
-    const [entityList, setEntityList] = useState(props.ssrData.data ?? []);
     const [filterState, setFilterState] = useState(filters.get(uriEntities[0]) ?? "all");
 
     const clearListRef = useRef(true);//for now always shows only what is fetched.
@@ -54,10 +53,9 @@ const ConsultData = (props) => {
      * Construct the pagination meta from target API return.
      * @param pagination {Object}
      * @param total {Number}
-     * @param setState {Boolean}
      * @returns {{count, skipped: any, limit, type, pageCount: *, currentPage: (number|*), currentCount}}
      */
-    const buildPaginationMeta = (pagination, total, setState=true) => {
+    const buildPaginationMeta = (pagination, total) => {
 
         const paginationMetaObj = {
             count: pagination.count,
@@ -68,20 +66,33 @@ const ConsultData = (props) => {
             currentPage: pagination.currentPage,
             currentCount: total,
         };
-        if (setState) setPaginationMeta(paginationMetaObj);
         return paginationMetaObj;
     }
+
+    //React state doesnt force re-render when the value is directly set.
+    const initPaginationMeta = {
+        count: props.ssrData.meta?.pagination.count,
+        skipped: props.ssrData.meta?.pagination.skipped,
+        limit: props.ssrData.meta?.pagination.limit,
+        type: props.ssrData.meta?.pagination.type,
+        pageCount: props.ssrData.meta?.pagination.pageCount,
+        currentPage: props.ssrData.meta?.pagination.currentPage,
+        currentCount: props.ssrData?.data?.length ?? 0,
+    };
 
     const [skipNumber, setSkipNumber] = useState(
         (uriQueries.queryPage != undefined && parseInt(uriQueries.queryPage) > 0 ) ?
             (uriQueries.queryPage - 1) * entityPerPage : 0);
 
-    const initPaginationMeta = buildPaginationMeta(props.ssrData.meta?.pagination ?? {}, props.ssrData?.data?.length ?? 0, false );
     const [paginationMeta, setPaginationMeta] = useState(initPaginationMeta);
     const {currentLoadingState, setCurrentLoadingState} = useLoading();
 
-    console.log("Rendering consult page", uriQueries, "init PaginationMeta", initPaginationMeta, "current Pagination meta", paginationMeta, "skipNumber", skipNumber);
 
+    const [consultData, setConsultData] = useState({
+        list : props.ssrData.data ?? [],
+        paginationMeta: initPaginationMeta
+    });
+    console.log("Rendering", consultData);
     /**
      * @deprecated param returnKey allow to switch from get value to get key
      * @param label
@@ -121,18 +132,15 @@ const ConsultData = (props) => {
         setFilterState(type);
         const targetType = filtersUrl.get(type);
 
-        await filtersRouteHandler(targetType, paginationMeta.currentPage);
+        await filtersRouteHandler(targetType, consultData.paginationMeta.currentPage);
     }
 
     /**
      * Not async function on click handler of the pages button from pagination componenent but need to be call in this context.
-     * @param skip
+     * @param targetPage
      */
-    const btnPageOnClickHandler = (skip) => {
-        //setSkipNumber(skip);
-        //sendApiListRequest(skip);
-        setCurrentLoadingState(LoadingStates.LOADING);
-        filtersRouteHandler(filtersUrl.get(filterState), skip);
+    const btnPageOnClickHandler = (targetPage) => {
+        sendApiListRequest(Math.abs(targetPage-1) * paginationConfig.pageSize);
     }
 
     /*useEffect(()=> {
@@ -146,15 +154,15 @@ const ConsultData = (props) => {
         updatePageQueryInUrl(paginationMeta);
     }, [paginationMeta]);*///, router.query.page, router
 
-    function updatePageQueryInUrl(updatedPaginationMeta) {
-        console.log("updatePageQueryInUrl", updatedPaginationMeta, 'skipNumber', skipNumber);
+    function updateUrlQueryWithCurrentPage(updatedPaginationMeta) {
+
         if (!updatedPaginationMeta) return;
         if (!updatedPaginationMeta.currentPage || updatedPaginationMeta.currentPage < 1) return;
 
         const currentPageInURL = parseInt(router.query.page) || 1;
         //need this ? `/consulter/${filtersUrl.get(filterState)}`,
         // Ne pas mettre à jour si la page dans l'URL est déjà la bonne
-        if (updatedPaginationMeta.currentPage === paginationMeta.currentPage) return;
+        //if (updatedPaginationMeta.currentPage === paginationMeta.currentPage) return;
 
         const currentQuery = { ...router.query };
         const currentPage = updatedPaginationMeta.currentPage;
@@ -164,14 +172,14 @@ const ConsultData = (props) => {
         } else {
             currentQuery.page = currentPage.toString();
         }
-
-        router.push({
+        console.log("updateUrlQueryWithCurrentPage", updatedPaginationMeta, 'currentQuery', currentQuery, "router.pathname", router.pathname);
+        /*router.push({
             pathname: router.pathname,
             query: currentQuery,
         }, undefined, {
             shallow: true,
             scroll: false
-        });
+        });*/
     }
 
     /*function updatePageUrlInAddressBar() {
@@ -230,22 +238,32 @@ const ConsultData = (props) => {
 
         let totalCurrentCount = 0;
 
+        console.log("sendApiListRequest skip", targetSkip, "filterState", filterState, "list", list.length)
+
         if (clearListRef.current){
             newList = list;
-            setClearList(false);
+            //setClearList(false);//always set the list as is for now.
         }
         else {
-            newList = isIterable(list) ? [...entityList, ...list] : [...entityList];//if list is an object, put it in, or use only the entitylist
+            newList = isIterable(list) ? [...consultData.list, ...list] : [...consultData.list];//if list is an object, put it in, or use only the entitylist
         }
-        console.log("cs fetch ", newList.length, res?.meta?.pagination)
-        setEntityList(newList);
-        totalCurrentCount = newList.length;
+        console.log("client side fetch ", newList.length, "clearing list ?", clearListRef.current);
+        //setEntityList(newList);
 
+        totalCurrentCount = newList.length;
         const currentPaginiationMeta = buildPaginationMeta(res?.meta?.pagination, totalCurrentCount);
-        //updatePageQueryInUrl(currentPaginiationMeta);
+
+        console.log("client side fetch currentPaginiationMeta", currentPaginiationMeta);
+        //setPaginationMeta(currentPaginiationMeta);
+
+        setConsultData({
+            list: newList,
+            paginationMeta: currentPaginiationMeta
+        })
+
+        updateUrlQueryWithCurrentPage(currentPaginiationMeta);
 
         //setShowApplyBtn(false);
-        //setIsLoading(false);
         setCurrentLoadingState(LoadingStates.LOADING_COMPLETE);
     }
 
@@ -302,11 +320,11 @@ const ConsultData = (props) => {
                 <Spinner label={currentLoadingState.label} fixed={false} absolute={false} className={"rounded-2 bg-primary-lighter"} loadingState={currentLoadingState} />
             }
             {
-                entityList?.length > 0 &&
+                consultData.list?.length > 0 &&
                 <EntitiesGrid
                     className={"row"}
                     columnClass={"col-12 col-sm-6 col-lg-4 col-xl-3 g-4 "}
-                    feed={entityList.filter(el => el.type !== "Taxonomy")}
+                    feed={consultData.list.filter(el => el.type !== "Taxonomy")}
                     badgesInfo={props.badgesInfo}
                 />
             }
@@ -315,7 +333,7 @@ const ConsultData = (props) => {
             }
             {
                 (currentLoadingState.state === LoadingStates.LOADING_COMPLETE.state || currentLoadingState.state === LoadingStates.DEFAULT.state) &&
-                entityList?.length <= 0 &&
+                consultData.list?.length <= 0 &&
                 <div className={"alert alert-primary p-4 text-center"}>{lang.listNoResult}</div>
             }
         </div>
@@ -386,7 +404,7 @@ const ConsultData = (props) => {
                 </section>
             </section>
             <Pagination
-                paginationMeta={paginationMeta}
+                paginationMeta={consultData.paginationMeta}
                 setClearList={setClearList}
                 pageBtnClickHandler={btnPageOnClickHandler}
                 loadMore={false}
