@@ -39,8 +39,9 @@ const HomePageHeaderBgImg = () => {
         objectPosition: "15% bottom",
         minWidth: "80rem",
     }
+    //2025-08-15  overflow-hidden
     return (
-        <figure style={localFigureStyling} className="position-absolute start-0 w-100 h-100 overflow-hidden">
+        <figure style={localFigureStyling} className="position-absolute start-0 w-100 h-100">
             <Image src={backgroundImg} style={localImgStyling} className="w-100 h-auto position-absolute start-0 bottom-0" alt="Trajet de la fusée d'Avantage Numérique" />
         </figure>
     )
@@ -64,7 +65,7 @@ const HomePage = (props) => {
             `/search/homepage`,
             { method: 'GET' }
         );
-        setFeedList(homePageEntities.data)
+        setFeedList(homePageEntities.data);
 
         setIsLoading(false);//when all finishes, set this to false.
     }
@@ -122,8 +123,8 @@ const HomePage = (props) => {
                 title={lang.homePageTitle}
                 subTitle={lang.homePageDescription}
                 description=""
-                image={"/general_images/CroissantBoreal.png"}
-                imgAlt={"Carte du Croissant boréal"} 
+                image={"/general_images/avnu-systeme-planetaire.svg"}
+                imgAlt={"Les planètes d'AVNU"}
                 leftColClassName="py-4"
                 key={"pageHeaderHomePage"} 
                 custom_FullWidthContent={HomePageHeaderBgImg}
