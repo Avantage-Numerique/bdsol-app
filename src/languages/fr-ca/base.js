@@ -51,7 +51,9 @@ const base = {
 
     //  HomePage
 
-    "homePageTitle": "L'outil d'exploration des ressources technologiques du Croissant boréal",
+    "croissantBorealTitle": "Le Croissant boréal",
+    "croissantBorealDescription": "Secteur géographique regroupant les régions de l'Abitibi-Témiscamingue, du Nord-du-Québec et du Nord-Est de l'Ontario francophone.",
+    "homePageTitle": "Explorer les ressources technologiques francophones régionales et locales",
     "homePageDescription": "Retrouvez en quelques clics les organisations, projets, personnes, équipements et événements en lien avec le numérique sur votre territoire.",
     "actualities": "Actualités",
     "allData": "Toutes les données",
