@@ -83,7 +83,7 @@ export default function BottomBanner(props) {
                                         {bannerButtons.map((button, index) => {
                                             return (
                                                 <div className={"col-12 col-md-auto"} key={`bottomBannerButtonContainer${index}`}>
-                                                    <Button key={`bottomBanner${index}`} onClick={() => close(button.action)} color={button.outline}>{button.label}</Button>
+                                                    <Button className={"py-1 px-3"} key={`bottomBanner${index}`} onClick={() => close(button.action)} color={button.outline}>{button.label}</Button>
                                                 </div>
                                             )
                                         })
