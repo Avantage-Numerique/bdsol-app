@@ -9,14 +9,14 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 75vh;
+    min-height: 100vh;
 
 
     form {
         width: min(35rem, 95%);
         padding: 2rem;
         box-shadow: $default-box-shadow;
-        
+
         h3 { margin-top: 0; }
 
         .formRedirection {
@@ -24,4 +24,9 @@
         }
     }
 
+}
+
+.login-background {
+    background-repeat: no-repeat;
+    background-position: bottom left;
 }

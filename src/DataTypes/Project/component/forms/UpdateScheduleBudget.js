@@ -3,7 +3,6 @@ import Input from "@/src/common/FormElements/Input/Input";
 import Repeater from "@/src/common/FormElements/Repeater/Repeater";
 import SingleInfo from "@/src/DataTypes/common/layouts/SingleInfo/SingleInfo";
 import SelectFetch from "@/src/common/FormElements/Select/SelectFetch";
-import Button from '@/src/common/FormElements/Button/Button';
 
 //Utils
 import {lang} from "@/src/common/Data/GlobalConstants";
@@ -25,7 +24,7 @@ const UpdateScheduleBudget = ({name, formTools, ...props}) => {
     }, [])
 
     return (
-        <div className="px-4 border-start">
+        <div className="px-4">
                 <div className="d-flex">
                     <div className="w-100 row">
                         <Input
@@ -67,6 +66,7 @@ const UpdateScheduleBudget = ({name, formTools, ...props}) => {
                             title="Les étapes du projet"
                             className="pt-3"
                             isSubtitle
+                            noCardLayout
                         >
                             <Repeater
                                 formTools={formTools}
@@ -119,23 +119,12 @@ const UpdateScheduleBudget = ({name, formTools, ...props}) => {
                                             formTools={formTools}
                                             noValueText={lang.noSelectedOption}
                                             fetchOption="budgetrange-enum"
-/*                                             validationRules={[
+                                            /*validationRules={[
                                                 {name: "REQUIRED"}
                                             ]} */
                                         />
                                     
                                     </section>
-
-                                    <div className="cold mb-2 d-flex justify-content-end">
-                                        <Button 
-                                            repeaterDeleteElem
-                                            type="button" 
-                                            color="danger" 
-                                            size="slim"
-                                        >
-                                            Supprimer l'étape
-                                        </Button>
-                                    </div>
                                 </div>
                             </Repeater>
                         </SingleInfo>

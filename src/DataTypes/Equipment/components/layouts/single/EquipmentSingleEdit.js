@@ -220,10 +220,7 @@ const EquipmentSingleEdit = ({ positiveRequestActions, ...props}) => {
     );
 
     const contentColumnLeft = (
-        <SingleInfo
-            title={lang.productInformations}
-            cardLayout
-        >
+        <SingleInfo title={lang.productInformations}>
             <Input
                 name="brand"
                 label={lang.brand}
@@ -238,10 +235,7 @@ const EquipmentSingleEdit = ({ positiveRequestActions, ...props}) => {
     )
 
     const contentColumnRight = (
-        <SingleInfo
-            title={lang.externalLinks}
-            cardLayout
-        >
+        <SingleInfo title={lang.externalLinks}>
         <UpdateSocialHandles
                 name="url"
                 parentEntity={model}
@@ -256,7 +250,7 @@ const EquipmentSingleEdit = ({ positiveRequestActions, ...props}) => {
                 (model.createdAt || model.updatedAt || model.meta) &&
                 <SingleInfo 
                     title={lang.entityMetadata} 
-                    className="border-top pt-3"
+                    className="pt-3"
                 >
                     {/*********** Entity data ***********/}
                     <SingleEntityMeta createdAt={model.createdAt} updatedAt={model.updatedAt} meta={model.meta} />
@@ -267,7 +261,12 @@ const EquipmentSingleEdit = ({ positiveRequestActions, ...props}) => {
     
     {/*********** Submit section ***********/}
     const SinglePageBottom = (
-        <SubmitEntity submitHandler={() => {setSaveIntentionState(true); modalSaveEntityReminder.displayModal()}} formState={formState} />
+        <SubmitEntity
+            submitHandler={() => {setSaveIntentionState(true);
+            modalSaveEntityReminder.displayModal()}}
+            formState={formState}
+            singleLink={model.singleLink}
+        />
     )
 
     return (

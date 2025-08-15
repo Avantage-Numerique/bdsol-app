@@ -6,11 +6,13 @@ import Caching from "@/common/Data/Caching";
  */
 
 export const lang = StringDictionary.getInstance([
+    "account",
     "base",
     "dates",
     "validation",
     "meta",
     "contribute",
+    "consult",
     "medias",
     "organisations",
     "persons",
@@ -25,7 +27,9 @@ export const lang = StringDictionary.getInstance([
     "pageMeta",
     "versions",
     "moderation",
-    "licences"
+    "licences",
+    "filters",
+    "pagination"
 ]);
 
 export const now = new Date();

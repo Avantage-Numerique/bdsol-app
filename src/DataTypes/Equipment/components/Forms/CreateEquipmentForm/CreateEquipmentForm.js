@@ -17,7 +17,7 @@ import {getDefaultCreateEntityMeta} from "@/src/DataTypes/Meta/EntityMeta";
 import {TYPE_TAXONOMY} from '@/src/DataTypes/Entity/Types';
 
 
-const CreateEquipmentForm = ({ onPositiveResponse, initValues }) => {
+const CreateEquipmentForm = ({ onPositiveResponse, initValues, ...props }) => {
     
     //Authentication ref
     const auth = useAuth();
@@ -87,6 +87,7 @@ const CreateEquipmentForm = ({ onPositiveResponse, initValues }) => {
                     creatable={true}
                     modalType={TYPE_TAXONOMY}
                     isMulti={false}
+                    allowedCategories={["equipmentType"]}
 
                     placeholder={lang.equipmentTypePlaceholder}
                     fetch={"/taxonomies/list"}
@@ -112,8 +113,12 @@ const CreateEquipmentForm = ({ onPositiveResponse, initValues }) => {
                 />
             </div>
             <div>Suite à la création de l'équipement et de votre fiche, nous vous suggérons d'aller voir la fiche de l'équipement afin d'ajouter des liens vers des pages internet de celui-ci.</div>
-            <div className="d-flex justify-content-end">
-                <Button disabled={!formState.isValid} type="button" onClick={submitHandler}>{lang.continue}</Button>
+            <div className="col-12">
+                <Button className="me-4" color="success" type="button" onClick={submitHandler} disabled={!formState.isValid}>{lang.submit}</Button>
+                {
+                    props?.closeModal && 
+                    <Button color="danger" type="button" onClick={props.closeModal()}>{lang.cancel}</Button>
+                }
             </div>
         </form> 
     );

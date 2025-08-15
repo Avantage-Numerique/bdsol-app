@@ -2,7 +2,6 @@
 import Input from "@/src/common/FormElements/Input/Input";
 import Repeater from "@/src/common/FormElements/Repeater/Repeater";
 import Select2 from "@/src/common/FormElements/Select2/Select2";
-import Button from "@/src/common/FormElements/Button/Button";
 
 //Utils
 import { lang } from "@/src/common/Data/GlobalConstants";
@@ -16,7 +15,7 @@ import { lang } from "@/src/common/Data/GlobalConstants";
 const UpdateSponsor = ({name, formTools, ...props}) => {
 
     return (
-        <div className="px-4 border-start">
+        <div className="px-4">
                 <Repeater
                     formTools={formTools}
                     name={name}
@@ -65,10 +64,6 @@ const UpdateSponsor = ({name, formTools, ...props}) => {
                             </div>
                             
                         </section>
-
-                        <div className="col pr-0 flex-grow-0 text-secondary pt-1">
-                            <Button repeaterDeleteElem type="button" color="danger" size="slim">&#x2716;</Button>
-                        </div>
                     </article>
                 </Repeater>
                 

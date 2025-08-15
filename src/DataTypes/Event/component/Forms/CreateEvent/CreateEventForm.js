@@ -19,7 +19,7 @@ import {useAuth} from "@/src/authentification/context/auth-context";
 /**
  * @param {function} onPositiveResponse : Additionnal function to be executed if the submit response is positive
  */
-const CreateEventForm = ({ onPositiveResponse, initValues }) => {
+const CreateEventForm = ({ onPositiveResponse, initValues, ...props }) => {
 
     //Authentication ref
     const auth = useAuth();
@@ -120,8 +120,12 @@ const CreateEventForm = ({ onPositiveResponse, initValues }) => {
                     ]}
                 ]}
             />    
-            <div className="d-flex justify-content-end">
-                <Button disabled={!formState.isValid} type="button" onClick={submitHandler}>{lang.continue}</Button>
+            <div className="col-12">
+                <Button className="me-4" color="success" type="button" onClick={submitHandler} disabled={!formState.isValid}>{lang.submit}</Button>
+                {
+                    props?.closeModal && 
+                    <Button color="danger" type="button" onClick={props.closeModal()}>{lang.cancel}</Button>
+                }
             </div>
         </form>
     )

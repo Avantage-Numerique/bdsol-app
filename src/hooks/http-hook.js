@@ -1,6 +1,10 @@
 import {useCallback, useEffect, useRef, useState} from 'react';
 import {getUserHeadersFromUserSession, useAuth} from '@/auth/context/auth-context'
 import {lang} from "@/src/common/Data/GlobalConstants";
+import {useLoading} from "@/src/hooks/useLoading";
+
+const ORIGIN_BROWSER = "browser";
+const ORIGIN_SERVER = "server";
 
 /**
  * Fetch the external API with all the speficity of Server Side and Client side
@@ -13,8 +17,8 @@ export const externalApiRequest = async (path, params = {}) => {
 
     params.isBodyJson = params.isBodyJson === undefined ? true : params.isBodyJson;//par défault tout est JSON
 
-    const baseApiRoute = params.origin === "browser" ? process.env.API_URL : process.env.FROMSERVER_API_URL,
-        baseAppRoute = params.origin === "browser" ? process.env.APP_URL : process.env.FROMSERVER_APP_URL;
+    const baseApiRoute = params.origin === ORIGIN_BROWSER ? process.env.API_URL : process.env.FROMSERVER_API_URL,
+        baseAppRoute = params.origin === ORIGIN_BROWSER ? process.env.APP_URL : process.env.FROMSERVER_APP_URL;
 
     const defaultHeaders = { 'Origin': baseAppRoute },
         jsonHeaders = params.isBodyJson ? {'Content-Type': 'application/json'} : {};
@@ -64,7 +68,7 @@ export const externalApiRequest = async (path, params = {}) => {
  * @return {Promise<*>}
  */
 export const clientSideExternalApiRequest = async (path, params = {}) => {
-    params.origin = "browser";
+    params.origin = ORIGIN_BROWSER;
     return await externalApiRequest(path, params);
 }
 
@@ -73,8 +77,11 @@ export const clientSideExternalApiRequest = async (path, params = {}) => {
 //Main hook function called for every request made to the database
 export const useHttpClient = () => {
 
+    const {isLoading, setIsLoading, currentLoadingState, setCurrentLoadingState} = useLoading();
+
     //State that determine if the request is in progress
-    const [isLoading, setIsLoading] = useState(false);
+    //const [isLoading, setIsLoading] = useState(false);
+    //const [currentLoadingState, setLoadingState] = useState(LoadingStates.DEFAULT);
 
     //Access the authentication context
     const auth = useAuth();
@@ -144,5 +151,8 @@ export const useHttpClient = () => {
         };
     }, []);
 
-    return {isLoading, setIsLoading, sendRequest};
+    return {isLoading, setIsLoading, sendRequest, setCurrentLoadingState, currentLoadingState};
 };
+
+
+export {ORIGIN_SERVER, ORIGIN_BROWSER};

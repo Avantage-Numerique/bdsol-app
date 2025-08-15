@@ -16,7 +16,7 @@ import {useFieldTips} from '@/src/hooks/useFieldTips/useFieldTips';
  * @param props.tooltip {object} Contains the necessary data to display a tootip component
  * @param props.tooltip.header {string} Text of the tooltip header's content
  * @param props.tooltip.body {string} Text of the tooltip main's content
- * @param props.cardLayout {boolean} Boolean to display or not the current info with the card styling. 
+ * @param props.noCardLayout {boolean} Boolean  not display the current info with the card styling. (Change because better to default to cardLayout than not)
  * @param props.isSubtitle {boolean} Boolean to display as a title of a subtitle
  * @param props.displayCondition {boolean} Boolean that tell the component to display or not the children. This is for element that would be displayed but the children prop would still be considered true 
  * @return {JSX.Element}
@@ -32,7 +32,7 @@ const SingleInfo = props => {
         classNameTitle, 
         children, 
         tooltip,
-        cardLayout,
+        noCardLayout,
         displayCondition = true,
         isSubtitle = false
     } = props;
@@ -66,7 +66,7 @@ const SingleInfo = props => {
 
     return (
         <div className={`${styles["single-info-container"]} ${isSubtitle && "py-2"}`}> {/* Container with padding instead of margin to prevent "margin collapsing" */}
-            <section className={`${styles["single-info-layout"]} ${cardLayout && styles["cardLayout"]} ${!isFilled && styles["cardLayout--NA-border"]}  ${className}`}>
+            <section className={`${styles["single-info-layout"]} ${!noCardLayout ? styles["cardLayout"] : ""} ${!isFilled && styles["cardLayout--NA-border"]}  ${className}`}>
                 {(title || tooltip) &&
                     <header className='d-flex'>
                         <TitleTag className={`text-dark flex-grow-1 ${titleClass} ${isSubtitle ? styles["subtitle"] : styles["title"]} ${classNameTitle}`}>{title}</TitleTag>

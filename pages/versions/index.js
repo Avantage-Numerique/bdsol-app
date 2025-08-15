@@ -10,6 +10,33 @@ export async function getServerSideProps() {
     let versionsList = [];
     versionsList.push(
         {
+            "label": "Pagination",
+            "value": "1.0.2",
+            "date": "2025-02-17",
+            "description": "Optimisation et ajout de pagination avec le easy loading dans la page consulter les données.",
+            "notes": [
+                {
+                    "value": "Recherche et pagination grâce à l'aggrégation."
+                },
+                {
+                    "value": "Petits ajustements dans la structures."
+                },
+                {
+                    "value": "<strong>Équipe</strong>",
+                    "additionnalClasses": "pt-3 pb-2"
+                },
+                {
+                    "value": "<strong>Frédéric Rivard</strong>, Backend et front-end"
+                },
+                {
+                    "value": "<strong>Jeanne Perrin</strong> web design et UX"
+                },
+                {
+                    "value": "<strong>Marc-André Martin</strong>, Backend, front-end et responsable du développement"
+                }
+            ]
+        },
+        {
             "label": "Ajout du tracking avec Matomo et amélioration dans l'interface",
             "value": "1.0.1",
             "date": "2024-08-20",

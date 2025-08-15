@@ -22,7 +22,7 @@ import SingleInfo from '@/src/DataTypes/common/layouts/SingleInfo/SingleInfo';
 import {SingleEntityMeta} from '@/src/DataTypes/Meta/components/SingleEntityMeta';
 import UpdateSkillGroup from '@/src/DataTypes/common/Forms/UpdateSkillGroup/UpdateSkillGroup';
 import UpdateTeams from '../UpdateTeams/UpdateTeams';
-import SelectEquipment from '@/src/DataTypes/Equipment/components/layouts/SelectEquipment/SelectEquipment';
+import UpdateEquipment from '@/src/DataTypes/Equipment/components/layouts/UpdateEquipment/UpdateEquipment';
 import UpdateSocialHandles from '@/src/DataTypes/common/Forms/UpdateSocialHandles/UpdateSocialHandles';
 import SingleSaveEntityReminder from '@/src/DataTypes/common/layouts/SingleSaveEntityReminder/SingleSaveEntityReminder';
 import UpdateContactPoint from '@/src/DataTypes/common/Forms/UpdateContactPoint/UpdateContactPoint';
@@ -316,6 +316,7 @@ const OrganisationSingleEdit = (props) => {
         <SingleInfo
             title={lang.about}
             classNameTitle="mb-0"
+            noCardLayout
         >
             <RichTextarea
                 className="py-3"
@@ -353,7 +354,7 @@ const OrganisationSingleEdit = (props) => {
             <SingleInfo
                 title={lang.EquipmentsOwned}
             >
-                <SelectEquipment 
+                <UpdateEquipment 
                     name="equipment"
                     formTools={formTools}
                     parentEntity={props.data}
@@ -372,10 +373,7 @@ const OrganisationSingleEdit = (props) => {
                 />
             </SingleInfo>
 
-            <SingleInfo
-                title="Informations supplémentaires"
-                cardLayout
-            >
+            <SingleInfo title="Informations supplémentaires">
                 <Select 
                     name="region"
                     label="Faites-vous partie du Croissant boréal?"
@@ -395,51 +393,46 @@ const OrganisationSingleEdit = (props) => {
                     ]}
                     //defaultValue="Autre"
                 />
-                <SingleInfo>
-                    <Select2
-                        name="location"
-                        label={lang.location}
-                        formTools={formTools}
-                        creatable={true}
-                        modalType={TYPE_PLACE}
-                        isMulti={true}
+                <Select2
+                    name="location"
+                    label={lang.location}
+                    formTools={formTools}
+                    creatable={true}
+                    modalType={TYPE_PLACE}
+                    isMulti={true}
 
-                        fetch={"/places/list"}
-                        searchField={["address", "name"]}
-                        //selectField={"address"}
-                    />
-                </SingleInfo>
+                    fetch={"/places/list"}
+                    searchField={["address", "name"]}
+                    //selectField={"address"}
+                />
 
-                <SingleInfo>
-                    <Select2
-                        name="domains"
-                        label={lang.Domains}
-                        formTools={formTools}
-                        creatable={true}
-                        modalType={TYPE_TAXONOMY}
-                        allowedCategories={["domains"]}
-                        isMulti={true}
+                <Select2
+                    name="domains"
+                    label={lang.Domains}
+                    formTools={formTools}
+                    creatable={true}
+                    modalType={TYPE_TAXONOMY}
+                    allowedCategories={["domains"]}
+                    isMulti={true}
 
-                        placeholder={lang.domainsInputPlaceholder}
-                        fetch={"/taxonomies/list"}
-                        requestData={{category:"domains", name:""}}
-                        searchField={"name"}
-                        selectField={"domains"}
-                    />
-                </SingleInfo>
+                    placeholder={lang.domainsInputPlaceholder}
+                    fetch={"/taxonomies/list"}
+                    requestData={{category:"domains", name:""}}
+                    searchField={"name"}
+                    selectField={"domains"}
+                />
 
-                <SingleInfo>
-                    <Input
-                        name="fondationDate"
-                        label="Date de fondation"
-                        type="date"
-                        formTools={formTools}
-                    />
-                </SingleInfo>
+                <Input
+                    name="fondationDate"
+                    label="Date de fondation"
+                    type="date"
+                    formTools={formTools}
+                />
 
                 <SingleInfo
                     title={lang.externalLinks}
                     isSubtitle
+                    noCardLayout
                 >
                     { /* Url */}
                     <UpdateSocialHandles
@@ -460,7 +453,7 @@ const OrganisationSingleEdit = (props) => {
                 (createdAt || updatedAt || meta) &&
                 <SingleInfo 
                     title={lang.entityMetadata} 
-                    className="border-top pt-3"
+                    className="pt-3"
                 >
                     {/*********** Entity data ***********/}
                     <SingleEntityMeta createdAt={createdAt} updatedAt={updatedAt} meta={meta} />
@@ -471,7 +464,12 @@ const OrganisationSingleEdit = (props) => {
 
 
     const SinglePageBottom = (
-        <SubmitEntity submitHandler={() => {setSaveIntentionState(true); modalSaveEntityReminder.displayModal()}} formState={formState} />
+        <SubmitEntity
+            submitHandler={() => {setSaveIntentionState(true);
+            modalSaveEntityReminder.displayModal()}}
+            formState={formState}
+            singleLink={model.singleLink}
+        />
     )
 
 

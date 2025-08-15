@@ -12,7 +12,8 @@ const equipment = {
     "allEquipmentDescription" : "Les équipements listés peuvent être liés à des organisations, des projets ou d'autre entité du milieu culturel.",
 
     "EditEquipment": "Éditez les équipements",
-    "equipmentType":"Type d'équipement",
+    "equipmentType":"type d'équipement",
+    "EquipmentType":"Type d'équipement",
     "label": "Nom du produit",
     "description": "Description",
     "brand": "Marque",

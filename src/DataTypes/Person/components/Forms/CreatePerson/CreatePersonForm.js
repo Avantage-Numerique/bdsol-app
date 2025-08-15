@@ -19,7 +19,7 @@ import styles from './CreatePersonForm.module.scss'
 import {getDefaultCreateEntityMeta} from "@/src/DataTypes/Meta/EntityMeta";
 
 
-const CreatePersonForm = ({ onPositiveResponse }) => {
+const CreatePersonForm = ({ onPositiveResponse, ...props }) => {
     
     //Authentication ref
     const auth = useAuth();
@@ -120,8 +120,12 @@ const CreatePersonForm = ({ onPositiveResponse }) => {
                 formTools={formTools}
             />
             </div>
-            <div className="d-flex justify-content-end">
-                <Button disabled={!formState.isValid} type="button" onClick={submitHandler}>{lang.continue}</Button>
+            <div className="col-12">
+                <Button className="me-4" color="success" type="button" onClick={submitHandler} disabled={!formState.isValid}>{lang.submit}</Button>
+                {
+                    props?.closeModal && 
+                    <Button color="danger" type="button" onClick={props.closeModal()}>{lang.cancel}</Button>
+                }
             </div>
         </form> 
     );
