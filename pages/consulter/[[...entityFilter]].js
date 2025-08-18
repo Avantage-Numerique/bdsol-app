@@ -333,14 +333,13 @@ export const dynamicRouteHandler = async ({params, query, req, res }) => {
     } : {};
 
     const ssrDataFirstLoad = await searchByType(ORIGIN_SERVER, targetEntityType, additionalParams);
-
     return {
         props: {
             pages: queryPage,
             entityFilters: params.entityFilter ?? ['tous'],
             allQueries: query,
             ssrData: ssrDataFirstLoad,
-            ...badges
+            badgesInfo: badges
         }
     }
 };
