@@ -47,6 +47,15 @@ const Layout = ( {children, pageProps} ) => {
 
     // TEMPLATE Selection, set the tempalte vars in getStaticProps from the templatesEnum
     const currentTemplate = pageProps.template ? templates.get(pageProps.template) : templates.get(templatesEnum.DEFAULT);
+
+    /**
+     * @deprecated usefull but trigger a re-render because of the function. And All state a re-render.
+     * @param Component
+     * @param componentProps
+     * @param children
+     * @returns {JSX.Element}
+     * @constructor
+     */
     const TemplateRenderer = ({ Component, componentProps, children }) => {
         return (
             <Component {...componentProps}>
@@ -121,11 +130,11 @@ const Layout = ( {children, pageProps} ) => {
 
                 {/* Defining contextes to be passed along children */}
                 <ModalContext.Provider value={{modalTools: modalTools}}>
-                    <MessageContext.Provider value={{addMessage: addMessage}}>
-                        <TemplateRenderer Component={currentTemplate.Component} componentProps={currentTemplate.props}>
+                    <currentTemplate.Component {...currentTemplate.props}>
+                        <MessageContext.Provider value={{addMessage: addMessage}}>
                             { children }
-                        </TemplateRenderer>
-                    </MessageContext.Provider>
+                        </MessageContext.Provider>
+                    </currentTemplate.Component>
                 </ModalContext.Provider>
                 <Footer />
                 

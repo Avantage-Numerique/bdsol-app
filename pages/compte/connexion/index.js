@@ -13,7 +13,7 @@ import backgroundImg from '@/public/general_images/fusee-planetes-pointilles2-90
  * To set the wrapper template within the Layout component
  * @returns {Promise<{props: {template: string}}>}
  */
-export async function getStaticProps() {
+export async function getServerSideProps() {
     return {
         props: {
             template: templatesEnum.FULL_WIDTH,
