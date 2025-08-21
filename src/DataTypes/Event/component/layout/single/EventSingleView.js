@@ -144,6 +144,7 @@ const EventSingleView = ({data}) => {
                         <SingleInfo 
                             title={lang.producer}
                             isSubtitle
+                            noCardLayout
                         >
                             {model.organizer && 
                                 <EntitiesTagGrid 
