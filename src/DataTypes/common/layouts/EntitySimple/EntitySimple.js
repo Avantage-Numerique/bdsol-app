@@ -160,7 +160,7 @@ const EntitySimple = (props) => {
                                     if (tag) {
                                         totalCharacters += tag.length ?? 0;
                                         Tag = (
-                                            <li key={tag} title={tag} className="rounded bg-general-tag">{tag}</li>
+                                            <li key={`${tag}${index}`} title={tag} className="rounded bg-general-tag">{tag}</li>
                                         );
                                     }
                                 }
