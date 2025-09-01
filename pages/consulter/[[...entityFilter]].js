@@ -29,11 +29,11 @@ import {useLoading} from "@/src/hooks/useLoading";
 
 const ConsultData = (props) => {
 
-    //  # INIT SEQ
-        //set state list
-        //set state filters
-        //set pagination meta
-        //set init REF constants.
+    // # INIT SEQ
+    // - set state list
+    // - set state filters
+    // - set pagination meta
+    // - set init REF constants.
 
     const uriEntities = props.entityFilters;
     const router = useRouter();
@@ -59,6 +59,10 @@ const ConsultData = (props) => {
         };
     }
 
+    const currentQueryEntityFilter = () => {
+        return Array.isArray(router.query.entityFilter) && router.query.entityFilter.length > 0 ? router.query.entityFilter[0] : "all";
+    }
+
     //React state doesnt force re-render when the value is directly set (not via the function.
     const initPaginationMeta = {
         count: props.ssrData.meta?.pagination.count,
@@ -67,15 +71,25 @@ const ConsultData = (props) => {
         type: props.ssrData.meta?.pagination.type,
         pageCount: props.ssrData.meta?.pagination.pageCount,
         currentPage: props.ssrData.meta?.pagination.currentPage,
-        currentCount: props.ssrData?.data?.length ?? 0,
+        currentCount: props.ssrData?.data?.length ?? Number(0)
     };
 
-    //States | Changing one will re-render the component and its children
-    const [filterState, setFilterState] = useState(filters.get(uriEntities[0]) ?? "all");
+
+    const currentEntityFilter = currentQueryEntityFilter();
+    const [filterState, setFilterState] = useState(filters.get(currentEntityFilter));
     const {currentLoadingState, setCurrentLoadingState} = useLoading();
+
+    const SSRCurrentData = {
+        list : props.ssrData.data ?? [],
+        paginationMeta: initPaginationMeta,
+        entities: [filters.get(currentEntityFilter)]
+    }
+
     const [consultData, setConsultData] = useState({
         list : props.ssrData.data ?? [],
-        paginationMeta: initPaginationMeta
+        paginationMeta: initPaginationMeta,
+        entities: [filters.get(currentEntityFilter)]
+        //here would be the filters
     });
 
     /**
@@ -93,7 +107,7 @@ const ConsultData = (props) => {
             routerParams.search = `?page=${currentPage}`;
         }
 
-        await router.push(routerParams)//, undefined, { shallow: true }
+        await router.replace(routerParams)//, undefined, { shallow: true }
     }
 
     /**
@@ -102,11 +116,9 @@ const ConsultData = (props) => {
      * @returns {Promise<void>}
      */
     const btnFilterOnClickHandler = async (type) => {
-        setCurrentLoadingState(LoadingStates.LOADING);
-        setFilterState(type);
-        const targetType = filtersUrl.get(type);
-
-        await filtersRouteHandler(targetType, consultData.paginationMeta.currentPage);
+        //setFilterState(type);
+        const targetTypeUrl = filtersUrl.get(type);
+        await filtersRouteHandler(targetTypeUrl, SSRCurrentData.paginationMeta.currentPage);
     }
 
     /**
@@ -155,14 +167,26 @@ const ConsultData = (props) => {
     }
 
     /**
-     * When a first render is done, we update the ref to know that the first occured. But with the optimisations of state change in the component, we don't need yet that ref.
+     * When the router.query change, trigger that.
      */
     useEffect(()=> {
-        //First render => ignore this use effect
+
+        //only update the entities
+
+        /*setConsultData({
+            list: [...consultData.list],
+            paginationMeta: {...consultData.paginationMeta},
+            entities: [filters.get(currentQueryEntityFilter())]
+        });*/
+        //setCurrentLoadingState(LoadingStates.LOADING_COMPLETE);
+    },[false, router.query]);
+
+
+    useEffect(()=> {
         if(isFirstRenderRef.current){
             isFirstRenderRef.current = false;
         }
-    },[filterState]);
+    },[]);
 
     /**
      * Used in pagination to fetch on client side the new elements to feed the entitygrid. Change the consultData state to force the rerender.
@@ -178,12 +202,12 @@ const ConsultData = (props) => {
         const list = res.data;
         let newList;
 
-        if (clearListRef.current){
+        if (clearListRef.current) {
             newList = list;
             //setClearList(false);//always set the list as is for now.
         }
         else {
-            newList = isIterable(list) ? [...consultData.list, ...list] : [...consultData.list];//if list is an object, put it in, or use only the entitylist
+            newList = isIterable(list) ? [...SSRCurrentData.list, ...list] : [...SSRCurrentData.list];//if list is an object, put it in, or use only the entitylist
         }
 
         const totalCurrentCount = newList.length;
@@ -191,8 +215,9 @@ const ConsultData = (props) => {
 
         setConsultData({
             list: newList,
-            paginationMeta: currentPaginiationMeta
-        })
+            paginationMeta: currentPaginiationMeta,
+            entities: [filters.get(currentEntityFilter)]
+        });
 
         updateUrlQueryWithCurrentPage(currentPaginiationMeta);
 
@@ -216,11 +241,11 @@ const ConsultData = (props) => {
                 <Spinner label={currentLoadingState.label} fixed={false} absolute={false} className={"rounded-2 bg-primary-lighter"} loadingState={currentLoadingState} />
             }
             {
-                consultData.list?.length > 0 &&
+                SSRCurrentData.list?.length > 0 &&
                 <EntitiesGrid
                     className={"row"}
                     columnClass={"col-12 col-sm-6 col-lg-4 col-xl-3 g-4 "}
-                    feed={consultData.list.filter(el => el.type !== "Taxonomy")}
+                    feed={SSRCurrentData.list.filter(el => el.type !== "Taxonomy")}
                     badgesInfo={props.badgesInfo}
                 />
             }
@@ -229,7 +254,7 @@ const ConsultData = (props) => {
             }
             {
                 (currentLoadingState.state === LoadingStates.LOADING_COMPLETE.state || currentLoadingState.state === LoadingStates.DEFAULT.state) &&
-                consultData.list?.length <= 0 &&
+                SSRCurrentData.list?.length <= 0 &&
                 <div className={"alert alert-primary p-4 text-center"}>{lang.listNoResult}</div>
             }
         </div>
@@ -269,7 +294,7 @@ const ConsultData = (props) => {
                                             }
                                         </div>
                                         <div>
-                                            <span>Filtre&nbsp;(état)&nbsp;:&nbsp;</span><span>{filterState}</span>
+                                            <span>Filtre&nbsp;(état)&nbsp;:&nbsp;</span><span>{JSON.stringify(SSRCurrentData.entities)}</span>
                                         </div>
                                         <div>
                                             <span>Loading state&nbsp;:&nbsp;</span><span>{currentLoadingState.label}</span>
@@ -280,12 +305,12 @@ const ConsultData = (props) => {
                         </section>
 
                         <div style={{gap: "1rem"}} className="d-flex flex-wrap justify-content-center">
-                            {filters.size > 0 &&
+                            { SSRCurrentData.entities && filters.size > 0 &&
                                 Array.from(filters).map(([slug, type]) => {
                                     return (
                                         <Button className="mx-1 rounded flex-grow-1"
-                                                color={filterState === type ? "secondary" : null}
-                                                outline={filterState === type ? null : "secondary"}
+                                                color={Array.isArray(SSRCurrentData.entities) && SSRCurrentData.entities.includes(type) ? "secondary" : null}
+                                                outline={Array.isArray(SSRCurrentData.entities) && SSRCurrentData.entities.includes(type) ? null : "secondary"}
                                                 text_color_over="dark"
                                                 onClick={() => btnFilterOnClickHandler(type)}
                                                 id={"filter-btn-"+type}
@@ -300,12 +325,33 @@ const ConsultData = (props) => {
                 </section>
             </section>
             <Pagination
-                paginationMeta={consultData.paginationMeta}
+                paginationMeta={SSRCurrentData.paginationMeta}
                 setClearList={setClearList}
                 pageBtnClickHandler={btnPageOnClickHandler}
                 loadMore={false}
             >
-                {entityGrid}
+                <div className="py-4 position-relative">
+                    {currentLoadingState.state === LoadingStates.LOADING.state &&
+                        <Spinner label={currentLoadingState.label} fixed={false} absolute={false} className={"rounded-2 bg-primary-lighter"} loadingState={currentLoadingState} />
+                    }
+                    {
+                        SSRCurrentData.list?.length > 0 &&
+                        <EntitiesGrid
+                            className={"row"}
+                            columnClass={"col-12 col-sm-6 col-lg-4 col-xl-3 g-4 "}
+                            feed={SSRCurrentData.list.filter(el => el.type !== "Taxonomy")}
+                            badgesInfo={props.badgesInfo}
+                        />
+                    }
+                    {currentLoadingState.state === LoadingStates.LOADING_MORE.state &&
+                        <Spinner label={currentLoadingState.label} fixed={false} absolute={false} className={"rounded-2 bg-primary-lighter"} loadingState={currentLoadingState} />
+                    }
+                    {
+                        (currentLoadingState.state === LoadingStates.LOADING_COMPLETE.state || currentLoadingState.state === LoadingStates.DEFAULT.state) &&
+                        SSRCurrentData.list?.length <= 0 &&
+                        <div className={"alert alert-primary p-4 text-center"}>{lang.listNoResult}</div>
+                    }
+                </div>
             </Pagination>
         </div>
     )
