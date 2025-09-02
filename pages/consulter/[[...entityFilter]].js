@@ -26,6 +26,7 @@ import {paginationConfig} from "@/src/configs/PaginationConfigs";
 import PageHeader from "@/layouts/Header/PageHeader";
 import Button from "@/src/common/FormElements/Button/Button";
 import {useLoading} from "@/src/hooks/useLoading";
+import useConsultData, {buildPaginationMeta} from "@/src/hooks/useConsultData";
 
 const ConsultData = (props) => {
 
@@ -41,56 +42,24 @@ const ConsultData = (props) => {
     const clearListRef = useRef(true);//for now always shows only what is fetched.
     const isFirstRenderRef = useRef(true);
 
-    /**
-     * Construct the pagination meta from target API return.
-     * @param pagination {Object}
-     * @param total {Number}
-     * @returns {{count, skipped: any, limit, type, pageCount: *, currentPage: (number|*), currentCount}}
-     */
-    const buildPaginationMeta = (pagination, total) => {
-        return {
-            count: pagination.count,
-            skipped: pagination.skipped,
-            limit: pagination.limit,
-            type: pagination.type,
-            pageCount: pagination.pageCount,
-            currentPage: pagination.currentPage,
-            currentCount: total,
-        };
+
+    const currentQueryEntityFilterUrl = () => {
+        return Array.isArray(router.query.entityFilter) && router.query.entityFilter.length > 0 ? router.query.entityFilter[0] : "tous";
     }
 
-    const currentQueryEntityFilter = () => {
-        return Array.isArray(router.query.entityFilter) && router.query.entityFilter.length > 0 ? router.query.entityFilter[0] : "all";
-    }
 
-    //React state doesnt force re-render when the value is directly set (not via the function.
-    const initPaginationMeta = {
-        count: props.ssrData.meta?.pagination.count,
-        skipped: props.ssrData.meta?.pagination.skipped,
-        limit: props.ssrData.meta?.pagination.limit,
-        type: props.ssrData.meta?.pagination.type,
-        pageCount: props.ssrData.meta?.pagination.pageCount,
-        currentPage: props.ssrData.meta?.pagination.currentPage,
-        currentCount: props.ssrData?.data?.length ?? Number(0)
-    };
-
-
-    const currentEntityFilter = currentQueryEntityFilter();
-    const [filterState, setFilterState] = useState(filters.get(currentEntityFilter));
+    const currentEntityFilterUrl = currentQueryEntityFilterUrl();
+    //const [filterState, setFilterState] = useState(filters.get(currentEntityFilterUrl));
     const {currentLoadingState, setCurrentLoadingState} = useLoading();
 
-    const SSRCurrentData = {
+    /*const SSRCurrentData = {
         list : props.ssrData.data ?? [],
         paginationMeta: initPaginationMeta,
         entities: [filters.get(currentEntityFilter)]
-    }
+    }*/
+    const [consultData, updateConsultData] = useConsultData(props, filters.get(currentEntityFilterUrl));
+    //const [consultData, setConsultData] = useState({...SSRCurrentData});
 
-    const [consultData, setConsultData] = useState({
-        list : props.ssrData.data ?? [],
-        paginationMeta: initPaginationMeta,
-        entities: [filters.get(currentEntityFilter)]
-        //here would be the filters
-    });
 
     /**
      * Utils to manage changes on the entityFilter, only used in btn filter on click handler.
@@ -98,16 +67,16 @@ const ConsultData = (props) => {
      * @param currentPage
      * @returns {Promise<void>}
      */
-    const filtersRouteHandler = async (entityFilter, currentPage) => {
+    const filtersRouteHandler = async (entityFilterUrl, currentPage) => {
         const routerParams = {
-            pathname: '/consulter/'+entityFilter,
+            pathname: '/consulter/'+entityFilterUrl,
         }
 
-        if (currentPage > 1 && filters.get(entityFilter) === filterState) {
+        if (currentPage > 1 && consultData.entities.includes(filters.get(entityFilterUrl))) {
             routerParams.search = `?page=${currentPage}`;
         }
 
-        await router.replace(routerParams)//, undefined, { shallow: true }
+        await router.push(routerParams)//, undefined, { shallow: true }
     }
 
     /**
@@ -118,7 +87,7 @@ const ConsultData = (props) => {
     const btnFilterOnClickHandler = async (type) => {
         //setFilterState(type);
         const targetTypeUrl = filtersUrl.get(type);
-        await filtersRouteHandler(targetTypeUrl, SSRCurrentData.paginationMeta.currentPage);
+        await filtersRouteHandler(targetTypeUrl, consultData.paginationMeta.currentPage);
     }
 
     /**
@@ -127,6 +96,7 @@ const ConsultData = (props) => {
      */
     const btnPageOnClickHandler = (targetPage) => {
         sendApiListRequest(Math.abs(targetPage-1) * paginationConfig.pageSize);
+
     }
 
     /**
@@ -154,11 +124,11 @@ const ConsultData = (props) => {
 
         const queryVars = new URLSearchParams(currentQuery);
         if (window)
-            window.history.pushState({ page: currentPage }, '', `/consulter/${filtersUrl.get(filterState)}${queryVars.toString() !== "" ? "?" : ""}${queryVars.toString()}`);
+            window.history.pushState({ page: currentPage }, '', `/consulter/${filtersUrl.get(consultData.entities[0])}${queryVars.toString() !== "" ? "?" : ""}${queryVars.toString()}`);
 
         //using the router call a rerender an change the states. Even with shallow. An old discussion : https://github.com/vercel/next.js/discussions/18072
         /*router.push({
-            pathname: router.pathname,//'/consulter/'+filtersUrl.get(filterState)
+            pathname: '/consulter/'+filtersUrl.get(consultData.entities[0]),
             query: currentQuery,
         }, undefined, {
             shallow: true,
@@ -172,14 +142,13 @@ const ConsultData = (props) => {
     useEffect(()=> {
 
         //only update the entities
-
         /*setConsultData({
             list: [...consultData.list],
             paginationMeta: {...consultData.paginationMeta},
             entities: [filters.get(currentQueryEntityFilter())]
         });*/
         //setCurrentLoadingState(LoadingStates.LOADING_COMPLETE);
-    },[false, router.query]);
+    },[router.query]);
 
 
     useEffect(()=> {
@@ -197,7 +166,8 @@ const ConsultData = (props) => {
         //setIsLoading(true);
         setCurrentLoadingState(LoadingStates.LOADING);
         const targetSkip = directSkipNumber ?? 0;
-        const res = await searchByType(ORIGIN_BROWSER, filterState, {skip:targetSkip});
+        console.log("sendApiListRequest", directSkipNumber, "filter entities", consultData.entities[0]);
+        const res = await searchByType(ORIGIN_BROWSER, consultData.entities[0], {skip:targetSkip});
 
         const list = res.data;
         let newList;
@@ -207,21 +177,22 @@ const ConsultData = (props) => {
             //setClearList(false);//always set the list as is for now.
         }
         else {
-            newList = isIterable(list) ? [...SSRCurrentData.list, ...list] : [...SSRCurrentData.list];//if list is an object, put it in, or use only the entitylist
+            newList = isIterable(list) ? [...consultData.list, ...list] : [...consultData.list];//if list is an object, put it in, or use only the entitylist
         }
 
         const totalCurrentCount = newList.length;
         const currentPaginiationMeta = buildPaginationMeta(res?.meta?.pagination, totalCurrentCount);
 
-        setConsultData({
-            list: newList,
-            paginationMeta: currentPaginiationMeta,
-            entities: [filters.get(currentEntityFilter)]
+        //the csr function in useConsultData.
+        updateConsultData({
+            list: [...newList],
+            paginationMeta: {...currentPaginiationMeta},
+            entities: [consultData.entities[0]]
         });
 
         updateUrlQueryWithCurrentPage(currentPaginiationMeta);
 
-        //setShowApplyBtn(false);//loadmore method. To be implemented later on.
+        //setShowApplyBtn(false);//loadmore method. To be implemented later on with the new hybrid ssr + csr mode.
         setCurrentLoadingState(LoadingStates.LOADING_COMPLETE);
     }
 
@@ -241,11 +212,11 @@ const ConsultData = (props) => {
                 <Spinner label={currentLoadingState.label} fixed={false} absolute={false} className={"rounded-2 bg-primary-lighter"} loadingState={currentLoadingState} />
             }
             {
-                SSRCurrentData.list?.length > 0 &&
+                consultData.list?.length > 0 &&
                 <EntitiesGrid
                     className={"row"}
                     columnClass={"col-12 col-sm-6 col-lg-4 col-xl-3 g-4 "}
-                    feed={SSRCurrentData.list.filter(el => el.type !== "Taxonomy")}
+                    feed={consultData.list.filter(el => el.type !== "Taxonomy")}
                     badgesInfo={props.badgesInfo}
                 />
             }
@@ -254,7 +225,7 @@ const ConsultData = (props) => {
             }
             {
                 (currentLoadingState.state === LoadingStates.LOADING_COMPLETE.state || currentLoadingState.state === LoadingStates.DEFAULT.state) &&
-                SSRCurrentData.list?.length <= 0 &&
+                consultData.list?.length <= 0 &&
                 <div className={"alert alert-primary p-4 text-center"}>{lang.listNoResult}</div>
             }
         </div>
@@ -294,7 +265,7 @@ const ConsultData = (props) => {
                                             }
                                         </div>
                                         <div>
-                                            <span>Filtre&nbsp;(état)&nbsp;:&nbsp;</span><span>{JSON.stringify(SSRCurrentData.entities)}</span>
+                                            <span>Filtre&nbsp;(état)&nbsp;:&nbsp;</span><span>{JSON.stringify(consultData.entities)}</span>
                                         </div>
                                         <div>
                                             <span>Loading state&nbsp;:&nbsp;</span><span>{currentLoadingState.label}</span>
@@ -305,12 +276,12 @@ const ConsultData = (props) => {
                         </section>
 
                         <div style={{gap: "1rem"}} className="d-flex flex-wrap justify-content-center">
-                            { SSRCurrentData.entities && filters.size > 0 &&
+                            { consultData.entities && filters.size > 0 &&
                                 Array.from(filters).map(([slug, type]) => {
                                     return (
                                         <Button className="mx-1 rounded flex-grow-1"
-                                                color={Array.isArray(SSRCurrentData.entities) && SSRCurrentData.entities.includes(type) ? "secondary" : null}
-                                                outline={Array.isArray(SSRCurrentData.entities) && SSRCurrentData.entities.includes(type) ? null : "secondary"}
+                                                color={Array.isArray(consultData.entities) && consultData.entities.includes(type) ? "secondary" : null}
+                                                outline={Array.isArray(consultData.entities) && consultData.entities.includes(type) ? null : "secondary"}
                                                 text_color_over="dark"
                                                 onClick={() => btnFilterOnClickHandler(type)}
                                                 id={"filter-btn-"+type}
@@ -325,7 +296,7 @@ const ConsultData = (props) => {
                 </section>
             </section>
             <Pagination
-                paginationMeta={SSRCurrentData.paginationMeta}
+                paginationMeta={consultData.paginationMeta}
                 setClearList={setClearList}
                 pageBtnClickHandler={btnPageOnClickHandler}
                 loadMore={false}
@@ -335,11 +306,11 @@ const ConsultData = (props) => {
                         <Spinner label={currentLoadingState.label} fixed={false} absolute={false} className={"rounded-2 bg-primary-lighter"} loadingState={currentLoadingState} />
                     }
                     {
-                        SSRCurrentData.list?.length > 0 &&
+                        consultData.list?.length > 0 &&
                         <EntitiesGrid
                             className={"row"}
                             columnClass={"col-12 col-sm-6 col-lg-4 col-xl-3 g-4 "}
-                            feed={SSRCurrentData.list.filter(el => el.type !== "Taxonomy")}
+                            feed={consultData.list.filter(el => el.type !== "Taxonomy")}
                             badgesInfo={props.badgesInfo}
                         />
                     }
@@ -348,7 +319,7 @@ const ConsultData = (props) => {
                     }
                     {
                         (currentLoadingState.state === LoadingStates.LOADING_COMPLETE.state || currentLoadingState.state === LoadingStates.DEFAULT.state) &&
-                        SSRCurrentData.list?.length <= 0 &&
+                        consultData.list?.length <= 0 &&
                         <div className={"alert alert-primary p-4 text-center"}>{lang.listNoResult}</div>
                     }
                 </div>
