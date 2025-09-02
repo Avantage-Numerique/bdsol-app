@@ -44,7 +44,7 @@ const ConsultData = (props) => {
 
 
     const currentQueryEntityFilterUrl = () => {
-        return Array.isArray(router.query.entityFilter) && router.query.entityFilter.length > 0 ? router.query.entityFilter[0] : "tous";
+        return Array.isArray(props.entityFilters) && props.entityFilters.length > 0 ? props.entityFilters[0] : "tous";
     }
 
 
@@ -135,6 +135,8 @@ const ConsultData = (props) => {
             scroll: false
         });*/
     }
+
+    console.log("Rendering main page", "currentEntityFilterUrl", currentEntityFilterUrl)
 
     /**
      * When the router.query change, trigger that.
