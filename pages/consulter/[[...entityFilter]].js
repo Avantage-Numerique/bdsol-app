@@ -75,7 +75,7 @@ const ConsultData = (props) => {
         if (currentPage > 1 && consultData.entities.includes(filters.get(entityFilterUrl))) {
             routerParams.search = `?page=${currentPage}`;
         }
-
+        setCurrentLoadingState(LoadingStates.LOADING);
         await router.push(routerParams)//, undefined, { shallow: true }
     }
 
@@ -149,7 +149,7 @@ const ConsultData = (props) => {
             paginationMeta: {...consultData.paginationMeta},
             entities: [filters.get(currentQueryEntityFilter())]
         });*/
-        //setCurrentLoadingState(LoadingStates.LOADING_COMPLETE);
+        setCurrentLoadingState(LoadingStates.LOADING_COMPLETE);
     },[router.query]);
 
 
