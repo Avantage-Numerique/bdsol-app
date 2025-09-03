@@ -47,13 +47,24 @@ const Nav = ( {menuState, setMenuState} ) => {
     }, [router.asPath]);
 
     /**
-     * Handle all the MainNavButton, check if we've click the current pagge. And force the close menu state.
+     * Handle all the MainNavButton, check if we've click the current page. And force the close menu state.
+     * Also redirect, instead of href in the button
      * The use Effect still applies.
      * @param path
      */
     const navLinkHandler = (path) => {
         if (router.asPath === path) {
             setMenuState(false);
+            return;
+        }
+
+        //Handles redirect after login
+        if (path === AppRoutes.connection.asPath){
+            const redirectTo = encodeURIComponent(router.asPath);
+            router.push(`${path}?redirect=${redirectTo}`);
+        }
+        else {
+            router.push(path);
         }
     };
 

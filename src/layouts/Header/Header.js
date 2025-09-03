@@ -1,6 +1,7 @@
 import {useEffect, useState} from 'react'
 import Image from "next/image";
 import Link from 'next/link';
+import {useRouter} from 'next/router'
 
 //Components
 import HamburgerButton from '@/src/common/FormElements/HamburgerButton/HamburgerButton';
@@ -28,6 +29,8 @@ const Header = (props) => {
 
     //Import the authentication context to make sure the user is well connected
     const auth = useAuth();
+    //For redirect on login page
+    const router = useRouter();
 
     //Window scrolling position 
     const [windowScrollTop, setWindowScrollTop] = useState(true)
@@ -83,7 +86,7 @@ const Header = (props) => {
                                         <a href={AppRoutes.register.asPath} className={"nav-link text-black d-none d-md-block text-nowrap"}>{lang.menuSubscribeLabel}</a>
                                     </li>
                                     <li>
-                                        <a href={AppRoutes.connection.asPath} className={`nav-link text-black text-nowrap`}>{lang.menuConnectLabel}</a>
+                                        <a href={AppRoutes.connection.asPath+`?redirect=${encodeURI(router.asPath)}`} className={`nav-link text-black text-nowrap`}>{lang.menuConnectLabel}</a>
                                     </li>
                                 </ul>
                             }

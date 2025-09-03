@@ -30,8 +30,9 @@ export default function MainNavButton(props) {
 
     const textColor = params?.textColor ?? "dark";
     const href = `${route.asPath}${suffix ?? ""}`;
+    //NOTE: I removed href param, because it's handled by the handler function.
     return (
-        <Button text_color={textColor} href={href} className={className ?? ""} onClick={() => handler(href)}>
+        <Button text_color={textColor} className={className ?? ""} onClick={() => handler(href)}>
             <>
                 {iconClassName &&
                     <i className={`${iconClassName}`} />
