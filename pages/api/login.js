@@ -5,6 +5,7 @@ import {getVisitorDataFromRequest} from "@/auth/context/visitor-context";
 import appRoutes from "@/src/Routing/AppRoutes";
 import {lang} from "@/common/Data/GlobalConstants";
 
+
 export default withSessionRoute(loginRoute);
 
 async function loginRoute(req, res) {
@@ -32,13 +33,24 @@ async function loginRoute(req, res) {
             ...sessionUser,
             ...visitor
         };
-
+        
         await req.session.save();
+
+        //catch the redirect param to redirect user
+        const referer = req.headers.referer;
+        let redirect = '/'; //Default to home
+        if(referer) {
+            const url = new URL(referer);
+            const redirectParam = url.searchParams.get('redirect');
+            if(redirectParam){
+                redirect = redirectParam;
+            }
+        }
 
         res.send({
             text: response.message,
             positive: !response.error,
-            redirectUri: response.error ? appRoutes.connection.asPath : appRoutes.accueil.asPath,
+            redirectUri: response.error ? appRoutes.connection.asPath : redirect,
             user: sessionUser
         });
         return;

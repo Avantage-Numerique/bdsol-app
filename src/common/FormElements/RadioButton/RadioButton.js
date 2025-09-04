@@ -44,13 +44,13 @@ const RadioButton = ({name, formTools, ...props}) => {
     function createRadioGroup(){
         const radioBtnArray = [];
         //Build radio button per options
-        props.options.forEach(elem => {
+        props.options.forEach((elem, index) => {
             //Return if options are incomplete
             if (elem?.value == undefined || elem?.label == undefined)
                 return;
             
             radioBtnArray.push(
-                <label className="pe-3">
+                <label className="pe-3" key={"radioBtn-"+name+" -"+index}>
                     <input
                         className="m-2"
                         type="radio"

@@ -1,6 +1,7 @@
-import {useEffect, useState} from 'react'
+import { useEffect, useState } from 'react'
 import Image from "next/image";
 import Link from 'next/link';
+import { useRouter } from 'next/router'
 
 //Components
 import HamburgerButton from '@/src/common/FormElements/HamburgerButton/HamburgerButton';
@@ -10,10 +11,11 @@ import Nav from '@/layouts/Navigation/MainNav/Nav'
 import Button from "@/FormElements/Button/Button";
 
 //Contextes
-import {useAuth} from '@/auth/context/auth-context';
+import { useAuth } from '@/auth/context/auth-context';
 
 //Utils
-import {lang} from "@/common/Data/GlobalConstants";
+import { lang } from "@/common/Data/GlobalConstants";
+import { config } from '@/middleware';
 
 //Styling
 import styles from './Header.module.scss'
@@ -28,17 +30,19 @@ const Header = (props) => {
 
     //Import the authentication context to make sure the user is well connected
     const auth = useAuth();
+    //For redirect on login page
+    const router = useRouter();
 
     //Window scrolling position 
     const [windowScrollTop, setWindowScrollTop] = useState(true)
 
     const updateHeaderState = () => {
-        if(windowScrollTop)
-            if(window.scrollY > 0)
+        if (windowScrollTop)
+            if (window.scrollY > 0)
                 setWindowScrollTop(false)
 
-        if(!windowScrollTop)
-            if(window.scrollY < 5)
+        if (!windowScrollTop)
+            if (window.scrollY < 5)
                 setWindowScrollTop(true)
     }
 
@@ -46,6 +50,22 @@ const Header = (props) => {
         document.addEventListener('scroll', updateHeaderState);
         return () => document.removeEventListener('scroll', updateHeaderState);
     });
+
+    function stripRedirectParam(asPath) {
+        const [basePath, queryString] = asPath.split('?')
+
+        if (!queryString) return asPath
+
+        const params = queryString
+            .split('&')
+            .filter(p => !p.startsWith('redirect='))
+
+        return params.length > 0
+            ? `${basePath}?${params.join('&')}`
+            : basePath
+    }
+
+    const cleanPath = stripRedirectParam(router.asPath)
 
     return (
 
@@ -56,9 +76,9 @@ const Header = (props) => {
                 <div className="row h-100 align-items-center">
                     <div className="col">
                         {/* Container that fills all the width of the platform and contain the logo*/}
-                        <div className={`${styles["header__content"]} header-center d-flex justify-content-start align-items-center text-light h-100`} onClick={ () => setMenuState(0) }>
+                        <div className={`${styles["header__content"]} header-center d-flex justify-content-start align-items-center text-light h-100`} onClick={() => setMenuState(0)}>
                             <Link href="/" className={`fs-5 ms-2 ps-2 ${styles["item-displayed-in-menu"]}`}>
-                                <Image src={logo} alt="Logo réduit de AVNU"/>
+                                <Image src={logo} alt="Logo réduit de AVNU" />
                             </Link>
                         </div>
                     </div>
@@ -77,13 +97,13 @@ const Header = (props) => {
 
                     <div className="col g-0 h-100">
                         <div className={"d-flex justify-content-end h-100"}>
-                            { !auth.user.isLoggedIn &&
-                                <ul className={`nav flex-nowrap align-items-center h-100`} onClick={ () => setMenuState(false) }>
+                            {!auth.user.isLoggedIn &&
+                                <ul className={`nav flex-nowrap align-items-center h-100`} onClick={() => setMenuState(false)}>
                                     <li>
                                         <a href={AppRoutes.register.asPath} className={"nav-link text-black d-none d-md-block text-nowrap"}>{lang.menuSubscribeLabel}</a>
                                     </li>
                                     <li>
-                                        <a href={AppRoutes.connection.asPath} className={`nav-link text-black text-nowrap`}>{lang.menuConnectLabel}</a>
+                                        <a href={AppRoutes.connection.asPath + `?redirect=${encodeURI(cleanPath)}`} className={`nav-link text-black text-nowrap`}>{lang.menuConnectLabel}</a>
                                     </li>
                                 </ul>
                             }
@@ -100,7 +120,7 @@ const Header = (props) => {
                             }
                             {/* Button for the main menu */}
                             <div className={`${styles["ham-menu-container"]} ${styles["item-displayed-in-menu"]}`}>
-                                <HamburgerButton {...props} setMenuState={setMenuState} menuState={menuState}  />
+                                <HamburgerButton {...props} setMenuState={setMenuState} menuState={menuState} />
                             </div>
 
                         </div>

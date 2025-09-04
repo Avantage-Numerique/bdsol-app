@@ -121,11 +121,11 @@ const OrganisationSingleView = ({ data }) => {
                 title={lang.skillsAndTechnologies}
                 NAMessage="Aucun service n'est inscrit pour cette organisation."
             >
-                { sortedOffers?.length > 0 && sortedOffers.map(offer => (
+                { sortedOffers?.length > 0 && sortedOffers.map((offer, index) => (
                     <SkillGroup
                         label={offer.groupName}
                         skills={offer.skills}
-                        key={offer.groupName}
+                        key={`${offer.groupName}${index}`}
                     />
                 ))}
             </SingleInfo>

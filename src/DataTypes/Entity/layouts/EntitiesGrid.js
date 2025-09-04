@@ -1,6 +1,7 @@
-import React, {useCallback} from "react";
+import React, {Suspense, useCallback} from "react";
 import {lang} from "@/common/Data/GlobalConstants";
 import {getModelFromType} from "@/DataTypes/Entity/Types";
+import EntitiesGridPlaceHolder from "@/common/widgets/Placeholder/EntitiesGridPlaceholder";
 
 /**
  * It's the grid to use in the repertory view.
@@ -25,29 +26,31 @@ const EntitiesGrid = ({feed, className, columnClass, noResult, badgesInfo}) => {
     const customStyling = {'maxWidth': '24rem'}
 
     return (
-        <ContainerTag className={className + ' justify-content-center'}>
-            {
-                feed.length > 0 ?
-                feed.map((entity, index) => {
-                    if (entity !== null) {//check that because upward from drilling here could send sont element null.
-                        const model = getModelFromType(entity.type, entity);
-                        const SimpleComponent = model.simpleComponent;
-                        return (
-                            <div style={customStyling} className={`${colContainerClass}`} key={getKeyString("container", model, index)}>
-                                <SimpleComponent
-                                    data={entity}
-                                    model={model}
-                                    key={getKeyString("simple", model, index)}
-                                    badgesInfo={badgesInfo}
-                                    />
-                            </div>
-                        )
-                    }
-                })
-                :
-                <h5 className={"py-4"}>{noResult ?? lang.noResult}</h5>
-            }
-        </ContainerTag>
+        <Suspense fallback={EntitiesGridPlaceHolder}>
+            <ContainerTag className={className + ' justify-content-center'}>
+                {
+                    feed.length > 0 ?
+                        feed.map((entity, index) => {
+                            if (entity !== null) {//check that because upward from drilling here could send sont element null.
+                                const model = getModelFromType(entity.type, entity);
+                                const SimpleComponent = model.simpleComponent;
+                                return (
+                                    <div style={customStyling} className={`${colContainerClass}`} key={getKeyString("container", model, index)}>
+                                        <SimpleComponent
+                                            data={entity}
+                                            model={model}
+                                            key={getKeyString("simple", model, index)}
+                                            badgesInfo={badgesInfo}
+                                        />
+                                    </div>
+                                )
+                            }
+                        })
+                        :
+                        <h5 className={"py-4"}>{noResult ?? lang.noResult}</h5>
+                }
+            </ContainerTag>
+        </Suspense>
     )
 }
 

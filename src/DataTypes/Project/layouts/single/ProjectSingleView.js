@@ -236,6 +236,7 @@ const ProjectSingleView = ({ data }) => {
                     <SingleInfo
                         title={lang.projectContext}
                         isSubtitle
+                        noCardLayout
                     >
                         {allEnumState?.[context] ?? context}
                     </SingleInfo>
@@ -246,6 +247,7 @@ const ProjectSingleView = ({ data }) => {
                     title={lang.skillsAndTechnologies}
                     displayCondition={skills?.length > 0}
                     isSubtitle
+                    noCardLayout
                 >
                     <SearchTag list={skills} />
                 </SingleInfo>
@@ -255,6 +257,7 @@ const ProjectSingleView = ({ data }) => {
                     title={lang.Domains}
                     displayCondition={domains?.length > 0}
                     isSubtitle
+                    noCardLayout
                 >
                     <SearchTag
                         list={domains}
@@ -262,13 +265,13 @@ const ProjectSingleView = ({ data }) => {
                     />
                 </SingleInfo>
 
-                {/*url*/}
-                <SocialHandleDisplay
-                    title={lang.externalLinks}
-                    url={model?.url}
-                    className={`${appConfig.spacing.singleSectionSpacingClass}`}
-                />
             </SingleInfo>
+            {/*url*/}
+            <SocialHandleDisplay
+                title={lang.externalLinks}
+                url={model?.url}
+                className={`${appConfig.spacing.singleSectionSpacingClass}`}
+            />
         </>
     )
 

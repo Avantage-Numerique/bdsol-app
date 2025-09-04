@@ -46,8 +46,9 @@ class Matomo {
             );
             return;
         }
-        let message = this.url === undefined ? "L'url pour les statistiques sur matomo n'est pas défini" : "";
-        message += this.id === undefined ? "L'identifiant pour les statistique sur matomo n'est pas défini" : "";
+        let message = this.url === undefined || this.url === "" ? "L'url pour les statistiques sur matomo n'est pas défini. " : "";
+        message += this.id === undefined || this.id === "" ? "L'identifiant pour les statistique sur matomo n'est pas défini. " : "";
+        message += message === "" ? typeof this.url +" "+ typeof this.id + " Url and or id have an unknown state. " : "";
         console.error(message);
     }
 

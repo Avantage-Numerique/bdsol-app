@@ -16,6 +16,7 @@ import {lang, modes} from "@/common/Data/GlobalConstants";
 import {useRootModal} from '@/src/hooks/useModal/useRootModal';
 import {useFormUtils} from '@/src/hooks/useFormUtils/useFormUtils';
 import {useHttpClient} from '@/src/hooks/http-hook';
+import { useRouter } from 'next/router';
 
 //Context
 import {MessageContext} from '@/src/common/UserNotifications/Message/Context/Message-Context';
@@ -111,6 +112,9 @@ const SingleBaseHeader = (props) => {
     const modalReportEntity = useRootModal();
     const {sendRequest} = useHttpClient();
     const msg = useContext(MessageContext);
+
+    //Router for redirect login page
+    const router = useRouter();
 
     //no need for state, it's more a before rending modes.
     const modeContributing = {
@@ -216,7 +220,7 @@ const SingleBaseHeader = (props) => {
                         }
                         {/* If the is no button section and there is a single button declared, display it */}
                         {!buttonSection && buttonText && buttonSectionLink &&
-                            <Button className={`btn-contribute shadow d-block`} href={buttonSectionLink}>{buttonText}</Button>
+                            <Button className={`btn-contribute shadow d-block`} href={buttonSectionLink+`?redirect=${encodeURI(router.asPath)}`}>{buttonText}</Button>
                         }
                     </div>
                 </div>

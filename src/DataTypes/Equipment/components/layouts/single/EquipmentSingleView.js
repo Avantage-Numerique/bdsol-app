@@ -106,15 +106,11 @@ const EquipmentSingleView = ({ data }) => {
 
     const ContentColumnRight = (
         <>
-            <SingleInfo 
+            <SocialHandleDisplay 
                 title={lang.externalLinks}
-                displayCondition={model?.url.length > 0}
-                NAMessage="Aucun hyperlien n'est disponible pour le moment."
-            >
-                <SocialHandleDisplay 
-                    url={model?.url}
-                />            
-            </SingleInfo>     
+                url={model?.url}
+                //className={`${appConfig.spacing.singleSectionSpacingClass}`}
+            />               
         </>
     )
 
