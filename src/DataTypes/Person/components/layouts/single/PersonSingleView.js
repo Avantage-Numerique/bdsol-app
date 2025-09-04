@@ -120,11 +120,11 @@ const PersonSingleView = ({ data }) => {
             >
                 {/* Display the different groups of occupations */}
                 { sortedOccupations && sortedOccupations?.length > 0 &&
-                    sortedOccupations.map(occ => (
+                    sortedOccupations.map((occ, index) => (
                         <SkillGroup
                             label={occ.groupName}
                             skills={occ.skills}
-                            key={occ.groupName}
+                            key={`${occ.groupName}${index}`}
                         />
                     ))
                 }
