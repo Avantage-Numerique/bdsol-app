@@ -31,8 +31,8 @@ import useConsultData, {buildPaginationMeta} from "@/src/hooks/useConsultData";
 const ConsultData = (props) => {
 
     // # INIT SEQ
-    // - set state list
-    // - set state filters
+    // - Get SSR data
+    // - Set consultData from  filters
     // - set pagination meta
     // - set init REF constants.
 
@@ -47,18 +47,9 @@ const ConsultData = (props) => {
         return Array.isArray(props.entityFilters) && props.entityFilters.length > 0 ? props.entityFilters[0] : "tous";
     }
 
-
     const currentEntityFilterUrl = currentQueryEntityFilterUrl();
-    //const [filterState, setFilterState] = useState(filters.get(currentEntityFilterUrl));
     const {currentLoadingState, setCurrentLoadingState} = useLoading();
-
-    /*const SSRCurrentData = {
-        list : props.ssrData.data ?? [],
-        paginationMeta: initPaginationMeta,
-        entities: [filters.get(currentEntityFilter)]
-    }*/
     const [consultData, updateConsultData] = useConsultData(props, filters.get(currentEntityFilterUrl));
-    //const [consultData, setConsultData] = useState({...SSRCurrentData});
 
 
     /**
@@ -96,7 +87,6 @@ const ConsultData = (props) => {
      */
     const btnPageOnClickHandler = (targetPage) => {
         sendApiListRequest(Math.abs(targetPage-1) * paginationConfig.pageSize);
-
     }
 
     /**
@@ -107,9 +97,6 @@ const ConsultData = (props) => {
 
         if (!updatedPaginationMeta) return;
         if (!updatedPaginationMeta.currentPage || updatedPaginationMeta.currentPage < 1) return;
-
-        // Ne pas mettre à jour si la page dans l'URL est déjà la bonne
-        //if (updatedPaginationMeta.currentPage === paginationMeta.currentPage) return;
 
         const currentQuery = { ...router.query };
         const currentPage = updatedPaginationMeta.currentPage;
@@ -125,39 +112,25 @@ const ConsultData = (props) => {
         const queryVars = new URLSearchParams(currentQuery);
         if (window)
             window.history.pushState({ page: currentPage }, '', `/consulter/${filtersUrl.get(consultData.entities[0])}${queryVars.toString() !== "" ? "?" : ""}${queryVars.toString()}`);
-
-        //using the router call a rerender an change the states. Even with shallow. An old discussion : https://github.com/vercel/next.js/discussions/18072
-        /*router.push({
-            pathname: '/consulter/'+filtersUrl.get(consultData.entities[0]),
-            query: currentQuery,
-        }, undefined, {
-            shallow: true,
-            scroll: false
-        });*/
     }
 
-    console.log("Rendering main page", "currentEntityFilterUrl", currentEntityFilterUrl)
-
     /**
-     * When the router.query change, trigger that.
+     * When the router.query change in the end of the load, set
      */
     useEffect(()=> {
-
-        //only update the entities
-        /*setConsultData({
-            list: [...consultData.list],
-            paginationMeta: {...consultData.paginationMeta},
-            entities: [filters.get(currentQueryEntityFilter())]
-        });*/
         setCurrentLoadingState(LoadingStates.LOADING_COMPLETE);
     },[router.query]);
 
 
+    /**
+     * The first render of the page, do trigger only once, even when we push new path on the router.
+     */
     useEffect(()=> {
         if(isFirstRenderRef.current){
             isFirstRenderRef.current = false;
         }
     },[]);
+
 
     /**
      * Used in pagination to fetch on client side the new elements to feed the entitygrid. Change the consultData state to force the rerender.
@@ -198,8 +171,11 @@ const ConsultData = (props) => {
         setCurrentLoadingState(LoadingStates.LOADING_COMPLETE);
     }
 
-    //ClearList setter
-    function setClearList(clearing){
+    /**
+     * set a new value to the Ref clearListRef. Used by pagination to allow the load more feature (commented for now).
+     * @param clearing
+     */
+    function updateClearList(clearing){
         clearListRef.current = clearing;
     }
 
@@ -299,7 +275,7 @@ const ConsultData = (props) => {
             </section>
             <Pagination
                 paginationMeta={consultData.paginationMeta}
-                setClearList={setClearList}
+                setClearList={updateClearList}
                 pageBtnClickHandler={btnPageOnClickHandler}
                 loadMore={false}
             >
