@@ -31,30 +31,20 @@ const useConsultData = (props, currentEntityFilter) => {
     const [isClientUpdate, setIsClientUpdate] = useState(false);
     const pendingClientUpdate = useRef(false);
 
-    console.log("HOOK useConsultData Rendering", currentEntityFilter, filtersUrl.get(currentEntityFilter), "consultData", consultData, "currentDataSSR", currentDataSSR);
 
     // Update state when SSR data changes
     useEffect(() => {
-        console.log("HOOK-UseEffect", pendingClientUpdate.current);
-        //if (!pendingClientUpdate.current) {
-            setConsultData(currentDataSSR);
-            console.log("HOOK-UseEffect", currentEntityFilter, filtersUrl.get(currentEntityFilter), "consultData", consultData, "currentDataSSR", currentDataSSR);
-        //}
-        //pendingClientUpdate.current = false;
-        console.log("HOOK-UseEffect END", pendingClientUpdate.current);
+        setConsultData(currentDataSSR);
     }, [currentDataSSR, pendingClientUpdate]);
 
     // Custom setter that marks as client update
     const updateConsultData = useCallback((newData) => {
-        console.log("updateConsultData", newData);
-        //pendingClientUpdate.current = true;
         setConsultData(newData);
     }, []);
 
     return [consultData, updateConsultData];
 }
 export default useConsultData;
-
 
 
 /**
