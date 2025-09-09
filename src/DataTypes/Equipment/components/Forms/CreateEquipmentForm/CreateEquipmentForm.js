@@ -82,7 +82,7 @@ const CreateEquipmentForm = ({ onPositiveResponse, initValues, ...props }) => {
             <div>
                 <Select2
                     name="equipmentType"
-                    label={lang.equipmentType+lang.required}
+                    label={lang.capitalize(lang.equipmentType)+lang.required}
                     formTools={formTools}
                     creatable={true}
                     modalType={TYPE_TAXONOMY}
