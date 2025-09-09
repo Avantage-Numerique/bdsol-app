@@ -34,7 +34,7 @@ const PersonSingleEditPage = () => {
                 {/* Loading state while waiting for rederection */}
                 {isLoading && <Spinner fixed />}
 
-                { modal.display &&
+                {/* { modal.display &&
                     <Modal 
                         coloredBackground
                         darkColorButton
@@ -62,7 +62,7 @@ const PersonSingleEditPage = () => {
                             setIsLoading(true)
                         }}/>
                     </Modal>
-                }
+                } */}
         </div>
     )
 

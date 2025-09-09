@@ -213,8 +213,7 @@ const ProjectSingleEdit = (props) => {
         event.preventDefault();
 
         const formData = {
-            "data": {
-                id: _id,
+            data: {
                 name: formState.inputs.name.value,
                 alternateName: formState.inputs.alternateName.value,
                 entityInCharge: formState.inputs.entityInCharge?.value?.value ?? null,
@@ -274,12 +273,21 @@ const ProjectSingleEdit = (props) => {
             }
         }
 
-        //Add data to the formData
-        submitRequest(
-            "/projects/update",
-            'POST',
-            formData
-        );
+        if(_id !== undefined){
+            formData.data.id = _id;
+            submitRequest(
+                `/projects/update`,
+                'POST',
+                JSON.stringify(formData)
+            );
+        }
+        else {
+            submitRequest(
+                `/projects/create`,
+                'POST',
+                JSON.stringify(formData)
+            )
+        }
     }
 
     /* Needed for breadCrumb generator */
