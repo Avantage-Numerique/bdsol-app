@@ -114,11 +114,16 @@ const ProjectSingleView = ({ data }) => {
                     <h4 className="text-white">{alternateName}</h4>
                     <div className="mt-4">
                         {entityInCharge &&
+
+                            // TODO: afficher plusieurs
                             <p className="text-white">
                                 <span className={"badge bg-secondary"}>{lang.entityInCharge}</span> <EntityLink data={entityInCharge} />
                             </p>
                         }
+
                         {producer &&
+
+                            // TODO: afficher plusieurs
                             <p className="text-white">
                                 <span className={"badge bg-secondary"}>{lang.producer}</span> <EntityLink data={producer} />
                             </p>
