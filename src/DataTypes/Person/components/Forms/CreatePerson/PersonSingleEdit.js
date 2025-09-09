@@ -174,9 +174,8 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props}) => {
     //Submit the form
     const submitHandler = async event => { 
         event.preventDefault();
-        const formData = {
+        let formData = {
             data: {
-                id: _id,
                 lastName: formState.inputs.lastName.value,
                 firstName:  formState.inputs.firstName.value,
                 nickname: formState.inputs.nickName.value,
@@ -209,11 +208,21 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props}) => {
             }
         };
 
-        submitRequest(
-            `/persons/update`,
-            'POST',
-            JSON.stringify(formData)
-        );
+        if(_id !== undefined){
+            formData.data.id = _id;
+            submitRequest(
+                `/persons/update`,
+                'POST',
+                JSON.stringify(formData)
+            );
+        }
+        else {
+            submitRequest(
+                `/persons/create`,
+                'POST',
+                JSON.stringify(formData)
+            )
+        }
     }
 
 

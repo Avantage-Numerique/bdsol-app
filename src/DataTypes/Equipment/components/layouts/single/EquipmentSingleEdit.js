@@ -137,11 +137,21 @@ const EquipmentSingleEdit = ({ positiveRequestActions, ...props}) => {
             }
         };
 
-        submitRequest(
-            `/equipment/update`,
-            'POST',
-            JSON.stringify(formData)
-        );
+        if(model._id !== undefined){
+            formData.data.id = model._id;
+            submitRequest(
+                `/equipment/update`,
+                'POST',
+                JSON.stringify(formData)
+            );
+        }
+        else {
+            submitRequest(
+                `/equipment/create`,
+                'POST',
+                JSON.stringify(formData)
+            )
+        }
     }
 
     const breadcrumbLabels = {
@@ -165,10 +175,11 @@ const EquipmentSingleEdit = ({ positiveRequestActions, ...props}) => {
         <div>
             <Select2
                 name="equipmentType"
-                label={lang.equipmentType+lang.required}
+                label={lang.capitalize(lang.equipmentType)+lang.required}
                 formTools={formTools}
                 creatable={true}
                 modalType={TYPE_TAXONOMY}
+                allowedCategories={["equipmentType"]}
                 isMulti={false}
 
                 placeholder={lang.equipmentTypePlaceholder}
@@ -186,6 +197,9 @@ const EquipmentSingleEdit = ({ positiveRequestActions, ...props}) => {
                 formClassName="discrete-without-focus form-text-white"
                 formTools={formTools}
                 placeholder={lang.labelPlaceholder}
+                validationRules={[
+                    {name: "REQUIRED"}
+                ]}
             />
         </div>
     );
