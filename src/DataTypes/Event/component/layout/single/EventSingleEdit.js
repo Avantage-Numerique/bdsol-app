@@ -238,7 +238,6 @@ const EventSingleEdit = ({data}, ...props) => {
 
         const formData = {
             data: {
-                id: _id,
                 name: formState.inputs.name.value,
                 alternateName: formState.inputs.alternateName.value,
                 entityInCharge: formState.inputs.entityInCharge.value?.value ?? null,
@@ -298,12 +297,22 @@ const EventSingleEdit = ({data}, ...props) => {
                 meta: getDefaultUpdateEntityMeta(auth.user, model.meta.requestedBy),
             }
         };
-
-        submitRequest(
-            `/events/update`,
-            'POST',
-            JSON.stringify(formData)
-        );
+        
+        if(_id !== undefined){
+            formData.data.id = _id;
+            submitRequest(
+                `/events/update`,
+                'POST',
+                JSON.stringify(formData)
+            );
+        }
+        else {
+            submitRequest(
+                `/events/create`,
+                'POST',
+                JSON.stringify(formData)
+            )
+        }
     }
 
     /* Needed for breadCrumb generator */

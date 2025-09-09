@@ -137,11 +137,21 @@ const EquipmentSingleEdit = ({ positiveRequestActions, ...props}) => {
             }
         };
 
-        submitRequest(
-            `/equipment/update`,
-            'POST',
-            JSON.stringify(formData)
-        );
+        if(model._id !== undefined){
+            formData.data.id = model._id;
+            submitRequest(
+                `/equipment/update`,
+                'POST',
+                JSON.stringify(formData)
+            );
+        }
+        else {
+            submitRequest(
+                `/equipment/create`,
+                'POST',
+                JSON.stringify(formData)
+            )
+        }
     }
 
     const breadcrumbLabels = {
@@ -169,6 +179,7 @@ const EquipmentSingleEdit = ({ positiveRequestActions, ...props}) => {
                 formTools={formTools}
                 creatable={true}
                 modalType={TYPE_TAXONOMY}
+                allowedCategories={["equipmentType"]}
                 isMulti={false}
 
                 placeholder={lang.equipmentTypePlaceholder}

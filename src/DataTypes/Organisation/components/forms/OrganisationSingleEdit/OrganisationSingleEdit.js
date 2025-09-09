@@ -203,8 +203,7 @@ const OrganisationSingleEdit = (props) => {
         event.preventDefault();
 
         const formData = {
-            "data": {
-                id: _id,
+            data: {
                 name: formState.inputs.name.value,
                 description:  formState.inputs.description.value,
                 url: formState.inputs.url.value.map(function(singleUrl){
@@ -255,12 +254,21 @@ const OrganisationSingleEdit = (props) => {
             }
         };
 
-        //Send the request with the specialized hook
-        submitRequest(
-            `/organisations/update`,
-            'POST',
-            formData
-        );
+        if(_id !== undefined){
+            formData.data.id = _id;
+            submitRequest(
+                `/organisations/update`,
+                'POST',
+                JSON.stringify(formData)
+            );
+        }
+        else {
+            submitRequest(
+                `/organisations/create`,
+                'POST',
+                JSON.stringify(formData)
+            )
+        }
     }
 
     /*****************************
