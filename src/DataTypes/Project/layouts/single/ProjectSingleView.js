@@ -115,13 +115,12 @@ const ProjectSingleView = ({ data }) => {
                     <div className="mt-4">
 
                         {entityInCharge &&
-                            <p className="text-white d-flex gap-1">
+                            <p className="text-white d-flex gap-2">
                                 <span className={"badge bg-secondary"}>{lang.entityInCharge}</span>
-
                                 {
-                                    entityInCharge.map((eic) => {
+                                    entityInCharge.map((elem) => {
                                         return (
-                                            <EntityLink data={eic} />
+                                            <EntityLink data={elem} />
                                         )
                                     })
                                 }
@@ -129,12 +128,12 @@ const ProjectSingleView = ({ data }) => {
                         }
 
                         {producer &&
-                            <p className="text-white d-flex gap-1">
+                            <p className="text-white d-flex gap-2">
                                 <span className={"badge bg-secondary"}>{lang.producer}</span>
                                 {
-                                    producer.map((p) => {
+                                    producer.map((elem) => {
                                         return (
-                                            <EntityLink data={p} />
+                                            <EntityLink data={elem} />
                                         )
                                     })}
                             </p>
