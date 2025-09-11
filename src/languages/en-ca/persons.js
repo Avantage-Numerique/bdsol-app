@@ -15,6 +15,8 @@ const persons = {
     "addPersonButtonLabel": "Ajouter une personne",
     "expertiseField": "Expertise Field",
     "skillsAndTechnologiesAssociated": "Skills and technologies associated",
+    "firstName": "First name",
+    "lastName": "Last name",
 
 
     // CreatePersonForm.js

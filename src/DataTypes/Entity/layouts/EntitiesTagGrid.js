@@ -10,7 +10,7 @@ import {getModelFromType} from "@/DataTypes/Entity/Types";
  * @param className {string} change the container class with className.
  * @param columnClass {string} add the container of the component simple of the entities with this class.
  * @param subEntityProperty {string} The entity where we can get the data on the relation feed like sponsors.entity
- * @param subBadgeProperty {string} The relation often contain some supra information about the relation. If you this to name or other thing, it will show that relation string. Role, sponsor name.
+ * @param subTagProperty {string} The relation often contain some supra information about the relation. If you this to name or other thing, it will show that relation string. Role, sponsor name.
  * @param noneMessage {string} If set show the target message instead of the lang.noResult value.
  * @param numberOfCols {number} the number of column to use for it.
  * @param forceType {string} to avoid gettin gthe type from the data, force it.
@@ -18,12 +18,12 @@ import {getModelFromType} from "@/DataTypes/Entity/Types";
  * @return {JSX.Element}
  * @constructor
  */
-const EntitiesTagGrid = ({feed, className, columnClass, subEntityProperty, subBadgeProperty, noneMessage, numberOfCols, forceType, notes, regularFlexWrapping}, ...props) => {
+const EntitiesTagGrid = ({feed, className, columnClass, subEntityProperty, subTagProperty, noneMessage, numberOfCols, forceType, notes, regularFlexWrapping}, ...props) => {
 
     const ContainerTag = "ul";
     //subEntityProperty = subEntityProperty ?? 'entity';//
 
-    subBadgeProperty = subBadgeProperty ?? '';
+    subTagProperty = subTagProperty ?? '';
     noneMessage = noneMessage ?? lang.noResult;
 
     const nbColumnsLg = numberOfCols ?? 2;
@@ -63,7 +63,21 @@ const EntitiesTagGrid = ({feed, className, columnClass, subEntityProperty, subBa
                         //const isLastRow = index >= (feedLength - nbColumnsMd);
                         //const spacingClasses = !isLastRow ? 'pb-4' : '';
                         if (model) {
-                            model.badge = entity[subBadgeProperty] ?? "";
+                            //Crawler for finding the field or subfield
+                            let tag = subTagProperty;
+                            if(tag != undefined && typeof tag == "string" && tag != ""){
+                                if(tag.split(".").length > 1){
+                                    let fieldPath = tag.split(".");
+                                    let tempTag = model;
+                                    fieldPath.forEach( elem => {
+                                        console.log(elem, tempTag, tempTag[elem])
+                                        tempTag = tempTag[elem];
+                                    });
+                                    model.tag = tempTag;
+                                }
+                                else
+                                    model.tag = tag ? entity[tag] : "";
+                            }
                             const TagComponent = model.tagComponent;
                             return (
                                 <li className={`d-flex flex-wrap justify-content-start ${!regularFlexWrapping && colContainerClass} pb-4`} key={getKeyString("container", model, index)}>

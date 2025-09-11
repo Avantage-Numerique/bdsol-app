@@ -156,7 +156,7 @@ const ProjectSingleView = ({ data }) => {
                 title={lang.projectPartners} 
                 displayCondition={sortedSponsors.length > 0}
             >
-                <EntitiesTagGrid feed={sortedSponsors} subEntityProperty={"entity"} subBadgeProperty={"name"} />
+                <EntitiesTagGrid feed={sortedSponsors} subEntityProperty={"entity"} subTagProperty={"name"} />
             </SingleInfo>
             
             {/* Team */}
@@ -164,7 +164,7 @@ const ProjectSingleView = ({ data }) => {
                 title={lang.teamMembers}
                 displayCondition={sortedTeam.length > 0}
             >
-                <EntitiesTagGrid feed={sortedTeam} subEntityProperty={"member"} subBadgeProperty={"role"} noneMessage={"Aucun membre de l'équipe spécifiés"} />
+                <EntitiesTagGrid feed={sortedTeam} subEntityProperty={"member"} subTagProperty={"role"} noneMessage={"Aucun membre de l'équipe spécifiés"} />
             </SingleInfo>
             
             {/* schedule budget */}

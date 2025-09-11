@@ -14,6 +14,8 @@ const persons = {
     "addPersonButtonLabel": "Ajouter une personne",
     "expertiseField": "Champ d'expertise",
     "skillsAndTechnologiesAssociated": "Compétences et technologies associées",
+    "firstName": "Prénom",
+    "lastName": "Nom",
 
 
 
