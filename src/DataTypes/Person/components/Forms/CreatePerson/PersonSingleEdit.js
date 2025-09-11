@@ -315,8 +315,8 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props}) => {
     const header = ( 
         <SingleBaseHeader
             className={"mode-update"}
-            title={title} 
-            subtitle={subtitle} 
+            title={title}
+            subtitle={subtitle}
             mainImage={currentMainImage}
             buttonSection={ctaHeaderSection}
             entity={model}
