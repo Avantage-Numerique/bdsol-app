@@ -5,6 +5,23 @@ import {lang} from "@/common/Data/GlobalConstants";
 
 const SubmitEntity = ({ children, className, submitHandler, formState, singleLink }) => {
 
+    //List to guide the user to the invalid inputs soo they can correct it before submiting
+    function listInvalidInput() {
+        const invalidInputsList = [];
+
+        Object.keys(formState.inputs).forEach( (key, index) => {
+            if(formState.inputs[key] != undefined){
+                if(formState.inputs[key].isValid == false){
+                    const displayText = formState.inputs[key].invalidMsg ?? lang[key] ?? (key + " - invalide");
+                    invalidInputsList.push(
+                        <li key={`invalidInput-${key}-${index}`}>{lang.capitalize(displayText)}</li>
+                    )
+                }
+            }
+        })
+        return invalidInputsList;
+    }
+
     return (
         <div className={` ${className || "w-50"}`}>
             <div className='d-flex justify-content-center mb-2'>
@@ -45,7 +62,14 @@ const SubmitEntity = ({ children, className, submitHandler, formState, singleLin
             </div>
             {
                 !formState.isValid &&
-                <p className="p-2 mt-2 col-md-4 border border-danger rounded"><small>{lang.validationFailedCantSave}</small></p>
+                <>
+                    <div className="p-2 mt-2 col-md-8 border border-danger rounded">
+                    <p>{lang.validationFailedCantSave}</p>
+                        <ul>
+                            {listInvalidInput()}
+                        </ul>
+                    </div>
+                </>
             }
             { children && children}
         </div>
@@ -53,3 +77,4 @@ const SubmitEntity = ({ children, className, submitHandler, formState, singleLin
 }
 
 export default SubmitEntity
+//<p className="p-2 mt-2 col-md-4 border border-danger rounded"><small>{lang.validationFailedCantSave}</small></p>

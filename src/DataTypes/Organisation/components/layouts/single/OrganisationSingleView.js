@@ -135,11 +135,11 @@ const OrganisationSingleView = ({ data }) => {
                 title={lang.teamMembers}
                 displayCondition={sortedTeam.length > 0}
             >
-                <EntitiesTagGrid 
-                    feed={sortedTeam} 
-                    subEntityProperty={"member"} 
-                    subBadgeProperty={"role"} 
-                    noneMessage={lang.noTeamMemberSetMessage} 
+                <EntitiesTagGrid
+                    feed={sortedTeam}
+                    subEntityProperty={"member"}
+                    subTagProperty={"role"}
+                    noneMessage={lang.noTeamMemberSetMessage}
                 />
             </SingleInfo>
             
@@ -226,7 +226,8 @@ const OrganisationSingleView = ({ data }) => {
                     displayCondition={location?.length > 0}
                     title={lang.plural(lang.organisationPlace, lang.organisationPlaces, location?.length)}
                 >
-                    <EntitiesTagGrid feed={location} subBadgeProperty={"address"} columnClass={"col-12"} />
+                    {console.log(location)}
+                    <EntitiesTagGrid feed={location} subTagProperty={"address"} columnClass={"col-12"} />
                 </SingleInfo>
             }
             

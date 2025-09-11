@@ -26,7 +26,7 @@ const EntityTag = (props) => {
         baseSrc,
         addButton,
         addType,
-        badge
+        tag
     } = props;
 
     const type = getType(model.type);
@@ -35,8 +35,6 @@ const EntityTag = (props) => {
 
     // defaults
     className = className ?? "";
-
-    badge = badge ?? "";
 
     //get height and width dynamicaly ?
     return (
@@ -63,6 +61,11 @@ const EntityTag = (props) => {
                                 {model.title &&
                                     <p className="m-0 p-2 lh-1 pb-0 fw-semibold">
                                         {model.title}
+                                    </p>
+                                }
+                                {model.tag &&
+                                    <p className="m-0 p-2 lh-1 pb-0">
+                                        {model.tag}
                                     </p>
                                 }
                             </div>

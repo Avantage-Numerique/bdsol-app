@@ -114,7 +114,8 @@ const ProjectSingleEdit = (props) => {
         {
             name: {
                 value: name ?? "",
-                isValid: true
+                isValid: true,
+                invalidMsg: "Nom du projet"
             },
             alternateName: {
                 value: alternateName ?? "",
@@ -134,7 +135,8 @@ const ProjectSingleEdit = (props) => {
             },
             url: {
                 value: url ?? [],
-                isValid: true
+                isValid: true,
+                invalidMsg: "Liens externes"
             },
             contactPoint: {
                 value: contactPoint ?? {tel:{num:"", ext:""},email:{address:""},website:{url:""} },
@@ -182,7 +184,8 @@ const ProjectSingleEdit = (props) => {
             },
             timeframe: {
                 value: scheduleBudget?.timeframe ?? [],
-                isValid: true
+                isValid: true,
+                invalidMsg: "Étapes du projet (échéancier et budget)"
             },
             skills: {
                 value: skills ?? [],
