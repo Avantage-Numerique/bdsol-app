@@ -31,7 +31,7 @@ const CreateProjectForm = ({ onPositiveResponse, initValues, ...props }) => {
                 isValid: true
             },
             entityInCharge: {
-                value: initValues?.entityInCharge ?? "",
+                value: initValues?.entityInCharge ?? [],
                 isValid: true
             },
             context: {
@@ -55,7 +55,7 @@ const CreateProjectForm = ({ onPositiveResponse, initValues, ...props }) => {
         const formData = {
             "data": {
                 name: formState.inputs.name.value,
-                entityInCharge: formState.inputs.entityInCharge?.value?.value,
+                entityInCharge: formState.inputs.entityInCharge?.value?.map(elem => elem.value),
                 context: formState.inputs.context.value !== "" ? formState.inputs.context.value : undefined,
                 meta: getDefaultCreateEntityMeta(auth.user),
             }
@@ -96,7 +96,7 @@ const CreateProjectForm = ({ onPositiveResponse, initValues, ...props }) => {
                 label={lang.entityInCharge}
                 formTools={formTools}
                 creatable={false}
-                isMulti={false}
+                isMulti
                 fetch={"/organisations/list"}
                 searchField={"name"}
                 selectField={"name"}
