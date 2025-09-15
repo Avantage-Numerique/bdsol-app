@@ -5,7 +5,7 @@
 */
 
 
-import {useCallback, useReducer} from 'react';
+import { useCallback, useReducer } from 'react';
 
 const formReducer = (state, action) => {
 
@@ -79,7 +79,7 @@ const formReducer = (state, action) => {
         case 'UPDATE_MANY_FIELDS':
             //Receives an object of this shape : {[fieldName]: [fieldNewValue], [fieldName]: [fieldNewValue]}
             //create a new object to edit
-            let newState = {...state};
+            let newState = { ...state };
             //Loop through the keys of the object modifiedFields
             for (const key in action.modifiedFields) {
                 if (action.modifiedFields.hasOwnProperty(key) && newState.inputs.hasOwnProperty(key)) {
@@ -149,13 +149,27 @@ export const useForm = (initialInputs) => {
         });
     }, []);
 
+    //Return an array of invalid field of the formState
+    const listInvalidInput = () => {
+        const invalidInputsList = [];
+        Object.keys(formState.inputs).forEach((key, index) => {
+            if (formState.inputs[key] != undefined) {
+                if (formState.inputs[key].isValid == false) {
+                    invalidInputsList.push(key)
+                }
+            }
+        })
+        return invalidInputsList;
+    }
+
     /* Regroup the form utils needed for the inputs */
     const formTools = {
         formState: formState,
         inputHandler: inputHandler,
         inputTouched: inputTouched,
         clearFormData: clearFormData,
-        updateManyFields: updateManyFields
+        updateManyFields: updateManyFields,
+        listInvalidInput: listInvalidInput
     }
 
     return [formState, formTools, clearFormData, updateManyFields];
