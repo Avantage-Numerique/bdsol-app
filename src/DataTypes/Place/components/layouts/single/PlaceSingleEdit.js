@@ -1,17 +1,17 @@
-import React, {useCallback, useContext, useEffect, useState} from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import Router from "next/router";
 
 //Utils
 import Place from "../../../models/Place";
-import {lang, modes} from "@/src/common/Data/GlobalConstants";
-import {getDefaultUpdateEntityMeta} from "@/src/DataTypes/Meta/EntityMeta";
-import {replacePathname} from "@/src/helpers/url";
+import { lang, modes } from "@/src/common/Data/GlobalConstants";
+import { getDefaultUpdateEntityMeta } from "@/src/DataTypes/Meta/EntityMeta";
+import { replacePathname } from "@/src/helpers/url";
 
 //hooks
-import {MessageContext} from "@/src/common/UserNotifications/Message/Context/Message-Context";
-import {useFormUtils} from "@/src/hooks/useFormUtils/useFormUtils";
-import {useAuth} from "@/src/authentification/context/auth-context";
-import {useRootModal} from '@/src/hooks/useModal/useRootModal';
+import { MessageContext } from "@/src/common/UserNotifications/Message/Context/Message-Context";
+import { useFormUtils } from "@/src/hooks/useFormUtils/useFormUtils";
+import { useAuth } from "@/src/authentification/context/auth-context";
+import { useRootModal } from '@/src/hooks/useModal/useRootModal';
 
 
 //Components
@@ -19,7 +19,7 @@ import SingleBase from "@/src/DataTypes/common/layouts/single/SingleBase";
 import SingleBaseHeader from "@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseHeader";
 import MainImageDisplay from "@/src/DataTypes/common/layouts/single/defaultSections/MainImageDisplay/MainImageDisplay";
 import SubmitEntity from "@/src/DataTypes/common/Forms/SingleEdit/SubmitEntity";
-import {SingleEntityMeta} from '@/src/DataTypes/Meta/components/SingleEntityMeta';
+import { SingleEntityMeta } from '@/src/DataTypes/Meta/components/SingleEntityMeta';
 import Input from "@/src/common/FormElements/Input/Input";
 import RichTextarea from "@/src/common/FormElements/RichTextArea/RichTextarea";
 import SingleInfo from "@/DataTypes/common/layouts/SingleInfo/SingleInfo";
@@ -29,7 +29,7 @@ import SingleSaveEntityReminder from '@/src/DataTypes/common/layouts/SingleSaveE
 import SingleBeforeUnloadReminder from "@/src/DataTypes/common/layouts/SingleSaveEntityReminder/SingleBeforeUnloadReminder";
 
 
-const PlaceSingleEdit = ({ positiveRequestActions, ...props}) => {
+const PlaceSingleEdit = ({ positiveRequestActions, ...props }) => {
 
     let model = new Place(props.data);
 
@@ -39,7 +39,7 @@ const PlaceSingleEdit = ({ positiveRequestActions, ...props}) => {
         updatedAt,
         meta
     } = props.data;
-    
+
     //Import the authentication context to make sure the user is well connected
     const auth = useAuth();
 
@@ -65,10 +65,10 @@ const PlaceSingleEdit = ({ positiveRequestActions, ...props}) => {
 
     //Auth logged in
     useEffect(() => {
-        if(!auth.user.isLoggedIn) {
-            msg.addMessage({ 
+        if (!auth.user.isLoggedIn) {
+            msg.addMessage({
                 text: lang.needToBeConnectedToAccess,
-                positive: false 
+                positive: false
             })
             Router.push('/compte/connexion')
         }
@@ -128,7 +128,7 @@ const PlaceSingleEdit = ({ positiveRequestActions, ...props}) => {
         {
             displayResMessage: true,
             callbackFunction: (response) => {
-                Router.push("/"+replacePathname(model.singleRoute.pathname, {slug: response.data.slug}))
+                Router.push("/" + replacePathname(model.singleRoute.pathname, { slug: response.data.slug }))
             }
         }
     );
@@ -184,12 +184,12 @@ const PlaceSingleEdit = ({ positiveRequestActions, ...props}) => {
 
     const title = (
         <>
-            <Input 
+            <Input
                 name="name"
-                label={lang.name+lang.required}
+                label={lang.name + lang.required}
                 formClassName="discrete-without-focus form-text-white h2"
                 validationRules={[
-                    {name: "REQUIRED"}
+                    { name: "REQUIRED" }
                 ]}
                 formTools={formTools}
             />
@@ -199,15 +199,15 @@ const PlaceSingleEdit = ({ positiveRequestActions, ...props}) => {
     const ctaHeaderSection = (
         <div className="d-flex flex-wrap align-items-end justify-content-between gap-2 gap-md-3 gap-lg-4">
             <MainImageDisplay buttonClasses="fs-6" mainImage={currentMainImage} entity={currentModel}
-                              setter={updateModelMainImage}/>
+                setter={updateModelMainImage} />
             <div className="d-flex flex-wrap align-items-end justify-content-between gap-2 gap-md-3 gap-lg-4">
                 <Button className='fs-6' size="slim" color="success" disabled={!formState.isValid}
-                    onClick={() => {setSaveIntentionState(true);modalSaveEntityReminder.displayModal()}}
+                    onClick={() => { setSaveIntentionState(true); modalSaveEntityReminder.displayModal() }}
                 >
-                    <Icon iconName={"save"}/>&nbsp;{lang.capitalize("save")}
+                    <Icon iconName={"save"} />&nbsp;{lang.capitalize("save")}
                 </Button>
                 <Button className='fs-6' size="slim" color="primary-light" href={model.singleLink}>
-                    <Icon iconName={"times"}/>&nbsp;{lang.Cancel}
+                    <Icon iconName={"times"} />&nbsp;{lang.Cancel}
                 </Button>
             </div>
         </div>
@@ -216,8 +216,8 @@ const PlaceSingleEdit = ({ positiveRequestActions, ...props}) => {
     const header = (
         <SingleBaseHeader
             className={"mode-update"}
-            title={title} 
-            subtitle={<div/>} 
+            title={title}
+            subtitle={<div />}
             mainImage={currentMainImage}
             buttonSection={ctaHeaderSection}
             entity={model}
@@ -225,7 +225,7 @@ const PlaceSingleEdit = ({ positiveRequestActions, ...props}) => {
         >
         </SingleBaseHeader>
     );
-    
+
     const fullWidthContent = (
         <SingleInfo
             title={lang.about}
@@ -322,13 +322,13 @@ const PlaceSingleEdit = ({ positiveRequestActions, ...props}) => {
             />
         </SingleInfo>
     )
-    {/*********** Footer section ***********/}
+    {/*********** Footer section ***********/ }
     const Footer = (
         <>
             {
                 (createdAt || updatedAt || meta) &&
-                <SingleInfo 
-                    title={lang.entityMetadata} 
+                <SingleInfo
+                    title={lang.entityMetadata}
                     className="pt-3"
                 >
                     {/*********** Entity data ***********/}
@@ -338,7 +338,7 @@ const PlaceSingleEdit = ({ positiveRequestActions, ...props}) => {
         </>
     )
 
-    {/*********** Submit section ***********/}
+    {/*********** Submit section ***********/ }
     const SinglePageBottom = (
         <SubmitEntity
             submitHandler={() => {setSaveIntentionState(true);
@@ -347,11 +347,11 @@ const PlaceSingleEdit = ({ positiveRequestActions, ...props}) => {
             singleLink={model.singleLink}
         />
     )
-    
+
 
     return (
         <>
-            <SingleBeforeUnloadReminder formTools={formTools} saveIntention={saveIntentionState}/>
+            <SingleBeforeUnloadReminder formTools={formTools} saveIntention={saveIntentionState} />
             <SingleBase
                 breadCrumb={breadCrumb}
                 header={header}
@@ -364,7 +364,7 @@ const PlaceSingleEdit = ({ positiveRequestActions, ...props}) => {
             <modalSaveEntityReminder.Modal>
                 <SingleSaveEntityReminder
                     submitHandler={submitHandler}
-                    closeModal={() => {modalSaveEntityReminder.closeModal(); setSaveIntentionState(false)}}
+                    closeModal={() => { modalSaveEntityReminder.closeModal(); setSaveIntentionState(false) }}
                 />
             </modalSaveEntityReminder.Modal>
         </>
