@@ -478,7 +478,7 @@ const OrganisationSingleEdit = (props) => {
         <SubmitEntity
             submitHandler={() => {setSaveIntentionState(true);
             modalSaveEntityReminder.displayModal()}}
-            formState={formState}
+            formTools={formTools}
             singleLink={model.singleLink}
         />
     )

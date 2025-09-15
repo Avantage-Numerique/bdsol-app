@@ -1,23 +1,20 @@
 import React from 'react'
 import Button from "@/FormElements/Button/Button";
 import Icon from "@/common/widgets/Icon/Icon";
-import {lang} from "@/common/Data/GlobalConstants";
+import { lang } from "@/common/Data/GlobalConstants";
 
-const SubmitEntity = ({ children, className, submitHandler, formState, singleLink }) => {
+const SubmitEntity = ({ children, className, submitHandler, formTools, singleLink }) => {
 
+    const formState = formTools.formState
     //List to guide the user to the invalid inputs soo they can correct it before submiting
-    function listInvalidInput() {
+    function mapInvalidInput() {
         const invalidInputsList = [];
 
-        Object.keys(formState.inputs).forEach( (key, index) => {
-            if(formState.inputs[key] != undefined){
-                if(formState.inputs[key].isValid == false){
-                    const displayText = formState.inputs[key].invalidMsg ?? lang[key] ?? (key + " - invalide");
-                    invalidInputsList.push(
-                        <li key={`invalidInput-${key}-${index}`}>{lang.capitalize(displayText)}</li>
-                    )
-                }
-            }
+        formTools.listInvalidInput().forEach((key, index) => {
+            const displayText = formState.inputs[key].invalidMsg ?? lang[key] ?? (key + " - invalide");
+            invalidInputsList.push(
+                <li key={`invalidInput-${key}-${index}`}>{lang.capitalize(displayText)}</li>
+            )
         })
         return invalidInputsList;
     }
@@ -55,7 +52,7 @@ const SubmitEntity = ({ children, className, submitHandler, formState, singleLin
                             disabled={!formState.isValid}
                             onClick={submitHandler}
                         >
-                            <Icon iconName={"las la-check"}/>
+                            <Icon iconName={"las la-check"} />
                         </Button>
                     }
                 </div>
@@ -64,14 +61,14 @@ const SubmitEntity = ({ children, className, submitHandler, formState, singleLin
                 !formState.isValid &&
                 <>
                     <div className="p-2 mt-2 col-md-8 border border-danger rounded">
-                    <p>{lang.validationFailedCantSave}</p>
+                        <p>{lang.validationFailedCantSave}</p>
                         <ul>
-                            {listInvalidInput()}
+                            {mapInvalidInput()}
                         </ul>
                     </div>
                 </>
             }
-            { children && children}
+            {children && children}
         </div>
     )
 }
