@@ -5,167 +5,207 @@
 
 */
 
-import {createContext, useEffect, useRef, useState} from "react";
-import Head from 'next/head';
+import { createContext, useEffect, useRef, useState } from "react";
+import Head from "next/head";
 import sanitizedString from "@/src/utils/SanitizedString";
 
 //Context
-import {MessageContext} from '@/src/common/UserNotifications/Message/Context/Message-Context'
+import { MessageContext } from "@/src/common/UserNotifications/Message/Context/Message-Context";
 
 //components
-import Footer from '@/layouts/Footer/Footer';
-import Header from '@/layouts/Header/Header';
-import Message from '@/src/common/UserNotifications/Message/Message';
+import Footer from "@/layouts/Footer/Footer";
+import Header from "@/layouts/Header/Header";
+import Message from "@/src/common/UserNotifications/Message/Message";
 
 //Styling
-import styles from './Layout.module.scss';
+import styles from "./Layout.module.scss";
 
 //Hooks
-import {useModalController} from '@/src/hooks/useModal/ModalsController/ModalsController';
-import {useRouter} from "next/router";
+import { useModalController } from "@/src/hooks/useModal/ModalsController/ModalsController";
+import { useRouter } from "next/router";
 import nextConfig from "@/next.config";
-import {templates, templatesEnum} from "@/layouts/Templates/TemplatesEnum";
+import { templates, templatesEnum } from "@/layouts/Templates/TemplatesEnum";
+
+import { LoadingProvider } from "@/src/Routing/LoadingContext";
+import NavigationEvents from "@/src/Routing/NavigationEvents";
+import LoadingIndicator from "@/src/Routing/LoadingIndicator";
 
 export const ModalContext = createContext({});
 
-const Layout = ( {children, pageProps} ) => {
+const Layout = ({ children, pageProps }) => {
+  //Modal container referenve
+  const modalContainer = useRef();
 
-    //Modal container referenve
-    const modalContainer = useRef();
+  //Initialize the modals controller hook
+  const { ModalsDisplay, modalTools } = useModalController(modalContainer);
 
-    //Initialize the modals controller hook
-    const {ModalsDisplay, modalTools} = useModalController(modalContainer);
+  //message list
+  const [messages, setMessages] = useState([]);
 
-    //message list
-    const [messages, setMessages] = useState([])
+  /* Return the current time number. Used to create unique Id to each message based on the time they were send */
+  const getCurrentTime = () => {
+    const d = new Date();
+    return d.getTime();
+  };
 
-    /* Return the current time number. Used to create unique Id to each message based on the time they were send */
-    const getCurrentTime = () => {
-        const d = new Date()
-        return d.getTime()
-    }
+  // TEMPLATE Selection, set the tempalte vars in getStaticProps from the templatesEnum
+  const currentTemplate = pageProps.template
+    ? templates.get(pageProps.template)
+    : templates.get(templatesEnum.DEFAULT);
 
-    // TEMPLATE Selection, set the tempalte vars in getStaticProps from the templatesEnum
-    const currentTemplate = pageProps.template ? templates.get(pageProps.template) : templates.get(templatesEnum.DEFAULT);
+  /**
+   * @deprecated usefull but trigger a re-render because of the function. And All state a re-render.
+   * @param Component
+   * @param componentProps
+   * @param children
+   * @returns {JSX.Element}
+   * @constructor
+   */
+  const TemplateRenderer = ({ Component, componentProps, children }) => {
+    return <Component {...componentProps}>{children}</Component>;
+  };
 
-    /**
-     * @deprecated usefull but trigger a re-render because of the function. And All state a re-render.
-     * @param Component
-     * @param componentProps
-     * @param children
-     * @returns {JSX.Element}
-     * @constructor
-     */
-    const TemplateRenderer = ({ Component, componentProps, children }) => {
-        return (
-            <Component {...componentProps}>
-                {children}
-            </Component>
-        )
-    }
+  //Metthod called from other components to update the state
+  const addMessage = (newMessage) => {
+    setMessages([
+      ...messages,
+      {
+        ...newMessage,
+        creationTime: getCurrentTime(),
+      },
+    ]);
+  };
 
-    //Metthod called from other components to update the state
-    const addMessage = (newMessage) => {
-        setMessages([...messages, {
-            ...newMessage,
-            creationTime: getCurrentTime()
-        }])
-    }
+  const metaAssetsPath = (asset, addVersion = true) => {
+    const assetsVersions = nextConfig.env.VERSION;
+    const basePath = "/favicon/";
+    return `${basePath}${asset}${addVersion ? `?v=${assetsVersions}` : ""}`;
+  };
 
-    const metaAssetsPath = (asset, addVersion=true) => {
-        const assetsVersions = nextConfig.env.VERSION;
-        const basePath = "/favicon/";
-        return `${basePath}${asset}${addVersion ? `?v=${assetsVersions}`:''}`;
-    }
-
-    //  Catch if uri contains a msg query vars an display it in a toast alert.
-    const router = useRouter();
-    useEffect(() => {
-        if(router.query?.msg && router.query?.msg !== "")
+  //  Catch if uri contains a msg query vars an display it in a toast alert.
+  const router = useRouter();
+  useEffect(() => {
+    if (router.query?.msg && router.query?.msg !== "") {
+      const positive = router.query?.msgPositive === "true";
+      setMessages([
+        ...messages,
         {
-            const positive = router.query?.msgPositive === "true";
-            setMessages([...messages, {
-                    positive:positive,
-                    text:sanitizedString(router.query.msg),
-                    creationTime: getCurrentTime()
-                }
-            ])
-        }
-    }, [router.query]);
+          positive: positive,
+          text: sanitizedString(router.query.msg),
+          creationTime: getCurrentTime(),
+        },
+      ]);
+    }
+  }, [router.query]);
 
+  return (
+    <>
+      <Head>
+        <meta charSet="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta httpEquiv="X-UA-Compatible" content="ie=edge" />
+        <meta name="language" content="fr" />
+        {/* Static for now */}
 
+        {/* For IE 11 or earlier */}
+        {/* No support for PNG favicons with 16x16 or 32x32 sizes, so use the ICO format */}
+        <link
+          rel="icon"
+          type="image/x-icon"
+          href={metaAssetsPath("favicon.ico")}
+        />
 
-    return (
-        <>
-            <Head>
-                <meta charSet="UTF-8"/>
-                <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-                <meta httpEquiv="X-UA-Compatible" content="ie=edge"/>
-                <meta name="language" content="fr"/>
-                {/* Static for now */}
+        <link
+          rel="apple-touch-icon"
+          sizes="180x180"
+          href={metaAssetsPath("apple-touch-icon.png")}
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="32x32"
+          href={metaAssetsPath("favicon-32x32.png")}
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="16x16"
+          href={metaAssetsPath("favicon-16x16.png")}
+        />
+        <link
+          rel="apple-touch-icon"
+          sizes="180x180"
+          href={metaAssetsPath("apple-touch-icon.png")}
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="192x192"
+          href={metaAssetsPath("android-chrome-192x192.png")}
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="512x512"
+          href={metaAssetsPath("android-chrome-512x512.png")}
+        />
+        <link rel="manifest" href={metaAssetsPath("site.webmanifest")} />
+        <link
+          rel="mask-icon"
+          href={metaAssetsPath("safari-pinned-tab.svg")}
+          color="#5bbad5"
+        />
+        <meta name="msapplication-TileColor" content="#da532c" />
+        <meta name="theme-color" content="#ffffff" />
 
-                {/* For IE 11 or earlier */}
-                {/* No support for PNG favicons with 16x16 or 32x32 sizes, so use the ICO format */}
-                <link rel="icon" type="image/x-icon" href={metaAssetsPath("favicon.ico")} />
+        {/* General social medias meta tags */}
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="AVNU" />
+        <meta property="og:locale" content="fr_CA" />
+      </Head>
 
-                <link rel="apple-touch-icon" sizes="180x180" href={metaAssetsPath("apple-touch-icon.png")} />
-                <link rel="icon" type="image/png" sizes="32x32" href={metaAssetsPath("favicon-32x32.png")} />
-                <link rel="icon" type="image/png" sizes="16x16" href={metaAssetsPath("favicon-16x16.png")} />
-                <link rel="apple-touch-icon" sizes="180x180" href={metaAssetsPath("apple-touch-icon.png")} />
-                <link rel="icon" type="image/png" sizes="192x192" href={metaAssetsPath("android-chrome-192x192.png")} />
-                <link rel="icon" type="image/png" sizes="512x512" href={metaAssetsPath("android-chrome-512x512.png")} />
-                <link rel="manifest" href={metaAssetsPath("site.webmanifest")} />
-                <link rel="mask-icon" href={metaAssetsPath("safari-pinned-tab.svg")}  color="#5bbad5"/>
-                <meta name="msapplication-TileColor" content="#da532c"/>
-                <meta name="theme-color" content="#ffffff"/>
+      <LoadingProvider>
+        <NavigationEvents />
+        <LoadingIndicator />
+        <div id={styles.layout}>
+          <Header />
 
-                {/* General social medias meta tags */}
-                <meta property="og:type" content="website"/>
-                <meta property="og:site_name" content="AVNU"/>
-                <meta property="og:locale" content="fr_CA"/>
-            </Head>
+          {/* Defining contextes to be passed along children */}
+          <ModalContext.Provider value={{ modalTools: modalTools }}>
+            <currentTemplate.Component {...currentTemplate.props}>
+              <MessageContext.Provider value={{ addMessage: addMessage }}>
+                {children}
+              </MessageContext.Provider>
+            </currentTemplate.Component>
+          </ModalContext.Provider>
+          <Footer />
 
-            <div id={styles.layout}>
-                <Header/>
+          {/* Section where the common messages and alerts to the user are made */}
+          <div className={`${styles["message-section"]}`}>
+            {/* Display the messages */}
+            {messages.map((message) => (
+              <Message
+                key={"toast-message-" + message.creationTime}
+                positiveReview={message.positive}
+                clean={() => {
+                  setMessages((prevState) =>
+                    prevState.filter((i) => i !== message),
+                  );
+                }}
+              >
+                {message.text}
+              </Message>
+            ))}
+          </div>
 
-                {/* Defining contextes to be passed along children */}
-                <ModalContext.Provider value={{modalTools: modalTools}}>
-                    <currentTemplate.Component {...currentTemplate.props}>
-                        <MessageContext.Provider value={{addMessage: addMessage}}>
-                            { children }
-                        </MessageContext.Provider>
-                    </currentTemplate.Component>
-                </ModalContext.Provider>
-                <Footer />
-                
-                {/* Section where the common messages and alerts to the user are made */}
-                <div className={`${styles["message-section"]}`}>
-
-                    {/* Display the messages */}
-                    { messages.map(message => (
-                        <Message 
-                            key={ "toast-message-" + message.creationTime }
-                            positiveReview={ message.positive } 
-                            clean={() => { setMessages(
-                                prevState => prevState.filter(i => i !== message)
-                                )}}
-                        >
-                            {message.text}
-                        </Message> 
-                    )) 
-                    }
-
-                </div>
-
-                {/* Afficher le modal */}
-                <div ref={modalContainer} id="modal-rot" >
-                    {/* state containing every  */}
-                </div>
-            </div>
-        </>
-    )
-}
+          {/* Afficher le modal */}
+          <div ref={modalContainer} id="modal-rot">
+            {/* state containing every  */}
+          </div>
+        </div>
+      </LoadingProvider>
+    </>
+  );
+};
 
 export default Layout;
-
-

@@ -1,10 +1,12 @@
-import {useEffect, useState} from 'react';
-import styles from './EntitySimple.module.scss';
+import { useEffect, useState } from "react";
+import styles from "./EntitySimple.module.scss";
+
 import MediaFigure from "@/DataTypes/Media/layouts/MediaFigure";
-import {getType} from "@/DataTypes/Entity/Types";
-import HtmlTagsRemover from '@/src/utils/HtmlTagsRemover'
-import Link from "next/link";
-import TypeTag from '@/DataTypes/common/layouts/TypeTag/TypeTag'
+import { getType } from "@/DataTypes/Entity/Types";
+import HtmlTagsRemover from "@/src/utils/HtmlTagsRemover";
+import TypeTag from "@/DataTypes/common/layouts/TypeTag/TypeTag";
+
+import LinkWithLoading from "@/src/Routing/LinkWithLoading";
 
 /**
  *
@@ -194,7 +196,7 @@ const EntitySimple = (props) => {
 
     return (
         <Tag className={`${className} rounded ${styles["simple-abstract"]}`}>
-            <Link href={model.singleLink} title={title}>
+      <LinkWithLoading href={model.singleLink} title={title}>
                 {/* SECTION 1/2 : HeaderDefault */}
                 <header className={`${styles["simple-abstract__header"]}`}>
                     {/* Override the display of the normal visual if there is the overRidingHeader is defined */}
@@ -204,7 +206,8 @@ const EntitySimple = (props) => {
                 <section className={`${styles["simple-abstract__content"]}`}>
                     { Content ? Content : ContentDefault }
                 </section>
-            </Link>
+
+      </LinkWithLoading>
         </Tag>
     )
 }
