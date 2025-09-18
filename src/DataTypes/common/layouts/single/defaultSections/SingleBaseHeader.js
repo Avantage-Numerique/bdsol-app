@@ -1,4 +1,4 @@
-import React, {memo, useContext, useEffect, useState} from 'react'
+import React, { memo, useContext, useEffect, useState } from 'react'
 //Styles
 import styles from './SingleBaseHeader.module.scss';
 
@@ -9,42 +9,42 @@ import RichTextarea from '@/src/common/FormElements/RichTextArea/RichTextarea';
 import Icon from "@/common/widgets/Icon/Icon";
 
 //Auth
-import {useAuth} from '@/src/authentification/context/auth-context';
-import {lang, modes} from "@/common/Data/GlobalConstants";
+import { useAuth } from '@/src/authentification/context/auth-context';
+import { lang, modes } from "@/common/Data/GlobalConstants";
 
 //Hook
-import {useRootModal} from '@/src/hooks/useModal/useRootModal';
-import {useFormUtils} from '@/src/hooks/useFormUtils/useFormUtils';
-import {useHttpClient} from '@/src/hooks/http-hook';
+import { useRootModal } from '@/src/hooks/useModal/useRootModal';
+import { useFormUtils } from '@/src/hooks/useFormUtils/useFormUtils';
+import { useHttpClient } from '@/src/hooks/http-hook';
 import { useRouter } from 'next/router';
 
 //Context
-import {MessageContext} from '@/src/common/UserNotifications/Message/Context/Message-Context';
-import {getBadgesInfo} from '@/src/DataTypes/Badges/BadgesSection';
+import { MessageContext } from '@/src/common/UserNotifications/Message/Context/Message-Context';
+import { getBadgesInfo } from '@/src/DataTypes/Badges/BadgesSection';
 import Link from "next/link";
 
 
 //Memoize the image to prevent rerendering
 const ImageComponent = memo(
-    ({mainImage, badges, activeInnerLink="true"}) => {
+    ({ mainImage, badges, activeInnerLink = "true" }) => {
 
         const addInnerLink = activeInnerLink === "true";
         const InnerLink = () => (
             <>
-                { mainImage && mainImage.url !== "" && !mainImage.isDefault &&
+                {mainImage && mainImage.url !== "" && !mainImage.isDefault &&
                     <Link href={`/medias/${mainImage._id}`}
                         className={`fs-4 w-100 h-100 position-absolute d-flex align-items-center justify-content-center p-1 ${styles["profile-picture--modification-opt"]} main-image-link`}>
-                        <Icon iconName={"eye"} /> {lang.see}
+                        <Icon iconName={"eye"}/> {lang.see}
                     </Link>
                 }
             </>
         )
 
         const [badgeToShowState, setBadgeToShowState] = useState(undefined);
-        useEffect( () => {
-            async function fetchBadge(){
+        useEffect(() => {
+            async function fetchBadge() {
                 //If badges array exist in entity and is > 0 length fetch badges info
-                if(badges !== undefined && Array.isArray(badges) && badges.length > 0 ){
+                if (badges !== undefined && Array.isArray(badges) && badges.length > 0) {
                     const badgesInfo = await getBadgesInfo();
                     setBadgeToShowState(badgesInfo[badges[0]]);
                 }
@@ -60,15 +60,15 @@ const ImageComponent = memo(
                 <div className={`position-relative ${styles["single-base-header__main-image__container"]}`}>
                     {/* SM format and more */}
                     <MediaFigure model={mainImage}
-                                 className={`main-image-container ${styles["single-base-header__main-image__container__figure"]} ${!mainImage.isDefault ? "overflow-hidden shadow" : (styles["default-drop-shadow"] + " default-img ")}`}
-                                 imgClassName={"main-image"}>
-                        {addInnerLink && <InnerLink/>}
+                        className={`main-image-container ${styles["single-base-header__main-image__container__figure"]} ${!mainImage.isDefault ? "overflow-hidden shadow" : (styles["default-drop-shadow"] + " default-img ")}`}
+                        imgClassName={"main-image"}>
+                        {addInnerLink && <InnerLink />}
                     </MediaFigure>
                     {
                         badgeToShowState !== undefined &&
                         (
                             <div className={"position-absolute bottom-0 end-0"}>
-                                <img src={badgeToShowState?.iconPath} alt={badgeToShowState?.iconAlt ?? "Badge"} width="40px" height="40px"/>
+                                <img src={badgeToShowState?.iconPath} alt={badgeToShowState?.iconAlt ?? "Badge"} width="40px" height="40px" />
                             </div>
                         )
                     }
@@ -84,6 +84,7 @@ const ImageComponent = memo(
  * @param {JSX} subtitle JSX element containing subtitle (top left)
  * @param {string} entityType type that shows bottom right
  * @param {className} global classes passed from the outside
+ * @param {SingleBaseCTA} ctaSection SingleBaseCTA JSX component to display action buttons
  * @param {JSX} buttonSection JSX element containing all the calls to action components in one place
  * @param {String} buttonText string : Text dispayed in the cta button in the header
  * @param {String} buttonLink string : link to redirect the user when the button is clicked
@@ -110,7 +111,7 @@ const SingleBaseHeader = (props) => {
 
     //Modal hook
     const modalReportEntity = useRootModal();
-    const {sendRequest} = useHttpClient();
+    const { sendRequest } = useHttpClient();
     const msg = useContext(MessageContext);
 
     //Router for redirect login page
@@ -171,17 +172,17 @@ const SingleBaseHeader = (props) => {
                     }
                 }
             ),
-            {'Content-Type': 'application/json'}
+            { 'Content-Type': 'application/json' }
         );
-        
-        if(apiResponse.error){
-            msg.addMessage({ 
+
+        if (apiResponse.error) {
+            msg.addMessage({
                 text: lang.reportingError,
                 positive: false
             })
         }
-        else{
-            msg.addMessage({ 
+        else {
+            msg.addMessage({
                 text: lang.reportingSuccess,
                 positive: true
             });
@@ -189,7 +190,7 @@ const SingleBaseHeader = (props) => {
             //formState.inputs.email.value = "";
             formState.inputs.message.value = "";
             modalReportEntity.closeModal();
-        }  
+        }
     }
 
     const buttonSectionLink = !auth.user.isLoggedIn ? "/compte/connexion" : buttonLink;
@@ -198,32 +199,15 @@ const SingleBaseHeader = (props) => {
     return (
         <section className={`row ${styles["content-padding-top"]} ${props.className}`}>
             <div className="d-flex justify-content-end">
-                <button type="button" className="fs-3" onClick={modalReportEntity.displayModal}><Icon iconName="flag"/></button>
+                <button type="button" className="fs-3" onClick={modalReportEntity.displayModal}><Icon iconName="flag" /></button>
             </div>
             {mainImage && <ImageComponent mainImage={mainImage} badges={entity?.badges} activeInnerLink={currentMode.imageComponentActivateLink} />}
             <div className="col-12 col-sm flex-grow-1 d-flex flex-column">
                 <div className="d-flex flex-column text-dark">
-                    { title || <h1 className='mt-4 ms-4'>{lang.title}</h1> }
-                    { subtitle || <h3 className='ms-4'>{lang.subTitle}</h3> }
-                    <div className="mt-2 d-sm-none">
-                        {buttonSection && buttonSection}
-                    </div>
+                    {title || <h1 className='mt-4 ms-4'>{lang.title}</h1>}
+                    {subtitle || <h3 className='ms-4'>{lang.subTitle}</h3>}
                 </div>
-                { /* btnToggleViewEdit */ }
-                {/* If a button section is declared, use it */}
-                <div style={{height: "1rem"}} className="position-relative flex-grow-1 d-flex align-items-end">
-                    <div className={`${styles["over-flowing-button-section"]} ${isUpdateMode && styles["edition-mode"]} d-flex justify-content-end w-100`}>
-                        {buttonSection &&
-                            <div className="d-none d-sm-block w-100">
-                                {buttonSection}
-                            </div>
-                        }
-                        {/* If the is no button section and there is a single button declared, display it */}
-                        {!buttonSection && buttonText && buttonSectionLink &&
-                            <Button className={`btn-contribute shadow d-block`} href={buttonSectionLink+`?redirect=${encodeURI(router.asPath)}`}>{buttonText}</Button>
-                        }
-                    </div>
-                </div>
+                {props?.ctaSection && props.ctaSection}
             </div>
             {children &&
                 <div className="col-12 order-3 pt-2">
@@ -241,7 +225,7 @@ const SingleBaseHeader = (props) => {
                         name="message"
                         label={lang.message}
                         validationRules={[
-                            {name: "REQUIRED"}
+                            { name: "REQUIRED" }
                         ]}
                         formTools={formTools}
                     />

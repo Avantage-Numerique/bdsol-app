@@ -13,21 +13,17 @@ import { useFormUtils } from "@/src/hooks/useFormUtils/useFormUtils";
 import { useAuth } from "@/src/authentification/context/auth-context";
 import { useRootModal } from '@/src/hooks/useModal/useRootModal';
 
-
 //Components
 import SingleBase from "@/src/DataTypes/common/layouts/single/SingleBase";
 import SingleBaseHeader from "@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseHeader";
-import MainImageDisplay from "@/src/DataTypes/common/layouts/single/defaultSections/MainImageDisplay/MainImageDisplay";
 import SubmitEntity from "@/src/DataTypes/common/Forms/SingleEdit/SubmitEntity";
 import { SingleEntityMeta } from '@/src/DataTypes/Meta/components/SingleEntityMeta';
 import Input from "@/src/common/FormElements/Input/Input";
 import RichTextarea from "@/src/common/FormElements/RichTextArea/RichTextarea";
 import SingleInfo from "@/DataTypes/common/layouts/SingleInfo/SingleInfo";
-import Button from '@/FormElements/Button/Button'
-import Icon from "@/common/widgets/Icon/Icon";
 import SingleSaveEntityReminder from '@/src/DataTypes/common/layouts/SingleSaveEntityReminder/SingleSaveEntityReminder';
 import SingleBeforeUnloadReminder from "@/src/DataTypes/common/layouts/SingleSaveEntityReminder/SingleBeforeUnloadReminder";
-
+import SingleBaseCTA from "@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseCTA";
 
 const PlaceSingleEdit = ({ positiveRequestActions, ...props }) => {
 
@@ -196,21 +192,15 @@ const PlaceSingleEdit = ({ positiveRequestActions, ...props }) => {
         </>
     );
 
-    const ctaHeaderSection = (
-        <div className="d-flex flex-wrap align-items-end justify-content-between gap-2 gap-md-3 gap-lg-4">
-            <MainImageDisplay buttonClasses="fs-6" mainImage={currentMainImage} entity={currentModel}
-                setter={updateModelMainImage} />
-            <div className="d-flex flex-wrap align-items-end justify-content-between gap-2 gap-md-3 gap-lg-4">
-                <Button className='fs-6' size="slim" color="success" disabled={!formState.isValid}
-                    onClick={() => { setSaveIntentionState(true); modalSaveEntityReminder.displayModal() }}
-                >
-                    <Icon iconName={"save"} />&nbsp;{lang.capitalize("save")}
-                </Button>
-                <Button className='fs-6' size="slim" color="primary-light" href={model.singleLink}>
-                    <Icon iconName={"times"} />&nbsp;{lang.Cancel}
-                </Button>
-            </div>
-        </div>
+    const ctaSection = (
+        <SingleBaseCTA
+            formTools={formTools}
+            mainImage={currentMainImage}
+            model={model}
+            mainImageSetter={updateModelMainImage}
+            saveEntityReminderModal={modalSaveEntityReminder}
+            saveIntentionSetter={setSaveIntentionState}
+        />
     )
 
     const header = (
@@ -219,9 +209,9 @@ const PlaceSingleEdit = ({ positiveRequestActions, ...props }) => {
             title={title}
             subtitle={<div />}
             mainImage={currentMainImage}
-            buttonSection={ctaHeaderSection}
             entity={model}
             mode={modes.CONTRIBUTING}
+            ctaSection={ctaSection}
         >
         </SingleBaseHeader>
     );

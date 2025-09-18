@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 
 //components
 import SingleBaseHeader from "@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseHeader"
@@ -10,21 +10,22 @@ import EntitiesTagGrid from "@/DataTypes/Entity/layouts/EntitiesTagGrid";
 import EntityLink from "@/DataTypes/Entity/layouts/EntityLink";
 import SingleBaseProgressBar
     from '@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseProgressBar/SingleBaseProgressBar'
-import {ContactPointView} from '@/src/DataTypes/common/layouts/ContactPointView/ContactPointView';
+import { ContactPointView } from '@/src/DataTypes/common/layouts/ContactPointView/ContactPointView';
+import SingleBaseCTA from '@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseCTA';
 
 //Utils
 import SanitizedInnerHtml from '@/src/utils/SanitizedInnerHtml';
-import {SingleEntityMeta} from "@/src/DataTypes/Meta/components/SingleEntityMeta";
-import {getDateFromIsoString} from "@/src/utils/DateHelper";
+import { SingleEntityMeta } from "@/src/DataTypes/Meta/components/SingleEntityMeta";
+import { getDateFromIsoString } from "@/src/utils/DateHelper";
 import Project from "@/DataTypes/Project/models/Project";
-import {lang} from "@/common/Data/GlobalConstants";
-import {clientSideExternalApiRequest} from "@/src/hooks/http-hook";
-import {removeTagsFromString} from '@/src/helpers/html'
+import { lang } from "@/common/Data/GlobalConstants";
+import { clientSideExternalApiRequest } from "@/src/hooks/http-hook";
+import { removeTagsFromString } from '@/src/helpers/html'
 
 //styling
 import styles from "./ProjectSingleView.module.scss"
-import {haveAValidValue} from "@/src/helpers/obj";
-import {appConfig} from "@/src/configs/AppConfig";
+import { haveAValidValue } from "@/src/helpers/obj";
+import { appConfig } from "@/src/configs/AppConfig";
 
 const ProjectSingleView = ({ data }) => {
 
@@ -57,8 +58,8 @@ const ProjectSingleView = ({ data }) => {
     const sectionClassSpacing = appConfig.spacing.singleSectionSpacingClass;
 
     /******* Sorted lists ********/
-    const sortedSponsors = sponsor?.[0]?.subMeta?.order !== undefined ? sponsor.sort((a,b) => a.subMeta.order - b.subMeta.order) : sponsor;
-    const sortedTeam = team?.[0]?.subMeta?.order !== undefined ? team.sort((a,b) => a.subMeta.order - b.subMeta.order) : team;
+    const sortedSponsors = sponsor?.[0]?.subMeta?.order !== undefined ? sponsor.sort((a, b) => a.subMeta.order - b.subMeta.order) : sponsor;
+    const sortedTeam = team?.[0]?.subMeta?.order !== undefined ? team.sort((a, b) => a.subMeta.order - b.subMeta.order) : team;
 
     /* Needed for breadCrumb generator */
     const breadcrumbLabels = {
@@ -79,7 +80,7 @@ const ProjectSingleView = ({ data }) => {
 
 
     const [allEnumState, setAllEnumState] = useState(undefined);
-    useEffect( () => {
+    useEffect(() => {
         const getScheduleEnum = async () => {
             const scheduleEnum = await clientSideExternalApiRequest(
                 '/info/budgetrange-enum',
@@ -94,9 +95,9 @@ const ProjectSingleView = ({ data }) => {
                 { method: 'GET' }
             )
             let keyValueScheduleEnum = {}
-            scheduleEnum.forEach( (elem) => { keyValueScheduleEnum[elem.value] = elem.label });
-            timeFrameEnum.forEach( (elem) => { keyValueScheduleEnum[elem.value] = elem.label });
-            contextEnum.forEach( (elem) => { keyValueScheduleEnum[elem.value] = elem.label })
+            scheduleEnum.forEach((elem) => { keyValueScheduleEnum[elem.value] = elem.label });
+            timeFrameEnum.forEach((elem) => { keyValueScheduleEnum[elem.value] = elem.label });
+            contextEnum.forEach((elem) => { keyValueScheduleEnum[elem.value] = elem.label })
             setAllEnumState(keyValueScheduleEnum);
         }
         getScheduleEnum();
@@ -107,7 +108,7 @@ const ProjectSingleView = ({ data }) => {
      ***************************/
 
     const Header = (
-        <SingleBaseHeader 
+        <SingleBaseHeader
             title={(<SanitizedInnerHtml tag={"h1"} className="text-white">{`${model.title}`}</SanitizedInnerHtml>)}
             subtitle={(
                 <div className="d-text">
@@ -143,19 +144,18 @@ const ProjectSingleView = ({ data }) => {
             )}
             mainImage={model.mainImage}
             entity={model}
-            buttonText="Proposer des modifications"
-            buttonLink={model.singleEditLink}
+            ctaSection={<SingleBaseCTA model={model} />}
         />
     )
 
     const FullWidthContent = (
         <>
-            <SingleInfo 
-                title={lang.about} 
+            <SingleInfo
+                title={lang.about}
                 NAMessage="Aucune description n'est disponible pour le moment."
             >
                 {
-                    removeTagsFromString(description) && 
+                    removeTagsFromString(description) &&
                     <SanitizedInnerHtml>
                         {description}
                     </SanitizedInnerHtml>
@@ -167,13 +167,13 @@ const ProjectSingleView = ({ data }) => {
     const ContentColumnLeft = (
         <>
             {/* Partners */}
-            <SingleInfo 
-                title={lang.projectPartners} 
+            <SingleInfo
+                title={lang.projectPartners}
                 displayCondition={sortedSponsors.length > 0}
             >
                 <EntitiesTagGrid feed={sortedSponsors} subEntityProperty={"entity"} subTagProperty={"name"} />
             </SingleInfo>
-            
+
             {/* Team */}
             <SingleInfo
                 title={lang.teamMembers}
@@ -181,7 +181,7 @@ const ProjectSingleView = ({ data }) => {
             >
                 <EntitiesTagGrid feed={sortedTeam} subEntityProperty={"member"} subTagProperty={"role"} noneMessage={"Aucun membre de l'équipe spécifiés"} />
             </SingleInfo>
-            
+
             {/* schedule budget */}
             <SingleInfo
                 title={lang.timelineAndBudget}
@@ -198,23 +198,23 @@ const ProjectSingleView = ({ data }) => {
                         </div>
                     </div>
 
-                    {scheduleBudget?.timeframe?.length > 0 && 
+                    {scheduleBudget?.timeframe?.length > 0 &&
                         <>
                             <h5 className="mt-4 text-dark">{lang.projectsSteps}</h5>
-                            <ul 
-                                key="timeframe-container" 
+                            <ul
+                                key="timeframe-container"
                                 className={`container rounded overflow-hidden shadow-sm`}
                             >
                                 {/* Table's header */}
                                 <BudgetStep header />
                                 {
-                                    scheduleBudget.timeframe.map( (singleTimeframe, index) => {
+                                    scheduleBudget.timeframe.map((singleTimeframe, index) => {
                                         return (
-                                            <BudgetStep 
+                                            <BudgetStep
                                                 key={`timeframe-${singleTimeframe._id}`}
                                                 index={index}
                                                 step={singleTimeframe.step}
-                                                duration= {allEnumState?.[singleTimeframe.eta] ?? singleTimeframe.eta}
+                                                duration={allEnumState?.[singleTimeframe.eta] ?? singleTimeframe.eta}
                                                 costs={allEnumState?.[singleTimeframe.budgetRange] ?? singleTimeframe.budgetRange}
                                             />
                                         )
@@ -225,13 +225,13 @@ const ProjectSingleView = ({ data }) => {
                     }
                 </section>
             </SingleInfo>
-            
+
             {/* Equipments */}
             <SingleInfo title={lang.equipmentUsed}>
-                {equipment && 
+                {equipment &&
                     <EntitiesTagGrid
-                        feed={equipment} 
-                        noneMessage={""} 
+                        feed={equipment}
+                        noneMessage={""}
                     />
                 }
             </SingleInfo>
@@ -243,7 +243,7 @@ const ProjectSingleView = ({ data }) => {
         <>
             {/* Contact information */}
             <SingleInfo title={lang.organisationContact}>
-                <ContactPointView contact={model.contactPoint}/>
+                <ContactPointView contact={model.contactPoint} />
             </SingleInfo>
 
             <SingleInfo title="Informations supplémentaires">
@@ -290,13 +290,13 @@ const ProjectSingleView = ({ data }) => {
         </>
     )
 
-    {/*********** Footer section ***********/}
+    {/*********** Footer section ***********/ }
     const Footer = (
         <>
             {
                 (createdAt || updatedAt || meta) &&
-                <SingleInfo 
-                    title={lang.entityMetadata} 
+                <SingleInfo
+                    title={lang.entityMetadata}
                     className="pt-3"
                 >
                     {/*********** Entity data ***********/}
@@ -306,25 +306,25 @@ const ProjectSingleView = ({ data }) => {
         </>
     )
 
-    {/*********** Bottom section ***********/}
+    {/*********** Bottom section ***********/ }
     const SinglePageBottom = (
-        <SingleBaseProgressBar 
+        <SingleBaseProgressBar
             dataList={[
-                {data: model.title},
-                {data: alternateName},
-                {data: entityInCharge},
-                {data: producer},
-                {data: description, validationFunction: (value => removeTagsFromString(value) ? true : false)},
-                {data: sortedSponsors},
-                {data: sortedTeam},
-                {data: scheduleBudget, validationFunction: ((value) => value && haveAValidValue(value))},
-                {data: equipment},
-                {data: context},
-                {data: skills},
-                {data: domains},
-                {data: contactPoint},
-                {data: model?.url},
-                {data: model.mainImage.isDefault, validationFunction: ((value) => !value)}, 
+                { data: model.title },
+                { data: alternateName },
+                { data: entityInCharge },
+                { data: producer },
+                { data: description, validationFunction: (value => removeTagsFromString(value) ? true : false) },
+                { data: sortedSponsors },
+                { data: sortedTeam },
+                { data: scheduleBudget, validationFunction: ((value) => value && haveAValidValue(value)) },
+                { data: equipment },
+                { data: context },
+                { data: skills },
+                { data: domains },
+                { data: contactPoint },
+                { data: model?.url },
+                { data: model.mainImage.isDefault, validationFunction: ((value) => !value) },
             ]}
             buttonText={lang.contributeButtonLabel}
             buttonLink={model.singleEditLink}
@@ -356,8 +356,8 @@ export default ProjectSingleView
  * 
  */
 
- //Line component for the budget steps
- function BudgetStep(props){
+//Line component for the budget steps
+function BudgetStep(props) {
     //Deconstruct props
     const {
         header = false,
@@ -376,10 +376,10 @@ export default ProjectSingleView
             <Tag className="col flex-1 my-2">{header ? "Durée" : duration}</Tag>
             <Tag className="col flex-1 my-2">{header ? "Coûts" : costs}</Tag>
         </li>
-     )
- }
+    )
+}
 
- function BudgetCard(props){
+function BudgetCard(props) {
 
     const {
         title,
@@ -388,9 +388,9 @@ export default ProjectSingleView
         col = "col-6",
     } = props;
 
-    const style = {"border": "0.15rem dashed"}
+    const style = { "border": "0.15rem dashed" }
 
-    if(title && data)
+    if (title && data)
         return (
             <div className={`${col} g-3`}>
                 <div style={style} className="bg-greyBg py-3 px-3 rounded border-secondary">
@@ -399,4 +399,4 @@ export default ProjectSingleView
                 </div>
             </div>
         )
- }
+}

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from "next/link";
 
 //components
@@ -8,20 +8,21 @@ import SanitizedInnerHtml from '@/src/utils/SanitizedInnerHtml';
 import SearchTag from '@/src/common/Components/SearchTag';
 import SingleBaseProgressBar
     from '@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseProgressBar/SingleBaseProgressBar'
-import {ContactPointView} from '@/src/DataTypes/common/layouts/ContactPointView/ContactPointView';
+import { ContactPointView } from '@/src/DataTypes/common/layouts/ContactPointView/ContactPointView';
 import BadgesSection from '@/src/DataTypes/Badges/BadgesSection';
+import SingleBaseCTA from '@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseCTA';
 
 
 //Utils
 import Organisation from '@/src/DataTypes/Organisation/models/Organisation';
 import Equipment from '@/src/DataTypes/Equipment/models/Equipment';
-import {lang} from "@/common/Data/GlobalConstants";
+import { lang } from "@/common/Data/GlobalConstants";
 import SingleInfo from "@/DataTypes/common/layouts/SingleInfo/SingleInfo";
-import {SingleEntityMeta} from "@/src/DataTypes/Meta/components/SingleEntityMeta";
+import { SingleEntityMeta } from "@/src/DataTypes/Meta/components/SingleEntityMeta";
 import EntitiesTagGrid from "@/DataTypes/Entity/layouts/EntitiesTagGrid";
-import {dateManager} from "@/common/DateManager/DateManager";
-import {SkillGroup} from "@/DataTypes/common/layouts/skillsGroup/SkillGroup";
-import {removeTagsFromString} from '@/src/helpers/html'
+import { dateManager } from "@/common/DateManager/DateManager";
+import { SkillGroup } from "@/DataTypes/common/layouts/skillsGroup/SkillGroup";
+import { removeTagsFromString } from '@/src/helpers/html'
 
 //Styles
 import styles from './OrganisationSingleView.module.scss';
@@ -60,8 +61,8 @@ const OrganisationSingleView = ({ data }) => {
     const model = new Organisation(data);
 
     /******* Sorted lists ********/
-    const sortedOffers = offers?.[0]?.subMeta?.order !== undefined ? offers.sort((a,b) => a.subMeta.order - b.subMeta.order) : offers;
-    const sortedTeam = team?.[0]?.subMeta?.order !== undefined ? team.sort((a,b) => a.subMeta.order - b.subMeta.order) : team;
+    const sortedOffers = offers?.[0]?.subMeta?.order !== undefined ? offers.sort((a, b) => a.subMeta.order - b.subMeta.order) : offers;
+    const sortedTeam = team?.[0]?.subMeta?.order !== undefined ? team.sort((a, b) => a.subMeta.order - b.subMeta.order) : team;
     const sortedEquipment = equipment?.[0]?.subMeta?.order !== undefined ? equipment.sort((a, b) => a?.subMeta?.order - b?.subMeta?.order) : equipment;
 
     const breadcrumbLabels = {
@@ -83,11 +84,11 @@ const OrganisationSingleView = ({ data }) => {
     const Header = (
         <SingleBaseHeader
             title={(
-            <>
-                <h1>{`${model.title}`}</h1>
-                {/* <div>{(model?.badges !== undefined && model.badges.length > 0) ? model.badges : "No-badge"}+</div>
+                <>
+                    <h1>{`${model.title}`}</h1>
+                    {/* <div>{(model?.badges !== undefined && model.badges.length > 0) ? model.badges : "No-badge"}+</div>
                 <div>{(model?.region !== undefined && model.region !== "") ? model.region : "No-region"}</div> */}
-            </>)}
+                </>)}
             subtitle={(
                 <div className="d-text">
                     <h4>{catchphrase}</h4>
@@ -95,18 +96,17 @@ const OrganisationSingleView = ({ data }) => {
             )}
             mainImage={model.mainImage}
             entity={model}
-            buttonText={lang.contributeButtonLabel}
-            buttonLink={model.singleEditLink}
+            ctaSection={<SingleBaseCTA model={model} />}
         />
     )
 
     const FullWidthContent = (
-        <SingleInfo 
-            title={lang.about} 
+        <SingleInfo
+            title={lang.about}
             NAMessage="Aucune description n'est disponible pour le moment."
         >
             {
-                removeTagsFromString(description) && 
+                removeTagsFromString(description) &&
                 <SanitizedInnerHtml>
                     {description}
                 </SanitizedInnerHtml>
@@ -121,7 +121,7 @@ const OrganisationSingleView = ({ data }) => {
                 title={lang.skillsAndTechnologies}
                 NAMessage="Aucun service n'est inscrit pour cette organisation."
             >
-                { sortedOffers?.length > 0 && sortedOffers.map((offer, index) => (
+                {sortedOffers?.length > 0 && sortedOffers.map((offer, index) => (
                     <SkillGroup
                         label={offer.groupName}
                         skills={offer.skills}
@@ -129,7 +129,7 @@ const OrganisationSingleView = ({ data }) => {
                     />
                 ))}
             </SingleInfo>
-            
+
             {/* Team */}
             <SingleInfo
                 title={lang.teamMembers}
@@ -142,7 +142,7 @@ const OrganisationSingleView = ({ data }) => {
                     noneMessage={lang.noTeamMemberSetMessage}
                 />
             </SingleInfo>
-            
+
             {/* Creator of Projects */}
             <SingleInfo
                 title={`${lang.plural(lang.projectCreated, lang.projectsCreated, creatorOfProjects.length)}`}
@@ -156,9 +156,9 @@ const OrganisationSingleView = ({ data }) => {
                 title={`${lang.plural(lang.projectPartner, lang.projectsPartner, projectsPartner.length)}`}
                 displayCondition={projectsPartner?.length > 0}
             >
-                <EntitiesTagGrid feed={projectsPartner} />                
+                <EntitiesTagGrid feed={projectsPartner} />
             </SingleInfo>
-            
+
             {/* CreatorOfEvents */}
             <SingleInfo
                 title={`${lang.plural(lang.creatorOfEvent, lang.creatorOfEvents, creatorOfEvents.length)}`}
@@ -174,7 +174,7 @@ const OrganisationSingleView = ({ data }) => {
             >
                 <EntitiesTagGrid feed={events} />
             </SingleInfo>
-            
+
             {/* Equipment */}
             <SingleInfo
                 title={lang.EquipmentsOwned}
@@ -206,18 +206,18 @@ const OrganisationSingleView = ({ data }) => {
                     })}
                 </ul>
             </SingleInfo>
-            
+
         </>
     )
 
     const ContentColumnRight = (
         <>
             {/* Badges */}
-            <BadgesSection badges={model.badges} entityLabel={model.name}/>
+            <BadgesSection badges={model.badges} entityLabel={model.name} />
 
             {/* Contact information */}
             <SingleInfo title={lang.organisationContact}>
-                <ContactPointView contact={model.contactPoint}/>
+                <ContactPointView contact={model.contactPoint} />
             </SingleInfo>
 
             {/* Location */}
@@ -229,11 +229,11 @@ const OrganisationSingleView = ({ data }) => {
                     <EntitiesTagGrid feed={location} subTagProperty={"address"} columnClass={"col-12"} />
                 </SingleInfo>
             }
-            
+
             {/* Domains */}
             <SingleInfo
                 title={lang.Domains}
-                NAMessage="Aucun secteur d'activité n'est précisé pour le moment." 
+                NAMessage="Aucun secteur d'activité n'est précisé pour le moment."
                 displayCondition={domains.length > 0}
             >
                 {domains &&
@@ -243,7 +243,7 @@ const OrganisationSingleView = ({ data }) => {
                     />
                 }
             </SingleInfo>
-            
+
             {/* Fondation date */}
             <SingleInfo
                 title={lang.fondationDate}
@@ -253,7 +253,7 @@ const OrganisationSingleView = ({ data }) => {
             </SingleInfo>
 
             {/* Url */}
-            { model && model?.url &&
+            {model && model?.url &&
                 <SocialHandleDisplay
                     title={lang.externalLinks}
                     url={model?.url}
@@ -266,8 +266,8 @@ const OrganisationSingleView = ({ data }) => {
         <>
             {
                 (createdAt || updatedAt || meta) &&
-                <SingleInfo 
-                    title={lang.entityMetadata} 
+                <SingleInfo
+                    title={lang.entityMetadata}
                     className="pt-3"
                 >
                     <SingleEntityMeta createdAt={createdAt} updatedAt={updatedAt} meta={meta} />
@@ -278,20 +278,20 @@ const OrganisationSingleView = ({ data }) => {
 
     const SinglePageBottom = (
         <>
-            <SingleBaseProgressBar 
+            <SingleBaseProgressBar
                 dataList={[
-                    {data: name},
-                    {data: catchphrase},
-                    {data: description, validationFunction: (value => removeTagsFromString(value) ? true : false)},
-                    {data: sortedOffers},
-                    {data: sortedTeam},
-                    {data: location},
-                    {data: contactPoint},
-                    {data: equipment},
-                    {data: domains},
-                    {data: fondationDate},
-                    {data: url},
-                    {data: model.mainImage.isDefault, validationFunction: ((value) => !value)},
+                    { data: name },
+                    { data: catchphrase },
+                    { data: description, validationFunction: (value => removeTagsFromString(value) ? true : false) },
+                    { data: sortedOffers },
+                    { data: sortedTeam },
+                    { data: location },
+                    { data: contactPoint },
+                    { data: equipment },
+                    { data: domains },
+                    { data: fondationDate },
+                    { data: url },
+                    { data: model.mainImage.isDefault, validationFunction: ((value) => !value) },
                 ]}
                 buttonText={lang.contributeButtonLabel}
                 buttonLink={model.singleEditLink}
@@ -304,7 +304,7 @@ const OrganisationSingleView = ({ data }) => {
     */}
     return (
         <>
-            <SingleBase 
+            <SingleBase
                 breadCrumb={breadCrumb}
                 header={Header}
                 fullWidthContent={FullWidthContent}

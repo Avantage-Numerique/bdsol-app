@@ -1,18 +1,18 @@
 //React
-import React, {useCallback, useContext, useEffect, useState} from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import Router from "next/router";
 
 //hooks
-import {useRootModal} from "@/src/hooks/useModal/useRootModal";
+import { useRootModal } from "@/src/hooks/useModal/useRootModal";
 
 //Utils, context
-import {useAuth} from "@/src/authentification/context/auth-context";
-import {MessageContext} from "@/src/common/UserNotifications/Message/Context/Message-Context";
-import {useFormUtils} from "@/src/hooks/useFormUtils/useFormUtils";
-import {lang, modes} from "@/src/common/Data/GlobalConstants";
-import {getDefaultUpdateEntityMeta} from "@/src/DataTypes/Meta/EntityMeta";
-import {replacePathname} from "@/src/helpers/url";
-import {SingleEntityMeta} from '@/src/DataTypes/Meta/components/SingleEntityMeta';
+import { useAuth } from "@/src/authentification/context/auth-context";
+import { MessageContext } from "@/src/common/UserNotifications/Message/Context/Message-Context";
+import { useFormUtils } from "@/src/hooks/useFormUtils/useFormUtils";
+import { lang, modes } from "@/src/common/Data/GlobalConstants";
+import { getDefaultUpdateEntityMeta } from "@/src/DataTypes/Meta/EntityMeta";
+import { replacePathname } from "@/src/helpers/url";
+import { SingleEntityMeta } from '@/src/DataTypes/Meta/components/SingleEntityMeta';
 import SingleBeforeUnloadReminder from "@/src/DataTypes/common/layouts/SingleSaveEntityReminder/SingleBeforeUnloadReminder";
 
 
@@ -21,23 +21,21 @@ import Event from "../../../models/Event";
 import SingleInfo from "@/src/DataTypes/common/layouts/SingleInfo/SingleInfo";
 import SingleBaseHeader from "@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseHeader";
 import SingleBase from "@/src/DataTypes/common/layouts/single/SingleBase";
-import MainImageDisplay from "@/src/DataTypes/common/layouts/single/defaultSections/MainImageDisplay/MainImageDisplay";
-import Icon from "@/src/common/widgets/Icon/Icon";
-import Button from "@/src/common/FormElements/Button/Button";
 import Input from "@/src/common/FormElements/Input/Input";
 import Select2 from "@/src/common/FormElements/Select2/Select2";
 import RichTextarea from "@/src/common/FormElements/RichTextArea/RichTextarea";
 import UpdateSchedule from "../../Forms/Schedule/UpdateSchedule";
 import UpdateTeams from "@/src/DataTypes/Organisation/components/forms/UpdateTeams/UpdateTeams";
-import {TYPE_PLACE, TYPE_TAXONOMY} from "@/src/DataTypes/Entity/Types";
+import { TYPE_PLACE, TYPE_TAXONOMY } from "@/src/DataTypes/Entity/Types";
 import SelectFetch from "@/src/common/FormElements/Select/SelectFetch";
-import {apiDateToDateInput, apiDateToTimeInput, dateTimeStringToUTC} from "@/common/DateManager/Parse";
+import { apiDateToDateInput, apiDateToTimeInput, dateTimeStringToUTC } from "@/common/DateManager/Parse";
 import SubmitEntity from "@/DataTypes/common/Forms/SingleEdit/SubmitEntity";
 import UpdateSocialHandles from "@/src/DataTypes/common/Forms/UpdateSocialHandles/UpdateSocialHandles";
 import SingleSaveEntityReminder from "@/src/DataTypes/common/layouts/SingleSaveEntityReminder/SingleSaveEntityReminder";
 import UpdateContactPoint from "@/src/DataTypes/common/Forms/UpdateContactPoint/UpdateContactPoint";
+import SingleBaseCTA from "@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseCTA";
 
-const EventSingleEdit = ({data}, ...props) => {
+const EventSingleEdit = ({ data }, ...props) => {
 
     const {
         _id,
@@ -89,7 +87,7 @@ const EventSingleEdit = ({data}, ...props) => {
         setCurrentMainImage(model.mainImage);
     }, [setCurrentModel]);
 
-    
+
     const updateModelMainImage = useCallback((mainImage) => {
         setCurrentMainImage(mainImage);
         model.mainImage = mainImage;
@@ -101,10 +99,10 @@ const EventSingleEdit = ({data}, ...props) => {
         If he isn't, then redirect him in the connexion page
     */
     useEffect(() => {
-        if(!auth.user.isLoggedIn) {
-            msg.addMessage({ 
+        if (!auth.user.isLoggedIn) {
+            msg.addMessage({
                 text: lang.needToBeConnectedToAccess,
-                positive: false 
+                positive: false
             })
             Router.push('/compte/connexion')
         }
@@ -171,7 +169,7 @@ const EventSingleEdit = ({data}, ...props) => {
                 isValid: true
             },
             contactPoint: {
-                value: contactPoint ?? {tel:{num:"", ext:""},email:{address:""},website:{url:""} },
+                value: contactPoint ?? { tel: { num: "", ext: "" }, email: { address: "" }, website: { url: "" } },
                 isValid: true
             },
             attendees: {
@@ -200,7 +198,7 @@ const EventSingleEdit = ({data}, ...props) => {
         {
             displayResMessage: true,
             callbackFunction: (response) => {
-                Router.push("/"+replacePathname(model.singleRoute.pathname, {slug: response.data.slug}))
+                Router.push("/" + replacePathname(model.singleRoute.pathname, { slug: response.data.slug }))
             }
         }
     );
@@ -222,7 +220,7 @@ const EventSingleEdit = ({data}, ...props) => {
         endTime: '00:00',
     });
 
-    const updateCurrentEventDateTime =() => {
+    const updateCurrentEventDateTime = () => {
         setCurrentEventDateTime({
             startDate: formState.inputs.startDate.value,
             endDate: formState.inputs.endDate.value,
@@ -232,7 +230,7 @@ const EventSingleEdit = ({data}, ...props) => {
     };
 
     //Submit the form
-    const submitHandler = async event => { 
+    const submitHandler = async event => {
 
         event.preventDefault();
 
@@ -244,19 +242,19 @@ const EventSingleEdit = ({data}, ...props) => {
                 organizer: formState.inputs.organizer.value?.value ?? null,
                 description: formState.inputs.description.value,
                 eventType: formState.inputs.eventType.value?.length > 0 ?
-                    formState.inputs.eventType.value.map( (selectedEventType) => { return selectedEventType.value }) : [],
+                    formState.inputs.eventType.value.map((selectedEventType) => { return selectedEventType.value }) : [],
                 eventFormat: formState.inputs.eventFormat.value && formState.inputs.eventFormat.value !== "" ? formState.inputs.eventFormat.value : "",
                 startDate: combineDateAndTime(formState.inputs.startDate.value, formState.inputs.startTime.value),
                 endDate: combineDateAndTime(formState.inputs.endDate.value, formState.inputs.endTime.value),
-                url: formState.inputs.url.value.map(function(singleUrl){
+                url: formState.inputs.url.value.map(function (singleUrl) {
                     return {
                         label: singleUrl.value.label.value,
                         url: singleUrl.value.url.value,
-                        subMeta: { order : singleUrl.order }
+                        subMeta: { order: singleUrl.order }
                     }
                 }),
                 contactPoint: formState.inputs.contactPoint.value,
-                schedule: formState.inputs.schedule.value.map( singleSchedule => {
+                schedule: formState.inputs.schedule.value.map(singleSchedule => {
                     return {
                         name: singleSchedule.value.name.value,
                         startDate: combineDateAndTime(singleSchedule.value.startDate.value, singleSchedule.value.startTime.value),
@@ -268,19 +266,19 @@ const EventSingleEdit = ({data}, ...props) => {
                 }),
                 //Commented for populate loop trouble
                 //subEvents: formState.inputs.subEvents.value?.length > 0 ?
-                    //formState.inputs.subEvents.value.map( (selectedSubEvent) => { return selectedSubEvent.value }) : [],
+                //formState.inputs.subEvents.value.map( (selectedSubEvent) => { return selectedSubEvent.value }) : [],
                 attendees: formState.inputs.attendees.value?.length > 0 ?
-                    formState.inputs.attendees.value.map( (selectedAttendee) => { return selectedAttendee.value }) : [],
+                    formState.inputs.attendees.value.map((selectedAttendee) => { return selectedAttendee.value }) : [],
                 skills: formState.inputs.skills?.value?.length > 0 ?
-                    formState.inputs.skills.value.map( (selectOptionSkill) => { return selectOptionSkill.value }) : [],
+                    formState.inputs.skills.value.map((selectOptionSkill) => { return selectOptionSkill.value }) : [],
                 domains: formState.inputs.domains?.value?.length > 0 ?
-                    formState.inputs.domains.value.map( (elem) => {
+                    formState.inputs.domains.value.map((elem) => {
                         return {
                             domain: elem.value,
                         }
                     })
                     : [],
-                team:formState.inputs.team.value.map(function(singleMember){
+                team: formState.inputs.team.value.map(function (singleMember) {
                     return {
                         member: singleMember.value.member.value.value,
                         role: singleMember.value.role.value,
@@ -288,17 +286,17 @@ const EventSingleEdit = ({data}, ...props) => {
                     }
                 }),
                 location: formState.inputs.location?.value?.length > 0 ?
-                    formState.inputs.location.value.map(function(singlePlace){
+                    formState.inputs.location.value.map(function (singlePlace) {
                         return singlePlace.value
                     })
-                    :[],
+                    : [],
                 //Temporary set the input in name field until we have a more elaborated structure for location
                 //location: [{ name: formState.inputs.location.value}],
                 meta: getDefaultUpdateEntityMeta(auth.user, model.meta.requestedBy),
             }
         };
-        
-        if(_id !== undefined){
+
+        if (_id !== undefined) {
             formData.data.id = _id;
             submitRequest(
                 `/events/update`,
@@ -335,13 +333,13 @@ const EventSingleEdit = ({data}, ...props) => {
 
     const title = (
         <>
-            <Input 
+            <Input
                 name="name"
-                label={lang.eventName+lang.required}
+                label={lang.eventName + lang.required}
                 className="col-12 col-md-6"
                 formClassName="discrete-without-focus form-text-white"
                 validationRules={[
-                    {name: "REQUIRED"}
+                    { name: "REQUIRED" }
                 ]}
                 errorText="Cette information est requise"
                 formTools={formTools}
@@ -354,26 +352,26 @@ const EventSingleEdit = ({data}, ...props) => {
             {/* alternateName */}
             <Input
                 name="alternateName"
-                label={lang.eventAlternateName}      
+                label={lang.eventAlternateName}
                 formClassName="discrete-without-focus form-text-white"
                 formTools={formTools}
             />
-            
+
             <div className="container mt-3">
                 <div className="row gap-2">
                     {/*startDate*/}
-                    <div style={{backgroundColor: "#4f4f4f1c"}} className="col-12 col-sm-5 col-lg-4  rounded-1 mb-2 px-2 py-2 ">
+                    <div style={{ backgroundColor: "#4f4f4f1c" }} className="col-12 col-sm-5 col-lg-4  rounded-1 mb-2 px-2 py-2 ">
                         <h5 className="m-0 mb-1 text-dark-light">Début</h5>
                         <div className="row p-0">
                             <Input
                                 className="col-7"
                                 formClassName="discrete-without-focus form-text-white "
                                 name="startDate"
-                                label={lang.date+lang.required}
+                                label={lang.date + lang.required}
                                 type="date"
                                 formTools={formTools}
                                 validationRules={[
-                                    {name: "REQUIRED"}
+                                    { name: "REQUIRED" }
                                 ]}
                             />
                             <Input
@@ -388,22 +386,24 @@ const EventSingleEdit = ({data}, ...props) => {
                     </div>
 
                     {/*endDate*/}
-                    <div style={{backgroundColor: "#4f4f4f1c"}} className="col-12 col-sm-5 col-lg-4 rounded-1 mb-2 px-2 py-2">
+                    <div style={{ backgroundColor: "#4f4f4f1c" }} className="col-12 col-sm-5 col-lg-4 rounded-1 mb-2 px-2 py-2">
                         <h5 className="m-0 mb-1 text-dark-light">Fin</h5>
                         <div className="row p-0">
                             <Input name="endDate"
                                 className="col-7"
                                 formClassName="discrete-without-focus form-text-white "
-                                label={lang.date+lang.required}
+                                label={lang.date + lang.required}
                                 type="date"
                                 formTools={formTools}
                                 validationRules={[
-                                    {name: "REQUIRED"},
-                                    {name: "HIGHER_DATE_REQUIRED", dependencies: [
-                                        {value: state => state.inputs["startDate"].value, listenerValue: state => state.inputs["startDate"].value}
-                                    ]}
+                                    { name: "REQUIRED" },
+                                    {
+                                        name: "HIGHER_DATE_REQUIRED", dependencies: [
+                                            { value: state => state.inputs["startDate"].value, listenerValue: state => state.inputs["startDate"].value }
+                                        ]
+                                    }
                                 ]}
-                                
+
                             />
                             <Input
                                 className="col-5"
@@ -420,22 +420,16 @@ const EventSingleEdit = ({data}, ...props) => {
 
         </>);
 
-        const ctaHeaderSection = (
-            <div className="d-flex flex-wrap align-items-end justify-content-between gap-2 gap-md-3 gap-lg-4">
-                <MainImageDisplay buttonClasses="fs-6" mainImage={currentMainImage} entity={currentModel}
-                                  setter={updateModelMainImage}/>
-                <div className="d-flex flex-wrap align-items-end justify-content-between gap-2 gap-md-3 gap-lg-4">
-                    <Button className='fs-6' size="slim" color="success" disabled={!formState.isValid}
-                        onClick={() => {setSaveIntentionState(true);modalSaveEntityReminder.displayModal()}}
-                    >
-                        <Icon iconName={"save"}/>&nbsp;{lang.capitalize("save")}
-                    </Button>
-                    <Button className='fs-6' size="slim" color="primary-light" href={model.singleLink}>
-                        <Icon iconName={"times"}/>&nbsp;{lang.Cancel}
-                    </Button>
-                </div>
-            </div>
-        )
+    const ctaSection = (
+        <SingleBaseCTA
+            formTools={formTools}
+            mainImage={currentMainImage}
+            model={model}
+            mainImageSetter={updateModelMainImage}
+            saveEntityReminderModal={modalSaveEntityReminder}
+            saveIntentionSetter={setSaveIntentionState}
+        />
+    )
 
     const header = (
         <SingleBaseHeader
@@ -443,9 +437,9 @@ const EventSingleEdit = ({data}, ...props) => {
             title={title}
             subtitle={subtitle}
             mainImage={currentMainImage}
-            buttonSection={ctaHeaderSection}
             entity={model}
             mode={modes.CONTRIBUTING}
+            ctaSection={ctaSection}
         />
     );
 
@@ -472,8 +466,8 @@ const EventSingleEdit = ({data}, ...props) => {
                                 searchField={"name"}
                                 selectField={"name"}
                             />
-                        </SingleInfo> 
-                        <SingleInfo 
+                        </SingleInfo>
+                        <SingleInfo
                             title={lang.producer}
                             isSubtitle
                             noCardLayout
@@ -487,14 +481,14 @@ const EventSingleEdit = ({data}, ...props) => {
                                 fetch={"/organisations/list"}
                                 searchField={"name"}
                                 selectField={"name"}
-                            />   
+                            />
                         </SingleInfo>
-                    </SingleInfo>                 
-            
+                    </SingleInfo>
+
                 </div>
                 <div className="col col-md-6">
                     {/* location */}
-                    <SingleInfo 
+                    <SingleInfo
                         title={lang.location}
                     >
                         <Select2
@@ -503,12 +497,12 @@ const EventSingleEdit = ({data}, ...props) => {
                             creatable={true}
                             modalType={TYPE_PLACE}
                             isMulti={true}
-                            
+
                             fetch={"/places/list"}
-                            requestData={{address:""}}
+                            requestData={{ address: "" }}
                             searchField={"address"}
                         />
-                    </SingleInfo>                   
+                    </SingleInfo>
                 </div>
 
             </div>
@@ -531,20 +525,20 @@ const EventSingleEdit = ({data}, ...props) => {
             {/* schedule */}
             <SingleInfo
                 title={lang.schedule}
-            >     
+            >
                 <UpdateSchedule
                     name="schedule"
                     minDate={currentEventDateTime.startDate}
                     maxDate={currentEventDateTime.endDate}
                     minTime={currentEventDateTime.startTime}
                     maxTime={currentEventDateTime.endTime}
-                    schedule={schedule?.length > 0 ? schedule.map( (elem, ind, arr) => {
-                        if(elem.startDate)
+                    schedule={schedule?.length > 0 ? schedule.map((elem, ind, arr) => {
+                        if (elem.startDate)
                             elem.startDate = apiDateToDateInput(elem.startDate);//getDateFromIsoString(elem.startDate);
-                        if(elem.endDate)
+                        if (elem.endDate)
                             elem.endDate = apiDateToDateInput(elem.endDate);//getDateFromIsoString(elem.endDate);
                         return elem;
-                    }):[]}
+                    }) : []}
                     formTools={formTools}
                     description={lang.scheduleFieldDescription}
                 />
@@ -586,7 +580,7 @@ const EventSingleEdit = ({data}, ...props) => {
             </SingleInfo>
 
             {/* attendees */}
-            <SingleInfo 
+            <SingleInfo
                 title={lang.attendees}
             >
                 {/* attendees */}
@@ -601,7 +595,7 @@ const EventSingleEdit = ({data}, ...props) => {
                     selectField={"fullname"}
                 />
             </SingleInfo>
-            
+
         </>
     )
 
@@ -619,7 +613,7 @@ const EventSingleEdit = ({data}, ...props) => {
                 className="py-3"
             >
                 {/* skills */}
-                <SingleInfo 
+                <SingleInfo
                     title={lang.skillsAndTechnologies}
                     isSubtitle
                     noCardLayout
@@ -631,7 +625,7 @@ const EventSingleEdit = ({data}, ...props) => {
                         modalType={TYPE_TAXONOMY}
                         allowedCategories={["skills", "technologies"]}
                         isMulti={true}
-                        requestData={{name:""}}
+                        requestData={{ name: "" }}
                         fetch={"/taxonomies/group/skills"}
                         //requestData={}
                         searchField={"name"}
@@ -640,8 +634,8 @@ const EventSingleEdit = ({data}, ...props) => {
                 </SingleInfo>
 
                 {/* domains */}
-                <SingleInfo 
-                    title={lang.Domains} 
+                <SingleInfo
+                    title={lang.Domains}
                     isSubtitle
                     noCardLayout
                 >
@@ -653,14 +647,14 @@ const EventSingleEdit = ({data}, ...props) => {
                         allowedCategories={["domains"]}
                         isMulti={true}
                         fetch={"/taxonomies/list"}
-                        requestData={{category:"domains", name:""}}
+                        requestData={{ category: "domains", name: "" }}
                         searchField={"name"}
                         selectField={"domains"}
                     />
                 </SingleInfo>
-                
+
                 {/* Url */}
-                <SingleInfo 
+                <SingleInfo
                     title={lang.externalLinks}
                     isSubtitle
                     noCardLayout
@@ -670,12 +664,12 @@ const EventSingleEdit = ({data}, ...props) => {
                         //label={lang.url}
                         parentEntity={model}
                         formTools={formTools}
-                />
+                    />
                 </SingleInfo>
 
                 {/*eventType */}
-                <SingleInfo 
-                    isSubtitle 
+                <SingleInfo
+                    isSubtitle
                     title={lang.selectEventType}
                     noCardLayout
                 >
@@ -685,19 +679,19 @@ const EventSingleEdit = ({data}, ...props) => {
                         creatable={false}
                         isMulti={true}
                         fetch={"/taxonomies/list"}
-                        requestData={{category: "eventType", name:""}}
+                        requestData={{ category: "eventType", name: "" }}
                         searchField={"name"}
                         selectField={"name"}
                     />
                 </SingleInfo>
 
                 {/* eventFormat */}
-                <SingleInfo 
-                    isSubtitle 
+                <SingleInfo
+                    isSubtitle
                     title={lang.eventFormat}
                     noCardLayout
                 >
-                    <SelectFetch 
+                    <SelectFetch
                         name="eventFormat"
                         formTools={formTools}
                         noValueText={lang.noSelectedOption}
@@ -709,17 +703,17 @@ const EventSingleEdit = ({data}, ...props) => {
                     entity={model}
                 />
                 */}
-                </SingleInfo>
+            </SingleInfo>
         </>
     )
 
-    {/*********** Footer section ***********/}
+    {/*********** Footer section ***********/ }
     const Footer = (
         <>
             {
                 (createdAt || updatedAt || meta) &&
-                <SingleInfo 
-                    title={lang.entityMetadata} 
+                <SingleInfo
+                    title={lang.entityMetadata}
                     className="pt-3"
                 >
                     {/*********** Entity data ***********/}
@@ -729,11 +723,13 @@ const EventSingleEdit = ({data}, ...props) => {
         </>
     )
 
-    {/*********** Submit section ***********/}
+    {/*********** Submit section ***********/ }
     const SinglePageBottom = (
         <SubmitEntity
-            submitHandler={() => {setSaveIntentionState(true);
-            modalSaveEntityReminder.displayModal()}}
+            submitHandler={() => {
+                setSaveIntentionState(true);
+                modalSaveEntityReminder.displayModal()
+            }}
             formTools={formTools}
             singleLink={model.singleLink}
         />
@@ -741,7 +737,7 @@ const EventSingleEdit = ({data}, ...props) => {
 
     return (
         <>
-            <SingleBeforeUnloadReminder formTools={formTools} saveIntention={saveIntentionState}/>
+            <SingleBeforeUnloadReminder formTools={formTools} saveIntention={saveIntentionState} />
             <SingleBase
                 breadCrumb={breadCrumb}
                 header={header}
@@ -755,7 +751,7 @@ const EventSingleEdit = ({data}, ...props) => {
             <modalSaveEntityReminder.Modal>
                 <SingleSaveEntityReminder
                     submitHandler={submitHandler}
-                    closeModal={() => {modalSaveEntityReminder.closeModal(); setSaveIntentionState(false)}}
+                    closeModal={() => { modalSaveEntityReminder.closeModal(); setSaveIntentionState(false) }}
                 />
             </modalSaveEntityReminder.Modal>
 
