@@ -122,11 +122,11 @@ const ProjectSingleEdit = (props) => {
                 isValid: true
             },
             entityInCharge: {
-                value: entityInCharge ?? "",
+                value: entityInCharge ?? [],
                 isValid: true
             },
             producer: {
-                value: producer ?? "",
+                value: producer ?? [],
                 isValid: true
             },
             description: {
@@ -217,8 +217,8 @@ const ProjectSingleEdit = (props) => {
                 id: _id,
                 name: formState.inputs.name.value,
                 alternateName: formState.inputs.alternateName.value,
-                entityInCharge: formState.inputs.entityInCharge?.value?.value ?? null,
-                producer: formState.inputs.producer.value?.value ?? null,
+                entityInCharge: formState.inputs.entityInCharge?.value?.map(elem => elem.value) ?? [],
+                producer: formState.inputs.producer?.value?.map(elem => elem.value) ?? [],
                 description: formState.inputs.description.value,
                 context: (formState.inputs.context.value !== "" && typeof formState.inputs.context.value !== 'undefined' ) ? formState.inputs.context.value : undefined,
                 sponsor: formState.inputs.sponsor.value.map( (singleSponsor) => {
@@ -324,7 +324,7 @@ const ProjectSingleEdit = (props) => {
                 label={lang.entityInCharge}
                 formTools={formTools}
                 creatable={false}
-                isMulti={false}
+                isMulti
 
                 fetch={"/organisations/list"}
                 searchField={"name"}
@@ -337,7 +337,7 @@ const ProjectSingleEdit = (props) => {
                 formTools={formTools}
                 tooltip={{header:"Producteur·rice", body:"Un·e producteur·rice a une forme d'autorité sur le projet et participe à son financement."}}
                 creatable={false}
-                isMulti={false}
+                isMulti
 
                 fetch={"/organisations/list"}
                 searchField={"name"}

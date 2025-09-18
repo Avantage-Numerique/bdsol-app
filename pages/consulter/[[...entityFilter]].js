@@ -141,7 +141,7 @@ const ConsultData = (props) => {
         //setIsLoading(true);
         setCurrentLoadingState(LoadingStates.LOADING);
         const targetSkip = directSkipNumber ?? 0;
-        console.log("sendApiListRequest", directSkipNumber, "filter entities", consultData.entities[0]);
+
         const res = await searchByType(ORIGIN_BROWSER, consultData.entities[0], {skip:targetSkip});
 
         const list = res.data;
