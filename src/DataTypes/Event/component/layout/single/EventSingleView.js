@@ -162,9 +162,9 @@ const EventSingleView = ({ data }) => {
                         title={lang.location}
                         displayCondition={(location?.length > 0)}
                     >
-                        <EntitiesTagGrid
-                            feed={location}
-                            subTagProperty={"location.address"}
+                        <EntitiesTagGrid 
+                            feed={location} 
+                            subTagProperty={"address"}
                             numberOfCols={1}
                             className="mb-0"
                         />
@@ -215,20 +215,12 @@ const EventSingleView = ({ data }) => {
                 title={lang.teamMembers}
                 displayCondition={sortedTeam?.length > 0}
             >
-<<<<<<< HEAD
-                <EntitiesTagGrid 
-                    feed={sortedTeam}
-                    subEntityProperty={"member"} 
-                    subTagProperty={"role"} 
-                    noneMessage={"Aucun membre de l'équipe spécifiés"} 
-=======
                 <EntitiesTagGrid
                     feed={sortedTeam}
                     regularFlexWrapping
                     subEntityProperty={"member"}
                     subTagProperty={"role"}
                     noneMessage={"Aucun membre de l'équipe spécifiés"}
->>>>>>> 83619b29 (Refactor singleBaseHeader CTA dans un component SinlgeBaseCTA. Prettify les files alors bcp de chose ont changé mais c'est seulement les singleBaseHeader qui ont maintenant SingleBaseCTA comme ctaSectionProps)
                     className="mb-0"
                 />
             </SingleInfo>
@@ -276,7 +268,6 @@ const EventSingleView = ({ data }) => {
                         listProperty={"domain"}
                     />
                 </SingleInfo>
-<<<<<<< HEAD
 
                 {/*eventType */}
                 <SingleInfo 
@@ -284,21 +275,6 @@ const EventSingleView = ({ data }) => {
                         title={lang.eventType}
                         noCardLayout
                     >
-=======
-
-                {/* Url */}
-                <SocialHandleDisplay
-                    title={lang.externalLinks}
-                    url={model?.url}
-                    className={`${appConfig.spacing.singleSectionSpacingClass}`}
-                />
-
-                {/*eventType */}
-                <SingleInfo
-                    isSubtitle
-                    title={lang.eventType}
-                >
->>>>>>> 83619b29 (Refactor singleBaseHeader CTA dans un component SinlgeBaseCTA. Prettify les files alors bcp de chose ont changé mais c'est seulement les singleBaseHeader qui ont maintenant SingleBaseCTA comme ctaSectionProps)
                     {(eventType?.length > 0) &&
                         <ul className="d-flex flex-wrap mb-0 mt-1">
                             {eventType.map(type => (
