@@ -10,16 +10,25 @@ export async function getServerSideProps() {
     let versionsList = [];
     versionsList.push(
         {
-            "label": "Pagination",
+            "label": "Pagination et amélioration",
             "value": "1.0.2",
-            "date": "2025-02-17",
-            "description": "Optimisation et ajout de pagination avec le easy loading dans la page consulter les données.",
+            "date": "2025-09-17",
+            "description": "Optimisation et ajout de pagination avec le easy loading dans la page consulter les données. Plusieurs amélioration d'utilisabilité",
             "notes": [
                 {
-                    "value": "Recherche et pagination grâce à l'aggrégation."
+                    "value": "Recherche et pagination dans la section contribuer avec l'agrégation."
                 },
                 {
                     "value": "Petits ajustements dans la structures."
+                },
+                {
+                    "value": "Ajout d'informations plus précises pour guider l'utilisateur dans les champs qui sont nécessaires lorsque l'on contribue aux fiches."
+                },
+                {
+                    "value": "Affichage des rôles et plus de détails dans les éléments liés."
+                },
+                {
+                    "value": "On peut ajouter plus d'un producteur et d'un créateur dans les fiches projets."
                 },
                 {
                     "value": "<strong>Équipe</strong>",
@@ -30,6 +39,9 @@ export async function getServerSideProps() {
                 },
                 {
                     "value": "<strong>Jeanne Perrin</strong> web design et UX"
+                },
+                {
+                    "value": "<strong>Jules Luzy-Riopel</strong> Backend et front-end <span class='badge bg-primary'>Bienvenue :party:</span>"
                 },
                 {
                     "value": "<strong>Marc-André Martin</strong>, Backend, front-end et responsable du développement"
