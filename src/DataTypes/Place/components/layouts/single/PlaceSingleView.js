@@ -1,7 +1,7 @@
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 
 //Utils
-import {lang} from "@/src/common/Data/GlobalConstants";
+import { lang } from "@/src/common/Data/GlobalConstants";
 
 //Component
 import SingleBase from "@/src/DataTypes/common/layouts/single/SingleBase";
@@ -9,10 +9,11 @@ import SingleBaseHeader from "@/src/DataTypes/common/layouts/single/defaultSecti
 import Place from "../../../models/Place";
 import SanitizedInnerHtml from "@/src/utils/SanitizedInnerHtml";
 import SingleInfo from "@/src/DataTypes/common/layouts/SingleInfo/SingleInfo";
-import {SingleEntityMeta} from "@/src/DataTypes/Meta/components/SingleEntityMeta";
+import { SingleEntityMeta } from "@/src/DataTypes/Meta/components/SingleEntityMeta";
 import SingleBaseProgressBar
     from '@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseProgressBar/SingleBaseProgressBar'
-import {removeTagsFromString} from '@/src/helpers/html'
+import { removeTagsFromString } from '@/src/helpers/html'
+import SingleBaseCTA from "@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseCTA";
 
 
 //Styling
@@ -41,7 +42,7 @@ const PlaceSingleView = ({ data }) => {
 
 
     const header = (
-        <SingleBaseHeader 
+        <SingleBaseHeader
             title={(<SanitizedInnerHtml tag={"h1"} className="text-white">{`${model.title}`}</SanitizedInnerHtml>)}
             subtitle={(
                 <div className="d-text mt-4">
@@ -55,15 +56,14 @@ const PlaceSingleView = ({ data }) => {
             )}
             mainImage={model.mainImage}
             entity={model}
-            buttonText="Proposer des modifications"
-            buttonLink={model.singleEditLink}
+            ctaSection={<SingleBaseCTA model={model} />}
         />
     )
 
     const FullWidthContent = (
         <>
-            <SingleInfo 
-                title={lang.about} 
+            <SingleInfo
+                title={lang.about}
                 NAMessage="Aucune description n'est disponible pour le moment."
             >
                 {
@@ -117,7 +117,7 @@ const PlaceSingleView = ({ data }) => {
                         {model.province ? model.province : " - "}
                     </div>
                 </li>
-            
+
                 {/* country */}
                 <li className={`${styles["coordinate"]}`}>
                     <div className={`${styles["coordinate__title"]}`}>
@@ -131,7 +131,7 @@ const PlaceSingleView = ({ data }) => {
             </ul>
         </SingleInfo>
     )
-    const contentColumnRight = (    
+    const contentColumnRight = (
         <SingleInfo title="Informations supplémentaires">
             <ul className={`${styles["main-coordinate-list"]}`}>
                 {/* mrc */}
@@ -178,13 +178,13 @@ const PlaceSingleView = ({ data }) => {
     )
 
 
-    {/*********** Footer section ***********/}
+    {/*********** Footer section ***********/ }
     const Footer = (
         <>
             {
                 (model.createdAt || model.updatedAt || model.meta) &&
-                <SingleInfo 
-                    title={lang.entityMetadata} 
+                <SingleInfo
+                    title={lang.entityMetadata}
                     className="pt-3"
                 >
                     {/*********** Entity data ***********/}
@@ -194,22 +194,22 @@ const PlaceSingleView = ({ data }) => {
         </>
     )
 
-    {/*********** Bottom section ***********/}
+    {/*********** Bottom section ***********/ }
     const SinglePageBottom = (
-        <SingleBaseProgressBar 
+        <SingleBaseProgressBar
             dataList={[
-                {data: model.title},
-                {data: model.address},
-                {data: model.city},
-                {data: model.description, validationFunction: (value => removeTagsFromString(value) ? true : false)},
-                {data: model.postalCode},
-                {data: model.province},
-                {data: model.country},
-                {data: model.mrc},
-                {data: model.region},
-                {data: model.longitude},
-                {data: model.latitude},
-                {data: model.mainImage.isDefault, validationFunction: ((value) => !value)}, 
+                { data: model.title },
+                { data: model.address },
+                { data: model.city },
+                { data: model.description, validationFunction: (value => removeTagsFromString(value) ? true : false) },
+                { data: model.postalCode },
+                { data: model.province },
+                { data: model.country },
+                { data: model.mrc },
+                { data: model.region },
+                { data: model.longitude },
+                { data: model.latitude },
+                { data: model.mainImage.isDefault, validationFunction: ((value) => !value) },
             ]}
             buttonText={lang.contributeButtonLabel}
             buttonLink={model.singleEditLink}

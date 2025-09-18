@@ -1,18 +1,17 @@
-import React, {useCallback, useContext, useEffect, useState} from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import Router from 'next/router';
 
 //Custom hooks
-import {useFormUtils} from '@/src/hooks/useFormUtils/useFormUtils'
-import {useRootModal} from '@/src/hooks/useModal/useRootModal';
+import { useFormUtils } from '@/src/hooks/useFormUtils/useFormUtils'
+import { useRootModal } from '@/src/hooks/useModal/useRootModal';
 
 //components
-import Button from '@/FormElements/Button/Button'
 import Input from '@/FormElements/Input/Input'
 import SelectFetch from '@/FormElements/Select/SelectFetch'
 import Select2 from '@/FormElements/Select2/Select2'
 import SingleBaseHeader from '@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseHeader';
 import RichTextarea from '@/src/common/FormElements/RichTextArea/RichTextarea';
-import {SingleEntityMeta} from '@/src/DataTypes/Meta/components/SingleEntityMeta';
+import { SingleEntityMeta } from '@/src/DataTypes/Meta/components/SingleEntityMeta';
 import SingleBase from '@/src/DataTypes/common/layouts/single/SingleBase';
 import UpdateTeams from '@/src/DataTypes/Organisation/components/forms/UpdateTeams/UpdateTeams';
 import SingleInfo from "@/src/DataTypes/common/layouts/SingleInfo/SingleInfo";
@@ -22,20 +21,19 @@ import UpdateContactPoint from '@/src/DataTypes/common/Forms/UpdateContactPoint/
 import UpdateScheduleBudget from '@/src/DataTypes/Project/component/forms/UpdateScheduleBudget';
 import UpdateSponsor from '@/src/DataTypes/Project/component/forms/UpdateSponsor';
 import SubmitEntity from "@/DataTypes/common/Forms/SingleEdit/SubmitEntity";
+import SingleBaseCTA from '@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseCTA';
 
 //Utils
-import {lang, modes} from "@/src/common/Data/GlobalConstants";
-import {getDefaultUpdateEntityMeta} from "@/src/DataTypes/Meta/EntityMeta";
+import { lang, modes } from "@/src/common/Data/GlobalConstants";
+import { getDefaultUpdateEntityMeta } from "@/src/DataTypes/Meta/EntityMeta";
 import Project from "@/DataTypes/Project/models/Project";
-import {replacePathname} from "@/src/helpers/url";
+import { replacePathname } from "@/src/helpers/url";
 import SingleBeforeUnloadReminder from '@/src/DataTypes/common/layouts/SingleSaveEntityReminder/SingleBeforeUnloadReminder';
 
 //Context
-import {useAuth} from "@/src/authentification/context/auth-context";
-import {MessageContext} from '@/src/common/UserNotifications/Message/Context/Message-Context';
-import Icon from "@/common/widgets/Icon/Icon";
-import MainImageDisplay from "@/DataTypes/common/layouts/single/defaultSections/MainImageDisplay/MainImageDisplay";
-import {TYPE_EQUIPMENT, TYPE_TAXONOMY} from '@/src/DataTypes/Entity/Types';
+import { useAuth } from "@/src/authentification/context/auth-context";
+import { MessageContext } from '@/src/common/UserNotifications/Message/Context/Message-Context';
+import { TYPE_EQUIPMENT, TYPE_TAXONOMY } from '@/src/DataTypes/Entity/Types';
 
 const ProjectSingleEdit = (props) => {
 
@@ -92,13 +90,13 @@ const ProjectSingleEdit = (props) => {
 
     //Save intention for SingleBeforeUnloadReminder
     const [saveIntentionState, setSaveIntentionState] = useState(false);
-    
+
     /*
     First of all, verify if the user is logged in.
     If he isn't, then redirect him in the connexion page
     */
     useEffect(() => {
-        if(!auth.user.isLoggedIn) {
+        if (!auth.user.isLoggedIn) {
             msg.addMessage({
                 text: lang.needToBeConnectedToAccess,
                 positive: false
@@ -109,8 +107,8 @@ const ProjectSingleEdit = (props) => {
     //Modal hook
     const modalSaveEntityReminder = useRootModal();
 
-       //Main form functionalities
-       const { FormUI, submitRequest, formState, formTools } = useFormUtils(
+    //Main form functionalities
+    const { FormUI, submitRequest, formState, formTools } = useFormUtils(
         {
             name: {
                 value: name ?? "",
@@ -139,7 +137,7 @@ const ProjectSingleEdit = (props) => {
                 invalidMsg: "Liens externes"
             },
             contactPoint: {
-                value: contactPoint ?? {tel:{num:"", ext:""},email:{address:""},website:{url:""} },
+                value: contactPoint ?? { tel: { num: "", ext: "" }, email: { address: "" }, website: { url: "" } },
                 isValid: true
             },
             location: {
@@ -204,7 +202,7 @@ const ProjectSingleEdit = (props) => {
         {
             displayResMessage: true,
             callbackFunction: (response) => {
-                Router.push("/"+replacePathname(model.singleRoute.pathname, {slug: response.data.slug}))
+                Router.push("/" + replacePathname(model.singleRoute.pathname, { slug: response.data.slug }))
             }
         }
     )
@@ -219,8 +217,8 @@ const ProjectSingleEdit = (props) => {
                 entityInCharge: formState.inputs.entityInCharge?.value?.map(elem => elem.value) ?? [],
                 producer: formState.inputs.producer?.value?.map(elem => elem.value) ?? [],
                 description: formState.inputs.description.value,
-                context: (formState.inputs.context.value !== "" && typeof formState.inputs.context.value !== 'undefined' ) ? formState.inputs.context.value : undefined,
-                sponsor: formState.inputs.sponsor.value.map( (singleSponsor) => {
+                context: (formState.inputs.context.value !== "" && typeof formState.inputs.context.value !== 'undefined') ? formState.inputs.context.value : undefined,
+                sponsor: formState.inputs.sponsor.value.map((singleSponsor) => {
                     return {
                         name: singleSponsor.value.name.value,
                         entity: singleSponsor.value.entity.value.value,
@@ -234,7 +232,7 @@ const ProjectSingleEdit = (props) => {
                     completionDate: formState.inputs.completionDate.value,
                     estimatedTotalBudget: formState.inputs.estimatedTotalBudget.value,
                     eta: formState.inputs.eta.value,
-                    timeframe: formState.inputs.timeframe.value.map( (singleTimeframe) => {
+                    timeframe: formState.inputs.timeframe.value.map((singleTimeframe) => {
                         return {
                             step: singleTimeframe.value.step.value,
                             eta: singleTimeframe.value.eta.value == "" ? undefined : singleTimeframe.value.eta.value,
@@ -243,7 +241,7 @@ const ProjectSingleEdit = (props) => {
                         }
                     }),
                 },
-                team:formState.inputs.team.value.map(function(singleTeam){
+                team: formState.inputs.team.value.map(function (singleTeam) {
                     return {
                         member: singleTeam.value.member.value.value,
                         role: singleTeam.value.role.value,
@@ -251,29 +249,29 @@ const ProjectSingleEdit = (props) => {
                     }
                 }),
                 equipment: formState.inputs?.equipment?.value?.map(elem => elem.value),
-                skills: formState.inputs.skills?.value?.length > 0 ? formState.inputs.skills.value.map( (selectOptionSkill) => {
+                skills: formState.inputs.skills?.value?.length > 0 ? formState.inputs.skills.value.map((selectOptionSkill) => {
                     return selectOptionSkill.value
                 }) : [],
                 domains: formState.inputs.domains?.value?.length > 0 ?
-                    formState.inputs.domains.value.map( (elem) => {
+                    formState.inputs.domains.value.map((elem) => {
                         return {
                             domain: elem.value,
                         }
                     })
                     : [],
                 contactPoint: formState.inputs.contactPoint.value,
-                url: formState.inputs.url.value.map(function(singleUrl){
+                url: formState.inputs.url.value.map(function (singleUrl) {
                     return {
                         label: singleUrl.value.label.value,
                         url: singleUrl.value.url.value,
-                        subMeta: { order : singleUrl.order }
+                        subMeta: { order: singleUrl.order }
                     }
                 }),
                 meta: getDefaultUpdateEntityMeta(auth.user, model.meta.requestedBy),
             }
         }
 
-        if(_id !== undefined){
+        if (_id !== undefined) {
             formData.data.id = _id;
             submitRequest(
                 `/projects/update`,
@@ -311,11 +309,11 @@ const ProjectSingleEdit = (props) => {
     const title = (
         <Input
             name="name"
-            label={"Nom du projet"+lang.required}
+            label={"Nom du projet" + lang.required}
             formTools={formTools}
             formClassName="discrete-without-focus form-text-white"
             validationRules={[
-                {name: "REQUIRED"}
+                { name: "REQUIRED" }
             ]}
         />);
 
@@ -343,7 +341,7 @@ const ProjectSingleEdit = (props) => {
                 name="producer"
                 label={lang.producer}
                 formTools={formTools}
-                tooltip={{header:"Producteur·rice", body:"Un·e producteur·rice a une forme d'autorité sur le projet et participe à son financement."}}
+                tooltip={{ header: "Producteur·rice", body: "Un·e producteur·rice a une forme d'autorité sur le projet et participe à son financement." }}
                 creatable={false}
                 isMulti
 
@@ -355,20 +353,15 @@ const ProjectSingleEdit = (props) => {
         </>);
 
 
-    const ctaHeaderSection = (
-        <div className="d-flex flex-wrap align-items-end justify-content-between gap-2 gap-md-3 gap-lg-4">
-            <MainImageDisplay buttonClasses="fs-6" mainImage={currentMainImage} entity={currentModel} setter={updateModelMainImage}/>
-            <div className="d-flex flex-wrap align-items-end justify-content-between gap-2 gap-md-3 gap-lg-4">
-                <Button className='fs-6' size="slim" color="success" disabled={!formState.isValid}
-                    onClick={() => {setSaveIntentionState(true);modalSaveEntityReminder.displayModal()}}
-                >
-                    <Icon iconName={"save"}/>&nbsp;{lang.capitalize("save")}
-                </Button>
-                <Button className='fs-6' size="slim" color="primary-light" href={model.singleLink}>
-                    <Icon iconName={"times"}/>&nbsp;{lang.Cancel}
-                </Button>
-            </div>
-        </div>
+    const ctaSection = (
+        <SingleBaseCTA
+            formTools={formTools}
+            mainImage={currentMainImage}
+            model={model}
+            mainImageSetter={updateModelMainImage}
+            saveEntityReminderModal={modalSaveEntityReminder}
+            saveIntentionSetter={setSaveIntentionState}
+        />
     )
 
     const header = (
@@ -377,9 +370,9 @@ const ProjectSingleEdit = (props) => {
             title={title}
             subtitle={subtitle}
             mainImage={currentMainImage}
-            buttonSection={ctaHeaderSection}
             entity={model}
             mode={modes.CONTRIBUTING}
+            ctaSection={ctaSection}
         />
     );
 
@@ -407,7 +400,7 @@ const ProjectSingleEdit = (props) => {
                     parentEntity={props.data}
                 />
             </SingleInfo>
-            { /* team */ }
+            { /* team */}
             <SingleInfo
                 title="Membres de l'équipe"
             >
@@ -428,7 +421,7 @@ const ProjectSingleEdit = (props) => {
                     parentEntity={props.data}
                 />
             </SingleInfo>
-            { /* Update the equipment list */ }
+            { /* Update the equipment list */}
             <SingleInfo
                 title={lang.equipmentUsed}
             >
@@ -489,7 +482,7 @@ const ProjectSingleEdit = (props) => {
                     isMulti={true}
 
                     fetch={"/taxonomies/list"}
-                    requestData={{category:"domains", name:""}}
+                    requestData={{ category: "domains", name: "" }}
                     searchField={"name"}
                     selectField={"domains"}
                 />
@@ -513,7 +506,7 @@ const ProjectSingleEdit = (props) => {
     );
 
 
-    {/*********** Footer section ***********/}
+    {/*********** Footer section ***********/ }
     const Footer = (
         <>
             {
@@ -529,19 +522,21 @@ const ProjectSingleEdit = (props) => {
         </>
     )
 
-    {/*********** Submit section ***********/}
+    {/*********** Submit section ***********/ }
     const SinglePageBottom = (
         <SubmitEntity
-            submitHandler={() => {setSaveIntentionState(true);
-            modalSaveEntityReminder.displayModal()}}
-            formState={formState}
+            submitHandler={() => {
+                setSaveIntentionState(true);
+                modalSaveEntityReminder.displayModal()
+            }}
+            formTools={formTools}
             singleLink={model.singleLink}
         />
     )
 
     return (
         <>
-            <SingleBeforeUnloadReminder formTools={formTools} saveIntention={saveIntentionState}/>
+            <SingleBeforeUnloadReminder formTools={formTools} saveIntention={saveIntentionState} />
             <SingleBase
                 breadCrumb={breadCrumb}
                 header={header}
@@ -555,7 +550,7 @@ const ProjectSingleEdit = (props) => {
             <modalSaveEntityReminder.Modal>
                 <SingleSaveEntityReminder
                     submitHandler={submitHandler}
-                    closeModal={() => {modalSaveEntityReminder.closeModal(); setSaveIntentionState(false)}}
+                    closeModal={() => { modalSaveEntityReminder.closeModal(); setSaveIntentionState(false) }}
                 />
             </modalSaveEntityReminder.Modal>
         </>

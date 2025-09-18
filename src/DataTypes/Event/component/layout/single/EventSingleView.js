@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 
 //Components
 import SingleBase from "@/src/DataTypes/common/layouts/single/SingleBase";
@@ -9,24 +9,25 @@ import SearchTag from "@/src/common/Components/SearchTag";
 import SingleBaseProgressBar
     from '@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseProgressBar/SingleBaseProgressBar'
 import SocialHandleDisplay from '@/src/DataTypes/common/layouts/SocialHandlesViews/SocialHandleDisplay'
-import {ContactPointView} from "@/src/DataTypes/common/layouts/ContactPointView/ContactPointView";
+import { ContactPointView } from "@/src/DataTypes/common/layouts/ContactPointView/ContactPointView";
+import SingleBaseCTA from "@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseCTA";
 
 //Utils
 import SanitizedInnerHtml from '@/src/utils/SanitizedInnerHtml';
-import {lang} from "@/src/common/Data/GlobalConstants";
-import {SingleEntityMeta} from "@/src/DataTypes/Meta/components/SingleEntityMeta";
+import { lang } from "@/src/common/Data/GlobalConstants";
+import { SingleEntityMeta } from "@/src/DataTypes/Meta/components/SingleEntityMeta";
 import Event from "../../../models/Event";
 import DisplaySchedule from "../../Forms/Schedule/DisplaySchedule";
-import {removeTagsFromString} from '@/src/helpers/html'
+import { removeTagsFromString } from '@/src/helpers/html'
 
 
 //Hooks
-import {dateManager} from '@/common/DateManager/DateManager'
-import {clientSideExternalApiRequest} from "@/src/hooks/http-hook";
-import {appConfig} from "@/src/configs/AppConfig";
+import { dateManager } from '@/common/DateManager/DateManager'
+import { clientSideExternalApiRequest } from "@/src/hooks/http-hook";
+import { appConfig } from "@/src/configs/AppConfig";
 
 
-const EventSingleView = ({data}) => {
+const EventSingleView = ({ data }) => {
 
     const {
         _id,
@@ -63,16 +64,16 @@ const EventSingleView = ({data}) => {
     const [formatEnumState, setFormatEnumState] = useState(undefined);
 
     /******* Sorted lists ********/
-    const sortedTeam = team?.[0]?.subMeta?.order !== undefined ? team.sort((a,b) => a.subMeta.order - b.subMeta.order) : team;
+    const sortedTeam = team?.[0]?.subMeta?.order !== undefined ? team.sort((a, b) => a.subMeta.order - b.subMeta.order) : team;
 
-    useEffect( () => {
+    useEffect(() => {
         const getEventFormatEnum = async () => {
             const eventFormatResponse = await clientSideExternalApiRequest(
                 '/info/eventformat-enum',
                 { method: 'GET' }
             );
             const keyValueEnum = {};
-            eventFormatResponse.forEach( (elem) => { keyValueEnum[elem.value] = elem.label });
+            eventFormatResponse.forEach((elem) => { keyValueEnum[elem.value] = elem.label });
             setFormatEnumState(keyValueEnum);
         }
         getEventFormatEnum();
@@ -101,7 +102,7 @@ const EventSingleView = ({data}) => {
     const { TimeTag, TimeIntervalSentence } = dateManager(startDate, endDate);
 
     const header = (
-        <SingleBaseHeader 
+        <SingleBaseHeader
             title={(<h1>{model.title}</h1>)}
             subtitle={(
                 <div className="d-text">
@@ -114,8 +115,7 @@ const EventSingleView = ({data}) => {
             )}
             mainImage={model.mainImage}
             entity={model}
-            buttonText={lang.contributeButtonLabel}
-            buttonLink={model.singleEditLink}
+            ctaSection={<SingleBaseCTA model={model} />}
         />
     );
 
@@ -123,48 +123,48 @@ const EventSingleView = ({data}) => {
     const fullWidthContent = (
         <div>
             <div className="row">
-                <div className="col col-md-6">   
-                    <SingleInfo 
+                <div className="col col-md-6">
+                    <SingleInfo
                         title="Organisations responsables"
                     >
-                        <SingleInfo 
+                        <SingleInfo
                             title={lang.entityInCharge}
                             isSubtitle
                             noCardLayout
                         >
-                            {model.entityInCharge && 
-                                <EntitiesTagGrid 
-                                    feed={[model.entityInCharge]} 
-                                    numberOfCols={1}
-                                    className="mb-0 pt-1"
-                                />
-                            }
-                        </SingleInfo> 
-                        
-                        <SingleInfo 
-                            title={lang.producer}
-                            isSubtitle
-                            noCardLayout
-                        >
-                            {model.organizer && 
-                                <EntitiesTagGrid 
-                                    feed={[model.organizer]} 
+                            {model.entityInCharge &&
+                                <EntitiesTagGrid
+                                    feed={[model.entityInCharge]}
                                     numberOfCols={1}
                                     className="mb-0 pt-1"
                                 />
                             }
                         </SingleInfo>
-                    </SingleInfo>           
+
+                        <SingleInfo
+                            title={lang.producer}
+                            isSubtitle
+                            noCardLayout
+                        >
+                            {model.organizer &&
+                                <EntitiesTagGrid
+                                    feed={[model.organizer]}
+                                    numberOfCols={1}
+                                    className="mb-0 pt-1"
+                                />
+                            }
+                        </SingleInfo>
+                    </SingleInfo>
                 </div>
                 <div className="col col-md-6">
                     {/* location */}
-                    <SingleInfo 
+                    <SingleInfo
                         title={lang.location}
-                        displayCondition={(location?.length > 0)} 
+                        displayCondition={(location?.length > 0)}
                     >
-                        <EntitiesTagGrid 
-                            feed={location} 
-                            subTagProperty={"location.address"} 
+                        <EntitiesTagGrid
+                            feed={location}
+                            subTagProperty={"location.address"}
                             numberOfCols={1}
                             className="mb-0"
                         />
@@ -172,12 +172,12 @@ const EventSingleView = ({data}) => {
                 </div>
             </div>
             <div className="row mt-4">
-                <SingleInfo 
-                    title={lang.about} 
+                <SingleInfo
+                    title={lang.about}
                     NAMessage="Aucune description n'est disponible pour le moment."
                 >
                     {
-                        removeTagsFromString(description) && 
+                        removeTagsFromString(description) &&
                         <SanitizedInnerHtml>
                             {description}
                         </SanitizedInnerHtml>
@@ -190,11 +190,11 @@ const EventSingleView = ({data}) => {
     const contentColumnLeft = (
         <>
             {/* schedule */}
-            <SingleInfo 
-                title={lang.schedule} 
+            <SingleInfo
+                title={lang.schedule}
                 displayCondition={schedule && schedule.length > 0}
             >
-                <DisplaySchedule feed={schedule}/>
+                <DisplaySchedule feed={schedule} />
             </SingleInfo>
 
             {/* subEvents */}
@@ -215,23 +215,23 @@ const EventSingleView = ({data}) => {
                 title={lang.teamMembers}
                 displayCondition={sortedTeam?.length > 0}
             >
-                <EntitiesTagGrid 
-                    feed={sortedTeam} 
+                <EntitiesTagGrid
+                    feed={sortedTeam}
                     regularFlexWrapping
-                    subEntityProperty={"member"} 
-                    subTagProperty={"role"} 
-                    noneMessage={"Aucun membre de l'équipe spécifiés"} 
+                    subEntityProperty={"member"}
+                    subTagProperty={"role"}
+                    noneMessage={"Aucun membre de l'équipe spécifiés"}
                     className="mb-0"
                 />
             </SingleInfo>
-        
+
             {/* attendees */}
-            <SingleInfo 
+            <SingleInfo
                 title={lang.attendees}
                 displayCondition={attendees?.length > 0}
             >
                 <EntitiesTagGrid
-                    feed={attendees} 
+                    feed={attendees}
                     className="mb-0"
                 />
             </SingleInfo>
@@ -242,12 +242,12 @@ const EventSingleView = ({data}) => {
         <>
             {/* Contact information */}
             <SingleInfo title={lang.organisationContact}>
-                <ContactPointView contact={model.contactPoint}/>
+                <ContactPointView contact={model.contactPoint} />
             </SingleInfo>
 
             <SingleInfo title={"Informations supplémentaires"}>
                 {/* skills */}
-                <SingleInfo 
+                <SingleInfo
                     title={lang.skillsAndTechnologies}
                     isSubtitle
                     displayCondition={skills?.length > 0}
@@ -256,8 +256,8 @@ const EventSingleView = ({data}) => {
                 </SingleInfo>
 
                 {/* domains */}
-                <SingleInfo 
-                    title={lang.Domains} 
+                <SingleInfo
+                    title={lang.Domains}
                     displayCondition={domains?.length > 0}
                     isSubtitle
                 >
@@ -266,22 +266,22 @@ const EventSingleView = ({data}) => {
                         listProperty={"domain"}
                     />
                 </SingleInfo>
-                
+
                 {/* Url */}
-                <SocialHandleDisplay 
-                    title={lang.externalLinks} 
+                <SocialHandleDisplay
+                    title={lang.externalLinks}
                     url={model?.url}
                     className={`${appConfig.spacing.singleSectionSpacingClass}`}
                 />
 
                 {/*eventType */}
-                <SingleInfo 
-                        isSubtitle 
-                        title={lang.eventType}
-                    >
+                <SingleInfo
+                    isSubtitle
+                    title={lang.eventType}
+                >
                     {(eventType?.length > 0) &&
                         <ul className="d-flex flex-wrap mb-0 mt-1">
-                            {eventType.map( type => (
+                            {eventType.map(type => (
                                 <li className="badge bg-primary-light text-dark me-1 mb-1" key={`${type.name}`}>
                                     {type.name}
                                 </li>
@@ -291,27 +291,27 @@ const EventSingleView = ({data}) => {
                 </SingleInfo>
 
                 {/* eventFormat */}
-                <SingleInfo 
-                    isSubtitle 
+                <SingleInfo
+                    isSubtitle
                     title={lang.eventFormat}
                 >
-                    { eventFormat && formatEnumState?.[eventFormat] && 
+                    {eventFormat && formatEnumState?.[eventFormat] &&
                         (formatEnumState?.[eventFormat] ?? eventFormat)
                     }
                 </SingleInfo>
-                
+
             </SingleInfo>
         </>
 
     )
 
-    {/*********** Footer section ***********/}
+    {/*********** Footer section ***********/ }
     const Footer = (
         <>
             {
                 (createdAt || updatedAt || meta) &&
-                <SingleInfo 
-                    title={lang.entityMetadata} 
+                <SingleInfo
+                    title={lang.entityMetadata}
                     className="pt-3"
                 >
                     {/*********** Entity data ***********/}
@@ -321,27 +321,27 @@ const EventSingleView = ({data}) => {
         </>
     )
 
-    {/*********** Bottom section ***********/}
+    {/*********** Bottom section ***********/ }
     const SinglePageBottom = (
-        <SingleBaseProgressBar 
+        <SingleBaseProgressBar
             dataList={[
-                {data: model.title},
-                {data: model.alternateName},
-                {data: startDate},
-                {data: model.entityInCharge},
-                {data: model.organizer},
-                {data: location},
-                {data: description, validationFunction: (value => !removeTagsFromString(value))},
-                {data: model.mainImage.isDefault, validationFunction: ((value) => !value)}, 
-                {data: schedule},
+                { data: model.title },
+                { data: model.alternateName },
+                { data: startDate },
+                { data: model.entityInCharge },
+                { data: model.organizer },
+                { data: location },
+                { data: description, validationFunction: (value => !removeTagsFromString(value)) },
+                { data: model.mainImage.isDefault, validationFunction: ((value) => !value) },
+                { data: schedule },
                 //{data: subEvents},
-                {data: sortedTeam},
-                {data: skills},
-                {data: domains},
-                {data: url},
-                {data: contactPoint},
-                {data: eventType},
-                {data: eventFormat}
+                { data: sortedTeam },
+                { data: skills },
+                { data: domains },
+                { data: url },
+                { data: contactPoint },
+                { data: eventType },
+                { data: eventFormat }
             ]}
             buttonText={lang.contributeButtonLabel}
             buttonLink={model.singleEditLink}
@@ -352,7 +352,7 @@ const EventSingleView = ({data}) => {
         <>
             <SingleBase
                 breadCrumb={breadCrumb}
-                header={header}              
+                header={header}
                 fullWidthContent={fullWidthContent}
                 contentColumnLeft={contentColumnLeft}
                 contentColumnRight={contentColumnRight}
