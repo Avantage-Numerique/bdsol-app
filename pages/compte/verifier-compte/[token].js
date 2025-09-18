@@ -1,5 +1,5 @@
 import Button from "@/src/common/FormElements/Button/Button";
-import {externalApiRequest} from "@/src/hooks/http-hook";
+import {clientSideExternalApiRequest, externalApiRequest} from "@/src/hooks/http-hook";
 import PageHeader from "@/src/layouts/Header/PageHeader";
 import { useRouter } from "next/router";
 import {useContext, useEffect, useState} from "react";
@@ -30,7 +30,7 @@ const verifyAccount = props => {
     )
 
     const resendToken = async () => {
-        const apiResponse = await externalApiRequest(
+        const apiResponse = await clientSideExternalApiRequest(
             "/verify-account/resend",
             {
                 body: JSON.stringify({data: { email: formState.inputs.email.value }}),
@@ -76,7 +76,7 @@ const verifyAccount = props => {
         setIsLoading(true);
         //Sends request to verifyAccount
         async function verifyToken(){
-            const response = await externalApiRequest(
+            const response = await clientSideExternalApiRequest(
                 `/verify-account/${token}`,
                 { method: 'GET' }
             );
