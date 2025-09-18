@@ -1,5 +1,5 @@
 import Button from "@/src/common/FormElements/Button/Button";
-import {clientSideExternalApiRequest, externalApiRequest} from "@/src/hooks/http-hook";
+import {clientSideExternalApiRequest} from "@/src/hooks/http-hook";
 import PageHeader from "@/src/layouts/Header/PageHeader";
 import { useRouter } from "next/router";
 import {useContext, useEffect, useState} from "react";
@@ -8,10 +8,9 @@ import {useFormUtils} from "@/src/hooks/useFormUtils/useFormUtils";
 import Input from "@/src/common/FormElements/Input/Input";
 import PageMeta from "@/src/common/PageMeta/PageMeta";
 import Spinner from "@/src/common/widgets/spinner/Spinner";
-import { lang } from "@/src/common/Data/GlobalConstants";
 
 
-const verifyAccount = props => {
+const verifyAccount = (props) => {
     //Import message context 
     const msg = useContext(MessageContext);
 
@@ -20,7 +19,7 @@ const verifyAccount = props => {
     const router = useRouter();
 
     //Main form functionalities
-    const { FormUI, submitRequest, formState, formTools } = useFormUtils(
+    const { formState, formTools } = useFormUtils(
         {
             email: {
                 value: "",
