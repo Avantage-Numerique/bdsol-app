@@ -164,7 +164,7 @@ const EventSingleView = ({ data }) => {
                     >
                         <EntitiesTagGrid 
                             feed={location} 
-                            subTagProperty={"address"}
+                            subTagProperty={"location.address"}
                             numberOfCols={1}
                             className="mb-0"
                         />
