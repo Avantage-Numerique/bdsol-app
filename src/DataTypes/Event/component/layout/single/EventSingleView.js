@@ -162,9 +162,9 @@ const EventSingleView = ({ data }) => {
                         title={lang.location}
                         displayCondition={(location?.length > 0)}
                     >
-                        <EntitiesTagGrid 
-                            feed={location} 
-                            subTagProperty={"address"}
+                        <EntitiesTagGrid
+                            feed={location}
+                            subTagProperty={"location.address"}
                             numberOfCols={1}
                             className="mb-0"
                         />
