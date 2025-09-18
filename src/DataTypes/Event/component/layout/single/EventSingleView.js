@@ -162,9 +162,9 @@ const EventSingleView = ({ data }) => {
                         title={lang.location}
                         displayCondition={(location?.length > 0)}
                     >
-                        <EntitiesTagGrid
-                            feed={location}
-                            subTagProperty={"location.address"}
+                        <EntitiesTagGrid 
+                            feed={location} 
+                            subTagProperty={"address"}
                             numberOfCols={1}
                             className="mb-0"
                         />
@@ -215,12 +215,11 @@ const EventSingleView = ({ data }) => {
                 title={lang.teamMembers}
                 displayCondition={sortedTeam?.length > 0}
             >
-                <EntitiesTagGrid
+                <EntitiesTagGrid 
                     feed={sortedTeam}
-                    regularFlexWrapping
-                    subEntityProperty={"member"}
-                    subTagProperty={"role"}
-                    noneMessage={"Aucun membre de l'équipe spécifiés"}
+                    subEntityProperty={"member"} 
+                    subTagProperty={"role"} 
+                    noneMessage={"Aucun membre de l'équipe spécifiés"} 
                     className="mb-0"
                 />
             </SingleInfo>
