@@ -101,7 +101,7 @@ const ConsultData = (props) => {
         const currentQuery = { ...router.query };
         const currentPage = updatedPaginationMeta.currentPage;
 
-        delete currentQuery.entityFilter;//allways delete the base route that are manage with the router.
+        delete currentQuery.entityFilter;//always delete the base route that are manage with the router.
 
         if (currentPage === 1) {
             delete currentQuery.page;
