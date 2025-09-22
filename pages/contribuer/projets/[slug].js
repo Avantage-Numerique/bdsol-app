@@ -1,15 +1,8 @@
-import React from 'react'
-
-import {
-    externalApiRequest
-} from '@/src/hooks/http-hook';
-
-
-//components
-import {getUserHeadersFromUserSession} from "@/auth/context/auth-context";
+import React from 'react';
 import {withSessionSsr} from "@/auth/session/handlers/withSession";
 import AppRoutes from "@/src/Routing/AppRoutes";
 import ProjectSingleEdit from '@/src/DataTypes/Project/layouts/single/ProjectSingleEdit';
+import {ssrCanContributeToEntity} from "@/auth/permissions/ssrCanContributeToEntity";
 
 
 const SingleProjectPage = props => {
@@ -20,22 +13,6 @@ const SingleProjectPage = props => {
         </div>
     )
 }
-    
 export default SingleProjectPage;
 
-export const getServerSideProps = withSessionSsr(projectSlugSSProps);
-
-export async function projectSlugSSProps(context) {
-    const { slug } = context.query;
-
-    const response = await externalApiRequest(
-        `/projects/${slug}`,
-        {
-            method: 'GET',
-            headers: getUserHeadersFromUserSession(context.req.session.user)
-        });
-
-    return { props: response.data };
-}
-
-
+export const getServerSideProps = withSessionSsr(ssrCanContributeToEntity('projects'));
