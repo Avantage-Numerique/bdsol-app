@@ -68,7 +68,7 @@ const EntitiesTagGrid = ({feed, className, columnClass, subEntityProperty, subTa
                                     let fieldPath = tag.split(".");
                                     let tempTag = model;
                                     fieldPath.forEach( elem => {
-                                        tempTag = tempTag[elem] ?? model;//if the sub property doesn't exist, pass back the root object to get property from it. //fixed bug when location.address is passed, and location is the same
+                                        tempTag = tempTag?.[elem] ?? model;//if the sub property doesn't exist, pass back the root object to get property from it. //fixed bug when location.address is passed, and location is the same
                                     });
                                     model.tag = tempTag;
                                 }
