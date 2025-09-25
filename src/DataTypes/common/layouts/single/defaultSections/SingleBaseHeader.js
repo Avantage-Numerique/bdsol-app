@@ -193,8 +193,6 @@ const SingleBaseHeader = (props) => {
         }
     }
 
-    const buttonSectionLink = !auth.user.isLoggedIn ? "/compte/connexion" : buttonLink;
-
     //Removed from colomn, it's more useful to use the justify or align from start or end.
     return (
         <section className={`row ${styles["content-padding-top"]} ${props.className}`}>
