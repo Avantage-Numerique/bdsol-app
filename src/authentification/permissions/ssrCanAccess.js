@@ -18,7 +18,7 @@ export const ssrCanAccess = async ({ req }) => {
         return {
             redirect: {
                 permanent: false,
-                destination: "/compte/connexion"+`?redirect=${encodeURI(refererPath)}`
+                destination: "/compte/connexion"+`?redirect=${encodeURIComponent(getCleanRedirectPath(refererPath))}`
             },
             props: {
                 user: { ...defaultSessionData },

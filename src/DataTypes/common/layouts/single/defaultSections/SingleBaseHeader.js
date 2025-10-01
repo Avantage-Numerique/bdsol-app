@@ -18,6 +18,9 @@ import { useFormUtils } from '@/src/hooks/useFormUtils/useFormUtils';
 import { useHttpClient } from '@/src/hooks/http-hook';
 import { useRouter } from 'next/router';
 
+//Utils
+import { getCleanRedirectPath } from '@/src/helpers/getCleanRedirectPath';
+
 //Context
 import { MessageContext } from '@/src/common/UserNotifications/Message/Context/Message-Context';
 import { getBadgesInfo } from '@/src/DataTypes/Badges/BadgesSection';
