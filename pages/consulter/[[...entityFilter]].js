@@ -1,5 +1,5 @@
 //Hook
-import {useEffect, useRef, useState} from "react";
+import {useEffect, useRef} from "react";
 import {useRouter} from "next/router";
 import {withSessionSsr} from "@/src/authentification/session/handlers/withSession";
 import {
@@ -54,8 +54,8 @@ const ConsultData = (props) => {
 
     /**
      * Utils to manage changes on the entityFilter, only used in btn filter on click handler.
-     * @param entityFilter
-     * @param currentPage
+     * @param entityFilterUrl {string}
+     * @param currentPage {number}
      * @returns {Promise<void>}
      */
     const filtersRouteHandler = async (entityFilterUrl, currentPage) => {
@@ -109,9 +109,16 @@ const ConsultData = (props) => {
             currentQuery.page = currentPage.toString();
         }
 
-        const queryVars = new URLSearchParams(currentQuery);
-        if (window)
-            window.history.pushState({ page: currentPage }, '', `/consulter/${filtersUrl.get(consultData.entities[0])}${queryVars.toString() !== "" ? "?" : ""}${queryVars.toString()}`);
+        //using the router call a rerender an change the states. Even with shallow. An old discussion : https://github.com/vercel/next.js/discussions/18072
+        router.replace({
+            pathname: '/consulter/'+filtersUrl.get(consultData.entities[0]),
+            query: currentQuery,
+        }, undefined, {
+            shallow: true,
+            scroll: false
+        });
+        /*if (window)
+            window.history.pushState({ page: currentPage }, '', `/consulter/${filtersUrl.get(consultData.entities[0])}${queryVars.toString() !== "" ? "?" : ""}${queryVars.toString()}`);*/
     }
 
     /**
@@ -207,7 +214,7 @@ const ConsultData = (props) => {
                 <div className={"alert alert-primary p-4 text-center"}>{lang.listNoResult}</div>
             }
         </div>
-    )
+    );
 
     return (
         <div>
