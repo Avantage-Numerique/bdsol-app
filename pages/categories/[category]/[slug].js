@@ -4,7 +4,7 @@ import React from "react";
 import {lang} from "@/common/Data/GlobalConstants";
 import CreateTaxonomyForm from "@/DataTypes/Taxonomy/components/Forms/CreateTaxonomy/CreateTaxonomyForm";
 import {useRootModal} from '@/src/hooks/useModal/useRootModal';
-import Router, {useRouter} from "next/router";
+import Router from "next/router";
 import Button from "@/FormElements/Button/Button";
 import {useAuth} from "@/auth/context/auth-context";
 import Icon from "@/common/widgets/Icon/Icon";
@@ -55,16 +55,16 @@ const TaxonomiesSinglePage = (props) => {
 
     //  NEEDED FOR EDIT THE TAXONOMY >
     const auth = useAuth();
-    const router = useRouter();
-    const closingModalBaseURI = router.asPath;
 
     //Extract root modal 
-    const { Modal, displayModal, closeModal, modalInitValues } = useRootModal();
+    const { Modal, displayModal, closeModal } = useRootModal();
 
     const type = getType(TYPE_TAXONOMY);
 
     const displayUpdateForm = () => {
-        displayModal();
+        if (auth.user.isLoggedIn) {
+            displayModal();
+        }
     }
     // < NEEDED FOR EDIT THE TAXONOMY
 
@@ -142,38 +142,3 @@ const TaxonomiesSinglePage = (props) => {
     )
 }
 export default TaxonomiesSinglePage;
-
-
-//  L'APP a besoin de la BD Pour construire les paths.
-/*export async function getStaticPaths() {
-
-    const taxonomies = await externalApiRequest(
-        `/taxonomies/list`,
-        {
-            method: 'GET',
-        });
-
-    if (taxonomies.data.length > 0) {
-
-        const paths = taxonomies.data.map((tax) => {
-            return {
-                params: {
-                    category: tax.category,
-                    slug: tax.slug,
-                },
-            };
-        });
-
-        return {
-            paths: paths,
-            fallback: false
-        }
-    }
-
-    return {
-        paths: [],
-        fallback: false
-    }
-}*/
-
-

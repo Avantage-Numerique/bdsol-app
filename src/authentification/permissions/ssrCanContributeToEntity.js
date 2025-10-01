@@ -14,9 +14,9 @@ export const ssrCanContributeToEntity = (entity) => {
      */
     return async (context) => {
         const { query, req } = context;
-        console.log("context req",entity, req.session);
         const ssrCanAccessThisPath = await ssrCanAccess(context);
 
+        // precise
         if (ssrCanAccessThisPath.props.userCanAccess) {
             const response = await externalApiRequest(
                 `/${entity}/${query.slug}`,

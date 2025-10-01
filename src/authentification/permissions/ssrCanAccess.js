@@ -2,7 +2,8 @@ import { defaultSessionData } from "@/auth/context/auth-context";
 
 export const ssrCanAccess = async ({ req }) => {
     const user = req.session.user;
-    console.log("ssrCanAccess can he ?", user.isLoggedIn, "tokenVerified", user.tokenVerified);
+
+    //acceptable action, if the user is logged in.
     if (user && user.isLoggedIn && user.tokenVerified) {
         return {
             props: {
@@ -12,12 +13,11 @@ export const ssrCanAccess = async ({ req }) => {
         };
     }
 
-    //Catch where user was for redirection
+    //User cant access, doing the redirection appropriate.
     const referer = req.headers.referer;
     let refererPath = "/"
     if (referer) {
         const refererUrl = new URL(referer);
-        console.log(refererUrl)
         refererPath = refererUrl.pathname + refererUrl.search;
     }
 
