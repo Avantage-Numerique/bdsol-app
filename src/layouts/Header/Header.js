@@ -15,7 +15,7 @@ import { useAuth } from '@/auth/context/auth-context';
 
 //Utils
 import { lang } from "@/common/Data/GlobalConstants";
-import { config } from '@/middleware';
+import { getCleanRedirectPath } from '@/src/helpers/getCleanRedirectPath';
 
 //Styling
 import styles from './Header.module.scss'
@@ -50,22 +50,6 @@ const Header = (props) => {
         document.addEventListener('scroll', updateHeaderState);
         return () => document.removeEventListener('scroll', updateHeaderState);
     });
-
-    function stripRedirectParam(asPath) {
-        const [basePath, queryString] = asPath.split('?')
-
-        if (!queryString) return asPath
-
-        const params = queryString
-            .split('&')
-            .filter(p => !p.startsWith('redirect='))
-
-        return params.length > 0
-            ? `${basePath}?${params.join('&')}`
-            : basePath
-    }
-
-    const cleanPath = stripRedirectParam(router.asPath)
 
     return (
 
@@ -103,7 +87,7 @@ const Header = (props) => {
                                         <a href={AppRoutes.register.asPath} className={"nav-link text-black d-none d-md-block text-nowrap"}>{lang.menuSubscribeLabel}</a>
                                     </li>
                                     <li>
-                                        <a href={AppRoutes.connection.asPath + `?redirect=${encodeURI(cleanPath)}`} className={`nav-link text-black text-nowrap`}>{lang.menuConnectLabel}</a>
+                                        <a href={AppRoutes.connection.asPath + `?redirect=${encodeURIComponent(getCleanRedirectPath(router.asPath))}`} className={`nav-link text-black text-nowrap`}>{lang.menuConnectLabel}</a>
                                     </li>
                                 </ul>
                             }

@@ -33,11 +33,7 @@ const SingleBaseCTA = ({
         const invalidInputsList = [];
 
         formTools.listInvalidInput().forEach((key, index) => {
-<<<<<<< HEAD
             const displayText = formTools.formState.inputs[key].invalidMsg ?? lang[key] ?? (key + " - invalide");
-=======
-            const displayText = formState.inputs[key].invalidMsg ?? lang[key] ?? (key + " - invalide");
->>>>>>> 0c6a3b24 (Refactor singleBaseHeader CTA dans un component SinlgeBaseCTA. Prettify les files alors bcp de chose ont changé mais c'est seulement les singleBaseHeader qui ont maintenant SingleBaseCTA comme ctaSectionProps)
             invalidInputsList.push(
                 <li key={`invalidInput-${key}-${index}`}>{lang.capitalize(displayText)}</li>
             )
@@ -51,7 +47,6 @@ const SingleBaseCTA = ({
             <div className="d-flex flex-wrap align-items-end justify-content-between gap-2 gap-md-3 gap-lg-4 mt-2">
                 <MainImageDisplay buttonClasses="fs-6" mainImage={mainImage} entity={model} setter={mainImageSetter} />
                 <div className="d-flex flex-wrap align-items-end justify-content-between gap-2 gap-md-3 gap-lg-4">
-<<<<<<< HEAD
                     {
                         !formTools.formState.isValid && (
                             <div className="fs-6 border border-danger rounded p-2">
@@ -62,8 +57,6 @@ const SingleBaseCTA = ({
                             </div>
                         )
                     }
-=======
->>>>>>> 0c6a3b24 (Refactor singleBaseHeader CTA dans un component SinlgeBaseCTA. Prettify les files alors bcp de chose ont changé mais c'est seulement les singleBaseHeader qui ont maintenant SingleBaseCTA comme ctaSectionProps)
                     <Button className='fs-6' size="slim" color="success" disabled={!formTools.formState.isValid}
                         onClick={() => { saveIntentionSetter(true); saveEntityReminderModal.displayModal() }}
                     >

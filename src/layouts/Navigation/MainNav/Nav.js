@@ -28,6 +28,8 @@ import {lang} from "@/src/common/Data/GlobalConstants";
 import AppRoutes from '@/src/Routing/AppRoutes'
 import MainNavButton from "@/layouts/Navigation/MainNav/MainNavButton";
 import SearchBar from "@/common/Components/SearchBar";
+import { getCleanRedirectPath } from '@/src/helpers/getCleanRedirectPath'
+import { LocaleRouteNormalizer } from 'next/dist/server/future/normalizers/locale-route-normalizer'
 
 const Nav = ( {menuState, setMenuState} ) => {
 
@@ -60,8 +62,7 @@ const Nav = ( {menuState, setMenuState} ) => {
 
         //Handles redirect after login
         if (path === AppRoutes.connection.asPath){
-            const redirectTo = encodeURIComponent(router.asPath);
-            router.push(`${path}?redirect=${redirectTo}`);
+            router.push(`${path}?redirect=${encodeURIComponent(getCleanRedirectPath(router.asPath))}`);
         }
         else {
             router.push(path);
