@@ -340,7 +340,12 @@ const PlaceSingleEdit = ({ positiveRequestActions, ...props}) => {
 
     {/*********** Submit section ***********/}
     const SinglePageBottom = (
-        <SubmitEntity submitHandler={() => {setSaveIntentionState(true); modalSaveEntityReminder.displayModal()}} formState={formState} />
+        <SubmitEntity
+            submitHandler={() => {setSaveIntentionState(true);
+                modalSaveEntityReminder.displayModal()}}
+            formState={formState}
+            singleLink={model.singleLink}
+        />
     )
     
 
