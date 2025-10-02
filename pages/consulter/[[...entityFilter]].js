@@ -110,7 +110,7 @@ const ConsultData = (props) => {
         }
 
         //using the router call a rerender an change the states. Even with shallow. An old discussion : https://github.com/vercel/next.js/discussions/18072
-        router.replace({
+        router.push({
             pathname: '/consulter/'+filtersUrl.get(consultData.entities[0]),
             query: currentQuery,
         }, undefined, {
