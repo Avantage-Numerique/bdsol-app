@@ -250,6 +250,7 @@ const EventSingleView = ({data}) => {
                     title={lang.skillsAndTechnologies}
                     isSubtitle
                     displayCondition={skills?.length > 0}
+                    noCardLayout
                 >
                     <SearchTag list={skills} />
                 </SingleInfo>
@@ -259,24 +260,19 @@ const EventSingleView = ({data}) => {
                     title={lang.Domains} 
                     displayCondition={domains?.length > 0}
                     isSubtitle
+                    noCardLayout
                 >
                     <SearchTag
                         list={domains}
                         listProperty={"domain"}
                     />
                 </SingleInfo>
-                
-                {/* Url */}
-                <SocialHandleDisplay 
-                    title={lang.externalLinks} 
-                    url={model?.url}
-                    className={`${appConfig.spacing.singleSectionSpacingClass}`}
-                />
 
                 {/*eventType */}
                 <SingleInfo 
                         isSubtitle 
                         title={lang.eventType}
+                        noCardLayout
                     >
                     {(eventType?.length > 0) &&
                         <ul className="d-flex flex-wrap mb-0 mt-1">
@@ -293,6 +289,7 @@ const EventSingleView = ({data}) => {
                 <SingleInfo 
                     isSubtitle 
                     title={lang.eventFormat}
+                    noCardLayout
                 >
                     { eventFormat && formatEnumState?.[eventFormat] && 
                         (formatEnumState?.[eventFormat] ?? eventFormat)
@@ -300,6 +297,12 @@ const EventSingleView = ({data}) => {
                 </SingleInfo>
                 
             </SingleInfo>
+            {/* Url */}
+            <SocialHandleDisplay 
+                title={lang.externalLinks} 
+                url={model?.url}
+                className={`${appConfig.spacing.singleSectionSpacingClass}`}
+            />
         </>
 
     )

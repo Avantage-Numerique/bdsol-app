@@ -1,5 +1,5 @@
 //Hook
-import {useEffect, useRef, useState} from "react";
+import {useEffect, useRef} from "react";
 import {useRouter} from "next/router";
 import {withSessionSsr} from "@/src/authentification/session/handlers/withSession";
 import {
@@ -54,8 +54,8 @@ const ConsultData = (props) => {
 
     /**
      * Utils to manage changes on the entityFilter, only used in btn filter on click handler.
-     * @param entityFilter
-     * @param currentPage
+     * @param entityFilterUrl {string}
+     * @param currentPage {number}
      * @returns {Promise<void>}
      */
     const filtersRouteHandler = async (entityFilterUrl, currentPage) => {
@@ -101,7 +101,7 @@ const ConsultData = (props) => {
         const currentQuery = { ...router.query };
         const currentPage = updatedPaginationMeta.currentPage;
 
-        delete currentQuery.entityFilter;//allways delete the base route that are manage with the router.
+        delete currentQuery.entityFilter;//always delete the base route that are manage with the router.
 
         if (currentPage === 1) {
             delete currentQuery.page;
@@ -109,9 +109,16 @@ const ConsultData = (props) => {
             currentQuery.page = currentPage.toString();
         }
 
-        const queryVars = new URLSearchParams(currentQuery);
-        if (window)
-            window.history.pushState({ page: currentPage }, '', `/consulter/${filtersUrl.get(consultData.entities[0])}${queryVars.toString() !== "" ? "?" : ""}${queryVars.toString()}`);
+        //using the router call a rerender an change the states. Even with shallow. An old discussion : https://github.com/vercel/next.js/discussions/18072
+        router.push({
+            pathname: '/consulter/'+filtersUrl.get(consultData.entities[0]),
+            query: currentQuery,
+        }, undefined, {
+            shallow: true,
+            scroll: false
+        });
+        /*if (window)
+            window.history.pushState({ page: currentPage }, '', `/consulter/${filtersUrl.get(consultData.entities[0])}${queryVars.toString() !== "" ? "?" : ""}${queryVars.toString()}`);*/
     }
 
     /**
@@ -179,35 +186,6 @@ const ConsultData = (props) => {
         clearListRef.current = clearing;
     }
 
-
-    /**
-     * Grid of all the simple fetch and set in the consultData.list property.
-     * @type {JSX.Element}
-     */
-    const entityGrid = (
-        <div className="py-4 position-relative">
-            {currentLoadingState.state === LoadingStates.LOADING.state &&
-                <Spinner label={currentLoadingState.label} fixed={false} absolute={false} className={"rounded-2 bg-primary-lighter"} loadingState={currentLoadingState} />
-            }
-            {
-                consultData.list?.length > 0 &&
-                <EntitiesGrid
-                    className={"row"}
-                    columnClass={"col-12 col-sm-6 col-lg-4 col-xl-3 g-4 "}
-                    feed={consultData.list.filter(el => el.type !== "Taxonomy")}
-                    badgesInfo={props.badgesInfo}
-                />
-            }
-            {currentLoadingState.state === LoadingStates.LOADING_MORE.state &&
-                <Spinner label={currentLoadingState.label} fixed={false} absolute={false} className={"rounded-2 bg-primary-lighter"} loadingState={currentLoadingState} />
-            }
-            {
-                (currentLoadingState.state === LoadingStates.LOADING_COMPLETE.state || currentLoadingState.state === LoadingStates.DEFAULT.state) &&
-                consultData.list?.length <= 0 &&
-                <div className={"alert alert-primary p-4 text-center"}>{lang.listNoResult}</div>
-            }
-        </div>
-    )
 
     return (
         <div>
