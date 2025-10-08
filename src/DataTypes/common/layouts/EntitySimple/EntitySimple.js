@@ -6,7 +6,7 @@ import { getType } from "@/DataTypes/Entity/Types";
 import HtmlTagsRemover from "@/src/utils/HtmlTagsRemover";
 import TypeTag from "@/DataTypes/common/layouts/TypeTag/TypeTag";
 
-import LinkWithLoading from "@/src/Routing/LinkWithLoading";
+import LinkWithLoading from '@/src/Navigation/LinkWithLoading';
 
 /**
  *

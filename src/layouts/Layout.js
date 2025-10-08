@@ -27,9 +27,9 @@ import nextConfig from "@/next.config";
 import { templates, templatesEnum } from "@/layouts/Templates/TemplatesEnum";
 import { usePathname } from "next/navigation";
 
-import { LoadingProvider } from "@/src/Routing/LoadingContext";
-import NavigationEvents from "@/src/Routing/NavigationEvents";
-import LoadingIndicator from "@/src/Routing/LoadingIndicator";
+import { LoadingProvider } from '@/src/Navigation/LoadingContext';
+import NavigationEvents from '@/src/Navigation/NavigationEvents';
+import LoadingIndicator from '@/src/Navigation/LoadingIndicator';
 
 export const ModalContext = createContext({});
 
