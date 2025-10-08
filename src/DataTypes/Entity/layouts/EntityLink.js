@@ -1,11 +1,10 @@
 import { getModelFromType, getType } from "@/DataTypes/Entity/Types"
-
 import React from "react"
 import Icon from "@/common/widgets/Icon/Icon"
 import Link from "next/link"
 
 /**
- *
+ * Afficher une entité à partir du modèle sous forme de lien avec le component Link de react.
  * @param props
  * @param props.className {string} The figure class Name.
  * @param props.model {Media} Image tag className to pass.
