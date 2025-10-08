@@ -1,17 +1,18 @@
 //Component
-import MainImageDisplay from "./MainImageDisplay/MainImageDisplay";
-import Button from "@/src/common/FormElements/Button/Button";
-import Icon from "@/src/common/widgets/Icon/Icon";
+import MainImageDisplay from "./MainImageDisplay/MainImageDisplay"
+import Button from "@/src/common/FormElements/Button/Button"
+import Icon from "@/src/common/widgets/Icon/Icon"
 
 //Utils
-import { lang } from "@/src/common/Data/GlobalConstants";
+import { lang } from "@/src/common/Data/GlobalConstants"
 
 //Hooks
-import { useRouter } from "next/router";
+import { useRouter } from "next/router"
+import { useFieldTips } from "@/src/hooks/useFieldTips/useFieldTips"
 
 /**
  * @param {object} model **REQUIRED** only field that needs to be passed in props on single view mode.
- * 
+ *
  * @param {formTools} formTools
  * @param {object} mainImage mainImage data object
  * @param {setState} mainImageSetter State setter for updating mainImage current display
@@ -24,60 +25,115 @@ const SingleBaseCTA = ({
     mainImage,
     mainImageSetter,
     saveEntityReminderModal,
-    saveIntentionSetter, ...props }) => {
-
+    saveIntentionSetter,
+    ...props
+}) => {
     //Router
-    const router = useRouter();
+    const router = useRouter()
 
     function mapInvalidInput() {
-        const invalidInputsList = [];
+        const invalidInputsList = []
 
         formTools.listInvalidInput().forEach((key, index) => {
-            const displayText = formTools.formState.inputs[key].invalidMsg ?? lang[key] ?? (key + " - invalide");
+            const displayText =
+                formTools.formState.inputs[key].invalidMsg ??
+                lang[key] ??
+                key + " - invalide"
             invalidInputsList.push(
-                <li key={`invalidInput-${key}-${index}`}>{lang.capitalize(displayText)}</li>
+                <li key={`invalidInput-${key}-${index}`}>
+                    {lang.capitalize(displayText)}
+                </li>
             )
         })
-        return invalidInputsList;
+        return invalidInputsList
     }
 
     //Return edit mode
     if (formTools) {
+        const tip = {
+            header: lang.invalidForm,
+            body: (
+                <>
+                    <p>{lang.validationFailedCantSave}</p>
+                    <ul>{mapInvalidInput()}</ul>
+                </>
+            ),
+        }
+
+        const { TipPopOver, TipButton } = useFieldTips(tip)
+
         return (
-            <div className="d-flex flex-wrap align-items-end justify-content-between gap-2 gap-md-3 gap-lg-4 mt-2">
-                <MainImageDisplay buttonClasses="fs-6" mainImage={mainImage} entity={model} setter={mainImageSetter} />
-                <div className="d-flex flex-wrap align-items-end justify-content-between gap-2 gap-md-3 gap-lg-4">
-                    {
-                        !formTools.formState.isValid && (
-                            <div className="fs-6 border border-danger rounded p-2">
-                                {lang.validationFailedCantSave}
-                                <ul>
-                                    {mapInvalidInput()}
-                                </ul>
-                            </div>
-                        )
-                    }
-                    <Button className='fs-6' size="slim" color="success" disabled={!formTools.formState.isValid}
-                        onClick={() => { saveIntentionSetter(true); saveEntityReminderModal.displayModal() }}
-                    >
-                        <Icon iconName={"save"} />&nbsp;{lang.capitalize("save")}
-                    </Button>
-                    <Button className='fs-6' size="slim" color="primary-light" href={model.singleLink}>
-                        <Icon iconName={"times"} />&nbsp;{lang.Cancel}
-                    </Button>
+            <>
+                <div
+                    className="d-flex flex-wrap align-items-center justify-content-between gap-2 gap-md-3 gap-lg-4 mt-2"
+                    style={{
+                        transform: "translateY(50%)",
+                    }}
+                >
+                    <MainImageDisplay
+                        buttonClasses="fs-6"
+                        mainImage={mainImage}
+                        entity={model}
+                        setter={mainImageSetter}
+                    />
+                    <div className="d-flex flex-wrap align-items-center justify-content-between gap-2 gap-md-3 gap-lg-4">
+                        {!formTools.formState.isValid && (
+                            <span className="bg-white border border-warning rounded-pill lh-1 align-middle d-flex align-items-center p-1 ps-3">
+                                {lang.invalidForm} <TipButton />
+                            </span>
+                        )}
+
+                        <Button
+                            className="fs-6"
+                            size="slim"
+                            color="success"
+                            disabled={!formTools.formState.isValid}
+                            onClick={() => {
+                                saveIntentionSetter(true)
+                                saveEntityReminderModal.displayModal()
+                            }}
+                        >
+                            <Icon iconName={"save"} />
+                            &nbsp;{lang.capitalize("save")}
+                        </Button>
+                        <Button
+                            className="fs-6"
+                            size="slim"
+                            color="primary-light"
+                            href={model.singleLink}
+                        >
+                            <Icon iconName={"times"} />
+                            &nbsp;{lang.Cancel}
+                        </Button>
+                    </div>
                 </div>
-            </div>
+                <TipPopOver />
+            </>
         )
     }
 
     //Else return view mode with suggest modification button
     return (
-        <div style={{ height: "1rem" }} className="position-relative flex-grow-1 d-flex align-items-end">
+        <div
+            style={{
+                height: "1rem",
+                transform: "translateY(50%)",
+            }}
+            className="position-relative flex-grow-1 d-flex align-items-center"
+        >
             <div className="d-flex justify-content-end w-100">
-                <Button className={`btn-contribute shadow d-block`} href={model.singleEditLink + `?redirect=${encodeURI(router.asPath)}`}>{lang.contributeButtonLabel}</Button>
+                <Button
+                    className={`btn-contribute shadow d-block`}
+                    href={
+                        model.singleEditLink +
+                        `?redirect=${encodeURI(router.asPath)}`
+                    }
+                >
+                    {lang.contributeButtonLabel}
+                </Button>
             </div>
         </div>
     )
 }
 
-export default SingleBaseCTA;
+export default SingleBaseCTA
