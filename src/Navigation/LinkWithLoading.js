@@ -3,13 +3,10 @@
 import Link from "next/link";
 import { useLoading } from "./LoadingContext"; // Ton contexte custom
 
-export default function LinkWithLoading({ href, children, ...props }) {
+export default function LinkWithLoading({ href, children, onClick, ...props }) {
   const { setIsLoading } = useLoading();
 
   const handleClick = (e) => {
-    // Démarrer le chargement avant la navigation
-    setIsLoading(true);
-
     // Si c'est un lien externe ou un téléchargement, ne pas intercepter
     if (
       e.metaKey ||
@@ -19,10 +16,20 @@ export default function LinkWithLoading({ href, children, ...props }) {
     ) {
       return;
     }
+
+    // Démarrer le chargement avant la navigation
+    setIsLoading(true);
   };
 
   return (
-    <Link href={href} onClick={handleClick} {...props}>
+    <Link
+      href={href}
+      onClick={(e) => {
+        handleClick(e);
+        onClick?.(); // si onclick exist
+      }}
+      {...props}
+    >
       {children}
     </Link>
   );
