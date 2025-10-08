@@ -1,8 +1,7 @@
 "use client";
 
-import AvnuLoading from "../common/widgets/loading/AvnuLoading";
-import DefaultSpinner from "../common/widgets/loading/DefaultSpinner";
 import Spinner from "../common/widgets/spinner/Spinner";
+
 import { useLoading } from "./LoadingContext";
 
 export default function LoadingIndicator() {
@@ -12,8 +11,8 @@ export default function LoadingIndicator() {
 
   return (
     <>
-      <div className="fixed-top animate-pulse" style={{ height: "100vh" }}>
-        <DefaultSpinner />
+      <div className="loading-indicator fixed-top">
+        <Spinner />
       </div>
     </>
   );
