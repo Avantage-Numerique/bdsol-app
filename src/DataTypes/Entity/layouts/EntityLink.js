@@ -1,25 +1,25 @@
-import { getModelFromType, getType } from "@/DataTypes/Entity/Types"
-import React from "react"
-import Icon from "@/common/widgets/Icon/Icon"
-import Link from "next/link"
+import { getModelFromType, getType } from "@/DataTypes/Entity/Types";
+import React from "react";
+import Icon from "@/common/widgets/Icon/Icon";
+import Link from "next/link";
 
 /**
- * Afficher une entité à partir du modèle sous forme de lien avec le component Link de react.
+ * Component to render an entity based on its model as a Link (React core component)
  * @param props
  * @param props.className {string} The figure class Name.
  * @param props.model {Media} Image tag className to pass.
  * @return {JSX.Element}
  * @constructor
  */
-const EntityLink = props => {
-    let { className, data } = props
+const EntityLink = (props) => {
+    let { className, data } = props;
 
     // defaults
-    className = className ?? ""
-    const model = getModelFromType(data.type, data)
+    className = className ?? "";
+    const model = getModelFromType(data.type, data);
 
     if (typeof model !== "undefined") {
-        const type = getType(model.type)
+        const type = getType(model.type);
 
         //get height and width dynamicaly ?
         return (
@@ -35,10 +35,11 @@ const EntityLink = props => {
                     </Link>
                 )}
             </>
-        )
+        );
     }
-    console.error("Model is undefined for EntityLink")
-    return <span>Model is undefined</span>
-}
 
-export default EntityLink
+    console.error("Model is undefined for EntityLink");
+    return <span>Model is undefined</span>;
+};
+
+export default EntityLink;
