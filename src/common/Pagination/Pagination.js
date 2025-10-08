@@ -24,7 +24,7 @@ import {lang} from "@/common/Data/GlobalConstants";
 const Pagination = ({children, paginationMeta, setSkipNumber, setClearList, pageBtnClickHandler, loadMore=false, ...props}) => {
 
 
-    const {scrollToTop} = useScrollTo();
+    const {scrollTo} = useScrollTo();
 
     //UseRef + useEffect update to handle onScrol
     //necessary, if not, onScroll triggers nextPage() with initial values
@@ -42,17 +42,17 @@ const Pagination = ({children, paginationMeta, setSkipNumber, setClearList, page
 
     const paginationButtonClickHandler = (pageNumber, clearList=false) => {
         setPageNumber(pageNumber, clearList);
-        scrollToTop();
+        scrollTo("consultScrollToElement");
     }
 
     const paginationNextButtonClickHandler = () => {
         nextPage();
-        scrollToTop();
+        scrollTo("consultScrollToElement");
     }
 
     const paginationPreviousButtonClickHandler = () => {
         previousPage();
-        scrollToTop();
+        scrollTo("consultScrollToElement");
     }
 
     //Set skip when page change

@@ -27,6 +27,7 @@ import PageHeader from "@/layouts/Header/PageHeader";
 import Button from "@/src/common/FormElements/Button/Button";
 import {useLoading} from "@/src/hooks/useLoading";
 import useConsultData, {buildPaginationMeta} from "@/src/hooks/useConsultData";
+import {Element} from "react-scroll";
 
 const ConsultData = (props) => {
 
@@ -251,6 +252,7 @@ const ConsultData = (props) => {
                     </div>
                 </section>
             </section>
+            <Element name="consultScrollToElement"></Element>
             <Pagination
                 paginationMeta={consultData.paginationMeta}
                 setClearList={updateClearList}

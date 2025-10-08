@@ -8,7 +8,7 @@ const useScrollTo = () => {
             offset: -50,
             duration: 800,
             delay: 0,
-            smooth: "easeInOutQuart",
+            smooth: "easeInOutQuint",
         });
     }
     const scrollToTop = () => {
@@ -16,7 +16,7 @@ const useScrollTo = () => {
             animateScroll.scrollToTop({
                 duration: 800,
                 delay: 0,
-                smooth: "easeInOutQuart",
+                smooth: "easeInOutQuint",
             });
         }
     }
