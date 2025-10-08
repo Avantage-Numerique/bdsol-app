@@ -25,6 +25,7 @@ import { useModalController } from "@/src/hooks/useModal/ModalsController/Modals
 import { useRouter } from "next/router";
 import nextConfig from "@/next.config";
 import { templates, templatesEnum } from "@/layouts/Templates/TemplatesEnum";
+import { usePathname } from "next/navigation";
 
 import { LoadingProvider } from "@/src/Routing/LoadingContext";
 import NavigationEvents from "@/src/Routing/NavigationEvents";
@@ -84,6 +85,8 @@ const Layout = ({ children, pageProps }) => {
 
   //  Catch if uri contains a msg query vars an display it in a toast alert.
   const router = useRouter();
+  const pathname = usePathname();
+
   useEffect(() => {
     if (router.query?.msg && router.query?.msg !== "") {
       const positive = router.query?.msgPositive === "true";
@@ -95,6 +98,13 @@ const Layout = ({ children, pageProps }) => {
           creationTime: getCurrentTime(),
         },
       ]);
+
+      const params = new URLSearchParams(router.query);
+      params.delete("msg");
+      params.delete("msgPositive");
+      router.replace({ pathname, query: params.toString() }, undefined, {
+        shallow: true,
+      });
     }
   }, [router.query]);
 
