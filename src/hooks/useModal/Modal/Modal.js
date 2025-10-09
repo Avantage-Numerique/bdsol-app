@@ -56,10 +56,6 @@ const Modal = (props) => {
                 modal.current.showModal();
             }}
         >
-            {/*
-                    CLOSING BUTTON
-                    Display itself automatically and trigger a function passed has props when clicked
-                */}
             {closingFunction && (
                 <div
                     className={`
@@ -74,20 +70,12 @@ const Modal = (props) => {
 
             {/* Prevent the document body from been scrollable while the modal is displayed  */}
             <style jsx global>
-                {" "}
                 {`
                     body {
                         overflow: hidden;
                     }
-                `}{" "}
+                `}
             </style>
-
-            {/*
-                Here goes the content of the modal 
-
-                All the rules to display and hide it must 
-                be inside the component calling it. Using the state...
-            */}
             {children}
         </dialog>
     );
