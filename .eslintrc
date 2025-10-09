@@ -2,9 +2,19 @@
   "parser": "@babel/eslint-parser",
   "extends": [
     "eslint:recommended",
-    "prettier"
+    "prettier",
+    "next"
   ],
+  "env": {
+    "es6": true
+  },
+  "rules": {
+    "react-hooks/exhaustive-deps": "off"
+  },
   "settings": {
+    "next": {
+      "rootDir": "./"
+    },
     "root": true,
     "project": "./",
     "import/resolver": {
