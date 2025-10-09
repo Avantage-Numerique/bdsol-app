@@ -59,17 +59,6 @@ const PlaceSingleEdit = ({ positiveRequestActions, ...props }) => {
         setCurrentModel(model);
     }, [setCurrentModel]);
 
-    //Auth logged in
-    useEffect(() => {
-        if (!auth.user.isLoggedIn) {
-            msg.addMessage({
-                text: lang.needToBeConnectedToAccess,
-                positive: false
-            })
-            Router.push('/compte/connexion')
-        }
-    }, [auth.user.isLoggedIn]);
-
     //Modal hook
     const modalSaveEntityReminder = useRootModal();
 

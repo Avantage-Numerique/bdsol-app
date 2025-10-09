@@ -74,7 +74,7 @@ const SingleBaseCTA = ({
     return (
         <div style={{ height: "1rem" }} className="position-relative flex-grow-1 d-flex align-items-end">
             <div className="d-flex justify-content-end w-100">
-                <Button className={`btn-contribute shadow d-block`} href={model.singleEditLink + `?redirect=${encodeURI(router.asPath)}`}>{lang.contributeButtonLabel}</Button>
+                <Button className={`btn-contribute shadow d-block`} href={model.singleEditLink}>{lang.contributeButtonLabel}</Button>
             </div>
         </div>
     )

@@ -91,19 +91,6 @@ const ProjectSingleEdit = (props) => {
     //Save intention for SingleBeforeUnloadReminder
     const [saveIntentionState, setSaveIntentionState] = useState(false);
 
-    /*
-    First of all, verify if the user is logged in.
-    If he isn't, then redirect him in the connexion page
-    */
-    useEffect(() => {
-        if (!auth.user.isLoggedIn) {
-            msg.addMessage({
-                text: lang.needToBeConnectedToAccess,
-                positive: false
-            })
-            Router.push('/compte/connexion')
-        }
-    }, [auth.user.isLoggedIn]);
     //Modal hook
     const modalSaveEntityReminder = useRootModal();
 

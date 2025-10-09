@@ -94,20 +94,6 @@ const EventSingleEdit = ({ data }, ...props) => {
         setCurrentModel(model);
     }, [setCurrentModel]);
 
-    /*
-        First of all, verify if the user is logged in.
-        If he isn't, then redirect him in the connexion page
-    */
-    useEffect(() => {
-        if (!auth.user.isLoggedIn) {
-            msg.addMessage({
-                text: lang.needToBeConnectedToAccess,
-                positive: false
-            })
-            Router.push('/compte/connexion')
-        }
-    }, [auth.user.isLoggedIn]);
-
     const combineDateAndTime = (date, time) => {
         return dateTimeStringToUTC(`${date} ${time}`);
     }
