@@ -1,8 +1,3 @@
-
-
 const footerStaticScripts = () => {
-
-    return (
-        <script></script>
-    )
-}
+    return <script></script>;
+};

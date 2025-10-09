@@ -1,4 +1,4 @@
-import {lang} from "@/common/Data/GlobalConstants";
+import { lang } from "@/common/Data/GlobalConstants";
 import DateWidget from "@/common/widgets/DateWidget/DateWidget";
 import React from "react";
 
@@ -13,66 +13,57 @@ import React from "react";
  * @constructor
  */
 export const SingleEntityMeta = (props) => {
-
-    const {
-        createdAt,
-        updatedAt,
-        meta,
-        className,
-        children
-    } = props;
+    const { createdAt, updatedAt, meta, className, children } = props;
     return (
         <div>
             <ul className={"list-style-none"}>
-                {
-                    /*meta?.state &&
+                {/*meta?.state &&
                     <li>
                         <span>{lang.entityMeta}{lang.colon}</span>
                         <span>{lang.capitalize(meta.state) ?? ""}</span>
-                    </li>*/
-                }
-                {
-                    (meta?.requestedBy?.name || createdAt) &&
+                    </li>*/}
+                {(meta?.requestedBy?.name || createdAt) && (
                     <li>
                         <span>{lang.created}</span>
-                        {
-                            meta?.requestedBy?.name &&
+                        {meta?.requestedBy?.name && (
                             <span>
                                 &nbsp;{lang.by}&nbsp;:&nbsp;
                                 {meta.requestedBy.name}
                             </span>
-                        }
-                        { createdAt &&
+                        )}
+                        {createdAt && (
                             <span>
-                                &nbsp;{lang.on}&nbsp;<DateWidget stringDate={createdAt} noTag={true} />
+                                &nbsp;{lang.on}&nbsp;
+                                <DateWidget
+                                    stringDate={createdAt}
+                                    noTag={true}
+                                />
                             </span>
-                        }
+                        )}
                     </li>
-                }
-                {
-                    (meta?.lastModifiedBy?.name || updatedAt) &&
+                )}
+                {(meta?.lastModifiedBy?.name || updatedAt) && (
                     <li>
                         <span>{lang.lastModification}</span>
-                        {
-                            meta?.lastModifiedBy?.name &&
+                        {meta?.lastModifiedBy?.name && (
                             <span>
-                                &nbsp;{lang.by}&nbsp;:&nbsp;{meta.lastModifiedBy.name}
+                                &nbsp;{lang.by}&nbsp;:&nbsp;
+                                {meta.lastModifiedBy.name}
                             </span>
-                        }
-                        { createdAt !== updatedAt &&
+                        )}
+                        {createdAt !== updatedAt && (
                             <span>
-                                &nbsp;{lang.on}&nbsp;<DateWidget stringDate={updatedAt} noTag={true} />
+                                &nbsp;{lang.on}&nbsp;
+                                <DateWidget
+                                    stringDate={updatedAt}
+                                    noTag={true}
+                                />
                             </span>
-                        }
+                        )}
                     </li>
-                }
+                )}
             </ul>
-            {
-                children &&
-                <div>
-                    {children}
-                </div>
-            }
+            {children && <div>{children}</div>}
         </div>
-    )
-}
+    );
+};

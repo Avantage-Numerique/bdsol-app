@@ -1,8 +1,8 @@
-import {createContext, useContext, useState} from 'react';
-import useApi from '@/src/hooks/useApi';
+import { createContext, useContext, useState } from "react";
+import useApi from "@/src/hooks/useApi";
 import defaultCookiesChoices from "@/src/common/Cookies/cookiesChoices";
 
-import {csSaveCookieChoices} from "@/common/Cookies/clientSideSaveCookiesChoices";
+import { csSaveCookieChoices } from "@/common/Cookies/clientSideSaveCookiesChoices";
 import fetchInternalApi from "@/src/api/fetchInternalApi";
 import useWebStats from "@/src/monitoring/hooks/useWebStats";
 
@@ -19,7 +19,7 @@ export const defaultSessionData = {
     ip: null,
     browser: null,
     language: null,
-    verify:{ isVerified: false }
+    verify: { isVerified: false },
 };
 
 /**
@@ -44,11 +44,11 @@ export const getSessionFromData = (userData) => {
             ip: userData.ip ?? null,
             browser: userData.browser ?? null,
             language: userData.language ?? null,
-            verify: userData.verify ?? { isVerified: false }
-        }
+            verify: userData.verify ?? { isVerified: false },
+        };
     }
     return defaultSessionData;
-}
+};
 
 /**
  * Builder les headers d'array pour réduire
@@ -56,32 +56,46 @@ export const getSessionFromData = (userData) => {
  * @param withAuthentification {boolean}
  * @return {object}
  */
-export const getUserHeadersFromUserSession = (user, withAuthentification= false) => {
+export const getUserHeadersFromUserSession = (
+    user,
+    withAuthentification = false
+) => {
     const userHeaders = {};
     if (user) {
         userHeaders["x-forwarded-for"] = user.ip ?? "";
         userHeaders["user-agent"] = user.browser ?? "";
 
         if (withAuthentification) {
-            userHeaders["Authorization"] = user.token ? 'Bearer ' + user.token : '';
+            userHeaders["Authorization"] = user.token
+                ? "Bearer " + user.token
+                : "";
         }
     }
 
     return userHeaders;
-}
-
+};
 
 const AuthContext = createContext({});
 
-export function AuthProvider({fromSessionUser, appMode, acceptedCookies, children}) {
-
-    const [user, setUser] = useState(fromSessionUser ?? {...defaultSessionData} );
+export function AuthProvider({
+    fromSessionUser,
+    appMode,
+    acceptedCookies,
+    children,
+}) {
+    const [user, setUser] = useState(
+        fromSessionUser ?? { ...defaultSessionData }
+    );
     const [loading, setLoading] = useState(true);
     const [apiUp, setApiUp] = useState(true);
     const [mode, setMode] = useState(appMode);
 
-    const [cookiesChoices, setCookiesChoices] = useState(acceptedCookies ?? defaultCookiesChoices)
-    const [choiceHasToBeMade, setChoiceHasToBeMade] = useState(!acceptedCookies?.choiceMade ?? true);
+    const [cookiesChoices, setCookiesChoices] = useState(
+        acceptedCookies ?? defaultCookiesChoices
+    );
+    const [choiceHasToBeMade, setChoiceHasToBeMade] = useState(
+        !acceptedCookies?.choiceMade ?? true
+    );
     const webStats = useWebStats();
     const saveCookieChoices = async (choices) => {
         await csSaveCookieChoices(choices);
@@ -93,41 +107,41 @@ export function AuthProvider({fromSessionUser, appMode, acceptedCookies, childre
     };
 
     const logOutUser = async () => {
-        const logOutResponse = await fetchInternalApi("/api/logout", JSON.stringify({}));
+        const logOutResponse = await fetchInternalApi(
+            "/api/logout",
+            JSON.stringify({})
+        );
         setUser(logOutResponse.user);
-    }
+    };
 
     useApi(setApiUp);
 
     return (
-        <AuthContext.Provider value={{
-            user: user,
-            setUser: setUser,
-            logOutUser: logOutUser,
-            loading: loading,
-            setLoading: setLoading,
-            apiUp : apiUp,
-            setApiUp : setApiUp,
-            mode: mode,
-            setMode: setMode,
-            cookiesChoices: cookiesChoices,
-            setCookiesChoices: setCookiesChoices,
-            saveCookieChoices: saveCookieChoices,
-            choiceHasToBeMade: choiceHasToBeMade,
-            setChoiceHasToBeMade: setChoiceHasToBeMade,
-
-        }}>
+        <AuthContext.Provider
+            value={{
+                user: user,
+                setUser: setUser,
+                logOutUser: logOutUser,
+                loading: loading,
+                setLoading: setLoading,
+                apiUp: apiUp,
+                setApiUp: setApiUp,
+                mode: mode,
+                setMode: setMode,
+                cookiesChoices: cookiesChoices,
+                setCookiesChoices: setCookiesChoices,
+                saveCookieChoices: saveCookieChoices,
+                choiceHasToBeMade: choiceHasToBeMade,
+                setChoiceHasToBeMade: setChoiceHasToBeMade,
+            }}
+        >
             {children}
         </AuthContext.Provider>
-    )
+    );
 }
 
 export function useAuth() {
     return useContext(AuthContext);
 }
-
-
-
-
 
 //AuthProvider inspired by https://stackoverflow.com/questions/71498723/next-js-how-to-use-usestate-and-authcontext-without-invalidating-ssg-html //seem nice.https://solveforum.com/forums/threads/solved-cannot-destructure-property-of-object-from-context.520739/

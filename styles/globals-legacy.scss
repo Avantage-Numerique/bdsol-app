@@ -2,7 +2,6 @@
     Legacy global styles applicable to every pages waiting to be refactored or adapted to Bootstrap
 */
 
-
 /*
 *
 *   Font settings
@@ -15,13 +14,15 @@ h6 {
     font-weight: $font-weight-bold;
 }
 
-a { color: inherit; }
-
+a {
+    color: inherit;
+}
 
 /*
 *   Container that defines the Maximum width the content of the page can take
 */
-.maxWidthPageContainer { /* TODO switch to Bootstrap's grid method (container > row > col) */
+.maxWidthPageContainer {
+    /* TODO switch to Bootstrap's grid method (container > row > col) */
     max-width: var(--max-width-page-content);
     margin: auto;
     padding: 0 min(3rem, 4vw);
@@ -30,7 +31,8 @@ a { color: inherit; }
 /*
   Line class for the design lines added to pages
 */
-.line{ /* TODO to componentize  */
+.line {
+    /* TODO to componentize  */
     height: 0.4rem;
     float: left;
     margin: 0.15rem 0.7rem 0.15rem 0;
@@ -41,12 +43,12 @@ a { color: inherit; }
 /*
  *  Remove and add some default styling of the button element
  */
- button { /* TODO to componentize */
+button {
+    /* TODO to componentize */
     background: unset;
     border: unset;
     padding: 0;
 }
-
 
 /***
 * (start) TODO to refactor using Bootstrap's form-control https://react-bootstrap.github.io/forms/form-control/ & move to FormElements > Input
@@ -61,7 +63,7 @@ input {
     padding: var(--inputPadding) 0;
 
     /* submit buttons */
-    &[type='submit']{
+    &[type="submit"] {
         cursor: pointer;
         padding: var(--inputPadding);
         margin: 0 0.25em;
@@ -69,15 +71,15 @@ input {
 }
 
 /* text areas and input which are not submit buttons */
-input:not([type='submit']),
+input:not([type="submit"]),
 textarea {
     border-bottom-width: 1px;
     border-bottom-style: solid;
-    border-bottom-color: rgba(255,255,255,0.5);
+    border-bottom-color: rgba(255, 255, 255, 0.5);
     transition: 0.2s;
 
-    &:focus{
-      border-bottom-color: rgba(255,255,255,1);
+    &:focus {
+        border-bottom-color: rgba(255, 255, 255, 1);
     }
 }
 

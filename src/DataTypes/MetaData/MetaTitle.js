@@ -1,4 +1,4 @@
-import {appConfig} from "@/src/configs/AppConfig";
+import { appConfig } from "@/src/configs/AppConfig";
 
 export const getTitle = (title, addAppName = true) => {
     let parsedTitle = "";
@@ -8,5 +8,8 @@ export const getTitle = (title, addAppName = true) => {
     if (typeof title === "string") {
         parsedTitle = title;
     }
-    return parsedTitle + (addAppName ? appConfig.meta.seperator + appConfig.name : "");
-}
+    return (
+        parsedTitle +
+        (addAppName ? appConfig.meta.seperator + appConfig.name : "")
+    );
+};

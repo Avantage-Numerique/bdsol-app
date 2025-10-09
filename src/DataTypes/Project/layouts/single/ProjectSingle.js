@@ -1,23 +1,21 @@
-import React, {useCallback} from 'react'
-
+import React, { useCallback } from "react";
 
 //components
 import CreatePersonForm from "@/DataTypes/Person/components/Forms/CreatePerson/CreatePersonForm";
-import SearchTag from '@/src/common/Components/SearchTag';
+import SearchTag from "@/src/common/Components/SearchTag";
 import Single from "@/DataTypes/common/layouts/single/Single";
 import SingleInfo from "@/DataTypes/common/layouts/SingleInfo/SingleInfo";
 
 //Styling
 //Hooks
-import {useModal} from "@/src/hooks/useModal/useModal";
+import { useModal } from "@/src/hooks/useModal/useModal";
 
 //Utils
-import SanitizedInnerHtml from '@/src/utils/SanitizedInnerHtml';
-import {SingleEntityMeta} from "@/src/DataTypes/Meta/components/SingleEntityMeta";
-import {lang} from "@/common/Data/GlobalConstants";
+import SanitizedInnerHtml from "@/src/utils/SanitizedInnerHtml";
+import { SingleEntityMeta } from "@/src/DataTypes/Meta/components/SingleEntityMeta";
+import { lang } from "@/common/Data/GlobalConstants";
 
-const ProjectSingle = ({data, route}) => {
-
+const ProjectSingle = ({ data, route }) => {
     const {
         _id,
         name,
@@ -37,15 +35,14 @@ const ProjectSingle = ({data, route}) => {
         context,
         meta,
         createdAt,
-        updatedAt
+        updatedAt,
     } = data;
 
     const imgModalControl = useModal();
 
-
     const aside = (
         <>
-            {skills && skills.length > 0 &&
+            {skills && skills.length > 0 && (
                 <>
                     <h4>{lang.domainsSingleLabel}</h4>
                     <SearchTag
@@ -54,8 +51,7 @@ const ProjectSingle = ({data, route}) => {
                         listProperty={"domain"}
                     />
                 </>
-            }
-
+            )}
         </>
     );
 
@@ -71,26 +67,24 @@ const ProjectSingle = ({data, route}) => {
 
     const ModalComponent = CreatePersonForm;
     const modalComponentParams = {
-        uri: "update"
+        uri: "update",
     };
-
 
     const getHrefGenerator = useCallback(() => {
         return {
             "[slug]": data?.slug ?? "no-set",
             "[project.slug]": data.slug ?? "no-set",
-            "projets": "projects",
+            projets: "projects",
         };
     }, []);
 
     const getLabelGenerator = useCallback((param) => {
         return {
-            "slug": () => data?.name ?? "title must be set",
+            slug: () => data?.name ?? "title must be set",
             "project.slug": () => data.name ?? "Projet",
-            "projets": () => "Projets",
+            projets: () => "Projets",
         }[param];
     }, []);
-
 
     //Remove because this isn't planned in the ontologie yet  :<SingleInfo title={"Intérêts"} />
     return (
@@ -109,41 +103,36 @@ const ProjectSingle = ({data, route}) => {
                 route={route}
                 breadcrumbParams={{
                     labelGenerator: getLabelGenerator,
-                    hrefGenerator: getHrefGenerator
+                    hrefGenerator: getHrefGenerator,
                 }}
             >
                 <SingleInfo title={"Présentation"} className={"mb-3"}>
-                    <SanitizedInnerHtml>
-                        {description}
-                    </SanitizedInnerHtml>
+                    <SanitizedInnerHtml>{description}</SanitizedInnerHtml>
                 </SingleInfo>
 
                 <SingleInfo title={"Contact"} className={"mb-3"}>
-                    <SanitizedInnerHtml>
-                        {contactPoint}
-                    </SanitizedInnerHtml>
+                    <SanitizedInnerHtml>{contactPoint}</SanitizedInnerHtml>
                 </SingleInfo>
 
-                <SingleInfo title={"Adresse"} className={"mb-3"}>
-                </SingleInfo>
+                <SingleInfo title={"Adresse"} className={"mb-3"}></SingleInfo>
 
-                <SingleInfo title={"Équipe"} className={"mb-3"}>
-                </SingleInfo>
+                <SingleInfo title={"Équipe"} className={"mb-3"}></SingleInfo>
 
-                <SingleInfo title={"Financement"} className={"mb-3"}>
-                </SingleInfo>
+                <SingleInfo
+                    title={"Financement"}
+                    className={"mb-3"}
+                ></SingleInfo>
 
-                <SingleInfo title={"Budget"} className={"mb-3"}>
-                </SingleInfo>
+                <SingleInfo title={"Budget"} className={"mb-3"}></SingleInfo>
 
-                {
-                    (createdAt || updatedAt || meta) &&
+                {(createdAt || updatedAt || meta) && (
                     <SingleEntityMeta
-                        className={singleInfoCommonClass} 
+                        className={singleInfoCommonClass}
                         createdAt={createdAt}
                         updatedAt={updatedAt}
-                        meta={meta}/>
-                }
+                        meta={meta}
+                    />
+                )}
             </Single>
 
             {/*
@@ -167,11 +156,10 @@ const ProjectSingle = ({data, route}) => {
             </Modal>
                 */}
         </>
-    )
-}
+    );
+};
 
-export default ProjectSingle
-
+export default ProjectSingle;
 
 /* 
 

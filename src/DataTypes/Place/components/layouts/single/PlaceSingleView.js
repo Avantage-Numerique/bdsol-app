@@ -1,7 +1,7 @@
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 
 //Utils
-import {lang} from "@/src/common/Data/GlobalConstants";
+import { lang } from "@/src/common/Data/GlobalConstants";
 
 //Component
 import SingleBase from "@/src/DataTypes/common/layouts/single/SingleBase";
@@ -9,22 +9,19 @@ import SingleBaseHeader from "@/src/DataTypes/common/layouts/single/defaultSecti
 import Place from "../../../models/Place";
 import SanitizedInnerHtml from "@/src/utils/SanitizedInnerHtml";
 import SingleInfo from "@/src/DataTypes/common/layouts/SingleInfo/SingleInfo";
-import {SingleEntityMeta} from "@/src/DataTypes/Meta/components/SingleEntityMeta";
-import SingleBaseProgressBar
-    from '@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseProgressBar/SingleBaseProgressBar'
-import {removeTagsFromString} from '@/src/helpers/html'
-
+import { SingleEntityMeta } from "@/src/DataTypes/Meta/components/SingleEntityMeta";
+import SingleBaseProgressBar from "@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseProgressBar/SingleBaseProgressBar";
+import { removeTagsFromString } from "@/src/helpers/html";
 
 //Styling
-import styles from "./PlaceSingleView.module.scss"
+import styles from "./PlaceSingleView.module.scss";
 
 const PlaceSingleView = ({ data }) => {
-
-    const model = new Place(data)
+    const model = new Place(data);
 
     const breadcrumbLabels = {
-        "lieux": lang.Places,
-        "slug": model.breadcrumbTitle
+        lieux: lang.Places,
+        slug: model.breadcrumbTitle,
     };
 
     const [breadCrumb, setBreadCrumb] = useState({
@@ -39,38 +36,45 @@ const PlaceSingleView = ({ data }) => {
         });
     }, [model.title]);
 
-
     const header = (
-        <SingleBaseHeader 
-            title={(<SanitizedInnerHtml tag={"h1"} className="text-white">{`${model.title}`}</SanitizedInnerHtml>)}
-            subtitle={(
+        <SingleBaseHeader
+            title={
+                <SanitizedInnerHtml
+                    tag={"h1"}
+                    className="text-white"
+                >{`${model.title}`}</SanitizedInnerHtml>
+            }
+            subtitle={
                 <div className="d-text mt-4">
-                    {model.address &&
-                        <i><p className="text-white fs-4 mb-0">{model.address}{(model.address && model.city) && <span>,</span>}</p></i>
-                    }
-                    {model.city &&
-                        <i><p className="text-white fs-4">{model.city}</p></i>
-                    }
+                    {model.address && (
+                        <i>
+                            <p className="text-white fs-4 mb-0">
+                                {model.address}
+                                {model.address && model.city && <span>,</span>}
+                            </p>
+                        </i>
+                    )}
+                    {model.city && (
+                        <i>
+                            <p className="text-white fs-4">{model.city}</p>
+                        </i>
+                    )}
                 </div>
-            )}
+            }
             mainImage={model.mainImage}
             entity={model}
             buttonText="Proposer des modifications"
             buttonLink={model.singleEditLink}
         />
-    )
+    );
 
     const FullWidthContent = (
         <>
-            <SingleInfo 
-                title={lang.about} 
+            <SingleInfo
+                title={lang.about}
                 NAMessage="Aucune description n'est disponible pour le moment."
             >
-                {
-                    <SanitizedInnerHtml>
-                        {model.description}
-                    </SanitizedInnerHtml>
-                }
+                {<SanitizedInnerHtml>{model.description}</SanitizedInnerHtml>}
             </SingleInfo>
         </>
     );
@@ -117,7 +121,7 @@ const PlaceSingleView = ({ data }) => {
                         {model.province ? model.province : " - "}
                     </div>
                 </li>
-            
+
                 {/* country */}
                 <li className={`${styles["coordinate"]}`}>
                     <div className={`${styles["coordinate__title"]}`}>
@@ -127,11 +131,10 @@ const PlaceSingleView = ({ data }) => {
                         {model.country ? model.country : " - "}
                     </div>
                 </li>
-
             </ul>
         </SingleInfo>
-    )
-    const contentColumnRight = (    
+    );
+    const contentColumnRight = (
         <SingleInfo title="Informations supplémentaires">
             <ul className={`${styles["main-coordinate-list"]}`}>
                 {/* mrc */}
@@ -175,46 +178,56 @@ const PlaceSingleView = ({ data }) => {
                 </li>
             </ul>
         </SingleInfo>
-    )
+    );
 
-
-    {/*********** Footer section ***********/}
+    {
+        /*********** Footer section ***********/
+    }
     const Footer = (
         <>
-            {
-                (model.createdAt || model.updatedAt || model.meta) &&
-                <SingleInfo 
-                    title={lang.entityMetadata} 
-                    className="pt-3"
-                >
+            {(model.createdAt || model.updatedAt || model.meta) && (
+                <SingleInfo title={lang.entityMetadata} className="pt-3">
                     {/*********** Entity data ***********/}
-                    <SingleEntityMeta createdAt={model.createdAt} updatedAt={model.updatedAt} meta={model.meta} />
+                    <SingleEntityMeta
+                        createdAt={model.createdAt}
+                        updatedAt={model.updatedAt}
+                        meta={model.meta}
+                    />
                 </SingleInfo>
-            }
+            )}
         </>
-    )
+    );
 
-    {/*********** Bottom section ***********/}
+    {
+        /*********** Bottom section ***********/
+    }
     const SinglePageBottom = (
-        <SingleBaseProgressBar 
+        <SingleBaseProgressBar
             dataList={[
-                {data: model.title},
-                {data: model.address},
-                {data: model.city},
-                {data: model.description, validationFunction: (value => removeTagsFromString(value) ? true : false)},
-                {data: model.postalCode},
-                {data: model.province},
-                {data: model.country},
-                {data: model.mrc},
-                {data: model.region},
-                {data: model.longitude},
-                {data: model.latitude},
-                {data: model.mainImage.isDefault, validationFunction: ((value) => !value)}, 
+                { data: model.title },
+                { data: model.address },
+                { data: model.city },
+                {
+                    data: model.description,
+                    validationFunction: (value) =>
+                        removeTagsFromString(value) ? true : false,
+                },
+                { data: model.postalCode },
+                { data: model.province },
+                { data: model.country },
+                { data: model.mrc },
+                { data: model.region },
+                { data: model.longitude },
+                { data: model.latitude },
+                {
+                    data: model.mainImage.isDefault,
+                    validationFunction: (value) => !value,
+                },
             ]}
             buttonText={lang.contributeButtonLabel}
             buttonLink={model.singleEditLink}
         />
-    )
+    );
 
     return (
         <>
@@ -229,6 +242,6 @@ const PlaceSingleView = ({ data }) => {
                 model={model}
             />
         </>
-    )
-}
+    );
+};
 export default PlaceSingleView;

@@ -1,7 +1,10 @@
-import {useCallback, useEffect, useRef, useState} from 'react';
-import {getUserHeadersFromUserSession, useAuth} from '@/auth/context/auth-context'
-import {lang} from "@/src/common/Data/GlobalConstants";
-import {useLoading} from "@/src/hooks/useLoading";
+import { useCallback, useEffect, useRef, useState } from "react";
+import {
+    getUserHeadersFromUserSession,
+    useAuth,
+} from "@/auth/context/auth-context";
+import { lang } from "@/src/common/Data/GlobalConstants";
+import { useLoading } from "@/src/hooks/useLoading";
 
 const ORIGIN_BROWSER = "browser";
 const ORIGIN_SERVER = "server";
@@ -14,30 +17,46 @@ const ORIGIN_SERVER = "server";
  * @return {Promise<*>}
  */
 export const externalApiRequest = async (path, params = {}) => {
+    params.isBodyJson =
+        params.isBodyJson === undefined ? true : params.isBodyJson; //par défault tout est JSON
 
-    params.isBodyJson = params.isBodyJson === undefined ? true : params.isBodyJson;//par défault tout est JSON
+    const baseApiRoute =
+            params.origin === ORIGIN_BROWSER
+                ? process.env.API_URL
+                : process.env.FROMSERVER_API_URL,
+        baseAppRoute =
+            params.origin === ORIGIN_BROWSER
+                ? process.env.APP_URL
+                : process.env.FROMSERVER_APP_URL;
 
-    const baseApiRoute = params.origin === ORIGIN_BROWSER ? process.env.API_URL : process.env.FROMSERVER_API_URL,
-        baseAppRoute = params.origin === ORIGIN_BROWSER ? process.env.APP_URL : process.env.FROMSERVER_APP_URL;
-
-    const defaultHeaders = { 'Origin': baseAppRoute },
-        jsonHeaders = params.isBodyJson ? {'Content-Type': 'application/json'} : {};
+    const defaultHeaders = { Origin: baseAppRoute },
+        jsonHeaders = params.isBodyJson
+            ? { "Content-Type": "application/json" }
+            : {};
 
     let headers = params.headers ?? {};
 
     // add user header if context is set.
-    if (params.context && params.context.req && params.context.req.session && params.context.req.user) {
+    if (
+        params.context &&
+        params.context.req &&
+        params.context.req.session &&
+        params.context.req.user
+    ) {
         headers = {
             ...headers,
-            ...getUserHeadersFromUserSession(params.context.req.session.user, params.withAuth === true)
-        }
+            ...getUserHeadersFromUserSession(
+                params.context.req.session.user,
+                params.withAuth === true
+            ),
+        };
     }
 
     // build the header array
     const headerParams = {
         ...defaultHeaders,
         ...jsonHeaders,
-        ...headers
+        ...headers,
     };
 
     params.additionnalFetchParams = params.additionnalFetchParams ?? {};
@@ -48,17 +67,15 @@ export const externalApiRequest = async (path, params = {}) => {
             method: params.method ?? "POST",
             body: params.body ?? undefined,
             headers: new Headers(headerParams),
-            ...params.additionnalFetchParams
+            ...params.additionnalFetchParams,
         });
 
         //Return the data
         return await response.json();
-
     } catch (err) {
         throw err;
     }
-}
-
+};
 
 /**
  * Fetch the external API with all the speficity of Server Side and Client side but with origin force to browser;
@@ -70,14 +87,16 @@ export const externalApiRequest = async (path, params = {}) => {
 export const clientSideExternalApiRequest = async (path, params = {}) => {
     params.origin = ORIGIN_BROWSER;
     return await externalApiRequest(path, params);
-}
-
-
+};
 
 //Main hook function called for every request made to the database
 export const useHttpClient = () => {
-
-    const {isLoading, setIsLoading, currentLoadingState, setCurrentLoadingState} = useLoading();
+    const {
+        isLoading,
+        setIsLoading,
+        currentLoadingState,
+        setCurrentLoadingState,
+    } = useLoading();
 
     //State that determine if the request is in progress
     //const [isLoading, setIsLoading] = useState(false);
@@ -89,47 +108,48 @@ export const useHttpClient = () => {
     const activeHttpRequests = useRef([]);
 
     const sendRequest = useCallback(
-
         //Main request function with pre-determined values
-        async (path, method = 'GET', body = null, headers = {}, params={}) => {
-
+        async (
+            path,
+            method = "GET",
+            body = null,
+            headers = {},
+            params = {}
+        ) => {
             //Start the loading component
             setIsLoading(true);
 
-            const stringnifyBody = params.isBodyJson && typeof body === "object" && typeof body !== "string";
+            const stringnifyBody =
+                params.isBodyJson &&
+                typeof body === "object" &&
+                typeof body !== "string";
 
             const httpAbortCtrl = new AbortController(),
-                usersHeaders = getUserHeadersFromUserSession(auth.user, true),//authentification, fowarded-from, user-agent.
+                usersHeaders = getUserHeadersFromUserSession(auth.user, true), //authentification, fowarded-from, user-agent.
                 headersParams = {
                     ...usersHeaders,
-                    ...headers
+                    ...headers,
                 };
             activeHttpRequests.current.push(httpAbortCtrl);
 
             try {
-
-                const responseData = await clientSideExternalApiRequest(
-                    path,
-                    {
-                        method: method,
-                        body: (stringnifyBody ? JSON.stringify(body) : body),
-                        headers: headersParams,
-                        additionnalFetchParams: {signal: httpAbortCtrl.signal},
-                        ...params
-                    }
-                );
+                const responseData = await clientSideExternalApiRequest(path, {
+                    method: method,
+                    body: stringnifyBody ? JSON.stringify(body) : body,
+                    headers: headersParams,
+                    additionnalFetchParams: { signal: httpAbortCtrl.signal },
+                    ...params,
+                });
 
                 //Remove the abort controler now that the response has been received
                 activeHttpRequests.current = activeHttpRequests.current.filter(
-                    reqCtrl => reqCtrl !== httpAbortCtrl
+                    (reqCtrl) => reqCtrl !== httpAbortCtrl
                 );
 
                 setIsLoading(false);
 
                 return responseData;
-
             } catch (err) {
-
                 //Remove the loading state
                 setIsLoading(false);
 
@@ -137,8 +157,8 @@ export const useHttpClient = () => {
                 return {
                     error: true,
                     code: 504,
-                    message: lang.fetchErrorMessage,//"Une erreur est survenue et le serveur ne semble pas répondre. Assurez-vous d'avoir une connexion."
-                }
+                    message: lang.fetchErrorMessage, //"Une erreur est survenue et le serveur ne semble pas répondre. Assurez-vous d'avoir une connexion."
+                };
             }
         },
         []
@@ -147,12 +167,19 @@ export const useHttpClient = () => {
     useEffect(() => {
         return () => {
             // eslint-disable-next-line react-hooks/exhaustive-deps
-            activeHttpRequests.current.forEach(abortCtrl => abortCtrl.abort());
+            activeHttpRequests.current.forEach((abortCtrl) =>
+                abortCtrl.abort()
+            );
         };
     }, []);
 
-    return {isLoading, setIsLoading, sendRequest, setCurrentLoadingState, currentLoadingState};
+    return {
+        isLoading,
+        setIsLoading,
+        sendRequest,
+        setCurrentLoadingState,
+        currentLoadingState,
+    };
 };
 
-
-export {ORIGIN_SERVER, ORIGIN_BROWSER};
+export { ORIGIN_SERVER, ORIGIN_BROWSER };

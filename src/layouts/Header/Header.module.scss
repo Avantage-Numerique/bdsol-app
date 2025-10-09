@@ -8,22 +8,25 @@
 */
 
 .header {
-
-    --navigation-options-with: calc(15vw + 10rem); //Pretending enough browsers supports it
+    --navigation-options-with: calc(
+        15vw + 10rem
+    ); //Pretending enough browsers supports it
 
     height: var(--headersHeight);
     display: flex;
     flex-direction: column;
     position: fixed;
-    top: 0px; 
+    top: 0px;
     left: 0px;
     right: 0px;
     z-index: $zindex-fixed;
-    transition: 0.3s ease-out; 
+    transition: 0.3s ease-out;
 
     &.account-bar {
         height: calc(var(--headersHeight) + 2rem);
-        .navButton { top: 2rem; }
+        .navButton {
+            top: 2rem;
+        }
     }
 
     &.scroll-inner-page {
@@ -48,7 +51,7 @@
 
     .item-displayed-in-menu {
         position: relative;
-        z-index: $zindex-fixed;        
+        z-index: $zindex-fixed;
     }
 
     .searchbar-menu-container {
@@ -76,7 +79,9 @@
             align-items: center;
             color: white;
 
-            a { margin: 1rem; }
+            a {
+                margin: 1rem;
+            }
         }
 
         .contribute-menu-container {
@@ -100,8 +105,12 @@
                 -o-transition: opacity 200ms;
                 transition: opacity 200ms;
 
-                &:hover { opacity: 1; }
-                svg { width: 100%; }
+                &:hover {
+                    opacity: 1;
+                }
+                svg {
+                    width: 100%;
+                }
             }
         }
     }
@@ -117,9 +126,15 @@
             height: var(--headersHeight);
             width: 100%;
             fill: white;
-            &:hover { opacity: 1; }
-            svg { width: 100%; }
-            .user-img { object-fit: cover; }
+            &:hover {
+                opacity: 1;
+            }
+            svg {
+                width: 100%;
+            }
+            .user-img {
+                object-fit: cover;
+            }
         }
     }
 

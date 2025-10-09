@@ -1,11 +1,10 @@
-import {useRouter} from "next/router";
-import {useCallback, useEffect, useState} from "react";
-import {lang} from "@/common/Data/GlobalConstants";
+import { useRouter } from "next/router";
+import { useCallback, useEffect, useState } from "react";
+import { lang } from "@/common/Data/GlobalConstants";
 import Link from "next/link";
 
 const _defaultGetHrefGenerator = (pathParts, replaceWith) => pathParts;
-const _defaultGetLabelGenerator = path => path;
-
+const _defaultGetLabelGenerator = (path) => path;
 
 /**
  * Generate each crumbs based of the Router URL (as a path).
@@ -15,12 +14,10 @@ const _defaultGetLabelGenerator = path => path;
 const generatePathParts = (path) => {
     if (path !== undefined) {
         const fullPathWIthNoQuery = path.split("?")[0];
-        return fullPathWIthNoQuery.split("/")
-            .filter(v => v.length > 0);
+        return fullPathWIthNoQuery.split("/").filter((v) => v.length > 0);
     }
     return [];
-}
-
+};
 
 /**
  * Take the path as a string  and
@@ -31,11 +28,13 @@ const generatePathParts = (path) => {
 const replacePathParts = (pathParts, replaceWith) => {
     for (const position in pathParts) {
         const pathValue = pathParts[position];
-        pathParts[position] = replaceWith && replaceWith[pathValue] ? replaceWith[pathValue] : pathValue;
+        pathParts[position] =
+            replaceWith && replaceWith[pathValue]
+                ? replaceWith[pathValue]
+                : pathValue;
     }
     return pathParts;
-}
-
+};
 
 /**
  * Implémentation 1 : https://dev.to/dan_starner/building-dynamic-breadcrumbs-in-nextjs-17oa
@@ -47,12 +46,12 @@ const replacePathParts = (pathParts, replaceWith) => {
  * @constructor
  */
 const Breadcrumbs = ({
-            getHrefGenerator = _defaultGetHrefGenerator,
-            getLabelGenerator = _defaultGetLabelGenerator,
-            labels,
-            route = undefined,
-            className=""}) => {
-
+    getHrefGenerator = _defaultGetHrefGenerator,
+    getLabelGenerator = _defaultGetLabelGenerator,
+    labels,
+    route = undefined,
+    className = "",
+}) => {
     const router = useRouter();
 
     const labelGenerator = (param, query) => {
@@ -62,62 +61,61 @@ const Breadcrumbs = ({
         return "?";
     };
 
-    const breadcrumbs = useCallback( () => {
+    const breadcrumbs = useCallback(() => {
+        let asPathNestedRoutes,
+            asPathReplacementNestedRoutes,
+            pathnameNestedRoutes;
 
-            let asPathNestedRoutes,
-                asPathReplacementNestedRoutes,
-                pathnameNestedRoutes;
+        if (route !== undefined) {
+            route.asPath = router.asPath;
+            route.pathname = router.pathname;
 
-            if (route !== undefined)
+            asPathNestedRoutes = generatePathParts(route.breadcrumbAsPath);
+            asPathNestedRoutes = replacePathParts(
+                asPathNestedRoutes,
+                getHrefGenerator()
+            );
+
+            pathnameNestedRoutes = generatePathParts(route.breadcrumbAsPath);
+        } else {
+            asPathNestedRoutes = generatePathParts(router.asPath);
+            pathnameNestedRoutes = generatePathParts(router.pathname);
+        }
+
+        const crumblist = asPathNestedRoutes.map((subpath, idx) => {
+            // Pull dynamic path params out of their [].
+            if (typeof pathnameNestedRoutes[idx] === "string") {
+                const param = pathnameNestedRoutes[idx]
+                    .replace("[", "")
+                    .replace("]", "");
+
+                const href =
+                    "/" + asPathNestedRoutes.slice(0, idx + 1).join("/");
+                return {
+                    href,
+                    text: labelGenerator(param, router.query),
+                    labels: labels,
+                };
+            }
+            return "no string in subpath";
+        });
+
+        return [
             {
-                route.asPath = router.asPath;
-                route.pathname = router.pathname;
-
-                asPathNestedRoutes = generatePathParts(route.breadcrumbAsPath);
-                asPathNestedRoutes = replacePathParts(asPathNestedRoutes, getHrefGenerator());
-
-                pathnameNestedRoutes = generatePathParts(route.breadcrumbAsPath);
-            }
-            else {
-                asPathNestedRoutes = generatePathParts(router.asPath);
-                pathnameNestedRoutes = generatePathParts(router.pathname);
-            }
-
-            const crumblist = asPathNestedRoutes.map(
-                (subpath, idx) => {
-
-                    // Pull dynamic path params out of their [].
-                    if (typeof pathnameNestedRoutes[idx] === "string")
-                    {
-                        const param = pathnameNestedRoutes[idx].replace("[", "").replace("]", "");
-
-                        const href = "/" + asPathNestedRoutes.slice(0, idx + 1).join("/");
-                        return {
-                            href,
-                            text: labelGenerator(param, router.query),
-                            labels: labels
-                        };
-                    }
-                    return "no string in subpath";
-                });
-
-            return [
-                {
-                    href: "/",
-                    text: lang.homePageBreadcrumbLabel
-                },
-                ...crumblist
-            ];
-
-        }, [
-            router.asPath,
-            router.pathname,
-            router.query,
-            route,
-            labels,
-            getLabelGenerator,
-            getHrefGenerator]
-    );
+                href: "/",
+                text: lang.homePageBreadcrumbLabel,
+            },
+            ...crumblist,
+        ];
+    }, [
+        router.asPath,
+        router.pathname,
+        router.query,
+        route,
+        labels,
+        getLabelGenerator,
+        getHrefGenerator,
+    ]);
 
     const crumbs = breadcrumbs();
 
@@ -125,15 +123,18 @@ const Breadcrumbs = ({
         <nav className={className} aria-label="breadcrumb">
             <ol className="breadcrumb">
                 {crumbs.map((crumb, idx) => {
-                        return (
-                            <Crumb {...crumb} key={idx} last={idx === crumbs.length - 1}/>
-                        )
-                    }
-                )}
+                    return (
+                        <Crumb
+                            {...crumb}
+                            key={idx}
+                            last={idx === crumbs.length - 1}
+                        />
+                    );
+                })}
             </ol>
         </nav>
     );
-}
+};
 
 /**
  * That target link that takes all the precises parameters to add the link and label.
@@ -144,7 +145,8 @@ const Breadcrumbs = ({
  * @return {JSX.Element}
  * @constructor
  */
-const Crumb = ({labels, text, href, last = false}) => {//text: defaultText,
+const Crumb = ({ labels, text, href, last = false }) => {
+    //text: defaultText,
 
     const generateText = useCallback((generator) => {
         if (Boolean(generator) && typeof generator === "function") {
@@ -156,53 +158,72 @@ const Crumb = ({labels, text, href, last = false}) => {//text: defaultText,
     if (last) {
         return (
             <li className="breadcrumb-item d-flex pb-2" aria-current="page">
-                <div className="text-primary-darker py-0 px-1 bg-primary-light rounded-1" dangerouslySetInnerHTML={{ __html: text }}></div>
+                <div
+                    className="text-primary-darker py-0 px-1 bg-primary-light rounded-1"
+                    dangerouslySetInnerHTML={{ __html: text }}
+                ></div>
             </li>
-        )
+        );
     }
 
     return (
         <li className="breadcrumb-item d-flex pb-2">
-            <Link href={href} className="text-decoration-underline link-underline-secondary-darker link-underline-opacity-0 link-underline-opacity-75-hover">
-                <div className="text-secondary-darker py-0 px-1 bg-secondary-light rounded-1" dangerouslySetInnerHTML={{ __html: text }}></div>
+            <Link
+                href={href}
+                className="text-decoration-underline link-underline-secondary-darker link-underline-opacity-0 link-underline-opacity-75-hover"
+            >
+                <div
+                    className="text-secondary-darker py-0 px-1 bg-secondary-light rounded-1"
+                    dangerouslySetInnerHTML={{ __html: text }}
+                ></div>
             </Link>
         </li>
     );
-}
+};
 
-
-const Deprecated_Crumb = ({text:defaultText, textGenerator, href, last = false}) => {//text: defaultText,
+const Deprecated_Crumb = ({
+    text: defaultText,
+    textGenerator,
+    href,
+    last = false,
+}) => {
+    //text: defaultText,
 
     const [text, setText] = useState(defaultText);
 
     useEffect(() => {
-
         const generateText = async (generator) => {
             if (Boolean(generator) && typeof generator === "function") {
                 const finalText = await generator();
                 setText(finalText);
             }
-        }
+        };
         generateText(textGenerator);
-
     }, [textGenerator]);
 
     if (last) {
         return (
             <li className="breadcrumb-item d-flex" aria-current="page">
-                <div className="text-primary-darker py-0 px-1 bg-primary-light rounded-1" dangerouslySetInnerHTML={{ __html: text }}></div>
+                <div
+                    className="text-primary-darker py-0 px-1 bg-primary-light rounded-1"
+                    dangerouslySetInnerHTML={{ __html: text }}
+                ></div>
             </li>
-        )
+        );
     }
     return (
         <li className="breadcrumb-item d-flex mb-1">
-            <Link href={href}
-                  className="text-decoration-underline link-underline-secondary-darker link-underline-opacity-0 link-underline-opacity-75-hover bg-"
+            <Link
+                href={href}
+                className="text-decoration-underline link-underline-secondary-darker link-underline-opacity-0 link-underline-opacity-75-hover bg-"
             >
-                <div className="text-secondary-darker py-0 px-1 bg-secondary-light rounded-1" dangerouslySetInnerHTML={{ __html: text }}></div>
+                <div
+                    className="text-secondary-darker py-0 px-1 bg-secondary-light rounded-1"
+                    dangerouslySetInnerHTML={{ __html: text }}
+                ></div>
             </Link>
         </li>
     );
-}
+};
 
-export {Crumb, Breadcrumbs};
+export { Crumb, Breadcrumbs };

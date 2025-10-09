@@ -1,5 +1,5 @@
-import React from 'react';
-import {removeTagsFromString} from "@/src/helpers/html";
+import React from "react";
+import { removeTagsFromString } from "@/src/helpers/html";
 
 /*
 
@@ -8,21 +8,19 @@ import {removeTagsFromString} from "@/src/helpers/html";
 
 */
 
-const HtmlTagsRemover = ( {children, tag, className} ) => {
-
+const HtmlTagsRemover = ({ children, tag, className }) => {
     //Declare the type of tag in which it will be displayed
     const Wrapper = tag ?? "div";
 
     //Return value
     return (
-        <Wrapper 
+        <Wrapper
             className={className ? className : ""}
             dangerouslySetInnerHTML={{
-                __html: removeTagsFromString(children)
+                __html: removeTagsFromString(children),
             }}
         />
-    )
+    );
+};
 
-}
-
-export default HtmlTagsRemover
+export default HtmlTagsRemover;

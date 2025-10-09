@@ -1,15 +1,14 @@
-
 .simple-abstract {
-
     //Number of lines allowed to be displayed in the description
     --description-allowed-lines: 2;
-    --text-line-height: 1.2;       //To convert into em
+    --text-line-height: 1.2; //To convert into em
     --simple-abstract--padding: #{$simple-default-padding};
 
-    box-shadow: $default-box-shadow;//1px 1px 4px 2px rgba(0,0,0,0.15);
+    box-shadow: $default-box-shadow; //1px 1px 4px 2px rgba(0,0,0,0.15);
     background-color: $primary-lighter;
     overflow: hidden;
-    $transition-simple-base: $transition-default-property $transition-default-time $bezier-ease-in;
+    $transition-simple-base: $transition-default-property
+        $transition-default-time $bezier-ease-in;
     @include transition($transition-simple-base);
     //max-width: 17rem;//parent scope of responsability
 
@@ -46,7 +45,7 @@
 
                 .figure-overlay {
                     @include transition();
-                    opacity: .7;
+                    opacity: 0.7;
                 }
 
                 .simple-abstract__header__figure__img {
@@ -63,16 +62,15 @@
                     //aspect-ratio: 5 / 3;
                     .simple-abstract__header__figure__img {
                         object-fit: contain;
-                        filter: drop-shadow(0.15rem 0.15rem 0.1rem #2929297d)
+                        filter: drop-shadow(0.15rem 0.15rem 0.1rem #2929297d);
                     }
                 }
             }
         }
     }
 
-
     &:hover {
-        $simple-hover-scale-ratio:101%;
+        $simple-hover-scale-ratio: 101%;
         box-shadow: $default-box-shadow-over;
         transform: scale($simple-hover-scale-ratio);
         .simple-abstract__header {
@@ -82,7 +80,7 @@
                 //}
 
                 .simple-abstract__header__figure__img {
-                    transform: scale($simple-hover-scale-ratio+1);
+                    transform: scale($simple-hover-scale-ratio + 1);
                 }
             }
         }
@@ -97,21 +95,23 @@
 
         --single-title-font-size: 1.25rem;
 
-        .simple-abstract__content__header{
+        .simple-abstract__content__header {
             height: calc(2 * var(--single-title-font-size));
 
-            a { width: fit-content; }
+            a {
+                width: fit-content;
+            }
         }
 
-        .simple-abstract__content__title{
+        .simple-abstract__content__title {
             font-size: var(--single-title-font-size);
             line-height: var(--single-title-font-size);
             max-height: 100%;
             --single-title-font-size: 1.25rem;
             height: calc(2 * var(--single-title-font-size));
         }
-        .simple-abstract__content__description { 
-            font-size: 0.9rem; 
+        .simple-abstract__content__description {
+            font-size: 0.9rem;
             line-height: var(--single-title-font-size);
             height: calc(2 * var(--single-title-font-size));
         }
@@ -128,7 +128,7 @@
             .simple-abstract__content__description {
                 font-size: 0.9rem;
                 line-height: 1.3em;
-                height: calc(1.2 * var(--description-allowed-lines))
+                height: calc(1.2 * var(--description-allowed-lines));
             }
             .simple-abstract__content__tagList {
                 gap: calc(var(--simple-abstract--padding) * 0.5);
@@ -150,7 +150,6 @@
     }
 
     .simple-abstract__content_ellipsis {
-
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -166,16 +165,19 @@
         }
 
         //Update the number of lines displayed to 3
-        &.simple-abstract__content_ellipsis--3lines { --description-allowed-lines: 5; }
+        &.simple-abstract__content_ellipsis--3lines {
+            --description-allowed-lines: 5;
+        }
     }
-
 }
-
-
 
 .gradient-cover {
     background: rgba(0, 0, 0, 0);
-    background: linear-gradient(0deg, rgba(0,0,0,0.5919410000328256) 0%, rgba(0,0,0,0.051324753534226164) 70%);
+    background: linear-gradient(
+        0deg,
+        rgba(0, 0, 0, 0.5919410000328256) 0%,
+        rgba(0, 0, 0, 0.051324753534226164) 70%
+    );
     opacity: 1;
     @include transition();
 }

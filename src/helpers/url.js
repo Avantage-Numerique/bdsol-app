@@ -9,11 +9,10 @@ const generatePathParts = (path) => {
     if (path !== undefined) {
         const copyPath = `${path}`;
         const fullPathWIthNoQuery = copyPath.split("?")[0];
-        return fullPathWIthNoQuery.split("/")
-            .filter(v => v.length > 0);
+        return fullPathWIthNoQuery.split("/").filter((v) => v.length > 0);
     }
     return [];
-}
+};
 
 /**
  * Take the path as a string  and
@@ -22,18 +21,19 @@ const generatePathParts = (path) => {
  * @return {*}
  */
 export const replacePathname = (pathname, replaceWith) => {
-
     //ReplaceWith : {slug: value}
     const pathParts = generatePathParts(pathname);
 
     for (const position in pathParts) {
         const pathValueRaw = pathParts[position];
         const pathValue = pathValueRaw.replace("[", "").replace("]", "");
-        pathParts[position] = replaceWith && replaceWith[pathValue] ? replaceWith[pathValue] : pathValue;
+        pathParts[position] =
+            replaceWith && replaceWith[pathValue]
+                ? replaceWith[pathValue]
+                : pathValue;
     }
     return pathParts.join("/");
-}
-
+};
 
 export const forceHttps = (url) => {
     // Regular expression to check if the string starts with 'https://'
@@ -42,20 +42,19 @@ export const forceHttps = (url) => {
 
     //If the url contain http:// with no ssl, we remove it to only add https.
     if (regexNoSSL.test(url)) {
-        url = url.replace(regexNoSSL, '');
+        url = url.replace(regexNoSSL, "");
     }
 
     // If the string does not start with 'https://', add it to the beginning
     if (!regex.test(url)) {
-        url = 'https://' + url;
+        url = "https://" + url;
     }
 
     return url;
-}
+};
 
-export const appUrl = (url= "") => {
+export const appUrl = (url = "") => {
     return `${nextConfig.env.APP_URL}${url}`;
-}
+};
 
-
-export const  inputUrlRegex= /^(https?):\/\/[^\s/$.?#].[^\s]*$/;
+export const inputUrlRegex = /^(https?):\/\/[^\s/$.?#].[^\s]*$/;

@@ -1,5 +1,4 @@
 .pageContent {
-
     /* Common styles to every main sections of the page */
     > * {
         width: 100%;
@@ -7,9 +6,7 @@
 
     /* Page header */
     > header {
-
         section {
-
             display: flex;
             align-items: center;
             justify-content: center;
@@ -23,14 +20,13 @@
                 z-index: 2;
                 margin: 7rem 5vw;
 
-                span { 
+                span {
                     font-size: 1.5em;
                     line-height: 3rem;
                 }
             }
 
             figure {
-               
                 overflow: hidden;
                 position: absolute;
                 top: 0px;
@@ -48,17 +44,16 @@
 
                 div {
                     position: absolute;
-                    top: 0px; 
-                    left: 0px; 
+                    top: 0px;
+                    left: 0px;
                     width: 100%;
                     height: 100%;
                     text-align: center;
 
-                    img.illustration_circle{
+                    img.illustration_circle {
                         position: relative;
                         width: auto;
                         height: 100%;
-
                     }
                 }
             }
@@ -67,26 +62,22 @@
 
     /* Page main section where all the individual classes are displayed */
     .classesContainer {
-
         /* Headers section */
         > header {
-
             /* Redirection linl */
             > aside {
-
                 /********************
                  aside block variables 
                  *********************/
-                 --asideBorderWidth: 0.14rem;
+                --asideBorderWidth: 0.14rem;
 
-                 /* Aside block styling */ 
+                /* Aside block styling */
                 height: auto;
                 width: 100%;
                 text-align: center;
                 display: flex;
                 flex-direction: column;
                 padding: 1.5rem 0rem;
-
 
                 /* The aside block is devided in two sections. 
                 One for the text, one for the button. */
@@ -98,16 +89,17 @@
                     flex-direction: column;
 
                     /* section with the text */
-                    &:first-of-type{ 
+                    &:first-of-type {
                         padding: 0rem 1rem;
-                        h3, h5 { 
+                        h3,
+                        h5 {
                             margin-top: 0px;
                             margin-bottom: 0.5rem;
                         }
                     }
 
                     /* section with the button */
-                    &:last-of-type{ 
+                    &:last-of-type {
                         flex: 1;
                         display: grid;
                         align-content: center;
@@ -122,30 +114,32 @@
 
                             /* Button / action  */
                             .circle_Container {
-                                border-radius:  100%;
+                                border-radius: 100%;
                                 padding: 1rem;
                                 float: left;
                                 z-index: 1;
                                 border: var(--asideBorderWidth) solid white;
                                 transition: 0.3s ease-out;
-    
+
                                 /* arrow */
-                                svg { 
+                                svg {
                                     height: 1.5rem;
                                     width: 1.5rem;
                                     float: left;
                                     fill: white;
                                     transition: inherit;
                                 }
-    
+
                                 &:hover {
                                     background-color: white;
-                                    svg{ fill: var(--bs-primary); }
+                                    svg {
+                                        fill: var(--bs-primary);
+                                    }
                                 }
                             }
-    
-                            &::before{
-                                content:"";
+
+                            &::before {
+                                content: "";
                                 position: absolute;
                                 width: 50%;
                                 height: 100%;
@@ -153,7 +147,8 @@
                                 left: 0px;
                                 box-sizing: border-box;
                                 border-top: var(--asideBorderWidth) white solid;
-                                border-bottom: var(--asideBorderWidth) white solid;
+                                border-bottom: var(--asideBorderWidth) white
+                                    solid;
                             }
                         }
                     }
@@ -161,9 +156,8 @@
             }
         }
 
-        /* Section that hold the classes */ 
+        /* Section that hold the classes */
         > section {
-
             .separation_line {
                 height: 1px;
                 background-color: var(--bs-secondary);
@@ -183,19 +177,15 @@
 *
 */
 
-
 /* Medium devices (landscape tablets, 768px and up) */
 @media only screen and (min-width: 768px) {
-
-    .pageContent { 
-
+    .pageContent {
         /* Page main section where all the individual classes are displayed */
         .classesContainer > div {
-
             /* Headers section */
             > header {
                 flex-direction: row;
-                
+
                 > article {
                     margin-right: 2em;
                 }
@@ -208,14 +198,11 @@
         }
     }
 }
-  
-  
+
 /* Extra large devices (large laptops and desktops, 1200px and up) */
 @media only screen and (min-width: 1200px) {
-    
 }
 
 /* Extra large devices (large laptops and desktops, 1500px and up) */
 @media only screen and (min-width: 1500px) {
-    
 }

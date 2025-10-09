@@ -2,7 +2,6 @@
     Styles for the main navigation bar
 */
 .navContainer {
-
     background-color: var(--bs-blue2);
     position: fixed;
     top: calc(var(--headersHeight) - 1px);
@@ -21,18 +20,17 @@
     transition: all 500ms ease;
 
     > div {
-
         h3 {
             font-size: 3rem;
         }
         ul {
-            li, 
+            li,
             li > button {
                 font-size: 2rem;
                 color: white;
                 font-weight: bold;
                 line-height: 1.5em;
-                
+
                 /* Transition for the openning animation */
                 -webkit-transition: text-shadow 400ms ease;
                 -moz-transition: text-shadow 400ms ease;
@@ -44,26 +42,27 @@
                     text-shadow: 3px 3px grey;
                 }
 
-                &.unactive{
+                &.unactive {
                     opacity: 0.5;
                     cursor: not-allowed;
 
-                    &:hover { text-shadow: none;}
+                    &:hover {
+                        text-shadow: none;
+                    }
                 }
 
-                >  { cursor: pointer; } /* TEMPORARY */
-
-
+                > {
+                    cursor: pointer;
+                } /* TEMPORARY */
             }
         }
 
-        ul.mainMenu { font-size: 3rem;
-            
+        ul.mainMenu {
+            font-size: 3rem;
         }
-
     }
-    
 }
 
-.navContainer.displayed { clip-path: inset(0); }
-
+.navContainer.displayed {
+    clip-path: inset(0);
+}

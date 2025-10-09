@@ -1,6 +1,4 @@
-
 .card {
-
     /* 
         No with will be define since it is gonna be
         control by the page that present the cards
@@ -14,21 +12,18 @@
     border-radius: 0.5rem;
     max-width: 30ch;
 
-    -webkit-box-shadow: 0px 0px 8px 1px rgba(137,137,137,0.4); 
-    box-shadow: 0px 0px 8px 1px rgba(137,137,137,0.4);
+    -webkit-box-shadow: 0px 0px 8px 1px rgba(137, 137, 137, 0.4);
+    box-shadow: 0px 0px 8px 1px rgba(137, 137, 137, 0.4);
 
     margin: 1rem;
 
     header {
-
         padding: 1rem;
-        
-        h5 { 
+
+        h5 {
             margin: 0px;
-            text-align: center; 
+            text-align: center;
             color: rgb(88, 88, 88);
         }
-
     }
-
 }

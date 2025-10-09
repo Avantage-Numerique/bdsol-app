@@ -1,8 +1,7 @@
 .person-simple {
-
-    $transition-simple-base: $transition-default-property $transition-default-time $bezier-ease-in;
+    $transition-simple-base: $transition-default-property
+        $transition-default-time $bezier-ease-in;
     .person-simple__header {
-
         width: 100%;
         /* Top section of the header containing the picture and button */
         .person-simple__header__top-section {
@@ -19,7 +18,8 @@
                 box-shadow: $top-box-shadow;
                 @include transition($transition-simple-base);
                 background-color: $main-image-bg-color;
-                img, a {
+                img,
+                a {
                     position: absolute;
                     top: 0;
                     left: 0;
@@ -33,9 +33,7 @@
 
         /* Bottom section of the header that contains the textual informations */
         .person-simple__header__bottom-section {
-
             .occupations-container {
-
                 font-size: 0.7rem;
                 gap: 0.45rem;
 

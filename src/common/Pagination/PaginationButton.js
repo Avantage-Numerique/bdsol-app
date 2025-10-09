@@ -1,7 +1,7 @@
 //import {forceHttps} from "@/src/helpers/url";
 import React from "react";
 //import Icon from "@/common/widgets/Icon/Icon";
-import styles from "./Pagination.module.scss"
+import styles from "./Pagination.module.scss";
 import Icon from "@/common/widgets/Icon/Icon";
 
 /**
@@ -29,28 +29,27 @@ const PaginationButton = (props) => {
         disabled,
         isCurrent,
         isNavigation,
-        labelIsIconClass
+        labelIsIconClass,
     } = props;
 
     let additionnalsClasses = isCurrent ? styles["current"] : "";
-    additionnalsClasses += isNavigation ? styles["btn-pagination-navigation"] : "";
+    additionnalsClasses += isNavigation
+        ? styles["btn-pagination-navigation"]
+        : "";
 
     return (
-
         <button
             className={`${styles["btn-pagination"]} ${className} ${additionnalsClasses}`}
             key={"btn-pagination-page-" + label}
-            onClick={clickMethod && (() => clickMethod(parseInt(pageNumber), clearList))}
-            disabled={disabled}>
-            {labelIsIconClass ?
-                (
-                    <Icon iconName={label} />
-                )
-                :
-                label
+            onClick={
+                clickMethod &&
+                (() => clickMethod(parseInt(pageNumber), clearList))
             }
+            disabled={disabled}
+        >
+            {labelIsIconClass ? <Icon iconName={label} /> : label}
         </button>
     );
-}
+};
 
-export {PaginationButton};
+export { PaginationButton };

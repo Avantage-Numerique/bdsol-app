@@ -1,17 +1,17 @@
-import {useEffect, useState} from 'react';
-import {createPortal} from "react-dom";
+import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 
-import Modal from '@/src/hooks/useModal/Modal/Modal';
+import Modal from "@/src/hooks/useModal/Modal/Modal";
 
 export const ModalElem = ({ children }) => {
     const [mounted, setMounted] = useState(false);
 
     useEffect(() => {
-      setMounted(true);
-      return () => setMounted(false);
+        setMounted(true);
+        return () => setMounted(false);
     }, []);
-    
-    if(mounted)
+
+    if (mounted)
         return createPortal(
             <Modal
                 noDefaultWidth={false}
@@ -22,16 +22,15 @@ export const ModalElem = ({ children }) => {
                 {children}
             </Modal>,
             document.getElementById("portal-root")
-        )
-    return null
-}
+        );
+    return null;
+};
 
 export const useModalController = () => {
-
-    const [ modalsData, setModalsData ] = useState({}) 
+    const [modalsData, setModalsData] = useState({});
 
     /**************** Utils *****************/
-    const initModalKey = params => {
+    const initModalKey = (params) => {
         //Destructure parameters with default values
         const {
             //Required informations
@@ -39,72 +38,78 @@ export const useModalController = () => {
             //To be added at the display time
             UI,
             //Not required informations
-            displayOnCreation=false,
+            displayOnCreation = false,
             className = "",
-            noDefaultWidth=false,      
-            coloredBackground=false,   //If true, the background color become blue
-            closingButton=false        //If true, display the default closing button 
+            noDefaultWidth = false,
+            coloredBackground = false, //If true, the background color become blue
+            closingButton = false, //If true, display the default closing button
         } = params;
 
         setModalsData({
             ...modalsData,
             key: {
                 key: key,
-                UI: () => (<></>)
-            }
-        })
+                UI: () => <></>,
+            },
+        });
 
         //Functionnalities related to this specific modal
         return {
-            display: UI => setModalsData(prev => ({
-                ...prev,
-                key: {
-                    ...prev.key,
-                    display: true,
-                    UI: () => (
-                        <Modal
-                            noDefaultWidth={noDefaultWidth}
-                            coloredBackground={coloredBackground}
-                            className={className}
-                            closingFunction={closingButton ? () => setModalsData(prev => ({
-                                ...prev,
-                                key: {
-                                    ...prev.key,
-                                    display: false
+            display: (UI) =>
+                setModalsData((prev) => ({
+                    ...prev,
+                    key: {
+                        ...prev.key,
+                        display: true,
+                        UI: () => (
+                            <Modal
+                                noDefaultWidth={noDefaultWidth}
+                                coloredBackground={coloredBackground}
+                                className={className}
+                                closingFunction={
+                                    closingButton
+                                        ? () =>
+                                              setModalsData((prev) => ({
+                                                  ...prev,
+                                                  key: {
+                                                      ...prev.key,
+                                                      display: false,
+                                                  },
+                                              }))
+                                        : null
                                 }
-                            })) : null}
-                        >
-                            {UI}
-                        </Modal>
-                    )
-                }
-            })),
-            close: () => setModalsData(prev => ({
-                ...prev,
-                key: {
-                    ...prev.key,
-                    display: false
-                }
-            }))
-        }
-                
-    }
+                            >
+                                {UI}
+                            </Modal>
+                        ),
+                    },
+                })),
+            close: () =>
+                setModalsData((prev) => ({
+                    ...prev,
+                    key: {
+                        ...prev.key,
+                        display: false,
+                    },
+                })),
+        };
+    };
 
     //Add new modal with Ui
-    const addNewModal = params => {
+    const addNewModal = (params) => {
         //Destructure parameters with default values
         const {
             //Required informations
             UI,
             key,
             //Not required informations
-            displayOnCreation=false,
+            displayOnCreation = false,
             className = "",
-            noDefaultWidth=false,      
-            coloredBackground=false,   //If true, the background color become blue
-            closingButton=false        //If true, display the default closing button 
+            noDefaultWidth = false,
+            coloredBackground = false, //If true, the background color become blue
+            closingButton = false, //If true, display the default closing button
         } = params;
-        
+
         setModalsData({
             ...modalsData,
             key: {
@@ -115,40 +120,45 @@ export const useModalController = () => {
                         noDefaultWidth={noDefaultWidth}
                         coloredBackground={coloredBackground}
                         className={className}
-                        closingFunction={closingButton ? () => setModalsData(prev => ({
-                            ...prev,
-                            key: {
-                                ...prev.key,
-                                display: false
-                            }
-                        })) : null}
+                        closingFunction={
+                            closingButton
+                                ? () =>
+                                      setModalsData((prev) => ({
+                                          ...prev,
+                                          key: {
+                                              ...prev.key,
+                                              display: false,
+                                          },
+                                      }))
+                                : null
+                        }
                     >
                         {UI}
                     </Modal>
-                )
-            }
-        })
-        
+                ),
+            },
+        });
 
         //Functionnalities related to this specific modal
         return {
-            display: () => setModalsData(prev => ({
-                ...prev,
-                key: {
-                    ...prev.key,
-                    display: true
-                }
-            })),
-            close: () => setModalsData(prev => ({
-                ...prev,
-                key: {
-                    ...prev.key,
-                    display: false
-                }
-            }))
-        }
-    }
-
+            display: () =>
+                setModalsData((prev) => ({
+                    ...prev,
+                    key: {
+                        ...prev.key,
+                        display: true,
+                    },
+                })),
+            close: () =>
+                setModalsData((prev) => ({
+                    ...prev,
+                    key: {
+                        ...prev.key,
+                        display: false,
+                    },
+                })),
+        };
+    };
 
     return {
         //ModalsDisplay: () => displayModalUi(modalsData),
@@ -156,26 +166,26 @@ export const useModalController = () => {
         modalTools: {
             addNew: addNewModal,
             initModalKey: initModalKey,
-            Modal: ModalElem
-        }
-    }
-}
+            Modal: ModalElem,
+        },
+    };
+};
 
 //Display all the modal Ui in the right order
 function displayModalUi(modalsData) {
-
     const modalsDataObj = Object.values(modalsData);
-    const modalsToDisplay = modalsDataObj.filter(e => e.display == true);
+    const modalsToDisplay = modalsDataObj.filter((e) => e.display == true);
 
     return (
         <>
-            {modalsToDisplay && modalsToDisplay.map(modal => (
-                createPortal(
-                    <modal.UI key={modal.key} />,
-                    document.getElementById("portal-root"),
-                    modal.key
-                )
-            ))} 
+            {modalsToDisplay &&
+                modalsToDisplay.map((modal) =>
+                    createPortal(
+                        <modal.UI key={modal.key} />,
+                        document.getElementById("portal-root"),
+                        modal.key
+                    )
+                )}
         </>
-    )
+    );
 }

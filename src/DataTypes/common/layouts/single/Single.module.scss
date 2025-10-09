@@ -10,21 +10,18 @@
     --picture-size: clamp(8rem, 20vw, 12rem);
     $picture-size: clamp(8rem, 20vw, 12rem);
 
-
     .bg-single {
         background-color: darken($light, 4%);
     }
 
     /*  HEADER  */
     .single__header {
-
         color: white;
         position: relative;
         padding: var(--page-padding);
 
         /*  Background image */
         .single__bg-img {
-
             z-index: 0;
             overflow: hidden;
             position: absolute;
@@ -34,13 +31,11 @@
             height: 100%;
 
             .single__bg-img__img {
-
                 object-fit: cover;
                 position: absolute;
                 width: 100%;
                 height: 100%;
                 bottom: 0;
-
             }
         }
 
@@ -52,18 +47,17 @@
 
         /* Main content of the header */
         .single__header__content {
-
             position: relative;
             display: flex;
             flex-direction: column;
             padding: var(--page-margins);
 
-            > * { min-height: 5rem; } // dangerous rules, to verify.
+            > * {
+                min-height: 5rem;
+            } // dangerous rules, to verify.
 
             .single-header-content__main-section {
-
                 aside {
-
                     > div {
                         padding: 1rem;
                         background-color: $light;
@@ -71,7 +65,7 @@
                         box-shadow: $default-box-shadow;
                         color: $dark;
                         border-radius: 0.5rem;
-                        float: right;//this is scary.
+                        float: right; //this is scary.
 
                         button {
                             width: 100%;
@@ -82,12 +76,9 @@
             }
 
             .single-header-content__bottom-container {
-
-
                 position: relative;
 
                 .single-header-content__bottom-row {
-
                     position: relative;
                     // Refactor the alignment and positionning here. It makes things harder to implement on.
                     .headers-content__main-image {
@@ -113,7 +104,9 @@
                             -o-transition: opacity 0.3s ease;
                             transition: opacity 0.3s ease;
 
-                            &:hover{ opacity: 1; }
+                            &:hover {
+                                opacity: 1;
+                            }
                         }
                     }
 
@@ -123,7 +116,9 @@
                         left: calc(var(--picture-size) - 20px);
 
                         &.over {
-                            top: calc(40% + ( var(--picture-size) / 2 )) !important;
+                            top: calc(
+                                40% + (var(--picture-size) / 2)
+                            ) !important;
                             left: calc(var(--picture-size) / 2) !important;
                         }
                     }
@@ -148,20 +143,20 @@
     }
 
     .quick-section {
-
         .quick-section__single-info {
             color: rgba(255, 255, 255, 0.767);
             margin-right: 2rem;
             font-size: 0.9rem;
 
-            span { font-weight: 700; }
+            span {
+                font-weight: 700;
+            }
         }
-
     }
 
     .single__main-section-with-profile-picture {
         padding: $page-padding;
-        margin-top: calc($picture-size / 4)
+        margin-top: calc($picture-size / 4);
     }
 
     .single__main-section {

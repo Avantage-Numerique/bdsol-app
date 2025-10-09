@@ -6,19 +6,18 @@
 */
 
 .create-taxonomy-form {
-
     position: relative; //For the spinner to attach itself to it
-    
+
     .select-component {
         width: 25%;
         height: 40px;
     }
 
     label {
-
         font-weight: 600;
-        > * { font-weight: normal; }
-
+        > * {
+            font-weight: normal;
+        }
     }
 
     /*
@@ -30,10 +29,8 @@
     > * {
         margin-bottom: 1rem;
 
-        &:not(button){
+        &:not(button) {
             width: 100%;
         }
     }
-
-    
 }

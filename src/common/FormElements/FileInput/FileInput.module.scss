@@ -5,7 +5,6 @@
 
 */
 .input-component {
-
     display: flex;
     flex-direction: column;
 
@@ -18,15 +17,18 @@
 
     /* Section with the field */
     .input-component__field-container {
-
         /* Fake input for costum visualisation */
         .input-ui {
             //Styling preference. Prevent the text in the button from wrapping on two lines
-            button { white-space: nowrap; }
-            .input-ui__file-name { direction: rtl; }
+            button {
+                white-space: nowrap;
+            }
+            .input-ui__file-name {
+                direction: rtl;
+            }
         }
     }
-    
+
     /* TODO : make this style global and combine it with bootstrap */
     .information-button {
         width: 1rem;
@@ -39,9 +41,5 @@
         &:hover {
             background-color: rgba(110, 110, 110, 0.705);
         }
-
-        
     }
-        
-
-}    
+}

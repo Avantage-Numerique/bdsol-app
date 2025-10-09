@@ -1,46 +1,46 @@
 const organisations = {
-
-    "OrganisationsDefinition": "Organisation, entreprise, collectif ou regroupement œuvrant dans le numérique, ou dont les technologies numériques sont incluses, et offrant des services technologiques.",
+    OrganisationsDefinition:
+        "Organisation, entreprise, collectif ou regroupement œuvrant dans le numérique, ou dont les technologies numériques sont incluses, et offrant des services technologiques.",
 
     //  Organisations
 
-    "Organisation": "Organisation",
-    "Organisations": "Organisations",
-    "organisation": "organisation",
-    "organisations": "organisations",
-    "fondationDate": "Date de fondation",
+    Organisation: "Organisation",
+    Organisations: "Organisations",
+    organisation: "organisation",
+    organisations: "organisations",
+    fondationDate: "Date de fondation",
 
-    "singleDescriptionLabel": "Présentation",
-    "bestContactPointLabel": "Meilleur moyen pour les contacter : ",
-    "roleInTeam": "Rôle dans l'équipe",
-
+    singleDescriptionLabel: "Présentation",
+    bestContactPointLabel: "Meilleur moyen pour les contacter : ",
+    roleInTeam: "Rôle dans l'équipe",
 
     //  CreateOrganisationForm.js
 
-    "formOrganisationSubtitle": "Vous pouvez ajouter ici une nouvelle organisation à la base de données.",
-    "formOrganisationInstructions": "Super formulaire",
-    "organisationUploadMediaMainImage": "Vous pourrez téléverser une image à partir de la page de cette organisation. Cette image représentera cette organisation et sera affiché dans sa fiche et dans les pages qui la liste.",
+    formOrganisationSubtitle:
+        "Vous pouvez ajouter ici une nouvelle organisation à la base de données.",
+    formOrganisationInstructions: "Super formulaire",
+    organisationUploadMediaMainImage:
+        "Vous pourrez téléverser une image à partir de la page de cette organisation. Cette image représentera cette organisation et sera affiché dans sa fiche et dans les pages qui la liste.",
 
-    "organisationDescription": "Présentation",
-    "organisationSkills": "Service offert",
-    "organisationOffer" : "Offres de service",
-    "organisationSkillsAssociated": "Compétences associées",
+    organisationDescription: "Présentation",
+    organisationSkills: "Service offert",
+    organisationOffer: "Offres de service",
+    organisationSkillsAssociated: "Compétences associées",
 
+    organisationPlace: "Emplacement",
+    organisationPlaces: "Emplacements",
 
-    "organisationPlace": "Emplacement",
-    "organisationPlaces": "Emplacements",
+    organisationContact: "Contact",
 
-    "organisationContact": "Contact",
+    projectCreated: "Projet créé",
+    projectsCreated: "Projets créés",
 
-    "projectCreated": "Projet créé",
-    "projectsCreated": "Projets créés",
+    organizerOfEvent: "A organisé cet événement",
+    organizerOfEvents: "A organisé ces événements",
+    creatorOfEvents: "A créé ces événements",
+    creatorOfEvent: "A créé cet événement",
 
-    "organizerOfEvent": "A organisé cet événement",
-    "organizerOfEvents": "A organisé ces événements",
-    "creatorOfEvents": "A créé ces événements",
-    "creatorOfEvent": "A créé cet événement",
-
-    "iconOfOrganization": "Icône représentant une organisation",
-}
+    iconOfOrganization: "Icône représentant une organisation",
+};
 
 exports.organisations = organisations;

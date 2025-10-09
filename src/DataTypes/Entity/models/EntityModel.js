@@ -1,8 +1,8 @@
-import {getType, TYPE_DEFAULT} from "@/DataTypes/Entity/Types";
-import {removeHtml} from "@/src/helpers/str";
-import {appUrl, replacePathname} from "@/src/helpers/url";
+import { getType, TYPE_DEFAULT } from "@/DataTypes/Entity/Types";
+import { removeHtml } from "@/src/helpers/str";
+import { appUrl, replacePathname } from "@/src/helpers/url";
 import EntityTag from "@/DataTypes/Entity/layouts/EntityTag";
-import {lang} from "@/src/common/Data/GlobalConstants";
+import { lang } from "@/src/common/Data/GlobalConstants";
 
 /**
  * The abstract model for all the entities.
@@ -16,7 +16,6 @@ import {lang} from "@/src/common/Data/GlobalConstants";
  * @property singleParams {Object} parameters for the single component of this entity. If it was empty, it's equal to the default value.
  */
 class EntityModel {
-
     /**
      * Abstract model for the entity in the app.
      * @param raw {object} All the params to setup this.
@@ -29,17 +28,19 @@ class EntityModel {
      * @param params.single {object} Parameters for the single component
      * @param params.simple {object} Parameters for the simple component
      */
-    constructor(raw, params={}) {
+    constructor(raw, params = {}) {
         this.shortLenght = 87;
         this.type = raw?.type ?? TYPE_DEFAULT;
         this.Type = getType(this.type);
         this.title = raw?.title ?? "no title set";
         this.description = raw?.description ?? "";
-        this.badge = raw?.badge ?? "";//contextual description of the entity. Often define in a single view.
+        this.badge = raw?.badge ?? ""; //contextual description of the entity. Often define in a single view.
 
         this.shortDescription = removeHtml(this.description);
-        this.shortDescription = this.shortDescription.substring(0,this.shortLenght) + (this.shortDescription.length > this.shortLenght ? "..." : "");
-        this.mainImage = raw?.mainImage ?? {url:"", alt:""};
+        this.shortDescription =
+            this.shortDescription.substring(0, this.shortLenght) +
+            (this.shortDescription.length > this.shortLenght ? "..." : "");
+        this.mainImage = raw?.mainImage ?? { url: "", alt: "" };
 
         this.singleList;
 
@@ -51,7 +52,7 @@ class EntityModel {
         this.meta = {
             seperator: " - ",
             title: this.title,
-            description: this.description
+            description: this.description,
         };
 
         //Ajouter _id et id ??
@@ -61,8 +62,8 @@ class EntityModel {
 
         //manage the parameters in a single array.
         this.params = new Map();
-        this.params.set("simple", (params?.simple ?? this.defaultSimpleParams));
-        this.params.set("single", (params?.single ?? this.defaultSingleParams));
+        this.params.set("simple", params?.simple ?? this.defaultSimpleParams);
+        this.params.set("single", params?.single ?? this.defaultSingleParams);
 
         this.simpleComponent = raw?.simpleComponent ?? undefined;
         this.tagComponent = raw?.tagComponent ?? EntityTag;
@@ -74,7 +75,7 @@ class EntityModel {
      * Get the type of the current model
      * @return {*|string}
      */
-    get type () {
+    get type() {
         return this._type;
     }
     /**
@@ -83,7 +84,6 @@ class EntityModel {
     set type(value) {
         this._type = value;
     }
-
 
     /**
      * Get the entity title
@@ -99,7 +99,6 @@ class EntityModel {
         this._title = value;
     }
 
-
     /**
      * Get the entity title
      * @return {*|string}
@@ -113,7 +112,6 @@ class EntityModel {
     set description(value) {
         this._description = value;
     }
-
 
     /**
      * Get the entity title
@@ -131,11 +129,11 @@ class EntityModel {
      */
     set mainImage(value) {
         if (typeof value === "object") {
-            value.baseSrc = value.baseSrc ?? `${process.env.NEXT_PUBLIC_API_URL}`
+            value.baseSrc =
+                value.baseSrc ?? `${process.env.NEXT_PUBLIC_API_URL}`;
         }
         this._mainImage = value;
     }
-
 
     /**
      * Get the simple component
@@ -203,8 +201,8 @@ class EntityModel {
      * @param value {Route}
      */
     set repertoryRoute(value) {
-        this.repertoryURI = value.pathname
-        return this._repertoryRoute = value;
+        this.repertoryURI = value.pathname;
+        return (this._repertoryRoute = value);
     }
 
     /**
@@ -220,7 +218,7 @@ class EntityModel {
      */
     set singleRoute(value) {
         this.singleURI = value.pathname;
-        return this._singleRoute = value;
+        return (this._singleRoute = value);
     }
 
     /**
@@ -236,27 +234,33 @@ class EntityModel {
      */
     set contributeRoute(value) {
         this.contributeURI = value.pathname;
-        return this._contributeRoute = value;
+        return (this._contributeRoute = value);
     }
     /**
      * Update the simple list to be displayed
      * @param value {Array}
      */
     simpleEditList(value) {
-        this.singleList = value
+        this.singleList = value;
     }
 
     //  --- UTILS ---
 
     get singleLink() {
-        return "/"+replacePathname(this.singleRoute.pathname, {slug: this.slug});
+        return (
+            "/" +
+            replacePathname(this.singleRoute.pathname, { slug: this.slug })
+        );
     }
     get singleEditLink() {
-        return "/"+replacePathname(this.singleEditRoute.pathname, {slug: this.slug});
+        return (
+            "/" +
+            replacePathname(this.singleEditRoute.pathname, { slug: this.slug })
+        );
     }
 
     get fullSingleLinkUrl() {
-        return appUrl(this.singleLink);//`${nextConfig.env.APP_URL}${this.singleLink}`;
+        return appUrl(this.singleLink); //`${nextConfig.env.APP_URL}${this.singleLink}`;
     }
 
     setUsersMetas() {
@@ -265,17 +269,24 @@ class EntityModel {
     }
 
     setUsersMetasOn(targetUserData) {
-        if (targetUserData &&
+        if (
+            targetUserData &&
             typeof targetUserData === "object" &&
-            (targetUserData.name === "" || !targetUserData.name))
-        {
+            (targetUserData.name === "" || !targetUserData.name)
+        ) {
             targetUserData.name = lang.anonyme;
             if (targetUserData.firstName && targetUserData.firstName !== "") {
-                targetUserData.name = targetUserData.name === lang.anonyme ? "" : targetUserData.name;
+                targetUserData.name =
+                    targetUserData.name === lang.anonyme
+                        ? ""
+                        : targetUserData.name;
                 targetUserData.name += targetUserData.firstName + " ";
             }
             if (targetUserData.lastName && targetUserData.lastName !== "") {
-                targetUserData.name = targetUserData.name === lang.anonyme ? "" : targetUserData.name;
+                targetUserData.name =
+                    targetUserData.name === lang.anonyme
+                        ? ""
+                        : targetUserData.name;
                 targetUserData.name += targetUserData.lastName;
             }
         }
@@ -290,7 +301,6 @@ class EntityModel {
             this.definePropertyIfNotOwned(key, raw[key]);
         }
     }
-
 
     /**
      * Set all the properties into this scope
@@ -307,7 +317,6 @@ class EntityModel {
             });
         }
     }
-
 }
 
 export default EntityModel;

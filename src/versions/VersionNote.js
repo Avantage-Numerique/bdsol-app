@@ -1,11 +1,10 @@
-
 class VersionNote {
     index;
     value;
     link;
-    tag="p"
+    tag = "p";
 
-    constructor(index=-1, params) {
+    constructor(index = -1, params) {
         this.index = index;
         this.value = params.value;
         this.link = params.link ?? "";
@@ -23,9 +22,8 @@ class VersionNote {
                 {Array.isArray(this.value) &&
                     this.value.map((subNoteRaw, index) => {
                         let subNote = new VersionNote(index, subNoteRaw);
-                        return (subNote.render());
-                    })
-                }
+                        return subNote.render();
+                    })}
             </>
         );
     }
@@ -36,12 +34,16 @@ class VersionNote {
      */
     render() {
         if (Array.isArray(this.value)) {
-            return (this.renderMultiple());
+            return this.renderMultiple();
         }
         const Tag = this.tag;
         return (
-            <Tag className={this.classes} key={`note${this.value}${this.index}`} dangerouslySetInnerHTML={ { __html: this.value } }></Tag>
-        )
+            <Tag
+                className={this.classes}
+                key={`note${this.value}${this.index}`}
+                dangerouslySetInnerHTML={{ __html: this.value }}
+            ></Tag>
+        );
     }
 }
 export default VersionNote;

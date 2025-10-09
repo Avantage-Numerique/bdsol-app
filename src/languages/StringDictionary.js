@@ -6,7 +6,6 @@
  * When we would need to optmize this, we could need to use po/mo instead, and this package can be useful : https://lingui.js.org/
  */
 export default class StringDictionary {
-
     static _instance;
 
     language;
@@ -15,8 +14,7 @@ export default class StringDictionary {
     dictionaryFiles = [];
     filepath;
 
-    constructor(file, lang="fr-ca")
-    {
+    constructor(file, lang = "fr-ca") {
         //will need some refactor to load multiple file.
         this.language = lang;
         this.filepath = `./${this.language}/`;
@@ -30,13 +28,15 @@ export default class StringDictionary {
         }
     }
 
-    static getInstance(file, lang="fr-ca") {
-        if (StringDictionary._instance === undefined || StringDictionary._instance === null) {
+    static getInstance(file, lang = "fr-ca") {
+        if (
+            StringDictionary._instance === undefined ||
+            StringDictionary._instance === null
+        ) {
             StringDictionary._instance = new StringDictionary(file, lang);
         }
         return StringDictionary._instance;
     }
-
 
     setLanguage(lang) {
         this.language = lang;
@@ -44,16 +44,13 @@ export default class StringDictionary {
         this.loadDictionary(file);
     }
 
-
     setDictionaryFiles(files) {
         this.dictionaryFiles = files;
         this.loadDictionaries();
     }
 
-
     loadDictionaries() {
-        if (this.dictionaries.length === 0 && this.dictionaryFiles.length > 0)
-        {
+        if (this.dictionaries.length === 0 && this.dictionaryFiles.length > 0) {
             for (const dictionaryFile of this.dictionaryFiles) {
                 this.loadDictionary(dictionaryFile);
             }
@@ -64,7 +61,6 @@ export default class StringDictionary {
         }
     }
 
-
     loadDictionary(filename) {
         const dictionary = require(this.filepath + filename + ".js");
         const dictionaryObject = dictionary[filename];
@@ -73,13 +69,11 @@ export default class StringDictionary {
         }
     }
 
-
     setDictionary(dictionnary) {
         this.dictionary = dictionnary;
         this.dictionaries.push(dictionnary);
         this.setAliases(dictionnary);
     }
-
 
     /**
      * Without alias
@@ -89,7 +83,6 @@ export default class StringDictionary {
     getString(key) {
         //return this.dictionary[key] ?? key;//this must be reimplemented for multiple files.
     }
-
 
     /**
      *
@@ -123,7 +116,6 @@ export default class StringDictionary {
     plural(single, plural, n) {
         return n === 1 ? single : plural;
     }
-
 
     /**
      * Set all the properties into this scope

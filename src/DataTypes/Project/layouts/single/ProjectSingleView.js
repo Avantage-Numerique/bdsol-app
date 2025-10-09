@@ -1,33 +1,31 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from "react";
 
 //components
-import SingleBaseHeader from "@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseHeader"
-import SingleBase from "@/src/DataTypes/common/layouts/single/SingleBase"
+import SingleBaseHeader from "@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseHeader";
+import SingleBase from "@/src/DataTypes/common/layouts/single/SingleBase";
 import SingleInfo from "@/DataTypes/common/layouts/SingleInfo/SingleInfo";
-import SearchTag from '@/src/common/Components/SearchTag';
-import SocialHandleDisplay from '@/src/DataTypes/common/layouts/SocialHandlesViews/SocialHandleDisplay';
+import SearchTag from "@/src/common/Components/SearchTag";
+import SocialHandleDisplay from "@/src/DataTypes/common/layouts/SocialHandlesViews/SocialHandleDisplay";
 import EntitiesTagGrid from "@/DataTypes/Entity/layouts/EntitiesTagGrid";
 import EntityLink from "@/DataTypes/Entity/layouts/EntityLink";
-import SingleBaseProgressBar
-    from '@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseProgressBar/SingleBaseProgressBar'
-import {ContactPointView} from '@/src/DataTypes/common/layouts/ContactPointView/ContactPointView';
+import SingleBaseProgressBar from "@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseProgressBar/SingleBaseProgressBar";
+import { ContactPointView } from "@/src/DataTypes/common/layouts/ContactPointView/ContactPointView";
 
 //Utils
-import SanitizedInnerHtml from '@/src/utils/SanitizedInnerHtml';
-import {SingleEntityMeta} from "@/src/DataTypes/Meta/components/SingleEntityMeta";
-import {getDateFromIsoString} from "@/src/utils/DateHelper";
+import SanitizedInnerHtml from "@/src/utils/SanitizedInnerHtml";
+import { SingleEntityMeta } from "@/src/DataTypes/Meta/components/SingleEntityMeta";
+import { getDateFromIsoString } from "@/src/utils/DateHelper";
 import Project from "@/DataTypes/Project/models/Project";
-import {lang} from "@/common/Data/GlobalConstants";
-import {clientSideExternalApiRequest} from "@/src/hooks/http-hook";
-import {removeTagsFromString} from '@/src/helpers/html'
+import { lang } from "@/common/Data/GlobalConstants";
+import { clientSideExternalApiRequest } from "@/src/hooks/http-hook";
+import { removeTagsFromString } from "@/src/helpers/html";
 
 //styling
-import styles from "./ProjectSingleView.module.scss"
-import {haveAValidValue} from "@/src/helpers/obj";
-import {appConfig} from "@/src/configs/AppConfig";
+import styles from "./ProjectSingleView.module.scss";
+import { haveAValidValue } from "@/src/helpers/obj";
+import { appConfig } from "@/src/configs/AppConfig";
 
 const ProjectSingleView = ({ data }) => {
-
     const {
         _id,
         name,
@@ -49,7 +47,7 @@ const ProjectSingleView = ({ data }) => {
         context,
         meta,
         createdAt,
-        updatedAt
+        updatedAt,
     } = data;
 
     const model = new Project(data);
@@ -57,109 +55,118 @@ const ProjectSingleView = ({ data }) => {
     const sectionClassSpacing = appConfig.spacing.singleSectionSpacingClass;
 
     /******* Sorted lists ********/
-    const sortedSponsors = sponsor?.[0]?.subMeta?.order !== undefined ? sponsor.sort((a,b) => a.subMeta.order - b.subMeta.order) : sponsor;
-    const sortedTeam = team?.[0]?.subMeta?.order !== undefined ? team.sort((a,b) => a.subMeta.order - b.subMeta.order) : team;
+    const sortedSponsors =
+        sponsor?.[0]?.subMeta?.order !== undefined
+            ? sponsor.sort((a, b) => a.subMeta.order - b.subMeta.order)
+            : sponsor;
+    const sortedTeam =
+        team?.[0]?.subMeta?.order !== undefined
+            ? team.sort((a, b) => a.subMeta.order - b.subMeta.order)
+            : team;
 
     /* Needed for breadCrumb generator */
     const breadcrumbLabels = {
-        "projets": lang.Projects,
-        "consulter": lang.consultTitle,
-        "slug": model.name ?? '-'
+        projets: lang.Projects,
+        consulter: lang.consultTitle,
+        slug: model.name ?? "-",
     };
 
     const breadcrumbsRoutes = {
         route: model.singleRoute,
         labels: breadcrumbLabels,
-    }
+    };
 
     const [breadCrumb, setBreadCrumb] = useState(breadcrumbsRoutes);
     useEffect(() => {
-        setBreadCrumb(breadcrumbsRoutes)
+        setBreadCrumb(breadcrumbsRoutes);
     }, [model.title]);
 
-
     const [allEnumState, setAllEnumState] = useState(undefined);
-    useEffect( () => {
+    useEffect(() => {
         const getScheduleEnum = async () => {
             const scheduleEnum = await clientSideExternalApiRequest(
-                '/info/budgetrange-enum',
-                { method: 'GET' }
+                "/info/budgetrange-enum",
+                { method: "GET" }
             );
             const timeFrameEnum = await clientSideExternalApiRequest(
-                '/info/timeframeeta-enum',
-                { method: 'GET' }
-            )
+                "/info/timeframeeta-enum",
+                { method: "GET" }
+            );
             const contextEnum = await clientSideExternalApiRequest(
-                '/info/context-enum',
-                { method: 'GET' }
-            )
-            let keyValueScheduleEnum = {}
-            scheduleEnum.forEach( (elem) => { keyValueScheduleEnum[elem.value] = elem.label });
-            timeFrameEnum.forEach( (elem) => { keyValueScheduleEnum[elem.value] = elem.label });
-            contextEnum.forEach( (elem) => { keyValueScheduleEnum[elem.value] = elem.label })
+                "/info/context-enum",
+                { method: "GET" }
+            );
+            let keyValueScheduleEnum = {};
+            scheduleEnum.forEach((elem) => {
+                keyValueScheduleEnum[elem.value] = elem.label;
+            });
+            timeFrameEnum.forEach((elem) => {
+                keyValueScheduleEnum[elem.value] = elem.label;
+            });
+            contextEnum.forEach((elem) => {
+                keyValueScheduleEnum[elem.value] = elem.label;
+            });
             setAllEnumState(keyValueScheduleEnum);
-        }
+        };
         getScheduleEnum();
-    }, [])
+    }, []);
 
     /****************************
      *  Sections
      ***************************/
 
     const Header = (
-        <SingleBaseHeader 
-            title={(<SanitizedInnerHtml tag={"h1"} className="text-white">{`${model.title}`}</SanitizedInnerHtml>)}
-            subtitle={(
+        <SingleBaseHeader
+            title={
+                <SanitizedInnerHtml
+                    tag={"h1"}
+                    className="text-white"
+                >{`${model.title}`}</SanitizedInnerHtml>
+            }
+            subtitle={
                 <div className="d-text">
                     <h4 className="text-white">{alternateName}</h4>
                     <div className="mt-4">
-
-                        {entityInCharge &&
+                        {entityInCharge && (
                             <p className="text-white d-flex gap-2">
-                                <span className={"badge bg-secondary"}>{lang.entityInCharge}</span>
-                                {
-                                    entityInCharge.map((elem) => {
-                                        return (
-                                            <EntityLink data={elem} />
-                                        )
-                                    })
-                                }
+                                <span className={"badge bg-secondary"}>
+                                    {lang.entityInCharge}
+                                </span>
+                                {entityInCharge.map((elem) => {
+                                    return <EntityLink data={elem} />;
+                                })}
                             </p>
-                        }
+                        )}
 
-                        {producer &&
+                        {producer && (
                             <p className="text-white d-flex gap-2">
-                                <span className={"badge bg-secondary"}>{lang.producer}</span>
-                                {
-                                    producer.map((elem) => {
-                                        return (
-                                            <EntityLink data={elem} />
-                                        )
-                                    })}
+                                <span className={"badge bg-secondary"}>
+                                    {lang.producer}
+                                </span>
+                                {producer.map((elem) => {
+                                    return <EntityLink data={elem} />;
+                                })}
                             </p>
-                        }
+                        )}
                     </div>
                 </div>
-            )}
+            }
             mainImage={model.mainImage}
             entity={model}
             buttonText="Proposer des modifications"
             buttonLink={model.singleEditLink}
         />
-    )
+    );
 
     const FullWidthContent = (
         <>
-            <SingleInfo 
-                title={lang.about} 
+            <SingleInfo
+                title={lang.about}
                 NAMessage="Aucune description n'est disponible pour le moment."
             >
-                {
-                    removeTagsFromString(description) && 
-                    <SanitizedInnerHtml>
-                        {description}
-                    </SanitizedInnerHtml>
-                }
+                {removeTagsFromString(description) && (
+                    <SanitizedInnerHtml>{description}</SanitizedInnerHtml>
+                )}
             </SingleInfo>
         </>
     );
@@ -167,87 +174,123 @@ const ProjectSingleView = ({ data }) => {
     const ContentColumnLeft = (
         <>
             {/* Partners */}
-            <SingleInfo 
-                title={lang.projectPartners} 
+            <SingleInfo
+                title={lang.projectPartners}
                 displayCondition={sortedSponsors.length > 0}
             >
-                <EntitiesTagGrid feed={sortedSponsors} subEntityProperty={"entity"} subTagProperty={"name"} />
+                <EntitiesTagGrid
+                    feed={sortedSponsors}
+                    subEntityProperty={"entity"}
+                    subTagProperty={"name"}
+                />
             </SingleInfo>
-            
+
             {/* Team */}
             <SingleInfo
                 title={lang.teamMembers}
                 displayCondition={sortedTeam.length > 0}
             >
-                <EntitiesTagGrid feed={sortedTeam} subEntityProperty={"member"} subTagProperty={"role"} noneMessage={"Aucun membre de l'équipe spécifiés"} />
+                <EntitiesTagGrid
+                    feed={sortedTeam}
+                    subEntityProperty={"member"}
+                    subTagProperty={"role"}
+                    noneMessage={"Aucun membre de l'équipe spécifiés"}
+                />
             </SingleInfo>
-            
+
             {/* schedule budget */}
             <SingleInfo
                 title={lang.timelineAndBudget}
-                displayCondition={scheduleBudget && haveAValidValue(scheduleBudget)}
+                displayCondition={
+                    scheduleBudget && haveAValidValue(scheduleBudget)
+                }
             >
                 <section className={`${styles["budget"]}`}>
                     <div className="container my-2">
                         <div className="row">
-                            <BudgetCard title="Date de début" data={scheduleBudget?.startDate} />
-                            <BudgetCard title="Date estimée de fin" data={scheduleBudget?.endDateEstimate} />
-                            <BudgetCard title="Date de fin" data={scheduleBudget?.completionDate} />
-                            <BudgetCard title="Budget total" data={scheduleBudget?.estimatedTotalBudget} isDate={false} />
-                            <BudgetCard title="Temps avant la complétion" data={scheduleBudget?.eta} isDate={false} />
+                            <BudgetCard
+                                title="Date de début"
+                                data={scheduleBudget?.startDate}
+                            />
+                            <BudgetCard
+                                title="Date estimée de fin"
+                                data={scheduleBudget?.endDateEstimate}
+                            />
+                            <BudgetCard
+                                title="Date de fin"
+                                data={scheduleBudget?.completionDate}
+                            />
+                            <BudgetCard
+                                title="Budget total"
+                                data={scheduleBudget?.estimatedTotalBudget}
+                                isDate={false}
+                            />
+                            <BudgetCard
+                                title="Temps avant la complétion"
+                                data={scheduleBudget?.eta}
+                                isDate={false}
+                            />
                         </div>
                     </div>
 
-                    {scheduleBudget?.timeframe?.length > 0 && 
+                    {scheduleBudget?.timeframe?.length > 0 && (
                         <>
-                            <h5 className="mt-4 text-dark">{lang.projectsSteps}</h5>
-                            <ul 
-                                key="timeframe-container" 
+                            <h5 className="mt-4 text-dark">
+                                {lang.projectsSteps}
+                            </h5>
+                            <ul
+                                key="timeframe-container"
                                 className={`container rounded overflow-hidden shadow-sm`}
                             >
                                 {/* Table's header */}
                                 <BudgetStep header />
-                                {
-                                    scheduleBudget.timeframe.map( (singleTimeframe, index) => {
+                                {scheduleBudget.timeframe.map(
+                                    (singleTimeframe, index) => {
                                         return (
-                                            <BudgetStep 
+                                            <BudgetStep
                                                 key={`timeframe-${singleTimeframe._id}`}
                                                 index={index}
                                                 step={singleTimeframe.step}
-                                                duration= {allEnumState?.[singleTimeframe.eta] ?? singleTimeframe.eta}
-                                                costs={allEnumState?.[singleTimeframe.budgetRange] ?? singleTimeframe.budgetRange}
+                                                duration={
+                                                    allEnumState?.[
+                                                        singleTimeframe.eta
+                                                    ] ?? singleTimeframe.eta
+                                                }
+                                                costs={
+                                                    allEnumState?.[
+                                                        singleTimeframe
+                                                            .budgetRange
+                                                    ] ??
+                                                    singleTimeframe.budgetRange
+                                                }
                                             />
-                                        )
-                                    })
-                                }
+                                        );
+                                    }
+                                )}
                             </ul>
                         </>
-                    }
+                    )}
                 </section>
             </SingleInfo>
-            
+
             {/* Equipments */}
             <SingleInfo title={lang.equipmentUsed}>
-                {equipment && 
-                    <EntitiesTagGrid
-                        feed={equipment} 
-                        noneMessage={""} 
-                    />
-                }
+                {equipment && (
+                    <EntitiesTagGrid feed={equipment} noneMessage={""} />
+                )}
             </SingleInfo>
-
         </>
-    )
+    );
 
     const ContentColumnRight = (
         <>
             {/* Contact information */}
             <SingleInfo title={lang.organisationContact}>
-                <ContactPointView contact={model.contactPoint}/>
+                <ContactPointView contact={model.contactPoint} />
             </SingleInfo>
 
             <SingleInfo title="Informations supplémentaires">
-                {context !== "" &&
+                {context !== "" && (
                     <SingleInfo
                         title={lang.projectContext}
                         isSubtitle
@@ -255,7 +298,7 @@ const ProjectSingleView = ({ data }) => {
                     >
                         {allEnumState?.[context] ?? context}
                     </SingleInfo>
-                }
+                )}
 
                 {/* Skills */}
                 <SingleInfo
@@ -274,12 +317,8 @@ const ProjectSingleView = ({ data }) => {
                     isSubtitle
                     noCardLayout
                 >
-                    <SearchTag
-                        list={domains}
-                        listProperty={"domain"}
-                    />
+                    <SearchTag list={domains} listProperty={"domain"} />
                 </SingleInfo>
-
             </SingleInfo>
             {/*url*/}
             <SocialHandleDisplay
@@ -288,48 +327,63 @@ const ProjectSingleView = ({ data }) => {
                 className={`${appConfig.spacing.singleSectionSpacingClass}`}
             />
         </>
-    )
+    );
 
-    {/*********** Footer section ***********/}
+    {
+        /*********** Footer section ***********/
+    }
     const Footer = (
         <>
-            {
-                (createdAt || updatedAt || meta) &&
-                <SingleInfo 
-                    title={lang.entityMetadata} 
-                    className="pt-3"
-                >
+            {(createdAt || updatedAt || meta) && (
+                <SingleInfo title={lang.entityMetadata} className="pt-3">
                     {/*********** Entity data ***********/}
-                    <SingleEntityMeta createdAt={createdAt} updatedAt={updatedAt} meta={meta} />
+                    <SingleEntityMeta
+                        createdAt={createdAt}
+                        updatedAt={updatedAt}
+                        meta={meta}
+                    />
                 </SingleInfo>
-            }
+            )}
         </>
-    )
+    );
 
-    {/*********** Bottom section ***********/}
+    {
+        /*********** Bottom section ***********/
+    }
     const SinglePageBottom = (
-        <SingleBaseProgressBar 
+        <SingleBaseProgressBar
             dataList={[
-                {data: model.title},
-                {data: alternateName},
-                {data: entityInCharge},
-                {data: producer},
-                {data: description, validationFunction: (value => removeTagsFromString(value) ? true : false)},
-                {data: sortedSponsors},
-                {data: sortedTeam},
-                {data: scheduleBudget, validationFunction: ((value) => value && haveAValidValue(value))},
-                {data: equipment},
-                {data: context},
-                {data: skills},
-                {data: domains},
-                {data: contactPoint},
-                {data: model?.url},
-                {data: model.mainImage.isDefault, validationFunction: ((value) => !value)}, 
+                { data: model.title },
+                { data: alternateName },
+                { data: entityInCharge },
+                { data: producer },
+                {
+                    data: description,
+                    validationFunction: (value) =>
+                        removeTagsFromString(value) ? true : false,
+                },
+                { data: sortedSponsors },
+                { data: sortedTeam },
+                {
+                    data: scheduleBudget,
+                    validationFunction: (value) =>
+                        value && haveAValidValue(value),
+                },
+                { data: equipment },
+                { data: context },
+                { data: skills },
+                { data: domains },
+                { data: contactPoint },
+                { data: model?.url },
+                {
+                    data: model.mainImage.isDefault,
+                    validationFunction: (value) => !value,
+                },
             ]}
             buttonText={lang.contributeButtonLabel}
             buttonLink={model.singleEditLink}
         />
-    )
+    );
 
     return (
         <>
@@ -344,31 +398,35 @@ const ProjectSingleView = ({ data }) => {
                 model={model}
             />
         </>
-    )
-}
+    );
+};
 
-export default ProjectSingleView
+export default ProjectSingleView;
 
 /********************************
- * 
- * 
+ *
+ *
  *      Other functions and components
- * 
+ *
  */
 
- //Line component for the budget steps
- function BudgetStep(props){
+//Line component for the budget steps
+function BudgetStep(props) {
     //Deconstruct props
     const {
         header = false,
         index,
         step = " - ",
         duration = " - ",
-        costs = " - "
+        costs = " - ",
     } = props;
 
     const Tag = header ? "h6" : "p";
-    const bg_color = header ? "bg-secondary-light" : ((index % 2 === 0) ? "bg-greyBg" : "");
+    const bg_color = header
+        ? "bg-secondary-light"
+        : index % 2 === 0
+          ? "bg-greyBg"
+          : "";
 
     return (
         <li className={`${bg_color} row`}>
@@ -376,27 +434,31 @@ export default ProjectSingleView
             <Tag className="col flex-1 my-2">{header ? "Durée" : duration}</Tag>
             <Tag className="col flex-1 my-2">{header ? "Coûts" : costs}</Tag>
         </li>
-     )
- }
+    );
+}
 
- function BudgetCard(props){
-
+function BudgetCard(props) {
     const {
         title,
-        data,               //Main value to be displayed
-        isDate = true,      //By default, considered has holding a date
+        data, //Main value to be displayed
+        isDate = true, //By default, considered has holding a date
         col = "col-6",
     } = props;
 
-    const style = {"border": "0.15rem dashed"}
+    const style = { border: "0.15rem dashed" };
 
-    if(title && data)
+    if (title && data)
         return (
             <div className={`${col} g-3`}>
-                <div style={style} className="bg-greyBg py-3 px-3 rounded border-secondary">
+                <div
+                    style={style}
+                    className="bg-greyBg py-3 px-3 rounded border-secondary"
+                >
                     <h6 className="text-grey mb-1">{title}</h6>
-                    <p className="mb-0">{isDate ? getDateFromIsoString(data) : data}</p>
+                    <p className="mb-0">
+                        {isDate ? getDateFromIsoString(data) : data}
+                    </p>
                 </div>
             </div>
-        )
- }
+        );
+}

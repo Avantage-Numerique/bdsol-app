@@ -1,14 +1,13 @@
-import {useState} from 'react';
+import { useState } from "react";
 
 import Format from "@/common/DateManager/Format";
-import {frCA} from 'date-fns/locale'
+import { frCA } from "date-fns/locale";
 
-import {DateTag} from "@/common/DateManager/DateTag";
+import { DateTag } from "@/common/DateManager/DateTag";
 
-import {lang} from "@/common/Data/GlobalConstants";
+import { lang } from "@/common/Data/GlobalConstants";
 import compareAsc from "date-fns/compareAsc";
-import {formatDate, setDateTime} from "@/src/helpers/dates";
-
+import { formatDate, setDateTime } from "@/src/helpers/dates";
 
 export const parseDatesFeed = (feed) => {
     let tempFeed = {};
@@ -16,8 +15,7 @@ export const parseDatesFeed = (feed) => {
     let feedDates = [];
 
     for (let step of feed) {
-
-        let currentDate = {...step};
+        let currentDate = { ...step };
 
         const currentDateObject = setDateTime(step.startDate);
         const currentDateKey = formatDate(currentDateObject);
@@ -43,12 +41,11 @@ export const parseDatesFeed = (feed) => {
         initFeed: feed,
         feed: tempFeed,
         feedKeys: feedKeys,
-        feedDates: feedDates
-    }
+        feedDates: feedDates,
+    };
 };
 
 export const dateManager = (time1, time2 = null) => {
-
     /*const setDateTime = (time=undefined) => {
         if (typeof time !== "undefined") {
             return new Date(time);
@@ -66,11 +63,10 @@ export const dateManager = (time1, time2 = null) => {
         language: frCA,
     });
 
-
-    const getDate = (date, format = lang.dateFormat, locale= frCA) => {
+    const getDate = (date, format = lang.dateFormat, locale = frCA) => {
         const dateObject = setDateTime(date);
-        return Format(dateObject, format, {locale:locale});
-    }
+        return Format(dateObject, format, { locale: locale });
+    };
 
     /*const formatDate = (dateObject, format = lang.dateFormat, locale= frCA) => {
         if (typeof dateObject === 'object') {
@@ -79,77 +75,124 @@ export const dateManager = (time1, time2 = null) => {
         return dateObject;
     }*/
 
-    const TimeTag = ({date, format}) => {
-
+    const TimeTag = ({ date, format }) => {
         format = format ?? lang.humanDateFormat;
 
         const formatedDate = formatDate(setDateTime(date), format);
 
-        return (
-            <DateTag value={date} label={formatedDate} />
-        );
-    }
+        return <DateTag value={date} label={formatedDate} />;
+    };
 
     //Simple tag that contains the time and hour
 
-    const TimeIntervalSentence = ({tag, className="", showDay=true, showHour=true, withPreposition=true}) => {
+    const TimeIntervalSentence = ({
+        tag,
+        className = "",
+        showDay = true,
+        showHour = true,
+        withPreposition = true,
+    }) => {
         //Define the tag surrounding
-        const Tag = tag ?? 'p';
+        const Tag = tag ?? "p";
         const wp = withPreposition; //Shorter variable for easier reading
 
-        const isSameYear = formatDate(time.startTime, lang.yearFormat) === formatDate(time.endTime, lang.yearFormat);
-        const isSameMonth = formatDate(time.startTime, lang.monthNumberFormat) === formatDate(time.endTime, lang.monthNumberFormat);
-        const isSameDay = formatDate(time.startTime, lang.dayMonthNumberFormat) === formatDate(time.endTime, lang.dayMonthNumberFormat);
+        const isSameYear =
+            formatDate(time.startTime, lang.yearFormat) ===
+            formatDate(time.endTime, lang.yearFormat);
+        const isSameMonth =
+            formatDate(time.startTime, lang.monthNumberFormat) ===
+            formatDate(time.endTime, lang.monthNumberFormat);
+        const isSameDay =
+            formatDate(time.startTime, lang.dayMonthNumberFormat) ===
+            formatDate(time.endTime, lang.dayMonthNumberFormat);
 
         return (
             <Tag className={className}>
                 {/* DATE */}
                 {/* is one day */}
-                {isSameDay && isSameMonth && isSameYear &&
+                {isSameDay && isSameMonth && isSameYear && (
                     <>
-                        {showDay &&
+                        {showDay && (
                             <>
-                                {wp && lang.capitalize("the")} <TimeTag date={time.startTime} format={lang.humanDateFormat} /> {formatDate(time.startTime, lang.yearFormat)}
-                                <br/>
+                                {wp && lang.capitalize("the")}{" "}
+                                <TimeTag
+                                    date={time.startTime}
+                                    format={lang.humanDateFormat}
+                                />{" "}
+                                {formatDate(time.startTime, lang.yearFormat)}
+                                <br />
                             </>
-                        }
-                        <TimeTag date={time.startTime} format={lang.timeFormat} /> {lang.hourTo} <TimeTag date={time.endTime} format={lang.timeFormat} />
+                        )}
+                        <TimeTag
+                            date={time.startTime}
+                            format={lang.timeFormat}
+                        />{" "}
+                        {lang.hourTo}{" "}
+                        <TimeTag date={time.endTime} format={lang.timeFormat} />
                     </>
-                }
+                )}
                 {/* Same year only */}
-                {!isSameDay && !isSameMonth && isSameYear &&
+                {!isSameDay && !isSameMonth && isSameYear && (
                     <>
-                        {wp && lang.capitalize("from")} 
-                        <TimeTag date={time.startTime} format={time.humanDateMonthFormat} />
+                        {wp && lang.capitalize("from")}
+                        <TimeTag
+                            date={time.startTime}
+                            format={time.humanDateMonthFormat}
+                        />
                         {wp ? ` ${lang.to}` : " -"}&nbsp;
-                        <TimeTag date={time.endTime} format={lang.humanDateMonthFormat} />
+                        <TimeTag
+                            date={time.endTime}
+                            format={lang.humanDateMonthFormat}
+                        />
                         ({formatDate(time.startTime, lang.yearFormat)})
                     </>
-                }
+                )}
                 {/* Within one month on the same year indeed */}
-                {!isSameDay && isSameMonth && isSameYear &&
+                {!isSameDay && isSameMonth && isSameYear && (
                     <>
-                        {wp && lang.capitalize("from")} 
-                        <TimeTag date={time.startTime} format={lang.humanDateMonthFormat} />
-                        {showHour && (<TimeTag date={time.startTime} format={lang.timeFormat} />)}
+                        {wp && lang.capitalize("from")}
+                        <TimeTag
+                            date={time.startTime}
+                            format={lang.humanDateMonthFormat}
+                        />
+                        {showHour && (
+                            <TimeTag
+                                date={time.startTime}
+                                format={lang.timeFormat}
+                            />
+                        )}
                         {wp ? ` ${lang.to}` : " -"}&nbsp;
-                        <TimeTag date={time.endTime} format={lang.humanDateMonthFormat} />
-                        {showHour && (<TimeTag date={time.endTime} format={lang.timeFormat} />)}
+                        <TimeTag
+                            date={time.endTime}
+                            format={lang.humanDateMonthFormat}
+                        />
+                        {showHour && (
+                            <TimeTag
+                                date={time.endTime}
+                                format={lang.timeFormat}
+                            />
+                        )}
                         ({formatDate(time.startTime, lang.yearFormat)})
                     </>
-                }
+                )}
                 {/* Multi years */}
-                {!isSameDay && !isSameMonth && !isSameYear &&
+                {!isSameDay && !isSameMonth && !isSameYear && (
                     <>
-                        {wp && lang.capitalize("from")} <TimeTag date={time.startTime} format={lang.humanDateMonthYearFormat} />
+                        {wp && lang.capitalize("from")}{" "}
+                        <TimeTag
+                            date={time.startTime}
+                            format={lang.humanDateMonthYearFormat}
+                        />
                         {wp ? ` ${lang.to}` : " -"}&nbsp;
-                        <TimeTag date={time.endTime} format={lang.humanDateMonthYearFormat} />
+                        <TimeTag
+                            date={time.endTime}
+                            format={lang.humanDateMonthYearFormat}
+                        />
                     </>
-                }
+                )}
             </Tag>
-        )
-    }
-
+        );
+    };
 
     return {
         getters: {
@@ -165,5 +208,5 @@ export const dateManager = (time1, time2 = null) => {
         time,
         TimeTag,
         TimeIntervalSentence: TimeIntervalSentence,
-    }
-}
+    };
+};

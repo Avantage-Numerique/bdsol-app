@@ -18,28 +18,22 @@ import Button from "@/FormElements/Button/Button";
  * @constructor
  */
 export default function MainNavButton(props) {
-    const {
-        route,
-        className,
-        iconClassName,
-        params,
-        label,
-        suffix,
-        handler
-    } = props;
+    const { route, className, iconClassName, params, label, suffix, handler } =
+        props;
 
     const textColor = params?.textColor ?? "dark";
     const href = `${route.asPath}${suffix ?? ""}`;
     //NOTE: I removed href param, because it's handled by the handler function.
     return (
-        <Button text_color={textColor} className={className ?? ""} onClick={() => handler(href)}>
+        <Button
+            text_color={textColor}
+            className={className ?? ""}
+            onClick={() => handler(href)}
+        >
             <>
-                {iconClassName &&
-                    <i className={`${iconClassName}`} />
-                }
+                {iconClassName && <i className={`${iconClassName}`} />}
                 {label ? label : route.label}
             </>
         </Button>
-    )
+    );
 }
-

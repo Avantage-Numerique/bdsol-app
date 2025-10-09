@@ -1,26 +1,24 @@
-import React from 'react'
+import React from "react";
 
 //Custom hooks
-import {useFormUtils} from '@/src/hooks/useFormUtils/useFormUtils'
+import { useFormUtils } from "@/src/hooks/useFormUtils/useFormUtils";
 
 //components
-import Button from '@/FormElements/Button/Button'
-import Input from '@/FormElements/Input/Input'
-import RichTextarea from '@/FormElements/RichTextArea/RichTextarea'
+import Button from "@/FormElements/Button/Button";
+import Input from "@/FormElements/Input/Input";
+import RichTextarea from "@/FormElements/RichTextArea/RichTextarea";
 
 //Context
-import {useAuth} from "@/src/authentification/context/auth-context";
-import { lang } from '@/src/common/Data/GlobalConstants'
+import { useAuth } from "@/src/authentification/context/auth-context";
+import { lang } from "@/src/common/Data/GlobalConstants";
 
 //Styling
-import styles from './CreatePersonForm.module.scss'
+import styles from "./CreatePersonForm.module.scss";
 
 //FormData
-import {getDefaultCreateEntityMeta} from "@/src/DataTypes/Meta/EntityMeta";
-
+import { getDefaultCreateEntityMeta } from "@/src/DataTypes/Meta/EntityMeta";
 
 const CreatePersonForm = ({ onPositiveResponse, ...props }) => {
-    
     //Authentication ref
     const auth = useAuth();
 
@@ -29,106 +27,110 @@ const CreatePersonForm = ({ onPositiveResponse, ...props }) => {
         {
             firstName: {
                 value: "",
-                isValid: false
+                isValid: false,
             },
             lastName: {
                 value: "",
-                isValid: false
+                isValid: false,
             },
             nickName: {
                 value: "",
-                isValid: true
+                isValid: true,
             },
             description: {
                 value: "",
-                isValid: true
+                isValid: true,
             },
         },
         //Pass a set of rules to execute a valid response of an api request
         {
-            displayResMessage: true,     //Display a message to the user to confirm the succes
+            displayResMessage: true, //Display a message to the user to confirm the succes
             callbackFunction: (response) => {
                 //Execute additionnal function from parent component
-                if(onPositiveResponse) onPositiveResponse(response)
-            }
+                if (onPositiveResponse) onPositiveResponse(response);
+            },
         }
     );
-    
 
     //Submit the form
-    const submitHandler = async event => { 
-
+    const submitHandler = async (event) => {
         event.preventDefault();
 
         const formData = {
             data: {
                 lastName: formState.inputs.lastName.value,
-                firstName:  formState.inputs.firstName.value,
+                firstName: formState.inputs.firstName.value,
                 nickname: formState.inputs.nickName.value,
                 description: formState.inputs.description.value,
                 meta: getDefaultCreateEntityMeta(auth.user),
-            }
+            },
         };
 
-       await submitRequest(
+        await submitRequest(
             `/persons/create`,
-            'POST',
+            "POST",
             JSON.stringify(formData)
         );
-    }
+    };
 
     return (
-        
-       <form 
-            onSubmit={submitHandler} 
+        <form
+            onSubmit={submitHandler}
             className={`${styles["create-person-form"]}`}
         >
             <FormUI />
             <div className="row">
-                <Input 
+                <Input
                     name="firstName"
-                    label={"Prénom"+lang.required}
+                    label={"Prénom" + lang.required}
                     className="col-12 col-md-6"
-                    validationRules={[{name: "REQUIRED"}]}
+                    validationRules={[{ name: "REQUIRED" }]}
                     errorText="Cette information est requise"
                     formTools={formTools}
                 />
 
-                <Input 
+                <Input
                     name="lastName"
-                    label={"Nom"+lang.required}
+                    label={"Nom" + lang.required}
                     className="col-12 col-md-6"
-                    validationRules={[{name: "REQUIRED"}]}
+                    validationRules={[{ name: "REQUIRED" }]}
                     errorText="Cette information est requise"
                     formTools={formTools}
                 />
             </div>
             <div className="row">
-
-            <Input  
-                name="nickName"
-                label="Surnom"
-                formTools={formTools}
-            />
+                <Input name="nickName" label="Surnom" formTools={formTools} />
             </div>
             <div className="row">
-
-               <RichTextarea 
-                className="my-3"
-                name="description"
-                label={lang.about}
-                formTools={formTools}
-            />
+                <RichTextarea
+                    className="my-3"
+                    name="description"
+                    label={lang.about}
+                    formTools={formTools}
+                />
             </div>
             <div className="col-12">
-                <Button className="me-4" color="success" type="button" onClick={submitHandler} disabled={!formState.isValid}>{lang.submit}</Button>
-                {
-                    props?.closeModal && 
-                    <Button color="danger" type="button" onClick={props.closeModal()}>{lang.cancel}</Button>
-                }
+                <Button
+                    className="me-4"
+                    color="success"
+                    type="button"
+                    onClick={submitHandler}
+                    disabled={!formState.isValid}
+                >
+                    {lang.submit}
+                </Button>
+                {props?.closeModal && (
+                    <Button
+                        color="danger"
+                        type="button"
+                        onClick={props.closeModal()}
+                    >
+                        {lang.cancel}
+                    </Button>
+                )}
             </div>
-        </form> 
+        </form>
     );
-}
+};
 
-export default CreatePersonForm
+export default CreatePersonForm;
