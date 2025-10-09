@@ -1,6 +1,3 @@
-import { lang } from "@/common/Data/GlobalConstants";
-import Tip from "@/common/FormElements/Tip/Tip";
-
 import styles from "./SingleInfo.module.scss";
 import { useFieldTips } from "@/src/hooks/useFieldTips/useFieldTips";
 
@@ -42,9 +39,9 @@ const SingleInfo = (props) => {
     const TitleTag = isSubtitle ? "h3" : "h2";
     const titleClass = isSubtitle ? "mb-1 text-dark-light" : "fs-3 mb-3";
     //Is the info filled
-    const isFilled = children && displayCondition ? true : false;
+    const isFilled = children && displayCondition;
     //Is there default data
-    const defaultDisplay = NAMessage || NAComponent ? true : false;
+    const defaultDisplay = !!(NAMessage || NAComponent);
     //Prevent the display if nothing to show
     if (!isFilled && !defaultDisplay) return <></>;
 

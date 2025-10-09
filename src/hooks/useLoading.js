@@ -1,5 +1,5 @@
 import { LoadingStates } from "@/common/widgets/loading/LoadingStates";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 export const useLoading = (currentState = LoadingStates.DEFAULT) => {
     //State that determine if the request is in progress

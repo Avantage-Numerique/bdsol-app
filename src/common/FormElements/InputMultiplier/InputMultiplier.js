@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useReducer } from "react";
+import React, { useState, useEffect } from "react";
 
 //types of fields
 import Input from "../Input/Input";

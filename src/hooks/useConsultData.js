@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { filters, filtersUrl } from "@/src/filters/consultFilters";
 
 /**
  * Hook to manage the consult data in /consulter with SSR and client hybrid data fetching.

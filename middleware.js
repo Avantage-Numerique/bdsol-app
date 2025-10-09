@@ -1,6 +1,4 @@
 import { NextResponse } from "next/server";
-import { getIronSession } from "iron-session/edge";
-import { appDefaultSessionOptions } from "@/auth/session/Session";
 
 /**
  * Added in version 12.2 of nextjs, as for stable version.
