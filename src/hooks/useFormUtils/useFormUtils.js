@@ -4,8 +4,7 @@
         Note that the form state itself is controled by form-Hook file
 */
 
-import React, { useCallback, useContext, useEffect, useState } from "react";
-import { scroller } from "react-scroll";
+import React, { useCallback, useContext, useState } from "react";
 import Router from "next/router";
 
 //components
