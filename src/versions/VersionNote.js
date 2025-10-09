@@ -1,3 +1,5 @@
+import React from "react";
+
 class VersionNote {
     index;
     value;

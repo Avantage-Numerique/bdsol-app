@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 
 import SanitizedInnerHtml from "@/src/utils/SanitizedInnerHtml";
 
@@ -28,7 +29,6 @@ const PageHeader = (props) => {
         ? `bg-${props.subtitleColor}`
         : "bg-dark";
     const descriptionColor = props.descriptionColor ?? "text-dark";
-    const textClass = props.textColor ?? "text-primary";
     const colWidth = props.colWidth ?? 12;
     const asideColNumberXs = 5;
     const colNumberXs = props.image ? colWidth - asideColNumberXs : colWidth;
@@ -51,10 +51,13 @@ const PageHeader = (props) => {
                             className={`col-12 col-md-${asideColNumberXs} ${styles["stacking-context-reg"]}`}
                         >
                             {props.image && (
-                                <img
+                                <Image
                                     className={"img-fluid"}
                                     src={props.image}
+                                    loading="eager"
                                     alt={props.imageAlt ?? props.title}
+                                    width={800}
+                                    height={800}
                                 />
                             )}
                             {/* If the custom_RightColElement prop is define, then inject it */}
@@ -135,10 +138,13 @@ const PageHeader = (props) => {
                             className={`col-12 col-md-${asideColNumberXs} ${styles["stacking-context-reg"]}`}
                         >
                             {props.image && (
-                                <img
+                                <Image
                                     className={"img-fluid"}
                                     src={props.image}
+                                    loading="eager"
                                     alt={props.imageAlt ?? props.title}
+                                    width={800}
+                                    height={800}
                                 />
                             )}
                             {/* If the custom_RightColElement prop is define, then inject it */}

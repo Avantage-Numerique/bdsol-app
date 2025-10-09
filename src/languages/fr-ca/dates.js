@@ -1,6 +1,6 @@
 const dates = {
     fullHumanDateFormat: "E d MMM yyyy",
-    fullHumanTimeFormat: "H \'h\' mm",
+    fullHumanTimeFormat: "H 'h' mm",
     humanDateFormat: "EEEE d MMM",
     humanDateMonthFormat: "d MMM",
     humanDateMonthYearFormat: "d MMM yyyy",

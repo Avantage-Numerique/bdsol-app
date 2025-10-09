@@ -5,6 +5,7 @@
     .main-logo--container {
         img {
             max-width: clamp(8rem, 10vw, 15rem);
+            height: auto;
             padding: var(--footer-vertical-paddings) 0px;
         }
     }
@@ -12,6 +13,7 @@
     .secondary-logo--container {
         img {
             width: clamp(15rem, 15vw, 23rem);
+            height: auto;
             padding: var(--footer-vertical-paddings) 0px;
         }
     }

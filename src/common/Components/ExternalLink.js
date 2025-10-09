@@ -24,6 +24,7 @@ const ExternalLink = (props) => {
                     href={link}
                     target={"_blank"}
                     title={`${props.title ?? ""}`}
+                    rel="noreferrer"
                 >
                     {props.children && props.children}
                 </a>

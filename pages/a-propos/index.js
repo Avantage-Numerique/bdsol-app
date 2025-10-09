@@ -207,7 +207,7 @@ const Index = () => {
                                     </p>
                                 </li>
                                 <li>
-                                    <h4 class={"fs-5"}>Frédéric Rivard</h4>
+                                    <h4 className={"fs-5"}>Frédéric Rivard</h4>
                                     <p className={pClass}>
                                         &mdash; Développement de la base de
                                         données

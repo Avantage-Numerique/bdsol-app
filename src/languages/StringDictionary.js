@@ -41,7 +41,6 @@ export default class StringDictionary {
     setLanguage(lang) {
         this.language = lang;
         this.filepath = `./${this.language}/`;
-        this.loadDictionary(file);
     }
 
     setDictionaryFiles(files) {
@@ -81,7 +80,7 @@ export default class StringDictionary {
      * @return {*}
      */
     getString(key) {
-        //return this.dictionary[key] ?? key;//this must be reimplemented for multiple files.
+        return this.dictionary[key] ?? key; //this must be reimplemented for multiple files.
     }
 
     /**

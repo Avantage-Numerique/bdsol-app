@@ -47,7 +47,6 @@ export default class Version {
     }
 
     render() {
-        const NoteTag = "";
         const TitleTag = "h3";
         return (
             <div key={`VersionNote${this.value}`}>

@@ -15,7 +15,6 @@ import { useAuth } from "@/auth/context/auth-context";
 
 //Utils
 import { lang } from "@/common/Data/GlobalConstants";
-import { config } from "@/middleware";
 
 //Styling
 import styles from "./Header.module.scss";

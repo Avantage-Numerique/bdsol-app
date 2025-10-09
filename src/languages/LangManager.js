@@ -28,3 +28,5 @@ class LangManager {
         return LangManager._instance;
     }
 }
+
+export default LangManager;

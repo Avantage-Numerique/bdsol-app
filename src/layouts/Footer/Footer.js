@@ -7,6 +7,7 @@ import { appConfig } from "@/src/configs/AppConfig";
 import nextConfig from "@/next.config";
 import { RouteLink } from "@/common/Components/RouteLink";
 import React from "react";
+import Image from "next/image";
 
 const Footer = () => {
     const auth = useAuth();
@@ -18,9 +19,11 @@ const Footer = () => {
                 <div
                     className={`row justify-content-center ${styles["main-logo--container"]}`}
                 >
-                    <img
-                        alt="Logo officiel de AVNU"
+                    <Image
                         src="/AVNU_Branding/AVNU-LogoComplet-RVB.png"
+                        alt="Logo AVNU"
+                        width={1980}
+                        height={744}
                     />
                 </div>
                 {/* Presentation of Avantage Numerique */}
@@ -38,9 +41,11 @@ const Footer = () => {
                             title={"Site web d'avantage numérique"}
                             rel={"nofollow"}
                         >
-                            <img
-                                alt="Logo avantage numérique"
-                                src="/logos/logo_Avantage_Numérique.svg"
+                            <Image
+                                src="/logos/logo-avantage-numerique.svg"
+                                alt="Logo Avantage Numérique"
+                                width={"278"}
+                                height={"28"}
                             />
                         </a>
                     </div>

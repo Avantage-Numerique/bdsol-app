@@ -56,6 +56,7 @@ const Button = (props) => {
                 href={props.href}
                 className={`${classesString}${props.disabled ? " disabled" : ""}`}
                 target={"_blank"}
+                rel="noreferrer"
             >
                 {props.children}
             </a>

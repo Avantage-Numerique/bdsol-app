@@ -55,7 +55,7 @@ const ClassInfos = ({ data, active, globalData }) => {
                 <h4 className="text-primary col-12">Propriétés</h4>
 
                 <div
-                    class="btn-group"
+                    className="btn-group"
                     role="group"
                     aria-label="Basic radio toggle button group"
                 >
@@ -67,16 +67,16 @@ const ClassInfos = ({ data, active, globalData }) => {
                                 type="radio"
                                 name="btnradio"
                                 id={`btnradio${propIndex}`}
-                                autocomplete="off"
-                                class="btn-check"
+                                autoComplete="off"
+                                className="btn-check"
                                 checked={`${index == propIndex ? "checked" : ""}`}
                                 onClick={() =>
                                     onPropertyDisplayClick(propIndex)
                                 }
                             />
                             <label
-                                class="btn btn-outline-primary"
-                                for={`btnradio${propIndex}`}
+                                className="btn btn-outline-primary"
+                                htmlFor={`btnradio${propIndex}`}
                             >
                                 {propData.title}
                             </label>

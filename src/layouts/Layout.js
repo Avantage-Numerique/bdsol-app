@@ -34,7 +34,7 @@ const Layout = ({ children, pageProps }) => {
     const modalContainer = useRef();
 
     //Initialize the modals controller hook
-    const { ModalsDisplay, modalTools } = useModalController(modalContainer);
+    const { modalTools } = useModalController(modalContainer);
 
     //message list
     const [messages, setMessages] = useState([]);
@@ -49,18 +49,6 @@ const Layout = ({ children, pageProps }) => {
     const currentTemplate = pageProps.template
         ? templates.get(pageProps.template)
         : templates.get(templatesEnum.DEFAULT);
-
-    /**
-     * @deprecated usefull but trigger a re-render because of the function. And All state a re-render.
-     * @param Component
-     * @param componentProps
-     * @param children
-     * @returns {JSX.Element}
-     * @constructor
-     */
-    const TemplateRenderer = ({ Component, componentProps, children }) => {
-        return <Component {...componentProps}>{children}</Component>;
-    };
 
     //Metthod called from other components to update the state
     const addMessage = (newMessage) => {

@@ -98,17 +98,22 @@ class Matomo {
 
     onRouteChangeStart(path) {
         //this.pushConsent();
+        console.log("onRouteChangeStart", path);
     }
 
+    /**
+     * @Deprecated Not use for now.
+     * @param path
+     */
     onRouteChangeComplete(path) {
         //needed for the searchCount uri query var ?
         if (path.startWidth("/searchResults")) {
-            this.push([
+            /*this.push([
                 "trackSiteSearch",
                 searchIndex,
                 nearTaxonomy?.nearestTaxonomy?.name ?? undefined,
                 totalSearchRequestResults,
-            ]);
+            ]);*/
             //push(["trackSiteSearch", q !== null && q !== void 0 ? q : ""]);
         }
     }

@@ -121,16 +121,17 @@ export const useFormUtils = (initialState, actions) => {
 
     const FormUI = useCallback(
         ({ fixedSpinner }) => {
-            useEffect(() => {
-                if (innerMessage)
-                    //@todo move that to the use ScrollTo hook.
-                    scroller.scrollTo(styles["data-form-message"], {
-                        offset: -50,
-                        duration: 800,
-                        delay: 0,
-                        smooth: "easeInOutQuart",
-                    });
-            }, [innerMessage]);
+            // Deleted : useEffect must not be used in callback. Maybe it's a component we need there ??
+            // useEffect(() => {
+            //     if (innerMessage)
+            //         //@todo move that to the use ScrollTo hook.
+            //         scroller.scrollTo(styles["data-form-message"], {
+            //             offset: -50,
+            //             duration: 800,
+            //             delay: 0,
+            //             smooth: "easeInOutQuart",
+            //         });
+            // }, [innerMessage]);
 
             return (
                 <>

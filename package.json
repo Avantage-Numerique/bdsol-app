@@ -5,7 +5,8 @@
     "authors": [
         "Frédéric Rivard",
         "Marc-André Martin",
-        "Vincent P. Ruel"
+        "Vincent P. Ruel",
+        "Jules "
     ],
     "private": true,
     "scripts": {
@@ -41,7 +42,6 @@
         "chroma-js": "^2.4.2",
         "date-fns": "^2.30.0",
         "date-fns-tz": "^2.0.0",
-        "eslint-config-next": "^13.5.4",
         "iron-session": "^6.2.1",
         "isomorphic-dompurify": "^0.16.0",
         "jest-environment-jsdom": "^28.1.0",
@@ -67,7 +67,9 @@
         "@testing-library/user-event": "^14.4.3",
         "concurrently": "^7.0.0",
         "eslint": "^8.39.0",
+        "eslint-config-next": "^15.5.4",
         "eslint-config-prettier": "^10.1.8",
+        "eslint-plugin-react": "^7.37.5",
         "jest": "^28.1.0",
         "prettier": "^3.6.2",
         "pretty-quick": "^4.2.2",

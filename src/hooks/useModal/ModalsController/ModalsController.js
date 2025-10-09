@@ -36,7 +36,7 @@ export const useModalController = () => {
             //Required informations
             key,
             //To be added at the display time
-            UI,
+            //UI,
             //Not required informations
             displayOnCreation = false,
             className = "",
@@ -49,6 +49,7 @@ export const useModalController = () => {
             ...modalsData,
             key: {
                 key: key,
+                display: displayOnCreation,
                 UI: () => <></>,
             },
         });
@@ -172,7 +173,7 @@ export const useModalController = () => {
 };
 
 //Display all the modal Ui in the right order
-function displayModalUi(modalsData) {
+export const displayModalUi = (modalsData) => {
     const modalsDataObj = Object.values(modalsData);
     const modalsToDisplay = modalsDataObj.filter((e) => e.display == true);
 
@@ -188,4 +189,4 @@ function displayModalUi(modalsData) {
                 )}
         </>
     );
-}
+};

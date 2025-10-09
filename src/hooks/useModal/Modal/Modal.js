@@ -53,7 +53,7 @@ const Modal = (props) => {
                 // We call the showModal here, because on close of the file dialog, the dialog propagate the close event on all listening. And this modal listen and close.
                 // Only on chrome
                 // So we call showModal here to reset the open value to the dialog since we close / and open modal with another function. (onClick).
-                modal.current.showModal();
+                modal.current.showModal(event);
             }}
         >
             {closingFunction && (
