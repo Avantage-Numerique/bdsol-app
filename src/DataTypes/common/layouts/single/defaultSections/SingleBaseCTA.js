@@ -5,9 +5,7 @@ import Icon from "@/src/common/widgets/Icon/Icon";
 
 //Utils
 import { lang } from "@/src/common/Data/GlobalConstants";
-
-//Hooks
-import { useRouter } from "next/router";
+import AppRoutes from "@/src/Routing/AppRoutes";
 
 /**
  * @param {object} model **REQUIRED** only field that needs to be passed in props on single view mode.
@@ -26,9 +24,6 @@ const SingleBaseCTA = ({
     saveEntityReminderModal,
     saveIntentionSetter, ...props }) => {
 
-    //Router
-    const router = useRouter();
-
     function mapInvalidInput() {
         const invalidInputsList = [];
 
@@ -39,6 +34,12 @@ const SingleBaseCTA = ({
             )
         })
         return invalidInputsList;
+    }
+
+    function redirectHandler(){
+        if(model._id != undefined)
+            return model.singleLink
+        return AppRoutes.contribute.asPath
     }
 
     //Return edit mode
@@ -62,7 +63,7 @@ const SingleBaseCTA = ({
                     >
                         <Icon iconName={"save"} />&nbsp;{lang.capitalize("save")}
                     </Button>
-                    <Button className='fs-6' size="slim" color="primary-light" href={model.singleLink}>
+                    <Button className='fs-6' size="slim" color="primary-light" href={redirectHandler()}>
                         <Icon iconName={"times"} />&nbsp;{lang.Cancel}
                     </Button>
                 </div>
@@ -78,6 +79,7 @@ const SingleBaseCTA = ({
             </div>
         </div>
     )
+    
 }
 
 export default SingleBaseCTA;
