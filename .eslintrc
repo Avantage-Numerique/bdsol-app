@@ -1,11 +1,24 @@
 {
   "parser": "@babel/eslint-parser",
-  "requireConfigFile": false,
   "extends": [
+    "eslint:recommended",
     "prettier"
   ],
-  "root": true,
-  "env": {
-    "node": true
+  "settings": {
+    "root": true,
+    "project": "./",
+    "import/resolver": {
+      "node": true
+    },
+    "node": {
+      "paths": [
+        "src",
+        "pages",
+        "styles"
+      ]
+    },
+    "import/external-module-folders": [
+      "node_modules"
+    ]
   }
 }
