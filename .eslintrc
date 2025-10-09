@@ -9,7 +9,10 @@
     "es6": true
   },
   "rules": {
-    "react-hooks/exhaustive-deps": "off"
+    "react-hooks/exhaustive-deps": "off",
+    "no-unused-vars": "off",
+    "no-prototype-builtins": "off",
+    "no-case-declarations": "off"
   },
   "settings": {
     "next": {

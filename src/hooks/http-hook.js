@@ -61,20 +61,16 @@ export const externalApiRequest = async (path, params = {}) => {
 
     params.additionnalFetchParams = params.additionnalFetchParams ?? {};
 
-    try {
-        //   Use the fetch request with the url (required) and with its options object filled with the full data that we want to pass, if so.
-        const response = await fetch(baseApiRoute + path, {
-            method: params.method ?? "POST",
-            body: params.body ?? undefined,
-            headers: new Headers(headerParams),
-            ...params.additionnalFetchParams,
-        });
+    //   Use the fetch request with the url (required) and with its options object filled with the full data that we want to pass, if so.
+    const response = await fetch(baseApiRoute + path, {
+        method: params.method ?? "POST",
+        body: params.body ?? undefined,
+        headers: new Headers(headerParams),
+        ...params.additionnalFetchParams,
+    });
 
-        //Return the data
-        return await response.json();
-    } catch (err) {
-        throw err;
-    }
+    //Return the data
+    return await response.json();
 };
 
 /**

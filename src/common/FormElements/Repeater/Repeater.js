@@ -442,9 +442,10 @@ const Repeater = (props) => {
                                 sortedIterationsArray={sortedIterationsArray}
                                 deleteIterationByKey={deleteIterationByKey}
                                 updateIterationValue={updateIterationValue}
-                                children={children}
                                 formInitStructure={formInitStructure}
-                            />
+                            >
+                                {children}
+                            </SortableItem>
                         ))}
                     </SortableContext>
                 </DndContext>

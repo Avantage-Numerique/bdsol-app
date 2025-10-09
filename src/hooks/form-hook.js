@@ -73,7 +73,7 @@ const formReducer = (state, action) => {
         case "UPDATE_MANY_FIELDS":
             //Receives an object of this shape : {[fieldName]: [fieldNewValue], [fieldName]: [fieldNewValue]}
             //create a new object to edit
-            let newState = { ...state };
+            const newState = { ...state };
             //Loop through the keys of the object modifiedFields
             for (const key in action.modifiedFields) {
                 if (

@@ -61,10 +61,9 @@ export default function CookieBanner(props) {
                                         "/general_images/avnu-cookies-thumb.png"
                                     }
                                     alt={"Cookies non paramétré"}
-                                    className={`${styles["cookie-baner__img"]}`}
+                                    className={`${styles["cookie-baner__img"]} px-2`}
                                     width={226}
                                     height={116}
-                                    className="px-2"
                                 />
                             );
                         }}
@@ -97,9 +96,9 @@ export default function CookieBanner(props) {
                             .
                         </p>
                         <p>
-                            {lang.cookieBannerContent} Si vous n'en choisissez
-                            aucun, vous ne pourrez pas vous connecter à{" "}
-                            {appConfig.name}
+                            {lang.cookieBannerContent} Si vous n&apos;en
+                            choisissez aucun, vous ne pourrez pas vous connecter
+                            à {appConfig.name}
                         </p>
                     </BottomBanner>
                 )
