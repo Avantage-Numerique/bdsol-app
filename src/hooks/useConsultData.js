@@ -4,11 +4,11 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
  * Hook to manage the consult data in /consulter with SSR and client hybrid data fetching.
  * Pagination use csr and filters use SSR.
  * @param props the page Props send to consulter.
- * @param currentEntityFilter the current target filters (could be an array in the future.
+ * @param currentEntityFilter the current target filters (could be an array in the future).
  * @returns {[{list, paginationMeta: {count: *, skipped: *, limit: *, type: *, pageCount: *, currentPage: *, currentCount}, entities: [String]},(function(*): void)|*]}
  */
 const useConsultData = (props, currentEntityFilter) => {
-    //React state doesnt force re-render when the value is directly set (not via the function.
+    //React state doesn't force re-render when the value is directly set (not via the function).
     const initPaginationMeta = {
         count: props.ssrData.meta?.pagination.count,
         skipped: props.ssrData.meta?.pagination.skipped,
@@ -29,7 +29,6 @@ const useConsultData = (props, currentEntityFilter) => {
     );
 
     const [consultData, setConsultData] = useState(currentDataSSR);
-    const [isClientUpdate, setIsClientUpdate] = useState(false);
     const pendingClientUpdate = useRef(false);
 
     // Update state when SSR data changes
