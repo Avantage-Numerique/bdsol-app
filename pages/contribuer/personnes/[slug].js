@@ -4,7 +4,6 @@ import AppRoutes from "@/src/Routing/AppRoutes";
 import PersonSingleEdit from '@/DataTypes/Person/components/Forms/CreatePerson/PersonSingleEdit';
 import {ssrCanContributeToEntity} from "@/auth/permissions/ssrCanContributeToEntity";
 
-
 const SinglePersonEditPage = props => {
 
     return (
