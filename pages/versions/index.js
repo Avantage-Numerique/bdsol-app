@@ -169,10 +169,7 @@ const VersionIndex = (props) => {
 
     return (
         <div className={"legal-page page-terms-of-use"}>
-            <PageMeta
-                title={lang.versions__title}
-                description={lang.versions__descriptions}
-            />
+            <PageMeta title={lang.versions__title} description={lang.versions__descriptions} />
             <PageHeader
                 bg={"bg-primary-lighter"}
                 textColor={"text-white"}
@@ -188,10 +185,7 @@ const VersionIndex = (props) => {
                         const version = new Version(versionRaw);
                         const isLast = index === versions.versions.length - 1;
                         return (
-                            <div
-                                className={`row ${!isLast ? "border-bottom" : ""} pb-5`}
-                                key={`versionRow${index}`}
-                            >
+                            <div className={`row ${!isLast ? "border-bottom" : ""} pb-5`} key={`versionRow${index}`}>
                                 <div className={"col"}>{version.render()}</div>
                             </div>
                         );

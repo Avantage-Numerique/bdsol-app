@@ -4,6 +4,11 @@ import AppRoutes from "@/src/Routing/AppRoutes";
 import Button from "@/FormElements/Button/Button";
 import { lang } from "@/common/Data/GlobalConstants";
 
+/**
+ * @type Error404
+ * @returns {JSXElement}
+ * @constructor
+ */
 function Error404() {
     const entities = [
         AppRoutes.organisations,
@@ -26,15 +31,8 @@ function Error404() {
                 <nav className="row pt-3 row-cols-1 row-cols-sm-6 gy-3">
                     {entities.map((route, index) => {
                         return (
-                            <div
-                                className="col"
-                                key={`li${index}${route.label}`}
-                            >
-                                <Button
-                                    href={route.pathname}
-                                    size="large-100"
-                                    className={"w-100"}
-                                >
+                            <div className="col" key={`li${index}${route.label}`}>
+                                <Button href={route.pathname} size="large-100" className={"w-100"}>
                                     {route.label}
                                 </Button>
                             </div>

@@ -66,18 +66,11 @@ const CreatePersonForm = ({ onPositiveResponse, ...props }) => {
             },
         };
 
-        await submitRequest(
-            `/persons/create`,
-            "POST",
-            JSON.stringify(formData)
-        );
+        await submitRequest(`/persons/create`, "POST", JSON.stringify(formData));
     };
 
     return (
-        <form
-            onSubmit={submitHandler}
-            className={`${styles["create-person-form"]}`}
-        >
+        <form onSubmit={submitHandler} className={`${styles["create-person-form"]}`}>
             <FormUI />
             <div className="row">
                 <Input
@@ -102,12 +95,7 @@ const CreatePersonForm = ({ onPositiveResponse, ...props }) => {
                 <Input name="nickName" label="Surnom" formTools={formTools} />
             </div>
             <div className="row">
-                <RichTextarea
-                    className="my-3"
-                    name="description"
-                    label={lang.about}
-                    formTools={formTools}
-                />
+                <RichTextarea className="my-3" name="description" label={lang.about} formTools={formTools} />
             </div>
             <div className="col-12">
                 <Button
@@ -120,11 +108,7 @@ const CreatePersonForm = ({ onPositiveResponse, ...props }) => {
                     {lang.submit}
                 </Button>
                 {props?.closeModal && (
-                    <Button
-                        color="danger"
-                        type="button"
-                        onClick={props.closeModal()}
-                    >
+                    <Button color="danger" type="button" onClick={props.closeModal()}>
                         {lang.cancel}
                     </Button>
                 )}

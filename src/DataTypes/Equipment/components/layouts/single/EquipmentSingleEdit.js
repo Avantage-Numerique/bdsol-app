@@ -139,10 +139,7 @@ const EquipmentSingleEdit = ({ positiveRequestActions, ...props }) => {
                     };
                 }),
 
-                meta: getDefaultUpdateEntityMeta(
-                    auth.user,
-                    model.meta.requestedBy
-                ),
+                meta: getDefaultUpdateEntityMeta(auth.user, model.meta.requestedBy),
             },
         };
 
@@ -215,12 +212,7 @@ const EquipmentSingleEdit = ({ positiveRequestActions, ...props }) => {
                     <Icon iconName={"save"} />
                     &nbsp;{lang.capitalize("save")}
                 </Button>
-                <Button
-                    className="fs-6"
-                    size="slim"
-                    color="primary-light"
-                    href={model.singleLink}
-                >
+                <Button className="fs-6" size="slim" color="primary-light" href={model.singleLink}>
                     <Icon iconName={"times"} />
                     &nbsp;{lang.Cancel}
                 </Button>
@@ -243,21 +235,13 @@ const EquipmentSingleEdit = ({ positiveRequestActions, ...props }) => {
     const contentColumnLeft = (
         <SingleInfo title={lang.productInformations}>
             <Input name="brand" label={lang.brand} formTools={formTools} />
-            <Input
-                name="modelName"
-                label={lang.modelName}
-                formTools={formTools}
-            />
+            <Input name="modelName" label={lang.modelName} formTools={formTools} />
         </SingleInfo>
     );
 
     const contentColumnRight = (
         <SingleInfo title={lang.externalLinks}>
-            <UpdateSocialHandles
-                name="url"
-                parentEntity={model}
-                formTools={formTools}
-            />
+            <UpdateSocialHandles name="url" parentEntity={model} formTools={formTools} />
         </SingleInfo>
     );
 
@@ -266,11 +250,7 @@ const EquipmentSingleEdit = ({ positiveRequestActions, ...props }) => {
             {(model.createdAt || model.updatedAt || model.meta) && (
                 <SingleInfo title={lang.entityMetadata} className="pt-3">
                     {/*********** Entity data ***********/}
-                    <SingleEntityMeta
-                        createdAt={model.createdAt}
-                        updatedAt={model.updatedAt}
-                        meta={model.meta}
-                    />
+                    <SingleEntityMeta createdAt={model.createdAt} updatedAt={model.updatedAt} meta={model.meta} />
                 </SingleInfo>
             )}
         </>
@@ -292,10 +272,7 @@ const EquipmentSingleEdit = ({ positiveRequestActions, ...props }) => {
 
     return (
         <>
-            <SingleBeforeUnloadReminder
-                formTools={formTools}
-                saveIntention={saveIntentionState}
-            />
+            <SingleBeforeUnloadReminder formTools={formTools} saveIntention={saveIntentionState} />
             <SingleBase
                 breadCrumb={breadCrumb}
                 header={header}

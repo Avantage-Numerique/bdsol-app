@@ -22,13 +22,11 @@ const pageMeta = {
 
     /* /compte/connexion */
     compte__connexion__title: "Connexion - AVNU",
-    compte__connexion__description:
-        "Log in to AVNU to be able to contribute to the database",
+    compte__connexion__description: "Log in to AVNU to be able to contribute to the database",
 
     /* /compte/inscription */
     compte__singup__title: "Sign up - AVNU",
-    compte__singup__description:
-        "Create an account to be able to contribute to the database",
+    compte__singup__description: "Create an account to be able to contribute to the database",
 
     /* /compte/réinitialisation */
     compte__passwordReset__title: "Password Reset",
@@ -53,8 +51,7 @@ const pageMeta = {
         "The equipment listed in the database can be associated with various types of entities, such as persons or organizations.",
 
     /* /Event */
-    event__description:
-        "Managed by organizations, the events on AVNU stand out for their digital nature.",
+    event__description: "Managed by organizations, the events on AVNU stand out for their digital nature.",
 
     /* /organisations */
     organisations__description:
@@ -69,8 +66,7 @@ const pageMeta = {
 
     /* /FAQ */
     faq__title: "Frequently Asked Questions",
-    faq__description:
-        "Check the FAQ for any details on a topic, including licenses or legal documents.",
+    faq__description: "Check the FAQ for any details on a topic, including licenses or legal documents.",
 
     /* /FAQ/about */
     faq__about__title: "About",
@@ -79,8 +75,7 @@ const pageMeta = {
 
     /* /FAQ/licences */
     faq__licences__title: "Licenses",
-    faq__licences__description:
-        "Details on licenses supported by AVNU and copyright.",
+    faq__licences__description: "Details on licenses supported by AVNU and copyright.",
 
     /* /lieux */
     places__description:
@@ -88,8 +83,7 @@ const pageMeta = {
 
     /* /nous-joindre */
     contact_us__title: "Contact us",
-    contact_us__description:
-        "Contact us for any questions, comments, support requests, or to report a bug.",
+    contact_us__description: "Contact us for any questions, comments, support requests, or to report a bug.",
 
     /* /politique-de-confidentialite */
     privacy_policy__title: "Privacy Policy",

@@ -40,12 +40,9 @@ const PersonsPage = (props) => {
     */
     const fetchData = async () => {
         //Send the request with the specialized hook
-        const persResponse = await sendRequest(
-            "/persons/list",
-            "POST",
-            JSON.stringify({ data: { sort: "desc" } }),
-            { "Content-Type": "application/json" }
-        );
+        const persResponse = await sendRequest("/persons/list", "POST", JSON.stringify({ data: { sort: "desc" } }), {
+            "Content-Type": "application/json",
+        });
 
         //If positive
         if (!persResponse.error) {
@@ -72,24 +69,15 @@ const PersonsPage = (props) => {
     };
     return (
         <div>
-            <PageMeta
-                title={getTitle([type.labelPlural])}
-                description={lang.persons__description}
-            />
+            <PageMeta title={getTitle([type.labelPlural])} description={lang.persons__description} />
             <PageHeader
                 bg={"bg-primary-lighter"}
                 textColor={"text-white"}
                 title={"Consulter les personnes"}
-                subTitle={
-                    "Qu'elles proviennent du milieu du savoir, de la culture ou des affaires..."
-                }
+                subTitle={"Qu'elles proviennent du milieu du savoir, de la culture ou des affaires..."}
                 description="Les personnes listées ci-dessous peuvent être: des créateurs.trices numériques, des individus possédant une expertise ou de l'équipement spécialisé, des promoteurs d'initiatives numériques, ou toutes autres personnes intéressées à prendre part, d'une façon ou d'une autre, au développement des technologies numériques sur le territoire du Croissant boréal."
             >
-                <Breadcrumbs
-                    className={"pt-2"}
-                    route={AppRoutes.persons}
-                    labels={breadcrumbsLabels}
-                />
+                <Breadcrumbs className={"pt-2"} route={AppRoutes.persons} labels={breadcrumbsLabels} />
             </PageHeader>
 
             <div className="container">
@@ -99,11 +87,7 @@ const PersonsPage = (props) => {
                         <div className="position-relative row row-cols-1 row-cols-sm-2 row-cols-lg-3">
                             {/* Loading state : If loading is on and there is no feed */}
                             {isLoading && (
-                                <div
-                                    className={
-                                        "home-page__feed-section--spinner-container"
-                                    }
-                                >
+                                <div className={"home-page__feed-section--spinner-container"}>
                                     <div>
                                         <Spinner reverse />
                                     </div>
@@ -134,29 +118,20 @@ const PersonsPage = (props) => {
                     {/* Aside section */}
                     <aside className="col col-12 col-md-3">
                         <div className="my-4 d-flex flex-column">
-                            <Button
-                                disabled={!auth.user.isLoggedIn}
-                                href="/contribuer/personnes"
-                                size="reg-100"
-                            >
+                            <Button disabled={!auth.user.isLoggedIn} href="/contribuer/personnes" size="reg-100">
                                 {lang.addPersonButtonLabel}
                             </Button>
 
                             {!auth.user.isLoggedIn && (
                                 <p className="mt-2">
-                                    Notez que vous devez être{" "}
-                                    <b className="text-primary">connecté</b>{" "}
-                                    pour pouvoir ajouter des entitées à la base
-                                    de données.
+                                    Notez que vous devez être <b className="text-primary">connecté</b> pour pouvoir
+                                    ajouter des entitées à la base de données.
                                 </p>
                             )}
                             {!auth.user.isLoggedIn && (
                                 <>
                                     <hr />
-                                    <Button
-                                        size="reg-100"
-                                        href="/compte/connexion"
-                                    >
+                                    <Button size="reg-100" href="/compte/connexion">
                                         Se connecter
                                     </Button>
                                 </>

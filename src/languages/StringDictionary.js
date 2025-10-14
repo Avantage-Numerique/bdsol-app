@@ -29,10 +29,7 @@ export default class StringDictionary {
     }
 
     static getInstance(file, lang = "fr-ca") {
-        if (
-            StringDictionary._instance === undefined ||
-            StringDictionary._instance === null
-        ) {
+        if (StringDictionary._instance === undefined || StringDictionary._instance === null) {
             StringDictionary._instance = new StringDictionary(file, lang);
         }
         return StringDictionary._instance;

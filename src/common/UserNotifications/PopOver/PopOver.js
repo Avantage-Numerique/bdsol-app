@@ -17,15 +17,13 @@ const generateClasses = (classProp) => {
             classes = styles["position-right"] + " " + styles["position-top"];
             break;
         case "right-bottom":
-            classes =
-                styles["position-right"] + " " + styles["position-bottom"];
+            classes = styles["position-right"] + " " + styles["position-bottom"];
             break;
         case "over-center":
             classes = styles["position-center"] + " " + styles["position-over"];
             break;
         case "under-center":
-            classes =
-                styles["position-center"] + " " + styles["position-under"];
+            classes = styles["position-center"] + " " + styles["position-under"];
             break;
     }
 
@@ -46,8 +44,7 @@ const PopOver = (props) => {
 
     //Display the component with its native function when the component is redendered
     useEffect(() => {
-        if (!componentRef.current.hasAttribute("open"))
-            componentRef.current.show();
+        if (!componentRef.current.hasAttribute("open")) componentRef.current.show();
     }, []);
 
     return (

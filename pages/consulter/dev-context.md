@@ -70,9 +70,7 @@ const entityGrid = (
         {(currentLoadingState.state === LoadingStates.LOADING_COMPLETE.state ||
             currentLoadingState.state === LoadingStates.DEFAULT.state) &&
             consultData.list?.length <= 0 && (
-                <div className={"alert alert-primary p-4 text-center"}>
-                    {lang.listNoResult}
-                </div>
+                <div className={"alert alert-primary p-4 text-center"}>{lang.listNoResult}</div>
             )}
     </div>
 );

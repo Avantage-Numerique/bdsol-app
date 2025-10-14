@@ -13,12 +13,7 @@ export const ModalElem = ({ children }) => {
 
     if (mounted)
         return createPortal(
-            <Modal
-                noDefaultWidth={false}
-                coloredBackground={false}
-                className={""}
-                closingFunction={null}
-            >
+            <Modal noDefaultWidth={false} coloredBackground={false} className={""} closingFunction={null}>
                 {children}
             </Modal>,
             document.getElementById("portal-root")
@@ -181,11 +176,7 @@ export const displayModalUi = (modalsData) => {
         <>
             {modalsToDisplay &&
                 modalsToDisplay.map((modal) =>
-                    createPortal(
-                        <modal.UI key={modal.key} />,
-                        document.getElementById("portal-root"),
-                        modal.key
-                    )
+                    createPortal(<modal.UI key={modal.key} />, document.getElementById("portal-root"), modal.key)
                 )}
         </>
     );

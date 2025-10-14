@@ -105,10 +105,7 @@ const CreatePlaceForm = ({ onPositiveResponse, initValues, ...props }) => {
     };
 
     return (
-        <form
-            onSubmit={submitHandler}
-            className={`${styles["create-place-form"]}`}
-        >
+        <form onSubmit={submitHandler} className={`${styles["create-place-form"]}`}>
             <FormUI />
             <Input
                 name="name"
@@ -203,11 +200,7 @@ const CreatePlaceForm = ({ onPositiveResponse, initValues, ...props }) => {
                     {lang.submit}
                 </Button>
                 {props?.closeModal && (
-                    <Button
-                        color="danger"
-                        type="button"
-                        onClick={props.closeModal()}
-                    >
+                    <Button color="danger" type="button" onClick={props.closeModal()}>
                         {lang.cancel}
                     </Button>
                 )}

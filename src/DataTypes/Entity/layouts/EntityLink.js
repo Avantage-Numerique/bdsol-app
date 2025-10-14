@@ -25,13 +25,8 @@ const EntityLink = (props) => {
         return (
             <>
                 {model && (
-                    <Link
-                        href={model.singleLink}
-                        title={model.title}
-                        className={`link ${className}`}
-                    >
-                        <Icon iconName={type.icon} className="pe-1" />{" "}
-                        {model.title}
+                    <Link href={model.singleLink} title={model.title} className={`link ${className}`}>
+                        <Icon iconName={type.icon} className="pe-1" /> {model.title}
                     </Link>
                 )}
             </>

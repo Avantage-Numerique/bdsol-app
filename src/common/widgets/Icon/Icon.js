@@ -20,11 +20,7 @@ const Icon = (props) => {
 
     const prefixSep = "-";
 
-    return (
-        <Tag
-            className={`${vendor} ${prefix}${prefixSep}${iconName} ${className}`}
-        ></Tag>
-    );
+    return <Tag className={`${vendor} ${prefix}${prefixSep}${iconName} ${className}`}></Tag>;
 };
 
 export default Icon;

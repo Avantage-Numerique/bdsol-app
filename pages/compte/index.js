@@ -29,14 +29,8 @@ const accountPage = ({ user }) => {
 
     return (
         <div className={"account-page pb-3"}>
-            <PageMeta
-                title={lang.compte__title}
-                description={lang.compte__description}
-                preventIndexation
-            />
-            <PageHeader
-                title={`${lang.memberSpaceWelcome}, ${user && user.username}`}
-            />
+            <PageMeta title={lang.compte__title} description={lang.compte__description} preventIndexation />
+            <PageHeader title={`${lang.memberSpaceWelcome}, ${user && user.username}`} />
             <div className="container">
                 <div className="row py-2">
                     <aside className="col col-md-4 col-lg-3 py-2">
@@ -56,31 +50,19 @@ const accountPage = ({ user }) => {
                                                     height="120"
                                                 />
                                             ) : (
-                                                <img
-                                                    src={user.avatar}
-                                                    alt="Ton avatar"
-                                                    width="120"
-                                                    height="120"
-                                                />
+                                                <img src={user.avatar} alt="Ton avatar" width="120" height="120" />
                                             )}
                                         </div>
                                     </div>
                                 </div>
                                 <div className="">
                                     <h3>{user.name}</h3>
-                                    <div className="fw-bold">
-                                        {user.username}
-                                    </div>
+                                    <div className="fw-bold">{user.username}</div>
                                 </div>
 
                                 <div className="mt-4">
                                     Membre depuis le <br />
-                                    {new Date(
-                                        user.createdAt
-                                    ).toLocaleDateString(
-                                        dateLanguage,
-                                        dateOption
-                                    )}
+                                    {new Date(user.createdAt).toLocaleDateString(dateLanguage, dateOption)}
                                 </div>
 
                                 <div className="d-flex flex-column mt-4">
@@ -89,9 +71,7 @@ const accountPage = ({ user }) => {
                                             size="slim"
                                             className="mt-1 mb-1"
                                             key="modif"
-                                            onClick={() =>
-                                                setLeftMenu("account")
-                                            }
+                                            onClick={() => setLeftMenu("account")}
                                         >
                                             Mon compte
                                         </Button>
@@ -113,11 +93,7 @@ const accountPage = ({ user }) => {
                                     >
                                         Aide
                                     </Button>
-                                    <Button
-                                        size="slim"
-                                        href={"/contribuer"}
-                                        className={"btn-block"}
-                                    >
+                                    <Button size="slim" href={"/contribuer"} className={"btn-block"}>
                                         Contribuer à la base de donnée
                                     </Button>
                                     <Button

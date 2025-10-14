@@ -50,23 +50,17 @@ export const useDateManager = (time1, time2 = null) => {
             .format(format || time.hourFormat);
 
     //GETTERS FOR SPECIFICS
-    const getStartingDate = (format = null) =>
-        getDateMoment(time.timeStamp, format);
+    const getStartingDate = (format = null) => getDateMoment(time.timeStamp, format);
 
     const getDate = getStartingDate; //why ?
 
-    const getEndingDate = time.endingTimeStamp
-        ? (format = null) => getDateMoment(time.endingTimeStamp, format)
-        : null;
+    const getEndingDate = time.endingTimeStamp ? (format = null) => getDateMoment(time.endingTimeStamp, format) : null;
 
-    const getStartingHour = (format = null) =>
-        getHourMoment(time.timeStamp, format);
+    const getStartingHour = (format = null) => getHourMoment(time.timeStamp, format);
 
     const getHour = getStartingHour; //why ??
 
-    const getEndingHour = time.endingTimeStamp
-        ? (format = null) => getHourMoment(time.endingTimeStamp, format)
-        : null;
+    const getEndingHour = time.endingTimeStamp ? (format = null) => getHourMoment(time.endingTimeStamp, format) : null;
 
     //SETTERS
     const setDateFormat = (format) => setTime({ ...time, dateFormat: format });
@@ -81,9 +75,7 @@ export const useDateManager = (time1, time2 = null) => {
     const TimeTag = ({ format, endingDate = false }) => {
         //Define the variables to fill with proper dates and format
         // I don't understand the check to the bool ending date ??
-        const content = endingDate
-            ? getEndingDate(format)
-            : getStartingDate(format);
+        const content = endingDate ? getEndingDate(format) : getStartingDate(format);
         const dateTime = endingDate ? getEndingDate() : getStartingDate();
 
         return <DateTag value={dateTime} label={content} />;
@@ -99,16 +91,8 @@ export const useDateManager = (time1, time2 = null) => {
 
         return (
             <Tag className={className}>
-                {lang.capitalize("from")}{" "}
-                <DateTag
-                    value={getStartingDate()}
-                    label={getStartingDate(targetFormat)}
-                />{" "}
-                {lang.to}{" "}
-                <DateTag
-                    value={getEndingDate()}
-                    label={getEndingDate(targetFormat)}
-                />
+                {lang.capitalize("from")} <DateTag value={getStartingDate()} label={getStartingDate(targetFormat)} />{" "}
+                {lang.to} <DateTag value={getEndingDate()} label={getEndingDate(targetFormat)} />
             </Tag>
         );
     };

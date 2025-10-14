@@ -28,10 +28,7 @@ export const Collapse = (props) => {
                     {label}
                 </button>
             </nav>
-            <div
-                className={`collapse ${showContent ? "show" : ""}`}
-                id={`${keyId}`}
-            >
+            <div className={`collapse ${showContent ? "show" : ""}`} id={`${keyId}`}>
                 {children}
             </div>
         </div>

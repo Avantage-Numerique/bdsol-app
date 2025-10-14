@@ -102,19 +102,13 @@ const Documentation = ({ documentation }) => {
                 />
 
                 {/* social media meta tag */}
-                <meta
-                    property="og:title"
-                    content="Ontologie - Avantage Numérique"
-                />
+                <meta property="og:title" content="Ontologie - Avantage Numérique" />
                 <meta
                     property="og:description"
                     content="Documentation complète sur l'ontologie utilisée dans la base de donnée ouverte et liée d'Avantage Numérique."
                 />
 
-                <meta
-                    name="twitter:title"
-                    content="Ontologie - Avantage Numérique"
-                />
+                <meta name="twitter:title" content="Ontologie - Avantage Numérique" />
                 <meta
                     name="twitter:description"
                     content="Documentation complète sur l'ontologie utilisée dans la base de donnée ouverte et liée d'Avantage Numérique."
@@ -178,23 +172,13 @@ const Documentation = ({ documentation }) => {
                     <aside className="col-3">
                         <div className="text-white commonRadius bg-primary">
                             <section>
-                                <h3 className="col-12">
-                                    Lorem ipsum dolor sit amet
-                                </h3>
-                                <h5 className="col-12">
-                                    Lorem ipsum dolor sit amet, consectetur
-                                    adipisicing elit.
-                                </h5>
+                                <h3 className="col-12">Lorem ipsum dolor sit amet</h3>
+                                <h5 className="col-12">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</h5>
                             </section>
 
                             <section>
                                 <div>
-                                    <ArrowButton
-                                        color="primary"
-                                        outline="white"
-                                        direction="right"
-                                        size="large"
-                                    >
+                                    <ArrowButton color="primary" outline="white" direction="right" size="large">
                                         {" "}
                                     </ArrowButton>
                                 </div>
@@ -209,9 +193,7 @@ const Documentation = ({ documentation }) => {
                     {/* Create the classes elements */}
                     {documentation.classes.map((data, classIndex) => (
                         <>
-                            <div
-                                className={`${styles.separation_line} col-12`}
-                            ></div>
+                            <div className={`${styles.separation_line} col-12`}></div>
                             <Class
                                 onclick={() => onClassDisplayClick(classIndex)}
                                 key={data.slug}

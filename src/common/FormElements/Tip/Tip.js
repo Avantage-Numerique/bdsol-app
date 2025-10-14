@@ -12,9 +12,7 @@ const Tip = (props) => {
 
     return (
         <>
-            <div
-                className={`${dontBasePositionOnButton ? "" : "position-relative"}`}
-            >
+            <div className={`${dontBasePositionOnButton ? "" : "position-relative"}`}>
                 <button
                     type="button"
                     /* data-bs-toggle="popover" */
@@ -32,11 +30,7 @@ const Tip = (props) => {
                 </button>
                 {/* Container of the pop-over gives an initial position centered with the button */}
                 {popOverDisplay && (
-                    <PopOver
-                        {...props}
-                        positionClass="under-center"
-                        closingFunction={() => setPopOverDisplay(false)}
-                    />
+                    <PopOver {...props} positionClass="under-center" closingFunction={() => setPopOverDisplay(false)} />
                 )}
             </div>
         </>

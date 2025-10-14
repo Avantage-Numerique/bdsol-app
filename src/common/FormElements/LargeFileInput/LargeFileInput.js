@@ -45,8 +45,7 @@ const LargeFileInput = (props) => {
     } = props;
 
     //Extract the tools included in the validation hook
-    const { validate, RequirementsBadges, ValidationErrorMessages } =
-        useValidation(validationRules);
+    const { validate, RequirementsBadges, ValidationErrorMessages } = useValidation(validationRules);
 
     /* Custom hook to manage the form data */
     const { formState, inputHandler, inputTouched } = formTools;
@@ -65,20 +64,12 @@ const LargeFileInput = (props) => {
         event.preventDefault();
 
         if (event.target.files)
-            inputHandler(
-                name,
-                event.target.files[0],
-                validationRules ? validate(event.target.files[0]) : true
-            );
+            inputHandler(name, event.target.files[0], validationRules ? validate(event.target.files[0]) : true);
     };
 
     //Call the input handler once at the rendering
     useEffect(() => {
-        inputHandler(
-            name,
-            currentState.value,
-            validationRules ? validate(fieldRef.current.files[0]) : true
-        );
+        inputHandler(name, currentState.value, validationRules ? validate(fieldRef.current.files[0]) : true);
     }, []);
 
     return (
@@ -139,9 +130,7 @@ const LargeFileInput = (props) => {
                                 <img
                                     src={
                                         typeof currentState.value === "object"
-                                            ? URL.createObjectURL(
-                                                  currentState.value
-                                              )
+                                            ? URL.createObjectURL(currentState.value)
                                             : currentState.value
                                     }
                                     alt="Aperçu de la photo à téléverser"
@@ -170,10 +159,7 @@ const LargeFileInput = (props) => {
                                 type="button"
                                 className={`${styles["select-file-button"]}`}
                             >
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    viewBox="0 0 21.75 21"
-                                >
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21.75 21">
                                     <polyline
                                         points="5.25 10 1.5 10 1.5 19.5 20.25 19.5 20.25 10 16.5 10"
                                         fill="none"
@@ -193,38 +179,20 @@ const LargeFileInput = (props) => {
                                 </svg>
 
                                 {/* Display of the selected file */}
-                                <div
-                                    dir="rtl"
-                                    className={`m-2 ${styles["input-ui__file-name"]}`}
-                                >
-                                    {!currentState.value &&
-                                        !currentState.value?.name &&
-                                        "Sélectionnez un fichier"}
+                                <div dir="rtl" className={`m-2 ${styles["input-ui__file-name"]}`}>
+                                    {!currentState.value && !currentState.value?.name && "Sélectionnez un fichier"}
                                 </div>
                             </button>
                             {validationRules && (
-                                <div
-                                    className={`px-1 ${styles["input-ui__RequirementsBadges-container"]}`}
-                                >
-                                    <RequirementsBadges
-                                        alwaysDisplay
-                                        displayOnlyBadges
-                                    />
+                                <div className={`px-1 ${styles["input-ui__RequirementsBadges-container"]}`}>
+                                    <RequirementsBadges alwaysDisplay displayOnlyBadges />
                                 </div>
                             )}
                             {/* Format preferences */}
                             <div className="p-2 w-100 d-flex justify-content-center">
-                                <div
-                                    className={`mt-2 ${styles["square-format"]}`}
-                                >
-                                    <p className="text-dark">
-                                        Images carrées suggérées
-                                    </p>
-                                    <button
-                                        type="button"
-                                        onClick={displayModal}
-                                        className="text-dark m-0 mt-1"
-                                    >
+                                <div className={`mt-2 ${styles["square-format"]}`}>
+                                    <p className="text-dark">Images carrées suggérées</p>
+                                    <button type="button" onClick={displayModal} className="text-dark m-0 mt-1">
                                         Pourquoi ?
                                     </button>
                                 </div>
@@ -249,18 +217,13 @@ const LargeFileInput = (props) => {
             </div>
 
             <Modal>
-                <header
-                    className={`d-flex justify-content-between align-items-start`}
-                >
+                <header className={`d-flex justify-content-between align-items-start`}>
                     <div className="me-2">
-                        <h4 className="text-dark">
-                            Priorisez une image carrée
-                        </h4>
+                        <h4 className="text-dark">Priorisez une image carrée</h4>
                         <small>
                             <p>
-                                Les images représentant les entitées sont
-                                généralement affichées à travers des cercles de
-                                dimensions égales
+                                Les images représentant les entitées sont généralement affichées à travers des cercles
+                                de dimensions égales
                             </p>
                         </small>
                     </div>
@@ -268,14 +231,12 @@ const LargeFileInput = (props) => {
                 </header>
                 <small>
                     <p>
-                        Pour garantir une visualisation optimale du contenu, les
-                        photos sont toujours affichées à partir de leur
-                        centre.{" "}
+                        Pour garantir une visualisation optimale du contenu, les photos sont toujours affichées à partir
+                        de leur centre.{" "}
                     </p>
                     <p>
-                        Tel qu'illustré ci-dessous, une photo dont le format
-                        n'est pas carré risque ainsi de voir sont contenu coupé
-                        au mauvais endroit.
+                        Tel qu'illustré ci-dessous, une photo dont le format n'est pas carré risque ainsi de voir sont
+                        contenu coupé au mauvais endroit.
                     </p>
                 </small>
                 <Image

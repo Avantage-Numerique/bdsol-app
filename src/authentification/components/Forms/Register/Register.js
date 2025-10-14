@@ -102,10 +102,7 @@ const Register = () => {
             });
         } else {
             //Make sure that the two passwords matches
-            if (
-                formState.inputs.password.value ===
-                formState.inputs.password2.value
-            ) {
+            if (formState.inputs.password.value === formState.inputs.password2.value) {
                 const newUser = {
                     data: {
                         username: formState.inputs.username.value,
@@ -114,20 +111,13 @@ const Register = () => {
                         avatar: formState.inputs.avatar.value,
                         firstName: formState.inputs.firstName.value,
                         lastName: formState.inputs.lastName.value,
-                        name:
-                            formState.inputs.firstName.value +
-                            " " +
-                            formState.inputs.lastName.value, //that ways, should be handle by the api.//kept that way because of the future, user may want to update this on their account.
+                        name: formState.inputs.firstName.value + " " + formState.inputs.lastName.value, //that ways, should be handle by the api.//kept that way because of the future, user may want to update this on their account.
                         tos: { accepted: isTOSAccepted },
                     },
                 };
 
                 //Send the request with the specialized hook
-                const registerRes = await submitRequest(
-                    "/register",
-                    "POST",
-                    newUser
-                );
+                const registerRes = await submitRequest("/register", "POST", newUser);
                 if (!registerRes.error) {
                     msg.addMessage({
                         text: "Soumission de création de compte effectuée",
@@ -153,10 +143,7 @@ const Register = () => {
         <>
             {isLoading && <Spinner className={"bg-primary-lighter"} />}
 
-            <form
-                className="bg-primary-lighter rounded form-box-shadow p-4"
-                onSubmit={submitHandler}
-            >
+            <form className="bg-primary-lighter rounded form-box-shadow p-4" onSubmit={submitHandler}>
                 <h3 className="text-dark-light mb-4">Création de compte</h3>
                 <FormUI />
 
@@ -190,10 +177,7 @@ const Register = () => {
                     name="email"
                     type="email"
                     label="Courriel"
-                    validationRules={[
-                        { name: "REQUIRED" },
-                        { name: "TYPE_EMAIL" },
-                    ]}
+                    validationRules={[{ name: "REQUIRED" }, { name: "TYPE_EMAIL" }]}
                     formTools={formTools}
                 />
 
@@ -201,10 +185,7 @@ const Register = () => {
                     name="password"
                     type="password"
                     label="Mot de passe"
-                    validationRules={[
-                        { name: "REQUIRED" },
-                        { name: "MIN_LENGTH", specification: 8 },
-                    ]}
+                    validationRules={[{ name: "REQUIRED" }, { name: "MIN_LENGTH", specification: 8 }]}
                     formTools={formTools}
                 />
 
@@ -212,10 +193,7 @@ const Register = () => {
                     name="password2"
                     type="password"
                     label="Confirmation du mot de passe"
-                    validationRules={[
-                        { name: "REQUIRED" },
-                        { name: "MIN_LENGTH", specification: 8 },
-                    ]}
+                    validationRules={[{ name: "REQUIRED" }, { name: "MIN_LENGTH", specification: 8 }]}
                     formTools={formTools}
                 />
 
@@ -231,16 +209,12 @@ const Register = () => {
                         checked={isTOSAccepted}
                     />
                     <span className="form-check-label col-8">
-                        J'accepte les{" "}
-                        <RouteLink target="_blank" routeName={"termOfUse"} />
+                        J'accepte les <RouteLink target="_blank" routeName={"termOfUse"} />
                     </span>
                 </div>
 
                 <div className="col-12">
-                    <Button
-                        type="submit"
-                        disabled={!formState.isValid || !isTOSAccepted}
-                    >
+                    <Button type="submit" disabled={!formState.isValid || !isTOSAccepted}>
                         Soumettre
                     </Button>
                 </div>

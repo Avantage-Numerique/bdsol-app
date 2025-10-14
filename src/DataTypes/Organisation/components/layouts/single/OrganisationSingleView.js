@@ -57,13 +57,9 @@ const OrganisationSingleView = ({ data }) => {
 
     /******* Sorted lists ********/
     const sortedOffers =
-        offers?.[0]?.subMeta?.order !== undefined
-            ? offers.sort((a, b) => a.subMeta.order - b.subMeta.order)
-            : offers;
+        offers?.[0]?.subMeta?.order !== undefined ? offers.sort((a, b) => a.subMeta.order - b.subMeta.order) : offers;
     const sortedTeam =
-        team?.[0]?.subMeta?.order !== undefined
-            ? team.sort((a, b) => a.subMeta.order - b.subMeta.order)
-            : team;
+        team?.[0]?.subMeta?.order !== undefined ? team.sort((a, b) => a.subMeta.order - b.subMeta.order) : team;
     const sortedEquipment =
         equipment?.[0]?.subMeta?.order !== undefined
             ? equipment.sort((a, b) => a?.subMeta?.order - b?.subMeta?.order)
@@ -107,13 +103,8 @@ const OrganisationSingleView = ({ data }) => {
     );
 
     const FullWidthContent = (
-        <SingleInfo
-            title={lang.about}
-            NAMessage="Aucune description n'est disponible pour le moment."
-        >
-            {removeTagsFromString(description) && (
-                <SanitizedInnerHtml>{description}</SanitizedInnerHtml>
-            )}
+        <SingleInfo title={lang.about} NAMessage="Aucune description n'est disponible pour le moment.">
+            {removeTagsFromString(description) && <SanitizedInnerHtml>{description}</SanitizedInnerHtml>}
         </SingleInfo>
     );
     const { TimeTag } = dateManager(fondationDate);
@@ -126,19 +117,12 @@ const OrganisationSingleView = ({ data }) => {
             >
                 {sortedOffers?.length > 0 &&
                     sortedOffers.map((offer, index) => (
-                        <SkillGroup
-                            label={offer.groupName}
-                            skills={offer.skills}
-                            key={`${offer.groupName}${index}`}
-                        />
+                        <SkillGroup label={offer.groupName} skills={offer.skills} key={`${offer.groupName}${index}`} />
                     ))}
             </SingleInfo>
 
             {/* Team */}
-            <SingleInfo
-                title={lang.teamMembers}
-                displayCondition={sortedTeam.length > 0}
-            >
+            <SingleInfo title={lang.teamMembers} displayCondition={sortedTeam.length > 0}>
                 <EntitiesTagGrid
                     feed={sortedTeam}
                     subEntityProperty={"member"}
@@ -180,66 +164,36 @@ const OrganisationSingleView = ({ data }) => {
             </SingleInfo>
 
             {/* Equipment */}
-            <SingleInfo
-                title={lang.EquipmentsOwned}
-                displayCondition={sortedEquipment && sortedEquipment.length > 0}
-            >
-                <ul
-                    className={`container mt-2 mb-0 ${styles["equipment-container"]}`}
-                >
+            <SingleInfo title={lang.EquipmentsOwned} displayCondition={sortedEquipment && sortedEquipment.length > 0}>
+                <ul className={`container mt-2 mb-0 ${styles["equipment-container"]}`}>
                     <li className="row mb-2">
                         <div className={`d-flex ${styles["column-labels"]}`}>
-                            <div
-                                className={`text-secondary-darker ${styles["equipment-row-qty-label"]}`}
-                            >
+                            <div className={`text-secondary-darker ${styles["equipment-row-qty-label"]}`}>
                                 {lang.Qty}
                             </div>
-                            <div className={`col text-secondary-darker`}>
-                                {lang.label}
-                            </div>
-                            <div className="col text-secondary-darker">
-                                {lang.modelName}
-                            </div>
-                            <div className="col text-secondary-darker">
-                                {lang.brand}
-                            </div>
+                            <div className={`col text-secondary-darker`}>{lang.label}</div>
+                            <div className="col text-secondary-darker">{lang.modelName}</div>
+                            <div className="col text-secondary-darker">{lang.brand}</div>
                         </div>
                     </li>
                     {sortedEquipment &&
                         sortedEquipment.map((equip, index) => {
-                            const equipmentModel = new Equipment(
-                                equip.equipment
-                            );
+                            const equipmentModel = new Equipment(equip.equipment);
                             return (
                                 <li
                                     className={` ${styles["equipment-row"]} row rounded py-2 mt-2`}
                                     key={`orgEquip${index}`}
                                 >
-                                    <Link
-                                        href={equipmentModel.singleLink}
-                                        title={equipmentModel.name}
-                                    >
-                                        <span
-                                            className={` ${styles["responsive-list"]}`}
-                                        >
-                                            <div
-                                                className={`${styles["equipment-row__qty"]}`}
-                                            >
-                                                {equip.qty}
-                                            </div>
-                                            <div
-                                                className={`col ${styles["equipment-row__name"]}`}
-                                            >
+                                    <Link href={equipmentModel.singleLink} title={equipmentModel.name}>
+                                        <span className={` ${styles["responsive-list"]}`}>
+                                            <div className={`${styles["equipment-row__qty"]}`}>{equip.qty}</div>
+                                            <div className={`col ${styles["equipment-row__name"]}`}>
                                                 {equipmentModel.label}
                                             </div>
-                                            <div
-                                                className={`col ${styles["equipment-row__modelName"]}`}
-                                            >
+                                            <div className={`col ${styles["equipment-row__modelName"]}`}>
                                                 {equipmentModel.modelName}
                                             </div>
-                                            <div
-                                                className={`col ${styles["equipment-row__brand"]}`}
-                                            >
+                                            <div className={`col ${styles["equipment-row__brand"]}`}>
                                                 {equipmentModel.brand}
                                             </div>
                                         </span>
@@ -266,17 +220,9 @@ const OrganisationSingleView = ({ data }) => {
             {location && (
                 <SingleInfo
                     displayCondition={location?.length > 0}
-                    title={lang.plural(
-                        lang.organisationPlace,
-                        lang.organisationPlaces,
-                        location?.length
-                    )}
+                    title={lang.plural(lang.organisationPlace, lang.organisationPlaces, location?.length)}
                 >
-                    <EntitiesTagGrid
-                        feed={location}
-                        subTagProperty={"address"}
-                        columnClass={"col-12"}
-                    />
+                    <EntitiesTagGrid feed={location} subTagProperty={"address"} columnClass={"col-12"} />
                 </SingleInfo>
             )}
 
@@ -286,29 +232,16 @@ const OrganisationSingleView = ({ data }) => {
                 NAMessage="Aucun secteur d'activité n'est précisé pour le moment."
                 displayCondition={domains.length > 0}
             >
-                {domains && (
-                    <SearchTag list={domains} listProperty={"domain"} />
-                )}
+                {domains && <SearchTag list={domains} listProperty={"domain"} />}
             </SingleInfo>
 
             {/* Fondation date */}
-            <SingleInfo
-                title={lang.fondationDate}
-                displayCondition={fondationDate ? true : false}
-            >
-                <TimeTag
-                    date={fondationDate}
-                    format={lang.fullHumanDateFormat}
-                />
+            <SingleInfo title={lang.fondationDate} displayCondition={fondationDate ? true : false}>
+                <TimeTag date={fondationDate} format={lang.fullHumanDateFormat} />
             </SingleInfo>
 
             {/* Url */}
-            {model && model?.url && (
-                <SocialHandleDisplay
-                    title={lang.externalLinks}
-                    url={model?.url}
-                />
-            )}
+            {model && model?.url && <SocialHandleDisplay title={lang.externalLinks} url={model?.url} />}
         </>
     );
 
@@ -316,11 +249,7 @@ const OrganisationSingleView = ({ data }) => {
         <>
             {(createdAt || updatedAt || meta) && (
                 <SingleInfo title={lang.entityMetadata} className="pt-3">
-                    <SingleEntityMeta
-                        createdAt={createdAt}
-                        updatedAt={updatedAt}
-                        meta={meta}
-                    />
+                    <SingleEntityMeta createdAt={createdAt} updatedAt={updatedAt} meta={meta} />
                 </SingleInfo>
             )}
         </>
@@ -334,8 +263,7 @@ const OrganisationSingleView = ({ data }) => {
                     { data: catchphrase },
                     {
                         data: description,
-                        validationFunction: (value) =>
-                            removeTagsFromString(value) ? true : false,
+                        validationFunction: (value) => (removeTagsFromString(value) ? true : false),
                     },
                     { data: sortedOffers },
                     { data: sortedTeam },

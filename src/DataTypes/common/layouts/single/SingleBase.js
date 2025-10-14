@@ -40,21 +40,15 @@ const SingleBase = (props) => {
         <>
             <PageMeta
                 title={getTitle([model?.meta.title, model?.Type.label]) || ""}
-                description={
-                    removeTagsFromString(model?.meta.description) || ""
-                }
+                description={removeTagsFromString(model?.meta.description) || ""}
                 imageFromApi={imageSrc || ""}
-                imageAlt={
-                    getTitle([model?.meta.title, model?.Type.label]) || ""
-                }
+                imageAlt={getTitle([model?.meta.title, model?.Type.label]) || ""}
                 canonical={model?.fullSingleLinkUrl || ""}
             />
 
             <div>
                 {/* Header */}
-                <header
-                    className={`${styles["header-base"]} ${styles["full-width-container"]} position-relative`}
-                >
+                <header className={`${styles["header-base"]} ${styles["full-width-container"]} position-relative`}>
                     <div className="container">
                         {/* Header's content */}
                         {header || <SingleBaseHeader />}
@@ -68,33 +62,23 @@ const SingleBase = (props) => {
                                 className={"pt-4"}
                                 labels={breadCrumb.labels}
                                 route={breadCrumb.route}
-                                getLabelGenerator={
-                                    breadCrumb.getLabelGenerator || undefined
-                                }
-                                getHrefGenerator={
-                                    breadCrumb.getHrefGenerator || undefined
-                                }
+                                getLabelGenerator={breadCrumb.getLabelGenerator || undefined}
+                                getHrefGenerator={breadCrumb.getHrefGenerator || undefined}
                             />
                         </div>
                     </div>
                 )}
                 {/* FullWidthContent */}
                 <section className="row">
-                    <div className="col-12">
-                        {fullWidthContent && fullWidthContent}
-                    </div>
+                    <div className="col-12">{fullWidthContent && fullWidthContent}</div>
                 </section>
 
                 {/* ContentColumn */}
                 <div className="row">
                     {/* ContentColumnLeft */}
-                    <section className="col-md-8">
-                        {contentColumnLeft && contentColumnLeft}
-                    </section>
+                    <section className="col-md-8">{contentColumnLeft && contentColumnLeft}</section>
                     {/* ContentColumnRight */}
-                    <section className="col-md-4">
-                        {contentColumnRight && contentColumnRight}
-                    </section>
+                    <section className="col-md-4">{contentColumnRight && contentColumnRight}</section>
                 </div>
 
                 {/* Footer */}
@@ -102,9 +86,7 @@ const SingleBase = (props) => {
 
                 {/* Page bottom : CTA + progress */}
                 {singlePageBottom && (
-                    <section
-                        className={`${styles["full-width-container"]} position-relative bg-primary-lighter`}
-                    >
+                    <section className={`${styles["full-width-container"]} position-relative bg-primary-lighter`}>
                         <div className="container">
                             <div className="row">
                                 <div className="d-flex justify-content-center align-items-center py-4">

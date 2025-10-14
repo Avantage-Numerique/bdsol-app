@@ -229,18 +229,11 @@ const ProjectSingleEdit = (props) => {
                 id: _id,
                 name: formState.inputs.name.value,
                 alternateName: formState.inputs.alternateName.value,
-                entityInCharge:
-                    formState.inputs.entityInCharge?.value?.map(
-                        (elem) => elem.value
-                    ) ?? [],
-                producer:
-                    formState.inputs.producer?.value?.map(
-                        (elem) => elem.value
-                    ) ?? [],
+                entityInCharge: formState.inputs.entityInCharge?.value?.map((elem) => elem.value) ?? [],
+                producer: formState.inputs.producer?.value?.map((elem) => elem.value) ?? [],
                 description: formState.inputs.description.value,
                 context:
-                    formState.inputs.context.value !== "" &&
-                    typeof formState.inputs.context.value !== "undefined"
+                    formState.inputs.context.value !== "" && typeof formState.inputs.context.value !== "undefined"
                         ? formState.inputs.context.value
                         : undefined,
                 sponsor: formState.inputs.sponsor.value.map((singleSponsor) => {
@@ -255,27 +248,19 @@ const ProjectSingleEdit = (props) => {
                     startDate: formState.inputs.startDate.value,
                     endDateEstimate: formState.inputs.endDateEstimate.value,
                     completionDate: formState.inputs.completionDate.value,
-                    estimatedTotalBudget:
-                        formState.inputs.estimatedTotalBudget.value,
+                    estimatedTotalBudget: formState.inputs.estimatedTotalBudget.value,
                     eta: formState.inputs.eta.value,
-                    timeframe: formState.inputs.timeframe.value.map(
-                        (singleTimeframe) => {
-                            return {
-                                step: singleTimeframe.value.step.value,
-                                eta:
-                                    singleTimeframe.value.eta.value == ""
-                                        ? undefined
-                                        : singleTimeframe.value.eta.value,
-                                budgetRange:
-                                    singleTimeframe.value.budgetRange.value ==
-                                    ""
-                                        ? undefined
-                                        : singleTimeframe.value.budgetRange
-                                              .value,
-                                subMeta: { order: singleTimeframe.order },
-                            };
-                        }
-                    ),
+                    timeframe: formState.inputs.timeframe.value.map((singleTimeframe) => {
+                        return {
+                            step: singleTimeframe.value.step.value,
+                            eta: singleTimeframe.value.eta.value == "" ? undefined : singleTimeframe.value.eta.value,
+                            budgetRange:
+                                singleTimeframe.value.budgetRange.value == ""
+                                    ? undefined
+                                    : singleTimeframe.value.budgetRange.value,
+                            subMeta: { order: singleTimeframe.order },
+                        };
+                    }),
                 },
                 team: formState.inputs.team.value.map(function (singleTeam) {
                     return {
@@ -284,16 +269,12 @@ const ProjectSingleEdit = (props) => {
                         subMeta: { order: singleTeam.order },
                     };
                 }),
-                equipment: formState.inputs?.equipment?.value?.map(
-                    (elem) => elem.value
-                ),
+                equipment: formState.inputs?.equipment?.value?.map((elem) => elem.value),
                 skills:
                     formState.inputs.skills?.value?.length > 0
-                        ? formState.inputs.skills.value.map(
-                              (selectOptionSkill) => {
-                                  return selectOptionSkill.value;
-                              }
-                          )
+                        ? formState.inputs.skills.value.map((selectOptionSkill) => {
+                              return selectOptionSkill.value;
+                          })
                         : [],
                 domains:
                     formState.inputs.domains?.value?.length > 0
@@ -311,10 +292,7 @@ const ProjectSingleEdit = (props) => {
                         subMeta: { order: singleUrl.order },
                     };
                 }),
-                meta: getDefaultUpdateEntityMeta(
-                    auth.user,
-                    model.meta.requestedBy
-                ),
+                meta: getDefaultUpdateEntityMeta(auth.user, model.meta.requestedBy),
             },
         };
 
@@ -407,12 +385,7 @@ const ProjectSingleEdit = (props) => {
                     <Icon iconName={"save"} />
                     &nbsp;{lang.capitalize("save")}
                 </Button>
-                <Button
-                    className="fs-6"
-                    size="slim"
-                    color="primary-light"
-                    href={model.singleLink}
-                >
+                <Button className="fs-6" size="slim" color="primary-light" href={model.singleLink}>
                     <Icon iconName={"times"} />
                     &nbsp;{lang.Cancel}
                 </Button>
@@ -442,11 +415,7 @@ const ProjectSingleEdit = (props) => {
         <>
             {/* Sponsor */}
             <SingleInfo title={lang.sponsors}>
-                <UpdateSponsor
-                    name="sponsor"
-                    formTools={formTools}
-                    parentEntity={props.data}
-                />
+                <UpdateSponsor name="sponsor" formTools={formTools} parentEntity={props.data} />
             </SingleInfo>
             {/* team */}
             <SingleInfo title="Membres de l'équipe">
@@ -459,11 +428,7 @@ const ProjectSingleEdit = (props) => {
             </SingleInfo>
             {/* scheduleBudget */}
             <SingleInfo title="Échéancier et budget">
-                <UpdateScheduleBudget
-                    name="scheduleBudget"
-                    formTools={formTools}
-                    parentEntity={props.data}
-                />
+                <UpdateScheduleBudget name="scheduleBudget" formTools={formTools} parentEntity={props.data} />
             </SingleInfo>
             {/* Update the equipment list */}
             <SingleInfo title={lang.equipmentUsed}>
@@ -483,11 +448,7 @@ const ProjectSingleEdit = (props) => {
     const contentColumnRight = (
         <>
             <SingleInfo title={lang.contactInformations}>
-                <UpdateContactPoint
-                    formTools={formTools}
-                    name="contactPoint"
-                    model={model}
-                />
+                <UpdateContactPoint formTools={formTools} name="contactPoint" model={model} />
             </SingleInfo>
 
             <SingleInfo title="Informations supplémentaires">
@@ -530,12 +491,7 @@ const ProjectSingleEdit = (props) => {
 
                 <SingleInfo title={lang.externalLinks} isSubtitle noCardLayout>
                     {/* Url */}
-                    <UpdateSocialHandles
-                        name="url"
-                        label={lang.url}
-                        parentEntity={model}
-                        formTools={formTools}
-                    />
+                    <UpdateSocialHandles name="url" label={lang.url} parentEntity={model} formTools={formTools} />
                 </SingleInfo>
             </SingleInfo>
         </>
@@ -549,11 +505,7 @@ const ProjectSingleEdit = (props) => {
             {(createdAt || updatedAt || meta) && (
                 <SingleInfo title={lang.entityMetadata} className="pt-3">
                     {/*********** Entity data ***********/}
-                    <SingleEntityMeta
-                        createdAt={createdAt}
-                        updatedAt={updatedAt}
-                        meta={meta}
-                    />
+                    <SingleEntityMeta createdAt={createdAt} updatedAt={updatedAt} meta={meta} />
                 </SingleInfo>
             )}
         </>
@@ -575,10 +527,7 @@ const ProjectSingleEdit = (props) => {
 
     return (
         <>
-            <SingleBeforeUnloadReminder
-                formTools={formTools}
-                saveIntention={saveIntentionState}
-            />
+            <SingleBeforeUnloadReminder formTools={formTools} saveIntention={saveIntentionState} />
             <SingleBase
                 breadCrumb={breadCrumb}
                 header={header}

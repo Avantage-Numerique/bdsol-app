@@ -17,9 +17,7 @@ const ContactPointView = ({ contact, ...props }) => {
     const emailAddressSection = email.address !== "" && (
         <article className={`d-flex flex-column p-2 mb-2`}>
             <h5 className="text-dark mb-2">{lang.email}</h5>
-            <ExternalLink href={"mailto:" + email.address}>
-                {email.address}
-            </ExternalLink>
+            <ExternalLink href={"mailto:" + email.address}>{email.address}</ExternalLink>
         </article>
     );
     const websiteUrlSection = website.url !== "" && (

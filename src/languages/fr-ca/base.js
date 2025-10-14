@@ -43,8 +43,7 @@ const base = {
     appDefaultName: "AVNU | La base de données d'Avantage Numérique",
     appDefaultDescription:
         "La base de données qui recense et géolocalise les talents, les compétences, les équipements et les initiatives technocréatives dans le Croissant boréal.",
-    appDefaultKeywords:
-        "ontologie, classe, propriété, base de données, technologie, créateurs, communauté",
+    appDefaultKeywords: "ontologie, classe, propriété, base de données, technologie, créateurs, communauté",
     appDefaultProducer: "Avantage Numérique",
     appProducerDefaultDescription:
         "Avantage numérique est un hub virtuel, physique et mobile qui dessert les secteurs de la culture, des affaires et du savoir. Il vise le développement de l’écosystème créatif, entrepreneurial et technologique du Croissant boréal.",
@@ -54,8 +53,7 @@ const base = {
     croissantBorealTitle: "Le Croissant boréal",
     croissantBorealDescription:
         "Secteur géographique regroupant les régions de l'Abitibi-Témiscamingue, du Nord-du-Québec et du Nord-Est de l'Ontario francophone.",
-    homePageTitle:
-        "Explorer les ressources technologiques francophones régionales et locales",
+    homePageTitle: "Explorer les ressources technologiques francophones régionales et locales",
     homePageDescription:
         "Retrouvez en quelques clics les organisations, projets, personnes, équipements et événements en lien avec le numérique sur votre territoire.",
     actualities: "Actualités",
@@ -65,8 +63,7 @@ const base = {
 
     //  Auth
 
-    needToBeConnectedToAccess:
-        "Vous devez être connecté pour pouvoir ajouter une entité à la base de données.",
+    needToBeConnectedToAccess: "Vous devez être connecté pour pouvoir ajouter une entité à la base de données.",
 
     //  Espace membre
 
@@ -82,10 +79,8 @@ const base = {
     disconnectionSucceed: "Vous avez bien été déconnecté.",
 
     //  DataType/common/commonFormFeatures/commonFormFeatures.js
-    needAuthToContribute:
-        "Vous devez être connecté pour pouvoir contribuer à la base de données.",
-    authInvitationToContribute:
-        "Connectez-vous pour pouvoir contribuer à la base de données.",
+    needAuthToContribute: "Vous devez être connecté pour pouvoir contribuer à la base de données.",
+    authInvitationToContribute: "Connectez-vous pour pouvoir contribuer à la base de données.",
     // http-hook
 
     fetchErrorMessage:
@@ -100,8 +95,7 @@ const base = {
     required: "*",
     consult: "Consulter",
     contribute: "Ajouter",
-    onNavigationBlockWithoutSave:
-        "Des modifications n'ont pas été sauvegardées. Voulez-vous vraiment quitter?",
+    onNavigationBlockWithoutSave: "Des modifications n'ont pas été sauvegardées. Voulez-vous vraiment quitter?",
 
     //Taxonomies related
     skillsAndTechnologies: "Compétences et technologies",
@@ -112,8 +106,7 @@ const base = {
 
     //  TEAMS
 
-    noTeamMemberSetMessage:
-        "Personne n'est inscrit comme membre de l'équipe de cette organisation.",
+    noTeamMemberSetMessage: "Personne n'est inscrit comme membre de l'équipe de cette organisation.",
     teamMembers: "Membres de l'équipe",
     teamMember: "Membre de l'équipe",
     team: "Équipe",
@@ -136,8 +129,7 @@ const base = {
     menuLabelToDisconnect: "Se déconnecter",
 
     //  FAQ
-    noLicenceData:
-        "Les données sur les licences dans l'API n'ont pas été trouvées.",
+    noLicenceData: "Les données sur les licences dans l'API n'ont pas été trouvées.",
 
     // Single
     ctaLabel: "Appel à l'action",

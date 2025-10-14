@@ -23,14 +23,11 @@ const confirmationForm = () => {
     //Function copy/pasted from /verifier-compte/[token].js
     //Possibilities of removing email input and ajust formState to the user that just registered if it's the case
     const resendToken = async () => {
-        const apiResponse = await clientSideExternalApiRequest(
-            "/verify-account/resend",
-            {
-                body: JSON.stringify({
-                    data: { email: formState.inputs.email.value },
-                }),
-            }
-        );
+        const apiResponse = await clientSideExternalApiRequest("/verify-account/resend", {
+            body: JSON.stringify({
+                data: { email: formState.inputs.email.value },
+            }),
+        });
 
         msg.addMessage({
             text: "Un email de confirmation a été envoyé s'il s'agit d'un courriel associé à un compte",
@@ -45,18 +42,10 @@ const confirmationForm = () => {
 
     return (
         <div>
-            <PageMeta
-                title={lang.compte__toConfirme__title}
-                preventIndexation
-            />
+            <PageMeta title={lang.compte__toConfirme__title} preventIndexation />
             <div className="border-bottom my-4"></div>
-            <h3 className="fs-5 text-dark-light">
-                Voulez-vous un nouveau lien de confirmation?
-            </h3>
-            <div>
-                Si vous ne recevez pas de courriel, veuillez vérifier vos
-                courriels indésirables.
-            </div>
+            <h3 className="fs-5 text-dark-light">Voulez-vous un nouveau lien de confirmation?</h3>
+            <div>Si vous ne recevez pas de courriel, veuillez vérifier vos courriels indésirables.</div>
             <Input
                 name="email"
                 className="my-4"
@@ -70,8 +59,7 @@ const confirmationForm = () => {
             </Button>
             <small>
                 <p className="mt-2">
-                    *Noter qu'il y a un délai de 5 minutes pour un envoi vers
-                    une même adresse courriel
+                    *Noter qu'il y a un délai de 5 minutes pour un envoi vers une même adresse courriel
                 </p>
             </small>
         </div>

@@ -27,10 +27,7 @@ export const replacePathname = (pathname, replaceWith) => {
     for (const position in pathParts) {
         const pathValueRaw = pathParts[position];
         const pathValue = pathValueRaw.replace("[", "").replace("]", "");
-        pathParts[position] =
-            replaceWith && replaceWith[pathValue]
-                ? replaceWith[pathValue]
-                : pathValue;
+        pathParts[position] = replaceWith && replaceWith[pathValue] ? replaceWith[pathValue] : pathValue;
     }
     return pathParts.join("/");
 };

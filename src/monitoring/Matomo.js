@@ -53,12 +53,7 @@ class Matomo {
                 ? "L'identifiant pour les statistique sur matomo n'est pas défini. "
                 : "";
         message +=
-            message === ""
-                ? typeof this.url +
-                  " " +
-                  typeof this.id +
-                  " Url and or id have an unknown state. "
-                : "";
+            message === "" ? typeof this.url + " " + typeof this.id + " Url and or id have an unknown state. " : "";
         console.error(message);
     }
 

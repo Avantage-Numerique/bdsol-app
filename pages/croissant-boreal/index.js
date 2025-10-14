@@ -27,25 +27,17 @@ const HomePage = (props) => {
     const headerDescription = () => {
         return (
             <div>
-                <ExternalLink
-                    href={
-                        "https://fr.wikipedia.org/wiki/Projet:Croissant_bor%C3%A9al"
-                    }
-                >
+                <ExternalLink href={"https://fr.wikipedia.org/wiki/Projet:Croissant_bor%C3%A9al"}>
                     Le projet du croissant boraél sur Wikipédia
                 </ExternalLink>
-                <ExternalLink
-                    href={"https://avantagenumerique.org/le-croissant-boreal/"}
-                >
-                    La page dédier au territoire sur le site web d'Avantage
-                    Numérique
+                <ExternalLink href={"https://avantagenumerique.org/le-croissant-boreal/"}>
+                    La page dédier au territoire sur le site web d'Avantage Numérique
                 </ExternalLink>
             </div>
         );
     };
 
-    const badgeCroissantBoreal =
-        props.badgesInfo && props.badgesInfo.CB ? props.badgesInfo.CB : null;
+    const badgeCroissantBoreal = props.badgesInfo && props.badgesInfo.CB ? props.badgesInfo.CB : null;
 
     return (
         <div className={"home-page"}>
@@ -69,18 +61,11 @@ const HomePage = (props) => {
                 key={"pageHeaderHomePage"}
                 reverseWrap
             >
-                <ExternalLink
-                    href={
-                        "https://fr.wikipedia.org/wiki/Projet:Croissant_bor%C3%A9al"
-                    }
-                >
+                <ExternalLink href={"https://fr.wikipedia.org/wiki/Projet:Croissant_bor%C3%A9al"}>
                     Le projet du croissant boraél sur Wikipédia
                 </ExternalLink>
-                <ExternalLink
-                    href={"https://avantagenumerique.org/le-croissant-boreal/"}
-                >
-                    La page dédier au territoire sur le site web d'Avantage
-                    Numérique
+                <ExternalLink href={"https://avantagenumerique.org/le-croissant-boreal/"}>
+                    La page dédier au territoire sur le site web d'Avantage Numérique
                 </ExternalLink>
             </PageHeader>
             <section className="container py-4">
@@ -89,13 +74,10 @@ const HomePage = (props) => {
                     <div className="col-12 col-md-6">
                         <h2>Le territoire du Croissant Boréal</h2>
                         <p>
-                            Le Nord de l’Ontario francophone,
-                            l’Abitibi-Témiscamingue et le Nord-du-Québec ont de
-                            nombreux points communs en matière de territoire,
-                            d’économie, d’identité et de culture. En nous
-                            unissant, nous augmentons notre pouvoir d’action et
-                            favorisons notre déploiement à l’échelle nationale
-                            et internationale et au sein de la francophonie.
+                            Le Nord de l’Ontario francophone, l’Abitibi-Témiscamingue et le Nord-du-Québec ont de
+                            nombreux points communs en matière de territoire, d’économie, d’identité et de culture. En
+                            nous unissant, nous augmentons notre pouvoir d’action et favorisons notre déploiement à
+                            l’échelle nationale et internationale et au sein de la francophonie.
                         </p>
                     </div>
                     <div className="col-12 col-md-6">
@@ -104,19 +86,12 @@ const HomePage = (props) => {
                             dans le croissant boréal
                         </h2>
                         <p>
-                            Nous avons commencé à ajouter des badges pour
-                            identifier chacun des technocréatifs dans les
-                            territoires d'AVNU. Le premier est pour le croissant
-                            Boréal.
+                            Nous avons commencé à ajouter des badges pour identifier chacun des technocréatifs dans les
+                            territoires d'AVNU. Le premier est pour le croissant Boréal.
                         </p>
                         <ul>
                             {badgeCroissantBoreal && (
-                                <li
-                                    key={`badge-CB`}
-                                    className={
-                                        "list-group-item p-0 position-relative"
-                                    }
-                                >
+                                <li key={`badge-CB`} className={"list-group-item p-0 position-relative"}>
                                     <img
                                         className=""
                                         width="40px"
@@ -124,9 +99,7 @@ const HomePage = (props) => {
                                         src={badgeCroissantBoreal.iconPath}
                                         alt={badgeCroissantBoreal.iconAlt}
                                     />
-                                    <span>
-                                        {badgeCroissantBoreal?.label ?? "Badge"}
-                                    </span>
+                                    <span>{badgeCroissantBoreal?.label ?? "Badge"}</span>
                                     <span className={"badge bg-secondary ms-2"}>
                                         {badgeCroissantBoreal.description}
                                     </span>

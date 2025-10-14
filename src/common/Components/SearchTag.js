@@ -19,14 +19,11 @@ const SearchTag = ({ list, max, ...props }) => {
     useEffect(() => {
         const setupList = list
             ?.map((listElement) => {
-                let targetElement = props.listProperty
-                    ? listElement[props.listProperty]
-                    : listElement;
+                let targetElement = props.listProperty ? listElement[props.listProperty] : listElement;
                 targetElement = targetElement ?? listElement;
                 return {
                     ...targetElement,
-                    url:
-                        "/" + targetElement.category + "/" + targetElement.slug,
+                    url: "/" + targetElement.category + "/" + targetElement.slug,
                 };
             })
             .flat();
@@ -59,10 +56,7 @@ const SearchTag = ({ list, max, ...props }) => {
                         }
                     })}
                     {moreThanMax && (
-                        <span
-                            className={`badge text-bg-primary-light me-1`}
-                            key={"searchTag-showmore"}
-                        >
+                        <span className={`badge text-bg-primary-light me-1`} key={"searchTag-showmore"}>
                             &hellip;
                         </span>
                     )}

@@ -68,10 +68,7 @@ const OrganisationsPage = (props) => {
 
     return (
         <div>
-            <PageMeta
-                title={getTitle([type.labelPlural])}
-                description={lang.organisations__description}
-            />
+            <PageMeta title={getTitle([type.labelPlural])} description={lang.organisations__description} />
             <PageHeader
                 bg={"bg-primary-lighter"}
                 textColor={"text-white"}
@@ -80,11 +77,7 @@ const OrganisationsPage = (props) => {
                     "Les organisations présentées ici travaillent avec les technologies numériques et se trouvent sur le territoire du Croissant boréal."
                 }
             >
-                <Breadcrumbs
-                    className={"pt-2"}
-                    route={AppRoutes.organisations}
-                    labels={breadcrumbsLabels}
-                />
+                <Breadcrumbs className={"pt-2"} route={AppRoutes.organisations} labels={breadcrumbsLabels} />
             </PageHeader>
 
             <div className="container">
@@ -94,11 +87,7 @@ const OrganisationsPage = (props) => {
                         <div className="position-relative row row-cols-1 row-cols-sm-2 row-cols-xl-3">
                             {/* Loading state : If loading is on and there is no feed */}
                             {isLoading && (
-                                <div
-                                    className={
-                                        "home-page__feed-section--spinner-container"
-                                    }
-                                >
+                                <div className={"home-page__feed-section--spinner-container"}>
                                     <div>
                                         <Spinner reverse />
                                     </div>
@@ -129,29 +118,20 @@ const OrganisationsPage = (props) => {
                     {/* Aside section */}
                     <aside className="col col-12 col-md-3">
                         <div className="my-4 d-flex flex-column">
-                            <Button
-                                disabled={!auth.user.isLoggedIn}
-                                href="/contribuer/organisations"
-                                size="reg-100"
-                            >
+                            <Button disabled={!auth.user.isLoggedIn} href="/contribuer/organisations" size="reg-100">
                                 Ajouter une organisation
                             </Button>
 
                             {!auth.user.isLoggedIn && (
                                 <p className="mt-2">
-                                    Notez que vous devez être{" "}
-                                    <b className="text-primary">connecté</b>{" "}
-                                    pour pouvoir ajouter des entitées à la base
-                                    de données.
+                                    Notez que vous devez être <b className="text-primary">connecté</b> pour pouvoir
+                                    ajouter des entitées à la base de données.
                                 </p>
                             )}
                             {!auth.user.isLoggedIn && (
                                 <>
                                     <hr />
-                                    <Button
-                                        size="reg-100"
-                                        href="/compte/connexion"
-                                    >
+                                    <Button size="reg-100" href="/compte/connexion">
                                         Se connecter
                                     </Button>
                                 </>

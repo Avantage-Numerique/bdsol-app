@@ -13,37 +13,26 @@ import { useEffect } from "react";
 
 const RadioButton = ({ name, formTools, ...props }) => {
     const { formState, inputHandler } = formTools;
-    const {
-        validate,
-        RequirementsBadges,
-        ValidationErrorMessages,
-        dependencyCallingValidation,
-    } = useValidation(props.validationRules, formState);
+    const { validate, RequirementsBadges, ValidationErrorMessages, dependencyCallingValidation } = useValidation(
+        props.validationRules,
+        formState
+    );
 
     const updateValue = (event) => {
-        inputHandler(
-            name,
-            event.target.value,
-            props.validationRules ? validate(event.target.value) : true
-        );
+        inputHandler(name, event.target.value, props.validationRules ? validate(event.target.value) : true);
     };
 
     useEffect(() => {
         inputHandler(
             name,
             formState.inputs[name].value,
-            props.validationRules
-                ? validate(formState.inputs[name].value)
-                : true
+            props.validationRules ? validate(formState.inputs[name].value) : true
         );
     }, [dependencyCallingValidation]);
 
     //Set a checked radio if only one option available
     useEffect(() => {
-        if (
-            props.options.length === 1 &&
-            formState.inputs[name]?.value !== props.options[0].value
-        ) {
+        if (props.options.length === 1 && formState.inputs[name]?.value !== props.options[0].value) {
             updateValue({ target: { value: props.options[0].value } });
         }
     }, [props.options]);

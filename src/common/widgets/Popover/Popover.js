@@ -48,24 +48,15 @@ class Tooltip {
     bindEvents() {
         // Events that trigger openTooltip()
         // Open on mouse hover
-        this.container.addEventListener(
-            "mouseenter",
-            this.openTooltip.bind(this)
-        );
+        this.container.addEventListener("mouseenter", this.openTooltip.bind(this));
         // Open when a touch is detected
-        this.container.addEventListener(
-            "touchstart",
-            this.openTooltip.bind(this)
-        );
+        this.container.addEventListener("touchstart", this.openTooltip.bind(this));
         // Open when the trigger gets focus
         this.trigger.addEventListener("focus", this.openTooltip.bind(this));
 
         // Events that trigger closeTooltip()
         // Close when the mouse cursor leaves the trigger or tooltip area
-        this.container.addEventListener(
-            "mouseleave",
-            this.closeTooltip.bind(this)
-        );
+        this.container.addEventListener("mouseleave", this.closeTooltip.bind(this));
         // Close when the trigger loses focus
         this.trigger.addEventListener("blur", this.closeTooltip.bind(this));
     }
@@ -77,10 +68,7 @@ class Tooltip {
 
     removeGlobalListener() {
         document.removeEventListener("keydown", this.globalEscapeBound);
-        document.removeEventListener(
-            "pointerdown",
-            this.globalPointerDownBound
-        );
+        document.removeEventListener("pointerdown", this.globalPointerDownBound);
     }
 
     globalEscape(event) {
@@ -200,10 +188,7 @@ class Tooltip {
     }
 
     moveTooltipLeft(bounds, windowWidth) {
-        let translateAmount =
-            windowWidth -
-            Math.round(bounds.right) -
-            Math.round(bounds.width) / 1.6;
+        let translateAmount = windowWidth - Math.round(bounds.right) - Math.round(bounds.width) / 1.6;
         this.tooltip.style.transform = `translateX(${translateAmount}px)`;
     }
 
@@ -233,11 +218,7 @@ function Popover(props) {
             <button type="button" aria-describedby={uniqueName}>
                 {label}
             </button>
-            <div
-                id={uniqueName}
-                role="tooltip"
-                className={styles["tooltip-hidden tooltip-content"]}
-            >
+            <div id={uniqueName} role="tooltip" className={styles["tooltip-hidden tooltip-content"]}>
                 <h5>{title}</h5>
                 <p>{content}</p>
             </div>

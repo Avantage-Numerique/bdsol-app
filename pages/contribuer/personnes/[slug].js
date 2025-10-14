@@ -10,6 +10,4 @@ const SinglePersonEditPage = (props) => {
 
 export default SinglePersonEditPage;
 
-export const getServerSideProps = withSessionSsr(
-    ssrCanContributeToEntity("persons")
-);
+export const getServerSideProps = withSessionSsr(ssrCanContributeToEntity("persons"));

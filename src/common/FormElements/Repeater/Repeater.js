@@ -1,13 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 
-import {
-    closestCenter,
-    DndContext,
-    KeyboardSensor,
-    PointerSensor,
-    useSensor,
-    useSensors,
-} from "@dnd-kit/core";
+import { closestCenter, DndContext, KeyboardSensor, PointerSensor, useSensor, useSensors } from "@dnd-kit/core";
 
 import {
     arrayMove,
@@ -33,21 +26,14 @@ import { useAuth } from "@/auth/context/auth-context";
 import styles from "./Repeater.module.scss";
 
 //Recursive function to create the children with the proper values
-const iterateOverChildren = (
-    children,
-    formInitSubStructure,
-    formTools,
-    deleteIteration
-) => {
+const iterateOverChildren = (children, formInitSubStructure, formTools, deleteIteration) => {
     return React.Children.map(children, (child) => {
         // equal to (if (child == null || typeof child == 'string'))
         if (!React.isValidElement(child)) return child;
 
         //If this child has a name prop,
         // and if the value is equal to one of the values declared for the formState, then it means it is a field and require a formtool
-        const newProps = Object.keys(formInitSubStructure).some(
-            (key) => key === child.props?.name
-        )
+        const newProps = Object.keys(formInitSubStructure).some((key) => key === child.props?.name)
             ? { formTools: formTools }
             : {};
 
@@ -55,12 +41,7 @@ const iterateOverChildren = (
             ...child.props,
             ...newProps,
             // you can alse read child original className by child.props.className
-            children: iterateOverChildren(
-                child.props.children,
-                formInitSubStructure,
-                formTools,
-                deleteIteration
-            ),
+            children: iterateOverChildren(child.props.children, formInitSubStructure, formTools, deleteIteration),
         });
     });
 };
@@ -77,12 +58,7 @@ const RepeaterSingleIteration = ({
     const { formState, formTools } = useFormUtils(formInitSubStructure);
     // update the value
     useEffect(() => {
-        updateIterationValue(
-            iterationKey,
-            formState.inputs,
-            formState.isValid,
-            formState.hasAnyInputBeenTouched
-        );
+        updateIterationValue(iterationKey, formState.inputs, formState.isValid, formState.hasAnyInputBeenTouched);
     }, [formState]);
 
     const deleteIterationButton = (
@@ -95,16 +71,9 @@ const RepeaterSingleIteration = ({
     return (
         <div className="row">
             <div className="col-11">
-                {iterateOverChildren(
-                    children,
-                    formInitSubStructure,
-                    formTools,
-                    deleteIterationByKey
-                )}
+                {iterateOverChildren(children, formInitSubStructure, formTools, deleteIterationByKey)}
             </div>
-            <div className="d-flex col-1 align-items-start">
-                {deleteIterationButton}
-            </div>
+            <div className="d-flex col-1 align-items-start">{deleteIterationButton}</div>
         </div>
     );
 };
@@ -123,8 +92,7 @@ const SortableItem = (props) => {
         formInitStructure,
     } = props;
 
-    const { attributes, listeners, setNodeRef, transform, transition } =
-        useSortable({ id: props.id });
+    const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id: props.id });
 
     const style = {
         transform: CSS.Transform.toString(transform),
@@ -148,19 +116,14 @@ const SortableItem = (props) => {
                     type="button"
                     className={`${styles["dragging-button"]} rounded-start flex-grow-0 d-flex align-items-center p-2`}
                 >
-                    <Icon
-                        className="d-flex align-items-center"
-                        iconName="las la-grip-vertical"
-                    />
+                    <Icon className="d-flex align-items-center" iconName="las la-grip-vertical" />
                 </div>
             )}
             <div className="container">
                 <div className="row">
                     <RepeaterSingleIteration
                         iterationKey={iteration.key}
-                        deleteIterationByKey={() =>
-                            deleteIterationByKey(iteration.key)
-                        }
+                        deleteIterationByKey={() => deleteIterationByKey(iteration.key)}
                         formInitSubStructure={
                             iteration.initFormStructureWithValues
                                 ? iteration.initFormStructureWithValues
@@ -207,9 +170,7 @@ const Repeater = (props) => {
 
     //State to manage the values of every iterations of the repeater
     let initIteration = {};
-    const [iterations, setIterations] = useState(
-        addInitValuesToState(initValues)
-    );
+    const [iterations, setIterations] = useState(addInitValuesToState(initValues));
     initIteration = iterations;
 
     //Announce the current dragged element
@@ -228,9 +189,7 @@ const Repeater = (props) => {
         let isValid = true;
         let value = [];
         //Convert the iterations elements into an array
-        const arrayOfIterationsValues = iterations
-            ? Object.values(iterations)
-            : [];
+        const arrayOfIterationsValues = iterations ? Object.values(iterations) : [];
         //Loop through it to look at every children
         arrayOfIterationsValues.forEach((ite) => {
             //If only one isn't valid, the whole field becomes invalid
@@ -280,11 +239,7 @@ const Repeater = (props) => {
             //3. Loop in the initialValues passed has props to fill the startIterationsObj
             initValues.forEach((elem, i) => {
                 //Initialize the value that are going to compose the return object
-                let current_id = elem._id
-                    ? elem._id
-                    : elem.id
-                      ? elem.id
-                      : undefined;
+                let current_id = elem._id ? elem._id : elem.id ? elem.id : undefined;
                 let formInitStructureWithValues = {}; //Same shape but going to be filled with the values
                 //For the last one, lets loop into the array of key words to search for a fit
                 arrayOfKeyWords.forEach((keyWord) => {
@@ -294,11 +249,7 @@ const Repeater = (props) => {
                     };
                 });
                 //New lets build the formObject with thoses values
-                const newIterationObj = createIteration(
-                    current_id,
-                    formInitStructureWithValues,
-                    elem?.subMeta?.order
-                );
+                const newIterationObj = createIteration(current_id, formInitStructureWithValues, elem?.subMeta?.order);
                 //Update the return object
                 startIterationsObj = {
                     ...startIterationsObj,
@@ -349,8 +300,7 @@ const Repeater = (props) => {
         Object.keys(updatedIterations).forEach((objKey) => {
             const objOrder = updatedIterations[objKey].order;
             //If the order is higher than the one we deleted, decrease it from 1
-            if (objOrder > deletedOrder)
-                updatedIterations[objKey].order = objOrder - 1;
+            if (objOrder > deletedOrder) updatedIterations[objKey].order = objOrder - 1;
         });
         //update the state
         setIterations(updatedIterations);
@@ -362,40 +312,26 @@ const Repeater = (props) => {
         //Create a new Id
         const newId = Math.floor(Math.random() * 1000000 + 1);
         //Make sure it doesn't exist already into the state. Also accept is iteration is not defined yet
-        if (
-            !initIteration ||
-            !Object.keys(initIteration).some((key) => key == newId)
-        )
-            return newId;
+        if (!initIteration || !Object.keys(initIteration).some((key) => key == newId)) return newId;
         //If the id isn't unique, than call the function again
         generateUniqueId();
     }
 
     //Create a new Id and make sure its not gonna be in double
-    function createIteration(
-        _id,
-        initFormStructureWithValues,
-        orderNumber = null
-    ) {
+    function createIteration(_id, initFormStructureWithValues, orderNumber = null) {
         //Create an ID
         const key = generateUniqueId();
         //Iterations array
-        const iterationsArray = initIteration
-            ? Object.values(initIteration)
-            : [];
+        const iterationsArray = initIteration ? Object.values(initIteration) : [];
         //Build the object
         const obj = {
             [key]: {
                 key: key,
                 order:
                     orderNumber ||
-                    (iterationsArray.length > 0
-                        ? Math.max(...iterationsArray.map((o) => o.order)) + 1
-                        : 0), //Prioriser le order number. S'il n'y en a aucun, on prend la plus haute valeur dans iterations
+                    (iterationsArray.length > 0 ? Math.max(...iterationsArray.map((o) => o.order)) + 1 : 0), //Prioriser le order number. S'il n'y en a aucun, on prend la plus haute valeur dans iterations
                 value: {},
-                initFormStructureWithValues: initFormStructureWithValues
-                    ? initFormStructureWithValues
-                    : null,
+                initFormStructureWithValues: initFormStructureWithValues ? initFormStructureWithValues : null,
                 _id: _id ? _id : null,
                 isValid: true,
             },
@@ -424,9 +360,7 @@ const Repeater = (props) => {
                     onDragEnd={handleDragEnd}
                 >
                     <SortableContext
-                        items={sortedIterationsArray.map((elem) =>
-                            String(elem.key)
-                        )}
+                        items={sortedIterationsArray.map((elem) => String(elem.key))}
                         strategy={verticalListSortingStrategy}
                     >
                         {sortedIterationsArray.map((iteration) => (
@@ -435,9 +369,7 @@ const Repeater = (props) => {
                                 key={iteration.key}
                                 iteration={iteration}
                                 className={className}
-                                isDragActive={
-                                    String(iteration.key) === dragActiveItem?.id
-                                }
+                                isDragActive={String(iteration.key) === dragActiveItem?.id}
                                 sortable={sortable}
                                 sortedIterationsArray={sortedIterationsArray}
                                 deleteIterationByKey={deleteIterationByKey}
@@ -469,13 +401,9 @@ const Repeater = (props) => {
         const { active, over } = event;
 
         if (active?.id && over?.id && active.id !== over.id) {
-            const sortedKeysArray = sortedIterationsArray.map((elem) =>
-                String(elem.key)
-            );
+            const sortedKeysArray = sortedIterationsArray.map((elem) => String(elem.key));
             //Initial array of orders (supposed to be sorted). Ex : [1, 2, 3, 4]
-            const arrayOfActualOrders = sortedIterationsArray.map(
-                (elem) => elem.order
-            );
+            const arrayOfActualOrders = sortedIterationsArray.map((elem) => elem.order);
             //Array of modified orders. Ex : [1, 4, 2, 3]
             const modifiedOrders = arrayMove(
                 arrayOfActualOrders,

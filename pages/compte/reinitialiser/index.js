@@ -5,10 +5,7 @@ import { lang } from "@/common/Data/GlobalConstants";
 const ResetPasswordPage = () => {
     return (
         <>
-            <PageMeta
-                title={lang.compte__passwordReset__title}
-                preventIndexation
-            />
+            <PageMeta title={lang.compte__passwordReset__title} preventIndexation />
             <ResetPassword />
         </>
     );

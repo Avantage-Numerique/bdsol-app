@@ -155,10 +155,7 @@ const PlaceSingleEdit = ({ positiveRequestActions, ...props }) => {
                 country: formState.inputs.country.value,
                 latitude: formState.inputs.latitude.value,
                 longitude: formState.inputs.longitude.value,
-                meta: getDefaultUpdateEntityMeta(
-                    auth.user,
-                    model.meta.requestedBy
-                ),
+                meta: getDefaultUpdateEntityMeta(auth.user, model.meta.requestedBy),
             },
         };
 
@@ -216,12 +213,7 @@ const PlaceSingleEdit = ({ positiveRequestActions, ...props }) => {
                     <Icon iconName={"save"} />
                     &nbsp;{lang.capitalize("save")}
                 </Button>
-                <Button
-                    className="fs-6"
-                    size="slim"
-                    color="primary-light"
-                    href={model.singleLink}
-                >
+                <Button className="fs-6" size="slim" color="primary-light" href={model.singleLink}>
                     <Icon iconName={"times"} />
                     &nbsp;{lang.Cancel}
                 </Button>
@@ -337,11 +329,7 @@ const PlaceSingleEdit = ({ positiveRequestActions, ...props }) => {
             {(createdAt || updatedAt || meta) && (
                 <SingleInfo title={lang.entityMetadata} className="pt-3">
                     {/*********** Entity data ***********/}
-                    <SingleEntityMeta
-                        createdAt={createdAt}
-                        updatedAt={updatedAt}
-                        meta={meta}
-                    />
+                    <SingleEntityMeta createdAt={createdAt} updatedAt={updatedAt} meta={meta} />
                 </SingleInfo>
             )}
         </>
@@ -363,10 +351,7 @@ const PlaceSingleEdit = ({ positiveRequestActions, ...props }) => {
 
     return (
         <>
-            <SingleBeforeUnloadReminder
-                formTools={formTools}
-                saveIntention={saveIntentionState}
-            />
+            <SingleBeforeUnloadReminder formTools={formTools} saveIntention={saveIntentionState} />
             <SingleBase
                 breadCrumb={breadCrumb}
                 header={header}

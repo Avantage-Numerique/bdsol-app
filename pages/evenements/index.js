@@ -40,12 +40,9 @@ const EventsPage = () => {
     */
     const fetchData = async () => {
         //Send the request with the specialized hook
-        const eventResponse = await sendRequest(
-            "/events/list",
-            "POST",
-            JSON.stringify({ data: { sort: "desc" } }),
-            { "Content-Type": "application/json" }
-        );
+        const eventResponse = await sendRequest("/events/list", "POST", JSON.stringify({ data: { sort: "desc" } }), {
+            "Content-Type": "application/json",
+        });
 
         //If positive
         if (!eventResponse.error) {
@@ -68,10 +65,7 @@ const EventsPage = () => {
 
     return (
         <div>
-            <PageMeta
-                title={getTitle([type.labelPlural])}
-                description={lang.event__description}
-            />
+            <PageMeta title={getTitle([type.labelPlural])} description={lang.event__description} />
             <PageHeader
                 bg={"bg-primary-lighter"}
                 textColor={"text-white"}
@@ -79,11 +73,7 @@ const EventsPage = () => {
                 subTitle={""}
                 description="Les événements présentés sur AVNU sont gérés par des organisations et se caractérisent par leur aspect numérique. À la différence des projets, ceux-ci sont particulièrement éphémères et ne s'étalent que sur une courte période."
             >
-                <Breadcrumbs
-                    className={"pt-2"}
-                    route={AppRoutes.events}
-                    labels={breadcrumbsLabels}
-                />
+                <Breadcrumbs className={"pt-2"} route={AppRoutes.events} labels={breadcrumbsLabels} />
             </PageHeader>
 
             <div className="container">
@@ -93,11 +83,7 @@ const EventsPage = () => {
                         <div className="position-relative row row-cols-1 row-cols-sm-2 row-cols-xl-3">
                             {/* Loading state : If loading is on and there is no feed */}
                             {isLoading && (
-                                <div
-                                    className={
-                                        "home-page__feed-section--spinner-container"
-                                    }
-                                >
+                                <div className={"home-page__feed-section--spinner-container"}>
                                     <div>
                                         <Spinner reverse />
                                     </div>
@@ -127,28 +113,19 @@ const EventsPage = () => {
                     {/* Aside section */}
                     <aside className="col col-12 col-md-3">
                         <div className="my-4 d-flex flex-column">
-                            <Button
-                                disabled={!auth.user.isLoggedIn}
-                                href="/contribuer/evenements"
-                                size="reg-100"
-                            >
+                            <Button disabled={!auth.user.isLoggedIn} href="/contribuer/evenements" size="reg-100">
                                 {lang.addEventButtonLabel}
                             </Button>
                             {!auth.user.isLoggedIn && (
                                 <p className="mt-2">
-                                    Notez que vous devez être{" "}
-                                    <b className="text-primary">connecté</b>{" "}
-                                    pour pouvoir ajouter des entitées à la base
-                                    de données.
+                                    Notez que vous devez être <b className="text-primary">connecté</b> pour pouvoir
+                                    ajouter des entitées à la base de données.
                                 </p>
                             )}
                             {!auth.user.isLoggedIn && (
                                 <>
                                     <hr />
-                                    <Button
-                                        size="reg-100"
-                                        href="/compte/connexion"
-                                    >
+                                    <Button size="reg-100" href="/compte/connexion">
                                         Se connecter
                                     </Button>
                                 </>

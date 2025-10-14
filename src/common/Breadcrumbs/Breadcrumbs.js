@@ -28,10 +28,7 @@ const generatePathParts = (path) => {
 const replacePathParts = (pathParts, replaceWith) => {
     for (const position in pathParts) {
         const pathValue = pathParts[position];
-        pathParts[position] =
-            replaceWith && replaceWith[pathValue]
-                ? replaceWith[pathValue]
-                : pathValue;
+        pathParts[position] = replaceWith && replaceWith[pathValue] ? replaceWith[pathValue] : pathValue;
     }
     return pathParts;
 };
@@ -62,19 +59,14 @@ const Breadcrumbs = ({
     };
 
     const breadcrumbs = useCallback(() => {
-        let asPathNestedRoutes,
-            asPathReplacementNestedRoutes,
-            pathnameNestedRoutes;
+        let asPathNestedRoutes, asPathReplacementNestedRoutes, pathnameNestedRoutes;
 
         if (route !== undefined) {
             route.asPath = router.asPath;
             route.pathname = router.pathname;
 
             asPathNestedRoutes = generatePathParts(route.breadcrumbAsPath);
-            asPathNestedRoutes = replacePathParts(
-                asPathNestedRoutes,
-                getHrefGenerator()
-            );
+            asPathNestedRoutes = replacePathParts(asPathNestedRoutes, getHrefGenerator());
 
             pathnameNestedRoutes = generatePathParts(route.breadcrumbAsPath);
         } else {
@@ -85,12 +77,9 @@ const Breadcrumbs = ({
         const crumblist = asPathNestedRoutes.map((subpath, idx) => {
             // Pull dynamic path params out of their [].
             if (typeof pathnameNestedRoutes[idx] === "string") {
-                const param = pathnameNestedRoutes[idx]
-                    .replace("[", "")
-                    .replace("]", "");
+                const param = pathnameNestedRoutes[idx].replace("[", "").replace("]", "");
 
-                const href =
-                    "/" + asPathNestedRoutes.slice(0, idx + 1).join("/");
+                const href = "/" + asPathNestedRoutes.slice(0, idx + 1).join("/");
                 return {
                     href,
                     text: labelGenerator(param, router.query),
@@ -107,15 +96,7 @@ const Breadcrumbs = ({
             },
             ...crumblist,
         ];
-    }, [
-        router.asPath,
-        router.pathname,
-        router.query,
-        route,
-        labels,
-        getLabelGenerator,
-        getHrefGenerator,
-    ]);
+    }, [router.asPath, router.pathname, router.query, route, labels, getLabelGenerator, getHrefGenerator]);
 
     const crumbs = breadcrumbs();
 
@@ -123,13 +104,7 @@ const Breadcrumbs = ({
         <nav className={className} aria-label="breadcrumb">
             <ol className="breadcrumb">
                 {crumbs.map((crumb, idx) => {
-                    return (
-                        <Crumb
-                            {...crumb}
-                            key={idx}
-                            last={idx === crumbs.length - 1}
-                        />
-                    );
+                    return <Crumb {...crumb} key={idx} last={idx === crumbs.length - 1} />;
                 })}
             </ol>
         </nav>
@@ -181,12 +156,7 @@ const Crumb = ({ labels, text, href, last = false }) => {
     );
 };
 
-const Deprecated_Crumb = ({
-    text: defaultText,
-    textGenerator,
-    href,
-    last = false,
-}) => {
+const Deprecated_Crumb = ({ text: defaultText, textGenerator, href, last = false }) => {
     //text: defaultText,
 
     const [text, setText] = useState(defaultText);

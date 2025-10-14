@@ -39,10 +39,7 @@ export const useFieldTips = (tipData) => {
                 ref={buttonRef}
                 onClick={() => setDisplayTip(!displayTip)}
             >
-                <Icon
-                    iconName={"question-circle"}
-                    className={`fs-4 ${styles["icon"]}`}
-                />
+                <Icon iconName={"question-circle"} className={`fs-4 ${styles["icon"]}`} />
             </button>
         );
     };

@@ -6,9 +6,7 @@ const AvnuLoading = ({ fixed, reverse }) => {
     const reversedClasses = reverse ? "" : "";
 
     return (
-        <div
-            className={`${styles["loader"]} ${fixedClasses} ${reversedClasses}`}
-        >
+        <div className={`${styles["loader"]} ${fixedClasses} ${reversedClasses}`}>
             <span className={`${styles["trajet"]}`}></span>
             <div className={`${styles["engine"]}`}>
                 <div className={`${styles["fire"]}`}></div>

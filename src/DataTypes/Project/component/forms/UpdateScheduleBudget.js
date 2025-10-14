@@ -16,8 +16,7 @@ import { getDateFromIsoString } from "@/src/utils/DateHelper";
  */
 const UpdateScheduleBudget = ({ name, formTools, ...props }) => {
     useEffect(() => {
-        const { startDate, endDateEstimate, completionDate } =
-            formTools.formState.inputs;
+        const { startDate, endDateEstimate, completionDate } = formTools.formState.inputs;
         startDate.value = getDateFromIsoString(startDate.value);
         endDateEstimate.value = getDateFromIsoString(endDateEstimate.value);
         completionDate.value = getDateFromIsoString(completionDate.value);
@@ -55,19 +54,9 @@ const UpdateScheduleBudget = ({ name, formTools, ...props }) => {
                         type="number"
                         formTools={formTools}
                     />
-                    <Input
-                        className="col-12 col-md-6"
-                        name="eta"
-                        label={lang.duration}
-                        formTools={formTools}
-                    />
+                    <Input className="col-12 col-md-6" name="eta" label={lang.duration} formTools={formTools} />
 
-                    <SingleInfo
-                        title="Les étapes du projet"
-                        className="pt-3"
-                        isSubtitle
-                        noCardLayout
-                    >
+                    <SingleInfo title="Les étapes du projet" className="pt-3" isSubtitle noCardLayout>
                         <Repeater
                             formTools={formTools}
                             name="timeframe"
@@ -87,10 +76,7 @@ const UpdateScheduleBudget = ({ name, formTools, ...props }) => {
                                     isValid: true,
                                 },
                             }}
-                            initValues={
-                                props.parentEntity?.scheduleBudget?.timeframe ??
-                                []
-                            }
+                            initValues={props.parentEntity?.scheduleBudget?.timeframe ?? []}
                         >
                             <div className="my-2">
                                 <section className="row my-2 align-items-end">

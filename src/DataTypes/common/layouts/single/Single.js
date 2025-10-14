@@ -35,26 +35,19 @@ const Single = (props) => {
         route,
     } = props;
 
-    const defaultMainImage =
-        props.defaultMainImage ?? "/general_images/person-default.webp";
-    const defaultHeaderBg =
-        props.defaultHeaderBg ?? "/general_images/forestBG.jpg";
+    const defaultMainImage = props.defaultMainImage ?? "/general_images/person-default.webp";
+    const defaultHeaderBg = props.defaultHeaderBg ?? "/general_images/forestBG.jpg";
 
     const entity = props?.entity ?? {};
 
     const headerBgImage = entity.headerBG ?? defaultHeaderBg;
 
-    const haveMainImage =
-        entity.mainImage !== undefined && entity.mainImage !== "";
-    const mainImage =
-        haveMainImage && entity.mainImage !== "" ? entity.mainImage : {};
-    const mainImageRootUrl = haveMainImage
-        ? process.env.NEXT_PUBLIC_API_URL
-        : ""; //we dont add api path if it's local.
+    const haveMainImage = entity.mainImage !== undefined && entity.mainImage !== "";
+    const mainImage = haveMainImage && entity.mainImage !== "" ? entity.mainImage : {};
+    const mainImageRootUrl = haveMainImage ? process.env.NEXT_PUBLIC_API_URL : ""; //we dont add api path if it's local.
     const mainImageUrl = entity.mainImage?.url ?? defaultMainImage;
     const mainImageAlt = entity.mainImage?.alt ?? "main image alt";
-    const mainImageClass =
-        props.mainImageClass ?? "headers-content__main-image";
+    const mainImageClass = props.mainImageClass ?? "headers-content__main-image";
     const mainImageAdditionalClass = props.mainImageAdditionnalClass ?? "";
     const showMainImageInHeader = props.showMainImageInHeader ?? true;
 
@@ -69,9 +62,7 @@ const Single = (props) => {
     const mainContentColWidthLg = 12 - asideColWidthLg;
     const asideColWidthSm = 6;
     const mainContentColWidthSm = 12 - asideColWidthSm;
-    const mainContentClass = showAside
-        ? `col-${mainContentColWidthSm} col-lg-${mainContentColWidthLg}`
-        : "";
+    const mainContentClass = showAside ? `col-${mainContentColWidthSm} col-lg-${mainContentColWidthLg}` : "";
     const mainContentContainerClass = showMainImageInHeader
         ? "single__main-section-with-profile-picture"
         : "single__main-section";
@@ -85,9 +76,7 @@ const Single = (props) => {
         breadcrumbParams.labelGenerator ??
         useCallback((param, query) => {
             return {
-                slug: () =>
-                    breadcrumbParams.title ??
-                    "Error : Add a title name to the breadcrumb.",
+                slug: () => breadcrumbParams.title ?? "Error : Add a title name to the breadcrumb.",
                 personnes: "Personnes",
                 organisations: "Organisations",
                 medias: "Médias",
@@ -115,38 +104,22 @@ const Single = (props) => {
                 <header className={`${styles["single__header"]}`}>
                     {/* Background image */}
                     <figure className={`${styles["single__bg-img"]}`}>
-                        <img
-                            className={`${styles["single__bg-img__img"]}`}
-                            src={headerBgImage}
-                            alt=""
-                        />
+                        <img className={`${styles["single__bg-img__img"]}`} src={headerBgImage} alt="" />
                         <div className={`dark-transparent-gradient`}></div>
                     </figure>
 
                     {/* Header's content */}
                     <section className={`${styles["single__header__content"]}`}>
-                        <div
-                            className={`container ${styles["single-header-content__main-section"]}`}
-                        >
+                        <div className={`container ${styles["single-header-content__main-section"]}`}>
                             <div className={"row"}>
-                                <div className={"col-6 col-lg-8"}>
-                                    {headerMainContent && headerMainContent}
-                                </div>
+                                <div className={"col-6 col-lg-8"}>{headerMainContent && headerMainContent}</div>
                                 {showCTA && (
                                     <aside className={"col-auto col-lg-4"}>
                                         <div className={"d-flex flex-column"}>
                                             {cta && cta !== "" && <p>{cta}</p>}
-                                            <Button
-                                                href={ctaUrl}
-                                                className={"btn-block"}
-                                                external
-                                            >
+                                            <Button href={ctaUrl} className={"btn-block"} external>
                                                 {ctaLabel}&nbsp;
-                                                <Icon
-                                                    iconName={
-                                                        "external-link-alt"
-                                                    }
-                                                />
+                                                <Icon iconName={"external-link-alt"} />
                                             </Button>
                                         </div>
                                     </aside>
@@ -156,15 +129,11 @@ const Single = (props) => {
 
                         {/* Profile picture section */}
                         {showMainImageInHeader && (
-                            <div
-                                className={`${styles["single-header-content__bottom-container"]}`}
-                            >
+                            <div className={`${styles["single-header-content__bottom-container"]}`}>
                                 <div
                                     className={`${styles["single-header-content__bottom-row"]} d-flex flex-row justify-content-start`}
                                 >
-                                    <figure
-                                        className={`${styles[mainImageClass]} ${styles[mainImageAdditionalClass]}`}
-                                    >
+                                    <figure className={`${styles[mainImageClass]} ${styles[mainImageAdditionalClass]}`}>
                                         {haveMainImage && (
                                             <a
                                                 href={`/medias/${entity.mainImage._id}`}
@@ -173,36 +142,17 @@ const Single = (props) => {
                                                 Afficher
                                             </a>
                                         )}
-                                        {mainImage && (
-                                            <img
-                                                src={
-                                                    mainImageRootUrl +
-                                                    mainImageUrl
-                                                }
-                                                alt={mainImageAlt}
-                                            />
-                                        )}
+                                        {mainImage && <img src={mainImageRootUrl + mainImageUrl} alt={mainImageAlt} />}
                                     </figure>
                                     {auth.user.isLoggedIn && ( //mainImage Menu.
-                                        <div
-                                            className={`${styles["single-header-content__nav"]}`}
-                                        >
+                                        <div className={`${styles["single-header-content__nav"]}`}>
                                             <a
                                                 href={"#"}
-                                                onClick={
-                                                    modalMainImageControl.displayModal
-                                                }
+                                                onClick={modalMainImageControl.displayModal}
                                                 className={` ${styles["profile-picture--modification-opt"]}`}
                                             >
-                                                <img
-                                                    src={
-                                                        "/icones/edit-icon.svg"
-                                                    }
-                                                    alt={"Changer l'image"}
-                                                />{" "}
-                                                {haveMainImage
-                                                    ? lang.updateImage
-                                                    : lang.addImage}
+                                                <img src={"/icones/edit-icon.svg"} alt={"Changer l'image"} />{" "}
+                                                {haveMainImage ? lang.updateImage : lang.addImage}
                                             </a>
                                         </div>
                                     )}
@@ -213,15 +163,11 @@ const Single = (props) => {
                 </header>
 
                 {/*MAIN SECTION*/}
-                <section
-                    className={`${styles[mainContentContainerClass]} ${styles["bg-single"]}`}
-                >
+                <section className={`${styles[mainContentContainerClass]} ${styles["bg-single"]}`}>
                     <div className={"container"}>
                         <div className={"row"}>
                             <div className={mainContentClass}>{children}</div>
-                            {aside && (
-                                <aside className={asideClass}>{aside}</aside>
-                            )}
+                            {aside && <aside className={asideClass}>{aside}</aside>}
                         </div>
                     </div>
                 </section>

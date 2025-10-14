@@ -11,11 +11,7 @@ const CompteConfirme = () => {
     const RedirectionButton = () => {
         return (
             <div className="d-flex mt-2">
-                <Button
-                    className="fw-semibold"
-                    text_color="primary-darker"
-                    href="compte/connexion"
-                >
+                <Button className="fw-semibold" text_color="primary-darker" href="compte/connexion">
                     Se connecter &#187;
                 </Button>
             </div>
@@ -24,10 +20,7 @@ const CompteConfirme = () => {
 
     return (
         <section className={` ${styles.compteConfirmePage}`}>
-            <PageMeta
-                title={lang.compte__confirmedAccount__title}
-                preventIndexation
-            />
+            <PageMeta title={lang.compte__confirmedAccount__title} preventIndexation />
             <AuthenticationMessage
                 header="Félicitations"
                 message="Votre compte a bien été créé. Vous pouvez y accéder avec le lien ci-dessous."

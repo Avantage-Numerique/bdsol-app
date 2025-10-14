@@ -24,12 +24,10 @@ const Input = ({ name, formTools, ...props }) => {
     */
     const { formState, inputHandler, inputTouched } = formTools;
 
-    const {
-        validate,
-        RequirementsBadges,
-        ValidationErrorMessages,
-        dependencyCallingValidation,
-    } = useValidation(props.validationRules, formState);
+    const { validate, RequirementsBadges, ValidationErrorMessages, dependencyCallingValidation } = useValidation(
+        props.validationRules,
+        formState
+    );
     const { TipPopOver, TipButton } = useFieldTips(props.tip);
 
     const currentState = formState.inputs[name];
@@ -45,11 +43,7 @@ const Input = ({ name, formTools, ...props }) => {
     };
 
     const updateValue = (event) => {
-        inputHandler(
-            name,
-            event.target.value,
-            props.validationRules ? validate(event.target.value) : true
-        );
+        inputHandler(name, event.target.value, props.validationRules ? validate(event.target.value) : true);
         if (typeof props.onChangeInput === "function") {
             //if the component got an onChange method sets. Trigger it.
             props.onChangeInput(event);
@@ -63,17 +57,11 @@ const Input = ({ name, formTools, ...props }) => {
     };
 
     useEffect(() => {
-        inputHandler(
-            name,
-            fieldRef.current.value,
-            props.validationRules ? validate(fieldRef.current.value) : true
-        );
+        inputHandler(name, fieldRef.current.value, props.validationRules ? validate(fieldRef.current.value) : true);
     }, [dependencyCallingValidation]);
 
     return (
-        <div
-            className={`${props.className && props.className} ${styles["input-component"]}`}
-        >
+        <div className={`${props.className && props.className} ${styles["input-component"]}`}>
             <div className={`${styles["input-component__label-container"]}`}>
                 <label htmlFor={name}>{props.label}</label>
                 {props.tip && <TipButton title="Détails" />}

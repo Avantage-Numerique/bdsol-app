@@ -1,8 +1,5 @@
 import { useCallback, useEffect, useRef } from "react";
-import {
-    getUserHeadersFromUserSession,
-    useAuth,
-} from "@/auth/context/auth-context";
+import { getUserHeadersFromUserSession, useAuth } from "@/auth/context/auth-context";
 import { lang } from "@/src/common/Data/GlobalConstants";
 import { useLoading } from "@/src/hooks/useLoading";
 
@@ -17,38 +14,21 @@ const ORIGIN_SERVER = "server";
  * @return {Promise<*>}
  */
 export const externalApiRequest = async (path, params = {}) => {
-    params.isBodyJson =
-        params.isBodyJson === undefined ? true : params.isBodyJson; //par défault tout est JSON
+    params.isBodyJson = params.isBodyJson === undefined ? true : params.isBodyJson; //par défault tout est JSON
 
-    const baseApiRoute =
-            params.origin === ORIGIN_BROWSER
-                ? process.env.API_URL
-                : process.env.FROMSERVER_API_URL,
-        baseAppRoute =
-            params.origin === ORIGIN_BROWSER
-                ? process.env.APP_URL
-                : process.env.FROMSERVER_APP_URL;
+    const baseApiRoute = params.origin === ORIGIN_BROWSER ? process.env.API_URL : process.env.FROMSERVER_API_URL,
+        baseAppRoute = params.origin === ORIGIN_BROWSER ? process.env.APP_URL : process.env.FROMSERVER_APP_URL;
 
     const defaultHeaders = { Origin: baseAppRoute },
-        jsonHeaders = params.isBodyJson
-            ? { "Content-Type": "application/json" }
-            : {};
+        jsonHeaders = params.isBodyJson ? { "Content-Type": "application/json" } : {};
 
     let headers = params.headers ?? {};
 
     // add user header if context is set.
-    if (
-        params.context &&
-        params.context.req &&
-        params.context.req.session &&
-        params.context.req.user
-    ) {
+    if (params.context && params.context.req && params.context.req.session && params.context.req.user) {
         headers = {
             ...headers,
-            ...getUserHeadersFromUserSession(
-                params.context.req.session.user,
-                params.withAuth === true
-            ),
+            ...getUserHeadersFromUserSession(params.context.req.session.user, params.withAuth === true),
         };
     }
 
@@ -87,12 +67,7 @@ export const clientSideExternalApiRequest = async (path, params = {}) => {
 
 //Main hook function called for every request made to the database
 export const useHttpClient = () => {
-    const {
-        isLoading,
-        setIsLoading,
-        currentLoadingState,
-        setCurrentLoadingState,
-    } = useLoading();
+    const { isLoading, setIsLoading, currentLoadingState, setCurrentLoadingState } = useLoading();
 
     //State that determine if the request is in progress
     //const [isLoading, setIsLoading] = useState(false);
@@ -105,20 +80,11 @@ export const useHttpClient = () => {
 
     const sendRequest = useCallback(
         //Main request function with pre-determined values
-        async (
-            path,
-            method = "GET",
-            body = null,
-            headers = {},
-            params = {}
-        ) => {
+        async (path, method = "GET", body = null, headers = {}, params = {}) => {
             //Start the loading component
             setIsLoading(true);
 
-            const stringnifyBody =
-                params.isBodyJson &&
-                typeof body === "object" &&
-                typeof body !== "string";
+            const stringnifyBody = params.isBodyJson && typeof body === "object" && typeof body !== "string";
 
             const httpAbortCtrl = new AbortController(),
                 usersHeaders = getUserHeadersFromUserSession(auth.user, true), //authentification, fowarded-from, user-agent.
@@ -138,9 +104,7 @@ export const useHttpClient = () => {
                 });
 
                 //Remove the abort controler now that the response has been received
-                activeHttpRequests.current = activeHttpRequests.current.filter(
-                    (reqCtrl) => reqCtrl !== httpAbortCtrl
-                );
+                activeHttpRequests.current = activeHttpRequests.current.filter((reqCtrl) => reqCtrl !== httpAbortCtrl);
 
                 setIsLoading(false);
 
@@ -163,9 +127,7 @@ export const useHttpClient = () => {
     useEffect(() => {
         return () => {
             // eslint-disable-next-line react-hooks/exhaustive-deps
-            activeHttpRequests.current.forEach((abortCtrl) =>
-                abortCtrl.abort()
-            );
+            activeHttpRequests.current.forEach((abortCtrl) => abortCtrl.abort());
         };
     }, []);
 

@@ -16,13 +16,10 @@ const SingleSaveEntityReminder = ({ submitHandler, closeModal, ...props }) => {
                 </Button>
             </header>
             <p>
-                Avant de soumettre les données et de les rendre publiques et
-                accessibles à tous, comme cela est indiqué dans les{" "}
-                <RouteLink routeName={"termOfUse"} />, nous vous rappelons qu’il
-                est important de vous assurer d'avoir le droit ou les
-                autorisations nécessaires pour les partager et rendre
-                disponibles. Il est aussi important que vous respectiez les lois
-                en vigueur concernant ces données, incluant les lois concernant
+                Avant de soumettre les données et de les rendre publiques et accessibles à tous, comme cela est indiqué
+                dans les <RouteLink routeName={"termOfUse"} />, nous vous rappelons qu’il est important de vous assurer
+                d'avoir le droit ou les autorisations nécessaires pour les partager et rendre disponibles. Il est aussi
+                important que vous respectiez les lois en vigueur concernant ces données, incluant les lois concernant
                 la vie privée si les données concernent un individu.
             </p>
             <br />
@@ -36,22 +33,12 @@ const SingleSaveEntityReminder = ({ submitHandler, closeModal, ...props }) => {
                     onClick={() => setAgreedReminder(!agreedReminder)}
                     checked={agreedReminder}
                 />
-                <label
-                    htmlFor="checkboxReminder"
-                    className="form-check-label col-8"
-                >
-                    En cochant cette case, vous confirmez détenir les droits ou
-                    autrement avoir les autorisations ou licences nécessaires
-                    pour partager ces données.
+                <label htmlFor="checkboxReminder" className="form-check-label col-8">
+                    En cochant cette case, vous confirmez détenir les droits ou autrement avoir les autorisations ou
+                    licences nécessaires pour partager ces données.
                 </label>
             </div>
-            <Button
-                className="fs-6"
-                size="slim"
-                color="success"
-                disabled={!agreedReminder}
-                onClick={submitHandler}
-            >
+            <Button className="fs-6" size="slim" color="success" disabled={!agreedReminder} onClick={submitHandler}>
                 <Icon iconName={"save"} />
                 &nbsp;{lang.capitalize("save")}
             </Button>

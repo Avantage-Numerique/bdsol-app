@@ -8,9 +8,7 @@
 */
 
 .header {
-    --navigation-options-with: calc(
-        15vw + 10rem
-    ); //Pretending enough browsers supports it
+    --navigation-options-with: calc(15vw + 10rem); //Pretending enough browsers supports it
 
     height: var(--headersHeight);
     display: flex;

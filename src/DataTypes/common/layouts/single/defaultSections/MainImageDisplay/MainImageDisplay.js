@@ -35,9 +35,7 @@ const MainImageDisplay = ({ mainImage, entity, setter, buttonClasses }) => {
                     title={haveMainImage ? lang.updateImage : lang.addImage}
                 >
                     <Icon iconName={"edit"} />{" "}
-                    {mainImage.isDefault === true
-                        ? lang.capitalize("addImage")
-                        : lang.capitalize("updateImage")}
+                    {mainImage.isDefault === true ? lang.capitalize("addImage") : lang.capitalize("updateImage")}
                 </Button>
             </div>
 
@@ -45,9 +43,7 @@ const MainImageDisplay = ({ mainImage, entity, setter, buttonClasses }) => {
             {modal.display && (
                 <Modal coloredBackground darkColorButton>
                     <header className="d-flex justify-content-between align-items-center">
-                        <h3 className="m-0 fs-4 fw-normal">
-                            Téléverser un ficher média
-                        </h3>
+                        <h3 className="m-0 fs-4 fw-normal">Téléverser un ficher média</h3>
                         <Button onClick={closeModal} size="slim">
                             Fermer
                         </Button>

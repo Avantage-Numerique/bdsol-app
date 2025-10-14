@@ -53,13 +53,8 @@ const CreateProjectForm = ({ onPositiveResponse, initValues, ...props }) => {
         const formData = {
             data: {
                 name: formState.inputs.name.value,
-                entityInCharge: formState.inputs.entityInCharge?.value?.map(
-                    (elem) => elem.value
-                ),
-                context:
-                    formState.inputs.context.value !== ""
-                        ? formState.inputs.context.value
-                        : undefined,
+                entityInCharge: formState.inputs.entityInCharge?.value?.map((elem) => elem.value),
+                context: formState.inputs.context.value !== "" ? formState.inputs.context.value : undefined,
                 meta: getDefaultCreateEntityMeta(auth.user),
             },
         };
@@ -109,11 +104,7 @@ const CreateProjectForm = ({ onPositiveResponse, initValues, ...props }) => {
                     {lang.submit}
                 </Button>
                 {props?.closeModal && (
-                    <Button
-                        color="danger"
-                        type="button"
-                        onClick={props.closeModal()}
-                    >
+                    <Button color="danger" type="button" onClick={props.closeModal()}>
                         {lang.cancel}
                     </Button>
                 )}

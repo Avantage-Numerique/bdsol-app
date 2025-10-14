@@ -42,9 +42,7 @@ export const selectStyle = () => {
 
     const option = {
         option: (styles, { data, isDisabled, isFocused, isSelected }) => {
-            const color = data.color
-                ? chroma(data.color)
-                : chroma(defaultColor);
+            const color = data.color ? chroma(data.color) : chroma(defaultColor);
             return {
                 ...styles,
                 backgroundColor: isDisabled
@@ -65,11 +63,7 @@ export const selectStyle = () => {
 
                 ":active": {
                     ...styles[":active"],
-                    backgroundColor: !isDisabled
-                        ? isSelected
-                            ? data.color
-                            : color.alpha(0.3).css()
-                        : undefined,
+                    backgroundColor: !isDisabled ? (isSelected ? data.color : color.alpha(0.3).css()) : undefined,
                 },
             };
         },
@@ -77,9 +71,7 @@ export const selectStyle = () => {
 
     const multiValue = {
         multiValue: (styles, { data }) => {
-            const color = data.color
-                ? chroma(data.color)
-                : chroma(defaultColor); //getColor(data);//chroma(colorDict[data.category]);
+            const color = data.color ? chroma(data.color) : chroma(defaultColor); //getColor(data);//chroma(colorDict[data.category]);
             return {
                 ...styles,
                 backgroundColor: color.alpha(0.1).css(),

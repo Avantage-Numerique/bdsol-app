@@ -35,10 +35,7 @@ import MainImageDisplay from "@/DataTypes/common/layouts/single/defaultSections/
 import Icon from "@/common/widgets/Icon/Icon";
 import { TYPE_PLACE, TYPE_TAXONOMY } from "@/src/DataTypes/Entity/Types";
 import SubmitEntity from "@/DataTypes/common/Forms/SingleEdit/SubmitEntity";
-import {
-    apiDateToDateInput,
-    dateTimeStringToUTC,
-} from "@/common/DateManager/Parse";
+import { apiDateToDateInput, dateTimeStringToUTC } from "@/common/DateManager/Parse";
 import SingleBeforeUnloadReminder from "@/src/DataTypes/common/layouts/SingleSaveEntityReminder/SingleBeforeUnloadReminder";
 
 const OrganisationSingleEdit = (props) => {
@@ -229,22 +226,16 @@ const OrganisationSingleEdit = (props) => {
                     };
                 }),
                 contactPoint: formState.inputs.contactPoint.value,
-                fondationDate: dateTimeStringToUTC(
-                    formState.inputs.fondationDate.value
-                ),
-                offers: formState.inputs.offers.value.map(
-                    function (singleOffer) {
-                        return {
-                            groupName: singleOffer.value.groupName.value,
-                            skills: singleOffer.value.skills.value.map(
-                                (skill) => {
-                                    return skill.value;
-                                }
-                            ),
-                            subMeta: { order: singleOffer.order },
-                        };
-                    }
-                ),
+                fondationDate: dateTimeStringToUTC(formState.inputs.fondationDate.value),
+                offers: formState.inputs.offers.value.map(function (singleOffer) {
+                    return {
+                        groupName: singleOffer.value.groupName.value,
+                        skills: singleOffer.value.skills.value.map((skill) => {
+                            return skill.value;
+                        }),
+                        subMeta: { order: singleOffer.order },
+                    };
+                }),
                 catchphrase: formState.inputs.catchphrase.value,
                 domains:
                     formState.inputs.domains?.value?.length > 0
@@ -270,17 +261,12 @@ const OrganisationSingleEdit = (props) => {
                 }),
                 location:
                     formState.inputs.location?.value?.length > 0
-                        ? formState.inputs.location.value.map(
-                              function (singlePlace) {
-                                  return singlePlace.value;
-                              }
-                          )
+                        ? formState.inputs.location.value.map(function (singlePlace) {
+                              return singlePlace.value;
+                          })
                         : [],
                 region: formState.inputs.region.value,
-                meta: getDefaultUpdateEntityMeta(
-                    auth.user,
-                    model.meta.requestedBy
-                ),
+                meta: getDefaultUpdateEntityMeta(auth.user, model.meta.requestedBy),
             },
         };
 
@@ -334,12 +320,7 @@ const OrganisationSingleEdit = (props) => {
                     <Icon iconName={"save"} />
                     &nbsp;{lang.capitalize("save")}
                 </Button>
-                <Button
-                    className="fs-6"
-                    size="slim"
-                    color="primary-light"
-                    href={model.singleLink}
-                >
+                <Button className="fs-6" size="slim" color="primary-light" href={model.singleLink}>
                     <Icon iconName={"times"} />
                     &nbsp;{lang.Cancel}
                 </Button>
@@ -361,11 +342,7 @@ const OrganisationSingleEdit = (props) => {
 
     const fullWidthContent = (
         <SingleInfo title={lang.about} classNameTitle="mb-0" noCardLayout>
-            <RichTextarea
-                className="py-3"
-                name="description"
-                formTools={formTools}
-            />
+            <RichTextarea className="py-3" name="description" formTools={formTools} />
         </SingleInfo>
     );
 
@@ -383,19 +360,11 @@ const OrganisationSingleEdit = (props) => {
 
             {/* team */}
             <SingleInfo title="Membres de l'équipe">
-                <UpdateTeams
-                    name="team"
-                    formTools={formTools}
-                    parentEntity={props.data}
-                />
+                <UpdateTeams name="team" formTools={formTools} parentEntity={props.data} />
             </SingleInfo>
             {/* Equipment */}
             <SingleInfo title={lang.EquipmentsOwned}>
-                <UpdateEquipment
-                    name="equipment"
-                    formTools={formTools}
-                    parentEntity={props.data}
-                />
+                <UpdateEquipment name="equipment" formTools={formTools} parentEntity={props.data} />
             </SingleInfo>
         </>
     );
@@ -403,11 +372,7 @@ const OrganisationSingleEdit = (props) => {
     const contentColumnRight = (
         <>
             <SingleInfo title={lang.contactInformations}>
-                <UpdateContactPoint
-                    formTools={formTools}
-                    name="contactPoint"
-                    model={model}
-                />
+                <UpdateContactPoint formTools={formTools} name="contactPoint" model={model} />
             </SingleInfo>
 
             <SingleInfo title="Informations supplémentaires">
@@ -458,21 +423,11 @@ const OrganisationSingleEdit = (props) => {
                     selectField={"domains"}
                 />
 
-                <Input
-                    name="fondationDate"
-                    label="Date de fondation"
-                    type="date"
-                    formTools={formTools}
-                />
+                <Input name="fondationDate" label="Date de fondation" type="date" formTools={formTools} />
 
                 <SingleInfo title={lang.externalLinks} isSubtitle noCardLayout>
                     {/* Url */}
-                    <UpdateSocialHandles
-                        name="url"
-                        label={lang.url}
-                        parentEntity={model}
-                        formTools={formTools}
-                    />
+                    <UpdateSocialHandles name="url" label={lang.url} parentEntity={model} formTools={formTools} />
                 </SingleInfo>
             </SingleInfo>
         </>
@@ -483,11 +438,7 @@ const OrganisationSingleEdit = (props) => {
             {(createdAt || updatedAt || meta) && (
                 <SingleInfo title={lang.entityMetadata} className="pt-3">
                     {/*********** Entity data ***********/}
-                    <SingleEntityMeta
-                        createdAt={createdAt}
-                        updatedAt={updatedAt}
-                        meta={meta}
-                    />
+                    <SingleEntityMeta createdAt={createdAt} updatedAt={updatedAt} meta={meta} />
                 </SingleInfo>
             )}
         </>
@@ -506,10 +457,7 @@ const OrganisationSingleEdit = (props) => {
 
     return (
         <>
-            <SingleBeforeUnloadReminder
-                formTools={formTools}
-                saveIntention={saveIntentionState}
-            />
+            <SingleBeforeUnloadReminder formTools={formTools} saveIntention={saveIntentionState} />
             <SingleBase
                 breadCrumb={breadCrumb}
                 header={header}

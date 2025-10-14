@@ -6,12 +6,7 @@ const haveAValidValue = (obj) => {
     let haveValidPropValue = false;
     for (let prop in obj) {
         const value = obj[prop];
-        if (
-            value !== null &&
-            typeof value !== "undefined" &&
-            value !== "" &&
-            !Array.isArray(value)
-        ) {
+        if (value !== null && typeof value !== "undefined" && value !== "" && !Array.isArray(value)) {
             haveValidPropValue = true;
         }
         if (Array.isArray(value) && value.length > 0) {

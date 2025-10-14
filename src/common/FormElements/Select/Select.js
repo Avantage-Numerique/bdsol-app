@@ -38,19 +38,13 @@ const Select = (props) => {
     const currentState = formState.inputs[name];
 
     //Destructure functionalities from validation hook
-    const {
-        validate,
-        RequirementsBadges,
-        ValidationErrorMessages,
-        dependencyCallingValidation,
-    } = useValidation(props.validationRules, formState);
+    const { validate, RequirementsBadges, ValidationErrorMessages, dependencyCallingValidation } = useValidation(
+        props.validationRules,
+        formState
+    );
 
     const updateValue = (event) => {
-        inputHandler(
-            name,
-            event.target.value,
-            props.validationRules ? validate(event.target.value) : true
-        );
+        inputHandler(name, event.target.value, props.validationRules ? validate(event.target.value) : true);
         inputTouched(name);
     };
 
@@ -60,17 +54,9 @@ const Select = (props) => {
         //Verify if there is a prefilled value setted by the currentState or the defaultValue prop.
         //If there is one, put it and otherwise, display an empty string
         //Note that, if both are filled, the currentState value is considered more important
-        const valueToUpdate = currentState.value
-            ? currentState.value
-            : defaultValue
-              ? defaultValue
-              : "";
+        const valueToUpdate = currentState.value ? currentState.value : defaultValue ? defaultValue : "";
 
-        inputHandler(
-            name,
-            valueToUpdate,
-            props.validationRules ? validate(valueToUpdate) : true
-        );
+        inputHandler(name, valueToUpdate, props.validationRules ? validate(valueToUpdate) : true);
     }, [dependencyCallingValidation]);
 
     return (
@@ -80,9 +66,7 @@ const Select = (props) => {
             ${styles["select-component"]}
         `}
         >
-            <div
-                className={`${styles["select-component__label-container"]} d-flex justify-content-between pb-1`}
-            >
+            <div className={`${styles["select-component__label-container"]} d-flex justify-content-between pb-1`}>
                 {label && <label htmlFor={name}>{label}</label>}
                 {tip && <TipButton title="Détails" />}
             </div>

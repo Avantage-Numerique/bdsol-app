@@ -17,18 +17,13 @@ const HamburgerButton = ({ menuState, setMenuState }) => {
     */
 
     return (
-        <button
-            onClick={() => setMenuState(menuState !== 1 ? 1 : 0)}
-            className={`${styles.hamButtonComponent}`}
-        >
+        <button onClick={() => setMenuState(menuState !== 1 ? 1 : 0)} className={`${styles.hamButtonComponent}`}>
             {/*
             Event listener when the user click on the menu. 
             Receive the signal and change the state with the setMenuState function 
         */}
 
-            <div
-                className={`${styles.menu_btn} ${menuState === 1 && styles.active}`}
-            >
+            <div className={`${styles.menu_btn} ${menuState === 1 && styles.active}`}>
                 <div className={`${styles.menu_btn__burger}`}></div>
             </div>
         </button>

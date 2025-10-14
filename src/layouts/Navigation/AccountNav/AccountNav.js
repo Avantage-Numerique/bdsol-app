@@ -44,9 +44,7 @@ const AccountNav = ({ menuState, setMenuState }) => {
     };
 
     return (
-        <nav
-            className={`${navStyles.navContainer} ${menuState === 2 && navStyles.displayed}`}
-        >
+        <nav className={`${navStyles.navContainer} ${menuState === 2 && navStyles.displayed}`}>
             <div className={"maxWidthPageContainer"}>
                 <h3 className="col-9">{lang.menuTitleMemberMenu}</h3>
 
@@ -55,14 +53,11 @@ const AccountNav = ({ menuState, setMenuState }) => {
                     {!auth.user.isLoggedIn && (
                         <>
                             <li onClick={closeMenu} className="col-12">
-                                <Link href="/compte/connexion">
-                                    {lang.menuLabelConnect || "Connexion"}
-                                </Link>
+                                <Link href="/compte/connexion">{lang.menuLabelConnect || "Connexion"}</Link>
                             </li>
                             <li onClick={closeMenu} className="col-12">
                                 <Link href="/compte/inscription">
-                                    {lang.menuLabelCreateAccount ||
-                                        "Créer votre compte"}
+                                    {lang.menuLabelCreateAccount || "Créer votre compte"}
                                 </Link>
                             </li>
                         </>
@@ -72,17 +67,11 @@ const AccountNav = ({ menuState, setMenuState }) => {
                     {auth.user.isLoggedIn && (
                         <>
                             <li onClick={closeMenu} className="col-12">
-                                <Link href="/compte">
-                                    {lang.menuLabelToDashboard ||
-                                        "Tableau de bord"}
-                                </Link>
+                                <Link href="/compte">{lang.menuLabelToDashboard || "Tableau de bord"}</Link>
                             </li>
 
                             <li onClick={closeMenu} className="col-12">
-                                <button onClick={deconnection}>
-                                    {lang.menuLabelToDisconnect ||
-                                        "Déconnecter"}
-                                </button>
+                                <button onClick={deconnection}>{lang.menuLabelToDisconnect || "Déconnecter"}</button>
                             </li>
                         </>
                     )}

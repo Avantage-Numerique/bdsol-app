@@ -46,9 +46,7 @@ const GroupSearchTag = ({ list, max, ...props }) => {
                                     <SearchTag
                                         className="row"
                                         list={group[props.groupSubListProperty]}
-                                        listProperty={
-                                            props.groupSubListTagProperty
-                                        }
+                                        listProperty={props.groupSubListTagProperty}
                                         max={max}
                                     />
                                 </>

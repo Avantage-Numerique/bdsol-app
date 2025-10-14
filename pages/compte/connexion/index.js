@@ -39,10 +39,7 @@ const LoginPage = () => {
         };
 
         return (
-            <figure
-                style={localFigureStyling}
-                className="position-absolute w-38 h-100 overflow-hidden"
-            >
+            <figure style={localFigureStyling} className="position-absolute w-38 h-100 overflow-hidden">
                 <Image
                     src={backgroundImg}
                     style={localImgStyling}
@@ -64,15 +61,8 @@ const LoginPage = () => {
             columnClassName={"gradient-sharp-diagonal"}
         >
             <HeaderBgImg />
-            <PageMeta
-                title={lang.compte__connexion__title}
-                description={lang.compte__connexion__description}
-            />
-            <div
-                className={
-                    "row w-100 w-md-75 w-lg-50 justify-content-center align-items-center"
-                }
-            >
+            <PageMeta title={lang.compte__connexion__title} description={lang.compte__connexion__description} />
+            <div className={"row w-100 w-md-75 w-lg-50 justify-content-center align-items-center"}>
                 <div className={"col-3"}>
                     <img src={"/AVNU_Branding/AVNU-LogoCanard-RVB.svg"} />
                 </div>
@@ -80,9 +70,7 @@ const LoginPage = () => {
                     <h1>
                         {lang.loginAVNUTitle}
                         <br />
-                        <span className={"text-secondary"}>
-                            {lang.loginAVNUSubTitle}
-                        </span>
+                        <span className={"text-secondary"}>{lang.loginAVNUSubTitle}</span>
                     </h1>
                     <div className={"pt-1"}>
                         <SearchBar

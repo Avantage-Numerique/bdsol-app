@@ -34,10 +34,7 @@ export const SingleEntityMeta = (props) => {
                         {createdAt && (
                             <span>
                                 &nbsp;{lang.on}&nbsp;
-                                <DateWidget
-                                    stringDate={createdAt}
-                                    noTag={true}
-                                />
+                                <DateWidget stringDate={createdAt} noTag={true} />
                             </span>
                         )}
                     </li>
@@ -54,10 +51,7 @@ export const SingleEntityMeta = (props) => {
                         {createdAt !== updatedAt && (
                             <span>
                                 &nbsp;{lang.on}&nbsp;
-                                <DateWidget
-                                    stringDate={updatedAt}
-                                    noTag={true}
-                                />
+                                <DateWidget stringDate={updatedAt} noTag={true} />
                             </span>
                         )}
                     </li>

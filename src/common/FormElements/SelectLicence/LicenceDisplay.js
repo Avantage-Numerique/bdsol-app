@@ -9,11 +9,7 @@ const LicenceDisplay = ({ licenceKey, ...props }) => {
     useEffect(() => {
         const fetchLicences = async () => {
             //Send the request with the specialized hook
-            const response = await sendRequest(
-                "/static/licences/",
-                "GET",
-                null
-            );
+            const response = await sendRequest("/static/licences/", "GET", null);
             //If response is positive, update the state
             if (!response.error) {
                 setLicences(response.data);
@@ -24,31 +20,21 @@ const LicenceDisplay = ({ licenceKey, ...props }) => {
 
     return (
         <>
-            {licences &&
-                licences[licenceKey] &&
-                licences[licenceKey].source && (
-                    <div className={"pt-2"}>
-                        <div className="d-flex">
-                            <div>
-                                <RouteLink
-                                    routeName={"licences"}
-                                    uriSuffix={`#${licences[licenceKey].slug}`}
-                                >
-                                    <img
-                                        src={licences[licenceKey].image}
-                                        alt={licences[licenceKey].label}
-                                    />
-                                    <span className={"ps-2"}>
-                                        {licences[licenceKey].label}
-                                    </span>
-                                </RouteLink>
-                            </div>
-                            <div>
-                                <p>{licences[licenceKey].description}</p>
-                            </div>
+            {licences && licences[licenceKey] && licences[licenceKey].source && (
+                <div className={"pt-2"}>
+                    <div className="d-flex">
+                        <div>
+                            <RouteLink routeName={"licences"} uriSuffix={`#${licences[licenceKey].slug}`}>
+                                <img src={licences[licenceKey].image} alt={licences[licenceKey].label} />
+                                <span className={"ps-2"}>{licences[licenceKey].label}</span>
+                            </RouteLink>
+                        </div>
+                        <div>
+                            <p>{licences[licenceKey].description}</p>
                         </div>
                     </div>
-                )}
+                </div>
+            )}
         </>
     );
 };

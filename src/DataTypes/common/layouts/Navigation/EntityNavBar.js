@@ -42,11 +42,7 @@ const EntityNavBar = (props) => {
         displayModal();
     };
 
-    const redirectOnClosingHandler = (
-        requestResponse,
-        closingCallback,
-        targetSlug
-    ) => {
+    const redirectOnClosingHandler = (requestResponse, closingCallback, targetSlug) => {
         let redirectUrl = "";
 
         if (closingModalBaseURI !== undefined) {
@@ -82,43 +78,27 @@ const EntityNavBar = (props) => {
                                     title={lang.back}
                                     onClick={() => router.back()}
                                 >
-                                    <Icon iconName="chevron-circle-left" />{" "}
-                                    {lang.back}
+                                    <Icon iconName="chevron-circle-left" /> {lang.back}
                                 </button>
                             </div>
                         )}
                     </div>
                     {auth.user.isLoggedIn && showMenu && (
-                        <div
-                            className={
-                                "col-auto col-lg-6 d-flex justify-content-end"
-                            }
-                        >
-                            <Button onClick={displayUpdateForm}>
-                                {lang.proposeContentChangeLabel}
-                            </Button>
+                        <div className={"col-auto col-lg-6 d-flex justify-content-end"}>
+                            <Button onClick={displayUpdateForm}>{lang.proposeContentChangeLabel}</Button>
                         </div>
                     )}
                 </div>
             </div>
 
             {modal.display && (
-                <Modal
-                    className={`${type}-form-modal`}
-                    coloredBackground
-                    darkColorButton
-                    closingFunction={closeModal}
-                >
+                <Modal className={`${type}-form-modal`} coloredBackground darkColorButton closingFunction={closeModal}>
                     <ModalForm
                         initValues={entity}
                         positiveRequestActions={{
                             callbackFunction: (requestResponse) => {
                                 //CallbackFunction is one of the four behaviors the useFormUtils hook can apply when a request return a positive answer
-                                redirectOnClosingHandler(
-                                    requestResponse,
-                                    closeModal,
-                                    requestResponse.data.slug
-                                );
+                                redirectOnClosingHandler(requestResponse, closeModal, requestResponse.data.slug);
                             },
                         }}
                         {...modalParameters}
@@ -130,13 +110,8 @@ const EntityNavBar = (props) => {
             {mainImageModalControl && mainImageModalControl.modal.display && (
                 <Modal coloredBackground darkColorButton>
                     <header className="d-flex justify-content-between align-items-center">
-                        <h3 className="m-0 fs-4 fw-normal">
-                            Téléverser un ficher média
-                        </h3>
-                        <Button
-                            onClick={mainImageModalControl.closeModal}
-                            size="slim"
-                        >
+                        <h3 className="m-0 fs-4 fw-normal">Téléverser un ficher média</h3>
+                        <Button onClick={mainImageModalControl.closeModal} size="slim">
                             Fermer
                         </Button>
                     </header>

@@ -24,14 +24,8 @@
     filter: drop-shadow(0.1rem 0.1rem 0.1rem grey);
 
     /* Horizontaly move the dialog box */
-    -webkit-transform: translate(
-        var(--dialog-translate-X),
-        var(--dialog-translate-Y)
-    );
-    -ms-transform: translate(
-        var(--dialog-translate-X),
-        var(--dialog-translate-Y)
-    );
+    -webkit-transform: translate(var(--dialog-translate-X), var(--dialog-translate-Y));
+    -ms-transform: translate(var(--dialog-translate-X), var(--dialog-translate-Y));
     transform: translate(var(--dialog-translate-X), var(--dialog-translate-Y));
 
     /***********   
@@ -113,20 +107,8 @@
         width: 0.5rem;
         border-width: 1px 1px 0px 0px;
 
-        -webkit-transform: translate(
-                var(--pointer-translate-x),
-                var(--pointer-translate-y)
-            )
-            rotate(45deg);
-        -ms-transform: translate(
-                var(--pointer-translate-x),
-                var(--pointer-translate-y)
-            )
-            rotate(45deg);
-        transform: translate(
-                var(--pointer-translate-x),
-                var(--pointer-translate-y)
-            )
-            rotate(45deg);
+        -webkit-transform: translate(var(--pointer-translate-x), var(--pointer-translate-y)) rotate(45deg);
+        -ms-transform: translate(var(--pointer-translate-x), var(--pointer-translate-y)) rotate(45deg);
+        transform: translate(var(--pointer-translate-x), var(--pointer-translate-y)) rotate(45deg);
     }
 }

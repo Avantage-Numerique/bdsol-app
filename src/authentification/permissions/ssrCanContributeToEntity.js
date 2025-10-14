@@ -17,13 +17,10 @@ export const ssrCanContributeToEntity = (entity) => {
 
         // precise
         if (ssrCanAccessThisPath.props.userCanAccess) {
-            const response = await externalApiRequest(
-                `/${entity}/${query.slug}`,
-                {
-                    method: "GET",
-                    headers: getUserHeadersFromUserSession(req.session.user),
-                }
-            );
+            const response = await externalApiRequest(`/${entity}/${query.slug}`, {
+                method: "GET",
+                headers: getUserHeadersFromUserSession(req.session.user),
+            });
 
             return { props: response.data };
         }

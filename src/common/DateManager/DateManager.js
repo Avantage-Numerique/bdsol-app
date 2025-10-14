@@ -85,23 +85,14 @@ export const dateManager = (time1, time2 = null) => {
 
     //Simple tag that contains the time and hour
 
-    const TimeIntervalSentence = ({
-        tag,
-        className = "",
-        showDay = true,
-        showHour = true,
-        withPreposition = true,
-    }) => {
+    const TimeIntervalSentence = ({ tag, className = "", showDay = true, showHour = true, withPreposition = true }) => {
         //Define the tag surrounding
         const Tag = tag ?? "p";
         const wp = withPreposition; //Shorter variable for easier reading
 
-        const isSameYear =
-            formatDate(time.startTime, lang.yearFormat) ===
-            formatDate(time.endTime, lang.yearFormat);
+        const isSameYear = formatDate(time.startTime, lang.yearFormat) === formatDate(time.endTime, lang.yearFormat);
         const isSameMonth =
-            formatDate(time.startTime, lang.monthNumberFormat) ===
-            formatDate(time.endTime, lang.monthNumberFormat);
+            formatDate(time.startTime, lang.monthNumberFormat) === formatDate(time.endTime, lang.monthNumberFormat);
         const isSameDay =
             formatDate(time.startTime, lang.dayMonthNumberFormat) ===
             formatDate(time.endTime, lang.dayMonthNumberFormat);
@@ -115,19 +106,12 @@ export const dateManager = (time1, time2 = null) => {
                         {showDay && (
                             <>
                                 {wp && lang.capitalize("the")}{" "}
-                                <TimeTag
-                                    date={time.startTime}
-                                    format={lang.humanDateFormat}
-                                />{" "}
+                                <TimeTag date={time.startTime} format={lang.humanDateFormat} />{" "}
                                 {formatDate(time.startTime, lang.yearFormat)}
                                 <br />
                             </>
                         )}
-                        <TimeTag
-                            date={time.startTime}
-                            format={lang.timeFormat}
-                        />{" "}
-                        {lang.hourTo}{" "}
+                        <TimeTag date={time.startTime} format={lang.timeFormat} /> {lang.hourTo}{" "}
                         <TimeTag date={time.endTime} format={lang.timeFormat} />
                     </>
                 )}
@@ -135,59 +119,31 @@ export const dateManager = (time1, time2 = null) => {
                 {!isSameDay && !isSameMonth && isSameYear && (
                     <>
                         {wp && lang.capitalize("from")}
-                        <TimeTag
-                            date={time.startTime}
-                            format={time.humanDateMonthFormat}
-                        />
+                        <TimeTag date={time.startTime} format={time.humanDateMonthFormat} />
                         {wp ? ` ${lang.to}` : " -"}&nbsp;
-                        <TimeTag
-                            date={time.endTime}
-                            format={lang.humanDateMonthFormat}
-                        />
-                        ({formatDate(time.startTime, lang.yearFormat)})
+                        <TimeTag date={time.endTime} format={lang.humanDateMonthFormat} />(
+                        {formatDate(time.startTime, lang.yearFormat)})
                     </>
                 )}
                 {/* Within one month on the same year indeed */}
                 {!isSameDay && isSameMonth && isSameYear && (
                     <>
                         {wp && lang.capitalize("from")}
-                        <TimeTag
-                            date={time.startTime}
-                            format={lang.humanDateMonthFormat}
-                        />
-                        {showHour && (
-                            <TimeTag
-                                date={time.startTime}
-                                format={lang.timeFormat}
-                            />
-                        )}
+                        <TimeTag date={time.startTime} format={lang.humanDateMonthFormat} />
+                        {showHour && <TimeTag date={time.startTime} format={lang.timeFormat} />}
                         {wp ? ` ${lang.to}` : " -"}&nbsp;
-                        <TimeTag
-                            date={time.endTime}
-                            format={lang.humanDateMonthFormat}
-                        />
-                        {showHour && (
-                            <TimeTag
-                                date={time.endTime}
-                                format={lang.timeFormat}
-                            />
-                        )}
-                        ({formatDate(time.startTime, lang.yearFormat)})
+                        <TimeTag date={time.endTime} format={lang.humanDateMonthFormat} />
+                        {showHour && <TimeTag date={time.endTime} format={lang.timeFormat} />}(
+                        {formatDate(time.startTime, lang.yearFormat)})
                     </>
                 )}
                 {/* Multi years */}
                 {!isSameDay && !isSameMonth && !isSameYear && (
                     <>
                         {wp && lang.capitalize("from")}{" "}
-                        <TimeTag
-                            date={time.startTime}
-                            format={lang.humanDateMonthYearFormat}
-                        />
+                        <TimeTag date={time.startTime} format={lang.humanDateMonthYearFormat} />
                         {wp ? ` ${lang.to}` : " -"}&nbsp;
-                        <TimeTag
-                            date={time.endTime}
-                            format={lang.humanDateMonthYearFormat}
-                        />
+                        <TimeTag date={time.endTime} format={lang.humanDateMonthYearFormat} />
                     </>
                 )}
             </Tag>

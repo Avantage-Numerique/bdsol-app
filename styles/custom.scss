@@ -120,8 +120,7 @@ $min-contrast-ratio: 4.5;
 //fonts
 $font-size-root: 15px; //moved from 14px to 16px font base size.
 
-$font-family-sans-serif:
-    "Poppins", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+$font-family-sans-serif: "Poppins", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
 $font-icons: "iconly";
 
 $font-weight-lighter: 200;
@@ -133,8 +132,7 @@ $font-weight-bolder: 800;
 
 $line-height-base: 1.4;
 
-$headings-font-family:
-    "Poppins", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+$headings-font-family: "Poppins", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
 $headings-line-height: 1.1;
 $headings-font-weight: 600;
 
@@ -245,26 +243,17 @@ $bezier-ease: cubic-bezier(0.25, 0.1, 0.25, 1);
 $bezier-linear: cubic-bezier(0, 0, 1, 1);
 $bezier-translation: cubic-bezier(0.54, -0.09, 0.5, 1.13);
 
-$transition-ease-out: $transition-default-property $transition-default-time
-    $bezier-ease-out;
-$transition-ease-in: $transition-default-property $transition-default-time
-    $bezier-ease-in;
-$transition-ease-in-out: $transition-default-property $transition-default-time
-    $bezier-ease-in-out;
-$transition-ease: $transition-default-property $transition-default-time
-    $bezier-ease;
-$transition-linear: $transition-default-property $transition-default-time
-    $bezier-linear;
-$transition-translation: $transition-default-property $transition-default-time
-    $bezier-translation;
+$transition-ease-out: $transition-default-property $transition-default-time $bezier-ease-out;
+$transition-ease-in: $transition-default-property $transition-default-time $bezier-ease-in;
+$transition-ease-in-out: $transition-default-property $transition-default-time $bezier-ease-in-out;
+$transition-ease: $transition-default-property $transition-default-time $bezier-ease;
+$transition-linear: $transition-default-property $transition-default-time $bezier-linear;
+$transition-translation: $transition-default-property $transition-default-time $bezier-translation;
 
-$transition-default: $transition-default-property $transition-default-time
-    $bezier-default;
+$transition-default: $transition-default-property $transition-default-time $bezier-default;
 $transition-base: $transition-ease;
-$transition-base-slow: $transition-default-property $transition-default-time * 2
-    $bezier-ease-in-out;
-$transition-base-quick: $transition-default-property $transition-default-time/2
-    $bezier-ease-in-out;
+$transition-base-slow: $transition-default-property $transition-default-time * 2 $bezier-ease-in-out;
+$transition-base-quick: $transition-default-property $transition-default-time/2 $bezier-ease-in-out;
 
 $transition-fade: opacity 0.15s $bezier-default;
 $transition-collapse: height 0.35s $bezier-ease-in-out;

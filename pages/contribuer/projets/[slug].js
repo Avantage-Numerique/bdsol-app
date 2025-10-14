@@ -13,6 +13,4 @@ const SingleProjectPage = (props) => {
 };
 export default SingleProjectPage;
 
-export const getServerSideProps = withSessionSsr(
-    ssrCanContributeToEntity("projects")
-);
+export const getServerSideProps = withSessionSsr(ssrCanContributeToEntity("projects"));

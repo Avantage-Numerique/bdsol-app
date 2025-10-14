@@ -60,9 +60,7 @@ const ProjectSingleView = ({ data }) => {
             ? sponsor.sort((a, b) => a.subMeta.order - b.subMeta.order)
             : sponsor;
     const sortedTeam =
-        team?.[0]?.subMeta?.order !== undefined
-            ? team.sort((a, b) => a.subMeta.order - b.subMeta.order)
-            : team;
+        team?.[0]?.subMeta?.order !== undefined ? team.sort((a, b) => a.subMeta.order - b.subMeta.order) : team;
 
     /* Needed for breadCrumb generator */
     const breadcrumbLabels = {
@@ -84,18 +82,9 @@ const ProjectSingleView = ({ data }) => {
     const [allEnumState, setAllEnumState] = useState(undefined);
     useEffect(() => {
         const getScheduleEnum = async () => {
-            const scheduleEnum = await clientSideExternalApiRequest(
-                "/info/budgetrange-enum",
-                { method: "GET" }
-            );
-            const timeFrameEnum = await clientSideExternalApiRequest(
-                "/info/timeframeeta-enum",
-                { method: "GET" }
-            );
-            const contextEnum = await clientSideExternalApiRequest(
-                "/info/context-enum",
-                { method: "GET" }
-            );
+            const scheduleEnum = await clientSideExternalApiRequest("/info/budgetrange-enum", { method: "GET" });
+            const timeFrameEnum = await clientSideExternalApiRequest("/info/timeframeeta-enum", { method: "GET" });
+            const contextEnum = await clientSideExternalApiRequest("/info/context-enum", { method: "GET" });
             let keyValueScheduleEnum = {};
             scheduleEnum.forEach((elem) => {
                 keyValueScheduleEnum[elem.value] = elem.label;
@@ -117,21 +106,14 @@ const ProjectSingleView = ({ data }) => {
 
     const Header = (
         <SingleBaseHeader
-            title={
-                <SanitizedInnerHtml
-                    tag={"h1"}
-                    className="text-white"
-                >{`${model.title}`}</SanitizedInnerHtml>
-            }
+            title={<SanitizedInnerHtml tag={"h1"} className="text-white">{`${model.title}`}</SanitizedInnerHtml>}
             subtitle={
                 <div className="d-text">
                     <h4 className="text-white">{alternateName}</h4>
                     <div className="mt-4">
                         {entityInCharge && (
                             <p className="text-white d-flex gap-2">
-                                <span className={"badge bg-secondary"}>
-                                    {lang.entityInCharge}
-                                </span>
+                                <span className={"badge bg-secondary"}>{lang.entityInCharge}</span>
                                 {entityInCharge.map((elem) => {
                                     return <EntityLink data={elem} />;
                                 })}
@@ -140,9 +122,7 @@ const ProjectSingleView = ({ data }) => {
 
                         {producer && (
                             <p className="text-white d-flex gap-2">
-                                <span className={"badge bg-secondary"}>
-                                    {lang.producer}
-                                </span>
+                                <span className={"badge bg-secondary"}>{lang.producer}</span>
                                 {producer.map((elem) => {
                                     return <EntityLink data={elem} />;
                                 })}
@@ -160,13 +140,8 @@ const ProjectSingleView = ({ data }) => {
 
     const FullWidthContent = (
         <>
-            <SingleInfo
-                title={lang.about}
-                NAMessage="Aucune description n'est disponible pour le moment."
-            >
-                {removeTagsFromString(description) && (
-                    <SanitizedInnerHtml>{description}</SanitizedInnerHtml>
-                )}
+            <SingleInfo title={lang.about} NAMessage="Aucune description n'est disponible pour le moment.">
+                {removeTagsFromString(description) && <SanitizedInnerHtml>{description}</SanitizedInnerHtml>}
             </SingleInfo>
         </>
     );
@@ -174,22 +149,12 @@ const ProjectSingleView = ({ data }) => {
     const ContentColumnLeft = (
         <>
             {/* Partners */}
-            <SingleInfo
-                title={lang.projectPartners}
-                displayCondition={sortedSponsors.length > 0}
-            >
-                <EntitiesTagGrid
-                    feed={sortedSponsors}
-                    subEntityProperty={"entity"}
-                    subTagProperty={"name"}
-                />
+            <SingleInfo title={lang.projectPartners} displayCondition={sortedSponsors.length > 0}>
+                <EntitiesTagGrid feed={sortedSponsors} subEntityProperty={"entity"} subTagProperty={"name"} />
             </SingleInfo>
 
             {/* Team */}
-            <SingleInfo
-                title={lang.teamMembers}
-                displayCondition={sortedTeam.length > 0}
-            >
+            <SingleInfo title={lang.teamMembers} displayCondition={sortedTeam.length > 0}>
                 <EntitiesTagGrid
                     feed={sortedTeam}
                     subEntityProperty={"member"}
@@ -201,72 +166,43 @@ const ProjectSingleView = ({ data }) => {
             {/* schedule budget */}
             <SingleInfo
                 title={lang.timelineAndBudget}
-                displayCondition={
-                    scheduleBudget && haveAValidValue(scheduleBudget)
-                }
+                displayCondition={scheduleBudget && haveAValidValue(scheduleBudget)}
             >
                 <section className={`${styles["budget"]}`}>
                     <div className="container my-2">
                         <div className="row">
-                            <BudgetCard
-                                title="Date de début"
-                                data={scheduleBudget?.startDate}
-                            />
-                            <BudgetCard
-                                title="Date estimée de fin"
-                                data={scheduleBudget?.endDateEstimate}
-                            />
-                            <BudgetCard
-                                title="Date de fin"
-                                data={scheduleBudget?.completionDate}
-                            />
+                            <BudgetCard title="Date de début" data={scheduleBudget?.startDate} />
+                            <BudgetCard title="Date estimée de fin" data={scheduleBudget?.endDateEstimate} />
+                            <BudgetCard title="Date de fin" data={scheduleBudget?.completionDate} />
                             <BudgetCard
                                 title="Budget total"
                                 data={scheduleBudget?.estimatedTotalBudget}
                                 isDate={false}
                             />
-                            <BudgetCard
-                                title="Temps avant la complétion"
-                                data={scheduleBudget?.eta}
-                                isDate={false}
-                            />
+                            <BudgetCard title="Temps avant la complétion" data={scheduleBudget?.eta} isDate={false} />
                         </div>
                     </div>
 
                     {scheduleBudget?.timeframe?.length > 0 && (
                         <>
-                            <h5 className="mt-4 text-dark">
-                                {lang.projectsSteps}
-                            </h5>
-                            <ul
-                                key="timeframe-container"
-                                className={`container rounded overflow-hidden shadow-sm`}
-                            >
+                            <h5 className="mt-4 text-dark">{lang.projectsSteps}</h5>
+                            <ul key="timeframe-container" className={`container rounded overflow-hidden shadow-sm`}>
                                 {/* Table's header */}
                                 <BudgetStep header />
-                                {scheduleBudget.timeframe.map(
-                                    (singleTimeframe, index) => {
-                                        return (
-                                            <BudgetStep
-                                                key={`timeframe-${singleTimeframe._id}`}
-                                                index={index}
-                                                step={singleTimeframe.step}
-                                                duration={
-                                                    allEnumState?.[
-                                                        singleTimeframe.eta
-                                                    ] ?? singleTimeframe.eta
-                                                }
-                                                costs={
-                                                    allEnumState?.[
-                                                        singleTimeframe
-                                                            .budgetRange
-                                                    ] ??
-                                                    singleTimeframe.budgetRange
-                                                }
-                                            />
-                                        );
-                                    }
-                                )}
+                                {scheduleBudget.timeframe.map((singleTimeframe, index) => {
+                                    return (
+                                        <BudgetStep
+                                            key={`timeframe-${singleTimeframe._id}`}
+                                            index={index}
+                                            step={singleTimeframe.step}
+                                            duration={allEnumState?.[singleTimeframe.eta] ?? singleTimeframe.eta}
+                                            costs={
+                                                allEnumState?.[singleTimeframe.budgetRange] ??
+                                                singleTimeframe.budgetRange
+                                            }
+                                        />
+                                    );
+                                })}
                             </ul>
                         </>
                     )}
@@ -275,9 +211,7 @@ const ProjectSingleView = ({ data }) => {
 
             {/* Equipments */}
             <SingleInfo title={lang.equipmentUsed}>
-                {equipment && (
-                    <EntitiesTagGrid feed={equipment} noneMessage={""} />
-                )}
+                {equipment && <EntitiesTagGrid feed={equipment} noneMessage={""} />}
             </SingleInfo>
         </>
     );
@@ -291,11 +225,7 @@ const ProjectSingleView = ({ data }) => {
 
             <SingleInfo title="Informations supplémentaires">
                 {context !== "" && (
-                    <SingleInfo
-                        title={lang.projectContext}
-                        isSubtitle
-                        noCardLayout
-                    >
+                    <SingleInfo title={lang.projectContext} isSubtitle noCardLayout>
                         {allEnumState?.[context] ?? context}
                     </SingleInfo>
                 )}
@@ -311,12 +241,7 @@ const ProjectSingleView = ({ data }) => {
                 </SingleInfo>
 
                 {/* Domains */}
-                <SingleInfo
-                    title={lang.Domains}
-                    displayCondition={domains?.length > 0}
-                    isSubtitle
-                    noCardLayout
-                >
+                <SingleInfo title={lang.Domains} displayCondition={domains?.length > 0} isSubtitle noCardLayout>
                     <SearchTag list={domains} listProperty={"domain"} />
                 </SingleInfo>
             </SingleInfo>
@@ -337,11 +262,7 @@ const ProjectSingleView = ({ data }) => {
             {(createdAt || updatedAt || meta) && (
                 <SingleInfo title={lang.entityMetadata} className="pt-3">
                     {/*********** Entity data ***********/}
-                    <SingleEntityMeta
-                        createdAt={createdAt}
-                        updatedAt={updatedAt}
-                        meta={meta}
-                    />
+                    <SingleEntityMeta createdAt={createdAt} updatedAt={updatedAt} meta={meta} />
                 </SingleInfo>
             )}
         </>
@@ -359,15 +280,13 @@ const ProjectSingleView = ({ data }) => {
                 { data: producer },
                 {
                     data: description,
-                    validationFunction: (value) =>
-                        removeTagsFromString(value) ? true : false,
+                    validationFunction: (value) => (removeTagsFromString(value) ? true : false),
                 },
                 { data: sortedSponsors },
                 { data: sortedTeam },
                 {
                     data: scheduleBudget,
-                    validationFunction: (value) =>
-                        value && haveAValidValue(value),
+                    validationFunction: (value) => value && haveAValidValue(value),
                 },
                 { data: equipment },
                 { data: context },
@@ -413,20 +332,10 @@ export default ProjectSingleView;
 //Line component for the budget steps
 function BudgetStep(props) {
     //Deconstruct props
-    const {
-        header = false,
-        index,
-        step = " - ",
-        duration = " - ",
-        costs = " - ",
-    } = props;
+    const { header = false, index, step = " - ", duration = " - ", costs = " - " } = props;
 
     const Tag = header ? "h6" : "p";
-    const bg_color = header
-        ? "bg-secondary-light"
-        : index % 2 === 0
-          ? "bg-greyBg"
-          : "";
+    const bg_color = header ? "bg-secondary-light" : index % 2 === 0 ? "bg-greyBg" : "";
 
     return (
         <li className={`${bg_color} row`}>
@@ -450,14 +359,9 @@ function BudgetCard(props) {
     if (title && data)
         return (
             <div className={`${col} g-3`}>
-                <div
-                    style={style}
-                    className="bg-greyBg py-3 px-3 rounded border-secondary"
-                >
+                <div style={style} className="bg-greyBg py-3 px-3 rounded border-secondary">
                     <h6 className="text-grey mb-1">{title}</h6>
-                    <p className="mb-0">
-                        {isDate ? getDateFromIsoString(data) : data}
-                    </p>
+                    <p className="mb-0">{isDate ? getDateFromIsoString(data) : data}</p>
                 </div>
             </div>
         );

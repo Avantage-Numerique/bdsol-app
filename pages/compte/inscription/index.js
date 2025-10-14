@@ -9,10 +9,7 @@ import styles from "./inscription.module.scss";
 const RegisterPage = () => {
     return (
         <section className={`d-flex align-items-center justify-content-center`}>
-            <PageMeta
-                title={lang.compte__singup__title}
-                description={lang.compte__singup__description}
-            />
+            <PageMeta title={lang.compte__singup__title} description={lang.compte__singup__description} />
             <div className={`header-less-page ${styles["inscription-page"]}`}>
                 <Register />
             </div>

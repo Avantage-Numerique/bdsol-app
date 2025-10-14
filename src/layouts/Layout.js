@@ -96,65 +96,23 @@ const Layout = ({ children, pageProps }) => {
         <>
             <Head>
                 <meta charSet="UTF-8" />
-                <meta
-                    name="viewport"
-                    content="width=device-width, initial-scale=1.0"
-                />
+                <meta name="viewport" content="width=device-width, initial-scale=1.0" />
                 <meta httpEquiv="X-UA-Compatible" content="ie=edge" />
                 <meta name="language" content="fr" />
                 {/* Static for now */}
 
                 {/* For IE 11 or earlier */}
                 {/* No support for PNG favicons with 16x16 or 32x32 sizes, so use the ICO format */}
-                <link
-                    rel="icon"
-                    type="image/x-icon"
-                    href={metaAssetsPath("favicon.ico")}
-                />
+                <link rel="icon" type="image/x-icon" href={metaAssetsPath("favicon.ico")} />
 
-                <link
-                    rel="apple-touch-icon"
-                    sizes="180x180"
-                    href={metaAssetsPath("apple-touch-icon.png")}
-                />
-                <link
-                    rel="icon"
-                    type="image/png"
-                    sizes="32x32"
-                    href={metaAssetsPath("favicon-32x32.png")}
-                />
-                <link
-                    rel="icon"
-                    type="image/png"
-                    sizes="16x16"
-                    href={metaAssetsPath("favicon-16x16.png")}
-                />
-                <link
-                    rel="apple-touch-icon"
-                    sizes="180x180"
-                    href={metaAssetsPath("apple-touch-icon.png")}
-                />
-                <link
-                    rel="icon"
-                    type="image/png"
-                    sizes="192x192"
-                    href={metaAssetsPath("android-chrome-192x192.png")}
-                />
-                <link
-                    rel="icon"
-                    type="image/png"
-                    sizes="512x512"
-                    href={metaAssetsPath("android-chrome-512x512.png")}
-                />
-                <link
-                    rel="manifest"
-                    href={metaAssetsPath("site.webmanifest")}
-                />
-                <link
-                    rel="mask-icon"
-                    href={metaAssetsPath("safari-pinned-tab.svg")}
-                    color="#5bbad5"
-                />
+                <link rel="apple-touch-icon" sizes="180x180" href={metaAssetsPath("apple-touch-icon.png")} />
+                <link rel="icon" type="image/png" sizes="32x32" href={metaAssetsPath("favicon-32x32.png")} />
+                <link rel="icon" type="image/png" sizes="16x16" href={metaAssetsPath("favicon-16x16.png")} />
+                <link rel="apple-touch-icon" sizes="180x180" href={metaAssetsPath("apple-touch-icon.png")} />
+                <link rel="icon" type="image/png" sizes="192x192" href={metaAssetsPath("android-chrome-192x192.png")} />
+                <link rel="icon" type="image/png" sizes="512x512" href={metaAssetsPath("android-chrome-512x512.png")} />
+                <link rel="manifest" href={metaAssetsPath("site.webmanifest")} />
+                <link rel="mask-icon" href={metaAssetsPath("safari-pinned-tab.svg")} color="#5bbad5" />
                 <meta name="msapplication-TileColor" content="#da532c" />
                 <meta name="theme-color" content="#ffffff" />
 
@@ -170,11 +128,7 @@ const Layout = ({ children, pageProps }) => {
                 {/* Defining contextes to be passed along children */}
                 <ModalContext.Provider value={{ modalTools: modalTools }}>
                     <currentTemplate.Component {...currentTemplate.props}>
-                        <MessageContext.Provider
-                            value={{ addMessage: addMessage }}
-                        >
-                            {children}
-                        </MessageContext.Provider>
+                        <MessageContext.Provider value={{ addMessage: addMessage }}>{children}</MessageContext.Provider>
                     </currentTemplate.Component>
                 </ModalContext.Provider>
                 <Footer />
@@ -187,9 +141,7 @@ const Layout = ({ children, pageProps }) => {
                             key={"toast-message-" + message.creationTime}
                             positiveReview={message.positive}
                             clean={() => {
-                                setMessages((prevState) =>
-                                    prevState.filter((i) => i !== message)
-                                );
+                                setMessages((prevState) => prevState.filter((i) => i !== message));
                             }}
                         >
                             {message.text}

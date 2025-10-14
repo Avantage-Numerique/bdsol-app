@@ -33,12 +33,9 @@ const UserHistoryGrid = () => {
 
     useEffect(() => {
         const getUsersHistory = async () => {
-            const usersHistoryResponse = await sendRequest(
-                "/userhistories/list",
-                "POST",
-                JSON.stringify(formData),
-                { "Content-Type": "application/json" }
-            );
+            const usersHistoryResponse = await sendRequest("/userhistories/list", "POST", JSON.stringify(formData), {
+                "Content-Type": "application/json",
+            });
             setUsersHistory(usersHistoryResponse);
         };
         if (auth.user.isLoggedIn) getUsersHistory();
@@ -68,10 +65,7 @@ const UserHistoryGrid = () => {
         if (typeof json != "string") {
             json = JSON.stringify(json, undefined, 2);
         }
-        json = json
-            .replace(/&/g, "&amp;")
-            .replace(/</g, "&lt;")
-            .replace(/>/g, "&gt;");
+        json = json.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
         return json.replace(
             /("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g,
             function (match) {
@@ -112,40 +106,22 @@ const UserHistoryGrid = () => {
                             usersHistory.data.map((modification, index) => (
                                 <tr key={"userHistoryGridList-" + index}>
                                     <td>
-                                        {new Date(
-                                            modification.modifDate
-                                        ).toLocaleDateString(dateLanguage)}{" "}
-                                        <br></br>{" "}
-                                        {new Date(
-                                            modification.modifDate
-                                        ).toLocaleTimeString(timeLanguage)}
+                                        {new Date(modification.modifDate).toLocaleDateString(dateLanguage)} <br></br>{" "}
+                                        {new Date(modification.modifDate).toLocaleTimeString(timeLanguage)}
                                     </td>
                                     <td>
                                         {modificationMsg(modification.action)}
-                                        {modification.user ==
-                                        modification.modifiedEntity
+                                        {modification.user == modification.modifiedEntity
                                             ? "votre compte : "
                                             : "l'entité : "}
-                                        {modification.fields.username
-                                            ? modification.fields.username +
-                                              ". "
-                                            : null}
+                                        {modification.fields.username ? modification.fields.username + ". " : null}
                                         {modification.fields.firstName
-                                            ? modification.fields.firstName +
-                                              " " +
-                                              modification.fields.lastName
+                                            ? modification.fields.firstName + " " + modification.fields.lastName
                                             : modification.fields.name}
                                     </td>
                                     <td>
-                                        {
-                                            Object.keys(modification.fields)
-                                                .length
-                                        }{" "}
-                                        champ
-                                        {Object.keys(modification.fields)
-                                            .length > 1
-                                            ? "s"
-                                            : ""}
+                                        {Object.keys(modification.fields).length} champ
+                                        {Object.keys(modification.fields).length > 1 ? "s" : ""}
                                     </td>
                                     <td>
                                         <Button

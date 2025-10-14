@@ -28,42 +28,28 @@ const SubjectRow = (props) => {
     const isActive = index === activeSubjectIndex;
 
     return (
-        <li
-            className={`list-group-item ${styles["pointer"]} ${!isActive && styles["background-hover"]}`}
-        >
+        <li className={`list-group-item ${styles["pointer"]} ${!isActive && styles["background-hover"]}`}>
             <header
                 onClick={isActive ? close : setActiveSubject}
                 className={`d-flex align-items-center cursor-pointer ${isActive && styles["background-hover"]}`}
             >
                 <h5 className="my-2 flex-fill">{subject}</h5>
-                <Icon
-                    className="fs-3 font-weight-bold mx-2"
-                    iconName={`las la-${isActive ? "minus" : "plus"}`}
-                />
+                <Icon className="fs-3 font-weight-bold mx-2" iconName={`las la-${isActive ? "minus" : "plus"}`} />
             </header>
             {activeSubjectIndex && isActive && (
-                <ul
-                    className={`${styles["list-background-odd"]} list-group list-group-flush my-2`}
-                >
+                <ul className={`${styles["list-background-odd"]} list-group list-group-flush my-2`}>
                     {rows &&
                         rows.map((row, i) => (
                             <Link
                                 className={`${styles["pointer"]}`}
-                                href={
-                                    row.tag
-                                        ? row.link + "#" + row.tag
-                                        : row.link
-                                }
+                                href={row.tag ? row.link + "#" + row.tag : row.link}
                                 key={row.name}
                             >
                                 <li
                                     className={`${styles["background-hover"]} list-group-item d-flex align-items-center`}
                                 >
                                     <p className="flex-fill m-0">{row.name}</p>
-                                    <Icon
-                                        className="fs-3 font-weight-bold"
-                                        iconName="las la-arrow-right"
-                                    />
+                                    <Icon className="fs-3 font-weight-bold" iconName="las la-arrow-right" />
                                 </li>
                             </Link>
                         ))}
@@ -87,15 +73,8 @@ const FAQ = () => {
 
     return (
         <>
-            <PageMeta
-                title={lang.faq__title}
-                description={lang.faq__description}
-            />
-            <PageHeader
-                bg={"bg-primary-lighter"}
-                textColor={"text-white"}
-                title={"FAQ"}
-            >
+            <PageMeta title={lang.faq__title} description={lang.faq__description} />
+            <PageHeader bg={"bg-primary-lighter"} textColor={"text-white"} title={"FAQ"}>
                 <Breadcrumbs
                     className={"pt-2"}
                     route={AppRoutes.faq}
@@ -104,9 +83,7 @@ const FAQ = () => {
                 />
             </PageHeader>
             <section className="my-4">
-                <h2 className="my-4">
-                    Besoin de plus de précisions sur un sujet ?
-                </h2>
+                <h2 className="my-4">Besoin de plus de précisions sur un sujet ?</h2>
                 <ul className="border-top border-bottom m-0 list-group list-group-flush">
                     <SubjectRow
                         index={1}

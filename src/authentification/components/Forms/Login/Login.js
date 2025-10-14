@@ -91,10 +91,7 @@ const Login = () => {
             {/* Spinner to display when the app is waiting for the api*/}
             {isLoading && <Spinner fixed className={"bg-primary-lighter"} />}
 
-            <form
-                onSubmit={authSubmitHandler}
-                className="bg-primary-lighter rounded"
-            >
+            <form onSubmit={authSubmitHandler} className="bg-primary-lighter rounded">
                 <div className={"d-flex flex-column"}>
                     <h3 className="text-dark-light mb-4">Connexion</h3>
 
@@ -119,32 +116,19 @@ const Login = () => {
                     />
 
                     <div className={"pb-3"}>
-                        <Button
-                            type="submit"
-                            size="slim"
-                            disabled={!formState.isValid}
-                        >
+                        <Button type="submit" size="slim" disabled={!formState.isValid}>
                             {lang.loginCTAButtonLabel}
                         </Button>
                     </div>
 
                     <p className={`${styles.formRedirection} pb-4`}>
-                        <RouteLink
-                            className={
-                                "internal-link no-decoration text-secondary"
-                            }
-                            routeName={"register"}
-                        />
+                        <RouteLink className={"internal-link no-decoration text-secondary"} routeName={"register"} />
                     </p>
 
-                    <p className={`pb-3 m-0`}>
-                        {lang.loginReinitPasswordTitle}
-                    </p>
+                    <p className={`pb-3 m-0`}>{lang.loginReinitPasswordTitle}</p>
                     <RouteLink
                         routeName={"resetPassword"}
-                        className={
-                            "internal-link no-decoration internal-link-secondary"
-                        }
+                        className={"internal-link no-decoration internal-link-secondary"}
                         label={lang.loginReinitPasswordBtnLabel}
                     />
                 </div>

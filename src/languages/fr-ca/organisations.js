@@ -16,8 +16,7 @@ const organisations = {
 
     //  CreateOrganisationForm.js
 
-    formOrganisationSubtitle:
-        "Vous pouvez ajouter ici une nouvelle organisation à la base de données.",
+    formOrganisationSubtitle: "Vous pouvez ajouter ici une nouvelle organisation à la base de données.",
     formOrganisationInstructions: "Super formulaire",
     organisationUploadMediaMainImage:
         "Vous pourrez téléverser une image à partir de la page de cette organisation. Cette image représentera cette organisation et sera affiché dans sa fiche et dans les pages qui la liste.",

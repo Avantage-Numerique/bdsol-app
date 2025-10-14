@@ -49,9 +49,7 @@ const Header = (props) => {
 
         if (!queryString) return asPath;
 
-        const params = queryString
-            .split("&")
-            .filter((p) => !p.startsWith("redirect="));
+        const params = queryString.split("&").filter((p) => !p.startsWith("redirect="));
 
         return params.length > 0 ? `${basePath}?${params.join("&")}` : basePath;
     }
@@ -59,9 +57,7 @@ const Header = (props) => {
     const cleanPath = stripRedirectParam(router.asPath);
 
     return (
-        <header
-            className={`main-nav ${styles.header} ${!windowScrollTop && styles["scroll-inner-page"]}`}
-        >
+        <header className={`main-nav ${styles.header} ${!windowScrollTop && styles["scroll-inner-page"]}`}>
             <Nav menuState={menuState} setMenuState={setMenuState} />
 
             <div className="container-fluid h-100">
@@ -72,10 +68,7 @@ const Header = (props) => {
                             className={`${styles["header__content"]} header-center d-flex justify-content-start align-items-center text-light h-100`}
                             onClick={() => setMenuState(0)}
                         >
-                            <Link
-                                href="/"
-                                className={`fs-5 ms-2 ps-2 ${styles["item-displayed-in-menu"]}`}
-                            >
+                            <Link href="/" className={`fs-5 ms-2 ps-2 ${styles["item-displayed-in-menu"]}`}>
                                 <Image src={logo} alt="Logo réduit de AVNU" />
                             </Link>
                         </div>
@@ -88,11 +81,7 @@ const Header = (props) => {
                                     <div
                                         className={`${styles["searchbar-menu-container"]} align-items-center justify-content-center`}
                                     >
-                                        <SearchBar
-                                            id="searchbar-layout"
-                                            clearAfterSearch="true"
-                                            small
-                                        />
+                                        <SearchBar id="searchbar-layout" clearAfterSearch="true" small />
                                     </div>
                                 </div>
                             </div>
@@ -109,19 +98,14 @@ const Header = (props) => {
                                     <li>
                                         <a
                                             href={AppRoutes.register.asPath}
-                                            className={
-                                                "nav-link text-black d-none d-md-block text-nowrap"
-                                            }
+                                            className={"nav-link text-black d-none d-md-block text-nowrap"}
                                         >
                                             {lang.menuSubscribeLabel}
                                         </a>
                                     </li>
                                     <li>
                                         <a
-                                            href={
-                                                AppRoutes.connection.asPath +
-                                                `?redirect=${encodeURI(cleanPath)}`
-                                            }
+                                            href={AppRoutes.connection.asPath + `?redirect=${encodeURI(cleanPath)}`}
                                             className={`nav-link text-black text-nowrap`}
                                         >
                                             {lang.menuConnectLabel}
@@ -141,14 +125,8 @@ const Header = (props) => {
                                 </div>
                             )}
                             {/* Button for the main menu */}
-                            <div
-                                className={`${styles["ham-menu-container"]} ${styles["item-displayed-in-menu"]}`}
-                            >
-                                <HamburgerButton
-                                    {...props}
-                                    setMenuState={setMenuState}
-                                    menuState={menuState}
-                                />
+                            <div className={`${styles["ham-menu-container"]} ${styles["item-displayed-in-menu"]}`}>
+                                <HamburgerButton {...props} setMenuState={setMenuState} menuState={menuState} />
                             </div>
                         </div>
                     </div>

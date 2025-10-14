@@ -27,11 +27,7 @@ const SelectLicence = ({ name, formTools, ...props }) => {
     useEffect(() => {
         const fetchLicences = async () => {
             //Send the request with the specialized hook
-            const response = await sendRequest(
-                "/static/licences/",
-                "GET",
-                null
-            );
+            const response = await sendRequest("/static/licences/", "GET", null);
 
             //If response is positive, update the state and pass the result to the select input
             if (!response.error) {
@@ -75,25 +71,14 @@ const SelectLicence = ({ name, formTools, ...props }) => {
             />
             <small>
                 {formState.inputs[name].value && (
-                    <div
-                        className={`my-2 ${styles["licence-container"]} bg-greyBg`}
-                    >
+                    <div className={`my-2 ${styles["licence-container"]} bg-greyBg`}>
                         <img
-                            src={
-                                licences.filter(
-                                    (elem) =>
-                                        elem.value ==
-                                        formState.inputs.licence.value
-                                )[0]?.image
-                            }
+                            src={licences.filter((elem) => elem.value == formState.inputs.licence.value)[0]?.image}
                             alt=""
                             className=""
                         />
                         <HtmlTagsRemover className={``}>
-                            {licences.filter(
-                                (elem) =>
-                                    elem.value == formState.inputs.licence.value
-                            )[0]?.guide ?? ""}
+                            {licences.filter((elem) => elem.value == formState.inputs.licence.value)[0]?.guide ?? ""}
                         </HtmlTagsRemover>
                         <Button
                             className={`${styles["details-button"]}`}

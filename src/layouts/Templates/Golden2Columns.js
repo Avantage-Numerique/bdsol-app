@@ -1,21 +1,10 @@
 const Golden2Columns = (props) => {
     // add parameters to set right or left oriented layout.
     // add fullwidth or contained parameter
-    const {
-        children,
-        columnContent,
-        className,
-        contentClassName,
-        columnClassName,
-        style,
-    } = props;
+    const { children, columnContent, className, contentClassName, columnClassName, style } = props;
 
     const Column1 = ({ columnClassName }) => {
-        return (
-            <div className={`golden-grid-ordered__minor ${columnClassName}`}>
-                {columnContent}
-            </div>
-        );
+        return <div className={`golden-grid-ordered__minor ${columnClassName}`}>{columnContent}</div>;
     };
 
     const MainContent = ({ contentClassName }) => {
@@ -29,10 +18,7 @@ const Golden2Columns = (props) => {
     };
 
     return (
-        <div
-            className={`golden-layout golden-grid-ordered ${className}`}
-            style={{ ...style }}
-        >
+        <div className={`golden-layout golden-grid-ordered ${className}`} style={{ ...style }}>
             <MainContent contentClassName={contentClassName} />
             <Column1 columnClassName={columnClassName} />
         </div>

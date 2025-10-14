@@ -1,6 +1,5 @@
 const events = {
-    EventsDefinition:
-        "Événement comprenant un aspect numérique ou lié à un projet numérique.",
+    EventsDefinition: "Événement comprenant un aspect numérique ou lié à un projet numérique.",
 
     Event: "Événement",
     Events: "Événements",

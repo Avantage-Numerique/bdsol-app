@@ -114,11 +114,7 @@ const EquipmentSingleView = ({ data }) => {
             {(model.createdAt || model.updatedAt || model.meta) && (
                 <SingleInfo title={lang.entityMetadata} className="pt-3">
                     {/*********** Entity data ***********/}
-                    <SingleEntityMeta
-                        createdAt={model.createdAt}
-                        updatedAt={model.updatedAt}
-                        meta={model.meta}
-                    />
+                    <SingleEntityMeta createdAt={model.createdAt} updatedAt={model.updatedAt} meta={model.meta} />
                 </SingleInfo>
             )}
         </>

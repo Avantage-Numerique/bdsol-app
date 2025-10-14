@@ -40,12 +40,9 @@ const PlacesPage = () => {
     */
     const fetchData = async () => {
         //Send the request with the specialized hook
-        const placeResponse = await sendRequest(
-            "/places/list",
-            "POST",
-            JSON.stringify({ data: { sort: "desc" } }),
-            { "Content-Type": "application/json" }
-        );
+        const placeResponse = await sendRequest("/places/list", "POST", JSON.stringify({ data: { sort: "desc" } }), {
+            "Content-Type": "application/json",
+        });
 
         //If positive
         if (!placeResponse.error) {
@@ -70,21 +67,14 @@ const PlacesPage = () => {
 
     return (
         <div>
-            <PageMeta
-                title={getTitle([type.labelPlural])}
-                description={lang.places__description}
-            />
+            <PageMeta title={getTitle([type.labelPlural])} description={lang.places__description} />
             <PageHeader
                 bg={"bg-primary-lighter"}
                 textColor={"text-white"}
                 title={"Consulter les lieux"}
                 description="Les lieux listés peuvent être liés à des événements, des organisations ou d'autre entité du milieu culturel."
             >
-                <Breadcrumbs
-                    className={"pt-2"}
-                    route={AppRoutes.places}
-                    getLabelGenerator={getLabelGenerator}
-                />
+                <Breadcrumbs className={"pt-2"} route={AppRoutes.places} getLabelGenerator={getLabelGenerator} />
             </PageHeader>
 
             <div className="container">
@@ -94,11 +84,7 @@ const PlacesPage = () => {
                         <div className="position-relative row row-cols-1 row-cols-sm-2 row-cols-xl-3">
                             {/* Loading state : If loading is on and there is no feed */}
                             {isLoading && (
-                                <div
-                                    className={
-                                        "home-page__feed-section--spinner-container"
-                                    }
-                                >
+                                <div className={"home-page__feed-section--spinner-container"}>
                                     <div>
                                         <Spinner reverse />
                                     </div>

@@ -3,13 +3,7 @@ import Button from "@/FormElements/Button/Button";
 import Icon from "@/common/widgets/Icon/Icon";
 import { lang } from "@/common/Data/GlobalConstants";
 
-const SubmitEntity = ({
-    children,
-    className,
-    submitHandler,
-    formState,
-    singleLink,
-}) => {
+const SubmitEntity = ({ children, className, submitHandler, formState, singleLink }) => {
     //List to guide the user to the invalid inputs soo they can correct it before submiting
     function listInvalidInput() {
         const invalidInputsList = [];
@@ -17,14 +11,9 @@ const SubmitEntity = ({
         Object.keys(formState.inputs).forEach((key, index) => {
             if (formState.inputs[key] != undefined) {
                 if (formState.inputs[key].isValid == false) {
-                    const displayText =
-                        formState.inputs[key].invalidMsg ??
-                        lang[key] ??
-                        key + " - invalide";
+                    const displayText = formState.inputs[key].invalidMsg ?? lang[key] ?? key + " - invalide";
                     invalidInputsList.push(
-                        <li key={`invalidInput-${key}-${index}`}>
-                            {lang.capitalize(displayText)}
-                        </li>
+                        <li key={`invalidInput-${key}-${index}`}>{lang.capitalize(displayText)}</li>
                     );
                 }
             }
@@ -35,20 +24,13 @@ const SubmitEntity = ({
     return (
         <div className={` ${className || "w-50"}`}>
             <div className="d-flex justify-content-center mb-2">
-                <b className="mb-2">
-                    Souhaitez-vous enregistrer les modifications ?
-                </b>
+                <b className="mb-2">Souhaitez-vous enregistrer les modifications ?</b>
             </div>
             <div className="row">
                 {/* Cancel button */}
                 <div className="col">
                     {singleLink && (
-                        <Button
-                            className="w-100 fs-4"
-                            size="slim"
-                            color="primary-light"
-                            href={singleLink}
-                        >
+                        <Button className="w-100 fs-4" size="slim" color="primary-light" href={singleLink}>
                             <Icon iconName={"times"} />
                         </Button>
                     )}

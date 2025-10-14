@@ -50,22 +50,13 @@ const EntitiesTagGrid = (
     const tabletClasses = `col-md-${Math.floor(columnsTotal / nbColumnsMd)}`;
     const largeClasses = `col-lg-${Math.floor(columnsTotal / nbColumnsLg)}`;
 
-    const colContainerClass =
-        columnClass ?? `${mobileClasses} ${tabletClasses} ${largeClasses}`;
+    const colContainerClass = columnClass ?? `${mobileClasses} ${tabletClasses} ${largeClasses}`;
 
     const forcedType = forceType ?? false;
 
     const getKeyString = useCallback((prefix, model, index) => {
         const sep = "-";
-        return (
-            prefix +
-            model.type +
-            sep +
-            (model._id ?? "") +
-            sep +
-            model.slug +
-            index
-        );
+        return prefix + model.type + sep + (model._id ?? "") + sep + model.slug + index;
     });
 
     //Using this instead of pt-3 because it is impossible to overide a pt-3 with something smaller passed in the className
@@ -78,25 +69,16 @@ const EntitiesTagGrid = (
         >
             {Array.isArray(feed) && feedLength > 0 ? (
                 feed.map((entity, index) => {
-                    const rawData = subEntityProperty
-                        ? entity[subEntityProperty]
-                        : entity;
+                    const rawData = subEntityProperty ? entity[subEntityProperty] : entity;
                     const entityType = rawData?.type ?? rawData.entityType;
-                    const type =
-                        typeof forcedType === "string"
-                            ? forcedType
-                            : entityType; //forced type can be use if the data doesn't contain the types.
+                    const type = typeof forcedType === "string" ? forcedType : entityType; //forced type can be use if the data doesn't contain the types.
 
                     const model = getModelFromType(type, rawData);
 
                     if (model) {
                         //Crawler for finding the field or subfield
                         let tag = subTagProperty;
-                        if (
-                            tag !== undefined &&
-                            typeof tag === "string" &&
-                            tag !== ""
-                        ) {
+                        if (tag !== undefined && typeof tag === "string" && tag !== "") {
                             if (tag.split(".").length > 1) {
                                 let fieldPath = tag.split(".");
                                 let tempTag = model;
@@ -123,10 +105,7 @@ const EntitiesTagGrid = (
                     //If the model isn't valid on complet. It happen when a model isn't populated.
                     console.error(lang.modelNotValid, rawData); //this is legit console log. Don't remove it unless you found a better way to handle this case <3
                     return (
-                        <li
-                            className={`flex-column ${colContainerClass} pb-4`}
-                            key={"not-valid" + index}
-                        >
+                        <li className={`flex-column ${colContainerClass} pb-4`} key={"not-valid" + index}>
                             {lang.modelNotValid}
                         </li>
                     );

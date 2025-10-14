@@ -68,21 +68,14 @@ const EquipmentPage = () => {
 
     return (
         <div>
-            <PageMeta
-                title={getTitle([type.labelPlural])}
-                description={lang.equipment__description}
-            />
+            <PageMeta title={getTitle([type.labelPlural])} description={lang.equipment__description} />
             <PageHeader
                 bg={"bg-primary-lighter"}
                 textColor={"text-white"}
                 title={lang.allEquipmentTitle}
                 description={lang.allEquipmentDescription}
             >
-                <Breadcrumbs
-                    className={"pt-2"}
-                    route={AppRoutes.equipment}
-                    labels={breadcrumbsLabels}
-                />
+                <Breadcrumbs className={"pt-2"} route={AppRoutes.equipment} labels={breadcrumbsLabels} />
             </PageHeader>
 
             <div className="container">
@@ -92,11 +85,7 @@ const EquipmentPage = () => {
                         <div className="position-relative row row-cols-1 row-cols-sm-2 row-cols-xl-3">
                             {/* Loading state : If loading is on and there is no feed */}
                             {isLoading && (
-                                <div
-                                    className={
-                                        "home-page__feed-section--spinner-container"
-                                    }
-                                >
+                                <div className={"home-page__feed-section--spinner-container"}>
                                     <div>
                                         <Spinner reverse />
                                     </div>
@@ -125,29 +114,20 @@ const EquipmentPage = () => {
                     {/* Aside section */}
                     <aside className="col col-12 col-md-3">
                         <div className="my-4 d-flex flex-column">
-                            <Button
-                                disabled={!auth.user.isLoggedIn}
-                                href="/contribuer/equipements"
-                                size="reg-100"
-                            >
+                            <Button disabled={!auth.user.isLoggedIn} href="/contribuer/equipements" size="reg-100">
                                 {lang.addEquipmentButtonLabel}
                             </Button>
 
                             {!auth.user.isLoggedIn && (
                                 <p className="mt-2">
-                                    Notez que vous devez être{" "}
-                                    <b className="text-primary">connecté</b>{" "}
-                                    pour pouvoir ajouter des entitées à la base
-                                    de données.
+                                    Notez que vous devez être <b className="text-primary">connecté</b> pour pouvoir
+                                    ajouter des entitées à la base de données.
                                 </p>
                             )}
                             {!auth.user.isLoggedIn && (
                                 <>
                                     <hr />
-                                    <Button
-                                        size="reg-100"
-                                        href="/compte/connexion"
-                                    >
+                                    <Button size="reg-100" href="/compte/connexion">
                                         Se connecter
                                     </Button>
                                 </>

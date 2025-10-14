@@ -39,12 +39,9 @@ const ProjectsPage = () => {
     */
     const fetchData = async () => {
         //Send the request with the specialized hook
-        const response = await sendRequest(
-            "/projects/list",
-            "POST",
-            JSON.stringify({ data: { sort: "desc" } }),
-            { "Content-Type": "application/json" }
-        );
+        const response = await sendRequest("/projects/list", "POST", JSON.stringify({ data: { sort: "desc" } }), {
+            "Content-Type": "application/json",
+        });
 
         //If positive
         if (!response.error) {
@@ -67,10 +64,7 @@ const ProjectsPage = () => {
 
     return (
         <div>
-            <PageMeta
-                title={getTitle([type.labelPlural])}
-                description={lang.projects__description}
-            />
+            <PageMeta title={getTitle([type.labelPlural])} description={lang.projects__description} />
             <PageHeader
                 bg={"bg-primary-lighter"}
                 textColor={"text-white"}
@@ -79,11 +73,7 @@ const ProjectsPage = () => {
                     "Vous trouverez ici une liste des projets produits par les technocréatifs.ves du Croissant boréal."
                 }
             >
-                <Breadcrumbs
-                    className={"pt-2"}
-                    route={AppRoutes.projects}
-                    labels={breadcrumbsLabels}
-                />
+                <Breadcrumbs className={"pt-2"} route={AppRoutes.projects} labels={breadcrumbsLabels} />
             </PageHeader>
 
             <div className="container">
@@ -93,11 +83,7 @@ const ProjectsPage = () => {
                         <div className="position-relative row row-cols-1 row-cols-sm-2 row-cols-xl-3">
                             {/* Loading state : If loading is on and there is no feed */}
                             {isLoading && (
-                                <div
-                                    className={
-                                        "home-page__feed-section--spinner-container"
-                                    }
-                                >
+                                <div className={"home-page__feed-section--spinner-container"}>
                                     <div>
                                         <Spinner reverse />
                                     </div>
@@ -127,29 +113,20 @@ const ProjectsPage = () => {
                     {/* Aside section */}
                     <aside className="col col-12 col-md-3">
                         <div className="my-4 d-flex flex-column">
-                            <Button
-                                disabled={!auth.user.isLoggedIn}
-                                href="/contribuer/projets"
-                                size="reg-100"
-                            >
+                            <Button disabled={!auth.user.isLoggedIn} href="/contribuer/projets" size="reg-100">
                                 Ajouter un projet
                             </Button>
 
                             {!auth.user.isLoggedIn && (
                                 <p className="mt-2">
-                                    Notez que vous devez être{" "}
-                                    <b className="text-primary">connecté</b>{" "}
-                                    pour pouvoir ajouter des entitées à la base
-                                    de données.
+                                    Notez que vous devez être <b className="text-primary">connecté</b> pour pouvoir
+                                    ajouter des entitées à la base de données.
                                 </p>
                             )}
                             {!auth.user.isLoggedIn && (
                                 <>
                                     <hr />
-                                    <Button
-                                        size="reg-100"
-                                        href="/compte/connexion"
-                                    >
+                                    <Button size="reg-100" href="/compte/connexion">
                                         Se connecter
                                     </Button>
                                 </>

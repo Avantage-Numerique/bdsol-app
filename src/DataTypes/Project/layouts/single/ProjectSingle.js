@@ -45,11 +45,7 @@ const ProjectSingle = ({ data, route }) => {
             {skills && skills.length > 0 && (
                 <>
                     <h4>{lang.domainsSingleLabel}</h4>
-                    <SearchTag
-                        className="row"
-                        list={domains}
-                        listProperty={"domain"}
-                    />
+                    <SearchTag className="row" list={domains} listProperty={"domain"} />
                 </>
             )}
         </>
@@ -118,10 +114,7 @@ const ProjectSingle = ({ data, route }) => {
 
                 <SingleInfo title={"Équipe"} className={"mb-3"}></SingleInfo>
 
-                <SingleInfo
-                    title={"Financement"}
-                    className={"mb-3"}
-                ></SingleInfo>
+                <SingleInfo title={"Financement"} className={"mb-3"}></SingleInfo>
 
                 <SingleInfo title={"Budget"} className={"mb-3"}></SingleInfo>
 

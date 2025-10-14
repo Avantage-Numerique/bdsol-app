@@ -33,15 +33,12 @@ const PersonSingleEditPage = () => {
             {/* Modal with the form in it*/}
             {modal.display && (
                 <Modal coloredBackground darkColorButton>
-                    <header
-                        className={`d-flex justify-content-between align-items-start`}
-                    >
+                    <header className={`d-flex justify-content-between align-items-start`}>
                         <div className="d-flex flex-column">
                             <h3 className="text-primary">Ajouter un projet</h3>
                             <p>
-                                Entrez les informations principales d'un projet.
-                                Vous pourrez les éditer de manière détaillée par
-                                la suite.
+                                Entrez les informations principales d'un projet. Vous pourrez les éditer de manière
+                                détaillée par la suite.
                             </p>
                         </div>
                         <Button

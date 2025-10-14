@@ -30,11 +30,7 @@ import UpdateSchedule from "../../Forms/Schedule/UpdateSchedule";
 import UpdateTeams from "@/src/DataTypes/Organisation/components/forms/UpdateTeams/UpdateTeams";
 import { TYPE_PLACE, TYPE_TAXONOMY } from "@/src/DataTypes/Entity/Types";
 import SelectFetch from "@/src/common/FormElements/Select/SelectFetch";
-import {
-    apiDateToDateInput,
-    apiDateToTimeInput,
-    dateTimeStringToUTC,
-} from "@/common/DateManager/Parse";
+import { apiDateToDateInput, apiDateToTimeInput, dateTimeStringToUTC } from "@/common/DateManager/Parse";
 import SubmitEntity from "@/DataTypes/common/Forms/SingleEdit/SubmitEntity";
 import UpdateSocialHandles from "@/src/DataTypes/common/Forms/UpdateSocialHandles/UpdateSocialHandles";
 import SingleSaveEntityReminder from "@/src/DataTypes/common/layouts/SingleSaveEntityReminder/SingleSaveEntityReminder";
@@ -255,31 +251,21 @@ const EventSingleEdit = ({ data }, ...props) => {
                 id: _id,
                 name: formState.inputs.name.value,
                 alternateName: formState.inputs.alternateName.value,
-                entityInCharge:
-                    formState.inputs.entityInCharge.value?.value ?? null,
+                entityInCharge: formState.inputs.entityInCharge.value?.value ?? null,
                 organizer: formState.inputs.organizer.value?.value ?? null,
                 description: formState.inputs.description.value,
                 eventType:
                     formState.inputs.eventType.value?.length > 0
-                        ? formState.inputs.eventType.value.map(
-                              (selectedEventType) => {
-                                  return selectedEventType.value;
-                              }
-                          )
+                        ? formState.inputs.eventType.value.map((selectedEventType) => {
+                              return selectedEventType.value;
+                          })
                         : [],
                 eventFormat:
-                    formState.inputs.eventFormat.value &&
-                    formState.inputs.eventFormat.value !== ""
+                    formState.inputs.eventFormat.value && formState.inputs.eventFormat.value !== ""
                         ? formState.inputs.eventFormat.value
                         : "",
-                startDate: combineDateAndTime(
-                    formState.inputs.startDate.value,
-                    formState.inputs.startTime.value
-                ),
-                endDate: combineDateAndTime(
-                    formState.inputs.endDate.value,
-                    formState.inputs.endTime.value
-                ),
+                startDate: combineDateAndTime(formState.inputs.startDate.value, formState.inputs.startTime.value),
+                endDate: combineDateAndTime(formState.inputs.endDate.value, formState.inputs.endTime.value),
                 url: formState.inputs.url.value.map(function (singleUrl) {
                     return {
                         label: singleUrl.value.label.value,
@@ -288,42 +274,36 @@ const EventSingleEdit = ({ data }, ...props) => {
                     };
                 }),
                 contactPoint: formState.inputs.contactPoint.value,
-                schedule: formState.inputs.schedule.value.map(
-                    (singleSchedule) => {
-                        return {
-                            name: singleSchedule.value.name.value,
-                            startDate: combineDateAndTime(
-                                singleSchedule.value.startDate.value,
-                                singleSchedule.value.startTime.value
-                            ),
-                            startTime: singleSchedule.value.startTime.value,
-                            endDate: combineDateAndTime(
-                                singleSchedule.value.endDate.value,
-                                singleSchedule.value.endTime.value
-                            ),
-                            endTime: singleSchedule.value.endTime.value,
-                            subMeta: { order: singleSchedule.order },
-                        };
-                    }
-                ),
+                schedule: formState.inputs.schedule.value.map((singleSchedule) => {
+                    return {
+                        name: singleSchedule.value.name.value,
+                        startDate: combineDateAndTime(
+                            singleSchedule.value.startDate.value,
+                            singleSchedule.value.startTime.value
+                        ),
+                        startTime: singleSchedule.value.startTime.value,
+                        endDate: combineDateAndTime(
+                            singleSchedule.value.endDate.value,
+                            singleSchedule.value.endTime.value
+                        ),
+                        endTime: singleSchedule.value.endTime.value,
+                        subMeta: { order: singleSchedule.order },
+                    };
+                }),
                 //Commented for populate loop trouble
                 //subEvents: formState.inputs.subEvents.value?.length > 0 ?
                 //formState.inputs.subEvents.value.map( (selectedSubEvent) => { return selectedSubEvent.value }) : [],
                 attendees:
                     formState.inputs.attendees.value?.length > 0
-                        ? formState.inputs.attendees.value.map(
-                              (selectedAttendee) => {
-                                  return selectedAttendee.value;
-                              }
-                          )
+                        ? formState.inputs.attendees.value.map((selectedAttendee) => {
+                              return selectedAttendee.value;
+                          })
                         : [],
                 skills:
                     formState.inputs.skills?.value?.length > 0
-                        ? formState.inputs.skills.value.map(
-                              (selectOptionSkill) => {
-                                  return selectOptionSkill.value;
-                              }
-                          )
+                        ? formState.inputs.skills.value.map((selectOptionSkill) => {
+                              return selectOptionSkill.value;
+                          })
                         : [],
                 domains:
                     formState.inputs.domains?.value?.length > 0
@@ -342,18 +322,13 @@ const EventSingleEdit = ({ data }, ...props) => {
                 }),
                 location:
                     formState.inputs.location?.value?.length > 0
-                        ? formState.inputs.location.value.map(
-                              function (singlePlace) {
-                                  return singlePlace.value;
-                              }
-                          )
+                        ? formState.inputs.location.value.map(function (singlePlace) {
+                              return singlePlace.value;
+                          })
                         : [],
                 //Temporary set the input in name field until we have a more elaborated structure for location
                 //location: [{ name: formState.inputs.location.value}],
-                meta: getDefaultUpdateEntityMeta(
-                    auth.user,
-                    model.meta.requestedBy
-                ),
+                meta: getDefaultUpdateEntityMeta(auth.user, model.meta.requestedBy),
             },
         };
 
@@ -450,12 +425,8 @@ const EventSingleEdit = ({ data }, ...props) => {
                                         name: "HIGHER_DATE_REQUIRED",
                                         dependencies: [
                                             {
-                                                value: (state) =>
-                                                    state.inputs["startDate"]
-                                                        .value,
-                                                listenerValue: (state) =>
-                                                    state.inputs["startDate"]
-                                                        .value,
+                                                value: (state) => state.inputs["startDate"].value,
+                                                listenerValue: (state) => state.inputs["startDate"].value,
                                             },
                                         ],
                                     },
@@ -498,12 +469,7 @@ const EventSingleEdit = ({ data }, ...props) => {
                     <Icon iconName={"save"} />
                     &nbsp;{lang.capitalize("save")}
                 </Button>
-                <Button
-                    className="fs-6"
-                    size="slim"
-                    color="primary-light"
-                    href={model.singleLink}
-                >
+                <Button className="fs-6" size="slim" color="primary-light" href={model.singleLink}>
                     <Icon iconName={"times"} />
                     &nbsp;{lang.Cancel}
                 </Button>
@@ -528,11 +494,7 @@ const EventSingleEdit = ({ data }, ...props) => {
             <div className="row">
                 <div className="col col-md-6">
                     <SingleInfo title="Organisations responsables">
-                        <SingleInfo
-                            title={lang.entityInCharge}
-                            isSubtitle
-                            noCardLayout
-                        >
+                        <SingleInfo title={lang.entityInCharge} isSubtitle noCardLayout>
                             {/* entityInCharge */}
                             <Select2
                                 name="entityInCharge"
@@ -544,11 +506,7 @@ const EventSingleEdit = ({ data }, ...props) => {
                                 selectField={"name"}
                             />
                         </SingleInfo>
-                        <SingleInfo
-                            title={lang.producer}
-                            isSubtitle
-                            noCardLayout
-                        >
+                        <SingleInfo title={lang.producer} isSubtitle noCardLayout>
                             {/* organizer */}
                             <Select2
                                 name="organizer"
@@ -604,14 +562,8 @@ const EventSingleEdit = ({ data }, ...props) => {
                     schedule={
                         schedule?.length > 0
                             ? schedule.map((elem, ind, arr) => {
-                                  if (elem.startDate)
-                                      elem.startDate = apiDateToDateInput(
-                                          elem.startDate
-                                      ); //getDateFromIsoString(elem.startDate);
-                                  if (elem.endDate)
-                                      elem.endDate = apiDateToDateInput(
-                                          elem.endDate
-                                      ); //getDateFromIsoString(elem.endDate);
+                                  if (elem.startDate) elem.startDate = apiDateToDateInput(elem.startDate); //getDateFromIsoString(elem.startDate);
+                                  if (elem.endDate) elem.endDate = apiDateToDateInput(elem.endDate); //getDateFromIsoString(elem.endDate);
                                   return elem;
                               })
                             : []
@@ -646,12 +598,7 @@ const EventSingleEdit = ({ data }, ...props) => {
 
             {/* team */}
             <SingleInfo title={lang.teamMembers}>
-                <UpdateTeams
-                    name="team"
-                    formTools={formTools}
-                    parentEntity={data}
-                    label="Éditez vos membre d'équipe"
-                />
+                <UpdateTeams name="team" formTools={formTools} parentEntity={data} label="Éditez vos membre d'équipe" />
             </SingleInfo>
 
             {/* attendees */}
@@ -674,19 +621,11 @@ const EventSingleEdit = ({ data }, ...props) => {
     const contentColumnRight = (
         <>
             <SingleInfo title={lang.contactInformations}>
-                <UpdateContactPoint
-                    formTools={formTools}
-                    name="contactPoint"
-                    model={model}
-                />
+                <UpdateContactPoint formTools={formTools} name="contactPoint" model={model} />
             </SingleInfo>
             <SingleInfo title={"Informations supplémentaires"} className="py-3">
                 {/* skills */}
-                <SingleInfo
-                    title={lang.skillsAndTechnologies}
-                    isSubtitle
-                    noCardLayout
-                >
+                <SingleInfo title={lang.skillsAndTechnologies} isSubtitle noCardLayout>
                     <Select2
                         name="skills"
                         formTools={formTools}
@@ -729,11 +668,7 @@ const EventSingleEdit = ({ data }, ...props) => {
                 </SingleInfo>
 
                 {/*eventType */}
-                <SingleInfo
-                    isSubtitle
-                    title={lang.selectEventType}
-                    noCardLayout
-                >
+                <SingleInfo isSubtitle title={lang.selectEventType} noCardLayout>
                     <Select2
                         name="eventType"
                         formTools={formTools}
@@ -772,11 +707,7 @@ const EventSingleEdit = ({ data }, ...props) => {
             {(createdAt || updatedAt || meta) && (
                 <SingleInfo title={lang.entityMetadata} className="pt-3">
                     {/*********** Entity data ***********/}
-                    <SingleEntityMeta
-                        createdAt={createdAt}
-                        updatedAt={updatedAt}
-                        meta={meta}
-                    />
+                    <SingleEntityMeta createdAt={createdAt} updatedAt={updatedAt} meta={meta} />
                 </SingleInfo>
             )}
         </>
@@ -798,10 +729,7 @@ const EventSingleEdit = ({ data }, ...props) => {
 
     return (
         <>
-            <SingleBeforeUnloadReminder
-                formTools={formTools}
-                saveIntention={saveIntentionState}
-            />
+            <SingleBeforeUnloadReminder formTools={formTools} saveIntention={saveIntentionState} />
             <SingleBase
                 breadCrumb={breadCrumb}
                 header={header}

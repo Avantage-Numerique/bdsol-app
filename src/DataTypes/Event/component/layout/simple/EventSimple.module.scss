@@ -1,6 +1,5 @@
 .event-simple {
-    $transition-simple-base: $transition-default-property
-        $transition-default-time $bezier-ease-in;
+    $transition-simple-base: $transition-default-property $transition-default-time $bezier-ease-in;
     .event-simple__header {
         width: 100%;
         /* Top section of the header containing the picture and button */

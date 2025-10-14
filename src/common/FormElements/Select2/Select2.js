@@ -69,33 +69,24 @@ const Select2 = ({ name, formTools, ...props }) => {
     const currentState = formState.inputs[name];
 
     const onTouch = (event) => {
-        inputHandler(
-            name,
-            value,
-            props.validationRules ? validate(value) : true
-        );
+        inputHandler(name, value, props.validationRules ? validate(value) : true);
         inputTouched(name);
     };
 
     //Extract validator message
-    const { validate, RequirementsBadges, dependencyCallingValidation } =
-        useValidation(props.validationRules, formState);
+    const { validate, RequirementsBadges, dependencyCallingValidation } = useValidation(
+        props.validationRules,
+        formState
+    );
     //Tooltip
     const { TipPopOver, TipButton } = useFieldTips(props.tip);
 
     useEffect(() => {
-        inputHandler(
-            name,
-            value,
-            props.validationRules ? validate(value) : true
-        );
+        inputHandler(name, value, props.validationRules ? validate(value) : true);
     }, [value, dependencyCallingValidation]);
 
     useEffect(() => {
-        const valueList = ApiEntityModel.getSelectOption(
-            formState.inputs[name].value,
-            props.selectField
-        );
+        const valueList = ApiEntityModel.getSelectOption(formState.inputs[name].value, props.selectField);
         //if formState contains no value
         if (valueList === null || valueList?.length == 0) {
             setValue(null);
@@ -135,10 +126,7 @@ const Select2 = ({ name, formTools, ...props }) => {
                 }),
                 { "Content-Type": "application/json" }
             );
-            const optionList = ApiEntityModel.getSelectOption(
-                apiResponse.data,
-                props.selectField
-            );
+            const optionList = ApiEntityModel.getSelectOption(apiResponse.data, props.selectField);
             setOptionList(optionList);
         }
     };
@@ -251,9 +239,7 @@ const Select2 = ({ name, formTools, ...props }) => {
             category={props.requestData?.category}
             allowedCategories={props.allowedCategories}
             onPositiveResponse={(response) => {
-                const optionCreated = ApiEntityModel.getSelectOption(
-                    response.data
-                );
+                const optionCreated = ApiEntityModel.getSelectOption(response.data);
                 addSelectedValue(...optionCreated);
                 //Close the modal
                 closeModal();
@@ -281,9 +267,7 @@ const Select2 = ({ name, formTools, ...props }) => {
             initValues={modalInitValues ?? {}}
             onPositiveResponse={(response) => {
                 //Here could be a call back function to execute
-                const optionCreated = ApiEntityModel.getSelectOption(
-                    response.data
-                );
+                const optionCreated = ApiEntityModel.getSelectOption(response.data);
                 addSelectedValue(...optionCreated);
                 //Close the modal
                 closeModal();
@@ -296,9 +280,7 @@ const Select2 = ({ name, formTools, ...props }) => {
             initValues={modalInitValues ?? {}}
             onPositiveResponse={(response) => {
                 //Here could be a call back function to execute
-                const optionCreated = ApiEntityModel.getSelectOption(
-                    response.data
-                );
+                const optionCreated = ApiEntityModel.getSelectOption(response.data);
                 addSelectedValue(...optionCreated);
                 //Close the modal
                 closeModal();
@@ -311,9 +293,7 @@ const Select2 = ({ name, formTools, ...props }) => {
             initValues={modalInitValues ?? {}}
             onPositiveResponse={(response) => {
                 //Here could be a call back function to execute
-                const optionCreated = ApiEntityModel.getSelectOption(
-                    response.data
-                );
+                const optionCreated = ApiEntityModel.getSelectOption(response.data);
                 addSelectedValue(...optionCreated);
                 //Close the modal
                 closeModal();
@@ -345,14 +325,12 @@ const Select2 = ({ name, formTools, ...props }) => {
         descriptions.set(TYPE_EQUIPMENT, "L'équipement");
 
         return (
-            <header
-                className={`d-flex justify-content-between align-items-start`}
-            >
+            <header className={`d-flex justify-content-between align-items-start`}>
                 <div className="d-flex flex-column">
                     <b className="fs-5">Création : {lang[props.modalType]}</b>
                     <p className="me-4">
-                        {descriptions.get(props.modalType)} que vous ajoutez
-                        sera directement intégré à votre formulaire.
+                        {descriptions.get(props.modalType)} que vous ajoutez sera directement intégré à votre
+                        formulaire.
                     </p>
                 </div>
                 <Button onClick={closeModal} className="btn-close">

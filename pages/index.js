@@ -12,10 +12,7 @@ import PageMeta from "@/src/common/PageMeta/PageMeta";
 
 //Entities
 //Costum hooks
-import {
-    clientSideExternalApiRequest,
-    useHttpClient,
-} from "@/src/hooks/http-hook";
+import { clientSideExternalApiRequest, useHttpClient } from "@/src/hooks/http-hook";
 
 //Context
 import { getType } from "@/DataTypes/Entity/Types";
@@ -43,10 +40,7 @@ const HomePageHeaderBgImg = () => {
     };
     //2025-08-15  overflow-hidden
     return (
-        <figure
-            style={localFigureStyling}
-            className="position-absolute start-0 w-100 h-100"
-        >
+        <figure style={localFigureStyling} className="position-absolute start-0 w-100 h-100">
             <Image
                 src={backgroundImg}
                 style={localImgStyling}
@@ -69,10 +63,7 @@ const HomePage = (props) => {
 
     const fetchHomeFeed = async () => {
         setIsLoading(true); //bypass the sendRequest setting of isLoading, because of all these promises here.
-        const homePageEntities = await clientSideExternalApiRequest(
-            `/search/homepage`,
-            { method: "GET" }
-        );
+        const homePageEntities = await clientSideExternalApiRequest(`/search/homepage`, { method: "GET" });
         setFeedList(homePageEntities.data);
 
         setIsLoading(false); //when all finishes, set this to false.
@@ -141,21 +132,14 @@ const HomePage = (props) => {
                 {/* Display of 6 latest entities*/}
                 <div className="row">
                     <div className="d-flex flex-column align-items-center">
-                        <h2 className="mt-4 text-center">
-                            Ajouts récents à la base de données
-                        </h2>
+                        <h2 className="mt-4 text-center">Ajouts récents à la base de données</h2>
                         <p className="mb-4 text-center">
-                            Cliquez sur les différentes fiches afin d'obtenir
-                            plus d'informations sur ces ressources.
+                            Cliquez sur les différentes fiches afin d'obtenir plus d'informations sur ces ressources.
                         </p>
                         <div className="home-page__feed-section container py-4 position-relative">
                             {/* Loading state : If loading is on and there is no feed */}
                             {isLoading && (
-                                <div
-                                    className={
-                                        "home-page__feed-section--spinner-container"
-                                    }
-                                >
+                                <div className={"home-page__feed-section--spinner-container"}>
                                     <div>
                                         <Spinner reverse />
                                     </div>
@@ -168,9 +152,7 @@ const HomePage = (props) => {
                             {/* If there is no loading state and no feed, go on that by default */}
                             {feedList.length === 0 && !isLoading && (
                                 <div>
-                                    <h5 className="text-center">
-                                        {lang.noResult}
-                                    </h5>
+                                    <h5 className="text-center">{lang.noResult}</h5>
                                 </div>
                             )}
                             {/*  Show the feed in the EntitiesGrid component. It manages an empty list in it, but it make it more readable to show it here too */}
@@ -186,10 +168,7 @@ const HomePage = (props) => {
                             )}
                         </div>
                         <div className="py-4 my-4">
-                            <Button
-                                className="px-4"
-                                href={AppRoutes.consult.pathname}
-                            >
+                            <Button className="px-4" href={AppRoutes.consult.pathname}>
                                 Voir toutes les données
                             </Button>
                         </div>
@@ -218,20 +197,14 @@ const HomePage = (props) => {
                         >
                             <h2 className="mb-4">AVNU, c'est quoi?</h2>
                             <p className="mt-4">
-                                AVNU est une base de données qui a pour objectif
-                                de recenser et de géolocaliser les talents, les
-                                ressources et les initiatives numériques en lien
-                                avec le territoire du Croissant boréal. En
-                                naviguant sur son interface, vous pourrez
-                                découvrir les personnes, les organismes, les
-                                projets, les équipements et les événements qui
-                                répondent à vos besoins technologiques.
+                                AVNU est une base de données qui a pour objectif de recenser et de géolocaliser les
+                                talents, les ressources et les initiatives numériques en lien avec le territoire du
+                                Croissant boréal. En naviguant sur son interface, vous pourrez découvrir les personnes,
+                                les organismes, les projets, les équipements et les événements qui répondent à vos
+                                besoins technologiques.
                             </p>
                             <div className="d-flex flex-wrap">
-                                <p>
-                                    Le projet AVNU est développé par le hub
-                                    &nbsp;
-                                </p>
+                                <p>Le projet AVNU est développé par le hub &nbsp;</p>
                                 <a href="https://avantagenumerique.org/">
                                     <Image
                                         alt="Logo avantage numérique"
@@ -242,10 +215,7 @@ const HomePage = (props) => {
                                 </a>
                             </div>
                             <div className="d-flex flex-column align-items-start mt-3">
-                                <Button
-                                    className="px-4 mt-2"
-                                    href={AppRoutes.about.asPath}
-                                >
+                                <Button className="px-4 mt-2" href={AppRoutes.about.asPath}>
                                     En savoir plus sur l'initiative
                                 </Button>
                                 {
@@ -268,26 +238,18 @@ const HomePage = (props) => {
                 </figure>
                 <div className="container position-relative">
                     <div className="row home-page__section-inner-y-padding">
-                        <h2 className="text-center">
-                            Envie d’ajouter des données ?
-                        </h2>
+                        <h2 className="text-center">Envie d’ajouter des données ?</h2>
                         <p className="text-center my-2">
-                            Vous aussi, contribuez à la plateforme en vous
-                            créant un compte utilisateur·rice. C’est simple et
-                            gratuit !<br />
-                            Vous pourrez alors ajouter ou modifier des fiches à
-                            propos des ressources technologiques de votre
-                            territoire. 
+                            Vous aussi, contribuez à la plateforme en vous créant un compte utilisateur·rice. C’est
+                            simple et gratuit !<br />
+                            Vous pourrez alors ajouter ou modifier des fiches à propos des ressources technologiques de
+                            votre territoire. 
                         </p>
                         <div className="d-flex justify-content-center my-4">
                             <Button
                                 className="px-4"
                                 color="primary"
-                                href={
-                                    auth?.user?.isLoggedIn
-                                        ? AppRoutes.contribute.asPath
-                                        : AppRoutes.register.asPath
-                                }
+                                href={auth?.user?.isLoggedIn ? AppRoutes.contribute.asPath : AppRoutes.register.asPath}
                             >
                                 C'est par ici !
                             </Button>

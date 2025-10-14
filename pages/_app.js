@@ -26,11 +26,7 @@ function AVNU({ Component, pageProps, user, serverCookiesChoices }) {
     return (
         <>
             {/* Authentication context provided to all the subsequent elements */}
-            <AuthProvider
-                fromSessionUser={user}
-                appMode={process.env.MODE}
-                acceptedCookies={serverCookiesChoices}
-            >
+            <AuthProvider fromSessionUser={user} appMode={process.env.MODE} acceptedCookies={serverCookiesChoices}>
                 <Layout pageProps={pageProps}>
                     <Component {...pageProps} />
                     <CookieBanner />
@@ -49,11 +45,7 @@ function AVNU({ Component, pageProps, user, serverCookiesChoices }) {
 AVNU.getInitialProps = async (context) => {
     const appProps = await App.getInitialProps(context);
     if (context.ctx.req && context.ctx.res) {
-        let session = await getIronSession(
-            context.ctx.req,
-            context.ctx.res,
-            appDefaultSessionOptions
-        );
+        let session = await getIronSession(context.ctx.req, context.ctx.res, appDefaultSessionOptions);
 
         //Save the IP
         const visitor = getVisitorDataFromContext(context);
@@ -68,20 +60,12 @@ AVNU.getInitialProps = async (context) => {
         if (cookiesChoices?.auth) {
             const savedInSessionUser = session.user ?? {};
 
-            if (
-                session &&
-                session.user &&
-                session.user.token &&
-                session.user.token !== ""
-            ) {
+            if (session && session.user && session.user.token && session.user.token !== "") {
                 //verify and set if the token is verified by the API
                 try {
-                    const serverVerificationResponse = await verifyToken(
-                        session.user.token
-                    );
+                    const serverVerificationResponse = await verifyToken(session.user.token);
                     session.user.tokenVerified = session.user.isLoggedIn =
-                        !serverVerificationResponse.error &&
-                        serverVerificationResponse.data.tokenVerified;
+                        !serverVerificationResponse.error && serverVerificationResponse.data.tokenVerified;
                 } catch (error) {
                     console.error("ERROR : Token verification failed");
                 }

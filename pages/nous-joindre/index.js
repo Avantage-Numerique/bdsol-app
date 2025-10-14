@@ -75,10 +75,7 @@ const NousJoindre = () => {
 
     return (
         <>
-            <PageMeta
-                title={lang.contact_us__title}
-                description={lang.contact_us__description}
-            />
+            <PageMeta title={lang.contact_us__title} description={lang.contact_us__description} />
             <PageHeader
                 textColor={"text-white"}
                 htmlTitle={"Nous joindre"}
@@ -96,20 +93,13 @@ const NousJoindre = () => {
                     </div>
                     <div className="py-4">
                         <div className="py-1">
-                            <span className="fw-semibold">
-                                Adresse courriel :
-                            </span>{" "}
-                            {appConfig.support.email}
+                            <span className="fw-semibold">Adresse courriel :</span> {appConfig.support.email}
                         </div>
                         <div className="py-1">
-                            <span className="fw-semibold">Adresse :</span>{" "}
-                            {appConfig.support.address}
+                            <span className="fw-semibold">Adresse :</span> {appConfig.support.address}
                         </div>
                         <div className="py-1">
-                            <span className="fw-semibold">
-                                Numéro de téléphone :
-                            </span>{" "}
-                            {appConfig.support.phone}
+                            <span className="fw-semibold">Numéro de téléphone :</span> {appConfig.support.phone}
                         </div>
                     </div>
                 </section>
@@ -118,19 +108,12 @@ const NousJoindre = () => {
                     <p>Nous vous répondrons le plus rapidement possible.</p>
                     <p>
                         Pour le faire{" "}
-                        <ExternalLink
-                            href={"mailto:" + appConfig.support.email}
-                        >
+                        <ExternalLink href={"mailto:" + appConfig.support.email}>
                             depuis votre propre boîte de courrier électronique
                         </ExternalLink>
                     </p>
 
-                    <Input
-                        className="py-1"
-                        name="name"
-                        label={"Nom"}
-                        formTools={formTools}
-                    />
+                    <Input className="py-1" name="name" label={"Nom"} formTools={formTools} />
                     <Input
                         className="py-1"
                         name="email"
@@ -146,11 +129,7 @@ const NousJoindre = () => {
                         formTools={formTools}
                     />
                     <div className={"py-1"}>
-                        <Button
-                            type="button"
-                            disabled={!formState.isValid}
-                            onClick={sendContactUsMessage}
-                        >
+                        <Button type="button" disabled={!formState.isValid} onClick={sendContactUsMessage}>
                             {lang.sendMessage}
                         </Button>
                     </div>

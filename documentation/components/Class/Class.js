@@ -14,33 +14,19 @@ const Class = ({ data, onclick, active, globalData }) => {
     const isActive = active ? `${styles.activeClass}` : "cursorPointer";
 
     return (
-        <article
-            id={data.slug}
-            className={`${styles.classComponent} ${isActive}`}
-            onClick={active ? null : onclick}
-        >
+        <article id={data.slug} className={`${styles.classComponent} ${isActive}`} onClick={active ? null : onclick}>
             {/* Inline quick presentation of the class */}
             <header>
                 {/* <img alt="Icone de représentant la classe" src="\class-icones\1356-wooden-box-outline.svg" /> */}
                 <h3>{data.title}</h3>
                 <p>{data.intro}</p>
-                <ArrowButton
-                    color="white"
-                    outline="primary"
-                    direction="down"
-                    openned={active}
-                    onclick={onclick}
-                />
+                <ArrowButton color="white" outline="primary" direction="down" openned={active} onclick={onclick} />
             </header>
 
             {/* Apply margins to the content block */}
             <div className="col-12">
                 {/* Main informations component of the class */}
-                <ClassInfos
-                    data={data}
-                    active={active}
-                    globalData={globalData}
-                />
+                <ClassInfos data={data} active={active} globalData={globalData} />
             </div>
         </article>
     );

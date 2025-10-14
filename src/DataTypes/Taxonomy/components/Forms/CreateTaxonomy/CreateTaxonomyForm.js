@@ -20,13 +20,7 @@ import Select2 from "@/src/common/FormElements/Select2/Select2";
 import { getDefaultCreateEntityMeta } from "@/src/DataTypes/Meta/EntityMeta";
 import RadioButton from "@/src/common/FormElements/RadioButton/RadioButton";
 
-const CreateTaxonomyForm = ({
-    name,
-    category,
-    initValues,
-    onPositiveResponse,
-    ...props
-}) => {
+const CreateTaxonomyForm = ({ name, category, initValues, onPositiveResponse, ...props }) => {
     const submitUri = props.uri ?? "create";
 
     const auth = useAuth();
@@ -139,8 +133,7 @@ const CreateTaxonomyForm = ({
         if (props.allowedCategories !== undefined) {
             if (Array.isArray(props.allowedCategories)) {
                 props.allowedCategories.forEach((elem) => {
-                    if (staticCategoryOptions?.[elem] !== undefined)
-                        tempOptions.push(staticCategoryOptions[elem]);
+                    if (staticCategoryOptions?.[elem] !== undefined) tempOptions.push(staticCategoryOptions[elem]);
                 });
             }
         } else {
@@ -155,18 +148,10 @@ const CreateTaxonomyForm = ({
     if (auth.user.isLoggedIn)
         return (
             <>
-                <form
-                    onSubmit={submitHandler}
-                    className={`col-12 ${styles["create-taxonomy-form"]}`}
-                >
+                <form onSubmit={submitHandler} className={`col-12 ${styles["create-taxonomy-form"]}`}>
                     <FormUI />
 
-                    <Input
-                        name="name"
-                        label="Nom"
-                        formTools={formTools}
-                        validationRules={[{ name: "REQUIRED" }]}
-                    />
+                    <Input name="name" label="Nom" formTools={formTools} validationRules={[{ name: "REQUIRED" }]} />
 
                     <RadioButton
                         name="category"
@@ -176,11 +161,7 @@ const CreateTaxonomyForm = ({
                         validationRules={[{ name: "REQUIRED" }]}
                     />
 
-                    <Input
-                        name="description"
-                        label="Description"
-                        formTools={formTools}
-                    />
+                    <Input name="description" label="Description" formTools={formTools} />
 
                     <Select2
                         name="domains"
@@ -213,11 +194,7 @@ const CreateTaxonomyForm = ({
                             {lang.submit}
                         </Button>
                         {props?.closeModal && (
-                            <Button
-                                color="danger"
-                                type="button"
-                                onClick={props.closeModal()}
-                            >
+                            <Button color="danger" type="button" onClick={props.closeModal()}>
                                 {lang.cancel}
                             </Button>
                         )}

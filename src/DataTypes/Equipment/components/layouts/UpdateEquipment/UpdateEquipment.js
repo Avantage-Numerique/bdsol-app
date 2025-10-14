@@ -37,9 +37,7 @@ const UpdateEquipment = ({ name, formTools, parentEntity, ...props }) => {
                 initValues={parentEntity.equipment}
                 sortable
             >
-                <div
-                    className={`d-flex align-items-center gap-3 mb-2 border-b py-2 bg-greyBg rounded-1`}
-                >
+                <div className={`d-flex align-items-center gap-3 mb-2 border-b py-2 bg-greyBg rounded-1`}>
                     <div className="col align-items-start row d-flex">
                         <div className="col-9">
                             <Select2

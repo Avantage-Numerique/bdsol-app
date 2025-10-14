@@ -86,33 +86,21 @@ const Nav = ({ menuState, setMenuState }) => {
     toggleScrollableBody();
 
     return (
-        <nav
-            className={`${styles.navContainer} ${menuState && styles.displayed} bg-primary-lighter`}
-        >
+        <nav className={`${styles.navContainer} ${menuState && styles.displayed} bg-primary-lighter`}>
             <div className="position-relative h-100">
                 <div className={`${styles["top-covering-color"]}`}></div>
-                <figure
-                    className={`${styles["bg-img-container"]} d-none d-sm-block`}
-                >
+                <figure className={`${styles["bg-img-container"]} d-none d-sm-block`}>
                     <Image
                         className={`position-absolute ${styles["bg-img"]}`}
                         src={organizationPresentationImg}
-                        alt={
-                            "Fusée avec le canard d'AVNU qui se déplace dans l'espace."
-                        }
+                        alt={"Fusée avec le canard d'AVNU qui se déplace dans l'espace."}
                     />
                 </figure>
                 <div className={`container ${styles["main-section"]}`}>
                     <div className={`row ${styles["limited-width"]} d-md-none`}>
                         <div className="col">
-                            <section
-                                className={`${styles["nav-section"]} search-bar-main-nav`}
-                            >
-                                <SearchBar
-                                    id="searchbar-layout"
-                                    clearAfterSearch="true"
-                                    small
-                                />
+                            <section className={`${styles["nav-section"]} search-bar-main-nav`}>
+                                <SearchBar id="searchbar-layout" clearAfterSearch="true" small />
                             </section>
                         </div>
                     </div>
@@ -137,9 +125,7 @@ const Nav = ({ menuState, setMenuState }) => {
                                 <ul className={`${styles["button-list"]}`}>
                                     <li>
                                         <MainNavButton
-                                            route={
-                                                AppRoutes.organisationsCreate
-                                            }
+                                            route={AppRoutes.organisationsCreate}
                                             iconClassName={`${Organisation.icon} ${styles["entity-icon"]}`}
                                             handler={navLinkHandler}
                                         />
@@ -186,19 +172,13 @@ const Nav = ({ menuState, setMenuState }) => {
                         </div>
                         <div className="col">
                             <section className={`${styles["nav-section"]}`}>
-                                <MainNavButton
-                                    className="fs-3 h2"
-                                    route={AppRoutes.about}
-                                    handler={navLinkHandler}
-                                />
+                                <MainNavButton className="fs-3 h2" route={AppRoutes.about} handler={navLinkHandler} />
                                 <ul className={`${styles["button-list"]}`}>
                                     <li>
                                         <MainNavButton
                                             route={AppRoutes.about}
                                             handler={navLinkHandler}
-                                            label={
-                                                "En savoir plus sur le projet AVNU"
-                                            }
+                                            label={"En savoir plus sur le projet AVNU"}
                                         />
                                     </li>
                                     <li>
@@ -210,16 +190,10 @@ const Nav = ({ menuState, setMenuState }) => {
                                         />
                                     </li>
                                     <li>
-                                        <MainNavButton
-                                            route={AppRoutes.contact}
-                                            handler={navLinkHandler}
-                                        />
+                                        <MainNavButton route={AppRoutes.contact} handler={navLinkHandler} />
                                     </li>
                                     <li>
-                                        <MainNavButton
-                                            route={AppRoutes.faq}
-                                            handler={navLinkHandler}
-                                        />
+                                        <MainNavButton route={AppRoutes.faq} handler={navLinkHandler} />
                                     </li>
                                 </ul>
                             </section>
@@ -239,10 +213,7 @@ const Nav = ({ menuState, setMenuState }) => {
                                                 />
                                             </li>
                                             <li>
-                                                <Button
-                                                    onClick={logout}
-                                                    text_color="dark"
-                                                >
+                                                <Button onClick={logout} text_color="dark">
                                                     {lang.menuLabelToDisconnect}
                                                 </Button>
                                             </li>
@@ -250,16 +221,10 @@ const Nav = ({ menuState, setMenuState }) => {
                                     ) : (
                                         <>
                                             <li>
-                                                <MainNavButton
-                                                    route={AppRoutes.connection}
-                                                    handler={navLinkHandler}
-                                                />
+                                                <MainNavButton route={AppRoutes.connection} handler={navLinkHandler} />
                                             </li>
                                             <li>
-                                                <MainNavButton
-                                                    route={AppRoutes.register}
-                                                    handler={navLinkHandler}
-                                                />
+                                                <MainNavButton route={AppRoutes.register} handler={navLinkHandler} />
                                             </li>
                                         </>
                                     )}

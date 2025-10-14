@@ -62,9 +62,7 @@ const Modal = (props) => {
                         ${styles["modal__close-button--container"]} 
                     `}
                 >
-                    <Button onClick={() => closingFunction()}>
-                        {lang.close}
-                    </Button>
+                    <Button onClick={() => closingFunction()}>{lang.close}</Button>
                 </div>
             )}
 

@@ -15,11 +15,7 @@ const FieldPopOver = (props) => {
     //Handles the dynamic positioning of the tooltip
     //Uses requestAnimationFrame to ensure measurements are taken after the dialog render and valid dimensions
     useEffect(() => {
-        if (
-            componentRef?.current &&
-            buttonRef?.current &&
-            containerRef?.current
-        ) {
+        if (componentRef?.current && buttonRef?.current && containerRef?.current) {
             // Show the dialog first so it gets rendered
             if (!componentRef.current.hasAttribute("open")) {
                 componentRef.current.show();
@@ -38,19 +34,12 @@ const FieldPopOver = (props) => {
 
                 let calculatedDialogX = 0;
 
-                const desiredLeft =
-                    buttonRect.left +
-                    buttonRect.width / 2 -
-                    dialogRect.width / 2;
+                const desiredLeft = buttonRect.left + buttonRect.width / 2 - dialogRect.width / 2;
 
                 if (desiredLeft < 8) {
                     calculatedDialogX = 8 - containerRect.left;
                 } else if (desiredLeft + dialogRect.width > viewportWidth - 8) {
-                    calculatedDialogX =
-                        viewportWidth -
-                        8 -
-                        dialogRect.width -
-                        containerRect.left;
+                    calculatedDialogX = viewportWidth - 8 - dialogRect.width - containerRect.left;
                 } else {
                     calculatedDialogX = desiredLeft - containerRect.left;
                 }
@@ -72,11 +61,7 @@ const FieldPopOver = (props) => {
                 <h4 title={header} className="m-0 me-2 fs-5 text-truncate">
                     {header}
                 </h4>
-                <button
-                    className="fs-5 m-0"
-                    onClick={closingFunction}
-                    type="button"
-                >
+                <button className="fs-5 m-0" onClick={closingFunction} type="button">
                     &#x2716;
                 </button>
             </header>

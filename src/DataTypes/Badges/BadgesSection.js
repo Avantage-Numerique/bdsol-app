@@ -1,10 +1,7 @@
 import { useEffect, useState } from "react";
 import SingleInfo from "../common/layouts/SingleInfo/SingleInfo";
 import { externalApiCache, lang } from "@/src/common/Data/GlobalConstants";
-import {
-    clientSideExternalApiRequest,
-    externalApiRequest,
-} from "@/src/hooks/http-hook";
+import { clientSideExternalApiRequest, externalApiRequest } from "@/src/hooks/http-hook";
 import Tip from "@/src/common/FormElements/Tip/Tip";
 
 const BadgesSection = ({ badges, entityLabel, ...props }) => {
@@ -41,29 +38,16 @@ const BadgesSection = ({ badges, entityLabel, ...props }) => {
                 header: "Détails du badge",
                 body: entityLabel
                     ? entityLabel + " " + elem.description
-                    : elem.description.charAt(0).toUpperCase() +
-                      elem.description.slice(1),
+                    : elem.description.charAt(0).toUpperCase() + elem.description.slice(1),
             };
             tempShowBadge.push(
                 <li
                     key={`badge-${index}`}
-                    className={
-                        "d-flex align-items-center justify-content-start list-group-item p-0 position-relative"
-                    }
+                    className={"d-flex align-items-center justify-content-start list-group-item p-0 position-relative"}
                 >
-                    <img
-                        className=""
-                        width="40px"
-                        height="40px"
-                        src={elem.iconPath}
-                        alt={elem.iconAlt}
-                    />
+                    <img className="" width="40px" height="40px" src={elem.iconPath} alt={elem.iconAlt} />
                     <span className="mx-2">{elem?.label ?? "Badge"}</span>
-                    <Tip
-                        className=""
-                        {...tip}
-                        dontBasePositionOnButton={true}
-                    />
+                    <Tip className="" {...tip} dontBasePositionOnButton={true} />
                 </li>
             );
         });
@@ -99,16 +83,10 @@ export const getBadgesInfo = async (fromServer = false) => {
             params: { method: "GET" },
         };
         if (fromServer) {
-            badges = await externalApiRequest(
-                badgeFetchConfig.path,
-                badgeFetchConfig.params
-            );
+            badges = await externalApiRequest(badgeFetchConfig.path, badgeFetchConfig.params);
         }
         if (!fromServer) {
-            badges = await clientSideExternalApiRequest(
-                badgeFetchConfig.path,
-                badgeFetchConfig.params
-            );
+            badges = await clientSideExternalApiRequest(badgeFetchConfig.path, badgeFetchConfig.params);
         }
 
         externalApiCache.set("badgesInfo", badges);

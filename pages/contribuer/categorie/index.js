@@ -24,20 +24,13 @@ const CreateTaxonomyPage = () => {
 
     return (
         <>
-            <PageHeader
-                title={"Catégorie"}
-                subTitle="Ajouter une nouvelle catégorie pour classifier les données"
-            >
+            <PageHeader title={"Catégorie"} subTitle="Ajouter une nouvelle catégorie pour classifier les données">
                 <HeaderRightSection />
             </PageHeader>
             <section className="container">
                 <div className="row justify-content-center ">
                     <div className="col col-md-8 col-xl-7">
-                        <SanitizedInnerHtml
-                            className="fst-italic py-4"
-                            Wrapper="p"
-                            removeQlEditorClass
-                        >
+                        <SanitizedInnerHtml className="fst-italic py-4" Wrapper="p" removeQlEditorClass>
                             {lang.taxonomyExplications}
                         </SanitizedInnerHtml>
                         <CreateTaxonomyForm initValues={{}} />

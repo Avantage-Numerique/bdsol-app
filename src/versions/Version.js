@@ -27,13 +27,7 @@ export default class Version {
     }
 
     static serialize(version) {
-        const jsonProperties = [
-            "label",
-            "value",
-            "notes",
-            "isCurrent",
-            "description",
-        ];
+        const jsonProperties = ["label", "value", "notes", "isCurrent", "description"];
         let toJson = {};
         for (let propertyLabel of jsonProperties) {
             toJson[propertyLabel] = version[propertyLabel];
@@ -51,11 +45,8 @@ export default class Version {
         return (
             <div key={`VersionNote${this.value}`}>
                 <TitleTag name={this.value}>
-                    {this.isCurrent && (
-                        <span className={"badge bg-secondary"}>Actuelle</span>
-                    )}{" "}
-                    <span className={"text-secondary"}>{this.value}</span>{" "}
-                    &mdash; {this.label}
+                    {this.isCurrent && <span className={"badge bg-secondary"}>Actuelle</span>}{" "}
+                    <span className={"text-secondary"}>{this.value}</span> &mdash; {this.label}
                 </TitleTag>
                 {this.description !== "" && <p>{this.description}</p>}
                 {this.notes.length > 0 && (
@@ -68,9 +59,7 @@ export default class Version {
                 )}
                 {this.link !== "" && (
                     <p className={"py-3"}>
-                        <ExternalLink href={this.link}>
-                            Voir sur github
-                        </ExternalLink>
+                        <ExternalLink href={this.link}>Voir sur github</ExternalLink>
                     </p>
                 )}
             </div>

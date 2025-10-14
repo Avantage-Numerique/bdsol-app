@@ -28,18 +28,13 @@ export const useSessionHook = () => {
                 //Annonce the start of the loading process
                 setIsLoading(true);
 
-                const response = await fetchInternalApi(
-                    "/api/logout",
-                    JSON.stringify({})
-                );
+                const response = await fetchInternalApi("/api/logout", JSON.stringify({}));
 
                 auth.setUser(response.user);
 
                 if (response.positive) {
                     //auth.login(response.data.user);
-                    await Router.push(
-                        `${response.redirectUri}?msg=${lang.disconnected}&msgPositive=true`
-                    );
+                    await Router.push(`${response.redirectUri}?msg=${lang.disconnected}&msgPositive=true`);
                 } else {
                     msg.addMessage({
                         text: response.text,
@@ -75,10 +70,7 @@ export const useSessionHook = () => {
             setIsLoading(true);
 
             try {
-                const response = await fetchInternalApi(
-                    "/api/login",
-                    JSON.stringify(data)
-                );
+                const response = await fetchInternalApi("/api/login", JSON.stringify(data));
                 auth.setUser(response.user);
 
                 //Display message only if not logged in
@@ -91,8 +83,7 @@ export const useSessionHook = () => {
 
                 if (response.positive) {
                     //If user not verified, redirect to aconfirmer
-                    if (response.user.verify?.isVerified !== true)
-                        Router.push(AppRoutes.toConfirm.asPath);
+                    if (response.user.verify?.isVerified !== true) Router.push(AppRoutes.toConfirm.asPath);
                     else {
                         //auth.login(response.data.user);
                         await Router.push(response.redirectUri);

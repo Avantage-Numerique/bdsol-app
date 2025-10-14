@@ -49,33 +49,25 @@ const nextConfig = {
                 process.env.API_HOST_NAME +
                 (process.env.API_PORT ? ":" + process.env.API_PORT : ""),
 
-        FROMSERVER_APP_HOST_NAME:
-            process.env.FROMSERVER_APP_HOST_NAME ?? "localhost",
-        FROMSERVER_APP_PROTOCOLE:
-            process.env.FROMSERVER_APP_PROTOCOLE ?? "http://",
+        FROMSERVER_APP_HOST_NAME: process.env.FROMSERVER_APP_HOST_NAME ?? "localhost",
+        FROMSERVER_APP_PROTOCOLE: process.env.FROMSERVER_APP_PROTOCOLE ?? "http://",
         FROMSERVER_APP_METHOD: process.env.FROMSERVER_APP_METHOD ?? "POST",
         FROMSERVER_APP_PORT: process.env.FROMSERVER_APP_PORT ?? 3000,
         FROMSERVER_APP_URL:
             process.env.FROMSERVER_APP_URL ??
             process.env.FROMSERVER_APP_PROTOCOLE +
                 process.env.FROMSERVER_APP_HOST_NAME +
-                (process.env.FROMSERVER_APP_PORT
-                    ? ":" + process.env.FROMSERVER_APP_PORT
-                    : ""),
+                (process.env.FROMSERVER_APP_PORT ? ":" + process.env.FROMSERVER_APP_PORT : ""),
 
-        FROMSERVER_API_HOST_NAME:
-            process.env.FROMSERVER_API_HOST_NAME ?? "localhost",
-        FROMSERVER_API_PROTOCOLE:
-            process.env.FROMSERVER_API_PROTOCOLE ?? "http://",
+        FROMSERVER_API_HOST_NAME: process.env.FROMSERVER_API_HOST_NAME ?? "localhost",
+        FROMSERVER_API_PROTOCOLE: process.env.FROMSERVER_API_PROTOCOLE ?? "http://",
         FROMSERVER_API_METHOD: process.env.FROMSERVER_API_METHOD ?? "POST",
         FROMSERVER_API_PORT: process.env.FROMSERVER_API_PORT ?? 8000,
         FROMSERVER_API_URL:
             process.env.FROMSERVER_API_URL ??
             process.env.FROMSERVER_API_PROTOCOLE +
                 process.env.FROMSERVER_API_HOST_NAME +
-                (process.env.FROMSERVER_API_PORT
-                    ? ":" + process.env.FROMSERVER_API_PORT
-                    : ""),
+                (process.env.FROMSERVER_API_PORT ? ":" + process.env.FROMSERVER_API_PORT : ""),
 
         FEEDBACK_API_KEY: process.env.FEEDBACK_API_KEY,
 
@@ -83,8 +75,7 @@ const nextConfig = {
 
         APP_COOKIE_NAME: process.env.APP_BASE_URL + "/avnuConnexion",
         COOKIE_PRIVATE_KEY:
-            process.env.COOKIE_PRIVATE_KEY ??
-            "This should be changed, the private key is not set yet !",
+            process.env.COOKIE_PRIVATE_KEY ?? "This should be changed, the private key is not set yet !",
         COOKIE_MAX_AGE: process.env.COOKIE_MAX_AGE ?? "86600",
 
         PING_INTERVAL: process.env.PING_INTERVAL ?? "5", //in minutes
@@ -123,22 +114,14 @@ const nextConfig = {
             defaultFormat: "YYYY-MM-DD HH:MM:SS",
             defaultLanguage: "fr-CA",
         },
-        appUrl:
-            process.env.APP_PROTOCOLE +
-            "" +
-            process.env.APP_BASE_URL +
-            ":" +
-            process.env.APP_PORT,
+        appUrl: process.env.APP_PROTOCOLE + "" + process.env.APP_BASE_URL + ":" + process.env.APP_PORT,
         pagination: {
             limit: 20,
             sort: -1,
         },
     },
     sassOptions: {
-        includePaths: [
-            path.join(__dirname, "styles"),
-            path.join(__dirname, "node_modules"),
-        ],
+        includePaths: [path.join(__dirname, "styles"), path.join(__dirname, "node_modules")],
         prependData: `@import "./component-base-imports.scss";`,
     },
     eslint: {

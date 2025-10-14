@@ -11,10 +11,7 @@ import AppRoutes from "@/src/Routing/AppRoutes";
 const SingleOrganisationPage = (props) => {
     return (
         <div className={`single-organisation`}>
-            <OrganisationSingleView
-                data={props}
-                route={AppRoutes.organisationSingle}
-            />
+            <OrganisationSingleView data={props} route={AppRoutes.organisationSingle} />
         </div>
     );
 };

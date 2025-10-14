@@ -31,28 +31,19 @@ function Error({ statusCode, ...props }) {
                 bg={"bg-primary-lighter"}
                 textColor={"text-white"}
                 htmlTitle={`${lang[`title${statusCode}`] || lang.title404}`}
-                subTitle={
-                    lang[`description${statusCode}`] || lang.description404
-                }
+                subTitle={lang[`description${statusCode}`] || lang.description404}
                 image={"/general_images/page-404.webp"}
                 imageAlt={"URL inexistante"}
                 imageRight={false}
             >
                 <p className={"pt-2"}>
                     {auth.user.isLoggedIn && (
-                        <Link
-                            href={AppRoutes.contribute.pathname}
-                            className={"btn btn-outline-secondary btn-lg"}
-                        >
-                            <Icon iconName={"plus"} /> Défini cette nouvelle
-                            donnée
+                        <Link href={AppRoutes.contribute.pathname} className={"btn btn-outline-secondary btn-lg"}>
+                            <Icon iconName={"plus"} /> Défini cette nouvelle donnée
                         </Link>
                     )}
                     {!auth.user.isLoggedIn && (
-                        <Link
-                            href={AppRoutes.connection.pathname}
-                            className={"btn btn-outline-secondary btn-lg"}
-                        >
+                        <Link href={AppRoutes.connection.pathname} className={"btn btn-outline-secondary btn-lg"}>
                             Se connecter pour contribuer
                         </Link>
                     )}
@@ -61,11 +52,7 @@ function Error({ statusCode, ...props }) {
 
             <div className="row my-4 py-4">
                 <section className="col col-12 col-md-12">
-                    <Breadcrumbs
-                        className={"pb-4"}
-                        route={errorRoute}
-                        labels={breadcrumbLabels}
-                    />
+                    <Breadcrumbs className={"pb-4"} route={errorRoute} labels={breadcrumbLabels} />
                     {props.children}
                 </section>
             </div>

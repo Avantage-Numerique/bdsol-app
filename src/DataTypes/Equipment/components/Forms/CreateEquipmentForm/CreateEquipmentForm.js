@@ -28,9 +28,7 @@ const CreateEquipmentForm = ({ onPositiveResponse, initValues, ...props }) => {
                 isValid: false,
             },
             label: {
-                value: initValues?.label
-                    ? initValues.label
-                    : (initValues?.name ?? ""),
+                value: initValues?.label ? initValues.label : (initValues?.name ?? ""),
                 isValid: false,
             },
             brand: {
@@ -66,11 +64,7 @@ const CreateEquipmentForm = ({ onPositiveResponse, initValues, ...props }) => {
             },
         };
 
-        await submitRequest(
-            `/equipment/create`,
-            "POST",
-            JSON.stringify(formData)
-        );
+        await submitRequest(`/equipment/create`, "POST", JSON.stringify(formData));
     };
 
     return (
@@ -98,16 +92,11 @@ const CreateEquipmentForm = ({ onPositiveResponse, initValues, ...props }) => {
                     placeholder={lang.labelPlaceholder}
                 />
                 <Input name="brand" label={lang.brand} formTools={formTools} />
-                <Input
-                    name="modelName"
-                    label={lang.modelName}
-                    formTools={formTools}
-                />
+                <Input name="modelName" label={lang.modelName} formTools={formTools} />
             </div>
             <div>
-                Suite à la création de l'équipement et de votre fiche, nous vous
-                suggérons d'aller voir la fiche de l'équipement afin d'ajouter
-                des liens vers des pages internet de celui-ci.
+                Suite à la création de l'équipement et de votre fiche, nous vous suggérons d'aller voir la fiche de
+                l'équipement afin d'ajouter des liens vers des pages internet de celui-ci.
             </div>
             <div className="col-12">
                 <Button
@@ -120,11 +109,7 @@ const CreateEquipmentForm = ({ onPositiveResponse, initValues, ...props }) => {
                     {lang.submit}
                 </Button>
                 {props?.closeModal && (
-                    <Button
-                        color="danger"
-                        type="button"
-                        onClick={props.closeModal()}
-                    >
+                    <Button color="danger" type="button" onClick={props.closeModal()}>
                         {lang.cancel}
                     </Button>
                 )}

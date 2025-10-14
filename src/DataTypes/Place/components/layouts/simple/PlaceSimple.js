@@ -26,13 +26,7 @@ const PlaceSimple = ({ model }) => {
         );
     };
 
-    return (
-        <EntitySimple
-            model={model}
-            className={`${styles["place-simple"]}`}
-            BottomLineContent={BottomLineContent}
-        />
-    );
+    return <EntitySimple model={model} className={`${styles["place-simple"]}`} BottomLineContent={BottomLineContent} />;
 };
 
 export default PlaceSimple;

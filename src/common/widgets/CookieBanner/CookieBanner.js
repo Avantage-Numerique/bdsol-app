@@ -4,11 +4,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import BottomBanner from "@/common/UserNotifications/BottomBanner/BottomBanner";
 import { lang } from "@/common/Data/GlobalConstants";
 import { RouteLink } from "@/common/Components/RouteLink";
-import {
-    allCookiesAccepted,
-    basicOnlyCookiesAccepted,
-    noCookiesAccepted,
-} from "@/common/Cookies/cookiesChoices";
+import { allCookiesAccepted, basicOnlyCookiesAccepted, noCookiesAccepted } from "@/common/Cookies/cookiesChoices";
 import { appConfig } from "@/src/configs/AppConfig";
 import { useAuth } from "@/auth/context/auth-context";
 import Image from "next/image";
@@ -26,8 +22,7 @@ export default function CookieBanner(props) {
         setCookieEnabled(window.navigator.cookieEnabled);
     }, []);
 
-    const [closingAnimationFinished, setClosingAnimationFinished] =
-        useState(false);
+    const [closingAnimationFinished, setClosingAnimationFinished] = useState(false);
 
     const onAcceptAllCookies = useCallback(() => {
         return auth.saveCookieChoices({ ...allCookiesAccepted });
@@ -57,9 +52,7 @@ export default function CookieBanner(props) {
                         Thumb={() => {
                             return (
                                 <Image
-                                    src={
-                                        "/general_images/avnu-cookies-thumb.png"
-                                    }
+                                    src={"/general_images/avnu-cookies-thumb.png"}
                                     alt={"Cookies non paramétré"}
                                     className={`${styles["cookie-baner__img"]} px-2`}
                                     width={226}
@@ -87,18 +80,12 @@ export default function CookieBanner(props) {
                         onCloseCallback={onCloseAnimationFinished}
                     >
                         <p>
-                            Consultez notre politique de gestion de cookie dans
-                            notre{" "}
-                            <RouteLink
-                                routeName={"confidentialityPolicy"}
-                                uriSuffix={"#usage-cookies"}
-                            />
-                            .
+                            Consultez notre politique de gestion de cookie dans notre{" "}
+                            <RouteLink routeName={"confidentialityPolicy"} uriSuffix={"#usage-cookies"} />.
                         </p>
                         <p>
-                            {lang.cookieBannerContent} Si vous n&apos;en
-                            choisissez aucun, vous ne pourrez pas vous connecter
-                            à {appConfig.name}
+                            {lang.cookieBannerContent} Si vous n&apos;en choisissez aucun, vous ne pourrez pas vous
+                            connecter à {appConfig.name}
                         </p>
                     </BottomBanner>
                 )
@@ -127,17 +114,12 @@ export default function CookieBanner(props) {
                     onCloseCallback={onCloseAnimationFinished}
                 >
                     <p>
-                        Consultez notre politique de gestion de cookie dans
-                        notre{" "}
-                        <RouteLink
-                            routeName={"confidentialityPolicy"}
-                            uriSuffix={"#usage-cookies"}
-                        />
-                        .
+                        Consultez notre politique de gestion de cookie dans notre{" "}
+                        <RouteLink routeName={"confidentialityPolicy"} uriSuffix={"#usage-cookies"} />.
                     </p>
                     <p>
-                        {lang.cookieBannerContent} Si vous choisissez aucun,
-                        vous ne pourrez pas vous connecter à {appConfig.name}
+                        {lang.cookieBannerContent} Si vous choisissez aucun, vous ne pourrez pas vous connecter à{" "}
+                        {appConfig.name}
                     </p>
                 </BottomBanner>
             )}

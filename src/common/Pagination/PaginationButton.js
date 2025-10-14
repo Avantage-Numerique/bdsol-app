@@ -33,18 +33,13 @@ const PaginationButton = (props) => {
     } = props;
 
     let additionnalsClasses = isCurrent ? styles["current"] : "";
-    additionnalsClasses += isNavigation
-        ? styles["btn-pagination-navigation"]
-        : "";
+    additionnalsClasses += isNavigation ? styles["btn-pagination-navigation"] : "";
 
     return (
         <button
             className={`${styles["btn-pagination"]} ${className} ${additionnalsClasses}`}
             key={"btn-pagination-page-" + label}
-            onClick={
-                clickMethod &&
-                (() => clickMethod(parseInt(pageNumber), clearList))
-            }
+            onClick={clickMethod && (() => clickMethod(parseInt(pageNumber), clearList))}
             disabled={disabled}
         >
             {labelIsIconClass ? <Icon iconName={label} /> : label}

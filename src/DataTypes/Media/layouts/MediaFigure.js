@@ -15,16 +15,7 @@ import Link from "next/link";
  * @constructor
  */
 const MediaFigure = (props) => {
-    let {
-        className,
-        imgClassName,
-        model,
-        children,
-        baseSrc,
-        link,
-        linkTitle,
-        addLinkTag,
-    } = props;
+    let { className, imgClassName, model, children, baseSrc, link, linkTitle, addLinkTag } = props;
 
     // defaults
     className = className ?? "w-100 h-100";
@@ -37,11 +28,7 @@ const MediaFigure = (props) => {
     const Image = () => {
         return (
             <>
-                <img
-                    src={`${baseSrc}${model.url}`}
-                    alt={model.alt}
-                    className={imgClassName}
-                />
+                <img src={`${baseSrc}${model.url}`} alt={model.alt} className={imgClassName} />
                 {children && children}
             </>
         );

@@ -10,9 +10,7 @@ const TaxonomySimple = ({ taxonomy }) => {
         >
             <span>{taxonomy.name}</span>
             {taxonomy.meta?.statistics?.count > 0 ? (
-                <span className={"badge bg-secondary"}>
-                    {taxonomy.meta?.statistics?.count}
-                </span>
+                <span className={"badge bg-secondary"}>{taxonomy.meta?.statistics?.count}</span>
             ) : (
                 ""
             )}

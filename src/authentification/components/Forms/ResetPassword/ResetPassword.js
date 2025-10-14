@@ -41,14 +41,11 @@ const ResetPassword = () => {
                 positive: true,
             });
         } else {
-            const apiResponse = await clientSideExternalApiRequest(
-                "/reset-password",
-                {
-                    body: JSON.stringify({
-                        data: { email: formState.inputs.email.value },
-                    }),
-                }
-            );
+            const apiResponse = await clientSideExternalApiRequest("/reset-password", {
+                body: JSON.stringify({
+                    data: { email: formState.inputs.email.value },
+                }),
+            });
             3;
             msg.addMessage({
                 text: "Un email sera envoyé s'il est associé à un compte.",
@@ -59,14 +56,10 @@ const ResetPassword = () => {
 
     return (
         <section className={`header-less-page  ${styles.resetPassword}`}>
-            <form
-                onSubmit={submitHandler}
-                className="bg-primary-lighter rounded form-box-shadow"
-            >
+            <form onSubmit={submitHandler} className="bg-primary-lighter rounded form-box-shadow">
                 <div className={"d-flex flex-column"}>
                     <h3 className="text-dark-light mb-4">
-                        Réinitialiser votre mot de passe ou récupérer votre nom
-                        d'utilisateur.
+                        Réinitialiser votre mot de passe ou récupérer votre nom d'utilisateur.
                     </h3>
                     <p>Entrer l'adresse courriel associé à votre compte.</p>
                     <FormUI />
@@ -74,19 +67,15 @@ const ResetPassword = () => {
                         name="email"
                         type="email"
                         label="Adresse courriel"
-                        validationRules={[
-                            { name: "REQUIRED" },
-                            { name: "TYPE_EMAIL" },
-                        ]}
+                        validationRules={[{ name: "REQUIRED" }, { name: "TYPE_EMAIL" }]}
                         formTools={formTools}
                     />
                     <div className="mt-3">
                         <Button disabled={!formState.isValid}>Soumettre</Button>
                     </div>
                     <p>
-                        *Si vous n'avez pas reçu le courriel, vérifier vos
-                        courriel indésirable, sinon veuillez attendre 5 minutes
-                        avant de soumettre à nouveau.
+                        *Si vous n'avez pas reçu le courriel, vérifier vos courriel indésirable, sinon veuillez attendre
+                        5 minutes avant de soumettre à nouveau.
                     </p>
                 </div>
             </form>

@@ -38,12 +38,7 @@ const PlaceSingleView = ({ data }) => {
 
     const header = (
         <SingleBaseHeader
-            title={
-                <SanitizedInnerHtml
-                    tag={"h1"}
-                    className="text-white"
-                >{`${model.title}`}</SanitizedInnerHtml>
-            }
+            title={<SanitizedInnerHtml tag={"h1"} className="text-white">{`${model.title}`}</SanitizedInnerHtml>}
             subtitle={
                 <div className="d-text mt-4">
                     {model.address && (
@@ -70,10 +65,7 @@ const PlaceSingleView = ({ data }) => {
 
     const FullWidthContent = (
         <>
-            <SingleInfo
-                title={lang.about}
-                NAMessage="Aucune description n'est disponible pour le moment."
-            >
+            <SingleInfo title={lang.about} NAMessage="Aucune description n'est disponible pour le moment.">
                 {<SanitizedInnerHtml>{model.description}</SanitizedInnerHtml>}
             </SingleInfo>
         </>
@@ -84,52 +76,32 @@ const PlaceSingleView = ({ data }) => {
             <ul className={`${styles["main-coordinate-list"]}`}>
                 {/* address x2 (in subtitle) */}
                 <li className={`${styles["coordinate"]}`}>
-                    <div className={`${styles["coordinate__title"]}`}>
-                        {lang.address} :
-                    </div>
-                    <div className={`${styles["coordinate__data"]}`}>
-                        {model.address ? model.address : " - "}
-                    </div>
+                    <div className={`${styles["coordinate__title"]}`}>{lang.address} :</div>
+                    <div className={`${styles["coordinate__data"]}`}>{model.address ? model.address : " - "}</div>
                 </li>
 
                 {/* city x2 (in subtitle) */}
                 <li className={`${styles["coordinate"]}`}>
-                    <div className={`${styles["coordinate__title"]}`}>
-                        {lang.city} :
-                    </div>
-                    <div className={`${styles["coordinate__data"]}`}>
-                        {model.city ? model.city : " - "}
-                    </div>
+                    <div className={`${styles["coordinate__title"]}`}>{lang.city} :</div>
+                    <div className={`${styles["coordinate__data"]}`}>{model.city ? model.city : " - "}</div>
                 </li>
 
                 {/* postalCode */}
                 <li className={`${styles["coordinate"]}`}>
-                    <div className={`${styles["coordinate__title"]}`}>
-                        {lang.postalCode} :
-                    </div>
-                    <div className={`${styles["coordinate__data"]}`}>
-                        {model.postalCode ? model.postalCode : " - "}
-                    </div>
+                    <div className={`${styles["coordinate__title"]}`}>{lang.postalCode} :</div>
+                    <div className={`${styles["coordinate__data"]}`}>{model.postalCode ? model.postalCode : " - "}</div>
                 </li>
 
                 {/* province */}
                 <li className={`${styles["coordinate"]}`}>
-                    <div className={`${styles["coordinate__title"]}`}>
-                        {lang.province} :
-                    </div>
-                    <div className={`${styles["coordinate__data"]}`}>
-                        {model.province ? model.province : " - "}
-                    </div>
+                    <div className={`${styles["coordinate__title"]}`}>{lang.province} :</div>
+                    <div className={`${styles["coordinate__data"]}`}>{model.province ? model.province : " - "}</div>
                 </li>
 
                 {/* country */}
                 <li className={`${styles["coordinate"]}`}>
-                    <div className={`${styles["coordinate__title"]}`}>
-                        {lang.country} :
-                    </div>
-                    <div className={`${styles["coordinate__data"]}`}>
-                        {model.country ? model.country : " - "}
-                    </div>
+                    <div className={`${styles["coordinate__title"]}`}>{lang.country} :</div>
+                    <div className={`${styles["coordinate__data"]}`}>{model.country ? model.country : " - "}</div>
                 </li>
             </ul>
         </SingleInfo>
@@ -139,42 +111,26 @@ const PlaceSingleView = ({ data }) => {
             <ul className={`${styles["main-coordinate-list"]}`}>
                 {/* mrc */}
                 <li className={`${styles["coordinate"]}`}>
-                    <div className={`${styles["coordinate__title"]}`}>
-                        {lang.mrc} :
-                    </div>
-                    <div className={`${styles["coordinate__data"]}`}>
-                        {model.mrc ? model.mrc : " - "}
-                    </div>
+                    <div className={`${styles["coordinate__title"]}`}>{lang.mrc} :</div>
+                    <div className={`${styles["coordinate__data"]}`}>{model.mrc ? model.mrc : " - "}</div>
                 </li>
 
                 {/* region */}
                 <li className={`${styles["coordinate"]}`}>
-                    <div className={`${styles["coordinate__title"]}`}>
-                        {lang.region} :
-                    </div>
-                    <div className={`${styles["coordinate__data"]}`}>
-                        {model.region ? model.region : " - "}
-                    </div>
+                    <div className={`${styles["coordinate__title"]}`}>{lang.region} :</div>
+                    <div className={`${styles["coordinate__data"]}`}>{model.region ? model.region : " - "}</div>
                 </li>
 
                 {/* longitude */}
                 <li className={`${styles["coordinate"]}`}>
-                    <div className={`${styles["coordinate__title"]}`}>
-                        {lang.longitude} :
-                    </div>
-                    <div className={`${styles["coordinate__data"]}`}>
-                        {model.longitude ? model.longitude : " - "}
-                    </div>
+                    <div className={`${styles["coordinate__title"]}`}>{lang.longitude} :</div>
+                    <div className={`${styles["coordinate__data"]}`}>{model.longitude ? model.longitude : " - "}</div>
                 </li>
 
                 {/* latitude */}
                 <li className={`${styles["coordinate"]}`}>
-                    <div className={`${styles["coordinate__title"]}`}>
-                        {lang.latitude} :
-                    </div>
-                    <div className={`${styles["coordinate__data"]}`}>
-                        {model.latitude ? model.latitude : " - "}
-                    </div>
+                    <div className={`${styles["coordinate__title"]}`}>{lang.latitude} :</div>
+                    <div className={`${styles["coordinate__data"]}`}>{model.latitude ? model.latitude : " - "}</div>
                 </li>
             </ul>
         </SingleInfo>
@@ -188,11 +144,7 @@ const PlaceSingleView = ({ data }) => {
             {(model.createdAt || model.updatedAt || model.meta) && (
                 <SingleInfo title={lang.entityMetadata} className="pt-3">
                     {/*********** Entity data ***********/}
-                    <SingleEntityMeta
-                        createdAt={model.createdAt}
-                        updatedAt={model.updatedAt}
-                        meta={model.meta}
-                    />
+                    <SingleEntityMeta createdAt={model.createdAt} updatedAt={model.updatedAt} meta={model.meta} />
                 </SingleInfo>
             )}
         </>
@@ -209,8 +161,7 @@ const PlaceSingleView = ({ data }) => {
                 { data: model.city },
                 {
                     data: model.description,
-                    validationFunction: (value) =>
-                        removeTagsFromString(value) ? true : false,
+                    validationFunction: (value) => (removeTagsFromString(value) ? true : false),
                 },
                 { data: model.postalCode },
                 { data: model.province },

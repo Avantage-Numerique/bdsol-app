@@ -35,19 +35,13 @@ const SingleSocialHandle = ({ data }) => {
 const SocialHandleDisplay = ({ url, title, className }) => {
     let orderedUrls = [];
 
-    if (Array.isArray(url))
-        orderedUrls = url.sort((a, b) =>
-            a.subMeta.order > b.subMeta.order ? 1 : -1
-        );
+    if (Array.isArray(url)) orderedUrls = url.sort((a, b) => (a.subMeta.order > b.subMeta.order ? 1 : -1));
 
     return (
         orderedUrls.length > 0 && (
             <SingleInfo title={title} className={className}>
                 {orderedUrls.map((singleUrl, i) => (
-                    <SingleSocialHandle
-                        data={singleUrl}
-                        key={"url_" + singleUrl.url + i}
-                    />
+                    <SingleSocialHandle data={singleUrl} key={"url_" + singleUrl.url + i} />
                 ))}
             </SingleInfo>
         )

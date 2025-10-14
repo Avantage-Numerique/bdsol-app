@@ -44,8 +44,7 @@ const UpdateContactPoint = ({ model, name, formTools, ...props }) => {
                     ext: contactFormUtils.formState.inputs.ext.value ?? "",
                 },
                 email: {
-                    address:
-                        contactFormUtils.formState.inputs.email.value ?? "",
+                    address: contactFormUtils.formState.inputs.email.value ?? "",
                 },
                 website: {
                     url: contactFormUtils.formState.inputs.website.value ?? "",
@@ -63,10 +62,7 @@ const UpdateContactPoint = ({ model, name, formTools, ...props }) => {
     return (
         <>
             <div style={{ marginTop: "-16px" }}>
-                <span className="badge bg-danger">
-                    Veillez à saisir uniquement des informations
-                    professionnelles.
-                </span>
+                <span className="badge bg-danger">Veillez à saisir uniquement des informations professionnelles.</span>
             </div>
             <div className="row">
                 <Input
@@ -82,18 +78,8 @@ const UpdateContactPoint = ({ model, name, formTools, ...props }) => {
                     formTools={contactFormUtils.formTools}
                 />
             </div>
-            <Input
-                className="py-2"
-                name="email"
-                label={lang.email}
-                formTools={contactFormUtils.formTools}
-            />
-            <Input
-                className="py-2"
-                name="website"
-                label={lang.website}
-                formTools={contactFormUtils.formTools}
-            />
+            <Input className="py-2" name="email" label={lang.email} formTools={contactFormUtils.formTools} />
+            <Input className="py-2" name="website" label={lang.website} formTools={contactFormUtils.formTools} />
         </>
     );
 };

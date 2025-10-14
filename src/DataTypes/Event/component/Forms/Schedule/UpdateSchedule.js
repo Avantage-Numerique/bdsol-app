@@ -53,9 +53,7 @@ const UpdateSchedule = ({ name, formTools, schedule, ...props }) => {
                             validationRules={[{ name: "REQUIRED" }]}
                         />
                         <div className="col-md-12 col-lg-8">
-                            <h6 className="col text-dark fw-normal mb-1 mt-1">
-                                Début{lang.required}
-                            </h6>
+                            <h6 className="col text-dark fw-normal mb-1 mt-1">Début{lang.required}</h6>
                             <div className="col-12 p-2 mb-2 rounded-1">
                                 <div className="row">
                                     <Input
@@ -75,9 +73,7 @@ const UpdateSchedule = ({ name, formTools, schedule, ...props }) => {
                                     />
                                 </div>
                             </div>
-                            <h6 className="col text-dark fw-normal mb-1 mt-1">
-                                Fin{lang.required}
-                            </h6>
+                            <h6 className="col text-dark fw-normal mb-1 mt-1">Fin{lang.required}</h6>
                             <div className="col-12 rounded-1 p-2">
                                 {/* adjust that live to avoid past of endDate */}
                                 <div className="row">

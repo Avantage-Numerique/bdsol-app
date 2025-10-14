@@ -29,14 +29,11 @@ const verifyAccount = (props) => {
     );
 
     const resendToken = async () => {
-        const apiResponse = await clientSideExternalApiRequest(
-            "/verify-account/resend",
-            {
-                body: JSON.stringify({
-                    data: { email: formState.inputs.email.value },
-                }),
-            }
-        );
+        const apiResponse = await clientSideExternalApiRequest("/verify-account/resend", {
+            body: JSON.stringify({
+                data: { email: formState.inputs.email.value },
+            }),
+        });
         if (apiResponse.error) {
             if (apiResponse.code === 200) {
                 msg.addMessage({
@@ -73,10 +70,7 @@ const verifyAccount = (props) => {
         setIsLoading(true);
         //Sends request to verifyAccount
         async function verifyToken() {
-            const response = await clientSideExternalApiRequest(
-                `/verify-account/${token}`,
-                { method: "GET" }
-            );
+            const response = await clientSideExternalApiRequest(`/verify-account/${token}`, { method: "GET" });
             if (!response.error && response.code === 200) {
                 //If no error, then account got verified
                 setVerifyState(true);

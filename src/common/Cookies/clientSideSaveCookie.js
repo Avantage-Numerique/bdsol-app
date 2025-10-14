@@ -11,8 +11,7 @@ function csSetCookie(name, value, options) {
         options.expires = expires.toUTCString();
     }
 
-    let updatedCookie =
-        encodeURIComponent(name) + "=" + encodeURIComponent(value);
+    let updatedCookie = encodeURIComponent(name) + "=" + encodeURIComponent(value);
 
     for (let propName in options) {
         updatedCookie += "; " + propName;

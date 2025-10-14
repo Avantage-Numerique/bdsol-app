@@ -38,9 +38,7 @@ const UpdateTeams = ({ name, formTools, parentEntity, ...props }) => {
                 }}
                 initValues={parentEntity.team}
             >
-                <div
-                    className={`${styles["team-member-row"]} d-flex align-items-center gap-3 mb-2 border-b py-2`}
-                >
+                <div className={`${styles["team-member-row"]} d-flex align-items-center gap-3 mb-2 border-b py-2`}>
                     <div className="col align-items-center row">
                         <div className="col-12 col-lg-6">
                             <Select2

@@ -15,9 +15,7 @@ const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 const RichTextarea = ({ name, formTools, ...props }) => {
     //Create a unique ID to link the custom tool bar to the quill element.
     //In a useRef because it must not be affected by component rerendering
-    const toolbarId = useRef(
-        `rich-text-tool-bar-${Math.floor(Math.random() * 10000000)}`
-    );
+    const toolbarId = useRef(`rich-text-tool-bar-${Math.floor(Math.random() * 10000000)}`);
 
     //Fixes a bug by waiting for the component to be rendered before charging quill
     const [isRendered, setIsRendered] = useState(false);
@@ -32,21 +30,15 @@ const RichTextarea = ({ name, formTools, ...props }) => {
     const { TipPopOver, TipButton } = useFieldTips(props.tip);
 
     //Extract the validator methods and utilities
-    const {
-        validate,
-        RequirementsBadges,
-        ValidationErrorMessages,
-        rerenderToggled,
-    } = useValidation(props.validationRules, formState);
+    const { validate, RequirementsBadges, ValidationErrorMessages, rerenderToggled } = useValidation(
+        props.validationRules,
+        formState
+    );
 
     const currentState = formState.inputs[name];
 
     const updateValue = (value, delta, source, editor) => {
-        inputHandler(
-            name,
-            value,
-            props.validationRules ? validate(editor.getText(), formState) : true
-        );
+        inputHandler(name, value, props.validationRules ? validate(editor.getText(), formState) : true);
         inputTouched(name);
     };
 
@@ -59,11 +51,7 @@ const RichTextarea = ({ name, formTools, ...props }) => {
         >
             {props.label && <label htmlFor={name}>{props.label}</label>}
             {props.tip && <TipButton title="Détails" />}
-            {props.labelNote && (
-                <blockquote className="p-0">
-                    * Note : {props.labelNote}
-                </blockquote>
-            )}
+            {props.labelNote && <blockquote className="p-0">* Note : {props.labelNote}</blockquote>}
             <TipPopOver />
 
             <div className={` ${styles["rich-textarea__quill"]} `}>
@@ -99,33 +87,13 @@ const RichTextarea = ({ name, formTools, ...props }) => {
                                     <option value="">Normal</option>
                                 </select>
 
-                                <button
-                                    className="ql-list"
-                                    value="ordered"
-                                    tabIndex={-1}
-                                />
-                                <button
-                                    className="ql-list"
-                                    value="bullet"
-                                    tabIndex={-1}
-                                />
+                                <button className="ql-list" value="ordered" tabIndex={-1} />
+                                <button className="ql-list" value="bullet" tabIndex={-1} />
                                 <button className="ql-bold" tabIndex={-1} />
                                 <button className="ql-italic" tabIndex={-1} />
-                                <button
-                                    className="ql-align"
-                                    value=""
-                                    tabIndex={-1}
-                                />
-                                <button
-                                    className="ql-align"
-                                    value="center"
-                                    tabIndex={-1}
-                                />
-                                <button
-                                    className="ql-align"
-                                    value="right"
-                                    tabIndex={-1}
-                                />
+                                <button className="ql-align" value="" tabIndex={-1} />
+                                <button className="ql-align" value="center" tabIndex={-1} />
+                                <button className="ql-align" value="right" tabIndex={-1} />
 
                                 <select className="ql-color" defaultValue="">
                                     <option value="#455ae6" />

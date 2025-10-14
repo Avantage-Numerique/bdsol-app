@@ -14,10 +14,7 @@ class Person extends EntityModel {
 
         super(raw);
 
-        this.title =
-            raw.firstName !== "" && raw.lastName
-                ? raw.firstName + " " + raw.lastName
-                : "";
+        this.title = raw.firstName !== "" && raw.lastName ? raw.firstName + " " + raw.lastName : "";
         this.description = raw.description ?? "";
         this.mainImage =
             !raw.mainImage || raw.mainImage === "" || !raw.mainImage
@@ -62,9 +59,7 @@ class Person extends EntityModel {
         if (raw?.occupations) {
             const orderedOccupation =
                 raw.occupations.length > 0 && raw.occupations[0].subMeta?.order
-                    ? raw.occupations.sort(
-                          (a, b) => a.subMeta.order - b.subMeta.order
-                      )
+                    ? raw.occupations.sort((a, b) => a.subMeta.order - b.subMeta.order)
                     : raw.occupations;
             orderedOccupation.forEach((occ) => {
                 if (occ.groupName) {

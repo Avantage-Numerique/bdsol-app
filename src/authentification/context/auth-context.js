@@ -56,19 +56,14 @@ export const getSessionFromData = (userData) => {
  * @param withAuthentification {boolean}
  * @return {object}
  */
-export const getUserHeadersFromUserSession = (
-    user,
-    withAuthentification = false
-) => {
+export const getUserHeadersFromUserSession = (user, withAuthentification = false) => {
     const userHeaders = {};
     if (user) {
         userHeaders["x-forwarded-for"] = user.ip ?? "";
         userHeaders["user-agent"] = user.browser ?? "";
 
         if (withAuthentification) {
-            userHeaders["Authorization"] = user.token
-                ? "Bearer " + user.token
-                : "";
+            userHeaders["Authorization"] = user.token ? "Bearer " + user.token : "";
         }
     }
 
@@ -77,25 +72,14 @@ export const getUserHeadersFromUserSession = (
 
 const AuthContext = createContext({});
 
-export function AuthProvider({
-    fromSessionUser,
-    appMode,
-    acceptedCookies,
-    children,
-}) {
-    const [user, setUser] = useState(
-        fromSessionUser ?? { ...defaultSessionData }
-    );
+export function AuthProvider({ fromSessionUser, appMode, acceptedCookies, children }) {
+    const [user, setUser] = useState(fromSessionUser ?? { ...defaultSessionData });
     const [loading, setLoading] = useState(true);
     const [apiUp, setApiUp] = useState(true);
     const [mode, setMode] = useState(appMode);
 
-    const [cookiesChoices, setCookiesChoices] = useState(
-        acceptedCookies ?? defaultCookiesChoices
-    );
-    const [choiceHasToBeMade, setChoiceHasToBeMade] = useState(
-        !acceptedCookies?.choiceMade ?? true
-    );
+    const [cookiesChoices, setCookiesChoices] = useState(acceptedCookies ?? defaultCookiesChoices);
+    const [choiceHasToBeMade, setChoiceHasToBeMade] = useState(!acceptedCookies?.choiceMade ?? true);
     const webStats = useWebStats();
     const saveCookieChoices = async (choices) => {
         await csSaveCookieChoices(choices);
@@ -107,10 +91,7 @@ export function AuthProvider({
     };
 
     const logOutUser = async () => {
-        const logOutResponse = await fetchInternalApi(
-            "/api/logout",
-            JSON.stringify({})
-        );
+        const logOutResponse = await fetchInternalApi("/api/logout", JSON.stringify({}));
         setUser(logOutResponse.user);
     };
 

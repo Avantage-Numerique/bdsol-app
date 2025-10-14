@@ -53,9 +53,7 @@ class Organisation extends EntityModel {
         if (raw?.offers) {
             const orderedOffers =
                 raw.offers.length > 0 && raw.offers[0].subMeta?.order
-                    ? raw.offers.sort(
-                          (a, b) => a.subMeta.order - b.subMeta.order
-                      )
+                    ? raw.offers.sort((a, b) => a.subMeta.order - b.subMeta.order)
                     : raw.offers;
             orderedOffers.forEach((offer) => {
                 if (offer.groupName) {

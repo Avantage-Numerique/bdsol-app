@@ -57,8 +57,7 @@ const TaxonomiesCategoryPage = () => {
     }, []);
 
     const mapArrayToListComponent = (list) => {
-        if (list === undefined || list.length === 0)
-            return <div>Liste introuvable ou vide</div>;
+        if (list === undefined || list.length === 0) return <div>Liste introuvable ou vide</div>;
 
         //Sort by alphabetical order so its possible for a user to find something :)
         list.sort((a, b) => {
@@ -71,10 +70,7 @@ const TaxonomiesCategoryPage = () => {
             }
         });
         return list.map((elem) => (
-            <div
-                key={elem.slug}
-                className="col-6 col-sm-4 col-md-3 p-1 p-md-2 d-flex"
-            >
+            <div key={elem.slug} className="col-6 col-sm-4 col-md-3 p-1 p-md-2 d-flex">
                 <TaxonomySimple taxonomy={elem} />
             </div>
         ));
@@ -88,17 +84,10 @@ const TaxonomiesCategoryPage = () => {
     return (
         <div>
             {/* Page head element  */}
-            <PageMeta
-                title={getTitle([type.labelPlural])}
-                description={lang.categories__description}
-            />
+            <PageMeta title={getTitle([type.labelPlural])} description={lang.categories__description} />
 
             <PageHeader title={`Toutes les catégories`}>
-                <Breadcrumbs
-                    className={"pt-2"}
-                    labels={breadcrumbLabels}
-                    route={AppRoutes.categories}
-                />
+                <Breadcrumbs className={"pt-2"} labels={breadcrumbLabels} route={AppRoutes.categories} />
             </PageHeader>
             {/* Page inner menu */}
             <menu className="gap-1 gap-sm-2 gap-md-3 d-flex flex-wrap p-0 justify-content-center">
@@ -116,18 +105,11 @@ const TaxonomiesCategoryPage = () => {
             {taxonomyMenu !== "" && (
                 <div>
                     <h3 className="py-4">
-                        {
-                            categoryList.find((el) => taxonomyMenu === el.value)
-                                .label
-                        }
+                        {categoryList.find((el) => taxonomyMenu === el.value).label}
                         {lang.colon}
                     </h3>
                     <div className="container pb-5">
-                        <div className="row gx-2">
-                            {mapArrayToListComponent(
-                                taxonomiesList[taxonomyMenu]
-                            )}
-                        </div>
+                        <div className="row gx-2">{mapArrayToListComponent(taxonomiesList[taxonomyMenu])}</div>
                     </div>
                 </div>
             )}

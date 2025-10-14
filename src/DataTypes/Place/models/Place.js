@@ -71,8 +71,7 @@ class Place extends EntityModel {
             if (raw.city) return raw.postalCode + ", " + raw.city;
         }
         if (raw.longitude && raw.latitude) {
-            if (raw.city)
-                return raw.longitude + ", " + raw.latitude + ", " + raw.city;
+            if (raw.city) return raw.longitude + ", " + raw.latitude + ", " + raw.city;
             return raw.longitude + ", " + raw.latitude;
         }
     }

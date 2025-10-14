@@ -36,9 +36,7 @@ const Pagination = ({
     const paginationRef = useRef({
         count: paginationMeta?.count ?? 0,
         skipped: paginationMeta?.skipped ?? 0,
-        limit:
-            paginationMeta?.limit ??
-            nextConfig.publicRuntimeConfig.pagination.limit,
+        limit: paginationMeta?.limit ?? nextConfig.publicRuntimeConfig.pagination.limit,
         type: paginationMeta?.type ?? "Person",
         pageCount: paginationMeta?.pageCount ?? 1,
         currentPage: paginationMeta?.currentPage ?? 1,
@@ -69,9 +67,7 @@ const Pagination = ({
     }
 
     const nextPage = () => {
-        if (
-            paginationRef.current.currentPage < paginationRef.current.pageCount
-        ) {
+        if (paginationRef.current.currentPage < paginationRef.current.pageCount) {
             setPageNumber(paginationRef.current.currentPage + 1);
         }
     };
@@ -111,10 +107,7 @@ const Pagination = ({
             if (numberArray[0] - 1 > 1) numberArray.unshift(numberArray[0] - 1);
 
             //if possible add right
-            if (
-                numberArray[numberArray.length - 1] + 1 <
-                paginationMeta.pageCount
-            )
+            if (numberArray[numberArray.length - 1] + 1 < paginationMeta.pageCount)
                 numberArray.push(numberArray[numberArray.length - 1] + 1);
         }
 
@@ -128,10 +121,7 @@ const Pagination = ({
         //Right check for "..."
         if (numberArray[numberArray.length - 1] + 1 < paginationMeta.pageCount)
             numberArray.push("...", paginationMeta.pageCount);
-        else if (
-            numberArray[numberArray.length - 1] + 1 ===
-            paginationMeta.pageCount
-        )
+        else if (numberArray[numberArray.length - 1] + 1 === paginationMeta.pageCount)
             //Add last page?
             numberArray.push(paginationMeta.pageCount);
 
@@ -159,27 +149,16 @@ const Pagination = ({
                             pageNumber={pageLabel}
                             className={""}
                             clickMethod={paginationButtonClickHandler}
-                            clearList={
-                                !(
-                                    pageLabel + 1 ===
-                                    paginationMeta.currentPage + 1
-                                )
-                            }
+                            clearList={!(pageLabel + 1 === paginationMeta.currentPage + 1)}
                             disabled={pageLabel === paginationMeta.currentPage}
-                            isCurrent={
-                                paginationMeta?.currentPage === pageLabel
-                            }
+                            isCurrent={paginationMeta?.currentPage === pageLabel}
                         />
                     );
             }
         });
 
         //Return component array to display.
-        return (
-            <div className={"d-flex justify-content-center"}>
-                {paginationNumber}
-            </div>
-        );
+        return <div className={"d-flex justify-content-center"}>{paginationNumber}</div>;
     };
 
     //LoadMore section
@@ -201,10 +180,7 @@ const Pagination = ({
      */
     const onScroll = useCallback(
         debounce(() => {
-            if (
-                typeof window !== "undefined" &&
-                typeof document !== "undefined"
-            ) {
+            if (typeof window !== "undefined" && typeof document !== "undefined") {
                 if (
                     window.innerHeight + document.documentElement.scrollTop ===
                     document.scrollingElement.scrollHeight
@@ -253,16 +229,11 @@ const Pagination = ({
     const PaginationHeaderComponent = (
         <header className="py-3">
             {paginationMeta.count > 0 && (
-                <div
-                    className={
-                        "d-flex w-33 justify-content-center align-baseline"
-                    }
-                >
+                <div className={"d-flex w-33 justify-content-center align-baseline"}>
                     {false && showStats && (
                         <div className={"d-flex w-50 align-items-center"}>
                             <p className={"m-0 pe-1"}>
-                                {lang.paginationInfoTitle}{" "}
-                                {paginationMeta.currentPage}
+                                {lang.paginationInfoTitle} {paginationMeta.currentPage}
                             </p>
                         </div>
                     )}
@@ -270,19 +241,15 @@ const Pagination = ({
                         <div className={"d-flex align-items-center"}>
                             <p className={"m-0 px-3"}>
                                 <span>
-                                    {lang.paginationInfoTitle}{" "}
-                                    {paginationMeta.currentPage}
+                                    {lang.paginationInfoTitle} {paginationMeta.currentPage}
                                 </span>
                                 <span className={"px-3"}>&mdash;</span>
                                 <span>
                                     {paginationMeta.skipped + 1}&nbsp;
                                     {lang.paginationInfoTitleTo}&nbsp;
-                                    {paginationMeta.skipped +
-                                        paginationMeta.currentCount}
+                                    {paginationMeta.skipped + paginationMeta.currentCount}
                                 </span>
-                                <span className={"px-1"}>
-                                    {lang.paginationInfoTitleOn}
-                                </span>
+                                <span className={"px-1"}>{lang.paginationInfoTitleOn}</span>
                                 <span>{paginationMeta.count}</span>
                             </p>
                         </div>
@@ -291,20 +258,10 @@ const Pagination = ({
                 </div>
             )}
             {paginationMeta.count <= 0 && (
-                <div
-                    className={
-                        "d-flex w-33 justify-content-center align-baseline"
-                    }
-                >
+                <div className={"d-flex w-33 justify-content-center align-baseline"}>
                     {showStats && (
-                        <div
-                            className={
-                                "d-flex w-50 align-items-center justify-content-center"
-                            }
-                        >
-                            <p className={"m-0 pe-1  py-4"}>
-                                {lang.paginationInfoTitleNoPage}
-                            </p>
+                        <div className={"d-flex w-50 align-items-center justify-content-center"}>
+                            <p className={"m-0 pe-1  py-4"}>{lang.paginationInfoTitleNoPage}</p>
                         </div>
                     )}
                 </div>
@@ -314,9 +271,7 @@ const Pagination = ({
     const PaginationFooterComponent = (
         <footer className="py-3">
             {paginationMeta.count > 0 && (
-                <div className={"d-flex justify-content-center align-baseline"}>
-                    {PageNumbersComponent}
-                </div>
+                <div className={"d-flex justify-content-center align-baseline"}>{PageNumbersComponent}</div>
             )}
         </footer>
     );

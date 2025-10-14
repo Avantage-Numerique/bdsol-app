@@ -75,9 +75,7 @@ const EntitySimple = (props) => {
             {/* Image representing the entity */}
             {model.mainImage && (
                 <div className="d-flex justify-content-center w-100 mt-4">
-                    <div
-                        className={`${styles["simple-abstract__header__figure__container"]}`}
-                    >
+                    <div className={`${styles["simple-abstract__header__figure__container"]}`}>
                         <MediaFigure
                             model={model.mainImage}
                             className={`${styles["simple-abstract__header__figure"]} t-0 ${model.mainImage.isDefault && styles["img-contained"] + " py-3"}`}
@@ -130,15 +128,9 @@ const EntitySimple = (props) => {
 
     const ContentDefault = (
         <>
-            <header
-                className={`d-flex mb-2 justify-content-between ${styles["simple-abstract__content__header"]}`}
-            >
+            <header className={`d-flex mb-2 justify-content-between ${styles["simple-abstract__content__header"]}`}>
                 {/* Main name of the entity */}
-                <div
-                    className={
-                        "w-100 d-flex flex-column justify-content-center align-items-center"
-                    }
-                >
+                <div className={"w-100 d-flex flex-column justify-content-center align-items-center"}>
                     <h3
                         className={`w-100 m-0 text-center
                         ${styles["simple-abstract__content__title"]}
@@ -174,9 +166,7 @@ const EntitySimple = (props) => {
                 )}
 
                 {!BottomLineContent && model.singleList && (
-                    <ul
-                        className={`d-flex mb-0 ${styles["simple-abstract__content__tagList"]} justify-content-center`}
-                    >
+                    <ul className={`d-flex mb-0 ${styles["simple-abstract__content__tagList"]} justify-content-center`}>
                         {model.singleList.length > 0 &&
                             model.singleList.map((tag, index) => {
                                 let Tag;
@@ -184,11 +174,7 @@ const EntitySimple = (props) => {
                                     if (tag) {
                                         totalCharacters += tag.length ?? 0;
                                         Tag = (
-                                            <li
-                                                key={`${tag}${index}`}
-                                                title={tag}
-                                                className="rounded bg-general-tag"
-                                            >
+                                            <li key={`${tag}${index}`} title={tag} className="rounded bg-general-tag">
                                                 {tag}
                                             </li>
                                         );
@@ -198,21 +184,16 @@ const EntitySimple = (props) => {
                                     /* Check if the next elements with bust the maxWidthCaracters for length of the occupations/offers */
                                 }
                                 const nextIndex = index + 1;
-                                const isLast =
-                                    nextIndex >= model.singleList.length;
-                                const nextTag = !isLast
-                                    ? model.singleList[nextIndex]
-                                    : null;
+                                const isLast = nextIndex >= model.singleList.length;
+                                const nextTag = !isLast ? model.singleList[nextIndex] : null;
                                 const willNextTotalCaractersTotalBust =
-                                    totalCharacters + nextTag?.length >=
-                                    maxWidthCaracters;
+                                    totalCharacters + nextTag?.length >= maxWidthCaracters;
 
                                 {
                                     /* setup variable to avoid rendering all new tags if the lenght is too much. To optimize we need to use a loop for (in/of) and use break/continue. */
                                 }
                                 if (
-                                    (totalCharacters >= maxWidthCaracters ||
-                                        willNextTotalCaractersTotalBust) &&
+                                    (totalCharacters >= maxWidthCaracters || willNextTotalCaractersTotalBust) &&
                                     tagRenderedLength === -1
                                 ) {
                                     maxTags = index;

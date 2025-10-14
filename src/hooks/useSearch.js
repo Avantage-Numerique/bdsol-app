@@ -1,9 +1,4 @@
-import {
-    clientSideExternalApiRequest,
-    externalApiRequest,
-    ORIGIN_BROWSER,
-    ORIGIN_SERVER,
-} from "@/src/hooks/http-hook";
+import { clientSideExternalApiRequest, externalApiRequest, ORIGIN_BROWSER, ORIGIN_SERVER } from "@/src/hooks/http-hook";
 import { paginationConfig } from "@/src/configs/PaginationConfigs";
 
 /**

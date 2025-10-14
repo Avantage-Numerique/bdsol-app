@@ -65,9 +65,7 @@ const SingleBaseProgressBar = (props) => {
     const auth = useAuth();
 
     return (
-        <section
-            className={`d-flex flex-column align-items-center ${styles["progress-bar"]}`}
-        >
+        <section className={`d-flex flex-column align-items-center ${styles["progress-bar"]}`}>
             {dataList && dataList.length > 0 && (
                 <strong>
                     <p>Profil rempli à {calculOfProgress(dataList)}%</p>
@@ -82,10 +80,7 @@ const SingleBaseProgressBar = (props) => {
                     ) : (
                         <div className="d-flex flex-column align-items-center">
                             <p>{lang.authInvitationToContribute}</p>
-                            <Button
-                                className={`shadow`}
-                                href="/compte/connexion"
-                            >
+                            <Button className={`shadow`} href="/compte/connexion">
                                 {lang.menuConnectLabel}
                             </Button>
                         </div>

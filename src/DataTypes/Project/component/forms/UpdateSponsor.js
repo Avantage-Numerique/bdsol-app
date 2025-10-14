@@ -51,11 +51,7 @@ const UpdateSponsor = ({ name, formTools, ...props }) => {
                             />
                         </div>
                         <div className="col-12 col-lg-6">
-                            <Input
-                                name="name"
-                                label={lang.description}
-                                formTools={formTools}
-                            />
+                            <Input name="name" label={lang.description} formTools={formTools} />
                         </div>
                     </section>
                 </article>

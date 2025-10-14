@@ -67,11 +67,7 @@
 
     .top-covering-color {
         background: $primary-lighter;
-        background: linear-gradient(
-            180deg,
-            $primary-lighter 50%,
-            rgba(255, 255, 255, 0) 100%
-        );
+        background: linear-gradient(180deg, $primary-lighter 50%, rgba(255, 255, 255, 0) 100%);
         height: var(--headersHeight);
         position: sticky;
         top: 0px;

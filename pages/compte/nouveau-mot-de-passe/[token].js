@@ -36,10 +36,7 @@ const forgottenPasswordReset = (props) => {
     const router = useRouter();
     useEffect(() => {
         async function checkTokenExistAndUnexpired() {
-            const res = await clientSideExternalApiRequest(
-                "/reset-password/" + props.token,
-                { method: "GET" }
-            );
+            const res = await clientSideExternalApiRequest("/reset-password/" + props.token, { method: "GET" });
             setTokenIsValidState(!res.error);
         }
         checkTokenExistAndUnexpired();
@@ -47,22 +44,17 @@ const forgottenPasswordReset = (props) => {
 
     const sendNewPassword = async () => {
         //Make sure that the two passwords matches
-        if (
-            formState.inputs.password.value !== formState.inputs.password2.value
-        ) {
+        if (formState.inputs.password.value !== formState.inputs.password2.value) {
             msg.addMessage({
                 text: "Les mots de passe entrés ne concordent pas. Veuillez les écrire à nouveau.",
                 positive: false,
             });
         } else {
-            const apiResponse = await clientSideExternalApiRequest(
-                "/reset-password/" + props.token,
-                {
-                    body: JSON.stringify({
-                        data: { password: formState.inputs.password.value },
-                    }),
-                }
-            );
+            const apiResponse = await clientSideExternalApiRequest("/reset-password/" + props.token, {
+                body: JSON.stringify({
+                    data: { password: formState.inputs.password.value },
+                }),
+            });
             if (apiResponse.error) {
                 if (apiResponse.code === 200) {
                     msg.addMessage({
@@ -125,10 +117,7 @@ const forgottenPasswordReset = (props) => {
                             name="password"
                             type="password"
                             label="Mot de passe"
-                            validationRules={[
-                                { name: "REQUIRED" },
-                                { name: "MIN_LENGTH", specification: 8 },
-                            ]}
+                            validationRules={[{ name: "REQUIRED" }, { name: "MIN_LENGTH", specification: 8 }]}
                             errorText="Veuillez entrer un mot de passe valide"
                             formTools={formTools}
                         />
@@ -137,18 +126,11 @@ const forgottenPasswordReset = (props) => {
                             name="password2"
                             type="password"
                             label="Confirmation du mot de passe"
-                            validationRules={[
-                                { name: "REQUIRED" },
-                                { name: "MIN_LENGTH", specification: 8 },
-                            ]}
+                            validationRules={[{ name: "REQUIRED" }, { name: "MIN_LENGTH", specification: 8 }]}
                             errorText="Veuillez entrer un mot de passe valide"
                             formTools={formTools}
                         />
-                        <Button
-                            type="button"
-                            disabled={!formState.isValid}
-                            onClick={sendNewPassword}
-                        >
+                        <Button type="button" disabled={!formState.isValid} onClick={sendNewPassword}>
                             Changer mon mot de passe
                         </Button>
                     </form>

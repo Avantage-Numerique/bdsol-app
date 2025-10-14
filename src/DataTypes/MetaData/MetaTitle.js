@@ -8,8 +8,5 @@ export const getTitle = (title, addAppName = true) => {
     if (typeof title === "string") {
         parsedTitle = title;
     }
-    return (
-        parsedTitle +
-        (addAppName ? appConfig.meta.seperator + appConfig.name : "")
-    );
+    return parsedTitle + (addAppName ? appConfig.meta.seperator + appConfig.name : "");
 };

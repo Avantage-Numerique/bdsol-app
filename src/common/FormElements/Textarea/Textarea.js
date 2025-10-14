@@ -8,8 +8,7 @@ import styles from "./Textarea.module.scss";
 
 const Textarea = ({ name, formTools, ...props }) => {
     //Extration of the validator functions and utilities
-    const { validate, RequirementsBadges, ValidationErrorMessages } =
-        useValidation(props.validationRules);
+    const { validate, RequirementsBadges, ValidationErrorMessages } = useValidation(props.validationRules);
 
     /*
         Access the differents form tools 
@@ -19,11 +18,7 @@ const Textarea = ({ name, formTools, ...props }) => {
     const currentState = formState.inputs[name];
 
     const updateValue = (event) => {
-        inputHandler(
-            name,
-            event.target.value,
-            props.validationRules ? validate(event.target.value) : true
-        );
+        inputHandler(name, event.target.value, props.validationRules ? validate(event.target.value) : true);
     };
 
     return (
@@ -40,9 +35,7 @@ const Textarea = ({ name, formTools, ...props }) => {
                     onBlur={() => inputTouched(name)}
                     value={currentState ? currentState.value : null}
                 />
-                {!currentState.isValid && currentState.isTouched && (
-                    <small>{props.errorText}</small>
-                )}
+                {!currentState.isValid && currentState.isTouched && <small>{props.errorText}</small>}
             </label>
         </div>
     );

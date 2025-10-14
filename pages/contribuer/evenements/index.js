@@ -36,16 +36,11 @@ const EventSingleEditPage = () => {
 
             {modal.display && (
                 <Modal coloredBackground darkColorButton>
-                    <header
-                        className={`d-flex justify-content-between align-items-start`}
-                    >
+                    <header className={`d-flex justify-content-between align-items-start`}>
                         <div className="d-flex flex-column">
-                            <h3 className="text-primary">
-                                Ajouter un événement
-                            </h3>
+                            <h3 className="text-primary">Ajouter un événement</h3>
                             <p>
-                                Entrez les informations principales d'un
-                                événement. Vous pourrez les éditer de manière
+                                Entrez les informations principales d'un événement. Vous pourrez les éditer de manière
                                 détaillée par la suite.
                             </p>
                         </div>

@@ -116,9 +116,7 @@
                         left: calc(var(--picture-size) - 20px);
 
                         &.over {
-                            top: calc(
-                                40% + (var(--picture-size) / 2)
-                            ) !important;
+                            top: calc(40% + (var(--picture-size) / 2)) !important;
                             left: calc(var(--picture-size) / 2) !important;
                         }
                     }

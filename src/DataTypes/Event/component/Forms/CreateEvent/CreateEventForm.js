@@ -108,10 +108,8 @@ const CreateEventForm = ({ onPositiveResponse, initValues, ...props }) => {
                         name: "HIGHER_DATE_REQUIRED",
                         dependencies: [
                             {
-                                value: (state) =>
-                                    state.inputs["startDate"].value,
-                                listenerValue: (state) =>
-                                    state.inputs["startDate"].value,
+                                value: (state) => state.inputs["startDate"].value,
+                                listenerValue: (state) => state.inputs["startDate"].value,
                             },
                         ],
                     },
@@ -128,11 +126,7 @@ const CreateEventForm = ({ onPositiveResponse, initValues, ...props }) => {
                     {lang.submit}
                 </Button>
                 {props?.closeModal && (
-                    <Button
-                        color="danger"
-                        type="button"
-                        onClick={props.closeModal()}
-                    >
+                    <Button color="danger" type="button" onClick={props.closeModal()}>
                         {lang.cancel}
                     </Button>
                 )}

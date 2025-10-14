@@ -13,8 +13,7 @@ const projects = {
     projectContactPointTipContent:
         "Vous pouvez ici entrer une adresse courriel, un numéro de téléphone ou tout autre information permettant de rejoindre un·e représentant·e.",
     projectContactPointLabel: "Information de contact",
-    projectContactPointPlaceholder:
-        "Adresse courriel, numéro de téléphone, etc...",
+    projectContactPointPlaceholder: "Adresse courriel, numéro de téléphone, etc...",
 
     producer: "Producteur·rice",
     inCharge: "Organisation en charge",

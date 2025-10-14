@@ -129,8 +129,7 @@ class EntityModel {
      */
     set mainImage(value) {
         if (typeof value === "object") {
-            value.baseSrc =
-                value.baseSrc ?? `${process.env.NEXT_PUBLIC_API_URL}`;
+            value.baseSrc = value.baseSrc ?? `${process.env.NEXT_PUBLIC_API_URL}`;
         }
         this._mainImage = value;
     }
@@ -247,16 +246,10 @@ class EntityModel {
     //  --- UTILS ---
 
     get singleLink() {
-        return (
-            "/" +
-            replacePathname(this.singleRoute.pathname, { slug: this.slug })
-        );
+        return "/" + replacePathname(this.singleRoute.pathname, { slug: this.slug });
     }
     get singleEditLink() {
-        return (
-            "/" +
-            replacePathname(this.singleEditRoute.pathname, { slug: this.slug })
-        );
+        return "/" + replacePathname(this.singleEditRoute.pathname, { slug: this.slug });
     }
 
     get fullSingleLinkUrl() {
@@ -276,17 +269,11 @@ class EntityModel {
         ) {
             targetUserData.name = lang.anonyme;
             if (targetUserData.firstName && targetUserData.firstName !== "") {
-                targetUserData.name =
-                    targetUserData.name === lang.anonyme
-                        ? ""
-                        : targetUserData.name;
+                targetUserData.name = targetUserData.name === lang.anonyme ? "" : targetUserData.name;
                 targetUserData.name += targetUserData.firstName + " ";
             }
             if (targetUserData.lastName && targetUserData.lastName !== "") {
-                targetUserData.name =
-                    targetUserData.name === lang.anonyme
-                        ? ""
-                        : targetUserData.name;
+                targetUserData.name = targetUserData.name === lang.anonyme ? "" : targetUserData.name;
                 targetUserData.name += targetUserData.lastName;
             }
         }

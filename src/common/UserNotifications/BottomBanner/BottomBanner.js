@@ -70,30 +70,20 @@ export default function BottomBanner(props) {
                             <div className={`col-md-${contentColWidth}`}>
                                 {title && <h2>{title}</h2>}
                                 {children && (
-                                    <div
-                                        className={`${styles["bottom-banner__text-container"]}`}
-                                    >
-                                        {children}
-                                    </div>
+                                    <div className={`${styles["bottom-banner__text-container"]}`}>{children}</div>
                                 )}
                                 {bannerButtons && bannerButtons.length > 0 && (
-                                    <div
-                                        className={`${styles["bottom-banner__buttons-container"]} g-2 row`}
-                                    >
+                                    <div className={`${styles["bottom-banner__buttons-container"]} g-2 row`}>
                                         {bannerButtons.map((button, index) => {
                                             return (
                                                 <div
-                                                    className={
-                                                        "col-12 col-md-auto"
-                                                    }
+                                                    className={"col-12 col-md-auto"}
                                                     key={`bottomBannerButtonContainer${index}`}
                                                 >
                                                     <Button
                                                         className={"py-1 px-3"}
                                                         key={`bottomBanner${index}`}
-                                                        onClick={() =>
-                                                            close(button.action)
-                                                        }
+                                                        onClick={() => close(button.action)}
                                                         color={button.outline}
                                                     >
                                                         {button.label}

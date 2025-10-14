@@ -34,16 +34,11 @@ const PersonSingleEditPage = () => {
 
             {modal.display && (
                 <Modal coloredBackground darkColorButton>
-                    <header
-                        className={`d-flex justify-content-between align-items-start`}
-                    >
+                    <header className={`d-flex justify-content-between align-items-start`}>
                         <div className="d-flex flex-column">
-                            <h3 className="text-primary">
-                                Ajouter une personne
-                            </h3>
+                            <h3 className="text-primary">Ajouter une personne</h3>
                             <p>
-                                Entrez les informations principales d'une
-                                personne. Vous pourrez les éditer de manière
+                                Entrez les informations principales d'une personne. Vous pourrez les éditer de manière
                                 détaillée par la suite.
                             </p>
                         </div>

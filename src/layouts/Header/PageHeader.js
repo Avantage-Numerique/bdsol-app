@@ -19,37 +19,23 @@ import SearchTag from "@/common/Components/SearchTag";
  */
 const PageHeader = (props) => {
     const bgClass = props.bg ?? "bg-primary-lighter";
-    const titleColor = props.titleColor
-        ? `text-${props.titleColor}`
-        : "text-dark";
-    const subtitleColor = props.subtitleColor
-        ? `text-${props.subtitleColor}`
-        : "text-dark";
-    const subtitleLineColor = props.subtitleColor
-        ? `bg-${props.subtitleColor}`
-        : "bg-dark";
+    const titleColor = props.titleColor ? `text-${props.titleColor}` : "text-dark";
+    const subtitleColor = props.subtitleColor ? `text-${props.subtitleColor}` : "text-dark";
+    const subtitleLineColor = props.subtitleColor ? `bg-${props.subtitleColor}` : "bg-dark";
     const descriptionColor = props.descriptionColor ?? "text-dark";
     const colWidth = props.colWidth ?? 12;
     const asideColNumberXs = 5;
     const colNumberXs = props.image ? colWidth - asideColNumberXs : colWidth;
     const historyBack = props.historyBack;
     const asciiArt = props.art ?? "";
-    const reverseWrap = props.reverseWrap
-        ? "flex-column-reverse flex-wrap-reverse flex-sm-row"
-        : "";
+    const reverseWrap = props.reverseWrap ? "flex-column-reverse flex-wrap-reverse flex-sm-row" : "";
 
     return (
-        <header
-            className={`${styles["page-header"]} ${bgClass} position-relative`}
-        >
+        <header className={`${styles["page-header"]} ${bgClass} position-relative`}>
             <div className="container">
-                <div
-                    className={`row justify-content-between align-items-center ${reverseWrap}`}
-                >
+                <div className={`row justify-content-between align-items-center ${reverseWrap}`}>
                     {props.imageRight && (
-                        <div
-                            className={`col-12 col-md-${asideColNumberXs} ${styles["stacking-context-reg"]}`}
-                        >
+                        <div className={`col-12 col-md-${asideColNumberXs} ${styles["stacking-context-reg"]}`}>
                             {props.image && (
                                 <Image
                                     className={"img-fluid"}
@@ -61,9 +47,7 @@ const PageHeader = (props) => {
                                 />
                             )}
                             {/* If the custom_RightColElement prop is define, then inject it */}
-                            {props.custom_RightColElement && (
-                                <props.custom_RightColElement />
-                            )}
+                            {props.custom_RightColElement && <props.custom_RightColElement />}
                         </div>
                     )}
                     <div
@@ -71,19 +55,13 @@ const PageHeader = (props) => {
                     >
                         {historyBack && (
                             <div className={"d-flex justify-content-end"}>
-                                <Button
-                                    color="white"
-                                    outline="primary"
-                                    href={historyBack.uri}
-                                >
+                                <Button color="white" outline="primary" href={historyBack.uri}>
                                     {historyBack.label}
                                 </Button>
                             </div>
                         )}
                         {asciiArt !== "" && <pre>{props.art}</pre>}
-                        {props.title && (
-                            <h1 className={titleColor}>{props.title}</h1>
-                        )}
+                        {props.title && <h1 className={titleColor}>{props.title}</h1>}
 
                         {props.htmlTitle && (
                             <h1
@@ -119,24 +97,17 @@ const PageHeader = (props) => {
                         )}
 
                         {props.description && (
-                            <SanitizedInnerHtml
-                                tag={"p"}
-                                className={descriptionColor}
-                            >
+                            <SanitizedInnerHtml tag={"p"} className={descriptionColor}>
                                 {props.description}
                             </SanitizedInnerHtml>
                         )}
 
                         {props.children && props.children}
                         {/* If the custom_LeftColContent prop is define, then inject it */}
-                        {props.custom_LeftColContent && (
-                            <props.custom_LeftColContent />
-                        )}
+                        {props.custom_LeftColContent && <props.custom_LeftColContent />}
                     </div>
                     {!props.imageRight && (
-                        <div
-                            className={`col-12 col-md-${asideColNumberXs} ${styles["stacking-context-reg"]}`}
-                        >
+                        <div className={`col-12 col-md-${asideColNumberXs} ${styles["stacking-context-reg"]}`}>
                             {props.image && (
                                 <Image
                                     className={"img-fluid"}
@@ -148,9 +119,7 @@ const PageHeader = (props) => {
                                 />
                             )}
                             {/* If the custom_RightColElement prop is define, then inject it */}
-                            {props.custom_RightColElement && (
-                                <props.custom_RightColElement />
-                            )}
+                            {props.custom_RightColElement && <props.custom_RightColElement />}
                         </div>
                     )}
                 </div>

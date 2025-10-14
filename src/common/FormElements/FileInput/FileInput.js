@@ -40,8 +40,7 @@ const FileInput = ({ ...props }) => {
     } = props;
 
     //Extract the tools included in the validation hook
-    const { validate, RequirementsBadges, ValidationErrorMessages } =
-        useValidation(validationRules);
+    const { validate, RequirementsBadges, ValidationErrorMessages } = useValidation(validationRules);
 
     /* Custom hook to manage the form data */
     const { formState, inputHandler, inputTouched } = formTools;
@@ -54,20 +53,12 @@ const FileInput = ({ ...props }) => {
 
     const updateValue = (event) => {
         if (event.target.files)
-            inputHandler(
-                name,
-                event.target.files[0],
-                validationRules ? validate(event.target.files[0]) : true
-            );
+            inputHandler(name, event.target.files[0], validationRules ? validate(event.target.files[0]) : true);
     };
 
     //Call the input handler once at the rendering
     useEffect(() => {
-        inputHandler(
-            name,
-            fieldRef.current.files[0],
-            validationRules ? validate(fieldRef.current.files[0]) : true
-        );
+        inputHandler(name, fieldRef.current.files[0], validationRules ? validate(fieldRef.current.files[0]) : true);
     }, []);
 
     return (
@@ -106,13 +97,8 @@ const FileInput = ({ ...props }) => {
                         Ajouter un fichier
                     </Button>
                     {/* Display of the selected file */}
-                    <div
-                        dir="rtl"
-                        className={`text-secondary text-truncate ${styles["input-ui__file-name"]}`}
-                    >
-                        {currentState.value?.name
-                            ? currentState.value.name
-                            : "Aucun fichier n'est sélectionné"}
+                    <div dir="rtl" className={`text-secondary text-truncate ${styles["input-ui__file-name"]}`}>
+                        {currentState.value?.name ? currentState.value.name : "Aucun fichier n'est sélectionné"}
                     </div>
                 </div>
 

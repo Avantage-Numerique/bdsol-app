@@ -26,8 +26,7 @@ const pageMeta = {
 
     /* /compte/inscription */
     compte__singup__title: "Inscription - AVNU",
-    compte__singup__description:
-        "Créez-vous un compte afin de pouvoir, vous aussi, contribuer à la base de données.",
+    compte__singup__description: "Créez-vous un compte afin de pouvoir, vous aussi, contribuer à la base de données.",
 
     /* /compte/réinitialisation */
     compte__passwordReset__title: "Réinitialisation de mot de passe",
@@ -64,8 +63,7 @@ const pageMeta = {
         "Créateurs, experts, propriétaires d'équipement, promoteurs d'initiatives numériques et autres contribuent au développement des technologies dans le Croissant boréal.",
 
     /* /projects */
-    projects__description:
-        "Découvrez tous les projets à caractère numérique répertoriés sur AVNU.",
+    projects__description: "Découvrez tous les projets à caractère numérique répertoriés sur AVNU.",
 
     /* /FAQ */
     faq__title: "Foire Aux Questions",
@@ -79,8 +77,7 @@ const pageMeta = {
 
     /* /FAQ/licences */
     faq__licences__title: "Licences",
-    faq__licences__description:
-        "Précision sur les licences supportées par AVNU et les droits d'auteurs.",
+    faq__licences__description: "Précision sur les licences supportées par AVNU et les droits d'auteurs.",
 
     /* /lieux */
     places__description:

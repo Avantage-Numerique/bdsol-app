@@ -71,13 +71,8 @@ const PersonSingleView = ({ data }) => {
         <SingleBaseHeader
             title={
                 <div className="d-flex flex-wrap justify-content-start align-items-end">
-                    <h1
-                        style={{ lineHeight: "1em" }}
-                        className="me-2 mb-0"
-                    >{`${model.title}`}</h1>
-                    <p className=" mb-0 fs-4">
-                        {model.nickname ? "(" + model.nickname + ")" : ""}
-                    </p>
+                    <h1 style={{ lineHeight: "1em" }} className="me-2 mb-0">{`${model.title}`}</h1>
+                    <p className=" mb-0 fs-4">{model.nickname ? "(" + model.nickname + ")" : ""}</p>
                 </div>
             }
             subtitle={
@@ -93,13 +88,8 @@ const PersonSingleView = ({ data }) => {
     );
 
     const FullWidthContent = (
-        <SingleInfo
-            title={lang.about}
-            NAMessage="Aucune description n'est disponible pour le moment"
-        >
-            {removeTagsFromString(description) && (
-                <SanitizedInnerHtml>{description}</SanitizedInnerHtml>
-            )}
+        <SingleInfo title={lang.about} NAMessage="Aucune description n'est disponible pour le moment">
+            {removeTagsFromString(description) && <SanitizedInnerHtml>{description}</SanitizedInnerHtml>}
         </SingleInfo>
     );
 
@@ -132,19 +122,13 @@ const PersonSingleView = ({ data }) => {
                 {sortedOccupations &&
                     sortedOccupations?.length > 0 &&
                     sortedOccupations.map((occ, index) => (
-                        <SkillGroup
-                            label={occ.groupName}
-                            skills={occ.skills}
-                            key={`${occ.groupName}${index}`}
-                        />
+                        <SkillGroup label={occ.groupName} skills={occ.skills} key={`${occ.groupName}${index}`} />
                     ))}
             </SingleInfo>
 
             {/* Show linked entities as tag */}
             {projects.length > 0 && (
-                <SingleInfo
-                    title={`${lang.plural(lang.memberOfProject, lang.memberOfProjects, projects.length)}`}
-                >
+                <SingleInfo title={`${lang.plural(lang.memberOfProject, lang.memberOfProjects, projects.length)}`}>
                     <EntitiesTagGrid feed={projects} />
                 </SingleInfo>
             )}
@@ -158,9 +142,7 @@ const PersonSingleView = ({ data }) => {
             )}
 
             {events.length > 0 && (
-                <SingleInfo
-                    title={`${lang.plural(lang.attendThisEvent, lang.attendTheseEvents, events.length)}`}
-                >
+                <SingleInfo title={`${lang.plural(lang.attendThisEvent, lang.attendTheseEvents, events.length)}`}>
                     <EntitiesTagGrid feed={events} />
                 </SingleInfo>
             )}
@@ -174,10 +156,7 @@ const PersonSingleView = ({ data }) => {
     const ContentColumnRight = (
         <>
             {/* Badges */}
-            <BadgesSection
-                badges={model.badges}
-                entityLabel={entityLabelForBadge}
-            />
+            <BadgesSection badges={model.badges} entityLabel={entityLabelForBadge} />
 
             {/* Contact information */}
             <SingleInfo title={lang.organisationContact}>
@@ -191,12 +170,7 @@ const PersonSingleView = ({ data }) => {
                 </SingleInfo>
             )}
             {/* Url */}
-            {model && model?.url && (
-                <SocialHandleDisplay
-                    title={lang.externalLinks}
-                    url={model?.url}
-                />
-            )}
+            {model && model?.url && <SocialHandleDisplay title={lang.externalLinks} url={model?.url} />}
         </>
     );
 
@@ -204,11 +178,7 @@ const PersonSingleView = ({ data }) => {
         <>
             {(createdAt || updatedAt || meta) && (
                 <SingleInfo title={lang.entityMetadata} className="pt-3">
-                    <SingleEntityMeta
-                        createdAt={createdAt}
-                        updatedAt={updatedAt}
-                        meta={meta}
-                    />
+                    <SingleEntityMeta createdAt={createdAt} updatedAt={updatedAt} meta={meta} />
                 </SingleInfo>
             )}
         </>

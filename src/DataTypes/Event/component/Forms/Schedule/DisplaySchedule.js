@@ -35,41 +35,23 @@ const DisplaySchedule = ({ feed }, ...props) => {
 
     const DateSchedule = ({ feed }) => {
         return (
-            <ol
-                className={"list-group"}
-                key={`displayDateScheduleOl${Math.floor(Math.random() * 1000)}`}
-            >
+            <ol className={"list-group"} key={`displayDateScheduleOl${Math.floor(Math.random() * 1000)}`}>
                 {feed.length > 0 ? (
                     feed.map((step, i) => {
-                        const { TimeTag, TimeIntervalSentence } = dateManager(
-                            step.startDate,
-                            step.endDate
-                        );
+                        const { TimeTag, TimeIntervalSentence } = dateManager(step.startDate, step.endDate);
                         lastDate = {
                             startDate: step.startDate,
                             endDate: step.endDate,
                         };
                         return (
                             <li
-                                key={
-                                    step.key +
-                                    "-" +
-                                    step.name +
-                                    "" +
-                                    String(step.startTime) +
-                                    "scheduleInfo"
-                                }
+                                key={step.key + "-" + step.name + "" + String(step.startTime) + "scheduleInfo"}
                                 className={`list-group-item d-flex justify-content-between align-items-center ${i % 2 ? "bg-primary-lighter" : ""}`}
                             >
                                 <div className="d-flex w-25">
-                                    <TimeIntervalSentence
-                                        showDay={false}
-                                        tag={"span"}
-                                    />
+                                    <TimeIntervalSentence showDay={false} tag={"span"} />
                                 </div>
-                                <label className="flex-grow-1 fw-normal m-0 ps-3">
-                                    {step.name}
-                                </label>
+                                <label className="flex-grow-1 fw-normal m-0 ps-3">{step.name}</label>
                             </li>
                         );
                     })
@@ -81,31 +63,20 @@ const DisplaySchedule = ({ feed }, ...props) => {
     };
 
     return (
-        <div
-            className={`${props.className ?? ""}`}
-            key={`displayDateScheduleOl${Math.floor(Math.random() * 1000)}`}
-        >
+        <div className={`${props.className ?? ""}`} key={`displayDateScheduleOl${Math.floor(Math.random() * 1000)}`}>
             {parsedFeed.feedDates.length > 0 ? (
                 parsedFeed.feedDates.map((date, i) => {
                     const key = formatDate(date);
                     const currentFeed = parsedFeed.feed[key] ?? [];
 
                     return (
-                        <div
-                            key={`displayDateScheduleOlContainer${Math.floor(Math.random() * 1000)}`}
-                        >
+                        <div key={`displayDateScheduleOlContainer${Math.floor(Math.random() * 1000)}`}>
                             <p key={key + "subtitle"} className={`pt-3`}>
                                 <strong>
-                                    {lang.capitalize("the")}{" "}
-                                    {formatDate(date, lang.humanDateFormat)}
+                                    {lang.capitalize("the")} {formatDate(date, lang.humanDateFormat)}
                                 </strong>
                             </p>
-                            {currentFeed.length > 0 && (
-                                <DateSchedule
-                                    feed={currentFeed}
-                                    key={key + "DateSchedule"}
-                                />
-                            )}
+                            {currentFeed.length > 0 && <DateSchedule feed={currentFeed} key={key + "DateSchedule"} />}
                         </div>
                     );
                 })
@@ -120,55 +91,27 @@ const DisplaySchedule = ({ feed }, ...props) => {
         <ol className={"list-group list-group-flush"}>
             {feed.length > 0 ? (
                 feed.map((step, i) => {
-                    const { TimeTag, TimeIntervalSentence } = dateManager(
-                        step.startDate,
-                        step.endDate
-                    );
+                    const { TimeTag, TimeIntervalSentence } = dateManager(step.startDate, step.endDate);
                     lastDate = {
                         startDate: step.startDate,
                         endDate: step.endDate,
                     };
                     return (
                         <>
-                            <p
-                                key={
-                                    step.key +
-                                    "-" +
-                                    step.name +
-                                    "" +
-                                    step.startTime +
-                                    "subtitle"
-                                }
-                                className={`pt-4`}
-                            >
+                            <p key={step.key + "-" + step.name + "" + step.startTime + "subtitle"} className={`pt-4`}>
                                 <strong>
                                     {lang.capitalize("the")}{" "}
-                                    <TimeTag
-                                        date={step.startDate}
-                                        format={lang.humanDateFormat}
-                                    />
+                                    <TimeTag date={step.startDate} format={lang.humanDateFormat} />
                                 </strong>
                             </p>
                             <li
-                                key={
-                                    step.key +
-                                    "-" +
-                                    step.name +
-                                    "" +
-                                    step.startTime +
-                                    "scheduleInfo"
-                                }
+                                key={step.key + "-" + step.name + "" + step.startTime + "scheduleInfo"}
                                 className={`list-group-item d-flex justify-content-between align-items-center ${i % 2 ? "bg-primary-lighter" : ""}`}
                             >
                                 <div className="d-flex w-25">
-                                    <TimeIntervalSentence
-                                        showDay={false}
-                                        tag={"span"}
-                                    />
+                                    <TimeIntervalSentence showDay={false} tag={"span"} />
                                 </div>
-                                <label className="flex-grow-1 fw-normal m-0 ps-3">
-                                    {step.name}
-                                </label>
+                                <label className="flex-grow-1 fw-normal m-0 ps-3">{step.name}</label>
                             </li>
                         </>
                     );

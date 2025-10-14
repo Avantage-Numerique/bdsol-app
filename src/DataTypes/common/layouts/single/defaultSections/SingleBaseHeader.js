@@ -24,68 +24,60 @@ import { getBadgesInfo } from "@/src/DataTypes/Badges/BadgesSection";
 import Link from "next/link";
 
 //Memoize the image to prevent rerendering
-const ImageComponent = memo(
-    ({ mainImage, badges, activeInnerLink = "true" }) => {
-        const addInnerLink = activeInnerLink === "true";
-        const InnerLink = () => (
-            <>
-                {mainImage && mainImage.url !== "" && !mainImage.isDefault && (
-                    <Link
-                        href={`/medias/${mainImage._id}`}
-                        className={`fs-4 w-100 h-100 position-absolute d-flex align-items-center justify-content-center p-1 ${styles["profile-picture--modification-opt"]} main-image-link`}
-                    >
-                        <Icon iconName={"eye"} /> {lang.see}
-                    </Link>
-                )}
-            </>
-        );
-
-        const [badgeToShowState, setBadgeToShowState] = useState(undefined);
-        useEffect(() => {
-            async function fetchBadge() {
-                //If badges array exist in entity and is > 0 length fetch badges info
-                if (
-                    badges !== undefined &&
-                    Array.isArray(badges) &&
-                    badges.length > 0
-                ) {
-                    const badgesInfo = await getBadgesInfo();
-                    setBadgeToShowState(badgesInfo[badges[0]]);
-                }
-            }
-            fetchBadge();
-        }, []);
-
-        return (
-            <div className="col col-sm d-flex flex-grow-0 align-items-end position-relative">
-                {/* Base styling doesn't move down the picture since its not overflowing the container. A bit tricky with bootstrap grid so we need two components to apply different classes */}
-                {/* Base format (small screens) removed no-bottom-margin*/}
-                <div
-                    className={`position-relative ${styles["single-base-header__main-image__container"]}`}
+const ImageComponent = memo(({ mainImage, badges, activeInnerLink = "true" }) => {
+    const addInnerLink = activeInnerLink === "true";
+    const InnerLink = () => (
+        <>
+            {mainImage && mainImage.url !== "" && !mainImage.isDefault && (
+                <Link
+                    href={`/medias/${mainImage._id}`}
+                    className={`fs-4 w-100 h-100 position-absolute d-flex align-items-center justify-content-center p-1 ${styles["profile-picture--modification-opt"]} main-image-link`}
                 >
-                    {/* SM format and more */}
-                    <MediaFigure
-                        model={mainImage}
-                        className={`main-image-container ${styles["single-base-header__main-image__container__figure"]} ${!mainImage.isDefault ? "overflow-hidden shadow" : styles["default-drop-shadow"] + " default-img "}`}
-                        imgClassName={"main-image"}
-                    >
-                        {addInnerLink && <InnerLink />}
-                    </MediaFigure>
-                    {badgeToShowState !== undefined && (
-                        <div className={"position-absolute bottom-0 end-0"}>
-                            <img
-                                src={badgeToShowState?.iconPath}
-                                alt={badgeToShowState?.iconAlt ?? "Badge"}
-                                width="40px"
-                                height="40px"
-                            />
-                        </div>
-                    )}
-                </div>
+                    <Icon iconName={"eye"} /> {lang.see}
+                </Link>
+            )}
+        </>
+    );
+
+    const [badgeToShowState, setBadgeToShowState] = useState(undefined);
+    useEffect(() => {
+        async function fetchBadge() {
+            //If badges array exist in entity and is > 0 length fetch badges info
+            if (badges !== undefined && Array.isArray(badges) && badges.length > 0) {
+                const badgesInfo = await getBadgesInfo();
+                setBadgeToShowState(badgesInfo[badges[0]]);
+            }
+        }
+        fetchBadge();
+    }, []);
+
+    return (
+        <div className="col col-sm d-flex flex-grow-0 align-items-end position-relative">
+            {/* Base styling doesn't move down the picture since its not overflowing the container. A bit tricky with bootstrap grid so we need two components to apply different classes */}
+            {/* Base format (small screens) removed no-bottom-margin*/}
+            <div className={`position-relative ${styles["single-base-header__main-image__container"]}`}>
+                {/* SM format and more */}
+                <MediaFigure
+                    model={mainImage}
+                    className={`main-image-container ${styles["single-base-header__main-image__container__figure"]} ${!mainImage.isDefault ? "overflow-hidden shadow" : styles["default-drop-shadow"] + " default-img "}`}
+                    imgClassName={"main-image"}
+                >
+                    {addInnerLink && <InnerLink />}
+                </MediaFigure>
+                {badgeToShowState !== undefined && (
+                    <div className={"position-absolute bottom-0 end-0"}>
+                        <img
+                            src={badgeToShowState?.iconPath}
+                            alt={badgeToShowState?.iconAlt ?? "Badge"}
+                            width="40px"
+                            height="40px"
+                        />
+                    </div>
+                )}
             </div>
-        );
-    }
-);
+        </div>
+    );
+});
 /**
  * @param {object} mainImage mainImage data object
  * @param {object} entity used for mainImageForm
@@ -131,8 +123,7 @@ const SingleBaseHeader = (props) => {
     const modeConsulting = {
         imageComponentActivateLink: "true",
     };
-    const currentMode =
-        mode === modes.CONTRIBUTING ? modeContributing : modeConsulting;
+    const currentMode = mode === modes.CONTRIBUTING ? modeContributing : modeConsulting;
 
     //Main modal form
     const { FormUI, submitRequest, formState, formTools } = useFormUtils(
@@ -198,21 +189,13 @@ const SingleBaseHeader = (props) => {
         }
     };
 
-    const buttonSectionLink = !auth.user.isLoggedIn
-        ? "/compte/connexion"
-        : buttonLink;
+    const buttonSectionLink = !auth.user.isLoggedIn ? "/compte/connexion" : buttonLink;
 
     //Removed from colomn, it's more useful to use the justify or align from start or end.
     return (
-        <section
-            className={`row ${styles["content-padding-top"]} ${props.className}`}
-        >
+        <section className={`row ${styles["content-padding-top"]} ${props.className}`}>
             <div className="d-flex justify-content-end">
-                <button
-                    type="button"
-                    className="fs-3"
-                    onClick={modalReportEntity.displayModal}
-                >
+                <button type="button" className="fs-3" onClick={modalReportEntity.displayModal}>
                     <Icon iconName="flag" />
                 </button>
             </div>
@@ -227,32 +210,20 @@ const SingleBaseHeader = (props) => {
                 <div className="d-flex flex-column text-dark">
                     {title || <h1 className="mt-4 ms-4">{lang.title}</h1>}
                     {subtitle || <h3 className="ms-4">{lang.subTitle}</h3>}
-                    <div className="mt-2 d-sm-none">
-                        {buttonSection && buttonSection}
-                    </div>
+                    <div className="mt-2 d-sm-none">{buttonSection && buttonSection}</div>
                 </div>
                 {/* btnToggleViewEdit */}
                 {/* If a button section is declared, use it */}
-                <div
-                    style={{ height: "1rem" }}
-                    className="position-relative flex-grow-1 d-flex align-items-end"
-                >
+                <div style={{ height: "1rem" }} className="position-relative flex-grow-1 d-flex align-items-end">
                     <div
                         className={`${styles["over-flowing-button-section"]} ${isUpdateMode && styles["edition-mode"]} d-flex justify-content-end w-100`}
                     >
-                        {buttonSection && (
-                            <div className="d-none d-sm-block w-100">
-                                {buttonSection}
-                            </div>
-                        )}
+                        {buttonSection && <div className="d-none d-sm-block w-100">{buttonSection}</div>}
                         {/* If the is no button section and there is a single button declared, display it */}
                         {!buttonSection && buttonText && buttonSectionLink && (
                             <Button
                                 className={`btn-contribute shadow d-block`}
-                                href={
-                                    buttonSectionLink +
-                                    `?redirect=${encodeURI(router.asPath)}`
-                                }
+                                href={buttonSectionLink + `?redirect=${encodeURI(router.asPath)}`}
                             >
                                 {buttonText}
                             </Button>
@@ -264,13 +235,8 @@ const SingleBaseHeader = (props) => {
             <modalReportEntity.Modal>
                 <div>
                     <header className={`d-flex mb-4 align-items-center`}>
-                        <strong className="col-10">
-                            {lang.reportBtnLabel}
-                        </strong>
-                        <Button
-                            className="col-2"
-                            onClick={modalReportEntity.closeModal}
-                        >
+                        <strong className="col-10">{lang.reportBtnLabel}</strong>
+                        <Button className="col-2" onClick={modalReportEntity.closeModal}>
                             {lang.close}
                         </Button>
                     </header>
@@ -281,10 +247,7 @@ const SingleBaseHeader = (props) => {
                         validationRules={[{ name: "REQUIRED" }]}
                         formTools={formTools}
                     />
-                    <Button
-                        disabled={!formState.isValid}
-                        onClick={sendReportEntity}
-                    >
+                    <Button disabled={!formState.isValid} onClick={sendReportEntity}>
                         Envoyer
                     </Button>
                 </div>

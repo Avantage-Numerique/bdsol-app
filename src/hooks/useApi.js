@@ -8,9 +8,6 @@ export default function useApi(connectedSetter) {
     };
     useEffect(() => {
         pingApi();
-        setInterval(
-            async () => pingApi(),
-            Number(process.env.PING_INTERVAL) * 1000 * 60
-        );
+        setInterval(async () => pingApi(), Number(process.env.PING_INTERVAL) * 1000 * 60);
     }, []);
 }

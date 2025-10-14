@@ -15,9 +15,7 @@ const TypeTag = (props) => {
     if (props.type)
         return (
             <div className={`${styles["type-tag"]}`}>
-                <div className={`${styles["tag"]}`}>
-                    {props.icon && <i className={props.icon}></i>}
-                </div>
+                <div className={`${styles["tag"]}`}>{props.icon && <i className={props.icon}></i>}</div>
                 <div className={`${styles["label"]}`}>
                     <p className="m-0">{props.type}</p>
                 </div>

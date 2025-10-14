@@ -2,8 +2,7 @@ import { useEffect, useRef } from "react";
 import { useValidation } from "@/src/hooks/useValidation/useValidation";
 
 const InputBasic = ({ name, formTools, ...props }) => {
-    const { validate, RequirementsBadges, ValidationErrorMessages } =
-        useValidation(props.validationRules);
+    const { validate, RequirementsBadges, ValidationErrorMessages } = useValidation(props.validationRules);
 
     const { formState, inputHandler, inputTouched } = formTools;
 
@@ -20,19 +19,11 @@ const InputBasic = ({ name, formTools, ...props }) => {
     };
 
     const updateValue = (event) => {
-        inputHandler(
-            name,
-            event.target.value,
-            props.validationRules ? validate(event.target.value) : true
-        );
+        inputHandler(name, event.target.value, props.validationRules ? validate(event.target.value) : true);
     };
 
     useEffect(() => {
-        inputHandler(
-            name,
-            fieldRef.current.value,
-            props.validationRules ? validate(fieldRef.current.value) : true
-        );
+        inputHandler(name, fieldRef.current.value, props.validationRules ? validate(fieldRef.current.value) : true);
     }, []);
 
     return (

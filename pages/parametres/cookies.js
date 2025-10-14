@@ -3,10 +3,7 @@ import PageHeader from "@/layouts/Header/PageHeader";
 import { useAuth } from "@/auth/context/auth-context";
 import { lang } from "@/common/Data/GlobalConstants";
 import Button from "@/FormElements/Button/Button";
-import {
-    changeCookieChoices,
-    cookiesExplanations,
-} from "@/common/Cookies/cookiesChoices";
+import { changeCookieChoices, cookiesExplanations } from "@/common/Cookies/cookiesChoices";
 import Image from "next/image";
 import fetchInternalApi from "@/src/api/fetchInternalApi";
 
@@ -16,10 +13,7 @@ const CookiesParams = () => {
     const changeChoices = useCallback(async () => {
         const resetedCookiesChoices = changeCookieChoices(auth.cookiesChoices);
 
-        const logOutResponse = await fetchInternalApi(
-            "/api/logout",
-            JSON.stringify({})
-        );
+        const logOutResponse = await fetchInternalApi("/api/logout", JSON.stringify({}));
         auth.setUser(logOutResponse.user);
 
         auth.saveCookieChoices({ ...resetedCookiesChoices });
@@ -52,9 +46,7 @@ const CookiesParams = () => {
                     <div className={"col-3"}>
                         {auth.cookiesChoices.choiceMade === true ? (
                             <Image
-                                src={
-                                    "/general_images/avnu-cookies-confirmed-thumb.png"
-                                }
+                                src={"/general_images/avnu-cookies-confirmed-thumb.png"}
                                 alt={"Cookies paramétrés!"}
                                 width={226}
                                 height={116}
@@ -71,11 +63,7 @@ const CookiesParams = () => {
                 </div>
                 <div className="row">
                     <div className={"col-12"}>
-                        {!cookieEnabled && (
-                            <p className={"alert alert-primary"}>
-                                {lang.cookieDisabled}
-                            </p>
-                        )}
+                        {!cookieEnabled && <p className={"alert alert-primary"}>{lang.cookieDisabled}</p>}
                         <h3>
                             {auth.cookiesChoices.choiceMade === true
                                 ? lang.cookieMessageThanks
@@ -85,81 +73,48 @@ const CookiesParams = () => {
 
                     <div className={"col-12"}>
                         <ul className={"list-group mt-3"}>
-                            {Object.keys(auth.cookiesChoices).map(
-                                (key, index) => {
-                                    if (!skipChoicesProperties.includes(key)) {
-                                        return (
-                                            <li
-                                                className={
-                                                    "list-group-item d-flex justify-content-between align-items-center"
-                                                }
-                                                key={`cookiesChoices${index}`}
-                                            >
-                                                <div className={"pe-5"}>
-                                                    <p
-                                                        className={
-                                                            "fs-4 m-0 pt-1"
-                                                        }
-                                                    >
-                                                        {
-                                                            lang[
-                                                                `cookie${key.capitalize()}`
-                                                            ]
-                                                        }
-                                                    </p>
-                                                    <p className={"m-0 pb-1"}>
-                                                        {
-                                                            cookiesExplanations[
-                                                                key
-                                                            ]
-                                                        }
-                                                    </p>
-                                                </div>
-                                                <div
-                                                    className={"w-25 text-end"}
-                                                >
-                                                    {auth.cookiesChoices
-                                                        .choiceMade ===
-                                                        true && (
-                                                        <>
-                                                            <label
-                                                                className={`me-2 text-${auth.cookiesChoices[key] === true ? "success" : "danger"}`}
-                                                            >
-                                                                {auth
-                                                                    .cookiesChoices[
-                                                                    key
-                                                                ] === true
-                                                                    ? lang.cookiePositive
-                                                                    : lang.cookieNegative}
-                                                            </label>
-                                                            <span
-                                                                className={`badge text-bg-${auth.cookiesChoices[key] === true ? "success" : "danger"} m-0`}
-                                                            >
-                                                                &nbsp;
-                                                            </span>
-                                                        </>
-                                                    )}
-                                                </div>
-                                            </li>
-                                        );
-                                    }
+                            {Object.keys(auth.cookiesChoices).map((key, index) => {
+                                if (!skipChoicesProperties.includes(key)) {
+                                    return (
+                                        <li
+                                            className={
+                                                "list-group-item d-flex justify-content-between align-items-center"
+                                            }
+                                            key={`cookiesChoices${index}`}
+                                        >
+                                            <div className={"pe-5"}>
+                                                <p className={"fs-4 m-0 pt-1"}>{lang[`cookie${key.capitalize()}`]}</p>
+                                                <p className={"m-0 pb-1"}>{cookiesExplanations[key]}</p>
+                                            </div>
+                                            <div className={"w-25 text-end"}>
+                                                {auth.cookiesChoices.choiceMade === true && (
+                                                    <>
+                                                        <label
+                                                            className={`me-2 text-${auth.cookiesChoices[key] === true ? "success" : "danger"}`}
+                                                        >
+                                                            {auth.cookiesChoices[key] === true
+                                                                ? lang.cookiePositive
+                                                                : lang.cookieNegative}
+                                                        </label>
+                                                        <span
+                                                            className={`badge text-bg-${auth.cookiesChoices[key] === true ? "success" : "danger"} m-0`}
+                                                        >
+                                                            &nbsp;
+                                                        </span>
+                                                    </>
+                                                )}
+                                            </div>
+                                        </li>
+                                    );
                                 }
-                            )}
+                            })}
                         </ul>
 
                         {cookieEnabled && (
-                            <div
-                                className={
-                                    "d-flex align-items-center justify-content-center my-5"
-                                }
-                            >
+                            <div className={"d-flex align-items-center justify-content-center my-5"}>
                                 <Button
                                     onClick={changeChoices}
-                                    color={
-                                        auth.cookiesChoices.choiceMade === true
-                                            ? "danger"
-                                            : "warning"
-                                    }
+                                    color={auth.cookiesChoices.choiceMade === true ? "danger" : "warning"}
                                     className={"btn-lg"}
                                 >
                                     {auth.cookiesChoices.choiceMade === true
@@ -172,15 +127,11 @@ const CookiesParams = () => {
 
                     <div className={"col-12 pt-5"}>
                         <div
-                            className={
-                                "alert alert-info d-flex justify-content-between align-items-center"
-                            }
+                            className={"alert alert-info d-flex justify-content-between align-items-center"}
                             key={`cookiesChoices123third`}
                         >
                             <div className={"pe-5"}>
-                                <p className={"fs-5 m-0 pt-1"}>
-                                    {cookiesExplanations.third}
-                                </p>
+                                <p className={"fs-5 m-0 pt-1"}>{cookiesExplanations.third}</p>
                             </div>
                         </div>
                     </div>

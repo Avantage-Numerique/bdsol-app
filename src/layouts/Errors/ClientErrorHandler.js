@@ -41,14 +41,8 @@ class ClientErrorHandler extends React.Component {
                     <nav className="row pt-3 row-cols-1 row-cols-sm-4 gy-3">
                         {this.props.entities.map((route, index) => {
                             return (
-                                <div
-                                    className="col"
-                                    key={`li${index}${route.label}`}
-                                >
-                                    <Button
-                                        href={route.pathname}
-                                        size="large-100"
-                                    >
+                                <div className="col" key={`li${index}${route.label}`}>
+                                    <Button href={route.pathname} size="large-100">
                                         {route.label}
                                     </Button>
                                 </div>

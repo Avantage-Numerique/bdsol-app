@@ -4,8 +4,7 @@ import { useState } from "react";
 export const useLoading = (currentState = LoadingStates.DEFAULT) => {
     //State that determine if the request is in progress
     const [isLoading, setIsLoading] = useState(false);
-    const [currentLoadingState, setCurrentLoadingState] =
-        useState(currentState);
+    const [currentLoadingState, setCurrentLoadingState] = useState(currentState);
 
     return {
         isLoading,

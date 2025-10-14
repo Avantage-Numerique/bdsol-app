@@ -3,17 +3,8 @@ import AvnuLoading from "@/common/widgets/loading/AvnuLoading";
 import { LoadingStates } from "@/common/widgets/loading/LoadingStates";
 import { useEffect, useState } from "react";
 
-const Spinner = ({
-    fixed,
-    absolute,
-    reverse,
-    className,
-    label,
-    loadingState,
-}) => {
-    const [currentAnimateClass, setCurrentAnimateClass] = useState(
-        styles["spinner__container--animateIn"]
-    );
+const Spinner = ({ fixed, absolute, reverse, className, label, loadingState }) => {
+    const [currentAnimateClass, setCurrentAnimateClass] = useState(styles["spinner__container--animateIn"]);
 
     /*useEffect(() => {
         if (loadingState && loadingState.state === LoadingStates.LOADING.state) {

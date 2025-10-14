@@ -197,19 +197,15 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props }) => {
                 nickname: formState.inputs.nickName.value,
                 description: formState.inputs.description.value,
                 catchphrase: formState.inputs.catchphrase.value,
-                occupations: formState.inputs.occupations.value.map(
-                    function (singleOccupation) {
-                        return {
-                            groupName: singleOccupation.value.groupName.value,
-                            skills: singleOccupation.value.skills.value.map(
-                                (skill) => {
-                                    return skill.value;
-                                }
-                            ),
-                            subMeta: { order: singleOccupation.order },
-                        };
-                    }
-                ),
+                occupations: formState.inputs.occupations.value.map(function (singleOccupation) {
+                    return {
+                        groupName: singleOccupation.value.groupName.value,
+                        skills: singleOccupation.value.skills.value.map((skill) => {
+                            return skill.value;
+                        }),
+                        subMeta: { order: singleOccupation.order },
+                    };
+                }),
                 domains:
                     formState.inputs.domains?.value?.length > 0
                         ? formState.inputs.domains.value.map((elem) => {
@@ -227,10 +223,7 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props }) => {
                     };
                 }),
                 region: formState.inputs.region.value,
-                meta: getDefaultUpdateEntityMeta(
-                    auth.user,
-                    model.meta.requestedBy
-                ),
+                meta: getDefaultUpdateEntityMeta(auth.user, model.meta.requestedBy),
             },
         };
 
@@ -323,12 +316,7 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props }) => {
                     <Icon iconName={"save"} />
                     &nbsp;{lang.capitalize("save")}
                 </Button>
-                <Button
-                    className="fs-6"
-                    size="slim"
-                    color="primary-light"
-                    href={model.singleLink}
-                >
+                <Button className="fs-6" size="slim" color="primary-light" href={model.singleLink}>
                     <Icon iconName={"times"} />
                     &nbsp;{lang.Cancel}
                 </Button>
@@ -374,11 +362,7 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props }) => {
     const contentColumnRight = (
         <>
             <SingleInfo title={lang.contactInformations}>
-                <UpdateContactPoint
-                    formTools={formTools}
-                    name="contactPoint"
-                    model={model}
-                />
+                <UpdateContactPoint formTools={formTools} name="contactPoint" model={model} />
 
                 <Select
                     name="region"
@@ -420,12 +404,7 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props }) => {
 
             <SingleInfo title={lang.externalLinks}>
                 {/* Url */}
-                <UpdateSocialHandles
-                    name="url"
-                    label={lang.url}
-                    parentEntity={model}
-                    formTools={formTools}
-                />
+                <UpdateSocialHandles name="url" label={lang.url} parentEntity={model} formTools={formTools} />
             </SingleInfo>
         </>
     );
@@ -435,11 +414,7 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props }) => {
             {(createdAt || updatedAt || meta) && (
                 <SingleInfo title={lang.entityMetadata} className="pt-3">
                     {/*********** Entity data ***********/}
-                    <SingleEntityMeta
-                        createdAt={createdAt}
-                        updatedAt={updatedAt}
-                        meta={meta}
-                    />
+                    <SingleEntityMeta createdAt={createdAt} updatedAt={updatedAt} meta={meta} />
                 </SingleInfo>
             )}
         </>
@@ -458,10 +433,7 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props }) => {
 
     return (
         <>
-            <SingleBeforeUnloadReminder
-                formTools={formTools}
-                saveIntention={saveIntentionState}
-            />
+            <SingleBeforeUnloadReminder formTools={formTools} saveIntention={saveIntentionState} />
             <SingleBase
                 breadCrumb={breadCrumb}
                 header={header}

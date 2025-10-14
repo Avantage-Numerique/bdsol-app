@@ -10,13 +10,7 @@ import DOMPurify from "isomorphic-dompurify";
 
 */
 
-const SanitizedInnerHtml = ({
-    tag,
-    type,
-    className,
-    children,
-    removeQlEditorClass,
-}) => {
+const SanitizedInnerHtml = ({ tag, type, className, children, removeQlEditorClass }) => {
     //Cleaning machine
     const cleanedData = DOMPurify.sanitize(children);
     //Set the wrapper
@@ -32,12 +26,7 @@ const SanitizedInnerHtml = ({
     }
 
     //By default
-    return (
-        <Wrapper
-            {...typeProps}
-            dangerouslySetInnerHTML={{ __html: cleanedData }}
-        />
-    );
+    return <Wrapper {...typeProps} dangerouslySetInnerHTML={{ __html: cleanedData }} />;
 };
 
 export default SanitizedInnerHtml;

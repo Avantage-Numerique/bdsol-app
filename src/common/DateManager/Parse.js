@@ -25,9 +25,4 @@ const apiDateToTimeInput = (str) => {
     return Format(apiDate, "HH:mm");
 };
 
-export {
-    dateTimeStringToUTC,
-    dateTimeStringUTCToZonedTime,
-    apiDateToTimeInput,
-    apiDateToDateInput,
-};
+export { dateTimeStringToUTC, dateTimeStringUTCToZonedTime, apiDateToTimeInput, apiDateToDateInput };

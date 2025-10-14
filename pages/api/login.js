@@ -1,9 +1,6 @@
 import { withSessionRoute } from "@/auth/session/handlers/withSession";
 import { externalApiRequest } from "@/src/hooks/http-hook";
-import {
-    getSessionFromData,
-    getUserHeadersFromUserSession,
-} from "@/auth/context/auth-context";
+import { getSessionFromData, getUserHeadersFromUserSession } from "@/auth/context/auth-context";
 import { getVisitorDataFromRequest } from "@/auth/context/visitor-context";
 import appRoutes from "@/src/Routing/AppRoutes";
 import { lang } from "@/common/Data/GlobalConstants";
@@ -49,9 +46,7 @@ async function loginRoute(req, res) {
         res.send({
             text: response.message,
             positive: !response.error,
-            redirectUri: response.error
-                ? appRoutes.connection.asPath
-                : redirect,
+            redirectUri: response.error ? appRoutes.connection.asPath : redirect,
             user: sessionUser,
         });
         return;

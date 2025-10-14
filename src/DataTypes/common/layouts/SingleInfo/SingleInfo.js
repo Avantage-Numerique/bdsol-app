@@ -50,19 +50,13 @@ const SingleInfo = (props) => {
             <div className={`d-flex flex-column`}>
                 {NAMessage && <p>{NAMessage}</p>}
                 <div></div>
-                {NAComponent && (
-                    <div className={`${styles["default-component--display"]}`}>
-                        {NAComponent}
-                    </div>
-                )}
+                {NAComponent && <div className={`${styles["default-component--display"]}`}>{NAComponent}</div>}
             </div>
         );
     };
 
     return (
-        <div
-            className={`${styles["single-info-container"]} ${isSubtitle && "py-2"}`}
-        >
+        <div className={`${styles["single-info-container"]} ${isSubtitle && "py-2"}`}>
             {" "}
             {/* Container with padding instead of margin to prevent "margin collapsing" */}
             <section
@@ -75,9 +69,7 @@ const SingleInfo = (props) => {
                         >
                             {title}
                         </TitleTag>
-                        {tooltip && (
-                            <TipButton title="Besoin de précisions ?" />
-                        )}
+                        {tooltip && <TipButton title="Besoin de précisions ?" />}
                     </header>
                 )}
                 <TipPopOver />

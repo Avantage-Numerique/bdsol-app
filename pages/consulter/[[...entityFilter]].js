@@ -23,9 +23,7 @@ import { paginationConfig } from "@/src/configs/PaginationConfigs";
 import PageHeader from "@/layouts/Header/PageHeader";
 import Button from "@/src/common/FormElements/Button/Button";
 import { useLoading } from "@/src/hooks/useLoading";
-import useConsultData, {
-    buildPaginationMeta,
-} from "@/src/hooks/useConsultData";
+import useConsultData, { buildPaginationMeta } from "@/src/hooks/useConsultData";
 import { Element } from "react-scroll";
 
 const ConsultData = (props) => {
@@ -42,18 +40,12 @@ const ConsultData = (props) => {
     const isFirstRenderRef = useRef(true);
 
     const currentQueryEntityFilterUrl = () => {
-        return Array.isArray(props.entityFilters) &&
-            props.entityFilters.length > 0
-            ? props.entityFilters[0]
-            : "tous";
+        return Array.isArray(props.entityFilters) && props.entityFilters.length > 0 ? props.entityFilters[0] : "tous";
     };
 
     const currentEntityFilterUrl = currentQueryEntityFilterUrl();
     const { currentLoadingState, setCurrentLoadingState } = useLoading();
-    const [consultData, updateConsultData] = useConsultData(
-        props,
-        filters.get(currentEntityFilterUrl)
-    );
+    const [consultData, updateConsultData] = useConsultData(props, filters.get(currentEntityFilterUrl));
 
     /**
      * Utils to manage changes on the entityFilter, only used in btn filter on click handler.
@@ -66,10 +58,7 @@ const ConsultData = (props) => {
             pathname: "/consulter/" + entityFilterUrl,
         };
 
-        if (
-            currentPage > 1 &&
-            consultData.entities.includes(filters.get(entityFilterUrl))
-        ) {
+        if (currentPage > 1 && consultData.entities.includes(filters.get(entityFilterUrl))) {
             routerParams.search = `?page=${currentPage}`;
         }
         setCurrentLoadingState(LoadingStates.LOADING);
@@ -84,10 +73,7 @@ const ConsultData = (props) => {
     const btnFilterOnClickHandler = async (type) => {
         //setFilterState(type);
         const targetTypeUrl = filtersUrl.get(type);
-        await filtersRouteHandler(
-            targetTypeUrl,
-            consultData.paginationMeta.currentPage
-        );
+        await filtersRouteHandler(targetTypeUrl, consultData.paginationMeta.currentPage);
     };
 
     /**
@@ -95,9 +81,7 @@ const ConsultData = (props) => {
      * @param targetPage
      */
     const btnPageOnClickHandler = (targetPage) => {
-        sendApiListRequest(
-            Math.abs(targetPage - 1) * paginationConfig.pageSize
-        );
+        sendApiListRequest(Math.abs(targetPage - 1) * paginationConfig.pageSize);
     };
 
     /**
@@ -106,11 +90,7 @@ const ConsultData = (props) => {
      */
     function updateUrlQueryWithCurrentPage(updatedPaginationMeta) {
         if (!updatedPaginationMeta) return;
-        if (
-            !updatedPaginationMeta.currentPage ||
-            updatedPaginationMeta.currentPage < 1
-        )
-            return;
+        if (!updatedPaginationMeta.currentPage || updatedPaginationMeta.currentPage < 1) return;
 
         const currentQuery = { ...router.query };
         const currentPage = updatedPaginationMeta.currentPage;
@@ -126,8 +106,7 @@ const ConsultData = (props) => {
         //using the router call a rerender an change the states. Even with shallow. An old discussion : https://github.com/vercel/next.js/discussions/18072
         router.push(
             {
-                pathname:
-                    "/consulter/" + filtersUrl.get(consultData.entities[0]),
+                pathname: "/consulter/" + filtersUrl.get(consultData.entities[0]),
                 query: currentQuery,
             },
             undefined,
@@ -166,11 +145,7 @@ const ConsultData = (props) => {
         setCurrentLoadingState(LoadingStates.LOADING);
         const targetSkip = directSkipNumber ?? 0;
 
-        const res = await searchByType(
-            ORIGIN_BROWSER,
-            consultData.entities[0],
-            { skip: targetSkip }
-        );
+        const res = await searchByType(ORIGIN_BROWSER, consultData.entities[0], { skip: targetSkip });
 
         const list = res.data;
         let newList;
@@ -179,16 +154,11 @@ const ConsultData = (props) => {
             newList = list;
             //setClearList(false);//always set the list as is for now.
         } else {
-            newList = isIterable(list)
-                ? [...consultData.list, ...list]
-                : [...consultData.list]; //if list is an object, put it in, or use only the entitylist
+            newList = isIterable(list) ? [...consultData.list, ...list] : [...consultData.list]; //if list is an object, put it in, or use only the entitylist
         }
 
         const totalCurrentCount = newList.length;
-        const currentPaginiationMeta = buildPaginationMeta(
-            res?.meta?.pagination,
-            totalCurrentCount
-        );
+        const currentPaginiationMeta = buildPaginationMeta(res?.meta?.pagination, totalCurrentCount);
 
         //the csr function in useConsultData.
         updateConsultData({
@@ -213,27 +183,18 @@ const ConsultData = (props) => {
 
     return (
         <div>
-            <PageMeta
-                title={lang.consult__title}
-                description={lang.consult__description}
-            />
+            <PageMeta title={lang.consult__title} description={lang.consult__description} />
             <PageHeader
                 bg={"bg-primary-light"}
                 textColor={"text-white"}
-                htmlTitle={
-                    "Consulter les ressources technologiques du Croissant boréal"
-                }
+                htmlTitle={"Consulter les ressources technologiques du Croissant boréal"}
                 description="Voir les personnes et organisation sur le territoire, les projets et événements en cours où à venir, et bien plus!"
             ></PageHeader>
             <section style={{ width: "100vw", marginLeft: "calc(50% - 50vw)" }}>
                 {/* Filter type section */}
                 <section className="bg-greyBg">
                     <div className="container py-4">
-                        <section
-                            className={
-                                "d-flex justify-content-between align-items-center"
-                            }
-                        >
+                        <section className={"d-flex justify-content-between align-items-center"}>
                             <h3>
                                 <Icon iconName="filter" />
                                 Filtres
@@ -247,56 +208,34 @@ const ConsultData = (props) => {
                                 >
                                     <div className="d-flex flex-column justify-content-between my-3">
                                         <div>
-                                            <span>
-                                                filtre actifs&nbsp;:&nbsp;
-                                            </span>
+                                            <span>filtre actifs&nbsp;:&nbsp;</span>
                                             {uriEntities &&
                                                 uriEntities.length > 0 &&
-                                                uriEntities.map(
-                                                    (entity, index) => {
-                                                        return (
-                                                            <span
-                                                                className={
-                                                                    "badge text-bg-secondary"
-                                                                }
-                                                                key={
-                                                                    entity +
-                                                                    index
-                                                                }
-                                                            >
-                                                                {entity}
-                                                            </span>
-                                                        );
-                                                    }
-                                                )}
+                                                uriEntities.map((entity, index) => {
+                                                    return (
+                                                        <span
+                                                            className={"badge text-bg-secondary"}
+                                                            key={entity + index}
+                                                        >
+                                                            {entity}
+                                                        </span>
+                                                    );
+                                                })}
                                         </div>
                                         <div>
-                                            <span>
-                                                Filtre&nbsp;(état)&nbsp;:&nbsp;
-                                            </span>
-                                            <span>
-                                                {JSON.stringify(
-                                                    consultData.entities
-                                                )}
-                                            </span>
+                                            <span>Filtre&nbsp;(état)&nbsp;:&nbsp;</span>
+                                            <span>{JSON.stringify(consultData.entities)}</span>
                                         </div>
                                         <div>
-                                            <span>
-                                                Loading state&nbsp;:&nbsp;
-                                            </span>
-                                            <span>
-                                                {currentLoadingState.label}
-                                            </span>
+                                            <span>Loading state&nbsp;:&nbsp;</span>
+                                            <span>{currentLoadingState.label}</span>
                                         </div>
                                     </div>
                                 </Collapse>
                             )}
                         </section>
 
-                        <div
-                            style={{ gap: "1rem" }}
-                            className="d-flex flex-wrap justify-content-center"
-                        >
+                        <div style={{ gap: "1rem" }} className="d-flex flex-wrap justify-content-center">
                             {consultData.entities &&
                                 filters.size > 0 &&
                                 Array.from(filters).map(([slug, type]) => {
@@ -304,29 +243,19 @@ const ConsultData = (props) => {
                                         <Button
                                             className="mx-1 rounded flex-grow-1"
                                             color={
-                                                Array.isArray(
-                                                    consultData.entities
-                                                ) &&
-                                                consultData.entities.includes(
-                                                    type
-                                                )
+                                                Array.isArray(consultData.entities) &&
+                                                consultData.entities.includes(type)
                                                     ? "secondary"
                                                     : null
                                             }
                                             outline={
-                                                Array.isArray(
-                                                    consultData.entities
-                                                ) &&
-                                                consultData.entities.includes(
-                                                    type
-                                                )
+                                                Array.isArray(consultData.entities) &&
+                                                consultData.entities.includes(type)
                                                     ? null
                                                     : "secondary"
                                             }
                                             text_color_over="dark"
-                                            onClick={() =>
-                                                btnFilterOnClickHandler(type)
-                                            }
+                                            onClick={() => btnFilterOnClickHandler(type)}
                                             id={"filter-btn-" + type}
                                             key={"filter-btn-" + type + slug}
                                         >
@@ -346,8 +275,7 @@ const ConsultData = (props) => {
                 loadMore={false}
             >
                 <div className="py-4 position-relative">
-                    {currentLoadingState.state ===
-                        LoadingStates.LOADING.state && (
+                    {currentLoadingState.state === LoadingStates.LOADING.state && (
                         <Spinner
                             label={currentLoadingState.label}
                             fixed={false}
@@ -359,17 +287,12 @@ const ConsultData = (props) => {
                     {consultData.list?.length > 0 && (
                         <EntitiesGrid
                             className={"row"}
-                            columnClass={
-                                "col-12 col-sm-6 col-lg-4 col-xl-3 g-4 "
-                            }
-                            feed={consultData.list.filter(
-                                (el) => el.type !== "Taxonomy"
-                            )}
+                            columnClass={"col-12 col-sm-6 col-lg-4 col-xl-3 g-4 "}
+                            feed={consultData.list.filter((el) => el.type !== "Taxonomy")}
                             badgesInfo={props.badgesInfo}
                         />
                     )}
-                    {currentLoadingState.state ===
-                        LoadingStates.LOADING_MORE.state && (
+                    {currentLoadingState.state === LoadingStates.LOADING_MORE.state && (
                         <Spinner
                             label={currentLoadingState.label}
                             fixed={false}
@@ -378,18 +301,10 @@ const ConsultData = (props) => {
                             loadingState={currentLoadingState}
                         />
                     )}
-                    {(currentLoadingState.state ===
-                        LoadingStates.LOADING_COMPLETE.state ||
-                        currentLoadingState.state ===
-                            LoadingStates.DEFAULT.state) &&
+                    {(currentLoadingState.state === LoadingStates.LOADING_COMPLETE.state ||
+                        currentLoadingState.state === LoadingStates.DEFAULT.state) &&
                         consultData.list?.length <= 0 && (
-                            <div
-                                className={
-                                    "alert alert-primary p-4 text-center"
-                                }
-                            >
-                                {lang.listNoResult}
-                            </div>
+                            <div className={"alert alert-primary p-4 text-center"}>{lang.listNoResult}</div>
                         )}
                 </div>
             </Pagination>
@@ -407,8 +322,7 @@ export default ConsultData;
  * @returns {Promise<{props: {pages: number, entityFilters: (*|string[]), allQueries: ({page}|*)}}>}
  */
 export const dynamicRouteHandler = async ({ params, query, req, res }) => {
-    const queryPage =
-        query.page && parseInt(query.page) > 0 ? parseInt(query.page) : 1;
+    const queryPage = query.page && parseInt(query.page) > 0 ? parseInt(query.page) : 1;
     const badges = await getBadgesInfo(true);
     const entityTypesSlugs = params.entityFilter ?? ["tous"];
     const targetEntityType = filters.get(entityTypesSlugs[0]) ?? "all";
@@ -419,11 +333,7 @@ export const dynamicRouteHandler = async ({ params, query, req, res }) => {
           }
         : {};
 
-    const ssrDataFirstLoad = await searchByType(
-        ORIGIN_SERVER,
-        targetEntityType,
-        additionalParams
-    );
+    const ssrDataFirstLoad = await searchByType(ORIGIN_SERVER, targetEntityType, additionalParams);
     return {
         props: {
             pages: queryPage,

@@ -18,12 +18,9 @@ class ApiEntityModel {
     static getSelectOption(requestData, field) {
         //If requestData is a string
         if (typeof requestData == "string")
-            return requestData === ""
-                ? null
-                : [{ label: requestData, value: requestData }];
+            return requestData === "" ? null : [{ label: requestData, value: requestData }];
         //If requestData is not an array
-        if (!Array.isArray(requestData))
-            return ApiEntityModel.entityTypeHandler(requestData, field);
+        if (!Array.isArray(requestData)) return ApiEntityModel.entityTypeHandler(requestData, field);
 
         //if requestData is an array, check not empty
         if (requestData?.length === 0) return [];
@@ -39,25 +36,16 @@ class ApiEntityModel {
         switch (entity?.type) {
             case TYPE_PERSON:
                 if (field === "occupations")
-                    return ApiEntityModel.occupationsToSelectOptions(
-                        entity.occupations ?? entity
-                    );
-                if (field === "domains")
-                    return ApiEntityModel.domainsToSelectOptions(entity.domain);
-                if (field === "fullname")
-                    return ApiEntityModel.fullnameToSelectOptions(entity);
+                    return ApiEntityModel.occupationsToSelectOptions(entity.occupations ?? entity);
+                if (field === "domains") return ApiEntityModel.domainsToSelectOptions(entity.domain);
+                if (field === "fullname") return ApiEntityModel.fullnameToSelectOptions(entity);
                 break;
             case TYPE_ORGANISATION:
-                if (field === "offers")
-                    return ApiEntityModel.occupationsToSelectOptions(
-                        entity.offers ?? entity
-                    );
-                if (field === "name")
-                    return ApiEntityModel.nameToSelectOptions(entity);
+                if (field === "offers") return ApiEntityModel.occupationsToSelectOptions(entity.offers ?? entity);
+                if (field === "name") return ApiEntityModel.nameToSelectOptions(entity);
                 break;
             case TYPE_PROJECT:
-                if (field === "domains")
-                    return ApiEntityModel.domainsToSelectOptions(entity.domain);
+                if (field === "domains") return ApiEntityModel.domainsToSelectOptions(entity.domain);
                 break;
             case TYPE_TAXONOMY:
                 return ApiEntityModel.nameToSelectOptions(entity);
@@ -73,8 +61,7 @@ class ApiEntityModel {
                 break;
 
             default:
-                if (field === "domains")
-                    return ApiEntityModel.domainsToSelectOptions(entity);
+                if (field === "domains") return ApiEntityModel.domainsToSelectOptions(entity);
                 return [];
         }
     }
@@ -164,9 +151,7 @@ class ApiEntityModel {
     }
 
     static nameToSelectOptions(entity) {
-        return [
-            { value: entity._id, label: entity.name, color: getColor(entity) },
-        ];
+        return [{ value: entity._id, label: entity.name, color: getColor(entity) }];
     }
 
     static locationToSelectOptions(entity) {

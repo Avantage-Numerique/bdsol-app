@@ -7,8 +7,7 @@
     box-shadow: $default-box-shadow; //1px 1px 4px 2px rgba(0,0,0,0.15);
     background-color: $primary-lighter;
     overflow: hidden;
-    $transition-simple-base: $transition-default-property
-        $transition-default-time $bezier-ease-in;
+    $transition-simple-base: $transition-default-property $transition-default-time $bezier-ease-in;
     @include transition($transition-simple-base);
     //max-width: 17rem;//parent scope of responsability
 
@@ -173,11 +172,7 @@
 
 .gradient-cover {
     background: rgba(0, 0, 0, 0);
-    background: linear-gradient(
-        0deg,
-        rgba(0, 0, 0, 0.5919410000328256) 0%,
-        rgba(0, 0, 0, 0.051324753534226164) 70%
-    );
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.5919410000328256) 0%, rgba(0, 0, 0, 0.051324753534226164) 70%);
     opacity: 1;
     @include transition();
 }

@@ -39,8 +39,7 @@ const Button = (props) => {
     //Size : For now, slim or not
     if (props.size === "slim") classList.push("btn-slim");
     //Custom text color changing on hover
-    if (props.text_color_hover)
-        classList.push(`btn-text-hover-color-${props.text_color_hover}`);
+    if (props.text_color_hover) classList.push(`btn-text-hover-color-${props.text_color_hover}`);
     //Finaly, custom class names to add element or override specific ones
     if (props.className) classList.push(props.className);
 
@@ -81,12 +80,7 @@ const Button = (props) => {
         /* If the button is not a link, then it calls an action with onClick */
     }
     return (
-        <button
-            className={`${classesString}`}
-            type={props.type}
-            onClick={props.onClick}
-            disabled={props.disabled}
-        >
+        <button className={`${classesString}`} type={props.type} onClick={props.onClick} disabled={props.disabled}>
             {/* Button text */}
             {props.children}
         </button>

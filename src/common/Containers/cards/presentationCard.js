@@ -22,17 +22,7 @@ const { publicRuntimeConfig } = getConfig();
 */
 
 const PresentationCard = ({ header, data }) => {
-    const {
-        slug,
-        firstName,
-        lastName,
-        name,
-        username,
-        description,
-        createdAt,
-        url,
-        contactPoint,
-    } = data;
+    const { slug, firstName, lastName, name, username, description, createdAt, url, contactPoint } = data;
 
     //Dictionnary for entity type. Set header = { type : label }
     const dict = { Person: "Personne", Organisation: "Organisation" };
@@ -57,11 +47,7 @@ const PresentationCard = ({ header, data }) => {
 
                         {/* Redirection link */}
                         <div className="">
-                            <Button
-                                disabled={header === "Organisation"}
-                                href={`${singleUrl}`}
-                                small
-                            >
+                            <Button disabled={header === "Organisation"} href={`${singleUrl}`} small>
                                 {lang.see}
                             </Button>
                         </div>
@@ -101,21 +87,15 @@ const PresentationCard = ({ header, data }) => {
 
                     {showFullDescription && (
                         <div>
-                            <SanitizedInnerHtml>
-                                {description}
-                            </SanitizedInnerHtml>
+                            <SanitizedInnerHtml>{description}</SanitizedInnerHtml>
                         </div>
                     )}
 
                     {/***********  URL *************/}
                     {url && (
-                        <div
-                            className={`row ${styles["card__content__single-info"]}`}
-                        >
+                        <div className={`row ${styles["card__content__single-info"]}`}>
                             <div className={`col-2 fw-semibold`}>
-                                <SanitizedInnerHtml tag={"p"}>
-                                    {lang.urlLabel}
-                                </SanitizedInnerHtml>
+                                <SanitizedInnerHtml tag={"p"}>{lang.urlLabel}</SanitizedInnerHtml>
                             </div>
                             <div className={`col`}>
                                 <p className="text-truncate">{url}</p>
@@ -125,13 +105,9 @@ const PresentationCard = ({ header, data }) => {
 
                     {/**********  contactPoint ************/}
                     {contactPoint && (
-                        <div
-                            className={`row ${styles["card__content__single-info"]}`}
-                        >
+                        <div className={`row ${styles["card__content__single-info"]}`}>
                             <div className={`col-2 fw-semibold`}>
-                                <SanitizedInnerHtml tag={"p"}>
-                                    {lang.contactLabel}
-                                </SanitizedInnerHtml>
+                                <SanitizedInnerHtml tag={"p"}>{lang.contactLabel}</SanitizedInnerHtml>
                             </div>
                             <div>
                                 <p className="text-truncate">{contactPoint}</p>
@@ -141,13 +117,9 @@ const PresentationCard = ({ header, data }) => {
 
                     {/**********  username  ************/}
                     {username && (
-                        <div
-                            className={`row ${styles["card__content__single-info"]}`}
-                        >
+                        <div className={`row ${styles["card__content__single-info"]}`}>
                             <div className={`col-2 fw-semibold`}>
-                                <SanitizedInnerHtml tag={"p"}>
-                                    {lang.nicknameLabel}
-                                </SanitizedInnerHtml>
+                                <SanitizedInnerHtml tag={"p"}>{lang.nicknameLabel}</SanitizedInnerHtml>
                             </div>
                             <div>
                                 <p className="text-truncate">{username}</p>
@@ -161,18 +133,10 @@ const PresentationCard = ({ header, data }) => {
             <footer className={`container py-2 `}>
                 <div className="row justify-content-between">
                     <div className={"col"}>
-                        <time>
-                            {new Date(createdAt).toLocaleDateString(
-                                publicRuntimeConfig.dates.defaultLanguage
-                            )}
-                        </time>
+                        <time>{new Date(createdAt).toLocaleDateString(publicRuntimeConfig.dates.defaultLanguage)}</time>
                     </div>
                     <div className={"col"}>
-                        <time>
-                            {new Date(createdAt).toLocaleTimeString(
-                                publicRuntimeConfig.dates.defaultLanguage
-                            )}
-                        </time>
+                        <time>{new Date(createdAt).toLocaleTimeString(publicRuntimeConfig.dates.defaultLanguage)}</time>
                     </div>
                 </div>
             </footer>

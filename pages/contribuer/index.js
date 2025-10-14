@@ -46,9 +46,7 @@ const Index = () => {
 
     const FullWidthImg = () => {
         return (
-            <figure
-                className={`d-none d-md-block ${styles["header--background-img"]}`}
-            >
+            <figure className={`d-none d-md-block ${styles["header--background-img"]}`}>
                 <Image src={headerImg} alt="Trajet de la fusée d'AVNU" />
             </figure>
         );
@@ -56,10 +54,7 @@ const Index = () => {
 
     return (
         <div className={`${styles["contribution-page"]}`}>
-            <PageMeta
-                title={lang.contribute__title}
-                description={lang.contribute__description}
-            />
+            <PageMeta title={lang.contribute__title} description={lang.contribute__description} />
             <PageHeader
                 title="Contribuer à la base de données"
                 subtitleColor="primary"
@@ -75,25 +70,16 @@ const Index = () => {
                                 <span className="text-danger">
                                     <strong>Attention ! </strong>
                                 </span>
-                                Vous devez être connecté afin de pouvoir éditer
-                                la base de données.
+                                Vous devez être connecté afin de pouvoir éditer la base de données.
                             </div>
                         </div>
                     )}
 
-                    <div
-                        className={`row pb-5 g-4 ${styles["contribution-page__article-container"]}`}
-                    >
-                        <article
-                            className={`${styles["contribution-page__entity"]} col-12 col-sm-6 col-md-4`}
-                        >
-                            <div
-                                className={`${styles["contribution-page__entity__content"]}`}
-                            >
+                    <div className={`row pb-5 g-4 ${styles["contribution-page__article-container"]}`}>
+                        <article className={`${styles["contribution-page__entity"]} col-12 col-sm-6 col-md-4`}>
+                            <div className={`${styles["contribution-page__entity__content"]}`}>
                                 <header>
-                                    <i
-                                        className={`${Person.icon} ${styles["entity-icon"]}`}
-                                    />
+                                    <i className={`${Person.icon} ${styles["entity-icon"]}`} />
                                     <h4>{lang.Person}</h4>
                                 </header>
                                 <section>
@@ -106,23 +92,13 @@ const Index = () => {
                                 href={getCreateEntityPath(TYPE_PERSON)}
                                 disabled={!auth.user.isLoggedIn}
                             >
-                                <Icon
-                                    iconName={"plus"}
-                                    className="text-secondary-darker"
-                                />{" "}
-                                Ajouter une {lang.Person}
+                                <Icon iconName={"plus"} className="text-secondary-darker" /> Ajouter une {lang.Person}
                             </Button>
                         </article>
-                        <article
-                            className={`${styles["contribution-page__entity"]} col-12 col-sm-6 col-md-4`}
-                        >
-                            <div
-                                className={`${styles["contribution-page__entity__content"]}`}
-                            >
+                        <article className={`${styles["contribution-page__entity"]} col-12 col-sm-6 col-md-4`}>
+                            <div className={`${styles["contribution-page__entity__content"]}`}>
                                 <header>
-                                    <i
-                                        className={`${Organisation.icon} ${styles["entity-icon"]}`}
-                                    />
+                                    <i className={`${Organisation.icon} ${styles["entity-icon"]}`} />
                                     <h4>{lang.Organisation}</h4>
                                 </header>
                                 <section>
@@ -135,23 +111,14 @@ const Index = () => {
                                 href={getCreateEntityPath(TYPE_ORGANISATION)}
                                 disabled={!auth.user.isLoggedIn}
                             >
-                                <Icon
-                                    iconName={"plus"}
-                                    className="text-secondary-darker"
-                                />{" "}
-                                Ajouter une {lang.Organisation}
+                                <Icon iconName={"plus"} className="text-secondary-darker" /> Ajouter une{" "}
+                                {lang.Organisation}
                             </Button>
                         </article>
-                        <article
-                            className={`${styles["contribution-page__entity"]} col-12 col-sm-6 col-md-4`}
-                        >
-                            <div
-                                className={`${styles["contribution-page__entity__content"]}`}
-                            >
+                        <article className={`${styles["contribution-page__entity"]} col-12 col-sm-6 col-md-4`}>
+                            <div className={`${styles["contribution-page__entity__content"]}`}>
                                 <header>
-                                    <i
-                                        className={`${Project.icon} ${styles["entity-icon"]}`}
-                                    />
+                                    <i className={`${Project.icon} ${styles["entity-icon"]}`} />
                                     <h4>{lang.Project}</h4>
                                 </header>
                                 <section>
@@ -164,23 +131,13 @@ const Index = () => {
                                 href={getCreateEntityPath(TYPE_PROJECT)}
                                 disabled={!auth.user.isLoggedIn}
                             >
-                                <Icon
-                                    iconName={"plus"}
-                                    className="text-secondary-darker"
-                                />{" "}
-                                Ajouter un {lang.Project}
+                                <Icon iconName={"plus"} className="text-secondary-darker" /> Ajouter un {lang.Project}
                             </Button>
                         </article>
-                        <article
-                            className={`${styles["contribution-page__entity"]} col-12 col-sm-6 col-md-4`}
-                        >
-                            <div
-                                className={`${styles["contribution-page__entity__content"]}`}
-                            >
+                        <article className={`${styles["contribution-page__entity"]} col-12 col-sm-6 col-md-4`}>
+                            <div className={`${styles["contribution-page__entity__content"]}`}>
                                 <header>
-                                    <i
-                                        className={`${Event.icon} ${styles["entity-icon"]}`}
-                                    />
+                                    <i className={`${Event.icon} ${styles["entity-icon"]}`} />
                                     <h4>{lang.Event}</h4>
                                 </header>
                                 <section>
@@ -193,23 +150,13 @@ const Index = () => {
                                 href={getCreateEntityPath(TYPE_EVENT)}
                                 disabled={!auth.user.isLoggedIn}
                             >
-                                <Icon
-                                    iconName={"plus"}
-                                    className="text-secondary-darker"
-                                />{" "}
-                                Ajouter un {lang.Event}
+                                <Icon iconName={"plus"} className="text-secondary-darker" /> Ajouter un {lang.Event}
                             </Button>
                         </article>
-                        <article
-                            className={`${styles["contribution-page__entity"]} col-12 col-sm-6 col-md-4`}
-                        >
-                            <div
-                                className={`${styles["contribution-page__entity__content"]}`}
-                            >
+                        <article className={`${styles["contribution-page__entity"]} col-12 col-sm-6 col-md-4`}>
+                            <div className={`${styles["contribution-page__entity__content"]}`}>
                                 <header>
-                                    <i
-                                        className={`${Equipment.icon} ${styles["entity-icon"]}`}
-                                    />
+                                    <i className={`${Equipment.icon} ${styles["entity-icon"]}`} />
                                     <h4>{lang.Equipment}</h4>
                                 </header>
                                 <section>
@@ -222,11 +169,7 @@ const Index = () => {
                                 href={getCreateEntityPath(TYPE_EQUIPMENT)}
                                 disabled={!auth.user.isLoggedIn}
                             >
-                                <Icon
-                                    iconName={"plus"}
-                                    className="text-secondary-darker"
-                                />{" "}
-                                Ajouter un {lang.Equipment}
+                                <Icon iconName={"plus"} className="text-secondary-darker" /> Ajouter un {lang.Equipment}
                             </Button>
                         </article>
                         {/*

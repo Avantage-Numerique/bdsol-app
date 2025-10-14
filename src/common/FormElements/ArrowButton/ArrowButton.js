@@ -37,19 +37,13 @@ const ArrowButton = ({ ...props }) => {
     classList.push("rounded-circle");
     classList.push(`${styles.xButton}`);
     classList.push(props.color ? `btn-${props.color}` : `btn-${btnColor}`);
-    classList.push(
-        props.outline
-            ? `btn-outline-${btnColor} btn-outline-${props.outline}`
-            : ""
-    );
+    classList.push(props.outline ? `btn-outline-${btnColor} btn-outline-${props.outline}` : "");
     classList.push(`btn-arrow-svg-${arrowColor}`);
     classList.push(`btn-arrow-svg-custom-outline-hover-${btnColor}`);
     classList.push(props.classes);
     classList.push(props.openned ? `${styles.openned}` : "");
 
-    let directionClass = props.direction
-        ? `${props.direction}Direction`
-        : "downDirection";
+    let directionClass = props.direction ? `${props.direction}Direction` : "downDirection";
     classList.push(`${styles[directionClass]}`);
 
     let sizeClass = props.size ? `custom-btn-arrow-${props.size}` : "";

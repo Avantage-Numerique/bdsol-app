@@ -33,17 +33,12 @@ const PlaceSingleEditPage = () => {
             {/* Modal with the form in it*/}
             {modal.display && (
                 <Modal coloredBackground darkColorButton>
-                    <header
-                        className={`d-flex justify-content-between align-items-start mb-4`}
-                    >
+                    <header className={`d-flex justify-content-between align-items-start mb-4`}>
                         <div className="d-flex flex-column">
-                            <h3 className="text-secondary-darker">
-                                Ajouter un lieu
-                            </h3>
+                            <h3 className="text-secondary-darker">Ajouter un lieu</h3>
                             <p>
-                                Entrez les informations principales d'un lieu.
-                                Vous pourrez les éditer de manière détaillée par
-                                la suite.
+                                Entrez les informations principales d'un lieu. Vous pourrez les éditer de manière
+                                détaillée par la suite.
                             </p>
                         </div>
                         <Button

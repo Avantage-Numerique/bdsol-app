@@ -45,8 +45,7 @@ const SearchResults = (props) => {
             const searchIndex = router.query.searchIndex;
             if (searchIndex) {
                 response = await getResultsRouteResponse(searchIndex);
-                const nearTaxonomy =
-                    await getNearestTaxonomyToSearchIndex(searchIndex);
+                const nearTaxonomy = await getNearestTaxonomyToSearchIndex(searchIndex);
                 setNearestTaxonomyObject(nearTaxonomy.data);
                 setSearchMessage("par texte");
 
@@ -80,10 +79,7 @@ const SearchResults = (props) => {
     }
 
     const getResultsRouteResponse = (searchIndex) => {
-        return clientSideExternalApiRequest(
-            "/search/?searchIndex=" + searchIndex,
-            { method: "GET" }
-        );
+        return clientSideExternalApiRequest("/search/?searchIndex=" + searchIndex, { method: "GET" });
     };
 
     const getIdRouteResponse = (linkId) => {
@@ -101,29 +97,18 @@ const SearchResults = (props) => {
     };
 
     const getNearestTaxonomyToSearchIndex = (searchIndex) => {
-        return clientSideExternalApiRequest(
-            "/search/nearestTaxonomy?searchIndex=" + searchIndex,
-            { method: "GET" }
-        );
+        return clientSideExternalApiRequest("/search/nearestTaxonomy?searchIndex=" + searchIndex, { method: "GET" });
     };
 
-    const researchResult = (
-        entityType,
-        includeEntitySuggestedByTaxonomy = false
-    ) => {
-        if (entityType === "linkedTaxonomy")
-            return linkedEntityToTaxonomyComponent();
+    const researchResult = (entityType, includeEntitySuggestedByTaxonomy = false) => {
+        if (entityType === "linkedTaxonomy") return linkedEntityToTaxonomyComponent();
 
-        const resultMessage = entityType
-            ? "Résultats pour " + lang[entityType] + ":"
-            : "Résultats de recherche :";
+        const resultMessage = entityType ? "Résultats pour " + lang[entityType] + ":" : "Résultats de recherche :";
         let filteredList = searchList ? [...searchList] : [];
         if (entityType) {
             //If include entitySuggested add them to the list
             if (includeEntitySuggestedByTaxonomy) {
-                filteredList.push(
-                    ...nearTaxonomyObject.linkedEntityToNearestTaxonomy
-                );
+                filteredList.push(...nearTaxonomyObject.linkedEntityToNearestTaxonomy);
             }
             filteredList = filteredList.filter((el) => {
                 return el.type === entityType;
@@ -137,17 +122,12 @@ const SearchResults = (props) => {
                 {searchCount > 0 ? (
                     <EntitiesGrid
                         className={"row"}
-                        feed={filteredList.filter(
-                            (el) => el.type !== "Taxonomy"
-                        )}
+                        feed={filteredList.filter((el) => el.type !== "Taxonomy")}
                         badgesInfo={props.badgesInfo}
                         columnClass={"col-12 col-sm-6 col-lg-4 g-4 "}
                     ></EntitiesGrid>
                 ) : (
-                    <div>
-                        Aucune entité trouvée, réessayer avec d'autre critère de
-                        recherche
-                    </div>
+                    <div>Aucune entité trouvée, réessayer avec d'autre critère de recherche</div>
                 )}
             </div>
         );
@@ -166,10 +146,7 @@ const SearchResults = (props) => {
                 showLinkedTaxonomy = false;
                 showLinkedEntity = false;
             } else {
-                if (
-                    nearTaxonomyObject?.linkedEntityToNearestTaxonomy.length ==
-                    0
-                ) {
+                if (nearTaxonomyObject?.linkedEntityToNearestTaxonomy.length == 0) {
                     showLinkedTaxonomy = false;
                     showLinkedEntity = false;
                 }
@@ -192,19 +169,13 @@ const SearchResults = (props) => {
                             }
                         </h3>
                     ) : (
-                        <h3>
-                            Aucune suggestion de catégorie pour la recherche "
-                            {router.query.searchIndex}"
-                        </h3>
+                        <h3>Aucune suggestion de catégorie pour la recherche "{router.query.searchIndex}"</h3>
                     ))}
                 {showLinkedEntity &&
-                    (nearTaxonomyObject?.linkedEntityToNearestTaxonomy.length >
-                    0 ? (
+                    (nearTaxonomyObject?.linkedEntityToNearestTaxonomy.length > 0 ? (
                         <EntitiesGrid
                             className={"row"}
-                            feed={
-                                nearTaxonomyObject.linkedEntityToNearestTaxonomy
-                            }
+                            feed={nearTaxonomyObject.linkedEntityToNearestTaxonomy}
                             badgesInfo={props.badgesInfo}
                         ></EntitiesGrid>
                     ) : (
@@ -219,17 +190,10 @@ const SearchResults = (props) => {
             <PageHeader
                 bg={"bg-primary-light"}
                 textColor={"text-white"}
-                htmlTitle={
-                    'Résultats de recherche pour : "' +
-                    router.query.searchIndex +
-                    '"'
-                }
+                htmlTitle={'Résultats de recherche pour : "' + router.query.searchIndex + '"'}
                 description=""
             ></PageHeader>
-            <section
-                className="bg-greyBg"
-                style={{ width: "100vw", marginLeft: "calc(50% - 50vw)" }}
-            >
+            <section className="bg-greyBg" style={{ width: "100vw", marginLeft: "calc(50% - 50vw)" }}>
                 <div className="container py-4">
                     <div className="row">
                         <div className="col-12">
@@ -237,67 +201,36 @@ const SearchResults = (props) => {
                                 <Icon iconName="filter" />
                                 Filtrer par type de données
                             </h3>
-                            <div
-                                style={{ gap: "1rem" }}
-                                className="d-flex flex-wrap justify-content-center"
-                            >
+                            <div style={{ gap: "1rem" }} className="d-flex flex-wrap justify-content-center">
                                 <Button
                                     className="mx-2 rounded flex-grow-1"
-                                    color={
-                                        filter.includes("linkedTaxonomy")
-                                            ? "secondary"
-                                            : null
-                                    }
-                                    outline={
-                                        filter.includes("linkedTaxonomy")
-                                            ? null
-                                            : "secondary"
-                                    }
+                                    color={filter.includes("linkedTaxonomy") ? "secondary" : null}
+                                    outline={filter.includes("linkedTaxonomy") ? null : "secondary"}
                                     text_color_over="dark"
-                                    onClick={() =>
-                                        updateFilterState("linkedTaxonomy")
-                                    }
+                                    onClick={() => updateFilterState("linkedTaxonomy")}
                                     id="filter-btn-linkedTaxonomy"
                                 >
                                     {"Entités liées suggérées (" +
-                                        (nearTaxonomyObject?.linkedEntityToNearestTaxonomy?.length.toString() ??
-                                            "0") +
+                                        (nearTaxonomyObject?.linkedEntityToNearestTaxonomy?.length.toString() ?? "0") +
                                         ")"}
                                 </Button>
                                 <Button
                                     className="mx-2 rounded flex-grow-1"
-                                    color={
-                                        filter.length === 0 ? "secondary" : null
-                                    }
-                                    outline={
-                                        filter.length === 0 ? null : "secondary"
-                                    }
+                                    color={filter.length === 0 ? "secondary" : null}
+                                    outline={filter.length === 0 ? null : "secondary"}
                                     text_color_over="dark"
                                     onClick={() => updateFilterState("all")}
                                     id="filter-btn-all"
                                 >
                                     {"Tous les types (" +
-                                        ((nearTaxonomyObject
-                                            ?.linkedEntityToNearestTaxonomy
-                                            ?.length || 0) +
-                                            (searchList.filter(
-                                                (elem) =>
-                                                    elem.type !== "Taxonomy"
-                                            ).length || 0)) +
+                                        ((nearTaxonomyObject?.linkedEntityToNearestTaxonomy?.length || 0) +
+                                            (searchList.filter((elem) => elem.type !== "Taxonomy").length || 0)) +
                                         ")"}
                                 </Button>
                                 <Button
                                     className="mx-2 rounded flex-grow-1"
-                                    color={
-                                        filter.includes("Person")
-                                            ? "secondary"
-                                            : null
-                                    }
-                                    outline={
-                                        filter.includes("Person")
-                                            ? null
-                                            : "secondary"
-                                    }
+                                    color={filter.includes("Person") ? "secondary" : null}
+                                    outline={filter.includes("Person") ? null : "secondary"}
                                     text_color_over="dark"
                                     onClick={() => updateFilterState("Person")}
                                     id="filter-btn-person"
@@ -312,44 +245,24 @@ const SearchResults = (props) => {
                                 </Button>
                                 <Button
                                     className="mx-2 rounded flex-grow-1"
-                                    color={
-                                        filter.includes("Organisation")
-                                            ? "secondary"
-                                            : null
-                                    }
-                                    outline={
-                                        filter.includes("Organisation")
-                                            ? null
-                                            : "secondary"
-                                    }
+                                    color={filter.includes("Organisation") ? "secondary" : null}
+                                    outline={filter.includes("Organisation") ? null : "secondary"}
                                     text_color_over="dark"
-                                    onClick={() =>
-                                        updateFilterState("Organisation")
-                                    }
+                                    onClick={() => updateFilterState("Organisation")}
                                     id="filter-btn-organisation"
                                 >
                                     {"Organisations (" +
                                         (searchList
                                             .filter((el) => {
-                                                return (
-                                                    el.type === "Organisation"
-                                                );
+                                                return el.type === "Organisation";
                                             })
                                             .length.toString() ?? "0") +
                                         ")"}
                                 </Button>
                                 <Button
                                     className="mx-2 rounded flex-grow-1"
-                                    color={
-                                        filter.includes("Project")
-                                            ? "secondary"
-                                            : null
-                                    }
-                                    outline={
-                                        filter.includes("Project")
-                                            ? null
-                                            : "secondary"
-                                    }
+                                    color={filter.includes("Project") ? "secondary" : null}
+                                    outline={filter.includes("Project") ? null : "secondary"}
                                     text_color_over="dark"
                                     onClick={() => updateFilterState("Project")}
                                     id="filter-btn-project"
@@ -364,16 +277,8 @@ const SearchResults = (props) => {
                                 </Button>
                                 <Button
                                     className="mx-2 rounded flex-grow-1"
-                                    color={
-                                        filter.includes("Event")
-                                            ? "secondary"
-                                            : null
-                                    }
-                                    outline={
-                                        filter.includes("Event")
-                                            ? null
-                                            : "secondary"
-                                    }
+                                    color={filter.includes("Event") ? "secondary" : null}
+                                    outline={filter.includes("Event") ? null : "secondary"}
                                     text_color_over="dark"
                                     onClick={() => updateFilterState("Event")}
                                     id="filter-btn-event"
@@ -388,20 +293,10 @@ const SearchResults = (props) => {
                                 </Button>
                                 <Button
                                     className="mx-2 rounded flex-grow-1"
-                                    color={
-                                        filter.includes("Equipment")
-                                            ? "secondary"
-                                            : null
-                                    }
-                                    outline={
-                                        filter.includes("Equipment")
-                                            ? null
-                                            : "secondary"
-                                    }
+                                    color={filter.includes("Equipment") ? "secondary" : null}
+                                    outline={filter.includes("Equipment") ? null : "secondary"}
                                     text_color_over="dark"
-                                    onClick={() =>
-                                        updateFilterState("Equipment")
-                                    }
+                                    onClick={() => updateFilterState("Equipment")}
                                     id="filter-btn-equipment"
                                 >
                                     {"Équipement (" +
@@ -432,30 +327,19 @@ const SearchResults = (props) => {
                 )}
                 {!isLoading && (
                     <div className="row py-4">
-                        {nearTaxonomyObject?.otherNearbyTaxonomy?.length >
-                            0 && (
+                        {nearTaxonomyObject?.otherNearbyTaxonomy?.length > 0 && (
                             <div className="col col-md-3 py-4">
                                 <h4>Vous cherchiez peut-être :</h4>
                                 <ul>
-                                    {nearTaxonomyObject.otherNearbyTaxonomy
-                                        .slice(0, 8)
-                                        .map((nearTaxo, index) => {
-                                            return (
-                                                <li
-                                                    key={
-                                                        index +
-                                                        "nearTaxoList-" +
-                                                        nearTaxo._id
-                                                    }
-                                                >
-                                                    <a
-                                                        href={`/categories/${nearTaxo?.category}/${nearTaxo?.slug}`}
-                                                    >
-                                                        {nearTaxo.name}
-                                                    </a>
-                                                </li>
-                                            );
-                                        })}
+                                    {nearTaxonomyObject.otherNearbyTaxonomy.slice(0, 8).map((nearTaxo, index) => {
+                                        return (
+                                            <li key={index + "nearTaxoList-" + nearTaxo._id}>
+                                                <a href={`/categories/${nearTaxo?.category}/${nearTaxo?.slug}`}>
+                                                    {nearTaxo.name}
+                                                </a>
+                                            </li>
+                                        );
+                                    })}
                                 </ul>
                             </div>
                         )}
@@ -473,11 +357,7 @@ const SearchResults = (props) => {
                                     <div>
                                         {/* else show linkedTaxonomy or result by type */}
                                         {filter.map((el) => {
-                                            return (
-                                                <div key={el}>
-                                                    {researchResult(el, true)}
-                                                </div>
-                                            );
+                                            return <div key={el}>{researchResult(el, true)}</div>;
                                         })}
                                     </div>
                                 ))}

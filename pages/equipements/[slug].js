@@ -8,9 +8,7 @@ import { withSessionSsr } from "@/auth/session/handlers/withSession";
 import AppRoutes from "@/src/Routing/AppRoutes";
 
 const SingleEquipmentViewPage = (props) => {
-    return (
-        <EquipmentSingleView data={props} route={AppRoutes.equipmentSingle} />
-    );
+    return <EquipmentSingleView data={props} route={AppRoutes.equipmentSingle} />;
 };
 
 export default SingleEquipmentViewPage;

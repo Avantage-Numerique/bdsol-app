@@ -57,11 +57,7 @@ const CreateOrganisationForm = ({ onPositiveResponse, ...props }) => {
             },
         };
 
-        await submitRequest(
-            `/organisations/create`,
-            "POST",
-            JSON.stringify(formData)
-        );
+        await submitRequest(`/organisations/create`, "POST", JSON.stringify(formData));
     };
 
     return (
@@ -75,12 +71,7 @@ const CreateOrganisationForm = ({ onPositiveResponse, ...props }) => {
                 errorText="Cette information est requise"
                 formTools={formTools}
             />
-            <RichTextarea
-                className="my-1"
-                name="description"
-                label={lang.about}
-                formTools={formTools}
-            />
+            <RichTextarea className="my-1" name="description" label={lang.about} formTools={formTools} />
             <div className="col-12">
                 <Button
                     className="me-4"
@@ -92,11 +83,7 @@ const CreateOrganisationForm = ({ onPositiveResponse, ...props }) => {
                     {lang.submit}
                 </Button>
                 {props?.closeModal && (
-                    <Button
-                        color="danger"
-                        type="button"
-                        onClick={props.closeModal()}
-                    >
+                    <Button color="danger" type="button" onClick={props.closeModal()}>
                         {lang.cancel}
                     </Button>
                 )}

@@ -10,6 +10,4 @@ const SingleEventEditPage = (props) => {
 
 export default SingleEventEditPage;
 
-export const getServerSideProps = withSessionSsr(
-    ssrCanContributeToEntity("events")
-);
+export const getServerSideProps = withSessionSsr(ssrCanContributeToEntity("events"));

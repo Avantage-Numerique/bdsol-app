@@ -26,16 +26,14 @@ export const base = {
     appDefaultName: "AVNU | By Avantage Numérique",
     appDefaultDescription:
         "The database that compiles and geolocates talents, skills, equipment, and technocreative initiatives in the Boreal crescent (Croissant boréal).",
-    appDefaultKeywords:
-        "Ontology, class, property, database, technology, creator, community",
+    appDefaultKeywords: "Ontology, class, property, database, technology, creator, community",
     appDefaultProducer: "Avantage Numérique",
     appProducerDefaultDescription:
         "Avantage numérique is a virtual, physical and mobile hub which deserve cultural, business and knowledge sector. It's goal is to help the growth of the creative, entrepreneurial and technologic ecosystem of Croissant boréal.",
 
     //  HomePage
 
-    homePageTitle:
-        'The perfect tool to explore the "Croissant boréal" technological resources',
+    homePageTitle: 'The perfect tool to explore the "Croissant boréal" technological resources',
     homePageDescription:
         "In just a few clicks, find organizations, projects, people, equipment and events related to the digital in your territory.",
     actualities: "Actualities",
@@ -47,8 +45,7 @@ export const base = {
 
     //  Auth
 
-    needToBeConnectedToAccess:
-        "You need to be connected in order to add entities to the database.",
+    needToBeConnectedToAccess: "You need to be connected in order to add entities to the database.",
 
     //  Espace membre
 
@@ -64,26 +61,21 @@ export const base = {
     disconnectionSucceed: "You have successfully been disconnected.",
 
     //  DataType/common/commonFormFeatures/commonFormFeatures.js
-    needAuthToContribute:
-        "You need to be connected in order to add data to the database.",
-    authInvitationToContribute:
-        "Log in to be able to contribute to the database.",
+    needAuthToContribute: "You need to be connected in order to add data to the database.",
+    authInvitationToContribute: "Log in to be able to contribute to the database.",
 
     // http-hook
 
-    fetchErrorMessage:
-        "An error occured. Server doesn't seem to respond. Make sure you have internet access.",
+    fetchErrorMessage: "An error occured. Server doesn't seem to respond. Make sure you have internet access.",
 
     //  Forms
 
-    formNotValid:
-        "Warning. The form send is invalid. Make sure that all fields required are correctly filled.",
+    formNotValid: "Warning. The form send is invalid. Make sure that all fields required are correctly filled.",
     submit: "Submit",
     required: "*",
     consult: "Consult",
     contribute: "Contribute",
-    onNavigationBlockWithoutSave:
-        "There is some unsaved changes, are you sure you want to leave?",
+    onNavigationBlockWithoutSave: "There is some unsaved changes, are you sure you want to leave?",
 
     // CreatePersonForm.js
 
@@ -188,14 +180,12 @@ export const base = {
     domain: "domaine",
     parentDomains: "Parent domains",
 
-    domainsInputPlaceholder:
-        "Art, information technology, communication, [...]",
+    domainsInputPlaceholder: "Art, information technology, communication, [...]",
     domainsSingleLabel: "Domains",
 
     //  TEAMS
 
-    noTeamMemberSetMessage:
-        "Nobody is registered as a team member of this organisation.",
+    noTeamMemberSetMessage: "Nobody is registered as a team member of this organisation.",
 
     //  Medias
 

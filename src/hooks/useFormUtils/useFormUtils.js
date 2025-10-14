@@ -30,20 +30,12 @@ export const useFormUtils = (initialState, actions) => {
     };
 
     //If the actions parameter contains data and is of object type
-    if (
-        actions &&
-        typeof actions === "object" &&
-        Object.keys(actions).length !== 0
-    ) {
+    if (actions && typeof actions === "object" && Object.keys(actions).length !== 0) {
         //Then assign the wanted values and set the rest to false
         positiveResponseActions = {
             clearForm: actions.clearForm ? actions.clearForm : false,
-            displayResMessage: actions.displayResMessage
-                ? actions.displayResMessage
-                : false,
-            callbackFunction: actions.callbackFunction
-                ? actions.callbackFunction
-                : undefined,
+            displayResMessage: actions.displayResMessage ? actions.displayResMessage : false,
+            callbackFunction: actions.callbackFunction ? actions.callbackFunction : undefined,
             redirect: actions.redirect ? actions.redirect : undefined,
         };
     }
@@ -58,8 +50,7 @@ export const useFormUtils = (initialState, actions) => {
     const { isLoading, sendRequest } = useHttpClient();
 
     //Custom hook to manage the state of the form (data)
-    const [formState, formTools, clearFormData, updateManyFields] =
-        useForm(initialState);
+    const [formState, formTools, clearFormData, updateManyFields] = useForm(initialState);
 
     const submitRequest = async (
         route,
@@ -94,12 +85,10 @@ export const useFormUtils = (initialState, actions) => {
                     });
 
                 //3. Execute a call back function to do any other task
-                if (positiveResponseActions.callbackFunction)
-                    positiveResponseActions.callbackFunction(response);
+                if (positiveResponseActions.callbackFunction) positiveResponseActions.callbackFunction(response);
 
                 //4. Redirect the user to another page
-                if (positiveResponseActions.redirect)
-                    Router.push(positiveResponseActions.redirect);
+                if (positiveResponseActions.redirect) Router.push(positiveResponseActions.redirect);
 
                 //If it is not positive for any reason
             } else {
@@ -135,18 +124,9 @@ export const useFormUtils = (initialState, actions) => {
             return (
                 <>
                     {innerMessage && (
-                        <div
-                            className={`col-12 red_BG white ${styles["data-form-message"]}`}
-                        >
-                            {innerMessage}
-                        </div>
+                        <div className={`col-12 red_BG white ${styles["data-form-message"]}`}>{innerMessage}</div>
                     )}
-                    {isLoading && (
-                        <Spinner
-                            className={"bg-primary-lighter"}
-                            fixed={fixedSpinner}
-                        />
-                    )}
+                    {isLoading && <Spinner className={"bg-primary-lighter"} fixed={fixedSpinner} />}
                 </>
             );
         },

@@ -21,15 +21,9 @@ module.exports = {
                     "./documentation/**/*.{js,jsx,ts,tsx}",
                     "./src/**/*.{js,jsx,ts,tsx}",
                 ],
-                defaultExtractor: (content) =>
-                    content.match(/[\w-/:]+(?<!:)/g) || [],
+                defaultExtractor: (content) => content.match(/[\w-/:]+(?<!:)/g) || [],
                 safelist: ["html", "body"],
-                css: [
-                    "./pages/**/*.scss",
-                    "./documentation/**/*.scss",
-                    "./src/**/*.scss",
-                    "./styles/**/*.scss",
-                ],
+                css: ["./pages/**/*.scss", "./documentation/**/*.scss", "./src/**/*.scss", "./styles/**/*.scss"],
             },
         ],
     ],

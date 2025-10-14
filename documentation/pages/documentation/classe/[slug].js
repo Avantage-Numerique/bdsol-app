@@ -298,9 +298,7 @@ export const getServerSideProps = async (context) => {
     };
 
     //filter the array to get only the selected information
-    const classe = data.classes.find(
-        (classe) => classe.slug === context.params.slug
-    );
+    const classe = data.classes.find((classe) => classe.slug === context.params.slug);
 
     //return the result as a props
     return {
@@ -344,19 +342,13 @@ const ClassPage = ({ data, active, globalData }) => {
                 />
 
                 {/* social media meta tag */}
-                <meta
-                    property="og:title"
-                    content={`Classe ${data.title} - Avantage Numérique`}
-                />
+                <meta property="og:title" content={`Classe ${data.title} - Avantage Numérique`} />
                 <meta
                     property="og:description"
                     content={`Documentation spécifique à la classe ontologique ${data.title} et à ses propriétés.`}
                 />
 
-                <meta
-                    name="twitter:title"
-                    content={`Classe ${data.title} - Avantage Numérique`}
-                />
+                <meta name="twitter:title" content={`Classe ${data.title} - Avantage Numérique`} />
                 <meta
                     name="twitter:description"
                     content={`Documentation spécifique à la classe ontologique ${data.title} et à ses propriétés.`}

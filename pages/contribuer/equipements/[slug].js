@@ -5,13 +5,9 @@ import EquipmentSingleEdit from "@/src/DataTypes/Equipment/components/layouts/si
 import { ssrCanContributeToEntity } from "@/auth/permissions/ssrCanContributeToEntity";
 
 const SingleEquipmentEditPage = (props) => {
-    return (
-        <EquipmentSingleEdit data={props} route={AppRoutes.equipmentSingle} />
-    );
+    return <EquipmentSingleEdit data={props} route={AppRoutes.equipmentSingle} />;
 };
 
 export default SingleEquipmentEditPage;
 
-export const getServerSideProps = withSessionSsr(
-    ssrCanContributeToEntity("equipment")
-);
+export const getServerSideProps = withSessionSsr(ssrCanContributeToEntity("equipment"));

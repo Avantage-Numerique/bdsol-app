@@ -10,10 +10,7 @@ const SelectFetch = (props) => {
     //Search suggestion
     useEffect(() => {
         const getSelectOptions = async () => {
-            const optionList = await clientSideExternalApiRequest(
-                "/info/" + props.fetchOption,
-                { method: "GET" }
-            );
+            const optionList = await clientSideExternalApiRequest("/info/" + props.fetchOption, { method: "GET" });
             setOptions(optionList);
         };
         getSelectOptions();

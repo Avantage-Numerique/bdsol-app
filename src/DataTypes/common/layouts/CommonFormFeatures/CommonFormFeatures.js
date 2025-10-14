@@ -56,9 +56,7 @@ const CommonFormFeatures = ({ children }) => {
             <form>  */}
 
                 {/* When negative, the message is shown in here instead of the global message tool */}
-                <div className={`col-12 red_BG white data-form-message`}>
-                    {localMessage && localMessage}
-                </div>
+                <div className={`col-12 red_BG white data-form-message`}>{localMessage && localMessage}</div>
 
                 {newChildren}
             </>

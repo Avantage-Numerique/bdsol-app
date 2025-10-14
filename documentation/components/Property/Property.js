@@ -12,9 +12,7 @@ const Property = ({ data }) => {
         <article className={`${styles.propertyComponent} col-12`}>
             <header>
                 <h3> {data.title} </h3>
-                <div
-                    className={`${styles.requirementMention} bg-primary text-white`}
-                >
+                <div className={`${styles.requirementMention} bg-primary text-white`}>
                     {data.title.required ? "Requise" : "Non requise"}
                 </div>
                 <small className="col-12">Source : {data.source}</small>

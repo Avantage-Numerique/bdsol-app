@@ -26,14 +26,7 @@ const fieldsValidity = (objectsArray) => {
     return globalValidity;
 };
 
-const InputMultiplier = ({
-    label,
-    type,
-    name,
-    onInput,
-    validators,
-    errorText,
-}) => {
+const InputMultiplier = ({ label, type, name, onInput, validators, errorText }) => {
     const [rows, setRows] = useState([
         {
             value: "",
@@ -73,8 +66,7 @@ const InputMultiplier = ({
         });
 
         //Update the state only if the new array doesn't contain the same values then the previous one
-        if (JSON.stringify(rows) !== JSON.stringify(newInputArray))
-            setRows(newInputArray);
+        if (JSON.stringify(rows) !== JSON.stringify(newInputArray)) setRows(newInputArray);
     };
 
     //Remove a sepecefic row from the state (identified by its name)
@@ -90,46 +82,26 @@ const InputMultiplier = ({
             {
                 value: "",
                 isValid: true,
-                name:
-                    name +
-                    "-" +
-                    (parseInt(
-                        prevState[prevState.length - 1].name.split("-")[1]
-                    ) +
-                        1),
+                name: name + "-" + (parseInt(prevState[prevState.length - 1].name.split("-")[1]) + 1),
             },
         ]);
     };
 
     return (
-        <label
-            htmlFor={name}
-            className={`col-12 ${styles["input-multiplier"]}`}
-        >
+        <label htmlFor={name} className={`col-12 ${styles["input-multiplier"]}`}>
             {label}
 
             {rows.map((row, i, arr) => (
-                <div
-                    className={`col-12 ${styles["input-multiplier__row"]}`}
-                    key={row.name}
-                >
-                    <div
-                        className={styles["input-multiplier__input-container"]}
-                    >
+                <div className={`col-12 ${styles["input-multiplier__row"]}`} key={row.name}>
+                    <div className={styles["input-multiplier__input-container"]}>
                         <Input
                             name={row.name}
                             type={type}
                             validators={validators}
                             errorText={errorText}
                             onInput={inputHandler}
-                            removeRow={
-                                arr.length - 1 === i
-                                    ? false
-                                    : () => removeRow(row.name)
-                            }
-                            addRow={
-                                arr.length - 1 === i ? () => addRow() : false
-                            }
+                            removeRow={arr.length - 1 === i ? false : () => removeRow(row.name)}
+                            addRow={arr.length - 1 === i ? () => addRow() : false}
                         />
                     </div>
                 </div>

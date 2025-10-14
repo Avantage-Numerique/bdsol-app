@@ -59,16 +59,11 @@ const EventSingleView = ({ data }) => {
 
     /******* Sorted lists ********/
     const sortedTeam =
-        team?.[0]?.subMeta?.order !== undefined
-            ? team.sort((a, b) => a.subMeta.order - b.subMeta.order)
-            : team;
+        team?.[0]?.subMeta?.order !== undefined ? team.sort((a, b) => a.subMeta.order - b.subMeta.order) : team;
 
     useEffect(() => {
         const getEventFormatEnum = async () => {
-            const eventFormatResponse = await clientSideExternalApiRequest(
-                "/info/eventformat-enum",
-                { method: "GET" }
-            );
+            const eventFormatResponse = await clientSideExternalApiRequest("/info/eventformat-enum", { method: "GET" });
             const keyValueEnum = {};
             eventFormatResponse.forEach((elem) => {
                 keyValueEnum[elem.value] = elem.label;
@@ -102,18 +97,10 @@ const EventSingleView = ({ data }) => {
             title={<h1>{model.title}</h1>}
             subtitle={
                 <div className="d-text">
-                    <h4 className="text-white">
-                        {model.alternateName ? model.alternateName : ""}
-                    </h4>
+                    <h4 className="text-white">{model.alternateName ? model.alternateName : ""}</h4>
                     {/*Date*/}
-                    <SingleInfo
-                        displayCondition={startDate && endDate}
-                        noCardLayout
-                    >
-                        <TimeIntervalSentence
-                            tag="h2"
-                            className="text-decoration-underline"
-                        />
+                    <SingleInfo displayCondition={startDate && endDate} noCardLayout>
+                        <TimeIntervalSentence tag="h2" className="text-decoration-underline" />
                     </SingleInfo>
                 </div>
             }
@@ -129,41 +116,22 @@ const EventSingleView = ({ data }) => {
             <div className="row">
                 <div className="col col-md-6">
                     <SingleInfo title="Organisations responsables">
-                        <SingleInfo
-                            title={lang.entityInCharge}
-                            isSubtitle
-                            noCardLayout
-                        >
+                        <SingleInfo title={lang.entityInCharge} isSubtitle noCardLayout>
                             {model.entityInCharge && (
-                                <EntitiesTagGrid
-                                    feed={[model.entityInCharge]}
-                                    numberOfCols={1}
-                                    className="mb-0 pt-1"
-                                />
+                                <EntitiesTagGrid feed={[model.entityInCharge]} numberOfCols={1} className="mb-0 pt-1" />
                             )}
                         </SingleInfo>
 
-                        <SingleInfo
-                            title={lang.producer}
-                            isSubtitle
-                            noCardLayout
-                        >
+                        <SingleInfo title={lang.producer} isSubtitle noCardLayout>
                             {model.organizer && (
-                                <EntitiesTagGrid
-                                    feed={[model.organizer]}
-                                    numberOfCols={1}
-                                    className="mb-0 pt-1"
-                                />
+                                <EntitiesTagGrid feed={[model.organizer]} numberOfCols={1} className="mb-0 pt-1" />
                             )}
                         </SingleInfo>
                     </SingleInfo>
                 </div>
                 <div className="col col-md-6">
                     {/* location */}
-                    <SingleInfo
-                        title={lang.location}
-                        displayCondition={location?.length > 0}
-                    >
+                    <SingleInfo title={lang.location} displayCondition={location?.length > 0}>
                         <EntitiesTagGrid
                             feed={location}
                             subTagProperty={"location.address"}
@@ -174,13 +142,8 @@ const EventSingleView = ({ data }) => {
                 </div>
             </div>
             <div className="row mt-4">
-                <SingleInfo
-                    title={lang.about}
-                    NAMessage="Aucune description n'est disponible pour le moment."
-                >
-                    {removeTagsFromString(description) && (
-                        <SanitizedInnerHtml>{description}</SanitizedInnerHtml>
-                    )}
+                <SingleInfo title={lang.about} NAMessage="Aucune description n'est disponible pour le moment.">
+                    {removeTagsFromString(description) && <SanitizedInnerHtml>{description}</SanitizedInnerHtml>}
                 </SingleInfo>
             </div>
         </div>
@@ -189,10 +152,7 @@ const EventSingleView = ({ data }) => {
     const contentColumnLeft = (
         <>
             {/* schedule */}
-            <SingleInfo
-                title={lang.schedule}
-                displayCondition={schedule && schedule.length > 0}
-            >
+            <SingleInfo title={lang.schedule} displayCondition={schedule && schedule.length > 0}>
                 <DisplaySchedule feed={schedule} />
             </SingleInfo>
 
@@ -208,10 +168,7 @@ const EventSingleView = ({ data }) => {
                 */}
 
             {/* team */}
-            <SingleInfo
-                title={lang.teamMembers}
-                displayCondition={sortedTeam?.length > 0}
-            >
+            <SingleInfo title={lang.teamMembers} displayCondition={sortedTeam?.length > 0}>
                 <EntitiesTagGrid
                     feed={sortedTeam}
                     subEntityProperty={"member"}
@@ -222,10 +179,7 @@ const EventSingleView = ({ data }) => {
             </SingleInfo>
 
             {/* attendees */}
-            <SingleInfo
-                title={lang.attendees}
-                displayCondition={attendees?.length > 0}
-            >
+            <SingleInfo title={lang.attendees} displayCondition={attendees?.length > 0}>
                 <EntitiesTagGrid feed={attendees} className="mb-0" />
             </SingleInfo>
         </>
@@ -250,12 +204,7 @@ const EventSingleView = ({ data }) => {
                 </SingleInfo>
 
                 {/* domains */}
-                <SingleInfo
-                    title={lang.Domains}
-                    displayCondition={domains?.length > 0}
-                    isSubtitle
-                    noCardLayout
-                >
+                <SingleInfo title={lang.Domains} displayCondition={domains?.length > 0} isSubtitle noCardLayout>
                     <SearchTag list={domains} listProperty={"domain"} />
                 </SingleInfo>
 
@@ -264,10 +213,7 @@ const EventSingleView = ({ data }) => {
                     {eventType?.length > 0 && (
                         <ul className="d-flex flex-wrap mb-0 mt-1">
                             {eventType.map((type) => (
-                                <li
-                                    className="badge bg-primary-light text-dark me-1 mb-1"
-                                    key={`${type.name}`}
-                                >
+                                <li className="badge bg-primary-light text-dark me-1 mb-1" key={`${type.name}`}>
                                     {type.name}
                                 </li>
                             ))}
@@ -277,9 +223,7 @@ const EventSingleView = ({ data }) => {
 
                 {/* eventFormat */}
                 <SingleInfo isSubtitle title={lang.eventFormat} noCardLayout>
-                    {eventFormat &&
-                        formatEnumState?.[eventFormat] &&
-                        (formatEnumState?.[eventFormat] ?? eventFormat)}
+                    {eventFormat && formatEnumState?.[eventFormat] && (formatEnumState?.[eventFormat] ?? eventFormat)}
                 </SingleInfo>
             </SingleInfo>
             {/* Url */}
@@ -299,11 +243,7 @@ const EventSingleView = ({ data }) => {
             {(createdAt || updatedAt || meta) && (
                 <SingleInfo title={lang.entityMetadata} className="pt-3">
                     {/*********** Entity data ***********/}
-                    <SingleEntityMeta
-                        createdAt={createdAt}
-                        updatedAt={updatedAt}
-                        meta={meta}
-                    />
+                    <SingleEntityMeta createdAt={createdAt} updatedAt={updatedAt} meta={meta} />
                 </SingleInfo>
             )}
         </>

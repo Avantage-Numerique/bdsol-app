@@ -22,17 +22,13 @@ export async function getServerSideProps(context) {
     const entities = await externalApiRequest(`/search/${category}/${slug}`, {
         method: "GET",
     });
-    const taxonomy = await externalApiRequest(
-        `/taxonomies/${category}/${slug}`,
-        {
-            method: "GET",
-        }
-    );
+    const taxonomy = await externalApiRequest(`/taxonomies/${category}/${slug}`, {
+        method: "GET",
+    });
 
     const badgesInfo = await getBadgesInfo(true);
 
-    if (typeof taxonomy.data._id === "undefined" || entities.data._id)
-        return { notFound: true };
+    if (typeof taxonomy.data._id === "undefined" || entities.data._id) return { notFound: true };
     return {
         props: {
             taxonomy: taxonomy.data,
@@ -67,9 +63,7 @@ const TaxonomiesSinglePage = (props) => {
     };
     // < NEEDED FOR EDIT THE TAXONOMY
 
-    const currentTaxonomy = category.find(
-        (el) => taxonomy.category === el.value
-    );
+    const currentTaxonomy = category.find((el) => taxonomy.category === el.value);
     const currentTitle = `${currentTaxonomy.label} ${"&mdash;"} ${taxonomy.name}`;
 
     /* Needed for breadCrumb generator */
@@ -81,13 +75,7 @@ const TaxonomiesSinglePage = (props) => {
     return (
         <div className="mb-4">
             {/* Page head element  */}
-            <PageMeta
-                title={getTitle([
-                    taxonomy.name,
-                    currentTaxonomy.label,
-                    type.labelPlural,
-                ])}
-            />
+            <PageMeta title={getTitle([taxonomy.name, currentTaxonomy.label, type.labelPlural])} />
             <PageHeader
                 bg={"bg-primary-lighter"}
                 colFullWidth
@@ -100,17 +88,12 @@ const TaxonomiesSinglePage = (props) => {
                 }}
                 description={taxonomy.description}
             >
-                <Breadcrumbs
-                    className={"pt-2"}
-                    route={AppRoutes.categorySingle}
-                    labels={breadcrumbLabels}
-                />
+                <Breadcrumbs className={"pt-2"} route={AppRoutes.categorySingle} labels={breadcrumbLabels} />
 
                 <p className={"pt-2"}>
                     {auth.user.isLoggedIn && (
                         <Button onClick={displayUpdateForm}>
-                            <Icon iconName={"edit"} />{" "}
-                            {lang.proposeContentChangeLabel}
+                            <Icon iconName={"edit"} /> {lang.proposeContentChangeLabel}
                         </Button>
                     )}
                 </p>
@@ -121,24 +104,15 @@ const TaxonomiesSinglePage = (props) => {
                 className="row row-cols-1 row-cols-sm-2 row-cols-xl-3"
                 columnClass={"col-12 col-sm-6 col-lg-4 col-xl-3 g-4"}
                 feed={data}
-                noResult={
-                    "Aucune entité n’a été lié à cette catégorie pour le moment"
-                }
+                noResult={"Aucune entité n’a été lié à cette catégorie pour le moment"}
                 badgesInfo={props.badgesInfo}
             />
 
             <Modal {...props}>
-                <header
-                    className={`d-flex justify-content-between align-items-start`}
-                >
+                <header className={`d-flex justify-content-between align-items-start`}>
                     <div className="d-flex flex-column">
-                        <h3 className="text-primary">
-                            Modifier : {taxonomy.name}
-                        </h3>
-                        <p>
-                            Entrer les modifications à apporter à cette
-                            catégorie
-                        </p>
+                        <h3 className="text-primary">Modifier : {taxonomy.name}</h3>
+                        <p>Entrer les modifications à apporter à cette catégorie</p>
                     </div>
                     <Button onClick={() => closeModal()}>Fermer</Button>
                 </header>
@@ -151,9 +125,7 @@ const TaxonomiesSinglePage = (props) => {
                     initValues={taxonomy ?? {}}
                     category={props.requestData?.category}
                     onPositiveResponse={(requestResponse) => {
-                        Router.push(
-                            `/categories/${requestResponse.data.category}/${requestResponse.data.slug}`
-                        );
+                        Router.push(`/categories/${requestResponse.data.category}/${requestResponse.data.slug}`);
                         closeModal();
                     }}
                 />

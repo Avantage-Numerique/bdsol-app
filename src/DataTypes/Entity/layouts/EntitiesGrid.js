@@ -13,28 +13,14 @@ import EntitiesGridPlaceHolder from "@/common/widgets/Placeholder/EntitiesGridPl
  * @return {JSX.Element}
  * @constructor
  */
-const EntitiesGrid = ({
-    feed,
-    className,
-    columnClass,
-    noResult,
-    badgesInfo,
-}) => {
+const EntitiesGrid = ({ feed, className, columnClass, noResult, badgesInfo }) => {
     const ContainerTag = "div";
 
     const colContainerClass = columnClass ?? "g-4"; //"col-12 col-sm-6 col-lg-4 col-xl-3 g-4";
 
     const getKeyString = useCallback((prefix, model, index) => {
         const sep = "-";
-        return (
-            prefix +
-            model.type +
-            sep +
-            (model._id ?? "") +
-            sep +
-            model.slug +
-            index
-        );
+        return prefix + model.type + sep + (model._id ?? "") + sep + model.slug + index;
     });
 
     const customStyling = { maxWidth: "24rem" };
@@ -54,20 +40,12 @@ const EntitiesGrid = ({
                                     <div
                                         style={customStyling}
                                         className={`${colContainerClass}`}
-                                        key={getKeyString(
-                                            "container",
-                                            model,
-                                            index
-                                        )}
+                                        key={getKeyString("container", model, index)}
                                     >
                                         <SimpleComponent
                                             data={entity}
                                             model={model}
-                                            key={getKeyString(
-                                                "simple",
-                                                model,
-                                                index
-                                            )}
+                                            key={getKeyString("simple", model, index)}
                                             badgesInfo={badgesInfo}
                                         />
                                     </div>

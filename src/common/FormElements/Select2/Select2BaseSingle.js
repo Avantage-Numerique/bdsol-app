@@ -65,18 +65,12 @@ const Select2BaseSingle = ({ name, ...props }) => {
     };
 
     const defaultCreateOption = (elem) => {
-        selectRef.current.setValue(
-            { value: elem.toLowerCase(), label: elem },
-            "set-value"
-        );
+        selectRef.current.setValue({ value: elem.toLowerCase(), label: elem }, "set-value");
     };
 
     //Style & Utils section
     const setValueWithComma = () => {
-        selectRef.current.setValue(
-            selectRef.current.state.focusedOption,
-            "set-value"
-        );
+        selectRef.current.setValue(selectRef.current.state.focusedOption, "set-value");
     };
 
     //Reset component
@@ -107,14 +101,10 @@ const Select2BaseSingle = ({ name, ...props }) => {
             //Creatable Section
             formatCreateLabel={(val) => lang.createOptionLabel + val}
             onCreateOption={(elem) => {
-                props.createOptionFunction
-                    ? props.createOptionFunction(elem)
-                    : defaultCreateOption(elem);
+                props.createOptionFunction ? props.createOptionFunction(elem) : defaultCreateOption(elem);
             }}
             //Check every option and filter. If filterOption return undefined, it doesn't show the option (allow to show or not "__isNew__" option which is creatable or not)
-            filterOption={(option, searchText) =>
-                filterCreate(option, searchText)
-            }
+            filterOption={(option, searchText) => filterCreate(option, searchText)}
         />
     );
 };

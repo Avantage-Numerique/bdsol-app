@@ -15,16 +15,8 @@
             padding-right: var(--#{$prefix}breadcrumb-item-padding-x);
             padding-left: var(--#{$prefix}breadcrumb-item-padding-x);
             color: var(--#{$prefix}breadcrumb-divider-color);
-            content: var(
-                    --#{$prefix}breadcrumb-divider,
-                    escape-svg($breadcrumb-divider)
-                )
-                #{"/* rtl:"}
-                var(
-                    --#{$prefix}breadcrumb-divider,
-                    escape-svg($breadcrumb-divider-flipped)
-                )
-                #{"*/"};
+            content: var(--#{$prefix}breadcrumb-divider, escape-svg($breadcrumb-divider)) #{"/* rtl:"}
+                var(--#{$prefix}breadcrumb-divider, escape-svg($breadcrumb-divider-flipped)) #{"*/"};
         }
     }
 
@@ -43,16 +35,8 @@
             padding-right: var(--#{$prefix}breadcrumb-item-padding-x);
             padding-left: var(--#{$prefix}breadcrumb-item-padding-x);
             color: var(--#{$prefix}breadcrumb-divider-color);
-            content: var(
-                    --#{$prefix}breadcrumb-divider,
-                    escape-svg($breadcrumb-divider)
-                )
-                #{"/* rtl:"}
-                var(
-                    --#{$prefix}breadcrumb-divider,
-                    escape-svg($breadcrumb-divider-flipped)
-                )
-                #{"*/"};
+            content: var(--#{$prefix}breadcrumb-divider, escape-svg($breadcrumb-divider)) #{"/* rtl:"}
+                var(--#{$prefix}breadcrumb-divider, escape-svg($breadcrumb-divider-flipped)) #{"*/"};
         }
     }
     &:last-child {

@@ -13,8 +13,7 @@ const organisations = {
 
     //  CreateOrganisationForm.js
 
-    formOrganisationSubtitle:
-        "Here you can add a new organization to the database.",
+    formOrganisationSubtitle: "Here you can add a new organization to the database.",
     formOrganisationInstructions: "Great form",
     organisationUploadMediaMainImage:
         "You will be able to upload an image from that organization's page. This image will represent this organization and will be displayed in its file and in the pages that list it.",

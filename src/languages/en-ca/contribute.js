@@ -5,8 +5,7 @@ const contribute = {
     CancelChanges: "Cancel changes",
 
     //messages
-    validationFailedCantSave:
-        "Le(s) champs suivant vous empêche de sauvegarder vos modifications :",
+    validationFailedCantSave: "Le(s) champs suivant vous empêche de sauvegarder vos modifications :",
 };
 
 exports.contribute = contribute;

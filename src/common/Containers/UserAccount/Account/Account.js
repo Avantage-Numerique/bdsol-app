@@ -30,10 +30,7 @@ const Account = () => {
     );
 
     const sendChangePassword = async () => {
-        if (
-            formState.inputs.newPassword.value ===
-            formState.inputs.newPassword2.value
-        ) {
+        if (formState.inputs.newPassword.value === formState.inputs.newPassword2.value) {
             const apiResponse = await sendRequest(
                 "/change-password",
                 "POST",
@@ -75,29 +72,20 @@ const Account = () => {
                 Retour à la modification du profil
             </button>
             <h3>Modification du mot de passe</h3>
-            <div>
-                Si vous ne recevez pas de courriels, veuillez vérifier vos
-                courriels indérisables.
-            </div>
+            <div>Si vous ne recevez pas de courriels, veuillez vérifier vos courriels indérisables.</div>
             <Input
                 className="mb-3"
                 name="oldPassword"
                 type="password"
                 label="Mot de passe actuel"
-                validationRules={[
-                    { name: "REQUIRED" },
-                    { name: "MIN_LENGTH", specification: 8 },
-                ]}
+                validationRules={[{ name: "REQUIRED" }, { name: "MIN_LENGTH", specification: 8 }]}
                 formTools={formTools}
             />
             <Input
                 name="newPassword"
                 type="password"
                 label="Nouveau mot de passe"
-                validationRules={[
-                    { name: "REQUIRED" },
-                    { name: "MIN_LENGTH", specification: 8 },
-                ]}
+                validationRules={[{ name: "REQUIRED" }, { name: "MIN_LENGTH", specification: 8 }]}
                 errorText="Veuillez entrer un mot de passe valide"
                 formTools={formTools}
             />
@@ -105,10 +93,7 @@ const Account = () => {
                 name="newPassword2"
                 type="password"
                 label="Retapez le nouveau mot de passe"
-                validationRules={[
-                    { name: "REQUIRED" },
-                    { name: "MIN_LENGTH", specification: 8 },
-                ]}
+                validationRules={[{ name: "REQUIRED" }, { name: "MIN_LENGTH", specification: 8 }]}
                 errorText="Veuillez entrer un mot de passe valide"
                 formTools={formTools}
             />
@@ -137,9 +122,7 @@ const Account = () => {
         <>
             <h3>Modifier mon compte</h3>
             <div>
-                <Button onClick={() => setSubMenu("changePassword")}>
-                    Modifier mon mot de passe
-                </Button>
+                <Button onClick={() => setSubMenu("changePassword")}>Modifier mon mot de passe</Button>
                 {/*
                 <Button onClick={() => setSubMenu("modifEmail")}>Modifier mon courriel</Button>
                 <Button onClick={() => setSubMenu("closeAccount")}>Fermer mon compte</Button>

@@ -76,10 +76,7 @@ const formReducer = (state, action) => {
             const newState = { ...state };
             //Loop through the keys of the object modifiedFields
             for (const key in action.modifiedFields) {
-                if (
-                    action.modifiedFields.hasOwnProperty(key) &&
-                    newState.inputs.hasOwnProperty(key)
-                ) {
+                if (action.modifiedFields.hasOwnProperty(key) && newState.inputs.hasOwnProperty(key)) {
                     newState.inputs[key].value = action.modifiedFields[key];
                 }
             }
