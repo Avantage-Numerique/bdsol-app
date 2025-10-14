@@ -12,7 +12,9 @@
     "react-hooks/exhaustive-deps": "off",
     "no-unused-vars": "off",
     "no-prototype-builtins": "off",
-    "no-case-declarations": "off"
+    "no-case-declarations": "off",
+    "import/no-anonymous-default-export": "off",
+    "@next/next/no-img-element": "off"
   },
   "settings": {
     "next": {
