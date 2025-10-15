@@ -95,7 +95,7 @@ const SingleBase = (props) => {
                 <section className={`${styles["full-width-container"]} position-relative bg-primary-lighter`}>
                     <div className="container">
                         <div className="row">
-                            <div className="d-flex justify-content-center my-4">
+                            <div className="d-flex justify-content-center mt-4">
                                 <QuickShare model={model} />
                             </div>
                         </div>
