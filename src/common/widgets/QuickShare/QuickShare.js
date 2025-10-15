@@ -20,6 +20,14 @@ const QuickShare = ({ model }) => {
     let [copied, setCopied] = useState(false);
     let copiedTimer;
 
+    const copyToClipboard = () => {
+        navigator.clipboard.writeText(shareableTextContent);
+        msg.addMessage({
+            text: "Message copié!",
+            positive: true,
+        });
+    };
+
     const hintCopied = () => {
         copiedTimer && clearTimeout(copiedTimer);
         setCopied(true);
@@ -35,6 +43,17 @@ const QuickShare = ({ model }) => {
             <a
                 href={`https://facebook.com/sharer/sharer.php?u=${"avnu.ca" ?? model?.fullSingleLinkUrl}&quote=${shareableMailContent}`}
                 target="_blank"
+                onClick={(e) => {
+                    e.preventDefault();
+
+                    const href = e.currentTarget.href;
+
+                    copyToClipboard();
+
+                    setTimeout(() => {
+                        window.open(href, "_blank").focus();
+                    }, 1000);
+                }}
             >
                 <Icon iconName="facebook-f" vendor="lab" />
             </a>
@@ -42,11 +61,7 @@ const QuickShare = ({ model }) => {
             <button
                 type="button"
                 onClick={(e) => {
-                    navigator.clipboard.writeText(shareableTextContent);
-                    msg.addMessage({
-                        text: "Copié!",
-                        positive: true,
-                    });
+                    copyToClipboard();
 
                     hintCopied();
                 }}
