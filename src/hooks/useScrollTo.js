@@ -1,8 +1,6 @@
-import {animateScroll, scroller} from "react-scroll";
-
+import { animateScroll, scroller } from "react-scroll";
 
 const useScrollTo = () => {
-
     const scrollTo = (target) => {
         scroller.scrollTo(target, {
             offset: -50,
@@ -10,7 +8,7 @@ const useScrollTo = () => {
             delay: 0,
             smooth: "easeInOutQuint",
         });
-    }
+    };
     const scrollToTop = () => {
         if (typeof window !== "undefined" && typeof document !== "undefined") {
             animateScroll.scrollToTop({
@@ -19,9 +17,9 @@ const useScrollTo = () => {
                 smooth: "easeInOutQuint",
             });
         }
-    }
+    };
 
-    return {scrollTo, scrollToTop};
-}
+    return { scrollTo, scrollToTop };
+};
 
 export default useScrollTo;

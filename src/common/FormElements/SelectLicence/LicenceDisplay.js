@@ -1,33 +1,26 @@
-import {useHttpClient} from "@/src/hooks/http-hook";
-import React, {useEffect, useState} from "react";
-import {RouteLink} from "@/common/Components/RouteLink";
+import { useHttpClient } from "@/src/hooks/http-hook";
+import React, { useEffect, useState } from "react";
+import { RouteLink } from "@/common/Components/RouteLink";
 
-const LicenceDisplay = ({licenceKey, ...props}) => {
-
+const LicenceDisplay = ({ licenceKey, ...props }) => {
     const [licences, setLicences] = useState(undefined);
     const { sendRequest } = useHttpClient();
 
-    useEffect( () => {
-        const fetchLicences = async () =>
-        {
+    useEffect(() => {
+        const fetchLicences = async () => {
             //Send the request with the specialized hook
-            const response = await sendRequest(
-                '/static/licences/',
-                'GET',
-                null
-            );
+            const response = await sendRequest("/static/licences/", "GET", null);
             //If response is positive, update the state
             if (!response.error) {
-                setLicences(response.data)
+                setLicences(response.data);
             }
-        }
+        };
         fetchLicences();
-    }, [])
+    }, []);
 
     return (
         <>
-            {
-                licences && licences[licenceKey] && licences[licenceKey].source &&
+            {licences && licences[licenceKey] && licences[licenceKey].source && (
                 <div className={"pt-2"}>
                     <div className="d-flex">
                         <div>
@@ -37,15 +30,13 @@ const LicenceDisplay = ({licenceKey, ...props}) => {
                             </RouteLink>
                         </div>
                         <div>
-                            <p>
-                                {licences[licenceKey].description}
-                            </p>
+                            <p>{licences[licenceKey].description}</p>
                         </div>
                     </div>
                 </div>
-            }
+            )}
         </>
-    )
-}
+    );
+};
 
 export default LicenceDisplay;

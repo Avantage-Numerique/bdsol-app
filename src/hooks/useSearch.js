@@ -1,6 +1,5 @@
-import {clientSideExternalApiRequest, externalApiRequest, ORIGIN_BROWSER, ORIGIN_SERVER} from "@/src/hooks/http-hook";
-import {paginationConfig} from "@/src/configs/PaginationConfigs";
-
+import { clientSideExternalApiRequest, externalApiRequest, ORIGIN_BROWSER, ORIGIN_SERVER } from "@/src/hooks/http-hook";
+import { paginationConfig } from "@/src/configs/PaginationConfigs";
 
 /**
  * POST to api from client side for search type in /consult URI.
@@ -10,27 +9,26 @@ import {paginationConfig} from "@/src/configs/PaginationConfigs";
  * @returns {Promise<*[]>}
  */
 const searchByType = async (from, type, additionnalQueryParams = {}) => {
-
     let apiUrl = "/search/type";
     const defaultSearchQuery = {
-        skip:0,
-        limit:paginationConfig.pageSize
+        skip: 0,
+        limit: paginationConfig.pageSize,
     };
     const searchQuery = {
         ...defaultSearchQuery,
-        ...additionnalQueryParams
-    }
+        ...additionnalQueryParams,
+    };
     const searchParams = {
-        method: 'POST'
-    }
+        method: "POST",
+    };
     // Differents cases, change the default object.
-    if(type === "all") {
+    if (type === "all") {
         apiUrl = "/search/all";
         //keed searchQuery as default.
-        searchParams.body = JSON.stringify({data: searchQuery});
+        searchParams.body = JSON.stringify({ data: searchQuery });
     } else {
         searchQuery.type = type;
-        searchParams.body = JSON.stringify({data: searchQuery});
+        searchParams.body = JSON.stringify({ data: searchQuery });
     }
 
     if (from === ORIGIN_BROWSER) {
@@ -40,8 +38,7 @@ const searchByType = async (from, type, additionnalQueryParams = {}) => {
         return await ssrSearchByType(apiUrl, searchParams);
     }
     return [];
-}
-
+};
 
 /**
  * POST to api from client side for search type in /consult URI.
@@ -57,7 +54,7 @@ const ccSearchByType = async (apiUrl, params) => {
         console.error(error);
     }
     return results;
-}
+};
 
 /**
  * POST to api from server side for search type in /consult URI.
@@ -74,10 +71,10 @@ const ssrSearchByType = async (apiUrl, params) => {
     }
 
     return results;
-}
+};
 
 const useSearch = () => {
-    return {searchByType, ccSearchByType, ssrSearchByType};
-}
+    return { searchByType, ccSearchByType, ssrSearchByType };
+};
 
-export {useSearch, searchByType, ssrSearchByType, ccSearchByType};
+export { useSearch, searchByType, ssrSearchByType, ccSearchByType };

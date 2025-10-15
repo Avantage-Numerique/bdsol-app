@@ -4,23 +4,23 @@
 
 */
 
-.xButton{
+.xButton {
     width: 3rem;
-    height: 3rem; 
+    height: 3rem;
 
     justify-self: center;
-    
+
     display: flex;
     align-items: center;
     justify-content: center;
 
-    svg{
+    svg {
         transition: 0.3s;
     }
 
-    &.upDirection svg{
-        svg{
-            margin:0 0 15% 0;
+    &.upDirection svg {
+        svg {
+            margin: 0 0 15% 0;
 
             -webkit-transform: rotate(180deg); /* WebKit */
             -moz-transform: rotate(180deg); /* Mozilla */
@@ -29,9 +29,9 @@
             transform: rotate(180deg); /* CSS3 */
         }
 
-        &.openned{
-            svg{
-                margin:15% 0 0 0;
+        &.openned {
+            svg {
+                margin: 15% 0 0 0;
 
                 -webkit-transform: rotate(0deg); /* WebKit */
                 -moz-transform: rotate(0deg); /* Mozilla */
@@ -42,9 +42,9 @@
         }
     }
 
-    &.rightDirection{
-        svg{
-            margin:0 0 0 15%;
+    &.rightDirection {
+        svg {
+            margin: 0 0 0 15%;
 
             -webkit-transform: rotate(270deg); /* WebKit */
             -moz-transform: rotate(270deg); /* Mozilla */
@@ -53,9 +53,9 @@
             transform: rotate(270deg); /* CSS3 */
         }
 
-        &.openned{
-            svg{
-                margin:0 15% 0 0;
+        &.openned {
+            svg {
+                margin: 0 15% 0 0;
 
                 -webkit-transform: rotate(90deg); /* WebKit */
                 -moz-transform: rotate(90deg); /* Mozilla */
@@ -66,9 +66,9 @@
         }
     }
 
-    &.downDirection{
-        svg{
-            margin:15% 0 0 0;
+    &.downDirection {
+        svg {
+            margin: 15% 0 0 0;
 
             -webkit-transform: rotate(0deg); /* WebKit */
             -moz-transform: rotate(0deg); /* Mozilla */
@@ -77,9 +77,9 @@
             transform: rotate(0deg); /* CSS3 */
         }
 
-        &.openned{
-            svg{
-                margin:0 0 15% 0;
+        &.openned {
+            svg {
+                margin: 0 0 15% 0;
 
                 -webkit-transform: rotate(180deg); /* WebKit */
                 -moz-transform: rotate(180deg); /* Mozilla */
@@ -90,9 +90,9 @@
         }
     }
 
-    &.leftDirection svg{
-        svg{
-            margin:0 15% 0 0;
+    &.leftDirection svg {
+        svg {
+            margin: 0 15% 0 0;
 
             -webkit-transform: rotate(90deg); /* WebKit */
             -moz-transform: rotate(90deg); /* Mozilla */
@@ -101,9 +101,9 @@
             transform: rotate(90deg); /* CSS3 */
         }
 
-        &.openned{
-            svg{
-                margin:0 0 0 15%;
+        &.openned {
+            svg {
+                margin: 0 0 0 15%;
 
                 -webkit-transform: rotate(-90deg); /* WebKit */
                 -moz-transform: rotate(-90deg); /* Mozilla */
@@ -114,8 +114,8 @@
         }
     }
 
-    &.custom-btn-arrow-large{
-        width:4rem;
-        height:4rem;
+    &.custom-btn-arrow-large {
+        width: 4rem;
+        height: 4rem;
     }
 }

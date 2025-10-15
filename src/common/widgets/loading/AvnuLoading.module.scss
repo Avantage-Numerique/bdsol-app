@@ -1,5 +1,4 @@
-
-.loader{
+.loader {
     position: relative;
     height: 120px;
     width: 120px;
@@ -28,22 +27,22 @@
     position: absolute;
     top: 0;
     left: 0;
-    &:before{
+    &:before {
         content: url("/general_images/fusee.svg");
         position: absolute;
-        width:90px;
+        width: 90px;
         height: 90px;
         top: 40px;
         left: 45px;
-        transform : rotate(-225deg);
+        transform: rotate(-225deg);
     }
 }
 
 .fire {
     height: 100%;
     width: 100%;
-    animation: burning .5s linear infinite;
-    &:before{
+    animation: burning 0.5s linear infinite;
+    &:before {
         content: url("/general_images/feu.svg");
         position: absolute;
         width: 50px;
@@ -51,12 +50,11 @@
         top: 35px;
         left: 121px;
         font-size: 40px;
-        transform : rotate(-225deg);
+        transform: rotate(-225deg);
     }
 }
 
-
-@keyframes rotating{
+@keyframes rotating {
     0% {
         transform: rotate(0deg);
     }
@@ -65,7 +63,7 @@
     }
 }
 
-@keyframes burning{
+@keyframes burning {
     0% {
         transform: scale(1) translate(0);
     }

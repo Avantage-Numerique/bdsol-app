@@ -1,4 +1,4 @@
-import {init, push} from "@socialgouv/matomo-next";
+import { init, push } from "@socialgouv/matomo-next";
 
 /**
  *  Layer to manage the Matomo API and the Lib @socialgouv/matomo-next
@@ -7,10 +7,10 @@ import {init, push} from "@socialgouv/matomo-next";
  */
 class Matomo {
     static _instance;
-    url;//string
-    id;//string
+    url; //string
+    id; //string
     _cookieChoices;
-    currentSearchCount= 0;
+    currentSearchCount = 0;
     parameters = [];
     baseUrl;
     siteId;
@@ -33,22 +33,27 @@ class Matomo {
 
         //https://developer.matomo.org/guides/tracking-consent
         if (this.url && this.id) {
-            init(
-                {
-                    url: this.url,
-                    siteId: this.id,
-                    onInitialization: this.onInitialization.bind(this),
-                    //onRouteChangeStart: this.onRouteChangeStart.bind(this),
-                    //onRouteChangeComplete: this.onRouteChangeComplete,
-                    //excludeUrlsPatterns: [/^\/login.php/, /\?token=.+/],
-                    disableCookies: this.cookieChoices?.stats === false,
-                }
-            );
+            init({
+                url: this.url,
+                siteId: this.id,
+                onInitialization: this.onInitialization.bind(this),
+                //onRouteChangeStart: this.onRouteChangeStart.bind(this),
+                //onRouteChangeComplete: this.onRouteChangeComplete,
+                //excludeUrlsPatterns: [/^\/login.php/, /\?token=.+/],
+                disableCookies: this.cookieChoices?.stats === false,
+            });
             return;
         }
-        let message = this.url === undefined || this.url === "" ? "L'url pour les statistiques sur matomo n'est pas défini. " : "";
-        message += this.id === undefined || this.id === "" ? "L'identifiant pour les statistique sur matomo n'est pas défini. " : "";
-        message += message === "" ? typeof this.url +" "+ typeof this.id + " Url and or id have an unknown state. " : "";
+        let message =
+            this.url === undefined || this.url === ""
+                ? "L'url pour les statistiques sur matomo n'est pas défini. "
+                : "";
+        message +=
+            this.id === undefined || this.id === ""
+                ? "L'identifiant pour les statistique sur matomo n'est pas défini. "
+                : "";
+        message +=
+            message === "" ? typeof this.url + " " + typeof this.id + " Url and or id have an unknown state. " : "";
         console.error(message);
     }
 
@@ -56,7 +61,7 @@ class Matomo {
         this._cookieChoices = cookiesChoices;
     }
     get cookieChoices() {
-        return this._cookieChoices
+        return this._cookieChoices;
     }
 
     push(stats) {
@@ -77,25 +82,35 @@ class Matomo {
     }
 
     setConsentGiven() {
-        this.push(['setConsentGiven']);
-        this.push(['setCookieConsentGiven']);
+        this.push(["setConsentGiven"]);
+        this.push(["setCookieConsentGiven"]);
     }
 
     setRequiringConsent() {
-        this.push(['requireConsent']);
-        this.push(['requireCookieConsent']);
+        this.push(["requireConsent"]);
+        this.push(["requireCookieConsent"]);
     }
 
     onRouteChangeStart(path) {
         //this.pushConsent();
+        console.log("onRouteChangeStart", path);
     }
 
+    /**
+     * @Deprecated Not use for now.
+     * @param path
+     */
     onRouteChangeComplete(path) {
         //needed for the searchCount uri query var ?
         if (path.startWidth("/searchResults")) {
-            this.push(['trackSiteSearch', searchIndex, (nearTaxonomy?.nearestTaxonomy?.name ?? undefined), totalSearchRequestResults]);
+            /*this.push([
+                "trackSiteSearch",
+                searchIndex,
+                nearTaxonomy?.nearestTaxonomy?.name ?? undefined,
+                totalSearchRequestResults,
+            ]);*/
             //push(["trackSiteSearch", q !== null && q !== void 0 ? q : ""]);
         }
-    };
+    }
 }
-export {Matomo};
+export { Matomo };

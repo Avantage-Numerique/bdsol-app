@@ -2,7 +2,6 @@
  * Store request and data here to avoid multiple fetch.
  */
 class Caching {
-
     cacheObjects;
 
     constructor() {
@@ -37,7 +36,7 @@ class Caching {
      * @return {boolean}
      */
     has(key) {
-        return (key in this.cacheObjects);
+        return key in this.cacheObjects;
     }
 
     /**
@@ -46,7 +45,7 @@ class Caching {
      * @param value {*} what need to be cached
      * @return {*}
      */
-    register (key, value) {
+    register(key, value) {
         if (!this[key]) {
             Object.defineProperty(this, key, {
                 get() {

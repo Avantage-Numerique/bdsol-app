@@ -1,9 +1,6 @@
-
 .contribution-page {
-
     section {
         .contribution-page__menu {
-
             button {
                 padding: 1rem;
                 width: 100%;
@@ -42,8 +39,7 @@
     flex-direction: column;
 
     .contribution-page__entity__content {
-
-        --inner-padding: 0.75rem; 
+        --inner-padding: 0.75rem;
 
         width: 100%;
         min-height: 12rem;
@@ -63,7 +59,7 @@
                 margin: 0;
             }
 
-            .entity-icon{
+            .entity-icon {
                 font-size: 0.9rem;
                 padding: 0.5rem;
                 border-radius: 100%;
@@ -74,7 +70,9 @@
         section {
             padding: var(--inner-padding);
             font-size: 0.9rem;
-            p { margin: 0.5rem; }
+            p {
+                margin: 0.5rem;
+            }
         }
     }
 
@@ -82,10 +80,7 @@
         margin: 1rem 0;
         font-size: inherit;
     }
-
 }
-
-
 
 /* On screens that are 600px or more, set the background color to blue */
 @media screen and (min-width: 600px) {
@@ -97,7 +92,7 @@
                     padding: 2rem 4rem;
                     margin-right: 2rem;
                     margin-bottom: 2rem;
-                } 
+                }
             }
         }
     }

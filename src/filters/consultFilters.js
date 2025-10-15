@@ -17,4 +17,4 @@ filters.set("equipements", "Equipment");
  */
 const filtersUrl = new Map([...filters].map(([slug, type]) => [type, slug]));
 
-export {filters, filtersUrl};
+export { filters, filtersUrl };

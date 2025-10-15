@@ -1,5 +1,4 @@
 .classInfosComponent {
-
     display: none;
 
     /*
@@ -7,13 +6,13 @@
     transition: max-height 1s ease-out;
     max-height: 0px; */
     /*clip-path: polygon(0% 0%, 0% 0%, 0% 0%, 0% 0%);*/
-    
+
     h4 {
         margin: 2em 0 1em 0;
     }
 
     /*  When selected */
-    &.active{
+    &.active {
         /*max-height: 400vh; */
         display: block;
     }

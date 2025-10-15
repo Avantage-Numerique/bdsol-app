@@ -1,24 +1,22 @@
-import React from 'react'
+import React from "react";
 
 //Custom hooks
-import {useFormUtils} from '@/src/hooks/useFormUtils/useFormUtils'
+import { useFormUtils } from "@/src/hooks/useFormUtils/useFormUtils";
 
 //components
-import Button from '@/FormElements/Button/Button'
-import Input from '@/FormElements/Input/Input'
-import Select2 from '@/src/common/FormElements/Select2/Select2'
+import Button from "@/FormElements/Button/Button";
+import Input from "@/FormElements/Input/Input";
+import Select2 from "@/src/common/FormElements/Select2/Select2";
 
 //Context
-import {useAuth} from "@/src/authentification/context/auth-context";
-import {lang} from '@/src/common/Data/GlobalConstants';
+import { useAuth } from "@/src/authentification/context/auth-context";
+import { lang } from "@/src/common/Data/GlobalConstants";
 
 //FormData
-import {getDefaultCreateEntityMeta} from "@/src/DataTypes/Meta/EntityMeta";
-import {TYPE_TAXONOMY} from '@/src/DataTypes/Entity/Types';
-
+import { getDefaultCreateEntityMeta } from "@/src/DataTypes/Meta/EntityMeta";
+import { TYPE_TAXONOMY } from "@/src/DataTypes/Entity/Types";
 
 const CreateEquipmentForm = ({ onPositiveResponse, initValues, ...props }) => {
-    
     //Authentication ref
     const auth = useAuth();
 
@@ -27,101 +25,97 @@ const CreateEquipmentForm = ({ onPositiveResponse, initValues, ...props }) => {
         {
             equipmentType: {
                 value: initValues?.equipmentType ?? "",
-                isValid: false
+                isValid: false,
             },
             label: {
-                value: initValues?.label ? initValues.label : initValues?.name ?? "",
-                isValid: false
+                value: initValues?.label ? initValues.label : (initValues?.name ?? ""),
+                isValid: false,
             },
             brand: {
                 value: initValues?.brand ?? "",
-                isValid: true
+                isValid: true,
             },
             modelName: {
                 value: initValues?.modelName ?? "",
-                isValid: true
+                isValid: true,
             },
         },
         //Pass a set of rules to execute a valid response of an api request
         {
-            displayResMessage: true,     //Display a message to the user to confirm the succes
+            displayResMessage: true, //Display a message to the user to confirm the succes
             callbackFunction: (response) => {
                 //Execute additionnal function from parent component
-                if(onPositiveResponse) onPositiveResponse(response)
-            }
+                if (onPositiveResponse) onPositiveResponse(response);
+            },
         }
     );
-    
 
     //Submit the form
-    const submitHandler = async event => { 
-
+    const submitHandler = async (event) => {
         event.preventDefault();
 
         const formData = {
             data: {
                 equipmentType: formState.inputs.equipmentType.value.value,
-                label:  formState.inputs.label.value,
+                label: formState.inputs.label.value,
                 brand: formState.inputs.brand.value,
                 modelName: formState.inputs.modelName.value,
                 meta: getDefaultCreateEntityMeta(auth.user),
-            }
+            },
         };
 
-       await submitRequest(
-            `/equipment/create`,
-            'POST',
-            JSON.stringify(formData)
-        );
-    }
+        await submitRequest(`/equipment/create`, "POST", JSON.stringify(formData));
+    };
 
     return (
-        
-       <form onSubmit={submitHandler}>
+        <form onSubmit={submitHandler}>
             <FormUI />
             <div>
                 <Select2
                     name="equipmentType"
-                    label={lang.equipmentType+lang.required}
+                    label={lang.equipmentType + lang.required}
                     formTools={formTools}
                     creatable={true}
                     modalType={TYPE_TAXONOMY}
                     isMulti={false}
                     allowedCategories={["equipmentType"]}
-
                     placeholder={lang.equipmentTypePlaceholder}
                     fetch={"/taxonomies/list"}
-                    requestData={{category:"equipmentType", name:""}}
+                    requestData={{ category: "equipmentType", name: "" }}
                     searchField={"name"}
                     selectField={"name"}
                 />
-                <Input  
+                <Input
                     name="label"
-                    label={lang.label+lang.required}
+                    label={lang.label + lang.required}
                     formTools={formTools}
                     placeholder={lang.labelPlaceholder}
                 />
-                <Input  
-                    name="brand"
-                    label={lang.brand}
-                    formTools={formTools}
-                />
-                <Input  
-                    name="modelName"
-                    label={lang.modelName}
-                    formTools={formTools}
-                />
+                <Input name="brand" label={lang.brand} formTools={formTools} />
+                <Input name="modelName" label={lang.modelName} formTools={formTools} />
             </div>
-            <div>Suite à la création de l'équipement et de votre fiche, nous vous suggérons d'aller voir la fiche de l'équipement afin d'ajouter des liens vers des pages internet de celui-ci.</div>
+            <div>
+                Suite à la création de l'équipement et de votre fiche, nous vous suggérons d'aller voir la fiche de
+                l'équipement afin d'ajouter des liens vers des pages internet de celui-ci.
+            </div>
             <div className="col-12">
-                <Button className="me-4" color="success" type="button" onClick={submitHandler} disabled={!formState.isValid}>{lang.submit}</Button>
-                {
-                    props?.closeModal && 
-                    <Button color="danger" type="button" onClick={props.closeModal()}>{lang.cancel}</Button>
-                }
+                <Button
+                    className="me-4"
+                    color="success"
+                    type="button"
+                    onClick={submitHandler}
+                    disabled={!formState.isValid}
+                >
+                    {lang.submit}
+                </Button>
+                {props?.closeModal && (
+                    <Button color="danger" type="button" onClick={props.closeModal()}>
+                        {lang.cancel}
+                    </Button>
+                )}
             </div>
-        </form> 
+        </form>
     );
-}
+};
 
 export default CreateEquipmentForm;

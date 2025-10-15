@@ -1,17 +1,18 @@
 .single-social-handle {
     max-width: 50ch;
-    .single-social-handle__icons { 
+    .single-social-handle__icons {
         transition: 0.3s ease-out;
-        opacity: 0; 
+        opacity: 0;
         transform: translateY(0.3rem);
     }
 
     :hover {
-        .single-social-handle__icons {         
-            opacity: 1; 
-            transform: translateY(0rem); 
+        .single-social-handle__icons {
+            opacity: 1;
+            transform: translateY(0rem);
         }
-        .single-social-handle__link { text-decoration: underline;}
+        .single-social-handle__link {
+            text-decoration: underline;
+        }
     }
 }
-

@@ -1,9 +1,7 @@
 //Styling
-import styles from './DefaultSpinner.module.scss';
-
+import styles from "./DefaultSpinner.module.scss";
 
 const DefaultSpinner = ({ fixed, reverse }) => {
-
     return (
         <div
             data-testid="spinner"
@@ -26,7 +24,7 @@ const DefaultSpinner = ({ fixed, reverse }) => {
                 </div>
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default DefaultSpinner
+export default DefaultSpinner;

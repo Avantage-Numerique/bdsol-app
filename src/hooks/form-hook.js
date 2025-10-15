@@ -4,20 +4,15 @@
 
 */
 
-
-import {useCallback, useReducer} from 'react';
+import { useCallback, useReducer } from "react";
 
 const formReducer = (state, action) => {
-
     switch (action.type) {
-
-        case 'INPUT_CHANGE':
-
+        case "INPUT_CHANGE":
             let formIsValid = true;
 
             //Loop through the state inputs
             for (const inputId in state.inputs) {
-
                 //If a corresponding element doesn't exist, than break this iteration
                 //and go to the next one. Otherwise, execute the next "if" statement
                 if (!state.inputs[inputId]) {
@@ -39,47 +34,46 @@ const formReducer = (state, action) => {
                     [action.inputId]: {
                         ...state.inputs[action.inputId],
                         value: action.value,
-                        isValid: action.isValid
-                    }
+                        isValid: action.isValid,
+                    },
                 },
-                isValid: formIsValid
+                isValid: formIsValid,
             };
 
-        case 'CLEAR_DATA':
-
+        case "CLEAR_DATA":
             //Reset everything
             return {
                 ...state,
                 inputs: {
-                    ...action.initialValues
+                    ...action.initialValues,
                 },
-                isValid: action.initialFormValidity
+                isValid: action.initialFormValidity,
             };
 
-        case 'TOUCH': {
+        case "TOUCH": {
             return {
                 ...state,
                 inputs: {
                     ...state.inputs,
                     [action.inputId]: {
                         ...state.inputs[action.inputId],
-                        isTouched: true
-                    }
+                        isTouched: true,
+                    },
                 },
-                hasAnyInputBeenTouched: true
+                hasAnyInputBeenTouched: true,
             };
         }
 
-        case 'SET_DATA':
+        case "SET_DATA":
             return {
                 inputs: action.inputs,
-                isValid: action.formIsValid
+                isValid: action.formIsValid,
             };
 
-        case 'UPDATE_MANY_FIELDS':
+        case "UPDATE_MANY_FIELDS":
             //Receives an object of this shape : {[fieldName]: [fieldNewValue], [fieldName]: [fieldNewValue]}
             //create a new object to edit
-            let newState = {...state};
+            const newState = { ...state };
             //Loop through the keys of the object modifiedFields
             for (const key in action.modifiedFields) {
                 if (action.modifiedFields.hasOwnProperty(key) && newState.inputs.hasOwnProperty(key)) {
@@ -91,32 +85,30 @@ const formReducer = (state, action) => {
         default:
             return state;
     }
-
 };
 
 export const useForm = (initialInputs) => {
-
     /* Global formstate => contains the value of all the inputs in the field */
     const [formState, dispatch] = useReducer(formReducer, {
         inputs: initialInputs,
         isValid: false,
-        hasAnyInputBeenTouched: false
+        hasAnyInputBeenTouched: false,
     });
 
     //Note that the inputid is actually the "name" of the input
     const inputHandler = useCallback((id, value, isValid) => {
         dispatch({
-            type: 'INPUT_CHANGE',
+            type: "INPUT_CHANGE",
             value: value,
             isValid: isValid,
-            inputId: id
+            inputId: id,
         });
     }, []);
 
     const inputTouched = useCallback((id) => {
         dispatch({
-            type: 'TOUCH',
-            inputId: id
+            type: "TOUCH",
+            inputId: id,
         });
     }, []);
 
@@ -132,20 +124,20 @@ export const useForm = (initialInputs) => {
 
     const clearFormData = useCallback(() => {
         dispatch({
-            type: 'CLEAR_DATA',
+            type: "CLEAR_DATA",
             initialValues: initialInputs,
-            initialValidity: false
+            initialValidity: false,
         });
     }, []);
 
-    const updateManyFields = useCallback(modificationsObj => {
+    const updateManyFields = useCallback((modificationsObj) => {
         /**
          * Expect to receive an object of this shape
-        * {[fieldName]: [fieldNewValue], [fieldName]: [fieldNewValue]}
-        */
+         * {[fieldName]: [fieldNewValue], [fieldName]: [fieldNewValue]}
+         */
         dispatch({
-            type: 'UPDATE_MANY_FIELDS',
-            modifiedFields: modificationsObj
+            type: "UPDATE_MANY_FIELDS",
+            modifiedFields: modificationsObj,
         });
     }, []);
 
@@ -155,8 +147,8 @@ export const useForm = (initialInputs) => {
         inputHandler: inputHandler,
         inputTouched: inputTouched,
         clearFormData: clearFormData,
-        updateManyFields: updateManyFields
-    }
+        updateManyFields: updateManyFields,
+    };
 
     return [formState, formTools, clearFormData, updateManyFields];
 };

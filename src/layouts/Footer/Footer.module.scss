@@ -1,41 +1,40 @@
 #pageFooter {
-
     background-color: $primary_2;
     --footer-vertical-paddings: clamp(0.5rem, 2vh, 2rem);
 
     .main-logo--container {
-        img { 
-            max-width: clamp(8rem, 10vw, 15rem); 
+        img {
+            max-width: clamp(8rem, 10vw, 15rem);
+            height: auto;
             padding: var(--footer-vertical-paddings) 0px;
         }
     }
 
     .secondary-logo--container {
-        img { 
-            width: clamp(15rem, 15vw, 23rem); 
+        img {
+            width: clamp(15rem, 15vw, 23rem);
+            height: auto;
             padding: var(--footer-vertical-paddings) 0px;
         }
     }
 
     /* Social media logos container   */
-    .socialMediaLogos{
-
+    .socialMediaLogos {
         padding: var(--footer-vertical-paddings) 0px;
 
         /* Individual social media logo */
         .socialMediaLogo {
-            display:inline-block;
+            display: inline-block;
             margin: 0.25em 0.5em;
 
-            svg{
-                height:2em;
-                width:2em;
+            svg {
+                height: 2em;
+                width: 2em;
             }
         }
 
-
         /* Class to specify which path element will change of color  */
-        .colorTransition{
+        .colorTransition {
             fill: $primary-dark;
             -webkit-transition: fill 0.2s ease-out;
             -moz-transition: fill 0.2s ease-out;
@@ -44,9 +43,20 @@
         }
 
         /* Classes to specify the specifics colors of the logos */
-        .FacebookLogo:hover{ .colorTransition{ fill: #1778f2;}  }
-        .InstagramLogo:hover{ .colorTransition{ fill:  #F58529; }  }
-        .YoutubeLogo:hover{ .colorTransition{ fill: #FF0000}  }
-
+        .FacebookLogo:hover {
+            .colorTransition {
+                fill: #1778f2;
+            }
+        }
+        .InstagramLogo:hover {
+            .colorTransition {
+                fill: #f58529;
+            }
+        }
+        .YoutubeLogo:hover {
+            .colorTransition {
+                fill: #ff0000;
+            }
+        }
     }
 }

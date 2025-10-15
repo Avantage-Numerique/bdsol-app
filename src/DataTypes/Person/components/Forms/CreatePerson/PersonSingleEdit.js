@@ -1,43 +1,41 @@
-import React, {useCallback, useContext, useEffect, useState} from 'react';
-import Router, { useRouter } from 'next/router';
+import React, { useCallback, useContext, useEffect, useState } from "react";
+import Router, { useRouter } from "next/router";
 
 //Custom hooks
-import {useFormUtils} from '@/src/hooks/useFormUtils/useFormUtils';
-import {useRootModal} from '@/src/hooks/useModal/useRootModal';
-import SingleBeforeUnloadReminder from '@/src/DataTypes/common/layouts/SingleSaveEntityReminder/SingleBeforeUnloadReminder';
+import { useFormUtils } from "@/src/hooks/useFormUtils/useFormUtils";
+import { useRootModal } from "@/src/hooks/useModal/useRootModal";
+import SingleBeforeUnloadReminder from "@/src/DataTypes/common/layouts/SingleSaveEntityReminder/SingleBeforeUnloadReminder";
 
 //components
-import Button from '@/FormElements/Button/Button';
-import Input from '@/FormElements/Input/Input';
-import RichTextarea from '@/FormElements/RichTextArea/RichTextarea';
-import Select2 from '@/src/common/FormElements/Select2/Select2';
-import {SingleEntityMeta} from '@/src/DataTypes/Meta/components/SingleEntityMeta';
+import Button from "@/FormElements/Button/Button";
+import Input from "@/FormElements/Input/Input";
+import RichTextarea from "@/FormElements/RichTextArea/RichTextarea";
+import Select2 from "@/src/common/FormElements/Select2/Select2";
+import { SingleEntityMeta } from "@/src/DataTypes/Meta/components/SingleEntityMeta";
 import SingleInfo from "@/DataTypes/common/layouts/SingleInfo/SingleInfo";
-import SingleSaveEntityReminder from '@/src/DataTypes/common/layouts/SingleSaveEntityReminder/SingleSaveEntityReminder';
-import UpdateSocialHandles from '@/src/DataTypes/common/Forms/UpdateSocialHandles/UpdateSocialHandles';
-import Select from '@/src/common/FormElements/Select/Select';
+import SingleSaveEntityReminder from "@/src/DataTypes/common/layouts/SingleSaveEntityReminder/SingleSaveEntityReminder";
+import UpdateSocialHandles from "@/src/DataTypes/common/Forms/UpdateSocialHandles/UpdateSocialHandles";
+import Select from "@/src/common/FormElements/Select/Select";
 
 //Context
-import {useAuth} from "@/src/authentification/context/auth-context";
-import {MessageContext} from '@/src/common/UserNotifications/Message/Context/Message-Context';
-import {lang, modes} from '@/src/common/Data/GlobalConstants';
+import { useAuth } from "@/src/authentification/context/auth-context";
+import { MessageContext } from "@/src/common/UserNotifications/Message/Context/Message-Context";
+import { lang, modes } from "@/src/common/Data/GlobalConstants";
 
 //FormData
-import {getDefaultUpdateEntityMeta} from "@/src/DataTypes/Meta/EntityMeta";
-import SingleBaseHeader from '@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseHeader';
-import SingleBase from '@/src/DataTypes/common/layouts/single/SingleBase';
-import UpdateSkillGroup from '@/src/DataTypes/common/Forms/UpdateSkillGroup/UpdateSkillGroup';
+import { getDefaultUpdateEntityMeta } from "@/src/DataTypes/Meta/EntityMeta";
+import SingleBaseHeader from "@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseHeader";
+import SingleBase from "@/src/DataTypes/common/layouts/single/SingleBase";
+import UpdateSkillGroup from "@/src/DataTypes/common/Forms/UpdateSkillGroup/UpdateSkillGroup";
 import Person from "@/DataTypes/Person/models/Person";
-import {replacePathname} from "@/src/helpers/url";
+import { replacePathname } from "@/src/helpers/url";
 import Icon from "@/common/widgets/Icon/Icon";
 import MainImageDisplay from "@/DataTypes/common/layouts/single/defaultSections/MainImageDisplay/MainImageDisplay";
-import {TYPE_TAXONOMY} from '@/src/DataTypes/Entity/Types';
+import { TYPE_TAXONOMY } from "@/src/DataTypes/Entity/Types";
 import SubmitEntity from "@/DataTypes/common/Forms/SingleEdit/SubmitEntity";
-import UpdateContactPoint from '@/src/DataTypes/common/Forms/UpdateContactPoint/UpdateContactPoint';
+import UpdateContactPoint from "@/src/DataTypes/common/Forms/UpdateContactPoint/UpdateContactPoint";
 
-
-const PersonSingleEdit = ({ positiveRequestActions, ...props}) => {
-
+const PersonSingleEdit = ({ positiveRequestActions, ...props }) => {
     //Person data extract
     const {
         _id,
@@ -56,7 +54,7 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props}) => {
         createdAt,
         contactPoint,
         url,
-        updatedAt
+        updatedAt,
     } = props?.data;
 
     //Model de project
@@ -66,16 +64,22 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props}) => {
     const [currentMainImage, setCurrentMainImage] = useState(model.mainImage);
     const [currentModel, setCurrentModel] = useState(model);
 
-    const updateEntityModel = useCallback((rawData) => {
-        model = new Person(rawData);
-        setCurrentMainImage(model.mainImage);
-    }, [setCurrentModel]);
+    const updateEntityModel = useCallback(
+        (rawData) => {
+            model = new Person(rawData);
+            setCurrentMainImage(model.mainImage);
+        },
+        [setCurrentModel]
+    );
 
-    const updateModelMainImage = useCallback((mainImage) => {
-        setCurrentMainImage(mainImage);
-        model.mainImage = mainImage;
-        setCurrentModel(model);
-    }, [setCurrentModel]);
+    const updateModelMainImage = useCallback(
+        (mainImage) => {
+            setCurrentMainImage(mainImage);
+            model.mainImage = mainImage;
+            setCurrentModel(model);
+        },
+        [setCurrentModel]
+    );
 
     //Modal hook
     const modalSaveEntityReminder = useRootModal();
@@ -83,7 +87,7 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props}) => {
     //Import the authentication context to make sure the user is well connected
     const auth = useAuth();
 
-    //Import message context 
+    //Import message context
     const msg = useContext(MessageContext);
 
     //Save intention for SingleBeforeUnloadReminder
@@ -109,12 +113,12 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props}) => {
     If he isn't, then redirect him in the connexion page
     */
     useEffect(() => {
-        if(!auth.user.isLoggedIn) {
-            msg.addMessage({ 
+        if (!auth.user.isLoggedIn) {
+            msg.addMessage({
                 text: lang.needToBeConnectedToAccess,
-                positive: false 
-            })
-            Router.push('/compte/connexion')
+                positive: false,
+            });
+            Router.push("/compte/connexion");
         }
     }, [auth.user.isLoggedIn]);
 
@@ -123,152 +127,155 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props}) => {
         {
             firstName: {
                 value: firstName ?? "",
-                isValid: false
+                isValid: false,
             },
             lastName: {
                 value: lastName ?? "",
-                isValid: false
+                isValid: false,
             },
             nickName: {
                 value: nickname ?? "",
-                isValid: true
+                isValid: true,
             },
             description: {
                 value: description ?? "",
-                isValid: true
+                isValid: true,
             },
             catchphrase: {
                 value: catchphrase ?? "",
-                isValid: true
+                isValid: true,
             },
             occupations: {
                 value: occupations ?? [],
                 isValid: true,
-                invalidMsg: "Compétences et technologies"
+                invalidMsg: "Compétences et technologies",
             },
             domains: {
                 value: domains ?? [],
-                isValid: true
+                isValid: true,
             },
             contactPoint: {
-                value: contactPoint ?? {tel:{num:"", ext:""},email:{address:""},website:{url:""} },
-                isValid: true
+                value: contactPoint ?? {
+                    tel: { num: "", ext: "" },
+                    email: { address: "" },
+                    website: { url: "" },
+                },
+                isValid: true,
             },
             url: {
                 value: url ?? [],
                 isValid: true,
-                invalidMsg: "Liens externes"
+                invalidMsg: "Liens externes",
             },
             region: {
                 value: model.region ?? "",
-                isValid: true
-            }
+                isValid: true,
+            },
         },
         //Pass a set of rules to execute a valid response of an api request
         {
             displayResMessage: true,
             callbackFunction: (response) => {
-                Router.push("/"+replacePathname(model.singleRoute.pathname, {slug: response.data.slug}))
-            }
+                Router.push(
+                    "/" +
+                        replacePathname(model.singleRoute.pathname, {
+                            slug: response.data.slug,
+                        })
+                );
+            },
         }
     );
-    
+
     //Submit the form
-    const submitHandler = async event => { 
+    const submitHandler = async (event) => {
         event.preventDefault();
         const formData = {
             data: {
                 id: _id,
                 lastName: formState.inputs.lastName.value,
-                firstName:  formState.inputs.firstName.value,
+                firstName: formState.inputs.firstName.value,
                 nickname: formState.inputs.nickName.value,
                 description: formState.inputs.description.value,
                 catchphrase: formState.inputs.catchphrase.value,
-                occupations: formState.inputs.occupations.value.map(function(singleOccupation){
+                occupations: formState.inputs.occupations.value.map(function (singleOccupation) {
                     return {
                         groupName: singleOccupation.value.groupName.value,
-                        skills: singleOccupation.value.skills.value.map( (skill) => { return skill.value }),
-                        subMeta: { order : singleOccupation.order }
-                    }
+                        skills: singleOccupation.value.skills.value.map((skill) => {
+                            return skill.value;
+                        }),
+                        subMeta: { order: singleOccupation.order },
+                    };
                 }),
-                domains: formState.inputs.domains?.value?.length > 0 ?
-                    formState.inputs.domains.value.map( (elem) => {
-                        return {
-                            domain: elem.value,
-                        }
-                    })
-                    : [],
+                domains:
+                    formState.inputs.domains?.value?.length > 0
+                        ? formState.inputs.domains.value.map((elem) => {
+                              return {
+                                  domain: elem.value,
+                              };
+                          })
+                        : [],
                 contactPoint: formState.inputs.contactPoint.value,
-                url: formState.inputs.url.value.map(function(singleUrl){
+                url: formState.inputs.url.value.map(function (singleUrl) {
                     return {
                         label: singleUrl.value.label.value,
                         url: singleUrl.value.url.value,
-                        subMeta: { order : singleUrl.order }
-                    }
+                        subMeta: { order: singleUrl.order },
+                    };
                 }),
                 region: formState.inputs.region.value,
                 meta: getDefaultUpdateEntityMeta(auth.user, model.meta.requestedBy),
-            }
+            },
         };
 
-        submitRequest(
-            `/persons/update`,
-            'POST',
-            JSON.stringify(formData)
-        );
-    }
-
+        submitRequest(`/persons/update`, "POST", JSON.stringify(formData));
+    };
 
     const breadcrumbLabels = {
-        "contribuer": lang.menuContributeLabel,
-        "personnes": lang.Persons,
-        "slug": `${model.firstName ?? ""} ${model.lastName ?? "-"}`
+        contribuer: lang.menuContributeLabel,
+        personnes: lang.Persons,
+        slug: `${model.firstName ?? ""} ${model.lastName ?? "-"}`,
     };
 
     const breadcrumbsRoutes = {
         route: model.singleEditRoute,
         labels: breadcrumbLabels,
-    }
+    };
 
     const [breadCrumb, setBreadCrumb] = useState(breadcrumbsRoutes);
     useEffect(() => {
-        setBreadCrumb(breadcrumbsRoutes)
+        setBreadCrumb(breadcrumbsRoutes);
     }, [model.title]);
 
     /*****************************
-     * 
-     * 
+     *
+     *
      *  Sections
-     * 
-     * 
+     *
+     *
      ***************************/
 
     const title = (
         <div className="row">
-            <Input 
+            <Input
                 name="firstName"
-                label={"Prénom"+lang.required}
+                label={"Prénom" + lang.required}
                 className="col-12 col-sm-6 col-md-4"
                 formClassName="discrete-without-focus form-text-white"
-                validationRules={[
-                    {name: "REQUIRED"}
-                ]}
+                validationRules={[{ name: "REQUIRED" }]}
                 errorText="Cette information est requise"
                 formTools={formTools}
             />
 
-            <Input 
+            <Input
                 name="lastName"
-                label={"Nom"+lang.required}
+                label={"Nom" + lang.required}
                 className="col-12 col-sm-6 col-md-4"
                 formClassName="discrete-without-focus form-text-white"
-                validationRules={[
-                    {name: "REQUIRED"}
-                ]}
+                validationRules={[{ name: "REQUIRED" }]}
                 errorText="Cette information est requise"
                 formTools={formTools}
             />
-            <Input  
+            <Input
                 name="nickName"
                 label="Surnom"
                 className="col-12 col-sm-6 col-md-4"
@@ -286,41 +293,51 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props}) => {
             formTools={formTools}
         />
     );
-    
+
     const ctaHeaderSection = (
         <div className="d-flex flex-wrap align-items-end justify-content-between gap-2 gap-md-3 gap-lg-4">
-            <MainImageDisplay buttonClasses="fs-6" mainImage={currentMainImage} entity={currentModel} setter={updateModelMainImage} />
+            <MainImageDisplay
+                buttonClasses="fs-6"
+                mainImage={currentMainImage}
+                entity={currentModel}
+                setter={updateModelMainImage}
+            />
             <div className="d-flex flex-wrap align-items-end justify-content-between gap-2 gap-md-3 gap-lg-4">
-                <Button className='fs-6' size="slim" color="success" disabled={!formState.isValid}
-                    onClick={() => {setSaveIntentionState(true);modalSaveEntityReminder.displayModal()}}
+                <Button
+                    className="fs-6"
+                    size="slim"
+                    color="success"
+                    disabled={!formState.isValid}
+                    onClick={() => {
+                        setSaveIntentionState(true);
+                        modalSaveEntityReminder.displayModal();
+                    }}
                 >
-                    <Icon iconName={"save"} />&nbsp;{lang.capitalize("save")}
+                    <Icon iconName={"save"} />
+                    &nbsp;{lang.capitalize("save")}
                 </Button>
-                <Button className='fs-6' size="slim" color="primary-light" href={model.singleLink}>
-                    <Icon iconName={"times"} />&nbsp;{lang.Cancel}
+                <Button className="fs-6" size="slim" color="primary-light" href={model.singleLink}>
+                    <Icon iconName={"times"} />
+                    &nbsp;{lang.Cancel}
                 </Button>
             </div>
         </div>
-    )
+    );
 
-    const header = ( 
+    const header = (
         <SingleBaseHeader
             className={"mode-update"}
-            title={title} 
-            subtitle={subtitle} 
+            title={title}
+            subtitle={subtitle}
             mainImage={currentMainImage}
             buttonSection={ctaHeaderSection}
             entity={model}
             mode={modes.CONTRIBUTING}
-        >
-        </SingleBaseHeader>
+        ></SingleBaseHeader>
     );
 
     const fullWidthContent = (
-        <SingleInfo
-            title={lang.about}
-            noCardLayout
-        >
+        <SingleInfo title={lang.about} noCardLayout>
             <RichTextarea
                 className="my-3"
                 name="description"
@@ -328,47 +345,42 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props}) => {
                 formTools={formTools}
             />
         </SingleInfo>
-    )
+    );
 
     const contentColumnLeft = (
-        <SingleInfo
-            title={lang.skillsAndTechnologies}
-        >
+        <SingleInfo title={lang.skillsAndTechnologies}>
             <UpdateSkillGroup
                 parentEntity={props.data}
-                formTools={formTools}  
+                formTools={formTools}
                 name="occupations"
                 labelInput={lang.expertiseField}
                 labelSelect={lang.skillsAndTechnologiesAssociated}
             />
         </SingleInfo>
-    )
+    );
 
     const contentColumnRight = (
         <>
             <SingleInfo title={lang.contactInformations}>
-                <UpdateContactPoint
-                    formTools={formTools}
-                    name="contactPoint"
-                    model={model}
-                />
+                <UpdateContactPoint formTools={formTools} name="contactPoint" model={model} />
 
-                <Select 
+                <Select
                     name="region"
                     label="Faites-vous partie du Croissant boréal?"
                     formTools={formTools}
                     noValueText="Choisissez une région"
-                    tip={
-                        {
-                            header : "Badge",
-                            body: "Ce champs permet d'obtenir le badge 'Croissant boréal' qui indique que vous faites partie de celui-ci."
-                        }
-                    }
+                    tip={{
+                        header: "Badge",
+                        body: "Ce champs permet d'obtenir le badge 'Croissant boréal' qui indique que vous faites partie de celui-ci.",
+                    }}
                     options={[
-                        {label: "Autre", value: "other"},
-                        {label: "Abitibi-Témiscamingue", value: "abitibi-temiscamingue"},
-                        {label: "Nord de l'Ontario", value: "north Ontario"},
-                        {label: "Baies-James", value: "baies-james"}
+                        { label: "Autre", value: "other" },
+                        {
+                            label: "Abitibi-Témiscamingue",
+                            value: "abitibi-temiscamingue",
+                        },
+                        { label: "Nord de l'Ontario", value: "north Ontario" },
+                        { label: "Baies-James", value: "baies-james" },
                     ]}
                     //defaultValue="Autre"
                 />
@@ -384,51 +396,44 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props}) => {
                     allowedCategories={["domains"]}
                     isMulti={true}
                     fetch={"/taxonomies/list"}
-                    requestData={{category:"domains", name:""}}
+                    requestData={{ category: "domains", name: "" }}
                     searchField={"name"}
                     selectField={"domains"}
                 />
             </SingleInfo>
 
             <SingleInfo title={lang.externalLinks}>
-                { /* Url */}
-                <UpdateSocialHandles
-                    name="url"
-                    label={lang.url}
-                    parentEntity={model}
-                    formTools={formTools}
-                />
+                {/* Url */}
+                <UpdateSocialHandles name="url" label={lang.url} parentEntity={model} formTools={formTools} />
             </SingleInfo>
         </>
-    )
+    );
 
     const Footer = (
         <>
-            {
-                (createdAt || updatedAt || meta) &&
-                <SingleInfo 
-                    title={lang.entityMetadata} 
-                    className="pt-3"
-                >
+            {(createdAt || updatedAt || meta) && (
+                <SingleInfo title={lang.entityMetadata} className="pt-3">
                     {/*********** Entity data ***********/}
                     <SingleEntityMeta createdAt={createdAt} updatedAt={updatedAt} meta={meta} />
                 </SingleInfo>
-            }
+            )}
         </>
-    )
+    );
 
     const SinglePageBottom = (
-            <SubmitEntity
-                submitHandler={() => {setSaveIntentionState(true);
-                modalSaveEntityReminder.displayModal()}}
-                formState={formState}
-                singleLink={model.singleLink}
-            />
-    )
+        <SubmitEntity
+            submitHandler={() => {
+                setSaveIntentionState(true);
+                modalSaveEntityReminder.displayModal();
+            }}
+            formState={formState}
+            singleLink={model.singleLink}
+        />
+    );
 
     return (
         <>
-            <SingleBeforeUnloadReminder formTools={formTools} saveIntention={saveIntentionState}/>
+            <SingleBeforeUnloadReminder formTools={formTools} saveIntention={saveIntentionState} />
             <SingleBase
                 breadCrumb={breadCrumb}
                 header={header}
@@ -442,11 +447,14 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props}) => {
             <modalSaveEntityReminder.Modal>
                 <SingleSaveEntityReminder
                     submitHandler={submitHandler}
-                    closeModal={() => {modalSaveEntityReminder.closeModal(); setSaveIntentionState(false)}}
+                    closeModal={() => {
+                        modalSaveEntityReminder.closeModal();
+                        setSaveIntentionState(false);
+                    }}
                 />
             </modalSaveEntityReminder.Modal>
         </>
     );
-}
+};
 
-export default PersonSingleEdit
+export default PersonSingleEdit;

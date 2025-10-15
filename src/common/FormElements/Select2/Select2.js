@@ -1,5 +1,5 @@
 //React
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 
 //Helper
 import ApiEntityModel from "@/src/DataTypes/Entity/models/ApiEntityModel";
@@ -9,11 +9,11 @@ import Select2BaseSingle from "./Select2BaseSingle";
 import Select2BaseMulti from "./Select2BaseMulti";
 
 //Hook
-import {useHttpClient} from "@/src/hooks/http-hook";
-import useDebounce from '@/src/hooks/useDebounce'
-import {useRootModal} from '@/src/hooks/useModal/useRootModal'
-import {useValidation} from '@/src/hooks/useValidation/useValidation';
-import {useFieldTips} from '@/src/hooks/useFieldTips/useFieldTips';
+import { useHttpClient } from "@/src/hooks/http-hook";
+import useDebounce from "@/src/hooks/useDebounce";
+import { useRootModal } from "@/src/hooks/useModal/useRootModal";
+import { useValidation } from "@/src/hooks/useValidation/useValidation";
+import { useFieldTips } from "@/src/hooks/useFieldTips/useFieldTips";
 
 //Modal component
 import {
@@ -23,12 +23,11 @@ import {
     TYPE_PERSON,
     TYPE_PLACE,
     TYPE_PROJECT,
-    TYPE_TAXONOMY
+    TYPE_TAXONOMY,
 } from "@/src/DataTypes/Entity/Types";
 import CreatePersonForm from "@/src/DataTypes/Person/components/Forms/CreatePerson/CreatePersonForm";
-import CreateOrganisationForm
-    from "@/src/DataTypes/Organisation/components/forms/CreateOrganisationForm/CreateOrganisationForm";
-import CreateTaxonomyForm from '@/DataTypes/Taxonomy/components/Forms/CreateTaxonomy/CreateTaxonomyForm';
+import CreateOrganisationForm from "@/src/DataTypes/Organisation/components/forms/CreateOrganisationForm/CreateOrganisationForm";
+import CreateTaxonomyForm from "@/DataTypes/Taxonomy/components/Forms/CreateTaxonomy/CreateTaxonomyForm";
 import CreateProjectForm from "@/src/DataTypes/Project/component/forms/CreateProjectForm";
 import CreateEventForm from "@/src/DataTypes/Event/component/Forms/CreateEvent/CreateEventForm";
 import CreatePlaceForm from "@/src/DataTypes/Place/components/forms/CreatePlaceForm/CreatePlaceForm";
@@ -36,187 +35,176 @@ import CreateEquipmentForm from "@/src/DataTypes/Equipment/components/Forms/Crea
 import { lang } from "../../Data/GlobalConstants";
 import Button from "../Button/Button";
 
-
 /**
  * @param {string} name : used for id and formState
  * @param {formTools} formTools : FormTools
  * @param {string} label : Title of the field displayed over it
  * @param {boolean} creatable : true if allowed to create, false or undefined means not allowed to create new option
- * @param {TYPES} modalType : Type of the createModal if allowed to create. It choose which createForm to show upon createOption 
+ * @param {TYPES} modalType : Type of the createModal if allowed to create. It choose which createForm to show upon createOption
  * @param {boolean} isMulti : true if multiple selection allowed, false if single option selectable
  * @param {Array} optionsList : (optionnal) Can specify directly a list of option in format [ { label, value, color? }, ... ]
  * @param {string} fetch : Url to fetch data from and create options
- * @param {string} className : className added from outside the component 
+ * @param {string} className : className added from outside the component
  * @param {string} formClassName : className for the form layer
  * @param {object} requestData : param to always pass during request (e.g. category : "skills" to only access skills taxonomy)
  * @param {string} searchField : name of the property to search in the database from select2 input (e.g. "name", "firstName")
  * @param {string} selectField : String that allow ApiEntityModel to know what to return as a select option from the data of formState (domains, offers, fullName)
- * @param {Array} allowedCategories : array containing the string values of the categories that should be allowed on taxonomy form 
+ * @param {Array} allowedCategories : array containing the string values of the categories that should be allowed on taxonomy form
  * Note : Works best if "type" is in the formState data, else it goes to switch case default and exceptions need to be handled
- * @param {function} createOptionFunction : function that handles the create (modal pop-up ...) if undefined, create default 
+ * @param {function} createOptionFunction : function that handles the create (modal pop-up ...) if undefined, create default
  */
 
-
-
 const Select2 = ({ name, formTools, ...props }) => {
-
-    const {sendRequest} = useHttpClient();
+    const { sendRequest } = useHttpClient();
     const [optionsList, setOptionList] = useState(props.optionsList ?? []);
     const [inputValue, setInputValue] = useState("");
     const [value, setValue] = useState(null);
 
-    //Extract root modal 
+    //Extract root modal
     const { Modal, displayModal, closeModal, modalInitValues } = useRootModal();
 
     //Formstate
-    const {
-        formState,
-        inputHandler,
-        inputTouched
-    } = formTools;
+    const { formState, inputHandler, inputTouched } = formTools;
 
     const currentState = formState.inputs[name];
 
-    const onTouch = event => {
-        inputHandler(
-            name,
-            value,
-            props.validationRules ? validate(value) : true
-        )
-        inputTouched(name)
-    }
+    const onTouch = (event) => {
+        inputHandler(name, value, props.validationRules ? validate(value) : true);
+        inputTouched(name);
+    };
 
     //Extract validator message
-    const { validate, RequirementsBadges, dependencyCallingValidation } = useValidation( props.validationRules, formState )
+    const { validate, RequirementsBadges, dependencyCallingValidation } = useValidation(
+        props.validationRules,
+        formState
+    );
     //Tooltip
-    const {TipPopOver, TipButton} = useFieldTips(props.tip);
+    const { TipPopOver, TipButton } = useFieldTips(props.tip);
 
     useEffect(() => {
-        inputHandler(
-            name,
-            value,
-            props.validationRules ? validate(value) : true
-        )
-    },  [value, dependencyCallingValidation])
+        inputHandler(name, value, props.validationRules ? validate(value) : true);
+    }, [value, dependencyCallingValidation]);
 
-    useEffect( () => {
+    useEffect(() => {
         const valueList = ApiEntityModel.getSelectOption(formState.inputs[name].value, props.selectField);
         //if formState contains no value
-        if(valueList === null || valueList?.length == 0){
+        if (valueList === null || valueList?.length == 0) {
             setValue(null);
-        }
-        else {
+        } else {
             //isMulti
-            if (props.isMulti){
-                setValue(valueList)
+            if (props.isMulti) {
+                setValue(valueList);
             }
             //is not multi (single)
             else {
-                setValue(valueList[0])
+                setValue(valueList[0]);
             }
         }
-    }, [])
+    }, []);
 
     //Fetch
     const fetchOptions = async () => {
-        if(props.optionsList == undefined && props.fetch !== undefined){
+        if (props.optionsList == undefined && props.fetch !== undefined) {
             const requestData = props.requestData ?? {};
             let data = {};
-            if(Array.isArray(props.searchField)){
+            if (Array.isArray(props.searchField)) {
                 data.or = [];
-                props.searchField.forEach(searchElem => {
-                    data.or.push({[searchElem] : inputValue})
-                }); 
-            }
-            else
-            {
-                data[props.searchField] = inputValue
+                props.searchField.forEach((searchElem) => {
+                    data.or.push({ [searchElem]: inputValue });
+                });
+            } else {
+                data[props.searchField] = inputValue;
             }
             const apiResponse = await sendRequest(
-                (props.fetch),
-                'POST',
+                props.fetch,
+                "POST",
                 JSON.stringify({
                     data: {
                         ...requestData,
                         ...data,
-                    }
+                    },
                 }),
-                { 'Content-Type': 'application/json' }
-            )
+                { "Content-Type": "application/json" }
+            );
             const optionList = ApiEntityModel.getSelectOption(apiResponse.data, props.selectField);
             setOptionList(optionList);
         }
-    }   
+    };
 
     //Allow only one request per 400ms, after the user stop typing
     const debouncedRequest = useDebounce(inputValue, 400);
     //Update the list of options to display
-    useEffect(() => { fetchOptions() }, [debouncedRequest] );
+    useEffect(() => {
+        fetchOptions();
+    }, [debouncedRequest]);
 
     const addSelectedValue = (val) => {
-        if(val.label != undefined && val.value != undefined)
-        {
-            if(props.isMulti){
-                if(value){
+        if (val.label != undefined && val.value != undefined) {
+            if (props.isMulti) {
+                if (value) {
                     setValue([...value, val]);
                 } else {
-                    setValue([val])
+                    setValue([val]);
                 }
-            } else{
-                setValue(val)
+            } else {
+                setValue(val);
             }
         }
         //Refetch
         fetchOptions();
-    }
+    };
 
-    const label = props.label ? 
-        (   
-            <>
+    const label = props.label ? (
+        <>
             <div className="d-flex justify-content-between pb-1">
                 <label htmlFor={name}>{props.label}</label>
                 {props.tip && <TipButton title="Détails" />}
             </div>
             <TipPopOver />
-            </>
-        ) :
-        (<></>);
+        </>
+    ) : (
+        <></>
+    );
 
-    const select = props.isMulti ? 
-        (<Select2BaseMulti
+    const select = props.isMulti ? (
+        <Select2BaseMulti
             name={name}
             creatable={props.creatable}
             //createOptionFunction={props.createOptionFunction}
-            createOptionFunction={elem => displayModal({
-                name: elem
-            })}
+            createOptionFunction={(elem) =>
+                displayModal({
+                    name: elem,
+                })
+            }
             options={optionsList}
             inputValue={inputValue}
             inputValueSetter={setInputValue}
             value={value}
             valueSetter={setValue}
             onTouch={onTouch}
-        />):
-        (<Select2BaseSingle
+        />
+    ) : (
+        <Select2BaseSingle
             name={name}
             creatable={props.creatable}
             //createOptionFunction={props.createOptionFunction}
-            createOptionFunction={elem => displayModal({
-                name: elem
-            })}
-            
+            createOptionFunction={(elem) =>
+                displayModal({
+                    name: elem,
+                })
+            }
             options={optionsList}
             inputValue={inputValue}
             inputValueSetter={setInputValue}
             value={value}
             valueSetter={setValue}
             onTouch={onTouch}
-        />);
-
+        />
+    );
 
     const PersonModalForm = (
         <CreatePersonForm
-            initValues={ modalInitValues ?? {}}
+            initValues={modalInitValues ?? {}}
             /*onPositiveResponse={(response) => {
                     //Here could be a call back function to execute 
                     const optionCreated = ApiEntityModel.getSelectOption(response.data)
@@ -227,10 +215,10 @@ const Select2 = ({ name, formTools, ...props }) => {
             closeModal={() => closeModal}        
             */ //Commented because ApiEntityModel doesn't handle person yet since we don't use it at the moment
         />
-    )
+    );
     const OrganisationModalForm = (
         <CreateOrganisationForm
-            initValues={ modalInitValues ?? {}}
+            initValues={modalInitValues ?? {}}
             /*onPositiveResponse={(response) => {
                     //Here could be a call back function to execute 
                     const optionCreated = ApiEntityModel.getSelectOption(response.data)
@@ -242,26 +230,26 @@ const Select2 = ({ name, formTools, ...props }) => {
             closeModal={() => closeModal}        
             */ //Commented because ApiEntityModel doesn't handle organisation yet since we don't use it at the moment
         />
-    )
+    );
     const TaxonomyModalForm = (
         <CreateTaxonomyForm
             {...props}
-            name={name ?? ''}   //Prefilled value
-            initValues={ modalInitValues ?? {} }
+            name={name ?? ""} //Prefilled value
+            initValues={modalInitValues ?? {}}
             category={props.requestData?.category}
             allowedCategories={props.allowedCategories}
             onPositiveResponse={(response) => {
-                const optionCreated = ApiEntityModel.getSelectOption(response.data)
-                addSelectedValue(...optionCreated)
-                //Close the modal 
-                closeModal()
+                const optionCreated = ApiEntityModel.getSelectOption(response.data);
+                addSelectedValue(...optionCreated);
+                //Close the modal
+                closeModal();
             }}
             closeModal={() => closeModal}
         />
-    )
+    );
     const ProjectModalForm = (
         <CreateProjectForm
-            initValues={ modalInitValues ?? {}}
+            initValues={modalInitValues ?? {}}
             /*onPositiveResponse={(response) => {
                     //Here could be a call back function to execute 
                     const optionCreated = ApiEntityModel.getSelectOption(response.data)
@@ -272,47 +260,47 @@ const Select2 = ({ name, formTools, ...props }) => {
             }}
             closeModal={() => closeModal}        
             */ //Commented because ApiEntityModel doesn't handle project yet since we have no use for it at the moment
-        />    
-    )
+        />
+    );
     const EventModalForm = (
         <CreateEventForm
-            initValues={ modalInitValues ?? {}}
+            initValues={modalInitValues ?? {}}
             onPositiveResponse={(response) => {
-                    //Here could be a call back function to execute 
-                    const optionCreated = ApiEntityModel.getSelectOption(response.data)
-                    addSelectedValue(...optionCreated)
-                    //Close the modal 
-                    closeModal()
+                //Here could be a call back function to execute
+                const optionCreated = ApiEntityModel.getSelectOption(response.data);
+                addSelectedValue(...optionCreated);
+                //Close the modal
+                closeModal();
             }}
             closeModal={() => closeModal}
         />
-    )
+    );
     const PlaceModalForm = (
         <CreatePlaceForm
-            initValues={ modalInitValues ?? {}}
+            initValues={modalInitValues ?? {}}
             onPositiveResponse={(response) => {
-                    //Here could be a call back function to execute 
-                    const optionCreated = ApiEntityModel.getSelectOption(response.data)
-                    addSelectedValue(...optionCreated)
-                    //Close the modal 
-                    closeModal()
+                //Here could be a call back function to execute
+                const optionCreated = ApiEntityModel.getSelectOption(response.data);
+                addSelectedValue(...optionCreated);
+                //Close the modal
+                closeModal();
             }}
             closeModal={() => closeModal}
         />
-    )
+    );
     const EquipmentModalForm = (
         <CreateEquipmentForm
-            initValues={ modalInitValues ?? {}}
+            initValues={modalInitValues ?? {}}
             onPositiveResponse={(response) => {
-                //Here could be a call back function to execute 
-                const optionCreated = ApiEntityModel.getSelectOption(response.data)
-                addSelectedValue(...optionCreated)
-                //Close the modal 
-                closeModal()
+                //Here could be a call back function to execute
+                const optionCreated = ApiEntityModel.getSelectOption(response.data);
+                addSelectedValue(...optionCreated);
+                //Close the modal
+                closeModal();
             }}
             closeModal={() => closeModal}
         />
-    )
+    );
 
     const createModal = () => {
         const modals = new Map();
@@ -324,8 +312,8 @@ const Select2 = ({ name, formTools, ...props }) => {
         modals.set(TYPE_PLACE, PlaceModalForm);
         modals.set(TYPE_EQUIPMENT, EquipmentModalForm);
 
-        return modals.get(props.modalType)
-    }
+        return modals.get(props.modalType);
+    };
     const modalDescription = () => {
         const descriptions = new Map();
         descriptions.set(TYPE_PERSON, "La personne");
@@ -340,23 +328,23 @@ const Select2 = ({ name, formTools, ...props }) => {
             <header className={`d-flex justify-content-between align-items-start`}>
                 <div className="d-flex flex-column">
                     <b className="fs-5">Création : {lang[props.modalType]}</b>
-                    <p className="me-4">{descriptions.get(props.modalType)} que vous ajoutez sera directement intégré à votre formulaire.</p>
+                    <p className="me-4">
+                        {descriptions.get(props.modalType)} que vous ajoutez sera directement intégré à votre
+                        formulaire.
+                    </p>
                 </div>
-                <Button
-                    onClick={closeModal}
-                    className="btn-close"
-                >
+                <Button onClick={closeModal} className="btn-close">
                     &times;
                 </Button>
             </header>
-        )
-    }
+        );
+    };
 
     return (
         <>
-            {label} 
-            
-            <div 
+            {label}
+
+            <div
                 //tabIndex="0"  Would allow the complete field to be focused, not only the input. But that would alos make two focusable elements by field
                 data-testid="field-container"
                 className={`
@@ -365,9 +353,10 @@ const Select2 = ({ name, formTools, ...props }) => {
                 ${props.disabled ? "bg-greyBg" : ""}
                 ${props.formClassName && props.formClassName}
                 ${!currentState.isValid && currentState.isTouched && "control--invalid"}
-            `}>
-                    {select}
-                    <RequirementsBadges addUlPadding />
+            `}
+            >
+                {select}
+                <RequirementsBadges addUlPadding />
             </div>
 
             <Modal {...props}>
@@ -376,8 +365,6 @@ const Select2 = ({ name, formTools, ...props }) => {
             </Modal>
         </>
     );
-
-    
-}
+};
 
 export default Select2;
