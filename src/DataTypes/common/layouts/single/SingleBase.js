@@ -9,6 +9,8 @@ import { getTitle } from "@/DataTypes/MetaData/MetaTitle";
 import { removeTagsFromString } from "@/src/helpers/html";
 import PageMeta from "@/src/common/PageMeta/PageMeta";
 
+import QuickShare from "@/src/common/widgets/QuickShare/QuickShare";
+
 /**
  *
  * @param {React.Component} props.header
@@ -54,10 +56,11 @@ const SingleBase = (props) => {
                         {header || <SingleBaseHeader />}
                     </div>
                 </header>
-                {/* Breadcrumb section */}
-                {breadCrumb && (
-                    <div className="row pt-sm-4 mt-sm-4">
-                        <div className="col-12 pt-4 mt-4">
+
+                <div className="row pt-sm-4 mt-sm-4">
+                    {/* Breadcrumb section */}
+                    {breadCrumb && (
+                        <div className="col-8 pt-4 mt-4">
                             <Breadcrumbs
                                 className={"pt-4"}
                                 labels={breadCrumb.labels}
@@ -66,8 +69,13 @@ const SingleBase = (props) => {
                                 getHrefGenerator={breadCrumb.getHrefGenerator || undefined}
                             />
                         </div>
+                    )}
+
+                    <div className="col-4 pt-4 mt-4 d-flex align-items-center justify-content-end">
+                        <QuickShare model={model} />
                     </div>
-                )}
+                </div>
+
                 {/* FullWidthContent */}
                 <section className="row">
                     <div className="col-12">{fullWidthContent && fullWidthContent}</div>
@@ -84,18 +92,18 @@ const SingleBase = (props) => {
                 {/* Footer */}
                 {footer && <footer className="row">{footer}</footer>}
 
-                {/* Page bottom : CTA + progress */}
-                {singlePageBottom && (
-                    <section className={`${styles["full-width-container"]} position-relative bg-primary-lighter`}>
-                        <div className="container">
+                <section className={`${styles["full-width-container"]} position-relative bg-primary-lighter`}>
+                    <div className="container">
+                        {/* Page bottom : CTA + progress */}
+                        {singlePageBottom && (
                             <div className="row">
                                 <div className="d-flex justify-content-center align-items-center py-4">
                                     {singlePageBottom}
                                 </div>
                             </div>
-                        </div>
-                    </section>
-                )}
+                        )}
+                    </div>
+                </section>
             </div>
         </>
     );
