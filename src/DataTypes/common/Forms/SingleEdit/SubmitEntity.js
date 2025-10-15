@@ -4,20 +4,7 @@ import Icon from "@/common/widgets/Icon/Icon";
 import { lang } from "@/common/Data/GlobalConstants";
 
 const SubmitEntity = ({ children, className, submitHandler, formTools, singleLink }) => {
-
-    const formState = formTools.formState
-    //List to guide the user to the invalid inputs soo they can correct it before submiting
-    function mapInvalidInput() {
-        const invalidInputsList = [];
-
-        formTools.listInvalidInput().forEach((key, index) => {
-            const displayText = formState.inputs[key].invalidMsg ?? lang[key] ?? (key + " - invalide");
-            invalidInputsList.push(
-                <li key={`invalidInput-${key}-${index}`}>{lang.capitalize(displayText)}</li>
-            )
-        })
-        return invalidInputsList;
-    }
+  const formState = formTools.formState;
 
     return (
         <div className={` ${className || "w-50"}`}>

@@ -28,16 +28,6 @@ const SingleBaseCTA = ({
     saveIntentionSetter,
     ...props
 }) => {
-    function mapInvalidInput() {
-        const invalidInputsList = []
-
-        formTools.listInvalidInput().forEach((key, index) => {
-            const displayText = formTools.formState.inputs[key].invalidMsg ?? lang[key] ?? key + " - invalide"
-            invalidInputsList.push(<li key={`invalidInput-${key}-${index}`}>{lang.capitalize(displayText)}</li>)
-        })
-        return invalidInputsList
-    }
-
     function redirectHandler() {
         if (model._id != undefined) return model.singleLink
         return AppRoutes.contribute.asPath

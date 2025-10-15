@@ -7,6 +7,10 @@
 
 import { useCallback, useReducer } from 'react';
 
+import { lang } from '@/common/Data/GlobalConstants';
+
+import Icon from '@/common/widgets/Icon/Icon';
+
 const formReducer = (state, action) => {
 
     switch (action.type) {
@@ -160,6 +164,22 @@ export const useForm = (initialInputs) => {
             }
         })
         return invalidInputsList;
+  };
+
+  //List to guide the user to the invalid inputs soo they can correct it before submiting
+  function mapInvalidInput() {
+    const invalidInputsList = [];
+
+    formTools.listInvalidInput().forEach((key, index) => {
+      const displayText = formState.inputs[key].invalidMsg ?? lang[key] ?? key + ' - invalide';
+      invalidInputsList.push(
+        <li key={`invalidInput-${key}-${index}`}>
+          <Icon iconName="exclamation-triangle" /> {lang.capitalize(displayText)}
+        </li>
+      );
+    });
+
+    return <ul className="ps-3">{invalidInputsList}</ul>;
     }
 
     /* Regroup the form utils needed for the inputs */
@@ -169,8 +189,9 @@ export const useForm = (initialInputs) => {
         inputTouched: inputTouched,
         clearFormData: clearFormData,
         updateManyFields: updateManyFields,
-        listInvalidInput: listInvalidInput
-    }
+    listInvalidInput: listInvalidInput,
+    mapInvalidInput,
+  };
 
     return [formState, formTools, clearFormData, updateManyFields];
 };
