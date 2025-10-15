@@ -360,6 +360,7 @@ const PlaceSingleEdit = ({ positiveRequestActions, ...props }) => {
                 contentColumnRight={contentColumnRight}
                 singlePageBottom={SinglePageBottom}
                 footer={Footer}
+                model={model}
             />
             <modalSaveEntityReminder.Modal>
                 <SingleSaveEntityReminder
