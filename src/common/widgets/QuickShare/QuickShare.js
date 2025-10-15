@@ -41,7 +41,7 @@ const QuickShare = ({ model }) => {
             <span className="fs-6">Partager </span>
 
             <a
-                href={`https://facebook.com/sharer/sharer.php?u=${"avnu.ca" ?? model?.fullSingleLinkUrl}&quote=${shareableMailContent}`}
+                href={`https://facebook.com/sharer/sharer.php?u=${model?.fullSingleLinkUrl}&quote=${shareableMailContent}`}
                 target="_blank"
                 onClick={(e) => {
                     e.preventDefault();
