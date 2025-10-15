@@ -1,44 +1,42 @@
-import React, { useCallback, useContext, useEffect, useState } from 'react';
-import Router from 'next/router';
+import React, { useCallback, useContext, useEffect, useState } from "react"
+import Router from "next/router"
 
 //Context
-import { MessageContext } from '@/src/common/UserNotifications/Message/Context/Message-Context';
+import { MessageContext } from "@/src/common/UserNotifications/Message/Context/Message-Context"
 
 //Hooks
-import { useAuth } from '@/auth/context/auth-context';
-import { useFormUtils } from '@/src/hooks/useFormUtils/useFormUtils';
-import { useRootModal } from '@/src/hooks/useModal/useRootModal';
+import { useAuth } from "@/auth/context/auth-context"
+import { useFormUtils } from "@/src/hooks/useFormUtils/useFormUtils"
+import { useRootModal } from "@/src/hooks/useModal/useRootModal"
 
 //Component
-import Select2 from '@/src/common/FormElements/Select2/Select2';
-import Input from '@/src/common/FormElements/Input/Input';
-import RichTextarea from '@/src/common/FormElements/RichTextArea/RichTextarea';
-import Select from '@/src/common/FormElements/Select/Select';
-import { getDefaultUpdateEntityMeta } from "@/src/DataTypes/Meta/EntityMeta";
-import SingleBase from '@/src/DataTypes/common/layouts/single/SingleBase';
-import SingleBaseHeader from '@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseHeader';
-import SingleInfo from '@/src/DataTypes/common/layouts/SingleInfo/SingleInfo';
-import { SingleEntityMeta } from '@/src/DataTypes/Meta/components/SingleEntityMeta';
-import UpdateSkillGroup from '@/src/DataTypes/common/Forms/UpdateSkillGroup/UpdateSkillGroup';
-import UpdateTeams from '../UpdateTeams/UpdateTeams';
-import UpdateEquipment from '@/src/DataTypes/Equipment/components/layouts/UpdateEquipment/UpdateEquipment';
-import UpdateSocialHandles from '@/src/DataTypes/common/Forms/UpdateSocialHandles/UpdateSocialHandles';
-import SingleSaveEntityReminder from '@/src/DataTypes/common/layouts/SingleSaveEntityReminder/SingleSaveEntityReminder';
-import UpdateContactPoint from '@/src/DataTypes/common/Forms/UpdateContactPoint/UpdateContactPoint';
-import SubmitEntity from "@/DataTypes/common/Forms/SingleEdit/SubmitEntity";
-import SingleBaseCTA from '@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseCTA';
+import Select2 from "@/src/common/FormElements/Select2/Select2"
+import Input from "@/src/common/FormElements/Input/Input"
+import RichTextarea from "@/src/common/FormElements/RichTextArea/RichTextarea"
+import Select from "@/src/common/FormElements/Select/Select"
+import { getDefaultUpdateEntityMeta } from "@/src/DataTypes/Meta/EntityMeta"
+import SingleBase from "@/src/DataTypes/common/layouts/single/SingleBase"
+import SingleBaseHeader from "@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseHeader"
+import SingleInfo from "@/src/DataTypes/common/layouts/SingleInfo/SingleInfo"
+import { SingleEntityMeta } from "@/src/DataTypes/Meta/components/SingleEntityMeta"
+import UpdateSkillGroup from "@/src/DataTypes/common/Forms/UpdateSkillGroup/UpdateSkillGroup"
+import UpdateTeams from "../UpdateTeams/UpdateTeams"
+import UpdateEquipment from "@/src/DataTypes/Equipment/components/layouts/UpdateEquipment/UpdateEquipment"
+import UpdateSocialHandles from "@/src/DataTypes/common/Forms/UpdateSocialHandles/UpdateSocialHandles"
+import SingleSaveEntityReminder from "@/src/DataTypes/common/layouts/SingleSaveEntityReminder/SingleSaveEntityReminder"
+import UpdateContactPoint from "@/src/DataTypes/common/Forms/UpdateContactPoint/UpdateContactPoint"
+import SubmitEntity from "@/DataTypes/common/Forms/SingleEdit/SubmitEntity"
+import SingleBaseCTA from "@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseCTA"
 
 //Utils
-import SingleBeforeUnloadReminder from '@/src/DataTypes/common/layouts/SingleSaveEntityReminder/SingleBeforeUnloadReminder';
-import Organisation from '@/src/DataTypes/Organisation/models/Organisation';
-import { replacePathname } from "@/src/helpers/url";
-import { lang, modes } from "@/src/common/Data/GlobalConstants";
-import { TYPE_PLACE, TYPE_TAXONOMY } from '@/src/DataTypes/Entity/Types';
-import { apiDateToDateInput, dateTimeStringToUTC } from "@/common/DateManager/Parse";
+import SingleBeforeUnloadReminder from "@/src/DataTypes/common/layouts/SingleSaveEntityReminder/SingleBeforeUnloadReminder"
+import Organisation from "@/src/DataTypes/Organisation/models/Organisation"
+import { replacePathname } from "@/src/helpers/url"
+import { lang, modes } from "@/src/common/Data/GlobalConstants"
+import { TYPE_PLACE, TYPE_TAXONOMY } from "@/src/DataTypes/Entity/Types"
+import { apiDateToDateInput, dateTimeStringToUTC } from "@/common/DateManager/Parse"
 
-
-const OrganisationSingleEdit = (props) => {
-
+const OrganisationSingleEdit = props => {
     //Organisation data extract
     const {
         _id,
@@ -59,10 +57,10 @@ const OrganisationSingleEdit = (props) => {
         type,
         createdAt,
         updatedAt,
-    } = Object(props.data);
+    } = Object(props.data)
 
     //  Model de project
-    let model = new Organisation(props.data);
+    let model = new Organisation(props.data)
     /*
      *  1. Change the link getter in ctaHeaderSection components.
      *  1.1 Change the button save and visualize.
@@ -75,92 +73,82 @@ const OrganisationSingleEdit = (props) => {
 
     //  STATES change that to a context ?
 
-    const [currentMainImage, setCurrentMainImage] = useState(model.mainImage);
-    const [currentModel, setCurrentModel] = useState(model);
+    const [currentMainImage, setCurrentMainImage] = useState(model.mainImage)
+    const [currentModel, setCurrentModel] = useState(model)
 
-    const updateEntityModel = useCallback((rawData) => {
-        model = new Organisation(rawData);
-        setCurrentMainImage(model.mainImage);
-    }, [setCurrentModel]);
+    const updateEntityModel = useCallback(
+        rawData => {
+            model = new Organisation(rawData)
+            setCurrentMainImage(model.mainImage)
+        },
+        [setCurrentModel]
+    )
 
-    const updateModelMainImage = useCallback((mainImage) => {
-        setCurrentMainImage(mainImage);
-        model.mainImage = mainImage;
-        setCurrentModel(model);
-    }, [setCurrentModel]);
-
+    const updateModelMainImage = useCallback(
+        mainImage => {
+            setCurrentMainImage(mainImage)
+            model.mainImage = mainImage
+            setCurrentModel(model)
+        },
+        [setCurrentModel]
+    )
 
     const breadcrumbLabels = {
-        "contribuer": lang.menuContributeLabel,
-        "organisations": lang.Organisations,
-        "slug": `${model.name ?? '-'}`
-    };
+        contribuer: lang.menuContributeLabel,
+        organisations: lang.Organisations,
+        slug: `${model.name ?? "-"}`,
+    }
 
     const breadcrumbsRoutes = {
         route: model.singleEditRoute,
         labels: breadcrumbLabels,
     }
 
-    const [breadCrumb, setBreadCrumb] = useState(breadcrumbsRoutes);
+    const [breadCrumb, setBreadCrumb] = useState(breadcrumbsRoutes)
     useEffect(() => {
         setBreadCrumb(breadcrumbsRoutes)
-    }, [model.title]);
-
+    }, [model.title])
 
     //Modal hook
-    const modalSaveEntityReminder = useRootModal();
+    const modalSaveEntityReminder = useRootModal()
 
     //Import the authentication context to make sure the user is well connected
-    const auth = useAuth();
+    const auth = useAuth()
 
-    //Import message context 
-    const msg = useContext(MessageContext);
+    //Import message context
+    const msg = useContext(MessageContext)
 
     //Save intention for SingleBeforeUnloadReminder
-    const [saveIntentionState, setSaveIntentionState] = useState(false);
-
-    /*
-    First of all, verify if the user is logged in.
-    If he isn't, then redirect him in the connexion page
-    */
-    useEffect(() => {
-        if (!auth.user.isLoggedIn) {
-            msg.addMessage({
-                text: lang.needToBeConnectedToAccess,
-                positive: false
-            })
-            Router.push('/compte/connexion')
-        }
-    }, [auth.user.isLoggedIn]);
+    const [saveIntentionState, setSaveIntentionState] = useState(false)
 
     //Main form functionalities
     const { FormUI, submitRequest, formState, formTools } = useFormUtils(
         {
             name: {
-                value: name ?? '',
+                value: name ?? "",
                 isValid: false,
-                invalidMsg: "Nom de l'organisation"
+                invalidMsg: "Nom de l'organisation",
             },
             description: {
-                value: description ?? '',
-                isValid: true
+                value: description ?? "",
+                isValid: true,
             },
             url: {
                 value: url ?? [],
                 isValid: true,
-                invalidMsg: "Liens externes"
+                invalidMsg: "Liens externes",
             },
             contactPoint: {
                 value: contactPoint ?? { tel: { num: "", ext: "" }, email: { address: "" }, website: { url: "" } },
-                isValid: true
+                isValid: true,
             },
             fondationDate: {
                 value: fondationDate ? apiDateToDateInput(fondationDate) : "",
-                isValid: true
+                isValid: true,
             },
             catchphrase: {
-                value: catchphrase ?? '',
-                isValid: true
+                value: catchphrase ?? "",
+                isValid: true,
             },
             offers: {
                 value: offers ?? [],
@@ -169,36 +157,36 @@ const OrganisationSingleEdit = (props) => {
             },
             domains: {
                 value: domains ?? [],
-                isValid: true
+                isValid: true,
             },
             team: {
                 value: team ?? [],
-                isValid: true
+                isValid: true,
             },
             location: {
                 value: location ?? [],
-                isValid: true
+                isValid: true,
             },
             equipment: {
                 value: equipment ?? [],
-                isValid: true
+                isValid: true,
             },
             region: {
                 value: model.region ?? "",
-                isValid: true
-            }
-        }, {
-        displayResMessage: true,     //Display a message to the user to confirm the succes
-        callbackFunction: (response) => {
-            Router.push("/" + replacePathname(model.singleRoute.pathname, { slug: response.data.slug }))
+                isValid: true,
+            },
+        },
+        {
+            displayResMessage: true, //Display a message to the user to confirm the succes
+            callbackFunction: response => {
+                Router.push("/" + replacePathname(model.singleRoute.pathname, { slug: response.data.slug }))
+            },
         }
-
-    })
+    )
 
     //Function to submit the form
     const submitHandler = async event => {
-
-        event.preventDefault();
+        event.preventDefault()
 
         const formData = {
             data: {
@@ -208,7 +196,7 @@ const OrganisationSingleEdit = (props) => {
                     return {
                         label: singleUrl.value.label.value,
                         url: singleUrl.value.url.value,
-                        subMeta: { order: singleUrl.order }
+                        subMeta: { order: singleUrl.order },
                     }
                 }),
                 contactPoint: formState.inputs.contactPoint.value,
@@ -216,18 +204,21 @@ const OrganisationSingleEdit = (props) => {
                 offers: formState.inputs.offers.value.map(function (singleOffer) {
                     return {
                         groupName: singleOffer.value.groupName.value,
-                        skills: singleOffer.value.skills.value.map((skill) => { return skill.value }),
+                        skills: singleOffer.value.skills.value.map(skill => {
+                            return skill.value
+                        }),
                         subMeta: { order: singleOffer.order },
                     }
                 }),
                 catchphrase: formState.inputs.catchphrase.value,
-                domains: formState.inputs.domains?.value?.length > 0 ?
-                    formState.inputs.domains.value.map((elem) => {
-                        return {
-                            domain: elem.value,
-                        }
-                    })
-                    : [],
+                domains:
+                    formState.inputs.domains?.value?.length > 0
+                        ? formState.inputs.domains.value.map(elem => {
+                              return {
+                                  domain: elem.value,
+                              }
+                          })
+                        : [],
                 equipment: formState.inputs.equipment.value.map(elem => {
                     return {
                         equipment: elem.value.equipment.value.value,
@@ -242,30 +233,22 @@ const OrganisationSingleEdit = (props) => {
                         subMeta: { order: singleTeam.order },
                     }
                 }),
-                location: formState.inputs.location?.value?.length > 0 ?
-                    formState.inputs.location.value.map(function (singlePlace) {
-                        return singlePlace.value
-                    })
-                    : [],
+                location:
+                    formState.inputs.location?.value?.length > 0
+                        ? formState.inputs.location.value.map(function (singlePlace) {
+                              return singlePlace.value
+                          })
+                        : [],
                 region: formState.inputs.region.value,
-                meta: getDefaultUpdateEntityMeta(auth.user, model.meta.requestedBy)
-            }
-        };
+                meta: getDefaultUpdateEntityMeta(auth.user, model.meta.requestedBy),
+            },
+        }
 
         if (_id !== undefined) {
-            formData.data.id = _id;
-            submitRequest(
-                `/organisations/update`,
-                'POST',
-                JSON.stringify(formData)
-            );
-        }
-        else {
-            submitRequest(
-                `/organisations/create`,
-                'POST',
-                JSON.stringify(formData)
-            )
+            formData.data.id = _id
+            submitRequest(`/organisations/update`, "POST", JSON.stringify(formData))
+        } else {
+            submitRequest(`/organisations/create`, "POST", JSON.stringify(formData))
         }
     }
 
@@ -279,11 +262,10 @@ const OrganisationSingleEdit = (props) => {
             placeholder="Nom de l'organisation"
             label={"Nom de l'organisation" + lang.required}
             formClassName="discrete-without-focus form-text-white"
-            validationRules={[
-                { name: "REQUIRED" }
-            ]}
+            validationRules={[{ name: "REQUIRED" }]}
             formTools={formTools}
-        />);
+        />
+    )
 
     const subtitle = (
         <Input
@@ -291,7 +273,8 @@ const OrganisationSingleEdit = (props) => {
             formClassName="discrete-without-focus form-text-white"
             label={lang.catchphrase}
             formTools={formTools}
-        />);
+        />
+    )
 
     const ctaSection = (
         <SingleBaseCTA
@@ -314,27 +297,17 @@ const OrganisationSingleEdit = (props) => {
             mode={modes.CONTRIBUTING}
             ctaSection={ctaSection}
         />
-    );
+    )
 
     const fullWidthContent = (
-        <SingleInfo
-            title={lang.about}
-            classNameTitle="mb-0"
-            noCardLayout
-        >
-            <RichTextarea
-                className="py-3"
-                name="description"
-                formTools={formTools}
-            />
+        <SingleInfo title={lang.about} classNameTitle="mb-0" noCardLayout>
+            <RichTextarea className="py-3" name="description" formTools={formTools} />
         </SingleInfo>
-    );
+    )
 
     const contentColumnLeft = (
         <>
-            <SingleInfo
-                title={lang.organisationOffer}
-            >
+            <SingleInfo title={lang.organisationOffer}>
                 <UpdateSkillGroup
                     parentEntity={props.data}
                     formTools={formTools}
@@ -344,37 +317,21 @@ const OrganisationSingleEdit = (props) => {
                 />
             </SingleInfo>
 
-            { /* team */}
-            <SingleInfo
-                title="Membres de l'équipe"
-            >
-                <UpdateTeams
-                    name="team"
-                    formTools={formTools}
-                    parentEntity={props.data}
-                />
+            {/* team */}
+            <SingleInfo title="Membres de l'équipe">
+                <UpdateTeams name="team" formTools={formTools} parentEntity={props.data} />
             </SingleInfo>
-            { /* Equipment */}
-            <SingleInfo
-                title={lang.EquipmentsOwned}
-            >
-                <UpdateEquipment
-                    name="equipment"
-                    formTools={formTools}
-                    parentEntity={props.data}
-                />
+            {/* Equipment */}
+            <SingleInfo title={lang.EquipmentsOwned}>
+                <UpdateEquipment name="equipment" formTools={formTools} parentEntity={props.data} />
             </SingleInfo>
         </>
-    );
+    )
 
     const contentColumnRight = (
         <>
             <SingleInfo title={lang.contactInformations}>
-                <UpdateContactPoint
-                    formTools={formTools}
-                    name="contactPoint"
-                    model={model}
-                />
+                <UpdateContactPoint formTools={formTools} name="contactPoint" model={model} />
             </SingleInfo>
 
             <SingleInfo title="Informations supplémentaires">
@@ -383,19 +340,17 @@ const OrganisationSingleEdit = (props) => {
                     label="Faites-vous partie du Croissant boréal?"
                     formTools={formTools}
                     noValueText="Choisissez une région"
-                    tip={
-                        {
-                            header: "Badge",
-                            body: "Ce champs permet d'obtenir le badge 'Croissant boréal' qui indique que vous faites partie de celui-ci."
-                        }
-                    }
+                    tip={{
+                        header: "Badge",
+                        body: "Ce champs permet d'obtenir le badge 'Croissant boréal' qui indique que vous faites partie de celui-ci.",
+                    }}
                     options={[
                         { label: "Autre", value: "other" },
                         { label: "Abitibi-Témiscamingue", value: "abitibi-temiscamingue" },
                         { label: "Nord de l'Ontario", value: "north Ontario" },
-                        { label: "Baies-James", value: "baies-james" }
+                        { label: "Baies-James", value: "baies-james" },
                     ]}
-                //defaultValue="Autre"
+                    //defaultValue="Autre"
                 />
                 <Select2
                     name="location"
@@ -404,10 +359,9 @@ const OrganisationSingleEdit = (props) => {
                     creatable={true}
                     modalType={TYPE_PLACE}
                     isMulti={true}
-
                     fetch={"/places/list"}
                     searchField={["address", "name"]}
-                //selectField={"address"}
+                    //selectField={"address"}
                 />
 
                 <Select2
@@ -418,7 +372,6 @@ const OrganisationSingleEdit = (props) => {
                     modalType={TYPE_TAXONOMY}
                     allowedCategories={["domains"]}
                     isMulti={true}
-
                     placeholder={lang.domainsInputPlaceholder}
                     fetch={"/taxonomies/list"}
                     requestData={{ category: "domains", name: "" }}
@@ -426,58 +379,37 @@ const OrganisationSingleEdit = (props) => {
                     selectField={"domains"}
                 />
 
-                <Input
-                    name="fondationDate"
-                    label="Date de fondation"
-                    type="date"
-                    formTools={formTools}
-                />
+                <Input name="fondationDate" label="Date de fondation" type="date" formTools={formTools} />
 
-                <SingleInfo
-                    title={lang.externalLinks}
-                    isSubtitle
-                    noCardLayout
-                >
-                    { /* Url */}
-                    <UpdateSocialHandles
-                        name="url"
-                        label={lang.url}
-                        parentEntity={model}
-                        formTools={formTools}
-                    />
+                <SingleInfo title={lang.externalLinks} isSubtitle noCardLayout>
+                    {/* Url */}
+                    <UpdateSocialHandles name="url" label={lang.url} parentEntity={model} formTools={formTools} />
                 </SingleInfo>
             </SingleInfo>
         </>
-
-    );
+    )
 
     const Footer = (
         <>
-            {
-                (createdAt || updatedAt || meta) &&
-                <SingleInfo
-                    title={lang.entityMetadata}
-                    className="pt-3"
-                >
+            {(createdAt || updatedAt || meta) && (
+                <SingleInfo title={lang.entityMetadata} className="pt-3">
                     {/*********** Entity data ***********/}
                     <SingleEntityMeta createdAt={createdAt} updatedAt={updatedAt} meta={meta} />
                 </SingleInfo>
-            }
+            )}
         </>
     )
-
 
     const SinglePageBottom = (
         <SubmitEntity
             submitHandler={() => {
-                setSaveIntentionState(true);
+                setSaveIntentionState(true)
                 modalSaveEntityReminder.displayModal()
             }}
             formTools={formTools}
             singleLink={model.singleLink}
         />
     )
-
 
     return (
         <>
@@ -495,11 +427,13 @@ const OrganisationSingleEdit = (props) => {
             <modalSaveEntityReminder.Modal>
                 <SingleSaveEntityReminder
                     submitHandler={submitHandler}
-                    closeModal={() => { modalSaveEntityReminder.closeModal(); setSaveIntentionState(false) }}
+                    closeModal={() => {
+                        modalSaveEntityReminder.closeModal()
+                        setSaveIntentionState(false)
+                    }}
                 />
             </modalSaveEntityReminder.Modal>
         </>
     )
-
 }
-export default OrganisationSingleEdit 
+export default OrganisationSingleEdit

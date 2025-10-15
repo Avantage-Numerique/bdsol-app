@@ -1,77 +1,67 @@
-import React, { useCallback, useContext, useEffect, useState } from "react";
-import Router from "next/router";
+import React, { useCallback, useContext, useEffect, useState } from "react"
+import Router from "next/router"
 
 //Utils
-import Place from "../../../models/Place";
-import { lang, modes } from "@/src/common/Data/GlobalConstants";
-import { getDefaultUpdateEntityMeta } from "@/src/DataTypes/Meta/EntityMeta";
-import { replacePathname } from "@/src/helpers/url";
+import Place from "../../../models/Place"
+import { lang, modes } from "@/src/common/Data/GlobalConstants"
+import { getDefaultUpdateEntityMeta } from "@/src/DataTypes/Meta/EntityMeta"
+import { replacePathname } from "@/src/helpers/url"
 
 //hooks
-import { MessageContext } from "@/src/common/UserNotifications/Message/Context/Message-Context";
-import { useFormUtils } from "@/src/hooks/useFormUtils/useFormUtils";
-import { useAuth } from "@/src/authentification/context/auth-context";
-import { useRootModal } from '@/src/hooks/useModal/useRootModal';
+import { MessageContext } from "@/src/common/UserNotifications/Message/Context/Message-Context"
+import { useFormUtils } from "@/src/hooks/useFormUtils/useFormUtils"
+import { useAuth } from "@/src/authentification/context/auth-context"
+import { useRootModal } from "@/src/hooks/useModal/useRootModal"
 
 //Components
-import SingleBase from "@/src/DataTypes/common/layouts/single/SingleBase";
-import SingleBaseHeader from "@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseHeader";
-import SubmitEntity from "@/src/DataTypes/common/Forms/SingleEdit/SubmitEntity";
-import { SingleEntityMeta } from '@/src/DataTypes/Meta/components/SingleEntityMeta';
-import Input from "@/src/common/FormElements/Input/Input";
-import RichTextarea from "@/src/common/FormElements/RichTextArea/RichTextarea";
-import SingleInfo from "@/DataTypes/common/layouts/SingleInfo/SingleInfo";
-import SingleSaveEntityReminder from '@/src/DataTypes/common/layouts/SingleSaveEntityReminder/SingleSaveEntityReminder';
-import SingleBeforeUnloadReminder from "@/src/DataTypes/common/layouts/SingleSaveEntityReminder/SingleBeforeUnloadReminder";
-import SingleBaseCTA from "@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseCTA";
+import SingleBase from "@/src/DataTypes/common/layouts/single/SingleBase"
+import SingleBaseHeader from "@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseHeader"
+import SubmitEntity from "@/src/DataTypes/common/Forms/SingleEdit/SubmitEntity"
+import { SingleEntityMeta } from "@/src/DataTypes/Meta/components/SingleEntityMeta"
+import Input from "@/src/common/FormElements/Input/Input"
+import RichTextarea from "@/src/common/FormElements/RichTextArea/RichTextarea"
+import SingleInfo from "@/DataTypes/common/layouts/SingleInfo/SingleInfo"
+import SingleSaveEntityReminder from "@/src/DataTypes/common/layouts/SingleSaveEntityReminder/SingleSaveEntityReminder"
+import SingleBeforeUnloadReminder from "@/src/DataTypes/common/layouts/SingleSaveEntityReminder/SingleBeforeUnloadReminder"
+import SingleBaseCTA from "@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseCTA"
 
 const PlaceSingleEdit = ({ positiveRequestActions, ...props }) => {
-
-    let model = new Place(props.data);
+    let model = new Place(props.data)
 
     //Extract data
-    const {
-        createdAt,
-        updatedAt,
-        meta
-    } = props.data;
+    const { createdAt, updatedAt, meta } = props.data
 
     //Import the authentication context to make sure the user is well connected
-    const auth = useAuth();
+    const auth = useAuth()
 
-    //Import message context 
-    const msg = useContext(MessageContext);
+    //Import message context
+    const msg = useContext(MessageContext)
 
     //Save intention for SingleBeforeUnloadReminder
-    const [saveIntentionState, setSaveIntentionState] = useState(false);
+    const [saveIntentionState, setSaveIntentionState] = useState(false)
 
-    const [currentMainImage, setCurrentMainImage] = useState(model.mainImage);
-    const [currentModel, setCurrentModel] = useState(model);
+    const [currentMainImage, setCurrentMainImage] = useState(model.mainImage)
+    const [currentModel, setCurrentModel] = useState(model)
 
-    const updateEntityModel = useCallback((rawData) => {
-        model = new Place(rawData);
-        setCurrentMainImage(model.mainImage);
-    }, [setCurrentModel]);
+    const updateEntityModel = useCallback(
+        rawData => {
+            model = new Place(rawData)
+            setCurrentMainImage(model.mainImage)
+        },
+        [setCurrentModel]
+    )
 
-    const updateModelMainImage = useCallback((mainImage) => {
-        setCurrentMainImage(mainImage);
-        model.mainImage = mainImage;
-        setCurrentModel(model);
-    }, [setCurrentModel]);
-
-    //Auth logged in
-    useEffect(() => {
-        if (!auth.user.isLoggedIn) {
-            msg.addMessage({
-                text: lang.needToBeConnectedToAccess,
-                positive: false
-            })
-            Router.push('/compte/connexion')
-        }
-    }, [auth.user.isLoggedIn]);
+    const updateModelMainImage = useCallback(
+        mainImage => {
+            setCurrentMainImage(mainImage)
+            model.mainImage = mainImage
+            setCurrentModel(model)
+        },
+        [setCurrentModel]
+    )
 
     //Modal hook
-    const modalSaveEntityReminder = useRootModal();
+    const modalSaveEntityReminder = useRootModal()
 
     const { FormUI, submitRequest, formState, formTools } = useFormUtils(
         {
@@ -123,19 +113,18 @@ const PlaceSingleEdit = ({ positiveRequestActions, ...props }) => {
         //Pass a set of rules to execute a valid response of an api request
         {
             displayResMessage: true,
-            callbackFunction: (response) => {
+            callbackFunction: response => {
                 Router.push("/" + replacePathname(model.singleRoute.pathname, { slug: response.data.slug }))
-            }
+            },
         }
-    );
+    )
 
     //Function to submit the form
     const submitHandler = async event => {
-
-        event.preventDefault();
+        event.preventDefault()
 
         const formData = {
-            "data": {
+            data: {
                 id: model._id,
                 name: formState.inputs.name.value,
                 description: formState.inputs.description.value,
@@ -148,35 +137,29 @@ const PlaceSingleEdit = ({ positiveRequestActions, ...props }) => {
                 country: formState.inputs.country.value,
                 latitude: formState.inputs.latitude.value,
                 longitude: formState.inputs.longitude.value,
-                meta: getDefaultUpdateEntityMeta(auth.user, model.meta.requestedBy)
-            }
-        };
+                meta: getDefaultUpdateEntityMeta(auth.user, model.meta.requestedBy),
+            },
+        }
 
         //Send the request with the specialized hook
-        submitRequest(
-            `/places/update`,
-            'POST',
-            formData
-        );
+        submitRequest(`/places/update`, "POST", formData)
     }
 
-
     const breadcrumbLabels = {
-        "contribuer": lang.menuContributeLabel,
-        "lieux": lang.Places,
-        "slug": model.name ?? '-'
-    };
+        contribuer: lang.menuContributeLabel,
+        lieux: lang.Places,
+        slug: model.name ?? "-",
+    }
 
     const breadcrumbsRoutes = {
         route: model.singleEditRoute,
         labels: breadcrumbLabels,
     }
 
-    const [breadCrumb, setBreadCrumb] = useState(breadcrumbsRoutes);
+    const [breadCrumb, setBreadCrumb] = useState(breadcrumbsRoutes)
     useEffect(() => {
         setBreadCrumb(breadcrumbsRoutes)
-    }, [model.title]);
-
+    }, [model.title])
 
     const title = (
         <>
@@ -184,13 +167,11 @@ const PlaceSingleEdit = ({ positiveRequestActions, ...props }) => {
                 name="name"
                 label={lang.name + lang.required}
                 formClassName="discrete-without-focus form-text-white h2"
-                validationRules={[
-                    { name: "REQUIRED" }
-                ]}
+                validationRules={[{ name: "REQUIRED" }]}
                 formTools={formTools}
             />
         </>
-    );
+    )
 
     const ctaSection = (
         <SingleBaseCTA
@@ -212,26 +193,18 @@ const PlaceSingleEdit = ({ positiveRequestActions, ...props }) => {
             entity={model}
             mode={modes.CONTRIBUTING}
             ctaSection={ctaSection}
-        >
-        </SingleBaseHeader>
-    );
+        ></SingleBaseHeader>
+    )
 
     const fullWidthContent = (
-        <SingleInfo
-            title={lang.about}
-        >
+        <SingleInfo title={lang.about}>
             {/* Description */}
-            <RichTextarea
-                name="description"
-                formTools={formTools}
-            />
+            <RichTextarea name="description" formTools={formTools} />
         </SingleInfo>
     )
     const contentColumnLeft = (
         <>
-            <SingleInfo
-                title="Coordonnées"
-            >
+            <SingleInfo title="Coordonnées">
                 {/* address */}
                 <Input
                     className="mb-3"
@@ -273,7 +246,6 @@ const PlaceSingleEdit = ({ positiveRequestActions, ...props }) => {
                     formTools={formTools}
                 />
             </SingleInfo>
-
         </>
     )
     const contentColumnRight = (
@@ -312,32 +284,33 @@ const PlaceSingleEdit = ({ positiveRequestActions, ...props }) => {
             />
         </SingleInfo>
     )
-    {/*********** Footer section ***********/ }
+    {
+        /*********** Footer section ***********/
+    }
     const Footer = (
         <>
-            {
-                (createdAt || updatedAt || meta) &&
-                <SingleInfo
-                    title={lang.entityMetadata}
-                    className="pt-3"
-                >
+            {(createdAt || updatedAt || meta) && (
+                <SingleInfo title={lang.entityMetadata} className="pt-3">
                     {/*********** Entity data ***********/}
                     <SingleEntityMeta createdAt={createdAt} updatedAt={updatedAt} meta={meta} />
                 </SingleInfo>
-            }
+            )}
         </>
     )
 
-    {/*********** Submit section ***********/ }
+    {
+        /*********** Submit section ***********/
+    }
     const SinglePageBottom = (
         <SubmitEntity
-            submitHandler={() => {setSaveIntentionState(true);
-                modalSaveEntityReminder.displayModal()}}
+            submitHandler={() => {
+                setSaveIntentionState(true)
+                modalSaveEntityReminder.displayModal()
+            }}
             formState={formState}
             singleLink={model.singleLink}
         />
     )
-
 
     return (
         <>
@@ -354,10 +327,13 @@ const PlaceSingleEdit = ({ positiveRequestActions, ...props }) => {
             <modalSaveEntityReminder.Modal>
                 <SingleSaveEntityReminder
                     submitHandler={submitHandler}
-                    closeModal={() => { modalSaveEntityReminder.closeModal(); setSaveIntentionState(false) }}
+                    closeModal={() => {
+                        modalSaveEntityReminder.closeModal()
+                        setSaveIntentionState(false)
+                    }}
                 />
             </modalSaveEntityReminder.Modal>
         </>
     )
 }
-export default PlaceSingleEdit;
+export default PlaceSingleEdit

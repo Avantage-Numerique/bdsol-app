@@ -7,7 +7,7 @@ import Icon from "@/src/common/widgets/Icon/Icon"
 import { lang } from "@/src/common/Data/GlobalConstants"
 
 //Hooks
-import { useRouter } from "next/router"
+import AppRoutes from "@/src/Routing/AppRoutes"
 import { useFieldTips } from "@/src/hooks/useFieldTips/useFieldTips"
 
 /**
@@ -28,9 +28,6 @@ const SingleBaseCTA = ({
     saveIntentionSetter,
     ...props
 }) => {
-    //Router
-    const router = useRouter()
-
     function mapInvalidInput() {
         const invalidInputsList = []
 
@@ -39,6 +36,11 @@ const SingleBaseCTA = ({
             invalidInputsList.push(<li key={`invalidInput-${key}-${index}`}>{lang.capitalize(displayText)}</li>)
         })
         return invalidInputsList
+    }
+
+    function redirectHandler() {
+        if (model._id != undefined) return model.singleLink
+        return AppRoutes.contribute.asPath
     }
 
     //Return edit mode
@@ -89,7 +91,7 @@ const SingleBaseCTA = ({
                             <Icon iconName={"save"} />
                             &nbsp;{lang.capitalize("save")}
                         </Button>
-                        <Button className="fs-6" size="slim" color="primary-light" href={model.singleLink}>
+                        <Button className="fs-6" size="slim" color="primary-light" href={redirectHandler()}>
                             <Icon iconName={"times"} />
                             &nbsp;{lang.Cancel}
                         </Button>
@@ -110,10 +112,7 @@ const SingleBaseCTA = ({
             className="position-relative flex-grow-1 d-flex align-items-center"
         >
             <div className="d-flex justify-content-end w-100">
-                <Button
-                    className={`btn-contribute shadow d-block`}
-                    href={model.singleEditLink + `?redirect=${encodeURI(router.asPath)}`}
-                >
+                <Button className={`btn-contribute shadow d-block`} href={model.singleEditLink}>
                     {lang.contributeButtonLabel}
                 </Button>
             </div>
