@@ -35,15 +35,8 @@ const SingleBaseCTA = ({
         const invalidInputsList = []
 
         formTools.listInvalidInput().forEach((key, index) => {
-            const displayText =
-                formTools.formState.inputs[key].invalidMsg ??
-                lang[key] ??
-                key + " - invalide"
-            invalidInputsList.push(
-                <li key={`invalidInput-${key}-${index}`}>
-                    {lang.capitalize(displayText)}
-                </li>
-            )
+            const displayText = formTools.formState.inputs[key].invalidMsg ?? lang[key] ?? key + " - invalide"
+            invalidInputsList.push(<li key={`invalidInput-${key}-${index}`}>{lang.capitalize(displayText)}</li>)
         })
         return invalidInputsList
     }
@@ -96,12 +89,7 @@ const SingleBaseCTA = ({
                             <Icon iconName={"save"} />
                             &nbsp;{lang.capitalize("save")}
                         </Button>
-                        <Button
-                            className="fs-6"
-                            size="slim"
-                            color="primary-light"
-                            href={model.singleLink}
-                        >
+                        <Button className="fs-6" size="slim" color="primary-light" href={model.singleLink}>
                             <Icon iconName={"times"} />
                             &nbsp;{lang.Cancel}
                         </Button>
@@ -124,10 +112,7 @@ const SingleBaseCTA = ({
             <div className="d-flex justify-content-end w-100">
                 <Button
                     className={`btn-contribute shadow d-block`}
-                    href={
-                        model.singleEditLink +
-                        `?redirect=${encodeURI(router.asPath)}`
-                    }
+                    href={model.singleEditLink + `?redirect=${encodeURI(router.asPath)}`}
                 >
                     {lang.contributeButtonLabel}
                 </Button>
