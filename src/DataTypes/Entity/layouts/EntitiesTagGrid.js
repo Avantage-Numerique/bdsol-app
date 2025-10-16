@@ -74,33 +74,26 @@ const EntitiesTagGrid = (
                     const type = typeof forcedType === "string" ? forcedType : entityType; //forced type can be use if the data doesn't contain the types.
 
                     const model = getModelFromType(type, rawData);
-
                     if (model) {
                         //Crawler for finding the field or subfield
-                        let tag = subTagProperty;
-                        if (tag !== undefined && typeof tag === "string" && tag !== "") {
-                            if (tag.split(".").length > 1) {
-                                let fieldPath = tag.split(".");
-                                let tempTag = model;
-                                fieldPath.forEach((elem) => {
-                                    tempTag = tempTag?.[elem] ?? model; //if the sub property doesn't exist, pass back the root object to get property from it. //fixed bug when location.address is passed, and location is the same
-                                });
-                                model.tag = tempTag;
-                            } else model.tag = tag ? entity[tag] : "";
+                        if(subTagProperty !== undefined && typeof subTagProperty === "string" && subTagProperty !== ""){
+                            let fieldPath = subTagProperty.split(".");
+                            let tagValue = entity;
+                            let isTagValueValid = true;
+                            fieldPath.forEach( elem => {
+                                if(tagValue?.[elem] == undefined)
+                                    isTagValueValid = false;
+                                else
+                                    tagValue = tagValue?.[elem];
+                            });
+                            model.tag = isTagValueValid ? tagValue : "";
                         }
                         const TagComponent = model.tagComponent;
                         return (
-                            <li
-                                className={`d-flex flex-wrap justify-content-start ${!regularFlexWrapping && colContainerClass} pb-4`}
-                                key={getKeyString("container", model, index)}
-                            >
-                                <TagComponent
-                                    model={model}
-                                    key={getKeyString("tag", model, index)}
-                                    className={"w-100"}
-                                />
+                            <li className={`d-flex flex-wrap justify-content-start ${!regularFlexWrapping && colContainerClass} pb-4`} key={getKeyString("container", model, index)}>
+                                <TagComponent model={model} key={getKeyString("tag", model, index)} className={"w-100"} />
                             </li>
-                        );
+                        )
                     }
                     //If the model isn't valid on complet. It happen when a model isn't populated.
                     console.error(lang.modelNotValid, rawData); //this is legit console log. Don't remove it unless you found a better way to handle this case <3
