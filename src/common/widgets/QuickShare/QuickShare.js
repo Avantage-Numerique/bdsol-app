@@ -13,15 +13,22 @@ import Icon from "@/common/widgets/Icon/Icon";
 const QuickShare = ({ model }) => {
     const msg = useContext(MessageContext);
 
-    const shareableTextContent = `${lang.shareableTextIntro}\n\n${model?.meta.title}\n\n${model.meta.description}\n\n${model?.fullSingleLinkUrl}\n\n`;
+    const shortTextContent = `${lang.shareableTextIntro}\n\n${model?.fullSingleLinkUrl}\n\n`;
+    const shortURLEncodedContent = encodeURIComponent(shortTextContent);
 
-    const shareableMailContent = encodeURIComponent(shareableTextContent);
+    const longTextContent = `${lang.shareableTextIntro}\n\n${model?.meta.title}\n\n${model.meta.description}\n\n${model?.fullSingleLinkUrl}\n\n`;
+    const longURLEncodedContent = encodeURIComponent(longTextContent);
 
     let [copied, setCopied] = useState(false);
     let copiedTimer;
 
-    const copyToClipboard = () => {
-        navigator.clipboard.writeText(shareableTextContent);
+    /**
+     * Copy provided text to clipboard, or `longTextContent` as a fallback
+     *
+     * @param {string} textToCopy
+     */
+    const copyToClipboard = (textToCopy) => {
+        navigator.clipboard.writeText(textToCopy ?? longTextContent);
         msg.addMessage({
             text: lang.copied,
             positive: true,
@@ -61,15 +68,16 @@ const QuickShare = ({ model }) => {
                 Partager <Icon className="fs-4" iconName={copied ? "clipboard-check" : "link"} />
             </button>
 
+            {/* The `quote` param of the facebook `sharer.php` URL is **probably not** taken into account */}
             <a
-                href={`https://facebook.com/sharer/sharer.php?u=${model?.fullSingleLinkUrl}&quote=${shareableMailContent}`}
+                href={`https://facebook.com/sharer/sharer.php?u=${model?.fullSingleLinkUrl}&quote=${shortURLEncodedContent}`}
                 target="_blank"
                 onClick={(e) => {
                     e.preventDefault();
 
                     const href = e.currentTarget.href;
 
-                    copyToClipboard();
+                    copyToClipboard(shortTextContent);
 
                     hintFbCopied();
 
@@ -81,7 +89,7 @@ const QuickShare = ({ model }) => {
                 <Icon iconName={fbCopied ? "clipboard-check" : "facebook-f"} vendor={fbCopied ? null : "lab"} />
             </a>
 
-            <a href={`mailto:?subject=AVNU - ${model?.meta.title}&body=${shareableMailContent}`}>
+            <a href={`mailto:?subject=AVNU - ${model?.meta.title}&body=${longURLEncodedContent}`}>
                 <Icon iconName="envelope" />
             </a>
         </div>
