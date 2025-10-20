@@ -4,6 +4,8 @@ const messages = {
     formHasError: "Le(s) champs suivant vous empêche de sauvegarder vos modifications :",
     disconnected: "Vous êtes maintenant déconnecté.",
     listNoResult: "Aucune entité, peut-être que notre petit canard fait une sieste.",
+    copied: "Message copié!",
+    shareableTextIntro: "Salut, j'avais envie de te partager cette page que j'ai trouvé sur AVNU.CA!",
 };
 
 exports.messages = messages;

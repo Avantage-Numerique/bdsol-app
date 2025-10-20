@@ -1,6 +1,8 @@
 import { useContext, useState } from "react";
 import { MessageContext } from "@/common/UserNotifications/Message/Context/Message-Context";
 
+import { lang } from "@/common/Data/GlobalConstants";
+
 import Icon from "@/common/widgets/Icon/Icon";
 
 /**
@@ -11,9 +13,7 @@ import Icon from "@/common/widgets/Icon/Icon";
 const QuickShare = ({ model }) => {
     const msg = useContext(MessageContext);
 
-    const intro = "Salut, j'avais envie de te partager cette page que j'ai trouvé sur AVNU.CA!";
-
-    const shareableTextContent = `${intro}\n\n${model?.meta.title}\n\n${model.meta.description}\n\n${model?.fullSingleLinkUrl}\n\n`;
+    const shareableTextContent = `${lang.shareableTextIntro}\n\n${model?.meta.title}\n\n${model.meta.description}\n\n${model?.fullSingleLinkUrl}\n\n`;
 
     const shareableMailContent = encodeURIComponent(shareableTextContent);
 
@@ -23,7 +23,7 @@ const QuickShare = ({ model }) => {
     const copyToClipboard = () => {
         navigator.clipboard.writeText(shareableTextContent);
         msg.addMessage({
-            text: "Message copié!",
+            text: lang.copied,
             positive: true,
         });
     };
