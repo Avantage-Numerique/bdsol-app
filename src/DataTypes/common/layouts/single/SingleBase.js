@@ -92,24 +92,18 @@ const SingleBase = (props) => {
                 {/* Footer */}
                 {footer && <footer className="row">{footer}</footer>}
 
-                <section className={`${styles["full-width-container"]} position-relative bg-primary-lighter`}>
-                    <div className="container">
-                        <div className="row">
-                            <div className="d-flex justify-content-center mt-4">
-                                <QuickShare model={model} />
-                            </div>
-                        </div>
-
-                        {/* Page bottom : CTA + progress */}
-                        {singlePageBottom && (
+                {/* Page bottom : CTA + progress */}
+                {singlePageBottom && (
+                    <section className={`${styles["full-width-container"]} position-relative bg-primary-lighter`}>
+                        <div className="container">
                             <div className="row">
                                 <div className="d-flex justify-content-center align-items-center py-4">
                                     {singlePageBottom}
                                 </div>
                             </div>
-                        )}
-                    </div>
-                </section>
+                        </div>
+                    </section>
+                )}
             </div>
         </>
     );
