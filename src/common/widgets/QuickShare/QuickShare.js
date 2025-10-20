@@ -36,6 +36,17 @@ const QuickShare = ({ model }) => {
         }, 1500);
     };
 
+    let [fbCopied, setFbCopied] = useState(false);
+    let fbCopiedTimer;
+
+    const hintFbCopied = () => {
+        fbCopiedTimer && clearTimeout(fbCopiedTimer);
+        setFbCopied(true);
+        fbCopiedTimer = setTimeout(() => {
+            setFbCopied(false);
+        }, 1500);
+    };
+
     return (
         <div className="border border-primary rounded-pill fs-4 px-3 py-1 d-flex gap-2 align-items-center">
             <span
@@ -71,12 +82,14 @@ const QuickShare = ({ model }) => {
 
                     copyToClipboard();
 
+                    hintFbCopied();
+
                     setTimeout(() => {
                         window.open(href, "_blank").focus();
                     }, 1000);
                 }}
             >
-                <Icon iconName="facebook-f" vendor="lab" />
+                <Icon iconName={fbCopied ? "clipboard-check" : "facebook-f"} vendor={fbCopied ? null : "lab"} />
             </a>
 
             <a href={`mailto:?subject=AVNU - ${model?.meta.title}&body=${shareableMailContent}`}>
