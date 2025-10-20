@@ -38,7 +38,28 @@ const QuickShare = ({ model }) => {
 
     return (
         <div className="border border-primary rounded-pill fs-4 px-3 py-1 d-flex gap-2 align-items-center">
-            <span className="fs-6">Partager </span>
+            <span
+                style={{ cursor: "pointer" }}
+                onClick={(e) => {
+                    copyToClipboard();
+
+                    hintCopied();
+                }}
+                className="fs-6"
+            >
+                Partager{" "}
+            </span>
+
+            <button
+                type="button"
+                onClick={(e) => {
+                    copyToClipboard();
+
+                    hintCopied();
+                }}
+            >
+                <Icon iconName={copied ? "clipboard-check" : "link"} />
+            </button>
 
             <a
                 href={`https://facebook.com/sharer/sharer.php?u=${model?.fullSingleLinkUrl}&quote=${shareableMailContent}`}
@@ -57,17 +78,6 @@ const QuickShare = ({ model }) => {
             >
                 <Icon iconName="facebook-f" vendor="lab" />
             </a>
-
-            <button
-                type="button"
-                onClick={(e) => {
-                    copyToClipboard();
-
-                    hintCopied();
-                }}
-            >
-                <Icon iconName={copied ? "clipboard-check" : "link"} />
-            </button>
 
             <a href={`mailto:?subject=AVNU - ${model?.meta.title}&body=${shareableMailContent}`}>
                 <Icon iconName="envelope" />
