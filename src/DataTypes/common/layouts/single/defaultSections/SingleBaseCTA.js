@@ -60,7 +60,7 @@ const SingleBaseCTA = ({
           <div className="d-flex flex-wrap align-items-center justify-content-between gap-2 gap-md-3 gap-lg-4">
             {!formTools.formState.isValid && (
               <span className="bg-white border border-warning rounded-pill lh-1 align-middle d-flex align-items-center p-1 ps-3">
-                {lang.invalidForm} <TipButton />
+                <TipButton icon="exclamation-circle" label={lang.invalidForm} />
               </span>
             )}
 
