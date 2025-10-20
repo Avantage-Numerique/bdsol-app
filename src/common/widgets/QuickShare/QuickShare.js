@@ -49,19 +49,8 @@ const QuickShare = ({ model }) => {
 
     return (
         <div className="border border-primary rounded-pill fs-4 px-3 py-1 d-flex gap-2 align-items-center">
-            <span
-                style={{ cursor: "pointer" }}
-                onClick={(e) => {
-                    copyToClipboard();
-
-                    hintCopied();
-                }}
-                className="fs-6"
-            >
-                Partager{" "}
-            </span>
-
             <button
+                className="d-flex gap-2 align-items-center fs-6"
                 type="button"
                 onClick={(e) => {
                     copyToClipboard();
@@ -69,7 +58,7 @@ const QuickShare = ({ model }) => {
                     hintCopied();
                 }}
             >
-                <Icon iconName={copied ? "clipboard-check" : "link"} />
+                Partager <Icon className="fs-4" iconName={copied ? "clipboard-check" : "link"} />
             </button>
 
             <a
