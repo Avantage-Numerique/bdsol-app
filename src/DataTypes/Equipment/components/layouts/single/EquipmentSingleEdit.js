@@ -281,6 +281,7 @@ const EquipmentSingleEdit = ({ positiveRequestActions, ...props }) => {
                 footer={footer}
                 singlePageBottom={SinglePageBottom}
                 model={model}
+                editMode
             />
             <modalSaveEntityReminder.Modal>
                 <SingleSaveEntityReminder

@@ -361,6 +361,7 @@ const PlaceSingleEdit = ({ positiveRequestActions, ...props }) => {
                 singlePageBottom={SinglePageBottom}
                 footer={Footer}
                 model={model}
+                editMode
             />
             <modalSaveEntityReminder.Modal>
                 <SingleSaveEntityReminder

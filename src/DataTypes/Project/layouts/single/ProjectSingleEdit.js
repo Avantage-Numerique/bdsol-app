@@ -537,6 +537,7 @@ const ProjectSingleEdit = (props) => {
                 singlePageBottom={SinglePageBottom}
                 footer={Footer}
                 model={model}
+                editMode
             />
             <modalSaveEntityReminder.Modal>
                 <SingleSaveEntityReminder
