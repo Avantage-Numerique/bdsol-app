@@ -29,7 +29,6 @@ import AppRoutes from '@/src/Routing/AppRoutes'
 import MainNavButton from "@/layouts/Navigation/MainNav/MainNavButton";
 import SearchBar from "@/common/Components/SearchBar";
 import { getCleanRedirectPath } from '@/src/helpers/getCleanRedirectPath'
-import { LocaleRouteNormalizer } from 'next/dist/server/future/normalizers/locale-route-normalizer'
 
 const Nav = ( {menuState, setMenuState} ) => {
 

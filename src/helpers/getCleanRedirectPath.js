@@ -1,5 +1,4 @@
 export function getCleanRedirectPath(currentPath) {
-    console.log("current path", currentPath)
     try {
         const url = new URL(currentPath, process.env.APP_URL);
         const pathname = url.pathname;
