@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import styles from "./Message.module.scss";
 
-const Message = ({ children, positiveReview, clean }) => {
+const Message = ({ children, theme, position = 1, clean }) => {
     /*
         children : contains the main message to be displayed
         positiveReview : contains the type of message : positive of negative (bool)
@@ -11,8 +11,11 @@ const Message = ({ children, positiveReview, clean }) => {
     const [active, setActive] = useState(true);
     const [hideProperty, setHideProperty] = useState(false);
 
+    const msgRef = useRef(null);
+
     const hideElement = () => {
         if (!hideProperty) setHideProperty(true);
+
         setTimeout(() => {
             setActive(false);
             clean();
@@ -21,18 +24,23 @@ const Message = ({ children, positiveReview, clean }) => {
     };
 
     useEffect(() => {
+        // Changes CSS variable after component renders
+        msgRef.current.style.setProperty("--toasting-position", `${100 * position}%`);
         setTimeout(() => {
             hideElement();
         }, 8000);
-    }, []);
+    }, [position]); // Re-runs when color changes
 
     return (
         <>
             {active && children && (
                 <aside
-                    className={`${styles["message-component"]} ${positiveReview && styles.positiveReview} ${!hideProperty && styles.display} ${hideProperty && styles.hide}`}
+                    ref={msgRef}
+                    className={`${styles["message-component"]} ${styles[theme]} ${!hideProperty ? styles["show-message"] : styles["hide-message"]}`}
                 >
-                    <p className="beige">{children}</p>
+                    <p className="beige">
+                        {position} {children}
+                    </p>
 
                     <div
                         onClick={() => {

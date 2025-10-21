@@ -7,10 +7,9 @@
 
 import { createContext, useRef } from "react";
 import Head from "next/head";
-import sanitizedString from "@/src/utils/SanitizedString";
 
 //Context
-import MessageProvider from "@/src/common/UserNotifications/Message/MessageProvider";
+import { useMessages } from "@/src/common/UserNotifications/Message/MessageProvider";
 
 //components
 import Footer from "@/layouts/Footer/Footer";
@@ -25,6 +24,7 @@ import { useRouter } from "next/router";
 import nextConfig from "@/next.config";
 import { templates, templatesEnum } from "@/layouts/Templates/TemplatesEnum";
 import { usePathname } from "next/navigation";
+import Message from "@/common/UserNotifications/Message/Message";
 
 export const ModalContext = createContext({});
 
@@ -36,7 +36,7 @@ const Layout = ({ children, pageProps }) => {
     const { modalTools } = useModalController(modalContainer);
 
     //message list
-    //const [messages, setMessages] = useState([]);
+    const { messages, setMessages } = useMessages();
 
     /* Return the current time number. Used to create unique Id to each message based on the time they were send */
     /*const getCurrentTime = () => {
@@ -126,11 +126,26 @@ const Layout = ({ children, pageProps }) => {
 
                 {/* Defining contextes to be passed along children */}
                 <ModalContext.Provider value={{ modalTools: modalTools }}>
-                    <MessageProvider>
-                        <currentTemplate.Component {...currentTemplate.props}>{children}</currentTemplate.Component>
-                    </MessageProvider>
+                    <currentTemplate.Component {...currentTemplate.props}>{children}</currentTemplate.Component>
                 </ModalContext.Provider>
                 <Footer />
+
+                {messages && (
+                    <div className={`${styles["message-section"]}`}>
+                        {messages.map((message, index) => (
+                            <Message
+                                key={"toast-message-" + message.creationTime}
+                                theme={message.theme}
+                                position={index + 1}
+                                clean={() => {
+                                    setMessages((prevState) => prevState.filter((i) => i !== message));
+                                }}
+                            >
+                                {message.text}
+                            </Message>
+                        ))}
+                    </div>
+                )}
 
                 {/* Afficher le modal */}
                 <div ref={modalContainer} id="modal-rot">

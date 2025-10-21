@@ -1,46 +1,38 @@
-import { createContext, useCallback, useContext, useState } from "react";
+import { createContext, useContext, useState } from "react";
 import { currentTime } from "@/src/helpers/dates";
-import styles from "@/layouts/Layout.module.scss";
-import Message from "@/common/UserNotifications/Message/Message";
 
 export const MessageContext = createContext(undefined);
 
+/**
+ * Manage the toat message of the application from within the provider and used outside with the useMessages().
+ * @param children
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const MessageProvider = ({ children }) => {
     //message list
     const [messages, setMessages] = useState([]);
 
-    const addMessage = useCallback((newMessage) => {
-        setMessages([
-            ...messages,
-            {
-                text: newMessage,
-                creationTime: currentTime(),
-            },
-        ]);
-    }, []);
+    const addMessage = (newMessage) => {
+        console.log("addMessage", messages);
+        const messagesQueue = [...messages];
+        messagesQueue.push({
+            text: newMessage.text ?? newMessage,
+            theme: newMessage.theme ?? "positive",
+            creationTime: currentTime(),
+        });
+        setMessages(messagesQueue);
 
-    return (
-        <MessageContext.Provider value={{ addMessage, messages, setMessages }}>
-            {children}
-            {messages && (
-                <div className={`${styles["message-section"]}`}>
-                    {messages.map((message) => (
-                        <Message
-                            key={"toast-message-" + message.creationTime}
-                            positiveReview={message.positive}
-                            clean={() => {
-                                setMessages((prevState) => prevState.filter((i) => i !== message));
-                            }}
-                        >
-                            {message.text}
-                        </Message>
-                    ))}
-                </div>
-            )}
-        </MessageContext.Provider>
-    );
+        console.log("addMessage", messages);
+    };
+
+    return <MessageContext.Provider value={{ addMessage, messages, setMessages }}>{children}</MessageContext.Provider>;
 };
 
+/**
+ * Hook to use the message Context.
+ * @returns {*}
+ */
 const useMessages = () => {
     const context = useContext(MessageContext);
     if (!context) {

@@ -10,11 +10,12 @@
     /* Message section */
     .message-section {
         position: fixed;
-        top: 0px;
-        right: 0px;
+        top: 0;
+        right: 0;
         display: flex;
         flex-direction: column;
         z-index: $zindex-tooltip;
+        pointer-events: none;
     }
 
     .main-container-min-height {

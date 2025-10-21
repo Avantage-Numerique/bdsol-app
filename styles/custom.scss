@@ -65,12 +65,14 @@ $darken_red: darken($red, 10%);
 $green: #aad287;
 $lighten_green: lighten($green, 10%);
 $darken_green: darken($green, 10%);
+$success: $green;
 
 $green-accepted: $darken_green;
 $red-rejected: $red;
 $occupations: $secondary_7;
 $skills: $darken_green;
 $domains: $red;
+$danger: $red;
 
 $selected-input: $secondary_7;
 

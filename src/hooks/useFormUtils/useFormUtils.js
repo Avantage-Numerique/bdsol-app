@@ -4,7 +4,7 @@
         Note that the form state itself is controled by form-Hook file
 */
 
-import React, { useCallback, useContext, useState } from "react";
+import React, { useCallback, useState } from "react";
 import Router from "next/router";
 
 //components
@@ -13,7 +13,7 @@ import Spinner from "@/src/common/widgets/spinner/Spinner";
 //Custom hooks
 import { useHttpClient } from "../http-hook";
 import { useForm } from "../form-hook";
-import { MessageContext } from "@/src/common/UserNotifications/Message/Context/Message-Context";
+import { useMessages } from "@/common/UserNotifications/Message/MessageProvider";
 
 //Form UI styling
 import styles from "./formUI.module.scss";
@@ -105,7 +105,7 @@ export const useFormUtils = (initialState, actions) => {
     };
 
     //Import message context
-    const msg = useContext(MessageContext);
+    const msg = useMessages(); //useContext(MessageContext);
 
     const FormUI = useCallback(
         ({ fixedSpinner }) => {
