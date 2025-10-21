@@ -2,7 +2,8 @@ import React, { useCallback, useContext, useEffect, useState } from "react";
 import Router from "next/router";
 
 //Context
-import { MessageContext } from "@/src/common/UserNotifications/Message/Context/Message-Context";
+//import { MessageContext } from "@/src/common/UserNotifications/Message/Context/Message-Context";
+import { MessageContext } from "@/src/common/UserNotifications/Message/MessageProvider";
 
 //Hooks
 import { useAuth } from "@/auth/context/auth-context";

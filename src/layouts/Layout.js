@@ -5,17 +5,16 @@
 
 */
 
-import { createContext, useEffect, useRef, useState } from "react";
+import { createContext, useRef } from "react";
 import Head from "next/head";
 import sanitizedString from "@/src/utils/SanitizedString";
 
 //Context
-import { MessageContext } from "@/src/common/UserNotifications/Message/Context/Message-Context";
+import MessageProvider from "@/src/common/UserNotifications/Message/MessageProvider";
 
 //components
 import Footer from "@/layouts/Footer/Footer";
 import Header from "@/layouts/Header/Header";
-import Message from "@/src/common/UserNotifications/Message/Message";
 
 //Styling
 import styles from "./Layout.module.scss";
@@ -37,13 +36,13 @@ const Layout = ({ children, pageProps }) => {
     const { modalTools } = useModalController(modalContainer);
 
     //message list
-    const [messages, setMessages] = useState([]);
+    //const [messages, setMessages] = useState([]);
 
     /* Return the current time number. Used to create unique Id to each message based on the time they were send */
-    const getCurrentTime = () => {
+    /*const getCurrentTime = () => {
         const d = new Date();
         return d.getTime();
-    };
+    };*/
 
     // TEMPLATE Selection, set the tempalte vars in getStaticProps from the templatesEnum
     const currentTemplate = pageProps.template
@@ -51,7 +50,7 @@ const Layout = ({ children, pageProps }) => {
         : templates.get(templatesEnum.DEFAULT);
 
     //Metthod called from other components to update the state
-    const addMessage = (newMessage) => {
+    /*const addMessage = (newMessage) => {
         setMessages([
             ...messages,
             {
@@ -59,7 +58,7 @@ const Layout = ({ children, pageProps }) => {
                 creationTime: getCurrentTime(),
             },
         ]);
-    };
+    };*/
 
     const metaAssetsPath = (asset, addVersion = true) => {
         const assetsVersions = nextConfig.env.VERSION;
@@ -71,7 +70,7 @@ const Layout = ({ children, pageProps }) => {
     const router = useRouter();
     const pathname = usePathname();
 
-    useEffect(() => {
+    /*useEffect(() => {
         if (router.query?.msg && router.query?.msg !== "") {
             const positive = router.query?.msgPositive === "true";
             setMessages([
@@ -90,7 +89,7 @@ const Layout = ({ children, pageProps }) => {
                 shallow: true,
             });
         }
-    }, [router.query]);
+    }, [router.query]);*/
 
     return (
         <>
@@ -127,27 +126,11 @@ const Layout = ({ children, pageProps }) => {
 
                 {/* Defining contextes to be passed along children */}
                 <ModalContext.Provider value={{ modalTools: modalTools }}>
-                    <currentTemplate.Component {...currentTemplate.props}>
-                        <MessageContext.Provider value={{ addMessage: addMessage }}>{children}</MessageContext.Provider>
-                    </currentTemplate.Component>
+                    <MessageProvider>
+                        <currentTemplate.Component {...currentTemplate.props}>{children}</currentTemplate.Component>
+                    </MessageProvider>
                 </ModalContext.Provider>
                 <Footer />
-
-                {/* Section where the common messages and alerts to the user are made */}
-                <div className={`${styles["message-section"]}`}>
-                    {/* Display the messages */}
-                    {messages.map((message) => (
-                        <Message
-                            key={"toast-message-" + message.creationTime}
-                            positiveReview={message.positive}
-                            clean={() => {
-                                setMessages((prevState) => prevState.filter((i) => i !== message));
-                            }}
-                        >
-                            {message.text}
-                        </Message>
-                    ))}
-                </div>
 
                 {/* Afficher le modal */}
                 <div ref={modalContainer} id="modal-rot">
