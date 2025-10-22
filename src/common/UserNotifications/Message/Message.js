@@ -2,6 +2,15 @@ import { useEffect, useRef, useState } from "react";
 
 import styles from "./Message.module.scss";
 
+/**
+ * 1 toast message JSX Component. Stay up for 8000 ms, and we can hide it.
+ * @param children
+ * @param theme
+ * @param position
+ * @param clean
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const Message = ({ children, theme, position = 1, clean }) => {
     /*
         children : contains the main message to be displayed
