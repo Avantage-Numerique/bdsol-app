@@ -4,10 +4,11 @@ import styles from "./Message.module.scss";
 
 /**
  * 1 toast message JSX Component. Stay up for 8000 ms, and we can hide it.
- * @param children
- * @param theme
- * @param position
- * @param clean
+ * @type {MessageComponent}
+ * @param {JSX.Element} children
+ * @param {'positive'|'negative'|'primary'|'secondary'} theme to show bg color of the toast message (default : positive)
+ * @param {number} position
+ * @param {function} clean
  * @returns {JSX.Element}
  * @constructor
  */

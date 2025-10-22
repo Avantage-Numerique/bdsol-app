@@ -123,8 +123,8 @@ const VerifyAccount = (props) => {
         if (!router.isReady) return; // wait for router
         const { token } = router.query;
         setIsLoading(true);
-        //Sends request to verifyAccount
 
+        //Sends request to verifyAccount
         verifyToken(token);
     }, [router.isReady]);
 
