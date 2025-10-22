@@ -2,10 +2,18 @@ import React from "react";
 
 import styles from "./AuthenticationMessage.module.scss";
 
+/**
+ * DRY componenent used to fill a content area in a page.
+ * @param header
+ * @param message
+ * @param Added_content
+ * @returns {JSXElement}
+ * @constructor
+ */
 const AuthenticationMessage = ({ header, message, Added_content }) => {
     return (
         <article
-            className={`header-less-page bg-primary-lighter rounded form-box-shadow ${styles.authenticationMessage}`}
+            className={`header-less-page bg-primary-lighter rounded my-5 form-box-shadow ${styles.authenticationMessage}`}
         >
             <header className="">
                 <h2 className="text-dark-light mb-4">{header}</h2>

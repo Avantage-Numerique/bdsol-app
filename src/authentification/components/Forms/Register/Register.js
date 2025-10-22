@@ -121,7 +121,7 @@ const Register = () => {
                 if (!registerRes.error) {
                     msg.addMessage({
                         text: "Soumission de création de compte effectuée",
-                        theme: "negative",
+                        theme: "positive",
                     });
                 }
             } else {
@@ -197,26 +197,10 @@ const Register = () => {
                     formTools={formTools}
                 />
 
-                <div className="py-2 row form-check flex-nowrap d-flex no-wrap">
-                    <input
-                        readOnly
-                        className="form-check-input col-4"
-                        role="button"
-                        type="checkbox"
-                        onClick={() => {
-                            setIsTOSAccepted(!isTOSAccepted);
-                        }}
-                        checked={isTOSAccepted}
-                    />
-                    <span className="form-check-label col-8">
-                        {lang.agreeTo} <RouteLink target="_blank" routeName={"termOfUse"} />
-                    </span>
-                </div>
-
                 <div className={"form-check w-100 py-3"}>
                     <input
                         readOnly
-                        className="form-check-input"
+                        className="form-check-input mt-0 me-2"
                         role="button"
                         type="checkbox"
                         onClick={() => {
