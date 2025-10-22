@@ -5,17 +5,15 @@
 
 */
 
-import { createContext, useEffect, useRef, useState } from "react";
+import { createContext, useEffect, useRef } from "react";
 import Head from "next/head";
-import sanitizedString from "@/src/utils/SanitizedString";
 
 //Context
-import { MessageContext } from "@/src/common/UserNotifications/Message/Context/Message-Context";
+import { useMessages } from "@/src/common/UserNotifications/Message/MessageProvider";
 
 //components
 import Footer from "@/layouts/Footer/Footer";
 import Header from "@/layouts/Header/Header";
-import Message from "@/src/common/UserNotifications/Message/Message";
 
 //Styling
 import styles from "./Layout.module.scss";
@@ -26,6 +24,9 @@ import { useRouter } from "next/router";
 import nextConfig from "@/next.config";
 import { templates, templatesEnum } from "@/layouts/Templates/TemplatesEnum";
 import { usePathname } from "next/navigation";
+import Message from "@/common/UserNotifications/Message/Message";
+import sanitizedString from "@/src/utils/SanitizedString";
+import { currentTime } from "@/src/helpers/dates";
 
 export const ModalContext = createContext({});
 
@@ -37,29 +38,12 @@ const Layout = ({ children, pageProps }) => {
     const { modalTools } = useModalController(modalContainer);
 
     //message list
-    const [messages, setMessages] = useState([]);
-
-    /* Return the current time number. Used to create unique Id to each message based on the time they were send */
-    const getCurrentTime = () => {
-        const d = new Date();
-        return d.getTime();
-    };
+    const { messages, setMessages } = useMessages();
 
     // TEMPLATE Selection, set the tempalte vars in getStaticProps from the templatesEnum
     const currentTemplate = pageProps.template
         ? templates.get(pageProps.template)
         : templates.get(templatesEnum.DEFAULT);
-
-    //Metthod called from other components to update the state
-    const addMessage = (newMessage) => {
-        setMessages([
-            ...messages,
-            {
-                ...newMessage,
-                creationTime: getCurrentTime(),
-            },
-        ]);
-    };
 
     const metaAssetsPath = (asset, addVersion = true) => {
         const assetsVersions = nextConfig.env.VERSION;
@@ -79,7 +63,7 @@ const Layout = ({ children, pageProps }) => {
                 {
                     positive: positive,
                     text: sanitizedString(router.query.msg),
-                    creationTime: getCurrentTime(),
+                    creationTime: currentTime(),
                 },
             ]);
 
@@ -127,27 +111,26 @@ const Layout = ({ children, pageProps }) => {
 
                 {/* Defining contextes to be passed along children */}
                 <ModalContext.Provider value={{ modalTools: modalTools }}>
-                    <currentTemplate.Component {...currentTemplate.props}>
-                        <MessageContext.Provider value={{ addMessage: addMessage }}>{children}</MessageContext.Provider>
-                    </currentTemplate.Component>
+                    <currentTemplate.Component {...currentTemplate.props}>{children}</currentTemplate.Component>
                 </ModalContext.Provider>
                 <Footer />
 
-                {/* Section where the common messages and alerts to the user are made */}
-                <div className={`${styles["message-section"]}`}>
-                    {/* Display the messages */}
-                    {messages.map((message) => (
-                        <Message
-                            key={"toast-message-" + message.creationTime}
-                            positiveReview={message.positive}
-                            clean={() => {
-                                setMessages((prevState) => prevState.filter((i) => i !== message));
-                            }}
-                        >
-                            {message.text}
-                        </Message>
-                    ))}
-                </div>
+                {messages && (
+                    <div className={`${styles["message-section"]}`}>
+                        {messages.map((message, index) => (
+                            <Message
+                                key={"toast-message-" + message.creationTime}
+                                theme={message.theme}
+                                position={index + 1}
+                                clean={() => {
+                                    setMessages((prevState) => prevState.filter((i) => i !== message));
+                                }}
+                            >
+                                {message.text}
+                            </Message>
+                        ))}
+                    </div>
+                )}
 
                 {/* Afficher le modal */}
                 <div ref={modalContainer} id="modal-rot">

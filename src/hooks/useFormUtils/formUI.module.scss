@@ -2,20 +2,18 @@
 .data-form-message {
     margin-bottom: 1rem;
     padding: 1rem;
-    background: rgb(221, 92, 92);
-    background: linear-gradient(150deg, rgba(221, 92, 92, 1) 37%, rgba(214, 159, 159, 1) 100%);
+    background: $lighten_red;
+    background: linear-gradient(100deg, $lighten_red 62%, $danger 100%);
 
-    -webkit-transform: translateY(-3rem);
     transform: translateY(-3rem);
     opacity: 0;
 
-    -webkit-animation: slide-fwd-bottom 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
-    animation: slide-fwd-bottom 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+    border-radius: $border-radius;
+    animation: slide-fwd-bottom 1s $toast-easing both;
 }
 
 @-webkit-keyframes slide-fwd-bottom {
     0% {
-        -webkit-transform: translateY(-3rem);
         transform: translateY(-3rem);
         opacity: 0;
     }
@@ -24,14 +22,12 @@
         opacity: 0;
     }
     100% {
-        -webkit-transform: translateY(0rem);
         transform: translateY(0rem);
         opacity: 1;
     }
 }
 @keyframes slide-fwd-bottom {
     0% {
-        -webkit-transform: translateY(-3rem);
         transform: translateY(-3rem);
         opacity: 0;
     }
@@ -39,7 +35,6 @@
         opacity: 0;
     }
     100% {
-        -webkit-transform: translateY(0rem);
         transform: translateY(0rem);
         opacity: 1;
     }

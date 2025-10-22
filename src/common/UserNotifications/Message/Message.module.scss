@@ -1,40 +1,54 @@
 .message-component {
-    --messageColor: rgb(216, 62, 62);
+    --messageColor: #{$red};
+    --toasting-duration: 700ms;
+    --toasting-animation-curve: #{$toast-easing};
+    --toasting-position: 1;
+    --toasting--from-position: -100%;
 
-    &.positiveReview {
-        --messageColor: rgb(91, 110, 91);
+    &.positive {
+        --messageColor: #{$success};
+    }
+
+    &.negative {
+        --messageColor: #{$danger};
+    }
+
+    &.info {
+        --messageColor: #{$info};
+    }
+    &.warning {
+        --messageColor: #{$warning};
+    }
+    &.primary {
+        --messageColor: #{$primary};
+    }
+    &.secondary {
+        --messageColor: #{$secondary};
     }
 
     margin-top: 2.5vw;
     margin-right: 2.5vw;
-    width: 20rem;
     width: min(20rem, 95vw);
-    box-shadow:
-        0 4px 8px 0 rgba(0, 0, 0, 0.2),
-        0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    box-shadow: $default-box-shadow-over;
     background-color: var(--messageColor);
     padding: 2rem;
+    border-radius: $border-radius;
     z-index: 1000;
-    color: white;
+    color: $body-color;
+    pointer-events: auto;
+
+    @include transition();
 
     p {
-        margin: 0px;
+        margin: 0;
     }
 
-    &.display {
-        -webkit-animation: display 1s ease forwards normal;
-        -moz-animation: display 1s ease forwards normal;
-        -o-animation: display 1s ease forwards normal;
-        -ms-transition: display 1s ease forwards normal;
-        animation: display 1s ease forwards normal;
+    &.show-message {
+        animation: show var(--toasting-duration) var(--toasting-animation-curve) forwards;
     }
 
-    &.hide {
-        -webkit-animation: hide 1s ease forwards normal;
-        -moz-animation: hide 1s ease forwards normal;
-        -o-animation: hide 1s ease forwards normal;
-        -ms-transition: hide 1s ease forwards normal;
-        animation: hide 1s ease forwards normal;
+    &.hide-message {
+        animation: hide var(--toasting-duration) var(--toasting-animation-curve) forwards;
     }
 
     .xbutton {
@@ -43,7 +57,7 @@
         right: -0.5rem;
         font-weight: 900;
         font-size: 1rem;
-        background-color: rgb(255, 255, 255);
+        background-color: $white;
         border-radius: 1rem;
         padding: 0.25rem;
         height: 2rem;
@@ -52,114 +66,48 @@
         color: var(--messageColor);
         cursor: pointer;
     }
-}
 
-@-webkit-keyframes display {
-    0% {
-        opacity: 0;
-        -webkit-transform: translate3d(0, -100%, 0); /* Safari & Chrome */
+    @keyframes show {
+        from {
+            opacity: 0;
+            transform: translateY(-100%);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
     }
-    100% {
-        opacity: 1;
-        -webkit-transform: translate3d(0, 0, 0); /* Safari & Chrome */
-    }
-}
 
-@-moz-keyframes display {
-    0% {
-        opacity: 0;
-        -moz-transform: translate3d(0, -100%, 0); /* Firefox */
-    }
-    100% {
-        opacity: 1;
-        -moz-transform: translate3d(0, 0, 0); /* Firefox */
-    }
-}
+    @keyframes hide {
+        from {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        to {
+            opacity: 0;
+            transform: translateY(-100%);
+        }
+    } /*
 
-@-o-keyframes display {
-    0% {
-        opacity: 0;
-        -o-transform: translate3d(0, -100%, 0); /* Opera */
+    @keyframes show {
+        from {
+            opacity: 0;
+            transform: translateY(calc(var(--toasting-position) * -100%));
+        }
+        to {
+            opacity: 1;
+            transform: translateY(calc(var(--toasting-position) * 100%));
+        }
     }
-    100% {
-        opacity: 1;
-        -o-transform: translate3d(0, 0, 0); /* Opera */
-    }
-}
 
-@-ms-keyframes display {
-    0% {
-        opacity: 0;
-        -ms-transform: translate3d(0, -100%, 0); /* Internet Explorer */
-    }
-    100% {
-        opacity: 1;
-        -ms-transform: translate3d(0, 0, 0); /* Internet Explorer */
-    }
-}
-
-@keyframes display {
-    0% {
-        opacity: 0;
-        transform: translate3d(0, -100%, 0);
-    }
-    100% {
-        opacity: 1;
-        transform: translate3d(0, 0, 0);
-    }
-}
-
-@-webkit-keyframes hide {
-    0% {
-        opacity: 1;
-        -webkit-transform: translate3d(0, 0, 0); /* Safari & Chrome */
-    }
-    100% {
-        opacity: 0;
-        -webkit-transform: translate3d(0, -100%, 0); /* Safari & Chrome */
-    }
-}
-
-@-moz-keyframes hide {
-    0% {
-        opacity: 1;
-        -moz-transform: translate3d(0, 0, 0); /* Firefox */
-    }
-    100% {
-        opacity: 0;
-        -moz-transform: translate3d(0, -100%, 0); /* Firefox */
-    }
-}
-
-@-o-keyframes hide {
-    0% {
-        opacity: 1;
-        -o-transform: translate3d(0, 0, 0); /* Opera */
-    }
-    100% {
-        opacity: 0;
-        -o-transform: translate3d(0, -100%, 0); /* Opera */
-    }
-}
-
-@-ms-keyframes hide {
-    0% {
-        opacity: 1;
-        -ms-transform: translate3d(0, 0, 0); /* Internet Explorer */
-    }
-    100% {
-        opacity: 0;
-        -ms-transform: translate3d(0, -100%, 0); /* Internet Explorer */
-    }
-}
-
-@keyframes hide {
-    0% {
-        opacity: 1;
-        transform: translate3d(0, 0, 0);
-    }
-    100% {
-        opacity: 0;
-        transform: translate3d(0, -100%, 0);
-    }
+    @keyframes hide {
+        from {
+            opacity: 1;
+            transform: translateY(calc(var(--toasting-position) * 100%));
+        }
+        to {
+            opacity: 0;
+            transform: translateY(calc(var(--toasting-position) * -100%));
+        }
+    }*/
 }

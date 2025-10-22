@@ -17,7 +17,7 @@ import { ssrCanAccess } from "@/auth/permissions/ssrCanAccess";
 import PageHeader from "@/layouts/Header/PageHeader";
 import { lang } from "@/common/Data/GlobalConstants";
 
-const accountPage = ({ user }) => {
+const AccountPage = ({ user }) => {
     //Access logout function
     const { logout } = useSessionHook();
 
@@ -126,4 +126,4 @@ const accountPage = ({ user }) => {
 
 export const getServerSideProps = withSessionSsr(ssrCanAccess);
 
-export default accountPage;
+export default AccountPage;

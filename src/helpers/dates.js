@@ -29,4 +29,13 @@ const formatDate = (dateObject, format = lang.dateFormat, locale = frCA) => {
     return dateObject;
 };
 
-export { dateToISO, isSameDay, setDateTime, getDate, formatDate };
+/**
+ * Get the current time from a new Data and with only the getTime method.
+ * @returns {number}
+ */
+const currentTime = () => {
+    const d = new Date();
+    return d.getTime();
+};
+
+export { dateToISO, isSameDay, setDateTime, getDate, formatDate, currentTime };

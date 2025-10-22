@@ -19,7 +19,7 @@ const CompteConfirme = () => {
     };
 
     return (
-        <section className={` ${styles.compteConfirmePage}`}>
+        <section className={`${styles.compteConfirmePage}`}>
             <PageMeta title={lang.compte__confirmedAccount__title} preventIndexation />
             <AuthenticationMessage
                 header="Félicitations"

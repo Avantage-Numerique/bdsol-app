@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Router from "next/router";
 
 //Custom hooks
@@ -32,10 +32,10 @@ import SingleBeforeUnloadReminder from "@/src/DataTypes/common/layouts/SingleSav
 
 //Context
 import { useAuth } from "@/src/authentification/context/auth-context";
-import { MessageContext } from "@/src/common/UserNotifications/Message/Context/Message-Context";
 import Icon from "@/common/widgets/Icon/Icon";
 import MainImageDisplay from "@/DataTypes/common/layouts/single/defaultSections/MainImageDisplay/MainImageDisplay";
 import { TYPE_EQUIPMENT, TYPE_TAXONOMY } from "@/src/DataTypes/Entity/Types";
+import { useMessages } from "@/common/UserNotifications/Message/MessageProvider";
 
 const ProjectSingleEdit = (props) => {
     const {
@@ -92,7 +92,7 @@ const ProjectSingleEdit = (props) => {
     const auth = useAuth();
 
     //Import message context
-    const msg = useContext(MessageContext);
+    const msg = useMessages();
 
     //Save intention for SingleBeforeUnloadReminder
     const [saveIntentionState, setSaveIntentionState] = useState(false);
@@ -105,7 +105,7 @@ const ProjectSingleEdit = (props) => {
         if (!auth.user.isLoggedIn) {
             msg.addMessage({
                 text: lang.needToBeConnectedToAccess,
-                positive: false,
+                theme: "negative",
             });
             Router.push("/compte/connexion");
         }

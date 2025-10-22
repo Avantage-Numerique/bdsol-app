@@ -1,10 +1,10 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { useAuth } from "@/auth/context/auth-context";
-import { MessageContext } from "@/src/common/UserNotifications/Message/Context/Message-Context";
 import { lang } from "@/src/common/Data/GlobalConstants";
 import fetchInternalApi from "@/src/api/fetchInternalApi";
 import AppRoutes from "@/src/Routing/AppRoutes";
 import Router from "next/router";
+import { useMessages } from "@/common/UserNotifications/Message/MessageProvider";
 
 /**
  *   Specific function to be call everytime if we want to login or logout of the api
@@ -14,7 +14,7 @@ export const useSessionHook = () => {
     const auth = useAuth();
 
     //Import message context
-    const msg = useContext(MessageContext);
+    const msg = useMessages();
 
     //Set a loading state to communicates to every form that use this hook
     const [isLoading, setIsLoading] = useState(false);
@@ -38,7 +38,7 @@ export const useSessionHook = () => {
                 } else {
                     msg.addMessage({
                         text: response.text,
-                        positive: response.positive,
+                        positive: "negative",
                     });
                 }
 
@@ -53,7 +53,7 @@ export const useSessionHook = () => {
             //Tell the user he is already logged in
             msg.addMessage({
                 text: lang.youreAlreadyDisconnected, //"Vous êtes déjà connecté.",
-                positive: false,
+                theme: "negative",
             });
         }
     };
@@ -77,7 +77,7 @@ export const useSessionHook = () => {
                 if (!response.positive) {
                     msg.addMessage({
                         text: response.text,
-                        positive: response.positive,
+                        theme: "negative",
                     });
                 }
 
@@ -102,7 +102,7 @@ export const useSessionHook = () => {
             //Tell the user he is already logged in
             msg.addMessage({
                 text: lang.youreAlreadyConnected, //"Vous êtes déjà connecté.",
-                positive: false,
+                theme: "negative",
             });
         }
     };

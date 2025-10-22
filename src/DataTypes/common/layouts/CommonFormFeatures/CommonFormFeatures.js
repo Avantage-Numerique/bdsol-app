@@ -10,13 +10,14 @@ import { MessageContext } from "@/src/common/UserNotifications/Message/Context/M
 //costum hooks
 //import { useHttpClient } from '@/src/hooks/http-hook'
 import { lang } from "@/src/common/Data/GlobalConstants";
+import { useMessages } from "@/common/UserNotifications/Message/MessageProvider";
 
 const CommonFormFeatures = ({ children }) => {
     //Import the authentication context to make sure the user is well connected
     const auth = useAuth();
 
     //Import message context
-    const msg = useContext(MessageContext);
+    const msg = useMessages();
 
     //Extract the functions inside useHttpClient to send api request
     //const {isLoading, sendRequest} = useHttpClient();
@@ -34,7 +35,7 @@ const CommonFormFeatures = ({ children }) => {
         if (!auth.user.isLoggedIn) {
             msg.addMessage({
                 text: lang.needAuthToContribute, //"Vous devez être connecté pour pouvoir contribuer à la base de données.",
-                positive: false,
+                theme: "negative",
             });
             Router.push("/compte/connexion");
         }

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Router from "next/router";
 
 //Custom hooks
@@ -11,7 +11,6 @@ import RichTextarea from "@/src/common/FormElements/RichTextArea/RichTextarea";
 
 //Contexts
 import { useAuth } from "@/auth/context/auth-context";
-import { MessageContext } from "@/src/common/UserNotifications/Message/Context/Message-Context";
 
 //Styling
 import styles from "./CreateTaxonomyForm.module.scss";
@@ -19,13 +18,14 @@ import { lang } from "@/src/common/Data/GlobalConstants";
 import Select2 from "@/src/common/FormElements/Select2/Select2";
 import { getDefaultCreateEntityMeta } from "@/src/DataTypes/Meta/EntityMeta";
 import RadioButton from "@/src/common/FormElements/RadioButton/RadioButton";
+import { useMessages } from "@/common/UserNotifications/Message/MessageProvider";
 
 const CreateTaxonomyForm = ({ name, category, initValues, onPositiveResponse, ...props }) => {
     const submitUri = props.uri ?? "create";
 
     const auth = useAuth();
 
-    const msg = useContext(MessageContext);
+    const msg = useMessages();
 
     /*
     First of all, verify if the user is logged in.
@@ -35,7 +35,7 @@ const CreateTaxonomyForm = ({ name, category, initValues, onPositiveResponse, ..
         if (!auth.user.isLoggedIn) {
             msg.addMessage({
                 text: "Vous devez être connecté pour pouvoir ajouter une entité à la base de données.",
-                positive: false,
+                theme: "negative",
             });
             Router.push("/compte/connexion");
         }

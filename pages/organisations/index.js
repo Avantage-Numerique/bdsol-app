@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 //components
 import PageHeader from "@/src/layouts/Header/PageHeader";
@@ -10,7 +10,6 @@ import PageMeta from "@/src/common/PageMeta/PageMeta";
 import { useHttpClient } from "@/src/hooks/http-hook";
 
 //Context
-import { MessageContext } from "@/src/common/UserNotifications/Message/Context/Message-Context";
 import { useAuth } from "@/src/authentification/context/auth-context";
 
 //Utils
@@ -21,6 +20,7 @@ import EntitiesGrid from "@/DataTypes/Entity/layouts/EntitiesGrid";
 import { getTitle } from "@/DataTypes/MetaData/MetaTitle";
 import { getType, TYPE_ORGANISATION } from "@/DataTypes/Entity/Types";
 import { getBadgesInfo } from "@/src/DataTypes/Badges/BadgesSection";
+import { useMessages } from "@/common/UserNotifications/Message/MessageProvider";
 
 const OrganisationsPage = (props) => {
     const [orgList, setOrgList] = useState([]);
@@ -32,7 +32,7 @@ const OrganisationsPage = (props) => {
     const { isLoading, sendRequest } = useHttpClient();
 
     //Import message context
-    const msg = useContext(MessageContext);
+    const msg = useMessages();
 
     const type = getType(TYPE_ORGANISATION);
     /* 
@@ -53,7 +53,7 @@ const OrganisationsPage = (props) => {
         } else {
             msg.addMessage({
                 text: "Une erreur est survenue et nous n'arrivons pas à afficher les fiches d'organisations. Veuillez réessayer.",
-                positive: false,
+                theme: "negative",
             });
         }
     };

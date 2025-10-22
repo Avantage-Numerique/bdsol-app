@@ -1,8 +1,8 @@
-import React, { useCallback, useContext, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Router from "next/router";
 
 //Context
-import { MessageContext } from "@/src/common/UserNotifications/Message/Context/Message-Context";
+import { useMessages } from "@/src/common/UserNotifications/Message/MessageProvider";
 
 //Hooks
 import { useAuth } from "@/auth/context/auth-context";
@@ -118,7 +118,7 @@ const OrganisationSingleEdit = (props) => {
     const auth = useAuth();
 
     //Import message context
-    const msg = useContext(MessageContext);
+    const msg = useMessages(); //useContext(MessageContext);
 
     //Save intention for SingleBeforeUnloadReminder
     const [saveIntentionState, setSaveIntentionState] = useState(false);
@@ -131,7 +131,7 @@ const OrganisationSingleEdit = (props) => {
         if (!auth.user.isLoggedIn) {
             msg.addMessage({
                 text: lang.needToBeConnectedToAccess,
-                positive: false,
+                theme: "negative",
             });
             Router.push("/compte/connexion");
         }

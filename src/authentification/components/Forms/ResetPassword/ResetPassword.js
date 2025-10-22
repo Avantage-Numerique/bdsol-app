@@ -11,9 +11,10 @@ import Button from "@/src/common/FormElements/Button/Button";
 //Styling
 import styles from "./ResetPassword.module.scss";
 import { clientSideExternalApiRequest } from "@/src/hooks/http-hook";
+import { useMessages } from "@/common/UserNotifications/Message/MessageProvider";
 
 const ResetPassword = () => {
-    const msg = useContext(MessageContext);
+    const msg = useMessages();
 
     const { FormUI, submitRequest, formState, formTools } = useFormUtils(
         {
@@ -38,7 +39,7 @@ const ResetPassword = () => {
             //Display a message to let the user know that he is already logged in
             msg.addMessage({
                 text: "Vous êtes présentement connecté",
-                positive: true,
+                theme: "positive",
             });
         } else {
             const apiResponse = await clientSideExternalApiRequest("/reset-password", {
@@ -49,7 +50,7 @@ const ResetPassword = () => {
             3;
             msg.addMessage({
                 text: "Un email sera envoyé s'il est associé à un compte.",
-                positive: true,
+                theme: "positive",
             });
         }
     };

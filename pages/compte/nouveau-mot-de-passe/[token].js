@@ -8,13 +8,14 @@ import { useFormUtils } from "@/src/hooks/useFormUtils/useFormUtils";
 import Input from "@/src/common/FormElements/Input/Input";
 import PageMeta from "@/src/common/PageMeta/PageMeta";
 import AppRoutes from "@/src/Routing/AppRoutes";
+import { useMessages } from "@/common/UserNotifications/Message/MessageProvider";
 
 /**
  * @param {boolean} verifyState : true means got verified, false means token expired, null means token invalid
  */
 const forgottenPasswordReset = (props) => {
     //Import message context
-    const msg = useContext(MessageContext);
+    const msg = useMessages();
 
     //Main form functionalities
     const { FormUI, submitRequest, formState, formTools } = useFormUtils(
@@ -47,7 +48,7 @@ const forgottenPasswordReset = (props) => {
         if (formState.inputs.password.value !== formState.inputs.password2.value) {
             msg.addMessage({
                 text: "Les mots de passe entrés ne concordent pas. Veuillez les écrire à nouveau.",
-                positive: false,
+                theme: "negative",
             });
         } else {
             const apiResponse = await clientSideExternalApiRequest("/reset-password/" + props.token, {
@@ -59,26 +60,26 @@ const forgottenPasswordReset = (props) => {
                 if (apiResponse.code === 200) {
                     msg.addMessage({
                         text: "Malheureusement, le lien a expiré...",
-                        positive: false,
+                        theme: "negative",
                     });
                     Router.push("/compte/reinitialiser");
                 } else {
                     if (apiResponse.code === 400) {
                         msg.addMessage({
                             text: "Lien invalide ou mot de passe invalide",
-                            positive: false,
+                            theme: "negative",
                         });
                     } else {
                         msg.addMessage({
                             text: "Erreur du serveur, contacter le support au besoin",
-                            positive: false,
+                            theme: "negative",
                         });
                     }
                 }
             } else {
                 msg.addMessage({
                     text: "Mot de passe réinitialiser",
-                    positive: true,
+                    theme: "positive",
                 });
                 Router.push("/compte/connexion");
             }

@@ -8,7 +8,8 @@ import { useFieldTips } from "@/src/hooks/useFieldTips/useFieldTips";
 import styles from "./Input.module.scss";
 
 /**
- *
+ * @param props.name
+ * @param props.formTools
  * @param props.validators
  * @param props.className {string} Allow us to add element to the class names from outside
  * @param props.formClassName {string} Class name that affect specifically the form element inside the component
@@ -17,7 +18,6 @@ import styles from "./Input.module.scss";
  *
  * @constructor
  */
-
 const Input = ({ name, formTools, ...props }) => {
     /*
         Access the differents form tools 
@@ -33,14 +33,6 @@ const Input = ({ name, formTools, ...props }) => {
     const currentState = formState.inputs[name];
 
     const fieldRef = useRef(null);
-
-    const transmuteIn = (value) => {
-        return value;
-    };
-
-    const transmuteOut = (value) => {
-        return value;
-    };
 
     const updateValue = (event) => {
         inputHandler(name, event.target.value, props.validationRules ? validate(event.target.value) : true);
@@ -61,7 +53,7 @@ const Input = ({ name, formTools, ...props }) => {
     }, [dependencyCallingValidation]);
 
     return (
-        <div className={`${props.className && props.className} ${styles["input-component"]}`}>
+        <div className={`${props.className !== undefined && props.className} ${styles["input-component"]}`}>
             <div className={`${styles["input-component__label-container"]}`}>
                 <label htmlFor={name}>{props.label}</label>
                 {props.tip && <TipButton title="Détails" />}
@@ -85,7 +77,7 @@ const Input = ({ name, formTools, ...props }) => {
                     className="w-100 border-0 form-element--field-padding --place-holder-color-primary"
                     name={name}
                     id={name}
-                    disabled={props.disabled ? true : false}
+                    disabled={props.disabled}
                     //If there is a state attached to the component, make it a controlled components where the value depends on the state
                     list={props.list ? props.list : null}
                     value={currentState ? currentState.value : null}

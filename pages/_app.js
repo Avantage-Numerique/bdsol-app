@@ -11,6 +11,7 @@ import useWebStats from "@/src/monitoring/hooks/useWebStats";
 import "@/src/helpers/ExtendedString";
 
 import "@/styles/main.scss";
+import MessageProvider from "@/common/UserNotifications/Message/MessageProvider";
 
 function AVNU({ Component, pageProps, user, serverCookiesChoices }) {
     const webStats = useWebStats();
@@ -27,10 +28,12 @@ function AVNU({ Component, pageProps, user, serverCookiesChoices }) {
         <>
             {/* Authentication context provided to all the subsequent elements */}
             <AuthProvider fromSessionUser={user} appMode={process.env.MODE} acceptedCookies={serverCookiesChoices}>
-                <Layout pageProps={pageProps}>
-                    <Component {...pageProps} />
-                    <CookieBanner />
-                </Layout>
+                <MessageProvider>
+                    <Layout pageProps={pageProps}>
+                        <Component {...pageProps} />
+                        <CookieBanner />
+                    </Layout>
+                </MessageProvider>
             </AuthProvider>
         </>
     );

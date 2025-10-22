@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Router from "next/router";
 
 //Custom hooks
@@ -11,10 +11,10 @@ import { useFormUtils } from "@/src/hooks/useFormUtils/useFormUtils";
 import Input from "@/src/common/FormElements/Input/Input";
 import Button from "@/src/common/FormElements/Button/Button";
 import Spinner from "@/src/common/widgets/spinner/Spinner";
-import { MessageContext } from "@/src/common/UserNotifications/Message/Context/Message-Context";
 import { RouteLink } from "@/src/common/Components/RouteLink";
 import AppRoutes from "@/src/Routing/AppRoutes";
 import { lang } from "@/common/Data/GlobalConstants";
+import { useMessages } from "@/common/UserNotifications/Message/MessageProvider";
 
 const Register = () => {
     const [isTOSAccepted, setIsTOSAccepted] = useState(false);
@@ -60,7 +60,7 @@ const Register = () => {
     );
 
     //Import message context
-    const msg = useContext(MessageContext);
+    const msg = useMessages();
 
     //Import the authentication context to make sure the user is well connected
     const auth = useAuth();
@@ -98,7 +98,7 @@ const Register = () => {
             //Notify the user
             msg.addMessage({
                 text: "Vous avez déjà un compte.",
-                positive: false,
+                theme: "negative",
             });
         } else {
             //Make sure that the two passwords matches
@@ -121,7 +121,7 @@ const Register = () => {
                 if (!registerRes.error) {
                     msg.addMessage({
                         text: "Soumission de création de compte effectuée",
-                        positive: true,
+                        theme: "positive",
                     });
                 }
             } else {
@@ -129,7 +129,7 @@ const Register = () => {
                 //Inform the user
                 msg.addMessage({
                     text: "Les mots de passe entrés ne concordent pas. Veuillez les écrire à nouveau.",
-                    positive: false,
+                    theme: "negative",
                 });
             }
         }
@@ -197,10 +197,10 @@ const Register = () => {
                     formTools={formTools}
                 />
 
-                <div className="py-2 row form-check flex-nowrap d-flex no-wrap">
+                <div className={"form-check w-100 py-3"}>
                     <input
                         readOnly
-                        className="form-check-input col-4"
+                        className="form-check-input mt-0 me-2"
                         role="button"
                         type="checkbox"
                         onClick={() => {
@@ -208,11 +208,10 @@ const Register = () => {
                         }}
                         checked={isTOSAccepted}
                     />
-                    <span className="form-check-label col-8">
-                        J'accepte les <RouteLink target="_blank" routeName={"termOfUse"} />
-                    </span>
+                    <label className="form-check-label">
+                        {lang.agreeTo} <RouteLink target="_blank" routeName={"termOfUse"} />
+                    </label>
                 </div>
-
                 <div className="col-12">
                     <Button type="submit" disabled={!formState.isValid || !isTOSAccepted}>
                         Soumettre

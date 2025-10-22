@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Router from "next/router";
 
 //Custom hooks
@@ -16,7 +16,7 @@ import SingleSaveEntityReminder from "@/src/DataTypes/common/layouts/SingleSaveE
 
 //Context
 import { useAuth } from "@/src/authentification/context/auth-context";
-import { MessageContext } from "@/src/common/UserNotifications/Message/Context/Message-Context";
+import { useMessages } from "@/common/UserNotifications/Message/MessageProvider";
 
 //FormData
 import { getDefaultUpdateEntityMeta } from "@/src/DataTypes/Meta/EntityMeta";
@@ -64,7 +64,7 @@ const EquipmentSingleEdit = ({ positiveRequestActions, ...props }) => {
     const auth = useAuth();
 
     //Import message context
-    const msg = useContext(MessageContext);
+    const msg = useMessages();
 
     //Save intention for SingleBeforeUnloadReminder
     const [saveIntentionState, setSaveIntentionState] = useState(false);
@@ -77,7 +77,7 @@ const EquipmentSingleEdit = ({ positiveRequestActions, ...props }) => {
         if (!auth.user.isLoggedIn) {
             msg.addMessage({
                 text: lang.needToBeConnectedToAccess,
-                positive: false,
+                theme: "negative",
             });
             Router.push("/compte/connexion");
         }
