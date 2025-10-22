@@ -3,6 +3,8 @@ import { MessageContext } from "@/common/UserNotifications/Message/Context/Messa
 
 import { lang } from "@/common/Data/GlobalConstants";
 
+import { htmlToText } from "@/src/helpers/str";
+
 import Icon from "@/common/widgets/Icon/Icon";
 
 /**
@@ -16,7 +18,7 @@ const QuickShare = ({ model }) => {
     const shortTextContent = `${lang.shareableTextIntro}\n\n${model?.fullSingleLinkUrl}\n\n`;
     const shortURLEncodedContent = encodeURIComponent(shortTextContent);
 
-    const longTextContent = `${lang.shareableTextIntro}\n\n${model?.meta.title}\n\n${model.meta.description}\n\n${model?.fullSingleLinkUrl}\n\n`;
+    const longTextContent = `${lang.shareableTextIntro}\n\n${model?.meta.title}\n\n${htmlToText(model.meta.description)}\n\n${model?.fullSingleLinkUrl}\n\n`;
     const longURLEncodedContent = encodeURIComponent(longTextContent);
 
     let [copied, setCopied] = useState(false);
