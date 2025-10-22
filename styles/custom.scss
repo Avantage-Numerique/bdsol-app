@@ -7,7 +7,8 @@ $purple-light: #b2b2eb;
 $purple-lighter: lighten($purple-light, 10%);
 
 $grey: #bbbfd7;
-$light-grey-bg: #f5f5f5;
+$light-grey: #f5f5f5;
+$light-grey-bg: $light-grey;
 //$dark: #292929;
 $light: lighten($grey, 30%);
 $yellow: #ffd849;
@@ -244,6 +245,7 @@ $bezier-ease-in-out: cubic-bezier(0.42, 0, 0.58, 1);
 $bezier-ease: cubic-bezier(0.25, 0.1, 0.25, 1);
 $bezier-linear: cubic-bezier(0, 0, 1, 1);
 $bezier-translation: cubic-bezier(0.54, -0.09, 0.5, 1.13);
+$toast-easing: cubic-bezier(0.801, -0.268, 0.25, 1.201);
 
 $transition-ease-out: $transition-default-property $transition-default-time $bezier-ease-out;
 $transition-ease-in: $transition-default-property $transition-default-time $bezier-ease-in;

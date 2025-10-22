@@ -123,9 +123,7 @@ export const useFormUtils = (initialState, actions) => {
 
             return (
                 <>
-                    {innerMessage && (
-                        <div className={`col-12 red_BG white ${styles["data-form-message"]}`}>{innerMessage}</div>
-                    )}
+                    {innerMessage && <div className={`col-12 ${styles["data-form-message"]}`}>{innerMessage}</div>}
                     {isLoading && <Spinner className={"bg-primary-lighter"} fixed={fixedSpinner} />}
                 </>
             );

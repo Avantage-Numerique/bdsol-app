@@ -8,7 +8,8 @@ import { useFieldTips } from "@/src/hooks/useFieldTips/useFieldTips";
 import styles from "./Input.module.scss";
 
 /**
- *
+ * @param props.name
+ * @param props.formTools
  * @param props.validators
  * @param props.className {string} Allow us to add element to the class names from outside
  * @param props.formClassName {string} Class name that affect specifically the form element inside the component
@@ -17,7 +18,6 @@ import styles from "./Input.module.scss";
  *
  * @constructor
  */
-
 const Input = ({ name, formTools, ...props }) => {
     /*
         Access the differents form tools 
@@ -61,7 +61,7 @@ const Input = ({ name, formTools, ...props }) => {
     }, [dependencyCallingValidation]);
 
     return (
-        <div className={`${props.className && props.className} ${styles["input-component"]}`}>
+        <div className={`${props.className !== undefined && props.className} ${styles["input-component"]}`}>
             <div className={`${styles["input-component__label-container"]}`}>
                 <label htmlFor={name}>{props.label}</label>
                 {props.tip && <TipButton title="Détails" />}

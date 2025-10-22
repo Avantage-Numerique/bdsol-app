@@ -1,7 +1,7 @@
 .message-component {
     --messageColor: #{$red};
     --toasting-duration: 700ms;
-    --toasting-animation-curve: cubic-bezier(0.801, -0.268, 0.25, 1.201);
+    --toasting-animation-curve: #{$toast-easing};
     --toasting-position: 1;
     --toasting--from-position: -100%;
 

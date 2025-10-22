@@ -1,7 +1,9 @@
-/*
-        Styling common to every type for field into a form. 
-        V.P.R. - 23/10/22
-*/
+//reset.
+input:focus,
+textarea:focus,
+select:focus {
+    outline: none;
+}
 
 /* General form styling*/
 .form-element {
@@ -58,12 +60,7 @@
         }
 
         &.control--invalid:not(:focus-within) {
-            /* lighten not working yet 
-                        border: 0.1rem solid $danger;
-                        background-color: lighten($danger, 10%);
-                        */
             border: 0.1rem solid #{lighten($lighten_red, 10%)};
-            //background-color: #dd5c5c23;
             background-color: #{lighten($red, 40%)};
         }
     }
@@ -180,4 +177,25 @@
 
 .form-box-shadow {
     box-shadow: $default-box-shadow;
+}
+
+input {
+    /* variable to set equally the padding */
+    --inputPadding: 0.75em;
+
+    background-color: unset;
+    border: unset;
+    color: unset;
+    padding: var(--inputPadding) 0;
+
+    /* submit buttons */
+    &[type="submit"] {
+        cursor: pointer;
+        padding: var(--inputPadding);
+        margin: 0 0.25em;
+    }
+}
+
+input[type="checkbox"] {
+    padding: var(--inputPadding);
 }
