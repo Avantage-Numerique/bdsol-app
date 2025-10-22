@@ -46,8 +46,6 @@ const VerifyAccount = (props) => {
         },
     };
 
-    let currentStateContent;
-
     const [verifyState, setVerifyState] = useState(verifyingStates[VERIFYING_TOKEN]);
     const [isLoading, setIsLoading] = useState(false);
     const router = useRouter();
