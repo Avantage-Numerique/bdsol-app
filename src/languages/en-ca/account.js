@@ -15,6 +15,8 @@ const account = {
 
     loginReinitPasswordTitle: "Vous avez oublié votre mot de passe ou votre nom d'utilisateur ?",
     loginReinitPasswordBtnLabel: "Réinitialiser votre mot de passe ou récupérer votre nom d'utilisateur.",
+
+    agreeTo: "I agree to",
 };
 
 exports.account = account;

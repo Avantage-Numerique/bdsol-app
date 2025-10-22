@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Router from "next/router";
 
 //Custom hooks
@@ -11,7 +11,6 @@ import { useFormUtils } from "@/src/hooks/useFormUtils/useFormUtils";
 import Input from "@/src/common/FormElements/Input/Input";
 import Button from "@/src/common/FormElements/Button/Button";
 import Spinner from "@/src/common/widgets/spinner/Spinner";
-import { MessageContext } from "@/src/common/UserNotifications/Message/Context/Message-Context";
 import { RouteLink } from "@/src/common/Components/RouteLink";
 import AppRoutes from "@/src/Routing/AppRoutes";
 import { lang } from "@/common/Data/GlobalConstants";
@@ -210,7 +209,7 @@ const Register = () => {
                         checked={isTOSAccepted}
                     />
                     <span className="form-check-label col-8">
-                        J'accepte les <RouteLink target="_blank" routeName={"termOfUse"} />
+                        {lang.agreeTo} <RouteLink target="_blank" routeName={"termOfUse"} />
                     </span>
                 </div>
 
@@ -226,7 +225,7 @@ const Register = () => {
                         checked={isTOSAccepted}
                     />
                     <label className="form-check-label">
-                        J'accepte les <RouteLink target="_blank" routeName={"termOfUse"} />
+                        {lang.agreeTo} <RouteLink target="_blank" routeName={"termOfUse"} />
                     </label>
                 </div>
                 <div className="col-12">
