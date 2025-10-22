@@ -7,8 +7,9 @@ import Button from "@/src/common/FormElements/Button/Button";
 import PageMeta from "@/src/common/PageMeta/PageMeta";
 import { lang } from "@/common/Data/GlobalConstants";
 import { useMessages } from "@/common/UserNotifications/Message/MessageProvider";
+import PageHeader from "@/layouts/Header/PageHeader";
 
-const confirmationForm = () => {
+const ConfirmationForm = () => {
     const msg = useMessages();
     const { FormUI, submitRequest, formState, formTools } = useFormUtils(
         {
@@ -41,9 +42,7 @@ const confirmationForm = () => {
     }
 
     return (
-        <div>
-            <PageMeta title={lang.compte__toConfirme__title} preventIndexation />
-            <div className="border-bottom my-4"></div>
+        <div className={"my-5"}>
             <h3 className="fs-5 text-dark-light">Voulez-vous un nouveau lien de confirmation?</h3>
             <div>Si vous ne recevez pas de courriel, veuillez vérifier vos courriels indésirables.</div>
             <Input
@@ -68,13 +67,17 @@ const confirmationForm = () => {
 
 const AConfirmer = () => {
     return (
-        <section className="py-4 d-flex justify-content-center">
-            <AuthenticationMessage
-                header="En attente de confirmation"
-                message="S'il s'agit de votre première connexion, vous devriez recevoir un courriel de confirmation sous peu. Une fois que vous aurez confirmé votre identité, vous pourrez vous connecter à votre compte. Sinon, veuillez taper votre courriel ci-dessous."
-                Added_content={confirmationForm}
+        <div>
+            <PageMeta title={lang.compte__toConfirme__title} preventIndexation />
+            <PageHeader
+                bg={"bg-primary-lighter"}
+                textColor={"text-white"}
+                title={`En attente de confirmation`}
+                subTitle={`S'il s'agit de votre première connexion, vous devriez recevoir un courriel de confirmation sous peu. Une fois que vous aurez confirmé votre identité, vous pourrez vous connecter à votre compte. Sinon, veuillez taper votre courriel ci-dessous.`}
             />
-        </section>
+
+            <ConfirmationForm />
+        </div>
     );
 };
 
