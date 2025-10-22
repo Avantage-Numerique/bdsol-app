@@ -1,5 +1,4 @@
-import React, { useContext } from "react";
-import AuthenticationMessage from "@/auth/components/Commons/AuthenticationMessage/AuthenticationMessage";
+import React from "react";
 import { useFormUtils } from "@/src/hooks/useFormUtils/useFormUtils";
 import { clientSideExternalApiRequest } from "@/src/hooks/http-hook";
 import Input from "@/src/common/FormElements/Input/Input";
@@ -11,7 +10,7 @@ import PageHeader from "@/layouts/Header/PageHeader";
 
 const ConfirmationForm = () => {
     const msg = useMessages();
-    const { FormUI, submitRequest, formState, formTools } = useFormUtils(
+    const { formState, formTools } = useFormUtils(
         {
             email: {
                 value: "",
@@ -38,7 +37,7 @@ const ConfirmationForm = () => {
     };
 
     function submitEnterKey(event) {
-        if (event.key == "Enter") resendToken();
+        if (event.key === "Enter") resendToken();
     }
 
     return (
@@ -58,7 +57,7 @@ const ConfirmationForm = () => {
             </Button>
             <small>
                 <p className="mt-2">
-                    *Noter qu'il y a un délai de 5 minutes pour un envoi vers une même adresse courriel
+                    * Noter qu'il y a un délai de 5 minutes pour un envoi vers une même adresse courriel
                 </p>
             </small>
         </div>

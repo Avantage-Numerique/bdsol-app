@@ -35,8 +35,9 @@
     padding: 2rem;
     border-radius: $border-radius;
     z-index: 1000;
-    color: $white;
+    color: $body-color;
     pointer-events: auto;
+
     @include transition();
 
     p {
