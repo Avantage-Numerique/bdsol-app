@@ -7,6 +7,8 @@ import { htmlToText } from "@/src/helpers/str";
 
 import Icon from "@/common/widgets/Icon/Icon";
 
+import styles from "./QuickShare.module.scss";
+
 /**
  *
  * @param {{ model: React.Component, shareableTextContent: string, shareableMailContent: string }} props
@@ -57,7 +59,9 @@ const QuickShare = ({ model }) => {
     };
 
     return (
-        <div className="border border-primary rounded-pill fs-4 px-3 py-1 d-flex gap-2 align-items-center">
+        <div
+            className={`border border-primary rounded-pill fs-4 px-3 py-1 d-flex gap-2 align-items-center ${styles["quick-share"]}`}
+        >
             <button
                 className="d-flex gap-2 align-items-center fs-6"
                 type="button"
