@@ -1,5 +1,7 @@
 import { createContext, useContext, useState } from "react";
 import { currentTime } from "@/src/helpers/dates";
+import { FLASHMESSAGE_COOKIE_NAME } from "@/common/UserNotifications/Message/FlashMessage";
+import { cookies } from "next/headers";
 
 export const MessageContext = createContext(undefined);
 
@@ -13,6 +15,7 @@ export const MessageContext = createContext(undefined);
 /**
  * @typedef {Object} MessageContextValue
  * @property {function(Message|string): void} addMessage - Adds a new toast message to the queue
+ * @property {function(): void} checkFlashMessages - Adds a new toast message to the queue
  * @property {Message[]} messages - Array of current toast messages
  * @property {React.Dispatch<React.SetStateAction<Message[]>>} setMessages - React setState function to update messages array
  */
@@ -56,7 +59,23 @@ const MessageProvider = ({ children }) => {
         setMessages(messagesQueue);
     };
 
-    return <MessageContext.Provider value={{ addMessage, messages, setMessages }}>{children}</MessageContext.Provider>;
+    const checkFlashMessages = () => {
+        const flashMessageCookie = cookies.get(FLASHMESSAGE_COOKIE_NAME);
+        if (flashMessageCookie) {
+            try {
+                const parsedFlashMessages = JSON.parse(flashMessageCookie);
+                addMessage(parsedFlashMessages);
+                cookies.remove(FLASHMESSAGE_COOKIE_NAME); // Clear after reading
+            } catch (error) {
+                console.error("Failed to parse flash message cookie:", error);
+            }
+        }
+    };
+    return (
+        <MessageContext.Provider value={{ addMessage, messages, setMessages, checkFlashMessages }}>
+            {children}
+        </MessageContext.Provider>
+    );
 };
 
 /**
