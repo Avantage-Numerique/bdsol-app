@@ -1,5 +1,5 @@
-import React, { useCallback, useContext, useEffect, useState } from "react";
-import Router, { useRouter } from "next/router";
+import React, { useCallback, useEffect, useState } from "react";
+import Router from "next/router";
 
 //Custom hooks
 import { useFormUtils } from "@/src/hooks/useFormUtils/useFormUtils";
@@ -19,7 +19,6 @@ import Select from "@/src/common/FormElements/Select/Select";
 
 //Context
 import { useAuth } from "@/src/authentification/context/auth-context";
-import { MessageContext } from "@/src/common/UserNotifications/Message/Context/Message-Context";
 import { lang, modes } from "@/src/common/Data/GlobalConstants";
 
 //FormData
@@ -34,6 +33,7 @@ import MainImageDisplay from "@/DataTypes/common/layouts/single/defaultSections/
 import { TYPE_TAXONOMY } from "@/src/DataTypes/Entity/Types";
 import SubmitEntity from "@/DataTypes/common/Forms/SingleEdit/SubmitEntity";
 import UpdateContactPoint from "@/src/DataTypes/common/Forms/UpdateContactPoint/UpdateContactPoint";
+import { useMessages } from "@/common/UserNotifications/Message/MessageProvider";
 
 const PersonSingleEdit = ({ positiveRequestActions, ...props }) => {
     //Person data extract
@@ -55,7 +55,7 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props }) => {
         contactPoint,
         url,
         updatedAt,
-    } = props?.data;
+    } = props.data;
 
     //Model de project
     let model = new Person(props.data);
@@ -88,7 +88,7 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props }) => {
     const auth = useAuth();
 
     //Import message context
-    const msg = useContext(MessageContext);
+    const msg = useMessages();
 
     //Save intention for SingleBeforeUnloadReminder
     const [saveIntentionState, setSaveIntentionState] = useState(false);
@@ -116,7 +116,7 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props }) => {
         if (!auth.user.isLoggedIn) {
             msg.addMessage({
                 text: lang.needToBeConnectedToAccess,
-                positive: false,
+                theme: "negative",
             });
             Router.push("/compte/connexion");
         }

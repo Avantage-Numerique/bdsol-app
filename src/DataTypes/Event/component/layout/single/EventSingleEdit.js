@@ -1,5 +1,5 @@
 //React
-import React, { useCallback, useContext, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Router from "next/router";
 
 //hooks
@@ -7,7 +7,6 @@ import { useRootModal } from "@/src/hooks/useModal/useRootModal";
 
 //Utils, context
 import { useAuth } from "@/src/authentification/context/auth-context";
-import { MessageContext } from "@/src/common/UserNotifications/Message/Context/Message-Context";
 import { useFormUtils } from "@/src/hooks/useFormUtils/useFormUtils";
 import { lang, modes } from "@/src/common/Data/GlobalConstants";
 import { getDefaultUpdateEntityMeta } from "@/src/DataTypes/Meta/EntityMeta";
@@ -35,6 +34,7 @@ import SubmitEntity from "@/DataTypes/common/Forms/SingleEdit/SubmitEntity";
 import UpdateSocialHandles from "@/src/DataTypes/common/Forms/UpdateSocialHandles/UpdateSocialHandles";
 import SingleSaveEntityReminder from "@/src/DataTypes/common/layouts/SingleSaveEntityReminder/SingleSaveEntityReminder";
 import UpdateContactPoint from "@/src/DataTypes/common/Forms/UpdateContactPoint/UpdateContactPoint";
+import { useMessages } from "@/common/UserNotifications/Message/MessageProvider";
 
 const EventSingleEdit = ({ data }, ...props) => {
     const {
@@ -71,7 +71,7 @@ const EventSingleEdit = ({ data }, ...props) => {
     const auth = useAuth();
 
     //Import message context
-    const msg = useContext(MessageContext);
+    const msg = useMessages();
 
     //Save intention for SingleBeforeUnloadReminder
     const [saveIntentionState, setSaveIntentionState] = useState(false);
@@ -107,7 +107,7 @@ const EventSingleEdit = ({ data }, ...props) => {
         if (!auth.user.isLoggedIn) {
             msg.addMessage({
                 text: lang.needToBeConnectedToAccess,
-                positive: false,
+                theme: "negative",
             });
             Router.push("/compte/connexion");
         }

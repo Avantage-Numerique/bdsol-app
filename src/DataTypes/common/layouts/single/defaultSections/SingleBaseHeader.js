@@ -22,6 +22,7 @@ import { useRouter } from "next/router";
 import { MessageContext } from "@/src/common/UserNotifications/Message/Context/Message-Context";
 import { getBadgesInfo } from "@/src/DataTypes/Badges/BadgesSection";
 import Link from "next/link";
+import { useMessages } from "@/common/UserNotifications/Message/MessageProvider";
 
 //Memoize the image to prevent rerendering
 const ImageComponent = memo(({ mainImage, badges, activeInnerLink = "true" }) => {
@@ -111,7 +112,7 @@ const SingleBaseHeader = (props) => {
     //Modal hook
     const modalReportEntity = useRootModal();
     const { sendRequest } = useHttpClient();
-    const msg = useContext(MessageContext);
+    const msg = useMessages();
 
     //Router for redirect login page
     const router = useRouter();
@@ -175,12 +176,12 @@ const SingleBaseHeader = (props) => {
         if (apiResponse.error) {
             msg.addMessage({
                 text: lang.reportingError,
-                positive: false,
+                theme: "negative",
             });
         } else {
             msg.addMessage({
                 text: lang.reportingSuccess,
-                positive: true,
+                theme: "positive",
             });
             //formState.inputs.name.value = "";
             //formState.inputs.email.value = "";

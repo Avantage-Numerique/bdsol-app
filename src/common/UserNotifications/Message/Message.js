@@ -38,9 +38,7 @@ const Message = ({ children, theme, position = 1, clean }) => {
                     ref={msgRef}
                     className={`${styles["message-component"]} ${styles[theme]} ${!hideProperty ? styles["show-message"] : styles["hide-message"]}`}
                 >
-                    <p className="beige">
-                        {position} {children}
-                    </p>
+                    <p className="beige">{children}</p>
 
                     <div
                         onClick={() => {

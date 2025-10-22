@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 //components
 import PageHeader from "@/src/layouts/Header/PageHeader";
@@ -10,7 +10,6 @@ import PageMeta from "@/src/common/PageMeta/PageMeta";
 import { useHttpClient } from "@/src/hooks/http-hook";
 
 //Context
-import { MessageContext } from "@/src/common/UserNotifications/Message/Context/Message-Context";
 import { useAuth } from "@/src/authentification/context/auth-context";
 
 //Utils
@@ -20,6 +19,7 @@ import AppRoutes from "@/src/Routing/AppRoutes";
 import EntitiesGrid from "@/DataTypes/Entity/layouts/EntitiesGrid";
 import { getTitle } from "@/DataTypes/MetaData/MetaTitle";
 import { getType, TYPE_PROJECT } from "@/DataTypes/Entity/Types";
+import { useMessages } from "@/common/UserNotifications/Message/MessageProvider";
 
 const ProjectsPage = () => {
     const [projectList, setProjectList] = useState([]);
@@ -31,7 +31,7 @@ const ProjectsPage = () => {
     const { isLoading, sendRequest } = useHttpClient();
 
     //Import message context
-    const msg = useContext(MessageContext);
+    const msg = useMessages();
 
     const type = getType(TYPE_PROJECT);
     /* 
@@ -49,7 +49,7 @@ const ProjectsPage = () => {
         } else {
             msg.addMessage({
                 text: "Une erreur est survenue et nous n'arrivons pas à afficher les fiches de projets. Veuillez réessayer.",
-                positive: false,
+                theme: "negative",
             });
         }
     };

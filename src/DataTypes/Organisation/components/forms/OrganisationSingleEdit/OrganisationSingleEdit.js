@@ -131,7 +131,7 @@ const OrganisationSingleEdit = (props) => {
         if (!auth.user.isLoggedIn) {
             msg.addMessage({
                 text: lang.needToBeConnectedToAccess,
-                positive: false,
+                theme: "negative",
             });
             Router.push("/compte/connexion");
         }

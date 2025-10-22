@@ -1,13 +1,13 @@
-import { useState, useContext } from "react";
+import { useState } from "react";
 import Button from "@/src/common/FormElements/Button/Button";
 import Icon from "@/src/common/widgets/Icon/Icon";
 import { useFormUtils } from "@/src/hooks/useFormUtils/useFormUtils";
 import Input from "@/src/common/FormElements/Input/Input";
-import { MessageContext } from "@/src/common/UserNotifications/Message/Context/Message-Context";
 import { useHttpClient } from "@/src/hooks/http-hook";
+import { useMessages } from "@/common/UserNotifications/Message/MessageProvider";
 const Account = () => {
     const { sendRequest } = useHttpClient();
-    const msg = useContext(MessageContext);
+    const msg = useMessages();
     const [subMenu, setSubMenu] = useState("account");
     const { FormUI, submitRequest, formState, formTools } = useFormUtils(
         {
@@ -46,12 +46,12 @@ const Account = () => {
             if (apiResponse.error) {
                 msg.addMessage({
                     text: "Mot de passe actuel incorrect",
-                    positive: false,
+                    theme: "negative",
                 });
             } else {
                 msg.addMessage({
                     text: "Mot de passe modifié avec succès",
-                    positive: true,
+                    theme: "positive",
                 });
                 formState.inputs.oldPassword.value = "";
                 formState.inputs.newPassword.value = "";
@@ -60,7 +60,7 @@ const Account = () => {
         } else {
             msg.addMessage({
                 text: "Les nouveau mots de passe entrés ne concordent pas. Veuillez les écrire à nouveau.",
-                positive: false,
+                theme: "negative",
             });
         }
     };

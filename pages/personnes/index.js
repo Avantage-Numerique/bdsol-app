@@ -21,6 +21,7 @@ import EntitiesGrid from "@/DataTypes/Entity/layouts/EntitiesGrid";
 import { getTitle } from "@/DataTypes/MetaData/MetaTitle";
 import { getType, TYPE_PERSON } from "@/DataTypes/Entity/Types";
 import { getBadgesInfo } from "@/src/DataTypes/Badges/BadgesSection";
+import { useMessages } from "@/common/UserNotifications/Message/MessageProvider";
 
 const PersonsPage = (props) => {
     const [personList, setPersonList] = useState([]);
@@ -32,7 +33,7 @@ const PersonsPage = (props) => {
     const { isLoading, sendRequest } = useHttpClient();
 
     //Import message context
-    const msg = useContext(MessageContext);
+    const msg = useMessages();
 
     const type = getType(TYPE_PERSON);
     /* 
@@ -50,7 +51,7 @@ const PersonsPage = (props) => {
         } else {
             msg.addMessage({
                 text: "Une erreur est survenue et nous n'arrivons pas à afficher les fiches de personne. Veuillez réessayer.",
-                positive: false,
+                theme: "negative",
             });
         }
     };

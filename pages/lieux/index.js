@@ -50,7 +50,7 @@ const PlacesPage = () => {
         } else {
             msg.addMessage({
                 text: "Une erreur est survenue et nous n'arrivons pas à afficher les fiches de lieux. Veuillez réessayer.",
-                positive: false,
+                theme: "negative",
             });
         }
     };

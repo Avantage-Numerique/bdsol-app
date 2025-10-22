@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Router from "next/router";
 
 //Utils
@@ -8,7 +8,6 @@ import { getDefaultUpdateEntityMeta } from "@/src/DataTypes/Meta/EntityMeta";
 import { replacePathname } from "@/src/helpers/url";
 
 //hooks
-import { MessageContext } from "@/src/common/UserNotifications/Message/Context/Message-Context";
 import { useFormUtils } from "@/src/hooks/useFormUtils/useFormUtils";
 import { useAuth } from "@/src/authentification/context/auth-context";
 import { useRootModal } from "@/src/hooks/useModal/useRootModal";
@@ -26,6 +25,7 @@ import Button from "@/FormElements/Button/Button";
 import Icon from "@/common/widgets/Icon/Icon";
 import SingleSaveEntityReminder from "@/src/DataTypes/common/layouts/SingleSaveEntityReminder/SingleSaveEntityReminder";
 import SingleBeforeUnloadReminder from "@/src/DataTypes/common/layouts/SingleSaveEntityReminder/SingleBeforeUnloadReminder";
+import { useMessages } from "@/common/UserNotifications/Message/MessageProvider";
 
 const PlaceSingleEdit = ({ positiveRequestActions, ...props }) => {
     let model = new Place(props.data);
@@ -37,7 +37,7 @@ const PlaceSingleEdit = ({ positiveRequestActions, ...props }) => {
     const auth = useAuth();
 
     //Import message context
-    const msg = useContext(MessageContext);
+    const msg = useMessages();
 
     //Save intention for SingleBeforeUnloadReminder
     const [saveIntentionState, setSaveIntentionState] = useState(false);
@@ -67,7 +67,7 @@ const PlaceSingleEdit = ({ positiveRequestActions, ...props }) => {
         if (!auth.user.isLoggedIn) {
             msg.addMessage({
                 text: lang.needToBeConnectedToAccess,
-                positive: false,
+                theme: "negative",
             });
             Router.push("/compte/connexion");
         }

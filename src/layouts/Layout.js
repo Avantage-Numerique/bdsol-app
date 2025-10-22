@@ -5,7 +5,7 @@
 
 */
 
-import { createContext, useRef } from "react";
+import { createContext, useEffect, useRef } from "react";
 import Head from "next/head";
 
 //Context
@@ -25,6 +25,8 @@ import nextConfig from "@/next.config";
 import { templates, templatesEnum } from "@/layouts/Templates/TemplatesEnum";
 import { usePathname } from "next/navigation";
 import Message from "@/common/UserNotifications/Message/Message";
+import sanitizedString from "@/src/utils/SanitizedString";
+import { currentTime } from "@/src/helpers/dates";
 
 export const ModalContext = createContext({});
 
@@ -38,27 +40,10 @@ const Layout = ({ children, pageProps }) => {
     //message list
     const { messages, setMessages } = useMessages();
 
-    /* Return the current time number. Used to create unique Id to each message based on the time they were send */
-    /*const getCurrentTime = () => {
-        const d = new Date();
-        return d.getTime();
-    };*/
-
     // TEMPLATE Selection, set the tempalte vars in getStaticProps from the templatesEnum
     const currentTemplate = pageProps.template
         ? templates.get(pageProps.template)
         : templates.get(templatesEnum.DEFAULT);
-
-    //Metthod called from other components to update the state
-    /*const addMessage = (newMessage) => {
-        setMessages([
-            ...messages,
-            {
-                ...newMessage,
-                creationTime: getCurrentTime(),
-            },
-        ]);
-    };*/
 
     const metaAssetsPath = (asset, addVersion = true) => {
         const assetsVersions = nextConfig.env.VERSION;
@@ -70,7 +55,7 @@ const Layout = ({ children, pageProps }) => {
     const router = useRouter();
     const pathname = usePathname();
 
-    /*useEffect(() => {
+    useEffect(() => {
         if (router.query?.msg && router.query?.msg !== "") {
             const positive = router.query?.msgPositive === "true";
             setMessages([
@@ -78,7 +63,7 @@ const Layout = ({ children, pageProps }) => {
                 {
                     positive: positive,
                     text: sanitizedString(router.query.msg),
-                    creationTime: getCurrentTime(),
+                    creationTime: currentTime(),
                 },
             ]);
 
@@ -89,7 +74,7 @@ const Layout = ({ children, pageProps }) => {
                 shallow: true,
             });
         }
-    }, [router.query]);*/
+    }, [router.query]);
 
     return (
         <>

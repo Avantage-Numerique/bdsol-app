@@ -1,5 +1,4 @@
 //hook
-import { useContext } from "react";
 import { useFormUtils } from "@/src/hooks/useFormUtils/useFormUtils";
 import { useHttpClient } from "@/src/hooks/http-hook";
 
@@ -12,17 +11,17 @@ import RichTextarea from "@/src/common/FormElements/RichTextArea/RichTextarea";
 import PageMeta from "@/src/common/PageMeta/PageMeta";
 
 //Context
-import { MessageContext } from "@/src/common/UserNotifications/Message/Context/Message-Context";
 
 //utils
 import { lang } from "@/src/common/Data/GlobalConstants";
 import logo from "@/public/AVNU_Branding/AVNU-LogoComplet-RVB.png";
 import { appConfig } from "@/src/configs/AppConfig";
 import { ExternalLink } from "@/common/Components/ExternalLink";
+import { useMessages } from "@/common/UserNotifications/Message/MessageProvider";
 
 const NousJoindre = () => {
     const { sendRequest } = useHttpClient();
-    const msg = useContext(MessageContext);
+    const msg = useMessages();
 
     //Main form functionalities
     const { FormUI, submitRequest, formState, formTools } = useFormUtils(
@@ -60,12 +59,12 @@ const NousJoindre = () => {
         if (apiResponse.error) {
             msg.addMessage({
                 text: "Échec de l'envoi du message",
-                positive: false,
+                theme: "negative",
             });
         } else {
             msg.addMessage({
                 text: "Message envoyé avec succès, merci de vos commentaires!",
-                positive: true,
+                theme: "positive",
             });
             formState.inputs.name.value = "";
             formState.inputs.email.value = "";

@@ -15,6 +15,7 @@ import { MessageContext } from "@/src/common/UserNotifications/Message/Context/M
 import { RouteLink } from "@/src/common/Components/RouteLink";
 import AppRoutes from "@/src/Routing/AppRoutes";
 import { lang } from "@/common/Data/GlobalConstants";
+import { useMessages } from "@/common/UserNotifications/Message/MessageProvider";
 
 const Register = () => {
     const [isTOSAccepted, setIsTOSAccepted] = useState(false);
@@ -60,7 +61,7 @@ const Register = () => {
     );
 
     //Import message context
-    const msg = useContext(MessageContext);
+    const msg = useMessages();
 
     //Import the authentication context to make sure the user is well connected
     const auth = useAuth();
@@ -98,7 +99,7 @@ const Register = () => {
             //Notify the user
             msg.addMessage({
                 text: "Vous avez déjà un compte.",
-                positive: false,
+                theme: "negative",
             });
         } else {
             //Make sure that the two passwords matches
@@ -129,7 +130,7 @@ const Register = () => {
                 //Inform the user
                 msg.addMessage({
                     text: "Les mots de passe entrés ne concordent pas. Veuillez les écrire à nouveau.",
-                    positive: false,
+                    theme: "negative",
                 });
             }
         }

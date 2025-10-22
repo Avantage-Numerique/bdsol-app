@@ -2,16 +2,16 @@ import Button from "@/src/common/FormElements/Button/Button";
 import { clientSideExternalApiRequest } from "@/src/hooks/http-hook";
 import PageHeader from "@/src/layouts/Header/PageHeader";
 import { useRouter } from "next/router";
-import { useContext, useEffect, useState } from "react";
-import { MessageContext } from "@/src/common/UserNotifications/Message/Context/Message-Context";
+import { useEffect, useState } from "react";
 import { useFormUtils } from "@/src/hooks/useFormUtils/useFormUtils";
 import Input from "@/src/common/FormElements/Input/Input";
 import PageMeta from "@/src/common/PageMeta/PageMeta";
 import Spinner from "@/src/common/widgets/spinner/Spinner";
+import { useMessages } from "@/common/UserNotifications/Message/MessageProvider";
 
 const verifyAccount = (props) => {
     //Import message context
-    const msg = useContext(MessageContext);
+    const msg = useMessages();
 
     const [verifyState, setVerifyState] = useState(undefined);
     const [isLoading, setIsLoading] = useState(false);
@@ -38,27 +38,27 @@ const verifyAccount = (props) => {
             if (apiResponse.code === 200) {
                 msg.addMessage({
                     text: "Veuillez attendre 5 minutes entre l'envoie d'un nouveau courriel",
-                    positive: false,
+                    theme: "negative",
                 });
             } else {
                 if (apiResponse.code === 418) {
                     //I'm a tea pot
                     msg.addMessage({
                         text: "Le compte est déjà vérifier, vous pouvez vous connecter.",
-                        positive: true,
+                        theme: "positve",
                     });
                     Router.push("/compte/connexion");
                 } else {
                     msg.addMessage({
                         text: "Courriel invalide",
-                        positive: false,
+                        theme: "negative",
                     });
                 }
             }
         } else {
             msg.addMessage({
                 text: "Un email de confirmation a été envoyé",
-                positive: true,
+                theme: "negative",
             });
             Router.push("/compte/a-confirmer");
         }

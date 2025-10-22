@@ -4,12 +4,12 @@ import { useFormUtils } from "@/src/hooks/useFormUtils/useFormUtils";
 import { clientSideExternalApiRequest } from "@/src/hooks/http-hook";
 import Input from "@/src/common/FormElements/Input/Input";
 import Button from "@/src/common/FormElements/Button/Button";
-import { MessageContext } from "@/src/common/UserNotifications/Message/Context/Message-Context";
 import PageMeta from "@/src/common/PageMeta/PageMeta";
 import { lang } from "@/common/Data/GlobalConstants";
+import { useMessages } from "@/common/UserNotifications/Message/MessageProvider";
 
 const confirmationForm = () => {
-    const msg = useContext(MessageContext);
+    const msg = useMessages();
     const { FormUI, submitRequest, formState, formTools } = useFormUtils(
         {
             email: {
@@ -31,7 +31,7 @@ const confirmationForm = () => {
 
         msg.addMessage({
             text: "Un email de confirmation a été envoyé s'il s'agit d'un courriel associé à un compte",
-            positive: true,
+            theme: "positive",
         });
         formState.inputs.email.value = "";
     };

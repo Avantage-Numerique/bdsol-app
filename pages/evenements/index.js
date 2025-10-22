@@ -50,7 +50,7 @@ const EventsPage = () => {
         } else {
             msg.addMessage({
                 text: "Une erreur est survenue et nous n'arrivons pas à afficher les fiches événements. Veuillez réessayer.",
-                positive: false,
+                theme: "negative",
             });
         }
     };

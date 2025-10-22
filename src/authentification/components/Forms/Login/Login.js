@@ -19,11 +19,12 @@ import Spinner from "@/src/common/widgets/spinner/Spinner";
 import styles from "./Login.module.scss";
 import { lang } from "@/common/Data/GlobalConstants";
 import { RouteLink } from "@/common/Components/RouteLink";
+import { useMessages } from "@/common/UserNotifications/Message/MessageProvider";
 
 const Login = () => {
     //Import the authentication context to make sure the user is well connected
     const auth = useAuth();
-    const msg = useContext(MessageContext);
+    const msg = useMessages();
 
     //Extract the functions inside the session hook
     const { login, isLoading } = useSessionHook();
@@ -81,7 +82,7 @@ const Login = () => {
             */
             msg.addMessage({
                 text: "Attention. Le formulaire envoyé n'est pas valide. Assurez-vous que tous les champs sont bien remplis.",
-                positive: false,
+                theme: "negative",
             });
         }
     };
