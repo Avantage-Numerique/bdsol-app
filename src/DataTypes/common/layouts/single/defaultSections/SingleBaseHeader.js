@@ -78,6 +78,7 @@ const ImageComponent = memo(({ mainImage, badges, activeInnerLink = "true" }) =>
         </div>
     );
 });
+ImageComponent.displayName = "ImageComponent";
 
 /**
  * @param {object} props.mainImage mainImage data object
