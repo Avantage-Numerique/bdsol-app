@@ -8,6 +8,7 @@ import { htmlToText } from "@/src/helpers/str";
 import Icon from "@/common/widgets/Icon/Icon";
 
 import styles from "./QuickShare.module.scss";
+import { useMessages } from "@/common/UserNotifications/Message/MessageProvider";
 
 /**
  *
@@ -15,7 +16,7 @@ import styles from "./QuickShare.module.scss";
  * @returns
  */
 const QuickShare = ({ model }) => {
-    const msg = useContext(MessageContext);
+    const msg = useMessages();
 
     const shortTextContent = `${lang.shareableTextIntro}\n\n${model?.fullSingleLinkUrl}\n\n`;
     const shortURLEncodedContent = encodeURIComponent(shortTextContent);
@@ -35,7 +36,7 @@ const QuickShare = ({ model }) => {
         navigator.clipboard.writeText(textToCopy ?? longTextContent);
         msg.addMessage({
             text: lang.copied,
-            positive: true,
+            theme: "positive",
         });
     };
 
