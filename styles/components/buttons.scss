@@ -139,3 +139,12 @@ fieldset:disabled .btn :not(.btn-check) + .btn:disabled:hover,
         color: $primary_7;
     }
 }
+
+.btn-icon {
+    @include transition();
+    --bs-btn-bg: transparent;
+    --bs-btn-border-color: transparent;
+    --bs-btn-hover-color: var(--bs-dark);
+    --bs-btn-hover-border-color: var(--bs-secondary);
+    --bs-btn-hover-bg: var(--bs-secondary);
+}

@@ -1,4 +1,4 @@
-import React, { memo, useContext, useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 //Styles
 import styles from "./SingleBaseHeader.module.scss";
 
@@ -19,7 +19,6 @@ import { useHttpClient } from "@/src/hooks/http-hook";
 import { useRouter } from "next/router";
 
 //Context
-import { MessageContext } from "@/src/common/UserNotifications/Message/Context/Message-Context";
 import { getBadgesInfo } from "@/src/DataTypes/Badges/BadgesSection";
 import Link from "next/link";
 import { useMessages } from "@/common/UserNotifications/Message/MessageProvider";
@@ -79,32 +78,22 @@ const ImageComponent = memo(({ mainImage, badges, activeInnerLink = "true" }) =>
         </div>
     );
 });
+
 /**
- * @param {object} mainImage mainImage data object
- * @param {object} entity used for mainImageForm
- * @param {JSX} title JSX element containing title (top left)
- * @param {JSX} subtitle JSX element containing subtitle (top left)
- * @param {string} entityType type that shows bottom right
- * @param {className} global classes passed from the outside
- * @param {JSX} buttonSection JSX element containing all the calls to action components in one place
- * @param {String} buttonText string : Text dispayed in the cta button in the header
- * @param {String} buttonLink string : link to redirect the user when the button is clicked
- * @param {String} editableImg bool : Show the button to edit image or not
+ * @param {object} props.mainImage mainImage data object
+ * @param {object} props.entity used for mainImageForm
+ * @param {JSX} props.title JSX element containing title (top left)
+ * @param {JSX} props.subtitle JSX element containing subtitle (top left)
+ * @param {string} props.entityType type that shows bottom right
+ * @param {className} props.global classes passed from the outside
+ * @param {JSX} props.buttonSection JSX element containing all the calls to action components in one place
+ * @param {String} props.buttonText string : Text dispayed in the cta button in the header
+ * @param {String} props.buttonLink string : link to redirect the user when the button is clicked
+ * @param {String} props.editableImg bool : Show the button to edit image or not
  */
 const SingleBaseHeader = (props) => {
-    const {
-        mode,
-        mainImage,
-        entity,
-        title,
-        subtitle,
-        className,
-        buttonSection,
-        buttonText,
-        buttonLink,
-        editableImg,
-        children,
-    } = props;
+    const { mode, mainImage, entity, title, subtitle, className, buttonSection, buttonText, buttonLink, children } =
+        props;
 
     const auth = useAuth();
     const isUpdateMode = className?.includes("mode-update");
@@ -127,7 +116,7 @@ const SingleBaseHeader = (props) => {
     const currentMode = mode === modes.CONTRIBUTING ? modeContributing : modeConsulting;
 
     //Main modal form
-    const { FormUI, submitRequest, formState, formTools } = useFormUtils(
+    const { formState, formTools } = useFormUtils(
         {
             /* name: {
                 value: '',
@@ -196,7 +185,7 @@ const SingleBaseHeader = (props) => {
     return (
         <section className={`row ${styles["content-padding-top"]} ${props.className}`}>
             <div className="d-flex justify-content-end">
-                <button type="button" className="fs-3" onClick={modalReportEntity.displayModal}>
+                <button type="button" className="btn-icon fs-3" onClick={modalReportEntity.displayModal}>
                     <Icon iconName="flag" />
                 </button>
             </div>
