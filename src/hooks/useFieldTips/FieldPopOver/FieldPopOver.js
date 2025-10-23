@@ -89,7 +89,7 @@ const FieldPopOver = props => {
       </header>
       <div className="border-bottom w-100 my-2"></div>
       <section>
-        <p className="m-0">{body}</p>
+        {body}
       </section>
       {/* Lack of time so the pointer stay in stand by
                 <div
