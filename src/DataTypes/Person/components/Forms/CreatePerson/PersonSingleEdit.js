@@ -443,6 +443,7 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props }) => {
                 footer={Footer}
                 singlePageBottom={SinglePageBottom}
                 model={model}
+                editMode
             />
             <modalSaveEntityReminder.Modal>
                 <SingleSaveEntityReminder

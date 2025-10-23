@@ -17,3 +17,15 @@ export const truncate = (str, n, useWordBoundary) => {
 export const capitalize = (str) => {
     return str.charAt(0).toUpperCase() + str.slice(1);
 };
+
+import { htmlToText } from "html-to-text";
+
+/**
+ * Function to cleanup HTML string, preserving newlines
+ *
+ * @param {string} input HTML string to cleanup
+ */
+function _htmlToText(input) {
+    return htmlToText(input, {}).replace(/\n+/g, "\n\n").trim();
+}
+export { _htmlToText as htmlToText };

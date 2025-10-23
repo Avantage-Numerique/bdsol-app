@@ -739,6 +739,7 @@ const EventSingleEdit = ({ data }, ...props) => {
                 footer={Footer}
                 singlePageBottom={SinglePageBottom}
                 model={model}
+                editMode
             />
             <modalSaveEntityReminder.Modal>
                 <SingleSaveEntityReminder

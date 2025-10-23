@@ -9,17 +9,25 @@ import { getTitle } from "@/DataTypes/MetaData/MetaTitle";
 import { removeTagsFromString } from "@/src/helpers/html";
 import PageMeta from "@/src/common/PageMeta/PageMeta";
 
+import QuickShare from "@/src/common/widgets/QuickShare/QuickShare";
+
 /**
+ * Composant de base pour afficher une entité
  *
- * @param {React.Component} props.header
- * @param {React.Component} props.mainImageContainer
- * @param {React.Component} props.fullWidthContent content under header
- * @param {React.Component} props.contentColumnLeft main content column left
- * @param {React.Component} props.contentColumnRight main content column right
- * @param {React.Component} props.footer
- * @param {React.Component} props.singlePageBottom
- * @param {React.Component} props.model
+ * @typedef {Object} SingleBaseProps
  *
+ * @prop {React.Component} header
+ * @prop {React.Component} mainImageContainer
+ * @prop {React.Component} fullWidthContent content under header
+ * @prop {React.Component} contentColumnLeft main content column left
+ * @prop {React.Component} contentColumnRight main content column right
+ * @prop {React.Component} footer
+ * @prop {React.Component} singlePageBottom
+ * @prop {React.Component} model
+ * @prop {boolean} editMode
+ *
+ * @param {SingleBaseProps} props
+ * @returns {JSX.Element}
  */
 const SingleBase = (props) => {
     //Main props destructuring
@@ -32,6 +40,7 @@ const SingleBase = (props) => {
         footer,
         singlePageBottom,
         model,
+        editMode,
     } = props;
 
     const imageSrc = model ? model.mainImageModel.src : "";
@@ -54,10 +63,11 @@ const SingleBase = (props) => {
                         {header || <SingleBaseHeader />}
                     </div>
                 </header>
-                {/* Breadcrumb section */}
-                {breadCrumb && (
-                    <div className="row pt-sm-4 mt-sm-4">
-                        <div className="col-12 pt-4 mt-4">
+
+                <div className="row pt-sm-4 mt-sm-4">
+                    {/* Breadcrumb section */}
+                    {breadCrumb && (
+                        <div className="col-8 pt-4 mt-4">
                             <Breadcrumbs
                                 className={"pt-4"}
                                 labels={breadCrumb.labels}
@@ -66,8 +76,15 @@ const SingleBase = (props) => {
                                 getHrefGenerator={breadCrumb.getHrefGenerator || undefined}
                             />
                         </div>
-                    </div>
-                )}
+                    )}
+
+                    {!editMode && (
+                        <div className="col-4 pt-4 mt-4 d-flex align-items-center justify-content-end">
+                            <QuickShare model={model} />
+                        </div>
+                    )}
+                </div>
+
                 {/* FullWidthContent */}
                 <section className="row">
                     <div className="col-12">{fullWidthContent && fullWidthContent}</div>

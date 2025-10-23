@@ -1,0 +1,19 @@
+.quick-share {
+    i {
+        opacity: 0.8;
+        transition:
+            color 300ms ease,
+            opacity 300ms ease,
+            scale 300ms ease;
+        scale: 0.9;
+    }
+
+    :hover {
+        i {
+            opacity: 1;
+            scale: 1.1;
+
+            color: $primary;
+        }
+    }
+}
