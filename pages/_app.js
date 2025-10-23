@@ -56,8 +56,8 @@ AVNU.getInitialProps = async (context) => {
         //let cookieChoices = context.ctx.req.cookies.get("ChoixCookie");
         const cookies = context.ctx.req.cookies;
         let cookiesChoices = null;
-        if (cookies?.avnuCookies) {
-            cookiesChoices = JSON.parse(cookies.avnuCookies);
+        if (cookies?.[process.env.APP_CHOICES_COOKIE_NAME]) {
+            cookiesChoices = JSON.parse(cookies[process.env.APP_CHOICES_COOKIE_NAME]);
         }
         //if cookies auth is accepted follow with session creation.
         if (cookiesChoices?.auth) {
@@ -85,6 +85,7 @@ AVNU.getInitialProps = async (context) => {
                     ...appProps,
                     user: session.user,
                     serverCookiesChoices: cookiesChoices,
+                    flashMessages: [],
                 },
                 ...appProps,
                 user: session.user,
@@ -98,6 +99,7 @@ AVNU.getInitialProps = async (context) => {
                 ...appProps,
                 user: null,
                 serverCookiesChoices: cookiesChoices,
+                flashMessages: [],
             },
             ...appProps,
             user: null,

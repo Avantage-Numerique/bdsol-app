@@ -6,28 +6,6 @@ import { cookies } from "next/headers";
 export const MessageContext = createContext(undefined);
 
 /**
- * @typedef {Object} Message
- * @property {string} text - The message text to display
- * @property {'positive'|'negative'|'primary'|'secondary'} theme - The visual theme of the message
- * @property {number} creationTime - Timestamp when the message was created
- */
-
-/**
- * @typedef {Object} MessageContextValue
- * @property {function(Message|string): void} addMessage - Adds a new toast message to the queue
- * @property {function(): void} checkFlashMessages - Adds a new toast message to the queue
- * @property {Message[]} messages - Array of current toast messages
- * @property {React.Dispatch<React.SetStateAction<Message[]>>} setMessages - React setState function to update messages array
- */
-
-/**
- * @typedef {JSX.Element} MessageProvider
- * @property {function(Message|string): void} addMessage - Adds a new toast message to the queue
- * @property {Message[]} messages - Array of current toast messages
- * @property {function(Message[]): void} setMessages - React setState function to update messages array
- */
-
-/**
  * Manage the toat message of the application from within the provider and used outside with the useMessages().
  * @param {React.ReactNode} children
  * @returns {JSX.Element}

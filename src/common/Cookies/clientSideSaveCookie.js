@@ -1,4 +1,10 @@
-function csSetCookie(name, value, options) {
+/**
+ * Save to document the cookie.
+ * @param {string} name Cookie Name.
+ * @param {string} value Already stringnify cookie value
+ * @param {object} options Cookie option
+ */
+const csSetCookie = (name, value, options = {}) => {
     options = options || {};
 
     let expires = options.expires;
@@ -22,7 +28,7 @@ function csSetCookie(name, value, options) {
     }
 
     document.cookie = updatedCookie;
-}
+};
 
 export default csSetCookie;
 

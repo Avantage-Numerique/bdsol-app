@@ -13,7 +13,7 @@ async function loginRoute(req, res) {
     //if redirect with no can to api.
     //4. Redirect the user to the cookie params page.
     //context.req.headers.referer
-    const cookies = JSON.parse(req.cookies?.avnuCookies);
+    const cookies = JSON.parse(req.cookies?.[process.env.APP_CHOICES_COOKIE_NAME]);
 
     if (cookies && cookies.auth === true) {
         const response = await externalApiRequest("/login", {
@@ -52,7 +52,10 @@ async function loginRoute(req, res) {
         return;
     }
 
-    if (!cookies?.avnuCookies || cookies?.avnuCookies.auth !== true) {
+    if (
+        !cookies?.[process.env.APP_CHOICES_COOKIE_NAME] ||
+        cookies?.[process.env.APP_CHOICES_COOKIE_NAME].auth !== true
+    ) {
         res.send({
             text: lang.cookieMessageNeedAuthCookie,
             positive: false,
