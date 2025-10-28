@@ -29,6 +29,7 @@ const FieldPopOver = props => {
         const dialogEl = componentRef.current;
         const buttonEl = buttonRef.current;
         const containerEl = containerRef.current;
+        if( !dialogEl || !buttonEl || !containerEl) return;
 
         const dialogRect = dialogEl.getBoundingClientRect();
         const buttonRect = buttonEl.getBoundingClientRect();
