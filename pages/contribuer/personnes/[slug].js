@@ -5,11 +5,9 @@ import PersonSingleEdit from "@/DataTypes/Person/components/Forms/CreatePerson/P
 import { ssrCanContributeToEntity } from "@/auth/permissions/ssrCanContributeToEntity";
 
 const SinglePersonEditPage = (props) => {
-  return <PersonSingleEdit data={props} route={AppRoutes.personSingle} />;
+    return <PersonSingleEdit data={props} route={AppRoutes.personSingle} />;
 };
 
 export default SinglePersonEditPage;
 
-export const getServerSideProps = withSessionSsr(
-  ssrCanContributeToEntity("persons"),
-);
+export const getServerSideProps = withSessionSsr(ssrCanContributeToEntity("persons"));

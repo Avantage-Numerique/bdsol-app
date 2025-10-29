@@ -3,7 +3,7 @@
 *   Global classes for buttons classes
 *
 ***/
-    
+
 // Overwrite some outline colors depending on defined $theme-
 @each $color, $value in $theme-colors {
     /******* Outline button *******/
@@ -27,24 +27,26 @@
         --bs-btn-hover-bg: #{lighten($value, 25%)};
     }
     /******* Specific text color *******/
-    .btn.btn-text-color-#{$color} { 
-        --bs-btn-color: #{$value}; 
+    .btn.btn-text-color-#{$color} {
+        --bs-btn-color: #{$value};
         //Hover
-        --bs-btn-hover-color: #{$value}; 
+        --bs-btn-hover-color: #{$value};
     }
     /******* Specific text hover color *******/
-    .btn.btn-text-hover-color-#{$color} { --bs-btn-hover-color: #{$value}; }
+    .btn.btn-text-hover-color-#{$color} {
+        --bs-btn-hover-color: #{$value};
+    }
 }
 
 //Base btn element
-.btn{
-    --bs-btn-padding-y:0.66rem;
-    --bs-btn-border-radius:2em;
+.btn {
+    --bs-btn-padding-y: 0.66rem;
+    --bs-btn-border-radius: 2em;
 }
 /*****
 * Overrriding some classes declared previously with more specific values from the design!
 *****/
-//Specific primary color 
+//Specific primary color
 .btn.btn-color-primary {
     --bs-btn-bg: var(--bs-primary);
     --bs-btn-border-color: var(--bs-primary);
@@ -52,7 +54,7 @@
     --bs-btn-hover-border-color: var(--bs-primary);
     --bs-btn-hover-bg: var(--bs-primary-lighter);
 }
-//Specific secondary color 
+//Specific secondary color
 .btn.btn-color-secondary {
     --bs-btn-bg: var(--bs-secondary);
     --bs-btn-border-color: var(--bs-secondary);
@@ -67,38 +69,41 @@
     --bs-btn-border-color: unset;
     --bs-btn-padding-y: 0.1rem;
     --bs-btn-padding-x: 0.1rem;
-    &:hover { text-decoration: underline; }
-}
-  
-.btn-slim{
-    --bs-btn-font-size:1em;
-    --bs-btn-border-radius:1.25em;
-    --bs-btn-padding-y:0.375rem;
+    &:hover {
+        text-decoration: underline;
+    }
 }
 
-.w-100{ --bs-btn-padding-x:0rem; }
-  
+.btn-slim {
+    --bs-btn-font-size: 1em;
+    --bs-btn-border-radius: 1.25em;
+    --bs-btn-padding-y: 0.375rem;
+}
+
+.w-100 {
+    --bs-btn-padding-x: 0rem;
+}
+
 .btn.disabled,
 .btn:disabled,
 fieldset:disabled .btn :not(.btn-check) + .btn:disabled:hover,
 .btn:first-child:disabled:hover,
 :not(.btn-check) + .btn:active:disabled,
-.btn:first-child:active:disabled{
-  
+.btn:first-child:active:disabled {
     pointer-events: auto;
     cursor: not-allowed;
-    filter:none;
-    opacity:unset;
+    filter: none;
+    opacity: unset;
 
-    --bs-btn-disabled-bg: #CCCCCC;
-    --bs-btn-disabled-border-color: #CCCCCC;
+    --bs-btn-disabled-bg: #cccccc;
+    --bs-btn-disabled-border-color: #cccccc;
     --bs-btn-disabled-color: #979797;
     --bs-btn-hover-color: #979797;
-    --bs-btn-hover-bg: #CCCCCC;
-    --bs-btn-hover-border-color: #CCCCCC;
-    --bs-btn-active-color:#979797;
-    --bs-btn-active-bg:#CCCCCC;
-    --bs-btn-active-border-color:#CCCCCC;
+    --bs-btn-hover-bg: #cccccc;
+    --bs-btn-hover-border-color: #cccccc;
+    --bs-btn-active-color: #979797;
+    --bs-btn-active-bg: #cccccc;
+    --bs-btn-active-border-color: #cccccc;
 }
 
 .underlined-button {
@@ -107,7 +112,7 @@ fieldset:disabled .btn :not(.btn-check) + .btn:disabled:hover,
     border: none;
     opacity: 0.8;
     @include transition();
-    &:hover { 
+    &:hover {
         opacity: 1;
         background: none;
     }
@@ -133,4 +138,13 @@ fieldset:disabled .btn :not(.btn-check) + .btn:disabled:hover,
         background-color: transparent;
         color: $primary_7;
     }
+}
+
+.btn-icon {
+    @include transition();
+    --bs-btn-bg: transparent;
+    --bs-btn-border-color: transparent;
+    --bs-btn-hover-color: var(--bs-dark);
+    --bs-btn-hover-border-color: var(--bs-secondary);
+    --bs-btn-hover-bg: var(--bs-secondary);
 }

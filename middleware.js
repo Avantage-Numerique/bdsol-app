@@ -1,6 +1,4 @@
-import { NextResponse } from 'next/server';
-import {getIronSession} from "iron-session/edge";
-import {appDefaultSessionOptions} from "@/auth/session/Session";
+import { NextResponse } from "next/server";
 
 /**
  * Added in version 12.2 of nextjs, as for stable version.
@@ -8,7 +6,6 @@ import {appDefaultSessionOptions} from "@/auth/session/Session";
  * @return {NextResponse}
  */
 export async function middleware(request) {
-
     //const session = await getIronSession(request, response, appDefaultSessionOptions);
 
     // do anything with session here:
@@ -37,5 +34,5 @@ export async function middleware(request) {
 
 // Where does this middleware would run
 export const config = {
-    matcher: '/:path*'
-}
+    matcher: "/:path*",
+};

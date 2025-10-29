@@ -7,29 +7,20 @@
  * @param props.Tag {Component||string de tag} Tag to use for the icon, default <i>
  * @return {JSX.Element}
  * @constructor
- * 
+ *
  * LIST OF ICONS AVAILABLE HERE : https://icons8.com/line-awesome
  */
 const Icon = (props) => {
+    let { iconName, className, vendor, prefix, Tag } = props;
 
-    let {
-        iconName,
-        className,
-        vendor,
-        prefix,
-        Tag
-    } = props;
-
-    Tag = Tag ?? 'i';
-    className = className ?? '';
-    vendor = vendor ?? 'las';
-    prefix = prefix ?? 'la';
+    Tag = Tag ?? "i";
+    className = className ?? "";
+    vendor = vendor ?? "las";
+    prefix = prefix ?? "la";
 
     const prefixSep = "-";
 
-    return (
-        <Tag className={`${vendor} ${prefix}${prefixSep}${iconName} ${className}`}></Tag>
-    )
-}
+    return <Tag className={`${vendor} ${prefix}${prefixSep}${iconName} ${className}`}></Tag>;
+};
 
 export default Icon;

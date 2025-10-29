@@ -20,76 +20,69 @@ import LinkWithLoading from "@/src/Navigation/LinkWithLoading";
  * @return {JSX.Element}
  */
 const Button = (props) => {
-  /*****  Add the proper classes, starting with the btn *****/
-  let classList = ["btn"];
+    /*****  Add the proper classes, starting with the btn *****/
+    let classList = ["btn"];
 
-  //Type of display with color class has value : outline | color/full (default) | text-color (without background)
-  if (props.outline) {
-    //Option 1 : display with outline
-    classList.push(`btn-outline-${props.outline}`);
-  } else {
-    if (props.text_color) {
-      //Option 2 : Display only a text button
-      classList.push(`btn-as-text btn-text-color-${props.text_color}`);
+    //Type of display with color class has value : outline | color/full (default) | text-color (without background)
+    if (props.outline) {
+        //Option 1 : display with outline
+        classList.push(`btn-outline-${props.outline}`);
     } else {
-      //Option 3 : Display a button with full color | Default
-      classList.push(`btn-color-${props.color || "secondary"}`);
+        if (props.text_color) {
+            //Option 2 : Display only a text button
+            classList.push(`btn-as-text btn-text-color-${props.text_color}`);
+        } else {
+            //Option 3 : Display a button with full color | Default
+            classList.push(`btn-color-${props.color || "secondary"}`);
+        }
     }
-  }
-  //Size : For now, slim or not
-  if (props.size === "slim") classList.push("btn-slim");
-  //Custom text color changing on hover
-  if (props.text_color_hover)
-    classList.push(`btn-text-hover-color-${props.text_color_hover}`);
-  //Finaly, custom class names to add element or override specific ones
-  if (props.className) classList.push(props.className);
+    //Size : For now, slim or not
+    if (props.size === "slim") classList.push("btn-slim");
+    //Custom text color changing on hover
+    if (props.text_color_hover) classList.push(`btn-text-hover-color-${props.text_color_hover}`);
+    //Finaly, custom class names to add element or override specific ones
+    if (props.className) classList.push(props.className);
 
-  //Generate a string with all classes
-  const classesString = classList.join(" ");
+    //Generate a string with all classes
+    const classesString = classList.join(" ");
 
-  {
-    /* If the button is an external link */
-  }
-  if (props.href && props.external) {
+    {
+        /* If the button is an external link */
+    }
+    if (props.href && props.external) {
+        return (
+            <a
+                href={props.href}
+                className={`${classesString}${props.disabled ? " disabled" : ""}`}
+                target={"_blank"}
+                rel="noreferrer"
+            >
+                {props.children}
+            </a>
+        );
+    }
+
+    if (props.href) {
+        return (
+            <LinkWithLoading
+                href={props.href}
+                className={`${classesString} ${props.disabled ? "disabled" : ""}`}
+                aria-disabled={props.disabled ? "true" : "false"}
+                role={"button"}
+                onClick={props.onClick}
+            >
+                {props.children}
+            </LinkWithLoading>
+        );
+    }
+
+    {
+        /* If the button is not a link, then it calls an action with onClick */
+    }
     return (
-      <a
-        href={props.href}
-        className={`${classesString}${props.disabled ? " disabled" : ""}`}
-        target={"_blank"}
-      >
-        {props.children}
-      </a>
+        <button className={`${classesString}`} type={props.type} onClick={props.onClick} disabled={props.disabled}>
+            {/* Button text */}
+            {props.children}
+        </button>
     );
-  }
-
-  if (props.href) {
-    return (
-      <LinkWithLoading
-        href={props.href}
-        className={`${classesString} ${props.disabled ? "disabled" : ""}`}
-        aria-disabled={props.disabled ? "true" : "false"}
-        role={"button"}
-        onClick={props.onClick}
-      >
-        {props.children}
-      </LinkWithLoading>
-    );
-  }
-
-  {
-    /* If the button is not a link, then it calls an action with onClick */
-  }
-  return (
-    <button
-      className={`${classesString}`}
-      type={props.type}
-      onClick={props.onClick}
-      disabled={props.disabled}
-    >
-      {/* Button text */}
-      {props.children}
-    </button>
-  );
 };
-
-export default Button;

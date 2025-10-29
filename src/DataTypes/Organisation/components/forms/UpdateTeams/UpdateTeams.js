@@ -1,28 +1,26 @@
-import React from 'react';
+import React from "react";
 
 //components
-import Input from '@/src/common/FormElements/Input/Input';
-import Select2 from '@/src/common/FormElements/Select2/Select2';
-import Repeater from '@/src/common/FormElements/Repeater/Repeater';
+import Input from "@/src/common/FormElements/Input/Input";
+import Select2 from "@/src/common/FormElements/Select2/Select2";
+import Repeater from "@/src/common/FormElements/Repeater/Repeater";
 
 //Utils
-import { lang } from '@/src/common/Data/GlobalConstants';
+import { lang } from "@/src/common/Data/GlobalConstants";
 
 //Styling
-import styles from './UpdateTeams.module.scss'
-
+import styles from "./UpdateTeams.module.scss";
 
 /**
- * 
+ *
  * @param {string} name Name of formState value
  * @param {formTools} formTools
  * @param {object} parentEntity object data of entity that uses the structure of team
  * @param {object} props rest of the props.
  */
-const UpdateTeams = ({name, formTools, parentEntity, ...props}) => {
-
+const UpdateTeams = ({ name, formTools, parentEntity, ...props }) => {
     return (
-        <div className='px-4'>
+        <div className="px-4">
             <Repeater
                 className="bg-greyBg"
                 sortable
@@ -31,12 +29,12 @@ const UpdateTeams = ({name, formTools, parentEntity, ...props}) => {
                 formInitStructure={{
                     member: {
                         value: [],
-                        isValid: false
+                        isValid: false,
                     },
                     role: {
                         value: "",
-                        isValid: true
-                    }
+                        isValid: true,
+                    },
                 }}
                 initValues={parentEntity.team}
             >
@@ -45,19 +43,17 @@ const UpdateTeams = ({name, formTools, parentEntity, ...props}) => {
                         <div className="col-12 col-lg-6">
                             <Select2
                                 name="member"
-                                label={lang.teamMember+lang.required}
+                                label={lang.teamMember + lang.required}
                                 creatable={false}
                                 isMulti={false}
                                 fetch={"/persons/list"}
                                 searchField={"firstName"}
                                 selectField={"fullname"}
-                                validationRules={[
-                                    {name: "REQUIRED"}
-                                ]}
+                                validationRules={[{ name: "REQUIRED" }]}
                             />
                         </div>
                         <div className="col-12 col-lg-6">
-                            <Input 
+                            <Input
                                 name="role"
                                 label={lang.roleInTeam}
                                 //placeholder="Rôle dans l'équipe"
@@ -67,7 +63,7 @@ const UpdateTeams = ({name, formTools, parentEntity, ...props}) => {
                 </div>
             </Repeater>
         </div>
-    )
-}
+    );
+};
 
-export default UpdateTeams
+export default UpdateTeams;

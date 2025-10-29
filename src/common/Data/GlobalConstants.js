@@ -29,14 +29,14 @@ export const lang = StringDictionary.getInstance([
     "moderation",
     "licences",
     "filters",
-    "pagination"
+    "pagination",
 ]);
 
 export const now = new Date();
 
 export const modes = {
     CONSULTING: "consulting",
-    CONTRIBUTING: "contributing"
-}
+    CONTRIBUTING: "contributing",
+};
 
 export const externalApiCache = new Caching();

@@ -2,11 +2,11 @@ in the method :
 
 ```javascript
 function updateUrlQueryWithCurrentPage(updatedPaginationMeta) {
-  window.history.pushState(
-    { page: currentPage },
-    "",
-    `/consulter/${filtersUrl.get(consultData.entities[0])}${queryVars.toString() !== "" ? "?" : ""}${queryVars.toString()}`,
-  );
+    window.history.pushState(
+        { page: currentPage },
+        "",
+        `/consulter/${filtersUrl.get(consultData.entities[0])}${queryVars.toString() !== "" ? "?" : ""}${queryVars.toString()}`
+    );
 }
 ```
 
@@ -18,15 +18,15 @@ And get SSR data from page change we can trigger the ssr data by pushing the rou
 
 ```javascript
 router.push(
-  {
-    pathname: "/consulter/" + filtersUrl.get(consultData.entities[0]),
-    query: currentQuery,
-  },
-  undefined,
-  {
-    shallow: true,
-    scroll: false,
-  },
+    {
+        pathname: "/consulter/" + filtersUrl.get(consultData.entities[0]),
+        query: currentQuery,
+    },
+    undefined,
+    {
+        shallow: true,
+        scroll: false,
+    }
 );
 ```
 
@@ -40,40 +40,38 @@ Only used one time in the main template. I use directly the component in the tem
  * @type {JSX.Element}
  */
 const entityGrid = (
-  <div className="py-4 position-relative">
-    {currentLoadingState.state === LoadingStates.LOADING.state && (
-      <Spinner
-        label={currentLoadingState.label}
-        fixed={false}
-        absolute={false}
-        className={"rounded-2 bg-primary-lighter"}
-        loadingState={currentLoadingState}
-      />
-    )}
-    {consultData.list?.length > 0 && (
-      <EntitiesGrid
-        className={"row"}
-        columnClass={"col-12 col-sm-6 col-lg-4 col-xl-3 g-4 "}
-        feed={consultData.list.filter((el) => el.type !== "Taxonomy")}
-        badgesInfo={props.badgesInfo}
-      />
-    )}
-    {currentLoadingState.state === LoadingStates.LOADING_MORE.state && (
-      <Spinner
-        label={currentLoadingState.label}
-        fixed={false}
-        absolute={false}
-        className={"rounded-2 bg-primary-lighter"}
-        loadingState={currentLoadingState}
-      />
-    )}
-    {(currentLoadingState.state === LoadingStates.LOADING_COMPLETE.state ||
-      currentLoadingState.state === LoadingStates.DEFAULT.state) &&
-      consultData.list?.length <= 0 && (
-        <div className={"alert alert-primary p-4 text-center"}>
-          {lang.listNoResult}
-        </div>
-      )}
-  </div>
+    <div className="py-4 position-relative">
+        {currentLoadingState.state === LoadingStates.LOADING.state && (
+            <Spinner
+                label={currentLoadingState.label}
+                fixed={false}
+                absolute={false}
+                className={"rounded-2 bg-primary-lighter"}
+                loadingState={currentLoadingState}
+            />
+        )}
+        {consultData.list?.length > 0 && (
+            <EntitiesGrid
+                className={"row"}
+                columnClass={"col-12 col-sm-6 col-lg-4 col-xl-3 g-4 "}
+                feed={consultData.list.filter((el) => el.type !== "Taxonomy")}
+                badgesInfo={props.badgesInfo}
+            />
+        )}
+        {currentLoadingState.state === LoadingStates.LOADING_MORE.state && (
+            <Spinner
+                label={currentLoadingState.label}
+                fixed={false}
+                absolute={false}
+                className={"rounded-2 bg-primary-lighter"}
+                loadingState={currentLoadingState}
+            />
+        )}
+        {(currentLoadingState.state === LoadingStates.LOADING_COMPLETE.state ||
+            currentLoadingState.state === LoadingStates.DEFAULT.state) &&
+            consultData.list?.length <= 0 && (
+                <div className={"alert alert-primary p-4 text-center"}>{lang.listNoResult}</div>
+            )}
+    </div>
 );
 ```

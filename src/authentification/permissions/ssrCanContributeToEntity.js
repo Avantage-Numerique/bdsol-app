@@ -8,23 +8,23 @@ import { externalApiRequest } from "@/src/hooks/http-hook";
  * @returns {(function(*): Promise<{props: *}|{props: {user: *, userCanAccess: boolean}}|{redirect: {permanent: boolean, destination: string}, props: {user: {isPending: boolean, isLoggedIn: boolean, tokenVerified: boolean, token: null, id: null, avatar: null, name: null, username: null, createdAt: null, ip: null, browser: null, language: null, verify: {isVerified: boolean}}, userCanAccess: boolean}}>)|*}
  */
 export const ssrCanContributeToEntity = (entity) => {
-  /**
-   * SSR handler as an Anonymous function
-   */
-  return async (context) => {
-    const { query, req } = context;
-    const ssrCanAccessThisPath = await ssrCanAccess(context);
+    /**
+     * SSR handler as an Anonymous function
+     */
+    return async (context) => {
+        const { query, req } = context;
+        const ssrCanAccessThisPath = await ssrCanAccess(context);
 
-    // precise
-    if (ssrCanAccessThisPath.props.userCanAccess) {
-      const response = await externalApiRequest(`/${entity}/${query.slug}`, {
-        method: "GET",
-        headers: getUserHeadersFromUserSession(req.session.user),
-      });
+        // precise
+        if (ssrCanAccessThisPath.props.userCanAccess) {
+            const response = await externalApiRequest(`/${entity}/${query.slug}`, {
+                method: "GET",
+                headers: getUserHeadersFromUserSession(req.session.user),
+            });
 
-      return { props: response.data };
-    }
+            return { props: response.data };
+        }
 
-    return ssrCanAccessThisPath;
-  };
+        return ssrCanAccessThisPath;
+    };
 };

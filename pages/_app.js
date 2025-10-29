@@ -1,22 +1,21 @@
-import React, {useEffect} from "react";
-import {getIronSession} from "iron-session";
+import React, { useEffect } from "react";
+import { getIronSession } from "iron-session";
 import App from "next/app";
-import {appDefaultSessionOptions} from "@/src/authentification/session/Session";
-import {AuthProvider} from '@/src/authentification/context/auth-context';
-import Layout from '@/src/layouts/Layout';
-import {getVisitorDataFromContext} from "@/src/authentification/context/visitor-context";
-import {verifyToken} from "@/auth/callbacks/verify-token.callback";
+import { appDefaultSessionOptions } from "@/src/authentification/session/Session";
+import { AuthProvider } from "@/src/authentification/context/auth-context";
+import Layout from "@/src/layouts/Layout";
+import { getVisitorDataFromContext } from "@/src/authentification/context/visitor-context";
+import { verifyToken } from "@/auth/callbacks/verify-token.callback";
 import CookieBanner from "@/common/widgets/CookieBanner/CookieBanner";
 import useWebStats from "@/src/monitoring/hooks/useWebStats";
 import "@/src/helpers/ExtendedString";
 
-import '@/styles/main.scss';
+import "@/styles/main.scss";
+import MessageProvider from "@/common/UserNotifications/Message/MessageProvider";
 
-function AVNU({Component, pageProps, user, serverCookiesChoices}) {
-
+function AVNU({ Component, pageProps, user, serverCookiesChoices }) {
     const webStats = useWebStats();
     const cookieChoices = serverCookiesChoices;
-
 
     useEffect(() => {
         webStats.init(cookieChoices);
@@ -29,13 +28,15 @@ function AVNU({Component, pageProps, user, serverCookiesChoices}) {
         <>
             {/* Authentication context provided to all the subsequent elements */}
             <AuthProvider fromSessionUser={user} appMode={process.env.MODE} acceptedCookies={serverCookiesChoices}>
-                <Layout pageProps={pageProps}>
-                    <Component {...pageProps} />
-                    <CookieBanner />
-                </Layout>
+                <MessageProvider>
+                    <Layout pageProps={pageProps}>
+                        <Component {...pageProps} />
+                        <CookieBanner />
+                    </Layout>
+                </MessageProvider>
             </AuthProvider>
         </>
-    )
+    );
 }
 
 /**
@@ -45,15 +46,9 @@ function AVNU({Component, pageProps, user, serverCookiesChoices}) {
  * @inheritDoc https://nextjs.org/docs/api-reference/data-fetching/get-initial-props
  */
 AVNU.getInitialProps = async (context) => {
-
     const appProps = await App.getInitialProps(context);
     if (context.ctx.req && context.ctx.res) {
-
-        let session = await getIronSession(
-            context.ctx.req,
-            context.ctx.res,
-            appDefaultSessionOptions,
-        );
+        let session = await getIronSession(context.ctx.req, context.ctx.res, appDefaultSessionOptions);
 
         //Save the IP
         const visitor = getVisitorDataFromContext(context);
@@ -66,14 +61,14 @@ AVNU.getInitialProps = async (context) => {
         }
         //if cookies auth is accepted follow with session creation.
         if (cookiesChoices?.auth) {
-
             const savedInSessionUser = session.user ?? {};
 
             if (session && session.user && session.user.token && session.user.token !== "") {
                 //verify and set if the token is verified by the API
                 try {
                     const serverVerificationResponse = await verifyToken(session.user.token);
-                    session.user.tokenVerified = session.user.isLoggedIn = !serverVerificationResponse.error && serverVerificationResponse.data.tokenVerified;
+                    session.user.tokenVerified = session.user.isLoggedIn =
+                        !serverVerificationResponse.error && serverVerificationResponse.data.tokenVerified;
                 } catch (error) {
                     console.error("ERROR : Token verification failed");
                 }
@@ -81,7 +76,7 @@ AVNU.getInitialProps = async (context) => {
 
             session.user = {
                 ...savedInSessionUser,
-                ...visitor
+                ...visitor,
             };
 
             await session.save();
@@ -89,12 +84,12 @@ AVNU.getInitialProps = async (context) => {
                 pageProps: {
                     ...appProps,
                     user: session.user,
-                    serverCookiesChoices: cookiesChoices
+                    serverCookiesChoices: cookiesChoices,
                 },
                 ...appProps,
                 user: session.user,
                 visitor: visitor,
-                serverCookiesChoices: cookiesChoices
+                serverCookiesChoices: cookiesChoices,
             };
         }
 
@@ -102,17 +97,17 @@ AVNU.getInitialProps = async (context) => {
             pageProps: {
                 ...appProps,
                 user: null,
-                serverCookiesChoices: cookiesChoices
+                serverCookiesChoices: cookiesChoices,
             },
             ...appProps,
             user: null,
             visitor: visitor,
-            serverCookiesChoices: cookiesChoices
+            serverCookiesChoices: cookiesChoices,
         };
     }
 
     return appProps;
-}
+};
 
 //it isn't call in _app : noMyApp.getServerSideProps or I didn't declare it the good way.
 export default AVNU;

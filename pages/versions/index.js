@@ -6,217 +6,193 @@ import { lang } from "@/src/common/Data/GlobalConstants";
 import Version from "@/src/versions/Version";
 
 export async function getServerSideProps() {
-  let versionsList = [];
-  versionsList.push(
-    {
-      label: "Pagination et amélioration",
-      value: "1.0.2",
-      date: "2025-09-17",
-      description:
-        "Optimisation et ajout de pagination avec le easy loading dans la page consulter les données. Plusieurs amélioration d'utilisabilité",
-      notes: [
+    let versionsList = [];
+    versionsList.push(
         {
-          value:
-            "Recherche et pagination dans la section contribuer avec l'agrégation.",
+            label: "Pagination et amélioration",
+            value: "1.0.2",
+            date: "2025-09-17",
+            description:
+                "Optimisation et ajout de pagination avec le easy loading dans la page consulter les données. Plusieurs amélioration d'utilisabilité",
+            notes: [
+                {
+                    value: "Recherche et pagination dans la section contribuer avec l'agrégation.",
+                },
+                {
+                    value: "Petits ajustements dans la structures.",
+                },
+                {
+                    value: "Ajout d'informations plus précises pour guider l'utilisateur dans les champs qui sont nécessaires lorsque l'on contribue aux fiches.",
+                },
+                {
+                    value: "Affichage des rôles et plus de détails dans les éléments liés.",
+                },
+                {
+                    value: "On peut ajouter plus d'un producteur et d'un créateur dans les fiches projets.",
+                },
+                {
+                    value: "<strong>Équipe</strong>",
+                    additionnalClasses: "pt-3 pb-2",
+                },
+                {
+                    value: "<strong>Frédéric Rivard</strong>, Backend et front-end",
+                },
+                {
+                    value: "<strong>Jeanne Perrin</strong> web design et UX",
+                },
+                {
+                    value: "<strong>Jules Luzy-Riopel</strong> Backend et front-end <span class='badge bg-primary'>Bienvenue :party:</span>",
+                },
+                {
+                    value: "<strong>Marc-André Martin</strong>, Backend, front-end et responsable du développement",
+                },
+            ],
         },
         {
-          value: "Petits ajustements dans la structures.",
+            label: "Ajout du tracking avec Matomo et amélioration dans l'interface",
+            value: "1.0.1",
+            date: "2024-08-20",
+            description:
+                "Ajout du suivi anonyme pour Matomo et la gestion de consentement relié à la bannière de cookie. Avec des ajouts de liaison de données pour les créateurs d'événements et partenaire de projet.",
+            notes: [
+                {
+                    value: "Matomo est maintenant actif pour les utilisateurs qui acceptent de partager leur utilisation dans la plateforme.",
+                },
+                {
+                    value: "Ajustement du visuel de la page des paramètres de cookies pour aider à la lecture. Surtout pour un utilisateur qui veut se connecter, mais qui n'a pas accepté les cookies de connexion.",
+                },
+                {
+                    value: "Ajout des partenaires de projets et des créateurs d'événements dans la fiche organisations.",
+                },
+                {
+                    value: "<strong>Équipe</strong>",
+                    additionnalClasses: "pt-3 pb-2",
+                },
+                {
+                    value: "<strong>Frédéric Rivard</strong>, Backend et front-end",
+                },
+                {
+                    value: "<strong>Marc-André Martin</strong>, Backend, front-end et responsable du développement",
+                },
+                {
+                    value: "<strong>Jeanne Perrin</strong> web design et UX",
+                },
+            ],
         },
         {
-          value:
-            "Ajout d'informations plus précises pour guider l'utilisateur dans les champs qui sont nécessaires lorsque l'on contribue aux fiches.",
+            label: "Badge du CB et informations de contact",
+            value: "1.0.0",
+            date: "2024-06-28",
+            description:
+                "Mise en ligne le 28 juin 2024. La version 1 ajoute plusieurs amélioration et ajustement du visuel, des textes. On a réglé plusieurs bogues.",
+            notes: [
+                {
+                    value: "Ajout des informations de contact pour les entités Personnes et Organisations avec plus de détails (courriel, téléphones, site web)",
+                },
+                {
+                    value: "Ajout du système de badge, et on commence avec le badge : Croissant boréal (CB) et le champ de la région de l'entité.",
+                },
+                {
+                    value: "Ajout des backups et du partage des versions dans l'API.",
+                },
+                {
+                    value: "Ajout d'une fonctionnalité de type contenu statique (appelé Page) dans L'API.",
+                },
+                {
+                    value: "<strong>Équipe</strong>",
+                    additionnalClasses: "pt-3 pb-2",
+                },
+                {
+                    value: "<strong>Frédéric Rivard</strong>, Backend et front-end",
+                },
+                {
+                    value: "<strong>Marc-André Martin</strong>, Backend, front-end et responsable du développement",
+                },
+                {
+                    value: "<strong>Jeanne Perrin</strong> web design et UX",
+                },
+            ],
         },
         {
-          value:
-            "Affichage des rôles et plus de détails dans les éléments liés.",
-        },
-        {
-          value:
-            "On peut ajouter plus d'un producteur et d'un créateur dans les fiches projets.",
-        },
-        {
-          value: "<strong>Équipe</strong>",
-          additionnalClasses: "pt-3 pb-2",
-        },
-        {
-          value: "<strong>Frédéric Rivard</strong>, Backend et front-end",
-        },
-        {
-          value: "<strong>Jeanne Perrin</strong> web design et UX",
-        },
-        {
-          value:
-            "<strong>Jules Luzy-Riopel</strong> Backend et front-end <span class='badge bg-primary'>Bienvenue :party:</span>",
-        },
-        {
-          value:
-            "<strong>Marc-André Martin</strong>, Backend, front-end et responsable du développement",
-        },
-      ],
-    },
-    {
-      label: "Ajout du tracking avec Matomo et amélioration dans l'interface",
-      value: "1.0.1",
-      date: "2024-08-20",
-      description:
-        "Ajout du suivi anonyme pour Matomo et la gestion de consentement relié à la bannière de cookie. Avec des ajouts de liaison de données pour les créateurs d'événements et partenaire de projet.",
-      notes: [
-        {
-          value:
-            "Matomo est maintenant actif pour les utilisateurs qui acceptent de partager leur utilisation dans la plateforme.",
-        },
-        {
-          value:
-            "Ajustement du visuel de la page des paramètres de cookies pour aider à la lecture. Surtout pour un utilisateur qui veut se connecter, mais qui n'a pas accepté les cookies de connexion.",
-        },
-        {
-          value:
-            "Ajout des partenaires de projets et des créateurs d'événements dans la fiche organisations.",
-        },
-        {
-          value: "<strong>Équipe</strong>",
-          additionnalClasses: "pt-3 pb-2",
-        },
-        {
-          value: "<strong>Frédéric Rivard</strong>, Backend et front-end",
-        },
-        {
-          value:
-            "<strong>Marc-André Martin</strong>, Backend, front-end et responsable du développement",
-        },
-        {
-          value: "<strong>Jeanne Perrin</strong> web design et UX",
-        },
-      ],
-    },
-    {
-      label: "Badge du CB et informations de contact",
-      value: "1.0.0",
-      date: "2024-06-28",
-      description:
-        "Mise en ligne le 28 juin 2024. La version 1 ajoute plusieurs amélioration et ajustement du visuel, des textes. On a réglé plusieurs bogues.",
-      notes: [
-        {
-          value:
-            "Ajout des informations de contact pour les entités Personnes et Organisations avec plus de détails (courriel, téléphones, site web)",
-        },
-        {
-          value:
-            "Ajout du système de badge, et on commence avec le badge : Croissant boréal (CB) et le champ de la région de l'entité.",
-        },
-        {
-          value: "Ajout des backups et du partage des versions dans l'API.",
-        },
-        {
-          value:
-            "Ajout d'une fonctionnalité de type contenu statique (appelé Page) dans L'API.",
-        },
-        {
-          value: "<strong>Équipe</strong>",
-          additionnalClasses: "pt-3 pb-2",
-        },
-        {
-          value: "<strong>Frédéric Rivard</strong>, Backend et front-end",
-        },
-        {
-          value:
-            "<strong>Marc-André Martin</strong>, Backend, front-end et responsable du développement",
-        },
-        {
-          value: "<strong>Jeanne Perrin</strong> web design et UX",
-        },
-      ],
-    },
-    {
-      label: "Mise en ligne d'AVNU pour le lancement",
-      value: "0.9.9",
-      date: "2024-03-23",
-      description:
-        "Mise en ligne le 23 mars 2024. Le lancement a eu lieu au Cabaret de la dernière chance à la fin du Forum Avantage numérique.",
-      notes: [
-        {
-          value:
-            "Structure de l'ontologie modifiable et fonctionnalités de consultation pour  les Personnes, Organisations, Projets, Événements, Équipements et Lieux.",
-        },
-        {
-          value:
-            "Branding et intégration de la maquette web pour la version 1 d'AVNU.",
-        },
-        {
-          value: "Système de connexion via l'API.",
-        },
-        {
-          value: "<strong>Équipe</strong>",
-          additionnalClasses: "pt-3 pb-2",
-        },
-        {
-          value: "<strong>Vincent P. Ruel</strong>, Intégration et front-end",
-        },
-        {
-          value: "<strong>Frédéric Rivard</strong>, Backend et front-end",
-        },
-        {
-          value:
-            "<strong>Marc-André Martin</strong>, Backend, front-end et responsable du développement",
-        },
-        {
-          value:
-            "<strong>Simon Descoteau</strong>, coordination et gestion du produits",
-        },
-        {
-          value: "<strong>Jeanne Perrin</strong> web design et UX",
-        },
-      ],
-    },
-  );
+            label: "Mise en ligne d'AVNU pour le lancement",
+            value: "0.9.9",
+            date: "2024-03-23",
+            description:
+                "Mise en ligne le 23 mars 2024. Le lancement a eu lieu au Cabaret de la dernière chance à la fin du Forum Avantage numérique.",
+            notes: [
+                {
+                    value: "Structure de l'ontologie modifiable et fonctionnalités de consultation pour  les Personnes, Organisations, Projets, Événements, Équipements et Lieux.",
+                },
+                {
+                    value: "Branding et intégration de la maquette web pour la version 1 d'AVNU.",
+                },
+                {
+                    value: "Système de connexion via l'API.",
+                },
+                {
+                    value: "<strong>Équipe</strong>",
+                    additionnalClasses: "pt-3 pb-2",
+                },
+                {
+                    value: "<strong>Vincent P. Ruel</strong>, Intégration et front-end",
+                },
+                {
+                    value: "<strong>Frédéric Rivard</strong>, Backend et front-end",
+                },
+                {
+                    value: "<strong>Marc-André Martin</strong>, Backend, front-end et responsable du développement",
+                },
+                {
+                    value: "<strong>Simon Descoteau</strong>, coordination et gestion du produits",
+                },
+                {
+                    value: "<strong>Jeanne Perrin</strong> web design et UX",
+                },
+            ],
+        }
+    );
 
-  const versions = JSON.stringify({
-    versions: versionsList,
-  });
+    const versions = JSON.stringify({
+        versions: versionsList,
+    });
 
-  return {
-    props: {
-      versions: versions,
-    },
-  };
+    return {
+        props: {
+            versions: versions,
+        },
+    };
 }
 
 const VersionIndex = (props) => {
-  const pageSpacing = appConfig.spacing.pagesContentSpacing;
-  const versions = JSON.parse(props.versions); //)
+    const pageSpacing = appConfig.spacing.pagesContentSpacing;
+    const versions = JSON.parse(props.versions); //)
 
-  return (
-    <div className={"legal-page page-terms-of-use"}>
-      <PageMeta
-        title={lang.versions__title}
-        description={lang.versions__descriptions}
-      />
-      <PageHeader
-        bg={"bg-primary-lighter"}
-        textColor={"text-white"}
-        title={lang.versions__title}
-        subTitle={lang.versions__descriptions}
-        description={lang.versions__descriptions}
-        key={"VersionsPage"}
-      />
-      <section className={`container ${pageSpacing}`}>
-        {versions.versions &&
-          Array.isArray(versions.versions) &&
-          versions.versions.map((versionRaw, index) => {
-            const version = new Version(versionRaw);
-            const isLast = index === versions.versions.length - 1;
-            return (
-              <div
-                className={`row ${!isLast ? "border-bottom" : ""} pb-5`}
-                key={`versionRow${index}`}
-              >
-                <div className={"col"}>{version.render()}</div>
-              </div>
-            );
-          })}
-      </section>
-    </div>
-  );
+    return (
+        <div className={"legal-page page-terms-of-use"}>
+            <PageMeta title={lang.versions__title} description={lang.versions__descriptions} />
+            <PageHeader
+                bg={"bg-primary-lighter"}
+                textColor={"text-white"}
+                title={lang.versions__title}
+                subTitle={lang.versions__descriptions}
+                description={lang.versions__descriptions}
+                key={"VersionsPage"}
+            />
+            <section className={`container ${pageSpacing}`}>
+                {versions.versions &&
+                    Array.isArray(versions.versions) &&
+                    versions.versions.map((versionRaw, index) => {
+                        const version = new Version(versionRaw);
+                        const isLast = index === versions.versions.length - 1;
+                        return (
+                            <div className={`row ${!isLast ? "border-bottom" : ""} pb-5`} key={`versionRow${index}`}>
+                                <div className={"col"}>{version.render()}</div>
+                            </div>
+                        );
+                    })}
+            </section>
+        </div>
+    );
 };
 
 export default VersionIndex;

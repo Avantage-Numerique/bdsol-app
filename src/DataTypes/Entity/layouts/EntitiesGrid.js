@@ -13,61 +13,49 @@ import EntitiesGridPlaceHolder from "@/common/widgets/Placeholder/EntitiesGridPl
  * @return {JSX.Element}
  * @constructor
  */
-const EntitiesGrid = ({
-  feed,
-  className,
-  columnClass,
-  noResult,
-  badgesInfo,
-}) => {
-  const ContainerTag = "div";
+const EntitiesGrid = ({ feed, className, columnClass, noResult, badgesInfo }) => {
+    const ContainerTag = "div";
 
-  const colContainerClass = columnClass ?? "g-4"; //"col-12 col-sm-6 col-lg-4 col-xl-3 g-4";
+    const colContainerClass = columnClass ?? "g-4"; //"col-12 col-sm-6 col-lg-4 col-xl-3 g-4";
 
-  const getKeyString = useCallback((prefix, model, index) => {
-    const sep = "-";
+    const getKeyString = useCallback((prefix, model, index) => {
+        const sep = "-";
+        return prefix + model.type + sep + (model._id ?? "") + sep + model.slug + index;
+    });
+
+    const customStyling = { maxWidth: "24rem" };
+
     return (
-      prefix + model.type + sep + (model._id ?? "") + sep + model.slug + index
+        <Suspense fallback={EntitiesGridPlaceHolder}>
+            <ContainerTag className={className + " justify-content-center"}>
+                {feed.length > 0 ? (
+                    feed.map((entity, index) => {
+                        if (entity !== null) {
+                            //check that because upward from drilling here could send sont element null.
+                            const model = getModelFromType(entity.type, entity);
+                            const SimpleComponent = model.simpleComponent;
+                            return (
+                                <div
+                                    style={customStyling}
+                                    className={`${colContainerClass}`}
+                                    key={getKeyString("container", model, index)}
+                                >
+                                    <SimpleComponent
+                                        data={entity}
+                                        model={model}
+                                        key={getKeyString("simple", model, index)}
+                                        badgesInfo={badgesInfo}
+                                    />
+                                </div>
+                            );
+                        }
+                    })
+                ) : (
+                    <h5 className={"py-4"}>{noResult ?? lang.noResult}</h5>
+                )}
+            </ContainerTag>
+        </Suspense>
     );
-  });
-
-  const customStyling = { maxWidth: "24rem" };
-
-  return (
-    <Suspense fallback={EntitiesGridPlaceHolder}>
-      <ContainerTag className={className + " justify-content-center"}>
-        {feed.length > 0 ? (
-          feed.map((entity, index) => {
-            if (entity !== null) {
-              //check that because upward from drilling here could send sont element null.
-
-              const model = getModelFromType(entity.type, entity);
-              if (model !== undefined) {
-                const SimpleComponent = model.simpleComponent;
-                return (
-                  <div
-                    style={customStyling}
-                    className={`${colContainerClass}`}
-                    key={getKeyString("container", model, index)}
-                  >
-                    <SimpleComponent
-                      data={entity}
-                      model={model}
-                      key={getKeyString("simple", model, index)}
-                      badgesInfo={badgesInfo}
-                    />
-                  </div>
-                );
-              }
-              return <div key={`container${index}`}></div>;
-            }
-          })
-        ) : (
-          <h5 className={"py-4"}>{noResult ?? lang.noResult}</h5>
-        )}
-      </ContainerTag>
-    </Suspense>
-  );
 };
 
 export default EntitiesGrid;

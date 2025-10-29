@@ -5,11 +5,9 @@ import EventSingleEdit from "@/src/DataTypes/Event/component/layout/single/Event
 import { ssrCanContributeToEntity } from "@/auth/permissions/ssrCanContributeToEntity";
 
 const SingleEventEditPage = (props) => {
-  return <EventSingleEdit data={props} route={AppRoutes.eventSingle} />;
+    return <EventSingleEdit data={props} route={AppRoutes.eventSingle} />;
 };
 
 export default SingleEventEditPage;
 
-export const getServerSideProps = withSessionSsr(
-  ssrCanContributeToEntity("events"),
-);
+export const getServerSideProps = withSessionSsr(ssrCanContributeToEntity("events"));

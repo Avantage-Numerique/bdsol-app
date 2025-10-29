@@ -1,31 +1,28 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from "react";
 
 //components
-import SingleBase from "@/src/DataTypes/common/layouts/single/SingleBase"
-import SingleBaseHeader from "@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseHeader"
+import SingleBase from "@/src/DataTypes/common/layouts/single/SingleBase";
+import SingleBaseHeader from "@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseHeader";
 import SingleInfo from "@/DataTypes/common/layouts/SingleInfo/SingleInfo";
-import SocialHandleDisplay from '@/DataTypes/common/layouts/SocialHandlesViews/SocialHandleDisplay'
-import SingleBaseProgressBar
-    from '@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseProgressBar/SingleBaseProgressBar'
+import SocialHandleDisplay from "@/DataTypes/common/layouts/SocialHandlesViews/SocialHandleDisplay";
+import SingleBaseProgressBar from "@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseProgressBar/SingleBaseProgressBar";
 
 //Utils
-import SanitizedInnerHtml from '@/src/utils/SanitizedInnerHtml';
-import {SingleEntityMeta} from "@/src/DataTypes/Meta/components/SingleEntityMeta";
-import {lang} from "@/common/Data/GlobalConstants";
-import Equipment from '../../../models/Equipment';
+import SanitizedInnerHtml from "@/src/utils/SanitizedInnerHtml";
+import { SingleEntityMeta } from "@/src/DataTypes/Meta/components/SingleEntityMeta";
+import { lang } from "@/common/Data/GlobalConstants";
+import Equipment from "../../../models/Equipment";
 import EntitiesTagGrid from "@/DataTypes/Entity/layouts/EntitiesTagGrid";
 
-
 const EquipmentSingleView = ({ data }) => {
-
     const model = new Equipment(data);
 
     /* Needed for breadCrumb generator */
 
     const breadcrumbLabels = {
-        "equipements": lang.Equipments,
-        "consulter": lang.consultTitle,
-        "slug": model.title
+        equipements: lang.Equipments,
+        consulter: lang.consultTitle,
+        slug: model.title,
     };
 
     const [breadCrumb, setBreadCrumb] = useState({
@@ -37,7 +34,7 @@ const EquipmentSingleView = ({ data }) => {
         setBreadCrumb({
             route: model.singleRoute,
             labels: breadcrumbLabels,
-        })
+        });
     }, [model.title]);
 
     /****************************
@@ -46,10 +43,19 @@ const EquipmentSingleView = ({ data }) => {
 
     const title = (
         <>
-            <SanitizedInnerHtml removeQlEditorClass tag={"h5"} className="text-white">{`${model.equipmentType.name}`}</SanitizedInnerHtml>
-            <SanitizedInnerHtml removeQlEditorClass tag={"h3"} className="text-white">{`${model.title}`}</SanitizedInnerHtml>
-        </>)
-    const subtitle = (<></>)
+            <SanitizedInnerHtml
+                removeQlEditorClass
+                tag={"h5"}
+                className="text-white"
+            >{`${model.equipmentType.name}`}</SanitizedInnerHtml>
+            <SanitizedInnerHtml
+                removeQlEditorClass
+                tag={"h3"}
+                className="text-white"
+            >{`${model.title}`}</SanitizedInnerHtml>
+        </>
+    );
+    const subtitle = <></>;
     const Header = (
         <SingleBaseHeader
             title={title}
@@ -59,100 +65,92 @@ const EquipmentSingleView = ({ data }) => {
             buttonText="Proposer des modifications"
             buttonLink={model.singleEditLink}
         />
-    )
+    );
 
     const ContentColumnLeft = (
         <>
             <SingleInfo
-                displayCondition={(model.brand || model.modelName)}
+                displayCondition={model.brand || model.modelName}
                 NAMessage="Aucun modèle ou marque n'est associé à ce produit."
                 title={lang.productInformations}
             >
-                
-                <SingleInfo 
-                    title={lang.brand}
-                    isSubtitle
-                    noCardLayout
-                >
+                <SingleInfo title={lang.brand} isSubtitle noCardLayout>
                     {model.brand && model.brand}
                 </SingleInfo>
-                
-                <SingleInfo 
-                    title={lang.modelName}
-                    isSubtitle
-                    noCardLayout
-                >
+
+                <SingleInfo title={lang.modelName} isSubtitle noCardLayout>
                     {model.modelName && model.modelName}
                 </SingleInfo>
-                
             </SingleInfo>
 
-            <SingleInfo 
-                title={`${lang.plural(lang.ownByOrganisation, lang.ownByOrganisations, model.organisations.length)}`} 
+            <SingleInfo
+                title={`${lang.plural(lang.ownByOrganisation, lang.ownByOrganisations, model.organisations.length)}`}
                 displayCondition={model.organisations.length > 0}
             >
-                <EntitiesTagGrid feed={model.organisations}/>
+                <EntitiesTagGrid feed={model.organisations} />
             </SingleInfo>
-            
-            <SingleInfo 
-                title={`${lang.plural(lang.usedInProject, lang.usedInProjects, model.projects.length)}`} 
+
+            <SingleInfo
+                title={`${lang.plural(lang.usedInProject, lang.usedInProjects, model.projects.length)}`}
                 displayCondition={model.projects.length > 0}
             >
-                <EntitiesTagGrid feed={model.projects}/>
+                <EntitiesTagGrid feed={model.projects} />
             </SingleInfo>
-            
         </>
-    )
+    );
 
     const ContentColumnRight = (
         <>
-            <SocialHandleDisplay 
+            <SocialHandleDisplay
                 title={lang.externalLinks}
                 url={model?.url}
                 //className={`${appConfig.spacing.singleSectionSpacingClass}`}
-            />               
+            />
         </>
-    )
+    );
 
     const Footer = (
         <>
-            {
-                (model.createdAt || model.updatedAt || model.meta) &&
-                <SingleInfo 
-                    title={lang.entityMetadata} 
-                    className="pt-3"
-                >
+            {(model.createdAt || model.updatedAt || model.meta) && (
+                <SingleInfo title={lang.entityMetadata} className="pt-3">
                     {/*********** Entity data ***********/}
                     <SingleEntityMeta createdAt={model.createdAt} updatedAt={model.updatedAt} meta={model.meta} />
-                </SingleInfo>            
-            }
+                </SingleInfo>
+            )}
         </>
-    )
+    );
 
-    {/*********** Bottom section ***********/}
+    {
+        /*********** Bottom section ***********/
+    }
     const SinglePageBottom = (
-        <SingleBaseProgressBar 
+        <SingleBaseProgressBar
             dataList={[
-                {data: model.equipmentType.name},
-                {data: model.title},
-                {data: model.brand},
-                {data: lang.modelName},
-                {data: model?.url},
-                {data: model.mainImage.isDefault, validationFunction: ((value) => !value)}, 
+                { data: model.equipmentType.name },
+                { data: model.title },
+                { data: model.brand },
+                { data: lang.modelName },
+                { data: model?.url },
+                {
+                    data: model.mainImage.isDefault,
+                    validationFunction: (value) => !value,
+                },
             ]}
             buttonText={lang.contributeButtonLabel}
             buttonLink={model.singleEditLink}
         />
-    )
+    );
 
-    {/**************************
-    *   Elements returned as props of the SingleBase
-    */}
+    {
+        /**************************
+         *   Elements returned as props of the SingleBase
+         */
+    }
     return (
         <>
             <SingleBase
                 breadCrumb={breadCrumb}
-                header={Header}              
+                header={Header}
                 contentColumnLeft={ContentColumnLeft}
                 contentColumnRight={ContentColumnRight}
                 footer={Footer}
@@ -160,7 +158,7 @@ const EquipmentSingleView = ({ data }) => {
                 model={model}
             />
         </>
-    )
-}
+    );
+};
 
-export default EquipmentSingleView
+export default EquipmentSingleView;

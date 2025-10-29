@@ -1,8 +1,7 @@
-
 .breadcrumb-item {
     // The separator between breadcrumbs (by default, a forward-slash: "/")
     + .breadcrumb-item {
-        padding-right: 0;//var(--#{$prefix}breadcrumb-item-padding-x);
+        padding-right: 0; //var(--#{$prefix}breadcrumb-item-padding-x);
         padding-left: 0;
 
         &::before {
@@ -16,12 +15,13 @@
             padding-right: var(--#{$prefix}breadcrumb-item-padding-x);
             padding-left: var(--#{$prefix}breadcrumb-item-padding-x);
             color: var(--#{$prefix}breadcrumb-divider-color);
-            content: var(--#{$prefix}breadcrumb-divider, escape-svg($breadcrumb-divider)) #{"/* rtl:"} var(--#{$prefix}breadcrumb-divider, escape-svg($breadcrumb-divider-flipped)) #{"*/"};
+            content: var(--#{$prefix}breadcrumb-divider, escape-svg($breadcrumb-divider)) #{"/* rtl:"}
+                var(--#{$prefix}breadcrumb-divider, escape-svg($breadcrumb-divider-flipped)) #{"*/"};
         }
     }
 
     &:first-child {
-        padding-right: 0;//var(--#{$prefix}breadcrumb-item-padding-x);
+        padding-right: 0; //var(--#{$prefix}breadcrumb-item-padding-x);
         padding-left: 0;
 
         &::before {
@@ -35,11 +35,12 @@
             padding-right: var(--#{$prefix}breadcrumb-item-padding-x);
             padding-left: var(--#{$prefix}breadcrumb-item-padding-x);
             color: var(--#{$prefix}breadcrumb-divider-color);
-            content: var(--#{$prefix}breadcrumb-divider, escape-svg($breadcrumb-divider)) #{"/* rtl:"} var(--#{$prefix}breadcrumb-divider, escape-svg($breadcrumb-divider-flipped)) #{"*/"};
+            content: var(--#{$prefix}breadcrumb-divider, escape-svg($breadcrumb-divider)) #{"/* rtl:"}
+                var(--#{$prefix}breadcrumb-divider, escape-svg($breadcrumb-divider-flipped)) #{"*/"};
         }
     }
     &:last-child {
-        padding-right: 0;//var(--#{$prefix}breadcrumb-item-padding-x);
+        padding-right: 0; //var(--#{$prefix}breadcrumb-item-padding-x);
         padding-left: 0;
 
         &::before {
