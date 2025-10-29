@@ -7,7 +7,6 @@
 
 import { createContext, useEffect, useRef } from "react";
 import Head from "next/head";
-import sanitizedString from "@/src/utils/SanitizedString";
 
 //Context
 import { useMessages } from "@/src/common/UserNotifications/Message/MessageProvider";
@@ -24,7 +23,7 @@ import { useModalController } from "@/src/hooks/useModal/ModalsController/Modals
 import { useRouter } from "next/router";
 import nextConfig from "@/next.config";
 import { templates, templatesEnum } from "@/layouts/Templates/TemplatesEnum";
-import { usePathname } from "next/navigation";
+
 import Message from "@/common/UserNotifications/Message/Message";
 import sanitizedString from "@/src/utils/SanitizedString";
 import { currentTime } from "@/src/helpers/dates";
