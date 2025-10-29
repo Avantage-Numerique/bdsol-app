@@ -33,21 +33,24 @@ const EntitiesGrid = ({ feed, className, columnClass, noResult, badgesInfo }) =>
                         if (entity !== null) {
                             //check that because upward from drilling here could send sont element null.
                             const model = getModelFromType(entity.type, entity);
-                            const SimpleComponent = model.simpleComponent;
-                            return (
-                                <div
-                                    style={customStyling}
-                                    className={`${colContainerClass}`}
-                                    key={getKeyString("container", model, index)}
-                                >
-                                    <SimpleComponent
-                                        data={entity}
-                                        model={model}
-                                        key={getKeyString("simple", model, index)}
-                                        badgesInfo={badgesInfo}
-                                    />
-                                </div>
-                            );
+                            if (model !== undefined) {
+                                const SimpleComponent = model.simpleComponent;
+                                return (
+                                    <div
+                                        style={customStyling}
+                                        className={`${colContainerClass}`}
+                                        key={getKeyString("container", model, index)}
+                                    >
+                                        <SimpleComponent
+                                            data={entity}
+                                            model={model}
+                                            key={getKeyString("simple", model, index)}
+                                            badgesInfo={badgesInfo}
+                                        />
+                                    </div>
+                                );
+                            }
+                            return <div key={`container${index}`}></div>;
                         }
                     })
                 ) : (
