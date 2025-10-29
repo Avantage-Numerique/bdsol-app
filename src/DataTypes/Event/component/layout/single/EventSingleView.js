@@ -134,7 +134,7 @@ const EventSingleView = ({ data }) => {
                     <SingleInfo title={lang.location} displayCondition={location?.length > 0}>
                         <EntitiesTagGrid
                             feed={location}
-                            subTagProperty={"address"}
+                            subTagProperty={"location.address"}
                             numberOfCols={1}
                             className="mb-0"
                         />
@@ -171,6 +171,7 @@ const EventSingleView = ({ data }) => {
             <SingleInfo title={lang.teamMembers} displayCondition={sortedTeam?.length > 0}>
                 <EntitiesTagGrid
                     feed={sortedTeam}
+                    regularFlexWrapping
                     subEntityProperty={"member"}
                     subTagProperty={"role"}
                     noneMessage={"Aucun membre de l'équipe spécifiés"}
@@ -194,22 +195,24 @@ const EventSingleView = ({ data }) => {
 
             <SingleInfo title={"Informations supplémentaires"}>
                 {/* skills */}
-                <SingleInfo
-                    title={lang.skillsAndTechnologies}
-                    isSubtitle
-                    displayCondition={skills?.length > 0}
-                    noCardLayout
-                >
+                <SingleInfo title={lang.skillsAndTechnologies} isSubtitle displayCondition={skills?.length > 0}>
                     <SearchTag list={skills} />
                 </SingleInfo>
 
                 {/* domains */}
-                <SingleInfo title={lang.Domains} displayCondition={domains?.length > 0} isSubtitle noCardLayout>
+                <SingleInfo title={lang.Domains} displayCondition={domains?.length > 0} isSubtitle>
                     <SearchTag list={domains} listProperty={"domain"} />
                 </SingleInfo>
 
+                {/* Url */}
+                <SocialHandleDisplay
+                    title={lang.externalLinks}
+                    url={model?.url}
+                    className={`${appConfig.spacing.singleSectionSpacingClass}`}
+                />
+
                 {/*eventType */}
-                <SingleInfo isSubtitle title={lang.eventType} noCardLayout>
+                <SingleInfo isSubtitle title={lang.eventType}>
                     {eventType?.length > 0 && (
                         <ul className="d-flex flex-wrap mb-0 mt-1">
                             {eventType.map((type) => (
@@ -222,16 +225,10 @@ const EventSingleView = ({ data }) => {
                 </SingleInfo>
 
                 {/* eventFormat */}
-                <SingleInfo isSubtitle title={lang.eventFormat} noCardLayout>
+                <SingleInfo isSubtitle title={lang.eventFormat}>
                     {eventFormat && formatEnumState?.[eventFormat] && (formatEnumState?.[eventFormat] ?? eventFormat)}
                 </SingleInfo>
             </SingleInfo>
-            {/* Url */}
-            <SocialHandleDisplay
-                title={lang.externalLinks}
-                url={model?.url}
-                className={`${appConfig.spacing.singleSectionSpacingClass}`}
-            />
         </>
     );
 
@@ -261,14 +258,8 @@ const EventSingleView = ({ data }) => {
                 { data: model.entityInCharge },
                 { data: model.organizer },
                 { data: location },
-                {
-                    data: description,
-                    validationFunction: (value) => !removeTagsFromString(value),
-                },
-                {
-                    data: model.mainImage.isDefault,
-                    validationFunction: (value) => !value,
-                },
+                { data: description, validationFunction: (value) => !removeTagsFromString(value) },
+                { data: model.mainImage.isDefault, validationFunction: (value) => !value },
                 { data: schedule },
                 //{data: subEvents},
                 { data: sortedTeam },

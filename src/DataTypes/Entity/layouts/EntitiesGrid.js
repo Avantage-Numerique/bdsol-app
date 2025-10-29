@@ -32,7 +32,6 @@ const EntitiesGrid = ({ feed, className, columnClass, noResult, badgesInfo }) =>
                     feed.map((entity, index) => {
                         if (entity !== null) {
                             //check that because upward from drilling here could send sont element null.
-
                             const model = getModelFromType(entity.type, entity);
                             if (model !== undefined) {
                                 const SimpleComponent = model.simpleComponent;

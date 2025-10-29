@@ -1,4 +1,4 @@
-import Link from "next/link";
+import LinkWithLoading from "@/src/Navigation/LinkWithLoading";
 
 /**
  * @param props
@@ -64,7 +64,7 @@ const Button = (props) => {
 
     if (props.href) {
         return (
-            <Link
+            <LinkWithLoading
                 href={props.href}
                 className={`${classesString} ${props.disabled ? "disabled" : ""}`}
                 aria-disabled={props.disabled ? "true" : "false"}
@@ -72,7 +72,7 @@ const Button = (props) => {
                 onClick={props.onClick}
             >
                 {props.children}
-            </Link>
+            </LinkWithLoading>
         );
     }
 

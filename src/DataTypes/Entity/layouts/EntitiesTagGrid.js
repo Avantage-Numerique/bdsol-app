@@ -76,24 +76,33 @@ const EntitiesTagGrid = (
                     const model = getModelFromType(type, rawData);
                     if (model) {
                         //Crawler for finding the field or subfield
-                        if(subTagProperty !== undefined && typeof subTagProperty === "string" && subTagProperty !== ""){
+                        if (
+                            subTagProperty !== undefined &&
+                            typeof subTagProperty === "string" &&
+                            subTagProperty !== ""
+                        ) {
                             let fieldPath = subTagProperty.split(".");
                             let tagValue = entity;
                             let isTagValueValid = true;
-                            fieldPath.forEach( elem => {
-                                if(tagValue?.[elem] == undefined)
-                                    isTagValueValid = false;
-                                else
-                                    tagValue = tagValue?.[elem];
+                            fieldPath.forEach((elem) => {
+                                if (tagValue?.[elem] == undefined) isTagValueValid = false;
+                                else tagValue = tagValue?.[elem];
                             });
                             model.tag = isTagValueValid ? tagValue : "";
                         }
                         const TagComponent = model.tagComponent;
                         return (
-                            <li className={`d-flex flex-wrap justify-content-start ${!regularFlexWrapping && colContainerClass} pb-4`} key={getKeyString("container", model, index)}>
-                                <TagComponent model={model} key={getKeyString("tag", model, index)} className={"w-100"} />
+                            <li
+                                className={`d-flex flex-wrap justify-content-start ${!regularFlexWrapping && colContainerClass} pb-4`}
+                                key={getKeyString("container", model, index)}
+                            >
+                                <TagComponent
+                                    model={model}
+                                    key={getKeyString("tag", model, index)}
+                                    className={"w-100"}
+                                />
                             </li>
-                        )
+                        );
                     }
                     //If the model isn't valid on complet. It happen when a model isn't populated.
                     console.error(lang.modelNotValid, rawData); //this is legit console log. Don't remove it unless you found a better way to handle this case <3

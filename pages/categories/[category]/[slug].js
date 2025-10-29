@@ -52,14 +52,12 @@ const TaxonomiesSinglePage = (props) => {
     const auth = useAuth();
 
     //Extract root modal
-    const { Modal, displayModal, closeModal } = useRootModal();
+    const { Modal, displayModal, closeModal, modalInitValues } = useRootModal();
 
     const type = getType(TYPE_TAXONOMY);
 
     const displayUpdateForm = () => {
-        if (auth.user.isLoggedIn) {
-            displayModal();
-        }
+        displayModal();
     };
     // < NEEDED FOR EDIT THE TAXONOMY
 

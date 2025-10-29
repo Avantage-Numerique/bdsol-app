@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import Router from "next/router";
 
 //Utils
@@ -8,6 +8,7 @@ import { getDefaultUpdateEntityMeta } from "@/src/DataTypes/Meta/EntityMeta";
 import { replacePathname } from "@/src/helpers/url";
 
 //hooks
+import { MessageContext } from "@/src/common/UserNotifications/Message/Context/Message-Context";
 import { useFormUtils } from "@/src/hooks/useFormUtils/useFormUtils";
 import { useAuth } from "@/src/authentification/context/auth-context";
 import { useRootModal } from "@/src/hooks/useModal/useRootModal";
@@ -127,12 +128,7 @@ const PlaceSingleEdit = ({ positiveRequestActions, ...props }) => {
         {
             displayResMessage: true,
             callbackFunction: (response) => {
-                Router.push(
-                    "/" +
-                        replacePathname(model.singleRoute.pathname, {
-                            slug: response.data.slug,
-                        })
-                );
+                Router.push("/" + replacePathname(model.singleRoute.pathname, { slug: response.data.slug }));
             },
         }
     );
@@ -345,7 +341,6 @@ const PlaceSingleEdit = ({ positiveRequestActions, ...props }) => {
                 modalSaveEntityReminder.displayModal();
             }}
             formState={formState}
-            singleLink={model.singleLink}
         />
     );
 
@@ -360,8 +355,6 @@ const PlaceSingleEdit = ({ positiveRequestActions, ...props }) => {
                 contentColumnRight={contentColumnRight}
                 singlePageBottom={SinglePageBottom}
                 footer={Footer}
-                model={model}
-                editMode
             />
             <modalSaveEntityReminder.Modal>
                 <SingleSaveEntityReminder

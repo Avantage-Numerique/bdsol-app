@@ -23,10 +23,15 @@ import { useModalController } from "@/src/hooks/useModal/ModalsController/Modals
 import { useRouter } from "next/router";
 import nextConfig from "@/next.config";
 import { templates, templatesEnum } from "@/layouts/Templates/TemplatesEnum";
-import { usePathname } from "next/navigation";
+
 import Message from "@/common/UserNotifications/Message/Message";
 import sanitizedString from "@/src/utils/SanitizedString";
 import { currentTime } from "@/src/helpers/dates";
+import { usePathname } from "next/navigation";
+
+import { LoadingProvider } from "@/src/Navigation/LoadingContext";
+import NavigationEvents from "@/src/Navigation/NavigationEvents";
+import LoadingIndicator from "@/src/Navigation/LoadingIndicator";
 
 export const ModalContext = createContext({});
 
@@ -106,37 +111,41 @@ const Layout = ({ children, pageProps }) => {
                 <meta property="og:locale" content="fr_CA" />
             </Head>
 
-            <div id={styles.layout}>
-                <Header />
+            <LoadingProvider>
+                <NavigationEvents />
+                <LoadingIndicator />
+                <div id={styles.layout}>
+                    <Header />
 
-                {/* Defining contextes to be passed along children */}
-                <ModalContext.Provider value={{ modalTools: modalTools }}>
-                    <currentTemplate.Component {...currentTemplate.props}>{children}</currentTemplate.Component>
-                </ModalContext.Provider>
-                <Footer />
+                    {/* Defining contextes to be passed along children */}
+                    <ModalContext.Provider value={{ modalTools: modalTools }}>
+                        <currentTemplate.Component {...currentTemplate.props}>{children}</currentTemplate.Component>
+                    </ModalContext.Provider>
+                    <Footer />
 
-                {messages && (
-                    <div className={`${styles["message-section"]}`}>
-                        {messages.map((message, index) => (
-                            <Message
-                                key={"toast-message-" + message.creationTime}
-                                theme={message.theme}
-                                position={index + 1}
-                                clean={() => {
-                                    setMessages((prevState) => prevState.filter((i) => i !== message));
-                                }}
-                            >
-                                {message.text}
-                            </Message>
-                        ))}
+                    {messages && (
+                        <div className={`${styles["message-section"]}`}>
+                            {messages.map((message, index) => (
+                                <Message
+                                    key={"toast-message-" + message.creationTime}
+                                    theme={message.theme}
+                                    position={index + 1}
+                                    clean={() => {
+                                        setMessages((prevState) => prevState.filter((i) => i !== message));
+                                    }}
+                                >
+                                    {message.text}
+                                </Message>
+                            ))}
+                        </div>
+                    )}
+
+                    {/* Afficher le modal */}
+                    <div ref={modalContainer} id="modal-rot">
+                        {/* state containing every  */}
                     </div>
-                )}
-
-                {/* Afficher le modal */}
-                <div ref={modalContainer} id="modal-rot">
-                    {/* state containing every  */}
                 </div>
-            </div>
+            </LoadingProvider>
         </>
     );
 };
