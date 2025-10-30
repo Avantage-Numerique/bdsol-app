@@ -148,6 +148,10 @@ const Index = () => {
                                     <h4 className={"fs-5"}>Jeanne Perrin</h4>
                                     <p className={pClass}>&mdash; Lien avec la communauté</p>
                                 </li>
+                                <li>
+                                    <h4 className={"fs-5"}>Jules Luzy-Riopel</h4>
+                                    <p className={pClass}>&mdash; Développement de la base de données</p>
+                                </li>
                             </ul>
                         </div>
                         <div className={"col py-3"}>
