@@ -95,15 +95,15 @@ fieldset:disabled .btn :not(.btn-check) + .btn:disabled:hover,
     filter: none;
     opacity: unset;
 
-    --bs-btn-disabled-bg: #cccccc;
-    --bs-btn-disabled-border-color: #cccccc;
-    --bs-btn-disabled-color: #979797;
-    --bs-btn-hover-color: #979797;
-    --bs-btn-hover-bg: #cccccc;
-    --bs-btn-hover-border-color: #cccccc;
-    --bs-btn-active-color: #979797;
-    --bs-btn-active-bg: #cccccc;
-    --bs-btn-active-border-color: #cccccc;
+    --bs-btn-disabled-bg: #{$light-grey};
+    --bs-btn-disabled-border-color: #{$light-grey};
+    --bs-btn-disabled-color: #{$grey};
+    --bs-btn-hover-color: #{$grey};
+    --bs-btn-hover-bg: #{$light-grey};
+    --bs-btn-hover-border-color: #{$light-grey};
+    --bs-btn-active-color: #{$grey};
+    --bs-btn-active-bg: #{$light-grey};
+    --bs-btn-active-border-color: #{$light-grey};
 }
 
 .underlined-button {

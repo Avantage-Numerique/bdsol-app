@@ -1,38 +1,62 @@
 .btn-pagination {
+    --bs-btn-disabled-bg: #{$light-grey};
+    --bs-btn-disabled-border-color: #{$light-grey};
+    --bs-btn-disabled-color: #{$grey};
+
+    --bs-btn-border-color: #{$light-grey};
+
+    --bs-btn-hover-color: #{$light};
+    --bs-btn-hover-bg: #{$secondary};
+    --bs-btn-hover-border-color: #{$secondary};
+
+    --bs-btn-active-color: #{$grey};
+    --bs-btn-active-bg: #{$light-grey};
+    --bs-btn-active-border-color: #{$light-grey};
+
     width: 2em;
     height: 2em;
     display: flex;
     justify-content: center;
     align-items: center;
-    border: $border-width $border-style $border-color;
     border-radius: 0.8em;
     padding: 0.2em;
     margin: 0.2em;
     @include transition();
-    &:hover {
-        background-color: $border-color;
-    }
 
     &.current {
-        border: $border-width $border-style $secondary;
+        --bs-btn-border-color: #{$secondary};
+        --bs-btn-bg: #{$secondary};
+        --bs-btn-disabled-bg: #{$secondary};
+        --bs-btn-disabled-border-color: #{$secondary};
+        --bs-btn-disabled-color: #{$light-grey};
         &:hover {
-            background-color: $secondary;
+            --bs-btn-hover-color: #{$secondary};
         }
     }
 }
 
 .btn-pagination-navigation {
+    --bs-btn-disabled-bg: #{$light-grey};
+    --bs-btn-disabled-border-color: #{$light-grey};
+    --bs-btn-disabled-color: #{$grey};
+
+    --bs-btn-border-color: #{$light-grey};
+
+    --bs-btn-hover-color: #{$light};
+    --bs-btn-hover-bg: #{$secondary};
+    --bs-btn-hover-border-color: #{$secondary};
+
+    --bs-btn-active-color: #{$grey};
+    --bs-btn-active-bg: #{$light-grey};
+    --bs-btn-active-border-color: #{$light-grey};
+
     width: 2em;
     height: 2em;
     display: flex;
     justify-content: center;
     align-items: center;
-    border: $border-width $border-style transparent;
     border-radius: 0.8em;
     padding: 0.2em;
     margin: 0.2em;
     @include transition();
-    &:hover {
-        background-color: $border-color;
-    }
 }
