@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import { useCallback, useEffect, useState } from "react";
 import { lang } from "@/common/Data/GlobalConstants";
-import Link from "next/link";
+import LinkWithLoading from "@/src/Navigation/LinkWithLoading";
 
 const _defaultGetHrefGenerator = (pathParts, replaceWith) => pathParts;
 const _defaultGetLabelGenerator = (path) => path;
@@ -143,7 +143,7 @@ const Crumb = ({ labels, text, href, last = false }) => {
 
     return (
         <li className="breadcrumb-item d-flex pb-2">
-            <Link
+            <LinkWithLoading
                 href={href}
                 className="text-decoration-underline link-underline-secondary-darker link-underline-opacity-0 link-underline-opacity-75-hover"
             >
@@ -151,47 +151,7 @@ const Crumb = ({ labels, text, href, last = false }) => {
                     className="text-secondary-darker py-0 px-1 bg-secondary-light rounded-1"
                     dangerouslySetInnerHTML={{ __html: text }}
                 ></div>
-            </Link>
-        </li>
-    );
-};
-
-const Deprecated_Crumb = ({ text: defaultText, textGenerator, href, last = false }) => {
-    //text: defaultText,
-
-    const [text, setText] = useState(defaultText);
-
-    useEffect(() => {
-        const generateText = async (generator) => {
-            if (Boolean(generator) && typeof generator === "function") {
-                const finalText = await generator();
-                setText(finalText);
-            }
-        };
-        generateText(textGenerator);
-    }, [textGenerator]);
-
-    if (last) {
-        return (
-            <li className="breadcrumb-item d-flex" aria-current="page">
-                <div
-                    className="text-primary-darker py-0 px-1 bg-primary-light rounded-1"
-                    dangerouslySetInnerHTML={{ __html: text }}
-                ></div>
-            </li>
-        );
-    }
-    return (
-        <li className="breadcrumb-item d-flex mb-1">
-            <Link
-                href={href}
-                className="text-decoration-underline link-underline-secondary-darker link-underline-opacity-0 link-underline-opacity-75-hover bg-"
-            >
-                <div
-                    className="text-secondary-darker py-0 px-1 bg-secondary-light rounded-1"
-                    dangerouslySetInnerHTML={{ __html: text }}
-                ></div>
-            </Link>
+            </LinkWithLoading>
         </li>
     );
 };
