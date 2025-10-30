@@ -4,7 +4,7 @@
  * @param {string} value Already stringnify cookie value
  * @param {object} options Cookie option
  */
-const csSetCookie = (name, value, options = {}) => {
+export const csSetCookie = (name, value, options = {}) => {
     options = options || {};
 
     let expires = options.expires;
@@ -30,7 +30,18 @@ const csSetCookie = (name, value, options = {}) => {
     document.cookie = updatedCookie;
 };
 
-export default csSetCookie;
+export const csGetCookie = (name) => {
+    if (document.cookie) {
+        const parsedCookies = document.cookie.split("; ").reduce((acc, cookie) => {
+            const [name, value] = cookie.split("=");
+            if (name) acc[name] = decodeURIComponent(value || "");
+            return acc;
+        }, {});
+        console.log("csGetCookie", parsedCookies);
+        return parsedCookies?.[name] ? JSON.parse(parsedCookies?.[name]) : undefined;
+    }
+    return undefined;
+};
 
 /**
  * Exemple

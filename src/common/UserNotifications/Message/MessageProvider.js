@@ -1,7 +1,6 @@
 import { createContext, useContext, useState } from "react";
 import { currentTime } from "@/src/helpers/dates";
-import { FLASHMESSAGE_COOKIE_NAME } from "@/common/UserNotifications/Message/FlashMessage";
-import { cookies } from "next/headers";
+import { clearFlashMessages, pushFlashMessage } from "@/common/UserNotifications/Message/FlashMessage";
 
 export const MessageContext = createContext(undefined);
 
@@ -11,7 +10,7 @@ export const MessageContext = createContext(undefined);
  * @returns {JSX.Element}
  * @constructor
  */
-const MessageProvider = ({ children }) => {
+const MessageProvider = ({ children, flashMessages }) => {
     //message list
     const [messages, setMessages] = useState([]);
 
@@ -37,8 +36,16 @@ const MessageProvider = ({ children }) => {
         setMessages(messagesQueue);
     };
 
-    const checkFlashMessages = () => {
-        const flashMessageCookie = cookies.get(FLASHMESSAGE_COOKIE_NAME);
+    const addFlashMessage = async (newFlashMessage) => {
+        await pushFlashMessage([newFlashMessage]);
+    };
+
+    const removeAllFlashMessages = async (newFlashMessage) => {
+        await clearFlashMessages();
+    };
+
+    const checkFlashMessages = async () => {
+        /*const flashMessageCookie = cookies.get(FLASHMESSAGE_COOKIE_NAME);
         if (flashMessageCookie) {
             try {
                 const parsedFlashMessages = JSON.parse(flashMessageCookie);
@@ -47,10 +54,13 @@ const MessageProvider = ({ children }) => {
             } catch (error) {
                 console.error("Failed to parse flash message cookie:", error);
             }
-        }
+        }*/
     };
+
     return (
-        <MessageContext.Provider value={{ addMessage, messages, setMessages, checkFlashMessages }}>
+        <MessageContext.Provider
+            value={{ addMessage, messages, setMessages, addFlashMessage, flashMessages, removeAllFlashMessages }}
+        >
             {children}
         </MessageContext.Provider>
     );
@@ -63,7 +73,7 @@ const MessageProvider = ({ children }) => {
 const useMessages = () => {
     const context = useContext(MessageContext);
     if (!context) {
-        throw new Error("useMessages must be used within ToastProvider");
+        throw new Error("useMessages must be used within MessageProvider");
     }
     return context;
 };

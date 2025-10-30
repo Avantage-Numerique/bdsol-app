@@ -32,6 +32,7 @@ import { usePathname } from "next/navigation";
 import { LoadingProvider } from "@/src/Navigation/LoadingContext";
 import NavigationEvents from "@/src/Navigation/NavigationEvents";
 import LoadingIndicator from "@/src/Navigation/LoadingIndicator";
+import { csGetCookie } from "@/common/Cookies/clientSideSaveCookie";
 
 export const ModalContext = createContext({});
 
@@ -43,7 +44,7 @@ const Layout = ({ children, pageProps }) => {
     const { modalTools } = useModalController(modalContainer);
 
     //message list
-    const { messages, setMessages } = useMessages();
+    const { messages, setMessages, removeAllFlashMessages } = useMessages();
 
     // TEMPLATE Selection, set the tempalte vars in getStaticProps from the templatesEnum
     const currentTemplate = pageProps.template
@@ -61,6 +62,11 @@ const Layout = ({ children, pageProps }) => {
     const pathname = usePathname();
 
     useEffect(() => {
+        const avnuFunctions = csGetCookie(process.env.APP_FUNCTIONS_COOKIE_NAME);
+        if (avnuFunctions && avnuFunctions.flashMessages && avnuFunctions.flashMessages.length > 0) {
+            setMessages(avnuFunctions.flashMessages);
+            removeAllFlashMessages();
+        }
         if (router.query?.msg && router.query?.msg !== "") {
             const positive = router.query?.msgPositive === "true";
             setMessages([

@@ -20,6 +20,7 @@ import styles from "./Header.module.scss";
 import logo from "@/public/AVNU_Branding/AVNU-LogoReduit-RVB.png";
 import AppRoutes from "@/src/Routing/AppRoutes";
 import LinkWithLoading from "@/src/Navigation/LinkWithLoading";
+import { useMessages } from "@/common/UserNotifications/Message/MessageProvider";
 
 const Header = (props) => {
     //Navigation menu state
@@ -29,6 +30,8 @@ const Header = (props) => {
     const auth = useAuth();
     //For redirect on login page
     const router = useRouter();
+
+    const msg = useMessages();
 
     //Window scrolling position
     const [windowScrollTop, setWindowScrollTop] = useState(true);
@@ -107,6 +110,12 @@ const Header = (props) => {
                                         <LinkWithLoading
                                             href={AppRoutes.connection.asPath + `?redirect=${encodeURI(cleanPath)}`}
                                             className={`nav-link text-black text-nowrap`}
+                                            onClick={() => {
+                                                msg.addFlashMessage({
+                                                    text: "Hello from behind http",
+                                                    theme: "secondary",
+                                                });
+                                            }}
                                         >
                                             {lang.menuConnectLabel}
                                         </LinkWithLoading>

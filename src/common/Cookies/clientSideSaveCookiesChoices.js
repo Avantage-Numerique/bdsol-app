@@ -1,4 +1,4 @@
-import csSetCookie from "@/common/Cookies/clientSideSaveCookie";
+import { csSetCookie } from "@/common/Cookies/clientSideSaveCookie";
 
 const csSaveCookieChoices = async (choices) => {
     await csSetCookie(process.env.APP_CHOICES_COOKIE_NAME, JSON.stringify(choices), {

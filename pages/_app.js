@@ -13,7 +13,7 @@ import "@/src/helpers/ExtendedString";
 import "@/styles/main.scss";
 import MessageProvider from "@/common/UserNotifications/Message/MessageProvider";
 
-function AVNU({ Component, pageProps, user, serverCookiesChoices }) {
+function AVNU({ Component, pageProps, user, serverCookiesChoices, avnuFunctions }) {
     const webStats = useWebStats();
     const cookieChoices = serverCookiesChoices;
 
@@ -28,7 +28,7 @@ function AVNU({ Component, pageProps, user, serverCookiesChoices }) {
         <>
             {/* Authentication context provided to all the subsequent elements */}
             <AuthProvider fromSessionUser={user} appMode={process.env.MODE} acceptedCookies={serverCookiesChoices}>
-                <MessageProvider>
+                <MessageProvider flashMessages={avnuFunctions?.flashMessages}>
                     <Layout pageProps={pageProps}>
                         <Component {...pageProps} />
                         <CookieBanner />
@@ -56,9 +56,15 @@ AVNU.getInitialProps = async (context) => {
         //let cookieChoices = context.ctx.req.cookies.get("ChoixCookie");
         const cookies = context.ctx.req.cookies;
         let cookiesChoices = null;
+        let avnuFunctions = {};
         if (cookies?.[process.env.APP_CHOICES_COOKIE_NAME]) {
             cookiesChoices = JSON.parse(cookies[process.env.APP_CHOICES_COOKIE_NAME]);
         }
+
+        if (cookies?.[process.env.APP_FUNCTIONS_COOKIE_NAME]) {
+            avnuFunctions = JSON.parse(cookies[process.env.APP_FUNCTIONS_COOKIE_NAME]);
+        }
+
         //if cookies auth is accepted follow with session creation.
         if (cookiesChoices?.auth) {
             const savedInSessionUser = session.user ?? {};
@@ -85,12 +91,13 @@ AVNU.getInitialProps = async (context) => {
                     ...appProps,
                     user: session.user,
                     serverCookiesChoices: cookiesChoices,
-                    flashMessages: [],
+                    avnuFunctions: avnuFunctions,
                 },
                 ...appProps,
                 user: session.user,
                 visitor: visitor,
                 serverCookiesChoices: cookiesChoices,
+                avnuFunctions: avnuFunctions,
             };
         }
 
@@ -99,12 +106,13 @@ AVNU.getInitialProps = async (context) => {
                 ...appProps,
                 user: null,
                 serverCookiesChoices: cookiesChoices,
-                flashMessages: [],
+                avnuFunctions: avnuFunctions,
             },
             ...appProps,
             user: null,
             visitor: visitor,
             serverCookiesChoices: cookiesChoices,
+            avnuFunctions: avnuFunctions,
         };
     }
 
