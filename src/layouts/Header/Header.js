@@ -20,6 +20,7 @@ import { lang } from "@/common/Data/GlobalConstants";
 import styles from "./Header.module.scss";
 import logo from "@/public/AVNU_Branding/AVNU-LogoReduit-RVB.png";
 import AppRoutes from "@/src/Routing/AppRoutes";
+import LinkWithLoading from "@/src/Navigation/LinkWithLoading";
 
 const Header = (props) => {
     //Navigation menu state
@@ -68,9 +69,9 @@ const Header = (props) => {
                             className={`${styles["header__content"]} header-center d-flex justify-content-start align-items-center text-light h-100`}
                             onClick={() => setMenuState(0)}
                         >
-                            <Link href="/" className={`fs-5 ms-2 ps-2 ${styles["item-displayed-in-menu"]}`}>
+                            <LinkWithLoading href="/" className={`fs-5 ms-2 ps-2 ${styles["item-displayed-in-menu"]}`}>
                                 <Image src={logo} alt="Logo réduit de AVNU" />
-                            </Link>
+                            </LinkWithLoading>
                         </div>
                     </div>
 
@@ -96,20 +97,20 @@ const Header = (props) => {
                                     onClick={() => setMenuState(false)}
                                 >
                                     <li>
-                                        <a
+                                        <LinkWithLoading
                                             href={AppRoutes.register.asPath}
                                             className={"nav-link text-black d-none d-md-block text-nowrap"}
                                         >
                                             {lang.menuSubscribeLabel}
-                                        </a>
+                                        </LinkWithLoading>
                                     </li>
                                     <li>
-                                        <a
+                                        <LinkWithLoading
                                             href={AppRoutes.connection.asPath + `?redirect=${encodeURI(cleanPath)}`}
                                             className={`nav-link text-black text-nowrap`}
                                         >
                                             {lang.menuConnectLabel}
-                                        </a>
+                                        </LinkWithLoading>
                                     </li>
                                 </ul>
                             )}
