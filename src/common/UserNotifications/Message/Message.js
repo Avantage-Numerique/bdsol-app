@@ -33,11 +33,13 @@ const Message = ({ children, theme, position = 1, clean }) => {
     };
 
     useEffect(() => {
-        // Changes CSS variable after component renders
-        msgRef.current.style.setProperty("--toasting-position", `${100 * position}%`);
-        setTimeout(() => {
-            hideElement();
-        }, 8000);
+        if (msgRef.current !== null) {
+            // Changes CSS variable after component renders
+            msgRef.current.style.setProperty("--toasting-position", `${100 * position}%`);
+            setTimeout(() => {
+                hideElement();
+            }, 8000);
+        }
     }, [position]); // Re-runs when color changes
 
     return (

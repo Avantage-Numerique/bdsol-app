@@ -1,7 +1,7 @@
-import { csSetCookie } from "@/common/Cookies/clientSideSaveCookie";
+import { csSetCookie } from "@/common/Cookies/clientSideCookies";
 
 const csSaveCookieChoices = async (choices) => {
-    await csSetCookie(process.env.APP_CHOICES_COOKIE_NAME, JSON.stringify(choices), {
+    await csSetCookie(process.env.APP_CHOICES_COOKIE_NAME, choices, {
         expires: 72 * 60 * 60, // Expires in 3 day//*1000 is done in csSetCookie.
         path: "/", // Cookie available in all paths
         domain: process.env.APP_BASE_URL, // Limit cookie to a specific domain

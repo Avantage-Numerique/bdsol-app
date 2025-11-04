@@ -7,7 +7,7 @@ import { changeCookieChoices, cookiesExplanations } from "@/common/Cookies/cooki
 import Image from "next/image";
 import fetchInternalApi from "@/src/api/fetchInternalApi";
 import { isDev } from "@/src/helpers/configHelper";
-import { csGetCookie } from "@/common/Cookies/clientSideSaveCookie";
+import { csGetCookie } from "@/common/Cookies/clientSideCookies";
 import { useMessages } from "@/common/UserNotifications/Message/MessageProvider";
 import { useRouter } from "next/router";
 

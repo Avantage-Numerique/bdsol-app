@@ -1,4 +1,4 @@
-import { csSetCookie } from "@/common/Cookies/clientSideSaveCookie";
+import { csSetCookie, csGetCookie, csDeleteCookie, isCookieValid } from "@/common/Cookies/clientSideCookies";
 
 const flashMessagesDuration = 60;
 const flashMessagesOptions = {
@@ -10,15 +10,37 @@ const flashMessagesOptions = {
 };
 
 /**
+ * Get flash messages if cookie is valid, otherwise return empty array
+ * @returns {Array}
+ */
+export function getFlashMessages() {
+    if (!isCookieValid(process.env.APP_FUNCTIONS_COOKIE_NAME)) {
+        return [];
+    }
+
+    try {
+        const cookieValue = csGetCookie(process.env.APP_FUNCTIONS_COOKIE_NAME);
+        const parsedCookie = JSON.parse(cookieValue);
+        return parsedCookie.flashMessages || [];
+    } catch (error) {
+        console.error("Error getting flash messages:", error);
+        return [];
+    }
+}
+
+/**
  * Add 1 message into a temp cookie about it.
  * @param {Message} flashMessage
  * @returns {Promise<void>}
  */
 export async function pushFlashMessage(flashMessage) {
+    const existingMessages = getFlashMessages();
+
     const toFunctionCookie = {
-        flashMessages: [...flashMessage],
+        flashMessages: [...existingMessages, flashMessage],
     };
-    await csSetCookie(process.env.APP_FUNCTIONS_COOKIE_NAME, JSON.stringify(toFunctionCookie), flashMessagesOptions);
+
+    await csSetCookie(process.env.APP_FUNCTIONS_COOKIE_NAME, toFunctionCookie, flashMessagesOptions);
 }
 
 /**
@@ -29,5 +51,5 @@ export async function clearFlashMessages() {
     const toFunctionCookie = {
         flashMessages: [],
     };
-    await csSetCookie(process.env.APP_FUNCTIONS_COOKIE_NAME, JSON.stringify(toFunctionCookie), flashMessagesOptions);
+    await csSetCookie(process.env.APP_FUNCTIONS_COOKIE_NAME, toFunctionCookie, flashMessagesOptions);
 }

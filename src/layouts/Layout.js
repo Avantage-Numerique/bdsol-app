@@ -32,7 +32,7 @@ import { usePathname } from "next/navigation";
 import { LoadingProvider } from "@/src/Navigation/LoadingContext";
 import NavigationEvents from "@/src/Navigation/NavigationEvents";
 import LoadingIndicator from "@/src/Navigation/LoadingIndicator";
-import { csGetCookie } from "@/common/Cookies/clientSideSaveCookie";
+import { csGetCookie } from "@/common/Cookies/clientSideCookies";
 
 export const ModalContext = createContext({});
 
