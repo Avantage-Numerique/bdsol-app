@@ -25,6 +25,7 @@
         --bs-btn-hover-color: #{$value};
         --bs-btn-hover-border-color: #{$value};
         --bs-btn-hover-bg: #{lighten($value, 25%)};
+        --bs-btn-active-bg: #{lighten($value, 25%)};
     }
     /******* Specific text color *******/
     .btn.btn-text-color-#{$color} { 
@@ -51,6 +52,7 @@
     --bs-btn-hover-color: var(--bs-primary);
     --bs-btn-hover-border-color: var(--bs-primary);
     --bs-btn-hover-bg: var(--bs-primary-lighter);
+    --bs-btn-active-bg: var(--bs-primary-lighter);
 }
 //Specific secondary color 
 .btn.btn-color-secondary {
@@ -59,6 +61,7 @@
     --bs-btn-hover-color: var(--bs-secondary);
     --bs-btn-hover-border-color: var(--bs-secondary);
     --bs-btn-hover-bg: var(--bs-secondary-lighter);
+    --bs-btn-active-bg: var(--bs-secondary-lighter);
 }
 
 //Styling for button without border and  background color
