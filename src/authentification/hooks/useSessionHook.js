@@ -33,8 +33,11 @@ export const useSessionHook = () => {
                 auth.setUser(response.user);
 
                 if (response.positive) {
-                    //auth.login(response.data.user);
-                    await Router.push(`${response.redirectUri}?msg=${lang.disconnected}&msgPositive=true`);
+                    msg.addFlashMessage({
+                        text: lang.successDisconnected,
+                        theme: "positive",
+                    });
+                    await Router.push(`${response.redirectUri}`);
                 } else {
                     msg.addMessage({
                         text: response.text,
@@ -83,9 +86,17 @@ export const useSessionHook = () => {
 
                 if (response.positive) {
                     //If user not verified, redirect to aconfirmer
-                    if (response.user.verify?.isVerified !== true) Router.push(AppRoutes.toConfirm.asPath);
-                    else {
-                        //auth.login(response.data.user);
+                    if (response.user.verify?.isVerified !== true) {
+                        msg.addFlashMessage({
+                            text: response.text,
+                            theme: "primary",
+                        });
+                        await Router.push(AppRoutes.toConfirm.asPath);
+                    } else {
+                        msg.addFlashMessage({
+                            text: lang.successConnected,
+                            theme: "positive",
+                        });
                         await Router.push(response.redirectUri);
                     }
                 }

@@ -36,11 +36,23 @@ const MessageProvider = ({ children, flashMessages }) => {
         setMessages(messagesQueue);
     };
 
+    /**
+     * Ajoute un message adns
+     * @param {Message|Message[]} newFlashMessage
+     * @returns {Promise<void>}
+     */
     const addFlashMessage = async (newFlashMessage) => {
+        if (Array.isArray(newFlashMessage)) {
+            await pushFlashMessage([...newFlashMessage]);
+        }
         await pushFlashMessage([newFlashMessage]);
     };
 
-    const removeAllFlashMessages = async (newFlashMessage) => {
+    /**
+     * Clear all the flash message from cookies.
+     * @returns {Promise<void>}
+     */
+    const removeAllFlashMessages = async () => {
         await clearFlashMessages();
     };
 

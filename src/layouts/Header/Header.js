@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import AppRoutes from "@/src/Routing/AppRoutes";
 
 //Components
 import HamburgerButton from "@/src/common/FormElements/HamburgerButton/HamburgerButton";
@@ -8,9 +9,11 @@ import ConnectionBanner from "@/src/layouts/ConnexionBanner/ConnectionBanner";
 import SearchBar from "@/src/common/Components/SearchBar";
 import Nav from "@/layouts/Navigation/MainNav/Nav";
 import Button from "@/FormElements/Button/Button";
+import LinkWithLoading from "@/src/Navigation/LinkWithLoading";
 
 //Contextes
 import { useAuth } from "@/auth/context/auth-context";
+import { useMessages } from "@/common/UserNotifications/Message/MessageProvider";
 
 //Utils
 import { lang } from "@/common/Data/GlobalConstants";
@@ -18,9 +21,6 @@ import { lang } from "@/common/Data/GlobalConstants";
 //Styling
 import styles from "./Header.module.scss";
 import logo from "@/public/AVNU_Branding/AVNU-LogoReduit-RVB.png";
-import AppRoutes from "@/src/Routing/AppRoutes";
-import LinkWithLoading from "@/src/Navigation/LinkWithLoading";
-import { useMessages } from "@/common/UserNotifications/Message/MessageProvider";
 
 const Header = (props) => {
     //Navigation menu state
@@ -110,12 +110,6 @@ const Header = (props) => {
                                         <LinkWithLoading
                                             href={AppRoutes.connection.asPath + `?redirect=${encodeURI(cleanPath)}`}
                                             className={`nav-link text-black text-nowrap`}
-                                            onClick={() => {
-                                                msg.addFlashMessage({
-                                                    text: "Hello from behind http",
-                                                    theme: "secondary",
-                                                });
-                                            }}
                                         >
                                             {lang.menuConnectLabel}
                                         </LinkWithLoading>

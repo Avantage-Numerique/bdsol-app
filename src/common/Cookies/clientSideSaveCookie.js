@@ -8,7 +8,7 @@ export const csSetCookie = (name, value, options = {}) => {
     options = options || {};
 
     let expires = options.expires;
-    if (typeof expires == "number" && expires) {
+    if (typeof expires === "number" && expires) {
         let d = new Date();
         d.setTime(d.getTime() + expires * 1000);
         expires = options.expires = d;
@@ -30,6 +30,11 @@ export const csSetCookie = (name, value, options = {}) => {
     document.cookie = updatedCookie;
 };
 
+/**
+ * get the cookie already in the form of object.
+ * @param {string} name
+ * @returns {undefined|any}
+ */
 export const csGetCookie = (name) => {
     if (document.cookie) {
         const parsedCookies = document.cookie.split("; ").reduce((acc, cookie) => {
@@ -37,20 +42,18 @@ export const csGetCookie = (name) => {
             if (name) acc[name] = decodeURIComponent(value || "");
             return acc;
         }, {});
-        console.log("csGetCookie", parsedCookies);
         return parsedCookies?.[name] ? JSON.parse(parsedCookies?.[name]) : undefined;
     }
     return undefined;
 };
 
 /**
- * Exemple
  *
- * setCookie('test_cookie', 'example_value', {
- *     expires: 3600, // Expires in 1 hour
- *     path: '/',     // Cookie available in all paths
- *     domain: 'example.com', // Limit cookie to a specific domain
- *     secure: true,  // Cookie will only be sent over HTTPS
- *     sameSite: 'strict' // Restricts cookie to same-site requests
- * });
+ * @param name
  */
+export const csDeleteCookie = (name) => {
+    if (document.cookie) {
+        const parsedCookies = csGetCookie(name);
+        //change cookie lifetime.
+    }
+};

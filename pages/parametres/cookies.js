@@ -6,9 +6,17 @@ import Button from "@/FormElements/Button/Button";
 import { changeCookieChoices, cookiesExplanations } from "@/common/Cookies/cookiesChoices";
 import Image from "next/image";
 import fetchInternalApi from "@/src/api/fetchInternalApi";
+import { isDev } from "@/src/helpers/configHelper";
+import { csGetCookie } from "@/common/Cookies/clientSideSaveCookie";
+import { useMessages } from "@/common/UserNotifications/Message/MessageProvider";
+import { useRouter } from "next/router";
 
 const CookiesParams = () => {
     const auth = useAuth();
+    const router = useRouter();
+    const msg = useMessages();
+    const [avnuFunction, setAvnuFunction] = useState(null);
+    let cookiesFunction;
 
     const changeChoices = useCallback(async () => {
         const resetedCookiesChoices = changeCookieChoices(auth.cookiesChoices);
@@ -23,8 +31,12 @@ const CookiesParams = () => {
 
     //si les cookies sont désactivés
     const [cookieEnabled, setCookieEnabled] = useState(false);
+
     useEffect(() => {
         setCookieEnabled(window.navigator.cookieEnabled);
+        const fm = csGetCookie(process.env.APP_FUNCTIONS_COOKIE_NAME);
+        console.log("Flash message", process.env.APP_FUNCTIONS_COOKIE_NAME, fm);
+        setAvnuFunction(fm);
     }, []);
 
     //the cookie contains these values too, use this array to show only the other
@@ -137,6 +149,33 @@ const CookiesParams = () => {
                     </div>
                 </div>
             </section>
+            {isDev && (
+                <section className={`container py-5`}>
+                    <div className={"col-12 pt-5"}>
+                        <Button
+                            onClick={(e) => {
+                                const theme = ["positive", "negative", "primary", "secondary"];
+                                const targetTheme = theme[Math.floor(Math.random() * theme.length)];
+                                msg.addFlashMessage({
+                                    text: `Test de cookies venant de l'autre côté du HTTP theme : ${targetTheme}`,
+                                    theme: targetTheme,
+                                });
+                                const fm = csGetCookie(process.env.APP_FUNCTIONS_COOKIE_NAME);
+                                setAvnuFunction(fm);
+                                router.push(router.asPath);
+                            }}
+                        >
+                            Test flash message !
+                        </Button>
+                    </div>
+                    {avnuFunction && (
+                        <div className={"col-12 pt-5"}>
+                            <hr />
+                            <pre>{JSON.stringify(avnuFunction)}</pre>
+                        </div>
+                    )}
+                </section>
+            )}
         </div>
     );
 };
