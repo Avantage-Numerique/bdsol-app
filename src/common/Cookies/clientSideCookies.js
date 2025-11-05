@@ -9,7 +9,7 @@ export const csSetCookie = (name, value, options = {}) => {
 
     if (typeof value === "string") {
         value = {
-            value: value,
+            ...value,
             expiresAt: 0,
         };
     }
@@ -40,6 +40,7 @@ export const csSetCookie = (name, value, options = {}) => {
     }
 
     document.cookie = updatedCookie;
+    return updatedCookie;
 };
 
 /**
@@ -54,18 +55,19 @@ export const csGetCookie = (name) => {
             if (name) acc[name] = decodeURIComponent(value || "");
             return acc;
         }, {});
+        console.log("csGetCookie", parsedCookies);
         return parsedCookies?.[name] ? JSON.parse(parsedCookies?.[name]) : undefined;
     }
     return undefined;
 };
 
 /**
- *
+ * Force expiration on target cookie by setting the date to the date
  * @param name
  */
 export const csDeleteCookie = (name) => {
     if (document.cookie) {
-        const parsedCookies = csGetCookie(name);
+        //const parsedCookies = csGetCookie(name);
         document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
     }
 };
@@ -78,6 +80,7 @@ export const csDeleteCookie = (name) => {
 export function isCookieValid(cookieName) {
     try {
         const cookieValue = csGetCookie(cookieName);
+        console.log(`cookieValue ${cookieName}`, cookieValue);
         if (!cookieValue) return false;
 
         const parsedCookie = JSON.parse(cookieValue);

@@ -1,11 +1,12 @@
-import { csSetCookie, csGetCookie, csDeleteCookie, isCookieValid } from "@/common/Cookies/clientSideCookies";
+import { csSetCookie, csGetCookie, isCookieValid } from "@/common/Cookies/clientSideCookies";
+import { isProd } from "@/src/helpers/configHelper";
 
 const flashMessagesDuration = 60;
 const flashMessagesOptions = {
     expires: flashMessagesDuration, // Expires in 3 day//*1000 is done in csSetCookie.
     path: "/", // Cookie available in all paths
     domain: process.env.APP_BASE_URL, // Limit cookie to a specific domain
-    secure: true, // Cookie will only be sent over HTTPS
+    secure: isProd, // Cookie will only be sent over HTTPS
     sameSite: "Lax", //'strict' // Restricts cookie to same-site requests
 };
 
@@ -14,6 +15,7 @@ const flashMessagesOptions = {
  * @returns {Array}
  */
 export function getFlashMessages() {
+    console.log("Getting flash messages", isCookieValid(process.env.APP_FUNCTIONS_COOKIE_NAME));
     if (!isCookieValid(process.env.APP_FUNCTIONS_COOKIE_NAME)) {
         return [];
     }

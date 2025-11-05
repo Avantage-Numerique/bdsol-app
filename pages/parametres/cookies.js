@@ -10,13 +10,13 @@ import { isDev } from "@/src/helpers/configHelper";
 import { csGetCookie } from "@/common/Cookies/clientSideCookies";
 import { useMessages } from "@/common/UserNotifications/Message/MessageProvider";
 import { useRouter } from "next/router";
+import { isValidDateString } from "@/src/helpers/dates";
 
 const CookiesParams = () => {
     const auth = useAuth();
     const router = useRouter();
     const msg = useMessages();
     const [avnuFunction, setAvnuFunction] = useState(null);
-    let cookiesFunction;
 
     const changeChoices = useCallback(async () => {
         const resetedCookiesChoices = changeCookieChoices(auth.cookiesChoices);
@@ -24,7 +24,7 @@ const CookiesParams = () => {
         const logOutResponse = await fetchInternalApi("/api/logout", JSON.stringify({}));
         auth.setUser(logOutResponse.user);
 
-        auth.saveCookieChoices({ ...resetedCookiesChoices });
+        await auth.saveCookieChoices({ ...resetedCookiesChoices });
         auth.setChoiceHasToBeMade(true);
         //logout
     }, []);
@@ -32,11 +32,52 @@ const CookiesParams = () => {
     //si les cookies sont désactivés
     const [cookieEnabled, setCookieEnabled] = useState(false);
 
+    const CookieValueBoolean = ({ value }) => {
+        return (
+            <>
+                <label className={`me-2 text-${value ? "success" : "danger"}`}>
+                    {value ? lang.cookiePositive : lang.cookieNegative}
+                </label>
+                <span className={`badge text-bg-${value ? "success" : "danger"} m-0`}>&nbsp;</span>
+            </>
+        );
+    };
+
+    const CookieValueDate = ({ value }) => {
+        const targetDate = new Date(value);
+        const now = new Date();
+        const hasPassed = now >= targetDate;
+        return (
+            <>
+                <label className={`me-2 text-${hasPassed ? "danger" : "success"}`}>{value}</label>
+                <span className={`badge text-bg-${hasPassed ? "danger" : "success"} m-0`}>&nbsp;</span>
+            </>
+        );
+    };
+
+    const CookieValueString = ({ value }) => {
+        return (
+            <>
+                <label className={`me-2 text-dark`}>{value}</label>
+                <span className={`badge text-dark m-0`}>&nbsp;</span>
+            </>
+        );
+    };
+
+    const CookiesValueFactory = ({ value }) => {
+        if (typeof value === "boolean") {
+            return <CookieValueBoolean value={value} />;
+        }
+        if (isValidDateString(value)) {
+            return <CookieValueDate value={value} />;
+        }
+        if (typeof value === "string") {
+            return <CookieValueString value={value} />;
+        }
+    };
+
     useEffect(() => {
         setCookieEnabled(window.navigator.cookieEnabled);
-        const fm = csGetCookie(process.env.APP_FUNCTIONS_COOKIE_NAME);
-        console.log("Flash message", process.env.APP_FUNCTIONS_COOKIE_NAME, fm);
-        setAvnuFunction(fm);
     }, []);
 
     //the cookie contains these values too, use this array to show only the other
@@ -100,20 +141,7 @@ const CookiesParams = () => {
                                             </div>
                                             <div className={"w-25 text-end"}>
                                                 {auth.cookiesChoices.choiceMade === true && (
-                                                    <>
-                                                        <label
-                                                            className={`me-2 text-${auth.cookiesChoices[key] === true ? "success" : "danger"}`}
-                                                        >
-                                                            {auth.cookiesChoices[key] === true
-                                                                ? lang.cookiePositive
-                                                                : lang.cookieNegative}
-                                                        </label>
-                                                        <span
-                                                            className={`badge text-bg-${auth.cookiesChoices[key] === true ? "success" : "danger"} m-0`}
-                                                        >
-                                                            &nbsp;
-                                                        </span>
-                                                    </>
+                                                    <CookiesValueFactory value={auth.cookiesChoices[key]} />
                                                 )}
                                             </div>
                                         </li>
@@ -153,19 +181,27 @@ const CookiesParams = () => {
                 <section className={`container py-5`}>
                     <div className={"col-12 pt-5"}>
                         <Button
-                            onClick={(e) => {
+                            className={"me-2"}
+                            onClick={async () => {
                                 const theme = ["positive", "negative", "primary", "secondary"];
                                 const targetTheme = theme[Math.floor(Math.random() * theme.length)];
-                                msg.addFlashMessage({
+                                await msg.addFlashMessage({
                                     text: `Test de cookies venant de l'autre côté du HTTP theme : ${targetTheme}`,
                                     theme: targetTheme,
                                 });
-                                const fm = csGetCookie(process.env.APP_FUNCTIONS_COOKIE_NAME);
-                                setAvnuFunction(fm);
                                 router.push(router.asPath);
                             }}
                         >
                             Test flash message !
+                        </Button>
+
+                        <Button
+                            onClick={async () => {
+                                const fm = csGetCookie(process.env.APP_FUNCTIONS_COOKIE_NAME);
+                                setAvnuFunction(fm);
+                            }}
+                        >
+                            get function cookie
                         </Button>
                     </div>
                     {avnuFunction && (

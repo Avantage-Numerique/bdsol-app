@@ -42,6 +42,7 @@ export const cookiesExplanations = {
     stats: lang.cookieExplainStats,
     auth: lang.cookieExplainAuth,
     third: lang.cookieExplainThird, //no plan of adding that.
+    expiresAt: lang.cookieExplainExpiresAt, //no plan of adding that.
 };
 
 export const changeCookieChoices = (choices) => {

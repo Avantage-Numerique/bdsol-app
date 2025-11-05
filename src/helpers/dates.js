@@ -38,4 +38,14 @@ const currentTime = () => {
     return d.getTime();
 };
 
-export { dateToISO, isSameDay, setDateTime, getDate, formatDate, currentTime };
+/**
+ * Check if a string is a valid date string.
+ * @param {string} dateString
+ * @returns {boolean}
+ */
+const isValidDateString = (dateString) => {
+    const date = new Date(dateString);
+    return !isNaN(date.getTime());
+};
+
+export { dateToISO, isSameDay, setDateTime, getDate, formatDate, currentTime, isValidDateString };
