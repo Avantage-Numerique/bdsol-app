@@ -50,7 +50,7 @@ const SingleBaseCTA = ({
         return (
             <>
                 <div
-                    className="d-flex flex-wrap align-items-center justify-content-between gap-2 gap-md-3 gap-lg-4 mt-2"
+                    className="d-contents d-md-flex flex-wrap align-items-center justify-content-between gap-2 gap-md-3 gap-lg-4 mb-5 mb-md-0 mt-2"
                     style={{
                         transform: "translateY(50%)",
                     }}
@@ -61,7 +61,7 @@ const SingleBaseCTA = ({
                         entity={model}
                         setter={mainImageSetter}
                     />
-                    <div className="d-flex flex-wrap align-items-center justify-content-between gap-2 gap-md-3 gap-lg-4">
+                    <div className="d-flex flex-wrap align-items-start align-items-md-center justify-content-between flex-column flex-sm-row gap-2 gap-md-3 gap-lg-4 my-3 my-md-0">
                         {!formTools.formState.isValid && (
                             <span className="bg-white border border-warning rounded-pill lh-1 align-middle d-flex align-items-center p-1 ps-3">
                                 <Popover

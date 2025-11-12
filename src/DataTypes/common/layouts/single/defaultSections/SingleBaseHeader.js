@@ -202,8 +202,7 @@ const SingleBaseHeader = (props) => {
             <div className="d-flex justify-content-end">
                 <button type="button" className="fs-3" onClick={modalReportEntity.displayModal}><Icon iconName="flag" /></button>
             </div>
-            {mainImage && <ImageComponent mainImage={mainImage} badges={entity?.badges} activeInnerLink={currentMode.imageComponentActivateLink} />}
-            <div className="col-12 col-sm flex-grow-1 d-flex flex-column">
+            <div className="col-12 col-sm flex-grow-1 d-flex flex-column gap-3 gap-md-0">
                 <div className="d-flex flex-column text-dark">
                     {title || <h1 className='mt-4 ms-4'>{lang.title}</h1>}
                     {subtitle || <h3 className='ms-4'>{lang.subTitle}</h3>}
