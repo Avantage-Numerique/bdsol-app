@@ -69,11 +69,9 @@ const RepeaterSingleIteration = ({
 
     //Return the children with the recursive function
     return (
-        <div className="row">
-            <div className="col-11">
-                {iterateOverChildren(children, formInitSubStructure, formTools, deleteIterationByKey)}
-            </div>
-            <div className="d-flex col-1 align-items-start">{deleteIterationButton}</div>
+        <div>
+            <div className="d-flex justify-content-end p-0">{deleteIterationButton}</div>
+            <div>{iterateOverChildren(children, formInitSubStructure, formTools, deleteIterationByKey)}</div>
         </div>
     );
 };

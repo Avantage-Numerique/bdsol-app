@@ -97,9 +97,8 @@ fieldset:disabled .btn :not(.btn-check) + .btn:disabled:hover,
     cursor: not-allowed;
     filter: none;
     opacity: unset;
-
     --bs-btn-disabled-bg: #{$light-grey};
-    --bs-btn-disabled-border-color: #{$light-grey};
+    --bs-btn-disabled-border-color: #bebebe;
     --bs-btn-disabled-color: #{$grey};
     --bs-btn-hover-color: #{$grey};
     --bs-btn-hover-bg: #{$light-grey};
@@ -134,6 +133,9 @@ fieldset:disabled .btn :not(.btn-check) + .btn:disabled:hover,
     font-size: 3rem;
     color: $primary_7;
     border: none;
+    height: 1ch;
+    line-height: 1;
+    padding: 0;
     &:hover,
     &:active,
     &:focus,
