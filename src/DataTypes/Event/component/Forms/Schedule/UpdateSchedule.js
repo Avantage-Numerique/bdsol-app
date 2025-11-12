@@ -19,7 +19,7 @@ const UpdateSchedule = ({ name, formTools, schedule, ...props }) => {
                 formTools={formTools}
                 name={name}
                 sortable
-                className="bg-greyBg"
+                className=""
                 formInitStructure={{
                     name: {
                         value: "",

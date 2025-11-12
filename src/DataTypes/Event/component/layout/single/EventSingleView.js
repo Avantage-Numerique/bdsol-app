@@ -209,15 +209,8 @@ const EventSingleView = ({ data }) => {
                     <SearchTag list={domains} listProperty={"domain"} />
                 </SingleInfo>
 
-                {/* Url */}
-                <SocialHandleDisplay
-                    title={lang.externalLinks}
-                    url={model?.url}
-                    className={`${appConfig.spacing.singleSectionSpacingClass}`}
-                />
-
                 {/*eventType */}
-                <SingleInfo isSubtitle title={lang.eventType}>
+                <SingleInfo isSubtitle title={lang.eventType} noCardLayout>
                     {eventType?.length > 0 && (
                         <ul className="d-flex flex-wrap mb-0 mt-1">
                             {eventType.map((type) => (

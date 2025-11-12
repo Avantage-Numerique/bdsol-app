@@ -327,7 +327,7 @@ function BudgetStep(props) {
     const { header = false, index, step = " - ", duration = " - ", costs = " - " } = props;
 
     const Tag = header ? "h6" : "p";
-    const bg_color = header ? "bg-secondary-light" : index % 2 === 0 ? "bg-greyBg" : "";
+    const bg_color = header ? "bg-secondary-light" : index % 2 === 1 ? "bg-greyBg" : "";
 
     return (
         <li className={`${bg_color} row`}>
@@ -351,7 +351,7 @@ function BudgetCard(props) {
     if (title && data)
         return (
             <div className={`${col} g-3`}>
-                <div style={style} className="bg-greyBg py-3 px-3 rounded border-secondary">
+                <div style={style} className="py-3 px-3 rounded border-secondary">
                     <h6 className="text-grey mb-1">{title}</h6>
                     <p className="mb-0">{isDate ? getDateFromIsoString(data) : data}</p>
                 </div>

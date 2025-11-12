@@ -10,8 +10,7 @@
         min-width: 5rem;
         overflow: hidden;
         position: relative;
-        background-color: #f0f0f0;
-        background-color: var(--bs-greyBg);
+        background-color: #{$light-grey-bg};
 
         img {
             position: absolute;
@@ -33,7 +32,6 @@
 
     &:hover {
         transform: scale(101%);
-        background-color: lighten($light-grey-bg, 3%);
         box-shadow: $default-box-shadow-over;
 
         .default-img {

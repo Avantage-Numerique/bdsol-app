@@ -69,10 +69,10 @@ const RepeaterSingleIteration = ({
 
     //Return the children with the recursive function
     return (
-        <div>
+        <>
             <div className="d-flex justify-content-end p-0">{deleteIterationButton}</div>
             <div>{iterateOverChildren(children, formInitSubStructure, formTools, deleteIterationByKey)}</div>
-        </div>
+        </>
     );
 };
 
