@@ -36,7 +36,7 @@ const Popover = ({ icon, triggerText, title, body, placement = "bottom", trigger
                     {title}
                 </h4>
 
-                <button onClick={superClose} className="fs-5 m-0" type="button">
+                <button onClick={superClose} className="fs-5 border-0 p-0 m-0" type="button">
                     &#x2716;
                 </button>
             </PopoverBS.Header>
@@ -62,7 +62,7 @@ const Popover = ({ icon, triggerText, title, body, placement = "bottom", trigger
     return (
         <>
             <button
-                className={`d-flex flex-row align-items-center gap-1 mx-1 ${styles["info-button"]}`}
+                className={`d-flex flex-row align-items-center border-0 p-0 gap-1 mx-1 ${styles["info-button"]}`}
                 ref={target}
                 onClick={(e) => {
                     e.stopPropagation(); // prevent triggering onHide when clicked
