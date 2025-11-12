@@ -10,7 +10,6 @@
     --picture-size: #{$picture-size};
 }
 
-
 body {
     overflow-x: hidden;
 }
@@ -20,11 +19,15 @@ body.menu-open {
     overflow: hidden;
 }
 
-h1, h2, h3, h4 {
+h1,
+h2,
+h3,
+h4 {
     line-height: 1.3em;
 }
 
-h1, h2 {
+h1,
+h2 {
     font-weight: 700;
 }
 
@@ -32,8 +35,12 @@ h3 {
     font-weight: 600;
 }
 
-
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     position: relative;
 }
 
