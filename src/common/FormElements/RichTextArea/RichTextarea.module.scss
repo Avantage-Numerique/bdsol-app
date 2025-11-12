@@ -1,35 +1,32 @@
-
 .rich-textarea {
-
     .rich-textarea__quill {
-
         .rich-textarea__tool-bar {
             background-color: rgba(235, 235, 235, 0.432);
             border: none;
         }
 
         .rich-textarea__quill__field {
-
-            .rich-textarea__quill-content  {
-                
+            .rich-textarea__quill-content {
                 /*
                 Override some default styling of the input element 
                 */
                 background-color: none;
                 border: unset;
                 color: unset;
-        
-                > div{
+
+                > div {
                     border: unset;
                     color: unset;
 
                     //Text field area (cannot refer by class inside module)
-                    > div { padding: 1rem; }
+                    > div {
+                        padding: 1rem;
+                    }
                 }
             }
         }
     }
-    >blockquote {
-        font-size:smaller;
+    > blockquote {
+        font-size: smaller;
     }
 }

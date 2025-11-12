@@ -1,65 +1,63 @@
-import React, { useState, useEffect, useCallback } from 'react'
+import React, { useState, useCallback } from "react";
 import { createPortal } from "react-dom";
 
-
 //components
-import Modal from './Modal/Modal'
+import Modal from "./Modal/Modal";
 
-export const useRootModal = ( prefilledValues, modalProps = {} ) => {
-
+export const useRootModal = (prefilledValues, modalProps = {}) => {
     //Main state of the hook
     const [modal, setModal] = useState({
         display: false,
         //Values to be passed from the person form to the taxonomy form
-        initValues: prefilledValues || {},   
+        initValues: prefilledValues || {},
         callback: () => {},
         modalProps: {
             className: modalProps?.className ?? "",
             noDefaultWidth: modalProps?.noDefaultWidth ?? false,
             coloredBackground: modalProps?.coloredBackground ?? false,
             closingButton: modalProps?.closingButton ?? false,
-        }
-    })
+        },
+    });
 
     //Function that display the modal inside the root element
-    const ModalToExport = useCallback(({ children }) => {
-
-        if(modal.display)
-            return createPortal(
-                <Modal
-                    noDefaultWidth={modal.modalProps.noDefaultWidth}
-                    coloredBackground={modal.modalProps.coloredBackground}
-                    className={modal.modalProps.className}
-                    closingFunction={modal.modalProps.closingButton}
-                    initValues={modal.enteredValues ?? null}
-                >
-                    { children }
-                </Modal>,
-                document.getElementById("portal-root")
-            )
-
-    }, [modal])
+    const ModalToExport = useCallback(
+        ({ children }) => {
+            if (modal.display)
+                return createPortal(
+                    <Modal
+                        noDefaultWidth={modal.modalProps.noDefaultWidth}
+                        coloredBackground={modal.modalProps.coloredBackground}
+                        className={modal.modalProps.className}
+                        closingFunction={modal.modalProps.closingButton}
+                        initValues={modal.enteredValues ?? null}
+                    >
+                        {children}
+                    </Modal>,
+                    document.getElementById("portal-root")
+                );
+        },
+        [modal]
+    );
 
     /*******   Utils function   *******/
     const displayModal = (newEnteredValues = {}, callback) => {
-        setModal(prev => ({
+        setModal((prev) => ({
             ...modal,
             display: true,
             initValues: {
                 ...prev.initValues,
-                ...newEnteredValues
+                ...newEnteredValues,
             },
-            callback: callback
-        }))
-    }
-
+            callback: callback,
+        }));
+    };
 
     const closeModal = () => {
         setModal({
             ...modal,
-            display: false
-        })
-    }
+            display: false,
+        });
+    };
 
     return {
         modal,
@@ -67,7 +65,6 @@ export const useRootModal = ( prefilledValues, modalProps = {} ) => {
         displayModal,
         closeModal,
         modalInitValues: modal.initValues,
-        modalCallback: modal.callback
-    }
-
-}
+        modalCallback: modal.callback,
+    };
+};

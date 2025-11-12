@@ -1,8 +1,8 @@
-import { defaultSessionData } from "@/auth/context/auth-context"
-import { getCleanRedirectPath } from "@/src/helpers/getCleanRedirectPath"
+import { defaultSessionData } from "@/auth/context/auth-context";
+import { getCleanRedirectPath } from "@/src/helpers/getCleanRedirectPath";
 
 export const ssrCanAccess = async ({ req }) => {
-    const user = req.session.user
+    const user = req.session.user;
 
     //acceptable action, if the user is logged in.
     if (user && user.isLoggedIn && user.tokenVerified) {
@@ -11,15 +11,15 @@ export const ssrCanAccess = async ({ req }) => {
                 user: req.session.user,
                 userCanAccess: true,
             },
-        }
+        };
     }
 
     //User cant access, doing the redirection appropriate.
-    const referer = req.headers.referer
-    let refererPath = "/"
+    const referer = req.headers.referer;
+    let refererPath = "/";
     if (referer) {
-        const refererUrl = new URL(referer)
-        refererPath = refererUrl.pathname + refererUrl.search
+        const refererUrl = new URL(referer);
+        refererPath = refererUrl.pathname + refererUrl.search;
     }
 
     return {
@@ -31,5 +31,5 @@ export const ssrCanAccess = async ({ req }) => {
             user: { ...defaultSessionData },
             userCanAccess: false,
         },
-    }
-}
+    };
+};

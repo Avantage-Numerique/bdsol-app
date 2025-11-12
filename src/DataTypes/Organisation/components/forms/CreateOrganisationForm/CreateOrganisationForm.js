@@ -1,26 +1,25 @@
-import React from 'react'
+import React from "react";
 
 //Custom hooks
-import { useFormUtils } from '@/src/hooks/useFormUtils/useFormUtils'
+import { useFormUtils } from "@/src/hooks/useFormUtils/useFormUtils";
 
 //components
-import Button from '@/FormElements/Button/Button'
-import Input from '@/FormElements/Input/Input'
-import RichTextarea from '@/FormElements/RichTextArea/RichTextarea'
+import Button from "@/FormElements/Button/Button";
+import Input from "@/FormElements/Input/Input";
+import RichTextarea from "@/FormElements/RichTextArea/RichTextarea";
 
 //Context
 import { useAuth } from "@/src/authentification/context/auth-context";
 
 //FormData
-import {getDefaultCreateEntityMeta} from "@/src/DataTypes/Meta/EntityMeta";
-import { lang } from '@/src/common/Data/GlobalConstants'
+import { getDefaultCreateEntityMeta } from "@/src/DataTypes/Meta/EntityMeta";
+import { lang } from "@/src/common/Data/GlobalConstants";
 
 /**
  * @param {function} onPositiveResponse : Additionnal function to be executed if the submit response is positive
  */
 
 const CreateOrganisationForm = ({ onPositiveResponse, ...props }) => {
-
     //Authentication ref
     const auth = useAuth();
 
@@ -29,26 +28,25 @@ const CreateOrganisationForm = ({ onPositiveResponse, ...props }) => {
         {
             name: {
                 value: "",
-                isValid: false
+                isValid: false,
             },
             description: {
                 value: "",
-                isValid: true
+                isValid: true,
             },
         },
         //Pass a set of rules to execute a valid response of an api request
         {
-            displayResMessage: true,     //Display a message to the user to confirm the succes
+            displayResMessage: true, //Display a message to the user to confirm the succes
             callbackFunction: (response) => {
                 //Execute additionnal function from parent component
-                if(onPositiveResponse) onPositiveResponse(response)
-            }
+                if (onPositiveResponse) onPositiveResponse(response);
+            },
         }
     );
 
     //Submit the form
-    const submitHandler = async event => { 
-
+    const submitHandler = async (event) => {
         event.preventDefault();
 
         const formData = {
@@ -56,42 +54,42 @@ const CreateOrganisationForm = ({ onPositiveResponse, ...props }) => {
                 name: formState.inputs.name.value,
                 description: formState.inputs.description.value,
                 meta: getDefaultCreateEntityMeta(auth.user),
-            }
+            },
         };
 
-        await submitRequest(
-            `/organisations/create`,
-            'POST',
-            JSON.stringify(formData)
-        );
-    }
+        await submitRequest(`/organisations/create`, "POST", JSON.stringify(formData));
+    };
 
     return (
         <form>
             <FormUI />
-                <Input 
-                    name="name"
-                    label={"Nom"+lang.required}
-                    className="my-1"
-                    validationRules={[{name: "REQUIRED"}]}
-                    errorText="Cette information est requise"
-                    formTools={formTools}
-                />
-                <RichTextarea 
-                    className="my-1"
-                    name="description"
-                    label={lang.about}
-                    formTools={formTools}
-                />
+            <Input
+                name="name"
+                label={"Nom" + lang.required}
+                className="my-1"
+                validationRules={[{ name: "REQUIRED" }]}
+                errorText="Cette information est requise"
+                formTools={formTools}
+            />
+            <RichTextarea className="my-1" name="description" label={lang.about} formTools={formTools} />
             <div className="col-12">
-                <Button className="me-4" color="success" type="button" onClick={submitHandler} disabled={!formState.isValid}>{lang.submit}</Button>
-                {
-                    props?.closeModal && 
-                    <Button color="danger" type="button" onClick={props.closeModal()}>{lang.cancel}</Button>
-                }
+                <Button
+                    className="me-4"
+                    color="success"
+                    type="button"
+                    onClick={submitHandler}
+                    disabled={!formState.isValid}
+                >
+                    {lang.submit}
+                </Button>
+                {props?.closeModal && (
+                    <Button color="danger" type="button" onClick={props.closeModal()}>
+                        {lang.cancel}
+                    </Button>
+                )}
             </div>
         </form>
-    )
-}
+    );
+};
 
-export default CreateOrganisationForm
+export default CreateOrganisationForm;

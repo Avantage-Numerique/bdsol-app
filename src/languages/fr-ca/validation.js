@@ -1,5 +1,5 @@
 const validation = {
-    "badgeRequired": "Requis"
-}
+    badgeRequired: "Requis",
+};
 
 exports.validation = validation;

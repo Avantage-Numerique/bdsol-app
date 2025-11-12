@@ -1,4 +1,4 @@
-import React, { memo, useContext, useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 //Styles
 import styles from "./SingleBaseHeader.module.scss";
 
@@ -18,13 +18,11 @@ import { useFormUtils } from "@/src/hooks/useFormUtils/useFormUtils";
 import { useHttpClient } from "@/src/hooks/http-hook";
 import { useRouter } from "next/router";
 
-//Utils
-import { getCleanRedirectPath } from "@/src/helpers/getCleanRedirectPath";
-
 //Context
-import { MessageContext } from "@/src/common/UserNotifications/Message/Context/Message-Context";
 import { getBadgesInfo } from "@/src/DataTypes/Badges/BadgesSection";
 import Link from "next/link";
+
+import { useMessages } from "@/common/UserNotifications/Message/MessageProvider";
 
 //Memoize the image to prevent rerendering
 const ImageComponent = memo(({ mainImage, badges, activeInnerLink = "true" }) => {
@@ -85,18 +83,20 @@ const ImageComponent = memo(({ mainImage, badges, activeInnerLink = "true" }) =>
         </div>
     );
 });
+ImageComponent.displayName = "ImageComponent";
+
 /**
- * @param {object} mainImage mainImage data object
- * @param {object} entity used for mainImageForm
- * @param {JSX} title JSX element containing title (top left)
- * @param {JSX} subtitle JSX element containing subtitle (top left)
- * @param {string} entityType type that shows bottom right
- * @param {className} global classes passed from the outside
- * @param {SingleBaseCTA} ctaSection SingleBaseCTA JSX component to display action buttons
- * @param {JSX} buttonSection JSX element containing all the calls to action components in one place
- * @param {String} buttonText string : Text dispayed in the cta button in the header
- * @param {String} buttonLink string : link to redirect the user when the button is clicked
- * @param {String} editableImg bool : Show the button to edit image or not
+ * @param {object} props.mainImage mainImage data object
+ * @param {object} props.entity used for mainImageForm
+ * @param {JSX} props.title JSX element containing title (top left)
+ * @param {JSX} props.subtitle JSX element containing subtitle (top left)
+ * @param {string} props.entityType type that shows bottom right
+ * @param {className} props.global classes passed from the outside
+ * @param {SingleBaseCTA} props.ctaSection SingleBaseCTA JSX component to display action buttons
+ * @param {JSX} props.buttonSection JSX element containing all the calls to action components in one place
+ * @param {String} props.buttonText string : Text dispayed in the cta button in the header
+ * @param {String} props.buttonLink string : link to redirect the user when the button is clicked
+ * @param {String} props.editableImg bool : Show the button to edit image or not
  */
 const SingleBaseHeader = (props) => {
     const {
@@ -119,7 +119,7 @@ const SingleBaseHeader = (props) => {
     //Modal hook
     const modalReportEntity = useRootModal();
     const { sendRequest } = useHttpClient();
-    const msg = useContext(MessageContext);
+    const msg = useMessages();
 
     //Router for redirect login page
     const router = useRouter();
@@ -134,7 +134,7 @@ const SingleBaseHeader = (props) => {
     const currentMode = mode === modes.CONTRIBUTING ? modeContributing : modeConsulting;
 
     //Main modal form
-    const { FormUI, submitRequest, formState, formTools } = useFormUtils(
+    const { formState, formTools } = useFormUtils(
         {
             /* name: {
                 value: '',
@@ -183,12 +183,12 @@ const SingleBaseHeader = (props) => {
         if (apiResponse.error) {
             msg.addMessage({
                 text: lang.reportingError,
-                positive: false,
+                theme: "negative",
             });
         } else {
             msg.addMessage({
                 text: lang.reportingSuccess,
-                positive: true,
+                theme: "positive",
             });
             //formState.inputs.name.value = "";
             //formState.inputs.email.value = "";
@@ -197,11 +197,13 @@ const SingleBaseHeader = (props) => {
         }
     };
 
+    const buttonSectionLink = !auth.user.isLoggedIn ? "/compte/connexion" : buttonLink;
+
     //Removed from colomn, it's more useful to use the justify or align from start or end.
     return (
         <section className={`row ${styles["content-padding-top"]} ${props.className}`}>
             <div className="d-flex justify-content-end">
-                <button type="button" className="fs-3" onClick={modalReportEntity.displayModal}>
+                <button type="button" className="btn-icon fs-3" onClick={modalReportEntity.displayModal}>
                     <Icon iconName="flag" />
                 </button>
             </div>

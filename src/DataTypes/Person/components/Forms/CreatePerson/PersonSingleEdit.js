@@ -1,37 +1,39 @@
-import React, { useCallback, useContext, useEffect, useState } from "react"
-import Router from "next/router"
+import React, { useCallback, useEffect, useState } from "react";
+import Router from "next/router";
 
 //Custom hooks
-import { useFormUtils } from "@/src/hooks/useFormUtils/useFormUtils"
-import { useRootModal } from "@/src/hooks/useModal/useRootModal"
-import SingleBeforeUnloadReminder from "@/src/DataTypes/common/layouts/SingleSaveEntityReminder/SingleBeforeUnloadReminder"
+import { useFormUtils } from "@/src/hooks/useFormUtils/useFormUtils";
+import { useRootModal } from "@/src/hooks/useModal/useRootModal";
+import SingleBeforeUnloadReminder from "@/src/DataTypes/common/layouts/SingleSaveEntityReminder/SingleBeforeUnloadReminder";
 
 //components
-import Input from "@/FormElements/Input/Input"
-import RichTextarea from "@/FormElements/RichTextArea/RichTextarea"
-import Select2 from "@/src/common/FormElements/Select2/Select2"
-import { SingleEntityMeta } from "@/src/DataTypes/Meta/components/SingleEntityMeta"
-import SingleInfo from "@/DataTypes/common/layouts/SingleInfo/SingleInfo"
-import SingleSaveEntityReminder from "@/src/DataTypes/common/layouts/SingleSaveEntityReminder/SingleSaveEntityReminder"
-import UpdateSocialHandles from "@/src/DataTypes/common/Forms/UpdateSocialHandles/UpdateSocialHandles"
-import Select from "@/src/common/FormElements/Select/Select"
+import Button from "@/FormElements/Button/Button";
+import Input from "@/FormElements/Input/Input";
+import RichTextarea from "@/FormElements/RichTextArea/RichTextarea";
+import Select2 from "@/src/common/FormElements/Select2/Select2";
+import { SingleEntityMeta } from "@/src/DataTypes/Meta/components/SingleEntityMeta";
+import SingleInfo from "@/DataTypes/common/layouts/SingleInfo/SingleInfo";
+import SingleSaveEntityReminder from "@/src/DataTypes/common/layouts/SingleSaveEntityReminder/SingleSaveEntityReminder";
+import UpdateSocialHandles from "@/src/DataTypes/common/Forms/UpdateSocialHandles/UpdateSocialHandles";
+import Select from "@/src/common/FormElements/Select/Select";
 
 //Context
-import { useAuth } from "@/src/authentification/context/auth-context"
-import { MessageContext } from "@/src/common/UserNotifications/Message/Context/Message-Context"
-import { lang, modes } from "@/src/common/Data/GlobalConstants"
+import { useAuth } from "@/src/authentification/context/auth-context";
+import { lang, modes } from "@/src/common/Data/GlobalConstants";
 
 //FormData
-import { getDefaultUpdateEntityMeta } from "@/src/DataTypes/Meta/EntityMeta"
-import SingleBaseHeader from "@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseHeader"
-import SingleBase from "@/src/DataTypes/common/layouts/single/SingleBase"
-import UpdateSkillGroup from "@/src/DataTypes/common/Forms/UpdateSkillGroup/UpdateSkillGroup"
-import Person from "@/DataTypes/Person/models/Person"
-import { replacePathname } from "@/src/helpers/url"
-import { TYPE_TAXONOMY } from "@/src/DataTypes/Entity/Types"
-import SubmitEntity from "@/DataTypes/common/Forms/SingleEdit/SubmitEntity"
-import UpdateContactPoint from "@/src/DataTypes/common/Forms/UpdateContactPoint/UpdateContactPoint"
-import SingleBaseCTA from "@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseCTA"
+import { getDefaultUpdateEntityMeta } from "@/src/DataTypes/Meta/EntityMeta";
+import SingleBaseHeader from "@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseHeader";
+import SingleBase from "@/src/DataTypes/common/layouts/single/SingleBase";
+import UpdateSkillGroup from "@/src/DataTypes/common/Forms/UpdateSkillGroup/UpdateSkillGroup";
+import Person from "@/DataTypes/Person/models/Person";
+import { replacePathname } from "@/src/helpers/url";
+import { TYPE_TAXONOMY } from "@/src/DataTypes/Entity/Types";
+import SubmitEntity from "@/DataTypes/common/Forms/SingleEdit/SubmitEntity";
+import UpdateContactPoint from "@/src/DataTypes/common/Forms/UpdateContactPoint/UpdateContactPoint";
+import SingleBaseCTA from "@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseCTA";
+
+import { useMessages } from "@/common/UserNotifications/Message/MessageProvider";
 
 const PersonSingleEdit = ({ positiveRequestActions, ...props }) => {
     //Person data extract
@@ -53,43 +55,43 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props }) => {
         contactPoint,
         url,
         updatedAt,
-    } = props?.data
+    } = props.data;
 
     //Model de project
-    let model = new Person(props.data)
+    let model = new Person(props.data);
 
     //  STATES
-    const [currentMainImage, setCurrentMainImage] = useState(model.mainImage)
-    const [currentModel, setCurrentModel] = useState(model)
+    const [currentMainImage, setCurrentMainImage] = useState(model.mainImage);
+    const [currentModel, setCurrentModel] = useState(model);
 
     const updateEntityModel = useCallback(
-        rawData => {
-            model = new Person(rawData)
-            setCurrentMainImage(model.mainImage)
+        (rawData) => {
+            model = new Person(rawData);
+            setCurrentMainImage(model.mainImage);
         },
         [setCurrentModel]
-    )
+    );
 
     const updateModelMainImage = useCallback(
-        mainImage => {
-            setCurrentMainImage(mainImage)
-            model.mainImage = mainImage
-            setCurrentModel(model)
+        (mainImage) => {
+            setCurrentMainImage(mainImage);
+            model.mainImage = mainImage;
+            setCurrentModel(model);
         },
         [setCurrentModel]
-    )
+    );
 
     //Modal hook
-    const modalSaveEntityReminder = useRootModal()
+    const modalSaveEntityReminder = useRootModal();
 
     //Import the authentication context to make sure the user is well connected
-    const auth = useAuth()
+    const auth = useAuth();
 
     //Import message context
-    const msg = useContext(MessageContext)
+    const msg = useMessages();
 
     //Save intention for SingleBeforeUnloadReminder
-    const [saveIntentionState, setSaveIntentionState] = useState(false)
+    const [saveIntentionState, setSaveIntentionState] = useState(false);
 
     //Main form functionalities
     const { FormUI, submitRequest, formState, formTools } = useFormUtils(
@@ -124,7 +126,11 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props }) => {
                 isValid: true,
             },
             contactPoint: {
-                value: contactPoint ?? { tel: { num: "", ext: "" }, email: { address: "" }, website: { url: "" } },
+                value: contactPoint ?? {
+                    tel: { num: "", ext: "" },
+                    email: { address: "" },
+                    website: { url: "" },
+                },
                 isValid: true,
             },
             url: {
@@ -140,16 +146,21 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props }) => {
         //Pass a set of rules to execute a valid response of an api request
         {
             displayResMessage: true,
-            callbackFunction: response => {
-                Router.push("/" + replacePathname(model.singleRoute.pathname, { slug: response.data.slug }))
+            callbackFunction: (response) => {
+                Router.push(
+                    "/" +
+                        replacePathname(model.singleRoute.pathname, {
+                            slug: response.data.slug,
+                        })
+                );
             },
         }
-    )
+    );
 
     //Submit the form
-    const submitHandler = async event => {
-        event.preventDefault()
-        let formData = {
+    const submitHandler = async (event) => {
+        event.preventDefault();
+        const formData = {
             data: {
                 lastName: formState.inputs.lastName.value,
                 firstName: formState.inputs.firstName.value,
@@ -159,18 +170,18 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props }) => {
                 occupations: formState.inputs.occupations.value.map(function (singleOccupation) {
                     return {
                         groupName: singleOccupation.value.groupName.value,
-                        skills: singleOccupation.value.skills.value.map(skill => {
-                            return skill.value
+                        skills: singleOccupation.value.skills.value.map((skill) => {
+                            return skill.value;
                         }),
                         subMeta: { order: singleOccupation.order },
-                    }
+                    };
                 }),
                 domains:
                     formState.inputs.domains?.value?.length > 0
-                        ? formState.inputs.domains.value.map(elem => {
+                        ? formState.inputs.domains.value.map((elem) => {
                               return {
                                   domain: elem.value,
-                              }
+                              };
                           })
                         : [],
                 contactPoint: formState.inputs.contactPoint.value,
@@ -179,36 +190,36 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props }) => {
                         label: singleUrl.value.label.value,
                         url: singleUrl.value.url.value,
                         subMeta: { order: singleUrl.order },
-                    }
+                    };
                 }),
                 region: formState.inputs.region.value,
                 meta: getDefaultUpdateEntityMeta(auth.user, model.meta.requestedBy),
             },
-        }
+        };
 
         if (_id !== undefined) {
-            formData.data.id = _id
-            submitRequest(`/persons/update`, "POST", JSON.stringify(formData))
+            formData.data.id = _id;
+            submitRequest(`/persons/update`, "POST", JSON.stringify(formData));
         } else {
-            submitRequest(`/persons/create`, "POST", JSON.stringify(formData))
+            submitRequest(`/persons/create`, "POST", JSON.stringify(formData));
         }
-    }
+    };
 
     const breadcrumbLabels = {
         contribuer: lang.menuContributeLabel,
         personnes: lang.Persons,
         slug: `${model.firstName ?? ""} ${model.lastName ?? "-"}`,
-    }
+    };
 
     const breadcrumbsRoutes = {
         route: model.singleEditRoute,
         labels: breadcrumbLabels,
-    }
+    };
 
-    const [breadCrumb, setBreadCrumb] = useState(breadcrumbsRoutes)
+    const [breadCrumb, setBreadCrumb] = useState(breadcrumbsRoutes);
     useEffect(() => {
-        setBreadCrumb(breadcrumbsRoutes)
-    }, [model.title])
+        setBreadCrumb(breadcrumbsRoutes);
+    }, [model.title]);
 
     /*****************************
      *
@@ -247,7 +258,7 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props }) => {
                 formTools={formTools}
             />
         </div>
-    )
+    );
 
     const subtitle = (
         <Input
@@ -256,7 +267,7 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props }) => {
             label={lang.catchphrase}
             formTools={formTools}
         />
-    )
+    );
 
     const ctaSection = (
         <SingleBaseCTA
@@ -267,7 +278,7 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props }) => {
             saveEntityReminderModal={modalSaveEntityReminder}
             saveIntentionSetter={setSaveIntentionState}
         />
-    )
+    );
 
     const header = (
         <SingleBaseHeader
@@ -280,7 +291,7 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props }) => {
             entity={model}
             mode={modes.CONTRIBUTING}
         ></SingleBaseHeader>
-    )
+    );
 
     const fullWidthContent = (
         <SingleInfo title={lang.about} noCardLayout>
@@ -291,7 +302,7 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props }) => {
                 formTools={formTools}
             />
         </SingleInfo>
-    )
+    );
 
     const contentColumnLeft = (
         <SingleInfo title={lang.skillsAndTechnologies}>
@@ -303,7 +314,7 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props }) => {
                 labelSelect={lang.skillsAndTechnologiesAssociated}
             />
         </SingleInfo>
-    )
+    );
 
     const contentColumnRight = (
         <>
@@ -321,7 +332,10 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props }) => {
                     }}
                     options={[
                         { label: "Autre", value: "other" },
-                        { label: "Abitibi-Témiscamingue", value: "abitibi-temiscamingue" },
+                        {
+                            label: "Abitibi-Témiscamingue",
+                            value: "abitibi-temiscamingue",
+                        },
                         { label: "Nord de l'Ontario", value: "north Ontario" },
                         { label: "Baies-James", value: "baies-james" },
                     ]}
@@ -350,7 +364,7 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props }) => {
                 <UpdateSocialHandles name="url" label={lang.url} parentEntity={model} formTools={formTools} />
             </SingleInfo>
         </>
-    )
+    );
 
     const Footer = (
         <>
@@ -361,18 +375,18 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props }) => {
                 </SingleInfo>
             )}
         </>
-    )
+    );
 
     const SinglePageBottom = (
         <SubmitEntity
             submitHandler={() => {
-                setSaveIntentionState(true)
-                modalSaveEntityReminder.displayModal()
+                setSaveIntentionState(true);
+                modalSaveEntityReminder.displayModal();
             }}
             formTools={formTools}
             singleLink={model.singleLink}
         />
-    )
+    );
 
     return (
         <>
@@ -386,18 +400,19 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props }) => {
                 footer={Footer}
                 singlePageBottom={SinglePageBottom}
                 model={model}
+                editMode
             />
             <modalSaveEntityReminder.Modal>
                 <SingleSaveEntityReminder
                     submitHandler={submitHandler}
                     closeModal={() => {
-                        modalSaveEntityReminder.closeModal()
-                        setSaveIntentionState(false)
+                        modalSaveEntityReminder.closeModal();
+                        setSaveIntentionState(false);
                     }}
                 />
             </modalSaveEntityReminder.Modal>
         </>
-    )
-}
+    );
+};
 
-export default PersonSingleEdit
+export default PersonSingleEdit;

@@ -1,41 +1,42 @@
-import React, { useCallback, useContext, useEffect, useState } from "react"
-import Router from "next/router"
+import React, { useCallback, useEffect, useState } from "react";
+import Router from "next/router";
 
 //Custom hooks
-import { useFormUtils } from "@/src/hooks/useFormUtils/useFormUtils"
-import { useRootModal } from "@/src/hooks/useModal/useRootModal"
+import { useFormUtils } from "@/src/hooks/useFormUtils/useFormUtils";
+import { useRootModal } from "@/src/hooks/useModal/useRootModal";
 
 //components
-import Input from "@/FormElements/Input/Input"
-import SelectFetch from "@/FormElements/Select/SelectFetch"
-import Select2 from "@/FormElements/Select2/Select2"
-import SingleBaseHeader from "@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseHeader"
-import RichTextarea from "@/src/common/FormElements/RichTextArea/RichTextarea"
-import { SingleEntityMeta } from "@/src/DataTypes/Meta/components/SingleEntityMeta"
-import SingleBase from "@/src/DataTypes/common/layouts/single/SingleBase"
-import UpdateTeams from "@/src/DataTypes/Organisation/components/forms/UpdateTeams/UpdateTeams"
-import SingleInfo from "@/src/DataTypes/common/layouts/SingleInfo/SingleInfo"
-import SingleSaveEntityReminder from "@/src/DataTypes/common/layouts/SingleSaveEntityReminder/SingleSaveEntityReminder"
-import UpdateSocialHandles from "@/src/DataTypes/common/Forms/UpdateSocialHandles/UpdateSocialHandles"
-import UpdateContactPoint from "@/src/DataTypes/common/Forms/UpdateContactPoint/UpdateContactPoint"
-import UpdateScheduleBudget from "@/src/DataTypes/Project/component/forms/UpdateScheduleBudget"
-import UpdateSponsor from "@/src/DataTypes/Project/component/forms/UpdateSponsor"
-import SubmitEntity from "@/DataTypes/common/Forms/SingleEdit/SubmitEntity"
-import SingleBaseCTA from "@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseCTA"
+import Input from "@/FormElements/Input/Input";
+import SelectFetch from "@/FormElements/Select/SelectFetch";
+import Select2 from "@/FormElements/Select2/Select2";
+import SingleBaseHeader from "@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseHeader";
+import RichTextarea from "@/src/common/FormElements/RichTextArea/RichTextarea";
+import { SingleEntityMeta } from "@/src/DataTypes/Meta/components/SingleEntityMeta";
+import SingleBase from "@/src/DataTypes/common/layouts/single/SingleBase";
+import UpdateTeams from "@/src/DataTypes/Organisation/components/forms/UpdateTeams/UpdateTeams";
+import SingleInfo from "@/src/DataTypes/common/layouts/SingleInfo/SingleInfo";
+import SingleSaveEntityReminder from "@/src/DataTypes/common/layouts/SingleSaveEntityReminder/SingleSaveEntityReminder";
+import UpdateSocialHandles from "@/src/DataTypes/common/Forms/UpdateSocialHandles/UpdateSocialHandles";
+import UpdateContactPoint from "@/src/DataTypes/common/Forms/UpdateContactPoint/UpdateContactPoint";
+import UpdateScheduleBudget from "@/src/DataTypes/Project/component/forms/UpdateScheduleBudget";
+import UpdateSponsor from "@/src/DataTypes/Project/component/forms/UpdateSponsor";
+import SubmitEntity from "@/DataTypes/common/Forms/SingleEdit/SubmitEntity";
+import SingleBaseCTA from "@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseCTA";
 
 //Utils
-import { lang, modes } from "@/src/common/Data/GlobalConstants"
-import { getDefaultUpdateEntityMeta } from "@/src/DataTypes/Meta/EntityMeta"
-import Project from "@/DataTypes/Project/models/Project"
-import { replacePathname } from "@/src/helpers/url"
-import SingleBeforeUnloadReminder from "@/src/DataTypes/common/layouts/SingleSaveEntityReminder/SingleBeforeUnloadReminder"
+import { lang, modes } from "@/src/common/Data/GlobalConstants";
+import { getDefaultUpdateEntityMeta } from "@/src/DataTypes/Meta/EntityMeta";
+import Project from "@/DataTypes/Project/models/Project";
+import { replacePathname } from "@/src/helpers/url";
+import SingleBeforeUnloadReminder from "@/src/DataTypes/common/layouts/SingleSaveEntityReminder/SingleBeforeUnloadReminder";
 
 //Context
-import { useAuth } from "@/src/authentification/context/auth-context"
-import { MessageContext } from "@/src/common/UserNotifications/Message/Context/Message-Context"
-import { TYPE_EQUIPMENT, TYPE_TAXONOMY } from "@/src/DataTypes/Entity/Types"
+import { useAuth } from "@/src/authentification/context/auth-context";
+import { TYPE_EQUIPMENT, TYPE_TAXONOMY } from "@/src/DataTypes/Entity/Types";
 
-const ProjectSingleEdit = props => {
+import { useMessages } from "@/common/UserNotifications/Message/MessageProvider";
+
+const ProjectSingleEdit = (props) => {
     const {
         _id,
         name,
@@ -59,44 +60,44 @@ const ProjectSingleEdit = props => {
         type,
         createdAt,
         updatedAt,
-    } = props.data
+    } = props.data;
 
     //Model de project
-    let model = new Project(props.data)
+    let model = new Project(props.data);
 
     //  STATES change that to a context ?
 
-    const [currentMainImage, setCurrentMainImage] = useState(model.mainImage)
-    const [currentModel, setCurrentModel] = useState(model)
+    const [currentMainImage, setCurrentMainImage] = useState(model.mainImage);
+    const [currentModel, setCurrentModel] = useState(model);
 
     const updateEntityModel = useCallback(
-        rawData => {
-            model = new Project(rawData)
-            setCurrentMainImage(model.mainImage)
+        (rawData) => {
+            model = new Project(rawData);
+            setCurrentMainImage(model.mainImage);
         },
         [setCurrentModel]
-    )
+    );
 
     const updateModelMainImage = useCallback(
-        mainImage => {
-            setCurrentMainImage(mainImage)
-            model.mainImage = mainImage
-            setCurrentModel(model)
+        (mainImage) => {
+            setCurrentMainImage(mainImage);
+            model.mainImage = mainImage;
+            setCurrentModel(model);
         },
         [setCurrentModel]
-    )
+    );
 
     //Import the authentication context to make sure the user is well connected
-    const auth = useAuth()
+    const auth = useAuth();
 
     //Import message context
-    const msg = useContext(MessageContext)
+    const msg = useMessages();
 
     //Save intention for SingleBeforeUnloadReminder
-    const [saveIntentionState, setSaveIntentionState] = useState(false)
+    const [saveIntentionState, setSaveIntentionState] = useState(false);
 
     //Modal hook
-    const modalSaveEntityReminder = useRootModal()
+    const modalSaveEntityReminder = useRootModal();
 
     //Main form functionalities
     const { FormUI, submitRequest, formState, formTools } = useFormUtils(
@@ -128,7 +129,11 @@ const ProjectSingleEdit = props => {
                 invalidMsg: "Liens externes",
             },
             contactPoint: {
-                value: contactPoint ?? { tel: { num: "", ext: "" }, email: { address: "" }, website: { url: "" } },
+                value: contactPoint ?? {
+                    tel: { num: "", ext: "" },
+                    email: { address: "" },
+                    website: { url: "" },
+                },
                 isValid: true,
             },
             location: {
@@ -192,32 +197,37 @@ const ProjectSingleEdit = props => {
         //Actions if the form turns out to be positive
         {
             displayResMessage: true,
-            callbackFunction: response => {
-                Router.push("/" + replacePathname(model.singleRoute.pathname, { slug: response.data.slug }))
+            callbackFunction: (response) => {
+                Router.push(
+                    "/" +
+                        replacePathname(model.singleRoute.pathname, {
+                            slug: response.data.slug,
+                        })
+                );
             },
         }
-    )
-    const submitHandler = async event => {
-        event.preventDefault()
+    );
+    const submitHandler = async (event) => {
+        event.preventDefault();
 
         const formData = {
             data: {
                 name: formState.inputs.name.value,
                 alternateName: formState.inputs.alternateName.value,
-                entityInCharge: formState.inputs.entityInCharge?.value?.map(elem => elem.value) ?? [],
-                producer: formState.inputs.producer?.value?.map(elem => elem.value) ?? [],
+                entityInCharge: formState.inputs.entityInCharge?.value?.map((elem) => elem.value) ?? [],
+                producer: formState.inputs.producer?.value?.map((elem) => elem.value) ?? [],
                 description: formState.inputs.description.value,
                 context:
                     formState.inputs.context.value !== "" && typeof formState.inputs.context.value !== "undefined"
                         ? formState.inputs.context.value
                         : undefined,
-                sponsor: formState.inputs.sponsor.value.map(singleSponsor => {
+                sponsor: formState.inputs.sponsor.value.map((singleSponsor) => {
                     return {
                         name: singleSponsor.value.name.value,
                         entity: singleSponsor.value.entity.value.value,
                         entityType: "Organisation",
                         subMeta: { order: singleSponsor.order },
-                    }
+                    };
                 }),
                 scheduleBudget: {
                     startDate: formState.inputs.startDate.value,
@@ -225,7 +235,7 @@ const ProjectSingleEdit = props => {
                     completionDate: formState.inputs.completionDate.value,
                     estimatedTotalBudget: formState.inputs.estimatedTotalBudget.value,
                     eta: formState.inputs.eta.value,
-                    timeframe: formState.inputs.timeframe.value.map(singleTimeframe => {
+                    timeframe: formState.inputs.timeframe.value.map((singleTimeframe) => {
                         return {
                             step: singleTimeframe.value.step.value,
                             eta: singleTimeframe.value.eta.value == "" ? undefined : singleTimeframe.value.eta.value,
@@ -234,7 +244,7 @@ const ProjectSingleEdit = props => {
                                     ? undefined
                                     : singleTimeframe.value.budgetRange.value,
                             subMeta: { order: singleTimeframe.order },
-                        }
+                        };
                     }),
                 },
                 team: formState.inputs.team.value.map(function (singleTeam) {
@@ -242,21 +252,21 @@ const ProjectSingleEdit = props => {
                         member: singleTeam.value.member.value.value,
                         role: singleTeam.value.role.value,
                         subMeta: { order: singleTeam.order },
-                    }
+                    };
                 }),
-                equipment: formState.inputs?.equipment?.value?.map(elem => elem.value),
+                equipment: formState.inputs?.equipment?.value?.map((elem) => elem.value),
                 skills:
                     formState.inputs.skills?.value?.length > 0
-                        ? formState.inputs.skills.value.map(selectOptionSkill => {
-                              return selectOptionSkill.value
+                        ? formState.inputs.skills.value.map((selectOptionSkill) => {
+                              return selectOptionSkill.value;
                           })
                         : [],
                 domains:
                     formState.inputs.domains?.value?.length > 0
-                        ? formState.inputs.domains.value.map(elem => {
+                        ? formState.inputs.domains.value.map((elem) => {
                               return {
                                   domain: elem.value,
-                              }
+                              };
                           })
                         : [],
                 contactPoint: formState.inputs.contactPoint.value,
@@ -265,36 +275,36 @@ const ProjectSingleEdit = props => {
                         label: singleUrl.value.label.value,
                         url: singleUrl.value.url.value,
                         subMeta: { order: singleUrl.order },
-                    }
+                    };
                 }),
                 meta: getDefaultUpdateEntityMeta(auth.user, model.meta.requestedBy),
             },
-        }
+        };
 
         if (_id !== undefined) {
-            formData.data.id = _id
-            submitRequest(`/projects/update`, "POST", JSON.stringify(formData))
+            formData.data.id = _id;
+            submitRequest(`/projects/update`, "POST", JSON.stringify(formData));
         } else {
-            submitRequest(`/projects/create`, "POST", JSON.stringify(formData))
+            submitRequest(`/projects/create`, "POST", JSON.stringify(formData));
         }
-    }
+    };
 
     /* Needed for breadCrumb generator */
     const breadcrumbLabels = {
         contribuer: lang.menuContributeLabel,
         projets: lang.Projects,
         slug: model.name ?? "-",
-    }
+    };
 
     const breadcrumbsRoutes = {
         route: model.singleEditRoute,
         labels: breadcrumbLabels,
-    }
+    };
 
-    const [breadCrumb, setBreadCrumb] = useState(breadcrumbsRoutes)
+    const [breadCrumb, setBreadCrumb] = useState(breadcrumbsRoutes);
     useEffect(() => {
-        setBreadCrumb(breadcrumbsRoutes)
-    }, [model.title])
+        setBreadCrumb(breadcrumbsRoutes);
+    }, [model.title]);
 
     const title = (
         <Input
@@ -304,7 +314,7 @@ const ProjectSingleEdit = props => {
             formClassName="discrete-without-focus form-text-white"
             validationRules={[{ name: "REQUIRED" }]}
         />
-    )
+    );
 
     const subtitle = (
         <>
@@ -340,7 +350,7 @@ const ProjectSingleEdit = props => {
                 selectField={"name"}
             />
         </>
-    )
+    );
 
     const ctaSection = (
         <SingleBaseCTA
@@ -351,7 +361,7 @@ const ProjectSingleEdit = props => {
             saveEntityReminderModal={modalSaveEntityReminder}
             saveIntentionSetter={setSaveIntentionState}
         />
-    )
+    );
 
     const header = (
         <SingleBaseHeader
@@ -363,13 +373,13 @@ const ProjectSingleEdit = props => {
             mode={modes.CONTRIBUTING}
             ctaSection={ctaSection}
         />
-    )
+    );
 
     const fullWidthContent = (
         <SingleInfo title={lang.about} noCardLayout>
             <RichTextarea name="description" formTools={formTools} />
         </SingleInfo>
-    )
+    );
 
     const contentColumnLeft = (
         <>
@@ -404,7 +414,7 @@ const ProjectSingleEdit = props => {
                 />
             </SingleInfo>
         </>
-    )
+    );
     const contentColumnRight = (
         <>
             <SingleInfo title={lang.contactInformations}>
@@ -455,7 +465,7 @@ const ProjectSingleEdit = props => {
                 </SingleInfo>
             </SingleInfo>
         </>
-    )
+    );
 
     {
         /*********** Footer section ***********/
@@ -469,7 +479,7 @@ const ProjectSingleEdit = props => {
                 </SingleInfo>
             )}
         </>
-    )
+    );
 
     {
         /*********** Submit section ***********/
@@ -477,13 +487,13 @@ const ProjectSingleEdit = props => {
     const SinglePageBottom = (
         <SubmitEntity
             submitHandler={() => {
-                setSaveIntentionState(true)
-                modalSaveEntityReminder.displayModal()
+                setSaveIntentionState(true);
+                modalSaveEntityReminder.displayModal();
             }}
             formTools={formTools}
             singleLink={model.singleLink}
         />
-    )
+    );
 
     return (
         <>
@@ -497,18 +507,19 @@ const ProjectSingleEdit = props => {
                 singlePageBottom={SinglePageBottom}
                 footer={Footer}
                 model={model}
+                editMode
             />
             <modalSaveEntityReminder.Modal>
                 <SingleSaveEntityReminder
                     submitHandler={submitHandler}
                     closeModal={() => {
-                        modalSaveEntityReminder.closeModal()
-                        setSaveIntentionState(false)
+                        modalSaveEntityReminder.closeModal();
+                        setSaveIntentionState(false);
                     }}
                 />
             </modalSaveEntityReminder.Modal>
         </>
-    )
-}
+    );
+};
 
-export default ProjectSingleEdit
+export default ProjectSingleEdit;

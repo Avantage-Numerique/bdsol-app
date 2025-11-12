@@ -10,22 +10,19 @@ import Place from "../../../models/Place";
 import SanitizedInnerHtml from "@/src/utils/SanitizedInnerHtml";
 import SingleInfo from "@/src/DataTypes/common/layouts/SingleInfo/SingleInfo";
 import { SingleEntityMeta } from "@/src/DataTypes/Meta/components/SingleEntityMeta";
-import SingleBaseProgressBar
-    from '@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseProgressBar/SingleBaseProgressBar'
-import { removeTagsFromString } from '@/src/helpers/html'
+import SingleBaseProgressBar from "@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseProgressBar/SingleBaseProgressBar";
+import { removeTagsFromString } from "@/src/helpers/html";
 import SingleBaseCTA from "@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseCTA";
 
-
 //Styling
-import styles from "./PlaceSingleView.module.scss"
+import styles from "./PlaceSingleView.module.scss";
 
 const PlaceSingleView = ({ data }) => {
-
-    const model = new Place(data)
+    const model = new Place(data);
 
     const breadcrumbLabels = {
-        "lieux": lang.Places,
-        "slug": model.breadcrumbTitle
+        lieux: lang.Places,
+        slug: model.breadcrumbTitle,
     };
 
     const [breadCrumb, setBreadCrumb] = useState({
@@ -40,37 +37,36 @@ const PlaceSingleView = ({ data }) => {
         });
     }, [model.title]);
 
-
     const header = (
         <SingleBaseHeader
-            title={(<SanitizedInnerHtml tag={"h1"} className="text-white">{`${model.title}`}</SanitizedInnerHtml>)}
-            subtitle={(
+            title={<SanitizedInnerHtml tag={"h1"} className="text-white">{`${model.title}`}</SanitizedInnerHtml>}
+            subtitle={
                 <div className="d-text mt-4">
-                    {model.address &&
-                        <i><p className="text-white fs-4 mb-0">{model.address}{(model.address && model.city) && <span>,</span>}</p></i>
-                    }
-                    {model.city &&
-                        <i><p className="text-white fs-4">{model.city}</p></i>
-                    }
+                    {model.address && (
+                        <i>
+                            <p className="text-white fs-4 mb-0">
+                                {model.address}
+                                {model.address && model.city && <span>,</span>}
+                            </p>
+                        </i>
+                    )}
+                    {model.city && (
+                        <i>
+                            <p className="text-white fs-4">{model.city}</p>
+                        </i>
+                    )}
                 </div>
-            )}
+            }
             mainImage={model.mainImage}
             entity={model}
             ctaSection={<SingleBaseCTA model={model} />}
         />
-    )
+    );
 
     const FullWidthContent = (
         <>
-            <SingleInfo
-                title={lang.about}
-                NAMessage="Aucune description n'est disponible pour le moment."
-            >
-                {
-                    <SanitizedInnerHtml>
-                        {model.description}
-                    </SanitizedInnerHtml>
-                }
+            <SingleInfo title={lang.about} NAMessage="Aucune description n'est disponible pour le moment.">
+                {<SanitizedInnerHtml>{model.description}</SanitizedInnerHtml>}
             </SingleInfo>
         </>
     );
@@ -80,128 +76,93 @@ const PlaceSingleView = ({ data }) => {
             <ul className={`${styles["main-coordinate-list"]}`}>
                 {/* address x2 (in subtitle) */}
                 <li className={`${styles["coordinate"]}`}>
-                    <div className={`${styles["coordinate__title"]}`}>
-                        {lang.address} :
-                    </div>
-                    <div className={`${styles["coordinate__data"]}`}>
-                        {model.address ? model.address : " - "}
-                    </div>
+                    <div className={`${styles["coordinate__title"]}`}>{lang.address} :</div>
+                    <div className={`${styles["coordinate__data"]}`}>{model.address ? model.address : " - "}</div>
                 </li>
 
                 {/* city x2 (in subtitle) */}
                 <li className={`${styles["coordinate"]}`}>
-                    <div className={`${styles["coordinate__title"]}`}>
-                        {lang.city} :
-                    </div>
-                    <div className={`${styles["coordinate__data"]}`}>
-                        {model.city ? model.city : " - "}
-                    </div>
+                    <div className={`${styles["coordinate__title"]}`}>{lang.city} :</div>
+                    <div className={`${styles["coordinate__data"]}`}>{model.city ? model.city : " - "}</div>
                 </li>
 
                 {/* postalCode */}
                 <li className={`${styles["coordinate"]}`}>
-                    <div className={`${styles["coordinate__title"]}`}>
-                        {lang.postalCode} :
-                    </div>
-                    <div className={`${styles["coordinate__data"]}`}>
-                        {model.postalCode ? model.postalCode : " - "}
-                    </div>
+                    <div className={`${styles["coordinate__title"]}`}>{lang.postalCode} :</div>
+                    <div className={`${styles["coordinate__data"]}`}>{model.postalCode ? model.postalCode : " - "}</div>
                 </li>
 
                 {/* province */}
                 <li className={`${styles["coordinate"]}`}>
-                    <div className={`${styles["coordinate__title"]}`}>
-                        {lang.province} :
-                    </div>
-                    <div className={`${styles["coordinate__data"]}`}>
-                        {model.province ? model.province : " - "}
-                    </div>
+                    <div className={`${styles["coordinate__title"]}`}>{lang.province} :</div>
+                    <div className={`${styles["coordinate__data"]}`}>{model.province ? model.province : " - "}</div>
                 </li>
 
                 {/* country */}
                 <li className={`${styles["coordinate"]}`}>
-                    <div className={`${styles["coordinate__title"]}`}>
-                        {lang.country} :
-                    </div>
-                    <div className={`${styles["coordinate__data"]}`}>
-                        {model.country ? model.country : " - "}
-                    </div>
+                    <div className={`${styles["coordinate__title"]}`}>{lang.country} :</div>
+                    <div className={`${styles["coordinate__data"]}`}>{model.country ? model.country : " - "}</div>
                 </li>
-
             </ul>
         </SingleInfo>
-    )
+    );
     const contentColumnRight = (
         <SingleInfo title="Informations supplémentaires">
             <ul className={`${styles["main-coordinate-list"]}`}>
                 {/* mrc */}
                 <li className={`${styles["coordinate"]}`}>
-                    <div className={`${styles["coordinate__title"]}`}>
-                        {lang.mrc} :
-                    </div>
-                    <div className={`${styles["coordinate__data"]}`}>
-                        {model.mrc ? model.mrc : " - "}
-                    </div>
+                    <div className={`${styles["coordinate__title"]}`}>{lang.mrc} :</div>
+                    <div className={`${styles["coordinate__data"]}`}>{model.mrc ? model.mrc : " - "}</div>
                 </li>
 
                 {/* region */}
                 <li className={`${styles["coordinate"]}`}>
-                    <div className={`${styles["coordinate__title"]}`}>
-                        {lang.region} :
-                    </div>
-                    <div className={`${styles["coordinate__data"]}`}>
-                        {model.region ? model.region : " - "}
-                    </div>
+                    <div className={`${styles["coordinate__title"]}`}>{lang.region} :</div>
+                    <div className={`${styles["coordinate__data"]}`}>{model.region ? model.region : " - "}</div>
                 </li>
 
                 {/* longitude */}
                 <li className={`${styles["coordinate"]}`}>
-                    <div className={`${styles["coordinate__title"]}`}>
-                        {lang.longitude} :
-                    </div>
-                    <div className={`${styles["coordinate__data"]}`}>
-                        {model.longitude ? model.longitude : " - "}
-                    </div>
+                    <div className={`${styles["coordinate__title"]}`}>{lang.longitude} :</div>
+                    <div className={`${styles["coordinate__data"]}`}>{model.longitude ? model.longitude : " - "}</div>
                 </li>
 
                 {/* latitude */}
                 <li className={`${styles["coordinate"]}`}>
-                    <div className={`${styles["coordinate__title"]}`}>
-                        {lang.latitude} :
-                    </div>
-                    <div className={`${styles["coordinate__data"]}`}>
-                        {model.latitude ? model.latitude : " - "}
-                    </div>
+                    <div className={`${styles["coordinate__title"]}`}>{lang.latitude} :</div>
+                    <div className={`${styles["coordinate__data"]}`}>{model.latitude ? model.latitude : " - "}</div>
                 </li>
             </ul>
         </SingleInfo>
-    )
+    );
 
-
-    {/*********** Footer section ***********/ }
+    {
+        /*********** Footer section ***********/
+    }
     const Footer = (
         <>
-            {
-                (model.createdAt || model.updatedAt || model.meta) &&
-                <SingleInfo
-                    title={lang.entityMetadata}
-                    className="pt-3"
-                >
+            {(model.createdAt || model.updatedAt || model.meta) && (
+                <SingleInfo title={lang.entityMetadata} className="pt-3">
                     {/*********** Entity data ***********/}
                     <SingleEntityMeta createdAt={model.createdAt} updatedAt={model.updatedAt} meta={model.meta} />
                 </SingleInfo>
-            }
+            )}
         </>
-    )
+    );
 
-    {/*********** Bottom section ***********/ }
+    {
+        /*********** Bottom section ***********/
+    }
     const SinglePageBottom = (
         <SingleBaseProgressBar
             dataList={[
                 { data: model.title },
                 { data: model.address },
                 { data: model.city },
-                { data: model.description, validationFunction: (value => removeTagsFromString(value) ? true : false) },
+                {
+                    data: model.description,
+                    validationFunction: (value) => (removeTagsFromString(value) ? true : false),
+                },
                 { data: model.postalCode },
                 { data: model.province },
                 { data: model.country },
@@ -209,12 +170,12 @@ const PlaceSingleView = ({ data }) => {
                 { data: model.region },
                 { data: model.longitude },
                 { data: model.latitude },
-                { data: model.mainImage.isDefault, validationFunction: ((value) => !value) },
+                { data: model.mainImage.isDefault, validationFunction: (value) => !value },
             ]}
             buttonText={lang.contributeButtonLabel}
             buttonLink={model.singleEditLink}
         />
-    )
+    );
 
     return (
         <>
@@ -229,6 +190,6 @@ const PlaceSingleView = ({ data }) => {
                 model={model}
             />
         </>
-    )
-}
+    );
+};
 export default PlaceSingleView;

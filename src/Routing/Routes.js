@@ -4,15 +4,14 @@
  * @constructor
  */
 class Routes {
-
     static _instance;
 
-    constructor(routes=undefined) {
+    constructor(routes = undefined) {
         if (!Routes._instance) {
             Routes._instance = this;
         }
         this.urls = new Map();
-        this.locales = ["fr"]//, "en"
+        this.locales = ["fr"]; //, "en"
 
         if (routes) {
             this.setup(routes);
@@ -41,7 +40,6 @@ class Routes {
         this.urls.set(name, new Route(urlObject));
     }
 
-
     /**
      * Get an URL to use in Link components and other routing purpose.
      * @param name {string} the target route to get.
@@ -50,13 +48,11 @@ class Routes {
         this.urls.get(name);
     }
 
-
     setAliases(routes) {
         for (let [key, route] of routes) {
             this.setProperty(key, route);
         }
     }
-
 
     /**
      * Set all the properties into this scope
@@ -73,13 +69,11 @@ class Routes {
     }
 }
 
-
 /**
  *  It's the object used in Routes to be pushed into Link and Breadcrumbs.
  *  @toread https://nodejs.org/api/url.html#legacy-urlobject
  */
 class Route {
-
     /**
      * ROute is an object that manage each page in its routing + breadcrumbs support.
      * @param params.name {string}
@@ -97,7 +91,7 @@ class Route {
         this.pathname = params.pathname ?? "";
         this.asPath = params.asPath ?? "";
         this.query = params.query ?? {};
-        this.needAuth = params.needAuth ?? false;//over-engenering here I think.
+        this.needAuth = params.needAuth ?? false; //over-engenering here I think.
 
         this.breadcrumbPathName = params.breadCrumbPathName ?? params.pathname;
         this.breadcrumbAsPath = params.breadcrumbAsPath ?? params.asPath;
@@ -105,10 +99,7 @@ class Route {
     }
 
     //Add a getter for the URL params and replace to use the pathname as direct.
-    applyParams(params, property="pathname") {
-
-    }
+    applyParams(params, property = "pathname") {}
 }
-
 
 export default Routes;

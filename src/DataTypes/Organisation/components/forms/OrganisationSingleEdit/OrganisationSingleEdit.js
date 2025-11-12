@@ -1,42 +1,42 @@
-import React, { useCallback, useContext, useEffect, useState } from "react"
-import Router from "next/router"
+import React, { useCallback, useEffect, useState } from "react";
+import Router from "next/router";
 
 //Context
-import { MessageContext } from "@/src/common/UserNotifications/Message/Context/Message-Context"
+import { useMessages } from "@/src/common/UserNotifications/Message/MessageProvider";
 
 //Hooks
-import { useAuth } from "@/auth/context/auth-context"
-import { useFormUtils } from "@/src/hooks/useFormUtils/useFormUtils"
-import { useRootModal } from "@/src/hooks/useModal/useRootModal"
+import { useAuth } from "@/auth/context/auth-context";
+import { useFormUtils } from "@/src/hooks/useFormUtils/useFormUtils";
+import { useRootModal } from "@/src/hooks/useModal/useRootModal";
 
 //Component
-import Select2 from "@/src/common/FormElements/Select2/Select2"
-import Input from "@/src/common/FormElements/Input/Input"
-import RichTextarea from "@/src/common/FormElements/RichTextArea/RichTextarea"
-import Select from "@/src/common/FormElements/Select/Select"
-import { getDefaultUpdateEntityMeta } from "@/src/DataTypes/Meta/EntityMeta"
-import SingleBase from "@/src/DataTypes/common/layouts/single/SingleBase"
-import SingleBaseHeader from "@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseHeader"
-import SingleInfo from "@/src/DataTypes/common/layouts/SingleInfo/SingleInfo"
-import { SingleEntityMeta } from "@/src/DataTypes/Meta/components/SingleEntityMeta"
-import UpdateSkillGroup from "@/src/DataTypes/common/Forms/UpdateSkillGroup/UpdateSkillGroup"
-import UpdateTeams from "../UpdateTeams/UpdateTeams"
-import UpdateEquipment from "@/src/DataTypes/Equipment/components/layouts/UpdateEquipment/UpdateEquipment"
-import UpdateSocialHandles from "@/src/DataTypes/common/Forms/UpdateSocialHandles/UpdateSocialHandles"
-import SingleSaveEntityReminder from "@/src/DataTypes/common/layouts/SingleSaveEntityReminder/SingleSaveEntityReminder"
-import UpdateContactPoint from "@/src/DataTypes/common/Forms/UpdateContactPoint/UpdateContactPoint"
-import SubmitEntity from "@/DataTypes/common/Forms/SingleEdit/SubmitEntity"
-import SingleBaseCTA from "@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseCTA"
+import Select2 from "@/src/common/FormElements/Select2/Select2";
+import Input from "@/src/common/FormElements/Input/Input";
+import RichTextarea from "@/src/common/FormElements/RichTextArea/RichTextarea";
+import Select from "@/src/common/FormElements/Select/Select";
+import { getDefaultUpdateEntityMeta } from "@/src/DataTypes/Meta/EntityMeta";
+import SingleBase from "@/src/DataTypes/common/layouts/single/SingleBase";
+import SingleBaseHeader from "@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseHeader";
+import SingleInfo from "@/src/DataTypes/common/layouts/SingleInfo/SingleInfo";
+import { SingleEntityMeta } from "@/src/DataTypes/Meta/components/SingleEntityMeta";
+import UpdateSkillGroup from "@/src/DataTypes/common/Forms/UpdateSkillGroup/UpdateSkillGroup";
+import UpdateTeams from "../UpdateTeams/UpdateTeams";
+import UpdateEquipment from "@/src/DataTypes/Equipment/components/layouts/UpdateEquipment/UpdateEquipment";
+import UpdateSocialHandles from "@/src/DataTypes/common/Forms/UpdateSocialHandles/UpdateSocialHandles";
+import SingleSaveEntityReminder from "@/src/DataTypes/common/layouts/SingleSaveEntityReminder/SingleSaveEntityReminder";
+import UpdateContactPoint from "@/src/DataTypes/common/Forms/UpdateContactPoint/UpdateContactPoint";
+import SubmitEntity from "@/DataTypes/common/Forms/SingleEdit/SubmitEntity";
+import SingleBaseCTA from "@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseCTA";
 
 //Utils
-import SingleBeforeUnloadReminder from "@/src/DataTypes/common/layouts/SingleSaveEntityReminder/SingleBeforeUnloadReminder"
-import Organisation from "@/src/DataTypes/Organisation/models/Organisation"
-import { replacePathname } from "@/src/helpers/url"
-import { lang, modes } from "@/src/common/Data/GlobalConstants"
-import { TYPE_PLACE, TYPE_TAXONOMY } from "@/src/DataTypes/Entity/Types"
-import { apiDateToDateInput, dateTimeStringToUTC } from "@/common/DateManager/Parse"
+import SingleBeforeUnloadReminder from "@/src/DataTypes/common/layouts/SingleSaveEntityReminder/SingleBeforeUnloadReminder";
+import Organisation from "@/src/DataTypes/Organisation/models/Organisation";
+import { replacePathname } from "@/src/helpers/url";
+import { lang, modes } from "@/src/common/Data/GlobalConstants";
+import { TYPE_PLACE, TYPE_TAXONOMY } from "@/src/DataTypes/Entity/Types";
+import { apiDateToDateInput, dateTimeStringToUTC } from "@/common/DateManager/Parse";
 
-const OrganisationSingleEdit = props => {
+const OrganisationSingleEdit = (props) => {
     //Organisation data extract
     const {
         _id,
@@ -57,10 +57,10 @@ const OrganisationSingleEdit = props => {
         type,
         createdAt,
         updatedAt,
-    } = Object(props.data)
+    } = Object(props.data);
 
     //  Model de project
-    let model = new Organisation(props.data)
+    let model = new Organisation(props.data);
     /*
      *  1. Change the link getter in ctaHeaderSection components.
      *  1.1 Change the button save and visualize.
@@ -73,53 +73,53 @@ const OrganisationSingleEdit = props => {
 
     //  STATES change that to a context ?
 
-    const [currentMainImage, setCurrentMainImage] = useState(model.mainImage)
-    const [currentModel, setCurrentModel] = useState(model)
+    const [currentMainImage, setCurrentMainImage] = useState(model.mainImage);
+    const [currentModel, setCurrentModel] = useState(model);
 
     const updateEntityModel = useCallback(
-        rawData => {
-            model = new Organisation(rawData)
-            setCurrentMainImage(model.mainImage)
+        (rawData) => {
+            model = new Organisation(rawData);
+            setCurrentMainImage(model.mainImage);
         },
         [setCurrentModel]
-    )
+    );
 
     const updateModelMainImage = useCallback(
-        mainImage => {
-            setCurrentMainImage(mainImage)
-            model.mainImage = mainImage
-            setCurrentModel(model)
+        (mainImage) => {
+            setCurrentMainImage(mainImage);
+            model.mainImage = mainImage;
+            setCurrentModel(model);
         },
         [setCurrentModel]
-    )
+    );
 
     const breadcrumbLabels = {
         contribuer: lang.menuContributeLabel,
         organisations: lang.Organisations,
         slug: `${model.name ?? "-"}`,
-    }
+    };
 
     const breadcrumbsRoutes = {
         route: model.singleEditRoute,
         labels: breadcrumbLabels,
-    }
+    };
 
-    const [breadCrumb, setBreadCrumb] = useState(breadcrumbsRoutes)
+    const [breadCrumb, setBreadCrumb] = useState(breadcrumbsRoutes);
     useEffect(() => {
-        setBreadCrumb(breadcrumbsRoutes)
-    }, [model.title])
+        setBreadCrumb(breadcrumbsRoutes);
+    }, [model.title]);
 
     //Modal hook
-    const modalSaveEntityReminder = useRootModal()
+    const modalSaveEntityReminder = useRootModal();
 
     //Import the authentication context to make sure the user is well connected
-    const auth = useAuth()
+    const auth = useAuth();
 
     //Import message context
-    const msg = useContext(MessageContext)
+    const msg = useMessages(); //useContext(MessageContext);
 
     //Save intention for SingleBeforeUnloadReminder
-    const [saveIntentionState, setSaveIntentionState] = useState(false)
+    const [saveIntentionState, setSaveIntentionState] = useState(false);
 
     //Main form functionalities
     const { FormUI, submitRequest, formState, formTools } = useFormUtils(
@@ -139,7 +139,11 @@ const OrganisationSingleEdit = props => {
                 invalidMsg: "Liens externes",
             },
             contactPoint: {
-                value: contactPoint ?? { tel: { num: "", ext: "" }, email: { address: "" }, website: { url: "" } },
+                value: contactPoint ?? {
+                    tel: { num: "", ext: "" },
+                    email: { address: "" },
+                    website: { url: "" },
+                },
                 isValid: true,
             },
             fondationDate: {
@@ -178,15 +182,20 @@ const OrganisationSingleEdit = props => {
         },
         {
             displayResMessage: true, //Display a message to the user to confirm the succes
-            callbackFunction: response => {
-                Router.push("/" + replacePathname(model.singleRoute.pathname, { slug: response.data.slug }))
+            callbackFunction: (response) => {
+                Router.push(
+                    "/" +
+                        replacePathname(model.singleRoute.pathname, {
+                            slug: response.data.slug,
+                        })
+                );
             },
         }
-    )
+    );
 
     //Function to submit the form
-    const submitHandler = async event => {
-        event.preventDefault()
+    const submitHandler = async (event) => {
+        event.preventDefault();
 
         const formData = {
             data: {
@@ -197,60 +206,60 @@ const OrganisationSingleEdit = props => {
                         label: singleUrl.value.label.value,
                         url: singleUrl.value.url.value,
                         subMeta: { order: singleUrl.order },
-                    }
+                    };
                 }),
                 contactPoint: formState.inputs.contactPoint.value,
                 fondationDate: dateTimeStringToUTC(formState.inputs.fondationDate.value),
                 offers: formState.inputs.offers.value.map(function (singleOffer) {
                     return {
                         groupName: singleOffer.value.groupName.value,
-                        skills: singleOffer.value.skills.value.map(skill => {
-                            return skill.value
+                        skills: singleOffer.value.skills.value.map((skill) => {
+                            return skill.value;
                         }),
                         subMeta: { order: singleOffer.order },
-                    }
+                    };
                 }),
                 catchphrase: formState.inputs.catchphrase.value,
                 domains:
                     formState.inputs.domains?.value?.length > 0
-                        ? formState.inputs.domains.value.map(elem => {
+                        ? formState.inputs.domains.value.map((elem) => {
                               return {
                                   domain: elem.value,
-                              }
+                              };
                           })
                         : [],
-                equipment: formState.inputs.equipment.value.map(elem => {
+                equipment: formState.inputs.equipment.value.map((elem) => {
                     return {
                         equipment: elem.value.equipment.value.value,
                         qty: parseInt(elem.value.qty.value),
                         subMeta: { order: elem.order },
-                    }
+                    };
                 }),
                 team: formState.inputs.team.value.map(function (singleTeam) {
                     return {
                         member: singleTeam.value.member.value.value,
                         role: singleTeam.value.role.value,
                         subMeta: { order: singleTeam.order },
-                    }
+                    };
                 }),
                 location:
                     formState.inputs.location?.value?.length > 0
                         ? formState.inputs.location.value.map(function (singlePlace) {
-                              return singlePlace.value
+                              return singlePlace.value;
                           })
                         : [],
                 region: formState.inputs.region.value,
                 meta: getDefaultUpdateEntityMeta(auth.user, model.meta.requestedBy),
             },
-        }
+        };
 
         if (_id !== undefined) {
-            formData.data.id = _id
-            submitRequest(`/organisations/update`, "POST", JSON.stringify(formData))
+            formData.data.id = _id;
+            submitRequest(`/organisations/update`, "POST", JSON.stringify(formData));
         } else {
-            submitRequest(`/organisations/create`, "POST", JSON.stringify(formData))
+            submitRequest(`/organisations/create`, "POST", JSON.stringify(formData));
         }
-    }
+    };
 
     /*****************************
      *  Sections
@@ -265,7 +274,7 @@ const OrganisationSingleEdit = props => {
             validationRules={[{ name: "REQUIRED" }]}
             formTools={formTools}
         />
-    )
+    );
 
     const subtitle = (
         <Input
@@ -274,7 +283,7 @@ const OrganisationSingleEdit = props => {
             label={lang.catchphrase}
             formTools={formTools}
         />
-    )
+    );
 
     const ctaSection = (
         <SingleBaseCTA
@@ -285,7 +294,7 @@ const OrganisationSingleEdit = props => {
             saveEntityReminderModal={modalSaveEntityReminder}
             saveIntentionSetter={setSaveIntentionState}
         />
-    )
+    );
 
     const header = (
         <SingleBaseHeader
@@ -297,13 +306,13 @@ const OrganisationSingleEdit = props => {
             mode={modes.CONTRIBUTING}
             ctaSection={ctaSection}
         />
-    )
+    );
 
     const fullWidthContent = (
         <SingleInfo title={lang.about} classNameTitle="mb-0" noCardLayout>
             <RichTextarea className="py-3" name="description" formTools={formTools} />
         </SingleInfo>
-    )
+    );
 
     const contentColumnLeft = (
         <>
@@ -326,7 +335,7 @@ const OrganisationSingleEdit = props => {
                 <UpdateEquipment name="equipment" formTools={formTools} parentEntity={props.data} />
             </SingleInfo>
         </>
-    )
+    );
 
     const contentColumnRight = (
         <>
@@ -346,7 +355,10 @@ const OrganisationSingleEdit = props => {
                     }}
                     options={[
                         { label: "Autre", value: "other" },
-                        { label: "Abitibi-Témiscamingue", value: "abitibi-temiscamingue" },
+                        {
+                            label: "Abitibi-Témiscamingue",
+                            value: "abitibi-temiscamingue",
+                        },
                         { label: "Nord de l'Ontario", value: "north Ontario" },
                         { label: "Baies-James", value: "baies-james" },
                     ]}
@@ -387,7 +399,7 @@ const OrganisationSingleEdit = props => {
                 </SingleInfo>
             </SingleInfo>
         </>
-    )
+    );
 
     const Footer = (
         <>
@@ -398,18 +410,18 @@ const OrganisationSingleEdit = props => {
                 </SingleInfo>
             )}
         </>
-    )
+    );
 
     const SinglePageBottom = (
         <SubmitEntity
             submitHandler={() => {
-                setSaveIntentionState(true)
-                modalSaveEntityReminder.displayModal()
+                setSaveIntentionState(true);
+                modalSaveEntityReminder.displayModal();
             }}
             formTools={formTools}
             singleLink={model.singleLink}
         />
-    )
+    );
 
     return (
         <>
@@ -423,17 +435,18 @@ const OrganisationSingleEdit = props => {
                 footer={Footer}
                 singlePageBottom={SinglePageBottom}
                 model={model}
+                editMode
             />
             <modalSaveEntityReminder.Modal>
                 <SingleSaveEntityReminder
                     submitHandler={submitHandler}
                     closeModal={() => {
-                        modalSaveEntityReminder.closeModal()
-                        setSaveIntentionState(false)
+                        modalSaveEntityReminder.closeModal();
+                        setSaveIntentionState(false);
                     }}
                 />
             </modalSaveEntityReminder.Modal>
         </>
-    )
-}
-export default OrganisationSingleEdit
+    );
+};
+export default OrganisationSingleEdit;

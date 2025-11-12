@@ -1,71 +1,71 @@
-import React, { useCallback, useContext, useEffect, useState } from "react"
-import Router from "next/router"
+import React, { useCallback, useEffect, useState } from "react";
+import Router from "next/router";
 
 //Custom hooks
-import { useFormUtils } from "@/src/hooks/useFormUtils/useFormUtils"
-import { useRootModal } from "@/src/hooks/useModal/useRootModal"
+import { useFormUtils } from "@/src/hooks/useFormUtils/useFormUtils";
+import { useRootModal } from "@/src/hooks/useModal/useRootModal";
 
 //components
-import Input from "@/FormElements/Input/Input"
-import { lang, modes } from "@/src/common/Data/GlobalConstants"
-import Select2 from "@/src/common/FormElements/Select2/Select2"
-import { SingleEntityMeta } from "@/src/DataTypes/Meta/components/SingleEntityMeta"
-import SingleInfo from "@/src/DataTypes/common/layouts/SingleInfo/SingleInfo"
-import SingleSaveEntityReminder from "@/src/DataTypes/common/layouts/SingleSaveEntityReminder/SingleSaveEntityReminder"
-import SingleBaseCTA from "@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseCTA"
+import Input from "@/FormElements/Input/Input";
+import { lang, modes } from "@/src/common/Data/GlobalConstants";
+import Select2 from "@/src/common/FormElements/Select2/Select2";
+import { SingleEntityMeta } from "@/src/DataTypes/Meta/components/SingleEntityMeta";
+import SingleInfo from "@/src/DataTypes/common/layouts/SingleInfo/SingleInfo";
+import SingleSaveEntityReminder from "@/src/DataTypes/common/layouts/SingleSaveEntityReminder/SingleSaveEntityReminder";
+import SingleBaseCTA from "@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseCTA";
 
 //Context
-import { useAuth } from "@/src/authentification/context/auth-context"
-import { MessageContext } from "@/src/common/UserNotifications/Message/Context/Message-Context"
+import { useAuth } from "@/src/authentification/context/auth-context";
+import { useMessages } from "@/common/UserNotifications/Message/MessageProvider";
 
 //FormData
-import { getDefaultUpdateEntityMeta } from "@/src/DataTypes/Meta/EntityMeta"
-import SingleBaseHeader from "@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseHeader"
-import SingleBase from "@/src/DataTypes/common/layouts/single/SingleBase"
-import { replacePathname } from "@/src/helpers/url"
-import { TYPE_TAXONOMY } from "@/src/DataTypes/Entity/Types"
-import SubmitEntity from "@/DataTypes/common/Forms/SingleEdit/SubmitEntity"
-import Equipment from "../../../models/Equipment"
-import UpdateSocialHandles from "../../../../common/Forms/UpdateSocialHandles/UpdateSocialHandles"
-import SingleBeforeUnloadReminder from "@/src/DataTypes/common/layouts/SingleSaveEntityReminder/SingleBeforeUnloadReminder"
+import { getDefaultUpdateEntityMeta } from "@/src/DataTypes/Meta/EntityMeta";
+import SingleBaseHeader from "@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseHeader";
+import SingleBase from "@/src/DataTypes/common/layouts/single/SingleBase";
+import { replacePathname } from "@/src/helpers/url";
+import { TYPE_TAXONOMY } from "@/src/DataTypes/Entity/Types";
+import SubmitEntity from "@/DataTypes/common/Forms/SingleEdit/SubmitEntity";
+import Equipment from "../../../models/Equipment";
+import UpdateSocialHandles from "../../../../common/Forms/UpdateSocialHandles/UpdateSocialHandles";
+import SingleBeforeUnloadReminder from "@/src/DataTypes/common/layouts/SingleSaveEntityReminder/SingleBeforeUnloadReminder";
 
 const EquipmentSingleEdit = ({ positiveRequestActions, ...props }) => {
     //Model de project
-    let model = new Equipment(props.data)
+    let model = new Equipment(props.data);
 
     //  STATES
 
-    const [currentMainImage, setCurrentMainImage] = useState(model.mainImage)
-    const [currentModel, setCurrentModel] = useState(model)
+    const [currentMainImage, setCurrentMainImage] = useState(model.mainImage);
+    const [currentModel, setCurrentModel] = useState(model);
 
     const updateEntityModel = useCallback(
-        rawData => {
-            model = new Equipment(rawData)
-            setCurrentMainImage(model.mainImage)
+        (rawData) => {
+            model = new Equipment(rawData);
+            setCurrentMainImage(model.mainImage);
         },
         [setCurrentModel]
-    )
+    );
 
     const updateModelMainImage = useCallback(
-        mainImage => {
-            setCurrentMainImage(mainImage)
-            model.mainImage = mainImage
-            setCurrentModel(model)
+        (mainImage) => {
+            setCurrentMainImage(mainImage);
+            model.mainImage = mainImage;
+            setCurrentModel(model);
         },
         [setCurrentModel]
-    )
+    );
 
     //Modal hook
-    const modalSaveEntityReminder = useRootModal()
+    const modalSaveEntityReminder = useRootModal();
 
     //Import the authentication context to make sure the user is well connected
-    const auth = useAuth()
+    const auth = useAuth();
 
     //Import message context
-    const msg = useContext(MessageContext)
+    const msg = useMessages();
 
     //Save intention for SingleBeforeUnloadReminder
-    const [saveIntentionState, setSaveIntentionState] = useState(false)
+    const [saveIntentionState, setSaveIntentionState] = useState(false);
 
     //Main form functionalities
     const { FormUI, submitRequest, formState, formTools } = useFormUtils(
@@ -73,13 +73,16 @@ const EquipmentSingleEdit = ({ positiveRequestActions, ...props }) => {
             equipmentType: {
                 value: model.equipmentType ?? "",
                 isValid: false,
+                isValid: false,
             },
             label: {
                 value: model.label ?? "",
                 isValid: false,
+                isValid: false,
             },
             brand: {
                 value: model.brand ?? "",
+                isValid: true,
                 isValid: true,
             },
             modelName: {
@@ -94,15 +97,20 @@ const EquipmentSingleEdit = ({ positiveRequestActions, ...props }) => {
         //Pass a set of rules to execute a valid response of an api request
         {
             displayResMessage: true,
-            callbackFunction: response => {
-                Router.push("/" + replacePathname(model.singleRoute.pathname, { slug: response.data.slug }))
+            callbackFunction: (response) => {
+                Router.push(
+                    "/" +
+                        replacePathname(model.singleRoute.pathname, {
+                            slug: response.data.slug,
+                        })
+                );
             },
         }
-    )
+    );
 
     //Submit the form
-    const submitHandler = async event => {
-        event.preventDefault()
+    const submitHandler = async (event) => {
+        event.preventDefault();
         const formData = {
             data: {
                 id: model._id,
@@ -115,36 +123,36 @@ const EquipmentSingleEdit = ({ positiveRequestActions, ...props }) => {
                         label: singleUrl.value.label.value,
                         url: singleUrl.value.url.value,
                         subMeta: { order: singleUrl.order },
-                    }
+                    };
                 }),
 
                 meta: getDefaultUpdateEntityMeta(auth.user, model.meta.requestedBy),
             },
-        }
+        };
 
         if (model._id !== undefined) {
-            formData.data.id = model._id
-            submitRequest(`/equipment/update`, "POST", JSON.stringify(formData))
+            formData.data.id = model._id;
+            submitRequest(`/equipment/update`, "POST", JSON.stringify(formData));
         } else {
-            submitRequest(`/equipment/create`, "POST", JSON.stringify(formData))
+            submitRequest(`/equipment/create`, "POST", JSON.stringify(formData));
         }
-    }
+    };
 
     const breadcrumbLabels = {
         contribuer: lang.menuContributeLabel,
         equipements: lang.Equipments,
         slug: `${model.title ?? "-"}`,
-    }
+    };
 
     const breadcrumbsRoutes = {
         route: model.singleEditRoute,
         labels: breadcrumbLabels,
-    }
+    };
 
-    const [breadCrumb, setBreadCrumb] = useState(breadcrumbsRoutes)
+    const [breadCrumb, setBreadCrumb] = useState(breadcrumbsRoutes);
     useEffect(() => {
-        setBreadCrumb(breadcrumbsRoutes)
-    }, [model.title])
+        setBreadCrumb(breadcrumbsRoutes);
+    }, [model.title]);
 
     const title = (
         <div>
@@ -172,8 +180,8 @@ const EquipmentSingleEdit = ({ positiveRequestActions, ...props }) => {
                 validationRules={[{ name: "REQUIRED" }]}
             />
         </div>
-    )
-    const subtitle = <></>
+    );
+    const subtitle = <></>;
 
     const ctaSection = (
         <SingleBaseCTA
@@ -184,7 +192,7 @@ const EquipmentSingleEdit = ({ positiveRequestActions, ...props }) => {
             saveEntityReminderModal={modalSaveEntityReminder}
             saveIntentionSetter={setSaveIntentionState}
         />
-    )
+    );
 
     const header = (
         <SingleBaseHeader
@@ -196,20 +204,20 @@ const EquipmentSingleEdit = ({ positiveRequestActions, ...props }) => {
             mode={modes.CONTRIBUTING}
             ctaSection={ctaSection}
         />
-    )
+    );
 
     const contentColumnLeft = (
         <SingleInfo title={lang.productInformations}>
             <Input name="brand" label={lang.brand} formTools={formTools} />
             <Input name="modelName" label={lang.modelName} formTools={formTools} />
         </SingleInfo>
-    )
+    );
 
     const contentColumnRight = (
         <SingleInfo title={lang.externalLinks}>
             <UpdateSocialHandles name="url" parentEntity={model} formTools={formTools} />
         </SingleInfo>
-    )
+    );
 
     const footer = (
         <>
@@ -220,7 +228,7 @@ const EquipmentSingleEdit = ({ positiveRequestActions, ...props }) => {
                 </SingleInfo>
             )}
         </>
-    )
+    );
 
     {
         /*********** Submit section ***********/
@@ -228,13 +236,13 @@ const EquipmentSingleEdit = ({ positiveRequestActions, ...props }) => {
     const SinglePageBottom = (
         <SubmitEntity
             submitHandler={() => {
-                setSaveIntentionState(true)
-                modalSaveEntityReminder.displayModal()
+                setSaveIntentionState(true);
+                modalSaveEntityReminder.displayModal();
             }}
             formTools={formTools}
             singleLink={model.singleLink}
         />
-    )
+    );
 
     return (
         <>
@@ -247,18 +255,19 @@ const EquipmentSingleEdit = ({ positiveRequestActions, ...props }) => {
                 footer={footer}
                 singlePageBottom={SinglePageBottom}
                 model={model}
+                editMode
             />
             <modalSaveEntityReminder.Modal>
                 <SingleSaveEntityReminder
                     submitHandler={submitHandler}
                     closeModal={() => {
-                        modalSaveEntityReminder.closeModal()
-                        setSaveIntentionState(false)
+                        modalSaveEntityReminder.closeModal();
+                        setSaveIntentionState(false);
                     }}
                 />
             </modalSaveEntityReminder.Modal>
         </>
-    )
-}
+    );
+};
 
-export default EquipmentSingleEdit
+export default EquipmentSingleEdit;

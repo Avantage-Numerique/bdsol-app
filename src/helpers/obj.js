@@ -1,7 +1,6 @@
-
 const pluck = (array, key) => {
-    return array.map(o => o[key]);
-}
+    return array.map((o) => o[key]);
+};
 
 const haveAValidValue = (obj) => {
     let haveValidPropValue = false;
@@ -15,11 +14,11 @@ const haveAValidValue = (obj) => {
         }
     }
     return haveValidPropValue;
-}
+};
 
 const isEmpty = (arr) => {
     return Array.isArray(arr) && arr.length === 0;
-}
+};
 
 /**
  * check if we can use the three dots on this object.
@@ -27,7 +26,7 @@ const isEmpty = (arr) => {
  * @returns {boolean} if the object is iterable or not.
  */
 const isIterable = (obj) => {
-    return obj != null && typeof obj[Symbol.iterator] === 'function';
-}
+    return obj != null && typeof obj[Symbol.iterator] === "function";
+};
 
-export {pluck, haveAValidValue, isEmpty, isIterable};
+export { pluck, haveAValidValue, isEmpty, isIterable };

@@ -3,6 +3,10 @@ a.disabled {
     cursor: default;
 }
 
+a {
+    color: inherit;
+}
+
 a.link,
 a.external-link,
 a.internal-link {

@@ -1,44 +1,42 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from "react";
 
-//Component 
-import Spinner from '@/src/common/widgets/spinner/Spinner';
-import Button from '@/src/common/FormElements/Button/Button'
+//Component
+import Spinner from "@/src/common/widgets/spinner/Spinner";
+import Button from "@/src/common/FormElements/Button/Button";
 
-//Hooks 
-import { useModal } from '@/src/hooks/useModal/useModal';
+//Hooks
+import { useModal } from "@/src/hooks/useModal/useModal";
 
-//Utils 
-import {withSessionSsr} from "@/auth/session/handlers/withSession";
-import {ssrCanAccess} from "@/auth/permissions/ssrCanAccess";
+//Utils
+import { withSessionSsr } from "@/auth/session/handlers/withSession";
+import { ssrCanAccess } from "@/auth/permissions/ssrCanAccess";
 import Router from "next/router";
-import EquipmentSingleEdit from '@/src/DataTypes/Equipment/components/layouts/single/EquipmentSingleEdit';
-import CreateEquipmentForm from '@/src/DataTypes/Equipment/components/Forms/CreateEquipmentForm/CreateEquipmentForm';
-import { lang } from '@/src/common/Data/GlobalConstants';
+import EquipmentSingleEdit from "@/src/DataTypes/Equipment/components/layouts/single/EquipmentSingleEdit";
+import CreateEquipmentForm from "@/src/DataTypes/Equipment/components/Forms/CreateEquipmentForm/CreateEquipmentForm";
+import { lang } from "@/src/common/Data/GlobalConstants";
 
 //Model
-import Equipment from '@/src/DataTypes/Equipment/models/Equipment';
+import Equipment from "@/src/DataTypes/Equipment/models/Equipment";
 
 const EquipmentSingleEditPage = () => {
-
     //Modal hook
-    const { modal, Modal, displayModal, closeModal } = useModal()
+    const { modal, Modal, displayModal, closeModal } = useModal();
     //Loading state
     const [isLoading, setIsLoading] = useState(false);
 
     //Display the modal once the component has rendered
-    useEffect(() => displayModal(), [])
+    useEffect(() => displayModal(), []);
 
     return (
         <div className="container">
-                {/* Empty single edit in the background */}
-                <EquipmentSingleEdit data={{}} />
-                {/* Loading state while waiting for rederection */}
-                {isLoading && <Spinner fixed />}
+            {/* Empty single edit in the background */}
+            <EquipmentSingleEdit data={{}} />
+            {/* Loading state while waiting for rederection */}
+            {isLoading && <Spinner fixed />}
         </div>
-    )
-
-}
+    );
+};
 
 export const getServerSideProps = withSessionSsr(ssrCanAccess);
 
-export default EquipmentSingleEditPage
+export default EquipmentSingleEditPage;

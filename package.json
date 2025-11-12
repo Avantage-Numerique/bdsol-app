@@ -5,7 +5,8 @@
     "authors": [
         "Frédéric Rivard",
         "Marc-André Martin",
-        "Vincent P. Ruel"
+        "Vincent P. Ruel",
+        "Jules Luzy-Riopel"
     ],
     "private": true,
     "scripts": {
@@ -21,7 +22,13 @@
         "docker:dev:watch": "npx concurrently \"npm run dev:watch\" \"npm run docker:dev:run\"",
         "docker:dev:run": "npx nodemon --legacy-watch",
         "docker:start": "next start -p 3000",
-        "docker:test": "echo \"Error: no test specified\" && exit 1"
+        "docker:test": "echo \"Error: no test specified\" && exit 1",
+        "format:check": "prettier --check .",
+        "format:fix": "prettier --write .",
+        "lint:check": "eslint .",
+        "lint:fix": "eslint --fix .",
+        "check": "prettier --check . && eslint .",
+        "fix": "prettier --write . && eslint --fix ."
     },
     "dependencies": {
         "@dnd-kit/core": "^6.0.8",
@@ -36,6 +43,7 @@
         "date-fns": "^2.30.0",
         "date-fns-tz": "^2.0.0",
         "eslint-config-next": "^13.5.4",
+        "html-to-text": "^9.0.5",
         "iron-session": "^6.2.1",
         "isomorphic-dompurify": "^0.16.0",
         "jest-environment-jsdom": "^28.1.0",
@@ -51,7 +59,8 @@
         "react-popper": "^2.3.0",
         "react-quill": "^2.0.0",
         "react-scroll": "^1.8.7",
-        "react-select": "^5.7.0"
+        "react-select": "^5.7.0",
+        "sharp": "^0.34.4"
     },
     "devDependencies": {
         "@babel/core": "^7.21.4",
@@ -62,8 +71,14 @@
         "@testing-library/user-event": "^14.4.3",
         "concurrently": "^7.0.0",
         "eslint": "^8.39.0",
+        "eslint-config-next": "^15.5.4",
+        "eslint-config-prettier": "^10.1.8",
+        "eslint-plugin-react": "^7.37.5",
         "jest": "^28.1.0",
+        "prettier": "^3.6.2",
+        "pretty-quick": "^4.2.2",
         "purgecss": "^5.0.0",
-        "sass": "^1.63.2"
+        "sass": "^1.63.2",
+        "simple-git-hooks": "^2.13.1"
     }
 }

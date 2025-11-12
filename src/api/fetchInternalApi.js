@@ -1,4 +1,3 @@
-
 /**
  * Call internal URI into the nextjs API routes.
  * @param internalURI
@@ -8,18 +7,17 @@
  * initialu copied from : https://github.com/vvo/iron-session/blob/main/examples/next.js/lib/fetchJson.js
  */
 
-export default async function fetchInternalApi(internalURI, data, method = 'POST') {
-
+export default async function fetchInternalApi(internalURI, data, method = "POST") {
     const internalDefaultHeaders = {
         //'Origin': process.env.NEXT_PUBLIC_APP_URL,//no cors implemented yet for internals calls.
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json",
     };
 
     const response = await fetch(process.env.NEXT_PUBLIC_APP_API_URL + internalURI, {
         method: method,
         body: data,
         headers: new Headers(internalDefaultHeaders),
-        json: true
+        json: true,
     });
 
     const responseParsed = await response.json();
@@ -34,7 +32,6 @@ export default async function fetchInternalApi(internalURI, data, method = 'POST
         responseParsed,
     });
 }
-
 
 /**
  * Handle internal API with a single type error handler.

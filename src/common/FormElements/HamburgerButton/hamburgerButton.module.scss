@@ -1,24 +1,33 @@
-/*
-
-        Styling and animation for the hamburger button at the top of the page
-        Created : V.P.R - 15/10/2021
-
-*/
-
 .hamButtonComponent {
-
+    $hamburger-easing: cubic-bezier(0.723, -0.266, 0.172, 1.204);
     height: 100%;
     width: 100%;
     align-items: center;
     display: flex;
     justify-content: center;
-  
+    border: none;
+    background-color: transparent;
+
+    &:hover {
+        .menu_btn:not(.active) {
+            .menu_btn__burger {
+                background: $secondary;
+            }
+        }
+        .menu_btn {
+            .menu_btn__burger::before,
+            .menu_btn__burger::after {
+                background: $secondary;
+            }
+        }
+    }
+
     /* Basinc stylings for an unactive menu */
     .menu_btn {
         position: relative;
         display: flex;
         align-items: center;
-        transition: all .5s ease-in-out;
+        transition: all 0.5s $hamburger-easing;
         height: 1.5rem;
         width: 1.5rem;
 
@@ -26,36 +35,33 @@
             width: inherit;
             height: 4px;
             background: var(--bs-black);
-            box-shadow: 0 2px 5px rgba(255,101,47,.2);
-            transition: all .4s ease-in-out;
+            box-shadow: 0 2px 5px rgba(255, 101, 47, 0.2);
+            transition: all 0.4s $hamburger-easing;
         }
-    
+
         .menu_btn__burger::before,
         .menu_btn__burger::after {
-            content: '';
+            content: "";
             position: absolute;
             right: 0;
             width: inherit;
             height: 4px;
             background: var(--bs-black);
-            box-shadow: 0 2px 5px rgba(255,101,47,.2);
-            transition: all .4s ease-in-out;
+            box-shadow: 0 2px 5px rgba(255, 101, 47, 0.2);
+            transition: all 0.4s $hamburger-easing;
         }
-    
+
         .menu_btn__burger::before {
             transform: translateY(-8px);
         }
-    
+
         .menu_btn__burger::after {
             transform: translateY(8px);
         }
     }
 
-
-
     /* ANIMATION for the "active" menu */
     .menu_btn.active {
-
         > div {
             transform: translateX(-57px);
             background: transparent;
@@ -70,5 +76,4 @@
             transform: rotate(-45deg) translate(40px, 40px);
         }
     }
-
 }

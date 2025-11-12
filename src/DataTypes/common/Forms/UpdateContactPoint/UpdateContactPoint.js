@@ -1,44 +1,43 @@
-import React, { useEffect } from 'react';
+import React, { useEffect } from "react";
 
 //context
-import { lang } from '@/src/common/Data/GlobalConstants';
+import { lang } from "@/src/common/Data/GlobalConstants";
 
 //components
-import Input from '@/src/common/FormElements/Input/Input';
-import { useFormUtils } from '@/src/hooks/useFormUtils/useFormUtils';
+import Input from "@/src/common/FormElements/Input/Input";
+import { useFormUtils } from "@/src/hooks/useFormUtils/useFormUtils";
 
-
-const UpdateContactPoint = ({model, name, formTools, ...props}) => {
-
+const UpdateContactPoint = ({ model, name, formTools, ...props }) => {
     const contactFormUtils = useFormUtils(
         {
             tel: {
                 value: model.contactPoint?.tel?.num ?? "",
-                isValid: true
+                isValid: true,
             },
             ext: {
                 value: model.contactPoint?.tel?.ext ?? "",
-                isValid: true
+                isValid: true,
             },
             email: {
                 value: model.contactPoint?.email?.address ?? "",
-                isValid: true
+                isValid: true,
             },
             website: {
                 value: model.contactPoint?.website?.url ?? "",
-                isValid: true
+                isValid: true,
             },
         },
         //Pass a set of rules to execute a valid response of an api request
         {
             displayResMessage: true,
         }
-    )
-    
+    );
+
     //Update the main form state
     const { inputHandler, inputTouched } = formTools;
-    useEffect( () => {
-        inputHandler(name,
+    useEffect(() => {
+        inputHandler(
+            name,
             {
                 tel: {
                     num: contactFormUtils.formState.inputs.tel.value ?? "",
@@ -50,21 +49,20 @@ const UpdateContactPoint = ({model, name, formTools, ...props}) => {
                 website: {
                     url: contactFormUtils.formState.inputs.website.value ?? "",
                 },
-
-            }, true)
+            },
+            true
+        );
 
         //Update touch input if sub-form has been touched
-        if(contactFormUtils.formState.hasAnyInputBeenTouched){
-            inputTouched(name)
+        if (contactFormUtils.formState.hasAnyInputBeenTouched) {
+            inputTouched(name);
         }
-    },[contactFormUtils.formState.inputs])
+    }, [contactFormUtils.formState.inputs]);
 
     return (
         <>
-            <div style={{ marginTop: '-16px' }}>
-                <span className="badge bg-danger">
-                    Veillez à saisir uniquement des informations professionnelles.
-                </span>
+            <div style={{ marginTop: "-16px" }}>
+                <span className="badge bg-danger">Veillez à saisir uniquement des informations professionnelles.</span>
             </div>
             <div className="row">
                 <Input
@@ -80,21 +78,10 @@ const UpdateContactPoint = ({model, name, formTools, ...props}) => {
                     formTools={contactFormUtils.formTools}
                 />
             </div>
-            <Input
-                className="py-2"
-                name="email"
-                label={lang.email}
-                formTools={contactFormUtils.formTools}
-            />
-            <Input
-                className="py-2"
-                name="website"
-                label={lang.website}
-                formTools={contactFormUtils.formTools}
-            />
+            <Input className="py-2" name="email" label={lang.email} formTools={contactFormUtils.formTools} />
+            <Input className="py-2" name="website" label={lang.website} formTools={contactFormUtils.formTools} />
         </>
-    )
+    );
 };
-
 
 export default UpdateContactPoint;

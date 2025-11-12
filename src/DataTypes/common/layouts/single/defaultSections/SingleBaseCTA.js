@@ -42,7 +42,7 @@ const SingleBaseCTA = ({
                 <>
                     <p>{lang.validationFailedCantSave}</p>
 
-                    {formTools.mapInvalidInput()}
+                    {formTools.mapInvalidInputToListItems()}
                 </>
             ),
         };

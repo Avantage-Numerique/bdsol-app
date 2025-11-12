@@ -1,5 +1,3 @@
-
-
 const Preferences = () => {
     return (
         <>
@@ -7,7 +5,7 @@ const Preferences = () => {
             <div>ma préférence de couleur</div>
             <div>ma préférence de langue</div>
         </>
-    )
-}
+    );
+};
 
-export default Preferences
+export default Preferences;

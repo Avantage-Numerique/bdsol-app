@@ -1,40 +1,38 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from "react";
 
-//Component 
-import PersonSingleEdit from '@/DataTypes/Person/components/Forms/CreatePerson/PersonSingleEdit'
-import CreatePersonForm from "@/DataTypes/Person/components/Forms/CreatePerson/CreatePersonForm"
-import Spinner from '@/src/common/widgets/spinner/Spinner';
-import Button from '@/src/common/FormElements/Button/Button'
+//Component
+import PersonSingleEdit from "@/DataTypes/Person/components/Forms/CreatePerson/PersonSingleEdit";
+import CreatePersonForm from "@/DataTypes/Person/components/Forms/CreatePerson/CreatePersonForm";
+import Spinner from "@/src/common/widgets/spinner/Spinner";
+import Button from "@/src/common/FormElements/Button/Button";
 
-//Hooks 
-import { useModal } from '@/src/hooks/useModal/useModal';
+//Hooks
+import { useModal } from "@/src/hooks/useModal/useModal";
 
-//Utils 
-import {lang} from "@/src/common/Data/GlobalConstants";
-import {withSessionSsr} from "@/auth/session/handlers/withSession";
-import {ssrCanAccess} from "@/auth/permissions/ssrCanAccess";
+//Utils
+import { lang } from "@/src/common/Data/GlobalConstants";
+import { withSessionSsr } from "@/auth/session/handlers/withSession";
+import { ssrCanAccess } from "@/auth/permissions/ssrCanAccess";
 import Router from "next/router";
-import Person from '@/src/DataTypes/Person/models/Person';
-
+import Person from "@/src/DataTypes/Person/models/Person";
 
 const PersonSingleEditPage = () => {
-
     //Modal hook
-    const { modal, Modal, displayModal, closeModal } = useModal()
+    const { modal, Modal, displayModal, closeModal } = useModal();
     //Loading state
     const [isLoading, setIsLoading] = useState(false);
 
     //Display the modal once the component has rendered
-    useEffect(() => displayModal(), [])
+    useEffect(() => displayModal(), []);
 
     return (
         <div className="container">
-                {/* Empty single edit in the background */}
-                <PersonSingleEdit data={{}} />
-                {/* Loading state while waiting for rederection */}
-                {isLoading && <Spinner fixed />}
+            {/* Empty single edit in the background */}
+            <PersonSingleEdit data={{}} />
+            {/* Loading state while waiting for rederection */}
+            {isLoading && <Spinner fixed />}
 
-                {/* { modal.display &&
+            {/* { modal.display &&
                     <Modal 
                         coloredBackground
                         darkColorButton
@@ -64,10 +62,9 @@ const PersonSingleEditPage = () => {
                     </Modal>
                 } */}
         </div>
-    )
-
-}
+    );
+};
 
 export const getServerSideProps = withSessionSsr(ssrCanAccess);
 
-export default PersonSingleEditPage
+export default PersonSingleEditPage;
