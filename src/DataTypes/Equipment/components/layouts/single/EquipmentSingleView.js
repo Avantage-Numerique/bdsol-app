@@ -12,7 +12,7 @@ import SingleBaseCTA from "@/src/DataTypes/common/layouts/single/defaultSections
 import SanitizedInnerHtml from "@/src/utils/SanitizedInnerHtml";
 import { SingleEntityMeta } from "@/src/DataTypes/Meta/components/SingleEntityMeta";
 import { lang } from "@/common/Data/GlobalConstants";
-import Equipment from "@src/DataTypes/Equipment/models/Equipment";
+import Equipment from "@/src/DataTypes/Equipment/models/Equipment";
 import EntitiesTagGrid from "@/DataTypes/Entity/layouts/EntitiesTagGrid";
 
 const EquipmentSingleView = ({ data }) => {
