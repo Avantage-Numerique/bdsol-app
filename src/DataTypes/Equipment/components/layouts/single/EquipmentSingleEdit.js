@@ -28,6 +28,7 @@ import SubmitEntity from "@/DataTypes/common/Forms/SingleEdit/SubmitEntity";
 import Equipment from "../../../models/Equipment";
 import UpdateSocialHandles from "../../../../common/Forms/UpdateSocialHandles/UpdateSocialHandles";
 import SingleBeforeUnloadReminder from "@/src/DataTypes/common/layouts/SingleSaveEntityReminder/SingleBeforeUnloadReminder";
+import RichTextarea from "@/src/common/FormElements/RichTextArea/RichTextarea";
 
 const EquipmentSingleEdit = ({ positiveRequestActions, ...props }) => {
     //Model de project
@@ -71,26 +72,27 @@ const EquipmentSingleEdit = ({ positiveRequestActions, ...props }) => {
     const { FormUI, submitRequest, formState, formTools } = useFormUtils(
         {
             equipmentType: {
-                value: model.equipmentType ?? "",
-                isValid: false,
+                value: model?.equipmentType ?? "",
                 isValid: false,
             },
             label: {
-                value: model.label ?? "",
-                isValid: false,
+                value: model?.label ?? "",
                 isValid: false,
             },
-            brand: {
-                value: model.brand ?? "",
+            description: {
+                value: model?.description ?? "",
                 isValid: true,
+            },
+            brand: {
+                value: model?.brand ?? "",
                 isValid: true,
             },
             modelName: {
-                value: model.modelName ?? "",
+                value: model?.modelName ?? "",
                 isValid: true,
             },
             url: {
-                value: model.url ?? [],
+                value: model?.url ?? [],
                 isValid: true,
             },
         },
@@ -116,6 +118,7 @@ const EquipmentSingleEdit = ({ positiveRequestActions, ...props }) => {
                 id: model._id,
                 equipmentType: formState.inputs.equipmentType.value.value,
                 label: formState.inputs.label.value,
+                description: formState.inputs.description.value,
                 brand: formState.inputs.brand.value,
                 modelName: formState.inputs.modelName.value,
                 url: formState.inputs.url.value.map(function (singleUrl) {
@@ -206,6 +209,12 @@ const EquipmentSingleEdit = ({ positiveRequestActions, ...props }) => {
         />
     );
 
+    const fullWidthContent = (
+        <SingleInfo title={lang.description} classNameTitle="mb-0" noCardLayout>
+            <RichTextarea className="py-3" name="description" formTools={formTools} />
+        </SingleInfo>
+    );
+
     const contentColumnLeft = (
         <SingleInfo title={lang.productInformations}>
             <Input name="brand" label={lang.brand} formTools={formTools} />
@@ -250,6 +259,7 @@ const EquipmentSingleEdit = ({ positiveRequestActions, ...props }) => {
             <SingleBase
                 breadCrumb={breadCrumb}
                 header={header}
+                fullWidthContent={fullWidthContent}
                 contentColumnLeft={contentColumnLeft}
                 contentColumnRight={contentColumnRight}
                 footer={footer}

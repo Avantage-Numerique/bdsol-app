@@ -312,7 +312,7 @@ const ProjectSingleEdit = (props) => {
             label={"Nom du projet" + lang.required}
             formTools={formTools}
             formClassName="discrete-without-focus form-text-white"
-            validationRules={[{ name: "REQUIRED" }]}
+            validationRules={[{ name: "REQUIRED" }, { name: "MIN_LENGTH", specification: 2 }]}
         />
     );
 

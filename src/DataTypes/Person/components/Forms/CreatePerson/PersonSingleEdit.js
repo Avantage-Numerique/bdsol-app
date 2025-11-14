@@ -236,7 +236,7 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props }) => {
                 label={"Prénom" + lang.required}
                 className="col-12 col-sm-6 col-md-4"
                 formClassName="discrete-without-focus form-text-white"
-                validationRules={[{ name: "REQUIRED" }]}
+                validationRules={[{ name: "REQUIRED" }, { name: "MIN_LENGTH", specification: 2 }]}
                 errorText="Cette information est requise"
                 formTools={formTools}
             />
@@ -246,7 +246,7 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props }) => {
                 label={"Nom" + lang.required}
                 className="col-12 col-sm-6 col-md-4"
                 formClassName="discrete-without-focus form-text-white"
-                validationRules={[{ name: "REQUIRED" }]}
+                validationRules={[{ name: "REQUIRED" }, { name: "MIN_LENGTH", specification: 2 }]}
                 errorText="Cette information est requise"
                 formTools={formTools}
             />

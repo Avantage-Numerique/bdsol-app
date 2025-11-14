@@ -347,7 +347,7 @@ const EventSingleEdit = ({ data }, ...props) => {
                 label={lang.eventName + lang.required}
                 className="col-12 col-md-6"
                 formClassName="discrete-without-focus form-text-white"
-                validationRules={[{ name: "REQUIRED" }]}
+                validationRules={[{ name: "REQUIRED" }, { name: "MIN_LENGTH", specification: 2 }]}
                 errorText="Cette information est requise"
                 formTools={formTools}
             />

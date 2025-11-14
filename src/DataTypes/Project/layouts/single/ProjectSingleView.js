@@ -112,7 +112,7 @@ const ProjectSingleView = ({ data }) => {
                 <div className="d-text">
                     <h4 className="text-white">{alternateName}</h4>
                     <div className="mt-4">
-                        {entityInCharge && (
+                        {entityInCharge?.length > 0 && (
                             <p className="text-white d-flex gap-2">
                                 <span className={"badge bg-secondary"}>{lang.entityInCharge}</span>
                                 {entityInCharge.map((elem, i) => {
@@ -121,7 +121,7 @@ const ProjectSingleView = ({ data }) => {
                             </p>
                         )}
 
-                        {producer && (
+                        {producer?.length > 0 && (
                             <p className="text-white d-flex gap-2">
                                 <span className={"badge bg-secondary"}>{lang.producer}</span>
                                 {producer.map((elem, i) => {

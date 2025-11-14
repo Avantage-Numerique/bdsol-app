@@ -14,6 +14,7 @@ import { SingleEntityMeta } from "@/src/DataTypes/Meta/components/SingleEntityMe
 import { lang } from "@/common/Data/GlobalConstants";
 import Equipment from "@/src/DataTypes/Equipment/models/Equipment";
 import EntitiesTagGrid from "@/DataTypes/Entity/layouts/EntitiesTagGrid";
+import { removeTagsFromString } from "@/src/helpers/html";
 
 const EquipmentSingleView = ({ data }) => {
     const model = new Equipment(data);
@@ -65,6 +66,16 @@ const EquipmentSingleView = ({ data }) => {
             entity={model}
             ctaSection={<SingleBaseCTA model={model} />}
         />
+    );
+
+    const FullWidthContent = (
+        <SingleInfo
+            displayCondition={typeof model.description == "string" && model.description !== ""}
+            title={lang.description}
+            NAMessage="Aucune description n'est disponible pour le moment."
+        >
+            {removeTagsFromString(model.description) && <SanitizedInnerHtml>{model.description}</SanitizedInnerHtml>}
+        </SingleInfo>
     );
 
     const ContentColumnLeft = (
@@ -151,6 +162,7 @@ const EquipmentSingleView = ({ data }) => {
             <SingleBase
                 breadCrumb={breadCrumb}
                 header={Header}
+                fullWidthContent={FullWidthContent}
                 contentColumnLeft={ContentColumnLeft}
                 contentColumnRight={ContentColumnRight}
                 footer={Footer}
