@@ -68,7 +68,7 @@ const Nav = ({ menuState, setMenuState }) => {
 
     const toggleScrollableBody = () => {
         if (menuState === undefined) return;
-        if (typeof document === "undefined") return;
+        if (typeof document == "undefined") return;
         if (document.body.classList.contains("menu-open")) {
             if (!menuState)
                 //Remove the class
