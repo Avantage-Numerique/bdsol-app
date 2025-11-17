@@ -15,13 +15,10 @@ import { SingleEntityMeta } from "@/src/DataTypes/Meta/components/SingleEntityMe
 import SingleBeforeUnloadReminder from "@/src/DataTypes/common/layouts/SingleSaveEntityReminder/SingleBeforeUnloadReminder";
 
 //Component
-import Event from "../../../models/Event";
+import Event from "@/src/DataTypes/Event/models/Event";
 import SingleInfo from "@/src/DataTypes/common/layouts/SingleInfo/SingleInfo";
 import SingleBaseHeader from "@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseHeader";
 import SingleBase from "@/src/DataTypes/common/layouts/single/SingleBase";
-import MainImageDisplay from "@/src/DataTypes/common/layouts/single/defaultSections/MainImageDisplay/MainImageDisplay";
-import Icon from "@/src/common/widgets/Icon/Icon";
-import Button from "@/src/common/FormElements/Button/Button";
 import Input from "@/src/common/FormElements/Input/Input";
 import Select2 from "@/src/common/FormElements/Select2/Select2";
 import RichTextarea from "@/src/common/FormElements/RichTextArea/RichTextarea";
@@ -34,6 +31,7 @@ import SubmitEntity from "@/DataTypes/common/Forms/SingleEdit/SubmitEntity";
 import UpdateSocialHandles from "@/src/DataTypes/common/Forms/UpdateSocialHandles/UpdateSocialHandles";
 import SingleSaveEntityReminder from "@/src/DataTypes/common/layouts/SingleSaveEntityReminder/SingleSaveEntityReminder";
 import UpdateContactPoint from "@/src/DataTypes/common/Forms/UpdateContactPoint/UpdateContactPoint";
+import SingleBaseCTA from "@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseCTA";
 import { useMessages } from "@/common/UserNotifications/Message/MessageProvider";
 
 const EventSingleEdit = ({ data }, ...props) => {
@@ -98,20 +96,6 @@ const EventSingleEdit = ({ data }, ...props) => {
         },
         [setCurrentModel]
     );
-
-    /*
-        First of all, verify if the user is logged in.
-        If he isn't, then redirect him in the connexion page
-    */
-    useEffect(() => {
-        if (!auth.user.isLoggedIn) {
-            msg.addMessage({
-                text: lang.needToBeConnectedToAccess,
-                theme: "negative",
-            });
-            Router.push("/compte/connexion");
-        }
-    }, [auth.user.isLoggedIn]);
 
     const combineDateAndTime = (date, time) => {
         return dateTimeStringToUTC(`${date} ${time}`);
@@ -248,7 +232,6 @@ const EventSingleEdit = ({ data }, ...props) => {
 
         const formData = {
             data: {
-                id: _id,
                 name: formState.inputs.name.value,
                 alternateName: formState.inputs.alternateName.value,
                 entityInCharge: formState.inputs.entityInCharge.value?.value ?? null,
@@ -332,7 +315,12 @@ const EventSingleEdit = ({ data }, ...props) => {
             },
         };
 
-        submitRequest(`/events/update`, "POST", JSON.stringify(formData));
+        if (_id !== undefined) {
+            formData.data.id = _id;
+            submitRequest(`/events/update`, "POST", JSON.stringify(formData));
+        } else {
+            submitRequest(`/events/create`, "POST", JSON.stringify(formData));
+        }
     };
 
     /* Needed for breadCrumb generator */
@@ -359,7 +347,7 @@ const EventSingleEdit = ({ data }, ...props) => {
                 label={lang.eventName + lang.required}
                 className="col-12 col-md-6"
                 formClassName="discrete-without-focus form-text-white"
-                validationRules={[{ name: "REQUIRED" }]}
+                validationRules={[{ name: "REQUIRED" }, { name: "MIN_LENGTH", specification: 2 }]}
                 errorText="Cette information est requise"
                 formTools={formTools}
             />
@@ -447,34 +435,15 @@ const EventSingleEdit = ({ data }, ...props) => {
         </>
     );
 
-    const ctaHeaderSection = (
-        <div className="d-flex flex-wrap align-items-end justify-content-between gap-2 gap-md-3 gap-lg-4">
-            <MainImageDisplay
-                buttonClasses="fs-6"
-                mainImage={currentMainImage}
-                entity={currentModel}
-                setter={updateModelMainImage}
-            />
-            <div className="d-flex flex-wrap align-items-end justify-content-between gap-2 gap-md-3 gap-lg-4">
-                <Button
-                    className="fs-6"
-                    size="slim"
-                    color="success"
-                    disabled={!formState.isValid}
-                    onClick={() => {
-                        setSaveIntentionState(true);
-                        modalSaveEntityReminder.displayModal();
-                    }}
-                >
-                    <Icon iconName={"save"} />
-                    &nbsp;{lang.capitalize("save")}
-                </Button>
-                <Button className="fs-6" size="slim" color="primary-light" href={model.singleLink}>
-                    <Icon iconName={"times"} />
-                    &nbsp;{lang.Cancel}
-                </Button>
-            </div>
-        </div>
+    const ctaSection = (
+        <SingleBaseCTA
+            formTools={formTools}
+            mainImage={currentMainImage}
+            model={model}
+            mainImageSetter={updateModelMainImage}
+            saveEntityReminderModal={modalSaveEntityReminder}
+            saveIntentionSetter={setSaveIntentionState}
+        />
     );
 
     const header = (
@@ -483,9 +452,9 @@ const EventSingleEdit = ({ data }, ...props) => {
             title={title}
             subtitle={subtitle}
             mainImage={currentMainImage}
-            buttonSection={ctaHeaderSection}
             entity={model}
             mode={modes.CONTRIBUTING}
+            ctaSection={ctaSection}
         />
     );
 
@@ -722,7 +691,7 @@ const EventSingleEdit = ({ data }, ...props) => {
                 setSaveIntentionState(true);
                 modalSaveEntityReminder.displayModal();
             }}
-            formState={formState}
+            formTools={formTools}
             singleLink={model.singleLink}
         />
     );

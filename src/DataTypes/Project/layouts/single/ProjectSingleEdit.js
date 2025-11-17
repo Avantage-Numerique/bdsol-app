@@ -6,7 +6,6 @@ import { useFormUtils } from "@/src/hooks/useFormUtils/useFormUtils";
 import { useRootModal } from "@/src/hooks/useModal/useRootModal";
 
 //components
-import Button from "@/FormElements/Button/Button";
 import Input from "@/FormElements/Input/Input";
 import SelectFetch from "@/FormElements/Select/SelectFetch";
 import Select2 from "@/FormElements/Select2/Select2";
@@ -22,6 +21,7 @@ import UpdateContactPoint from "@/src/DataTypes/common/Forms/UpdateContactPoint/
 import UpdateScheduleBudget from "@/src/DataTypes/Project/component/forms/UpdateScheduleBudget";
 import UpdateSponsor from "@/src/DataTypes/Project/component/forms/UpdateSponsor";
 import SubmitEntity from "@/DataTypes/common/Forms/SingleEdit/SubmitEntity";
+import SingleBaseCTA from "@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseCTA";
 
 //Utils
 import { lang, modes } from "@/src/common/Data/GlobalConstants";
@@ -32,9 +32,8 @@ import SingleBeforeUnloadReminder from "@/src/DataTypes/common/layouts/SingleSav
 
 //Context
 import { useAuth } from "@/src/authentification/context/auth-context";
-import Icon from "@/common/widgets/Icon/Icon";
-import MainImageDisplay from "@/DataTypes/common/layouts/single/defaultSections/MainImageDisplay/MainImageDisplay";
 import { TYPE_EQUIPMENT, TYPE_TAXONOMY } from "@/src/DataTypes/Entity/Types";
+
 import { useMessages } from "@/common/UserNotifications/Message/MessageProvider";
 
 const ProjectSingleEdit = (props) => {
@@ -97,19 +96,6 @@ const ProjectSingleEdit = (props) => {
     //Save intention for SingleBeforeUnloadReminder
     const [saveIntentionState, setSaveIntentionState] = useState(false);
 
-    /*
-    First of all, verify if the user is logged in.
-    If he isn't, then redirect him in the connexion page
-    */
-    useEffect(() => {
-        if (!auth.user.isLoggedIn) {
-            msg.addMessage({
-                text: lang.needToBeConnectedToAccess,
-                theme: "negative",
-            });
-            Router.push("/compte/connexion");
-        }
-    }, [auth.user.isLoggedIn]);
     //Modal hook
     const modalSaveEntityReminder = useRootModal();
 
@@ -226,7 +212,6 @@ const ProjectSingleEdit = (props) => {
 
         const formData = {
             data: {
-                id: _id,
                 name: formState.inputs.name.value,
                 alternateName: formState.inputs.alternateName.value,
                 entityInCharge: formState.inputs.entityInCharge?.value?.map((elem) => elem.value) ?? [],
@@ -296,8 +281,12 @@ const ProjectSingleEdit = (props) => {
             },
         };
 
-        //Add data to the formData
-        submitRequest("/projects/update", "POST", formData);
+        if (_id !== undefined) {
+            formData.data.id = _id;
+            submitRequest(`/projects/update`, "POST", JSON.stringify(formData));
+        } else {
+            submitRequest(`/projects/create`, "POST", JSON.stringify(formData));
+        }
     };
 
     /* Needed for breadCrumb generator */
@@ -323,7 +312,7 @@ const ProjectSingleEdit = (props) => {
             label={"Nom du projet" + lang.required}
             formTools={formTools}
             formClassName="discrete-without-focus form-text-white"
-            validationRules={[{ name: "REQUIRED" }]}
+            validationRules={[{ name: "REQUIRED" }, { name: "MIN_LENGTH", specification: 2 }]}
         />
     );
 
@@ -363,34 +352,15 @@ const ProjectSingleEdit = (props) => {
         </>
     );
 
-    const ctaHeaderSection = (
-        <div className="d-flex flex-wrap align-items-end justify-content-between gap-2 gap-md-3 gap-lg-4">
-            <MainImageDisplay
-                buttonClasses="fs-6"
-                mainImage={currentMainImage}
-                entity={currentModel}
-                setter={updateModelMainImage}
-            />
-            <div className="d-flex flex-wrap align-items-end justify-content-between gap-2 gap-md-3 gap-lg-4">
-                <Button
-                    className="fs-6"
-                    size="slim"
-                    color="success"
-                    disabled={!formState.isValid}
-                    onClick={() => {
-                        setSaveIntentionState(true);
-                        modalSaveEntityReminder.displayModal();
-                    }}
-                >
-                    <Icon iconName={"save"} />
-                    &nbsp;{lang.capitalize("save")}
-                </Button>
-                <Button className="fs-6" size="slim" color="primary-light" href={model.singleLink}>
-                    <Icon iconName={"times"} />
-                    &nbsp;{lang.Cancel}
-                </Button>
-            </div>
-        </div>
+    const ctaSection = (
+        <SingleBaseCTA
+            formTools={formTools}
+            mainImage={currentMainImage}
+            model={model}
+            mainImageSetter={updateModelMainImage}
+            saveEntityReminderModal={modalSaveEntityReminder}
+            saveIntentionSetter={setSaveIntentionState}
+        />
     );
 
     const header = (
@@ -399,9 +369,9 @@ const ProjectSingleEdit = (props) => {
             title={title}
             subtitle={subtitle}
             mainImage={currentMainImage}
-            buttonSection={ctaHeaderSection}
             entity={model}
             mode={modes.CONTRIBUTING}
+            ctaSection={ctaSection}
         />
     );
 
@@ -520,7 +490,7 @@ const ProjectSingleEdit = (props) => {
                 setSaveIntentionState(true);
                 modalSaveEntityReminder.displayModal();
             }}
-            formState={formState}
+            formTools={formTools}
             singleLink={model.singleLink}
         />
     );

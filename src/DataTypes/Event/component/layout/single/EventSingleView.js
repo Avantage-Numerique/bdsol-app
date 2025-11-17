@@ -9,6 +9,7 @@ import SearchTag from "@/src/common/Components/SearchTag";
 import SingleBaseProgressBar from "@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseProgressBar/SingleBaseProgressBar";
 import SocialHandleDisplay from "@/src/DataTypes/common/layouts/SocialHandlesViews/SocialHandleDisplay";
 import { ContactPointView } from "@/src/DataTypes/common/layouts/ContactPointView/ContactPointView";
+import SingleBaseCTA from "@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseCTA";
 
 //Utils
 import SanitizedInnerHtml from "@/src/utils/SanitizedInnerHtml";
@@ -106,8 +107,7 @@ const EventSingleView = ({ data }) => {
             }
             mainImage={model.mainImage}
             entity={model}
-            buttonText={lang.contributeButtonLabel}
-            buttonLink={model.singleEditLink}
+            ctaSection={<SingleBaseCTA model={model} />}
         />
     );
 
@@ -195,24 +195,22 @@ const EventSingleView = ({ data }) => {
 
             <SingleInfo title={"Informations supplémentaires"}>
                 {/* skills */}
-                <SingleInfo title={lang.skillsAndTechnologies} isSubtitle displayCondition={skills?.length > 0}>
+                <SingleInfo
+                    title={lang.skillsAndTechnologies}
+                    isSubtitle
+                    displayCondition={skills?.length > 0}
+                    noCardLayout
+                >
                     <SearchTag list={skills} />
                 </SingleInfo>
 
                 {/* domains */}
-                <SingleInfo title={lang.Domains} displayCondition={domains?.length > 0} isSubtitle>
+                <SingleInfo title={lang.Domains} displayCondition={domains?.length > 0} isSubtitle noCardLayout>
                     <SearchTag list={domains} listProperty={"domain"} />
                 </SingleInfo>
 
-                {/* Url */}
-                <SocialHandleDisplay
-                    title={lang.externalLinks}
-                    url={model?.url}
-                    className={`${appConfig.spacing.singleSectionSpacingClass}`}
-                />
-
                 {/*eventType */}
-                <SingleInfo isSubtitle title={lang.eventType}>
+                <SingleInfo isSubtitle title={lang.eventType} noCardLayout>
                     {eventType?.length > 0 && (
                         <ul className="d-flex flex-wrap mb-0 mt-1">
                             {eventType.map((type) => (
@@ -225,10 +223,16 @@ const EventSingleView = ({ data }) => {
                 </SingleInfo>
 
                 {/* eventFormat */}
-                <SingleInfo isSubtitle title={lang.eventFormat}>
+                <SingleInfo isSubtitle title={lang.eventFormat} noCardLayout>
                     {eventFormat && formatEnumState?.[eventFormat] && (formatEnumState?.[eventFormat] ?? eventFormat)}
                 </SingleInfo>
             </SingleInfo>
+            {/* Url */}
+            <SocialHandleDisplay
+                title={lang.externalLinks}
+                url={model?.url}
+                className={`${appConfig.spacing.singleSectionSpacingClass}`}
+            />
         </>
     );
 

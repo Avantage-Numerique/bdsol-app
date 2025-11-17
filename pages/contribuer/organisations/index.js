@@ -28,57 +28,8 @@ const CreateOrganisationPage = () => {
         <div className="container">
             <OrganisationSingleEdit data={{}} />
             {isLoading && <Spinner fixed />}
-            {/* Modal containing the form */}
-            {modal.display && (
-                <Modal coloredBackground darkColorButton>
-                    <header className={`d-flex justify-content-between align-items-start`}>
-                        <div className="d-flex flex-column">
-                            <h3 className="text-secondary-darker">Ajouter une organisation</h3>
-                            <p>
-                                Entrez les informations principales d'une organisation. Vous pourrez les éditer de
-                                manière détaillée par la suite.
-                            </p>
-                        </div>
-                        <Button
-                            onClick={() => {
-                                closeModal(Router.push(`/contribuer/`));
-                            }}
-                        >
-                            {lang.cancel}
-                        </Button>
-                    </header>
-                    <CreateOrganisationForm
-                        onPositiveResponse={(response) => {
-                            //Create a model for the response
-                            const model = new Organisation(response.data);
-
-                            //Execute the redirection
-                            Router.push(model.singleEditLink);
-                            closeModal();
-                            setIsLoading(true);
-                        }}
-                    />
-                </Modal>
-            )}
         </div>
     );
-
-    /* DEPRECATED
-    return (
-        <SingleViewEntityFormLayout formName={"organisation"} headerProps={{
-            title: lang.Organisation,
-            subTitle: lang.formOrganisationSubtitle,
-            subtitleColor: "primary",
-            description: lang.formOrganisationInstructions,
-            historyBack: {
-                uri: "/contribuer",
-                label: lang.historyBack
-            }
-        }}>
-            <OrganisationSingleEdit />
-        </SingleViewEntityFormLayout>
-    )
-    */
 };
 
 export const getServerSideProps = withSessionSsr(ssrCanAccess);

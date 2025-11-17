@@ -6,13 +6,13 @@ import { useFormUtils } from "@/src/hooks/useFormUtils/useFormUtils";
 import { useRootModal } from "@/src/hooks/useModal/useRootModal";
 
 //components
-import Button from "@/FormElements/Button/Button";
 import Input from "@/FormElements/Input/Input";
 import { lang, modes } from "@/src/common/Data/GlobalConstants";
 import Select2 from "@/src/common/FormElements/Select2/Select2";
 import { SingleEntityMeta } from "@/src/DataTypes/Meta/components/SingleEntityMeta";
 import SingleInfo from "@/src/DataTypes/common/layouts/SingleInfo/SingleInfo";
 import SingleSaveEntityReminder from "@/src/DataTypes/common/layouts/SingleSaveEntityReminder/SingleSaveEntityReminder";
+import SingleBaseCTA from "@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseCTA";
 
 //Context
 import { useAuth } from "@/src/authentification/context/auth-context";
@@ -23,13 +23,12 @@ import { getDefaultUpdateEntityMeta } from "@/src/DataTypes/Meta/EntityMeta";
 import SingleBaseHeader from "@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseHeader";
 import SingleBase from "@/src/DataTypes/common/layouts/single/SingleBase";
 import { replacePathname } from "@/src/helpers/url";
-import Icon from "@/common/widgets/Icon/Icon";
-import MainImageDisplay from "@/DataTypes/common/layouts/single/defaultSections/MainImageDisplay/MainImageDisplay";
 import { TYPE_TAXONOMY } from "@/src/DataTypes/Entity/Types";
 import SubmitEntity from "@/DataTypes/common/Forms/SingleEdit/SubmitEntity";
 import Equipment from "../../../models/Equipment";
 import UpdateSocialHandles from "../../../../common/Forms/UpdateSocialHandles/UpdateSocialHandles";
 import SingleBeforeUnloadReminder from "@/src/DataTypes/common/layouts/SingleSaveEntityReminder/SingleBeforeUnloadReminder";
+import RichTextarea from "@/src/common/FormElements/RichTextArea/RichTextarea";
 
 const EquipmentSingleEdit = ({ positiveRequestActions, ...props }) => {
     //Model de project
@@ -69,41 +68,31 @@ const EquipmentSingleEdit = ({ positiveRequestActions, ...props }) => {
     //Save intention for SingleBeforeUnloadReminder
     const [saveIntentionState, setSaveIntentionState] = useState(false);
 
-    /*
-    First of all, verify if the user is logged in.
-    If he isn't, then redirect him in the connexion page
-    */
-    useEffect(() => {
-        if (!auth.user.isLoggedIn) {
-            msg.addMessage({
-                text: lang.needToBeConnectedToAccess,
-                theme: "negative",
-            });
-            Router.push("/compte/connexion");
-        }
-    }, [auth.user.isLoggedIn]);
-
     //Main form functionalities
     const { FormUI, submitRequest, formState, formTools } = useFormUtils(
         {
             equipmentType: {
-                value: model.equipmentType ?? "",
+                value: model?.equipmentType ?? "",
                 isValid: false,
             },
             label: {
-                value: model.label ?? "",
+                value: model?.label ?? "",
                 isValid: false,
             },
+            description: {
+                value: model?.description ?? "",
+                isValid: true,
+            },
             brand: {
-                value: model.brand ?? "",
+                value: model?.brand ?? "",
                 isValid: true,
             },
             modelName: {
-                value: model.modelName ?? "",
+                value: model?.modelName ?? "",
                 isValid: true,
             },
             url: {
-                value: model.url ?? [],
+                value: model?.url ?? [],
                 isValid: true,
             },
         },
@@ -129,6 +118,7 @@ const EquipmentSingleEdit = ({ positiveRequestActions, ...props }) => {
                 id: model._id,
                 equipmentType: formState.inputs.equipmentType.value.value,
                 label: formState.inputs.label.value,
+                description: formState.inputs.description.value,
                 brand: formState.inputs.brand.value,
                 modelName: formState.inputs.modelName.value,
                 url: formState.inputs.url.value.map(function (singleUrl) {
@@ -143,7 +133,12 @@ const EquipmentSingleEdit = ({ positiveRequestActions, ...props }) => {
             },
         };
 
-        submitRequest(`/equipment/update`, "POST", JSON.stringify(formData));
+        if (model._id !== undefined) {
+            formData.data.id = model._id;
+            submitRequest(`/equipment/update`, "POST", JSON.stringify(formData));
+        } else {
+            submitRequest(`/equipment/create`, "POST", JSON.stringify(formData));
+        }
     };
 
     const breadcrumbLabels = {
@@ -170,6 +165,7 @@ const EquipmentSingleEdit = ({ positiveRequestActions, ...props }) => {
                 formTools={formTools}
                 creatable={true}
                 modalType={TYPE_TAXONOMY}
+                allowedCategories={["equipmentType"]}
                 isMulti={false}
                 placeholder={lang.equipmentTypePlaceholder}
                 fetch={"/taxonomies/list"}
@@ -190,34 +186,15 @@ const EquipmentSingleEdit = ({ positiveRequestActions, ...props }) => {
     );
     const subtitle = <></>;
 
-    const ctaHeaderSection = (
-        <div className="d-flex flex-wrap align-items-end justify-content-between gap-2 gap-md-3 gap-lg-4">
-            <MainImageDisplay
-                buttonClasses="fs-6"
-                mainImage={currentMainImage}
-                entity={currentModel}
-                setter={updateModelMainImage}
-            />
-            <div className="d-flex flex-wrap align-items-end justify-content-between gap-2 gap-md-3 gap-lg-4">
-                <Button
-                    className="fs-6"
-                    size="slim"
-                    color="success"
-                    disabled={!formState.isValid}
-                    onClick={() => {
-                        setSaveIntentionState(true);
-                        modalSaveEntityReminder.displayModal();
-                    }}
-                >
-                    <Icon iconName={"save"} />
-                    &nbsp;{lang.capitalize("save")}
-                </Button>
-                <Button className="fs-6" size="slim" color="primary-light" href={model.singleLink}>
-                    <Icon iconName={"times"} />
-                    &nbsp;{lang.Cancel}
-                </Button>
-            </div>
-        </div>
+    const ctaSection = (
+        <SingleBaseCTA
+            formTools={formTools}
+            mainImage={currentMainImage}
+            model={model}
+            mainImageSetter={updateModelMainImage}
+            saveEntityReminderModal={modalSaveEntityReminder}
+            saveIntentionSetter={setSaveIntentionState}
+        />
     );
 
     const header = (
@@ -226,10 +203,16 @@ const EquipmentSingleEdit = ({ positiveRequestActions, ...props }) => {
             title={title}
             subtitle={subtitle}
             mainImage={currentMainImage}
-            buttonSection={ctaHeaderSection}
             entity={model}
             mode={modes.CONTRIBUTING}
+            ctaSection={ctaSection}
         />
+    );
+
+    const fullWidthContent = (
+        <SingleInfo title={lang.description} classNameTitle="mb-0" noCardLayout>
+            <RichTextarea className="py-3" name="description" formTools={formTools} />
+        </SingleInfo>
     );
 
     const contentColumnLeft = (
@@ -265,7 +248,7 @@ const EquipmentSingleEdit = ({ positiveRequestActions, ...props }) => {
                 setSaveIntentionState(true);
                 modalSaveEntityReminder.displayModal();
             }}
-            formState={formState}
+            formTools={formTools}
             singleLink={model.singleLink}
         />
     );
@@ -276,6 +259,7 @@ const EquipmentSingleEdit = ({ positiveRequestActions, ...props }) => {
             <SingleBase
                 breadCrumb={breadCrumb}
                 header={header}
+                fullWidthContent={fullWidthContent}
                 contentColumnLeft={contentColumnLeft}
                 contentColumnRight={contentColumnRight}
                 footer={footer}

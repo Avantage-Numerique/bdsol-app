@@ -192,7 +192,7 @@ const ConsultData = (props) => {
             ></PageHeader>
             <section style={{ width: "100vw", marginLeft: "calc(50% - 50vw)" }}>
                 {/* Filter type section */}
-                <section className="bg-greyBg">
+                <section className="bg-primary-5">
                     <div className="container py-4">
                         <section className={"d-flex justify-content-between align-items-center"}>
                             <h3>

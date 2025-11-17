@@ -1,4 +1,5 @@
 import { defaultSessionData } from "@/auth/context/auth-context";
+import { getCleanRedirectPath } from "@/src/helpers/getCleanRedirectPath";
 
 export const ssrCanAccess = async ({ req }) => {
     const user = req.session.user;
@@ -24,7 +25,7 @@ export const ssrCanAccess = async ({ req }) => {
     return {
         redirect: {
             permanent: false,
-            destination: "/compte/connexion" + `?redirect=${encodeURI(refererPath)}`,
+            destination: "/compte/connexion" + `?redirect=${encodeURIComponent(getCleanRedirectPath(refererPath))}`,
         },
         props: {
             user: { ...defaultSessionData },

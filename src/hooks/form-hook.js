@@ -6,6 +6,10 @@
 
 import { useCallback, useReducer } from "react";
 
+import { lang } from "@/common/Data/GlobalConstants";
+
+import Icon from "@/common/widgets/Icon/Icon";
+
 const formReducer = (state, action) => {
     switch (action.type) {
         case "INPUT_CHANGE":
@@ -141,6 +145,35 @@ export const useForm = (initialInputs) => {
         });
     }, []);
 
+    //Return an array of invalid field of the formState
+    const listInvalidInput = () => {
+        const invalidInputsList = [];
+        Object.keys(formState.inputs).forEach((key, index) => {
+            if (formState.inputs[key] != undefined) {
+                if (formState.inputs[key].isValid == false) {
+                    invalidInputsList.push(key);
+                }
+            }
+        });
+        return invalidInputsList;
+    };
+
+    //List to guide the user to the invalid inputs soo they can correct it before submiting
+    function mapInvalidInputToListItems() {
+        const invalidInputsList = [];
+
+        formTools.listInvalidInput().forEach((key, index) => {
+            const displayText = formState.inputs[key].invalidMsg ?? lang[key] ?? key + " - invalide";
+            invalidInputsList.push(
+                <li key={`invalidInput-${key}-${index}`}>
+                    <Icon iconName="exclamation-triangle" /> {lang.capitalize(displayText)}
+                </li>
+            );
+        });
+
+        return <ul className="ps-3">{invalidInputsList}</ul>;
+    }
+
     /* Regroup the form utils needed for the inputs */
     const formTools = {
         formState: formState,
@@ -148,6 +181,8 @@ export const useForm = (initialInputs) => {
         inputTouched: inputTouched,
         clearFormData: clearFormData,
         updateManyFields: updateManyFields,
+        listInvalidInput: listInvalidInput,
+        mapInvalidInputToListItems,
     };
 
     return [formState, formTools, clearFormData, updateManyFields];

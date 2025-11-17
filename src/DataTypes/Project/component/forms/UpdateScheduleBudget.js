@@ -61,7 +61,7 @@ const UpdateScheduleBudget = ({ name, formTools, ...props }) => {
                             formTools={formTools}
                             name="timeframe"
                             sortable
-                            className="bg-greyBg"
+                            className=""
                             formInitStructure={{
                                 step: {
                                     value: "",

@@ -25,6 +25,7 @@
         --bs-btn-hover-color: #{$value};
         --bs-btn-hover-border-color: #{$value};
         --bs-btn-hover-bg: #{lighten($value, 25%)};
+        --bs-btn-active-bg: #{lighten($value, 25%)};
     }
     /******* Specific text color *******/
     .btn.btn-text-color-#{$color} {
@@ -53,6 +54,7 @@
     --bs-btn-hover-color: var(--bs-primary);
     --bs-btn-hover-border-color: var(--bs-primary);
     --bs-btn-hover-bg: var(--bs-primary-lighter);
+    --bs-btn-active-bg: var(--bs-primary-lighter);
 }
 //Specific secondary color
 .btn.btn-color-secondary {
@@ -61,6 +63,7 @@
     --bs-btn-hover-color: var(--bs-secondary);
     --bs-btn-hover-border-color: var(--bs-secondary);
     --bs-btn-hover-bg: var(--bs-secondary-lighter);
+    --bs-btn-active-bg: var(--bs-secondary-lighter);
 }
 
 //Styling for button without border and  background color
@@ -94,9 +97,8 @@ fieldset:disabled .btn :not(.btn-check) + .btn:disabled:hover,
     cursor: not-allowed;
     filter: none;
     opacity: unset;
-
     --bs-btn-disabled-bg: #{$light-grey};
-    --bs-btn-disabled-border-color: #{$light-grey};
+    --bs-btn-disabled-border-color: #bebebe;
     --bs-btn-disabled-color: #{$grey};
     --bs-btn-hover-color: #{$grey};
     --bs-btn-hover-bg: #{$light-grey};
@@ -131,6 +133,9 @@ fieldset:disabled .btn :not(.btn-check) + .btn:disabled:hover,
     font-size: 3rem;
     color: $primary_7;
     border: none;
+    height: 1ch;
+    line-height: 1;
+    padding: 0;
     &:hover,
     &:active,
     &:focus,

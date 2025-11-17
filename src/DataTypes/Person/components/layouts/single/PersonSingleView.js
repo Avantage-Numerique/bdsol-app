@@ -10,10 +10,12 @@ import { SingleEntityMeta } from "@/src/DataTypes/Meta/components/SingleEntityMe
 import { lang } from "@/common/Data/GlobalConstants";
 import Person from "@/DataTypes/Person/models/Person";
 import EntitiesTagGrid from "@/DataTypes/Entity/layouts/EntitiesTagGrid";
+
 import { SkillGroup } from "@/DataTypes/common/layouts/skillsGroup/SkillGroup";
 import { removeTagsFromString } from "@/src/helpers/html";
 import { ContactPointView } from "@/src/DataTypes/common/layouts/ContactPointView/ContactPointView";
 import BadgesSection from "@/src/DataTypes/Badges/BadgesSection";
+import SingleBaseCTA from "@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseCTA";
 
 const PersonSingleView = ({ data }) => {
     //Destructuring of data's prop
@@ -66,7 +68,6 @@ const PersonSingleView = ({ data }) => {
     /****************************
      *  Sections
      ***************************/
-
     const Header = (
         <SingleBaseHeader
             title={
@@ -82,8 +83,7 @@ const PersonSingleView = ({ data }) => {
             }
             mainImage={model.mainImage}
             entity={model}
-            buttonText={lang.contributeButtonLabel}
-            buttonLink={model.singleEditLink}
+            ctaSection={<SingleBaseCTA model={model} />}
         />
     );
 

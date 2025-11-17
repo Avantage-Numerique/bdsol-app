@@ -28,6 +28,7 @@ const MainImageDisplay = ({ mainImage, entity, setter, buttonClasses }) => {
         <>
             <div className={`${styles["edit-image-button"]}`}>
                 <Button
+                    disabled={entity._id ? false : true}
                     size="slim"
                     color="secondary"
                     className={buttonClasses || ""}

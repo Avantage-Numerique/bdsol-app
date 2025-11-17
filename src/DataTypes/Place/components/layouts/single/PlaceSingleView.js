@@ -12,6 +12,7 @@ import SingleInfo from "@/src/DataTypes/common/layouts/SingleInfo/SingleInfo";
 import { SingleEntityMeta } from "@/src/DataTypes/Meta/components/SingleEntityMeta";
 import SingleBaseProgressBar from "@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseProgressBar/SingleBaseProgressBar";
 import { removeTagsFromString } from "@/src/helpers/html";
+import SingleBaseCTA from "@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseCTA";
 
 //Styling
 import styles from "./PlaceSingleView.module.scss";
@@ -58,8 +59,7 @@ const PlaceSingleView = ({ data }) => {
             }
             mainImage={model.mainImage}
             entity={model}
-            buttonText="Proposer des modifications"
-            buttonLink={model.singleEditLink}
+            ctaSection={<SingleBaseCTA model={model} />}
         />
     );
 
@@ -170,10 +170,7 @@ const PlaceSingleView = ({ data }) => {
                 { data: model.region },
                 { data: model.longitude },
                 { data: model.latitude },
-                {
-                    data: model.mainImage.isDefault,
-                    validationFunction: (value) => !value,
-                },
+                { data: model.mainImage.isDefault, validationFunction: (value) => !value },
             ]}
             buttonText={lang.contributeButtonLabel}
             buttonLink={model.singleEditLink}

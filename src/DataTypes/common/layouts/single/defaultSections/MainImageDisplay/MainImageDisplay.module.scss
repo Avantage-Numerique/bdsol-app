@@ -25,8 +25,15 @@
         position: absolute;
         right: -1rem;
         bottom: calc(0px - var(--margin-bottom) - 1rem);
+
         &:hover {
             opacity: 1;
         }
+    }
+}
+
+@include media-breakpoint-down(lg) {
+    .edit-image-button {
+        order: -1;
     }
 }

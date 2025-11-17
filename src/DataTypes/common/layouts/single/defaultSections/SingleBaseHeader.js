@@ -21,6 +21,7 @@ import { useRouter } from "next/router";
 //Context
 import { getBadgesInfo } from "@/src/DataTypes/Badges/BadgesSection";
 import Link from "next/link";
+
 import { useMessages } from "@/common/UserNotifications/Message/MessageProvider";
 
 //Memoize the image to prevent rerendering
@@ -59,7 +60,11 @@ const ImageComponent = memo(({ mainImage, badges, activeInnerLink = "true" }) =>
                 {/* SM format and more */}
                 <MediaFigure
                     model={mainImage}
-                    className={`main-image-container ${styles["single-base-header__main-image__container__figure"]} ${!mainImage.isDefault ? "overflow-hidden shadow" : styles["default-drop-shadow"] + " default-img "}`}
+                    className={`main-image-container ${styles["single-base-header__main-image__container__figure"]} ${
+                        !mainImage.isDefault
+                            ? "overflow-hidden shadow"
+                            : styles["default-drop-shadow"] + " default-img "
+                    }`}
                     imgClassName={"main-image"}
                 >
                     {addInnerLink && <InnerLink />}
@@ -87,14 +92,26 @@ ImageComponent.displayName = "ImageComponent";
  * @param {JSX} props.subtitle JSX element containing subtitle (top left)
  * @param {string} props.entityType type that shows bottom right
  * @param {className} props.global classes passed from the outside
+ * @param {SingleBaseCTA} props.ctaSection SingleBaseCTA JSX component to display action buttons
  * @param {JSX} props.buttonSection JSX element containing all the calls to action components in one place
  * @param {String} props.buttonText string : Text dispayed in the cta button in the header
  * @param {String} props.buttonLink string : link to redirect the user when the button is clicked
  * @param {String} props.editableImg bool : Show the button to edit image or not
  */
 const SingleBaseHeader = (props) => {
-    const { mode, mainImage, entity, title, subtitle, className, buttonSection, buttonText, buttonLink, children } =
-        props;
+    const {
+        mode,
+        mainImage,
+        entity,
+        title,
+        subtitle,
+        className,
+        buttonSection,
+        buttonText,
+        buttonLink,
+        editableImg,
+        children,
+    } = props;
 
     const auth = useAuth();
     const isUpdateMode = className?.includes("mode-update");
@@ -190,6 +207,7 @@ const SingleBaseHeader = (props) => {
                     <Icon iconName="flag" />
                 </button>
             </div>
+
             {mainImage && (
                 <ImageComponent
                     mainImage={mainImage}
@@ -197,32 +215,17 @@ const SingleBaseHeader = (props) => {
                     activeInnerLink={currentMode.imageComponentActivateLink}
                 />
             )}
-            <div className="col-12 col-sm flex-grow-1 d-flex flex-column">
+
+            <div className="col-12 col-sm flex-grow-1 d-flex flex-column gap-3 gap-md-0">
                 <div className="d-flex flex-column text-dark">
                     {title || <h1 className="mt-4 ms-4">{lang.title}</h1>}
                     {subtitle || <h3 className="ms-4">{lang.subTitle}</h3>}
-                    <div className="mt-2 d-sm-none">{buttonSection && buttonSection}</div>
                 </div>
-                {/* btnToggleViewEdit */}
-                {/* If a button section is declared, use it */}
-                <div style={{ height: "1rem" }} className="position-relative flex-grow-1 d-flex align-items-end">
-                    <div
-                        className={`${styles["over-flowing-button-section"]} ${isUpdateMode && styles["edition-mode"]} d-flex justify-content-end w-100`}
-                    >
-                        {buttonSection && <div className="d-none d-sm-block w-100">{buttonSection}</div>}
-                        {/* If the is no button section and there is a single button declared, display it */}
-                        {!buttonSection && buttonText && buttonSectionLink && (
-                            <Button
-                                className={`btn-contribute shadow d-block`}
-                                href={buttonSectionLink + `?redirect=${encodeURI(router.asPath)}`}
-                            >
-                                {buttonText}
-                            </Button>
-                        )}
-                    </div>
-                </div>
+                {props?.ctaSection && props.ctaSection}
             </div>
+
             {children && <div className="col-12 order-3 pt-2">{children}</div>}
+
             <modalReportEntity.Modal>
                 <div>
                     <header className={`d-flex mb-4 align-items-center`}>

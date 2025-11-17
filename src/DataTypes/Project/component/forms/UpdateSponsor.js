@@ -17,7 +17,7 @@ const UpdateSponsor = ({ name, formTools, ...props }) => {
             <Repeater
                 formTools={formTools}
                 name={name}
-                className="bg-greyBg"
+                className=""
                 formInitStructure={{
                     name: {
                         value: "",

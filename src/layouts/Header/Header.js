@@ -14,6 +14,7 @@ import { useAuth } from "@/auth/context/auth-context";
 
 //Utils
 import { lang } from "@/common/Data/GlobalConstants";
+import { getCleanRedirectPath } from "@/src/helpers/getCleanRedirectPath";
 
 //Styling
 import styles from "./Header.module.scss";
@@ -43,18 +44,6 @@ const Header = (props) => {
         document.addEventListener("scroll", updateHeaderState);
         return () => document.removeEventListener("scroll", updateHeaderState);
     });
-
-    function stripRedirectParam(asPath) {
-        const [basePath, queryString] = asPath.split("?");
-
-        if (!queryString) return asPath;
-
-        const params = queryString.split("&").filter((p) => !p.startsWith("redirect="));
-
-        return params.length > 0 ? `${basePath}?${params.join("&")}` : basePath;
-    }
-
-    const cleanPath = stripRedirectParam(router.asPath);
 
     return (
         <header className={`main-nav ${styles.header} ${!windowScrollTop && styles["scroll-inner-page"]}`}>
@@ -105,7 +94,10 @@ const Header = (props) => {
                                     </li>
                                     <li>
                                         <LinkWithLoading
-                                            href={AppRoutes.connection.asPath + `?redirect=${encodeURI(cleanPath)}`}
+                                            href={
+                                                AppRoutes.connection.asPath +
+                                                `?redirect=${encodeURIComponent(getCleanRedirectPath(router.asPath))}`
+                                            }
                                             className={`nav-link text-black text-nowrap`}
                                         >
                                             {lang.menuConnectLabel}

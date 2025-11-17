@@ -28,6 +28,7 @@ import { lang } from "@/src/common/Data/GlobalConstants";
 import AppRoutes from "@/src/Routing/AppRoutes";
 import MainNavButton from "@/layouts/Navigation/MainNav/MainNavButton";
 import SearchBar from "@/common/Components/SearchBar";
+import { getCleanRedirectPath } from "@/src/helpers/getCleanRedirectPath";
 
 const Nav = ({ menuState, setMenuState }) => {
     //Listen for a page change. If it happens, close the menu
@@ -59,8 +60,7 @@ const Nav = ({ menuState, setMenuState }) => {
 
         //Handles redirect after login
         if (path === AppRoutes.connection.asPath) {
-            const redirectTo = encodeURIComponent(router.asPath);
-            router.push(`${path}?redirect=${redirectTo}`);
+            router.push(`${path}?redirect=${encodeURIComponent(getCleanRedirectPath(router.asPath))}`);
         } else {
             router.push(path);
         }

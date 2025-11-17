@@ -3,23 +3,8 @@ import Button from "@/FormElements/Button/Button";
 import Icon from "@/common/widgets/Icon/Icon";
 import { lang } from "@/common/Data/GlobalConstants";
 
-const SubmitEntity = ({ children, className, submitHandler, formState, singleLink }) => {
-    //List to guide the user to the invalid inputs soo they can correct it before submiting
-    function listInvalidInput() {
-        const invalidInputsList = [];
-
-        Object.keys(formState.inputs).forEach((key, index) => {
-            if (formState.inputs[key] != undefined) {
-                if (formState.inputs[key].isValid == false) {
-                    const displayText = formState.inputs[key].invalidMsg ?? lang[key] ?? key + " - invalide";
-                    invalidInputsList.push(
-                        <li key={`invalidInput-${key}-${index}`}>{lang.capitalize(displayText)}</li>
-                    );
-                }
-            }
-        });
-        return invalidInputsList;
-    }
+const SubmitEntity = ({ children, className, submitHandler, formTools, singleLink }) => {
+    const formState = formTools.formState;
 
     return (
         <div className={` ${className || "w-50"}`}>
@@ -53,9 +38,12 @@ const SubmitEntity = ({ children, className, submitHandler, formState, singleLin
             </div>
             {!formState.isValid && (
                 <>
-                    <div className="p-2 mt-2 col-md-8 border border-danger rounded">
+                    <div className="mx-auto p-2 mt-4 col-md-8 border border-danger rounded">
+                        <h4 className="text-center border-bottom mb-3">{lang.invalidForm}</h4>
+
                         <p>{lang.validationFailedCantSave}</p>
-                        <ul>{listInvalidInput()}</ul>
+
+                        {formTools.mapInvalidInputToListItems()}
                     </div>
                 </>
             )}

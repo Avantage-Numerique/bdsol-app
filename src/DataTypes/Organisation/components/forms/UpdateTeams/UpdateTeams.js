@@ -22,7 +22,7 @@ const UpdateTeams = ({ name, formTools, parentEntity, ...props }) => {
     return (
         <div className="px-4">
             <Repeater
-                className="bg-greyBg"
+                className=""
                 sortable
                 formTools={formTools}
                 name={name}

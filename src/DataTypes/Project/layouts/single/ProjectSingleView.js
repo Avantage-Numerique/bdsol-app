@@ -10,6 +10,7 @@ import EntitiesTagGrid from "@/DataTypes/Entity/layouts/EntitiesTagGrid";
 import EntityLink from "@/DataTypes/Entity/layouts/EntityLink";
 import SingleBaseProgressBar from "@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseProgressBar/SingleBaseProgressBar";
 import { ContactPointView } from "@/src/DataTypes/common/layouts/ContactPointView/ContactPointView";
+import SingleBaseCTA from "@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseCTA";
 
 //Utils
 import SanitizedInnerHtml from "@/src/utils/SanitizedInnerHtml";
@@ -111,20 +112,20 @@ const ProjectSingleView = ({ data }) => {
                 <div className="d-text">
                     <h4 className="text-white">{alternateName}</h4>
                     <div className="mt-4">
-                        {entityInCharge && (
+                        {entityInCharge?.length > 0 && (
                             <p className="text-white d-flex gap-2">
                                 <span className={"badge bg-secondary"}>{lang.entityInCharge}</span>
-                                {entityInCharge.map((elem) => {
-                                    return <EntityLink data={elem} />;
+                                {entityInCharge.map((elem, i) => {
+                                    return <EntityLink data={elem} key={`entityInCharge-${i}`} />;
                                 })}
                             </p>
                         )}
 
-                        {producer && (
+                        {producer?.length > 0 && (
                             <p className="text-white d-flex gap-2">
                                 <span className={"badge bg-secondary"}>{lang.producer}</span>
-                                {producer.map((elem) => {
-                                    return <EntityLink data={elem} />;
+                                {producer.map((elem, i) => {
+                                    return <EntityLink data={elem} key={`entityInCharge-${i}`} />;
                                 })}
                             </p>
                         )}
@@ -133,8 +134,7 @@ const ProjectSingleView = ({ data }) => {
             }
             mainImage={model.mainImage}
             entity={model}
-            buttonText="Proposer des modifications"
-            buttonLink={model.singleEditLink}
+            ctaSection={<SingleBaseCTA model={model} />}
         />
     );
 
@@ -221,6 +221,7 @@ const ProjectSingleView = ({ data }) => {
             {/* Contact information */}
             <SingleInfo title={lang.organisationContact}>
                 <ContactPointView contact={model.contactPoint} />
+                <ContactPointView contact={model.contactPoint} />
             </SingleInfo>
 
             <SingleInfo title="Informations supplémentaires">
@@ -278,26 +279,17 @@ const ProjectSingleView = ({ data }) => {
                 { data: alternateName },
                 { data: entityInCharge },
                 { data: producer },
-                {
-                    data: description,
-                    validationFunction: (value) => (removeTagsFromString(value) ? true : false),
-                },
+                { data: description, validationFunction: (value) => (removeTagsFromString(value) ? true : false) },
                 { data: sortedSponsors },
                 { data: sortedTeam },
-                {
-                    data: scheduleBudget,
-                    validationFunction: (value) => value && haveAValidValue(value),
-                },
+                { data: scheduleBudget, validationFunction: (value) => value && haveAValidValue(value) },
                 { data: equipment },
                 { data: context },
                 { data: skills },
                 { data: domains },
                 { data: contactPoint },
                 { data: model?.url },
-                {
-                    data: model.mainImage.isDefault,
-                    validationFunction: (value) => !value,
-                },
+                { data: model.mainImage.isDefault, validationFunction: (value) => !value },
             ]}
             buttonText={lang.contributeButtonLabel}
             buttonLink={model.singleEditLink}
@@ -335,7 +327,7 @@ function BudgetStep(props) {
     const { header = false, index, step = " - ", duration = " - ", costs = " - " } = props;
 
     const Tag = header ? "h6" : "p";
-    const bg_color = header ? "bg-secondary-light" : index % 2 === 0 ? "bg-greyBg" : "";
+    const bg_color = header ? "bg-secondary-light" : index % 2 === 1 ? "bg-greyBg" : "";
 
     return (
         <li className={`${bg_color} row`}>
@@ -359,7 +351,7 @@ function BudgetCard(props) {
     if (title && data)
         return (
             <div className={`${col} g-3`}>
-                <div style={style} className="bg-greyBg py-3 px-3 rounded border-secondary">
+                <div style={style} className="py-3 px-3 rounded border-secondary">
                     <h6 className="text-grey mb-1">{title}</h6>
                     <p className="mb-0">{isDate ? getDateFromIsoString(data) : data}</p>
                 </div>

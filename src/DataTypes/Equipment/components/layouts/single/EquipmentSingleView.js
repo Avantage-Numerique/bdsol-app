@@ -6,13 +6,15 @@ import SingleBaseHeader from "@/src/DataTypes/common/layouts/single/defaultSecti
 import SingleInfo from "@/DataTypes/common/layouts/SingleInfo/SingleInfo";
 import SocialHandleDisplay from "@/DataTypes/common/layouts/SocialHandlesViews/SocialHandleDisplay";
 import SingleBaseProgressBar from "@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseProgressBar/SingleBaseProgressBar";
+import SingleBaseCTA from "@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseCTA";
 
 //Utils
 import SanitizedInnerHtml from "@/src/utils/SanitizedInnerHtml";
 import { SingleEntityMeta } from "@/src/DataTypes/Meta/components/SingleEntityMeta";
 import { lang } from "@/common/Data/GlobalConstants";
-import Equipment from "../../../models/Equipment";
+import Equipment from "@/src/DataTypes/Equipment/models/Equipment";
 import EntitiesTagGrid from "@/DataTypes/Entity/layouts/EntitiesTagGrid";
+import { removeTagsFromString } from "@/src/helpers/html";
 
 const EquipmentSingleView = ({ data }) => {
     const model = new Equipment(data);
@@ -62,9 +64,18 @@ const EquipmentSingleView = ({ data }) => {
             subtitle={subtitle}
             mainImage={model.mainImage}
             entity={model}
-            buttonText="Proposer des modifications"
-            buttonLink={model.singleEditLink}
+            ctaSection={<SingleBaseCTA model={model} />}
         />
+    );
+
+    const FullWidthContent = (
+        <SingleInfo
+            displayCondition={typeof model.description == "string" && model.description !== ""}
+            title={lang.description}
+            NAMessage="Aucune description n'est disponible pour le moment."
+        >
+            {removeTagsFromString(model.description) && <SanitizedInnerHtml>{model.description}</SanitizedInnerHtml>}
+        </SingleInfo>
     );
 
     const ContentColumnLeft = (
@@ -151,6 +162,7 @@ const EquipmentSingleView = ({ data }) => {
             <SingleBase
                 breadCrumb={breadCrumb}
                 header={Header}
+                fullWidthContent={FullWidthContent}
                 contentColumnLeft={ContentColumnLeft}
                 contentColumnRight={ContentColumnRight}
                 footer={Footer}

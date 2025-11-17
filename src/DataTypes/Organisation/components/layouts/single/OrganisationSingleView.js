@@ -9,6 +9,7 @@ import SearchTag from "@/src/common/Components/SearchTag";
 import SingleBaseProgressBar from "@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseProgressBar/SingleBaseProgressBar";
 import { ContactPointView } from "@/src/DataTypes/common/layouts/ContactPointView/ContactPointView";
 import BadgesSection from "@/src/DataTypes/Badges/BadgesSection";
+import SingleBaseCTA from "@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseCTA";
 
 //Utils
 import Organisation from "@/src/DataTypes/Organisation/models/Organisation";
@@ -97,8 +98,7 @@ const OrganisationSingleView = ({ data }) => {
             }
             mainImage={model.mainImage}
             entity={model}
-            buttonText={lang.contributeButtonLabel}
-            buttonLink={model.singleEditLink}
+            ctaSection={<SingleBaseCTA model={model} />}
         />
     );
 
@@ -210,9 +210,11 @@ const OrganisationSingleView = ({ data }) => {
         <>
             {/* Badges */}
             <BadgesSection badges={model.badges} entityLabel={model.name} />
+            <BadgesSection badges={model.badges} entityLabel={model.name} />
 
             {/* Contact information */}
             <SingleInfo title={lang.organisationContact}>
+                <ContactPointView contact={model.contactPoint} />
                 <ContactPointView contact={model.contactPoint} />
             </SingleInfo>
 
@@ -261,10 +263,7 @@ const OrganisationSingleView = ({ data }) => {
                 dataList={[
                     { data: name },
                     { data: catchphrase },
-                    {
-                        data: description,
-                        validationFunction: (value) => (removeTagsFromString(value) ? true : false),
-                    },
+                    { data: description, validationFunction: (value) => (removeTagsFromString(value) ? true : false) },
                     { data: sortedOffers },
                     { data: sortedTeam },
                     { data: location },
@@ -273,10 +272,7 @@ const OrganisationSingleView = ({ data }) => {
                     { data: domains },
                     { data: fondationDate },
                     { data: url },
-                    {
-                        data: model.mainImage.isDefault,
-                        validationFunction: (value) => !value,
-                    },
+                    { data: model.mainImage.isDefault, validationFunction: (value) => !value },
                 ]}
                 buttonText={lang.contributeButtonLabel}
                 buttonLink={model.singleEditLink}

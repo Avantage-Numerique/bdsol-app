@@ -11,7 +11,6 @@ import { useRootModal } from "@/src/hooks/useModal/useRootModal";
 
 //Component
 import Select2 from "@/src/common/FormElements/Select2/Select2";
-import Button from "@/src/common/FormElements/Button/Button";
 import Input from "@/src/common/FormElements/Input/Input";
 import RichTextarea from "@/src/common/FormElements/RichTextArea/RichTextarea";
 import Select from "@/src/common/FormElements/Select/Select";
@@ -26,17 +25,16 @@ import UpdateEquipment from "@/src/DataTypes/Equipment/components/layouts/Update
 import UpdateSocialHandles from "@/src/DataTypes/common/Forms/UpdateSocialHandles/UpdateSocialHandles";
 import SingleSaveEntityReminder from "@/src/DataTypes/common/layouts/SingleSaveEntityReminder/SingleSaveEntityReminder";
 import UpdateContactPoint from "@/src/DataTypes/common/Forms/UpdateContactPoint/UpdateContactPoint";
+import SubmitEntity from "@/DataTypes/common/Forms/SingleEdit/SubmitEntity";
+import SingleBaseCTA from "@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseCTA";
 
 //Utils
+import SingleBeforeUnloadReminder from "@/src/DataTypes/common/layouts/SingleSaveEntityReminder/SingleBeforeUnloadReminder";
 import Organisation from "@/src/DataTypes/Organisation/models/Organisation";
 import { replacePathname } from "@/src/helpers/url";
 import { lang, modes } from "@/src/common/Data/GlobalConstants";
-import MainImageDisplay from "@/DataTypes/common/layouts/single/defaultSections/MainImageDisplay/MainImageDisplay";
-import Icon from "@/common/widgets/Icon/Icon";
 import { TYPE_PLACE, TYPE_TAXONOMY } from "@/src/DataTypes/Entity/Types";
-import SubmitEntity from "@/DataTypes/common/Forms/SingleEdit/SubmitEntity";
 import { apiDateToDateInput, dateTimeStringToUTC } from "@/common/DateManager/Parse";
-import SingleBeforeUnloadReminder from "@/src/DataTypes/common/layouts/SingleSaveEntityReminder/SingleBeforeUnloadReminder";
 
 const OrganisationSingleEdit = (props) => {
     //Organisation data extract
@@ -123,20 +121,6 @@ const OrganisationSingleEdit = (props) => {
     //Save intention for SingleBeforeUnloadReminder
     const [saveIntentionState, setSaveIntentionState] = useState(false);
 
-    /*
-    First of all, verify if the user is logged in.
-    If he isn't, then redirect him in the connexion page
-    */
-    useEffect(() => {
-        if (!auth.user.isLoggedIn) {
-            msg.addMessage({
-                text: lang.needToBeConnectedToAccess,
-                theme: "negative",
-            });
-            Router.push("/compte/connexion");
-        }
-    }, [auth.user.isLoggedIn]);
-
     //Main form functionalities
     const { FormUI, submitRequest, formState, formTools } = useFormUtils(
         {
@@ -215,7 +199,6 @@ const OrganisationSingleEdit = (props) => {
 
         const formData = {
             data: {
-                id: _id,
                 name: formState.inputs.name.value,
                 description: formState.inputs.description.value,
                 url: formState.inputs.url.value.map(function (singleUrl) {
@@ -270,8 +253,12 @@ const OrganisationSingleEdit = (props) => {
             },
         };
 
-        //Send the request with the specialized hook
-        submitRequest(`/organisations/update`, "POST", formData);
+        if (_id !== undefined) {
+            formData.data.id = _id;
+            submitRequest(`/organisations/update`, "POST", JSON.stringify(formData));
+        } else {
+            submitRequest(`/organisations/create`, "POST", JSON.stringify(formData));
+        }
     };
 
     /*****************************
@@ -284,7 +271,7 @@ const OrganisationSingleEdit = (props) => {
             placeholder="Nom de l'organisation"
             label={"Nom de l'organisation" + lang.required}
             formClassName="discrete-without-focus form-text-white"
-            validationRules={[{ name: "REQUIRED" }]}
+            validationRules={[{ name: "REQUIRED" }, { name: "MIN_LENGTH", specification: 2 }]}
             formTools={formTools}
         />
     );
@@ -298,34 +285,15 @@ const OrganisationSingleEdit = (props) => {
         />
     );
 
-    const ctaHeaderSection = (
-        <div className="d-flex flex-wrap align-items-end justify-content-between gap-2 gap-md-3 gap-lg-4">
-            <MainImageDisplay
-                buttonClasses="fs-6"
-                mainImage={currentMainImage}
-                entity={currentModel}
-                setter={updateModelMainImage}
-            />
-            <div className="d-flex flex-wrap align-items-end justify-content-between gap-2 gap-md-3 gap-lg-4">
-                <Button
-                    className="fs-6"
-                    size="slim"
-                    color="success"
-                    disabled={!formState.isValid}
-                    onClick={() => {
-                        setSaveIntentionState(true);
-                        modalSaveEntityReminder.displayModal();
-                    }}
-                >
-                    <Icon iconName={"save"} />
-                    &nbsp;{lang.capitalize("save")}
-                </Button>
-                <Button className="fs-6" size="slim" color="primary-light" href={model.singleLink}>
-                    <Icon iconName={"times"} />
-                    &nbsp;{lang.Cancel}
-                </Button>
-            </div>
-        </div>
+    const ctaSection = (
+        <SingleBaseCTA
+            formTools={formTools}
+            mainImage={currentMainImage}
+            model={model}
+            mainImageSetter={updateModelMainImage}
+            saveEntityReminderModal={modalSaveEntityReminder}
+            saveIntentionSetter={setSaveIntentionState}
+        />
     );
 
     const header = (
@@ -334,9 +302,9 @@ const OrganisationSingleEdit = (props) => {
             title={title}
             subtitle={subtitle}
             mainImage={currentMainImage}
-            buttonSection={ctaHeaderSection}
             entity={model}
             mode={modes.CONTRIBUTING}
+            ctaSection={ctaSection}
         />
     );
 
@@ -450,7 +418,7 @@ const OrganisationSingleEdit = (props) => {
                 setSaveIntentionState(true);
                 modalSaveEntityReminder.displayModal();
             }}
-            formState={formState}
+            formTools={formTools}
             singleLink={model.singleLink}
         />
     );

@@ -40,7 +40,7 @@ select:focus {
         }
 
         &:hover {
-            background-color: $light;
+            background-color: $secondary-lighter;
             border: var(--default-border);
             &.form-text-white {
                 color: var(--bs-gray-700);

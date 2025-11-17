@@ -30,16 +30,18 @@ export const useFieldTips = (tipData) => {
     };
 
     /* Button to be placed else where*/
-    const TipButton = ({ title }) => {
+    const TipButton = ({ title, icon, label }) => {
         return (
             <button
                 title={title || ""}
                 type="button"
-                className={`mx-1 ${styles["info-button"]}`}
+                className={`d-flex flex-row align-items-center gap-1 mx-1 ${styles["info-button"]}`}
                 ref={buttonRef}
                 onClick={() => setDisplayTip(!displayTip)}
             >
-                <Icon iconName={"question-circle"} className={`fs-4 ${styles["icon"]}`} />
+                {label && <span>{label}</span>}
+
+                <Icon iconName={icon ?? "question-circle"} className={`fs-4 ${styles["icon"]}`} />
             </button>
         );
     };

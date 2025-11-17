@@ -8,6 +8,7 @@ const FieldPopOver = (props) => {
     const { header, body, closingFunction, buttonRef, containerRef } = props;
 
     const [dialogTranslateX, setDialogTranslateX] = useState(0);
+    const [dialogTranslateY, setDialogTranslateY] = useState(0);
 
     //Reference to the modal element to be able to call the native javascript functions
     const componentRef = useRef();
@@ -26,13 +27,16 @@ const FieldPopOver = (props) => {
                 const dialogEl = componentRef.current;
                 const buttonEl = buttonRef.current;
                 const containerEl = containerRef.current;
+                if (!dialogEl || !buttonEl || !containerEl) return;
 
                 const dialogRect = dialogEl.getBoundingClientRect();
                 const buttonRect = buttonEl.getBoundingClientRect();
                 const containerRect = containerEl.getBoundingClientRect();
                 const viewportWidth = window.innerWidth;
+                const viewportHeight = window.innerHeight;
 
                 let calculatedDialogX = 0;
+                let calculatedDialogY = 0;
 
                 const desiredLeft = buttonRect.left + buttonRect.width / 2 - dialogRect.width / 2;
 
@@ -43,7 +47,22 @@ const FieldPopOver = (props) => {
                 } else {
                     calculatedDialogX = desiredLeft - containerRect.left;
                 }
+
+                const desiredTop = buttonRect.top + buttonRect.height + 3.75;
+
+                if (desiredTop < 8) {
+                    calculatedDialogY = 8 - containerRect.top;
+                } else if (desiredTop + dialogRect.height > viewportHeight - 8) {
+                    calculatedDialogY = viewportHeight - 8 - dialogRect.height - containerRect.top;
+                } else {
+                    calculatedDialogY = desiredTop - containerRect.top;
+                }
+
+                const pointerCenterOffset = buttonRect.left + buttonRect.width / 2 - desiredLeft;
+                const cappedPointerOffset = Math.max(10, Math.min(pointerCenterOffset, dialogRect.width - 10));
+
                 setDialogTranslateX(calculatedDialogX);
+                setDialogTranslateY(calculatedDialogY);
             });
         }
     }, []);
@@ -55,7 +74,7 @@ const FieldPopOver = (props) => {
                     border-0
                     ${styles["pop-over"]}
                 `}
-            style={{ left: `${dialogTranslateX}px` }}
+            style={{ left: `${dialogTranslateX}px`, top: `${dialogTranslateY}px` }}
         >
             <header className="">
                 <h4 title={header} className="m-0 me-2 fs-5 text-truncate">
@@ -66,9 +85,14 @@ const FieldPopOver = (props) => {
                 </button>
             </header>
             <div className="border-bottom w-100 my-2"></div>
-            <section>
-                <p className="m-0">{body}</p>
-            </section>
+            <section>{body}</section>
+            {/* Lack of time so the pointer stay in stand by
+                <div
+                    className={`${styles["pointing-corner"]}`}
+                    style={{transform: `translate(${pointerTranslateX}px) rotate(45deg)`}}
+                >
+                </div> 
+                */}
         </dialog>
     );
 };

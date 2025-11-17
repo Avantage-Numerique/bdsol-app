@@ -11,7 +11,7 @@ const UpdateSocialHandles = ({ parentEntity, name, formTools, ...props }) => {
         <>
             {showLabel && <label htmlFor={name}>{props.label}</label>}
             <Repeater
-                className="bg-greyBg"
+                className=""
                 formTools={formTools}
                 name={name}
                 sortable
