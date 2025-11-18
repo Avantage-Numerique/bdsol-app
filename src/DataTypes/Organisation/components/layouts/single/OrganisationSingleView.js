@@ -210,7 +210,6 @@ const OrganisationSingleView = ({ data }) => {
         <>
             {/* Badges */}
             <BadgesSection badges={model.badges} entityLabel={model.name} />
-            <BadgesSection badges={model.badges} entityLabel={model.name} />
 
             {/* Contact information */}
             <SingleInfo title={lang.organisationContact}>
