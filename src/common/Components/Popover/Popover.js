@@ -36,9 +36,11 @@ const Popover = ({ icon, triggerText, title, body, placement = "bottom", trigger
                     {title}
                 </h4>
 
-                <button onClick={superClose} className="fs-5 border-0 p-0 m-0" type="button">
-                    &#x2716;
-                </button>
+                {hold && (
+                    <button onClick={superClose} className="fs-5 border-0 p-0 m-0 lh-1" type="button">
+                        &#x2716;
+                    </button>
+                )}
             </PopoverBS.Header>
 
             <div className="border-bottom w-100 my-2"></div>
@@ -62,7 +64,7 @@ const Popover = ({ icon, triggerText, title, body, placement = "bottom", trigger
     return (
         <>
             <button
-                className={`d-flex flex-row align-items-center border-0 p-0 gap-1 mx-1 ${styles["info-button"]}`}
+                className={`d-flex flex-row align-items-center border-0 p-0 gap-1 mx-1 ${styles["info-button"]} ${show ? styles["showing"] : ""} ${hold ? styles["holding"] : ""}`}
                 ref={target}
                 onClick={(e) => {
                     e.stopPropagation(); // prevent triggering onHide when clicked
@@ -75,7 +77,12 @@ const Popover = ({ icon, triggerText, title, body, placement = "bottom", trigger
                     setShow(false);
                 }}
             >
-                {triggerText} <Icon iconName={icon ?? "question-circle"} className={`fs-4 ${styles["icon"]}`} />
+                {triggerText}{" "}
+                <Icon
+                    iconName={hold ? "thumbtack" : (icon ?? "question-circle")}
+                    className={`fs-4 ${styles["icon"]}`}
+                    style={{ scale: hold ? ".8" : "1" }}
+                />
             </button>
 
             {overlay}

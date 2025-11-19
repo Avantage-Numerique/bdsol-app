@@ -1,11 +1,12 @@
 .info-button {
+    &.holding {
+        filter: drop-shadow(1px 1px 3px #{$primary_4});
+    }
+
     .icon {
         color: $dark;
         border-radius: 100%;
         transition: 0.3s ease;
-        &:hover {
-            background-color: rgba(128, 128, 128, 0.163);
-        }
     }
 }
 
