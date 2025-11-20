@@ -1,9 +1,7 @@
 //Styling
-import styles from './AvnuLoading.module.scss'
+import styles from "./AvnuLoading.module.scss";
 
-
-const AvnuLoading = ({fixed, reverse}) => {
-
+const AvnuLoading = ({ fixed, reverse }) => {
     const fixedClasses = fixed ? "" : "";
     const reversedClasses = reverse ? "" : "";
 
@@ -15,6 +13,6 @@ const AvnuLoading = ({fixed, reverse}) => {
                 <div className={`${styles["rocket"]}`}></div>
             </div>
         </div>
-    )
-}
-export default AvnuLoading
+    );
+};
+export default AvnuLoading;

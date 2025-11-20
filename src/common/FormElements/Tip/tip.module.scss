@@ -1,4 +1,3 @@
-
 .tip__toggle-button {
     background-color: $secondary-darker;
     color: white;
@@ -10,5 +9,7 @@
     margin-bottom: 0.25rem;
 
     transition: 0.3s ease;
-    &:hover { background-color: $secondary-dark; }
+    &:hover {
+        background-color: $secondary-dark;
+    }
 }

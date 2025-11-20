@@ -1,5 +1,5 @@
 import Routes from "@/src/Routing/Routes";
-import {lang} from "@/common/Data/GlobalConstants";
+import { lang } from "@/common/Data/GlobalConstants";
 
 /*
 
@@ -8,14 +8,13 @@ import {lang} from "@/common/Data/GlobalConstants";
 
 */
 const AppRoutesRaw = {
-
-    app : {
+    app: {
         label: "avnu.ca",
         pathname: "/",
         asPath: "/",
     },
 
-    accueil : {
+    accueil: {
         label: "Accueil",
         pathname: "/",
         asPath: "/",
@@ -24,19 +23,19 @@ const AppRoutesRaw = {
     /*************
      *  Person
      */
-    persons : {
+    persons: {
         label: "Toutes les personnes",
         pathname: "/consulter/personnes",
-        asPath: "/consulter/personnes"
+        asPath: "/consulter/personnes",
     },
-    personSingle : {
+    personSingle: {
         label: "Page d'une personne",
         pathname: "/personnes/[slug]",
         asPath: "/personnes/[slug]",
         breadcrumbPathName: "/consulter/personnes/[slug]",
         breadcrumbAsPath: "/consulter/personnes/[slug]",
     },
-    personSingleMedia : {
+    personSingleMedia: {
         label: "Person",
         pathname: "/medias/[slug]",
         asPath: "/medias/[slug]",
@@ -44,15 +43,15 @@ const AppRoutesRaw = {
         breadcrumbAsPath: "/personnes/[person.slug]/[slug]",
         breadcrumbQuery: {
             slug: "slug",
-            mediaType: "main-image"
-        }
+            mediaType: "main-image",
+        },
     },
-    personSingleEdit : {
+    personSingleEdit: {
         label: "Modifier une personne",
         pathname: "/contribuer/personnes/[slug]",
         asPath: "/contribuer/personnes/[slug]",
     },
-    personCreate : {
+    personCreate: {
         label: "Ajouter une personne",
         pathname: "/contribuer/personnes",
         asPath: "/contribuer/personnes",
@@ -60,14 +59,14 @@ const AppRoutesRaw = {
 
     /**************
      *  Categorie
-     * 
+     *
      */
-    categories : {
+    categories: {
         label: "Toutes les catégories",
         pathname: "/categories",
-        asPath: "/categories"
+        asPath: "/categories",
     },
-    categorySingle : {
+    categorySingle: {
         label: "Une catégorie",
         pathname: "/categories/[category]/[slug]",
         asPath: "/categories/[category]/[slug]",
@@ -76,25 +75,25 @@ const AppRoutesRaw = {
         query: {
             category: "",
             slug: "",
-        }
+        },
     },
 
     /******************
      *  Organisation
      ***/
-    organisations : {
+    organisations: {
         label: "Toutes les organisations",
         pathname: "/consulter/organisations",
         asPath: "/consulter/organisations",
     },
-    organisationSingle : {
+    organisationSingle: {
         label: "Une organisation",
         pathname: "/organisations/[slug]",
         asPath: "/organisations/[slug]",
         breadcrumbPathName: "/consulter/organisations/[slug]",
         breadcrumbAsPath: "/consulter/organisations/[slug]",
     },
-    organisationSingleMedia : {
+    organisationSingleMedia: {
         label: "Média d'une organisation",
         pathname: "/medias/[slug]",
         asPath: "/medias/[slug]",
@@ -102,15 +101,15 @@ const AppRoutesRaw = {
         breadcrumbAsPath: "/organisations/[organisation.slug]/[slug]",
         breadcrumbQuery: {
             slug: "slug",
-            mediaType: "main-image"
-        }
+            mediaType: "main-image",
+        },
     },
-    organisationsCreate : {
+    organisationsCreate: {
         label: "Ajouter une organisation",
         pathname: "/contribuer/organisations",
         asPath: "/contribuer/organisations",
     },
-    organisationsSingleEdit : {
+    organisationsSingleEdit: {
         label: "Modifier une organisation",
         pathname: "/contribuer/organisations/[slug]",
         asPath: "/contribuer/organisations/[slug]",
@@ -119,29 +118,29 @@ const AppRoutesRaw = {
     /*************
      *  Project
      ***/
-    projects : {
+    projects: {
         label: "Tous les projets",
         pathname: "/consulter/projets",
         asPath: "/consulter/projets",
     },
-    projectSingle : {
+    projectSingle: {
         label: "Un projet",
         pathname: "/projets/[slug]",
         asPath: "/projets/[slug]",
         breadcrumbPathName: "/consulter/projets/[slug]",
         breadcrumbAsPath: "/consulter/projets/[slug]",
     },
-    projectSingleEdit : {
+    projectSingleEdit: {
         label: "Modifier un projet",
         pathname: "/contribuer/projets/[slug]",
-        asPath: "/contribuer/projets/[slug]"
+        asPath: "/contribuer/projets/[slug]",
     },
-    projectCreate : {
+    projectCreate: {
         label: "Ajouter un projet",
         pathname: "/contribuer/projets",
-        asPath: "/contribuer/projets"
+        asPath: "/contribuer/projets",
     },
-    projectSingleMedia : {
+    projectSingleMedia: {
         label: "Média d'un projet",
         pathname: "/medias/[slug]",
         asPath: "/medias/[slug]",
@@ -149,36 +148,36 @@ const AppRoutesRaw = {
         breadcrumbAsPath: "/projets/[project.slug]/[slug]",
         breadcrumbQuery: {
             slug: "slug",
-            mediaType: "main-image"
-        }
+            mediaType: "main-image",
+        },
     },
 
     /*************
      *  Event
      ***/
-    events : {
+    events: {
         label: "Tous les événement",
         pathname: "/consulter/evenements",
         asPath: "/consulter/evenements",
     },
-    eventSingle : {
+    eventSingle: {
         label: "Un événement",
         pathname: "/evenements/[slug]",
         asPath: "/evenements/[slug]",
         breadcrumbPathName: "/consulter/evenements/[slug]",
         breadcrumbAsPath: "/consulter/evenements/[slug]",
     },
-    eventSingleEdit : {
+    eventSingleEdit: {
         label: "Modifier un événement",
         pathname: "/contribuer/evenements/[slug]",
-        asPath: "/contribuer/evenements/[slug]"
+        asPath: "/contribuer/evenements/[slug]",
     },
-    eventCreate : {
+    eventCreate: {
         label: "Ajouter un événement",
         pathname: "/contribuer/evenements",
-        asPath: "/contribuer/evenements"
+        asPath: "/contribuer/evenements",
     },
-    eventSingleMedia : {
+    eventSingleMedia: {
         label: "Média d'un événement",
         pathname: "/medias/[slug]",
         asPath: "/medias/[slug]",
@@ -186,34 +185,34 @@ const AppRoutesRaw = {
         breadcrumbAsPath: "/evenements/[event.slug]/[slug]",
         breadcrumbQuery: {
             slug: "slug",
-            mediaType: "main-image"
-        }
+            mediaType: "main-image",
+        },
     },
 
     /*************
      *  Place
      ***/
-    places : {
+    places: {
         label: "Tous les lieux",
         pathname: "/lieux",
         asPath: "/lieux",
     },
-    placeSingle : {
+    placeSingle: {
         label: "Un lieu",
         pathname: "/lieux/[slug]",
-        asPath: "/lieux/[slug]"
+        asPath: "/lieux/[slug]",
     },
-    placeSingleEdit : {
+    placeSingleEdit: {
         label: "Modifier un événement",
         pathname: "/contribuer/lieux/[slug]",
-        asPath: "/contribuer/lieux/[slug]"
+        asPath: "/contribuer/lieux/[slug]",
     },
-    placeCreate : {
+    placeCreate: {
         label: "Ajouter un lieux",
         pathname: "/contribuer/lieux",
-        asPath: "/contribuer/lieux"
+        asPath: "/contribuer/lieux",
     },
-    placeSingleMedia : {
+    placeSingleMedia: {
         label: "Média d'un lieu",
         pathname: "/medias/[slug]",
         asPath: "/medias/[slug]",
@@ -221,36 +220,36 @@ const AppRoutesRaw = {
         breadcrumbAsPath: "/lieux/[place.slug]/[slug]",
         breadcrumbQuery: {
             slug: "slug",
-            mediaType: "main-image"
-        }
+            mediaType: "main-image",
+        },
     },
 
     /*************
      *  Equipment
      ***/
-    equipment : {
+    equipment: {
         label: "Tous les équipements",
         pathname: "/consulter/equipement",
         asPath: "/consulter/equipement",
     },
-    equipmentSingle : {
+    equipmentSingle: {
         label: "Un équipement",
         pathname: "/equipements/[slug]",
         asPath: "/equipements/[slug]",
         breadcrumbPathName: "/consulter/equipements/[slug]",
         breadcrumbAsPath: "/consulter/equipements/[slug]",
     },
-    equipmentSingleEdit : {
+    equipmentSingleEdit: {
         label: "Modifier un événement",
         pathname: "/contribuer/equipements/[slug]",
-        asPath: "/contribuer/equipements/[slug]"
+        asPath: "/contribuer/equipements/[slug]",
     },
-    equipmentCreate : {
+    equipmentCreate: {
         label: "Ajouter un équipement",
         pathname: "/contribuer/equipements",
-        asPath: "/contribuer/equipements"
+        asPath: "/contribuer/equipements",
     },
-    equipmentSingleMedia : {
+    equipmentSingleMedia: {
         label: "Média d'un équipment",
         pathname: "/medias/[slug]",
         asPath: "/medias/[slug]",
@@ -258,16 +257,15 @@ const AppRoutesRaw = {
         breadcrumbAsPath: "/equipement/[equipment.slug]/[slug]",
         breadcrumbQuery: {
             slug: "slug",
-            mediaType: "main-image"
-        }
+            mediaType: "main-image",
+        },
     },
-
 
     about: {
         label: "À propos",
         pathname: "/a-propos",
         asPath: "/a-propos",
-        teamAsPath:"/a-propos#equipe"
+        teamAsPath: "/a-propos#equipe",
     },
 
     /*********
@@ -277,62 +275,62 @@ const AppRoutesRaw = {
         label: "Votre compte",
         pathname: "/compte",
         asPath: "/compte",
-        needAuth: true
+        needAuth: true,
     },
 
     register: {
         label: lang.menuLabelCreateAccount,
         pathname: "/compte/inscription",
         asPath: "/compte/inscription",
-        needAuth: false
+        needAuth: false,
     },
 
     resetPassword: {
         label: "Réinitialiser",
         pathname: "/compte/reinitialiser",
         asPath: "/compte/reinitialiser",
-        needAuth: false
+        needAuth: false,
     },
 
     connection: {
         label: lang.menuLabelConnect,
         pathname: "/compte/connexion",
         asPath: "/compte/connexion",
-        needAuth: false
+        needAuth: false,
     },
 
     toConfirm: {
         label: "À confirmer",
         pathname: "/compte/a-confirmer",
         asPath: "/compte/a-confirmer",
-        needAuth: true
+        needAuth: true,
     },
 
     confirmed: {
         label: "À confirmer",
         pathname: "/compte/confirme",
         asPath: "/compte/confirme",
-        needAuth: true
+        needAuth: true,
     },
 
     consult: {
         label: "Consulter",
         pathname: "/consulter",
         asPath: "/consulter",
-        needAuth: false
+        needAuth: false,
     },
 
     contribute: {
         label: "Contribuer",
         pathname: "/contribuer",
         asPath: "/contribuer",
-        needAuth: true
+        needAuth: true,
     },
- 
+
     error404: {
         label: "Erreur 404",
         pathname: "/404",
-        asPath: "/404"
+        asPath: "/404",
     },
 
     faq: {
@@ -389,8 +387,8 @@ const AppRoutesRaw = {
         pathname: "/versions",
         asPath: "/versions",
         needAuth: false,
-    }
-}
+    },
+};
 
 const AppRoutes = new Routes(AppRoutesRaw);
 

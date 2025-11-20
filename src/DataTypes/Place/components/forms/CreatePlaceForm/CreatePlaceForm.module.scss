@@ -1,12 +1,11 @@
 .create-place-form {
-
-    position: relative;  //So the spinner knows where to fixe itself
+    position: relative; //So the spinner knows where to fixe itself
 
     label {
-
         font-weight: 600;
-        > * { font-weight: normal; }
-
+        > * {
+            font-weight: normal;
+        }
     }
 
     /*
@@ -18,10 +17,8 @@
     > * {
         margin-bottom: 1rem;
 
-        &:not(button){
+        &:not(button) {
             width: 100%;
         }
     }
-
-    
 }

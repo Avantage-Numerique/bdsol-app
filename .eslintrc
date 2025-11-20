@@ -1,8 +1,39 @@
 {
   "parser": "@babel/eslint-parser",
-  "requireConfigFile": false,
-  "root": true,
+  "extends": [
+    "eslint:recommended",
+    "prettier",
+    "next"
+  ],
   "env": {
-    "node": true
+    "es6": true
+  },
+  "rules": {
+    "react-hooks/exhaustive-deps": "off",
+    "no-unused-vars": "off",
+    "no-prototype-builtins": "off",
+    "no-case-declarations": "off",
+    "import/no-anonymous-default-export": "off",
+    "@next/next/no-img-element": "off"
+  },
+  "settings": {
+    "next": {
+      "rootDir": "./"
+    },
+    "root": true,
+    "project": "./",
+    "import/resolver": {
+      "node": true
+    },
+    "node": {
+      "paths": [
+        "src",
+        "pages",
+        "styles"
+      ]
+    },
+    "import/external-module-folders": [
+      "node_modules"
+    ]
   }
 }

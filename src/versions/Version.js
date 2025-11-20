@@ -1,6 +1,6 @@
 import VersionNote from "@/src/versions/VersionNote";
 import nextConfig from "@/next.config";
-import {ExternalLink} from "@/common/Components/ExternalLink";
+import { ExternalLink } from "@/common/Components/ExternalLink";
 
 /**
  * @property label {string}
@@ -8,13 +8,12 @@ import {ExternalLink} from "@/common/Components/ExternalLink";
  * @property notes {Array<Any>}
  */
 export default class Version {
-
-    isCurrent = false
+    isCurrent = false;
     label;
     value;
-    notes=[];
-    description= "";
-    link= "";
+    notes = [];
+    description = "";
+    link = "";
     slug = "";
 
     constructor(data) {
@@ -42,28 +41,28 @@ export default class Version {
     }
 
     render() {
-        const NoteTag = "";
         const TitleTag = "h3";
         return (
             <div key={`VersionNote${this.value}`}>
-                <TitleTag name={this.value}>{this.isCurrent && <span className={"badge bg-secondary"}>Actuelle</span>} <span className={"text-secondary"}>{this.value}</span> &mdash; {this.label}</TitleTag>
-                {this.description !== "" &&
-                    <p>{this.description}</p>
-                }
-                {this.notes.length > 0 &&
+                <TitleTag name={this.value}>
+                    {this.isCurrent && <span className={"badge bg-secondary"}>Actuelle</span>}{" "}
+                    <span className={"text-secondary"}>{this.value}</span> &mdash; {this.label}
+                </TitleTag>
+                {this.description !== "" && <p>{this.description}</p>}
+                {this.notes.length > 0 && (
                     <div>
-                        {
-                            this.notes.map((noteRaw, index) => {
-                                const note = new VersionNote(index, noteRaw);
-                                return (note.render())
-                            })
-                        }
+                        {this.notes.map((noteRaw, index) => {
+                            const note = new VersionNote(index, noteRaw);
+                            return note.render();
+                        })}
                     </div>
-                }
-                {this.link !== "" &&
-                    <p className={"py-3"}><ExternalLink href={this.link} >Voir sur github</ExternalLink></p>
-                }
+                )}
+                {this.link !== "" && (
+                    <p className={"py-3"}>
+                        <ExternalLink href={this.link}>Voir sur github</ExternalLink>
+                    </p>
+                )}
             </div>
-        )
+        );
     }
 }

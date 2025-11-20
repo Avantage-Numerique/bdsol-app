@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react"
+import { useEffect, useState } from "react";
 
 /**
  *
@@ -9,56 +9,60 @@ import {useEffect, useState} from "react"
  * @return {JSX.Element}
  * @constructor
  */
-const SearchTag = ({list, max, ...props}) => {
-
+const SearchTag = ({ list, max, ...props }) => {
     const [searchTagList, setSearchTagList] = useState([]);
     const [moreThanMax, setMoreThanMax] = useState(false);
 
     max = max ?? "-1";
     const tagBgColor = props.tagBgColor ?? "primary-light";
 
-    useEffect( () => {
-        const setupList = list?.map( (listElement) => {
-            let targetElement = props.listProperty ? listElement[props.listProperty] : listElement;
-            targetElement = targetElement ?? listElement;
-            return { ...targetElement, url:"/"+targetElement.category + "/" + targetElement.slug }
-        }).flat();
+    useEffect(() => {
+        const setupList = list
+            ?.map((listElement) => {
+                let targetElement = props.listProperty ? listElement[props.listProperty] : listElement;
+                targetElement = targetElement ?? listElement;
+                return {
+                    ...targetElement,
+                    url: "/" + targetElement.category + "/" + targetElement.slug,
+                };
+            })
+            .flat();
 
-        if(setupList?.length > max && max !== "-1"){
+        if (setupList?.length > max && max !== "-1") {
             setupList.slice(0, max);
             setMoreThanMax(true);
         }
 
         setSearchTagList(setupList);
-
-    }, [list])
+    }, [list]);
 
     return (
         <>
-            { searchTagList?.length > 0 &&
-                <p className={`${props.className ?? ''} mb-0`}>
-                {
-                    searchTagList.map( (tag, index) => {
+            {searchTagList?.length > 0 && (
+                <p className={`${props.className ?? ""} mb-0`}>
+                    {searchTagList.map((tag, index) => {
                         if (index < max || max === "-1") {
                             return (
-                                <a href={`/categories${tag.url}`} className={`badge text-bg-${tagBgColor} me-1`} title={tag.name} rel={"follow"}
-                                   key={"searchTag-"+tag.url}>
+                                <a
+                                    href={`/categories${tag.url}`}
+                                    className={`badge text-bg-${tagBgColor} me-1`}
+                                    title={tag.name}
+                                    rel={"follow"}
+                                    key={"searchTag-" + tag.url}
+                                >
                                     {tag.name}
                                 </a>
-                            )
+                            );
                         }
-                    })
-                }
-                {
-                    moreThanMax &&
-                    <span className={`badge text-bg-primary-light me-1`} key={"searchTag-showmore"}>
-                        &hellip;
-                    </span>
-                }
+                    })}
+                    {moreThanMax && (
+                        <span className={`badge text-bg-primary-light me-1`} key={"searchTag-showmore"}>
+                            &hellip;
+                        </span>
+                    )}
                 </p>
-            }
+            )}
         </>
     );
-
-}
+};
 export default SearchTag;

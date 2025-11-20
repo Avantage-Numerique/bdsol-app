@@ -1,4 +1,4 @@
-import {forceHttps} from "@/src/helpers/url";
+import { forceHttps } from "@/src/helpers/url";
 import React from "react";
 import Icon from "@/common/widgets/Icon/Icon";
 
@@ -13,21 +13,24 @@ import Icon from "@/common/widgets/Icon/Icon";
  * @constructor
  */
 const ExternalLink = (props) => {
-
-    if (props.href !== '') {
+    if (props.href !== "") {
         const link = props.href.includes("mailto:") ? props.href : forceHttps(props.href);
         return (
-            <div className={"d-inline-block"}>
-                <a className={`external-link ${props.className ?? ''}`} href={link} target={"_blank"} title={`${props.title ?? ""}`}>
+            <>
+                <a
+                    className={`external-link ${props.className ?? ""}`}
+                    href={link}
+                    target={"_blank"}
+                    title={`${props.title ?? ""}`}
+                    rel="noreferrer"
+                >
                     {props.children && props.children}
                 </a>
                 <Icon iconName={"external-link-alt"} className={"text-decoration-none ps-1"} />
-            </div>
-        )
+            </>
+        );
     }
-    return (
-        <></>
-    )
-}
+    return <></>;
+};
 
-export {ExternalLink};
+export { ExternalLink };

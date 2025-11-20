@@ -1,4 +1,5 @@
 import { defaultSessionData } from "@/auth/context/auth-context";
+import { getCleanRedirectPath } from "@/src/helpers/getCleanRedirectPath";
 
 export const ssrCanAccess = async ({ req }) => {
     const user = req.session.user;
@@ -8,14 +9,14 @@ export const ssrCanAccess = async ({ req }) => {
         return {
             props: {
                 user: req.session.user,
-                userCanAccess: true
-            }
+                userCanAccess: true,
+            },
         };
     }
 
     //User cant access, doing the redirection appropriate.
     const referer = req.headers.referer;
-    let refererPath = "/"
+    let refererPath = "/";
     if (referer) {
         const refererUrl = new URL(referer);
         refererPath = refererUrl.pathname + refererUrl.search;
@@ -24,11 +25,11 @@ export const ssrCanAccess = async ({ req }) => {
     return {
         redirect: {
             permanent: false,
-            destination: "/compte/connexion"+`?redirect=${encodeURI(refererPath)}`
+            destination: "/compte/connexion" + `?redirect=${encodeURIComponent(getCleanRedirectPath(refererPath))}`,
         },
         props: {
             user: { ...defaultSessionData },
-            userCanAccess: false
-        }
+            userCanAccess: false,
+        },
     };
 };
