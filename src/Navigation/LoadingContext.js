@@ -1,8 +1,11 @@
 "use client";
 
 import { createContext, useContext, useState } from "react";
-import { isDev } from "../helpers/configHelper";
 
+/**
+ *
+ * @type {import("react").Context<{isLoading: boolean, setIsLoading: (value: boolean) => void}>}
+ */
 const LoadingContext = createContext();
 
 export function LoadingProvider({ children }) {

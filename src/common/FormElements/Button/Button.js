@@ -1,22 +1,30 @@
 import LinkWithLoading from "@/src/Navigation/LinkWithLoading";
 
 /**
- * @param props
- * Button types => receives theme-colors string values
- * @param props.outline {string} Type of button with color on the outline. Receives color value
- * @param props.text_color {string} Type of button with only text. No background or border. Receives color value for the text
- * @param props.color {string} Fallback case : Type of button with full background-color. Receives color value
+ * @typedef {Object} ButtonProps
+ *
+ * @property {string} props.outline Type of button with color on the outline. Receives color value
+ * @property {string} props.text_color Type of button with only text. No background or border. Receives color value for the text
+ * @property {string} props.color Fallback case : Type of button with full background-color. Receives color value
  * Other styling
- * @param props.size {string} For now, receives the value slim. Otherwise, large by default
- * @param props.text_color_hover {string} Change the color of the text to a specific one when cursor over. Receives color value
- * @param props.className {string} Receives custom class names
+ * @property {string} props.size For now, receives the value slim. Otherwise, large by default
+ * @property {string} props.text_color_hover Change the color of the text to a specific one when cursor over. Receives color value
+ * @property {string} props.className Receives custom class names
  * Action informations
- * @param props.href {string} Redirection link
- * @param props.external {boolean} Tell is the link brings outside of the website or not
- * @param props.onClick {function} Action to execute when the button is clicked
- * @param props.disabled {boolean} Tell if the button is disabled or not
- * @param props.type {string} Type of button. Ex : button, submit
- * @param props.children {JSX.Component} Content of the button
+ * @property {string} props.href Redirection link
+ * @property {boolean} props.external Tell is the link brings outside of the website or not
+ * @property {boolean} props.noLoading The link should **NOT** trigger loading animation if `true`
+ * @property {function} props.onClick Action to execute when the button is clicked
+ * @property {boolean} props.disabled Tell if the button is disabled or not
+ * @property {string} props.type Type of button. Ex : button, submit
+ * @property {JSX.Component} props.children Content of the button
+ */
+
+/**
+ * Button types => receives theme-colors string values
+ *
+ * @param {ButtonProps} props
+ *
  * @return {JSX.Element}
  */
 const Button = (props) => {
