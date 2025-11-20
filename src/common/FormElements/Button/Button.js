@@ -1,4 +1,5 @@
 import LinkWithLoading from "@/src/Navigation/LinkWithLoading";
+import Link from "next/link";
 
 /**
  * @typedef {Object} ButtonProps
@@ -71,8 +72,10 @@ const Button = (props) => {
     }
 
     if (props.href) {
+        let LinkComponent = props.noLoading ? Link : LinkWithLoading;
+
         return (
-            <LinkWithLoading
+            <LinkComponent
                 href={props.href}
                 className={`${classesString} ${props.disabled ? "disabled" : ""}`}
                 aria-disabled={props.disabled ? "true" : "false"}
@@ -80,7 +83,7 @@ const Button = (props) => {
                 onClick={props.onClick}
             >
                 {props.children}
-            </LinkWithLoading>
+            </LinkComponent>
         );
     }
 
