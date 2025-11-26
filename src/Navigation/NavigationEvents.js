@@ -2,7 +2,7 @@
 
 import nextConfig from "@/next.config";
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useRouter } from "next/router";
 
 import { useLoading } from "./LoadingContext"; // Un contexte personnalisé pour gérer l'état de chargement
@@ -12,12 +12,12 @@ export default function NavigationEvents() {
 
     const router = useRouter();
 
-    let timer;
+    let timer = useRef(null);
 
     const beforeNavigate = () => {
         console.log("beforeNavigate");
 
-        timer = setTimeout(() => {
+        timer.current = setTimeout(() => {
             console.log("beforeNavigate timeout");
 
             setIsLoading(true);
@@ -27,8 +27,15 @@ export default function NavigationEvents() {
     const afterNavigate = () => {
         console.log("afterNavigate");
 
-        clearTimeout(timer);
+        resetTimer();
         setIsLoading(false);
+    };
+
+    const resetTimer = () => {
+        if (timer.current) {
+            clearTimeout(timer.current);
+            timer.current = null;
+        }
     };
 
     useEffect(() => {
@@ -40,6 +47,8 @@ export default function NavigationEvents() {
             router.events.off("routeChangeStart", beforeNavigate);
             router.events.off("routeChangeComplete", afterNavigate);
             router.events.off("routeChangeError", afterNavigate);
+
+            resetTimer();
         };
     }, [router]);
 
