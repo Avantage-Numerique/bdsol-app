@@ -15,18 +15,14 @@ export default function NavigationEvents() {
     let timer = useRef(null);
 
     const beforeNavigate = () => {
-        console.log("beforeNavigate");
-
-        timer.current = setTimeout(() => {
-            console.log("beforeNavigate timeout");
-
-            setIsLoading(true);
-        }, nextConfig.publicRuntimeConfig.navLoaderDelay);
+        if (!timer.current) {
+            timer.current = setTimeout(() => {
+                setIsLoading(true);
+            }, nextConfig.publicRuntimeConfig.navLoaderDelay);
+        }
     };
 
     const afterNavigate = () => {
-        console.log("afterNavigate");
-
         resetTimer();
         setIsLoading(false);
     };
