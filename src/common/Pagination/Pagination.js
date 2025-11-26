@@ -43,7 +43,10 @@ const Pagination = ({
         currentCount: paginationMeta?.currentCount ?? 0,
     });
 
-    //useEffect( () => { paginationRef.current = paginationMeta; }, [paginationMeta]);
+    //update the ref with the paginationMeta that is set up in a state in a parent scope. /consult in this case.
+    useEffect(() => {
+        paginationRef.current = paginationMeta;
+    }, [paginationMeta]);
 
     const paginationButtonClickHandler = (pageNumber, clearList = false) => {
         setPageNumber(pageNumber, clearList);
