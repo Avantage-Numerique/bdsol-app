@@ -1,4 +1,4 @@
-import LinkWithLoading from "@/src/Navigation/LinkWithLoading";
+import Link from "next/link";
 
 /**
  * @typedef {Object} ButtonProps
@@ -13,7 +13,6 @@ import LinkWithLoading from "@/src/Navigation/LinkWithLoading";
  * Action informations
  * @property {string} props.href Redirection link
  * @property {boolean} props.external Tell is the link brings outside of the website or not
- * @property {boolean} props.noLoading The link should **NOT** trigger loading animation if `true`
  * @property {function} props.onClick Action to execute when the button is clicked
  * @property {boolean} props.disabled Tell if the button is disabled or not
  * @property {string} props.type Type of button. Ex : button, submit
@@ -72,7 +71,7 @@ const Button = (props) => {
 
     if (props.href) {
         return (
-            <LinkWithLoading
+            <Link
                 href={props.href}
                 className={`${classesString} ${props.disabled ? "disabled" : ""}`}
                 aria-disabled={props.disabled ? "true" : "false"}
@@ -80,7 +79,7 @@ const Button = (props) => {
                 onClick={props.onClick}
             >
                 {props.children}
-            </LinkWithLoading>
+            </Link>
         );
     }
 

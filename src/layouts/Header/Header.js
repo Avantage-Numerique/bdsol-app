@@ -3,6 +3,7 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 
 //Components
+import Link from "next/link";
 import HamburgerButton from "@/src/common/FormElements/HamburgerButton/HamburgerButton";
 import ConnectionBanner from "@/src/layouts/ConnexionBanner/ConnectionBanner";
 import SearchBar from "@/src/common/Components/SearchBar";
@@ -20,7 +21,6 @@ import { getCleanRedirectPath } from "@/src/helpers/getCleanRedirectPath";
 import styles from "./Header.module.scss";
 import logo from "@/public/AVNU_Branding/AVNU-LogoReduit-RVB.png";
 import AppRoutes from "@/src/Routing/AppRoutes";
-import LinkWithLoading from "@/src/Navigation/LinkWithLoading";
 
 const Header = (props) => {
     //Navigation menu state
@@ -57,9 +57,9 @@ const Header = (props) => {
                             className={`${styles["header__content"]} header-center d-flex justify-content-start align-items-center text-light h-100`}
                             onClick={() => setMenuState(0)}
                         >
-                            <LinkWithLoading href="/" className={`fs-5 ms-2 ps-2 ${styles["item-displayed-in-menu"]}`}>
+                            <Link href="/" className={`fs-5 ms-2 ps-2 ${styles["item-displayed-in-menu"]}`}>
                                 <Image src={logo} alt="Logo réduit de AVNU" />
-                            </LinkWithLoading>
+                            </Link>
                         </div>
                     </div>
 
@@ -85,15 +85,15 @@ const Header = (props) => {
                                     onClick={() => setMenuState(false)}
                                 >
                                     <li>
-                                        <LinkWithLoading
+                                        <Link
                                             href={AppRoutes.register.asPath}
                                             className={"nav-link text-black d-none d-md-block text-nowrap"}
                                         >
                                             {lang.menuSubscribeLabel}
-                                        </LinkWithLoading>
+                                        </Link>
                                     </li>
                                     <li>
-                                        <LinkWithLoading
+                                        <Link
                                             href={
                                                 AppRoutes.connection.asPath +
                                                 `?redirect=${encodeURIComponent(getCleanRedirectPath(router.asPath))}`
@@ -101,7 +101,7 @@ const Header = (props) => {
                                             className={`nav-link text-black text-nowrap`}
                                         >
                                             {lang.menuConnectLabel}
-                                        </LinkWithLoading>
+                                        </Link>
                                     </li>
                                 </ul>
                             )}

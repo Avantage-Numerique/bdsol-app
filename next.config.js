@@ -3,7 +3,16 @@ const path = require("path");
 //Cookie name for cookies choices is : avnuCookies
 
 /**
- * @type {import('next').NextConfig}
+ * @typedef {Object} PublicRuntimeConfig
+ *
+ * @property {{ defaultFormat: string, defaultLanguage: string }} dates
+ * @property {string} appUrl
+ * @property {{ limit: number, sort: number }} pagination
+ * @property {number} navLoaderDelay delay before triggering loading animation on navigation (in ms)
+ */
+
+/**
+ * @type {import('next').NextConfig & { publicRuntimeConfig: PublicRuntimeConfig }}
  */
 const nextConfig = {
     /*experimental: {
@@ -119,6 +128,7 @@ const nextConfig = {
             limit: 20,
             sort: -1,
         },
+        navLoaderDelay: 300,
     },
     sassOptions: {
         includePaths: [path.join(__dirname, "styles"), path.join(__dirname, "node_modules")],

@@ -12,6 +12,8 @@ import { lang } from "@/src/common/Data/GlobalConstants";
 const SingleBeforeUnloadReminder = ({ formTools, saveIntention, ...props }) => {
     const router = useRouter();
 
+    // const { setIsLoading } = useLoading();
+
     useEffect(() => {
         //Set event listener on routeChange and beforeUnload
         const warningText = lang.onNavigationBlockWithoutSave;
@@ -27,6 +29,8 @@ const SingleBeforeUnloadReminder = ({ formTools, saveIntention, ...props }) => {
             //If changes haven't occured, just procced as normal
             if (!formTools.formState.hasAnyInputBeenTouched) return;
             if (window.confirm(warningText)) return;
+
+            // setIsLoading(false);
 
             router.events.emit("routeChangeError");
             throw "routeChange aborted.";
