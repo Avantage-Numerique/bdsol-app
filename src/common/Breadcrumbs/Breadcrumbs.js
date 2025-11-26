@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import { useCallback, useEffect, useState } from "react";
 import { lang } from "@/common/Data/GlobalConstants";
-import LinkWithLoading from "@/src/Navigation/LinkWithLoading";
+import Link from "next/link";
 
 const _defaultGetHrefGenerator = (pathParts, replaceWith) => pathParts;
 const _defaultGetLabelGenerator = (path) => path;
@@ -143,7 +143,7 @@ const Crumb = ({ labels, text, href, last = false }) => {
 
     return (
         <li className="breadcrumb-item d-flex pb-2">
-            <LinkWithLoading
+            <Link
                 href={href}
                 className="text-decoration-underline link-underline-secondary-darker link-underline-opacity-0 link-underline-opacity-75-hover"
             >
@@ -151,7 +151,7 @@ const Crumb = ({ labels, text, href, last = false }) => {
                     className="text-secondary-darker py-0 px-1 bg-secondary-light rounded-1"
                     dangerouslySetInnerHTML={{ __html: text }}
                 ></div>
-            </LinkWithLoading>
+            </Link>
         </li>
     );
 };

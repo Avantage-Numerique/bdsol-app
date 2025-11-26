@@ -199,9 +199,7 @@ const Nav = ({ menuState, setMenuState }) => {
                             </section>
 
                             <section className={`${styles["nav-section"]}`}>
-                                <div className="fs-3 h2" text_color="dark">
-                                    Espace membre
-                                </div>
+                                <div className="fs-3 h2 text-dark">Espace membre</div>
                                 <ul className={`${styles["button-list"]}`}>
                                     {auth.user.isLoggedIn ? (
                                         <>

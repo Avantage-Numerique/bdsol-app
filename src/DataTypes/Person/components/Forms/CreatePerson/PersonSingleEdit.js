@@ -34,6 +34,7 @@ import UpdateContactPoint from "@/src/DataTypes/common/Forms/UpdateContactPoint/
 import SingleBaseCTA from "@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseCTA";
 
 import { useMessages } from "@/common/UserNotifications/Message/MessageProvider";
+import SelectFetch from "@/src/common/FormElements/Select/SelectFetch";
 
 const PersonSingleEdit = ({ positiveRequestActions, ...props }) => {
     //Person data extract
@@ -192,7 +193,10 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props }) => {
                         subMeta: { order: singleUrl.order },
                     };
                 }),
-                region: formState.inputs.region.value,
+                region:
+                    formState.inputs.region.value && formState.inputs.region.value !== ""
+                        ? formState.inputs.region.value
+                        : "",
                 meta: getDefaultUpdateEntityMeta(auth.user, model.meta.requestedBy),
             },
         };
@@ -321,25 +325,16 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props }) => {
             <SingleInfo title={lang.contactInformations}>
                 <UpdateContactPoint formTools={formTools} name="contactPoint" model={model} />
 
-                <Select
+                <SelectFetch
                     name="region"
                     label="Faites-vous partie du Croissant boréal?"
                     formTools={formTools}
                     noValueText="Choisissez une région"
+                    fetchOption="region-enum"
                     tip={{
                         header: "Badge",
                         body: "Ce champs permet d'obtenir le badge 'Croissant boréal' qui indique que vous faites partie de celui-ci.",
                     }}
-                    options={[
-                        { label: "Autre", value: "other" },
-                        {
-                            label: "Abitibi-Témiscamingue",
-                            value: "abitibi-temiscamingue",
-                        },
-                        { label: "Nord de l'Ontario", value: "north Ontario" },
-                        { label: "Baies-James", value: "baies-james" },
-                    ]}
-                    //defaultValue="Autre"
                 />
             </SingleInfo>
 

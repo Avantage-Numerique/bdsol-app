@@ -35,6 +35,7 @@ import { replacePathname } from "@/src/helpers/url";
 import { lang, modes } from "@/src/common/Data/GlobalConstants";
 import { TYPE_PLACE, TYPE_TAXONOMY } from "@/src/DataTypes/Entity/Types";
 import { apiDateToDateInput, dateTimeStringToUTC } from "@/common/DateManager/Parse";
+import SelectFetch from "@/src/common/FormElements/Select/SelectFetch";
 
 const OrganisationSingleEdit = (props) => {
     //Organisation data extract
@@ -248,7 +249,10 @@ const OrganisationSingleEdit = (props) => {
                               return singlePlace.value;
                           })
                         : [],
-                region: formState.inputs.region.value,
+                region:
+                    formState.inputs.region.value && formState.inputs.region.value !== ""
+                        ? formState.inputs.region.value
+                        : "",
                 meta: getDefaultUpdateEntityMeta(auth.user, model.meta.requestedBy),
             },
         };
@@ -344,26 +348,18 @@ const OrganisationSingleEdit = (props) => {
             </SingleInfo>
 
             <SingleInfo title="Informations supplémentaires">
-                <Select
+                <SelectFetch
                     name="region"
                     label="Faites-vous partie du Croissant boréal?"
                     formTools={formTools}
                     noValueText="Choisissez une région"
+                    fetchOption="region-enum"
                     tip={{
                         header: "Badge",
                         body: "Ce champs permet d'obtenir le badge 'Croissant boréal' qui indique que vous faites partie de celui-ci.",
                     }}
-                    options={[
-                        { label: "Autre", value: "other" },
-                        {
-                            label: "Abitibi-Témiscamingue",
-                            value: "abitibi-temiscamingue",
-                        },
-                        { label: "Nord de l'Ontario", value: "north Ontario" },
-                        { label: "Baies-James", value: "baies-james" },
-                    ]}
-                    //defaultValue="Autre"
                 />
+
                 <Select2
                     name="location"
                     label={lang.location}
