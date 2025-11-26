@@ -1,18 +1,52 @@
 "use client"; // Important : ce code doit s'exécuter côté client
 
-import { useEffect } from "react";
-import { usePathname, useSearchParams } from "next/navigation";
+import nextConfig from "@/next.config";
+
+import { useEffect, useRef } from "react";
+import { useRouter } from "next/router";
+
 import { useLoading } from "./LoadingContext"; // Un contexte personnalisé pour gérer l'état de chargement
 
 export default function NavigationEvents() {
-    const pathname = usePathname();
-    const searchParams = useSearchParams();
-
     const { setIsLoading } = useLoading(); // Fonction pour mettre à jour l'état de chargement
 
-    useEffect(() => {
+    const router = useRouter();
+
+    let timer = useRef(null);
+
+    const beforeNavigate = () => {
+        if (!timer.current) {
+            timer.current = setTimeout(() => {
+                setIsLoading(true);
+            }, nextConfig.publicRuntimeConfig.navLoaderDelay);
+        }
+    };
+
+    const afterNavigate = () => {
+        resetTimer();
         setIsLoading(false);
-    }, [pathname, searchParams, setIsLoading]);
+    };
+
+    const resetTimer = () => {
+        if (timer.current) {
+            clearTimeout(timer.current);
+            timer.current = null;
+        }
+    };
+
+    useEffect(() => {
+        router.events.on("routeChangeStart", beforeNavigate);
+        router.events.on("routeChangeComplete", afterNavigate);
+        router.events.on("routeChangeError", afterNavigate);
+
+        return () => {
+            router.events.off("routeChangeStart", beforeNavigate);
+            router.events.off("routeChangeComplete", afterNavigate);
+            router.events.off("routeChangeError", afterNavigate);
+
+            resetTimer();
+        };
+    }, [router]);
 
     return null;
 }
