@@ -35,9 +35,6 @@ const PlaceSingleEdit = ({ positiveRequestActions, ...props }) => {
     //Import the authentication context to make sure the user is well connected
     const auth = useAuth();
 
-    //Import message context
-    const msg = useMessages();
-
     //Save intention for SingleBeforeUnloadReminder
     const [saveIntentionState, setSaveIntentionState] = useState(false);
 
@@ -308,7 +305,8 @@ const PlaceSingleEdit = ({ positiveRequestActions, ...props }) => {
                 setSaveIntentionState(true);
                 modalSaveEntityReminder.displayModal();
             }}
-            formState={formState}
+            formTools={formTools}
+            singleLink={model.singleLink}
         />
     );
 

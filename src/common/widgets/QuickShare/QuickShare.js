@@ -1,14 +1,9 @@
-import { useContext, useState } from "react";
-import { MessageContext } from "@/common/UserNotifications/Message/Context/Message-Context";
-
+import { useState } from "react";
 import { lang } from "@/common/Data/GlobalConstants";
-
-import { htmlToText } from "@/src/helpers/str";
-
 import Icon from "@/common/widgets/Icon/Icon";
-
-import styles from "./QuickShare.module.scss";
 import { useMessages } from "@/common/UserNotifications/Message/MessageProvider";
+import { htmlToText } from "@/src/helpers/str";
+import styles from "./QuickShare.module.scss";
 
 /**
  *
@@ -21,7 +16,7 @@ const QuickShare = ({ model }) => {
     const shortTextContent = `${lang.shareableTextIntro}\n\n${model?.fullSingleLinkUrl}\n\n`;
     const shortURLEncodedContent = encodeURIComponent(shortTextContent);
 
-    const longTextContent = `${lang.shareableTextIntro}\n\n${model?.meta.title}\n\n${htmlToText(model.meta.description)}\n\n${model?.fullSingleLinkUrl}\n\n`;
+    const longTextContent = `${lang.shareableTextIntro}\n\n${model?.meta?.title}\n\n${htmlToText(model?.meta?.description)}\n\n${model?.fullSingleLinkUrl}\n\n`;
     const longURLEncodedContent = encodeURIComponent(longTextContent);
 
     let [copied, setCopied] = useState(false);
@@ -32,7 +27,7 @@ const QuickShare = ({ model }) => {
      *
      * @param {string} textToCopy
      */
-    const copyToClipboard = (textToCopy) => {
+    const copyToClipboard = (textToCopy = null) => {
         navigator.clipboard.writeText(textToCopy ?? longTextContent);
         msg.addMessage({
             text: lang.copied,
@@ -66,9 +61,8 @@ const QuickShare = ({ model }) => {
             <button
                 className="d-flex gap-2 align-items-center fs-6"
                 type="button"
-                onClick={(e) => {
+                onClick={() => {
                     copyToClipboard();
-
                     hintCopied();
                 }}
             >

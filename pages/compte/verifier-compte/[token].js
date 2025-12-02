@@ -22,6 +22,7 @@ const VerifyAccount = (props) => {
     const WRONG_TOKEN = "WRONG";
     const EXPIRED_TOKEN = "EXPIRED";
     const CONFIRMED_TOKEN = "CONFIRMED";
+    const ALREADY_CONFIRMED_TOKEN = "ALREADYCONFIRMED";
 
     const verifyingStates = {
         [VERIFYING_TOKEN]: {
@@ -43,6 +44,11 @@ const VerifyAccount = (props) => {
             name: CONFIRMED_TOKEN,
             title: "Votre compte a bien été vérifié!",
             content: "Vous pouvez maintenant vous connecter",
+        },
+        [ALREADY_CONFIRMED_TOKEN]: {
+            name: ALREADY_CONFIRMED_TOKEN,
+            title: "Votre compte a déjà été vérifié.",
+            content: "Vous pouvez déjà vous connecter", //add a button to connect or to go in the account section of the site. Based on auth status.
         },
     };
 
@@ -71,6 +77,10 @@ const VerifyAccount = (props) => {
             if (response.code === 200)
                 //Token expired
                 setVerifyState(verifyingStates[EXPIRED_TOKEN]);
+            //API return error but status 200 when token is correct length or exist but is now expired
+            else if (response.code === 409)
+                //Token already confirmed
+                setVerifyState(verifyingStates[ALREADY_CONFIRMED_TOKEN]);
             else
                 //Already verified account
                 //Token is invalid (not right lenght or doesn't exists)
@@ -166,6 +176,14 @@ const VerifyAccount = (props) => {
                 )}
 
                 {!isLoading && verifyState.name === CONFIRMED_TOKEN && (
+                    <div className={"my-5"}>
+                        <Button className="my-3" href="/compte/connexion">
+                            Se connecter
+                        </Button>
+                    </div>
+                )}
+
+                {!isLoading && verifyState.name === ALREADY_CONFIRMED_TOKEN && (
                     <div className={"my-5"}>
                         <Button className="my-3" href="/compte/connexion">
                             Se connecter
