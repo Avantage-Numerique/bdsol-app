@@ -1,32 +1,25 @@
-import React from 'react';
-import Router from 'next/router'
+import React from "react";
 
 //Custom hooks
-import {useFormUtils} from '@/src/hooks/useFormUtils/useFormUtils'
+import { useFormUtils } from "@/src/hooks/useFormUtils/useFormUtils";
 
 //components
-import Button from '@/FormElements/Button/Button'
-import Input from '@/FormElements/Input/Input'
-import SelectFetch from '@/FormElements/Select/SelectFetch'
-import Select2 from '@/FormElements/Select2/Select2'
+import Button from "@/FormElements/Button/Button";
+import Input from "@/FormElements/Input/Input";
+import SelectFetch from "@/FormElements/Select/SelectFetch";
+import Select2 from "@/FormElements/Select2/Select2";
 
 //Utils
-import {lang} from "@/src/common/Data/GlobalConstants";
-import {getDefaultCreateEntityMeta} from "@/src/DataTypes/Meta/EntityMeta";
-import {replacePathname} from "@/src/helpers/url";
+import { lang } from "@/src/common/Data/GlobalConstants";
+import { getDefaultCreateEntityMeta } from "@/src/DataTypes/Meta/EntityMeta";
 
 //Context
-import {useAuth} from "@/src/authentification/context/auth-context";
-
-//Model
-import Project from "@/src/DataTypes/Project/models/Project"
-
+import { useAuth } from "@/src/authentification/context/auth-context";
 
 /**
  * @param {function} onPositiveResponse : Additionnal function to be executed if the submit response is positive
  */
-const CreateProjectForm = ({ onPositiveResponse, initValues }) => {
-
+const CreateProjectForm = ({ onPositiveResponse, initValues, ...props }) => {
     //Authentication ref
     const auth = useAuth();
 
@@ -34,60 +27,53 @@ const CreateProjectForm = ({ onPositiveResponse, initValues }) => {
         {
             name: {
                 value: initValues?.name ?? "",
-                isValid: true
+                isValid: true,
             },
             entityInCharge: {
-                value: initValues?.entityInCharge ?? "",
-                isValid: true
+                value: initValues?.entityInCharge ?? [],
+                isValid: true,
             },
             context: {
                 value: initValues?.context ?? "",
-                isValid: true
-            }
-        },//Pass a set of rules to execute a valid response of an api request
+                isValid: true,
+            },
+        }, //Pass a set of rules to execute a valid response of an api request
         {
-            displayResMessage: true,     //Display a message to the user to confirm the succes
+            displayResMessage: true, //Display a message to the user to confirm the succes
             callbackFunction: (response) => {
                 //Execute additionnal function from parent component
-                if(onPositiveResponse) onPositiveResponse(response);
-            }
+                if (onPositiveResponse) onPositiveResponse(response);
+            },
         }
     );
 
-    const submitHandler = async event => {
-        
+    const submitHandler = async (event) => {
         event.preventDefault();
-        
+
         const formData = {
-            "data": {
+            data: {
                 name: formState.inputs.name.value,
-                entityInCharge: formState.inputs.entityInCharge?.value?.value,
+                entityInCharge: formState.inputs.entityInCharge?.value?.map((elem) => elem.value),
                 context: formState.inputs.context.value !== "" ? formState.inputs.context.value : undefined,
                 meta: getDefaultCreateEntityMeta(auth.user),
-            }
-        }
-        
+            },
+        };
+
         //Add data to the formData
-        await submitRequest(
-            "/projects/create",
-            'POST',
-            formData
-        );
-    }
+        await submitRequest("/projects/create", "POST", formData);
+    };
 
     return (
         <form>
             <FormUI />
-            <Input 
+            <Input
                 name="name"
                 className="my-1"
-                label={"Nom du projet"+lang.required}
+                label={"Nom du projet" + lang.required}
                 formTools={formTools}
-                validationRules={[
-                    {name: "REQUIRED"}
-                ]}
-            />    
-            <SelectFetch 
+                validationRules={[{ name: "REQUIRED" }]}
+            />
+            <SelectFetch
                 name="context"
                 label="Choisissez un contexte"
                 className="my-1"
@@ -102,16 +88,29 @@ const CreateProjectForm = ({ onPositiveResponse, initValues }) => {
                 label={lang.entityInCharge}
                 formTools={formTools}
                 creatable={false}
-                isMulti={false}
+                isMulti
                 fetch={"/organisations/list"}
                 searchField={"name"}
                 selectField={"name"}
             />
-            <div className="d-flex justify-content-end">
-                <Button disabled={!formState.isValid} type="button" onClick={submitHandler}>{lang.continue}</Button>
+            <div className="col-12">
+                <Button
+                    className="me-4"
+                    color="success"
+                    type="button"
+                    onClick={submitHandler}
+                    disabled={!formState.isValid}
+                >
+                    {lang.submit}
+                </Button>
+                {props?.closeModal && (
+                    <Button color="danger" type="button" onClick={props.closeModal()}>
+                        {lang.cancel}
+                    </Button>
+                )}
             </div>
         </form>
-    )
-}
+    );
+};
 
 export default CreateProjectForm;

@@ -1,22 +1,35 @@
-import {defaultSessionData} from "@/auth/context/auth-context";
+import { defaultSessionData } from "@/auth/context/auth-context";
+import { getCleanRedirectPath } from "@/src/helpers/getCleanRedirectPath";
 
-export const ssrCanAccess = async ({req}) => {
+export const ssrCanAccess = async ({ req }) => {
     const user = req.session.user;
 
-    // redirect if the user isn't logged in.
-    if (!user || !user.isLoggedIn || !user.tokenVerified) {
+    //acceptable action, if the user is logged in.
+    if (user && user.isLoggedIn && user.tokenVerified) {
         return {
-            redirect: {
-                permanent: false,
-                destination: "/compte/connexion"
-            },
             props: {
-                user: {...defaultSessionData},
-            }
+                user: req.session.user,
+                userCanAccess: true,
+            },
         };
     }
 
+    //User cant access, doing the redirection appropriate.
+    const referer = req.headers.referer;
+    let refererPath = "/";
+    if (referer) {
+        const refererUrl = new URL(referer);
+        refererPath = refererUrl.pathname + refererUrl.search;
+    }
+
     return {
-        props: { user: req.session.user }
+        redirect: {
+            permanent: false,
+            destination: "/compte/connexion" + `?redirect=${encodeURIComponent(getCleanRedirectPath(refererPath))}`,
+        },
+        props: {
+            user: { ...defaultSessionData },
+            userCanAccess: false,
+        },
     };
 };

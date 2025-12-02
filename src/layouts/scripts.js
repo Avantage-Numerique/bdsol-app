@@ -1,8 +1,5 @@
-
-
 const footerStaticScripts = () => {
+    return <script></script>;
+};
 
-    return (
-        <script></script>
-    )
-}
+export default footerStaticScripts;

@@ -1,29 +1,36 @@
 .page-header {
-
     padding: 8vh 4vw;
     padding-top: calc(8vh + var(--headersHeight));
     width: 100vw;
     margin-left: calc(50% - 50vw);
     isolation: isolate;
-    
-    .header-left-col--max-width { max-width: 60ch; }
 
-    .stacking-context-front { z-index: 2; }
-    .stacking-context-reg { z-index: 0; }
+    .header-left-col--max-width {
+        max-width: 65ch;
+    }
 
+    .stacking-context-front {
+        z-index: 2;
+    }
+    .stacking-context-reg {
+        z-index: 0;
+    }
 }
 
 .subtitleLine {
-    
     > span {
-        display:inline-block;
+        display: inline-block;
         height: 0.4rem;
         vertical-align: middle;
         margin-right: 0.7rem;
         border-radius: 0.2rem;
     }
 
-    > span:first-of-type{ width: 11rem; }
-    
-    > span:last-of-type{ width: 2rem; }
+    > span:first-of-type {
+        width: 11rem;
+    }
+
+    > span:last-of-type {
+        width: 2rem;
+    }
 }

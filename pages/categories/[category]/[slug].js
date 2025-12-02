@@ -1,88 +1,79 @@
-import {externalApiRequest} from '@/src/hooks/http-hook';
+import { externalApiRequest } from "@/src/hooks/http-hook";
 import PageHeader from "@/layouts/Header/PageHeader";
 import React from "react";
-import {lang} from "@/common/Data/GlobalConstants";
+import { lang } from "@/common/Data/GlobalConstants";
 import CreateTaxonomyForm from "@/DataTypes/Taxonomy/components/Forms/CreateTaxonomy/CreateTaxonomyForm";
-import {useRootModal} from '@/src/hooks/useModal/useRootModal';
-import Router, {useRouter} from "next/router";
+import { useRootModal } from "@/src/hooks/useModal/useRootModal";
+import Router from "next/router";
 import Button from "@/FormElements/Button/Button";
-import {useAuth} from "@/auth/context/auth-context";
+import { useAuth } from "@/auth/context/auth-context";
 import Icon from "@/common/widgets/Icon/Icon";
 import AppRoutes from "@/src/Routing/AppRoutes";
-import {Breadcrumbs} from "@/common/Breadcrumbs/Breadcrumbs";
+import { Breadcrumbs } from "@/common/Breadcrumbs/Breadcrumbs";
 import EntitiesGrid from "@/DataTypes/Entity/layouts/EntitiesGrid";
-import {getTitle} from "@/DataTypes/MetaData/MetaTitle";
-import {getType, TYPE_TAXONOMY} from "@/DataTypes/Entity/Types";
+import { getTitle } from "@/DataTypes/MetaData/MetaTitle";
+import { getType, TYPE_TAXONOMY } from "@/DataTypes/Entity/Types";
 import PageMeta from "@/src/common/PageMeta/PageMeta";
-import {getBadgesInfo} from "@/DataTypes/Badges/BadgesSection";
+import { getBadgesInfo } from "@/DataTypes/Badges/BadgesSection";
 
 export async function getServerSideProps(context) {
     const { slug, category } = context.params;
 
-    const entities = await externalApiRequest(
-        `/search/${category}/${slug}`,
-        {
-            method: 'GET',
-        });
-    const taxonomy = await externalApiRequest(
-        `/taxonomies/${category}/${slug}`,
-        {
-            method: 'GET',
-        });
+    const entities = await externalApiRequest(`/search/${category}/${slug}`, {
+        method: "GET",
+    });
+    const taxonomy = await externalApiRequest(`/taxonomies/${category}/${slug}`, {
+        method: "GET",
+    });
 
     const badgesInfo = await getBadgesInfo(true);
 
-    if(typeof taxonomy.data._id === 'undefined' || entities.data._id)
-        return { notFound: true };
-    return { props: {
+    if (typeof taxonomy.data._id === "undefined" || entities.data._id) return { notFound: true };
+    return {
+        props: {
             taxonomy: taxonomy.data,
             data: entities.data,
-            badgesInfo: badgesInfo
-        } };
+            badgesInfo: badgesInfo,
+        },
+    };
 }
-
 
 const TaxonomiesSinglePage = (props) => {
     const category = [
-        {label: "Compétence", value: "skills"},
-        {label: "Secteur d'activité", value: "domains"},
-        {label: "Technologie", value: "technologies"},
-        {label: lang.equipmentType, value: "equipmentType"}
-    ]
+        { label: "Compétence", value: "skills" },
+        { label: "Secteur d'activité", value: "domains" },
+        { label: "Technologie", value: "technologies" },
+        { label: lang.equipmentType, value: "equipmentType" },
+    ];
 
-    const {data, taxonomy} = props;
-
+    const { data, taxonomy } = props;
 
     //  NEEDED FOR EDIT THE TAXONOMY >
     const auth = useAuth();
-    const router = useRouter();
-    const closingModalBaseURI = router.asPath;
 
-    //Extract root modal 
+    //Extract root modal
     const { Modal, displayModal, closeModal, modalInitValues } = useRootModal();
 
     const type = getType(TYPE_TAXONOMY);
 
     const displayUpdateForm = () => {
         displayModal();
-    }
+    };
     // < NEEDED FOR EDIT THE TAXONOMY
 
-    const currentTaxonomy = category.find( el => taxonomy.category === el.value );
-    const currentTitle = `${currentTaxonomy.label} ${'&mdash;'} ${taxonomy.name}`;
+    const currentTaxonomy = category.find((el) => taxonomy.category === el.value);
+    const currentTitle = `${currentTaxonomy.label} ${"&mdash;"} ${taxonomy.name}`;
 
     /* Needed for breadCrumb generator */
     const breadcrumbLabels = {
-        "categories": "Toutes les catégories",
-        "category": currentTitle
+        categories: "Toutes les catégories",
+        category: currentTitle,
     };
 
     return (
-        <div className='mb-4'>
+        <div className="mb-4">
             {/* Page head element  */}
-            <PageMeta 
-                title={getTitle([taxonomy.name, currentTaxonomy.label, type.labelPlural])}
-            />
+            <PageMeta title={getTitle([taxonomy.name, currentTaxonomy.label, type.labelPlural])} />
             <PageHeader
                 bg={"bg-primary-lighter"}
                 colFullWidth
@@ -90,19 +81,19 @@ const TaxonomiesSinglePage = (props) => {
                 title={taxonomy.name}
                 subTitle={lang.capitalize(lang[taxonomy.category])}
                 tags={{
-                    list:taxonomy.domains,
-                    listProperty: "domain"
+                    list: taxonomy.domains,
+                    listProperty: "domain",
                 }}
                 description={taxonomy.description}
             >
                 <Breadcrumbs className={"pt-2"} route={AppRoutes.categorySingle} labels={breadcrumbLabels} />
 
                 <p className={"pt-2"}>
-                    {auth.user.isLoggedIn &&
+                    {auth.user.isLoggedIn && (
                         <Button onClick={displayUpdateForm}>
                             <Icon iconName={"edit"} /> {lang.proposeContentChangeLabel}
                         </Button>
-                    }
+                    )}
                 </p>
             </PageHeader>
 
@@ -128,52 +119,16 @@ const TaxonomiesSinglePage = (props) => {
                 <CreateTaxonomyForm
                     {...props}
                     uri="update"
-                    name={taxonomy.name ?? ''}   //Prefilled value
-                    initValues={ taxonomy ?? {} }
+                    name={taxonomy.name ?? ""} //Prefilled value
+                    initValues={taxonomy ?? {}}
                     category={props.requestData?.category}
                     onPositiveResponse={(requestResponse) => {
                         Router.push(`/categories/${requestResponse.data.category}/${requestResponse.data.slug}`);
                         closeModal();
                     }}
-                    
                 />
             </Modal>
         </div>
-    )
-}
+    );
+};
 export default TaxonomiesSinglePage;
-
-
-//  L'APP a besoin de la BD Pour construire les paths.
-/*export async function getStaticPaths() {
-
-    const taxonomies = await externalApiRequest(
-        `/taxonomies/list`,
-        {
-            method: 'GET',
-        });
-
-    if (taxonomies.data.length > 0) {
-
-        const paths = taxonomies.data.map((tax) => {
-            return {
-                params: {
-                    category: tax.category,
-                    slug: tax.slug,
-                },
-            };
-        });
-
-        return {
-            paths: paths,
-            fallback: false
-        }
-    }
-
-    return {
-        paths: [],
-        fallback: false
-    }
-}*/
-
-

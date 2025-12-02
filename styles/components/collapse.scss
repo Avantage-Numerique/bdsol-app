@@ -1,0 +1,11 @@
+.collapse {
+    @include transition();
+
+    &:not(.show) {
+        height: 0;
+    }
+    &:is(.show) {
+        height: auto;
+        min-height: 5rem;
+    }
+}

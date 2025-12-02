@@ -1,9 +1,9 @@
-import {withSessionRoute} from "@/auth/session/handlers/withSession";
-import {externalApiRequest} from "@/src/hooks/http-hook";
-import {getSessionFromData, getUserHeadersFromUserSession} from "@/auth/context/auth-context";
-import {getVisitorDataFromRequest} from "@/auth/context/visitor-context";
+import { withSessionRoute } from "@/auth/session/handlers/withSession";
+import { externalApiRequest } from "@/src/hooks/http-hook";
+import { getSessionFromData, getUserHeadersFromUserSession } from "@/auth/context/auth-context";
+import { getVisitorDataFromRequest } from "@/auth/context/visitor-context";
 import appRoutes from "@/src/Routing/AppRoutes";
-import {lang} from "@/common/Data/GlobalConstants";
+import { lang } from "@/common/Data/GlobalConstants";
 
 export default withSessionRoute(loginRoute);
 
@@ -16,30 +16,38 @@ async function loginRoute(req, res) {
     const cookies = JSON.parse(req.cookies?.avnuCookies);
 
     if (cookies && cookies.auth === true) {
-        const response = await externalApiRequest(
-            "/login",
-            {
-                body: JSON.stringify(req.body),
-                headers: getUserHeadersFromUserSession(req.session.user, false),
-                origin: "fromServer"
-            }
-        );
+        const response = await externalApiRequest("/login", {
+            body: JSON.stringify(req.body),
+            headers: getUserHeadersFromUserSession(req.session.user, false),
+            origin: "fromServer",
+        });
 
         const sessionUser = getSessionFromData(response.data.user);
         const visitor = getVisitorDataFromRequest(req);
 
         req.session.user = {
             ...sessionUser,
-            ...visitor
+            ...visitor,
         };
 
         await req.session.save();
 
+        //catch the redirect param to redirect user
+        const referer = req.headers.referer;
+        let redirect = "/"; //Default to home
+        if (referer) {
+            const url = new URL(referer);
+            const redirectParam = url.searchParams.get("redirect");
+            if (redirectParam) {
+                redirect = redirectParam;
+            }
+        }
+
         res.send({
             text: response.message,
             positive: !response.error,
-            redirectUri: response.error ? appRoutes.connection.asPath : appRoutes.accueil.asPath,
-            user: sessionUser
+            redirectUri: response.error ? appRoutes.connection.asPath : redirect,
+            user: sessionUser,
         });
         return;
     }
@@ -49,7 +57,7 @@ async function loginRoute(req, res) {
             text: lang.cookieMessageNeedAuthCookie,
             positive: false,
             redirectUri: appRoutes.paramsCookies.asPath,
-            user: "{}"
+            user: "{}",
         });
     }
 }

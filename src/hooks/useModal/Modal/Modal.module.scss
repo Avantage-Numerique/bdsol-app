@@ -1,43 +1,31 @@
-/*
-
-        Styling for the Modal component
-
-*/
+//Styling for the Modal component
 
 .modal {
-
     border: none;
     border-radius: 0.25rem;
-    padding: 2rem;           /* Default */
+    padding: 2rem; /* Default */
     margin: auto;
     overflow: auto;
 
-    /*
-        Width
-    */
-    width: 95%;                             /* Prevent from touching the sides */
+    background-color: $primary_5;
+
+    width: 95%; /* Prevent from touching the sides */
 
     &.default-width {
-        max-width: 50ch;                        /* Fallback value if the navigator doesn't support the clamp */
-        max-width: clamp(40ch, 50%, 60ch);      /* Adjusting width value */
+        max-width: 50ch; /* Fallback value if the navigator doesn't support the clamp */
+        max-width: clamp(40ch, 50%, 60ch); /* Adjusting width value */
     }
 
-    -webkit-box-shadow: 1px 1px 3px 2px rgba(0,0,0,0.27); 
-    box-shadow:  1px 1px 3px 2px rgba(0,0,0,0.27);
+    -webkit-box-shadow: 1px 1px 3px 2px rgba(0, 0, 0, 0.27);
+    box-shadow: 1px 1px 3px 2px rgba(0, 0, 0, 0.27);
 
-    &.transparent-background::backdrop{
-
+    &.transparent-background::backdrop {
         background: rgb(43, 43, 87);
         opacity: 0.5;
-
     }
 
     .modal__close-button--container {
         display: flex;
         justify-content: flex-end;
     }
-
-
-    
-
 }

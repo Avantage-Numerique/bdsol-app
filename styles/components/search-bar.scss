@@ -6,19 +6,20 @@
 
 .search-bar {
     max-width: 60ch;
+    @include transition();
 
     &.no-width-restriction {
         max-width: 100%;
     }
 
     .input-group {
-
-        outline: 0.1rem solid rgb(233, 233, 233);
+        outline: 0.1rem solid $light;
+        @include transition();
         &:focus-within {
             outline: 0.1rem solid $secondary-light;
         }
 
-        border-radius: $border-radius; 
+        border-radius: $border-radius * 2;
 
         button {
             min-width: 4rem;
@@ -29,8 +30,38 @@
             color: $light;
         }
     }
+
+    &.high-attention {
+        &.no-width-restriction {
+            max-width: 100%;
+        }
+
+        .input-group {
+            outline: 0;
+            padding: 0.6rem 0.8rem;
+            box-shadow: $default-box-shadow;
+
+            &:focus-within {
+                outline: 0.1rem solid $secondary;
+                box-shadow: $default-box-shadow-over;
+            }
+            $searchBarAttentionFontSize: 1.1rem;
+            input[type="text"] {
+                color: $dark !important;
+                font-size: $searchBarAttentionFontSize !important;
+            }
+            #react-select-SearchBar-layout-placeholder {
+                color: $dark !important;
+                font-size: $searchBarAttentionFontSize !important;
+            }
+
+            input[type="submit"] {
+                color: $dark !important;
+                font-size: $searchBarAttentionFontSize !important;
+            }
+        }
+    }
 }
 
 .small-searchBar {
-
 }

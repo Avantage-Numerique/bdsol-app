@@ -4,7 +4,6 @@ import StringDictionary from "./StringDictionary";
  *
  */
 class LangManager {
-
     static _instance;
     dictionaries = [];
 
@@ -25,5 +24,6 @@ class LangManager {
         }
         return LangManager._instance;
     }
-
 }
+
+export default LangManager;

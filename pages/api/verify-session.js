@@ -1,10 +1,9 @@
-import {withSessionRoute} from "@/auth/session/handlers/withSession";
-import {verifyToken} from "@/auth/callbacks/verify-token.callback";
+import { withSessionRoute } from "@/auth/session/handlers/withSession";
+import { verifyToken } from "@/auth/callbacks/verify-token.callback";
 
 export default withSessionRoute(verifySessionRoute);
 
 async function verifySessionRoute(req, res) {
-
     const response = await verifyToken(req.session.user.token);
 
     const isTokenVerified = !response.error && response.tokenVerified;
@@ -15,6 +14,6 @@ async function verifySessionRoute(req, res) {
     res.send({
         text: response.message,
         positive: isTokenVerified,
-        user: req.session.user
+        user: req.session.user,
     });
 }

@@ -1,26 +1,24 @@
-import React from 'react';
+import React from "react";
 
 //Custom hooks
-import {useFormUtils} from '@/src/hooks/useFormUtils/useFormUtils'
+import { useFormUtils } from "@/src/hooks/useFormUtils/useFormUtils";
 
 //components
-import Button from '@/FormElements/Button/Button'
-import Input from '@/FormElements/Input/Input'
-import Select2 from '@/FormElements/Select2/Select2'
+import Button from "@/FormElements/Button/Button";
+import Input from "@/FormElements/Input/Input";
+import Select2 from "@/FormElements/Select2/Select2";
 
 //Utils
-import {lang} from "@/src/common/Data/GlobalConstants";
-import {getDefaultCreateEntityMeta} from "@/src/DataTypes/Meta/EntityMeta";
+import { lang } from "@/src/common/Data/GlobalConstants";
+import { getDefaultCreateEntityMeta } from "@/src/DataTypes/Meta/EntityMeta";
 
 //Context
-import {useAuth} from "@/src/authentification/context/auth-context";
-
+import { useAuth } from "@/src/authentification/context/auth-context";
 
 /**
  * @param {function} onPositiveResponse : Additionnal function to be executed if the submit response is positive
  */
-const CreateEventForm = ({ onPositiveResponse, initValues }) => {
-
+const CreateEventForm = ({ onPositiveResponse, initValues, ...props }) => {
     //Authentication ref
     const auth = useAuth();
 
@@ -28,64 +26,57 @@ const CreateEventForm = ({ onPositiveResponse, initValues }) => {
         {
             name: {
                 value: initValues?.name ?? "",
-                isValid: true
+                isValid: true,
             },
             entityInCharge: {
                 value: initValues?.entityInCharge ?? "",
-                isValid: true
+                isValid: true,
             },
             startDate: {
                 value: initValues?.startDate ?? "",
-                isValid: true
+                isValid: true,
             },
             endDate: {
                 value: initValues?.endDate ?? "",
-                isValid: true
-            }
-        },//Pass a set of rules to execute a valid response of an api request
+                isValid: true,
+            },
+        }, //Pass a set of rules to execute a valid response of an api request
         {
-            displayResMessage: true,     //Display a message to the user to confirm the success
+            displayResMessage: true, //Display a message to the user to confirm the success
             callbackFunction: (response) => {
                 //Execute additionnal function from parent component
-                if(onPositiveResponse) onPositiveResponse(response);
-            }
+                if (onPositiveResponse) onPositiveResponse(response);
+            },
         }
     );
 
-    const submitHandler = async event => {
-        
+    const submitHandler = async (event) => {
         event.preventDefault();
-        
+
         const formData = {
-            "data": {
+            data: {
                 name: formState.inputs.name.value,
                 entityInCharge: formState.inputs.entityInCharge?.value?.value,
                 startDate: formState.inputs.startDate.value,
                 endDate: formState.inputs.endDate.value,
                 meta: getDefaultCreateEntityMeta(auth.user),
-            }
-        }
-        
+            },
+        };
+
         //Add data to the formData
-        await submitRequest(
-            "/events/create",
-            'POST',
-            formData
-        );
-    }
+        await submitRequest("/events/create", "POST", formData);
+    };
 
     return (
         <form>
             <FormUI />
-            <Input 
+            <Input
                 name="name"
                 className="my-1"
-                label={lang.eventName+lang.required}
+                label={lang.eventName + lang.required}
                 formTools={formTools}
-                validationRules={[
-                    {name: "REQUIRED"}
-                ]}
-            />    
+                validationRules={[{ name: "REQUIRED" }]}
+            />
             <Select2
                 name="entityInCharge"
                 className="my-1"
@@ -97,34 +88,51 @@ const CreateEventForm = ({ onPositiveResponse, initValues }) => {
                 searchField={"name"}
                 selectField={"name"}
             />
-            <Input 
+            <Input
                 name="startDate"
                 className="my-1"
                 type="date"
-                label={lang.startDate+lang.required}
+                label={lang.startDate + lang.required}
                 formTools={formTools}
-                validationRules={[
-                    {name: "REQUIRED"}
-                ]}
-            />    
-            <Input 
+                validationRules={[{ name: "REQUIRED" }]}
+            />
+            <Input
                 name="endDate"
                 className="my-1"
                 type="date"
-                label={lang.endDate+lang.required}
+                label={lang.endDate + lang.required}
                 formTools={formTools}
                 validationRules={[
-                    {name: "REQUIRED"},
-                    {name: "HIGHER_DATE_REQUIRED", dependencies: [
-                        {value: state => state.inputs["startDate"].value, listenerValue: state => state.inputs["startDate"].value}
-                    ]}
+                    { name: "REQUIRED" },
+                    {
+                        name: "HIGHER_DATE_REQUIRED",
+                        dependencies: [
+                            {
+                                value: (state) => state.inputs["startDate"].value,
+                                listenerValue: (state) => state.inputs["startDate"].value,
+                            },
+                        ],
+                    },
                 ]}
-            />    
-            <div className="d-flex justify-content-end">
-                <Button disabled={!formState.isValid} type="button" onClick={submitHandler}>{lang.continue}</Button>
+            />
+            <div className="col-12">
+                <Button
+                    className="me-4"
+                    color="success"
+                    type="button"
+                    onClick={submitHandler}
+                    disabled={!formState.isValid}
+                >
+                    {lang.submit}
+                </Button>
+                {props?.closeModal && (
+                    <Button color="danger" type="button" onClick={props.closeModal()}>
+                        {lang.cancel}
+                    </Button>
+                )}
             </div>
         </form>
-    )
-}
+    );
+};
 
 export default CreateEventForm;

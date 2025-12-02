@@ -1,6 +1,4 @@
-
 .main-image-container {
-
     //moved to :root --picture-size: #{$picture-size};
     //--margin-bottom: 1rem;//mobile first approach//calc(-0.30 * var(--picture-size));
 
@@ -32,7 +30,7 @@
         }
 
         &.overlap-image-over {
-            --margin-bottom: calc(-0.30 * var(--picture-size));
+            --margin-bottom: calc(-0.3 * var(--picture-size));
         }
     }
 

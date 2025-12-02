@@ -3,21 +3,16 @@
 */
 
 .home-page {
-
     padding-bottom: 7rem;
 
-
     > .home-page__main {
-
         > div {
-
             margin-top: 5vh;
             /*Section one  : FEED SECTION  */
 
             > .home-page__feed-section {
                 /* Section with a news feed */
-                .home-page__feed-section--container{
-
+                .home-page__feed-section--container {
                 }
             }
 
@@ -34,7 +29,6 @@
 
                 /* Common styling for every section elements */
                 > section {
-
                     padding: 1rem 0px;
                     border-top: 0.1rem solid $grey;
 
@@ -43,17 +37,21 @@
                         margin-bottom: 1rem;
                     }
 
-                    p { margin: 0px; }
-
+                    p {
+                        margin: 0px;
+                    }
                 }
-
 
                 /*
                     Differents sections and there specific styling
                 */
 
                 /* Rapid access to connection button  */
-                .aside__connection-option { > button { width: 100%; } }
+                .aside__connection-option {
+                    > button {
+                        width: 100%;
+                    }
+                }
 
                 /* Account options : register */
                 .aside__register-option {
@@ -71,13 +69,12 @@
 
                 /* Rapid options to access of edit the database */
                 .aside__db-edit-options {
-
                     .db-edit-options__button-set {
                         margin-top: 0.5rem;
                         display: flex;
 
                         > button:first-of-type {
-                            flex:1;
+                            flex: 1;
                             margin-right: 0.5rem;
                         }
                     }
