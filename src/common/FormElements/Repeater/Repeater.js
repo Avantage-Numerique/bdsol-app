@@ -115,6 +115,7 @@ const SortableItem = (props) => {
                     className={`${styles["dragging-button"]} rounded-start flex-grow-0 d-flex align-items-center p-2`}
                 >
                     <Icon className="d-flex align-items-center" iconName="las la-grip-vertical" />
+                    {iteration.order}
                 </div>
             )}
             <div className="container">
@@ -137,11 +138,13 @@ const SortableItem = (props) => {
     );
 };
 
-/*******************
- *
- *   MAIN COMPONENT
- *
- *****/
+/**
+ * Use to be able to manually reorder the items within the multiple items set in the same groupe.
+ * As a group of skills, a group of person, etc.
+ * @param props
+ * @returns {JSXElement}
+ * @constructor
+ */
 const Repeater = (props) => {
     /* List of props */
     const {
@@ -168,7 +171,8 @@ const Repeater = (props) => {
 
     //State to manage the values of every iterations of the repeater
     let initIteration = {};
-    const [iterations, setIterations] = useState(addInitValuesToState(initValues));
+    const initialsValues = addInitValuesToState(initValues);
+    const [iterations, setIterations] = useState({ ...initialsValues });
     initIteration = iterations;
 
     //Announce the current dragged element
@@ -234,10 +238,15 @@ const Repeater = (props) => {
             const arrayOfKeyWords = Object.keys(formInitStructure);
             //2. Initialize the return object that is going to fill the iterations state at the first rendering
             let startIterationsObj = {};
+            let currentOrder = -1;
+            let lastOrder = -2;
             //3. Loop in the initialValues passed has props to fill the startIterationsObj
             initValues.forEach((elem, i) => {
                 //Initialize the value that are going to compose the return object
-                let current_id = elem._id ? elem._id : elem.id ? elem.id : undefined;
+                let currentId = elem._id ? elem._id : elem.id ? elem.id : undefined;
+                console.log("addInitValuesToState", elem?.subMeta?.order, "===", lastOrder);
+                let currentOrder =
+                    elem?.subMeta?.order === lastOrder || elem?.subMeta?.order <= lastOrder ? i : elem?.subMeta?.order;
                 let formInitStructureWithValues = {}; //Same shape but going to be filled with the values
                 //For the last one, lets loop into the array of key words to search for a fit
                 arrayOfKeyWords.forEach((keyWord) => {
@@ -247,12 +256,15 @@ const Repeater = (props) => {
                     };
                 });
                 //New lets build the formObject with thoses values
-                const newIterationObj = createIteration(current_id, formInitStructureWithValues, elem?.subMeta?.order);
+
+                console.log("addInitValuesToState", formInitStructureWithValues, i, currentOrder);
+                const newIterationObj = createIteration(currentId, formInitStructureWithValues, currentOrder); //
                 //Update the return object
                 startIterationsObj = {
                     ...startIterationsObj,
                     ...newIterationObj,
                 };
+                lastOrder = currentOrder;
             });
             //4. Finally, return the value
             return startIterationsObj;
@@ -321,6 +333,7 @@ const Repeater = (props) => {
         const key = generateUniqueId();
         //Iterations array
         const iterationsArray = initIteration ? Object.values(initIteration) : [];
+        console.log("createIteration", iterationsArray);
         //Build the object
         const obj = {
             [key]: {
@@ -397,11 +410,11 @@ const Repeater = (props) => {
     /* Manage the reordering when the element is droped */
     function handleDragEnd(event) {
         const { active, over } = event;
-
         if (active?.id && over?.id && active.id !== over.id) {
             const sortedKeysArray = sortedIterationsArray.map((elem) => String(elem.key));
             //Initial array of orders (supposed to be sorted). Ex : [1, 2, 3, 4]
             const arrayOfActualOrders = sortedIterationsArray.map((elem) => elem.order);
+            console.log("handleDragEnd", { active }, { over }, { iterations }, { arrayOfActualOrders });
             //Array of modified orders. Ex : [1, 4, 2, 3]
             const modifiedOrders = arrayMove(
                 arrayOfActualOrders,
