@@ -19,9 +19,6 @@ import { useFormUtils } from "@/src/hooks/useFormUtils/useFormUtils";
 import Button from "@/FormElements/Button/Button";
 import Icon from "@/src/common/widgets/Icon/Icon";
 
-//Context
-import { useAuth } from "@/auth/context/auth-context";
-
 //styles
 import styles from "./Repeater.module.scss";
 
@@ -98,12 +95,11 @@ const SortableItem = (props) => {
     };
 
     return (
-        <article
+        <div
             style={style}
             id={iteration.key}
             ref={setNodeRef}
             className={`d-flex flex-nowrap rounded my-2 ${styles["repeatable"]} ${styles["box-shadow"]} ${className} ${isDragActive && "shadow"}`}
-            draggable={true}
             data-order={iteration.order}
         >
             {sortable && sortedIterationsArray.length > 1 && (
@@ -111,7 +107,7 @@ const SortableItem = (props) => {
                     {...attributes}
                     {...listeners}
                     draggable={true}
-                    type="button"
+                    role={"button"}
                     className={`${styles["dragging-button"]} rounded-start flex-grow-0 d-flex align-items-center p-2`}
                 >
                     <Icon className="d-flex align-items-center" iconName="las la-grip-vertical" />
@@ -133,15 +129,17 @@ const SortableItem = (props) => {
                     </RepeaterSingleIteration>
                 </div>
             </div>
-        </article>
+        </div>
     );
 };
 
-/*******************
- *
- *   MAIN COMPONENT
- *
- *****/
+/**
+ * Use to be able to manually reorder the items within the multiple items set in the same groupe.
+ * As a group of skills, a group of person, etc.
+ * @param props
+ * @returns {JSXElement}
+ * @constructor
+ */
 const Repeater = (props) => {
     /* List of props */
     const {
@@ -160,15 +158,13 @@ const Repeater = (props) => {
         className, // - [String] : Represent the class names of the generated containers to repeat
     } = props;
 
-    //Import the authentication context to make sure the user is well connected
-    const auth = useAuth();
-
     //Extract the needed elements from the formtools
     const { inputHandler, inputTouched } = formTools;
 
     //State to manage the values of every iterations of the repeater
     let initIteration = {};
-    const [iterations, setIterations] = useState(addInitValuesToState(initValues));
+    const initialsValues = addInitValuesToState(initValues);
+    const [iterations, setIterations] = useState({ ...initialsValues });
     initIteration = iterations;
 
     //Announce the current dragged element
@@ -185,33 +181,8 @@ const Repeater = (props) => {
     useEffect(() => {
         //Data to return in the main form state
         let isValid = true;
-        let value = [];
-        //Convert the iterations elements into an array
-        const arrayOfIterationsValues = iterations ? Object.values(iterations) : [];
-        //Loop through it to look at every children
-        arrayOfIterationsValues.forEach((ite) => {
-            //If only one isn't valid, the whole field becomes invalid
-            if (!ite.isValid) isValid = false;
-            /*
-                TO BE FINISHED LATER
-                Function to activate a prop value that tell which shape to use to return the data
-
-                //Shape the entered values
-                let returnShape = {...formReturnStructure}
-                //Create an array of keys to exame based on the inital structure
-                const arrayOfNames = Object.keys(formInitStructure);
-                //Loop through it
-                arrayOfNames.forEach(fieldName => {
-                    //replace the name by the value to return
-                    returnShape[getKeyByValue(returnShape, fieldName)] = ite.value[fieldName] ? ite.value[fieldName].value : {};
-                }) 
-                //Add the result to the return array
-                value.push(returnShape);
-            */
-        });
-
         //Get an array with every values
-        value = Object.values(iterations);
+        const value = Object.values(iterations);
         //Update the main form state
         inputHandler(name, value, isValid);
     }, [iterations]);
@@ -234,10 +205,14 @@ const Repeater = (props) => {
             const arrayOfKeyWords = Object.keys(formInitStructure);
             //2. Initialize the return object that is going to fill the iterations state at the first rendering
             let startIterationsObj = {};
+            const ordersValues = []; //pluck order values.
             //3. Loop in the initialValues passed has props to fill the startIterationsObj
-            initValues.forEach((elem, i) => {
+            initValues.forEach((elem) => {
                 //Initialize the value that are going to compose the return object
-                let current_id = elem._id ? elem._id : elem.id ? elem.id : undefined;
+                let currentId = elem._id ? elem._id : elem.id ? elem.id : undefined;
+                let currentOrder = ordersValues.includes(elem?.subMeta?.order)
+                    ? ordersValues[ordersValues.length - 1] + 1
+                    : elem?.subMeta?.order;
                 let formInitStructureWithValues = {}; //Same shape but going to be filled with the values
                 //For the last one, lets loop into the array of key words to search for a fit
                 arrayOfKeyWords.forEach((keyWord) => {
@@ -246,13 +221,16 @@ const Repeater = (props) => {
                         isValid: true,
                     };
                 });
-                //New lets build the formObject with thoses values
-                const newIterationObj = createIteration(current_id, formInitStructureWithValues, elem?.subMeta?.order);
+
+                //Create the iteration object with the values parsed
+                const newIterationObj = createIteration(currentId, formInitStructureWithValues, currentOrder); //
                 //Update the return object
                 startIterationsObj = {
                     ...startIterationsObj,
                     ...newIterationObj,
                 };
+                ordersValues.push(currentOrder);
+                ordersValues.sort(); //assure that the last element is always
             });
             //4. Finally, return the value
             return startIterationsObj;
@@ -310,7 +288,7 @@ const Repeater = (props) => {
         //Create a new Id
         const newId = Math.floor(Math.random() * 1000000 + 1);
         //Make sure it doesn't exist already into the state. Also accept is iteration is not defined yet
-        if (!initIteration || !Object.keys(initIteration).some((key) => key == newId)) return newId;
+        if (!initIteration || !Object.keys(initIteration).some((key) => key === newId)) return newId;
         //If the id isn't unique, than call the function again
         generateUniqueId();
     }
@@ -321,8 +299,8 @@ const Repeater = (props) => {
         const key = generateUniqueId();
         //Iterations array
         const iterationsArray = initIteration ? Object.values(initIteration) : [];
-        //Build the object
-        const obj = {
+
+        return {
             [key]: {
                 key: key,
                 order:
@@ -334,8 +312,6 @@ const Repeater = (props) => {
                 isValid: true,
             },
         };
-        //Return it
-        return obj;
     }
 
     const sensors = useSensors(
@@ -397,11 +373,11 @@ const Repeater = (props) => {
     /* Manage the reordering when the element is droped */
     function handleDragEnd(event) {
         const { active, over } = event;
-
         if (active?.id && over?.id && active.id !== over.id) {
             const sortedKeysArray = sortedIterationsArray.map((elem) => String(elem.key));
             //Initial array of orders (supposed to be sorted). Ex : [1, 2, 3, 4]
             const arrayOfActualOrders = sortedIterationsArray.map((elem) => elem.order);
+
             //Array of modified orders. Ex : [1, 4, 2, 3]
             const modifiedOrders = arrayMove(
                 arrayOfActualOrders,
@@ -417,12 +393,9 @@ const Repeater = (props) => {
                 //Get the new correct calculated order by index refering
                 //For this to work, we assume that the index are in order
                 const oldOrder = newIterationState[key].order;
-                //Find the new order of the element by its index in the array
-                let newIndex = modifiedOrders.indexOf(oldOrder);
-                //Convert the index in position by incrementing it
-                const newOrder = newIndex;
+
                 //Modify the value
-                newIterationState[key].order = newOrder;
+                newIterationState[key].order = modifiedOrders.indexOf(oldOrder);
             });
             //Update the state with the new modified object
             setIterations(newIterationState);

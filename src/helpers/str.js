@@ -26,6 +26,6 @@ import { htmlToText } from "html-to-text";
  * @param {string} input HTML string to cleanup
  */
 function _htmlToText(input) {
-    return htmlToText(input, {}).replace(/\n+/g, "\n\n").trim();
+    return htmlToText(input, { wordwrap: false }).replace(/\n+/g, "\n\n").trim();
 }
 export { _htmlToText as htmlToText };
