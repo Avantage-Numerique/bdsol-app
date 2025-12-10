@@ -19,9 +19,6 @@ import { useFormUtils } from "@/src/hooks/useFormUtils/useFormUtils";
 import Button from "@/FormElements/Button/Button";
 import Icon from "@/src/common/widgets/Icon/Icon";
 
-//Context
-import { useAuth } from "@/auth/context/auth-context";
-
 //styles
 import styles from "./Repeater.module.scss";
 
@@ -98,12 +95,11 @@ const SortableItem = (props) => {
     };
 
     return (
-        <article
+        <div
             style={style}
             id={iteration.key}
             ref={setNodeRef}
             className={`d-flex flex-nowrap rounded my-2 ${styles["repeatable"]} ${styles["box-shadow"]} ${className} ${isDragActive && "shadow"}`}
-            draggable={true}
             data-order={iteration.order}
         >
             {sortable && sortedIterationsArray.length > 1 && (
@@ -111,11 +107,10 @@ const SortableItem = (props) => {
                     {...attributes}
                     {...listeners}
                     draggable={true}
-                    type="button"
+                    role={"button"}
                     className={`${styles["dragging-button"]} rounded-start flex-grow-0 d-flex align-items-center p-2`}
                 >
                     <Icon className="d-flex align-items-center" iconName="las la-grip-vertical" />
-                    {iteration.order}
                 </div>
             )}
             <div className="container">
@@ -134,7 +129,7 @@ const SortableItem = (props) => {
                     </RepeaterSingleIteration>
                 </div>
             </div>
-        </article>
+        </div>
     );
 };
 
