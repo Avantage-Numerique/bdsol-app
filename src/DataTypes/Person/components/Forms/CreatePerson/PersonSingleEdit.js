@@ -7,7 +7,6 @@ import { useRootModal } from "@/src/hooks/useModal/useRootModal";
 import SingleBeforeUnloadReminder from "@/src/DataTypes/common/layouts/SingleSaveEntityReminder/SingleBeforeUnloadReminder";
 
 //components
-import Button from "@/FormElements/Button/Button";
 import Input from "@/FormElements/Input/Input";
 import RichTextarea from "@/FormElements/RichTextArea/RichTextarea";
 import Select2 from "@/src/common/FormElements/Select2/Select2";
@@ -15,7 +14,6 @@ import { SingleEntityMeta } from "@/src/DataTypes/Meta/components/SingleEntityMe
 import SingleInfo from "@/DataTypes/common/layouts/SingleInfo/SingleInfo";
 import SingleSaveEntityReminder from "@/src/DataTypes/common/layouts/SingleSaveEntityReminder/SingleSaveEntityReminder";
 import UpdateSocialHandles from "@/src/DataTypes/common/Forms/UpdateSocialHandles/UpdateSocialHandles";
-import Select from "@/src/common/FormElements/Select/Select";
 
 //Context
 import { useAuth } from "@/src/authentification/context/auth-context";
@@ -180,9 +178,12 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props }) => {
                 domains:
                     formState.inputs.domains?.value?.length > 0
                         ? formState.inputs.domains.value.map((elem) => {
-                              return {
-                                  domain: elem.value,
-                              };
+                              if (elem !== undefined) {
+                                  return {
+                                      domain: elem.value,
+                                  };
+                              }
+                              return {};
                           })
                         : [],
                 contactPoint: formState.inputs.contactPoint.value,
