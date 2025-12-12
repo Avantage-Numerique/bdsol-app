@@ -53,8 +53,6 @@ const ProjectSingleView = ({ data }) => {
 
     const model = new Project(data);
 
-    const sectionClassSpacing = appConfig.spacing.singleSectionSpacingClass;
-
     /******* Sorted lists ********/
     const sortedSponsors =
         sponsor?.[0]?.subMeta?.order !== undefined
@@ -221,7 +219,6 @@ const ProjectSingleView = ({ data }) => {
             {/* Contact information */}
             <SingleInfo title={lang.organisationContact}>
                 <ContactPointView contact={model.contactPoint} />
-                <ContactPointView contact={model.contactPoint} />
             </SingleInfo>
 
             <SingleInfo title="Informations supplémentaires">
@@ -279,7 +276,7 @@ const ProjectSingleView = ({ data }) => {
                 { data: alternateName },
                 { data: entityInCharge },
                 { data: producer },
-                { data: description, validationFunction: (value) => (removeTagsFromString(value) ? true : false) },
+                { data: description, validationFunction: (value) => !!removeTagsFromString(value) },
                 { data: sortedSponsors },
                 { data: sortedTeam },
                 { data: scheduleBudget, validationFunction: (value) => value && haveAValidValue(value) },

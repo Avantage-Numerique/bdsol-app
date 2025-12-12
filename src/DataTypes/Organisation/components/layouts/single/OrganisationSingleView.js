@@ -214,7 +214,6 @@ const OrganisationSingleView = ({ data }) => {
             {/* Contact information */}
             <SingleInfo title={lang.organisationContact}>
                 <ContactPointView contact={model.contactPoint} />
-                <ContactPointView contact={model.contactPoint} />
             </SingleInfo>
 
             {/* Location */}
@@ -237,7 +236,7 @@ const OrganisationSingleView = ({ data }) => {
             </SingleInfo>
 
             {/* Fondation date */}
-            <SingleInfo title={lang.fondationDate} displayCondition={fondationDate ? true : false}>
+            <SingleInfo title={lang.fondationDate} displayCondition={!!fondationDate}>
                 <TimeTag date={fondationDate} format={lang.fullHumanDateFormat} />
             </SingleInfo>
 
@@ -262,7 +261,7 @@ const OrganisationSingleView = ({ data }) => {
                 dataList={[
                     { data: name },
                     { data: catchphrase },
-                    { data: description, validationFunction: (value) => (removeTagsFromString(value) ? true : false) },
+                    { data: description, validationFunction: (value) => !!removeTagsFromString(value) },
                     { data: sortedOffers },
                     { data: sortedTeam },
                     { data: location },
