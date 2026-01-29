@@ -10,56 +10,32 @@ const ReferentialHomePage = () => {
         const getSelectOptions = async () => {
             const response = await clientSideExternalApiRequest("/ref?json", { method: "GET" });
             setRefResponse(response);
+            console.log(response);
         };
         getSelectOptions();
     }, []);
 
-    /*
-        Takes in an object with :
-            Type 1. keys are titles and values are string representing api urls
-            Type 2. keys are titles, and values are arrays of objects of type 1.
-        Returns a jsx with appropriate hierarchy of "titles" and links
-    */
-    function recursiveObjectCrawler(subElem, isTitle = false) {
-        if (subElem === undefined) return <></>;
-
-        const Tag = isTitle ? "h2" : "h3";
-        //if item is string return value as url
-        if (typeof subElem === "string") {
-            return (
-                <a target="_blank" href={subElem}>
-                    {subElem}
-                </a>
-            );
-        }
-
-        //if item is array
-        if (Array.isArray(subElem)) {
-            return (
-                <>
-                    {subElem.map((item, i) => (
-                        <>
-                            <div key={i}>{recursiveObjectCrawler(item)}</div>
-                        </>
-                    ))}
-                </>
-            );
-        }
-
-        //if item is object
-        if (typeof subElem === "object") {
-            return (
-                <>
-                    {Object.entries(subElem).map(([key, value]) => (
-                        <>
-                            <Tag key={key}>{key}</Tag>
-                            {recursiveObjectCrawler(value)}
-                        </>
-                    ))}
-                </>
-            );
-        }
-    }
+    const RefList = (ref) => {
+        if (ref == undefined) return <></>;
+        return (
+            <div>
+                {Object.entries(ref).map(([sectionKey, sectionValue]) => (
+                    <div key={sectionKey}>
+                        <h3>{sectionKey}</h3>
+                        <ul>
+                            {Object.entries(sectionValue).map(([childKey, childValue]) => (
+                                <li key={childKey}>
+                                    <a href={`${process.env.NEXT_PUBLIC_API_URL}/ref${childValue.url}`}>
+                                        {childValue.label}
+                                    </a>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                ))}
+            </div>
+        );
+    };
 
     return (
         <>
@@ -72,7 +48,10 @@ const ReferentialHomePage = () => {
                     "Bienvenue dans la zone de geek. Vous retrouverez des liens vers des contrées obscures de l'ontologie d'Avnu"
                 }
             ></PageHeader>
-            {recursiveObjectCrawler(refResponse, true)}
+            <h2>
+                <a href={`${process.env.NEXT_PUBLIC_API_URL}/ref`}>Référentiel</a>
+            </h2>
+            {RefList(refResponse)}
         </>
     );
 };
