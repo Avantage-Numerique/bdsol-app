@@ -1,0 +1,28 @@
+table.ref {
+    margin-block: 1em 2em;
+    width: 100%;
+
+    th,
+    td {
+        border: 1px solid currentColor;
+    }
+
+    th {
+        padding: 0.5em;
+    }
+
+    td {
+        padding: 0.3em;
+
+        &:first-child,
+        &:nth-child(2) {
+            width: 30ch;
+        }
+    }
+
+    a {
+        text-decoration: underline;
+        text-underline-offset: 0.2em;
+        font-weight: bold;
+    }
+}
