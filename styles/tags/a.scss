@@ -36,3 +36,9 @@ a.internal-link {
         }
     }
 }
+
+.single-info-description {
+    a {
+        text-decoration: underline solid currentColor;
+    }
+}
