@@ -26,7 +26,7 @@ const ReferentialHomePage = () => {
     const apiUrl = process.env.API_URL;
 
     const RefList = (ref) => {
-        if (ref == undefined) return <></>;
+        if (ref === undefined) return <></>;
 
         return (
             <div>
@@ -34,11 +34,13 @@ const ReferentialHomePage = () => {
                     <div key={sectionKey}>
                         <h3>{lang[sectionKey]}</h3>
 
-                        <table class={`${styles.ref}`}>
+                        <table className={`${styles.ref}`}>
                             <thead>
-                                <th>Item</th>
-                                <th>URL</th>
-                                <th>Description</th>
+                                <tr>
+                                    <th>Item</th>
+                                    <th>URL</th>
+                                    <th>Description</th>
+                                </tr>
                             </thead>
 
                             <tbody>
@@ -77,7 +79,7 @@ const ReferentialHomePage = () => {
                 }
             />
 
-            <p class="py-4">
+            <p className="py-4">
                 <strong>
                     <a href={`${process.env.NEXT_PUBLIC_API_URL}/ref`}>
                         <Icon iconName="link" className="font-bold" /> Lien vers le référentiel complet
