@@ -73,18 +73,16 @@ const ReferentialHomePage = () => {
             <PageHeader
                 bg={"bg-primary-lighter"}
                 textColor={"text-white"}
-                htmlTitle={"Consulter les projets"}
+                htmlTitle={"Référentiel AVNU"}
                 subTitle={
                     "Bienvenue dans la zone de geek. Vous retrouverez des liens vers des contrées obscures de l'ontologie d'Avnu"
                 }
             />
 
             <p className="py-4">
-                <strong>
-                    <a href={`${process.env.NEXT_PUBLIC_API_URL}/ref`}>
-                        <Icon iconName="link" className="font-bold" /> Lien vers le référentiel complet
-                    </a>
-                </strong>
+                <a href={`${process.env.NEXT_PUBLIC_API_URL}/ref`} className="external-link fw-bold">
+                    <Icon iconName="link" className="font-bold" /> Lien vers l&apos;accueil du référentiel complet
+                </a>
             </p>
 
             {RefList(refResponse)}
