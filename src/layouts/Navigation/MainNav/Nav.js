@@ -185,7 +185,6 @@ const Nav = ({ menuState, setMenuState }) => {
                                         <MainNavButton
                                             route={AppRoutes.referentiel}
                                             handler={navLinkHandler}
-                                            label={"Référentiel AVNU"}
                                         />
                                     </li>
                                     <li>
