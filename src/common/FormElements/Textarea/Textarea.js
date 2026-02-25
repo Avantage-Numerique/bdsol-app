@@ -25,16 +25,25 @@ const Textarea = ({ name, formTools, ...props }) => {
         <div className={` ${styles["TextArea-Component"]}`}>
             <label htmlFor={name}>
                 {props.label}
-                <textarea
-                    className={` ${!currentState.isValid && currentState.isTouched && styles["control--invalid"]}`}
-                    name={name}
-                    id={name}
-                    rows={props.rows || 3}
-                    placeholder={props.placeholder}
-                    onChange={updateValue}
-                    onBlur={() => inputTouched(name)}
-                    value={currentState ? currentState.value : null}
-                />
+                <div className={styles["textarea-wrapper"]}>
+                    <textarea
+                        className={`form-element form-element--color-validation
+                            ${!currentState.isValid && currentState.isTouched && styles["control--invalid"]}`}
+                        name={name}
+                        id={name}
+                        rows={props.rows || 3}
+                        placeholder={props.placeholder}
+                        onChange={updateValue}
+                        onBlur={() => inputTouched(name)}
+                        value={currentState ? currentState.value : null}
+                        maxLength={props.maxLength ?? undefined}
+                    />
+                    {props.maxLength && (
+                        <span className={styles["char-count"]}>
+                            {props.maxLength - currentState.value.length} restants
+                        </span>
+                    )}
+                </div>
                 {!currentState.isValid && currentState.isTouched && <small>{props.errorText}</small>}
             </label>
         </div>

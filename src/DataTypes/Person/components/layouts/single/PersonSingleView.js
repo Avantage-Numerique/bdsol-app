@@ -16,6 +16,10 @@ import { removeTagsFromString } from "@/src/helpers/html";
 import { ContactPointView } from "@/src/DataTypes/common/layouts/ContactPointView/ContactPointView";
 import BadgesSection from "@/src/DataTypes/Badges/BadgesSection";
 import SingleBaseCTA from "@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseCTA";
+import {
+    ShortDescription,
+    ShortDescriptionDisplay,
+} from "@/src/DataTypes/common/layouts/ShortDescription/ShortDescription";
 
 const PersonSingleView = ({ data }) => {
     //Destructuring of data's prop
@@ -176,6 +180,9 @@ const PersonSingleView = ({ data }) => {
 
     const Footer = (
         <>
+            <SingleInfo title={lang.seoSection}>
+                <ShortDescriptionDisplay>{model.shortDescription}</ShortDescriptionDisplay>
+            </SingleInfo>
             {(createdAt || updatedAt || meta) && (
                 <SingleInfo title={lang.entityMetadata} className="pt-3">
                     <SingleEntityMeta createdAt={createdAt} updatedAt={updatedAt} meta={meta} />
