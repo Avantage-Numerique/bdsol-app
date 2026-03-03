@@ -5,6 +5,7 @@ import MediaFigure from "@/DataTypes/Media/layouts/MediaFigure";
 import { getType } from "@/DataTypes/Entity/Types";
 import HtmlTagsRemover from "@/src/utils/HtmlTagsRemover";
 import TypeTag from "@/DataTypes/common/layouts/TypeTag/TypeTag";
+import { removeHtml } from "@/src/helpers/str";
 
 import Link from "next/link";
 
@@ -43,7 +44,9 @@ const EntitySimple = (props) => {
 
     //content
     const title = model.title;
-    const description = model.shortDescription;
+    const description = removeHtml(model.description).substring(0, 87);
+    const descriptionElipsis = removeHtml(model.description).length > 87 ? "..." : "";
+
     //params
     const showEntityType = props.showEntityType ?? true;
     const appType = getType(model.type);
@@ -163,7 +166,7 @@ const EntitySimple = (props) => {
                             ${!isBottomLine && styles["simple-abstract__content_ellipsis--3lines"]}
                         `}
                     >
-                        {description}
+                        {description + descriptionElipsis}
                     </HtmlTagsRemover>
                 )}
 

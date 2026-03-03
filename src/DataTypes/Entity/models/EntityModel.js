@@ -1,5 +1,4 @@
 import { getType, TYPE_DEFAULT } from "@/DataTypes/Entity/Types";
-import { removeHtml } from "@/src/helpers/str";
 import { appUrl, replacePathname } from "@/src/helpers/url";
 import EntityTag from "@/DataTypes/Entity/layouts/EntityTag";
 import { lang } from "@/src/common/Data/GlobalConstants";
@@ -29,17 +28,13 @@ class EntityModel {
      * @param params.simple {object} Parameters for the simple component
      */
     constructor(raw, params = {}) {
-        this.shortLenght = 87;
         this.type = raw?.type ?? TYPE_DEFAULT;
         this.Type = getType(this.type);
         this.title = raw?.title ?? "no title set";
         this.description = raw?.description ?? "";
+        this.shortDescription = raw?.shortDescription ?? "";
         this.badge = raw?.badge ?? ""; //contextual description of the entity. Often define in a single view.
 
-        this.shortDescription = removeHtml(this.description);
-        this.shortDescription =
-            this.shortDescription.substring(0, this.shortLenght) +
-            (this.shortDescription.length > this.shortLenght ? "..." : "");
         this.mainImage = raw?.mainImage ?? { url: "", alt: "" };
 
         this.singleList;
@@ -52,7 +47,7 @@ class EntityModel {
         this.meta = {
             seperator: " - ",
             title: this.title,
-            description: this.description,
+            description: this.shortDescription,
         };
 
         //Ajouter _id et id ??
