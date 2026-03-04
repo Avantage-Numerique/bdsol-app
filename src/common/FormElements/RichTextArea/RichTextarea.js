@@ -109,13 +109,28 @@ const RichTextarea = ({ name, formTools, ...props }) => {
                                 <QuillSeparator />
 
                                 <select className="ql-color" defaultValue="" title={lang.textColor}>
+                                    <option value="" selected />
+
+                                    {/*
+
+                                    Couleurs OG
+                                    
                                     <option value="#455ae6" />
                                     <option value="#4dc4ff" />
                                     <option value="#dd5c5c" />
                                     <option value="#bbbfd7" />
                                     <option value="#d4c87b" />
                                     <option value="#7bd485" />
-                                    <option value="" />
+                                    
+                                    */}
+
+                                    {/* Couleurs AVNU */}
+                                    <option value="#6ec8cd" />
+                                    <option value="#f09664" />
+                                    <option value="#b2b2eb" />
+                                    <option value="#aad287" />
+                                    <option value="#ffd849" />
+                                    <option value="#d74b32" />
                                 </select>
 
                                 <QuillSeparator />
