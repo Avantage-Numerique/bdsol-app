@@ -7,7 +7,6 @@ import TypeTag from "@/DataTypes/common/layouts/TypeTag/TypeTag";
 import { htmlToTextSingleParagraph } from "@/src/helpers/str";
 
 import Link from "next/link";
-import HtmlTagsRemover from "@/src/utils/HtmlTagsRemover";
 
 /**
  *
