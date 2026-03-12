@@ -25,6 +25,7 @@ import { removeTagsFromString } from "@/src/helpers/html";
 //Styles
 import styles from "./OrganisationSingleView.module.scss";
 import SocialHandleDisplay from "@/src/DataTypes/common/layouts/SocialHandlesViews/SocialHandleDisplay";
+import { ShortDescriptionDisplay } from "@/src/DataTypes/common/layouts/ShortDescription/ShortDescription";
 
 const OrganisationSingleView = ({ data }) => {
     //Destructuring of data's prop // We should use model here.
@@ -247,6 +248,9 @@ const OrganisationSingleView = ({ data }) => {
 
     const Footer = (
         <>
+            <SingleInfo title={lang.seoSection}>
+                <ShortDescriptionDisplay>{model.shortDescription}</ShortDescriptionDisplay>
+            </SingleInfo>
             {(createdAt || updatedAt || meta) && (
                 <SingleInfo title={lang.entityMetadata} className="pt-3">
                     <SingleEntityMeta createdAt={createdAt} updatedAt={updatedAt} meta={meta} />

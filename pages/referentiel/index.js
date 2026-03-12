@@ -17,7 +17,6 @@ const ReferentialHomePage = () => {
         const getSelectOptions = async () => {
             const response = await clientSideExternalApiRequest("/ref?json", { method: "GET" });
             setRefResponse(response);
-            console.log(response);
         };
         getSelectOptions();
     }, []);

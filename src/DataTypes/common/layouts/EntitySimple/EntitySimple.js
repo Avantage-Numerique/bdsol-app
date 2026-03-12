@@ -44,8 +44,6 @@ const EntitySimple = (props) => {
     //content
     const title = model.title;
 
-    console.log("description", model.description);
-
     const description = htmlToTextSingleParagraph(model.description).substring(0, 87);
     const descriptionEllipsis = htmlToTextSingleParagraph(model.description).length > 87 ? "..." : "";
 

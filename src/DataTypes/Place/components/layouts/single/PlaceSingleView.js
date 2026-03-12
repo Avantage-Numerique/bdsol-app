@@ -16,6 +16,7 @@ import SingleBaseCTA from "@/src/DataTypes/common/layouts/single/defaultSections
 
 //Styling
 import styles from "./PlaceSingleView.module.scss";
+import { ShortDescriptionDisplay } from "@/src/DataTypes/common/layouts/ShortDescription/ShortDescription";
 
 const PlaceSingleView = ({ data }) => {
     const model = new Place(data);
@@ -141,6 +142,9 @@ const PlaceSingleView = ({ data }) => {
     }
     const Footer = (
         <>
+            <SingleInfo title={lang.seoSection}>
+                <ShortDescriptionDisplay>{model.shortDescription}</ShortDescriptionDisplay>
+            </SingleInfo>
             {(model.createdAt || model.updatedAt || model.meta) && (
                 <SingleInfo title={lang.entityMetadata} className="pt-3">
                     {/*********** Entity data ***********/}

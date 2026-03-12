@@ -23,6 +23,7 @@ import { removeTagsFromString } from "@/src/helpers/html";
 import { dateManager } from "@/common/DateManager/DateManager";
 import { clientSideExternalApiRequest } from "@/src/hooks/http-hook";
 import { appConfig } from "@/src/configs/AppConfig";
+import { ShortDescriptionDisplay } from "@/src/DataTypes/common/layouts/ShortDescription/ShortDescription";
 
 const EventSingleView = ({ data }) => {
     const {
@@ -241,6 +242,9 @@ const EventSingleView = ({ data }) => {
     }
     const Footer = (
         <>
+            <SingleInfo title={lang.seoSection}>
+                <ShortDescriptionDisplay>{model.shortDescription}</ShortDescriptionDisplay>
+            </SingleInfo>
             {(createdAt || updatedAt || meta) && (
                 <SingleInfo title={lang.entityMetadata} className="pt-3">
                     {/*********** Entity data ***********/}

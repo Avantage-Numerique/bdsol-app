@@ -79,36 +79,36 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props }) => {
     const { FormUI, submitRequest, formState, formTools } = useFormUtils(
         {
             firstName: {
-                value: model?.firstName ?? "",
+                value: model.firstName ?? "",
                 isValid: false,
             },
             lastName: {
-                value: model?.lastName ?? "",
+                value: model.lastName ?? "",
                 isValid: false,
             },
             nickName: {
-                value: model?.nickname ?? "",
+                value: model.nickname ?? "",
                 isValid: true,
             },
             description: {
-                value: model?.description ?? "",
+                value: model.description ?? "",
                 isValid: true,
             },
             shortDescription: {
-                value: model?.shortDescription ?? "",
+                value: model.shortDescription ?? "",
                 isValid: true,
             },
             catchphrase: {
-                value: model?.catchphrase ?? "",
+                value: model.catchphrase ?? "",
                 isValid: true,
             },
             occupations: {
-                value: model?.occupations ?? [],
+                value: model.occupations ?? [],
                 isValid: true,
                 invalidMsg: "Compétences et technologies",
             },
             domains: {
-                value: model?.domains ?? [],
+                value: model.domains ?? [],
                 isValid: true,
             },
             contactPoint: {

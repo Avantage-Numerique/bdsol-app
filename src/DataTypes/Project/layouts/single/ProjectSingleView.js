@@ -25,6 +25,7 @@ import { removeTagsFromString } from "@/src/helpers/html";
 import styles from "./ProjectSingleView.module.scss";
 import { haveAValidValue } from "@/src/helpers/obj";
 import { appConfig } from "@/src/configs/AppConfig";
+import { ShortDescriptionDisplay } from "@/src/DataTypes/common/layouts/ShortDescription/ShortDescription";
 
 const ProjectSingleView = ({ data }) => {
     const {
@@ -257,6 +258,9 @@ const ProjectSingleView = ({ data }) => {
     }
     const Footer = (
         <>
+            <SingleInfo title={lang.seoSection}>
+                <ShortDescriptionDisplay>{model.shortDescription}</ShortDescriptionDisplay>
+            </SingleInfo>
             {(createdAt || updatedAt || meta) && (
                 <SingleInfo title={lang.entityMetadata} className="pt-3">
                     {/*********** Entity data ***********/}
