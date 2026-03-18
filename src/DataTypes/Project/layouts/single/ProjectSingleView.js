@@ -11,6 +11,7 @@ import EntityLink from "@/DataTypes/Entity/layouts/EntityLink";
 import SingleBaseProgressBar from "@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseProgressBar/SingleBaseProgressBar";
 import { ContactPointView } from "@/src/DataTypes/common/layouts/ContactPointView/ContactPointView";
 import SingleBaseCTA from "@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseCTA";
+import { SupererogatorySection } from "@/src/common/Components/SupererogatorySection/SupererogatorySection";
 
 //Utils
 import SanitizedInnerHtml from "@/src/utils/SanitizedInnerHtml";
@@ -25,7 +26,6 @@ import { removeTagsFromString } from "@/src/helpers/html";
 import styles from "./ProjectSingleView.module.scss";
 import { haveAValidValue } from "@/src/helpers/obj";
 import { appConfig } from "@/src/configs/AppConfig";
-import { ShortDescriptionDisplay } from "@/src/DataTypes/common/layouts/ShortDescription/ShortDescription";
 
 const ProjectSingleView = ({ data }) => {
     const {
@@ -258,9 +258,8 @@ const ProjectSingleView = ({ data }) => {
     }
     const Footer = (
         <>
-            <SingleInfo title={lang.seoSection}>
-                <ShortDescriptionDisplay>{model.shortDescription}</ShortDescriptionDisplay>
-            </SingleInfo>
+            <SupererogatorySection model={model} />
+
             {(createdAt || updatedAt || meta) && (
                 <SingleInfo title={lang.entityMetadata} className="pt-3">
                     {/*********** Entity data ***********/}

@@ -13,10 +13,10 @@ import { SingleEntityMeta } from "@/src/DataTypes/Meta/components/SingleEntityMe
 import SingleBaseProgressBar from "@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseProgressBar/SingleBaseProgressBar";
 import { removeTagsFromString } from "@/src/helpers/html";
 import SingleBaseCTA from "@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseCTA";
+import { SupererogatorySection } from "@/src/common/Components/SupererogatorySection/SupererogatorySection";
 
 //Styling
 import styles from "./PlaceSingleView.module.scss";
-import { ShortDescriptionDisplay } from "@/src/DataTypes/common/layouts/ShortDescription/ShortDescription";
 
 const PlaceSingleView = ({ data }) => {
     const model = new Place(data);
@@ -142,9 +142,8 @@ const PlaceSingleView = ({ data }) => {
     }
     const Footer = (
         <>
-            <SingleInfo title={lang.seoSection}>
-                <ShortDescriptionDisplay>{model.shortDescription}</ShortDescriptionDisplay>
-            </SingleInfo>
+            <SupererogatorySection model={model} />
+
             {(model.createdAt || model.updatedAt || model.meta) && (
                 <SingleInfo title={lang.entityMetadata} className="pt-3">
                     {/*********** Entity data ***********/}

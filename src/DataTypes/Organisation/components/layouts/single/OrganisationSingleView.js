@@ -10,6 +10,7 @@ import SingleBaseProgressBar from "@/src/DataTypes/common/layouts/single/default
 import { ContactPointView } from "@/src/DataTypes/common/layouts/ContactPointView/ContactPointView";
 import BadgesSection from "@/src/DataTypes/Badges/BadgesSection";
 import SingleBaseCTA from "@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseCTA";
+import { SupererogatorySection } from "@/src/common/Components/SupererogatorySection/SupererogatorySection";
 
 //Utils
 import Organisation from "@/src/DataTypes/Organisation/models/Organisation";
@@ -25,7 +26,6 @@ import { removeTagsFromString } from "@/src/helpers/html";
 //Styles
 import styles from "./OrganisationSingleView.module.scss";
 import SocialHandleDisplay from "@/src/DataTypes/common/layouts/SocialHandlesViews/SocialHandleDisplay";
-import { ShortDescriptionDisplay } from "@/src/DataTypes/common/layouts/ShortDescription/ShortDescription";
 
 const OrganisationSingleView = ({ data }) => {
     //Destructuring of data's prop // We should use model here.
@@ -248,9 +248,8 @@ const OrganisationSingleView = ({ data }) => {
 
     const Footer = (
         <>
-            <SingleInfo title={lang.seoSection}>
-                <ShortDescriptionDisplay>{model.shortDescription}</ShortDescriptionDisplay>
-            </SingleInfo>
+            <SupererogatorySection model={model} />
+
             {(createdAt || updatedAt || meta) && (
                 <SingleInfo title={lang.entityMetadata} className="pt-3">
                     <SingleEntityMeta createdAt={createdAt} updatedAt={updatedAt} meta={meta} />
