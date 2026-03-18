@@ -94,6 +94,8 @@ export const base = {
 
     // SINGLE
 
+    shortDesc: "Description courte",
+    keywords: "Keywords",
     proposeContentChangeLabel: "Suggest a modification",
 
     //  Personnes

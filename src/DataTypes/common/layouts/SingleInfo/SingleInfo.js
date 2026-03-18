@@ -1,23 +1,41 @@
 import styles from "./SingleInfo.module.scss";
 import { useFieldTips } from "@/src/hooks/useFieldTips/useFieldTips";
+import Icon from "@/src/common/widgets/Icon/Icon";
 
 /**
+ * @typedef {Object} SingleInfoProps
  *
- * @param props
- * @param props.title {string} Title of the section
- * @param props.children {JSX.Element} Content of the component when displayed
- * @param props.NAMessage {string} Sentence to display if there is no content (children)
- * @param props.NAComponent {JSX.Element} Element to display if there is no content (children)
- * @param props.className {string} Sting of classes to override the current ones one the hole section
- * @param props.classNameTitle {string} Sting of classes to override the current ones into the title element
- * @param props.tooltip {object} Contains the necessary data to display a tootip component
- * @param props.tooltip.header {string} Text of the tooltip header's content
- * @param props.tooltip.body {string} Text of the tooltip main's content
- * @param props.noCardLayout {boolean} Boolean  not display the current info with the card styling. (Change because better to default to cardLayout than not)
- * @param props.isSubtitle {boolean} Boolean to display as a title of a subtitle
- * @param props.displayCondition {boolean} Boolean that tell the component to display or not the children. This is for element that would be displayed but the children prop would still be considered true
+ * @property {string} title Title of the section
+ * @property {JSX.Element} children Content of the component when displayed
+ * @property {string} NAMessage Sentence to display if there is no content (children)
+ * @property {JSX.Element} NAComponent Element to display if there is no content (children)
+ * @property {string} className Sting of classes to override the current ones one the hole section
+ * @property {string} classNameTitle Sting of classes to override the current ones into the title element
+ * @property {Object} tooltip Contains the necessary data to display a tootip component
+ * @property {string} tooltip.header Text of the tooltip header's content
+ * @property {string} tooltip.body Text of the tooltip main's content
+ * @property {boolean} noCardLayout Boolean  not display the current info with the card styling. (Change because better to default to cardLayout than not)
+ * @property {boolean} isSubtitle Boolean to display as a title of a subtitle
+ * @property {boolean} displayCondition Boolean that tell the component to display or not the children. This is for element that would be displayed but the children prop would still be considered true
+ *
+ * @property {boolean | IsCollapsibleOptions} isCollapsible
+ */
+
+/**
+ * @typedef {Object} IsCollapsibleOptions
+ *
+ * @property {string} keyId
+ * @property {string} btnIconOpened
+ * @property {string} btnIconClosed
+ * @property {boolean} show
+ */
+
+/**
+ * Displays a single info about an entity
+ *
+ * @param {SingleInfoProps} props
+ *
  * @return {JSX.Element}
- *
  */
 const SingleInfo = (props) => {
     const {
@@ -31,6 +49,8 @@ const SingleInfo = (props) => {
         noCardLayout,
         displayCondition = true,
         isSubtitle = false,
+
+        onClick,
     } = props;
 
     const { TipPopOver, TipButton } = useFieldTips(props.tooltip);
@@ -61,6 +81,7 @@ const SingleInfo = (props) => {
             {/* Container with padding instead of margin to prevent "margin collapsing" */}
             <section
                 className={`${styles["single-info-layout"]} ${!noCardLayout ? styles["cardLayout"] : ""} ${!isFilled && styles["cardLayout--NA-border"]}  ${className}`}
+                onClick={onClick}
             >
                 {(title || tooltip) && (
                     <header className="d-flex">
@@ -72,9 +93,11 @@ const SingleInfo = (props) => {
                         {tooltip && <TipButton title="Besoin de précisions ?" />}
                     </header>
                 )}
+
                 <TipPopOver />
+
                 <div>
-                    {isFilled && children}
+                    {isFilled ? children : null}
                     {!isFilled && <DefaultNotAvailableDisplay />}
                 </div>
             </section>

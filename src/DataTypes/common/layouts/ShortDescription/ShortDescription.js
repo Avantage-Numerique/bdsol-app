@@ -1,3 +1,4 @@
+import { lang } from "@/src/common/Data/GlobalConstants";
 import Textarea from "@/src/common/FormElements/Textarea/Textarea";
 
 const ShortDescription = ({ formTools, name, ...props }) => {
@@ -9,9 +10,14 @@ const ShortDescription = ({ formTools, name, ...props }) => {
 };
 
 const ShortDescriptionDisplay = (props) => {
+    const { children } = props;
+
     return (
         <>
-            <div className="d-flex flex-wrap justify-content-start text-break">{props.children}</div>
+            <div>
+                <strong>{lang.shortDesc} :</strong>
+                <div className="mt-2 ps-3">{children}</div>
+            </div>
         </>
     );
 };

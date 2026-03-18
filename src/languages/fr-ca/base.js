@@ -133,6 +133,8 @@ const base = {
 
     // Single
     ctaLabel: "Appel à l'action",
+    shortDesc: "Description courte",
+    keywords: "Mots clés",
 
     //Select
     noSelectedOption: "Aucune sélection",
