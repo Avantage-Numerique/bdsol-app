@@ -38,6 +38,10 @@ const base = {
     parAvnu: "par AVNU",
     paginationInfoTitleLabel: "Page",
 
+    // Richtext
+
+    textColor: "Couleur du texte",
+
     // App
 
     appDefaultName: "AVNU | La base de données d'Avantage Numérique",
