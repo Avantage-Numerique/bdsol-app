@@ -96,6 +96,7 @@ export const base = {
 
     shortDesc: "Description courte",
     keywords: "Keywords",
+    metaContentTitle: "Meta informations",
     proposeContentChangeLabel: "Suggest a modification",
 
     //  Personnes

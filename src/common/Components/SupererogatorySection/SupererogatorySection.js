@@ -29,8 +29,7 @@ export const SupererogatorySection = (props) => {
             >
                 {model.shortDescription && <ShortDescriptionDisplay>{model.shortDescription}</ShortDescriptionDisplay>}
                 {model.keywords && <KeywordsDisplay keywords={model.keywords} />}
-
-                <MetaDisplay model={model} />
+                {model.meta && <MetaDisplay model={model} />}
             </Collapsible>
         </>
     );
@@ -64,5 +63,10 @@ const MetaDisplay = (props) => {
         };
     }
 
-    return <>{model.meta && <pre>{JSON.stringify(model, getCircularReplacer(), 2)}</pre>}</>;
+    return (
+        <>
+            <strong>{lang.metaContentTitle} :</strong>
+            {model.meta && <pre>{JSON.stringify(model, getCircularReplacer(), 2)}</pre>}
+        </>
+    );
 };

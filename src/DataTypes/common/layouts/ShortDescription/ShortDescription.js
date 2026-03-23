@@ -16,7 +16,7 @@ const ShortDescriptionDisplay = (props) => {
         <>
             <div>
                 <strong>{lang.shortDesc} :</strong>
-                <div className="mt-2 ps-3">{children}</div>
+                <div className="mt-2">{children}</div>
             </div>
         </>
     );

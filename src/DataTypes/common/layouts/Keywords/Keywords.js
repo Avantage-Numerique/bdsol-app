@@ -12,7 +12,7 @@ export const KeywordsDisplay = (props) => {
         <>
             <div>
                 <strong>{lang.keywords} :</strong>
-                <div className="mt-2 ps-3">{keywords.join(", ")}</div>
+                <div className="mt-2">{keywords.join(", ")}</div>
             </div>
         </>
     );

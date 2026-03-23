@@ -34,9 +34,7 @@ export const Collapsible = (props) => {
         btnIconClosed = "chevron-right",
         show,
         displayCondition = true,
-
         label,
-
         children,
     } = props;
 

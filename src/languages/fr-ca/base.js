@@ -135,6 +135,7 @@ const base = {
     ctaLabel: "Appel à l'action",
     shortDesc: "Description courte",
     keywords: "Mots clés",
+    metaContentTitle: "Informations métas",
 
     //Select
     noSelectedOption: "Aucune sélection",
