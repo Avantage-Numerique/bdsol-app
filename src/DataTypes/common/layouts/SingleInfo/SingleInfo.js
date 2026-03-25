@@ -49,8 +49,6 @@ const SingleInfo = (props) => {
         noCardLayout,
         displayCondition = true,
         isSubtitle = false,
-
-        onClick,
     } = props;
 
     const { TipPopOver, TipButton } = useFieldTips(props.tooltip);
@@ -81,7 +79,6 @@ const SingleInfo = (props) => {
             {/* Container with padding instead of margin to prevent "margin collapsing" */}
             <section
                 className={`${styles["single-info-layout"]} ${!noCardLayout ? styles["cardLayout"] : ""} ${!isFilled && styles["cardLayout--NA-border"]}  ${className}`}
-                onClick={onClick}
             >
                 {(title || tooltip) && (
                     <header className="d-flex">

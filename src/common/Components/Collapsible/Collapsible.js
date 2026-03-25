@@ -65,7 +65,7 @@ export const Collapsible = (props) => {
     };
 
     return (
-        <SingleInfo {...props} onClick={onCollapseClick}>
+        <SingleInfo {...props}>
             {isFilled ? (
                 <>
                     <button
@@ -85,12 +85,7 @@ export const Collapsible = (props) => {
                 <DefaultNotAvailableDisplay />
             )}
 
-            <div
-                className={`mt-3 collapse ${showContent ? "show" : ""}`}
-                id={`${keyId}`}
-                style={{ zIndex: "1" }}
-                onClickCapture={(e) => e.nativeEvent.stopPropagation()}
-            >
+            <div className={`mt-3 collapse ${showContent ? "show" : ""}`} id={`${keyId}`} style={{ zIndex: "1" }}>
                 <div className="d-flex flex-column gap-3">
                     {isFilled && children}
                     {!isFilled && <DefaultNotAvailableDisplay />}
