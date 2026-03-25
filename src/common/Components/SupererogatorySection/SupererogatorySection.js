@@ -4,6 +4,9 @@ import { Collapsible } from "@/src/common/Components/Collapsible/Collapsible";
 
 import { ShortDescriptionDisplay } from "@/src/DataTypes/common/layouts/ShortDescription/ShortDescription";
 import { KeywordsDisplay } from "@/src/DataTypes/common/layouts/Keywords/Keywords";
+import Icon from "../../widgets/Icon/Icon";
+import { useMessages } from "../../UserNotifications/Message/MessageProvider";
+import { useState } from "react";
 
 /**
  * @typedef {Object} SupererogatorySectionProps
@@ -29,6 +32,7 @@ export const SupererogatorySection = (props) => {
             >
                 {model.shortDescription && <ShortDescriptionDisplay>{model.shortDescription}</ShortDescriptionDisplay>}
                 {model.keywords && <KeywordsDisplay keywords={model.keywords} />}
+                {model.meta.jsonld && <JSONLDDisplay model={model} />}
                 {model.meta && <MetaDisplay model={model} />}
             </Collapsible>
         </>
@@ -66,7 +70,60 @@ const MetaDisplay = (props) => {
     return (
         <>
             <strong>{lang.metaContentTitle} :</strong>
-            {model.meta && <pre>{JSON.stringify(model, getCircularReplacer(), 2)}</pre>}
+            <details>{model.meta && <pre>{JSON.stringify(model.meta, getCircularReplacer(), 2)}</pre>}</details>
         </>
+    );
+};
+
+/**
+ * Temporary component initially used for testing the `<Collapsible/>`
+ *
+ * @param {SupererogatorySectionProps} props
+ * @returns
+ */
+const JSONLDDisplay = (props) => {
+    const { model } = props;
+
+    let [copied, setCopied] = useState(false);
+    let copiedTimer;
+
+    const hintCopied = () => {
+        copiedTimer && clearTimeout(copiedTimer);
+        setCopied(true);
+        copiedTimer = setTimeout(() => {
+            setCopied(false);
+        }, 1500);
+    };
+
+    const msg = useMessages();
+
+    return (
+        <div className="position-relative">
+            <strong>{lang.jsonldContentTitle} :</strong>
+
+            <button
+                className="btn btn-outline-secondary position-absolute top-0 end-0"
+                onClick={async () => {
+                    console.log("before copy");
+
+                    await navigator.clipboard.writeText(JSON.stringify(model.meta.jsonld));
+
+                    console.log("after copy");
+
+                    msg.addMessage({
+                        text: "Données structurées copiées!",
+                    });
+
+                    hintCopied();
+                }}
+            >
+                Copier JSON+LD <Icon iconName={copied ? "check" : "copy"} />
+            </button>
+
+            <details>
+                <summary>JSON+LD</summary>
+                {model.meta.jsonld && <pre>{JSON.stringify(model.meta.jsonld, null, 2)}</pre>}
+            </details>
+        </div>
     );
 };

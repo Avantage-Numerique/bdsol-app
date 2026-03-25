@@ -16,9 +16,17 @@ const lengthValidator = (text, recommandation, tagName = "") => {
 
     return text;
 };
+
+/**
+ * @typedef {Object} PageMetaProps
+ *
+ * @property {string} title
+ *
+ * @property {string} structuredData
+ */
 /**
  * Generate a header component with all the defined tag
- * 
+ *
  * General details
  * @param props.title {string} Main title of the page
  * @param props.description {string} Main description of the page
@@ -28,13 +36,15 @@ const lengthValidator = (text, recommandation, tagName = "") => {
  * @Param props.ogTitle {String} Representing the title of the page to be shown on social medias. Must be engagning
  * @Param props.ogDescription {String} Representing the description of the page to be shown on social medias. Must be engagning
  * @PAram props.caconical {String} Override the general canonical link if needed (usefull with specific entity pages)
- * Media 
+ * Media
  * @Param props.imageFromApi {String} Override the address of the image if its from api
  * @Param props.image {String} Address of the image that will represent the page.
  * @Param props.imageAlt {String} Text descriptif du contenu de l'image
  * @Param props.imageWidth {Int} Announced width of the image
  * @Param props.imageHeight {Int} Announced height of the image
-
+ *
+ * @param {PageMetaProps} props
+ *
  * @return {array}
  */
 const PageMeta = (props) => {

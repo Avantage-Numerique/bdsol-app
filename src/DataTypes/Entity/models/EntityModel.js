@@ -48,6 +48,7 @@ class EntityModel {
             seperator: " - ",
             title: this.title,
             description: this.shortDescription,
+            jsonld: {},
         };
 
         //Ajouter _id et id ??

@@ -136,6 +136,7 @@ const base = {
     shortDesc: "Description courte",
     keywords: "Mots clés",
     metaContentTitle: "Informations métas",
+    jsonldContentTitle: "Données structurées",
 
     //Select
     noSelectedOption: "Aucune sélection",
