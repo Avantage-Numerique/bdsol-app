@@ -38,6 +38,10 @@ const base = {
     parAvnu: "par AVNU",
     paginationInfoTitleLabel: "Page",
 
+    // Richtext
+
+    textColor: "Couleur du texte",
+
     // App
 
     appDefaultName: "AVNU | La base de données d'Avantage Numérique",
@@ -133,6 +137,10 @@ const base = {
 
     // Single
     ctaLabel: "Appel à l'action",
+    shortDesc: "Description courte",
+    keywords: "Mots clés",
+    metaContentTitle: "Informations métas",
+    jsonldContentTitle: "Données structurées",
 
     //Select
     noSelectedOption: "Aucune sélection",

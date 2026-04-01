@@ -9,10 +9,12 @@ a {
 
 a.link,
 a.external-link,
-a.internal-link {
+a.internal-link,
+.ql-editor a {
     text-decoration-line: underline;
     text-decoration-thickness: 2px;
     text-underline-offset: 3px;
+
     @include transition();
     &:hover {
         color: $primary;
@@ -34,5 +36,11 @@ a.internal-link {
             text-decoration-thickness: 3px;
             text-underline-offset: 4px;
         }
+    }
+}
+
+.single-info-description {
+    a {
+        text-decoration: underline solid currentColor;
     }
 }

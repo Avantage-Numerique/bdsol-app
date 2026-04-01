@@ -3,8 +3,8 @@ import styles from "./EntitySimple.module.scss";
 
 import MediaFigure from "@/DataTypes/Media/layouts/MediaFigure";
 import { getType } from "@/DataTypes/Entity/Types";
-import HtmlTagsRemover from "@/src/utils/HtmlTagsRemover";
 import TypeTag from "@/DataTypes/common/layouts/TypeTag/TypeTag";
+import { htmlToTextSingleParagraph } from "@/src/helpers/str";
 
 import Link from "next/link";
 
@@ -43,7 +43,10 @@ const EntitySimple = (props) => {
 
     //content
     const title = model.title;
-    const description = model.shortDescription;
+
+    const description = htmlToTextSingleParagraph(model.description).substring(0, 87);
+    const descriptionEllipsis = htmlToTextSingleParagraph(model.description).length > 87 ? "..." : "";
+
     //params
     const showEntityType = props.showEntityType ?? true;
     const appType = getType(model.type);
@@ -152,20 +155,7 @@ const EntitySimple = (props) => {
                 ${styles["simple-abstract__sub-section"]}
             `}
             >
-                {description && (
-                    <HtmlTagsRemover
-                        tag="p"
-                        className={`
-                            mb-0
-                            text-center
-                            ${styles["simple-abstract__content__description"]}
-                            ${styles["simple-abstract__content_ellipsis"]}
-                            ${!isBottomLine && styles["simple-abstract__content_ellipsis--3lines"]}
-                        `}
-                    >
-                        {description}
-                    </HtmlTagsRemover>
-                )}
+                {description && description + descriptionEllipsis}
 
                 {!BottomLineContent && model.singleList && (
                     <ul className={`d-flex mb-0 ${styles["simple-abstract__content__tagList"]} justify-content-center`}>

@@ -21,6 +21,10 @@ export const base = {
     anonyme: "anonym",
     parAvnu: "by AVNU",
 
+    // Richtext
+
+    textColor: "Text color",
+
     // App
 
     appDefaultName: "AVNU | By Avantage Numérique",
@@ -94,6 +98,10 @@ export const base = {
 
     // SINGLE
 
+    shortDesc: "Description courte",
+    keywords: "Keywords",
+    metaContentTitle: "Meta informations",
+    jsonldContentTitle: "Structured data",
     proposeContentChangeLabel: "Suggest a modification",
 
     //  Personnes

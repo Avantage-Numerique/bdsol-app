@@ -11,6 +11,7 @@ import EntityLink from "@/DataTypes/Entity/layouts/EntityLink";
 import SingleBaseProgressBar from "@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseProgressBar/SingleBaseProgressBar";
 import { ContactPointView } from "@/src/DataTypes/common/layouts/ContactPointView/ContactPointView";
 import SingleBaseCTA from "@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseCTA";
+import { SupererogatorySection } from "@/src/common/Components/SupererogatorySection/SupererogatorySection";
 
 //Utils
 import SanitizedInnerHtml from "@/src/utils/SanitizedInnerHtml";
@@ -257,6 +258,8 @@ const ProjectSingleView = ({ data }) => {
     }
     const Footer = (
         <>
+            <SupererogatorySection model={model} />
+
             {(createdAt || updatedAt || meta) && (
                 <SingleInfo title={lang.entityMetadata} className="pt-3">
                     {/*********** Entity data ***********/}

@@ -19,30 +19,44 @@ const Footer = () => {
                 <div className={`row justify-content-center ${styles["main-logo--container"]}`}>
                     <Image src="/AVNU_Branding/AVNU-LogoComplet-RVB.png" alt="Logo AVNU" width={1980} height={744} />
                 </div>
-                {/* Presentation of Avantage Numerique */}
-                <div className={`row`}>
-                    <p className="text-center mb-0">Un projet développé avec amour par</p>
-                </div>
-                <div className={`row justify-content-center ${styles["secondary-logo--container"]}`}>
-                    <div className="d-flex justify-content-center ">
-                        <a
-                            href="https://avantagenumerique.org/?ref=avnuca"
-                            title={"Site web d'avantage numérique"}
-                            rel={"nofollow"}
-                        >
-                            <Image
-                                src="/logos/logo-avantage-numerique.svg"
-                                alt="Logo Avantage Numérique"
-                                width={"278"}
-                                height={"28"}
-                            />
-                        </a>
+
+                <div className="py-4">
+                    {/* Presentation of Avantage Numerique */}
+                    <div className={`row`}>
+                        <p className="text-center mb-0">Un projet développé avec amour par</p>
+                    </div>
+                    <div className={`row justify-content-center ${styles["secondary-logo--container"]}`}>
+                        <div className="d-flex justify-content-center ">
+                            <a
+                                href="https://avantagenumerique.org/?ref=avnuca"
+                                title={"Site web d'avantage numérique"}
+                                rel={"nofollow"}
+                            >
+                                <Image
+                                    src="/logos/logo-avantage-numerique.svg"
+                                    alt="Logo Avantage Numérique"
+                                    width={"278"}
+                                    height={"28"}
+                                />
+                            </a>
+                        </div>
+                    </div>
+
+                    <div className={`row`}>
+                        <p className="text-center mb-0">grâce au soutien financier de</p>
+                    </div>
+                    <div className={`row justify-content-center ${styles["secondary-logo--container"]}`}>
+                        <div className="d-flex justify-content-center ">
+                            <Image src="/logos/Logo_QC.png" alt="Logo Québec" width={"288"} height={"102"} />
+                        </div>
                     </div>
                 </div>
+
                 {/* Utils and legal links */}
                 <div className={`row d-flex flex-column`}>
                     <nav className="nav nav-pills mb-0 justify-content-center align-items-center">
                         <RouteLink routeName={"valuesChart"} className={"nav-link text-dark"} />
+                        <RouteLink routeName={"referentiel"} className={"nav-link text-dark"} />
                         <RouteLink routeName={"confidentialityPolicy"} className={"nav-link text-dark"} />
                         <RouteLink routeName={"termOfUse"} className={"nav-link text-dark"} />
                         <RouteLink routeName={"paramsCookies"} className={"nav-link text-dark"} />

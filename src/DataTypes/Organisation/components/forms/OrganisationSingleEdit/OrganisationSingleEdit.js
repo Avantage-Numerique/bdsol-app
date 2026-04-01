@@ -13,7 +13,6 @@ import { useRootModal } from "@/src/hooks/useModal/useRootModal";
 import Select2 from "@/src/common/FormElements/Select2/Select2";
 import Input from "@/src/common/FormElements/Input/Input";
 import RichTextarea from "@/src/common/FormElements/RichTextArea/RichTextarea";
-import Select from "@/src/common/FormElements/Select/Select";
 import { getDefaultUpdateEntityMeta } from "@/src/DataTypes/Meta/EntityMeta";
 import SingleBase from "@/src/DataTypes/common/layouts/single/SingleBase";
 import SingleBaseHeader from "@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseHeader";
@@ -36,6 +35,7 @@ import { lang, modes } from "@/src/common/Data/GlobalConstants";
 import { TYPE_PLACE, TYPE_TAXONOMY } from "@/src/DataTypes/Entity/Types";
 import { apiDateToDateInput, dateTimeStringToUTC } from "@/common/DateManager/Parse";
 import SelectFetch from "@/src/common/FormElements/Select/SelectFetch";
+import { ShortDescription } from "@/src/DataTypes/common/layouts/ShortDescription/ShortDescription";
 
 const OrganisationSingleEdit = (props) => {
     //Organisation data extract
@@ -134,6 +134,10 @@ const OrganisationSingleEdit = (props) => {
                 value: description ?? "",
                 isValid: true,
             },
+            shortDescription: {
+                value: model.shortDescription ?? "",
+                isValid: true,
+            },
             url: {
                 value: url ?? [],
                 isValid: true,
@@ -202,6 +206,7 @@ const OrganisationSingleEdit = (props) => {
             data: {
                 name: formState.inputs.name.value,
                 description: formState.inputs.description.value,
+                shortDescription: formState.inputs.shortDescription.value,
                 url: formState.inputs.url.value.map(function (singleUrl) {
                     return {
                         label: singleUrl.value.label.value,
@@ -399,6 +404,9 @@ const OrganisationSingleEdit = (props) => {
 
     const Footer = (
         <>
+            <SingleInfo title={lang.seoSection}>
+                <ShortDescription formTools={formTools} name="shortDescription" />
+            </SingleInfo>
             {(createdAt || updatedAt || meta) && (
                 <SingleInfo title={lang.entityMetadata} className="pt-3">
                     {/*********** Entity data ***********/}
