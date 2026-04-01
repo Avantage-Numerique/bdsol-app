@@ -56,6 +56,7 @@ const Footer = () => {
                 <div className={`row d-flex flex-column`}>
                     <nav className="nav nav-pills mb-0 justify-content-center align-items-center">
                         <RouteLink routeName={"valuesChart"} className={"nav-link text-dark"} />
+                        <RouteLink routeName={"referentiel"} className={"nav-link text-dark"} />
                         <RouteLink routeName={"confidentialityPolicy"} className={"nav-link text-dark"} />
                         <RouteLink routeName={"termOfUse"} className={"nav-link text-dark"} />
                         <RouteLink routeName={"paramsCookies"} className={"nav-link text-dark"} />

@@ -7,6 +7,7 @@ import SingleInfo from "@/DataTypes/common/layouts/SingleInfo/SingleInfo";
 import SocialHandleDisplay from "@/DataTypes/common/layouts/SocialHandlesViews/SocialHandleDisplay";
 import SingleBaseProgressBar from "@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseProgressBar/SingleBaseProgressBar";
 import SingleBaseCTA from "@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseCTA";
+import { SupererogatorySection } from "@/src/common/Components/SupererogatorySection/SupererogatorySection";
 
 //Utils
 import SanitizedInnerHtml from "@/src/utils/SanitizedInnerHtml";
@@ -122,6 +123,8 @@ const EquipmentSingleView = ({ data }) => {
 
     const Footer = (
         <>
+            <SupererogatorySection model={model} />
+
             {(model.createdAt || model.updatedAt || model.meta) && (
                 <SingleInfo title={lang.entityMetadata} className="pt-3">
                     {/*********** Entity data ***********/}

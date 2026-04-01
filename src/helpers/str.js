@@ -1,3 +1,6 @@
+/**
+ * @param {string} str
+ */
 export const removeHtml = (str) => {
     if (typeof str === "string") {
         return str.replace(/(<([^>]+)>)/gi, "");
@@ -29,3 +32,22 @@ function _htmlToText(input) {
     return htmlToText(input, { wordwrap: false }).replace(/\n+/g, "\n\n").trim();
 }
 export { _htmlToText as htmlToText };
+
+/**
+ * Function to cleanup HTML string, preserving newlines
+ *
+ * @param {string} input HTML string to cleanup
+ */
+function _htmlToTextSingleParagraph(input) {
+    return htmlToText(input, {
+        wordwrap: false,
+        selectors: [
+            { selector: "a", options: { ignoreHref: true } },
+            { selector: "ul", options: { itemPrefix: " ‣ " } },
+        ],
+        decodeEntities: true,
+    })
+        .replace(/\n+/g, "\n\n")
+        .trim();
+}
+export { _htmlToTextSingleParagraph as htmlToTextSingleParagraph };

@@ -137,6 +137,10 @@ const base = {
 
     // Single
     ctaLabel: "Appel à l'action",
+    shortDesc: "Description courte",
+    keywords: "Mots clés",
+    metaContentTitle: "Informations métas",
+    jsonldContentTitle: "Données structurées",
 
     //Select
     noSelectedOption: "Aucune sélection",

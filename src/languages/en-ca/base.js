@@ -98,6 +98,10 @@ export const base = {
 
     // SINGLE
 
+    shortDesc: "Description courte",
+    keywords: "Keywords",
+    metaContentTitle: "Meta informations",
+    jsonldContentTitle: "Structured data",
     proposeContentChangeLabel: "Suggest a modification",
 
     //  Personnes

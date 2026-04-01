@@ -35,6 +35,7 @@ import { useAuth } from "@/src/authentification/context/auth-context";
 import { TYPE_EQUIPMENT, TYPE_TAXONOMY } from "@/src/DataTypes/Entity/Types";
 
 import { useMessages } from "@/common/UserNotifications/Message/MessageProvider";
+import { ShortDescription } from "@/src/DataTypes/common/layouts/ShortDescription/ShortDescription";
 
 const ProjectSingleEdit = (props) => {
     const {
@@ -121,6 +122,10 @@ const ProjectSingleEdit = (props) => {
             },
             description: {
                 value: description ?? "",
+                isValid: true,
+            },
+            shortDescription: {
+                value: model.shortDescription ?? "",
                 isValid: true,
             },
             url: {
@@ -217,6 +222,7 @@ const ProjectSingleEdit = (props) => {
                 entityInCharge: formState.inputs.entityInCharge?.value?.map((elem) => elem.value) ?? [],
                 producer: formState.inputs.producer?.value?.map((elem) => elem.value) ?? [],
                 description: formState.inputs.description.value,
+                shortDescription: formState.inputs.shortDescription.value,
                 context:
                     formState.inputs.context.value !== "" && typeof formState.inputs.context.value !== "undefined"
                         ? formState.inputs.context.value
@@ -472,6 +478,9 @@ const ProjectSingleEdit = (props) => {
     }
     const Footer = (
         <>
+            <SingleInfo title={lang.seoSection}>
+                <ShortDescription formTools={formTools} name="shortDescription" />
+            </SingleInfo>
             {(createdAt || updatedAt || meta) && (
                 <SingleInfo title={lang.entityMetadata} className="pt-3">
                     {/*********** Entity data ***********/}

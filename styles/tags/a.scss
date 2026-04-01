@@ -9,10 +9,12 @@ a {
 
 a.link,
 a.external-link,
-a.internal-link {
+a.internal-link,
+.ql-editor a {
     text-decoration-line: underline;
     text-decoration-thickness: 2px;
     text-underline-offset: 3px;
+
     @include transition();
     &:hover {
         color: $primary;
