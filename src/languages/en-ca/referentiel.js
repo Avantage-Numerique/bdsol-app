@@ -6,6 +6,8 @@ const referentiel = {
     refProperties: "Properties",
 
     refRelationLinks: "Relation links",
+
+    vocabularies: "Vocabularies",
 };
 
 exports.referentiel = referentiel;
