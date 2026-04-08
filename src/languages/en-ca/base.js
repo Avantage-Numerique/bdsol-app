@@ -99,6 +99,11 @@ export const base = {
     // SINGLE
 
     shortDesc: "Description courte",
+    shortDescImportantNote:
+        "Si la description courte n'est pas définie, AVNU génère une version en prenant les 160 premiers caractères de la description.",
+    shortDescDirectives:
+        "Utilisé dans la balise méta description de la page, et pour les données structurées nécessitant la propriété shortDescription.",
+
     keywords: "Keywords",
     metaContentTitle: "Meta informations",
     jsonldContentTitle: "Structured data",
