@@ -54,7 +54,7 @@ const SingleBase = (props) => {
                 imageFromApi={imageSrc || ""}
                 imageAlt={getTitle([model?.meta.title, model?.Type.label]) || ""}
                 canonical={model?.fullSingleLinkUrl || ""}
-                structuredData={model?.meta.jsonld}
+                structuredData={model?._jsonld}
             />
 
             <div>
