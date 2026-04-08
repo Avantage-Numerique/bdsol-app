@@ -1,6 +1,6 @@
 {
     "name": "avnu",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "description": "Application frontend for interacting with AVNU api",
     "authors": [
         "Frédéric Rivard",

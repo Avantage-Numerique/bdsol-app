@@ -77,7 +77,10 @@ const FieldPopOver = (props) => {
             style={{ left: `${dialogTranslateX}px`, top: `${dialogTranslateY}px` }}
         >
             <header className="">
-                <h4 title={header} className="m-0 me-2 fs-5 text-truncate">
+                <h4
+                    title={header}
+                    className="d-flex justify-content-star align-items-center m-0 me-2 fs-5 text-truncate"
+                >
                     {header}
                 </h4>
                 <button className="fs-5 m-0" onClick={closingFunction} type="button">
