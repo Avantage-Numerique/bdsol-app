@@ -99,6 +99,7 @@ export const base = {
     // SINGLE
 
     shortDesc: "Description courte",
+    generatedShortDesc: "Generated short description",
     shortDescIsGenerated: "This short description was generated automatically by AVNU.",
     shortDescImportantNote:
         "Si la description courte n'est pas définie, AVNU génère une version en prenant les 160 premiers caractères de la description.",

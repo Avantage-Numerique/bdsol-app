@@ -230,6 +230,9 @@ const EquipmentSingleEdit = ({ positiveRequestActions, ...props }) => {
 
     const footer = (
         <>
+            <SingleInfo title={lang.seoSection}>
+                <ShortDescription formTools={formTools} name="shortDescription" model={model} />
+            </SingleInfo>
             {(model.createdAt || model.updatedAt || model.meta) && (
                 <SingleInfo title={lang.entityMetadata} className="pt-3">
                     {/*********** Entity data ***********/}

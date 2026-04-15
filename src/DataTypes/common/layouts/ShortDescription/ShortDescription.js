@@ -9,14 +9,21 @@ const tip = {
     body: lang.shortDescDirectives,
 };
 
-const ShortDescription = ({ formTools, name, ...props }) => {
+const ShortDescription = ({ formTools, name, model, ...props }) => {
+const generated = model?._generated?.shortDescription || "";
+
     return (
         <>
             <div className={"d-flex align-items-center justify-content-between"}>
                 <label htmlFor={name}>{lang.shortDesc}</label>
                 <Popover title={tip.header} body={tip.body} />
             </div>
-            <Textarea formTools={formTools} name={name} maxLength="160" />
+            <Textarea
+formTools={formTools}
+name={name}
+maxLength="160"
+                placeholder={generated ? `${lang.generatedShortDesc} : ${generated}` : ""}
+/>
             <p className={"py-2"}>
                 <Icon iconName={"exclamation-triangle"} /> {lang.shortDescImportantNote}
             </p>

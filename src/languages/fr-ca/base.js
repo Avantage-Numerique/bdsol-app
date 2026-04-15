@@ -138,6 +138,7 @@ const base = {
     // Single
     ctaLabel: "Appel à l'action",
     shortDesc: "Description courte",
+    generatedShortDesc: "Description courte générée",
     shortDescIsGenerated: "Cette description courte à été générée automatiquement par AVNU.",
     shortDescImportantNote:
         "Si la description courte n'est pas définie, AVNU génère une version en prenant les 160 premiers caractères de la description.",
