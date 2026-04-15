@@ -14,4 +14,16 @@ const removeTagsFromString = (value) => {
     return cleanedData.replace(htmlRegexG, "");
 };
 
-export { removeTagsFromString };
+/**
+ *
+ * @param {string} txt
+ * @returns
+ */
+const decodeHTMLEntities = (txt) => {
+    const parser = new DOMParser();
+    const htmlDoc = parser.parseFromString(txt, "text/html");
+
+    return htmlDoc.documentElement.innerText;
+};
+
+export { removeTagsFromString, decodeHTMLEntities };

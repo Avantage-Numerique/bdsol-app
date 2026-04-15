@@ -2,20 +2,21 @@ import { lang } from "@/src/common/Data/GlobalConstants";
 import Textarea from "@/src/common/FormElements/Textarea/Textarea";
 import { useFieldTips } from "@/src/hooks/useFieldTips/useFieldTips";
 import Icon from "@/common/widgets/Icon/Icon";
+import Popover from "@/src/common/Components/Popover/Popover";
+import { decodeHTMLEntities } from "@/src/helpers/html";
+
+const tip = {
+    header: lang.shortDesc,
+    body: lang.shortDescDirectives,
+};
 
 const ShortDescription = ({ formTools, name, ...props }) => {
-    const staticShortDescriptionTip = {
-        header: lang.shortDesc,
-        body: lang.shortDescDirectives,
-    };
-    const { TipPopOver, TipButton } = useFieldTips(staticShortDescriptionTip);
     return (
         <>
             <div className={"d-flex align-items-center justify-content-between"}>
                 <label htmlFor={name}>{lang.shortDesc}</label>
-                <TipButton title={lang.shortDesc} />
+                <Popover title={tip.header} body={tip.body} />
             </div>
-            <TipPopOver />
             <Textarea formTools={formTools} name={name} maxLength="160" />
             <p className={"py-2"}>
                 <Icon iconName={"exclamation-triangle"} /> {lang.shortDescImportantNote}
@@ -25,18 +26,26 @@ const ShortDescription = ({ formTools, name, ...props }) => {
 };
 
 /**
- * @deprecated
+ *
  * @param props
  * @returns {JSX.Element}
  * @constructor
  */
-const ShortDescriptionDisplay = (props) => {
-    const { children } = props;
-
+const ShortDescriptionDisplay = ({ shortDescription, generatedShortDescription, ...props }) => {
     return (
         <div>
-            <label>{lang.shortDesc}</label>
-            <div className="mt-2">{children}</div>
+            <div className={"d-flex align-items-center justify-content-between"}>
+                <strong>{lang.shortDesc}</strong>
+                <Popover title={tip.header} body={tip.body} />
+            </div>
+
+            {!shortDescription && generatedShortDescription && (
+                <p className="py-2 small text-dark-emphasis">
+                    <Icon iconName={"exclamation-circle"} /> {lang.shortDescIsGenerated}
+                </p>
+            )}
+
+            <div className="mt-2">{decodeHTMLEntities(shortDescription || generatedShortDescription)}</div>
         </div>
     );
 };

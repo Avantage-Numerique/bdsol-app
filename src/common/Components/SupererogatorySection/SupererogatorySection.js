@@ -30,7 +30,12 @@ export const SupererogatorySection = (props) => {
                 NAMessage="Rien à signaler!"
                 show={false}
             >
-                {model.shortDescription && <ShortDescriptionDisplay>{model.shortDescription}</ShortDescriptionDisplay>}
+                {(model.shortDescription || model._generated.shortDescription) && (
+                    <ShortDescriptionDisplay
+                        shortDescription={model.shortDescription}
+                        generatedShortDescription={model._generated.shortDescription}
+                    />
+                )}
                 {model.keywords && <KeywordsDisplay keywords={model.keywords} />}
                 {model._jsonld && <JSONLDDisplay model={model} />}
             </Collapsible>
@@ -39,7 +44,7 @@ export const SupererogatorySection = (props) => {
 };
 
 /**
- * Temporary component initially used for testing the `<Collapsible/>`
+ * Component to display JSONLD in supererogatory
  *
  * @param {SupererogatorySectionProps} props
  * @returns

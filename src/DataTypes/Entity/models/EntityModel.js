@@ -13,6 +13,8 @@ import { lang } from "@/src/common/Data/GlobalConstants";
  * @property defaultSingleParams {Object} default parameters for the single component of this entity
  * @property simpleParams {Object} parameters for the single component of this entity. If it was empty, it's equal to the default value.
  * @property singleParams {Object} parameters for the single component of this entity. If it was empty, it's equal to the default value.
+ *
+ * @property {object} _generated
  */
 class EntityModel {
     /**
