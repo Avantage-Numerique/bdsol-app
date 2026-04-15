@@ -29,6 +29,7 @@ import Equipment from "../../../models/Equipment";
 import UpdateSocialHandles from "../../../../common/Forms/UpdateSocialHandles/UpdateSocialHandles";
 import SingleBeforeUnloadReminder from "@/src/DataTypes/common/layouts/SingleSaveEntityReminder/SingleBeforeUnloadReminder";
 import RichTextarea from "@/src/common/FormElements/RichTextArea/RichTextarea";
+import { ShortDescription } from "@/src/DataTypes/common/layouts/ShortDescription/ShortDescription";
 
 const EquipmentSingleEdit = ({ positiveRequestActions, ...props }) => {
     //Model de project
@@ -83,6 +84,10 @@ const EquipmentSingleEdit = ({ positiveRequestActions, ...props }) => {
                 value: model?.description ?? "",
                 isValid: true,
             },
+            shortDescription: {
+                value: model?.shortDescription ?? "",
+                isValid: true,
+            },
             brand: {
                 value: model?.brand ?? "",
                 isValid: true,
@@ -119,6 +124,7 @@ const EquipmentSingleEdit = ({ positiveRequestActions, ...props }) => {
                 equipmentType: formState.inputs.equipmentType.value.value,
                 label: formState.inputs.label.value,
                 description: formState.inputs.description.value,
+                shortDescription: formState.inputs.shortDescription.value,
                 brand: formState.inputs.brand.value,
                 modelName: formState.inputs.modelName.value,
                 url: formState.inputs.url.value.map(function (singleUrl) {
