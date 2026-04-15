@@ -1,9 +1,8 @@
 import { lang } from "@/src/common/Data/GlobalConstants";
 import Textarea from "@/src/common/FormElements/Textarea/Textarea";
-import { useFieldTips } from "@/src/hooks/useFieldTips/useFieldTips";
 import Icon from "@/common/widgets/Icon/Icon";
 import Popover from "@/src/common/Components/Popover/Popover";
-import { decodeHTMLEntities } from "@/src/helpers/html";
+import { htmlToTextSingleParagraph } from "@/src/helpers/str";
 
 const tip = {
     header: lang.shortDesc,
@@ -45,7 +44,7 @@ const ShortDescriptionDisplay = ({ shortDescription, generatedShortDescription, 
                 </p>
             )}
 
-            <div className="mt-2">{decodeHTMLEntities(shortDescription || generatedShortDescription)}</div>
+            <div className="mt-2">{htmlToTextSingleParagraph(shortDescription || generatedShortDescription)}</div>
         </div>
     );
 };
