@@ -5,16 +5,20 @@ import { lang } from "@/src/common/Data/GlobalConstants";
 
 /**
  * The abstract model for all the entities.
+ *
+ * @typedef EntityModel
+ *
  * @property type {string}
  * @property title {string}
  * @property description {string}
+ * @property shortDescription {string}
  * @property mainImage {Object}
  * @property defaultSimpleParams {Object} default parameters for the simple component of this entity
  * @property defaultSingleParams {Object} default parameters for the single component of this entity
  * @property simpleParams {Object} parameters for the single component of this entity. If it was empty, it's equal to the default value.
  * @property singleParams {Object} parameters for the single component of this entity. If it was empty, it's equal to the default value.
  *
- * @property {object} _generated
+ * @property {Object} [_generated]
  */
 class EntityModel {
     /**

@@ -10,7 +10,7 @@ const tip = {
 };
 
 const ShortDescription = ({ formTools, name, model, ...props }) => {
-const generated = model?._generated?.shortDescription || "";
+    const generated = model?._generated?.shortDescription || "";
 
     return (
         <>
@@ -19,11 +19,11 @@ const generated = model?._generated?.shortDescription || "";
                 <Popover title={tip.header} body={tip.body} />
             </div>
             <Textarea
-formTools={formTools}
-name={name}
-maxLength="160"
+                formTools={formTools}
+                name={name}
+                maxLength="160"
                 placeholder={generated ? `${lang.generatedShortDesc} : ${generated}` : ""}
-/>
+            />
             <p className={"py-2"}>
                 <Icon iconName={"exclamation-triangle"} /> {lang.shortDescImportantNote}
             </p>
@@ -33,11 +33,11 @@ maxLength="160"
 
 /**
  *
- * @param props
+ * @param {{ model: import("@/src/DataTypes/Entity/models/EntityModel").EntityModel }} props
  * @returns {JSX.Element}
  * @constructor
  */
-const ShortDescriptionDisplay = ({ shortDescription, generatedShortDescription, ...props }) => {
+const ShortDescriptionDisplay = ({ model, ...props }) => {
     return (
         <div>
             <div className={"d-flex align-items-center justify-content-between"}>
@@ -45,13 +45,15 @@ const ShortDescriptionDisplay = ({ shortDescription, generatedShortDescription, 
                 <Popover title={tip.header} body={tip.body} />
             </div>
 
-            {!shortDescription && generatedShortDescription && (
+            {!model.shortDescription && model._generated?.generatedShortDescription && (
                 <p className="py-2 small text-dark-emphasis">
                     <Icon iconName={"exclamation-circle"} /> {lang.shortDescIsGenerated}
                 </p>
             )}
 
-            <div className="mt-2">{htmlToTextSingleParagraph(shortDescription || generatedShortDescription)}</div>
+            <div className="mt-2">
+                {htmlToTextSingleParagraph(model.shortDescription || model._generated?.generatedShortDescription)}
+            </div>
         </div>
     );
 };

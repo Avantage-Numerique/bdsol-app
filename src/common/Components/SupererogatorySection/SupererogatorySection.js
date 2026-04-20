@@ -30,11 +30,8 @@ export const SupererogatorySection = (props) => {
                 NAMessage="Rien à signaler!"
                 show={false}
             >
-                {(model.shortDescription || model._generated.shortDescription) && (
-                    <ShortDescriptionDisplay
-                        shortDescription={model.shortDescription}
-                        generatedShortDescription={model._generated.shortDescription}
-                    />
+                {(model.shortDescription || model._generated?.shortDescription) && (
+                    <ShortDescriptionDisplay model={model} />
                 )}
                 {model.keywords && <KeywordsDisplay keywords={model.keywords} />}
                 {model._jsonld && <JSONLDDisplay model={model} />}
