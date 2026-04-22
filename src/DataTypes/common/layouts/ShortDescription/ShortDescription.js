@@ -45,14 +45,14 @@ const ShortDescriptionDisplay = ({ model, ...props }) => {
                 <Popover title={tip.header} body={tip.body} />
             </div>
 
-            {!model.shortDescription && model._generated?.generatedShortDescription && (
+            {!model.shortDescription && model._generated?.shortDescription && (
                 <p className="py-2 small text-dark-emphasis">
                     <Icon iconName={"exclamation-circle"} /> {lang.shortDescIsGenerated}
                 </p>
             )}
 
             <div className="mt-2">
-                {htmlToTextSingleParagraph(model.shortDescription || model._generated?.generatedShortDescription)}
+                {htmlToTextSingleParagraph(model.shortDescription || model._generated?.shortDescription)}
             </div>
         </div>
     );
