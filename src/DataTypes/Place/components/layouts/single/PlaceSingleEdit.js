@@ -294,7 +294,7 @@ const PlaceSingleEdit = ({ positiveRequestActions, ...props }) => {
     const Footer = (
         <>
             <SingleInfo title={lang.seoSection}>
-                <ShortDescription formTools={formTools} name="shortDescription" />
+                <ShortDescription formTools={formTools} name="shortDescription" model={model} />
             </SingleInfo>
             {(createdAt || updatedAt || meta) && (
                 <SingleInfo title={lang.entityMetadata} className="pt-3">

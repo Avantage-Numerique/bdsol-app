@@ -30,16 +30,18 @@ export const SupererogatorySection = (props) => {
                 NAMessage="Rien à signaler!"
                 show={false}
             >
-                {model.shortDescription && <ShortDescriptionDisplay>{model.shortDescription}</ShortDescriptionDisplay>}
+                {(model.shortDescription || model._generated?.shortDescription) && (
+                    <ShortDescriptionDisplay model={model} />
+                )}
                 {model.keywords && <KeywordsDisplay keywords={model.keywords} />}
-                {model.meta.jsonld && <JSONLDDisplay model={model} />}
+                {model._jsonld && <JSONLDDisplay model={model} />}
             </Collapsible>
         </>
     );
 };
 
 /**
- * Temporary component initially used for testing the `<Collapsible/>`
+ * Component to display JSONLD in supererogatory
  *
  * @param {SupererogatorySectionProps} props
  * @returns
@@ -69,7 +71,7 @@ const JSONLDDisplay = (props) => {
                 onClick={async () => {
                     console.log("before copy");
 
-                    await navigator.clipboard.writeText(JSON.stringify(model.meta.jsonld));
+                    await navigator.clipboard.writeText(JSON.stringify(model._jsonld));
 
                     console.log("after copy");
 
@@ -85,7 +87,7 @@ const JSONLDDisplay = (props) => {
 
             <details>
                 <summary>JSON+LD</summary>
-                {model.meta.jsonld && <pre>{JSON.stringify(model.meta.jsonld, null, 2)}</pre>}
+                {model._jsonld && <pre>{JSON.stringify(model._jsonld, null, 2)}</pre>}
             </details>
         </div>
     );

@@ -143,7 +143,7 @@ TYPES.set(
 TYPES.set(
     TYPE_EQUIPMENT,
     new Type({
-        slug: "equipement",
+        slug: "equipements",
         label: "Équipement",
         labelPlural: "Équipements",
         modelClass: Equipment,

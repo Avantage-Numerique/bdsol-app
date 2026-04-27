@@ -44,6 +44,11 @@
                 border: 0.1rem solid rgb(255, 135, 135);
                 background-color: rgba(255, 135, 135, 0.09);
             }
+
+            &::placeholder {
+                color: var(--placeholder-color);
+                opacity: 0.6;
+            }
         }
     }
 }

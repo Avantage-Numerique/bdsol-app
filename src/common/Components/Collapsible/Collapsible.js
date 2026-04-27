@@ -86,7 +86,7 @@ export const Collapsible = (props) => {
             )}
 
             <div className={`mt-3 collapse ${showContent ? "show" : ""}`} id={`${keyId}`} style={{ zIndex: "1" }}>
-                <div className="d-flex flex-column gap-3">
+                <div className="d-flex flex-column gap-4">
                     {isFilled && children}
                     {!isFilled && <DefaultNotAvailableDisplay />}
                 </div>
