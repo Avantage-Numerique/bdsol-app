@@ -9,6 +9,19 @@ const tip = {
     body: lang.shortDescDirectives,
 };
 
+/**
+ * @typedef ShortDescriptionProps
+ *
+ * @property {FormTools} formTools
+ * @property {string} name
+ * @property {string} generated
+ */
+
+/**
+ *
+ * @param {ShortDescriptionProps} props
+ * @returns
+ */
 const ShortDescription = ({ formTools, name, model, ...props }) => {
     const generated = model?._generated?.shortDescription || "";
 
