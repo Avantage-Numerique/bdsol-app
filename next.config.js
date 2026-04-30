@@ -131,8 +131,8 @@ const nextConfig = {
         navLoaderDelay: 300,
     },
     sassOptions: {
-        includePaths: [path.join(__dirname, "styles"), path.join(__dirname, "node_modules")],
-        prependData: `@import "./component-base-imports.scss";`,
+        loadPaths: [path.resolve(__dirname, "styles"), path.join(__dirname, "node_modules")],
+        additionalData: `@use "./component-base-imports.scss";`,
     },
     eslint: {
         // Warning: This allows production builds to successfully complete even if
