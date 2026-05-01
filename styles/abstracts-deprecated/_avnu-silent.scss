@@ -1,8 +1,9 @@
 // ============================================================================
-// Bootstrap Global Styles (Output CSS)
+// AVNU Silent Layer
 // ============================================================================
-// This file uses the new abstracts/bootstrap-global layer which properly
-// loads Bootstrap with @use/@forward syntax in the correct dependency order.
+// Forwards AVNU-specific variables and configuration.
+// Bootstrap + custom variables are available via bootstrap-bridge.
 // ============================================================================
 
-@use "../abstracts/bootstrap-global";
+@import "../custom";
+@forward "../avnu";

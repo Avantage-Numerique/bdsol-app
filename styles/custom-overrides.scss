@@ -1,12 +1,11 @@
 // ============================================================================
-// Custom Variables (Bootstrap Overrides + App-specific)
+// Custom Overrides (Loaded BEFORE Bootstrap Variables)
 // ============================================================================
-// This file defines custom color palettes, overrides Bootstrap defaults,
-// and uses Bootstrap functions (lighten, tint-color, shade-color, etc.)
+// This file contains variables that OVERRIDE Bootstrap defaults.
+// It's loaded BEFORE Bootstrap's _variables.scss so our values take precedence.
 //
-// IMPORTANT: This file is loaded by abstracts/bootstrap-consolidated.scss
-// which ensures Bootstrap functions/mixins are available BEFORE this file.
-// Do NOT @import Bootstrap directly here to avoid duplicate loading.
+// Variables here should NOT reference Bootstrap's variables (like $gray-200).
+// They CAN use Bootstrap functions (lighten, tint-color, etc.) on custom values.
 // ============================================================================
 
 // Bootstrap configuration overrides
@@ -167,7 +166,7 @@ $h6-font-size: 0.8rem !default; //this is smaller than regular text
 
 $link-decoration: none;
 
-/* 
+/*
     GLOBAL SPACINGS
 */
 $spacing-sm: 2.35rem;
@@ -304,8 +303,8 @@ $success-bg-subtle: tint-color($success, 80%);
 $info-bg-subtle: tint-color($info, 80%);
 $warning-bg-subtle: tint-color($warning, 80%);
 $danger-bg-subtle: tint-color($danger, 80%);
-$light-bg-subtle: mix($gray-100, $white);
-$dark-bg-subtle: $gray-400;
+// Note: $light-bg-subtle and $dark-bg-subtle moved to custom-derived.scss
+// because they reference Bootstrap's $gray-* variables
 // scss-docs-end theme-bg-subtle-variables
 
 // scss-docs-start theme-border-subtle-variables
@@ -315,8 +314,8 @@ $success-border-subtle: tint-color($success, 60%);
 $info-border-subtle: tint-color($info, 60%);
 $warning-border-subtle: tint-color($warning, 60%);
 $danger-border-subtle: tint-color($danger, 60%);
-$light-border-subtle: $gray-200;
-$dark-border-subtle: $gray-500;
+// Note: $light-border-subtle and $dark-border-subtle moved to custom-derived.scss
+// because they reference Bootstrap's $gray-* variables
 // scss-docs-end theme-border-subtle-variables
 
 // scss-docs-start theme-text-variables
@@ -326,6 +325,6 @@ $success-text-emphasis: shade-color($success, 60%);
 $info-text-emphasis: shade-color($info, 60%);
 $warning-text-emphasis: shade-color($warning, 60%);
 $danger-text-emphasis: shade-color($danger, 60%);
-$light-text-emphasis: $gray-700;
-$dark-text-emphasis: $gray-700;
+// Note: $light-text-emphasis and $dark-text-emphasis moved to custom-derived.scss
+// because they reference Bootstrap's $gray-* variables
 // scss-docs-end theme-text-variables

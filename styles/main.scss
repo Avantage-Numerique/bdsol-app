@@ -1,4 +1,7 @@
-@import "./custom.scss";
+// Note: custom-overrides.scss and custom-derived.scss are now loaded
+// through ./packages/bootstrap which uses abstracts/bootstrap-global
+// Do NOT import them here to avoid duplicate loading
+
 @import "./avnu.scss";
 @import "./fonts";
 

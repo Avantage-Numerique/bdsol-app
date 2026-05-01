@@ -1,14 +1,14 @@
 // ============================================================================
-// Variables (Alias for Tokens)
+// Additional Custom Variables
 // ============================================================================
-// This file exists for naming convention compatibility.
-// The actual design tokens/variables are defined in:
-//   - ../custom.scss
-//   - ../avnu.scss
+// This file is for any ADDITIONAL custom variables beyond those in:
+//   - custom-overrides.scss (Bootstrap overrides)
+//   - custom-derived.scss (variables referencing Bootstrap)
 //
-// To use variables in components:
-//   @use "abstracts" as *;
-//   color: $primary;
-//
-// See _tokens.scss for a reference of available tokens.
+// Bootstrap's variables are loaded via bootstrap-consolidated.scss
+// Do NOT copy Bootstrap's _variables.scss here!
 // ============================================================================
+
+// Add any extra custom variables here that don't fit in the other files
+// Example:
+// $my-custom-variable: value;

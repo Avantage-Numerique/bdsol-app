@@ -13,5 +13,3 @@
 // Instead of importing Bootstrap directly, everything goes through the
 // abstracts bridge which contains Bootstrap's @import deprecation warnings.
 // ============================================================================
-
-@use "./abstracts" as *;
