@@ -1,4 +1,4 @@
-const dates = {
+export const dates = {
     fullHumanDateFormat: "E d MMM yyyy",
     fullHumanTimeFormat: "H 'h' mm",
     humanDateFormat: "EEEE d MMM",
@@ -13,5 +13,3 @@ const dates = {
     yearFormat: "yyyy",
     hourMinuteFormat: "h:mm a",
 };
-
-exports.dates = dates;

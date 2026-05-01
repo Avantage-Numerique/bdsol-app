@@ -1,4 +1,4 @@
-const places = {
+export const places = {
     PlacesDefinition:
         "Lieu comprenant un aspect numérique ou offrant la possibilité d'accueillir des projets en lien avec le numérique.",
 
@@ -36,4 +36,3 @@ const places = {
     placeLongitudePlaceholder: "-79.0161",
     placeLatitudePlaceholder: "48.2473",
 };
-exports.places = places;

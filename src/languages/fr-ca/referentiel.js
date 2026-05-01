@@ -1,4 +1,4 @@
-const referentiel = {
+export const referentiel = {
     entities: "Entités",
 
     subschemas: "Sous-schémas",
@@ -9,5 +9,3 @@ const referentiel = {
 
     vocabularies: "Vocabulaire contrôlé",
 };
-
-exports.referentiel = referentiel;

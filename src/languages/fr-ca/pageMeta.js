@@ -1,5 +1,5 @@
 // FR
-const pageMeta = {
+export const pageMeta = {
     /* Index page */
     index__title: "Accueil | AVNU - La base de données d'Avantage Numérique",
     index__description:
@@ -98,5 +98,3 @@ const pageMeta = {
     terms_conditions_use__description:
         "Explorez nos Conditions d'utilisation avant d'accéder à la Plateforme AVNU. En acceptant, vous adhérez à nos valeurs et à la confidentialité. Bienvenue sur AVNU!",
 };
-
-exports.pageMeta = pageMeta;

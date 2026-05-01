@@ -1,4 +1,4 @@
-const consult = {
+export const consult = {
     /* /consulter */
     consultTitle: "Consulter les données",
     consultDescription:
@@ -6,5 +6,3 @@ const consult = {
     btnFilterLabelAll: "Tous les types",
     seoSection: "Données structurées surérogatoires",
 };
-
-exports.consult = consult;

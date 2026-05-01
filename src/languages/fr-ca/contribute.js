@@ -1,4 +1,4 @@
-const contribute = {
+export const contribute = {
     save: "Enregistrer",
     visualize: "Visualiser",
     modify: "Modifier",
@@ -9,5 +9,3 @@ const contribute = {
     validationFailedCantSave: "Le(s) champs suivant vous empêche de sauvegarder vos modifications :",
     invalidForm: "Formulaire invalide",
 };
-
-exports.contribute = contribute;

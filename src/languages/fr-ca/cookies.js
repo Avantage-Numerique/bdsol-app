@@ -1,5 +1,5 @@
 const { appConfig } = require("@/src/configs/AppConfig");
-const cookies = {
+export const cookies = {
     cookieBannerTitle: `${appConfig.name} doit laisser des miettes de biscuits pour bien fonctionner.`,
     cookieBannerIntro: `Consultez notre politique de gestion de cookie dans notre politique de confidentialité.`,
     cookieBannerContent: `On a besoin de 2 niveaux de cookies : connexion et statistiques.`,
@@ -33,4 +33,3 @@ const cookies = {
     auth:false,
     third:false//no plan of adding that.
  */
-exports.cookies = cookies;
