@@ -82,7 +82,7 @@ const nextConfig = {
 
         LANGUAGE: process.env.LANGUAGE ?? "fr-CA",
 
-        APP_COOKIE_NAME: process.env.APP_BASE_URL + "/avnuConnexion",
+        APP_COOKIE_NAME: "avnuConnection",
         COOKIE_PRIVATE_KEY:
             process.env.COOKIE_PRIVATE_KEY ?? "This should be changed, the private key is not set yet !",
         COOKIE_MAX_AGE: process.env.COOKIE_MAX_AGE ?? "86600",
