@@ -1,3 +1,4 @@
+@use "sass:math";
 // ============================================================================
 // Custom Overrides (Loaded BEFORE Bootstrap Variables)
 // ============================================================================
@@ -275,7 +276,7 @@ $transition-translation: $transition-default-property $transition-default-time $
 $transition-default: $transition-default-property $transition-default-time $bezier-default;
 $transition-base: $transition-ease;
 $transition-base-slow: $transition-default-property $transition-default-time * 2 $bezier-ease-in-out;
-$transition-base-quick: $transition-default-property $transition-default-time/2 $bezier-ease-in-out;
+$transition-base-quick: $transition-default-property math.div($transition-default-time, 2) $bezier-ease-in-out;
 
 $transition-fade: opacity 0.15s $bezier-default;
 $transition-collapse: height 0.35s $bezier-ease-in-out;
