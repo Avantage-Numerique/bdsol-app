@@ -1,5 +1,12 @@
-//cherry pick the boostrap package we import.
+// ============================================================================
+// Bootstrap Silent Import Layer
+// ============================================================================
+// This file contains ALL Bootstrap @import statements (old syntax).
+// Deprecation warnings are contained here. DO NOT import this file elsewhere.
+// Instead, use abstracts/_index.scss which provides a clean @use/@forward API.
+// ============================================================================
 
+// Cherry pick the Bootstrap packages we import.
 @import "bootstrap/scss/mixins/banner";
 @include bsBanner("");
 
@@ -8,9 +15,6 @@
 @import "bootstrap/scss/functions";
 @import "bootstrap/scss/variables";
 //@import "bootstrap/scss/variables-dark";
-
-// Our initiation
-//@import '../custom.scss';
 
 @import "bootstrap/scss/maps";
 @import "bootstrap/scss/mixins";

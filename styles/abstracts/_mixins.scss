@@ -1,0 +1,35 @@
+// ============================================================================
+// Custom Mixins
+// ============================================================================
+// Define your application's mixins here.
+// These mixins can wrap Bootstrap mixins or provide custom utilities.
+// ============================================================================
+// To use mixins in components: @use "abstracts" as *;
+//
+// Bootstrap mixins are available through the abstracts bridge:
+//   @include media-breakpoint-up(md) { ... }
+//   @include button-variant($primary, $primary) { ... }
+// ============================================================================
+
+// Example custom mixin wrapping Bootstrap:
+// @mixin custom-button($bg-color, $text-color) {
+//   @include button-variant($bg-color, $bg-color);
+//   color: $text-color;
+//   border-radius: $border-radius;
+//   transition: $transition-base;
+// }
+
+// Example responsive spacing mixin:
+// @mixin responsive-padding($mobile, $desktop) {
+//   padding: $mobile;
+//   @include media-breakpoint-up(md) {
+//     padding: $desktop;
+//   }
+// }
+
+// Example gradient mixin:
+// @mixin primary-gradient {
+//   background: linear-gradient(135deg, $primary 0%, $primary-light 100%);
+// }
+
+// Add your custom mixins below:

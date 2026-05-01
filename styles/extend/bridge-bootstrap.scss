@@ -1,0 +1,27 @@
+// ============================================================================
+// Bootstrap Bridge Extension
+// ============================================================================
+// This file can contain Bootstrap-specific extensions or overrides.
+// The main Bootstrap bridge is located in styles/abstracts/
+//
+// Use this file for:
+//   - Bootstrap component customizations
+//   - Bootstrap utility extensions
+//   - Custom Bootstrap-style classes
+//
+// To use: @use "abstracts" as *;
+// ============================================================================
+
+// Example: Extend Bootstrap utilities
+// .w-15 {
+//   width: 15% !important;
+// }
+//
+// .w-85 {
+//   width: 85% !important;
+// }
+
+// Example: Custom Bootstrap-style spacing
+// .p-6 {
+//   padding: $spacing-lg !important;
+// }

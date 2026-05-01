@@ -1,10 +1,17 @@
-@forward "bootstrap/scss/functions";
-@forward "bootstrap/scss/variables";
-@forward "bootstrap/scss/variables-dark";
+// ============================================================================
+// Component Base Imports
+// ============================================================================
+// This file is automatically injected into all component stylesheets via
+// Next.js config (additionalData). It provides the clean abstracts API.
+//
+// Components can now use:
+//   .my-component {
+//     color: $primary;
+//     @include media-breakpoint-up(md) { ... }
+//   }
+//
+// Instead of importing Bootstrap directly, everything goes through the
+// abstracts bridge which contains Bootstrap's @import deprecation warnings.
+// ============================================================================
 
-@forward "./custom.scss";
-@forward "./avnu.scss";
-
-@forward "bootstrap/scss/maps";
-@forward "bootstrap/scss/mixins";
-@forward "bootstrap/scss/utilities";
+@use "./abstracts" as *;
