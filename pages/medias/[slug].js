@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./singleMedia.module.scss";
-import { withSessionSsr } from "@/auth/session/handlers/withSession";
+import { sessionContextInjector } from "@/auth/session/handlers/withSession";
 import { externalApiRequest } from "@/src/hooks/http-hook";
 import { getUserHeadersFromUserSession } from "@/auth/context/auth-context";
 import MediaSingleView from "@/src/DataTypes/Media/components/forms/MediaSingleView/MediaSingleView";
@@ -15,7 +15,7 @@ const SingleMediaPage = (props) => {
 
 export default SingleMediaPage;
 
-export const getServerSideProps = withSessionSsr(mediaSlugSSProps);
+export const getServerSideProps = sessionContextInjector(mediaSlugSSProps);
 
 export async function mediaSlugSSProps(context) {
     const { slug } = context.query; //in fact it's the id for now.

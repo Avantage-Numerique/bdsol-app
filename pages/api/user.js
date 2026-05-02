@@ -1,6 +1,6 @@
-import { withSessionRoute } from "@/auth/session/handlers/withSession";
+import { sessionContextInjector } from "@/auth/session/handlers/withSession";
 
-export default withSessionRoute(userRoute);
+export default sessionContextInjector(userRoute);
 
 /**
  * Api internal to nextjs to get the session user already decrypted.

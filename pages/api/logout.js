@@ -1,8 +1,8 @@
-import { withSessionRoute } from "@/auth/session/handlers/withSession";
+import { sessionContextInjector } from "@/auth/session/handlers/withSession";
 import { defaultSessionData } from "@/auth/context/auth-context";
 import { lang } from "@/src/common/Data/GlobalConstants";
 
-export default withSessionRoute(logoutRoute);
+export default sessionContextInjector(logoutRoute);
 
 async function logoutRoute(req, res) {
     //req.session.user = defaultSessionData;

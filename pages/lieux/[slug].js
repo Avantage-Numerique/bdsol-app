@@ -4,7 +4,7 @@ import { externalApiRequest } from "@/src/hooks/http-hook";
 //components
 import PlaceSingleView from "@/src/DataTypes/Place/components/layouts/single/PlaceSingleView";
 import { getUserHeadersFromUserSession } from "@/auth/context/auth-context";
-import { withSessionSsr } from "@/auth/session/handlers/withSession";
+import { sessionContextInjector } from "@/auth/session/handlers/withSession";
 import AppRoutes from "@/src/Routing/AppRoutes";
 
 const SinglePlaceViewPage = (props) => {
@@ -13,7 +13,7 @@ const SinglePlaceViewPage = (props) => {
 
 export default SinglePlaceViewPage;
 
-export const getServerSideProps = withSessionSsr(placeSlugSSProps);
+export const getServerSideProps = sessionContextInjector(placeSlugSSProps);
 
 export async function placeSlugSSProps(context) {
     const { slug } = context.query;

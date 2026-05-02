@@ -4,7 +4,7 @@ import { externalApiRequest } from "@/src/hooks/http-hook";
 //components
 import EquipmentSingleView from "@/src/DataTypes/Equipment/components/layouts/single/EquipmentSingleView";
 import { getUserHeadersFromUserSession } from "@/auth/context/auth-context";
-import { withSessionSsr } from "@/auth/session/handlers/withSession";
+import { sessionContextInjector } from "@/auth/session/handlers/withSession";
 import AppRoutes from "@/src/Routing/AppRoutes";
 
 const SingleEquipmentViewPage = (props) => {
@@ -13,7 +13,7 @@ const SingleEquipmentViewPage = (props) => {
 
 export default SingleEquipmentViewPage;
 
-export const getServerSideProps = withSessionSsr(equipmentSlugSSProps);
+export const getServerSideProps = sessionContextInjector(equipmentSlugSSProps);
 
 export async function equipmentSlugSSProps(context) {
     const { slug } = context.query;

@@ -8,7 +8,7 @@ import Button from "@/src/common/FormElements/Button/Button";
 import { useModal } from "@/src/hooks/useModal/useModal";
 
 //Utils
-import { withSessionSsr } from "@/auth/session/handlers/withSession";
+import { sessionContextInjector } from "@/auth/session/handlers/withSession";
 import { ssrCanAccess } from "@/auth/permissions/ssrCanAccess";
 import Router from "next/router";
 import EquipmentSingleEdit from "@/src/DataTypes/Equipment/components/layouts/single/EquipmentSingleEdit";
@@ -37,6 +37,6 @@ const EquipmentSingleEditPage = () => {
     );
 };
 
-export const getServerSideProps = withSessionSsr(ssrCanAccess);
+export const getServerSideProps = sessionContextInjector(ssrCanAccess);
 
 export default EquipmentSingleEditPage;

@@ -1,11 +1,11 @@
-import { withSessionRoute } from "@/auth/session/handlers/withSession";
+import { sessionContextInjector } from "@/auth/session/handlers/withSession";
 import { externalApiRequest } from "@/src/hooks/http-hook";
 import { getSessionFromData, getUserHeadersFromUserSession } from "@/auth/context/auth-context";
 import { getVisitorDataFromRequest } from "@/auth/context/visitor-context";
 import appRoutes from "@/src/Routing/AppRoutes";
 import { lang } from "@/common/Data/GlobalConstants";
 
-export default withSessionRoute(loginRoute);
+export default sessionContextInjector(loginRoute);
 
 async function loginRoute(req, res) {
     //From uri and to Uri params in cookies ?

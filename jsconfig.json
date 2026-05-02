@@ -2,16 +2,17 @@
     "compilerOptions": {
         "baseUrl": ".",
         "paths": {
-            "@/src/*": ["src/*"],
-            "@/pages/*": ["pages/*"],
-            "@/styles/*": ["styles/*"],
-            "@/auth/*": ["src/authentification/*"],
-            "@/layouts/*": ["src/layouts/*"],
-            "@/DataTypes/*": ["src/DataTypes/*"],
-            "@/public/*": ["public/*"],
+            "@/*": ["./*"],
+            "@/src/*": ["./src/*"],
+            "@/pages/*": ["./pages/*"],
+            "@/styles/*": ["./styles/*"],
+            "@/auth/*": ["./src/authentification/*"],
+            "@/layouts/*": ["./src/layouts/*"],
+            "@/DataTypes/*": ["./src/DataTypes/*"],
+            "@/public/*": ["./public/*"],
             "@/common/*": ["./src/common/*"],
-            "@/FormElements/*": ["./src/common/FormElements/*"],
-            "@/*": ["./*"]
-        }
+            "@/FormElements/*": ["./src/common/FormElements/*"]
+        },
+        "jsx": "react"
     }
 }
