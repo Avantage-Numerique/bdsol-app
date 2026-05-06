@@ -25,3 +25,9 @@ export function sessionContextInjector(handler) {
         return handler(context);
     };
 }
+export function sessionApiRouteContextInjector(handler) {
+    return async function (req, res) {
+        context.req.session = await getIronSession(req, res, appDefaultSessionOptions);
+        return handler(req, res);
+    };
+}

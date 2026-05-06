@@ -6,7 +6,6 @@
  * @return {Promise<any>}
  * initialu copied from : https://github.com/vvo/iron-session/blob/main/examples/next.js/lib/fetchJson.js
  */
-
 export default async function fetchInternalApi(internalURI, data, method = "POST") {
     const internalDefaultHeaders = {
         //'Origin': process.env.NEXT_PUBLIC_APP_URL,//no cors implemented yet for internals calls.

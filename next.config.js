@@ -15,13 +15,6 @@ const path = require("path");
  * @type {import('next').NextConfig & { publicRuntimeConfig: PublicRuntimeConfig }}
  */
 const nextConfig = {
-    /*experimental: {
-        // This is experimental but can
-        // be enabled to allow parallel threads
-        // with nextjs automatic static generation
-        workerThreads: false,
-        cpus: 1
-    },*/
     //define default value for env variables that aren't declare in the .env file or add some there.
     env: {
         //APP

@@ -1,0 +1,64 @@
+const ORIGIN_BROWSER = "browser";
+const ORIGIN_SERVER = "server";
+
+/**
+ * @deprecated Actualy it's a WIP, original file use context, that is a client side feature.
+ * Fetch the external API with all the speficity of Server Side and Client side
+ * Version 2 of sendExternalApiRequest. It used params intead of infinite function parameters.
+ * @param path {string}
+ * @param params {{headers: {}, method: string, additionnalFetchParams: {}, origin: string, context: undefined, isBodyJson: boolean, body: string, withAuth:boolean}}
+ * @return {Promise<*>}
+ */
+export const externalApiRequest = async (path, params = {}) => {
+    params.isBodyJson = params.isBodyJson === undefined ? true : params.isBodyJson; //par défault tout est JSON
+
+    const baseApiRoute = params.origin === ORIGIN_BROWSER ? process.env.API_URL : process.env.FROMSERVER_API_URL,
+        baseAppRoute = params.origin === ORIGIN_BROWSER ? process.env.APP_URL : process.env.FROMSERVER_APP_URL;
+
+    const defaultHeaders = { Origin: baseAppRoute },
+        jsonHeaders = params.isBodyJson ? { "Content-Type": "application/json" } : {};
+
+    let headers = params.headers ?? {};
+
+    // add user header if context is set.
+    if (params.context && params.context.req && params.context.req.session && params.context.req.user) {
+        headers = {
+            ...headers,
+            ...getUserHeadersFromUserSession(params.context.req.session.user, params.withAuth === true),
+        };
+    }
+
+    // build the header array
+    const headerParams = {
+        ...defaultHeaders,
+        ...jsonHeaders,
+        ...headers,
+    };
+
+    params.additionnalFetchParams = params.additionnalFetchParams ?? {};
+
+    //   Use the fetch request with the url (required) and with its options object filled with the full data that we want to pass, if so.
+    const response = await fetch(baseApiRoute + path, {
+        method: params.method ?? "POST",
+        body: params.body ?? undefined,
+        headers: new Headers(headerParams),
+        ...params.additionnalFetchParams,
+    });
+
+    //Return the data
+    return await response.json();
+};
+
+/**
+ * Fetch the external API with all the speficity of Server Side and Client side but with origin force to browser;
+ * Version 2 of sendExternalApiRequest. It used params intead of infinite function parameters.
+ * @param path {string}
+ * @param params {{headers: {}, method: string, additionnalFetchParams: {}, origin: string, context: undefined, isBodyJson: boolean, body: string, withAuth:boolean}} origin is defaulted to browser.
+ * @return {Promise<*>}
+ */
+export const clientSideExternalApiRequest = async (path, params = {}) => {
+    params.origin = ORIGIN_BROWSER;
+    return await externalApiRequest(path, params);
+};
+
+export { ORIGIN_SERVER, ORIGIN_BROWSER };
