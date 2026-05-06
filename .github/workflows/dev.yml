@@ -1,7 +1,7 @@
 name: Build dev
 on:
     push:
-        branches: [dev]
+        branches: [dev, dev-updates-packages]
     pull_request:
         types: [opened, reopened]
 
