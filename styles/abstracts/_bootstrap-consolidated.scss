@@ -1,35 +1,12 @@
-// ============================================================================
-// Bootstrap Consolidated (Internal Use Only)
-// ============================================================================
-// This file loads ALL Bootstrap configuration in the correct dependency order
-// using @import (old syntax but necessary for Bootstrap's cross-dependencies).
-//
-// DO NOT @use or @import this file directly!
-// Use abstracts/_bootstrap-bridge.scss instead, which forwards this file.
-// ============================================================================
+// DONT IMPORT THIS, use bootstrap-bridge
 
-// STEP 1: Bootstrap Functions (color functions, etc.)
 @import "bootstrap/scss/functions";
-
-// STEP 2: Bootstrap Mixins (includes _assert-ascending used by variables)
 @import "bootstrap/scss/mixins";
-
-// STEP 3: Custom Overrides (uses Bootstrap functions, overrides Bootstrap defaults)
-//         These are loaded BEFORE Bootstrap variables so our values take precedence
 @import "../custom-overrides";
-
-// STEP 4: Bootstrap Variables (uses mixins like _assert-ascending)
-//         This loads all Bootstrap's default variables
 @import "bootstrap/scss/variables";
 
-// STEP 5: Custom Derived Variables (references Bootstrap variables like $gray-200)
-//         These are loaded AFTER Bootstrap variables so we can reference them
 @import "../custom-derived";
-
 @import "../avnu.scss";
 
-// STEP 6: Bootstrap Maps (uses variables)
 @import "bootstrap/scss/maps";
-
-// STEP 7: Utilities configuration
 @import "bootstrap/scss/utilities";

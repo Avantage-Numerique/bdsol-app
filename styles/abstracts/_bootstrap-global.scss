@@ -1,10 +1,4 @@
-// ============================================================================
 // Bootstrap Global Styles
-// ============================================================================
-// This file outputs actual Bootstrap CSS components.
-// IMPORTANT: Include this ONLY ONCE in your main global stylesheet.
-// DO NOT @use this in component .module.scss files!
-// ============================================================================
 
 // Use consolidated Bootstrap config (functions, mixins, variables, maps, custom vars)
 @use "./bootstrap-consolidated" as *;

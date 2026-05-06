@@ -8,6 +8,7 @@
 // Variables here should NOT reference Bootstrap's variables (like $gray-200).
 // They CAN use Bootstrap functions (lighten, tint-color, etc.) on custom values.
 // ============================================================================
+$min-contrast-ratio: 2.5;
 
 // Bootstrap configuration overrides
 $grid-gutter-width: 1.5rem;
@@ -98,9 +99,6 @@ $selected-input: $secondary_7;
 $theme-colors: (
     "purplelight": $purple-light,
     "purplelighter": $purple-lighter,
-    "blue2": $blue2,
-    "blue3": $blue3,
-    "blue4": $blue4,
     "accepted": $green-accepted,
     "pending": $yellow-pending,
     "rejected": $red-rejected,
