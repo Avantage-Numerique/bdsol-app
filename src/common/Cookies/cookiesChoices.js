@@ -1,5 +1,7 @@
 import { lang } from "@/common/Data/GlobalConstants";
 
+export const COOKIES_CHOICE = "avnuCookies";
+
 /**
  * Default and choices for cookies
  * @type {{all: boolean, third: boolean, stats: boolean, auth: boolean}}
