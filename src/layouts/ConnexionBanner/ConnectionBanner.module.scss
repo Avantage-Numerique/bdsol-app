@@ -1,9 +1,14 @@
 .banner {
     text-align: center;
+    padding: 0.38em 1em;
+    border-bottom-style: dashed;
+    border-bottom-width: 3px;
 }
 .not-connected-banner {
-    background-color: rgba(255, 0, 0, 1);
+    background-color: var(--bs-danger);
+    border-bottom-color: var(--bs-red);
 }
 .connected-banner {
-    background-color: rgba(0, 255, 0, 1);
+    background-color: var(--bs-success);
+    border-bottom-color: var(--bs-green);
 }
