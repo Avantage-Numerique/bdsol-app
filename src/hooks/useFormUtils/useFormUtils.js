@@ -18,6 +18,10 @@ import { useMessages } from "@/common/UserNotifications/Message/MessageProvider"
 //Form UI styling
 import styles from "./formUI.module.scss";
 
+/**
+ *
+ * @type {UseFormUtils}
+ */
 export const useFormUtils = (initialState, actions) => {
     //Actions to do if the form turns to be positive
     //If no parameter is entered, then apply the default value below
