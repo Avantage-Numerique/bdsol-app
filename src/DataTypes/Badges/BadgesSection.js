@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import SingleInfo from "../common/layouts/SingleInfo/SingleInfo";
 import { externalApiCache, lang } from "@/src/common/Data/GlobalConstants";
-import { clientSideExternalApiRequest, externalApiRequest } from "@/src/hooks/http-hook";
+import { clientSideExternalApiRequest, externalApiRequest, ORIGIN_BROWSER, ORIGIN_SERVER } from "@/src/hooks/http-hook";
 import Tip from "@/src/common/FormElements/Tip/Tip";
 
 const BadgesSection = ({ badges, entityLabel, ...props }) => {
@@ -80,7 +80,10 @@ export const getBadgesInfo = async (fromServer = false) => {
         let badges;
         const badgeFetchConfig = {
             path: "/info/badges",
-            params: { method: "GET" },
+            params: {
+                method: "GET",
+                origin: fromServer ? ORIGIN_SERVER : ORIGIN_BROWSER,
+            },
         };
         if (fromServer) {
             badges = await externalApiRequest(badgeFetchConfig.path, badgeFetchConfig.params);

@@ -1,7 +1,7 @@
-import { withSessionRoute } from "@/auth/session/handlers/withSession";
+import { sessionApiRouteContextInjector } from "@/auth/session/handlers/withSession";
 import { verifyToken } from "@/auth/callbacks/verify-token.callback";
 
-export default withSessionRoute(verifySessionRoute);
+export default sessionApiRouteContextInjector(verifySessionRoute);
 
 async function verifySessionRoute(req, res) {
     const response = await verifyToken(req.session.user.token);

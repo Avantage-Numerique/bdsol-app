@@ -12,7 +12,7 @@ import { lang } from "@/src/common/Data/GlobalConstants";
 
 //styling
 import styles from "./contribution-page.module.scss";
-import { withSessionSsr } from "@/auth/session/handlers/withSession";
+import { sessionContextInjector } from "@/auth/session/handlers/withSession";
 import { ssrCanAccess } from "@/auth/permissions/ssrCanAccess";
 
 import PageHeader from "@/layouts/Header/PageHeader";
@@ -199,6 +199,6 @@ const Index = () => {
         </div>
     );
 };
-export const getServerSideProps = withSessionSsr(ssrCanAccess);
+export const getServerSideProps = sessionContextInjector(ssrCanAccess);
 
 export default Index;

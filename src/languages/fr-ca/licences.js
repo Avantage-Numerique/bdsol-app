@@ -1,4 +1,4 @@
-const licences = {
+export const licences = {
     licence: "Licence",
     licences: "Licences",
     licenceMediaTitle: "Licence",
@@ -8,4 +8,3 @@ const licences = {
     licenceMediaMoreDetails: "Plus de détails sur les licences",
     licencesSingleTitle: "Précision sur les licences et droits d'auteurs",
 };
-exports.licences = licences;

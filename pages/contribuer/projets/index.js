@@ -11,7 +11,7 @@ import { useModal } from "@/src/hooks/useModal/useModal";
 
 //Utils
 import { lang } from "@/src/common/Data/GlobalConstants";
-import { withSessionSsr } from "@/auth/session/handlers/withSession";
+import { sessionContextInjector } from "@/auth/session/handlers/withSession";
 import { ssrCanAccess } from "@/auth/permissions/ssrCanAccess";
 import Router from "next/router";
 import Project from "@/src/DataTypes/Project/models/Project";
@@ -34,6 +34,6 @@ const PersonSingleEditPage = () => {
     );
 };
 
-export const getServerSideProps = withSessionSsr(ssrCanAccess);
+export const getServerSideProps = sessionContextInjector(ssrCanAccess);
 
 export default PersonSingleEditPage;

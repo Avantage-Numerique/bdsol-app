@@ -1,4 +1,4 @@
-const meta = {
+export const meta = {
     accepted: "Accepté",
     pending: "En attente d'approbation",
     reported: "rapporté",
@@ -12,5 +12,3 @@ const meta = {
     modificationHistory: "Historique de modification",
     entityMetadata: "Informations de la donnée",
 };
-
-exports.meta = meta;

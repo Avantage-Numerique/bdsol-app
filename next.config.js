@@ -15,13 +15,6 @@ const path = require("path");
  * @type {import('next').NextConfig & { publicRuntimeConfig: PublicRuntimeConfig }}
  */
 const nextConfig = {
-    /*experimental: {
-        // This is experimental but can
-        // be enabled to allow parallel threads
-        // with nextjs automatic static generation
-        workerThreads: false,
-        cpus: 1
-    },*/
     //define default value for env variables that aren't declare in the .env file or add some there.
     env: {
         //APP
@@ -82,7 +75,7 @@ const nextConfig = {
 
         LANGUAGE: process.env.LANGUAGE ?? "fr-CA",
 
-        APP_COOKIE_NAME: process.env.APP_BASE_URL + "/avnuConnexion",
+        APP_COOKIE_NAME: "avnuConnection",
         COOKIE_PRIVATE_KEY:
             process.env.COOKIE_PRIVATE_KEY ?? "This should be changed, the private key is not set yet !",
         COOKIE_MAX_AGE: process.env.COOKIE_MAX_AGE ?? "86600",
@@ -100,44 +93,14 @@ const nextConfig = {
         defaultLocale: "fr-CA",
     },
 
-    //accessible only on serveur
-    serverRuntimeConfig: {
-        //APP CONFIG
-        baseUrl: process.env.APP_BASE_URL ?? "http://localhost",
-        port: process.env.APP_PORT ?? 3000,
-
-        //ontology : This would be deprecated soon.
-        apiOntologyHostName: process.env.API_ONTOLOGY_HOST_NAME,
-        apiOntologyMethod: process.env.API_ONTOLOGY_METHOD,
-        apiOntologyPort: process.env.API_ONTOLOGY_PORT,
-
-        //Main API
-        apiHostName: process.env.API_HOST_NAME,
-        apiMethod: process.env.API_METHOD,
-        apiPort: process.env.API_PORT,
-        apiURL: process.env.API_HOST_NAME + ":" + process.env.API_PORT,
-    },
-    //serveur and public
-    publicRuntimeConfig: {
-        dates: {
-            defaultFormat: "YYYY-MM-DD HH:MM:SS",
-            defaultLanguage: "fr-CA",
-        },
-        appUrl: process.env.APP_PROTOCOLE + "" + process.env.APP_BASE_URL + ":" + process.env.APP_PORT,
-        pagination: {
-            limit: 20,
-            sort: -1,
-        },
-        navLoaderDelay: 300,
-    },
     sassOptions: {
-        includePaths: [path.join(__dirname, "styles"), path.join(__dirname, "node_modules")],
-        prependData: `@import "./component-base-imports.scss";`,
-    },
-    eslint: {
-        // Warning: This allows production builds to successfully complete even if
-        // your project has ESLint errors.
-        ignoreDuringBuilds: true,
+        loadPaths: [
+            "styles",
+            "node_modules",
+            "node_modules/bootstrap/scss",
+            "node_modules/line-awesome/dist/line-awesome/scss",
+        ],
+        additionalData: `@use "./abstracts" as *;`,
     },
     experimental: { esmExternals: true },
 };

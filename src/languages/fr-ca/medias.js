@@ -1,4 +1,4 @@
-const medias = {
+export const medias = {
     seeImage: "voir l'image",
     updateImage: "modifier l'image",
     addImage: "définir une image",
@@ -19,5 +19,3 @@ const medias = {
 
     mainImage: "Image principale",
 };
-
-exports.medias = medias;

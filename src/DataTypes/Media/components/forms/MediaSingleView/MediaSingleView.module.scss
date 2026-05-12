@@ -133,7 +133,7 @@
 
     .person-view__main-section {
         padding: var(--page-padding);
-        margin-top: calc(var(--picture-size / 2));
+        margin-top: calc(var(--picture-size) / 2);
     }
 }
 

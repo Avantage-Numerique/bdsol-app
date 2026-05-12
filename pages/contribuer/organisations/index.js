@@ -10,7 +10,7 @@ import Button from "@/src/common/FormElements/Button/Button";
 import { useModal } from "@/src/hooks/useModal/useModal";
 
 //Utils
-import { withSessionSsr } from "@/auth/session/handlers/withSession";
+import { sessionContextInjector } from "@/auth/session/handlers/withSession";
 import { ssrCanAccess } from "@/auth/permissions/ssrCanAccess";
 import { lang } from "@/src/common/Data/GlobalConstants";
 import Router from "next/router";
@@ -32,6 +32,6 @@ const CreateOrganisationPage = () => {
     );
 };
 
-export const getServerSideProps = withSessionSsr(ssrCanAccess);
+export const getServerSideProps = sessionContextInjector(ssrCanAccess);
 
 export default CreateOrganisationPage;

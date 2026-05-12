@@ -1,4 +1,4 @@
-const organisations = {
+export const organisations = {
     OrganisationsDefinition:
         "Organisation, entreprise, collectif ou regroupement œuvrant dans le numérique, ou dont les technologies numériques sont incluses, et offrant des services technologiques.",
 
@@ -41,5 +41,3 @@ const organisations = {
 
     iconOfOrganization: "Icône représentant une organisation",
 };
-
-exports.organisations = organisations;

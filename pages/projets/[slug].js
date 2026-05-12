@@ -5,7 +5,7 @@ import { externalApiRequest } from "@/src/hooks/http-hook";
 //components
 import ProjectSingleView from "@/src/DataTypes/Project/layouts/single/ProjectSingleView";
 import { getUserHeadersFromUserSession } from "@/auth/context/auth-context";
-import { withSessionSsr } from "@/auth/session/handlers/withSession";
+import { sessionContextInjector } from "@/auth/session/handlers/withSession";
 import AppRoutes from "@/src/Routing/AppRoutes";
 
 const SingleProjectViewPage = (props) => {
@@ -18,7 +18,7 @@ const SingleProjectViewPage = (props) => {
 
 export default SingleProjectViewPage;
 
-export const getServerSideProps = withSessionSsr(projectSlugSSProps);
+export const getServerSideProps = sessionContextInjector(projectSlugSSProps);
 
 export async function projectSlugSSProps(context) {
     const { slug } = context.query;

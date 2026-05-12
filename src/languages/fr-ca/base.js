@@ -1,4 +1,4 @@
-const base = {
+export const base = {
     //  Common
 
     historyBack: "Retour à la page précédente",
@@ -171,4 +171,3 @@ const base = {
     //Badges
     badges: "Badges",
 };
-exports.base = base;

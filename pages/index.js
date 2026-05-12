@@ -25,6 +25,7 @@ import organizationPresentationImg from "@/public/general_images/residenceUQAT20
 import shipAndPlanetsImg from "@/public/general_images/Fusée_Planetes_Pointilles2.svg";
 import AppRoutes from "@/src/Routing/AppRoutes";
 import { getBadgesInfo } from "@/src/DataTypes/Badges/BadgesSection";
+import { pingExternalApi } from "@/src/api/external/callbacks/pingExternalApi";
 
 //Background image for the page header
 const HomePageHeaderBgImg = () => {
@@ -71,7 +72,9 @@ const HomePage = (props) => {
 
     //Fetch the data
     useEffect(() => {
-        fetchHomeFeed();
+        if (props.isApiUp) {
+            fetchHomeFeed();
+        }
     }, []);
 
     //Function to return the path to the page of creation of an entity, depending on location
@@ -134,7 +137,8 @@ const HomePage = (props) => {
                     <div className="d-flex flex-column align-items-center">
                         <h2 className="mt-4 text-center">Ajouts récents à la base de données</h2>
                         <p className="mb-4 text-center">
-                            Cliquez sur les différentes fiches afin d'obtenir plus d'informations sur ces ressources.
+                            Cliquez sur les différentes fiches afin d&#39;obtenir plus d&#39;informations sur ces
+                            ressources.
                         </p>
                         <div className="home-page__feed-section container py-4 position-relative">
                             {/* Loading state : If loading is on and there is no feed */}
@@ -195,7 +199,7 @@ const HomePage = (props) => {
                             style={{ maxWidth: "60ch" }}
                             className="col-12 order-1 order-md-2 col-md-6 col-lg-8 p-4 flex-column align-items-start"
                         >
-                            <h2 className="mb-4">AVNU, c'est quoi?</h2>
+                            <h2 className="mb-4">AVNU, c&#39;est quoi?</h2>
                             <p className="mt-4">
                                 AVNU est une base de données qui a pour objectif de recenser et de géolocaliser les
                                 talents, les ressources et les initiatives numériques en lien avec le territoire du
@@ -216,7 +220,7 @@ const HomePage = (props) => {
                             </div>
                             <div className="d-flex flex-column align-items-start mt-3">
                                 <Button className="px-4 mt-2" href={AppRoutes.about.asPath}>
-                                    En savoir plus sur l'initiative
+                                    En savoir plus sur l&#39;initiative
                                 </Button>
                                 {
                                     //<Button className="mt-3" href="https://avantagenumerique.org/" external={true} text_color="dark">Découvrir Avantage Numérique</Button>
@@ -243,7 +247,7 @@ const HomePage = (props) => {
                             Vous aussi, contribuez à la plateforme en vous créant un compte utilisateur·rice. C’est
                             simple et gratuit !<br />
                             Vous pourrez alors ajouter ou modifier des fiches à propos des ressources technologiques de
-                            votre territoire. 
+                            votre territoire.
                         </p>
                         <div className="d-flex justify-content-center my-4">
                             <Button
@@ -251,7 +255,7 @@ const HomePage = (props) => {
                                 color="primary"
                                 href={auth?.user?.isLoggedIn ? AppRoutes.contribute.asPath : AppRoutes.register.asPath}
                             >
-                                C'est par ici !
+                                C&#39;est par ici !
                             </Button>
                         </div>
                     </div>
@@ -265,10 +269,20 @@ export default HomePage;
 
 //Load badges Info
 export async function getServerSideProps() {
-    const badgeInfo = await getBadgesInfo(true);
+    const isApiUp = await pingExternalApi();
+    if (isApiUp) {
+        const badgeInfo = await getBadgesInfo(true);
+        return {
+            props: {
+                isApiUp: isApiUp,
+                badgesInfo: badgeInfo,
+            },
+        };
+    }
     return {
         props: {
-            badgesInfo: badgeInfo,
+            isApiUp: isApiUp,
+            badgesInfo: {},
         },
     };
 }

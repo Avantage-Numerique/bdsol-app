@@ -1,4 +1,4 @@
-const projects = {
+export const projects = {
     ProjectsDefinition:
         "Projet réalisé par un ou plusieurs individus et incluant une ou plusieurs dimensions numériques.",
 
@@ -35,5 +35,3 @@ const projects = {
 
     iconOfProject: "Icône représentant un projet",
 };
-
-exports.projects = projects;

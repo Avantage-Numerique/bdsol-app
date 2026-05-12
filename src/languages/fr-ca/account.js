@@ -1,5 +1,5 @@
 // /compte/*
-const account = {
+export const account = {
     //  login
     loginAVNUTitle: "Explorer le numérique",
     loginAVNUSubTitle: "Sur le territoire",
@@ -18,5 +18,3 @@ const account = {
 
     agreeTo: "J'accepte les",
 };
-
-exports.account = account;

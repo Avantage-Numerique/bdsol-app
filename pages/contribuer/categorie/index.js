@@ -7,21 +7,21 @@ import Button from "@/src/common/FormElements/Button/Button";
 import SanitizedInnerHtml from "@/src/utils/SanitizedInnerHtml";
 
 //Styling
-import { withSessionSsr } from "@/auth/session/handlers/withSession";
+import { sessionContextInjector } from "@/auth/session/handlers/withSession";
 import { ssrCanAccess } from "@/auth/permissions/ssrCanAccess";
 import { lang } from "@/src/common/Data/GlobalConstants";
 
-const CreateTaxonomyPage = () => {
-    const HeaderRightSection = () => {
-        return (
-            <div className="mt-4">
-                <Button outline="secondary" href="/contribuer" size="slim">
-                    {lang.historyBack}
-                </Button>
-            </div>
-        );
-    };
+const HeaderRightSection = () => {
+    return (
+        <div className="mt-4">
+            <Button outline="secondary" href="/contribuer" size="slim">
+                {lang.historyBack}
+            </Button>
+        </div>
+    );
+};
 
+const CreateTaxonomyPage = () => {
     return (
         <>
             <PageHeader title={"Catégorie"} subTitle="Ajouter une nouvelle catégorie pour classifier les données">
@@ -41,6 +41,6 @@ const CreateTaxonomyPage = () => {
     );
 };
 
-export const getServerSideProps = withSessionSsr(ssrCanAccess);
+export const getServerSideProps = sessionContextInjector(ssrCanAccess);
 
 export default CreateTaxonomyPage;

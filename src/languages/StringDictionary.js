@@ -1,3 +1,5 @@
+import { getDictionary } from "./dictionaryRegistry.js";
+
 /**
  * String management for internationalization in the app.
  * This is a dictionary design pattern. We instanciate the object, load an object as a dictionnary, applay all the keys to the dictionary scope and
@@ -12,12 +14,9 @@ export default class StringDictionary {
     dictionary;
     dictionaries = [];
     dictionaryFiles = [];
-    filepath;
 
     constructor(file, lang = "fr-ca") {
-        //will need some refactor to load multiple file.
         this.language = lang;
-        this.filepath = `./${this.language}/`;
 
         if (typeof file === "string") {
             this.loadDictionary(file);
@@ -37,7 +36,6 @@ export default class StringDictionary {
 
     setLanguage(lang) {
         this.language = lang;
-        this.filepath = `./${this.language}/`;
     }
 
     setDictionaryFiles(files) {
@@ -58,8 +56,7 @@ export default class StringDictionary {
     }
 
     loadDictionary(filename) {
-        const dictionary = require(this.filepath + filename + ".js");
-        const dictionaryObject = dictionary[filename];
+        const dictionaryObject = getDictionary(this.language, filename);
         if (dictionaryObject) {
             this.setDictionary(dictionaryObject);
         }

@@ -1,4 +1,4 @@
-const equipment = {
+export const equipment = {
     EquipmentsDefinition:
         "Équipement numérique possédé par un individu ou une organisation et qu'il est possible d'emprunter, de louer ou d'échanger en service.",
 
@@ -36,5 +36,3 @@ const equipment = {
     usedInProject: "Utilisé pour accomplir le projet",
     usedInProjects: "Utilisé pour accomplir les projets",
 };
-
-exports.equipment = equipment;

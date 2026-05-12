@@ -1,7 +1,5 @@
 "use client"; // Important : ce code doit s'exécuter côté client
 
-import nextConfig from "@/next.config";
-
 import { useEffect, useRef } from "react";
 import { useRouter } from "next/router";
 
@@ -18,7 +16,7 @@ export default function NavigationEvents() {
         if (!timer.current) {
             timer.current = setTimeout(() => {
                 setIsLoading(true);
-            }, nextConfig.publicRuntimeConfig.navLoaderDelay);
+            }, process.env.NEXT_PUBLIC_NAV_LOADER_DELAY);
         }
     };
 

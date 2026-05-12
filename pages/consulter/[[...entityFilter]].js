@@ -1,7 +1,7 @@
 //Hook
 import { useEffect, useRef } from "react";
 import { useRouter } from "next/router";
-import { withSessionSsr } from "@/src/authentification/session/handlers/withSession";
+import { sessionContextInjector } from "@/src/authentification/session/handlers/withSession";
 import { ORIGIN_BROWSER, ORIGIN_SERVER } from "@/src/hooks/http-hook";
 import { searchByType } from "@/src/hooks/useSearch";
 
@@ -345,4 +345,4 @@ export const dynamicRouteHandler = async ({ params, query, req, res }) => {
     };
 };
 
-export const getServerSideProps = withSessionSsr(dynamicRouteHandler);
+export const getServerSideProps = sessionContextInjector(dynamicRouteHandler);

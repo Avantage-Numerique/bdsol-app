@@ -91,8 +91,16 @@ const formReducer = (state, action) => {
     }
 };
 
+/**
+ *
+ * @type {UseForm}
+ */
 export const useForm = (initialInputs) => {
-    /* Global formstate => contains the value of all the inputs in the field */
+    /**
+     * Global formstate => contains the value of all the inputs in the field
+     *
+     * @type {[FormState, import("react").DispatchWithoutAction]}
+     */
     const [formState, dispatch] = useReducer(formReducer, {
         inputs: initialInputs,
         isValid: false,
@@ -174,7 +182,11 @@ export const useForm = (initialInputs) => {
         return <ul className="ps-3">{invalidInputsList}</ul>;
     }
 
-    /* Regroup the form utils needed for the inputs */
+    /**
+     * Regroup the form utils needed for the inputs
+     *
+     * @type {FormTools<any>}
+     */
     const formTools = {
         formState: formState,
         inputHandler: inputHandler,
