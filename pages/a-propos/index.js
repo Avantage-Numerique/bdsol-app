@@ -5,6 +5,8 @@ import PageMeta from "@/src/common/PageMeta/PageMeta";
 import { RouteLink } from "@/src/common/Components/RouteLink";
 import { lang } from "@/src/common/Data/GlobalConstants";
 
+import Image from "next/image";
+
 //Styling
 import styles from "./aPropos.module.scss";
 import Icon from "@/common/widgets/Icon/Icon";
@@ -182,11 +184,22 @@ const Index = () => {
                                 <li>Christian Roy (A10s inc.)</li>
                             </ul>
                         </div>
-                        <div className={"col"}>
-                            <blockquote className={`text-center`}>
+                        <div className={"col py-3"}>
+                            <h3 className={"pb-3"}>Nos partenaires</h3>
+
+                            <p className="pb-3">
                                 Initiative financée par le Conseil des Arts du Canada et le Ministère de la Culture et
                                 des Communications du Québec.
-                            </blockquote>
+                            </p>
+
+                            <div className={`${styles.gallerie} d-flex align-items-center gap-2`}>
+                                <Image
+                                    src="/logos/Logo_CREAT.svg"
+                                    alt="Logo CREAT : Chaire de recherche en économie créative et mieux-être"
+                                    width={"240"}
+                                    height={"284"}
+                                />
+                            </div>
                         </div>
                     </div>
                 </div>
