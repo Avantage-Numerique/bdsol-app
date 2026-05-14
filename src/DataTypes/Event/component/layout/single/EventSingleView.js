@@ -10,6 +10,7 @@ import SingleBaseProgressBar from "@/src/DataTypes/common/layouts/single/default
 import SocialHandleDisplay from "@/src/DataTypes/common/layouts/SocialHandlesViews/SocialHandleDisplay";
 import { ContactPointView } from "@/src/DataTypes/common/layouts/ContactPointView/ContactPointView";
 import SingleBaseCTA from "@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseCTA";
+import { SupererogatorySection } from "@/src/common/Components/SupererogatorySection/SupererogatorySection";
 
 //Utils
 import SanitizedInnerHtml from "@/src/utils/SanitizedInnerHtml";
@@ -241,6 +242,8 @@ const EventSingleView = ({ data }) => {
     }
     const Footer = (
         <>
+            <SupererogatorySection model={model} />
+
             {(createdAt || updatedAt || meta) && (
                 <SingleInfo title={lang.entityMetadata} className="pt-3">
                     {/*********** Entity data ***********/}

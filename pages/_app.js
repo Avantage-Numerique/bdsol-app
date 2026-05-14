@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
-import { getIronSession } from "iron-session";
 import App from "next/app";
+import { getIronSession } from "iron-session";
 import { appDefaultSessionOptions } from "@/src/authentification/session/Session";
 import { AuthProvider } from "@/src/authentification/context/auth-context";
 import Layout from "@/src/layouts/Layout";

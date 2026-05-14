@@ -1,4 +1,4 @@
-const base = {
+export const base = {
     //  Common
 
     historyBack: "Retour à la page précédente",
@@ -37,6 +37,10 @@ const base = {
     anonyme: "anonyme",
     parAvnu: "par AVNU",
     paginationInfoTitleLabel: "Page",
+
+    // Richtext
+
+    textColor: "Couleur du texte",
 
     // App
 
@@ -133,6 +137,16 @@ const base = {
 
     // Single
     ctaLabel: "Appel à l'action",
+    shortDesc: "Description courte",
+    generatedShortDesc: "Description courte générée",
+    shortDescIsGenerated: "Cette description courte à été générée automatiquement par AVNU.",
+    shortDescImportantNote:
+        "Si la description courte n'est pas définie, AVNU génère une version en prenant les 160 premiers caractères de la description.",
+    shortDescDirectives:
+        "Utilisé dans la balise méta description de la page, et pour les données structurées nécessitant la propriété shortDescription.",
+    keywords: "Mots clés",
+    metaContentTitle: "Informations métas",
+    jsonldContentTitle: "Données structurées",
 
     //Select
     noSelectedOption: "Aucune sélection",
@@ -157,4 +171,3 @@ const base = {
     //Badges
     badges: "Badges",
 };
-exports.base = base;

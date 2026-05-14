@@ -33,28 +33,11 @@ import SingleBaseCTA from "@/src/DataTypes/common/layouts/single/defaultSections
 
 import { useMessages } from "@/common/UserNotifications/Message/MessageProvider";
 import SelectFetch from "@/src/common/FormElements/Select/SelectFetch";
+import { ShortDescription } from "@/src/DataTypes/common/layouts/ShortDescription/ShortDescription";
 
 const PersonSingleEdit = ({ positiveRequestActions, ...props }) => {
     //Person data extract
-    const {
-        _id,
-        lastName,
-        firstName,
-        nickname,
-        description,
-        occupations,
-        domains,
-        mainImage,
-        slug,
-        catchphrase,
-        meta,
-        type,
-        fullName,
-        createdAt,
-        contactPoint,
-        url,
-        updatedAt,
-    } = props.data;
+    const { _id, meta, createdAt, updatedAt } = props.data;
 
     //Model de project
     let model = new Person(props.data);
@@ -96,36 +79,40 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props }) => {
     const { FormUI, submitRequest, formState, formTools } = useFormUtils(
         {
             firstName: {
-                value: firstName ?? "",
+                value: model.firstName ?? "",
                 isValid: false,
             },
             lastName: {
-                value: lastName ?? "",
+                value: model.lastName ?? "",
                 isValid: false,
             },
             nickName: {
-                value: nickname ?? "",
+                value: model.nickname ?? "",
                 isValid: true,
             },
             description: {
-                value: description ?? "",
+                value: model.description ?? "",
+                isValid: true,
+            },
+            shortDescription: {
+                value: model.shortDescription ?? "",
                 isValid: true,
             },
             catchphrase: {
-                value: catchphrase ?? "",
+                value: model.catchphrase ?? "",
                 isValid: true,
             },
             occupations: {
-                value: occupations ?? [],
+                value: model.occupations ?? [],
                 isValid: true,
                 invalidMsg: "Compétences et technologies",
             },
             domains: {
-                value: domains ?? [],
+                value: model.domains ?? [],
                 isValid: true,
             },
             contactPoint: {
-                value: contactPoint ?? {
+                value: model?.contactPoint ?? {
                     tel: { num: "", ext: "" },
                     email: { address: "" },
                     website: { url: "" },
@@ -133,12 +120,12 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props }) => {
                 isValid: true,
             },
             url: {
-                value: url ?? [],
+                value: model?.url ?? [],
                 isValid: true,
                 invalidMsg: "Liens externes",
             },
             region: {
-                value: model.region ?? "",
+                value: model?.region ?? "",
                 isValid: true,
             },
         },
@@ -165,6 +152,7 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props }) => {
                 firstName: formState.inputs.firstName.value,
                 nickname: formState.inputs.nickName.value,
                 description: formState.inputs.description.value,
+                shortDescription: formState.inputs.shortDescription.value,
                 catchphrase: formState.inputs.catchphrase.value,
                 occupations: formState.inputs.occupations.value.map(function (singleOccupation) {
                     return {
@@ -364,6 +352,9 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props }) => {
 
     const Footer = (
         <>
+            <SingleInfo title={lang.seoSection}>
+                <ShortDescription formTools={formTools} name="shortDescription" model={model} />
+            </SingleInfo>
             {(createdAt || updatedAt || meta) && (
                 <SingleInfo title={lang.entityMetadata} className="pt-3">
                     {/*********** Entity data ***********/}

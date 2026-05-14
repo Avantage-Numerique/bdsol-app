@@ -1,4 +1,4 @@
-const taxonomies = {
+export const taxonomies = {
     //  Taxonomy
 
     Taxonomy: "Catégorie",
@@ -53,5 +53,3 @@ const taxonomies = {
     domainsInputPlaceholder: "Art, informatique, communication, [...]",
     domainsSingleLabel: "Les secteurs d'activité",
 };
-
-exports.taxonomies = taxonomies;

@@ -1,19 +1,24 @@
 import { getType, TYPE_DEFAULT } from "@/DataTypes/Entity/Types";
-import { removeHtml } from "@/src/helpers/str";
 import { appUrl, replacePathname } from "@/src/helpers/url";
 import EntityTag from "@/DataTypes/Entity/layouts/EntityTag";
 import { lang } from "@/src/common/Data/GlobalConstants";
 
 /**
  * The abstract model for all the entities.
+ *
+ * @typedef EntityModel
+ *
  * @property type {string}
  * @property title {string}
  * @property description {string}
+ * @property shortDescription {string}
  * @property mainImage {Object}
  * @property defaultSimpleParams {Object} default parameters for the simple component of this entity
  * @property defaultSingleParams {Object} default parameters for the single component of this entity
  * @property simpleParams {Object} parameters for the single component of this entity. If it was empty, it's equal to the default value.
  * @property singleParams {Object} parameters for the single component of this entity. If it was empty, it's equal to the default value.
+ *
+ * @property {import("@/src/types/types").GeneratedSupererogatory} [_generated]
  */
 class EntityModel {
     /**
@@ -29,17 +34,13 @@ class EntityModel {
      * @param params.simple {object} Parameters for the simple component
      */
     constructor(raw, params = {}) {
-        this.shortLenght = 87;
         this.type = raw?.type ?? TYPE_DEFAULT;
         this.Type = getType(this.type);
         this.title = raw?.title ?? "no title set";
         this.description = raw?.description ?? "";
+        this.shortDescription = raw?.shortDescription ?? "";
         this.badge = raw?.badge ?? ""; //contextual description of the entity. Often define in a single view.
 
-        this.shortDescription = removeHtml(this.description);
-        this.shortDescription =
-            this.shortDescription.substring(0, this.shortLenght) +
-            (this.shortDescription.length > this.shortLenght ? "..." : "");
         this.mainImage = raw?.mainImage ?? { url: "", alt: "" };
 
         this.singleList;
@@ -52,7 +53,8 @@ class EntityModel {
         this.meta = {
             seperator: " - ",
             title: this.title,
-            description: this.description,
+            description: this.shortDescription,
+            jsonld: {},
         };
 
         //Ajouter _id et id ??

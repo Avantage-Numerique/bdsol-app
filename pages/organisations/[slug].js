@@ -5,7 +5,7 @@ import { externalApiRequest } from "@/src/hooks/http-hook";
 //components
 import OrganisationSingleView from "@/src/DataTypes/Organisation/components/layouts/single/OrganisationSingleView";
 import { getUserHeadersFromUserSession } from "@/auth/context/auth-context";
-import { withSessionSsr } from "@/auth/session/handlers/withSession";
+import { sessionContextInjector } from "@/auth/session/handlers/withSession";
 import AppRoutes from "@/src/Routing/AppRoutes";
 
 const SingleOrganisationPage = (props) => {
@@ -18,7 +18,7 @@ const SingleOrganisationPage = (props) => {
 
 export default SingleOrganisationPage;
 
-export const getServerSideProps = withSessionSsr(organisationSlugProps);
+export const getServerSideProps = sessionContextInjector(organisationSlugProps);
 
 export async function organisationSlugProps(context) {
     const { slug } = context.query;

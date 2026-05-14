@@ -16,6 +16,7 @@ import { removeTagsFromString } from "@/src/helpers/html";
 import { ContactPointView } from "@/src/DataTypes/common/layouts/ContactPointView/ContactPointView";
 import BadgesSection from "@/src/DataTypes/Badges/BadgesSection";
 import SingleBaseCTA from "@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseCTA";
+import { SupererogatorySection } from "@/src/common/Components/SupererogatorySection/SupererogatorySection";
 
 const PersonSingleView = ({ data }) => {
     //Destructuring of data's prop
@@ -176,6 +177,8 @@ const PersonSingleView = ({ data }) => {
 
     const Footer = (
         <>
+            <SupererogatorySection model={model} />
+
             {(createdAt || updatedAt || meta) && (
                 <SingleInfo title={lang.entityMetadata} className="pt-3">
                     <SingleEntityMeta createdAt={createdAt} updatedAt={updatedAt} meta={meta} />

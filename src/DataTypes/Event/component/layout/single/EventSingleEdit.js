@@ -33,6 +33,7 @@ import SingleSaveEntityReminder from "@/src/DataTypes/common/layouts/SingleSaveE
 import UpdateContactPoint from "@/src/DataTypes/common/Forms/UpdateContactPoint/UpdateContactPoint";
 import SingleBaseCTA from "@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseCTA";
 import { useMessages } from "@/common/UserNotifications/Message/MessageProvider";
+import { ShortDescription } from "@/src/DataTypes/common/layouts/ShortDescription/ShortDescription";
 
 const EventSingleEdit = ({ data }, ...props) => {
     const {
@@ -119,6 +120,10 @@ const EventSingleEdit = ({ data }, ...props) => {
             },
             description: {
                 value: description ?? "",
+                isValid: true,
+            },
+            shortDescription: {
+                value: model.shortDescription ?? "",
                 isValid: true,
             },
             entityInCharge: {
@@ -237,6 +242,7 @@ const EventSingleEdit = ({ data }, ...props) => {
                 entityInCharge: formState.inputs.entityInCharge.value?.value ?? null,
                 organizer: formState.inputs.organizer.value?.value ?? null,
                 description: formState.inputs.description.value,
+                shortDescription: formState.inputs.shortDescription.value,
                 eventType:
                     formState.inputs.eventType.value?.length > 0
                         ? formState.inputs.eventType.value.map((selectedEventType) => {
@@ -673,6 +679,9 @@ const EventSingleEdit = ({ data }, ...props) => {
     }
     const Footer = (
         <>
+            <SingleInfo title={lang.seoSection}>
+                <ShortDescription formTools={formTools} name="shortDescription" model={model} />
+            </SingleInfo>
             {(createdAt || updatedAt || meta) && (
                 <SingleInfo title={lang.entityMetadata} className="pt-3">
                     {/*********** Entity data ***********/}

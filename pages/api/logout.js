@@ -1,13 +1,16 @@
-import { withSessionRoute } from "@/auth/session/handlers/withSession";
+import { sessionApiRouteContextInjector } from "@/auth/session/handlers/withSession";
 import { defaultSessionData } from "@/auth/context/auth-context";
 import { lang } from "@/src/common/Data/GlobalConstants";
+import { appDefaultSessionOptions } from "@/auth/session/Session";
+import { getIronSession } from "iron-session";
 
-export default withSessionRoute(logoutRoute);
+//export default sessionApiRouteContextInjector(logoutRoute);
 
-async function logoutRoute(req, res) {
+export default async function handler(req, res) {
+    const session = await getIronSession(req, res, appDefaultSessionOptions);
     //req.session.user = defaultSessionData;
     //await req.session.save();
-    await req.session.destroy();
+    await session.destroy();
     //getVisitorDataFromContext
     res.send({
         text: lang.successDisconnected,

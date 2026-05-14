@@ -30,6 +30,7 @@ export const lang = StringDictionary.getInstance([
     "licences",
     "filters",
     "pagination",
+    "referentiel",
 ]);
 
 export const now = new Date();

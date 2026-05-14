@@ -1,4 +1,7 @@
-@import "./custom.scss";
+// Note: custom-overrides.scss and custom-derived.scss are now loaded
+// through ./packages/bootstrap which uses abstracts/bootstrap-global
+// Do NOT import them here to avoid duplicate loading
+
 @import "./avnu.scss";
 @import "./fonts";
 
@@ -6,7 +9,7 @@
 
 //Cherry picking of packages' styles.
 @import "./packages/bootstrap"; //bootstrap style. docs : https://icons8.com/line-awesome
-@import "./packages/line-awesome"; //icon font
+//@import "./packages/line-awesome"; //icon font
 
 @import "./globals.scss";
 
@@ -20,6 +23,7 @@
 @import "./tags/blockquote";
 @import "./tags/h";
 @import "./tags/button";
+@import "./tags/pre";
 
 @import "./layout-components/header.scss";
 @import "./layout-components/form-elements.scss";
@@ -42,6 +46,7 @@
 @import "./components/badges.scss";
 @import "./components/background.scss";
 @import "./components/popover.scss";
+@import "./components/ql-editor.scss";
 
 @import "./layouts/default";
 @import "./layouts/page-layouts.scss";

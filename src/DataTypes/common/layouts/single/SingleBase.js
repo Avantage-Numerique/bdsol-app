@@ -10,6 +10,7 @@ import { removeTagsFromString } from "@/src/helpers/html";
 import PageMeta from "@/src/common/PageMeta/PageMeta";
 
 import QuickShare from "@/src/common/widgets/QuickShare/QuickShare";
+import EntityModel from "@/src/DataTypes/Entity/models/EntityModel";
 
 /**
  * Composant de base pour afficher une entité
@@ -23,7 +24,7 @@ import QuickShare from "@/src/common/widgets/QuickShare/QuickShare";
  * @prop {React.Component} contentColumnRight main content column right
  * @prop {React.Component} footer
  * @prop {React.Component} singlePageBottom
- * @prop {React.Component} model
+ * @prop {EntityModel} model
  * @prop {boolean} editMode
  *
  * @param {SingleBaseProps} props
@@ -53,6 +54,7 @@ const SingleBase = (props) => {
                 imageFromApi={imageSrc || ""}
                 imageAlt={getTitle([model?.meta.title, model?.Type.label]) || ""}
                 canonical={model?.fullSingleLinkUrl || ""}
+                structuredData={model?._jsonld}
             />
 
             <div>

@@ -1,4 +1,4 @@
-const filters = {
+export const filters = {
     /* /consulter */
     filterAll: "Tous les types",
     filterPerson: "Personnes",
@@ -8,5 +8,3 @@ const filters = {
     filterEquipment: "Équipements",
     filterPlace: "Lieux",
 };
-
-exports.filters = filters;

@@ -11,7 +11,7 @@ import { useModal } from "@/src/hooks/useModal/useModal";
 
 //Utils
 import { lang } from "@/src/common/Data/GlobalConstants";
-import { withSessionSsr } from "@/auth/session/handlers/withSession";
+import { sessionContextInjector } from "@/auth/session/handlers/withSession";
 import { ssrCanAccess } from "@/auth/permissions/ssrCanAccess";
 import Router from "next/router";
 import Place from "@/src/DataTypes/Place/models/Place";
@@ -37,7 +37,7 @@ const PlaceSingleEditPage = () => {
                         <div className="d-flex flex-column">
                             <h3 className="text-secondary-darker">Ajouter un lieu</h3>
                             <p>
-                                Entrez les informations principales d'un lieu. Vous pourrez les éditer de manière
+                                Entrez les informations principales d&apos;un lieu. Vous pourrez les éditer de manière
                                 détaillée par la suite.
                             </p>
                         </div>
@@ -66,6 +66,6 @@ const PlaceSingleEditPage = () => {
     );
 };
 
-export const getServerSideProps = withSessionSsr(ssrCanAccess);
+export const getServerSideProps = sessionContextInjector(ssrCanAccess);
 
 export default PlaceSingleEditPage;

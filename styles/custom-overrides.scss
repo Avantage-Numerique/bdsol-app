@@ -1,3 +1,18 @@
+@use "sass:math";
+// ============================================================================
+// Custom Overrides (Loaded BEFORE Bootstrap Variables)
+// ============================================================================
+// This file contains variables that OVERRIDE Bootstrap defaults.
+// It's loaded BEFORE Bootstrap's _variables.scss so our values take precedence.
+//
+// Variables here should NOT reference Bootstrap's variables (like $gray-200).
+// They CAN use Bootstrap functions (lighten, tint-color, etc.) on custom values.
+// ============================================================================
+$min-contrast-ratio: 2.5;
+
+// Bootstrap configuration overrides
+$grid-gutter-width: 1.5rem;
+
 $blue: #455ae6;
 $blue2: #4d64ff;
 $blue3: #4dc4ff;
@@ -7,17 +22,20 @@ $purple-light: #b2b2eb;
 $purple-lighter: lighten($purple-light, 10%);
 
 $black: #1c1c1c;
+$white: #fdfdfd;
+
 $dark: lighten($black, 10%);
 $mild-dark: lighten($black, 30%);
+
 $grey: lighten($black, 40%);
 
+$light: #dedede;
 $light-grey: #dedede;
 $light-grey-bg: #f5f5f5;
-//$dark: #292929;
-$yellow: #ffd849;
 
+$yellow: #ffd849;
 $yellow-pending: #fafa10;
-$red-rejected: $red;
+
 $abilities: #e9a511;
 
 $primary: #f09664;
@@ -55,11 +73,14 @@ $secondary-darker: $secondary_8;
 $info: $yellow;
 $info-light: lighten($yellow, 15%);
 
+$warning: darken($yellow, 15%);
+
 /*********** Other colors ***********/
 
 $red: #d74b32;
 $lighten_red: lighten($red, 20%);
 $darken_red: darken($red, 10%);
+$red-rejected: $red;
 
 $green: #aad287;
 $lighten_green: lighten($green, 10%);
@@ -78,9 +99,6 @@ $selected-input: $secondary_7;
 $theme-colors: (
     "purplelight": $purple-light,
     "purplelighter": $purple-lighter,
-    "blue2": $blue2,
-    "blue3": $blue3,
-    "blue4": $blue4,
     "accepted": $green-accepted,
     "pending": $yellow-pending,
     "rejected": $red-rejected,
@@ -111,6 +129,8 @@ $theme-colors: (
     "danger": $lighten_red,
     "info": $info,
     "warning": $warning,
+    "red": $red,
+    "green": $green,
 );
 
 $main-image-bg-color: $light;
@@ -147,7 +167,7 @@ $h6-font-size: 0.8rem !default; //this is smaller than regular text
 
 $link-decoration: none;
 
-/* 
+/*
     GLOBAL SPACINGS
 */
 $spacing-sm: 2.35rem;
@@ -232,7 +252,7 @@ $input-base-bg-color: #f9f9f9;
     Based on the default bootstrap gutter
 */
 $single-infos-padding-y: $grid-gutter-width;
-$single-infos-margin-y: calc(0.5 * $grid-gutter-width);
+$single-infos-margin-y: $grid-gutter-width * 0.5;
 
 $transition-default-time: 100ms;
 $transition-default-property: all;
@@ -256,7 +276,7 @@ $transition-translation: $transition-default-property $transition-default-time $
 $transition-default: $transition-default-property $transition-default-time $bezier-default;
 $transition-base: $transition-ease;
 $transition-base-slow: $transition-default-property $transition-default-time * 2 $bezier-ease-in-out;
-$transition-base-quick: $transition-default-property $transition-default-time/2 $bezier-ease-in-out;
+$transition-base-quick: $transition-default-property math.div($transition-default-time, 2) $bezier-ease-in-out;
 
 $transition-fade: opacity 0.15s $bezier-default;
 $transition-collapse: height 0.35s $bezier-ease-in-out;
@@ -284,8 +304,8 @@ $success-bg-subtle: tint-color($success, 80%);
 $info-bg-subtle: tint-color($info, 80%);
 $warning-bg-subtle: tint-color($warning, 80%);
 $danger-bg-subtle: tint-color($danger, 80%);
-$light-bg-subtle: mix($gray-100, $white);
-$dark-bg-subtle: $gray-400;
+// Note: $light-bg-subtle and $dark-bg-subtle moved to custom-derived.scss
+// because they reference Bootstrap's $gray-* variables
 // scss-docs-end theme-bg-subtle-variables
 
 // scss-docs-start theme-border-subtle-variables
@@ -295,8 +315,8 @@ $success-border-subtle: tint-color($success, 60%);
 $info-border-subtle: tint-color($info, 60%);
 $warning-border-subtle: tint-color($warning, 60%);
 $danger-border-subtle: tint-color($danger, 60%);
-$light-border-subtle: $gray-200;
-$dark-border-subtle: $gray-500;
+// Note: $light-border-subtle and $dark-border-subtle moved to custom-derived.scss
+// because they reference Bootstrap's $gray-* variables
 // scss-docs-end theme-border-subtle-variables
 
 // scss-docs-start theme-text-variables
@@ -306,6 +326,6 @@ $success-text-emphasis: shade-color($success, 60%);
 $info-text-emphasis: shade-color($info, 60%);
 $warning-text-emphasis: shade-color($warning, 60%);
 $danger-text-emphasis: shade-color($danger, 60%);
-$light-text-emphasis: $gray-700;
-$dark-text-emphasis: $gray-700;
+// Note: $light-text-emphasis and $dark-text-emphasis moved to custom-derived.scss
+// because they reference Bootstrap's $gray-* variables
 // scss-docs-end theme-text-variables

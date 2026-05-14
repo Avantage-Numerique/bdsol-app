@@ -75,7 +75,7 @@ const AuthContext = createContext({});
 export function AuthProvider({ fromSessionUser, appMode, acceptedCookies, children }) {
     const [user, setUser] = useState(fromSessionUser ?? { ...defaultSessionData });
     const [loading, setLoading] = useState(true);
-    const [apiUp, setApiUp] = useState(true);
+    const [apiUp, setApiUp] = useState(undefined);
     const [mode, setMode] = useState(appMode);
 
     const [cookiesChoices, setCookiesChoices] = useState(acceptedCookies ?? defaultCookiesChoices);

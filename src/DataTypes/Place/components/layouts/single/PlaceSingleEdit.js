@@ -25,6 +25,7 @@ import SingleBeforeUnloadReminder from "@/src/DataTypes/common/layouts/SingleSav
 import SingleBaseCTA from "@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseCTA";
 
 import { useMessages } from "@/common/UserNotifications/Message/MessageProvider";
+import { ShortDescription } from "@/src/DataTypes/common/layouts/ShortDescription/ShortDescription";
 
 const PlaceSingleEdit = ({ positiveRequestActions, ...props }) => {
     let model = new Place(props.data);
@@ -69,6 +70,10 @@ const PlaceSingleEdit = ({ positiveRequestActions, ...props }) => {
             },
             description: {
                 value: model.description ?? "",
+                isValid: true,
+            },
+            shortDescription: {
+                value: model.shortDescription ?? "",
                 isValid: true,
             },
             address: {
@@ -126,6 +131,7 @@ const PlaceSingleEdit = ({ positiveRequestActions, ...props }) => {
                 id: model._id,
                 name: formState.inputs.name.value,
                 description: formState.inputs.description.value,
+                shortDescription: formState.inputs.shortDescription.value,
                 address: formState.inputs.address.value,
                 city: formState.inputs.city.value,
                 region: formState.inputs.region.value,
@@ -287,6 +293,9 @@ const PlaceSingleEdit = ({ positiveRequestActions, ...props }) => {
     }
     const Footer = (
         <>
+            <SingleInfo title={lang.seoSection}>
+                <ShortDescription formTools={formTools} name="shortDescription" model={model} />
+            </SingleInfo>
             {(createdAt || updatedAt || meta) && (
                 <SingleInfo title={lang.entityMetadata} className="pt-3">
                     {/*********** Entity data ***********/}

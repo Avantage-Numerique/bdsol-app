@@ -9,8 +9,13 @@ import { useFieldTips } from "@/src/hooks/useFieldTips/useFieldTips";
 //Styling
 import styles from "./RichTextarea.module.scss";
 import "react-quill/dist/quill.snow.css";
+import { lang } from "../../Data/GlobalConstants";
 
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
+
+const QuillSeparator = () => {
+    return <span className={`${styles["separator"]}`}></span>;
+};
 
 const RichTextarea = ({ name, formTools, ...props }) => {
     //Create a unique ID to link the custom tool bar to the quill element.
@@ -87,23 +92,52 @@ const RichTextarea = ({ name, formTools, ...props }) => {
                                     <option value="">Normal</option>
                                 </select>
 
+                                <QuillSeparator />
+
                                 <button className="ql-list" value="ordered" tabIndex={-1} />
                                 <button className="ql-list" value="bullet" tabIndex={-1} />
+
+                                <QuillSeparator />
+
                                 <button className="ql-bold" tabIndex={-1} />
                                 <button className="ql-italic" tabIndex={-1} />
-                                <button className="ql-align" value="" tabIndex={-1} />
-                                <button className="ql-align" value="center" tabIndex={-1} />
-                                <button className="ql-align" value="right" tabIndex={-1} />
+                                <button className="ql-underline" tabIndex={-1} />
+                                <button className="ql-strike" tabIndex={-1} />
+                                <button className="ql-blockquote" tabIndex={-1} />
+                                <button className="ql-link" tabIndex={-1} />
 
-                                <select className="ql-color" defaultValue="">
+                                <QuillSeparator />
+
+                                <select className="ql-color" defaultValue="" title={lang.textColor}>
+                                    <option value="" selected />
+
+                                    {/*
+
+                                    Couleurs OG
+                                    
                                     <option value="#455ae6" />
                                     <option value="#4dc4ff" />
                                     <option value="#dd5c5c" />
                                     <option value="#bbbfd7" />
                                     <option value="#d4c87b" />
                                     <option value="#7bd485" />
-                                    <option value="" />
+                                    
+                                    */}
+
+                                    {/* Couleurs AVNU */}
+                                    <option value="#6ec8cd" />
+                                    <option value="#f09664" />
+                                    <option value="#b2b2eb" />
+                                    <option value="#aad287" />
+                                    <option value="#ffd849" />
+                                    <option value="#d74b32" />
                                 </select>
+
+                                <QuillSeparator />
+
+                                <button className="ql-align" value="" tabIndex={-1} />
+                                <button className="ql-align" value="center" tabIndex={-1} />
+                                <button className="ql-align" value="right" tabIndex={-1} />
                             </div>
 
                             <ReactQuill

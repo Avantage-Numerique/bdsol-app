@@ -4,7 +4,7 @@ import { externalApiRequest } from "@/src/hooks/http-hook";
 //components
 import EventSingleView from "@/src/DataTypes/Event/component/layout/single/EventSingleView";
 import { getUserHeadersFromUserSession } from "@/auth/context/auth-context";
-import { withSessionSsr } from "@/auth/session/handlers/withSession";
+import { sessionContextInjector } from "@/auth/session/handlers/withSession";
 import AppRoutes from "@/src/Routing/AppRoutes";
 
 const SingleEventViewPage = (props) => {
@@ -13,7 +13,7 @@ const SingleEventViewPage = (props) => {
 
 export default SingleEventViewPage;
 
-export const getServerSideProps = withSessionSsr(eventSlugSSProps);
+export const getServerSideProps = sessionContextInjector(eventSlugSSProps);
 
 export async function eventSlugSSProps(context) {
     const { slug } = context.query;

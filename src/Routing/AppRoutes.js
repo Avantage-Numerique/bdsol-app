@@ -375,6 +375,13 @@ const AppRoutesRaw = {
         needAuth: false,
     },
 
+    referentiel: {
+        label: "Référentiel AVNU",
+        pathname: "/referentiel",
+        asPath: "/referentiel",
+        needAuth: false,
+    },
+
     paramsCookies: {
         label: "Paramètres des cookies",
         pathname: "/parametres/cookies",

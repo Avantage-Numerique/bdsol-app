@@ -1,4 +1,4 @@
-const persons = {
+export const persons = {
     //  Personnes
     PersonsDefinition:
         "Personne, professionnelle ou amatrice, ayant des compétences en technologies ou œuvrant dans le numérique et offrant des services technologiques.",
@@ -37,5 +37,3 @@ const persons = {
 
     iconOfPerson: "Icône représentant une personne",
 };
-
-exports.persons = persons;

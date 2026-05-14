@@ -1,5 +1,5 @@
 import React from "react";
-import { withSessionSsr } from "@/auth/session/handlers/withSession";
+import { sessionContextInjector } from "@/auth/session/handlers/withSession";
 import AppRoutes from "@/src/Routing/AppRoutes";
 import OrganisationSingleEdit from "@/src/DataTypes/Organisation/components/forms/OrganisationSingleEdit/OrganisationSingleEdit";
 import { ssrCanContributeToEntity } from "@/auth/permissions/ssrCanContributeToEntity";
@@ -14,4 +14,4 @@ const OrganisationSingleEditPage = (props) => {
 
 export default OrganisationSingleEditPage;
 
-export const getServerSideProps = withSessionSsr(ssrCanContributeToEntity("organisations"));
+export const getServerSideProps = sessionContextInjector(ssrCanContributeToEntity("organisations"));

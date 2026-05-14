@@ -12,7 +12,7 @@ import { useSessionHook } from "@/auth/hooks/useSessionHook";
 import styles from "./accountPage.module.scss";
 import Account from "@/src/common/Containers/UserAccount/Account/Account";
 import Help from "@/src/common/Containers/UserAccount/Help/help";
-import { withSessionSsr } from "@/auth/session/handlers/withSession";
+import { sessionContextInjector } from "@/auth/session/handlers/withSession";
 import { ssrCanAccess } from "@/auth/permissions/ssrCanAccess";
 import PageHeader from "@/layouts/Header/PageHeader";
 import { lang } from "@/common/Data/GlobalConstants";
@@ -124,6 +124,6 @@ const AccountPage = ({ user }) => {
     );
 };
 
-export const getServerSideProps = withSessionSsr(ssrCanAccess);
+export const getServerSideProps = sessionContextInjector(ssrCanAccess);
 
 export default AccountPage;

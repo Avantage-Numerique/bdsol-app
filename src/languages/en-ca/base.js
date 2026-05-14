@@ -21,6 +21,10 @@ export const base = {
     anonyme: "anonym",
     parAvnu: "by AVNU",
 
+    // Richtext
+
+    textColor: "Text color",
+
     // App
 
     appDefaultName: "AVNU | By Avantage Numérique",
@@ -94,6 +98,17 @@ export const base = {
 
     // SINGLE
 
+    shortDesc: "Description courte",
+    generatedShortDesc: "Generated short description",
+    shortDescIsGenerated: "This short description was generated automatically by AVNU.",
+    shortDescImportantNote:
+        "Si la description courte n'est pas définie, AVNU génère une version en prenant les 160 premiers caractères de la description.",
+    shortDescDirectives:
+        "Utilisé dans la balise méta description de la page, et pour les données structurées nécessitant la propriété shortDescription.",
+
+    keywords: "Keywords",
+    metaContentTitle: "Meta informations",
+    jsonldContentTitle: "Structured data",
     proposeContentChangeLabel: "Suggest a modification",
 
     //  Personnes

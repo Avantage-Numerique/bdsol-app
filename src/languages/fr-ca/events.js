@@ -1,4 +1,4 @@
-const events = {
+export const events = {
     EventsDefinition: "Événement comprenant un aspect numérique ou lié à un projet numérique.",
 
     Event: "Événement",
@@ -36,5 +36,3 @@ const events = {
 
     iconOfEvent: "Icône représentant un événement",
 };
-
-exports.events = events;
