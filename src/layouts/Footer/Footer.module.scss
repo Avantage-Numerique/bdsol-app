@@ -14,6 +14,7 @@
         img {
             width: clamp(15rem, 15vw, 23rem);
             height: auto;
+            max-height: 12em;
             padding: var(--footer-vertical-paddings) 0px;
         }
     }
