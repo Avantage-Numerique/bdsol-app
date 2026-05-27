@@ -155,7 +155,17 @@ const EntitySimple = (props) => {
                 ${styles["simple-abstract__sub-section"]}
             `}
             >
-                {description && description + descriptionEllipsis}
+                <p
+                    className={`
+                        mb-0
+                        text-center
+                        ${styles["simple-abstract__content__description"]}
+                        ${styles["simple-abstract__content_ellipsis"]}
+                        ${!isBottomLine && styles["simple-abstract__content_ellipsis--3lines"]}
+                    `}
+                >
+                    {description && description + descriptionEllipsis}
+                </p>
 
                 {!BottomLineContent && model.singleList && (
                     <ul className={`d-flex mb-0 ${styles["simple-abstract__content__tagList"]} justify-content-center`}>
