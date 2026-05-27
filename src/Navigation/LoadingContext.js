@@ -14,6 +14,6 @@ export function LoadingProvider({ children }) {
     return <LoadingContext.Provider value={{ isLoading, setIsLoading }}>{children}</LoadingContext.Provider>;
 }
 
-export function useLoading() {
+export function useNavLoading() {
     return useContext(LoadingContext);
 }

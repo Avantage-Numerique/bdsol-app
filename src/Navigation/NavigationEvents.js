@@ -3,10 +3,10 @@
 import { useEffect, useRef } from "react";
 import { useRouter } from "next/router";
 
-import { useLoading } from "./LoadingContext"; // Un contexte personnalisé pour gérer l'état de chargement
+import { useNavLoading } from "./LoadingContext"; // Un contexte personnalisé pour gérer l'état de chargement
 
 export default function NavigationEvents() {
-    const { setIsLoading } = useLoading(); // Fonction pour mettre à jour l'état de chargement
+    const { setIsLoading } = useNavLoading(); // Fonction pour mettre à jour l'état de chargement
 
     const router = useRouter();
 

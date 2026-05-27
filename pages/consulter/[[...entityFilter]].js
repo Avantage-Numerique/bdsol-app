@@ -22,7 +22,10 @@ import { filters, filtersUrl } from "@/src/filters/consultFilters";
 import { paginationConfig } from "@/src/configs/PaginationConfigs";
 import PageHeader from "@/layouts/Header/PageHeader";
 import Button from "@/src/common/FormElements/Button/Button";
+
 import { useLoading } from "@/src/hooks/useLoading";
+import { useNavLoading } from "@/src/Navigation/LoadingContext";
+
 import useConsultData, { buildPaginationMeta } from "@/src/hooks/useConsultData";
 import { Element } from "react-scroll";
 
@@ -45,6 +48,9 @@ const ConsultData = (props) => {
 
     const currentEntityFilterUrl = currentQueryEntityFilterUrl();
     const { currentLoadingState, setCurrentLoadingState } = useLoading();
+
+    const { isLoading, setIsLoading } = useNavLoading();
+
     const [consultData, updateConsultData] = useConsultData(props, filters.get(currentEntityFilterUrl));
 
     /**
@@ -81,6 +87,7 @@ const ConsultData = (props) => {
      * @param targetPage
      */
     const btnPageOnClickHandler = (targetPage) => {
+        setIsLoading(true);
         sendApiListRequest(Math.abs(targetPage - 1) * paginationConfig.pageSize);
     };
 
@@ -142,7 +149,8 @@ const ConsultData = (props) => {
      */
     async function sendApiListRequest(directSkipNumber = null) {
         //setIsLoading(true);
-        setCurrentLoadingState(LoadingStates.LOADING);
+        setCurrentLoadingState(LoadingStates.LOADING); // DEPRECATED call ?
+
         const targetSkip = directSkipNumber ?? 0;
 
         const res = await searchByType(ORIGIN_BROWSER, consultData.entities[0], { skip: targetSkip });
@@ -170,7 +178,7 @@ const ConsultData = (props) => {
         updateUrlQueryWithCurrentPage(currentPaginiationMeta);
 
         //setShowApplyBtn(false);//loadmore method. To be implemented later on with the new hybrid ssr + csr mode.
-        setCurrentLoadingState(LoadingStates.LOADING_COMPLETE);
+        setCurrentLoadingState(LoadingStates.LOADING_COMPLETE); // DEPRECATED call ?
     }
 
     /**
@@ -275,7 +283,7 @@ const ConsultData = (props) => {
                 loadMore={false}
             >
                 <div className="py-4 position-relative">
-                    {currentLoadingState.state === LoadingStates.LOADING.state && (
+                    {/* {currentLoadingState.state === LoadingStates.LOADING.state && (
                         <Spinner
                             label={currentLoadingState.label}
                             fixed={false}
@@ -283,7 +291,7 @@ const ConsultData = (props) => {
                             className={"rounded-2 bg-primary-lighter"}
                             loadingState={currentLoadingState}
                         />
-                    )}
+                    )} */}
                     {consultData.list?.length > 0 && (
                         <EntitiesGrid
                             className={"row"}
