@@ -25,8 +25,8 @@ const ExternalLink = (props) => {
                     rel="noreferrer"
                 >
                     {props.children && props.children}
+                    <Icon iconName={"external-link-alt"} className={"text-decoration-none ps-1"} />
                 </a>
-                <Icon iconName={"external-link-alt"} className={"text-decoration-none ps-1"} />
             </>
         );
     }
