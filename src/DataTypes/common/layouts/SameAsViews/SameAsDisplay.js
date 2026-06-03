@@ -6,6 +6,7 @@ import { ExternalLink } from "@/src/common/Components/ExternalLink";
 
 //Styles
 import styles from "./SameAsDisplay.module.scss";
+import Popover from "@/src/common/Components/Popover/Popover";
 
 /**
  *
@@ -15,9 +16,18 @@ import styles from "./SameAsDisplay.module.scss";
 const SingleSameAs = ({ label, url }) => {
     return (
         <div className={`p-1 ${styles["single-same-as"]} text-break`}>
-            <ExternalLink href={url} title={url} target="_blank">
-                <span>{label ?? url}</span>
-            </ExternalLink>
+            {label.length ? (
+                <span>
+                    {label} :{" "}
+                    <ExternalLink href={url} title={url} target="_blank">
+                        {url}
+                    </ExternalLink>
+                </span>
+            ) : (
+                <ExternalLink href={url} title={url} target="_blank">
+                    {url}
+                </ExternalLink>
+            )}
         </div>
     );
 };
@@ -29,22 +39,31 @@ const SingleSameAs = ({ label, url }) => {
  * @param {string} props.title String containing the title of the section
  *
  */
-const SameAsDisplay = ({ urls, title, className }) => {
+const SameAsDisplay = ({ urls, title }) => {
     let orderedUrls = [];
 
     if (Array.isArray(urls)) orderedUrls = urls.sort((a, b) => (a.subMeta.order > b.subMeta.order ? 1 : -1));
 
     return (
         orderedUrls.length > 0 && (
-            <SingleInfo
-                title={title}
-                className={className}
-                tooltip={{ header: "Web Sémantique", body: 'Propriété "sameAs" du web sémantique' }}
-            >
-                {orderedUrls.map((singleUrl, i) => (
-                    <SingleSameAs label={singleUrl.label} url={singleUrl.url} key={"url_" + singleUrl.label + i} />
-                ))}
-            </SingleInfo>
+            <div>
+                <div className="d-flex gap-1">
+                    <strong>{title}</strong>{" "}
+                    <Popover title="Web Sémantique" body='Propriété "sameAs" du web sémantique' />
+                </div>
+
+                <ul>
+                    {orderedUrls.map((singleUrl, i) => (
+                        <li key={i}>
+                            <SingleSameAs
+                                label={singleUrl.label}
+                                url={singleUrl.url}
+                                key={"url_" + singleUrl.label + i}
+                            />
+                        </li>
+                    ))}
+                </ul>
+            </div>
         )
     );
 };

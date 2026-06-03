@@ -7,6 +7,7 @@ import { KeywordsDisplay } from "@/src/DataTypes/common/layouts/Keywords/Keyword
 import Icon from "../../widgets/Icon/Icon";
 import { useMessages } from "../../UserNotifications/Message/MessageProvider";
 import { useState } from "react";
+import SameAsDisplay from "@/src/DataTypes/common/layouts/SameAsViews/SameAsDisplay";
 
 /**
  * @typedef {Object} SupererogatorySectionProps
@@ -30,6 +31,8 @@ export const SupererogatorySection = (props) => {
                 NAMessage="Rien à signaler!"
                 show={false}
             >
+                <SameAsDisplay title={lang.sameAs} urls={model?.sameAs} />
+
                 {(model.shortDescription || model._generated?.shortDescription) && (
                     <ShortDescriptionDisplay model={model} />
                 )}

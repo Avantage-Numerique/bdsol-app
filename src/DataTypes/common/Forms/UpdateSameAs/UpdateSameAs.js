@@ -4,12 +4,15 @@ import React from "react";
 import Input from "@/src/common/FormElements/Input/Input";
 import Repeater from "@/src/common/FormElements/Repeater/Repeater";
 import { lang } from "@/src/common/Data/GlobalConstants";
+import Popover from "@/src/common/Components/Popover/Popover";
 
 const UpdateSameAs = ({ parentEntity, name, formTools, ...props }) => {
-    const showLabel = false && props.label && props.label !== false; //set to false there because a lot of forms use this but don't want to.
     return (
         <>
-            {showLabel && <label htmlFor={name}>{props.label}</label>}
+            <div className={"d-flex align-items-center justify-content-between"}>
+                <label htmlFor={name}>{props.label}</label>
+                <Popover title="Web Sémantique" body='Propriété "sameAs" du web sémantique' />
+            </div>
             <Repeater
                 className=""
                 formTools={formTools}
@@ -34,7 +37,7 @@ const UpdateSameAs = ({ parentEntity, name, formTools, ...props }) => {
                         <Input
                             className="col-12"
                             name="url"
-                            label={lang.url + lang.required}
+                            label={lang.sameAsUrl + lang.required}
                             type="url"
                             //pattern="^https?:\/\/[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$"
                             placeholder="Exemple : https://siteWeb.com"

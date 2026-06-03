@@ -53,7 +53,7 @@ const ShortDescription = ({ formTools, name, model, ...props }) => {
 const ShortDescriptionDisplay = ({ model, ...props }) => {
     return (
         <div>
-            <div className={"d-flex align-items-center justify-content-between"}>
+            <div className={"d-flex align-items-center gap-1"}>
                 <strong>{lang.shortDesc}</strong>
                 <Popover title={tip.header} body={tip.body} />
             </div>

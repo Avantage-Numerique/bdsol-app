@@ -119,11 +119,6 @@ const EquipmentSingleView = ({ data }) => {
                 url={model?.url}
                 //className={`${appConfig.spacing.singleSectionSpacingClass}`}
             />
-            <SameAsDisplay
-                title={lang.sameAs}
-                urls={model?.sameAs}
-                //className={`${appConfig.spacing.singleSectionSpacingClass}`}
-            />
         </>
     );
 

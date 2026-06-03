@@ -22,6 +22,7 @@ export const base = {
     hyperlinks: "Hyperlinks",
     externalLinks: "External links",
     sameAs: "Same as",
+    sameAs: "<code>sameAs</code> ID",
     about: "About",
     contactInformations: "Contact informations",
     anonyme: "anonym",

@@ -241,18 +241,16 @@ const EquipmentSingleEdit = ({ positiveRequestActions, ...props }) => {
             <SingleInfo title={lang.externalLinks}>
                 <UpdateSocialHandles name="url" parentEntity={model} formTools={formTools} />
             </SingleInfo>
-
-            <SingleInfo title={lang.sameAs}>
-                <UpdateSameAs name="sameAs" parentEntity={model} formTools={formTools} />
-            </SingleInfo>
         </>
     );
 
     const footer = (
         <>
             <SingleInfo title={lang.seoSection}>
+                <UpdateSameAs label={lang.sameAs} name="sameAs" parentEntity={model} formTools={formTools} />
                 <ShortDescription formTools={formTools} name="shortDescription" model={model} />
             </SingleInfo>
+
             {(model.createdAt || model.updatedAt || model.meta) && (
                 <SingleInfo title={lang.entityMetadata} className="pt-3">
                     {/*********** Entity data ***********/}
