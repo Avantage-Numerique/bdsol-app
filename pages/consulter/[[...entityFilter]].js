@@ -49,7 +49,7 @@ const ConsultData = (props) => {
     const currentEntityFilterUrl = currentQueryEntityFilterUrl();
     const { currentLoadingState, setCurrentLoadingState } = useLoading();
 
-    const { isLoading, setIsLoading } = useNavLoading();
+    const { setIsLoadingWTimeout } = useNavLoading();
 
     const [consultData, updateConsultData] = useConsultData(props, filters.get(currentEntityFilterUrl));
 
@@ -87,7 +87,7 @@ const ConsultData = (props) => {
      * @param targetPage
      */
     const btnPageOnClickHandler = (targetPage) => {
-        setIsLoading(true);
+        setIsLoadingWTimeout();
         sendApiListRequest(Math.abs(targetPage - 1) * paginationConfig.pageSize);
     };
 
