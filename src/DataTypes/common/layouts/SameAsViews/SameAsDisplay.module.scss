@@ -1,0 +1,18 @@
+.single-same-as {
+    max-width: 50ch;
+    .single-same-as__icons {
+        transition: 0.3s ease-out;
+        opacity: 0;
+        transform: translateY(0.3rem);
+    }
+
+    :hover {
+        .single-same-as__icons {
+            opacity: 1;
+            transform: translateY(0rem);
+        }
+        .single-same-as__link {
+            text-decoration: underline;
+        }
+    }
+}

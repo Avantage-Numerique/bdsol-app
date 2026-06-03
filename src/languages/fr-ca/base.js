@@ -33,6 +33,7 @@ export const base = {
     hyperlink: "Hyperlien",
     hyperlinks: "Hyperliens",
     externalLinks: "Liens externes",
+    sameAs: "Entité équivalente",
     contactInformations: "Informations de contact",
     anonyme: "anonyme",
     parAvnu: "par AVNU",

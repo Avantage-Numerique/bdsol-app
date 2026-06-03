@@ -30,6 +30,7 @@ import UpdateSocialHandles from "../../../../common/Forms/UpdateSocialHandles/Up
 import SingleBeforeUnloadReminder from "@/src/DataTypes/common/layouts/SingleSaveEntityReminder/SingleBeforeUnloadReminder";
 import RichTextarea from "@/src/common/FormElements/RichTextArea/RichTextarea";
 import { ShortDescription } from "@/src/DataTypes/common/layouts/ShortDescription/ShortDescription";
+import UpdateSameAs from "@/src/DataTypes/common/Forms/UpdateSameAs/UpdateSameAs";
 
 const EquipmentSingleEdit = ({ positiveRequestActions, ...props }) => {
     //Model de project
@@ -100,6 +101,10 @@ const EquipmentSingleEdit = ({ positiveRequestActions, ...props }) => {
                 value: model?.url ?? [],
                 isValid: true,
             },
+            sameAs: {
+                value: model?.sameAs ?? [],
+                isValid: true,
+            },
         },
         //Pass a set of rules to execute a valid response of an api request
         {
@@ -118,6 +123,15 @@ const EquipmentSingleEdit = ({ positiveRequestActions, ...props }) => {
     //Submit the form
     const submitHandler = async (event) => {
         event.preventDefault();
+
+        function mapSingleUrl(singleUrl) {
+            return {
+                label: singleUrl.value.label.value,
+                url: singleUrl.value.url.value,
+                subMeta: { order: singleUrl.order },
+            };
+        }
+
         const formData = {
             data: {
                 id: model._id,
@@ -127,14 +141,8 @@ const EquipmentSingleEdit = ({ positiveRequestActions, ...props }) => {
                 shortDescription: formState.inputs.shortDescription.value,
                 brand: formState.inputs.brand.value,
                 modelName: formState.inputs.modelName.value,
-                url: formState.inputs.url.value.map(function (singleUrl) {
-                    return {
-                        label: singleUrl.value.label.value,
-                        url: singleUrl.value.url.value,
-                        subMeta: { order: singleUrl.order },
-                    };
-                }),
-
+                url: formState.inputs.url.value.map(mapSingleUrl),
+                sameAs: formState.inputs.sameAs.value.map(mapSingleUrl),
                 meta: getDefaultUpdateEntityMeta(auth.user, model.meta.requestedBy),
             },
         };
@@ -229,9 +237,15 @@ const EquipmentSingleEdit = ({ positiveRequestActions, ...props }) => {
     );
 
     const contentColumnRight = (
-        <SingleInfo title={lang.externalLinks}>
-            <UpdateSocialHandles name="url" parentEntity={model} formTools={formTools} />
-        </SingleInfo>
+        <>
+            <SingleInfo title={lang.externalLinks}>
+                <UpdateSocialHandles name="url" parentEntity={model} formTools={formTools} />
+            </SingleInfo>
+
+            <SingleInfo title={lang.sameAs}>
+                <UpdateSameAs name="sameAs" parentEntity={model} formTools={formTools} />
+            </SingleInfo>
+        </>
     );
 
     const footer = (

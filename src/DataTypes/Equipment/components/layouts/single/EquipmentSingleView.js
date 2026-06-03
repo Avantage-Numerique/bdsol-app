@@ -16,6 +16,7 @@ import { lang } from "@/common/Data/GlobalConstants";
 import Equipment from "@/src/DataTypes/Equipment/models/Equipment";
 import EntitiesTagGrid from "@/DataTypes/Entity/layouts/EntitiesTagGrid";
 import { removeTagsFromString } from "@/src/helpers/html";
+import SameAsDisplay from "@/src/DataTypes/common/layouts/SameAsViews/SameAsDisplay";
 
 const EquipmentSingleView = ({ data }) => {
     const model = new Equipment(data);
@@ -116,6 +117,11 @@ const EquipmentSingleView = ({ data }) => {
             <SocialHandleDisplay
                 title={lang.externalLinks}
                 url={model?.url}
+                //className={`${appConfig.spacing.singleSectionSpacingClass}`}
+            />
+            <SameAsDisplay
+                title={lang.sameAs}
+                urls={model?.sameAs}
                 //className={`${appConfig.spacing.singleSectionSpacingClass}`}
             />
         </>
