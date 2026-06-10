@@ -41,7 +41,7 @@ const HomePageHeaderBgImg = () => {
     };
     //2025-08-15  overflow-hidden
     return (
-        <figure style={localFigureStyling} className="position-absolute start-0 w-100 h-100">
+        <figure style={localFigureStyling} className="position-absolute start-0 w-100 h-100 overflow-clip">
             <Image
                 src={backgroundImg}
                 style={localImgStyling}
