@@ -172,7 +172,6 @@ const EventSingleView = ({ data }) => {
             <SingleInfo title={lang.teamMembers} displayCondition={sortedTeam?.length > 0}>
                 <EntitiesTagGrid
                     feed={sortedTeam}
-                    regularFlexWrapping
                     subEntityProperty={"member"}
                     subTagProperty={"role"}
                     noneMessage={"Aucun membre de l'équipe spécifiés"}
