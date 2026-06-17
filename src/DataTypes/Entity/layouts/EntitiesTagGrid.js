@@ -65,7 +65,7 @@ const EntitiesTagGrid = (
     return (
         <ContainerTag
             style={style}
-            className={`${regularFlexWrapping ? "d-flex flex-wrap justify-content-start" : "row"} ${className ?? ""}`}
+            className={`${regularFlexWrapping ? "d-flex flex-wrap justify-content-start gap-4" : "row"} ${className ?? ""}`}
         >
             {Array.isArray(feed) && feedLength > 0 ? (
                 feed.map((entity, index) => {
@@ -93,7 +93,7 @@ const EntitiesTagGrid = (
                         const TagComponent = model.tagComponent;
                         return (
                             <li
-                                className={`d-flex flex-wrap justify-content-start ${!regularFlexWrapping && colContainerClass} pb-4`}
+                                className={`d-flex flex-wrap justify-content-start ${!regularFlexWrapping && colContainerClass}`}
                                 key={getKeyString("container", model, index)}
                             >
                                 <TagComponent
