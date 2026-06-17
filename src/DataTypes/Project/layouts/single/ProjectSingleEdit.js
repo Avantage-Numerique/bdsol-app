@@ -36,6 +36,7 @@ import { TYPE_EQUIPMENT, TYPE_TAXONOMY } from "@/src/DataTypes/Entity/Types";
 
 import { useMessages } from "@/common/UserNotifications/Message/MessageProvider";
 import { ShortDescription } from "@/src/DataTypes/common/layouts/ShortDescription/ShortDescription";
+import UpdateSameAs from "@/src/DataTypes/common/Forms/UpdateSameAs/UpdateSameAs";
 
 const ProjectSingleEdit = (props) => {
     const {
@@ -479,6 +480,7 @@ const ProjectSingleEdit = (props) => {
     const Footer = (
         <>
             <SingleInfo title={lang.seoSection}>
+                <UpdateSameAs label={lang.sameAs} name="sameAs" parentEntity={model} formTools={formTools} />
                 <ShortDescription formTools={formTools} name="shortDescription" />
             </SingleInfo>
             {(createdAt || updatedAt || meta) && (

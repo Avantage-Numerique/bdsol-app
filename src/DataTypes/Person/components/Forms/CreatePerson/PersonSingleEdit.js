@@ -34,6 +34,7 @@ import SingleBaseCTA from "@/src/DataTypes/common/layouts/single/defaultSections
 import { useMessages } from "@/common/UserNotifications/Message/MessageProvider";
 import SelectFetch from "@/src/common/FormElements/Select/SelectFetch";
 import { ShortDescription } from "@/src/DataTypes/common/layouts/ShortDescription/ShortDescription";
+import UpdateSameAs from "@/src/DataTypes/common/Forms/UpdateSameAs/UpdateSameAs";
 
 const PersonSingleEdit = ({ positiveRequestActions, ...props }) => {
     //Person data extract
@@ -353,6 +354,7 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props }) => {
     const Footer = (
         <>
             <SingleInfo title={lang.seoSection}>
+                <UpdateSameAs label={lang.sameAs} name="sameAs" parentEntity={model} formTools={formTools} />
                 <ShortDescription formTools={formTools} name="shortDescription" model={model} />
             </SingleInfo>
             {(createdAt || updatedAt || meta) && (

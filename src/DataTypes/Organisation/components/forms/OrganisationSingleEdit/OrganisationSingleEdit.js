@@ -36,6 +36,7 @@ import { TYPE_PLACE, TYPE_TAXONOMY } from "@/src/DataTypes/Entity/Types";
 import { apiDateToDateInput, dateTimeStringToUTC } from "@/common/DateManager/Parse";
 import SelectFetch from "@/src/common/FormElements/Select/SelectFetch";
 import { ShortDescription } from "@/src/DataTypes/common/layouts/ShortDescription/ShortDescription";
+import UpdateSameAs from "@/src/DataTypes/common/Forms/UpdateSameAs/UpdateSameAs";
 
 const OrganisationSingleEdit = (props) => {
     //Organisation data extract
@@ -405,6 +406,7 @@ const OrganisationSingleEdit = (props) => {
     const Footer = (
         <>
             <SingleInfo title={lang.seoSection}>
+                <UpdateSameAs label={lang.sameAs} name="sameAs" parentEntity={model} formTools={formTools} />
                 <ShortDescription formTools={formTools} name="shortDescription" />
             </SingleInfo>
             {(createdAt || updatedAt || meta) && (

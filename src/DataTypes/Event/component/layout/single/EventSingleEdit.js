@@ -34,6 +34,7 @@ import UpdateContactPoint from "@/src/DataTypes/common/Forms/UpdateContactPoint/
 import SingleBaseCTA from "@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseCTA";
 import { useMessages } from "@/common/UserNotifications/Message/MessageProvider";
 import { ShortDescription } from "@/src/DataTypes/common/layouts/ShortDescription/ShortDescription";
+import UpdateSameAs from "@/src/DataTypes/common/Forms/UpdateSameAs/UpdateSameAs";
 
 const EventSingleEdit = ({ data }, ...props) => {
     const {
@@ -680,6 +681,7 @@ const EventSingleEdit = ({ data }, ...props) => {
     const Footer = (
         <>
             <SingleInfo title={lang.seoSection}>
+                <UpdateSameAs label={lang.sameAs} name="sameAs" parentEntity={model} formTools={formTools} />
                 <ShortDescription formTools={formTools} name="shortDescription" model={model} />
             </SingleInfo>
             {(createdAt || updatedAt || meta) && (
