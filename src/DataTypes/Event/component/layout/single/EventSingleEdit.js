@@ -512,14 +512,16 @@ const EventSingleEdit = ({ data }, ...props) => {
                 </div>
             </div>
             <div className="row">
-                <SingleInfo title={lang.about} className={"col"}>
-                    {/* Description */}
-                    <RichTextarea
-                        name="description"
-                        //label={lang.description}
-                        formTools={formTools}
-                    />
-                </SingleInfo>
+                <div className="col">
+                    <SingleInfo title={lang.about}>
+                        {/* Description */}
+                        <RichTextarea
+                            name="description"
+                            //label={lang.description}
+                            formTools={formTools}
+                        />
+                    </SingleInfo>
+                </div>
             </div>
         </div>
     );

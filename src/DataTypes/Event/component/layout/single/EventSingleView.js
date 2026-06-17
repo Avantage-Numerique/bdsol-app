@@ -142,10 +142,12 @@ const EventSingleView = ({ data }) => {
                     </SingleInfo>
                 </div>
             </div>
-            <div className="row mt-4">
-                <SingleInfo title={lang.about} NAMessage="Aucune description n'est disponible pour le moment.">
-                    {removeTagsFromString(description) && <SanitizedInnerHtml>{description}</SanitizedInnerHtml>}
-                </SingleInfo>
+            <div className="row">
+                <div className="col">
+                    <SingleInfo title={lang.about} NAMessage="Aucune description n'est disponible pour le moment.">
+                        {removeTagsFromString(description) && <SanitizedInnerHtml>{description}</SanitizedInnerHtml>}
+                    </SingleInfo>
+                </div>
             </div>
         </div>
     );

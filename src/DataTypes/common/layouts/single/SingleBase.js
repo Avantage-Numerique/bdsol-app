@@ -101,7 +101,11 @@ const SingleBase = (props) => {
                 </div>
 
                 {/* Footer */}
-                {footer && <footer className="row">{footer}</footer>}
+                {footer && (
+                    <footer className="row">
+                        <div className="col">{footer}</div>
+                    </footer>
+                )}
 
                 {/* Page bottom : CTA + progress */}
                 {singlePageBottom && (
