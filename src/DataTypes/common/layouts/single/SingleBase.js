@@ -69,7 +69,7 @@ const SingleBase = (props) => {
                 <div className="row pt-sm-4 mt-sm-4">
                     {/* Breadcrumb section */}
                     {breadCrumb && (
-                        <div className="col-8 pt-4 mt-4">
+                        <div className="col-10 pt-4 mt-4">
                             <Breadcrumbs
                                 className={"pt-4"}
                                 labels={breadCrumb.labels}
@@ -81,7 +81,7 @@ const SingleBase = (props) => {
                     )}
 
                     {!editMode && (
-                        <div className="col-4 pt-4 mt-4 d-flex align-items-center justify-content-end">
+                        <div className="col-2 pt-4 mt-4 d-flex align-items-center justify-content-end">
                             <QuickShare model={model} />
                         </div>
                     )}
