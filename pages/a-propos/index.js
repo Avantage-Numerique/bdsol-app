@@ -29,10 +29,11 @@ const Index = () => {
             <PageMeta title={lang.faq__about__title} description={lang.faq__about__description} />
             <PageHeader title={`Avnu, c’est quoi ?`} />
 
-            <div className={"container home-page__main content"}>
+            <div className={"container home-page__main content my-5"}>
                 <div className={"row py-4"}>
                     <div className={"col"}>
                         <h3>Un outil d’exploration des ressources technologiques du Croissant boréal</h3>
+
                         <p className={pClass}>
                             Avnu est une plateforme web <strong>gratuite</strong> et <strong>collaborative</strong> qui
                             vise à documenter les ressources technologiques du &nbsp;
@@ -56,6 +57,7 @@ const Index = () => {
                 <div className={"row py-4"}>
                     <div className={"col"}>
                         <h3>Comment ça fonctionne ?</h3>
+
                         <p>En tant qu’utilisateur·rice de la plateforme, vous pouvez :</p>
                         <ul>
                             <li className={`${styles["page-list"]}`}>
@@ -73,11 +75,13 @@ const Index = () => {
                 <div className={"row py-4"}>
                     <div className={"col"}>
                         <h3>À quoi ça sert ?</h3>
+
                         <p>
                             La plateforme Avnu est parcourable librement et gratuitement par les utilisateurs·trices qui
                             souhaitent se renseigner sur les ressources technologiques proposées dans le Croissant
                             boréal. Elle permet par exemple de :
                         </p>
+
                         <ul>
                             <li className={`${styles["page-list"]}`}>
                                 <strong>Trouver une personne ayant les compétences</strong> dans un domaine, dans une
@@ -108,6 +112,7 @@ const Index = () => {
                 <div id="gouvernance-des-donnees" className={"row py-4"}>
                     <div className={"col"}>
                         <h3>Utilisation et gouvernance des données</h3>
+
                         <p>
                             Dans un objectif de partage et de collaboration, nous faisons en sorte que les données
                             entrées et diffusées sur la plateforme soient le plus ouvertes possible. Tout le monde a la
@@ -123,6 +128,7 @@ const Index = () => {
                             Un projet développé avec amour par{" "}
                             <ExternalLink href={"https://avantagenumerique.org/"}>Avantage numérique</ExternalLink>
                         </h3>
+
                         <p>
                             Avantage numérique c&apos;est un hub virtuel, physique et mobile qui dessert les secteurs de
                             la culture, des affaires et du savoir. Le hub vise le développement de l’écosystème créatif,
@@ -136,8 +142,9 @@ const Index = () => {
                 </div>
                 <div className={"row py-2"} id="equipe">
                     <div>
-                        <div className={"col py-3"}>
-                            <h3 className={"pb-3"}>Notre belle équipe</h3>
+                        <div className={"col py-4"}>
+                            <h3>Notre belle équipe</h3>
+
                             <ul>
                                 <li>
                                     <h4 className={"fs-5"}>Marc-André Martin (Mamarmite)</h4>
@@ -160,11 +167,12 @@ const Index = () => {
                                 </li>
                             </ul>
                         </div>
-                        <div className={"col py-3"}>
-                            <h3 className={"pb-3"}>
+                        <div className={"col py-4"}>
+                            <h3>
                                 Ancien·es membres de l&apos;équipe (toujours dans nos cœurs){" "}
                                 <Icon iconName={"grin-hearts"} />
                             </h3>
+
                             <ul>
                                 <li>
                                     <h4 className={"fs-5"}>Simon Descôteaux (Jeux Nemesis)</h4>
@@ -180,18 +188,17 @@ const Index = () => {
                                 </li>
                             </ul>
                         </div>
-                        <div className={"col py-3"}>
-                            <h3 className={"pb-2"}>Nos experts conseils</h3>
+                        <div className={"col py-4"}>
+                            <h3>Nos experts conseils</h3>
+
                             <ul>
                                 <li>Viêt Cao (SynapseC)</li>
                                 <li>Jules Gaudin (Robic)</li>
                                 <li>Christian Roy (A10s inc.)</li>
                             </ul>
                         </div>
-                        <div className={"col py-3"}>
-                            <h3 id="partenaires" className={"pb-3"}>
-                                Nos partenaires
-                            </h3>
+                        <div className={"col py-4"}>
+                            <h3 id="partenaires">Nos partenaires</h3>
 
                             <div className={`${styles["partners-grid"]}`}>
                                 <Image src={Logo_CAC} alt="Logo CAC" />

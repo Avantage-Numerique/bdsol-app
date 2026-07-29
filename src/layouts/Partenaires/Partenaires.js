@@ -8,17 +8,13 @@ import Logo_CREAT from "@/public/partenaires/CREAT.webp";
 
 const Partenaires = () => {
     return (
-        <>
-            <h2>Partenaires du projet</h2>
-
-            <div className={`${styles["partners-grid"]}`}>
-                <Image src={Logo_CAC} alt="Logo CAC" />
-                <Image src={Logo_CAC} alt="Logo CAC" />
-                <Image src={Logo_CAC} alt="Logo CAC" />
-                <Image src={Logo_CALQ} alt="Logo CALQ" />
-                <Image src={Logo_CREAT} alt="Logo CREAT" />
-            </div>
-        </>
+        <div className={`${styles["partners-grid"]}`}>
+            <Image src={Logo_CAC} alt="Logo CAC" />
+            <Image src={Logo_CAC} alt="Logo CAC" />
+            <Image src={Logo_CAC} alt="Logo CAC" />
+            <Image src={Logo_CALQ} alt="Logo CALQ" />
+            <Image src={Logo_CREAT} alt="Logo CREAT" />
+        </div>
     );
 };
 
