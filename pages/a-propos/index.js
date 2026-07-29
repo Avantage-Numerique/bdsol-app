@@ -7,6 +7,10 @@ import { lang } from "@/src/common/Data/GlobalConstants";
 
 import Image from "next/image";
 
+import Logo_CAC from "@/public/partenaires/CAC-logo.webp";
+import Logo_CALQ from "@/public/partenaires/CALQ.webp";
+import Logo_CREAT from "@/public/partenaires/CREAT.webp";
+
 //Styling
 import styles from "./aPropos.module.scss";
 import Icon from "@/common/widgets/Icon/Icon";
@@ -120,8 +124,8 @@ const Index = () => {
                             <ExternalLink href={"https://avantagenumerique.org/"}>Avantage numérique</ExternalLink>
                         </h3>
                         <p>
-                            Avantage numérique c'est un hub virtuel, physique et mobile qui dessert les secteurs de la
-                            culture, des affaires et du savoir. Le hub vise le développement de l’écosystème créatif,
+                            Avantage numérique c&apos;est un hub virtuel, physique et mobile qui dessert les secteurs de
+                            la culture, des affaires et du savoir. Le hub vise le développement de l’écosystème créatif,
                             entrepreneurial et technologique du Croissant boréal. Il rassemble des organisations et des
                             individus·es qui s’activent, autour de chantiers collaboratifs et de projets innovants, pour
                             le développement de leurs milieux. Il est soutenu par une{" "}
@@ -158,7 +162,7 @@ const Index = () => {
                         </div>
                         <div className={"col py-3"}>
                             <h3 className={"pb-3"}>
-                                Ancien·es membres de l'équipe (toujours dans nos cœurs){" "}
+                                Ancien·es membres de l&apos;équipe (toujours dans nos cœurs){" "}
                                 <Icon iconName={"grin-hearts"} />
                             </h3>
                             <ul>
@@ -185,20 +189,16 @@ const Index = () => {
                             </ul>
                         </div>
                         <div className={"col py-3"}>
-                            <h3 className={"pb-3"}>Nos partenaires</h3>
+                            <h3 id="partenaires" className={"pb-3"}>
+                                Nos partenaires
+                            </h3>
 
-                            <p className="pb-3">
-                                Initiative financée par le Conseil des Arts du Canada et le Ministère de la Culture et
-                                des Communications du Québec.
-                            </p>
-
-                            <div className={`${styles.gallerie} d-flex align-items-center gap-2`}>
-                                <Image
-                                    src="/logos/Logo_CREAT.svg"
-                                    alt="Logo CREAT : Chaire de recherche en économie créative et mieux-être"
-                                    width={"240"}
-                                    height={"284"}
-                                />
+                            <div className={`${styles["partners-grid"]}`}>
+                                <Image src={Logo_CAC} alt="Logo CAC" />
+                                <Image src={Logo_CAC} alt="Logo CAC" />
+                                <Image src={Logo_CAC} alt="Logo CAC" />
+                                <Image src={Logo_CALQ} alt="Logo CALQ" />
+                                <Image src={Logo_CREAT} alt="Logo CREAT" />
                             </div>
                         </div>
                     </div>

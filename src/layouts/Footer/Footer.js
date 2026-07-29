@@ -41,15 +41,6 @@ const Footer = () => {
                             </a>
                         </div>
                     </div>
-
-                    <div className={`row`}>
-                        <p className="text-center mb-0">grâce au soutien financier de</p>
-                    </div>
-                    <div className={`row justify-content-center ${styles["secondary-logo--container"]}`}>
-                        <div className="d-flex justify-content-center align-items-center gap-1">
-                            <Image src="/logos/Logo_QC.png" alt="Logo Québec" width={"288"} height={"102"} />
-                        </div>
-                    </div>
                 </div>
 
                 {/* Utils and legal links */}
