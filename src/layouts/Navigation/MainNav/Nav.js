@@ -106,6 +106,21 @@ const Nav = ({ menuState, setMenuState }) => {
                     </div>
                     <div className={`row ${styles["limited-width"]}`}>
                         <div className="col">
+                            {/* HACK do not merge !!!*/}
+                            <section className={`${styles["nav-section"]}`}>
+                                <MainNavButton
+                                    className="fs-3 h2"
+                                    route={{
+                                        label: "Texte enrichi",
+                                        pathname: "/texte-enrichi",
+                                        asPath: "/texte-enrichi",
+                                    }}
+                                    handler={navLinkHandler}
+                                    label={"Texte enrichi"}
+                                />
+                            </section>
+                            {/* HACK do not merge !!!*/}
+
                             <section className={`${styles["nav-section"]}`}>
                                 <MainNavButton
                                     className="fs-3 h2"
@@ -182,10 +197,7 @@ const Nav = ({ menuState, setMenuState }) => {
                                         />
                                     </li>
                                     <li>
-                                        <MainNavButton
-                                            route={AppRoutes.referentiel}
-                                            handler={navLinkHandler}
-                                        />
+                                        <MainNavButton route={AppRoutes.referentiel} handler={navLinkHandler} />
                                     </li>
                                     <li>
                                         <MainNavButton

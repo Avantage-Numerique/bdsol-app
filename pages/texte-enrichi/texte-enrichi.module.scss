@@ -1,0 +1,16 @@
+.texte-enrichi {
+    h3,
+    h4 {
+        margin-top: 2em;
+        margin-bottom: 1em;
+    }
+
+    table {
+        margin-block: 2em;
+
+        td {
+            border: 1px solid currentColor;
+            padding: 0.5em;
+        }
+    }
+}
