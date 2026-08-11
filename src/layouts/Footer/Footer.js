@@ -8,6 +8,7 @@ import nextConfig from "@/next.config";
 import { RouteLink } from "@/common/Components/RouteLink";
 import React from "react";
 import Image from "next/image";
+import { lang } from "@/src/common/Data/GlobalConstants";
 
 const Footer = () => {
     const auth = useAuth();
@@ -18,6 +19,15 @@ const Footer = () => {
                 {/* Logo AVNU*/}
                 <div className={`row justify-content-center ${styles["main-logo--container"]}`}>
                     <Image src="/AVNU_Branding/AVNU-LogoComplet-RVB.png" alt="Logo AVNU" width={1980} height={744} />
+                </div>
+
+                <div className="row">
+                    <blockquote>
+                        <dl>
+                            <dt>AVNU</dt>, c&apos;est quoi?
+                            <dd>{lang.footer__catchphrase}</dd>
+                        </dl>
+                    </blockquote>
                 </div>
 
                 <div className="py-4">

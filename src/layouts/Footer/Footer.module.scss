@@ -60,4 +60,19 @@
             }
         }
     }
+
+    blockquote {
+        position: relative;
+
+        max-width: 80ch;
+        margin: 2em auto;
+
+        padding: 0.5em 1em;
+        border-left: 2px solid color-mix(in srgb, currentColor, transparent 60%);
+
+        dt {
+            display: inline-block;
+            margin-bottom: 1.5em;
+        }
+    }
 }

@@ -252,5 +252,5 @@ export const base = {
 
     // Footer
     footer__catchphrase:
-        "Avnu is a database that brings together people from Northern Canada's Francophone communities and the Boreal Crescent (Francophone Northern Ontario, Abitibi-Témiscamingue, and James Bay).",
+        "AVNU is a database that brings together people from Northern Canada's Francophone communities and the Boreal Crescent (Northern Ontario, Abitibi-Témiscamingue, and James Bay).",
 };

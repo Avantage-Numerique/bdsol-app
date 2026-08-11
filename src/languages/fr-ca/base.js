@@ -173,5 +173,5 @@ export const base = {
 
     // Footer
     footer__catchphrase:
-        "Avnu est une base de données qui regroupe les personnes technocréatives des francophonies nord-canadiennes et du Croissant boréal (Nord de l’Ontario francophone, de l’Abitibi-Témiscamingue et de la Baie-James).",
+        "AVNU est une base de données qui regroupe les personnes technocréatives des francophonies nord-canadiennes et du Croissant boréal (Nord de l’Ontario, Abitibi-Témiscamingue et Baie-James).",
 };
