@@ -6,6 +6,7 @@ import Button from "@/FormElements/Button/Button";
 import { changeCookieChoices, cookiesExplanations } from "@/common/Cookies/cookiesChoices";
 import Image from "next/image";
 import fetchInternalApi from "@/src/api/fetchInternalApi";
+import PageMeta from "@/src/common/PageMeta/PageMeta";
 
 const CookiesParams = () => {
     const auth = useAuth();
@@ -32,6 +33,7 @@ const CookiesParams = () => {
 
     return (
         <div className={"params-page params-page-cookies"}>
+            <PageMeta title={lang.cookies__title} description={lang.cookies__description} />
             <PageHeader
                 bg={"bg-primary-lighter"}
                 textColor={"text-white"}

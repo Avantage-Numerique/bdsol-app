@@ -22,7 +22,7 @@ const Index = () => {
 
     return (
         <div id="a-propos" className={"page-apropos"}>
-            <PageMeta title={lang.faq__about__title} description={lang.faq__about__description} />
+            <PageMeta title={lang.about__title} description={lang.about__description} />
             <PageHeader title={`Avnu, c’est quoi ?`} />
 
             <div className={"container home-page__main content"}>

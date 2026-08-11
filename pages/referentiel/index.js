@@ -67,7 +67,7 @@ const ReferentialHomePage = () => {
 
     return (
         <>
-            <PageMeta title={"Référentiel"} description={"Description de l'ontologie d'Avnu"} />
+            <PageMeta title={lang.ref__title} description={lang.ref__description} />
 
             <PageHeader
                 bg={"bg-primary-lighter"}
