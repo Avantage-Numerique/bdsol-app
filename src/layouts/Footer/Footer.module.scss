@@ -73,6 +73,16 @@
         dt {
             display: inline-block;
             margin-bottom: 1.5em;
+
+            &::after {
+                content: ", c'est quoi?";
+                font-weight: normal;
+            }
+        }
+
+        dl,
+        dd {
+            margin-bottom: 0;
         }
     }
 }

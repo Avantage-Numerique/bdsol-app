@@ -24,7 +24,7 @@ const Footer = () => {
                 <div className="row">
                     <blockquote>
                         <dl>
-                            <dt>AVNU</dt>, c&apos;est quoi?
+                            <dt>AVNU</dt>
                             <dd>{lang.footer__catchphrase}</dd>
                         </dl>
                     </blockquote>
