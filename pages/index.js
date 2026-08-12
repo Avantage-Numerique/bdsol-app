@@ -122,7 +122,7 @@ const HomePage = (props) => {
                 bg={"bg-primary-lighter"}
                 textColor={"text-white"}
                 title={lang.homePageTitle}
-                subTitle={lang.homePageDescription}
+                subTitle={lang.homePageDescription(AppRoutes)}
                 description=""
                 image={"/general_images/avnu-systeme-planetaire.svg"}
                 imgAlt={"Les planètes d'AVNU"}
