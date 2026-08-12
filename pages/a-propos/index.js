@@ -28,7 +28,7 @@ const Index = () => {
             <div className={"container home-page__main content"}>
                 <div className={"row py-4"}>
                     <div className={"col"}>
-                        <h3>Un outil d’exploration des ressources technologiques du Croissant boréal</h3>
+                        <h2>Un outil d’exploration des ressources technologiques du Croissant boréal</h2>
                         <p className={pClass}>
                             Avnu est une plateforme web <strong>gratuite</strong> et <strong>collaborative</strong> qui
                             vise à documenter les ressources technologiques du &nbsp;

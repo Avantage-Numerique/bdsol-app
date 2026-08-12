@@ -66,11 +66,11 @@ const CookiesParams = () => {
                 <div className="row">
                     <div className={"col-12"}>
                         {!cookieEnabled && <p className={"alert alert-primary"}>{lang.cookieDisabled}</p>}
-                        <h3>
+                        <h2>
                             {auth.cookiesChoices.choiceMade === true
                                 ? lang.cookieMessageThanks
                                 : lang.cookieMessageNeedAnswer}
-                        </h3>
+                        </h2>
                     </div>
 
                     <div className={"col-12"}>
