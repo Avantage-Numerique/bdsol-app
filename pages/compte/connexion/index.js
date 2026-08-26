@@ -8,6 +8,8 @@ import { templatesEnum } from "@/layouts/Templates/TemplatesEnum";
 import SearchBar from "@/common/Components/SearchBar";
 import Image from "next/image";
 import backgroundImg from "@/public/general_images/fusee-planetes-pointilles2-90deg.svg";
+import Head from "next/head";
+import AppRoutes from "@/src/Routing/AppRoutes";
 
 /**
  * To set the wrapper template within the Layout component
@@ -24,31 +26,32 @@ export async function getServerSideProps() {
     };
 }
 
-const LoginPage = () => {
-    //Background image for the page header
-    const HeaderBgImg = () => {
-        const localFigureStyling = {
-            bottom: "0",
-            zIndex: "0",
-            right: "0",
-        };
-
-        const localImgStyling = {
-            objectFit: "contain",
-            objectPosition: "15% bottom",
-        };
-
-        return (
-            <figure style={localFigureStyling} className="position-absolute w-38 h-100 overflow-hidden">
-                <Image
-                    src={backgroundImg}
-                    style={localImgStyling}
-                    className="w-100 h-auto position-absolute start-0 bottom-0"
-                    alt="Trajet de la fusée d'Avantage Numérique"
-                />
-            </figure>
-        );
+//Background image for the page header
+const HeaderBgImg = () => {
+    const localFigureStyling = {
+        bottom: "0",
+        zIndex: "0",
+        right: "0",
     };
+
+    const localImgStyling = {
+        objectFit: "contain",
+        objectPosition: "15% bottom",
+    };
+
+    return (
+        <figure style={localFigureStyling} className="position-absolute w-38 h-100 overflow-hidden">
+            <Image
+                src={backgroundImg}
+                style={localImgStyling}
+                className="w-100 h-auto position-absolute start-0 bottom-0"
+                alt="Trajet de la fusée d'Avantage Numérique"
+            />
+        </figure>
+    );
+};
+
+const LoginPage = () => {
     //
     const Column = <Login />;
 
@@ -62,9 +65,18 @@ const LoginPage = () => {
         >
             <HeaderBgImg />
             <PageMeta title={lang.compte__connexion__title} description={lang.compte__connexion__description} />
+
+            {/* Ajout d'une indication de l'URL canonique sans ?redirect= pour les robots Gougeule */}
+            <Head>
+                <link rel="canonical" href={AppRoutes.login.asPath} />
+            </Head>
+
             <div className={"row w-100 w-md-75 w-lg-50 justify-content-center align-items-center"}>
                 <div className={"col-3"}>
-                    <img src={"/AVNU_Branding/AVNU-LogoCanard-RVB.svg"} />
+                    <Image
+                        src={"/AVNU_Branding/AVNU-LogoCanard-RVB.svg"}
+                        alt="Logo de AVNU : un sympathique petit canard bleu! Quack!"
+                    />
                 </div>
                 <div className={"col-9"}>
                     <h1>
