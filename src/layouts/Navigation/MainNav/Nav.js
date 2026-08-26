@@ -182,10 +182,7 @@ const Nav = ({ menuState, setMenuState }) => {
                                         />
                                     </li>
                                     <li>
-                                        <MainNavButton
-                                            route={AppRoutes.referentiel}
-                                            handler={navLinkHandler}
-                                        />
+                                        <MainNavButton route={AppRoutes.referentiel} handler={navLinkHandler} />
                                     </li>
                                     <li>
                                         <MainNavButton

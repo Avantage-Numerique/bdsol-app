@@ -76,7 +76,7 @@ export const pageMeta = {
     /* /FAQ/about */
     about__title: "À propos - AVNU | Annuaire technocréatif de la francophonie régionale du Canada",
     about__description:
-        "Découvrez AVNU : une base de données cartographiant les talents numériques et les initiatives dans le Croissant boréal. Améliorez la découvrabilité, la visibilité et la transmission des connaissances dans la région.",
+        "Une base de données des talents numériques dans le Croissant boréal. Améliorez la découvrabilité et la transmission des connaissances dans la région.",
 
     /* /FAQ/licences */
     faq__licences__title: "Licences - AVNU | Annuaire technocréatif de la francophonie régionale du Canada",
@@ -101,7 +101,7 @@ export const pageMeta = {
     terms_conditions_use__title:
         "Termes et conditions d'utilisation - AVNU | Annuaire technocréatif de la francophonie régionale du Canada",
     terms_conditions_use__description:
-        "Explorez nos Conditions d'utilisation avant d'accéder à la Plateforme AVNU. En acceptant, vous adhérez à nos valeurs et à la confidentialité. Bienvenue sur AVNU!",
+        "Explorez nos Conditions d'utilisation avant d'accéder à la Plateforme AVNU. En acceptant, vous adhérez à nos valeurs et à la confidentialité.",
 
     cookies__title: "Politique de cookies - AVNU | Annuaire technocréatif de la francophonie régionale du Canada",
     cookies__description: "Miam des biscuits!",
