@@ -59,7 +59,7 @@ const Nav = ({ menuState, setMenuState }) => {
         }
 
         //Handles redirect after login
-        if (path === AppRoutes.connection.asPath) {
+        if (path === AppRoutes.login.asPath) {
             router.push(`${path}?redirect=${encodeURIComponent(getCleanRedirectPath(router.asPath))}`);
         } else {
             router.push(path);
@@ -225,7 +225,7 @@ const Nav = ({ menuState, setMenuState }) => {
                                     ) : (
                                         <>
                                             <li>
-                                                <MainNavButton route={AppRoutes.connection} handler={navLinkHandler} />
+                                                <MainNavButton route={AppRoutes.login} handler={navLinkHandler} />
                                             </li>
                                             <li>
                                                 <MainNavButton route={AppRoutes.register} handler={navLinkHandler} />

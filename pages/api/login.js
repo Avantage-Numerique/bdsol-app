@@ -57,7 +57,7 @@ export default async function handler(req, res) {
         res.send({
             text: response.message,
             positive: !response.error,
-            redirectUri: response.error ? appRoutes.connection.asPath : redirect,
+            redirectUri: response.error ? appRoutes.login.asPath : redirect,
             user: sessionUser,
         });
         return;
