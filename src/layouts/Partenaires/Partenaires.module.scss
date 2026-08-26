@@ -1,11 +1,21 @@
 .partners-grid {
+    --img-width: 12em;
+
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(25%, 12em), 1fr));
-    gap: 4em;
+    grid-template-columns: repeat(auto-fit, minmax(min(25%, var(--img-width)), 1fr));
+    gap: 0 2em;
     justify-items: space-between;
     margin: 0 auto;
 
     @media (max-width: 768px) {
         grid-template-columns: repeat(2, 1fr);
+    }
+
+    &.smaller {
+        font-size: 0.6rem;
+
+        img {
+            max-width: var(--img-width);
+        }
     }
 }

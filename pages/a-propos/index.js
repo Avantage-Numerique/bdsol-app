@@ -15,6 +15,7 @@ import Logo_CREAT from "@/public/partenaires/CREAT.webp";
 import styles from "./aPropos.module.scss";
 import Icon from "@/common/widgets/Icon/Icon";
 import { ExternalLink } from "@/common/Components/ExternalLink";
+import Partenaires from "@/src/layouts/Partenaires/Partenaires";
 
 /**
  * Really basic page with plain text. This could be dry with an entry or some sort of markdown file.
@@ -200,13 +201,7 @@ const Index = () => {
                         <div className={"col py-4"}>
                             <h3 id="partenaires">Nos partenaires</h3>
 
-                            <div className={`${styles["partners-grid"]}`}>
-                                <Image src={Logo_CAC} alt="Logo CAC" />
-                                <Image src={Logo_CAC} alt="Logo CAC" />
-                                <Image src={Logo_CAC} alt="Logo CAC" />
-                                <Image src={Logo_CALQ} alt="Logo CALQ" />
-                                <Image src={Logo_CREAT} alt="Logo CREAT" />
-                            </div>
+                            <Partenaires />
                         </div>
                     </div>
                 </div>

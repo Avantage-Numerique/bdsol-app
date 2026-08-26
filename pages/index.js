@@ -267,7 +267,7 @@ const HomePage = (props) => {
             <section className="home-page__full-width-section bg-primary-lighter">
                 <div className="container">
                     <div className="row home-page__section-inner-y-padding text-center">
-                        <Partenaires />
+                        <Partenaires smaller={true} />
                     </div>
                 </div>
             </section>
