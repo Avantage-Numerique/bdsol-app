@@ -15,12 +15,7 @@ const Footer = () => {
 
     return (
         <footer id={styles.pageFooter} className="py-4">
-            <div className="container position-relative">
-                {/* Logo AVNU*/}
-                <div className={`row justify-content-center ${styles["main-logo--container"]}`}>
-                    <Image src="/AVNU_Branding/AVNU-LogoComplet-RVB.png" alt="Logo AVNU" width={1980} height={744} />
-                </div>
-
+            <div className="container">
                 <div className="row">
                     <blockquote>
                         <dl>
@@ -28,6 +23,13 @@ const Footer = () => {
                             <dd>{lang.footer__catchphrase}</dd>
                         </dl>
                     </blockquote>
+                </div>
+            </div>
+
+            <div className="container position-relative">
+                {/* Logo AVNU*/}
+                <div className={`row justify-content-center ${styles["main-logo--container"]}`}>
+                    <Image src="/AVNU_Branding/AVNU-LogoComplet-RVB.png" alt="Logo AVNU" width={1980} height={744} />
                 </div>
 
                 <div className="py-4">
