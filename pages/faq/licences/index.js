@@ -79,7 +79,11 @@ const Licences = (props) => {
                                         <li className={"pb-3"} key={i}>
                                             <h4>
                                                 <InPageLink name={current.slug} />
-                                                <ExternalLink href={current.source} title={current.label}>
+                                                <ExternalLink
+                                                    href={current.source}
+                                                    title={current.label}
+                                                    avnuApproved={true}
+                                                >
                                                     <img src={current.image} alt={current.name} className={"pe-2"} />{" "}
                                                     {current.label}
                                                 </ExternalLink>
@@ -113,6 +117,7 @@ const Licences = (props) => {
                                         <ExternalLink
                                             href="https://creativecommons.org/publicdomain/zero/1.0/deed.fr"
                                             title={"CC0"}
+                                            avnuApproved={true}
                                         >
                                             <img
                                                 src="https://i.creativecommons.org/p/zero/1.0/88x31.png"
@@ -135,6 +140,7 @@ const Licences = (props) => {
                                         <ExternalLink
                                             href="https://creativecommons.org/licenses/by/4.0/deed.fr"
                                             title="CC-By"
+                                            avnuApproved={true}
                                         >
                                             <img
                                                 src="https://i.creativecommons.org/l/by/4.0/88x31.png"
@@ -157,6 +163,7 @@ const Licences = (props) => {
                                         <ExternalLink
                                             href="https://creativecommons.org/licenses/by-sa/4.0/deed.fr"
                                             title={"CC-By-SA"}
+                                            avnuApproved={true}
                                         >
                                             <img
                                                 src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png"
@@ -180,6 +187,7 @@ const Licences = (props) => {
                                         <ExternalLink
                                             href="https://creativecommons.org/licenses/by-nc/4.0/deed.fr"
                                             title="CC-By-NC"
+                                            avnuApproved={true}
                                         >
                                             <img
                                                 src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png"
@@ -202,6 +210,7 @@ const Licences = (props) => {
                                         <ExternalLink
                                             href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.fr"
                                             title="CC-By-NC-SA"
+                                            avnuApproved={true}
                                         >
                                             <img
                                                 src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png"
@@ -224,6 +233,7 @@ const Licences = (props) => {
                                         <ExternalLink
                                             href="https://creativecommons.org/licenses/by-nd/4.0/deed.fr"
                                             title="CC-By-ND"
+                                            avnuApproved={true}
                                         >
                                             <img
                                                 src="https://i.creativecommons.org/l/by-nd/4.0/88x31.png"
@@ -246,6 +256,7 @@ const Licences = (props) => {
                                         <ExternalLink
                                             href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.fr"
                                             title="CC-By-NC-ND"
+                                            avnuApproved={true}
                                         >
                                             <img
                                                 src="https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png"
@@ -346,6 +357,7 @@ const Licences = (props) => {
                             <ExternalLink
                                 href="https://creativecommons.org/about/cclicenses/"
                                 title="creative commons (cc)"
+                                avnuApproved={true}
                             >
                                 <img src={"/icones/cc.svg"} alt={"CC"} className={"pe-2"} />
                                 creative commons (cc).

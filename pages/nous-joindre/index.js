@@ -107,7 +107,7 @@ const NousJoindre = () => {
                     <p>Nous vous répondrons le plus rapidement possible.</p>
                     <p>
                         Pour le faire{" "}
-                        <ExternalLink href={"mailto:" + appConfig.support.email}>
+                        <ExternalLink href={"mailto:" + appConfig.support.email} avnuApproved={true}>
                             depuis votre propre boîte de courrier électronique
                         </ExternalLink>
                     </p>

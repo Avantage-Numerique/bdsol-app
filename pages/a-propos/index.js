@@ -32,7 +32,10 @@ const Index = () => {
                         <p className={pClass}>
                             Avnu est une plateforme web <strong>gratuite</strong> et <strong>collaborative</strong> qui
                             vise à documenter les ressources technologiques du &nbsp;
-                            <ExternalLink href={"https://avantagenumerique.org/le-croissant-boreal/"}>
+                            <ExternalLink
+                                href={"https://avantagenumerique.org/le-croissant-boreal/"}
+                                avnuApproved={true}
+                            >
                                 Croissant boréal
                             </ExternalLink>
                             &nbsp; (Abitibi-Témiscamingue, nord de l’Ontario francophone et Baie-James). Dans un
@@ -117,7 +120,9 @@ const Index = () => {
                     <div className={"col"}>
                         <h3>
                             Un projet développé avec amour par{" "}
-                            <ExternalLink href={"https://avantagenumerique.org/"}>Avantage numérique</ExternalLink>
+                            <ExternalLink href={"https://avantagenumerique.org/"} avnuApproved={true}>
+                                Avantage numérique
+                            </ExternalLink>
                         </h3>
                         <p>
                             Avantage numérique c'est un hub virtuel, physique et mobile qui dessert les secteurs de la
