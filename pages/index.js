@@ -26,6 +26,7 @@ import shipAndPlanetsImg from "@/public/general_images/Fusée_Planetes_Pointille
 import AppRoutes from "@/src/Routing/AppRoutes";
 import { getBadgesInfo } from "@/src/DataTypes/Badges/BadgesSection";
 import { pingExternalApi } from "@/src/api/external/callbacks/pingExternalApi";
+import Partenaires from "@/src/layouts/Partenaires/Partenaires";
 
 //Background image for the page header
 const HomePageHeaderBgImg = () => {
@@ -258,6 +259,15 @@ const HomePage = (props) => {
                                 C&#39;est par ici !
                             </Button>
                         </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* Partenaires */}
+            <section className="home-page__full-width-section bg-primary-lighter">
+                <div className="container">
+                    <div className="row home-page__section-inner-y-padding text-center">
+                        <Partenaires smaller={true} />
                     </div>
                 </div>
             </section>

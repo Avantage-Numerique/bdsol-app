@@ -182,10 +182,7 @@ const Nav = ({ menuState, setMenuState }) => {
                                         />
                                     </li>
                                     <li>
-                                        <MainNavButton
-                                            route={AppRoutes.referentiel}
-                                            handler={navLinkHandler}
-                                        />
+                                        <MainNavButton route={AppRoutes.referentiel} handler={navLinkHandler} />
                                     </li>
                                     <li>
                                         <MainNavButton
@@ -193,6 +190,14 @@ const Nav = ({ menuState, setMenuState }) => {
                                             suffix="#equipe"
                                             handler={navLinkHandler}
                                             label={"Notre équipe"}
+                                        />
+                                    </li>
+                                    <li>
+                                        <MainNavButton
+                                            route={AppRoutes.about}
+                                            suffix="#partenaires"
+                                            handler={navLinkHandler}
+                                            label={"Nos partenaires"}
                                         />
                                     </li>
                                     <li>
