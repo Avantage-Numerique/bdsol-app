@@ -193,6 +193,14 @@ const Nav = ({ menuState, setMenuState }) => {
                                         />
                                     </li>
                                     <li>
+                                        <MainNavButton
+                                            route={AppRoutes.about}
+                                            suffix="#partenaires"
+                                            handler={navLinkHandler}
+                                            label={"Nos partenaires"}
+                                        />
+                                    </li>
+                                    <li>
                                         <MainNavButton route={AppRoutes.contact} handler={navLinkHandler} />
                                     </li>
                                     <li>

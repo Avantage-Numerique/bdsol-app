@@ -7,10 +7,15 @@ import { lang } from "@/src/common/Data/GlobalConstants";
 
 import Image from "next/image";
 
+import Logo_CAC from "@/public/partenaires/CAC-logo.webp";
+import Logo_CALQ from "@/public/partenaires/CALQ.webp";
+import Logo_CREAT from "@/public/partenaires/CREAT.webp";
+
 //Styling
 import styles from "./aPropos.module.scss";
 import Icon from "@/common/widgets/Icon/Icon";
 import { ExternalLink } from "@/common/Components/ExternalLink";
+import Partenaires from "@/src/layouts/Partenaires/Partenaires";
 
 /**
  * Really basic page with plain text. This could be dry with an entry or some sort of markdown file.
@@ -25,7 +30,7 @@ const Index = () => {
             <PageMeta title={lang.about__title} description={lang.about__description} />
             <PageHeader title={`Avnu, c’est quoi ?`} />
 
-            <div className={"container home-page__main content"}>
+            <div className={"container home-page__main content my-5"}>
                 <div className={"row py-4"}>
                     <div className={"col"}>
                         <h2>Un outil d’exploration des ressources technologiques du Croissant boréal</h2>
@@ -55,6 +60,7 @@ const Index = () => {
                 <div className={"row py-4"}>
                     <div className={"col"}>
                         <h3>Comment ça fonctionne ?</h3>
+
                         <p>En tant qu’utilisateur·rice de la plateforme, vous pouvez :</p>
                         <ul>
                             <li className={`${styles["page-list"]}`}>
@@ -72,11 +78,13 @@ const Index = () => {
                 <div className={"row py-4"}>
                     <div className={"col"}>
                         <h3>À quoi ça sert ?</h3>
+
                         <p>
                             La plateforme Avnu est parcourable librement et gratuitement par les utilisateurs·trices qui
                             souhaitent se renseigner sur les ressources technologiques proposées dans le Croissant
                             boréal. Elle permet par exemple de :
                         </p>
+
                         <ul>
                             <li className={`${styles["page-list"]}`}>
                                 <strong>Trouver une personne ayant les compétences</strong> dans un domaine, dans une
@@ -107,6 +115,7 @@ const Index = () => {
                 <div id="gouvernance-des-donnees" className={"row py-4"}>
                     <div className={"col"}>
                         <h3>Utilisation et gouvernance des données</h3>
+
                         <p>
                             Dans un objectif de partage et de collaboration, nous faisons en sorte que les données
                             entrées et diffusées sur la plateforme soient le plus ouvertes possible. Tout le monde a la
@@ -124,9 +133,10 @@ const Index = () => {
                                 Avantage numérique
                             </ExternalLink>
                         </h3>
+
                         <p>
-                            Avantage numérique c'est un hub virtuel, physique et mobile qui dessert les secteurs de la
-                            culture, des affaires et du savoir. Le hub vise le développement de l’écosystème créatif,
+                            Avantage numérique c&apos;est un hub virtuel, physique et mobile qui dessert les secteurs de
+                            la culture, des affaires et du savoir. Le hub vise le développement de l’écosystème créatif,
                             entrepreneurial et technologique du Croissant boréal. Il rassemble des organisations et des
                             individus·es qui s’activent, autour de chantiers collaboratifs et de projets innovants, pour
                             le développement de leurs milieux. Il est soutenu par une{" "}
@@ -137,8 +147,9 @@ const Index = () => {
                 </div>
                 <div className={"row py-2"} id="equipe">
                     <div>
-                        <div className={"col py-3"}>
-                            <h3 className={"pb-3"}>Notre belle équipe</h3>
+                        <div className={"col py-4"}>
+                            <h3>Notre belle équipe</h3>
+
                             <ul>
                                 <li>
                                     <h4 className={"fs-5"}>Marc-André Martin (Mamarmite)</h4>
@@ -161,11 +172,12 @@ const Index = () => {
                                 </li>
                             </ul>
                         </div>
-                        <div className={"col py-3"}>
-                            <h3 className={"pb-3"}>
-                                Ancien·es membres de l'équipe (toujours dans nos cœurs){" "}
+                        <div className={"col py-4"}>
+                            <h3>
+                                Ancien·es membres de l&apos;équipe (toujours dans nos cœurs){" "}
                                 <Icon iconName={"grin-hearts"} />
                             </h3>
+
                             <ul>
                                 <li>
                                     <h4 className={"fs-5"}>Simon Descôteaux (Jeux Nemesis)</h4>
@@ -181,30 +193,19 @@ const Index = () => {
                                 </li>
                             </ul>
                         </div>
-                        <div className={"col py-3"}>
-                            <h3 className={"pb-2"}>Nos experts conseils</h3>
+                        <div className={"col py-4"}>
+                            <h3>Nos experts conseils</h3>
+
                             <ul>
                                 <li>Viêt Cao (SynapseC)</li>
                                 <li>Jules Gaudin (Robic)</li>
                                 <li>Christian Roy (A10s inc.)</li>
                             </ul>
                         </div>
-                        <div className={"col py-3"}>
-                            <h3 className={"pb-3"}>Nos partenaires</h3>
+                        <div className={"col py-4"}>
+                            <h3 id="partenaires">Nos partenaires</h3>
 
-                            <p className="pb-3">
-                                Initiative financée par le Conseil des Arts du Canada et le Ministère de la Culture et
-                                des Communications du Québec.
-                            </p>
-
-                            <div className={`${styles.gallerie} d-flex align-items-center gap-2`}>
-                                <Image
-                                    src="/logos/Logo_CREAT.svg"
-                                    alt="Logo CREAT : Chaire de recherche en économie créative et mieux-être"
-                                    width={"240"}
-                                    height={"284"}
-                                />
-                            </div>
+                            <Partenaires />
                         </div>
                     </div>
                 </div>
