@@ -95,7 +95,7 @@ const Header = (props) => {
                                     <li>
                                         <Link
                                             href={
-                                                AppRoutes.connection.asPath +
+                                                AppRoutes.login.asPath +
                                                 `?redirect=${encodeURIComponent(getCleanRedirectPath(router.asPath))}`
                                             }
                                             className={`nav-link text-black text-nowrap`}

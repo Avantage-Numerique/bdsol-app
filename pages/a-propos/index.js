@@ -27,18 +27,20 @@ const Index = () => {
 
     return (
         <div id="a-propos" className={"page-apropos"}>
-            <PageMeta title={lang.faq__about__title} description={lang.faq__about__description} />
+            <PageMeta title={lang.about__title} description={lang.about__description} />
             <PageHeader title={`Avnu, c’est quoi ?`} />
 
             <div className={"container home-page__main content my-5"}>
                 <div className={"row py-4"}>
                     <div className={"col"}>
-                        <h3>Un outil d’exploration des ressources technologiques du Croissant boréal</h3>
-
+                        <h2>Un outil d’exploration des ressources technologiques du Croissant boréal</h2>
                         <p className={pClass}>
                             Avnu est une plateforme web <strong>gratuite</strong> et <strong>collaborative</strong> qui
                             vise à documenter les ressources technologiques du &nbsp;
-                            <ExternalLink href={"https://avantagenumerique.org/le-croissant-boreal/"}>
+                            <ExternalLink
+                                href={"https://avantagenumerique.org/le-croissant-boreal/"}
+                                avnuApproved={true}
+                            >
                                 Croissant boréal
                             </ExternalLink>
                             &nbsp; (Abitibi-Témiscamingue, nord de l’Ontario francophone et Baie-James). Dans un
@@ -127,7 +129,9 @@ const Index = () => {
                     <div className={"col"}>
                         <h3>
                             Un projet développé avec amour par{" "}
-                            <ExternalLink href={"https://avantagenumerique.org/"}>Avantage numérique</ExternalLink>
+                            <ExternalLink href={"https://avantagenumerique.org/"} avnuApproved={true}>
+                                Avantage numérique
+                            </ExternalLink>
                         </h3>
 
                         <p>

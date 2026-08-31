@@ -27,10 +27,10 @@ const HomePage = (props) => {
     const headerDescription = () => {
         return (
             <div>
-                <ExternalLink href={"https://fr.wikipedia.org/wiki/Projet:Croissant_bor%C3%A9al"}>
+                <ExternalLink href={"https://fr.wikipedia.org/wiki/Projet:Croissant_bor%C3%A9al"} avnuApproved={true}>
                     Le projet du croissant boraél sur Wikipédia
                 </ExternalLink>
-                <ExternalLink href={"https://avantagenumerique.org/le-croissant-boreal/"}>
+                <ExternalLink href={"https://avantagenumerique.org/le-croissant-boreal/"} avnuApproved={true}>
                     La page dédier au territoire sur le site web d'Avantage Numérique
                 </ExternalLink>
             </div>
@@ -61,10 +61,10 @@ const HomePage = (props) => {
                 key={"pageHeaderHomePage"}
                 reverseWrap
             >
-                <ExternalLink href={"https://fr.wikipedia.org/wiki/Projet:Croissant_bor%C3%A9al"}>
+                <ExternalLink href={"https://fr.wikipedia.org/wiki/Projet:Croissant_bor%C3%A9al"} avnuApproved={true}>
                     Le projet du croissant boraél sur Wikipédia
                 </ExternalLink>
-                <ExternalLink href={"https://avantagenumerique.org/le-croissant-boreal/"}>
+                <ExternalLink href={"https://avantagenumerique.org/le-croissant-boreal/"} avnuApproved={true}>
                     La page dédier au territoire sur le site web d'Avantage Numérique
                 </ExternalLink>
             </PageHeader>

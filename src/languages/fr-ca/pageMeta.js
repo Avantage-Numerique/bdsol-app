@@ -1,7 +1,7 @@
 // FR
 export const pageMeta = {
     /* Index page */
-    index__title: "Accueil | AVNU - La base de données d'Avantage Numérique",
+    index__title: "Accueil - AVNU | Annuaire technocréatif de la francophonie régionale du Canada",
     index__description:
         "AVNU est une base de données qui a pour objectif de recenser et de géolocaliser les talents, les compétences, les équipements et les initiatives technocréatives dans le Croissant boréal (Abitibi-Témiscamingue, nord de l’Ontario francophone, Nord-du-Québec). ",
 
@@ -10,39 +10,42 @@ export const pageMeta = {
         "Découvrez les différentes catégories utilisées pour classifier nos données : secteurs d'activité, technologies, compétences, types d'équipement.",
 
     /* /charte-de-valeurs */
-    charterOfValues__title: "Charte de valeurs - AVNU",
+    charterOfValues__title: "Charte de valeurs - AVNU | Annuaire technocréatif de la francophonie régionale du Canada",
     charterOfValues__description: "",
 
     /* /compte/a-comfirmer */
-    compte__toConfirme__title: "En attente de confirmation",
+    compte__toConfirme__title:
+        "En attente de confirmation - AVNU | Annuaire technocréatif de la francophonie régionale du Canada",
 
     /* /compte/compte-confirme */
-    compte__confirmedAccount__title: "Compte confirmé",
+    compte__confirmedAccount__title:
+        "Compte confirmé - AVNU | Annuaire technocréatif de la francophonie régionale du Canada",
 
     /* /compte/connexion */
-    compte__connexion__title: "Connexion - AVNU",
+    compte__connexion__title: "Connexion - AVNU | Annuaire technocréatif de la francophonie régionale du Canada",
     compte__connexion__description:
         "Connectez-vous à AVNU afin de pouvoir, vous aussi, contribuer à la base de données.",
 
     /* /compte/inscription */
-    compte__singup__title: "Inscription - AVNU",
+    compte__singup__title: "Inscription - AVNU | Annuaire technocréatif de la francophonie régionale du Canada",
     compte__singup__description: "Créez-vous un compte afin de pouvoir, vous aussi, contribuer à la base de données.",
 
     /* /compte/réinitialisation */
     compte__passwordReset__title: "Réinitialisation de mot de passe",
 
     /* /compte/ */
-    compte__title: "Espace membre - AVNU",
+    compte__title: "Espace membre - AVNU | Annuaire technocréatif de la francophonie régionale du Canada",
     compte__description:
         "Explorez votre espace membre : suivez l'historique de vos modifications, modifiez vos informations personnelles ou obtenez des astuces de navigation.",
 
     /* /consulter */
-    consult__title: "Consulter les données",
+    consult__title: "Consulter les données - AVNU | Annuaire technocréatif de la francophonie régionale du Canada",
     consult__description:
         "Découvrez les multiples entités répertoriées sur le territoire du Croissant boréal : personnes, organisations, projets, événements et équipements.",
 
     /* /contribuer */
-    contribute__title: "Contribuer à la base de données",
+    contribute__title:
+        "Contribuer à la base de données - AVNU | Annuaire technocréatif de la francophonie régionale du Canada",
     contribute__description:
         "Choisissez le type qui correspond le mieux à la donnée que vous souhaitez entrer, puis ajoutez-la en quelques clics.",
 
@@ -66,17 +69,17 @@ export const pageMeta = {
     projects__description: "Découvrez tous les projets à caractère numérique répertoriés sur AVNU.",
 
     /* /FAQ */
-    faq__title: "Foire Aux Questions",
+    faq__title: "FAQ - AVNU | Annuaire technocréatif de la francophonie régionale du Canada",
     faq__description:
         "Consultez la FAQ pour des précisions sur divers sujets, y compris les licences et les documents légaux.",
 
     /* /FAQ/about */
-    faq__about__title: "À propos",
-    faq__about__description:
-        "Découvrez AVNU : une base de données cartographiant les talents numériques et les initiatives dans le Croissant boréal. Améliorez la découvrabilité, la visibilité et la transmission des connaissances dans la région.",
+    about__title: "À propos - AVNU | Annuaire technocréatif de la francophonie régionale du Canada",
+    about__description:
+        "Une base de données des talents numériques dans le Croissant boréal. Améliorez la découvrabilité et la transmission des connaissances dans la région.",
 
     /* /FAQ/licences */
-    faq__licences__title: "Licences",
+    faq__licences__title: "Licences - AVNU | Annuaire technocréatif de la francophonie régionale du Canada",
     faq__licences__description: "Précision sur les licences supportées par AVNU et les droits d'auteurs.",
 
     /* /lieux */
@@ -84,17 +87,25 @@ export const pageMeta = {
         "Liste de lieux pouvant être associés à des événements, des organisations ou d'autres entités utilisant les technologies numériques.",
 
     /* /nous-joindre */
-    contact_us__title: "Nous joindre",
+    contact_us__title: "Nous joindre - AVNU | Annuaire technocréatif de la francophonie régionale du Canada",
     contact_us__description:
         "Contactez-nous pour toute question, commentaire, demande de support ou signalement de bug.",
 
     /* /politique-de-confidentialite */
-    privacy_policy__title: "Politique de confidentialité",
+    privacy_policy__title:
+        "Politique de confidentialité - AVNU | Annuaire technocréatif de la francophonie régionale du Canada",
     privacy_policy__description:
         "Découvrez notre Politique de confidentialité : engagements, pratiques et gouvernance pour protéger vos informations personnelles.",
 
     /* /termes-et-conditions-dutilisation */
-    terms_conditions_use__title: "Termes et conditions d'utilisation",
+    terms_conditions_use__title:
+        "Termes et conditions d'utilisation - AVNU | Annuaire technocréatif de la francophonie régionale du Canada",
     terms_conditions_use__description:
-        "Explorez nos Conditions d'utilisation avant d'accéder à la Plateforme AVNU. En acceptant, vous adhérez à nos valeurs et à la confidentialité. Bienvenue sur AVNU!",
+        "Explorez nos Conditions d'utilisation avant d'accéder à la Plateforme AVNU. En acceptant, vous adhérez à nos valeurs et à la confidentialité.",
+
+    cookies__title: "Politique de cookies - AVNU | Annuaire technocréatif de la francophonie régionale du Canada",
+    cookies__description: "Miam des biscuits!",
+
+    ref__title: "Référentiel - AVNU | Annuaire technocréatif de la francophonie régionale du Canada",
+    ref__description: "Description de l'ontologie d'Avnu",
 };

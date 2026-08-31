@@ -78,12 +78,12 @@ const PageHeader = (props) => {
                         </div>
 
                         {props.subTitle && (
-                            <h3
-                                className={`${subtitleColor} mb-2 fs-5`}
+                            <p
+                                className={`${subtitleColor} mb-2 fs-5 fw-semibold`}
                                 dangerouslySetInnerHTML={{
                                     __html: props.subTitle,
                                 }}
-                            ></h3>
+                            ></p>
                         )}
 
                         {props.tags && (

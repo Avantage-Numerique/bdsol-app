@@ -8,12 +8,24 @@ import nextConfig from "@/next.config";
 import { RouteLink } from "@/common/Components/RouteLink";
 import React from "react";
 import Image from "next/image";
+import { lang } from "@/src/common/Data/GlobalConstants";
 
 const Footer = () => {
     const auth = useAuth();
 
     return (
         <footer id={styles.pageFooter} className="py-4">
+            <div className="container">
+                <div className="row">
+                    <blockquote>
+                        <dl>
+                            <dt>AVNU</dt>
+                            <dd>{lang.footer__catchphrase}</dd>
+                        </dl>
+                    </blockquote>
+                </div>
+            </div>
+
             <div className="container position-relative">
                 {/* Logo AVNU*/}
                 <div className={`row justify-content-center ${styles["main-logo--container"]}`}>

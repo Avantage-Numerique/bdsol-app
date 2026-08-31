@@ -21,8 +21,8 @@ import { useAuth } from "@/src/authentification/context/auth-context";
 //Images
 import backgroundImg from "@/public/general_images/Fusee_Pointilles1.svg";
 import AvantageNumeriqueLogo from "@/public/logos/logo-avantage-numerique.svg";
-import organizationPresentationImg from "@/public/general_images/residenceUQAT2024_7-réduit.jpg";
-import shipAndPlanetsImg from "@/public/general_images/Fusée_Planetes_Pointilles2.svg";
+import organizationPresentationImg from "@/public/general_images/residenceUQAT2024_7-reduit.jpg";
+import shipAndPlanetsImg from "@/public/general_images/Fusee_Planetes_Pointilles2.svg";
 import AppRoutes from "@/src/Routing/AppRoutes";
 import { getBadgesInfo } from "@/src/DataTypes/Badges/BadgesSection";
 import { pingExternalApi } from "@/src/api/external/callbacks/pingExternalApi";
@@ -123,7 +123,7 @@ const HomePage = (props) => {
                 bg={"bg-primary-lighter"}
                 textColor={"text-white"}
                 title={lang.homePageTitle}
-                subTitle={lang.homePageDescription}
+                subTitle={lang.homePageDescription(AppRoutes)}
                 description=""
                 image={"/general_images/avnu-systeme-planetaire.svg"}
                 imgAlt={"Les planètes d'AVNU"}

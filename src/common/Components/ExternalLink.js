@@ -3,18 +3,35 @@ import React from "react";
 import Icon from "@/common/widgets/Icon/Icon";
 
 /**
+ * @typedef ExternalLinkProps
+ *
+ * @property {string} href target external URL
+ * @property {string} title link's title
+ * @property {string} className additional class to the link
+ * @property {JSX.Element} children fill the link with the children.
+ * @property {bool} avnuApproved link content approved by the team
+ * @property {bool} noreferrer add noreferrer attribute
+ */
+
+/**
  * Add a link to an external URL
- * @param props
- * @param props.href {string} target external URL
- * @param props.title {string} link's title
- * @param props.className {string} additional class to the link
- * @param props.children {JSX.Element} fill the link with the children.
- * @returns {Element}
+ *
+ * @type {(props: ExternalLinkProps) => Element}
+ *
  * @constructor
  */
 const ExternalLink = (props) => {
     if (props.href !== "") {
         const link = props.href.includes("mailto:") ? props.href : forceHttps(props.href);
+
+        const relStr = ["external"];
+        if (!props.avnuApproved) {
+            relStr.push("nofollow");
+        }
+        if (props.noreferrer) {
+            relStr.push("noreferrer");
+        }
+
         return (
             <>
                 <a
@@ -22,7 +39,7 @@ const ExternalLink = (props) => {
                     href={link}
                     target={"_blank"}
                     title={`${props.title ?? ""}`}
-                    rel="noreferrer"
+                    rel={relStr.join(" ")}
                 >
                     {props.children && props.children}
                     <Icon iconName={"external-link-alt"} className={"text-decoration-none ps-1"} />

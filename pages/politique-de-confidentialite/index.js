@@ -103,7 +103,7 @@ const PolitiqueDutilisationDesDonnees = () => {
                                 </strong>
                                 <br />
                                 Vos coordonnées telles que votre nom, prénom ou adresse électronique, afin de vous
-                                identifier et de correspondre avec vous ;
+                                identifier et de correspondre avec vous;
                             </li>
                             <li>
                                 <strong>Des renseignements liés à l’utilisation de la Plateforme :</strong>
@@ -126,18 +126,20 @@ const PolitiqueDutilisationDesDonnees = () => {
                             <li>
                                 <strong>Des renseignements relatifs à l’utilisation de vos appareils :</strong>
                                 <br />
-                                par exemple le type d’appareil, l’identifiant unique, l’adresse IP, le système
+                                Par exemple le type d’appareil, l’identifiant unique, l’adresse IP, le système
                                 d’exploitation et l’emplacement physique de l’appareil (géolocalisation, localisation
                                 par balise) ainsi que les identifiants mobiles tels que les IDFA d’Apple ou les
-                                identifiants AAID de Google Android, le cas échéant ;
+                                identifiants AAID de Google Android, le cas échéant;
                             </li>
                             <li>
                                 <strong>Des renseignements pour nos communications :</strong>
                                 <br />
-                                par exemple, des informations de marketing et vos préférences de communication, de même
-                                que vos commentaires; et
+                                Par exemple, des informations de marketing et vos préférences de communication, de même
+                                que vos commentaires;
                             </li>
-                            <li>Tout autre Renseignement personnel que vous nous avez fourni.</li>
+                            <li>
+                                <strong>Tout autre Renseignement personnel que vous nous avez fourni.</strong>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -209,25 +211,25 @@ const PolitiqueDutilisationDesDonnees = () => {
 
                         <strong>La Troupe recueille généralement vos Renseignements personnels pour :</strong>
                         <ul>
-                            <li>Établir et gérer notre relation avec vous ;</li>
-                            <li>Fournir et maintenir les services demandés, à savoir l’accès à la Plateforme ;</li>
+                            <li>Établir et gérer notre relation avec vous;</li>
+                            <li>Fournir et maintenir les services demandés, à savoir l’accès à la Plateforme;</li>
                             <li>
                                 Réaliser des études sur l’utilisation de la Plateforme, notamment à des fins
-                                statistiques ;
+                                statistiques;
                             </li>
-                            <li>Améliorer la Plateforme et votre expérience en tant que membre ou utilisateur ;</li>
+                            <li>Améliorer la Plateforme et votre expérience en tant que membre ou utilisateur;</li>
                             <li>
                                 Pour remplir nos objectifs, tels que le développement de nouveaux produits et services,
-                                l’amélioration ou la modification de nos produits et services ;
+                                l’amélioration ou la modification de nos produits et services;
                             </li>
                             <li>
                                 Pour vous envoyer des informations administratives, par exemple, des informations
                                 concernant nos services et des modifications de nos termes, conditions et politiques;
                             </li>
                             <li>
-                                Répondre à vos demandes d’information, questions, requêtes, commentaires ou plaintes ;
+                                Répondre à vos demandes d’information, questions, requêtes, commentaires ou plaintes;
                             </li>
-                            <li>Répondre à vos demandes d’assistance ;</li>
+                            <li>Répondre à vos demandes d’assistance;</li>
                             <li>
                                 Pour des fins d’analyse de données incluant l’identification des tendances
                                 d’utilisation, et pour déterminer l’efficacité de nos campagnes promotionnelles et
@@ -240,14 +242,14 @@ const PolitiqueDutilisationDesDonnees = () => {
                                 des bulletins d’information, des courriels promotionnels uniques, des publipostages, des
                                 contacts commerciaux ou des infolettres;
                             </li>
-                            <li>Pour des fins d’audits, de surveillance et de prévention des fraudes ;</li>
+                            <li>Pour des fins d’audits, de surveillance et de prévention des fraudes;</li>
                             <li>
                                 Pour respecter toute loi ou tout règlement applicables, ou pour agir en vertu de
                                 ceux-ci, incluant notamment, sans s’y limiter : (i) répondre aux demandes des autorités
                                 publiques et gouvernementales, y compris les autorités publiques et gouvernementales en
-                                dehors de votre pays de résidence ; (ii) pour protéger nos opérations et intérêts
-                                légitimes ou ceux de nos filiales ; (iii) pour nous permettre de poursuivre les recours
-                                disponibles ou de limiter les dommages que nous pourrions subir, etc. ;
+                                dehors de votre pays de résidence; (ii) pour protéger nos opérations et intérêts
+                                légitimes ou ceux de nos filiales; (iii) pour nous permettre de poursuivre les recours
+                                disponibles ou de limiter les dommages que nous pourrions subir, etc.;
                             </li>
                             <li>
                                 Pour surveiller votre utilisation de la Plateforme de manière générale, pour prévenir
@@ -256,7 +258,7 @@ const PolitiqueDutilisationDesDonnees = () => {
                             </li>
                             <li>
                                 Pour faciliter et améliorer l’utilisation de notre Plateforme, tant que les
-                                Renseignements collectés sont utilisés proportionnellement à cette Fin ;
+                                Renseignements collectés sont utilisés proportionnellement à cette Fin;
                             </li>
                             <li>
                                 Pour toute autre fin à laquelle vous aurez consenti.
@@ -340,13 +342,13 @@ const PolitiqueDutilisationDesDonnees = () => {
 
                         <p>
                             Nous pouvons également partager vos Renseignements personnels si la loi l’exige ou si nous
-                            pensons de bonne foi qu’une telle action est nécessaire pour : (i) nous conformer à la loi ;
+                            pensons de bonne foi qu’une telle action est nécessaire pour : (i) nous conformer à la loi;
                             (ii) nous conformer à l’ordonnance d’une autorité judiciaire compétente dans toute
-                            juridiction ; (iii) nous conformer à une procédure judiciaire signifiée à la Troupe ; (iv)
-                            protéger et défendre les droits ou la propriété de la Troupe ; (v) faire respecter ou
+                            juridiction; (iii) nous conformer à une procédure judiciaire signifiée à la Troupe; (iv)
+                            protéger et défendre les droits ou la propriété de la Troupe; (v) faire respecter ou
                             vérifier votre conformité à toute entente que vous avez conclue avec la Troupe, le cas
-                            échéant ; (vi) prévenir la fraude ou toute autre activité illégale perpétrée par le biais de
-                            la Plateforme ; ou (vii) agir dans des circonstances urgentes pour protéger la sécurité
+                            échéant; (vi) prévenir la fraude ou toute autre activité illégale perpétrée par le biais de
+                            la Plateforme; ou (vii) agir dans des circonstances urgentes pour protéger la sécurité
                             personnelle des utilisateurs de la Plateforme ou du public en général.
                         </p>
 
@@ -557,24 +559,24 @@ const PolitiqueDutilisationDesDonnees = () => {
                         </p>
                         <p>Par exemple, vous pourriez avoir le droit :</p>
                         <ul>
-                            <li>D’obtenir accès aux Renseignements personnels que nous détenons à votre sujet ;</li>
+                            <li>D’obtenir accès aux Renseignements personnels que nous détenons à votre sujet;</li>
                             <li>
                                 De corriger les Renseignements personnels que nous détenons et qui sont inexacts,
-                                équivoques ou incomplets ;
+                                équivoques ou incomplets;
                             </li>
-                            <li>D’exiger la suppression de vos Renseignements personnels ;</li>
+                            <li>D’exiger la suppression de vos Renseignements personnels;</li>
                             <li>
                                 D’obtenir de l’information supplémentaire, par exemple sur les catégories de tiers à qui
-                                nous communiquons vos Renseignements personnels ;
+                                nous communiquons vos Renseignements personnels;
                             </li>
                             <li>
                                 De vous opposer au traitement de vos Renseignements personnels effectué sur la base de
                                 nos intérêts légitimes et nous demander de restreindre le traitement de vos informations
-                                personnelles ;
+                                personnelles;
                             </li>
                             <li>
                                 De requérir la portabilité de vos Renseignements personnels dans un format structuré,
-                                couramment utilisé et lisible par machine ;
+                                couramment utilisé et lisible par machine;
                             </li>
                             <li>
                                 De retirer votre consentement à tout moment, si nous avons collecté et traité vos
@@ -583,7 +585,7 @@ const PolitiqueDutilisationDesDonnees = () => {
                                 ni le traitement de vos informations personnelles effectué sur la base de motifs de
                                 traitement légitimes autres que le consentement.
                             </li>
-                            <li>De refuser les communications promotionnelles transmises par La Troupe ;</li>
+                            <li>De refuser les communications promotionnelles transmises par La Troupe;</li>
                             <li>
                                 De porter plainte auprès d’une autorité de contrôle en protection des renseignements
                                 personnels, par exemple auprès d’un commissaire à la vie privée ou de la Commission
