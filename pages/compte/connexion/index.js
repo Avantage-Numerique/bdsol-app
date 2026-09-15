@@ -75,6 +75,8 @@ const LoginPage = () => {
                 <div className={"col-3"}>
                     <Image
                         src={"/AVNU_Branding/AVNU-LogoCanard-RVB.svg"}
+                        width={149}
+                        height={178}
                         alt="Logo de AVNU : un sympathique petit canard bleu! Quack!"
                     />
                 </div>
