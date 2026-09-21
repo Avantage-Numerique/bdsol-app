@@ -1,7 +1,5 @@
 name: Test packages updates
 on:
-    push:
-        branches: [dev-updates-packages]
     pull_request:
         types: [opened, reopened]
 
