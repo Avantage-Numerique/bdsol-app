@@ -6,4 +6,5 @@ export const messages = {
     listNoResult: "Aucune entité, peut-être que notre petit canard fait une sieste.",
     copied: "Message copié!",
     shareableTextIntro: "Salut, j'avais envie de te partager cette page que j'ai trouvé sur AVNU.CA!",
+    continueReadingOn: (link) => `Continuer à lire sur ${link}`,
 };

@@ -59,7 +59,7 @@ const Nav = ({ menuState, setMenuState }) => {
         }
 
         //Handles redirect after login
-        if (path === AppRoutes.connection.asPath) {
+        if (path === AppRoutes.login.asPath) {
             router.push(`${path}?redirect=${encodeURIComponent(getCleanRedirectPath(router.asPath))}`);
         } else {
             router.push(path);
@@ -182,10 +182,7 @@ const Nav = ({ menuState, setMenuState }) => {
                                         />
                                     </li>
                                     <li>
-                                        <MainNavButton
-                                            route={AppRoutes.referentiel}
-                                            handler={navLinkHandler}
-                                        />
+                                        <MainNavButton route={AppRoutes.referentiel} handler={navLinkHandler} />
                                     </li>
                                     <li>
                                         <MainNavButton
@@ -193,6 +190,14 @@ const Nav = ({ menuState, setMenuState }) => {
                                             suffix="#equipe"
                                             handler={navLinkHandler}
                                             label={"Notre équipe"}
+                                        />
+                                    </li>
+                                    <li>
+                                        <MainNavButton
+                                            route={AppRoutes.about}
+                                            suffix="#partenaires"
+                                            handler={navLinkHandler}
+                                            label={"Nos partenaires"}
                                         />
                                     </li>
                                     <li>
@@ -225,7 +230,7 @@ const Nav = ({ menuState, setMenuState }) => {
                                     ) : (
                                         <>
                                             <li>
-                                                <MainNavButton route={AppRoutes.connection} handler={navLinkHandler} />
+                                                <MainNavButton route={AppRoutes.login} handler={navLinkHandler} />
                                             </li>
                                             <li>
                                                 <MainNavButton route={AppRoutes.register} handler={navLinkHandler} />

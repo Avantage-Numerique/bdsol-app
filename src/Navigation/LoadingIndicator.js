@@ -2,10 +2,10 @@
 
 import Spinner from "../common/widgets/spinner/Spinner";
 
-import { useLoading } from "./LoadingContext";
+import { useNavLoading } from "./LoadingContext";
 
 export default function LoadingIndicator() {
-    const { isLoading } = useLoading();
+    const { isLoading } = useNavLoading();
 
     if (!isLoading) return null;
 

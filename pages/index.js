@@ -21,11 +21,12 @@ import { useAuth } from "@/src/authentification/context/auth-context";
 //Images
 import backgroundImg from "@/public/general_images/Fusee_Pointilles1.svg";
 import AvantageNumeriqueLogo from "@/public/logos/logo-avantage-numerique.svg";
-import organizationPresentationImg from "@/public/general_images/residenceUQAT2024_7-réduit.jpg";
-import shipAndPlanetsImg from "@/public/general_images/Fusée_Planetes_Pointilles2.svg";
+import organizationPresentationImg from "@/public/general_images/residenceUQAT2024_7-reduit.jpg";
+import shipAndPlanetsImg from "@/public/general_images/Fusee_Planetes_Pointilles2.svg";
 import AppRoutes from "@/src/Routing/AppRoutes";
 import { getBadgesInfo } from "@/src/DataTypes/Badges/BadgesSection";
 import { pingExternalApi } from "@/src/api/external/callbacks/pingExternalApi";
+import Partenaires from "@/src/layouts/Partenaires/Partenaires";
 
 //Background image for the page header
 const HomePageHeaderBgImg = () => {
@@ -41,7 +42,7 @@ const HomePageHeaderBgImg = () => {
     };
     //2025-08-15  overflow-hidden
     return (
-        <figure style={localFigureStyling} className="position-absolute start-0 w-100 h-100">
+        <figure style={localFigureStyling} className="position-absolute start-0 w-100 h-100 overflow-clip">
             <Image
                 src={backgroundImg}
                 style={localImgStyling}
@@ -122,7 +123,7 @@ const HomePage = (props) => {
                 bg={"bg-primary-lighter"}
                 textColor={"text-white"}
                 title={lang.homePageTitle}
-                subTitle={lang.homePageDescription}
+                subTitle={lang.homePageDescription(AppRoutes)}
                 description=""
                 image={"/general_images/avnu-systeme-planetaire.svg"}
                 imgAlt={"Les planètes d'AVNU"}
@@ -258,6 +259,15 @@ const HomePage = (props) => {
                                 C&#39;est par ici !
                             </Button>
                         </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* Partenaires */}
+            <section className="home-page__full-width-section bg-primary-lighter">
+                <div className="container">
+                    <div className="row home-page__section-inner-y-padding text-center">
+                        <Partenaires smaller={true} />
                     </div>
                 </div>
             </section>

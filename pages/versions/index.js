@@ -205,7 +205,6 @@ const VersionIndex = (props) => {
                 textColor={"text-white"}
                 title={lang.versions__title}
                 subTitle={lang.versions__descriptions}
-                description={lang.versions__descriptions}
                 key={"VersionsPage"}
             />
             <section className={`container ${pageSpacing}`}>

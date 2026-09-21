@@ -55,7 +55,7 @@ export async function POST(request) {
             {
                 text: externalApiResponse.message,
                 positive: !externalApiResponse.error,
-                redirectUri: externalApiResponse.error ? appRoutes.connection.asPath : redirect,
+                redirectUri: externalApiResponse.error ? appRoutes.login.asPath : redirect,
                 user: sessionUser,
             },
             {
@@ -185,7 +185,7 @@ async function loginRoute(req, res) {
         res.send({
             text: response.message,
             positive: !response.error,
-            redirectUri: response.error ? appRoutes.connection.asPath : redirect,
+            redirectUri: response.error ? appRoutes.login.asPath : redirect,
             user: sessionUser,
         });
         return;

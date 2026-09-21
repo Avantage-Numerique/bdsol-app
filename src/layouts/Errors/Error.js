@@ -43,7 +43,7 @@ function Error({ statusCode, ...props }) {
                         </Link>
                     )}
                     {!auth.user.isLoggedIn && (
-                        <Link href={AppRoutes.connection.pathname} className={"btn btn-outline-secondary btn-lg"}>
+                        <Link href={AppRoutes.login.pathname} className={"btn btn-outline-secondary btn-lg"}>
                             Se connecter pour contribuer
                         </Link>
                     )}

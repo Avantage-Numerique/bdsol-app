@@ -131,7 +131,7 @@
             }
             .simple-abstract__content__tagList {
                 gap: calc(var(--simple-abstract--padding) * 0.5);
-                li {
+                li:not(:last-of-type) {
                     &:first-child {
                         min-width: 6ch;
                         max-width: 100%;
