@@ -7,7 +7,7 @@ import { lang } from "@/src/common/Data/GlobalConstants";
 
 import styles from "./referentiel.module.scss";
 
-const ReferentialHomePage = () => {
+const CompatibilityHomePage = () => {
     /**
      * @type {[import('../../../api/src/Referential/Data/types').RefData, (RefData) => void]}
      */
@@ -15,13 +15,13 @@ const ReferentialHomePage = () => {
 
     useEffect(() => {
         const getSelectOptions = async () => {
-            const response = await clientSideExternalApiRequest("/ref?json", { method: "GET" });
+            const response = await clientSideExternalApiRequest("/compatibility?json", { method: "GET" });
             setRefResponse(response);
         };
         getSelectOptions();
     }, []);
 
-    const baseRoute = "/ref";
+    const baseRoute = "/compatibility";
     const apiUrl = process.env.API_URL;
 
     const ontologyTable = (ref) => {
@@ -44,9 +44,7 @@ const ReferentialHomePage = () => {
                         {Object.entries(ref.ontologiesMetaData).map(([ontology, ontologyMetaData]) => (
                             <tr key={ontology}>
                                 <td>
-                                    <a href={`${apiUrl}${baseRoute}/compatibility#${ontology}`}>
-                                        {ontologyMetaData.label}
-                                    </a>
+                                    <a href={`${apiUrl}${baseRoute}#${ontology}`}>{ontologyMetaData.label}</a>
                                 </td>
                                 <td>{ontologyMetaData.description}</td>
                                 <td>
@@ -79,7 +77,7 @@ const ReferentialHomePage = () => {
             />
 
             <p className="py-4">
-                <a href={`${process.env.NEXT_PUBLIC_API_URL}/ref/compatibility`} className="external-link fw-bold">
+                <a href={`${process.env.NEXT_PUBLIC_API_URL}/compatibility`} className="external-link fw-bold">
                     <Icon iconName="link" className="font-bold" /> Lien vers l&apos;accueil du référentiel AVNU
                 </a>
             </p>
@@ -89,4 +87,4 @@ const ReferentialHomePage = () => {
     );
 };
 
-export default ReferentialHomePage;
+export default CompatibilityHomePage;
