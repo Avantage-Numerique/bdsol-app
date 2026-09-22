@@ -14,58 +14,28 @@ const Footer = () => {
     const auth = useAuth();
 
     return (
-        <footer id={styles.pageFooter} className="py-4">
-            <div className="container">
-                <div className="row">
-                    <blockquote>
-                        <dl>
-                            <dt>AVNU</dt>
-                            <dd>{lang.footer__catchphrase}</dd>
-                        </dl>
-                    </blockquote>
-                </div>
-            </div>
-
-            <div className="container position-relative">
+        <footer id={styles.pageFooter}>
+            <div className="container position-relative d-flex gap-2 py-5">
                 {/* Logo AVNU*/}
                 <div className={`row justify-content-center ${styles["main-logo--container"]}`}>
                     <Image src="/AVNU_Branding/AVNU-LogoComplet-RVB.png" alt="Logo AVNU" width={1980} height={744} />
                 </div>
 
-                <div className="py-4">
-                    {/* Presentation of Avantage Numerique */}
-                    <div className={`row`}>
-                        <p className="text-center mb-0">Un projet développé avec amour par</p>
-                    </div>
-                    <div className={`row justify-content-center ${styles["secondary-logo--container"]}`}>
-                        <div className="d-flex justify-content-center ">
-                            <a
-                                href="https://avantagenumerique.org/?ref=avnuca"
-                                title={"Site web d'avantage numérique"}
-                                rel={"nofollow"}
-                            >
-                                <Image
-                                    src="/logos/logo-avantage-numerique.svg"
-                                    alt="Logo Avantage Numérique"
-                                    width={"278"}
-                                    height={"28"}
-                                />
-                            </a>
-                        </div>
-                    </div>
+                {/* Text for SEO */}
+                <div className="row d-flex flex-column">
+                    <p className={`${styles["footer__catchphrase"]}`}>{lang.footer__catchphrase}</p>
                 </div>
 
                 {/* Utils and legal links */}
-                <div className={`row d-flex flex-column`}>
-                    <nav className="nav nav-pills mb-0 justify-content-center align-items-center">
-                        <RouteLink routeName={"valuesChart"} className={"nav-link text-dark"} />
-                        <RouteLink routeName={"referentiel"} className={"nav-link text-dark"} />
-                        <RouteLink routeName={"confidentialityPolicy"} className={"nav-link text-dark"} />
-                        <RouteLink routeName={"termOfUse"} className={"nav-link text-dark"} />
-                        <RouteLink routeName={"paramsCookies"} className={"nav-link text-dark"} />
-                        <RouteLink routeName={"contact"} className={"nav-link text-dark"} />
-                    </nav>
+                <div className={`row d-flex flex-column py-3`}>
+                    <p className="text-center my-0">
+                        <small>
+                            Contact : {appConfig.legal.email}, {appConfig.legal.address}
+                        </small>
+                    </p>
                 </div>
+
+                {/* Social links */}
                 <div className={`row`}>
                     <div className={`${styles.socialMediaLogos} d-flex justify-content-center`}>
                         <div
@@ -87,6 +57,7 @@ const Footer = () => {
                                 </svg>
                             </a>
                         </div>
+
                         <div
                             className={`${styles.InstagramLogo} ${styles.socialMediaLogo}`}
                             role="img"
@@ -121,17 +92,36 @@ const Footer = () => {
                         </div>
                     </div>
                 </div>
-                {/* Utils and legal links */}
-                <div className={`row d-flex flex-column py-4`}>
-                    <p className="text-center my-0">
-                        <small>
-                            Contact : {appConfig.legal.email}, {appConfig.legal.address}
-                        </small>
+
+                {/* Version */}
+                <div className={`row`}>
+                    <p className={"text-center m-0 opacity-25"}>
+                        <RouteLink routeName={"versions"} label={`${appConfig.name} v.${nextConfig.env.VERSION}`} /> (
+                        {auth.mode})
                     </p>
                 </div>
             </div>
 
-            <div className="container-fluid position-relative">
+            <div className="container-fluid bg-primary py-3">
+                {/* Utils and legal links */}
+                <div className={`row d-flex flex-column`}>
+                    <nav className="nav nav-pills mb-0 justify-content-center align-items-center text-decoration-underline">
+                        <RouteLink routeName={"valuesChart"} className={"nav-link text-dark"} />
+                        |
+                        <RouteLink routeName={"referentiel"} className={"nav-link text-dark"} />
+                        |
+                        <RouteLink routeName={"confidentialityPolicy"} className={"nav-link text-dark"} />
+                        |
+                        <RouteLink routeName={"termOfUse"} className={"nav-link text-dark"} />
+                        |
+                        <RouteLink routeName={"paramsCookies"} className={"nav-link text-dark"} />
+                        |
+                        <RouteLink routeName={"contact"} className={"nav-link text-dark"} />
+                    </nav>
+                </div>
+            </div>
+
+            {/* <div className="container-fluid position-relative">
                 <div className={`row`}>
                     <div className={"col-12 pt-5"}>
                         <p className={"m-0 ps-5 opacity-25 text-right"}>
@@ -140,7 +130,7 @@ const Footer = () => {
                         </p>
                     </div>
                 </div>
-            </div>
+            </div> */}
         </footer>
     );
 };
