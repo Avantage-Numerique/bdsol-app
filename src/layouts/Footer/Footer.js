@@ -15,7 +15,7 @@ const Footer = () => {
 
     return (
         <footer id={styles.pageFooter}>
-            <div className="container position-relative d-flex gap-2 py-5">
+            <div className="container position-relative d-flex flex-column gap-4 py-5">
                 {/* Logo AVNU*/}
                 <div className={`row justify-content-center ${styles["main-logo--container"]}`}>
                     <Image src="/AVNU_Branding/AVNU-LogoComplet-RVB.png" alt="Logo AVNU" width={1980} height={744} />
@@ -27,7 +27,7 @@ const Footer = () => {
                 </div>
 
                 {/* Utils and legal links */}
-                <div className={`row d-flex flex-column py-3`}>
+                <div className={`row d-flex flex-column`}>
                     <p className="text-center my-0">
                         <small>
                             Contact : {appConfig.legal.email}, {appConfig.legal.address}
