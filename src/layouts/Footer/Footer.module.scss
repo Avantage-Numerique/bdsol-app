@@ -6,7 +6,7 @@
         img {
             max-width: clamp(8rem, 10vw, 15rem);
             height: auto;
-            padding: var(--footer-vertical-paddings) 0px;
+            // padding: var(--footer-vertical-paddings) 0px;
         }
     }
 
@@ -21,7 +21,7 @@
 
     /* Social media logos container   */
     .socialMediaLogos {
-        padding: var(--footer-vertical-paddings) 0px;
+        // padding: var(--footer-vertical-paddings) 0px;
 
         /* Individual social media logo */
         .socialMediaLogo {
@@ -61,30 +61,32 @@
         }
     }
 
-    blockquote {
+    .footer__catchphrase {
         position: relative;
 
-        max-width: 80ch;
-        margin: 2em auto;
+        text-align: center;
 
-        padding: 0.5em 1em;
+        max-width: 80ch;
+        margin: auto;
+
+        // padding: 0.5em 1em;
         // border-left: 2px solid color-mix(in srgb, currentColor, transparent 60%);
 
-        dt {
-            display: inline-block;
-            margin-bottom: 1.5em;
-            text-align: center;
-            width: 100%;
+        // dt {
+        //     display: inline-block;
+        //     margin-bottom: 1.5em;
+        //     text-align: center;
+        //     width: 100%;
 
-            &::after {
-                content: ", c'est quoi?";
-                font-weight: normal;
-            }
-        }
+        //     &::after {
+        //         content: ", c'est quoi?";
+        //         font-weight: normal;
+        //     }
+        // }
 
-        dl,
-        dd {
-            margin-bottom: 0;
-        }
+        // dl,
+        // dd {
+        //     margin-bottom: 0;
+        // }
     }
 }
