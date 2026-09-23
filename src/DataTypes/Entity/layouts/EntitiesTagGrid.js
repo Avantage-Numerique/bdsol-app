@@ -50,7 +50,7 @@ const EntitiesTagGrid = (
     const tabletClasses = `col-md-${Math.floor(columnsTotal / nbColumnsMd)}`;
     const largeClasses = `col-lg-${Math.floor(columnsTotal / nbColumnsLg)}`;
 
-    const colContainerClass = columnClass ?? `${mobileClasses} ${tabletClasses} ${largeClasses}`;
+    const colContainerClass = columnClass ?? `${mobileClasses} ${tabletClasses} ${largeClasses} pb-4`;
 
     const forcedType = forceType ?? false;
 
@@ -85,7 +85,7 @@ const EntitiesTagGrid = (
                             let tagValue = entity;
                             let isTagValueValid = true;
                             fieldPath.forEach((elem) => {
-                                if (tagValue?.[elem] == undefined) isTagValueValid = false;
+                                if (tagValue?.[elem] === undefined) isTagValueValid = false;
                                 else tagValue = tagValue?.[elem];
                             });
                             model.tag = isTagValueValid ? tagValue : "";
