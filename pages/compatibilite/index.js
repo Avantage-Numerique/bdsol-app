@@ -5,7 +5,7 @@ import { clientSideExternalApiRequest } from "@/src/hooks/http-hook";
 import Icon from "@/src/common/widgets/Icon/Icon";
 import { lang } from "@/src/common/Data/GlobalConstants";
 
-import styles from "./referentiel.module.scss";
+import styles from "./compatibilite.module.scss";
 
 const CompatibilityHomePage = () => {
     /**
@@ -34,7 +34,7 @@ const CompatibilityHomePage = () => {
                 <table className={`${styles.ref}`}>
                     <thead>
                         <tr>
-                            <th>Voir la compatibilité avec AVNU</th>
+                            <th>Compatibilité avec AVNU</th>
                             <th>Description</th>
                             <th>Documentation externe</th>
                         </tr>
@@ -44,7 +44,9 @@ const CompatibilityHomePage = () => {
                         {Object.entries(ref.ontologiesMetaData).map(([ontology, ontologyMetaData]) => (
                             <tr key={ontology}>
                                 <td>
-                                    <a href={`${apiUrl}${baseRoute}#${ontology}`}>{ontologyMetaData.label}</a>
+                                    <a href={`${apiUrl}${baseRoute}#${ontology}`}>
+                                        AVNU &#x21CC; {ontologyMetaData.label}
+                                    </a>
                                 </td>
                                 <td>{ontologyMetaData.description}</td>
                                 <td>
