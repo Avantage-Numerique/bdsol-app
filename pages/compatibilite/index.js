@@ -62,23 +62,21 @@ const CompatibilityHomePage = () => {
 
     return (
         <>
-            <PageMeta
-                title={"Référentiel"}
-                description={"Référentiel d'Avnu et compatibilité avec d'autres ontologies externe"}
-            />
+            <PageMeta title={"Compatibilité"} description={"Compatibilité d'Avnu avec les ontologies externes"} />
 
             <PageHeader
                 bg={"bg-primary-lighter"}
                 textColor={"text-white"}
-                htmlTitle={"Référentiel AVNU"}
+                htmlTitle={"Compatibilité d'AVNU"}
                 subTitle={
-                    "Bienvenue dans la zone de geek. Vous retrouverez des liens vers les contrées obscures du référentiel d'AVNU et de ses compatibilités ontologiques !"
+                    "Bienvenue dans une zone de geek. Vous y retrouverez des liens vers les contrées obscures de la compatibilité de la base de données d'AVNU avec des ontologies externes !"
                 }
             />
 
             <p className="py-4">
                 <a href={`${process.env.NEXT_PUBLIC_API_URL}/compatibility`} className="external-link fw-bold">
-                    <Icon iconName="link" className="font-bold" /> Lien vers l&apos;accueil du référentiel AVNU
+                    <Icon iconName="link" className="font-bold" /> Lien vers l&apos;accueil de la compatibilité
+                    ontologique d&apos;AVNU
                 </a>
             </p>
 

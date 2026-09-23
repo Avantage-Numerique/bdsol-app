@@ -377,8 +377,8 @@ const AppRoutesRaw = {
 
     compatibility: {
         label: "Compatibilité AVNU",
-        pathname: "/compatibility",
-        asPath: "/compatibility",
+        pathname: "/compatibilite",
+        asPath: "/compatibilite",
         needAuth: false,
     },
 
