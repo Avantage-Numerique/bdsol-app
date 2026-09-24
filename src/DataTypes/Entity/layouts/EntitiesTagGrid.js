@@ -2,6 +2,8 @@ import React, { useCallback } from "react";
 import { lang } from "@/common/Data/GlobalConstants";
 import { getModelFromType } from "@/DataTypes/Entity/Types";
 
+import styles from "./EntitiesTagGrids.module.scss";
+
 /**
  * It's the grid to use in a property that regroupe other entity And showing the entities as tags grid.
  * It use a feed that contain some supra property and the target entity.
@@ -29,7 +31,6 @@ const EntitiesTagGrid = (
         numberOfCols,
         forceType,
         notes,
-        regularFlexWrapping,
     },
     ...props
 ) => {
@@ -63,10 +64,7 @@ const EntitiesTagGrid = (
     const style = { paddingTop: "1rem" };
 
     return (
-        <ContainerTag
-            style={style}
-            className={`${regularFlexWrapping ? "d-flex flex-wrap justify-content-start gap-4" : "row"} ${className ?? ""}`}
-        >
+        <ContainerTag style={style} className={`${styles["entities-tag-grid"]} ${className ?? ""}`}>
             {Array.isArray(feed) && feedLength > 0 ? (
                 feed.map((entity, index) => {
                     const rawData = subEntityProperty ? entity[subEntityProperty] : entity;
@@ -85,7 +83,7 @@ const EntitiesTagGrid = (
                             let tagValue = entity;
                             let isTagValueValid = true;
                             fieldPath.forEach((elem) => {
-                                if (tagValue?.[elem] == undefined) isTagValueValid = false;
+                                if (tagValue?.[elem] === undefined) isTagValueValid = false;
                                 else tagValue = tagValue?.[elem];
                             });
                             model.tag = isTagValueValid ? tagValue : "";
@@ -93,7 +91,7 @@ const EntitiesTagGrid = (
                         const TagComponent = model.tagComponent;
                         return (
                             <li
-                                className={`d-flex flex-wrap justify-content-start ${!regularFlexWrapping && colContainerClass}`}
+                                className={`d-flex flex-wrap justify-content-start ${colContainerClass}`}
                                 key={getKeyString("container", model, index)}
                             >
                                 <TagComponent
