@@ -39,7 +39,8 @@ export const base = {
 
     homePageTitle: 'The perfect tool to explore the "Croissant boréal" technological resources',
     homePageDescription: (routes, classes = "text-decoration-underline") =>
-        `AVNU is a database designed to catalogue and map digital talent, resources, and initiatives connected to Northern Canada's Francophone communities and the Boreal Crescent (Francophone Northern Ontario, Abitibi-Témiscamingue, and James Bay). By exploring its interface, you can discover the <a href='${routes.persons.asPath}' class='${classes}' >people</a>, <a href='${routes.organisations.asPath}' class='${classes}' >organizations</a>, <a href='${routes.projects.asPath}' class='${classes}' >projects</a>, <a href='${routes.equipment.asPath}' class='${classes}' >equipment</a>, and <a href='${routes.events.asPath}' class='${classes}' >events</a> that fit your technological needs.`,
+        `In just a few clicks, find <a href='${routes.persons.asPath}' class='${classes}' >people</a>, <a href='${routes.organisations.asPath}' class='${classes}' >organizations</a>, <a href='${routes.projects.asPath}' class='${classes}' >projects</a>, <a href='${routes.equipment.asPath}' class='${classes}' >equipment</a>, and <a href='${routes.events.asPath}' class='${classes}' >events</a> related to the digital in your territory.`,
+
     actualities: "Actualities",
     menu: "Menu",
 
