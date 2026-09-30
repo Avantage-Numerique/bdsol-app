@@ -208,17 +208,17 @@ const HomePage = (props) => {
                                 les organismes, les projets, les équipements et les événements qui répondent à vos
                                 besoins technologiques.
                             </p>
-                            <div className="d-flex flex-wrap">
-                                <p>Le projet AVNU est développé par le hub &nbsp;</p>
+                            <p>
+                                Le projet AVNU est développé par le hub&nbsp;
                                 <a href="https://avantagenumerique.org/">
                                     <Image
                                         alt="Logo avantage numérique"
                                         className="w-auto"
-                                        style={{ height: "1.25rem" }}
+                                        style={{ height: "1.25rem", verticalAlign: "center" }}
                                         src={AvantageNumeriqueLogo}
                                     />
                                 </a>
-                            </div>
+                            </p>
                             <div className="d-flex flex-column align-items-start mt-3">
                                 <Button className="px-4 mt-2" href={AppRoutes.about.asPath}>
                                     En savoir plus sur l&#39;initiative
