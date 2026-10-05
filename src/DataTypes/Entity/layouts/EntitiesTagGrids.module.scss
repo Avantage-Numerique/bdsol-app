@@ -1,0 +1,12 @@
+.entities-tag-grid {
+    display: flex;
+    gap: 1em;
+    flex-wrap: wrap;
+    flex-direction: row;
+
+    margin-bottom: 0;
+
+    li {
+        flex: 1 0 30ch;
+    }
+}

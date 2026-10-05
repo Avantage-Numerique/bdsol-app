@@ -5,6 +5,7 @@ import { useMessages } from "@/common/UserNotifications/Message/MessageProvider"
 import { htmlToText } from "@/src/helpers/str";
 import styles from "./QuickShare.module.scss";
 
+const DESC_MAX_LEN = 100;
 /**
  *
  * @param {{ model: React.Component, shareableTextContent: string, shareableMailContent: string }} props
@@ -13,14 +14,21 @@ import styles from "./QuickShare.module.scss";
 const QuickShare = ({ model }) => {
     const msg = useMessages();
 
-    const shortTextContent = `${lang.shareableTextIntro}\n\n${model?.fullSingleLinkUrl}\n\n`;
+    function processDesc() {
+        const txt = htmlToText(model?.meta?.description);
+        const len = txt.length;
+
+        return txt.slice(0, DESC_MAX_LEN) + (len > DESC_MAX_LEN ? "[...]" : "");
+    }
+
+    const shortTextContent = `${lang.shareableTextIntro}\n\n${lang.continueReadingOn} ${model?.fullSingleLinkUrl}\n`;
     const shortURLEncodedContent = encodeURIComponent(shortTextContent);
 
-    const longTextContent = `${lang.shareableTextIntro}\n\n${model?.meta?.title}\n\n${htmlToText(model?.meta?.description)}\n\n${model?.fullSingleLinkUrl}\n\n`;
+    const longTextContent = `${lang.shareableTextIntro}\n\n${model?.meta?.title}\n\n${processDesc()}\n\n${lang.continueReadingOn(model?.fullSingleLinkUrl)}\n`;
     const longURLEncodedContent = encodeURIComponent(longTextContent);
 
     let [copied, setCopied] = useState(false);
-    let copiedTimer;
+    let [copiedTimer, setCopiedTimer] = useState();
 
     /**
      * Copy provided text to clipboard, or `longTextContent` as a fallback
@@ -38,20 +46,24 @@ const QuickShare = ({ model }) => {
     const hintCopied = () => {
         copiedTimer && clearTimeout(copiedTimer);
         setCopied(true);
-        copiedTimer = setTimeout(() => {
-            setCopied(false);
-        }, 1500);
+        setCopiedTimer(
+            setTimeout(() => {
+                setCopied(false);
+            }, 1500)
+        );
     };
 
     let [fbCopied, setFbCopied] = useState(false);
-    let fbCopiedTimer;
+    let [fbCopiedTimer, setFbCopiedTimer] = useState();
 
     const hintFbCopied = () => {
         fbCopiedTimer && clearTimeout(fbCopiedTimer);
         setFbCopied(true);
-        fbCopiedTimer = setTimeout(() => {
-            setFbCopied(false);
-        }, 1500);
+        setFbCopiedTimer(
+            setTimeout(() => {
+                setFbCopied(false);
+            }, 1500)
+        );
     };
 
     return (

@@ -66,10 +66,10 @@ const SingleBase = (props) => {
                     </div>
                 </header>
 
-                <div className="row pt-sm-4 mt-sm-4">
+                <div className="row pt-sm-4 mt-sm-4 flex-wrap">
                     {/* Breadcrumb section */}
                     {breadCrumb && (
-                        <div className="col-8 pt-4 mt-4">
+                        <div className="col-10 pt-4 mt-4">
                             <Breadcrumbs
                                 className={"pt-4"}
                                 labels={breadCrumb.labels}
@@ -81,7 +81,10 @@ const SingleBase = (props) => {
                     )}
 
                     {!editMode && (
-                        <div className="col-4 pt-4 mt-4 d-flex align-items-center justify-content-end">
+                        <div
+                            style={{ flex: "1 0 20ch" }}
+                            className="col-2 pt-lg-4 mt-lg-4 d-flex align-items-center justify-content-end"
+                        >
                             <QuickShare model={model} />
                         </div>
                     )}
@@ -101,7 +104,11 @@ const SingleBase = (props) => {
                 </div>
 
                 {/* Footer */}
-                {footer && <footer className="row">{footer}</footer>}
+                {footer && (
+                    <footer className="row">
+                        <div className="col">{footer}</div>
+                    </footer>
+                )}
 
                 {/* Page bottom : CTA + progress */}
                 {singlePageBottom && (

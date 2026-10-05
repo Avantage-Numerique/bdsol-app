@@ -69,9 +69,8 @@ const PageMeta = (props) => {
     ); //lengthValidator((props.ogDescription || (props.description || defaultPageDescription)), descriptionLengthRecommandation, "og:description")
 
     //Default image for social media. The same by default for both
-    const defaultImg = "/meta-images/Avnu---Open-Graph.jpg";
-    const defaultImgAlt =
-        "Logo officiel d'AVNU aux côtés de la fusée emblématique de l'organisation survolant le Québec et l'Ontario.";
+    const defaultImg = "/meta-images/avnu-thumb.png";
+    const defaultImgAlt = "Explorer les ressources technologiques francophones régionales et locales";
     const defaultImgWidth = "1200";
     const defaultImgHeight = "630";
 

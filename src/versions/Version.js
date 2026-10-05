@@ -59,7 +59,9 @@ export default class Version {
                 )}
                 {this.link !== "" && (
                     <p className={"py-3"}>
-                        <ExternalLink href={this.link}>Voir sur github</ExternalLink>
+                        <ExternalLink href={this.link} avnuApproved={true}>
+                            Voir sur github
+                        </ExternalLink>
                     </p>
                 )}
             </div>

@@ -58,8 +58,9 @@ export const base = {
     croissantBorealDescription:
         "Secteur géographique regroupant les régions de l'Abitibi-Témiscamingue, du Nord-du-Québec et du Nord-Est de l'Ontario francophone.",
     homePageTitle: "Explorer les ressources technologiques francophones régionales et locales",
-    homePageDescription:
-        "Retrouvez en quelques clics les organisations, projets, personnes, équipements et événements en lien avec le numérique sur votre territoire.",
+    homePageDescription: (routes, classes = "text-decoration-underline") =>
+        `Retrouvez en quelques clics les <a href='${routes.persons.asPath}' class='${classes}' >personnes</a>, <a href='${routes.organisations.asPath}' class='${classes}' >organisations</a>, <a href='${routes.projects.asPath}' class='${classes}' >projets</a>, <a href='${routes.equipment.asPath}' class='${classes}' >équipements</a> et <a href='${routes.events.asPath}' class='${classes}' >événements</a> en lien avec le numérique sur votre territoire.`,
+
     actualities: "Actualités",
     allData: "Toutes les données",
     menu: "Menu",
@@ -170,4 +171,8 @@ export const base = {
 
     //Badges
     badges: "Badges",
+
+    // Footer
+    footer__catchphrase:
+        "AVNU est une base de données collaborative qui regroupe les ressources technocréatives du Québec et des francophonies canadiennes.",
 };

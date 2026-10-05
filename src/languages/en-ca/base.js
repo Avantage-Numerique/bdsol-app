@@ -38,8 +38,9 @@ export const base = {
     //  HomePage
 
     homePageTitle: 'The perfect tool to explore the "Croissant boréal" technological resources',
-    homePageDescription:
-        "In just a few clicks, find organizations, projects, people, equipment and events related to the digital in your territory.",
+    homePageDescription: (routes, classes = "text-decoration-underline") =>
+        `In just a few clicks, find <a href='${routes.persons.asPath}' class='${classes}' >people</a>, <a href='${routes.organisations.asPath}' class='${classes}' >organizations</a>, <a href='${routes.projects.asPath}' class='${classes}' >projects</a>, <a href='${routes.equipment.asPath}' class='${classes}' >equipment</a>, and <a href='${routes.events.asPath}' class='${classes}' >events</a> related to the digital in your territory.`,
+
     actualities: "Actualities",
     menu: "Menu",
 
@@ -249,4 +250,8 @@ export const base = {
 
     //Badges
     badges: "Badges",
+
+    // Footer
+    footer__catchphrase:
+        "AVNU is a collaborative database that brings together ressources from Quebec and Canada's Francophone communities.",
 };

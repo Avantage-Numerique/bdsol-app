@@ -292,7 +292,7 @@ const AppRoutesRaw = {
         needAuth: false,
     },
 
-    connection: {
+    login: {
         label: lang.menuLabelConnect,
         pathname: "/compte/connexion",
         asPath: "/compte/connexion",

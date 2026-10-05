@@ -1,7 +1,7 @@
 //En
 const pageMeta = {
     /* Index page */
-    index__title: "Home | AVNU - The Avantage Numérique Database",
+    index__title: "Home - AVNU | Techno-creative directory of regional francophone canada",
     index__description:
         "AVNU is a database that aims to catalog and geolocate talents, skills, equipment, and technocreative initiatives in the Boreal crescent (Abitibi-Témiscamingue, northern francophone Ontario, Nord-du-Québec).",
 
@@ -65,12 +65,12 @@ const pageMeta = {
     projects__description: "Discover all the digital projects listed on AVNU.",
 
     /* /FAQ */
-    faq__title: "Frequently Asked Questions",
+    faq__title: "FAQ - AVNU | Techno-creative directory of regional francophone canada",
     faq__description: "Check the FAQ for any details on a topic, including licenses or legal documents.",
 
     /* /FAQ/about */
-    faq__about__title: "About",
-    faq__about__description:
+    about__title: "About - AVNU | Techno-creative directory of regional francophone canada",
+    about__description:
         "Explore AVNU: a database mapping digital talents and initiatives in the Boreal crescent. Enhance discoverability, visibility, and knowledge transmission in the region.",
 
     /* /FAQ/licences */
@@ -82,7 +82,7 @@ const pageMeta = {
         "List of locations that can be associated with events, organizations, or other entities using digital technologies.",
 
     /* /nous-joindre */
-    contact_us__title: "Contact us",
+    contact_us__title: "Contact us - AVNU | Techno-creative directory of regional francophone canada",
     contact_us__description: "Contact us for any questions, comments, support requests, or to report a bug.",
 
     /* /politique-de-confidentialite */
@@ -94,6 +94,14 @@ const pageMeta = {
     terms_conditions_use__title: "Terms and Conditions of Use",
     terms_conditions_use__description:
         "Explore our Terms of Use before accessing the AVNU Platform. By accepting, you embrace our values and privacy. Welcome to AVNU!",
+
+    /* /parametres/cookies */
+    cookies__title: "Cookie policy - AVNU | Techno-creative directory of regional francophone canada",
+    cookies__description: "Miam des biscuits!",
+
+    /* /referentiel */
+    ref__title: "Reference framework - AVNU | Techno-creative directory of regional francophone canada",
+    ref__description: "Description de l'ontologie d'Avnu",
 };
 
 exports.pageMeta = pageMeta;

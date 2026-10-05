@@ -6,6 +6,7 @@ const messages = {
     listNoResult: "No entities, maybe our little duck is having a nap.",
     copied: "Message copied!",
     shareableTextIntro: "Hey, I just wanted to share this page I found on AVNU.CA!",
+    continueReadingOn: (link) => `Continue reading on ${link}`,
 };
 
 exports.messages = messages;
