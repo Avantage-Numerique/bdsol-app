@@ -105,18 +105,36 @@ const Footer = () => {
             <div className="container-fluid bg-primary py-3">
                 {/* Utils and legal links */}
                 <div className={`row d-flex flex-column`}>
-                    <nav className="nav nav-pills mb-0 justify-content-center align-items-center text-decoration-underline">
-                        <RouteLink routeName={"valuesChart"} className={"nav-link text-dark"} />
+                    <nav className="nav nav-pills mb-0 justify-content-center align-items-center">
+                        <RouteLink
+                            routeName={"valuesChart"}
+                            className={"nav-link text-dark internal-link internal-link-primary-dark"}
+                        />
                         |
-                        <RouteLink routeName={"referentiel"} className={"nav-link text-dark"} />
+                        <RouteLink
+                            routeName={"referentiel"}
+                            className={"nav-link text-dark internal-link internal-link-primary-dark"}
+                        />
                         |
-                        <RouteLink routeName={"confidentialityPolicy"} className={"nav-link text-dark"} />
+                        <RouteLink
+                            routeName={"confidentialityPolicy"}
+                            className={"nav-link text-dark internal-link internal-link-primary-dark"}
+                        />
                         |
-                        <RouteLink routeName={"termOfUse"} className={"nav-link text-dark"} />
+                        <RouteLink
+                            routeName={"termOfUse"}
+                            className={"nav-link text-dark internal-link internal-link-primary-dark"}
+                        />
                         |
-                        <RouteLink routeName={"paramsCookies"} className={"nav-link text-dark"} />
+                        <RouteLink
+                            routeName={"paramsCookies"}
+                            className={"nav-link text-dark internal-link internal-link-primary-dark"}
+                        />
                         |
-                        <RouteLink routeName={"contact"} className={"nav-link text-dark"} />
+                        <RouteLink
+                            routeName={"contact"}
+                            className={"nav-link text-dark internal-link internal-link-primary-dark"}
+                        />
                     </nav>
                 </div>
             </div>

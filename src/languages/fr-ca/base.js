@@ -59,7 +59,8 @@ export const base = {
         "Secteur géographique regroupant les régions de l'Abitibi-Témiscamingue, du Nord-du-Québec et du Nord-Est de l'Ontario francophone.",
     homePageTitle: "Explorer les ressources technologiques francophones régionales et locales",
     homePageDescription: (routes, classes = "text-decoration-underline") =>
-        `AVNU est une base de données qui a pour objectif de recenser et de géolocaliser les talents, les ressources et les initiatives numériques en lien avec le territoire du Croissant boréal et de la francophonie nord-canadienne. En naviguant sur son interface, vous pourrez découvrir <a href='${routes.persons.asPath}' class='${classes}' >les personnes</a>, <a href='${routes.organisations.asPath}' class='${classes}' >les organisations</a>, <a href='${routes.projects.asPath}' class='${classes}' >les projets</a>, <a href='${routes.equipment.asPath}' class='${classes}' >les équipements</a> et <a href='${routes.events.asPath}' class='${classes}' >les événements</a> en lien avec le numérique sur votre territoire qui répondent à vos besoins technologiques.`,
+        `Retrouvez en quelques clics les <a href='${routes.persons.asPath}' class='${classes}' >personnes</a>, <a href='${routes.organisations.asPath}' class='${classes}' >organisations</a>, <a href='${routes.projects.asPath}' class='${classes}' >projets</a>, <a href='${routes.equipment.asPath}' class='${classes}' >équipements</a> et <a href='${routes.events.asPath}' class='${classes}' >événements</a> en lien avec le numérique sur votre territoire.`,
+
     actualities: "Actualités",
     allData: "Toutes les données",
     menu: "Menu",

@@ -1,25 +1,19 @@
-name: Build dev
+name: Test packages updates
 on:
-    push:
-        branches: [dev]
     pull_request:
-        types: [opened, reopened]
+        types: [opened, reopened, synchronize]
 
 jobs:
     build:
         runs-on: ubuntu-latest
         steps:
-            - uses: actions/checkout@v3
+            - uses: actions/checkout@v4
               with:
                   fetch-depth: 0
-                  ref: refs/heads/dev
-            - uses: actions/setup-node@v3
+            - uses: actions/setup-node@v4
               with:
                   node-version: 22.x
-            - name: clean cache
-              run: npm cache clean --force
-            - name: install
-              run: npm install
+                  cache: npm
             - name: Clean install
               run: npm ci
             - name: Build next
