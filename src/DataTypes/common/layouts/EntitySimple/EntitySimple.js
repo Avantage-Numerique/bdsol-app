@@ -199,7 +199,7 @@ const EntitySimple = (props) => {
                                     tagRenderedLength === -1
                                 ) {
                                     maxTags = index;
-                                    restOfTags = totalTags - index;
+                                    restOfTags = totalTags - index - 1;
                                     tagRenderedLength = index;
                                 }
                                 return Tag;
@@ -208,7 +208,7 @@ const EntitySimple = (props) => {
                             <li
                                 key={"tagListRest"}
                                 title={`+${restOfTags}`}
-                                className="rounded bg-general-tag last-tag"
+                                className={`rounded bg-general-tag last-tag ${styles["last-tag"]}`}
                             >
                                 <span title={`+${restOfTags}`}>&hellip;</span>
                             </li>
