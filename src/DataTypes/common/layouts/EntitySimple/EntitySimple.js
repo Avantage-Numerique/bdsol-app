@@ -1,23 +1,31 @@
-import { useEffect, useState } from "react";
+import { useMemo } from "react";
 import styles from "./EntitySimple.module.scss";
 
 import MediaFigure from "@/DataTypes/Media/layouts/MediaFigure";
 import { getType } from "@/DataTypes/Entity/Types";
 import TypeTag from "@/DataTypes/common/layouts/TypeTag/TypeTag";
-import { htmlToTextSingleParagraph } from "@/src/helpers/str";
+import { htmlToTextSingleParagraph, truncate } from "@/src/helpers/str";
 
 import Link from "next/link";
+import { htmlToText } from "html-to-text";
+import Image from "next/image";
 
 /**
+ * @typedef {Object} EntitySimpleProps
  *
- * @param props
- * @param props.className {String}
- * @param props.model {EntitySimple|object}
- * @param props.Header {JSX.Component}
- * @param props.Content {JSX.Component}
- * @param props.BottomLineContent {JSX.Component} Define the overwriting of the last line under the description
- * @param props.tagListTitle {String} Title of the section containing a list of tag
- * @param props.tagList  {Object}  List to be displayed of individual tags
+ * @property {React.Component} Header
+ * @property {React.Component} Content
+ * @property {React.Component} BottomLineContent
+ *
+ * @property {EntityModel} model
+ *
+ * @property {string} [className]
+ * @property {boolean} [showEntityType]
+ * @property {BadgeProps[]} [badgesInfo]
+ */
+
+/**
+ * @type {(props: EntitySimpleProps) => React.JSX.Element}
  * @return {JSX.Element}
  * @constructor
  */
@@ -39,33 +47,40 @@ const EntitySimple = (props) => {
         //imgAlt,
         //description,
         model,
+        badgesInfo,
     } = props;
 
     //content
-    const title = model.title;
+    const maxTitlelength = 40;
+    const truncatedTitle = htmlToText(truncate(model.title, maxTitlelength, true));
+    // const titleEllipsis = title.length > maxTitlelength ? "..." : "";
 
     const description = htmlToTextSingleParagraph(model.description).substring(0, 87);
     const descriptionEllipsis = htmlToTextSingleParagraph(model.description).length > 87 ? "..." : "";
 
     //params
-    const showEntityType = props.showEntityType ?? true;
+    // const showEntityType = props.showEntityType ?? true;
     const appType = getType(model.type);
     //Verify is a bottom line is available to be displayed
     const isBottomLine = BottomLineContent || model.singleList;
 
-    //Set up badges
-    const [badgeToShowState, setBadgeToShowState] = useState(undefined);
-    //If props.badgesInfo exist, badges array exist in entity and is > 0 length fetch badges info
-    useEffect(() => {
-        if (
+    /**
+     * @typedef {{ iconPath?: string; iconAlt?: string; label?: string; }} BadgeProps
+     */
+
+    /**
+     * @type {ReturnType<typeof useMemo<BadgeProps>>}
+     */
+    const badgeToShow = useMemo(
+        () =>
             props.badgesInfo !== undefined &&
             model.badges !== undefined &&
             Array.isArray(model.badges) &&
             model.badges.length > 0
-        ) {
-            setBadgeToShowState(props.badgesInfo[model.badges[0]]);
-        }
-    }, [props.badgesInfo]);
+                ? props.badgesInfo[model.badges[0]]
+                : undefined,
+        [props.badgesInfo, model.badges]
+    );
 
     /**
      * Defining the default header fo the EntitySimple to be overwrite with Header
@@ -87,7 +102,7 @@ const EntitySimple = (props) => {
                             imgClassName={`${styles["simple-abstract__header__figure__img"]}`}
                             addGradientOver={true}
                             link={model.singleLink}
-                            linkTitle={title}
+                            linkTitle={model.title}
                             addLinkTag={false}
                         >
                             {!model.mainImage.isDefault && (
@@ -97,26 +112,21 @@ const EntitySimple = (props) => {
                             )}
                         </MediaFigure>
 
-                        {badgeToShowState !== undefined && (
+                        {badgeToShow !== undefined && (
                             <div
                                 className={`position-absolute bottom-0 end-0 ${styles["simple-abstract__header__badge"]} `}
                             >
-                                <img
-                                    src={badgeToShowState?.iconPath}
-                                    alt={badgeToShowState?.iconAlt ?? "Badge"}
-                                    width="40px"
-                                    height="40px"
+                                <Image
+                                    src={badgeToShow?.iconPath}
+                                    alt={badgeToShow?.iconAlt ?? "Badge"}
+                                    width="40"
+                                    height="40"
                                 />
                             </div>
                         )}
                     </div>
                 </div>
             )}
-            {/* Display over the entity the type of image 
-            {showEntityType && appType &&
-                <h4 title={appType.label} className={`position-relative text-white fw-normal justify-self-end m-2 p-0 ${styles["entity-type"]}`}><Icon iconName={appType.icon}/></h4>
-            }
-            */}
         </div>
     );
 
@@ -137,12 +147,13 @@ const EntitySimple = (props) => {
                 {/* Main name of the entity */}
                 <div className={"w-100 d-flex flex-column justify-content-center align-items-center"}>
                     <h3
+                        title={model.title}
                         className={`w-100 m-0 text-center
                         ${styles["simple-abstract__content__title"]}
-                        ${styles["simple-abstract__content_ellipsis"]}
-                    `}
+                        `}
+                        // ${styles["simple-abstract__content_ellipsis"]}
                     >
-                        {model.title}
+                        {truncatedTitle}
                     </h3>
                 </div>
                 {/* model.singleLink && <KebabButton href={model.singleLink} /> */}
@@ -223,7 +234,7 @@ const EntitySimple = (props) => {
 
     return (
         <Tag className={`${className} rounded ${styles["simple-abstract"]}`}>
-            <Link href={model.singleLink} title={title}>
+            <Link href={model.singleLink} title={model.title}>
                 {/* SECTION 1/2 : HeaderDefault */}
                 <header className={`${styles["simple-abstract__header"]}`}>
                     {/* Override the display of the normal visual if there is the overRidingHeader is defined */}
