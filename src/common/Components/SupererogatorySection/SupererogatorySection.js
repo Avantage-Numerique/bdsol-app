@@ -53,14 +53,17 @@ const JSONLDDisplay = (props) => {
     const { model } = props;
 
     let [copied, setCopied] = useState(false);
-    let copiedTimer;
+    let [copiedTimer, setCopiedTimer] = useState();
 
     const hintCopied = () => {
         copiedTimer && clearTimeout(copiedTimer);
         setCopied(true);
-        copiedTimer = setTimeout(() => {
-            setCopied(false);
-        }, 1500);
+
+        setCopiedTimer(
+            setTimeout(() => {
+                setCopied(false);
+            }, 1500)
+        );
     };
 
     const msg = useMessages();
@@ -72,11 +75,7 @@ const JSONLDDisplay = (props) => {
             <button
                 className="btn btn-outline-secondary position-absolute top-0 end-0"
                 onClick={async () => {
-                    console.log("before copy");
-
                     await navigator.clipboard.writeText(JSON.stringify(model._jsonld));
-
-                    console.log("after copy");
 
                     msg.addMessage({
                         text: "Données structurées copiées!",
