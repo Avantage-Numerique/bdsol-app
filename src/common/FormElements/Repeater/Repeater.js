@@ -179,10 +179,10 @@ const Repeater = (props) => {
 
     //Whenever the iteration state change, apply the changes on the main state
     useEffect(() => {
-        //Data to return in the main form state
-        let isValid = true;
         //Get an array with every values
         const value = Object.values(iterations);
+        //Check if any isValid is false and set parent isValid accordingly
+        const isValid = value.every((ite) => ite.isValid);
         //Update the main form state
         inputHandler(name, value, isValid);
     }, [iterations]);

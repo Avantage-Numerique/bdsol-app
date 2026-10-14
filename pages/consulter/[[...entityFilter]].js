@@ -203,10 +203,10 @@ const ConsultData = (props) => {
                 <section className="bg-primary-5">
                     <div className="container py-4">
                         <section className={"d-flex justify-content-between align-items-center"}>
-                            <h3>
+                            <p className="fs-3 fw-semibold">
                                 <Icon iconName="filter" />
                                 Filtres
-                            </h3>
+                            </p>
                             {isDev && (
                                 <Collapse
                                     btnLabel={"Filtres actifs"}

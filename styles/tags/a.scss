@@ -37,6 +37,17 @@ a.internal-link,
             text-underline-offset: 4px;
         }
     }
+
+    &.internal-link-primary-dark {
+        color: $primary-dark;
+        @include transition();
+        &:hover {
+            color: $primary-darker;
+            text-decoration-color: $primary-darker;
+            text-decoration-thickness: 3px;
+            text-underline-offset: 4px;
+        }
+    }
 }
 
 .single-info-description {

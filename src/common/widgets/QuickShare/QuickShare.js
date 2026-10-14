@@ -21,7 +21,7 @@ const QuickShare = ({ model }) => {
         return txt.slice(0, DESC_MAX_LEN) + (len > DESC_MAX_LEN ? "[...]" : "");
     }
 
-    const shortTextContent = `${lang.shareableTextIntro}\n\n${lang.continueReadingOn} ${model?.fullSingleLinkUrl}\n`;
+    const shortTextContent = `${lang.shareableTextIntro}\n\n${lang.continueReadingOn(model?.fullSingleLinkUrl)}\n`;
     const shortURLEncodedContent = encodeURIComponent(shortTextContent);
 
     const longTextContent = `${lang.shareableTextIntro}\n\n${model?.meta?.title}\n\n${processDesc()}\n\n${lang.continueReadingOn(model?.fullSingleLinkUrl)}\n`;
