@@ -34,7 +34,6 @@
         "@fullhuman/postcss-purgecss": "^8.0.0",
         "@popperjs/core": "^2.11.8",
         "@socialgouv/matomo-next": "1.11.0",
-        "blotter": "^1.0.0",
         "bootstrap": "^5.3.8",
         "chroma-js": "^3.2.0",
         "date-fns": "^3.6.0",
