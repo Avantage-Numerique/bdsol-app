@@ -30,6 +30,7 @@ export const SupererogatorySection = (props) => {
                 title={lang.seoSection}
                 NAMessage="Rien à signaler!"
                 show={false}
+                outline={true}
             >
                 <SameAsDisplay title={lang.sameAs} urls={model?.sameAs} />
 
@@ -73,7 +74,7 @@ const JSONLDDisplay = (props) => {
             <strong>{lang.jsonldContentTitle} :</strong>
 
             <button
-                className="btn btn-outline-secondary position-absolute top-0 end-0"
+                className="btn btn-outline-primary position-absolute top-0 end-0"
                 onClick={async () => {
                     await navigator.clipboard.writeText(JSON.stringify(model._jsonld));
 

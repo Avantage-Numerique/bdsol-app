@@ -1,6 +1,6 @@
 import styles from "./SingleInfo.module.scss";
 import { useFieldTips } from "@/src/hooks/useFieldTips/useFieldTips";
-import Icon from "@/src/common/widgets/Icon/Icon";
+import { DefaultNotAvailableDisplay } from "./DefaultNotAvailableDisplay";
 
 /**
  * @typedef {Object} SingleInfoProps
@@ -63,16 +63,6 @@ const SingleInfo = (props) => {
     //Prevent the display if nothing to show
     if (!isFilled && !defaultDisplay) return <></>;
 
-    const DefaultNotAvailableDisplay = () => {
-        return (
-            <div className={`d-flex flex-column`}>
-                {NAMessage && <p>{NAMessage}</p>}
-                <div></div>
-                {NAComponent && <div className={`${styles["default-component--display"]}`}>{NAComponent}</div>}
-            </div>
-        );
-    };
-
     return (
         <div className={`${styles["single-info-container"]} ${isSubtitle && "py-2"}`}>
             {" "}
@@ -95,7 +85,7 @@ const SingleInfo = (props) => {
 
                 <div>
                     {isFilled ? children : null}
-                    {!isFilled && <DefaultNotAvailableDisplay />}
+                    {!isFilled && <DefaultNotAvailableDisplay NAMessage={NAMessage} NAComponent={NAComponent} />}
                 </div>
             </section>
         </div>
