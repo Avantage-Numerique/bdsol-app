@@ -31,6 +31,7 @@ import SingleBeforeUnloadReminder from "@/src/DataTypes/common/layouts/SingleSav
 import RichTextarea from "@/src/common/FormElements/RichTextArea/RichTextarea";
 import { ShortDescription } from "@/src/DataTypes/common/layouts/ShortDescription/ShortDescription";
 import UpdateSameAs from "@/src/DataTypes/common/Forms/UpdateSameAs/UpdateSameAs";
+import { mapSingleUrl } from "./mapSingleUrl";
 
 const EquipmentSingleEdit = ({ positiveRequestActions, ...props }) => {
     //Model de project
@@ -123,14 +124,6 @@ const EquipmentSingleEdit = ({ positiveRequestActions, ...props }) => {
     //Submit the form
     const submitHandler = async (event) => {
         event.preventDefault();
-
-        function mapSingleUrl(singleUrl) {
-            return {
-                label: singleUrl.value.label.value,
-                url: singleUrl.value.url.value,
-                subMeta: { order: singleUrl.order },
-            };
-        }
 
         const formData = {
             data: {

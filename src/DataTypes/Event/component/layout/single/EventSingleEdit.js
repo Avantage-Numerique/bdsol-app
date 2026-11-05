@@ -35,6 +35,7 @@ import SingleBaseCTA from "@/src/DataTypes/common/layouts/single/defaultSections
 import { useMessages } from "@/common/UserNotifications/Message/MessageProvider";
 import { ShortDescription } from "@/src/DataTypes/common/layouts/ShortDescription/ShortDescription";
 import UpdateSameAs from "@/src/DataTypes/common/Forms/UpdateSameAs/UpdateSameAs";
+import { mapSingleUrl } from "@/src/DataTypes/Equipment/components/layouts/single/mapSingleUrl";
 
 const EventSingleEdit = ({ data }, ...props) => {
     const {
@@ -192,6 +193,10 @@ const EventSingleEdit = ({ data }, ...props) => {
                 value: location ? location : [],
                 isValid: true,
             },
+            sameAs: {
+                value: model?.sameAs ?? [],
+                isValid: true,
+            },
         },
         //Pass a set of rules to execute a valid response of an api request
         {
@@ -256,13 +261,7 @@ const EventSingleEdit = ({ data }, ...props) => {
                         : "",
                 startDate: combineDateAndTime(formState.inputs.startDate.value, formState.inputs.startTime.value),
                 endDate: combineDateAndTime(formState.inputs.endDate.value, formState.inputs.endTime.value),
-                url: formState.inputs.url.value.map(function (singleUrl) {
-                    return {
-                        label: singleUrl.value.label.value,
-                        url: singleUrl.value.url.value,
-                        subMeta: { order: singleUrl.order },
-                    };
-                }),
+                url: formState.inputs.url.value.map(mapSingleUrl),
                 contactPoint: formState.inputs.contactPoint.value,
                 schedule: formState.inputs.schedule.value.map((singleSchedule) => {
                     return {
@@ -319,6 +318,7 @@ const EventSingleEdit = ({ data }, ...props) => {
                 //Temporary set the input in name field until we have a more elaborated structure for location
                 //location: [{ name: formState.inputs.location.value}],
                 meta: getDefaultUpdateEntityMeta(auth.user, model.meta.requestedBy),
+                sameAs: formState.inputs.sameAs.value.map(mapSingleUrl),
             },
         };
 

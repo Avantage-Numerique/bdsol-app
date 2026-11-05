@@ -37,6 +37,7 @@ import { apiDateToDateInput, dateTimeStringToUTC } from "@/common/DateManager/Pa
 import SelectFetch from "@/src/common/FormElements/Select/SelectFetch";
 import { ShortDescription } from "@/src/DataTypes/common/layouts/ShortDescription/ShortDescription";
 import UpdateSameAs from "@/src/DataTypes/common/Forms/UpdateSameAs/UpdateSameAs";
+import { mapSingleUrl } from "@/src/DataTypes/Equipment/components/layouts/single/mapSingleUrl";
 
 const OrganisationSingleEdit = (props) => {
     //Organisation data extract
@@ -185,6 +186,10 @@ const OrganisationSingleEdit = (props) => {
                 value: model.region ?? "",
                 isValid: true,
             },
+            sameAs: {
+                value: model?.sameAs ?? [],
+                isValid: true,
+            },
         },
         {
             displayResMessage: true, //Display a message to the user to confirm the succes
@@ -208,13 +213,7 @@ const OrganisationSingleEdit = (props) => {
                 name: formState.inputs.name.value,
                 description: formState.inputs.description.value,
                 shortDescription: formState.inputs.shortDescription.value,
-                url: formState.inputs.url.value.map(function (singleUrl) {
-                    return {
-                        label: singleUrl.value.label.value,
-                        url: singleUrl.value.url.value,
-                        subMeta: { order: singleUrl.order },
-                    };
-                }),
+                url: formState.inputs.url.value.map(mapSingleUrl),
                 contactPoint: formState.inputs.contactPoint.value,
                 fondationDate: dateTimeStringToUTC(formState.inputs.fondationDate.value),
                 offers: formState.inputs.offers.value.map(function (singleOffer) {
@@ -260,6 +259,7 @@ const OrganisationSingleEdit = (props) => {
                         ? formState.inputs.region.value
                         : "",
                 meta: getDefaultUpdateEntityMeta(auth.user, model.meta.requestedBy),
+                sameAs: formState.inputs.sameAs.value.map(mapSingleUrl),
             },
         };
 

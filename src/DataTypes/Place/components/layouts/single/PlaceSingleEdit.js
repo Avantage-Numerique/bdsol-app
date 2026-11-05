@@ -26,6 +26,8 @@ import SingleBaseCTA from "@/src/DataTypes/common/layouts/single/defaultSections
 
 import { useMessages } from "@/common/UserNotifications/Message/MessageProvider";
 import { ShortDescription } from "@/src/DataTypes/common/layouts/ShortDescription/ShortDescription";
+import { mapSingleUrl } from "@/src/DataTypes/Equipment/components/layouts/single/mapSingleUrl";
+import UpdateSameAs from "@/src/DataTypes/common/Forms/UpdateSameAs/UpdateSameAs";
 
 const PlaceSingleEdit = ({ positiveRequestActions, ...props }) => {
     let model = new Place(props.data);
@@ -112,6 +114,10 @@ const PlaceSingleEdit = ({ positiveRequestActions, ...props }) => {
                 value: model.longitude ?? "",
                 isValid: true,
             },
+            sameAs: {
+                value: model?.sameAs ?? [],
+                isValid: true,
+            },
         },
         //Pass a set of rules to execute a valid response of an api request
         {
@@ -142,6 +148,7 @@ const PlaceSingleEdit = ({ positiveRequestActions, ...props }) => {
                 latitude: formState.inputs.latitude.value,
                 longitude: formState.inputs.longitude.value,
                 meta: getDefaultUpdateEntityMeta(auth.user, model.meta.requestedBy),
+                sameAs: formState.inputs.sameAs.value.map(mapSingleUrl),
             },
         };
 
@@ -294,6 +301,7 @@ const PlaceSingleEdit = ({ positiveRequestActions, ...props }) => {
     const Footer = (
         <>
             <SingleInfo title={lang.seoSection}>
+                <UpdateSameAs label={lang.sameAs} name="sameAs" parentEntity={model} formTools={formTools} />
                 <ShortDescription formTools={formTools} name="shortDescription" model={model} />
             </SingleInfo>
             {(createdAt || updatedAt || meta) && (

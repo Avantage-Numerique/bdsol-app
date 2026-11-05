@@ -35,6 +35,7 @@ import { useMessages } from "@/common/UserNotifications/Message/MessageProvider"
 import SelectFetch from "@/src/common/FormElements/Select/SelectFetch";
 import { ShortDescription } from "@/src/DataTypes/common/layouts/ShortDescription/ShortDescription";
 import UpdateSameAs from "@/src/DataTypes/common/Forms/UpdateSameAs/UpdateSameAs";
+import { mapSingleUrl } from "@/src/DataTypes/Equipment/components/layouts/single/mapSingleUrl";
 
 const PersonSingleEdit = ({ positiveRequestActions, ...props }) => {
     //Person data extract
@@ -129,6 +130,10 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props }) => {
                 value: model?.region ?? "",
                 isValid: true,
             },
+            sameAs: {
+                value: model?.sameAs ?? [],
+                isValid: true,
+            },
         },
         //Pass a set of rules to execute a valid response of an api request
         {
@@ -176,17 +181,14 @@ const PersonSingleEdit = ({ positiveRequestActions, ...props }) => {
                           })
                         : [],
                 contactPoint: formState.inputs.contactPoint.value,
-                url: formState.inputs.url.value.map(function (singleUrl) {
-                    return {
-                        label: singleUrl.value.label.value,
-                        url: singleUrl.value.url.value,
-                        subMeta: { order: singleUrl.order },
-                    };
-                }),
+                url: formState.inputs.url.value.map(mapSingleUrl),
                 region:
                     formState.inputs.region.value && formState.inputs.region.value !== ""
                         ? formState.inputs.region.value
                         : "",
+
+                sameAs: formState.inputs.sameAs.value.map(mapSingleUrl),
+
                 meta: getDefaultUpdateEntityMeta(auth.user, model.meta.requestedBy),
             },
         };

@@ -23,6 +23,7 @@ export const base = {
     externalLinks: "External links",
     sameAs: "Same as",
     sameAs: "<code>sameAs</code> ID",
+    sameAsImportantNote: "Ex.: Identifiers from WikiData, ISNI, ...",
     about: "About",
     contactInformations: "Contact informations",
     anonyme: "anonym",

@@ -5,6 +5,7 @@ import Input from "@/src/common/FormElements/Input/Input";
 import Repeater from "@/src/common/FormElements/Repeater/Repeater";
 import { lang } from "@/src/common/Data/GlobalConstants";
 import Popover from "@/src/common/Components/Popover/Popover";
+import Icon from "@/src/common/widgets/Icon/Icon";
 
 const UpdateSameAs = ({ parentEntity, name, formTools, ...props }) => {
     return (
@@ -13,6 +14,11 @@ const UpdateSameAs = ({ parentEntity, name, formTools, ...props }) => {
                 <label htmlFor={name}>{props.label}</label>
                 <Popover title="Web Sémantique" body='Propriété "sameAs" du web sémantique' />
             </div>
+
+            <p className={"py-2"}>
+                <Icon iconName={"exclamation-circle"} /> {lang.sameAsImportantNote}
+            </p>
+
             <Repeater
                 className=""
                 formTools={formTools}

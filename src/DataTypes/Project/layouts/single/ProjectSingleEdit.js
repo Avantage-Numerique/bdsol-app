@@ -37,6 +37,7 @@ import { TYPE_EQUIPMENT, TYPE_TAXONOMY } from "@/src/DataTypes/Entity/Types";
 import { useMessages } from "@/common/UserNotifications/Message/MessageProvider";
 import { ShortDescription } from "@/src/DataTypes/common/layouts/ShortDescription/ShortDescription";
 import UpdateSameAs from "@/src/DataTypes/common/Forms/UpdateSameAs/UpdateSameAs";
+import { mapSingleUrl } from "@/src/DataTypes/Equipment/components/layouts/single/mapSingleUrl";
 
 const ProjectSingleEdit = (props) => {
     const {
@@ -199,6 +200,10 @@ const ProjectSingleEdit = (props) => {
                 value: context ?? "",
                 isValid: true,
             },
+            sameAs: {
+                value: model?.sameAs ?? [],
+                isValid: true,
+            },
         },
         //Actions if the form turns out to be positive
         {
@@ -277,14 +282,9 @@ const ProjectSingleEdit = (props) => {
                           })
                         : [],
                 contactPoint: formState.inputs.contactPoint.value,
-                url: formState.inputs.url.value.map(function (singleUrl) {
-                    return {
-                        label: singleUrl.value.label.value,
-                        url: singleUrl.value.url.value,
-                        subMeta: { order: singleUrl.order },
-                    };
-                }),
+                url: formState.inputs.url.value.map(mapSingleUrl),
                 meta: getDefaultUpdateEntityMeta(auth.user, model.meta.requestedBy),
+                sameAs: formState.inputs.sameAs.value.map(mapSingleUrl),
             },
         };
 

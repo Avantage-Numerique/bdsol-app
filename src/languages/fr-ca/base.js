@@ -35,6 +35,7 @@ export const base = {
     externalLinks: "Liens externes",
     sameAs: "Entités équivalentes",
     sameAsUrl: "Identifiant <code>sameAs</code>",
+    sameAsImportantNote: "Ex.: Identifiant WikiData, ISNI, ...",
     contactInformations: "Informations de contact",
     anonyme: "anonyme",
     parAvnu: "par AVNU",
