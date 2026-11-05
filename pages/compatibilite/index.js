@@ -3,13 +3,18 @@ import PageHeader from "@/src/layouts/Header/PageHeader";
 import { useEffect, useState } from "react";
 import { clientSideExternalApiRequest } from "@/src/hooks/http-hook";
 import Icon from "@/src/common/widgets/Icon/Icon";
-import { lang } from "@/src/common/Data/GlobalConstants";
 
 import styles from "./compatibilite.module.scss";
 
+/**
+ *
+ * @typedef {{ ontologiesMetaData: Record<import('../../../api/src/Compatibility/types').CompatibleOntologiesEnum, import('../../../api/src/Compatibility/types').OntologyMetaData>}} OntologiesMetaObject
+ */
+
+/** */
 const CompatibilityHomePage = () => {
     /**
-     * @type {[import('../../../api/src/Referential/Data/types').RefData, (RefData) => void]}
+     * @type {[OntologiesMetaObject, (OntologyMetaObject) => void]}
      */
     const [refResponse, setRefResponse] = useState(undefined);
 
@@ -24,6 +29,10 @@ const CompatibilityHomePage = () => {
     const baseRoute = "/compatibility";
     const apiUrl = process.env.API_URL;
 
+    /**
+     *
+     * @param {OntologiesMetaObject} ref
+     */
     const ontologyTable = (ref) => {
         if (ref === undefined || ref.ontologiesMetaData === undefined) return <></>;
 
