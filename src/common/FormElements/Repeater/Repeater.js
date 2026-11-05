@@ -3,7 +3,6 @@ import React, { useEffect, useRef, useState } from "react";
 // @dnd-kit
 import { DragDropManager, DragDropProvider, KeyboardSensor, PointerSensor } from "@dnd-kit/react";
 import { move } from "@dnd-kit/helpers";
-import { closestCenter } from "@dnd-kit/collision";
 
 //components
 import Button from "@/FormElements/Button/Button";
@@ -217,6 +216,8 @@ const Repeater = (props) => {
         // const active = operation.source;
         // const over = operation.target;
 
+        console.log({ source: source.id, target: target.id });
+
         if (canceled) {
             setDragActiveItem(null);
             return;
@@ -248,6 +249,8 @@ const Repeater = (props) => {
             });
             //Update the state with the new modified object
             setIterations(newIterationState);
+        } else {
+            console.log("undetected or source === target");
         }
         setDragActiveItem(null);
 
@@ -259,7 +262,7 @@ const Repeater = (props) => {
             <section ref={containerRef} className={`${styles["repeater"]}`}>
                 <DragDropProvider
                     sensors={[PointerSensor, KeyboardSensor]}
-                    collisionDetection={closestCenter}
+                    // collisionDetection={closestCenter}
                     onDragStart={(event, manager) => {
                         const { operation } = event;
                         setDragActiveItem(operation.source);

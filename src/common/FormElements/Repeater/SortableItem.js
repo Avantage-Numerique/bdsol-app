@@ -43,7 +43,7 @@ export const SortableItem = (props) => {
         >
             {sortable && sortedIterationsArray.length > 1 && (
                 <div
-                    draggable={true}
+                    // draggable={true}
                     role={"button"}
                     // eslint-disable-next-line react-hooks/refs
                     ref={_sortable.handleRef}
