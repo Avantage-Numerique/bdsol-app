@@ -90,7 +90,7 @@ const JSONLDDisplay = (props) => {
 
             <details>
                 <summary>JSON+LD</summary>
-                {model._jsonld && <pre>{JSON.stringify(model._jsonld, null, 2)}</pre>}
+                {model._jsonld && <pre>{JSON.stringify(model._jsonld, null, 2).replace(/</g, "\\u003c")}</pre>}
             </details>
         </div>
     );
