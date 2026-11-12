@@ -17,7 +17,7 @@ const PlaceSimple = ({ model }) => {
                 {/* NOTE: faire un choix entre { bottomText } et la version en dessous  <TimeTag/> */}
                 <div>{bottomText}</div>
 
-                <b>
+                {/* <b>
                     <TimeTag />
                     {model.endDate && (
                         <>
@@ -25,7 +25,7 @@ const PlaceSimple = ({ model }) => {
                             <TimeTag endingDate />
                         </>
                     )}
-                </b>
+                </b> */}
             </div>
         );
     };

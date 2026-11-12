@@ -15,6 +15,7 @@ import { removeTagsFromString } from "@/src/helpers/html";
 import MapWrapper from "@/src/map/MapWrapper";
 import SearchTag from "@/src/common/Components/SearchTag";
 import { SupererogatorySection } from "@/src/common/Components/SupererogatorySection/SupererogatorySection";
+import SingleBaseCTA from "@/src/DataTypes/common/layouts/single/defaultSections/SingleBaseCTA";
 
 //Styling
 import styles from "./PlaceSingleView.module.scss";

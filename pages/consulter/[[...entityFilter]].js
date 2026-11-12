@@ -192,12 +192,14 @@ const ConsultData = (props) => {
     return (
         <div>
             <PageMeta title={lang.consult__title} description={lang.consult__description} />
+
             <PageHeader
                 bg={"bg-primary-light"}
                 textColor={"text-white"}
                 htmlTitle={"Consulter les ressources technologiques du Croissant boréal"}
                 description="Voir les personnes et organisation sur le territoire, les projets et événements en cours où à venir, et bien plus!"
-            ></PageHeader>
+            />
+
             <section style={{ width: "100vw", marginLeft: "calc(50% - 50vw)" }}>
                 {/* Filter type section */}
                 <section className="bg-primary-5">
@@ -207,6 +209,7 @@ const ConsultData = (props) => {
                                 <Icon iconName="filter" />
                                 Filtres
                             </p>
+
                             {isDev && (
                                 <Collapse
                                     btnLabel={"Filtres actifs"}
@@ -275,7 +278,9 @@ const ConsultData = (props) => {
                     </div>
                 </section>
             </section>
+
             <Element name="consultScrollToElement"></Element>
+
             <Pagination
                 paginationMeta={consultData.paginationMeta}
                 setClearList={updateClearList}
