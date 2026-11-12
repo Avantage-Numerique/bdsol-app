@@ -1,10 +1,9 @@
-import {useEffect} from "react";
+import { useEffect } from "react";
 import Router from "next/router";
 import fetchInternalApi from "@/src/api/fetchInternalApi";
 
-export default function useAuthentification({redirectTo = "", redirectIfFound = false} = {}) {
-
-    const {data: user} = fetchInternalApi("/api/user");
+export default function useAuthentification({ redirectTo = "", redirectIfFound = false } = {}) {
+    const { data: user } = fetchInternalApi("/api/user");
 
     useEffect(() => {
         if (!redirectTo || !user) return;
@@ -19,5 +18,5 @@ export default function useAuthentification({redirectTo = "", redirectIfFound = 
         }
     }, [user, redirectIfFound, redirectTo]);
 
-    return {user};
+    return { user };
 }

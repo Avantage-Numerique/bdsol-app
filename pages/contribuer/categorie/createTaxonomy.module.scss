@@ -6,34 +6,29 @@
 */
 
 .create-taxonomy {
-
-
-
     .create-taxonomy--max-width {
-        
         margin: auto;
         max-width: 70ch;
         width: 100%;
-
     }
 
     .create-taxonomy__return-button {
         margin-top: 5vh;
-        button { float: right; }
+        button {
+            float: right;
+        }
     }
 
     header {
-
-        h1 {  margin: 0px; }
-        h4 { 
-            
-            margin: 0px 0px 1rem 0px; 
+        h1 {
+            margin: 0px;
+        }
+        h4 {
+            margin: 0px 0px 1rem 0px;
             color: rgba(83, 83, 83, 0.651);
-
         }
 
         padding: 10vh 0px;
-
     }
 
     section {
@@ -41,6 +36,4 @@
         position: relative;
         padding: 5vh 0px;
     }
-
-
 }

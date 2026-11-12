@@ -1,4 +1,3 @@
-
 const getEntityBaseRouteName = (entityType) => {
     switch (entityType) {
         case "Person":
@@ -18,20 +17,19 @@ const getEntityBaseRouteName = (entityType) => {
         case "taxonomy":
         case "categorie":
             return "categories";
-        
+
         case "Project":
         case "project":
-            return "projets"
+            return "projets";
     }
-}
+};
 
 const getEntityBaseURI = (entityType) => {
-    return "/"+getEntityBaseRouteName(entityType)+"/";
-}
-
+    return "/" + getEntityBaseRouteName(entityType) + "/";
+};
 
 const getEntityURI = (entityType, slug) => {
     return getEntityBaseURI(entityType) + slug;
-}
+};
 
-export {getEntityBaseRouteName, getEntityBaseURI, getEntityURI};
+export { getEntityBaseRouteName, getEntityBaseURI, getEntityURI };

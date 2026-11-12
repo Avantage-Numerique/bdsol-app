@@ -1,25 +1,20 @@
-import {useEffect, useState} from 'react';
-import {clientSideExternalApiRequest} from '@/src/hooks/http-hook';
+import { useEffect, useState } from "react";
+import { clientSideExternalApiRequest } from "@/src/hooks/http-hook";
 
 //Component
-import Select from './Select';
-
+import Select from "./Select";
 
 const SelectFetch = (props) => {
-
-    const [options, setOptions] = useState([])
+    const [options, setOptions] = useState([]);
 
     //Search suggestion
-    useEffect( () => {
+    useEffect(() => {
         const getSelectOptions = async () => {
-            const optionList = await clientSideExternalApiRequest(
-                '/info/' + props.fetchOption,
-                { method: 'GET' }
-            );
+            const optionList = await clientSideExternalApiRequest("/info/" + props.fetchOption, { method: "GET" });
             setOptions(optionList);
-        }
+        };
         getSelectOptions();
-    }, [])
+    }, []);
 
     return (
         <Select
@@ -33,7 +28,7 @@ const SelectFetch = (props) => {
             //defaultValue={}
             validationRules={props.validationRules}
         />
-    )
-}
+    );
+};
 
 export default SelectFetch;

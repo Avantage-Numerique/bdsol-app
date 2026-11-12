@@ -12,22 +12,20 @@ import Icon from "@/common/widgets/Icon/Icon";
  * @constructor
  */
 const InPageLink = (props) => {
-    if (props.name !== '') {
+    if (props.name !== "") {
         const link = `#${props.name}`;
         const showIcon = props.showIcon ?? false;
         const showTarget = props.showTarget ?? true;
         return (
             <div className={"in-page-link-container"}>
-                <a className={`in-page-link ${props.className ?? ''}`} href={link} name={`${props.name}`}>
-                    {showIcon && <Icon iconName={"share"} className={"text-decoration-none ps-1"}/>}
+                <a className={`in-page-link ${props.className ?? ""}`} href={link} name={`${props.name}`}>
+                    {showIcon && <Icon iconName={"share"} className={"text-decoration-none ps-1"} />}
                 </a>
                 {showTarget && <span className={"in-page-link-target"}>&nbsp;</span>}
             </div>
-        )
+        );
     }
-    return (
-        <></>
-    )
-}
+    return <></>;
+};
 
-export {InPageLink};
+export { InPageLink };

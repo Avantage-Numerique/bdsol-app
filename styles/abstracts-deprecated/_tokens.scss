@@ -1,0 +1,34 @@
+// ============================================================================
+// Design Tokens Reference
+// ============================================================================
+// This file is for REFERENCE ONLY. The actual tokens are defined in:
+//   - ../custom.scss (color, typography, spacing, etc.)
+//   - ../avnu.scss (layout-specific tokens)
+//
+// To use tokens in your components, @use "abstracts" instead:
+//   @use "abstracts" as *;
+//   color: $primary;
+//
+// DO NOT @import this file directly.
+// ============================================================================
+
+// Color tokens → defined in ../custom.scss
+// $primary, $secondary, $info, $success, $danger, etc.
+
+// Typography tokens → defined in ../custom.scss
+// $font-family-sans-serif, $headings-font-family, $h1-font-size, etc.
+
+// Spacing tokens → defined in ../custom.scss
+// $spacing-sm, $spacing-md, $spacing-lg, $spacing-xl
+
+// Border tokens → defined in ../custom.scss
+// $border-radius, $border-width
+
+// Shadow tokens → defined in ../custom.scss
+// $default-box-shadow, $default-box-shadow-darker, etc.
+
+// Transition tokens → defined in ../custom.scss
+// $transition-base, $transition-ease, $bezier-default, etc.
+
+// Layout tokens → defined in ../avnu.scss
+// $picture-size, $simple-default-padding, etc.

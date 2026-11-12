@@ -1,6 +1,9 @@
-import { createContext } from 'react';
+import { createContext } from "react";
 
-export const MessageContext = createContext({ 
-    addMessage: () => {}
+export const MessageContext = createContext({
+    addMessage:
+        /**
+         * @type {({ text: string, positive: boolean }) => void}
+         */
+        () => {},
 });
-

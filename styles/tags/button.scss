@@ -1,0 +1,4 @@
+button {
+    @include transition();
+    @extend .btn;
+}

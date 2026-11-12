@@ -1,5 +1,5 @@
 async function saveCookie(res, data) {
-//WIP and not used.
+    //WIP and not used.
     /*const oneDay = 24 * 60 * 60 * 1000;
 
     cookies().set({

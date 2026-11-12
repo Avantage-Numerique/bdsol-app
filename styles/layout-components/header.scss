@@ -1,13 +1,11 @@
 .page-header-oldi {
+    padding: 8vh 4vw;
 
-  padding: 8vh 4vw;
+    h1 {
+        font-size: min(8vw, 3.2rem);
+    }
 
-  h1 {
-    font-size: min(8vw, 3.2rem);
-  }
-
-  p {
-    max-width: 70ch;
-  }
-
+    p {
+        max-width: 70ch;
+    }
 }

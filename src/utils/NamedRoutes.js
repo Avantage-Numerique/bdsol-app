@@ -1,8 +1,4 @@
-
-
-
 export default class NamedRoutes {
-
     // link to Nextjs router logic/structure and methods. https://nextjs.org/docs/routing/introduction
 
     // be able to use for these type of routes :
@@ -39,30 +35,24 @@ export default class NamedRoutes {
      * @param name {string} The slug of the route to be fetch
      * @param route {object} an urlObject for the route to be passed to Link components
      */
-    addRoute(name, route)
-    {
-        if (!this.routeExists())
-        {
+    addRoute(name, route) {
+        if (!this.routeExists()) {
             this.initRoutes();
         }
         this.routes[name] = route;
     }
-
 
     /**
      *
      * @param name {string}
      * @return {*}
      */
-    getRoute(name)
-    {
-        if (this.routeExists(name))
-        {
+    getRoute(name) {
+        if (this.routeExists(name)) {
             return this.route[name];
         }
         return name;
     }
-
 
     /**
      * @private
@@ -71,15 +61,10 @@ export default class NamedRoutes {
      * @return {boolean}
      */
     routeExists(name) {
-        return this.ifExist(this.routes) &&
-            this.ifExist(this.route[name])
+        return this.ifExist(this.routes) && this.ifExist(this.route[name]);
     }
 
     ifExist(element) {
-        return element !== undefined &&
-            element !== null;
+        return element !== undefined && element !== null;
     }
-
-
-
 }

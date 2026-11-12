@@ -1,8 +1,8 @@
-import {createContext} from 'react';
+import { createContext } from "react";
 
 export const visitorContextDefaults = {
     ip: "",
-    browser: ""
+    browser: "",
 };
 
 export const VisitorContext = createContext(visitorContextDefaults);
@@ -10,12 +10,12 @@ export const VisitorContext = createContext(visitorContextDefaults);
 export const setVisitorData = (data) => {
     VisitorContext.ip = data.id;
     //VisitorContext.browser = data.welcome;
-}
+};
 
 export const getVisitorDataFromContext = (context) => {
-    const {ctx} = context;
+    const { ctx } = context;
     return getVisitorDataFromRequest(ctx.req);
-}
+};
 
 export const getVisitorDataFromRequest = (request) => {
     const visitor = visitorContextDefaults;
@@ -24,12 +24,12 @@ export const getVisitorDataFromRequest = (request) => {
     visitor.browser = getVisitorBrowserFromRequest(request);
 
     return visitor;
-}
+};
 
 export const getVisitorIpFromRequest = (request) => {
     if (request) {
         if (request.headers["x-forwarded-for"]) {
-            return request.headers["x-forwarded-for"].split(',')[0];
+            return request.headers["x-forwarded-for"].split(",")[0];
         }
 
         if (request.headers["x-real-ip"] && req.socket) {
@@ -41,7 +41,7 @@ export const getVisitorIpFromRequest = (request) => {
         }
     }
     return undefined;
-}
+};
 
 export const getVisitorBrowserFromRequest = (request) => {
     if (request) {
@@ -50,4 +50,4 @@ export const getVisitorBrowserFromRequest = (request) => {
         }
     }
     return undefined;
-}
+};

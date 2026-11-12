@@ -3,7 +3,6 @@
 */
 
 .propertyComponent {
- 
     margin: 10px 0px;
     padding: 20px;
     border-top: 1px solid var(--bs-secondary);
@@ -11,16 +10,15 @@
 
     /* Header section of the component */
     > header {
-
         margin-bottom: 5vh;
 
-        h3{
+        h3 {
             float: left;
             margin: 0px;
             font-size: 2rem;
         }
 
-        .requirementMention{
+        .requirementMention {
             border-radius: 10px;
             padding: 4px 6px;
             font-size: 10px;
@@ -29,18 +27,19 @@
             margin: 2px 8px;
         }
 
-        small { 
+        small {
             margin: 1em 0px;
             font-size: 1rem;
         }
     }
 
-
     /* Informations section  */
     > section {
-        h4 { margin: 1rem 0rem 0.5rem 0rem; }
-        p { margin: 0px; }
+        h4 {
+            margin: 1rem 0rem 0.5rem 0rem;
+        }
+        p {
+            margin: 0px;
+        }
     }
-
-    
 }

@@ -1,13 +1,10 @@
 .main-nav {
-
     .nav {
-
         height: 5em;
         display: flex;
         background-color: transparent;
 
         .nav-link {
-            
             &:hover {
                 text-decoration: underline;
             }

@@ -1,5 +1,5 @@
 const moderation = {
-    "reportingError": "Échec du signalement"
-}
+    reportingError: "Échec du signalement",
+};
 
 exports.moderation = moderation;

@@ -1,25 +1,24 @@
-import React from 'react'
+import React from "react";
 
 //Custom hooks
-import {useFormUtils} from '@/src/hooks/useFormUtils/useFormUtils'
+import { useFormUtils } from "@/src/hooks/useFormUtils/useFormUtils";
 
 //components
-import Button from '@/FormElements/Button/Button'
-import Input from '@/FormElements/Input/Input'
+import Button from "@/FormElements/Button/Button";
+import Input from "@/FormElements/Input/Input";
 
 //Context
-import {useAuth} from "@/src/authentification/context/auth-context";
+import { useAuth } from "@/src/authentification/context/auth-context";
 
 //Styling
-import styles from './CreatePlaceForm.module.scss'
+import styles from "./CreatePlaceForm.module.scss";
 
 //Utils
-import {getDefaultCreateEntityMeta} from "@/src/DataTypes/Meta/EntityMeta";
-import { lang } from '@/src/common/Data/GlobalConstants'
-import { isValid } from 'date-fns';
+import { getDefaultCreateEntityMeta } from "@/src/DataTypes/Meta/EntityMeta";
+import { lang } from "@/src/common/Data/GlobalConstants";
+import { isValid } from "date-fns";
 
 const CreatePlaceFormSelect2 = ({ onPositiveResponse, initValues }) => {
-    
     //Authentication ref
     const auth = useAuth();
 
@@ -28,67 +27,65 @@ const CreatePlaceFormSelect2 = ({ onPositiveResponse, initValues }) => {
         {
             name: {
                 value: initValues?.name || "",
-                isValid: true
+                isValid: true,
             },
             description: {
                 value: "",
-                isValid: true
+                isValid: true,
             },
             address: {
                 value: "",
-                isValid: true
+                isValid: true,
             },
             city: {
                 value: "",
-                isValid: true
+                isValid: true,
             },
             region: {
                 value: "",
-                isValid: true
+                isValid: true,
             },
             mrc: {
                 value: "",
-                isValid: true
+                isValid: true,
             },
             province: {
                 value: "",
-                isValid: true
+                isValid: true,
             },
             postalCode: {
                 value: "",
-                isValid: true
+                isValid: true,
             },
             country: {
                 value: "",
-                isValid: true
+                isValid: true,
             },
             latitude: {
                 value: "",
-                isValid: true
+                isValid: true,
             },
             longitude: {
                 value: "",
-                isValid: true
-            }
+                isValid: true,
+            },
         },
         //Pass a set of rules to execute a valid response of an api request
         {
-            displayResMessage: true,     //Display a message to the user to confirm the succes
+            displayResMessage: true, //Display a message to the user to confirm the succes
             callbackFunction: (response) => {
                 //Execute additionnal function from parent component
-                if(onPositiveResponse) onPositiveResponse(response)
-            }
+                if (onPositiveResponse) onPositiveResponse(response);
+            },
         }
     );
-    
 
     //Function to submit the form
-    const submitHandler = async event => {
-
+    const submitHandler = async (event) => {
         event.preventDefault();
 
         const formData = {
-            "data": {
+            data: {
                 name: formState.inputs.name.value,
                 description: formState.inputs.description.value,
                 location: {
@@ -102,30 +99,22 @@ const CreatePlaceFormSelect2 = ({ onPositiveResponse, initValues }) => {
                     latitude: formState.inputs.latitude.value,
                     longitude: formState.inputs.longitude.value,
                 },
-                meta: getDefaultCreateEntityMeta(auth.user)
-            }
+                meta: getDefaultCreateEntityMeta(auth.user),
+            },
         };
 
         //Send the request with the specialized hook
-        submitRequest(
-            `/places/create`,
-            'POST',
-            formData
-        );
-    }
+        submitRequest(`/places/create`, "POST", formData);
+    };
 
     return (
-        
-       <form 
-            onSubmit={submitHandler} 
-            className={`${styles["create-place-form"]}`}
-        >
+        <form onSubmit={submitHandler} className={`${styles["create-place-form"]}`}>
             <FormUI />
-            <Input 
+            <Input
                 name="name"
-                label={lang.name+lang.required}
+                label={lang.name + lang.required}
                 className="col-12 col-md-6"
-                validationRules={[{name: "REQUIRED"}]}
+                validationRules={[{ name: "REQUIRED" }]}
                 errorText="Cette information est requise"
                 formTools={formTools}
             />
@@ -203,11 +192,24 @@ const CreatePlaceFormSelect2 = ({ onPositiveResponse, initValues }) => {
                 formTools={formTools}
             />
 
-            <div className="d-flex justify-content-end">
-                <Button disabled={!formState.isValid} type="button" onClick={submitHandler}>{lang.continue}</Button>
+            <div className="col-12">
+                <Button
+                    className="me-4"
+                    color="success"
+                    type="button"
+                    onClick={submitHandler}
+                    disabled={!formState.isValid}
+                >
+                    {lang.submit}
+                </Button>
+                {props?.closeModal && (
+                    <Button color="danger" type="button" onClick={props.closeModal()}>
+                        {lang.cancel}
+                    </Button>
+                )}
             </div>
-        </form> 
+        </form>
     );
-}
+};
 
-export default CreatePlaceFormSelect2
+export default CreatePlaceFormSelect2;

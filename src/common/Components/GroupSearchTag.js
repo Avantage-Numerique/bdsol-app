@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState } from "react";
 import SearchTag from "@/common/Components/SearchTag";
 
 /**
@@ -12,9 +12,8 @@ import SearchTag from "@/common/Components/SearchTag";
  * @return {JSX.Element}
  * @constructor
  */
-const GroupSearchTag = ({list, max, ...props}) => {
-
-    const [tagGroup] = useState([list]);//setTagGroup
+const GroupSearchTag = ({ list, max, ...props }) => {
+    const [tagGroup] = useState([list]); //setTagGroup
     //const [moreThanMax, setMoreThanMax] = useState(false);
 
     max = max ?? "-1";
@@ -35,32 +34,28 @@ const GroupSearchTag = ({list, max, ...props}) => {
 
     }, [list]);*/
 
-
     return (
         <>
-            { searchTagList.length > 0 &&
+            {searchTagList.length > 0 && (
                 <p>
-                    {
-                        tagGroup.map( (group, index) => {
-                            if (index < max || max === "-1") {
-                                return (
-                                    <>
-                                        <h4>{group[props.groupLabelProperty]}</h4>
-                                        <SearchTag
-                                            className="row"
-                                            list={group[props.groupSubListProperty]}
-                                            listProperty={props.groupSubListTagProperty}
-                                            max={max}
-                                        />
-                                    </>
-                                );
-                            }
-                        })
-                    }
+                    {tagGroup.map((group, index) => {
+                        if (index < max || max === "-1") {
+                            return (
+                                <>
+                                    <h4>{group[props.groupLabelProperty]}</h4>
+                                    <SearchTag
+                                        className="row"
+                                        list={group[props.groupSubListProperty]}
+                                        listProperty={props.groupSubListTagProperty}
+                                        max={max}
+                                    />
+                                </>
+                            );
+                        }
+                    })}
                 </p>
-            }
+            )}
         </>
     );
-
-}
+};
 export default GroupSearchTag;

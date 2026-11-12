@@ -1,106 +1,137 @@
-import { useEffect, useState } from 'react'
-import dynamic from "next/dynamic";
-import Router from "next/router";
+import { useEffect, useState } from "react";
 
 //Component
-import PageHeader from '@/src/layouts/Header/PageHeader';
-import Input from '@/src/common/FormElements/Input/Input';
-import CreatePlaceFormSingle from '@/src/DataTypes/Place/components/forms/CreatePlaceForm/CreatePlaceFormSingle';
-import Button from '@/src/common/FormElements/Button/Button';
+import PlaceSingleEdit from "@/src/DataTypes/Place/components/layouts/single/PlaceSingleEdit";
+import CreatePlaceForm from "@/DataTypes/Place/components/forms/CreatePlaceForm/CreatePlaceForm";
+import Spinner from "@/src/common/widgets/spinner/Spinner";
+import Button from "@/src/common/FormElements/Button/Button";
+
+//Hooks
+import { useModal } from "@/src/hooks/useModal/useModal";
 
 //Utils
-import {lang} from "@/src/common/Data/GlobalConstants";
-import {withSessionSsr} from "@/auth/session/handlers/withSession";
-import {ssrCanAccess} from "@/auth/permissions/ssrCanAccess";
-import { useFormUtils } from '@/src/hooks/useFormUtils/useFormUtils';
-import { getDefaultCreateEntityMeta } from '@/src/DataTypes/Meta/EntityMeta';
-import { useAuth } from '@/src/authentification/context/auth-context';
-import Place from '@/src/DataTypes/Place/models/Place';
-import {useRootModal} from '@/src/hooks/useModal/useRootModal'
-import MapWrapper from '@/src/map/MapWrapper';
-import { isValid } from 'date-fns';
+import { lang } from "@/src/common/Data/GlobalConstants";
+import { sessionContextInjector } from "@/auth/session/handlers/withSession";
+import { ssrCanAccess } from "@/auth/permissions/ssrCanAccess";
+import Router from "next/router";
+import Place from "@/src/DataTypes/Place/models/Place";
+
+// #region Current (from branch CarteLieux)
+
+// import { useEffect, useState } from 'react'
+// import dynamic from "next/dynamic";
+// import Router from "next/router";
+
+// //Component
+// import PageHeader from '@/src/layouts/Header/PageHeader';
+// import Input from '@/src/common/FormElements/Input/Input';
+// import CreatePlaceFormSingle from '@/src/DataTypes/Place/components/forms/CreatePlaceForm/CreatePlaceFormSingle';
+// import Button from '@/src/common/FormElements/Button/Button';
+
+// //Utils
+// import {lang} from "@/src/common/Data/GlobalConstants";
+// import {withSessionSsr} from "@/auth/session/handlers/withSession";
+// import {ssrCanAccess} from "@/auth/permissions/ssrCanAccess";
+// import { useFormUtils } from '@/src/hooks/useFormUtils/useFormUtils';
+// import { getDefaultCreateEntityMeta } from '@/src/DataTypes/Meta/EntityMeta';
+// import { useAuth } from '@/src/authentification/context/auth-context';
+// import Place from '@/src/DataTypes/Place/models/Place';
+// import {useRootModal} from '@/src/hooks/useModal/useRootModal'
+// import MapWrapper from '@/src/map/MapWrapper';
+// import { isValid } from 'date-fns';
+
+// const PlaceSingleEditPage = () => {
+
+//     //Authentication ref
+//     const auth = useAuth();
+//     //Modal
+//     const { Modal, displayModal, closeModal, modalInitValues } = useRootModal();
+
+// #endregion
 
 const PlaceSingleEditPage = () => {
-
-    //Authentication ref
-    const auth = useAuth();
-    //Modal
-    const { Modal, displayModal, closeModal, modalInitValues } = useRootModal();
+    //Modal hook
+    const { modal, Modal, displayModal, closeModal } = useModal();
+    //Loading state once the form has been submitted and the page is waiting for redirection
+    const [isLoading, setIsLoading] = useState(false);
+    //Display the modal once the component has rendered
+    useEffect(() => displayModal(), []);
 
     const [isNomatimDisable, setIsNomatimDisable] = useState(false);
     const { formState, formTools, submitRequest } = useFormUtils(
         {
             name: {
                 value: "",
-                isValid: true
+                isValid: true,
             },
             placeType: {
                 value: [],
-                isValid: true
+                isValid: true,
             },
             address: {
                 value: "",
-                isValid: true
+                isValid: true,
             },
             city: {
                 value: "",
-                isValid: true
+                isValid: true,
             },
             region: {
                 value: "",
-                isValid: true
+                isValid: true,
             },
             mrc: {
                 value: "",
-                isValid: true
+                isValid: true,
             },
             province: {
                 value: "",
-                isValid: true
+                isValid: true,
             },
             postalCode: {
                 value: "",
-                isValid: true
+                isValid: true,
             },
             country: {
                 value: "",
-                isValid: true
+                isValid: true,
             },
             latitude: {
                 value: "",
-                isValid: false
+                isValid: false,
             },
             longitude: {
                 value: "",
-                isValid: false
+                isValid: false,
             },
             nomatimLatitude: {
                 value: "",
-                isValid: false
+                isValid: false,
             },
             nomatimLongitude: {
                 value: "",
-                isValid: false
+                isValid: false,
             },
         },
         {
-            displayResMessage: true,     //Display a message to the user to confirm the succes
+            displayResMessage: true, //Display a message to the user to confirm the succes
             callbackFunction: (response) => {
                 //Execute additionnal function from parent component
-            }
+            },
         }
     );
 
-    const submitHandler = async event => {
+    const submitHandler = async (event) => {
         event.preventDefault();
         const formData = {
-            "data": {
+            data: {
                 name: formState.inputs.name.value,
-                placeType: formState.inputs.placeType.value.length > 0 ?
-                    formState.inputs.placeType.value.map( (elem) => {
-                        return elem.value
-                    })
-                    :[],
+                placeType:
+                    formState.inputs.placeType.value.length > 0
+                        ? formState.inputs.placeType.value.map((elem) => {
+                              return elem.value;
+                          })
+                        : [],
                 location: {
                     address: formState.inputs.address.value,
                     city: formState.inputs.city.value,
@@ -113,30 +144,25 @@ const PlaceSingleEditPage = () => {
                     longitude: formState.inputs.longitude.value,
                 },
                 nomatimObject: nomatimResult ?? {},
-                meta: getDefaultCreateEntityMeta(auth.user)
-            }
+                meta: getDefaultCreateEntityMeta(auth.user),
+            },
         };
 
         //Send the request with the specialized hook
-        const response = await submitRequest(
-            `/places/create`,
-            'POST',
-            formData
-        );
+        const response = await submitRequest(`/places/create`, "POST", formData);
 
         const model = new Place(response.data);
         //Execute the redirection
-        Router.push( model.singleEditLink )
-    }
+        Router.push(model.singleEditLink);
+    };
 
-    function updateFormFromNomatim(nomatimObject){
+    function updateFormFromNomatim(nomatimObject) {
         let concatAddress = "";
         //If nomatim sent an house number and a road concat them
-        if(nomatimObject?.address?.house_number != undefined && nomatimObject?.address?.road != undefined){
+        if (nomatimObject?.address?.house_number != undefined && nomatimObject?.address?.road != undefined) {
             concatAddress = nomatimObject.address.house_number + ", " + nomatimObject.address.road;
-        }
-        else {
-            concatAddress = nomatimObject?.address?.road ?? "" 
+        } else {
+            concatAddress = nomatimObject?.address?.road ?? "";
         }
         //Each field to update from nomatim search
         const updateObject = {
@@ -148,142 +174,165 @@ const PlaceSingleEditPage = () => {
             country: nomatimObject?.address?.country,
             latitude: formState.inputs.nomatimLatitude.value,
             longitude: formState.inputs.nomatimLongitude.value,
-        }
-        Object.keys(updateObject).forEach( (key) => {
-            if(updateObject[key] != undefined){
-                formTools.inputHandler(
-                    key,
-                    updateObject[key],
-                    true
-                );
+        };
+        Object.keys(updateObject).forEach((key) => {
+            if (updateObject[key] != undefined) {
+                formTools.inputHandler(key, updateObject[key], true);
             }
         });
     }
 
     //On map click, register the latitude and longitude
     const [latLng, setLatLng] = useState(null);
-    useEffect( () => {
-        formTools.inputHandler(
-            "nomatimLatitude",
-            latLng?.lat,
-            true,
-        );
-        formTools.inputHandler(
-            "nomatimLongitude",
-            latLng?.lng,
-            true,
-        );
-    },[latLng])
-
+    useEffect(() => {
+        formTools.inputHandler("nomatimLatitude", latLng?.lat, true);
+        formTools.inputHandler("nomatimLongitude", latLng?.lng, true);
+    }, [latLng]);
 
     const [nomatimResult, setNomatimResult] = useState(undefined);
 
-    async function nomatimSearch(reverseGeoCoding=true){
-        if(!isNomatimDisable){
+    async function nomatimSearch(reverseGeoCoding = true) {
+        if (!isNomatimDisable) {
             setIsNomatimDisable(true);
             setTimeout(() => {
                 setIsNomatimDisable(false);
             }, 2000);
             //Check if lat and lng is set
-            if(latLng?.lat == undefined && latLng?.lng == undefined){
+            if (latLng?.lat == undefined && latLng?.lng == undefined) {
                 return;
             }
             const headers = {
-                'User-Agent': 'Avnu (bonjour@avnu.ca)',
-                'Referer': 'https://avnu.ca/'
+                "User-Agent": "Avnu (bonjour@avnu.ca)",
+                Referer: "https://avnu.ca/",
             };
-            let nomatimUrl = "https://nominatim.openstreetmap.org/reverse?format=json&"
-            
-            if(reverseGeoCoding){
-                nomatimUrl+="lat="+latLng.lat+"&lon="+latLng.lng;
+            let nomatimUrl = "https://nominatim.openstreetmap.org/reverse?format=json&";
+
+            if (reverseGeoCoding) {
+                nomatimUrl += "lat=" + latLng.lat + "&lon=" + latLng.lng;
                 //try{
-                    const nomatimResponse = await fetch(nomatimUrl, { headers });
-                    if(!nomatimResponse.ok){
-                        //message error
-                        return;
-                    }
-                    const nomatimData = await nomatimResponse.json();
-                    setNomatimResult(nomatimData);
-                    //updateFormFromNomatim(nomatimData);
+                const nomatimResponse = await fetch(nomatimUrl, { headers });
+                if (!nomatimResponse.ok) {
+                    //message error
+                    return;
+                }
+                const nomatimData = await nomatimResponse.json();
+                setNomatimResult(nomatimData);
+                //updateFormFromNomatim(nomatimData);
                 //}
                 //catch{
-                    //console.log("Failed to send to nomatim")
+                //console.log("Failed to send to nomatim")
                 //}
                 displayModal();
             }
-        }
-        else {
-            console.log("Not allowed nomatim search")
+        } else {
+            console.log("Not allowed nomatim search");
             //Veuillez attendre avant de faire une nouvelle recherche
         }
-        
     }
     return (
         <div className="container">
-            <PageHeader
-                bg={"bg-primary-light"}
-                textColor={"text-white"}
-                htmlTitle={"Créer un lieu"}
-                description="Lieu comprenant un aspect numérique ou offrant la possibilité d'accueillir des projets en lien avec le numérique.">
-            </PageHeader>
-                <div className="container py-4">
-                    <div className="row">
-                        {/* Place inputs*/ }
-                        <section className="col-md-6">
-                            <CreatePlaceFormSingle formTools={formTools}/>
-                            <div className="d-flex justify-content-end">
-                                <Button disabled={!formTools.formState.isValid} type="button" onClick={submitHandler}>{lang.continue}</Button>
-                            </div>
-                        </section>
+            {/* Empty single edit, only to display in the background */}
+            <PlaceSingleEdit data={{}} />
+            {/* Loading spinner */}
+            {isLoading && <Spinner fixed />}
+            {/* Modal with the form in it*/}
+            {modal.display && (
+                <Modal coloredBackground darkColorButton>
+                    <header className={`d-flex justify-content-between align-items-start mb-4`}>
+                        <div className="d-flex flex-column">
+                            <h3 className="text-secondary-darker">Ajouter un lieu</h3>
+                            <p>
+                                Entrez les informations principales d&apos;un lieu. Vous pourrez les éditer de manière
+                                détaillée par la suite.
+                            </p>
+                        </div>
+                        <Button
+                            onClick={() => {
+                                closeModal(Router.push(`/contribuer/`));
+                            }}
+                        >
+                            {lang.cancel}
+                        </Button>
+                    </header>
+                    <CreatePlaceForm
+                        onPositiveResponse={(response) => {
+                            //Create a model for the response
+                            const model = new Place(response.data);
 
-                        {/* map */}
-                        <section className="row col-md-6">
-                            <div>Cliquer sur la carte pour trouver une latitude et longitude et remplir le formulaire par recherche.</div>
-                            <div className='col-md-8 border-start'>
-                                <Input
-                                    name="nomatimLatitude"
-                                    disabled={true}
-                                    formClassName="discrete-without-focus form-text-black"
-                                    label={"Latitude"}
-                                    formTools={formTools}
-                                />
-                                <Input
-                                    name="nomatimLongitude"
-                                    disabled={true}
-                                    formClassName="discrete-without-focus form-text-black"
-                                    label={"Longitude"}
-                                    formTools={formTools}
-                                />
-                                <Button className="" disabled={isNomatimDisable || latLng == undefined} onClick={ () => nomatimSearch() }>Rechercher l'adresse</Button>
-                            </div>
-                            <MapWrapper setLatLng={setLatLng} coordinatePopUp={true}/>
-                        </section>
-                        <Modal>
-                            <header className={`d-flex justify-content-end`}>
-                                Voulez-vous complété le formulaire avec ces données ?
-                            <Button onClick={() => closeModal()}>Fermer</Button>
-                            </header>
-                            <ul>
-                                <li>{lang.address + ": " + (nomatimResult?.address?.house_number ?? "- ") + ", " + (nomatimResult?.address?.road ?? "-")}</li>
-                                <li>{lang.city + ": " + (nomatimResult?.address?.city ?? "-")}</li>
-                                <li>{lang.region + ": " + (nomatimResult?.address?.region ?? "-")}</li>
-                                <li>{lang.province + ": " + (nomatimResult?.address?.state ?? "-")}</li>
-                                <li>{lang.postalCode + ": " + (nomatimResult?.address?.postcode ?? "-")}</li>
-                                <li>{lang.country + ": " + (nomatimResult?.address?.country ?? "-")}</li>
-                                <li>{lang.latitude + ": " + (nomatimResult?.lat ?? "-")}</li>
-                                <li>{lang.longitude + ": " + (nomatimResult?.lon ?? "-")}</li>
-                            </ul>
-                            <Button onClick={() => { updateFormFromNomatim(nomatimResult); closeModal();}}>Compléter le formulaire</Button>
-                            <Button onClick={() => closeModal()}>Annuler</Button>
-                        </Modal>
-                    </div>
-                </div>
-            
+                            //Execute the redirection
+                            Router.push(model.singleEditLink);
+                            closeModal();
+                            setIsLoading(true);
+                        }}
+                    />
+                </Modal>
+            )}
         </div>
-    )
+    );
 
-}
+    // #region Current (from branch CarteLieux)
+    // <PageHeader
+    //     bg={"bg-primary-light"}
+    //     textColor={"text-white"}
+    //     htmlTitle={"Créer un lieu"}
+    //     description="Lieu comprenant un aspect numérique ou offrant la possibilité d'accueillir des projets en lien avec le numérique.">
+    // </PageHeader>
+    //     <div className="container py-4">
+    //         <div className="row">
+    //             {/* Place inputs*/ }
+    //             <section className="col-md-6">
+    //                 <CreatePlaceFormSingle formTools={formTools}/>
+    //                 <div className="d-flex justify-content-end">
+    //                     <Button disabled={!formTools.formState.isValid} type="button" onClick={submitHandler}>{lang.continue}</Button>
+    //                 </div>
+    //             </section>
 
-export const getServerSideProps = withSessionSsr(ssrCanAccess);
+    //             {/* map */}
+    //             <section className="row col-md-6">
+    //                 <div>Cliquer sur la carte pour trouver une latitude et longitude et remplir le formulaire par recherche.</div>
+    //                 <div className='col-md-8 border-start'>
+    //                     <Input
+    //                         name="nomatimLatitude"
+    //                         disabled={true}
+    //                         formClassName="discrete-without-focus form-text-black"
+    //                         label={"Latitude"}
+    //                         formTools={formTools}
+    //                     />
+    //                     <Input
+    //                         name="nomatimLongitude"
+    //                         disabled={true}
+    //                         formClassName="discrete-without-focus form-text-black"
+    //                         label={"Longitude"}
+    //                         formTools={formTools}
+    //                     />
+    //                     <Button className="" disabled={isNomatimDisable || latLng == undefined} onClick={ () => nomatimSearch() }>Rechercher l'adresse</Button>
+    //                 </div>
+    //                 <MapWrapper setLatLng={setLatLng} coordinatePopUp={true}/>
+    //             </section>
+    //             <Modal>
+    //                 <header className={`d-flex justify-content-end`}>
+    //                     Voulez-vous complété le formulaire avec ces données ?
+    //                 <Button onClick={() => closeModal()}>Fermer</Button>
+    //                 </header>
+    //                 <ul>
+    //                     <li>{lang.address + ": " + (nomatimResult?.address?.house_number ?? "- ") + ", " + (nomatimResult?.address?.road ?? "-")}</li>
+    //                     <li>{lang.city + ": " + (nomatimResult?.address?.city ?? "-")}</li>
+    //                     <li>{lang.region + ": " + (nomatimResult?.address?.region ?? "-")}</li>
+    //                     <li>{lang.province + ": " + (nomatimResult?.address?.state ?? "-")}</li>
+    //                     <li>{lang.postalCode + ": " + (nomatimResult?.address?.postcode ?? "-")}</li>
+    //                     <li>{lang.country + ": " + (nomatimResult?.address?.country ?? "-")}</li>
+    //                     <li>{lang.latitude + ": " + (nomatimResult?.lat ?? "-")}</li>
+    //                     <li>{lang.longitude + ": " + (nomatimResult?.lon ?? "-")}</li>
+    //                 </ul>
+    //                 <Button onClick={() => { updateFormFromNomatim(nomatimResult); closeModal();}}>Compléter le formulaire</Button>
+    //                 <Button onClick={() => closeModal()}>Annuler</Button>
+    //             </Modal>
+    //         </div>
+    //     </div>
+    // =======
+    // #endregion
+};
 
-export default PlaceSingleEditPage
+export const getServerSideProps = sessionContextInjector(ssrCanAccess);
+
+export default PlaceSingleEditPage;

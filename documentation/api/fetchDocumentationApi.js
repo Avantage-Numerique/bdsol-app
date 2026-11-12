@@ -9,16 +9,13 @@
 
 */
 export const fetchDocumentationApi = async () => {
-
     try {
         const res = await fetch(Config.apiBaseHostName);
         const data = await res.json();
-    
-        return data;
-    } catch(error){
 
+        return data;
+    } catch (error) {
         //Do something if there is a problem with the request
         console.error(error);
     }
-    
-}
+};

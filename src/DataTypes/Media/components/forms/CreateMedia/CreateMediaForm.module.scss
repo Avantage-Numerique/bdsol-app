@@ -1,5 +1,4 @@
 .create-media-form {
-
     .image-column {
         min-height: 20rem;
         display: grid;
@@ -12,7 +11,6 @@
     }
 
     .fields-column {
-
         .form-inner-nav {
             border-bottom: 0.05rem solid rgb(199, 199, 199);
 
@@ -34,7 +32,6 @@
             figure {
                 width: 3rem;
 
-                
                 img {
                     width: 100%;
                     height: 100%;
@@ -43,9 +40,7 @@
             }
 
             .temporary-entity-tag__texts {
-
             }
         }
     }
-
 }

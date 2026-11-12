@@ -1,26 +1,26 @@
 import EntityModel from "@/DataTypes/Entity/models/EntityModel";
 
 import EventSingleView from "../component/layout/single/EventSingleView";
-import {TYPE_EVENT} from "@/DataTypes/Entity/Types";
+import { TYPE_EVENT } from "@/DataTypes/Entity/Types";
 import Media from "@/DataTypes/Media/models/Media";
 import AppRoutes from "@/src/Routing/AppRoutes";
 import EventSimple from "../component/layout/simple/EventSimple";
 
-
 class Event extends EntityModel {
-
-    constructor(raw, params={}) {
-
+    constructor(raw, params = {}) {
         super(raw);
 
         this.title = raw.name ?? "";
         this.description = raw.description ?? "";
-        this.mainImage = !raw.mainImage || raw.mainImage === "" ? {
-            url: "/entity-icones/L-format/png/Icone-GrandFormat-Evenement.png",
-            alt: raw.name,
-            baseSrc: `${process.env.NEXT_PUBLIC_APP_URL}`,
-            isDefault: true
-        } : raw.mainImage;
+        this.mainImage =
+            !raw.mainImage || raw.mainImage === ""
+                ? {
+                      url: "/entity-icones/L-format/png/Icone-GrandFormat-Evenement.png",
+                      alt: raw.name,
+                      baseSrc: `${process.env.NEXT_PUBLIC_APP_URL}`,
+                      isDefault: true,
+                  }
+                : raw.mainImage;
 
         this.mainImageModel = new Media(this.mainImage);
         this.type = TYPE_EVENT;
@@ -28,8 +28,11 @@ class Event extends EntityModel {
         //Class name of the icon entity
         this.icon = "icon-event_tiny_icon";
 
-
-        this.meta = {title: this.title, description: this.description, ...raw.meta};
+        this.meta = {
+            title: this.title,
+            description: this.description,
+            ...raw.meta,
+        };
         this.setUsersMetas();
 
         //this.taxonomies = new Map();
@@ -43,11 +46,11 @@ class Event extends EntityModel {
         this.singleComponent = EventSingleView;
 
         //  Routes associated with single base, single and contribute uri.
-        this.repertoryRoute = {...AppRoutes.events};
-        this.singleRoute = {...AppRoutes.eventSingle};
-        this.singleMediaRoute = {...AppRoutes.eventSingleMedia};
-        this.singleEditRoute = {...AppRoutes.eventSingleEdit};
-        this.createRoute = {...AppRoutes.eventCreate};
+        this.repertoryRoute = { ...AppRoutes.events };
+        this.singleRoute = { ...AppRoutes.eventSingle };
+        this.singleMediaRoute = { ...AppRoutes.eventSingleMedia };
+        this.singleEditRoute = { ...AppRoutes.eventSingleEdit };
+        this.createRoute = { ...AppRoutes.eventCreate };
 
         //sets all the rest as a this[key] = raw[key] value.
         this.setProperties(raw);

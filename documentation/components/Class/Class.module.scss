@@ -2,7 +2,6 @@
         Styles of the class components 
 */
 .classComponent {
-
     /**********************************************
 
         Variables for the container's side marges
@@ -11,48 +10,51 @@
     --sideMargin: 4rem;
     --sideMargin: clamp(3.5rem, 5vw, 4.5rem);
 
-
-
     width: 100%;
     float: left;
     padding: 1.5rem;
     border-left: 4px solid;
     border-color: white;
-    
+
     /*transition: border-color 0.3s ease-out 0.15s;*/
     transition: 0.3s ease-out;
 
-    &.activeClass { border-color: var(--bs-secondary); }
-    &:not(.activeClass):hover { 
+    &.activeClass {
+        border-color: var(--bs-secondary);
+    }
+    &:not(.activeClass):hover {
         background-color: rgb(245, 245, 245);
         border-color: var(--bs-secondary);
     }
 
-    
     /* Section with only the name and small description of the class */
     > header {
-
         float: left;
         width: 100%;
         display: grid;
         grid-template-columns: 4.5rem 1fr 1fr 4.5rem;
         grid-template-columns: var(--sideMargin) 1fr 1fr var(--sideMargin);
-        grid-template-rows: auto auto;            /* Two lines to for the small devices display */
+        grid-template-rows: auto auto; /* Two lines to for the small devices display */
         align-items: center;
-        min-height: 3em;        
+        min-height: 3em;
 
         /* Icone styling */
-        img { margin-right: 20%; }
+        img {
+            margin-right: 20%;
+        }
 
-        h2, h3, p {
+        h2,
+        h3,
+        p {
             margin: 0px;
             margin-right: 3rem;
         }
 
-        h2, h3 { 
+        h2,
+        h3 {
             grid-row: 1 / 2;
             grid-column: 2 / 4;
-        } 
+        }
 
         p {
             font-size: 0.9rem;
@@ -64,11 +66,7 @@
             grid-column: 1 / 5;
         }
     }
-    
 }
-
-
-
 
 /*
 *
@@ -79,14 +77,10 @@
 *
 */
 
-
 /* Medium devices (landscape tablets, 768px and up) */
 @media only screen and (min-width: 768px) {
-
     .classComponent {
-
-        > header { 
-            
+        > header {
             p {
                 grid-row: 1 / 2;
                 grid-column: 3 / 4;
@@ -96,17 +90,16 @@
         }
 
         /* Subclass container to apply the right margin */
-        > div { padding: 0rem var(--sideMargin); }
+        > div {
+            padding: 0rem var(--sideMargin);
+        }
     }
 }
-  
-  
+
 /* Extra large devices (large laptops and desktops, 1200px and up) */
 @media only screen and (min-width: 1200px) {
-    
 }
 
 /* Extra large devices (large laptops and desktops, 1500px and up) */
 @media only screen and (min-width: 1500px) {
-    
 }

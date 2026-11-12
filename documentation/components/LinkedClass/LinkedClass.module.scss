@@ -4,13 +4,11 @@
 
 */
 
-
 /* Padding value of the article */
 $articlePadding: 1rem;
 
 /* main element */
 .linkedClassComponent {
-
     margin: 5px 0px;
     border-top: 1px solid var(--bs-secondary);
     border-bottom: 1px solid var(--bs-secondary);
@@ -22,12 +20,13 @@ $articlePadding: 1rem;
 
     /* header of a linked class containing two elements : the title and the separation line */
     > header {
-        
-        display: flex; 
-        align-items: center;        
+        display: flex;
+        align-items: center;
 
-        h4 { margin: 0.5em 0em; }
-        
+        h4 {
+            margin: 0.5em 0em;
+        }
+
         .line {
             border-left: 3px solid var(--bs-secondary);
             align-self: stretch;
@@ -37,7 +36,7 @@ $articlePadding: 1rem;
     }
 
     /* Section containing all the information to display */
-    > section{
+    > section {
         flex-grow: 2;
         display: flex;
         width: 100%;
@@ -45,25 +44,21 @@ $articlePadding: 1rem;
         align-items: center;
         order: 1;
         padding: 0.5em 0px;
-        
-        > div {
 
+        > div {
             font-weight: 700;
             color: var(--bs-body-color);
             margin: 2px 20px 2px 0px;
             font-size: 0.95rem;
- 
+
             span {
                 color: var(--bs-secondary);
-
             }
         }
-
     }
 
     /* Button to redirect on the concerned class */
-    > :nth-child(3){
-
+    > :nth-child(3) {
         align-self: center;
         font-size: 20px;
         width: 1.5rem;
@@ -72,47 +67,40 @@ $articlePadding: 1rem;
         transition: 0.5s;
         opacity: 0.8;
 
-        &:hover { opacity: 1; }
-
+        &:hover {
+            opacity: 1;
+        }
     }
-
 }
-
 
 /* Extra small devices (phones, 500px and down) */
 @media only screen and (max-width: 500px) {
-
 }
-
 
 /* Medium devices (landscape tablets, 768px and up) */
 @media only screen and (min-width: 768px) {
-
     .linkedClassComponent {
-
         flex-wrap: nowrap;
         padding: $articlePadding;
 
         > header {
-            
-            h4 { min-width: 20vh; }
-            .line { display: block; }
-            
+            h4 {
+                min-width: 20vh;
+            }
+            .line {
+                display: block;
+            }
         }
 
-        > section{
+        > section {
             order: unset;
             border-top-width: 0px;
             justify-content: space-around;
             padding: 0px;
         }
-
     }
-
 }
-
 
 /* Extra large devices (large laptops and desktops, 1200px and up) */
 @media only screen and (min-width: 1200px) {
-     
 }

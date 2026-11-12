@@ -1,0 +1,9 @@
+// ============================================================================
+// AVNU Silent Layer
+// ============================================================================
+// Forwards AVNU-specific variables and configuration.
+// Bootstrap + custom variables are available via bootstrap-bridge.
+// ============================================================================
+
+@import "../deprecated-custom";
+@forward "../avnu";

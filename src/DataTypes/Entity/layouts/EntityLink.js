@@ -1,11 +1,10 @@
-import {getModelFromType, getType} from "@/DataTypes/Entity/Types";
-
+import { getModelFromType, getType } from "@/DataTypes/Entity/Types";
 import React from "react";
 import Icon from "@/common/widgets/Icon/Icon";
 import Link from "next/link";
 
 /**
- *
+ * Component to render an entity based on its model as a Link (React core component)
  * @param props
  * @param props.className {string} The figure class Name.
  * @param props.model {Media} Image tag className to pass.
@@ -13,27 +12,29 @@ import Link from "next/link";
  * @constructor
  */
 const EntityLink = (props) => {
-
-    let {
-        className,
-        data
-    } = props;
+    let { className, data } = props;
 
     // defaults
     className = className ?? "";
     const model = getModelFromType(data.type, data);
-    const type = getType(model.type);
 
-    //get height and width dynamicaly ?
-    return (
-        <>
-            {model &&
-                <Link href={model.singleLink} title={model.title} className={`link ${className}`}>
-                    <Icon iconName={type.icon} className="pe-1" /> {model.title}
-                </Link>
-            }
-        </>
-    )
-}
+    if (typeof model !== "undefined") {
+        const type = getType(model.type);
+
+        //get height and width dynamicaly ?
+        return (
+            <>
+                {model && (
+                    <Link href={model.singleLink} title={model.title} className={`link ${className}`}>
+                        <Icon iconName={type.icon} className="pe-1" /> {model.title}
+                    </Link>
+                )}
+            </>
+        );
+    }
+
+    console.error("Model is undefined for EntityLink");
+    return <span>Model is undefined</span>;
+};
 
 export default EntityLink;

@@ -1,4 +1,4 @@
-import {getDateFromIsoString} from "@/src/utils/DateHelper";
+import { getDateFromIsoString } from "@/src/utils/DateHelper";
 
 /**
  * Add a date with a <span> tag
@@ -12,35 +12,27 @@ import {getDateFromIsoString} from "@/src/utils/DateHelper";
  * @documentation https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleDateString
  */
 const DateWidget = (props) => {
+    let { stringDate, className, lang, timezone, Tag, noTag } = props;
 
-    let {
-        stringDate,
-        className,
-        lang,
-        timezone,
-        Tag,
-        noTag
-    } = props;
-
-    Tag = Tag ?? 'span';
-    className = className ?? '';
+    Tag = Tag ?? "span";
+    className = className ?? "";
     lang = lang ?? "fr-CA";
     timezone = timezone ?? "UTC";
 
     const date_FromString = new Date(getDateFromIsoString(stringDate));
-    const formater = Intl.DateTimeFormat(lang, { timeZone: timezone });//date in db are store in UTC-0 so no need to adjust it there.
+    const formater = Intl.DateTimeFormat(lang, { timeZone: timezone }); //date in db are store in UTC-0 so no need to adjust it there.
 
     if (noTag) {
-        return <>
-            {formater.format(date_FromString)}
-        </>
+        return <>{formater.format(date_FromString)}</>;
     }
 
     if (stringDate !== "" && date_FromString) {
         return (
-            <Tag className={`${className}`} title={stringDate}>{formater.format(date_FromString)}</Tag>
-        )
+            <Tag className={`${className}`} title={stringDate}>
+                {formater.format(date_FromString)}
+            </Tag>
+        );
     }
-}
+};
 
 export default DateWidget;

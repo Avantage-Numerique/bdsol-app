@@ -3,36 +3,33 @@
 */
 .navContainer {
     position: fixed;
-    top: 0px;
-    bottom: 0px;
+    top: 0;
+    bottom: 0;
     width: 100%;
     clip-path: inset(0 0 100% 0);
     overflow: auto;
 
-    /* Transition for the openning animation */
-    -webkit-transition: all 500ms ease;
-    -moz-transition: all 500ms ease;
-    -ms-transition: all 500ms ease;
-    -o-transition: all 500ms ease;
     transition: all 500ms ease;
 
     .main-section {
         margin-top: 10vh;
 
         //margin-top: calc(var(--headersHeight) + 10vh);
-    } 
+    }
 
     .nav-section {
-        padding: .25rem;
-        margin-bottom: clamp(.75rem, 3vh, 5rem);
+        padding: 0.25rem;
+        margin-bottom: clamp(0.75rem, 3vh, 5rem);
         min-width: 30ch;
-        * { text-align: left; }
+        * {
+            text-align: left;
+        }
     }
 
     .limited-width {
         width: min(100ch, 95%);
     }
-    
+
     .entity-icon {
         color: $secondary;
         margin-right: 1rem;
@@ -41,7 +38,9 @@
     .button-list {
         font-size: 1rem;
 
-        li { margin-top: 1vh; }
+        li {
+            margin-top: 1vh;
+        }
     }
 
     .bg-img-container {
@@ -49,11 +48,11 @@
         pointer-events: none;
         overflow: hidden;
         position: fixed;
-        top: 0px; 
-        bottom: 0px;
-        right: 0px; 
-        left: 0px;
-        .bg-img{
+        top: 0;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        .bg-img {
             right: 1rem;
             bottom: 0.5rem;
             height: max(18rem, 80vh);
@@ -61,19 +60,17 @@
         }
     }
 
-
     .top-covering-color {
-        background:  $primary-lighter;
-        background: linear-gradient(180deg, $primary-lighter 50%, rgba(255,255,255,0) 100%);
+        background: $primary-lighter;
+        background: linear-gradient(180deg, $primary-lighter 50%, rgba(255, 255, 255, 0) 100%);
         height: var(--headersHeight);
         position: sticky;
-        top: 0px;
+        top: 0;
         width: 100%;
-        left: 0px;
-
+        left: 0;
     }
-
 }
 
-.navContainer.displayed { clip-path: inset(0); }
-
+.navContainer.displayed {
+    clip-path: inset(0);
+}

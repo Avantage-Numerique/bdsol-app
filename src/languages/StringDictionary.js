@@ -1,3 +1,5 @@
+import { getDictionary } from "./dictionaryRegistry.js";
+
 /**
  * String management for internationalization in the app.
  * This is a dictionary design pattern. We instanciate the object, load an object as a dictionnary, applay all the keys to the dictionary scope and
@@ -6,20 +8,15 @@
  * When we would need to optmize this, we could need to use po/mo instead, and this package can be useful : https://lingui.js.org/
  */
 export default class StringDictionary {
-
     static _instance;
 
     language;
     dictionary;
     dictionaries = [];
     dictionaryFiles = [];
-    filepath;
 
-    constructor(file, lang="fr-ca")
-    {
-        //will need some refactor to load multiple file.
+    constructor(file, lang = "fr-ca") {
         this.language = lang;
-        this.filepath = `./${this.language}/`;
 
         if (typeof file === "string") {
             this.loadDictionary(file);
@@ -30,30 +27,24 @@ export default class StringDictionary {
         }
     }
 
-    static getInstance(file, lang="fr-ca") {
+    static getInstance(file, lang = "fr-ca") {
         if (StringDictionary._instance === undefined || StringDictionary._instance === null) {
             StringDictionary._instance = new StringDictionary(file, lang);
         }
         return StringDictionary._instance;
     }
 
-
     setLanguage(lang) {
         this.language = lang;
-        this.filepath = `./${this.language}/`;
-        this.loadDictionary(file);
     }
-
 
     setDictionaryFiles(files) {
         this.dictionaryFiles = files;
         this.loadDictionaries();
     }
 
-
     loadDictionaries() {
-        if (this.dictionaries.length === 0 && this.dictionaryFiles.length > 0)
-        {
+        if (this.dictionaries.length === 0 && this.dictionaryFiles.length > 0) {
             for (const dictionaryFile of this.dictionaryFiles) {
                 this.loadDictionary(dictionaryFile);
             }
@@ -64,15 +55,12 @@ export default class StringDictionary {
         }
     }
 
-
     loadDictionary(filename) {
-        const dictionary = require(this.filepath + filename + ".js");
-        const dictionaryObject = dictionary[filename];
+        const dictionaryObject = getDictionary(this.language, filename);
         if (dictionaryObject) {
             this.setDictionary(dictionaryObject);
         }
     }
-
 
     setDictionary(dictionnary) {
         this.dictionary = dictionnary;
@@ -80,16 +68,14 @@ export default class StringDictionary {
         this.setAliases(dictionnary);
     }
 
-
     /**
      * Without alias
      * @param key
      * @return {*}
      */
     getString(key) {
-        //return this.dictionary[key] ?? key;//this must be reimplemented for multiple files.
+        return this.dictionary[key] ?? key; //this must be reimplemented for multiple files.
     }
-
 
     /**
      *
@@ -123,7 +109,6 @@ export default class StringDictionary {
     plural(single, plural, n) {
         return n === 1 ? single : plural;
     }
-
 
     /**
      * Set all the properties into this scope

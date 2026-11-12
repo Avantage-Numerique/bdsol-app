@@ -1,0 +1,43 @@
+// Variables pour le ratio d'or
+$golden-major: 61.8%; // ~62%
+$golden-minor: 38.2%; // ~38%
+
+.golden-layout {
+    .golden-grid-ordered__major {
+        min-height: 50vh;
+    }
+}
+
+.golden-grid-ordered {
+    @include make-row();
+
+    &__major {
+        @include make-col-ready();
+
+        @include media-breakpoint-down(md) {
+            @include make-col(12);
+            order: 1; // Première sur mobile
+        }
+
+        @include media-breakpoint-up(lg) {
+            flex: 0 0 auto;
+            width: $golden-major;
+            order: 0;
+        }
+    }
+
+    &__minor {
+        @include make-col-ready();
+
+        @include media-breakpoint-down(md) {
+            @include make-col(12);
+            order: 2; // Deuxième sur mobile
+        }
+
+        @include media-breakpoint-up(lg) {
+            flex: 0 0 auto;
+            width: $golden-minor;
+            order: 0;
+        }
+    }
+}

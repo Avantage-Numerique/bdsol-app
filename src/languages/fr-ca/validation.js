@@ -1,5 +1,3 @@
-const validation = {
-    "badgeRequired": "Requis"
-}
-
-exports.validation = validation;
+export const validation = {
+    badgeRequired: "Requis",
+};

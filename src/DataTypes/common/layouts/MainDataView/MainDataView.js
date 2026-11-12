@@ -1,16 +1,10 @@
-import React from 'react'
+import React from "react";
 
 //Styling
 //import styles from './MainDataView.module.scss'
 
-const MainDataView = ({children}) => {
+const MainDataView = ({ children }) => {
+    return <article>{children}</article>;
+};
 
-    return (
-        <article>
-            {children}
-        </article>
-    )
-}
-
- export default MainDataView
-
+export default MainDataView;

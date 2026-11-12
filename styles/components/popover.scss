@@ -1,0 +1,29 @@
+.popover-arrow,
+.popover-arrow::before {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    z-index: -1;
+}
+
+.popover-arrow::before {
+    content: "";
+    transform: rotate(45deg);
+    background: white;
+}
+
+[x-placement="top"] > .popover-arrow {
+    bottom: -6px;
+}
+
+[x-placement="bottom"] > .popover-arrow {
+    top: -6px;
+}
+
+[x-placement="right"] > .popover-arrow {
+    left: -6px;
+}
+
+[x-placement="left"] > .popover-arrow {
+    right: -6px;
+}

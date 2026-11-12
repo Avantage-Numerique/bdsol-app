@@ -2,3 +2,15 @@
     list-style-type: disc;
     margin-left: 1rem;
 }
+
+.partners-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(25%, 12em), 1fr));
+    gap: 4em;
+    justify-items: space-between;
+    margin: 0 auto;
+
+    @media (max-width: 768px) {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}

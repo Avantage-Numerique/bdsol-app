@@ -1,0 +1,27 @@
+// ============================================================================
+// Custom Derived Variables (Loaded AFTER Bootstrap Variables)
+// ============================================================================
+// This file contains variables that REFERENCE Bootstrap's built-in variables.
+// It's loaded AFTER Bootstrap's _variables.scss so we can use $gray-*, etc.
+//
+// IMPORTANT: Only put variables here that absolutely need Bootstrap variables.
+// Most custom variables should go in custom-overrides.scss.
+// ============================================================================
+
+// These variables reference Bootstrap's $gray-* color scale
+// which is only available AFTER Bootstrap's _variables.scss loads
+
+// scss-docs-start theme-bg-subtle-variables (continued from custom-overrides.scss)
+$light-bg-subtle: mix($gray-100, $white);
+$dark-bg-subtle: $gray-400;
+// scss-docs-end theme-bg-subtle-variables
+
+// scss-docs-start theme-border-subtle-variables (continued from custom-overrides.scss)
+$light-border-subtle: $gray-200;
+$dark-border-subtle: $gray-500;
+// scss-docs-end theme-border-subtle-variables
+
+// scss-docs-start theme-text-variables (continued from custom-overrides.scss)
+$light-text-emphasis: $gray-700;
+$dark-text-emphasis: $gray-700;
+// scss-docs-end theme-text-variables

@@ -1,9 +1,9 @@
 // scss-docs-start btn-variant-loops
 $pv-list: (
-    "1":"3",
-    "2":"8",
-    "3":"12",
-    "4":"15",
+    "1": "3",
+    "2": "8",
+    "3": "12",
+    "4": "15",
 );
 
 @each $prefix, $value in $pv-list {

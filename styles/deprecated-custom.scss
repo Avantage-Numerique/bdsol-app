@@ -1,0 +1,331 @@
+// ============================================================================
+// Custom Variables (Bootstrap Overrides + App-specific)
+// ============================================================================
+// This file defines custom color palettes, overrides Bootstrap defaults,
+// and uses Bootstrap functions (lighten, tint-color, shade-color, etc.)
+//
+// IMPORTANT: This file is loaded by abstracts/bootstrap-consolidated.scss
+// which ensures Bootstrap functions/mixins are available BEFORE this file.
+// Do NOT @import Bootstrap directly here to avoid duplicate loading.
+// ============================================================================
+
+// Bootstrap configuration overrides
+$grid-gutter-width: 1.5rem;
+
+$blue: #455ae6;
+$blue2: #4d64ff;
+$blue3: #4dc4ff;
+$blue4: #5f71ea;
+
+$purple-light: #b2b2eb;
+$purple-lighter: lighten($purple-light, 10%);
+
+$black: #1c1c1c;
+$white: #fdfdfd;
+
+$dark: lighten($black, 10%);
+$mild-dark: lighten($black, 30%);
+
+$grey: lighten($black, 40%);
+
+$light: #dedede;
+$light-grey: #dedede;
+$light-grey-bg: #f5f5f5;
+
+$yellow: #ffd849;
+$yellow-pending: #fafa10;
+
+$abilities: #e9a511;
+
+$primary: #f09664;
+//Its Shades
+$primary_1: #f6ae85;
+$primary_2: #f9c3a3;
+$primary_3: #fcd8c3;
+$primary_4: #fdece1;
+$primary_5: #fbf7f5;
+$primary_6: #ecdcd1;
+$primary_7: #d9baa4;
+$primary_8: #a65d36;
+
+$primary-light: $primary_3;
+$primary-lighter: $primary_5;
+$primary-dark: $primary_6;
+$primary-darker: $primary_8;
+
+$secondary: #6ec8cd;
+//Its Shades
+$secondary_1: #89d5d8;
+$secondary_2: #a7dfe2;
+$secondary_3: #c4eaeb;
+$secondary_4: #e2f4f5;
+$secondary_5: #d7e5e6;
+$secondary_6: #afcccd;
+$secondary_7: #87b2b4;
+$secondary_8: #377e81;
+
+$secondary-light: $secondary_2;
+$secondary-lighter: $secondary_4;
+$secondary-dark: $secondary_7;
+$secondary-darker: $secondary_8;
+
+$info: $yellow;
+$info-light: lighten($yellow, 15%);
+
+$warning: darken($yellow, 15%);
+
+/*********** Other colors ***********/
+
+$red: #d74b32;
+$lighten_red: lighten($red, 20%);
+$darken_red: darken($red, 10%);
+$red-rejected: $red;
+
+$green: #aad287;
+$lighten_green: lighten($green, 10%);
+$darken_green: darken($green, 10%);
+$success: $green;
+
+$green-accepted: $darken_green;
+$red-rejected: $red;
+$occupations: $secondary_7;
+$skills: $darken_green;
+$domains: $red;
+$danger: $red;
+
+$selected-input: $secondary_7;
+
+$theme-colors: (
+    "purplelight": $purple-light,
+    "purplelighter": $purple-lighter,
+    "blue2": $blue2,
+    "blue3": $blue3,
+    "blue4": $blue4,
+    "accepted": $green-accepted,
+    "pending": $yellow-pending,
+    "rejected": $red-rejected,
+    "occupations": $occupations,
+    "skills": $skills,
+    "domains": $domains,
+    "abilities": $abilities,
+    "greyBg": $light-grey-bg,
+    "primary": $primary,
+    "primary-light": $primary-light,
+    "primary-lighter": $primary-lighter,
+    "primary-dark": $primary-dark,
+    "primary-darker": $primary-darker,
+    "secondary": $secondary,
+    "secondary-light": $secondary-light,
+    "secondary-lighter": $secondary-lighter,
+    "secondary-dark": $secondary-dark,
+    "secondary-darker": $secondary-darker,
+    "primary-5": $primary_5,
+    "dark": $dark,
+    "dark-light": lighten($dark, 15%),
+    "dark-lighter": lighten($dark, 30%),
+    "light": $light,
+    "mild-dark": $mild-dark,
+    "white": white,
+    "general-tag": $primary_2,
+    "success": $green,
+    "danger": $lighten_red,
+    "info": $info,
+    "warning": $warning,
+);
+
+$main-image-bg-color: $light;
+
+$body-color: $dark;
+
+$min-contrast-ratio: 4.5;
+
+//fonts
+$font-size-root: 15px; //moved from 14px to 16px font base size.
+
+$font-family-sans-serif: "Poppins", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+$font-icons: "iconly";
+
+$font-weight-lighter: 200;
+$font-weight-light: 300;
+$font-weight-normal: 400;
+$font-weight-semibold: 600;
+$font-weight-bold: 700;
+$font-weight-bolder: 800;
+
+$line-height-base: 1.4;
+
+$headings-font-family: "Poppins", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+$headings-line-height: 1.1;
+$headings-font-weight: 600;
+
+$h1-font-size: min(10vw, 2.6rem) !default;
+$h2-font-size: min(8vw, 2.2rem) !default;
+$h3-font-size: 1.65rem !default;
+$h4-font-size: 1.2rem !default;
+$h5-font-size: 1rem !default;
+$h6-font-size: 0.8rem !default; //this is smaller than regular text
+
+$link-decoration: none;
+
+/* 
+    GLOBAL SPACINGS
+*/
+$spacing-sm: 2.35rem;
+$spacing-md: 3rem;
+$spacing-lg: 6.5rem;
+$spacing-xl: 15rem;
+
+/*
+    BORDER
+ */
+
+$border-radius: 1em;
+$border-width: 0.15rem;
+//to-do; transpose value from rem to em (only one button radius is used in the app for now.
+// $border-radius-sm:            .25rem !default;
+// $border-radius-lg:            .5rem !default;
+// $border-radius-xl:            1rem !default;
+// $border-radius-2xl:           2rem !default;
+// $border-radius-pill:          50rem !default;
+
+/*
+    bootstrap's variable button override
+*/
+
+$btn-padding-x-lg: 4rem;
+$btn-padding-y-lg: 2rem;
+$btn-font-size-lg: 1.5rem;
+$btn-border-radius-lg: $border-radius;
+
+$image-border-color: rgb(231, 231, 231);
+$image-border-width: $border-width;
+$border-light: $image-border-width solid $image-border-color;
+
+/** SHADOW */
+
+$default-box-shadow: 1.1px 2.4px 4.2px rgba(0, 0, 0, 0.139);
+$default-box-shadow-darker: 1.1px 2.4px 4.2px rgba(0, 0, 0, 0.2);
+
+$default-box-shadow-over:
+    1.1px 2.4px 8.5px rgba(0, 0, 0, 0.085),
+    4.7px 10.4px 17.5px rgba(0, 0, 0, 0.085);
+
+$top-box-shadow:
+    0px 0px 1.7px rgba(0, 0, 0, 0.026),
+    0px 0px 3.6px rgba(0, 0, 0, 0.032),
+    0px 0px 6.1px rgba(0, 0, 0, 0.036),
+    0px 0px 10.4px rgba(0, 0, 0, 0.039),
+    0px 0px 19.6px rgba(0, 0, 0, 0.045),
+    0px 0px 74px rgba(0, 0, 0, 0.07);
+
+/*
+    nav
+*/
+
+$nav-tabs-border-color: $primary;
+$nav-tabs-border-width: $border-width;
+
+/*
+    Badges
+ */
+
+// scss-docs-start badge-variables
+$badge-font-size: 0.75em;
+$badge-font-weight: $font-weight-normal;
+$badge-color: $white;
+$badge-padding-y: 0.35em;
+$badge-padding-x: 0.65em;
+$badge-border-radius: $border-radius;
+
+/*
+    INPUT
+ */
+$input-border-radius: $border-radius;
+$input-base-bg-color: #f9f9f9;
+
+/*
+    TRANSITION
+ */
+
+/*
+    Single sections
+    Based on the default bootstrap gutter
+*/
+$single-infos-padding-y: $grid-gutter-width;
+$single-infos-margin-y: $grid-gutter-width * 0.5;
+
+$transition-default-time: 100ms;
+$transition-default-property: all;
+
+$bezier-default: cubic-bezier(0.19, 1, 0.22, 1);
+$bezier-ease-out: cubic-bezier(0, 0, 0.58, 1);
+$bezier-ease-in: cubic-bezier(0.42, 0, 1, 1);
+$bezier-ease-in-out: cubic-bezier(0.42, 0, 0.58, 1);
+$bezier-ease: cubic-bezier(0.25, 0.1, 0.25, 1);
+$bezier-linear: cubic-bezier(0, 0, 1, 1);
+$bezier-translation: cubic-bezier(0.54, -0.09, 0.5, 1.13);
+$toast-easing: cubic-bezier(0.801, -0.268, 0.25, 1.201);
+
+$transition-ease-out: $transition-default-property $transition-default-time $bezier-ease-out;
+$transition-ease-in: $transition-default-property $transition-default-time $bezier-ease-in;
+$transition-ease-in-out: $transition-default-property $transition-default-time $bezier-ease-in-out;
+$transition-ease: $transition-default-property $transition-default-time $bezier-ease;
+$transition-linear: $transition-default-property $transition-default-time $bezier-linear;
+$transition-translation: $transition-default-property $transition-default-time $bezier-translation;
+
+$transition-default: $transition-default-property $transition-default-time $bezier-default;
+$transition-base: $transition-ease;
+$transition-base-slow: $transition-default-property $transition-default-time * 2 $bezier-ease-in-out;
+$transition-base-quick: $transition-default-property $transition-default-time/2 $bezier-ease-in-out;
+
+$transition-fade: opacity 0.15s $bezier-default;
+$transition-collapse: height 0.35s $bezier-ease-in-out;
+$transition-collapse-hori: width 0.35s $bezier-ease-in-out;
+
+/*
+    BREADCRUMBS
+ */
+$breadcrumb-font-size: null;
+$breadcrumb-padding-y: 0;
+$breadcrumb-padding-x: 0;
+$breadcrumb-item-padding-x: 0.5rem;
+$breadcrumb-margin-bottom: 1rem;
+$breadcrumb-bg: null;
+$breadcrumb-divider-color: $secondary-darker;
+$breadcrumb-active-color: $secondary-darker;
+$breadcrumb-divider: quote(">");
+$breadcrumb-divider-flipped: quote(">");
+$breadcrumb-border-radius: $border-radius;
+
+// scss-docs-start theme-bg-subtle-variables
+$primary-bg-subtle: tint-color($primary, 80%);
+$secondary-bg-subtle: tint-color($secondary, 80%);
+$success-bg-subtle: tint-color($success, 80%);
+$info-bg-subtle: tint-color($info, 80%);
+$warning-bg-subtle: tint-color($warning, 80%);
+$danger-bg-subtle: tint-color($danger, 80%);
+$light-bg-subtle: mix($gray-100, $white);
+$dark-bg-subtle: $gray-400;
+// scss-docs-end theme-bg-subtle-variables
+
+// scss-docs-start theme-border-subtle-variables
+$primary-border-subtle: tint-color($primary, 60%);
+$secondary-border-subtle: tint-color($secondary, 60%);
+$success-border-subtle: tint-color($success, 60%);
+$info-border-subtle: tint-color($info, 60%);
+$warning-border-subtle: tint-color($warning, 60%);
+$danger-border-subtle: tint-color($danger, 60%);
+$light-border-subtle: $gray-200;
+$dark-border-subtle: $gray-500;
+// scss-docs-end theme-border-subtle-variables
+
+// scss-docs-start theme-text-variables
+$primary-text-emphasis: shade-color($primary, 60%);
+$secondary-text-emphasis: shade-color($secondary, 60%);
+$success-text-emphasis: shade-color($success, 60%);
+$info-text-emphasis: shade-color($info, 60%);
+$warning-text-emphasis: shade-color($warning, 60%);
+$danger-text-emphasis: shade-color($danger, 60%);
+$light-text-emphasis: $gray-700;
+$dark-text-emphasis: $gray-700;
+// scss-docs-end theme-text-variables

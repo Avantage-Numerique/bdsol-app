@@ -1,13 +1,11 @@
-
-
 .history-table {
     display: grid;
     grid-template-columns: 25% 40% 10% 10%;
 
     //align-content: center;
-    > div{
+    > div {
         background-color: var(--bs-secondary);
-        outline:2px solid black;
+        outline: 2px solid black;
         //border: 2px solid black;
         padding: 5px;
         font-size: 15px;

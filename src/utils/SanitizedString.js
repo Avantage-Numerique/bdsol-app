@@ -1,7 +1,7 @@
-import DOMPurify from 'isomorphic-dompurify';
+import DOMPurify from "isomorphic-dompurify";
 
 export const sanitizedString = (value) => {
-    return DOMPurify.sanitize( value )
-}
+    return DOMPurify.sanitize(value);
+};
 
-export default sanitizedString
+export default sanitizedString;

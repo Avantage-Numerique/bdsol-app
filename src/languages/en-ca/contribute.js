@@ -1,11 +1,12 @@
 const contribute = {
-    "save": "save",
-    "visualize": "visualize",
-    "modify": "modify",
-    "CancelChanges": "Cancel changes",
+    save: "save",
+    visualize: "visualize",
+    modify: "modify",
+    CancelChanges: "Cancel changes",
 
     //messages
-    "validationFailedCantSave": "Attention, l'un des champs dans cette page n'est pas entré correctement et vous empêche de sauvegarder vos modifications.",
-}
+    validationFailedCantSave: "Le(s) champs suivant vous empêche de sauvegarder vos modifications :",
+    invalidForm: "Invalid form",
+};
 
 exports.contribute = contribute;

@@ -1,32 +1,36 @@
-import React from "react"
+import React from "react";
 
 /***  Local styling ***/
-import styles from './PlaceSimple.module.scss';
+import styles from "./PlaceSimple.module.scss";
 import EntitySimple from "@/DataTypes/common/layouts/EntitySimple/EntitySimple";
 
 const PlaceSimple = ({ model }) => {
     const BottomLineContent = () => {
-
         let bottomText = "";
-        if(model?.location?.address){
-            if(model?.location?.city)
-                bottomText = model.location.address + ", " + model.location.city;
-            else
-                bottomText = model.location.address;
+        if (model?.location?.address) {
+            if (model?.location?.city) bottomText = model.location.address + ", " + model.location.city;
+            else bottomText = model.location.address;
         }
 
         return (
-            <div className="mb-0 text--dark" style={{ fontSize: "0.90rem"}}>
-                <div>
-                    {bottomText}
-                </div>
+            <div className="mb-0 text--dark" style={{ fontSize: "0.90rem" }}>
+                {/* NOTE: faire un choix entre { bottomText } et la version en dessous  <TimeTag/> */}
+                <div>{bottomText}</div>
+
+                <b>
+                    <TimeTag />
+                    {model.endDate && (
+                        <>
+                            <span> - </span>
+                            <TimeTag endingDate />
+                        </>
+                    )}
+                </b>
             </div>
-        )
-    }
+        );
+    };
 
-    return (
-        <EntitySimple model={model} className={`${styles["place-simple"]}`} BottomLineContent={BottomLineContent} />
-    )
-}
+    return <EntitySimple model={model} className={`${styles["place-simple"]}`} BottomLineContent={BottomLineContent} />;
+};
 
-export default PlaceSimple
+export default PlaceSimple;

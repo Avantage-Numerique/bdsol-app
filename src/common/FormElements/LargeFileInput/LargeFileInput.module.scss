@@ -5,7 +5,6 @@
 
 */
 .input-component {
-
     display: flex;
     flex-direction: column;
 
@@ -18,8 +17,7 @@
 
     /* Section with the field */
     .input-component__field-container {
-
-        .file-selection-container{
+        .file-selection-container {
             width: 100%;
             height: 100%;
         }
@@ -27,11 +25,13 @@
         /* Fake input for costum visualisation */
         .input-ui {
             //Styling preference. Prevent the text in the button from wrapping on two lines
-            .file-selection-container { white-space: nowrap; }
+            .file-selection-container {
+                white-space: nowrap;
+            }
             .input-ui__over-img-content {
                 background-color: #8b8b8b52;
-                .input-ui__file-name { 
-                    direction: rtl; 
+                .input-ui__file-name {
+                    direction: rtl;
                     font-size: 0.9rem;
                 }
             }
@@ -50,7 +50,9 @@
                 padding: 0.5rem;
                 background-color: rgba(255, 255, 255, 0.611);
                 /* Reference to the container of the badget, which is display flex */
-                ul { justify-content: center; }
+                ul {
+                    justify-content: center;
+                }
             }
         }
     }
@@ -61,7 +63,7 @@
             padding: 0.25rem;
             border-radius: 100%;
             width: 4rem;
-            polyline { 
+            polyline {
                 -webkit-transition: 0.2s ease;
                 -o-transition: 0.2s ease;
                 transition: 0.2s ease;
@@ -69,9 +71,11 @@
                 stroke: rgb(192, 192, 192);
             }
         }
-        &:hover svg polyline { stroke: rgb(102, 102, 102);}
+        &:hover svg polyline {
+            stroke: rgb(102, 102, 102);
+        }
     }
-    
+
     /* TODO : make this style global and combine it with bootstrap */
     .information-button {
         width: 1rem;
@@ -98,19 +102,21 @@
         flex-direction: column;
         justify-content: center;
         pointer-events: all;
-        background-color:  $light-grey-bg;
+        background-color: $light-grey-bg;
 
-        &:hover { 
+        &:hover {
             background-color: $light-grey-bg;
         }
-        p, button {
+        p,
+        button {
             white-space: normal;
             text-align: center;
             font-size: 0.8rem;
             margin: 0;
             padding: 0;
         }
-        button:hover { text-decoration: underline; }
-
+        button:hover {
+            text-decoration: underline;
+        }
     }
-}    
+}

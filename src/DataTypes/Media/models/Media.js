@@ -1,9 +1,8 @@
 import EntityModel from "@/DataTypes/Entity/models/EntityModel";
 import MediaSingleView from "../components/forms/MediaSingleView/MediaSingleView";
-import {TYPE_DEFAULT, TYPE_MEDIA} from "@/DataTypes/Entity/Types";
+import { TYPE_DEFAULT, TYPE_MEDIA } from "@/DataTypes/Entity/Types";
 
 class Media extends EntityModel {
-
     /**
      * Media model for the entity in the app.
      * @param raw {object} All the params to setup this.
@@ -19,7 +18,7 @@ class Media extends EntityModel {
      * @param params.single {object} Parameters for the single component
      * @param params.simple {object} Parameters for the simple component
      */
-    constructor(raw, params={}) {
+    constructor(raw, params = {}) {
         super(raw);
         this.title = raw?.title ?? "";
         this.description = raw?.description ?? "";
@@ -29,14 +28,18 @@ class Media extends EntityModel {
         this.alt = raw?.alt ?? "";
         this.mainImage.src = this.src;
         this.licence = raw?.licence ?? "";
-        this.type = raw?.type === TYPE_MEDIA ? TYPE_MEDIA : TYPE_DEFAULT;//Wrong data sent here.
+        this.type = raw?.type === TYPE_MEDIA ? TYPE_MEDIA : TYPE_DEFAULT; //Wrong data sent here.
 
         this.mainImageModel = this;
 
         //need a better flow for value for this. the first return false.
         //this.associatedEntity = getModelFromType(raw.entityId?.type, raw.entityId);
-        
-        this.meta = {title: this.title, description: this.description, ...raw.meta};
+
+        this.meta = {
+            title: this.title,
+            description: this.description,
+            ...raw.meta,
+        };
         this.setUsersMetas();
 
         //this.taxonomies = new Map();
@@ -59,7 +62,6 @@ class Media extends EntityModel {
     set src(value) {
         this._src = value;
     }
-
 }
 
 export default Media;
