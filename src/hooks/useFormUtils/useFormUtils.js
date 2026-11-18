@@ -56,18 +56,28 @@ export const useFormUtils = (initialState, actions) => {
     //Custom hook to manage the state of the form (data)
     const [formState, formTools, clearFormData, updateManyFields] = useForm(initialState);
 
+    /**
+     *
+     * @param {*} route
+     * @param {*} type
+     * @param {*} data
+     * @param {*} header
+     * @param {*} params
+     * @param {Boolean} isModal Added to control whether to show toaster message or not
+     * @returns
+     */
     const submitRequest = async (
         route,
         type,
         data,
         header = { "Content-Type": "application/json" },
-        params = { isBodyJson: true }
+        params = { isBodyJson: true },
+        isModal = false
     ) => {
         let response;
         if (formState.isValid) {
             //Send the request with the specialized hook
             response = await sendRequest(route, type, data, header, params);
-
             //Store the response in state
             setRequestResponse(response);
 
@@ -85,7 +95,7 @@ export const useFormUtils = (initialState, actions) => {
                 if (positiveResponseActions.displayResMessage)
                     msg.addMessage({
                         text: response.message,
-                        positive: true,
+                        theme: "positive",
                     });
 
                 //3. Execute a call back function to do any other task
@@ -96,6 +106,11 @@ export const useFormUtils = (initialState, actions) => {
 
                 //If it is not positive for any reason
             } else {
+                if (!isModal)
+                    msg.addMessage({
+                        text: response.message,
+                        theme: "negative",
+                    });
                 setInnerMessage(response.message);
             }
         } else {

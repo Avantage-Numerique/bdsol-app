@@ -101,7 +101,7 @@ const CreatePlaceForm = ({ onPositiveResponse, initValues, ...props }) => {
         };
 
         //Send the request with the specialized hook
-        submitRequest(`/places/create`, "POST", formData);
+        submitRequest(`/places/create`, "POST", formData, undefined, undefined, true);
     };
 
     return (
