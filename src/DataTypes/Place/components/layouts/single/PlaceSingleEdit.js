@@ -82,39 +82,39 @@ const PlaceSingleEdit = ({ positiveRequestActions, ...props }) => {
                 isValid: true,
             },
             address: {
-                value: model?.location?.address ?? "",
+                value: model?.postalAddress?.address ?? "",
                 isValid: true,
             },
             city: {
-                value: model?.location?.city ?? "",
+                value: model?.postalAddress?.city ?? "",
                 isValid: true,
             },
             region: {
-                value: model?.location?.region ?? "",
+                value: model?.postalAddress?.region ?? "",
                 isValid: true,
             },
             mrc: {
-                value: model?.location?.mrc ?? "",
+                value: model?.postalAddress?.mrc ?? "",
                 isValid: true,
             },
             province: {
-                value: model?.location?.province ?? "",
+                value: model?.postalAddress?.province ?? "",
                 isValid: true,
             },
             postalCode: {
-                value: model?.location?.postalCode ?? "",
+                value: model?.postalAddress?.postalCode ?? "",
                 isValid: true,
             },
             country: {
-                value: model?.location?.country ?? "",
+                value: model?.postalAddress?.country ?? "",
                 isValid: true,
             },
             latitude: {
-                value: model?.location?.latitude ?? "",
+                value: model?.latitude ?? "",
                 isValid: false,
             },
             longitude: {
-                value: model?.location?.longitude ?? "",
+                value: model?.longitude ?? "",
                 isValid: false,
             },
             placeType: {
@@ -149,19 +149,19 @@ const PlaceSingleEdit = ({ positiveRequestActions, ...props }) => {
                               return elem.value;
                           })
                         : [],
-                rooms: formState.inputs.rooms.value.map(function (singleRoom) {
-                    return {
-                        name: singleRoom.value.name.value,
-                        description: singleRoom.value.description.value,
-                        shortDescription: singleRoom.value.shortDescription.value,
-                        placeId: model.id,
-                        location: { address: singleRoom.value.location.value },
-                        subMeta: { order: singleRoom.order },
-                    };
-                }),
+                // rooms: formState.inputs.rooms.value.map(function (singleRoom) {
+                //     return {
+                //         name: singleRoom.value.name.value,
+                //         description: singleRoom.value.description.value,
+                //         shortDescription: singleRoom.value.shortDescription.value,
+                //         placeId: model.id,
+                //         location: { address: singleRoom.value.location.value },
+                //         subMeta: { order: singleRoom.order },
+                //     };
+                // }),
                 description: formState.inputs.description.value,
                 shortDescription: formState.inputs.shortDescription.value,
-                location: {
+                postalAddress: {
                     address: formState.inputs.address.value,
                     city: formState.inputs.city.value,
                     region: formState.inputs.region.value,
@@ -169,9 +169,9 @@ const PlaceSingleEdit = ({ positiveRequestActions, ...props }) => {
                     province: formState.inputs.province.value,
                     postalCode: formState.inputs.postalCode.value,
                     country: formState.inputs.country.value,
-                    latitude: formState.inputs.latitude.value !== "" ? formState.inputs.latitude.value : undefined,
-                    longitude: formState.inputs.longitude.value !== "" ? formState.inputs.longitude.value : undefined,
                 },
+                latitude: formState.inputs.latitude.value !== "" ? formState.inputs.latitude.value : undefined,
+                longitude: formState.inputs.longitude.value !== "" ? formState.inputs.longitude.value : undefined,
                 meta: getDefaultUpdateEntityMeta(auth.user, model.meta.requestedBy),
             },
         };
@@ -199,7 +199,7 @@ const PlaceSingleEdit = ({ positiveRequestActions, ...props }) => {
     //Map setup section
     //Memoize props that are passed to the map
     const centerAt = useMemo(() => {
-        return [model?.location?.latitude, model?.location?.longitude];
+        return [model?.latitude, model?.longitude];
     }, []);
 
     const locationList = useMemo(() => {
@@ -207,8 +207,8 @@ const PlaceSingleEdit = ({ positiveRequestActions, ...props }) => {
             {
                 name: model.name,
                 location: {
-                    latitude: model?.location?.latitude,
-                    longitude: model?.location?.longitude,
+                    latitude: model?.latitude,
+                    longitude: model?.longitude,
                 },
                 slug: model.slug,
             },
@@ -216,7 +216,7 @@ const PlaceSingleEdit = ({ positiveRequestActions, ...props }) => {
     }, []);
 
     //Map update latitude and longitude
-    const [latLng, setLatLng] = useState([model?.location?.latitude ?? "", model?.location?.longitude ?? ""]);
+    const [latLng, setLatLng] = useState([model?.latitude ?? "", model?.longitude ?? ""]);
     useEffect(() => {
         formTools.inputHandler("latitude", latLng?.lat, true);
         formTools.inputHandler("longitude", latLng?.lng, true);
@@ -254,7 +254,7 @@ const PlaceSingleEdit = ({ positiveRequestActions, ...props }) => {
             entity={model}
             mode={modes.CONTRIBUTING}
             ctaSection={ctaSection}
-        ></SingleBaseHeader>
+        />
     );
 
     const fullWidthContent = (
@@ -263,8 +263,6 @@ const PlaceSingleEdit = ({ positiveRequestActions, ...props }) => {
                 {/* Description */}
                 <RichTextarea name="description" formTools={formTools} />
             </SingleInfo>
-
-            <Textarea name="shortDescription" label={lang.shortDescription} formTools={formTools} />
         </>
     );
     const contentColumnLeft = (
@@ -311,12 +309,14 @@ const PlaceSingleEdit = ({ positiveRequestActions, ...props }) => {
                     formTools={formTools}
                 />
             </SingleInfo>
+
             {/* rooms */}
-            <SingleInfo title={lang.rooms}>
+            {/* <SingleInfo title={lang.rooms}>
                 <UpdateRooms parentEntity={props.data} formTools={formTools} name="rooms" />
-            </SingleInfo>
+            </SingleInfo> */}
         </>
     );
+
     const contentColumnRight = (
         <SingleInfo title="Informations supplémentaires">
             {/* mrc */}
@@ -341,10 +341,10 @@ const PlaceSingleEdit = ({ positiveRequestActions, ...props }) => {
                 name="placeType"
                 label={lang.placeType}
                 formTools={formTools}
-                creatable={false}
+                // creatable={true}
                 //modalType={TYPE_TAXONOMY}
                 //allowedCategories={["placeType"]}
-                isMulti={true}
+                // isMulti={true}
                 fetch={"/taxonomies/placeType"}
                 searchField={"name"}
                 selectField={"name"}
@@ -384,6 +384,7 @@ const PlaceSingleEdit = ({ positiveRequestActions, ...props }) => {
     const Footer = (
         <>
             <SingleInfo title={lang.seoSection}>
+                {/* <UpdateSameAs label={lang.sameAs} name="sameAs" parentEntity={model} formTools={formTools} /> */}
                 <ShortDescription formTools={formTools} name="shortDescription" model={model} />
             </SingleInfo>
             {(createdAt || updatedAt || meta) && (

@@ -14,6 +14,7 @@ export const places = {
     name: "Nom du lieu",
     description: "Description du lieu",
     shortDescription: "Courte description",
+    postalAddress: "Adresse postale",
     address: "Adresse",
     city: "Ville",
     postalCode: "Code postal",

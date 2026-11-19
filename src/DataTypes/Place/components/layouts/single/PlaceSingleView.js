@@ -45,17 +45,17 @@ const PlaceSingleView = ({ data }) => {
             title={<SanitizedInnerHtml tag={"h1"} className="text-white">{`${model.title}`}</SanitizedInnerHtml>}
             subtitle={
                 <div className="d-text mt-4">
-                    {model?.location?.address && (
+                    {model?.postalAddress?.address && (
                         <i>
                             <p className="text-white fs-4 mb-0">
-                                {model?.location?.address}
-                                {model?.location?.address && model?.location?.city && <span>,</span>}
+                                {model?.postalAddress?.address}
+                                {model?.postalAddress?.address && model?.postalAddress?.city && <span>,</span>}
                             </p>
                         </i>
                     )}
-                    {model?.location?.city && (
+                    {model?.postalAddress?.city && (
                         <i>
-                            <p className="text-white fs-4">{model?.location?.city}</p>
+                            <p className="text-white fs-4">{model?.postalAddress?.city}</p>
                         </i>
                     )}
                 </div>
@@ -69,23 +69,20 @@ const PlaceSingleView = ({ data }) => {
     const FullWidthContent = (
         <>
             <SingleInfo title={lang.about} NAMessage="Aucune description n'est disponible pour le moment.">
-                {<SanitizedInnerHtml>{model.description}</SanitizedInnerHtml>}
-            </SingleInfo>
-            <SingleInfo title={lang.shortDescription}>
-                <div>{model.shortDescription}</div>
+                {removeTagsFromString(description) && <SanitizedInnerHtml>{description}</SanitizedInnerHtml>}
             </SingleInfo>
         </>
     );
 
     const contentColumnLeft = (
         <>
-            <SingleInfo title="Coordonnées" cardLayout>
+            <SingleInfo title={lang.postalAddress} cardLayout>
                 <ul className={`${styles["main-coordinate-list"]}`}>
                     {/* address x2 (in subtitle) */}
                     <li className={`${styles["coordinate"]}`}>
                         <div className={`${styles["coordinate__title"]}`}>{lang.address} :</div>
                         <div className={`${styles["coordinate__data"]}`}>
-                            {model?.location?.address ? model.location.address : " - "}
+                            {model?.postalAddress?.address ? model.postalAddress.address : " - "}
                         </div>
                     </li>
 
@@ -93,7 +90,7 @@ const PlaceSingleView = ({ data }) => {
                     <li className={`${styles["coordinate"]}`}>
                         <div className={`${styles["coordinate__title"]}`}>{lang.city} :</div>
                         <div className={`${styles["coordinate__data"]}`}>
-                            {model?.location?.city ? model.location.city : " - "}
+                            {model?.postalAddress?.city ? model.postalAddress.city : " - "}
                         </div>
                     </li>
 
@@ -101,7 +98,7 @@ const PlaceSingleView = ({ data }) => {
                     <li className={`${styles["coordinate"]}`}>
                         <div className={`${styles["coordinate__title"]}`}>{lang.postalCode} :</div>
                         <div className={`${styles["coordinate__data"]}`}>
-                            {model?.location?.postalCode ? model.location.postalCode : " - "}
+                            {model?.postalAddress?.postalCode ? model.postalAddress.postalCode : " - "}
                         </div>
                     </li>
 
@@ -109,7 +106,7 @@ const PlaceSingleView = ({ data }) => {
                     <li className={`${styles["coordinate"]}`}>
                         <div className={`${styles["coordinate__title"]}`}>{lang.province} :</div>
                         <div className={`${styles["coordinate__data"]}`}>
-                            {model?.location?.province ? model.location.province : " - "}
+                            {model?.postalAddress?.province ? model.postalAddress.province : " - "}
                         </div>
                     </li>
 
@@ -117,7 +114,7 @@ const PlaceSingleView = ({ data }) => {
                     <li className={`${styles["coordinate"]}`}>
                         <div className={`${styles["coordinate__title"]}`}>{lang.country} :</div>
                         <div className={`${styles["coordinate__data"]}`}>
-                            {model?.location?.country ? model.location.country : " - "}
+                            {model?.postalAddress?.country ? model.postalAddress.country : " - "}
                         </div>
                     </li>
                 </ul>
@@ -128,7 +125,7 @@ const PlaceSingleView = ({ data }) => {
                     <li className={`${styles["coordinate"]}`}>
                         <div className={`${styles["coordinate__title"]}`}>{lang.mrc} :</div>
                         <div className={`${styles["coordinate__data"]}`}>
-                            {model?.location?.mrc ? model.location.mrc : " - "}
+                            {model?.postalAddress?.mrc ? model.postalAddress.mrc : " - "}
                         </div>
                     </li>
 
@@ -136,7 +133,7 @@ const PlaceSingleView = ({ data }) => {
                     <li className={`${styles["coordinate"]}`}>
                         <div className={`${styles["coordinate__title"]}`}>{lang.region} :</div>
                         <div className={`${styles["coordinate__data"]}`}>
-                            {model?.location?.region ? model.location.region : " - "}
+                            {model?.postalAddress?.region ? model.postalAddress.region : " - "}
                         </div>
                     </li>
 
@@ -144,7 +141,7 @@ const PlaceSingleView = ({ data }) => {
                     <li className={`${styles["coordinate"]}`}>
                         <div className={`${styles["coordinate__title"]}`}>{lang.longitude} :</div>
                         <div className={`${styles["coordinate__data"]}`}>
-                            {model?.location?.longitude ? model.location.longitude : " - "}
+                            {model?.longitude ? model.longitude : " - "}
                         </div>
                     </li>
 
@@ -152,7 +149,7 @@ const PlaceSingleView = ({ data }) => {
                     <li className={`${styles["coordinate"]}`}>
                         <div className={`${styles["coordinate__title"]}`}>{lang.latitude} :</div>
                         <div className={`${styles["coordinate__data"]}`}>
-                            {model?.location?.latitude ? model.location.latitude : " - "}
+                            {model?.latitude ? model.latitude : " - "}
                         </div>
                     </li>
                 </ul>
@@ -170,11 +167,8 @@ const PlaceSingleView = ({ data }) => {
             >
                 {model.placeType != [] && <SearchTag list={model.placeType} />}
             </SingleInfo>
-            <MapWrapper
-                height={"450px"}
-                locationList={[model]}
-                centerAt={[model?.location?.latitude, model?.location?.longitude]}
-            />
+
+            <MapWrapper height={"450px"} locationList={[model]} centerAt={[model?.latitude, model?.longitude]} />
         </div>
     );
 
@@ -201,19 +195,19 @@ const PlaceSingleView = ({ data }) => {
         <SingleBaseProgressBar
             dataList={[
                 { data: model.title },
-                { data: model?.location?.address },
-                { data: model?.location?.city },
+                { data: model?.postalAddress?.address },
+                { data: model?.postalAddress?.city },
                 {
                     data: model.description,
                     validationFunction: (value) => (removeTagsFromString(value) ? true : false),
                 },
-                { data: model?.location?.postalCode },
-                { data: model?.location?.province },
-                { data: model?.location?.country },
-                { data: model?.location?.mrc },
-                { data: model?.location?.region },
-                { data: model?.location?.longitude },
-                { data: model?.location?.latitude },
+                { data: model?.postalAddress?.postalCode },
+                { data: model?.postalAddress?.province },
+                { data: model?.postalAddress?.country },
+                { data: model?.postalAddress?.mrc },
+                { data: model?.postalAddress?.region },
+                { data: model?.longitude },
+                { data: model?.latitude },
                 { data: model.mainImage.isDefault, validationFunction: (value) => !value },
             ]}
             buttonText={lang.contributeButtonLabel}

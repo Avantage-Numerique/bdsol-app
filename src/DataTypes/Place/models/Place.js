@@ -5,6 +5,9 @@ import AppRoutes from "@/src/Routing/AppRoutes";
 import { TYPE_PLACE } from "@/DataTypes/Entity/Types";
 import Media from "@/DataTypes/Media/models/Media";
 
+/**
+ *
+ */
 class Place extends EntityModel {
     constructor(raw, params = {}) {
         //  Routes associated with single base, single and contribute uri.
@@ -56,24 +59,23 @@ class Place extends EntityModel {
     }
 
     getBreadCrumbTitle(raw) {
-        if (raw?.location?.address) {
-            if (raw?.name) return raw.location.address + ", " + raw.name;
-            if (raw?.location?.city) return raw.location.address + ", " + raw.location.city;
-            if (raw?.location?.postalCode) return raw.location.address + ", " + raw.location.postalCode;
-            return raw.location.address; //We probably don't want to only show address if there is no city or no postalcode
+        if (raw?.postalAddress?.address) {
+            if (raw?.name) return raw.postalAddress.address + ", " + raw.name;
+            if (raw?.postalAddress?.city) return raw.postalAddress.address + ", " + raw.postalAddress.city;
+            if (raw?.postalAddress?.postalCode) return raw.postalAddress.address + ", " + raw.postalAddress.postalCode;
+            return raw.postalAddress.address; //We probably don't want to only show address if there is no city or no postalcode
         }
         if (raw?.name) {
-            if (raw?.location?.city) return raw.name + ", " + raw.location.city;
-            if (raw?.location?.postalCode) return raw.name + ", " + raw.location.postalCode;
+            if (raw?.postalAddress?.city) return raw.name + ", " + raw.postalAddress.city;
+            if (raw?.postalAddress?.postalCode) return raw.name + ", " + raw.postalAddress.postalCode;
             return raw.name; //We probably don't want to only show name alone (good for title to show on simple component)
         }
-        if (raw?.location?.postalCode) {
-            if (raw?.location?.city) return raw.location.postalCode + ", " + raw.location.city;
+        if (raw?.postalAddress?.postalCode) {
+            if (raw?.postalAddress?.city) return raw.postalAddress.postalCode + ", " + raw.postalAddress.city;
         }
-        if (raw?.location?.longitude && raw?.location?.latitude) {
-            if (raw?.location?.city)
-                return raw.location.longitude + ", " + raw.location.latitude + ", " + raw.location.city;
-            return raw.location.longitude + ", " + raw.location.latitude;
+        if (raw?.longitude && raw?.latitude) {
+            if (raw?.postalAddress?.city) return raw.longitude + ", " + raw.latitude + ", " + raw.postalAddress.city;
+            return raw.longitude + ", " + raw.latitude;
         }
     }
 

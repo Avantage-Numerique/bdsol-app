@@ -9,6 +9,7 @@ const places = {
     name: "Place's Name",
     description: "Description",
     shortDescription: "Small description",
+    postalAddress: "Postal address",
     address: "Address",
     city: "City",
     postalCode: "Postal code",
