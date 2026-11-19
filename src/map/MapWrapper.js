@@ -3,19 +3,23 @@ import React from "react";
 
 //Wrapper to memoize so it doesn't remount on every input update
 
-const MapDynamicLoaded = dynamic(() => import('@/src/map/Map'), { ssr: false });
+const MapDynamicLoaded = dynamic(() => import("@/src/map/Map"), { ssr: false });
 
 const MapWrapper = (props) => {
-  return (
-    <MapDynamicLoaded
-      setLatLng={props?.setLatLng}
-      locationList={props?.locationList}
-      coordinatePopUp={props?.coordinatePopUp}
-      height={props?.height}
-      width={props?.width}
-      centerAt={props?.centerAt}
-    />
-  );
+    if (typeof window === "undefined") {
+        return <></>;
+    }
+
+    return (
+        <MapDynamicLoaded
+            setLatLng={props?.setLatLng}
+            locationList={props?.locationList}
+            coordinatePopUp={props?.coordinatePopUp}
+            height={props?.height}
+            width={props?.width}
+            centerAt={props?.centerAt}
+        />
+    );
 };
 
 export default React.memo(MapWrapper);
