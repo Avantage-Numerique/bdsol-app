@@ -32,6 +32,9 @@ const customJestConfig = {
         "^@/(.*)$": "<rootDir>/$1",
     },
     testEnvironment: "jest-environment-jsdom",
+
+    // NOTE: https://www.npmjs.com/package/line-awesome#upgrading-from-1x
+    // transformIgnorePatterns: ['node_modules/(?!line-awesome)'],
 };
 
 // createJestConfig is exported this way to ensure that next/jest can load the Next.js config which is async

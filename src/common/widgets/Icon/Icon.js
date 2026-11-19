@@ -1,11 +1,14 @@
 /**
  * @typedef IconProps
  *
- * @property {string} iconName Name of the target icon to add, without the prefix and vendor class.
- * @property {string} className additionnal class to add as is in the element className property.
- * @property {string} vendor It's the class that setup the target icon font, default is las for line awesome.
- * @property {string} prefix It,s the icon name class's prefix, default is for line awesome.
  * @property {keyof HTMLElementTagNameMap} Tag Tag to use for the icon, default <i>
+ *
+ * @property {'las' | 'lar' | 'lab'} vendor It's the class that setup the target icon font, default is las for line awesome.
+ * @property {string} prefix It,s the icon name class's prefix, default is for line awesome.
+ * @property {string} iconName Name of the target icon to add, without the prefix and vendor class.
+ * @property {'la-xs' | 'la-sm' | 'la-lg' | 'la-1x' | 'la-2x' | 'la-3x' | 'la-4x' | 'la-5x' | 'la-6x' | 'la-7x' | 'la-8x' | 'la-9x' | 'la-10x' | 'la-fw'} iconSize
+ *
+ * @property {string} className additionnal class to add as is in the element className property.
  */
 
 /**
