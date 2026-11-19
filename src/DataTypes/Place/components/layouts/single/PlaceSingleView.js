@@ -69,7 +69,9 @@ const PlaceSingleView = ({ data }) => {
     const FullWidthContent = (
         <>
             <SingleInfo title={lang.about} NAMessage="Aucune description n'est disponible pour le moment.">
-                {removeTagsFromString(description) && <SanitizedInnerHtml>{description}</SanitizedInnerHtml>}
+                {removeTagsFromString(model.description) && (
+                    <SanitizedInnerHtml>{model.description}</SanitizedInnerHtml>
+                )}
             </SingleInfo>
         </>
     );
