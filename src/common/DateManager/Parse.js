@@ -1,4 +1,4 @@
-import { utcToZonedTime, zonedTimeToUtc } from "date-fns-tz";
+import { toZonedTime, fromZonedTime } from "date-fns-tz";
 import Format from "@/common/DateManager/Format";
 
 const defaultTimeZone = "America/Montreal";
@@ -7,12 +7,12 @@ const defaultTimeZone = "America/Montreal";
 // All format strings : https://date-fns.org/v2.30.0/docs/format
 const dateTimeStringToUTC = (str, timeZone = defaultTimeZone) => {
     //assume the format here ?'2018-09-01 18:01:36.386',
-    return zonedTimeToUtc(str, timeZone);
+    return fromZonedTime(str, timeZone);
 };
 
 const dateTimeStringUTCToZonedTime = (str, timeZone = defaultTimeZone) => {
     //assume the format here ?'2018-09-01 18:01:36.386',
-    return utcToZonedTime(str, timeZone);
+    return toZonedTime(str, timeZone);
 };
 
 const apiDateToDateInput = (str) => {

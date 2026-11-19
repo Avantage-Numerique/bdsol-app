@@ -4,6 +4,7 @@ import React from "react";
 import styles from "./EntityTag.module.scss";
 import Link from "next/link";
 import TypeTag from "@/DataTypes/common/layouts/TypeTag/TypeTag";
+import Image from "next/image";
 
 /**
  *
@@ -32,9 +33,9 @@ const EntityTag = (props) => {
                 <article className={`rounded-2 position-relative d-flex ${styles["entity-tag"]} ${className}`}>
                     {/* Image section -- left */}
                     {model.mainImageModel && (
-                        <figure className="m-0">
+                        <figure className="m-0 w-100 w-sm-auto">
                             <img
-                                className={`imgClassName ${model.mainImageModel.isDefault && styles["default-img"] + " p-3 shadow"}`}
+                                className={`imgClassName ${model.mainImageModel.isDefault && styles["default-img"] + " p-3"}`}
                                 src={model.mainImageModel.src && model.mainImageModel.src}
                                 alt={model.mainImageModel.alt && model.mainImageModel.alt}
                             />

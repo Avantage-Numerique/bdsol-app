@@ -3,7 +3,8 @@ export const appDefaultSessionOptions = {
     password: process.env.COOKIE_PRIVATE_KEY,
     cookieOptions: {
         secure: process.env.NODE_ENV === "production", //force HTTPS only in prod.
-        maxAge: process.env.COOKIE_MAX_AGE,
+        // maxAge: process.env.COOKIE_MAX_AGE,
+        ttl: Number(process.env.COOKIE_MAX_AGE ?? 86600),
         sameSite: "Strict", //https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie#strict
         //domain: process.env.APP_BASE_URL//removed after reading that could be a problem if we add some CNAME in the future.
     },
