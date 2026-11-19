@@ -1,3 +1,5 @@
+import styles from "./SingleInfo.module.scss";
+
 /**
  *
  * @param {{ NAMessage: string; NAComponent: React.JSX.Element}} props
