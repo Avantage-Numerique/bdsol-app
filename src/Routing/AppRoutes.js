@@ -375,10 +375,10 @@ const AppRoutesRaw = {
         needAuth: false,
     },
 
-    referentiel: {
-        label: "Référentiel AVNU",
-        pathname: "/referentiel",
-        asPath: "/referentiel",
+    compatibility: {
+        label: "Compatibilité AVNU",
+        pathname: "/compatibilite",
+        asPath: "/compatibilite",
         needAuth: false,
     },
 

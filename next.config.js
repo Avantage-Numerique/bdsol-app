@@ -103,6 +103,16 @@ const nextConfig = {
         additionalData: `@use "./abstracts" as *;`,
     },
     experimental: { esmExternals: true },
+
+    async redirects() {
+        return [
+            {
+                source: "/referentiel",
+                destination: "/compatibilite",
+                permanent: false,
+            },
+        ];
+    },
 };
 
 module.exports = nextConfig;

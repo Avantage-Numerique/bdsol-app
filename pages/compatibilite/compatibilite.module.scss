@@ -14,9 +14,16 @@ table.ref {
     td {
         padding: 0.3em;
 
-        &:first-child,
+        &:first-child {
+            width: 25ch;
+        }
+
         &:nth-child(2) {
-            width: 30ch;
+            width: auto;
+        }
+
+        &:nth-child(3) {
+            width: 25ch;
         }
     }
 

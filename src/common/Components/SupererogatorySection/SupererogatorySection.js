@@ -7,6 +7,7 @@ import { KeywordsDisplay } from "@/src/DataTypes/common/layouts/Keywords/Keyword
 import Icon from "../../widgets/Icon/Icon";
 import { useMessages } from "../../UserNotifications/Message/MessageProvider";
 import { useState } from "react";
+import SameAsDisplay from "@/src/DataTypes/common/layouts/SameAsViews/SameAsDisplay";
 
 /**
  * @typedef {Object} SupererogatorySectionProps
@@ -29,7 +30,10 @@ export const SupererogatorySection = (props) => {
                 title={lang.seoSection}
                 NAMessage="Rien à signaler!"
                 show={false}
+                outline={true}
             >
+                <SameAsDisplay title={lang.sameAs} urls={model?.sameAs} />
+
                 {(model.shortDescription || model._generated?.shortDescription) && (
                     <ShortDescriptionDisplay model={model} />
                 )}
@@ -50,14 +54,17 @@ const JSONLDDisplay = (props) => {
     const { model } = props;
 
     let [copied, setCopied] = useState(false);
-    let copiedTimer;
+    let [copiedTimer, setCopiedTimer] = useState();
 
     const hintCopied = () => {
         copiedTimer && clearTimeout(copiedTimer);
         setCopied(true);
-        copiedTimer = setTimeout(() => {
-            setCopied(false);
-        }, 1500);
+
+        setCopiedTimer(
+            setTimeout(() => {
+                setCopied(false);
+            }, 1500)
+        );
     };
 
     const msg = useMessages();
@@ -67,13 +74,9 @@ const JSONLDDisplay = (props) => {
             <strong>{lang.jsonldContentTitle} :</strong>
 
             <button
-                className="btn btn-outline-secondary position-absolute top-0 end-0"
+                className="btn btn-outline-primary position-absolute top-0 end-0"
                 onClick={async () => {
-                    console.log("before copy");
-
                     await navigator.clipboard.writeText(JSON.stringify(model._jsonld));
-
-                    console.log("after copy");
 
                     msg.addMessage({
                         text: "Données structurées copiées!",
@@ -87,7 +90,7 @@ const JSONLDDisplay = (props) => {
 
             <details>
                 <summary>JSON+LD</summary>
-                {model._jsonld && <pre>{JSON.stringify(model._jsonld, null, 2)}</pre>}
+                {model._jsonld && <pre>{JSON.stringify(model._jsonld, null, 2).replace(/</g, "\\u003c")}</pre>}
             </details>
         </div>
     );

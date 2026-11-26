@@ -112,7 +112,7 @@ const Footer = () => {
                         />
                         |
                         <RouteLink
-                            routeName={"referentiel"}
+                            routeName={"compatibility"}
                             className={"nav-link text-dark internal-link internal-link-primary-dark"}
                         />
                         |

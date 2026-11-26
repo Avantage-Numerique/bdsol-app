@@ -5,8 +5,6 @@ import { clientSideExternalApiRequest } from "@/src/hooks/http-hook";
 import Icon from "@/src/common/widgets/Icon/Icon";
 import { lang } from "@/src/common/Data/GlobalConstants";
 
-import styles from "./referentiel.module.scss";
-
 const ReferentialHomePage = () => {
     /**
      * @type {[import('../../../api/src/Referential/Data/types').RefData, (RefData) => void]}
@@ -26,14 +24,14 @@ const ReferentialHomePage = () => {
 
     const RefList = (ref) => {
         if (ref === undefined) return <></>;
-
+        //remove 2026-11-26 temp : ${styles.ref}
         return (
             <div>
                 {Object.entries(ref).map(([sectionKey, sectionValue]) => (
                     <div key={sectionKey}>
                         <h3>{lang[sectionKey]}</h3>
 
-                        <table className={`${styles.ref}`}>
+                        <table className={`ref`}>
                             <thead>
                                 <tr>
                                     <th>Item</th>

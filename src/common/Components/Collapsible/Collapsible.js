@@ -4,6 +4,7 @@ import styles from "./Collapsible.module.scss";
 
 import Icon from "@/src/common/widgets/Icon/Icon";
 import SingleInfo from "@/src/DataTypes/common/layouts/SingleInfo/SingleInfo";
+import { DefaultNotAvailableDisplay } from "@/src/DataTypes/common/layouts/SingleInfo/DefaultNotAvailableDisplay";
 
 /**
  * @typedef {Object} CollapsibleProps
@@ -12,6 +13,7 @@ import SingleInfo from "@/src/DataTypes/common/layouts/SingleInfo/SingleInfo";
  * @property {JSX.Element} NAComponent Element to display if there is no content (children)
  * @property {boolean} displayCondition Boolean that tell the component to display or not the children. This is for element that would be displayed but the children prop would still be considered true
  * @property {boolean} show Wether to show the content by default (true by default)
+ * @property {boolean} outline show outline only for button (false by default)
  *
  * @property {JSX.Element} children Content of the component when displayed
  *
@@ -36,6 +38,7 @@ export const Collapsible = (props) => {
         displayCondition = true,
         label,
         children,
+        outline,
     } = props;
 
     const isExpanded = show === true ? "true" : "false";
@@ -54,22 +57,12 @@ export const Collapsible = (props) => {
     //Prevent the display if nothing to show
     if (!isFilled && !defaultDisplay) return <></>;
 
-    const DefaultNotAvailableDisplay = () => {
-        return (
-            <div className={`d-flex flex-column`}>
-                {NAMessage && <p>{NAMessage}</p>}
-                <div></div>
-                {NAComponent && <div className={`${styles["default-component--display"]}`}>{NAComponent}</div>}
-            </div>
-        );
-    };
-
     return (
         <SingleInfo {...props}>
             {isFilled ? (
                 <>
                     <button
-                        className="btn btn-secondary btn-sm small"
+                        className={`btn ${outline ? "btn-outline-secondary" : "btn-secondary"} btn-sm small`}
                         type="button"
                         data-toggle="collapse"
                         data-target={`#${keyId}`}
@@ -82,13 +75,13 @@ export const Collapsible = (props) => {
                     </button>
                 </>
             ) : (
-                <DefaultNotAvailableDisplay />
+                <DefaultNotAvailableDisplay NAMessage={NAMessage} NAComponent={NAComponent} />
             )}
 
-            <div className={`mt-3 collapse ${showContent ? "show" : ""}`} id={`${keyId}`} style={{ zIndex: "1" }}>
+            <div className={`mt-4 collapse ${showContent ? "show" : ""}`} id={`${keyId}`} style={{ zIndex: "1" }}>
                 <div className="d-flex flex-column gap-4">
                     {isFilled && children}
-                    {!isFilled && <DefaultNotAvailableDisplay />}
+                    {!isFilled && <DefaultNotAvailableDisplay NAMessage={NAMessage} NAComponent={NAComponent} />}
                 </div>
             </div>
 

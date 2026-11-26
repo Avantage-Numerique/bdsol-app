@@ -55,7 +55,7 @@ const Input = ({ name, formTools, ...props }) => {
     return (
         <div className={`${props.className !== undefined && props.className} ${styles["input-component"]}`}>
             <div className={`${styles["input-component__label-container"]}`}>
-                <label htmlFor={name}>{props.label}</label>
+                <label htmlFor={name} dangerouslySetInnerHTML={{ __html: props.label }}></label>
                 {props.tip && <TipButton title="Détails" />}
             </div>
             <TipPopOver />

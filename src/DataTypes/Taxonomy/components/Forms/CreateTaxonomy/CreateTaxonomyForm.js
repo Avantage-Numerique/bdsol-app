@@ -108,7 +108,7 @@ const CreateTaxonomyForm = ({ name, category, initValues, onPositiveResponse, ..
             formData.data.id = initValues._id;
         }
 
-        submitRequest(`/taxonomies/${submitUri}`, "POST", formData);
+        submitRequest(`/taxonomies/${submitUri}`, "POST", formData, undefined, undefined, true);
     };
 
     let domainQuery = {
