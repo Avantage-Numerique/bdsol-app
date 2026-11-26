@@ -26,6 +26,7 @@ import { removeTagsFromString } from "@/src/helpers/html";
 //Styles
 import styles from "./OrganisationSingleView.module.scss";
 import SocialHandleDisplay from "@/src/DataTypes/common/layouts/SocialHandlesViews/SocialHandleDisplay";
+import MapWrapper from "@/src/map/MapWrapper";
 
 const OrganisationSingleView = ({ data }) => {
     //Destructuring of data's prop // We should use model here.
@@ -224,6 +225,14 @@ const OrganisationSingleView = ({ data }) => {
                     title={lang.plural(lang.organisationPlace, lang.organisationPlaces, location?.length)}
                 >
                     <EntitiesTagGrid feed={location} subTagProperty={"address"} columnClass={"col-12"} />
+
+                    <MapWrapper
+                        className="rounded overflow-clip mt-3"
+                        height="12lh"
+                        centerAt={[location[0].latitude, location[0].longitude].map(Number.parseFloat)}
+                        locationList={location}
+                        zoomControl={false}
+                    />
                 </SingleInfo>
             )}
 

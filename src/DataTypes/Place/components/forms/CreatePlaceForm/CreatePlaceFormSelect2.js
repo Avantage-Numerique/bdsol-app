@@ -18,7 +18,7 @@ import { getDefaultCreateEntityMeta } from "@/src/DataTypes/Meta/EntityMeta";
 import { lang } from "@/src/common/Data/GlobalConstants";
 import { isValid } from "date-fns";
 
-const CreatePlaceFormSelect2 = ({ onPositiveResponse, initValues }) => {
+const CreatePlaceFormSelect2 = ({ onPositiveResponse, initValues, ...props }) => {
     //Authentication ref
     const auth = useAuth();
 
@@ -110,6 +110,7 @@ const CreatePlaceFormSelect2 = ({ onPositiveResponse, initValues }) => {
     return (
         <form onSubmit={submitHandler} className={`${styles["create-place-form"]}`}>
             <FormUI />
+
             <Input
                 name="name"
                 label={lang.name + lang.required}
@@ -118,6 +119,27 @@ const CreatePlaceFormSelect2 = ({ onPositiveResponse, initValues }) => {
                 errorText="Cette information est requise"
                 formTools={formTools}
             />
+
+            <div>
+                <p>La latitude et longitude sont recommandées pour l&apos;affichage sur la carte.</p>
+
+                {/* latitude */}
+                <Input
+                    className="mb-3"
+                    name="latitude"
+                    label={lang.latitude}
+                    placeholder={lang.placeLatitudePlaceholder}
+                    formTools={formTools}
+                />
+                {/* longitude */}
+                <Input
+                    className="mb-3"
+                    name="longitude"
+                    label={lang.longitude}
+                    placeholder={lang.placeLongitudePlaceholder}
+                    formTools={formTools}
+                />
+            </div>
 
             {/* address */}
             <Input
@@ -173,22 +195,6 @@ const CreatePlaceFormSelect2 = ({ onPositiveResponse, initValues }) => {
                 name="region"
                 label={lang.region}
                 placeholder={lang.placeRegionPlaceholder}
-                formTools={formTools}
-            />
-            {/* latitude */}
-            <Input
-                className="mb-3"
-                name="latitude"
-                label={lang.latitude}
-                placeholder={lang.placeLatitudePlaceholder}
-                formTools={formTools}
-            />
-            {/* longitude */}
-            <Input
-                className="mb-3"
-                name="longitude"
-                label={lang.longitude}
-                placeholder={lang.placeLongitudePlaceholder}
                 formTools={formTools}
             />
 

@@ -1,25 +1,14 @@
-import dynamic from "next/dynamic";
 import React from "react";
+import { MapDynamicLoaded } from "./DynamicMapParts";
 
 //Wrapper to memoize so it doesn't remount on every input update
-
-const MapDynamicLoaded = dynamic(() => import("@/src/map/Map"), { ssr: false });
 
 const MapWrapper = (props) => {
     if (typeof window === "undefined") {
         return <></>;
     }
 
-    return (
-        <MapDynamicLoaded
-            setLatLng={props?.setLatLng}
-            locationList={props?.locationList}
-            coordinatePopUp={props?.coordinatePopUp}
-            height={props?.height}
-            width={props?.width}
-            centerAt={props?.centerAt}
-        />
-    );
+    return <MapDynamicLoaded {...props} />;
 };
 
 export default React.memo(MapWrapper);

@@ -5,8 +5,9 @@ import "leaflet/dist/leaflet.css";
 import { useMapEvents } from "react-leaflet";
 import cities from "@/common/Data/cities";
 
-import { MapContainer, Popup, TileLayer } from "./DynamicMapParts";
+import { MapContainer, TileLayer } from "./DynamicMapParts";
 import { addMarkers } from "./AddMarkers";
+import { LocationMarker } from "./LocationMarker";
 
 /**
  * Used to diplay Leaflet map
@@ -22,28 +23,6 @@ import { addMarkers } from "./AddMarkers";
  * - coordinateMsg Add a message to the popup showing latitude and longitude on click
  * - setLatLng setter for latitude and longitude of clicked position.
  */
-
-//Popup latitude and longitude onClick
-function LocationMarker(props) {
-    const [position, setPosition] = useState(null);
-
-    useMapEvents({
-        click(e) {
-            setPosition(e.latlng);
-            if (props.setLatLng) props.setLatLng(e.latlng);
-        },
-    });
-
-    return position === null ? null : (
-        <Popup position={position} onClose={() => setPosition(null)}>
-            <div>
-                {props.coordinateMsg ?? "Vous avez cliquer à"} <br />
-                <strong>Latitude:</strong> {position.lat.toFixed(5)} <br />
-                <strong>Longitude:</strong> {position.lng.toFixed(5)}
-            </div>
-        </Popup>
-    );
-}
 
 /**
  * React leaflet Client only component to use leaflet with React leaflet package.
@@ -98,9 +77,13 @@ const Map = ({ coordinatePopUp, ...props }) => {
         );
     }
 
-    //expected format : [lat, lon]
+    /**
+     * expected format : [lat, lon]
+     */
     function isCoordinateValid(value) {
-        if (
+        value = value?.map(String);
+
+        return (
             Array.isArray(value) &&
             value.length == 2 &&
             value[0] !== undefined &&
@@ -111,18 +94,24 @@ const Map = ({ coordinatePopUp, ...props }) => {
             value[1].match(/^-?\d*(\.\d+)?$/) &&
             value[1] >= -180 &&
             value[0] <= 180
-        )
-            return true;
-        else return false;
+        );
+    }
+
+    /**
+     * number between 0 and 18
+     */
+    function isZoomValid(value) {
+        return !Number.isNaN(value) && value >= 0 && value <= 18;
     }
 
     return (
         <div className={props.className} id="map" style={mapStyle}>
             <MapContainer
                 center={isCoordinateValid(props?.centerAt) ? props.centerAt : defaultCity.coords}
-                zoom={defaultCity.zoom}
-                scrollWheelZoom={false}
+                zoom={isZoomValid(props?.zoom) ? props.zoom : defaultCity.zoom}
+                scrollWheelZoom={true}
                 style={{ height: "100%", width: "100%" }}
+                {...props}
             >
                 <TileLayer
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

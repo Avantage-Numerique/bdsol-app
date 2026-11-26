@@ -1,29 +1,43 @@
 import AppRoutes from "@/src/Routing/AppRoutes";
 import { Marker, Popup } from "./DynamicMapParts";
+import Place from "../DataTypes/Place/models/Place";
 
 export function addMarkers(locationArray) {
     let markersArray = [];
     if (locationArray != undefined && Array.isArray(locationArray) && locationArray.length > 0) {
         locationArray.forEach((elem, index) => {
+            const { latitude, longitude, name, postalAddress, slug } = elem;
             if (
-                elem?.latitude != undefined &&
-                typeof elem.latitude == "string" &&
-                elem?.longitude != undefined &&
-                typeof elem.longitude == "string"
+                latitude != undefined &&
+                typeof latitude == "string" &&
+                longitude != undefined &&
+                typeof longitude == "string"
             )
                 //Add marker to array
-                markersArray.push(addMarker(elem.latitude, elem.longitude, elem?.name, elem.slug, index));
+                markersArray.push(addMarker({ latitude, longitude, name, slug, postalAddress, index }));
         });
     }
     return markersArray;
 }
 
-export function addMarker(lat, lon, name, slug, index) {
-    let displayName = name != undefined ? name : `Lieu à ${lat + ", " + lon}`;
+export function addMarker({ latitude, longitude, name, slug, postalAddress, index }) {
+    /**
+     * @param {Place['postalAddress']} postalAddress
+     */
+    const addressToText = (postalAddress) => `${postalAddress.address}, ${postalAddress.city}`;
+
+    let displayName =
+        name != undefined ? `${name}\n${addressToText(postalAddress)}` : `Lieu à ${latitude + ", " + longitude}`;
     return (
-        <Marker key={"map-marker-" + index} position={[lat, lon]}>
+        <Marker key={"map-marker-" + index} position={[latitude, longitude]}>
             <Popup>
-                {slug ? <a href={AppRoutes.places.asPath + "/" + slug}>{displayName}</a> : <div>{displayName}</div>}
+                {slug ? (
+                    <a href={AppRoutes.places.asPath + "/" + slug} style={{ "white-space": "pre" }}>
+                        {displayName}
+                    </a>
+                ) : (
+                    <div>{displayName}</div>
+                )}
             </Popup>
         </Marker>
     );

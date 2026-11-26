@@ -1,43 +1,44 @@
-import React, { useCallback, useContext, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
+
+import styles from "./Lieux.module.scss";
 
 //components
 import PageHeader from "@/src/layouts/Header/PageHeader";
 import Spinner from "@/src/common/widgets/spinner/Spinner";
 import PageMeta from "@/src/common/PageMeta/PageMeta";
-
-//Costum hooks
-import { useHttpClient } from "@/src/hooks/http-hook";
-
-//Context
-import { MessageContext } from "@/src/common/UserNotifications/Message/Context/Message-Context";
-import { useAuth } from "@/src/authentification/context/auth-context";
-
-//Utils
-import { lang } from "@/src/common/Data/GlobalConstants";
 import { Breadcrumbs } from "@/common/Breadcrumbs/Breadcrumbs";
 import AppRoutes from "@/src/Routing/AppRoutes";
 import EntitiesGrid from "@/DataTypes/Entity/layouts/EntitiesGrid";
 
+//Costum hooks
+import { useHttpClient } from "@/src/hooks/http-hook";
+
+//Utils
+import { useAuth } from "@/src/authentification/context/auth-context";
+import { useMessages } from "@/src/common/UserNotifications/Message/MessageProvider";
+import { lang } from "@/src/common/Data/GlobalConstants";
+
 import { getTitle } from "@/DataTypes/MetaData/MetaTitle";
 import { getType, TYPE_PLACE } from "@/DataTypes/Entity/Types";
 import MapWrapper from "@/src/map/MapWrapper";
+import cities from "@/src/common/Data/cities";
 
 const PlacesPage = () => {
     const [placeList, setPlaceList] = useState([]);
 
     //Import the authentication context to make sure the user is well connected
-    const auth = useAuth();
+    // const auth = useAuth();
 
     //Extract the functions inside useHttpClient
     const { isLoading, sendRequest } = useHttpClient();
 
     //Import message context
-    const msg = useContext(MessageContext);
+    const msg = useMessages();
 
     const type = getType(TYPE_PLACE);
+
     /* 
         Fetch data  
-        
     */
     const fetchData = async () => {
         //Send the request with the specialized hook
@@ -57,6 +58,8 @@ const PlacesPage = () => {
     };
 
     useEffect(() => {
+        // NOTE : faux positif
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         fetchData();
     }, []);
 
@@ -73,11 +76,7 @@ const PlacesPage = () => {
     return (
         <div>
             <PageMeta title={getTitle([type.labelPlural])} description={lang.places__description} />
-            <div className="my-4">a</div>
-            <div className="my-4">a</div>
-            <div className="my-4">a</div>
-            <div className="my-4">a</div>
-            <MapWrapper className="" height="600px" locationList={placeList} />
+
             <PageHeader
                 bg={"bg-primary-lighter"}
                 textColor={"text-white"}
@@ -91,6 +90,18 @@ const PlacesPage = () => {
                     getLabelGenerator={getLabelGenerator}
                 />
             </PageHeader>
+
+            <section className={`${styles["full-width-section"]}`}>
+                <MapWrapper
+                    className=""
+                    height="70vh"
+                    locationList={placeList}
+
+                    centerAt={cities.qc.coords}
+                    zoom={cities.qc.zoom}
+                />
+            </section>
+
             <div className="container">
                 <div className="row my-4 py-4">
                     {/* Feed section */}
