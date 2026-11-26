@@ -93,7 +93,7 @@ const JSONLDDisplay = (props) => {
                 <div class="alert alert-warning mt-2" role="alert">
                     <strong>Attention - URI non finalisées</strong>
                     <p class="mb-0">
-                        Les URI actuellement définies dans le JSON-LD correspondent à la version 1 du modèle d&apos;URI
+                        Les URI actuellement définis dans le JSON-LD correspondent à la version 1 du modèle d&apos;URI
                         et ne sont pas encore finalisées. Elles ne doivent donc pas être utilisées comme valeurs{" "}
                         <code>sameAs</code> pour le moment.
                     </p>
