@@ -32,7 +32,7 @@ export function addMarker({ latitude, longitude, name, slug, postalAddress, inde
         <Marker key={"map-marker-" + index} position={[latitude, longitude]}>
             <Popup>
                 {slug ? (
-                    <a href={AppRoutes.places.asPath + "/" + slug} style={{ "white-space": "pre" }}>
+                    <a href={AppRoutes.places.asPath + "/" + slug} style={{ whiteSpace: "pre" }}>
                         {displayName}
                     </a>
                 ) : (

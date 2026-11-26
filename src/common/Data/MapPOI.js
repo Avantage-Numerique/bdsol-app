@@ -2,10 +2,10 @@
  * Temp ? object to avoid duplicating coords and zoom while implementing the map components.
  * @type {{[X: string]: {coords: number[], zoom: number}}}
  */
-const cities = {
+const MapPOI = {
     qc: {
-        coords: [47.255, -75.551],
-        zoom: 8,
+        coords: [47.42, -75],
+        zoom: 7.42,
     },
 
     rouyn: {
@@ -14,4 +14,4 @@ const cities = {
     },
 };
 
-export default cities;
+export default MapPOI;

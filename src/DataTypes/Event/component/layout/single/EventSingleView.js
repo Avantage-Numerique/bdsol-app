@@ -24,6 +24,7 @@ import { removeTagsFromString } from "@/src/helpers/html";
 import { dateManager } from "@/common/DateManager/DateManager";
 import { clientSideExternalApiRequest } from "@/src/hooks/http-hook";
 import { appConfig } from "@/src/configs/AppConfig";
+import MapWrapper from "@/src/map/MapWrapper";
 
 const EventSingleView = ({ data }) => {
     const {
@@ -138,6 +139,14 @@ const EventSingleView = ({ data }) => {
                             subTagProperty={"location.address"}
                             numberOfCols={1}
                             className="mb-0"
+                        />
+
+                        <MapWrapper
+                            className="rounded overflow-clip mt-3"
+                            height="12lh"
+                            centerAt={[location[0].latitude, location[0].longitude].map(Number.parseFloat)}
+                            locationList={location}
+                            zoomControl={false}
                         />
                     </SingleInfo>
                 </div>

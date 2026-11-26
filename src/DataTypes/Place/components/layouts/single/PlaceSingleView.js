@@ -170,7 +170,21 @@ const PlaceSingleView = ({ data }) => {
                 {model.placeType != [] && <SearchTag list={model.placeType} />}
             </SingleInfo>
 
-            <MapWrapper height={"450px"} locationList={[model]} centerAt={[model?.latitude, model?.longitude]} />
+            {model?.latitude && model?.longitude ? (
+                <MapWrapper
+                    className="rounded overflow-clip"
+                    height="15lh"
+                    locationList={[model]}
+                    centerAt={[model.latitude, model.longitude]}
+                    zoomControl={false}
+                />
+            ) : (
+                <SingleInfo
+                    title="Carte"
+                    NAMessage="Coordonnées géographiques non définies."
+                    displayCondition={model.latitude && model.longitude}
+                />
+            )}
         </div>
     );
 

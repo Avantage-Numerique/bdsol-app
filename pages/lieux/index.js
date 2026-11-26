@@ -14,14 +14,13 @@ import EntitiesGrid from "@/DataTypes/Entity/layouts/EntitiesGrid";
 import { useHttpClient } from "@/src/hooks/http-hook";
 
 //Utils
-import { useAuth } from "@/src/authentification/context/auth-context";
 import { useMessages } from "@/src/common/UserNotifications/Message/MessageProvider";
 import { lang } from "@/src/common/Data/GlobalConstants";
 
 import { getTitle } from "@/DataTypes/MetaData/MetaTitle";
 import { getType, TYPE_PLACE } from "@/DataTypes/Entity/Types";
 import MapWrapper from "@/src/map/MapWrapper";
-import cities from "@/src/common/Data/cities";
+import MapPOI from "@/src/common/Data/MapPOI";
 
 const PlacesPage = () => {
     const [placeList, setPlaceList] = useState([]);
@@ -94,11 +93,11 @@ const PlacesPage = () => {
             <section className={`${styles["full-width-section"]}`}>
                 <MapWrapper
                     className=""
-                    height="70vh"
+                    height="75vh"
                     locationList={placeList}
 
-                    centerAt={cities.qc.coords}
-                    zoom={cities.qc.zoom}
+                    centerAt={MapPOI.qc.coords}
+                    zoom={MapPOI.qc.zoom}
                 />
             </section>
 

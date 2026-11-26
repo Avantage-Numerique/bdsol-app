@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 //Map related
 import "leaflet/dist/leaflet.css";
 import { useMapEvents } from "react-leaflet";
-import cities from "@/common/Data/cities";
+import MapPOI from "@/src/common/Data/MapPOI";
 
 import { MapContainer, TileLayer } from "./DynamicMapParts";
 import { addMarkers } from "./AddMarkers";
@@ -33,7 +33,7 @@ import { LocationMarker } from "./LocationMarker";
 const Map = ({ coordinatePopUp, ...props }) => {
     const [mapReady, setMapReady] = useState(false);
 
-    const defaultCity = cities.rouyn;
+    const defaultCity = MapPOI.rouyn;
 
     // UseEffect pour charger Leaflet CSS et personnaliser l'icône du marqueur
     useEffect(() => {
@@ -71,7 +71,7 @@ const Map = ({ coordinatePopUp, ...props }) => {
     // Retourner null si la carte n'est pas encore prête
     if (!mapReady) {
         return (
-            <div style={mapStyle} className="loading-map">
+            <div style={{ ...mapStyle, placeItems: "center" }} className="loading-map d-grid">
                 Chargement de la carte...
             </div>
         );
