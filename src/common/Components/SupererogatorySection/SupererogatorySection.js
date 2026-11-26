@@ -90,6 +90,14 @@ const JSONLDDisplay = (props) => {
 
             <details>
                 <summary>JSON+LD</summary>
+                <div class="alert alert-warning mt-2" role="alert">
+                    <strong>Attention - URI non finalisées</strong>
+                    <p class="mb-0">
+                        Les URI actuellement définies dans le JSON-LD correspondent à la version 1 du modèle d&apos;URI
+                        et ne sont pas encore finalisées. Elles ne doivent donc pas être utilisées comme valeurs{" "}
+                        <code>sameAs</code> pour le moment.
+                    </p>
+                </div>
                 {model._jsonld && <pre>{JSON.stringify(model._jsonld, null, 2).replace(/</g, "\\u003c")}</pre>}
             </details>
         </div>
