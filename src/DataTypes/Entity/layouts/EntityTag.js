@@ -30,7 +30,9 @@ const EntityTag = (props) => {
     return (
         <>
             {model && (
-                <article className={`rounded-2 position-relative d-flex ${styles["entity-tag"]} ${className}`}>
+                <article
+                    className={`rounded-2 position-relative d-flex flex-sm-nowrap ${styles["entity-tag"]} ${className}`}
+                >
                     {/* Image section -- left */}
                     {model.mainImageModel && (
                         <figure className="m-0 w-100 w-sm-auto">
